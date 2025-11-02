@@ -21,6 +21,9 @@ import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
@@ -37,9 +40,6 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevels;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a list of {@link IError} objects.
@@ -141,7 +141,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The field name to search.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default IErrorList getListOfField (@Nullable final String sSearchFieldName)
   {
@@ -155,7 +155,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The field names to search.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default IErrorList getListOfFields (@Nullable final String... aSearchFieldNames)
   {
@@ -174,7 +174,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The field names to search.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default IErrorList getListOfFields (@Nullable final Collection <String> aSearchFieldNames)
   {
@@ -193,7 +193,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The field names to search.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default IErrorList getListOfFieldsStartingWith (@Nullable final String... aSearchFieldNames)
   {
@@ -213,9 +213,9 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The regular expression to compare the entries against.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default IErrorList getListOfFieldsRegExp (@Nonnull @Nonempty @RegEx final String sRegExp)
+  default IErrorList getListOfFieldsRegExp (@NonNull @Nonempty @RegEx final String sRegExp)
   {
     return getSubList (x -> x.hasErrorFieldName () &&
                             RegExHelper.stringMatchesPattern (sRegExp, x.getErrorFieldName ()));
@@ -226,7 +226,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default IErrorList getListWithoutField ()
   {
@@ -239,7 +239,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @return A non-<code>null</code> error list containing only the failures.
    */
-  @Nonnull
+  @NonNull
   default IErrorList getAllFailures ()
   {
     return getSubList (IError::isFailure);
@@ -251,7 +251,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *
    * @return A non-<code>null</code> error list containing only the errors.
    */
-  @Nonnull
+  @NonNull
   default IErrorList getAllErrors ()
   {
     return getSubList (IError::isError);
@@ -264,7 +264,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The filter to be used. May be <code>null</code> in which a copy is returned.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   IErrorList getSubList (@Nullable Predicate <? super IError> aFilter);
 
@@ -275,9 +275,9 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    *        The content locale to used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default ICommonsList <String> getAllTexts (@Nonnull final Locale aContentLocale)
+  default ICommonsList <String> getAllTexts (@NonNull final Locale aContentLocale)
   {
     return getAllDataItems (x -> x.getErrorText (aContentLocale));
   }
@@ -291,9 +291,9 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    * @param <T>
    *        Type to extract from {@link IError}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <T> ICommonsList <T> getAllDataItems (@Nonnull final Function <? super IError, ? extends T> aExtractor)
+  default <T> ICommonsList <T> getAllDataItems (@NonNull final Function <? super IError, ? extends T> aExtractor)
   {
     return new CommonsArrayList <> (this, aExtractor);
   }
@@ -301,7 +301,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   /**
    * @return A map with all items mapped from error ID to its occurrences.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsMap <String, ICommonsList <IError>> getGroupedByID ()
   {
@@ -311,7 +311,7 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
   /**
    * @return A map with all items mapped from error field name to its occurrences.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsMap <String, ICommonsList <IError>> getGroupedByFieldName ()
   {
@@ -325,9 +325,9 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    * @param <T>
    *        Return list key type
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <T> ICommonsOrderedMap <T, ICommonsList <IError>> getGrouped (@Nonnull final Function <? super IError, T> aKeyExtractor)
+  default <T> ICommonsOrderedMap <T, ICommonsList <IError>> getGrouped (@NonNull final Function <? super IError, T> aKeyExtractor)
   {
     final ICommonsOrderedMap <T, ICommonsList <IError>> ret = new CommonsLinkedHashMap <> ();
     // create a list for each key, and add the respective entry

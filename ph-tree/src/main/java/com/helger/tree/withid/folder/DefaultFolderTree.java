@@ -18,12 +18,12 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
@@ -59,7 +59,7 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
    * @param aFactory
    *        The item factory to use. May not be <code>null</code>.
    */
-  public DefaultFolderTree (@Nonnull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>> aFactory)
+  public DefaultFolderTree (@NonNull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>> aFactory)
   {
     super (aFactory);
   }
@@ -75,8 +75,8 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
    *        The key combinator to be used
    * @return The created default folder tree
    */
-  @Nonnull
-  public static <KEYTYPE, DATATYPE> DefaultFolderTree <KEYTYPE, DATATYPE, ICommonsSet <DATATYPE>> createForSet (@Nonnull final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
+  @NonNull
+  public static <KEYTYPE, DATATYPE> DefaultFolderTree <KEYTYPE, DATATYPE, ICommonsSet <DATATYPE>> createForSet (@NonNull final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
     return new DefaultFolderTree <> (aKeyCombinator);
   }

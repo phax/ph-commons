@@ -16,14 +16,14 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a short so that it can be passed a final object but is
@@ -54,7 +54,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
    * @param aValue
    *        The value to be used.
    */
-  public MutableShort (@Nonnull final Number aValue)
+  public MutableShort (@NonNull final Number aValue)
   {
     this (aValue.shortValue ());
   }
@@ -117,7 +117,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return m_nValue;
   }
 
-  public int inc (@Nonnull final Number aDelta)
+  public int inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.shortValue ());
@@ -133,19 +133,19 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return inc (-nDelta);
   }
 
-  public int dec (@Nonnull final Number aDelta)
+  public int dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.shortValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final int nValue)
   {
     return set ((short) nValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final short nValue)
   {
     if (m_nValue == nValue)
@@ -155,8 +155,8 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.shortValue ());
@@ -205,12 +205,12 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return shortValue ();
   }
 
-  public int compareTo (@Nonnull final MutableShort rhs)
+  public int compareTo (@NonNull final MutableShort rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableShort getClone ()
   {
     return new MutableShort (this);

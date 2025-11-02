@@ -21,6 +21,8 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +39,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class for serializing micro document objects.
@@ -67,8 +66,8 @@ public final class MicroWriter
    *        The file to write to. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode, @Nonnull final File aFile)
+  @NonNull
+  public static ESuccess writeToFile (@NonNull final IMicroNode aNode, @NonNull final File aFile)
   {
     return writeToFile (aNode, aFile, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -85,10 +84,10 @@ public final class MicroWriter
    *        The settings to be used for the creation. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode,
-                                      @Nonnull final File aFile,
-                                      @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToFile (@NonNull final IMicroNode aNode,
+                                      @NonNull final File aFile,
+                                      @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -111,8 +110,8 @@ public final class MicroWriter
    *        The file to write to. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode, @Nonnull final Path aPath)
+  @NonNull
+  public static ESuccess writeToFile (@NonNull final IMicroNode aNode, @NonNull final Path aPath)
   {
     return writeToFile (aNode, aPath, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -129,10 +128,10 @@ public final class MicroWriter
    *        The settings to be used for the creation. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToFile (@Nonnull final IMicroNode aNode,
-                                      @Nonnull final Path aPath,
-                                      @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToFile (@NonNull final IMicroNode aNode,
+                                      @NonNull final Path aPath,
+                                      @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aPath, "Path");
     return writeToFile (aNode, aPath.toFile (), aSettings);
@@ -149,8 +148,8 @@ public final class MicroWriter
    *        anyway directly after the operation finishes (on success and on error).
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToStream (@Nonnull final IMicroNode aNode, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public static ESuccess writeToStream (@NonNull final IMicroNode aNode, @NonNull @WillClose final OutputStream aOS)
   {
     return writeToStream (aNode, aOS, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -168,10 +167,10 @@ public final class MicroWriter
    *        The settings to be used for the creation. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToStream (@Nonnull final IMicroNode aNode,
-                                        @Nonnull @WillClose final OutputStream aOS,
-                                        @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToStream (@NonNull final IMicroNode aNode,
+                                        @NonNull @WillClose final OutputStream aOS,
+                                        @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -202,10 +201,10 @@ public final class MicroWriter
    *        The settings to be used for the creation. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToWriter (@Nonnull final IMicroNode aNode,
-                                        @Nonnull @WillClose final Writer aWriter,
-                                        @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToWriter (@NonNull final IMicroNode aNode,
+                                        @NonNull @WillClose final Writer aWriter,
+                                        @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -236,8 +235,8 @@ public final class MicroWriter
    * @return {@link ESuccess}
    * @since 8.6.3
    */
-  @Nonnull
-  public static ESuccess writeToWriter (@Nonnull final IMicroNode aNode, @Nonnull @WillClose final Writer aWriter)
+  @NonNull
+  public static ESuccess writeToWriter (@NonNull final IMicroNode aNode, @NonNull @WillClose final Writer aWriter)
   {
     return writeToWriter (aNode, aWriter, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -252,7 +251,7 @@ public final class MicroWriter
    * @return The string representation of the passed node.
    */
   @Nullable
-  public static String getNodeAsString (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public static String getNodeAsString (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -281,7 +280,7 @@ public final class MicroWriter
    * @since 8.6.3
    */
   @Nullable
-  public static String getNodeAsString (@Nonnull final IMicroNode aNode)
+  public static String getNodeAsString (@NonNull final IMicroNode aNode)
   {
     return getNodeAsString (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -297,7 +296,7 @@ public final class MicroWriter
    * @since 8.6.3
    */
   @Nullable
-  public static byte [] getNodeAsBytes (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public static byte [] getNodeAsBytes (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -327,7 +326,7 @@ public final class MicroWriter
    * @since 8.6.3
    */
   @Nullable
-  public static byte [] getNodeAsBytes (@Nonnull final IMicroNode aNode)
+  public static byte [] getNodeAsBytes (@NonNull final IMicroNode aNode)
   {
     return getNodeAsBytes (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }

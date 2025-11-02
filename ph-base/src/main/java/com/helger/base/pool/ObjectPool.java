@@ -20,6 +20,8 @@ import java.util.Arrays;
 import java.util.concurrent.Semaphore;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +35,6 @@ import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple generic object pool with a fixed size determined in the constructor.
@@ -99,7 +98,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        The factory to create object. May not be <code>null</code>. The factory may not create
    *        <code>null</code> objects, as this leads to an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final Supplier <? extends DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @NonNull final Supplier <? extends DATATYPE> aFactory)
   {
     this (nItemCount, IObjectPoolFactory.wrap (aFactory));
   }
@@ -114,7 +113,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        The factory to create object. May not be <code>null</code>. The factory may not create
    *        <code>null</code> objects, as this leads to an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @Nonnull final IObjectPoolFactory <DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative final int nItemCount, @NonNull final IObjectPoolFactory <DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -235,8 +234,8 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     }
   }
 
-  @Nonnull
-  public ESuccess returnObject (@Nonnull final DATATYPE aItem)
+  @NonNull
+  public ESuccess returnObject (@NonNull final DATATYPE aItem)
   {
     m_aLock.lock ();
     try

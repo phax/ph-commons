@@ -16,15 +16,15 @@
  */
 package com.helger.text.util;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
 import com.helger.text.codepoint.CodepointHelper;
 import com.helger.text.codepoint.CodepointIteratorCharArray;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the Punycode encoding scheme used by IDNA and RFC 3492<br>
@@ -107,7 +107,7 @@ public final class Punycode
     return getEncoded (s.toCharArray (), null);
   }
 
-  public static String getEncoded (@Nonnull final char [] aChars, @Nullable final boolean [] aCaseFlags)
+  public static String getEncoded (@NonNull final char [] aChars, @Nullable final boolean [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
     final CodepointIteratorCharArray aIter = new CodepointIteratorCharArray (aChars);
@@ -189,8 +189,8 @@ public final class Punycode
     return getDecoded (s.toCharArray (), null);
   }
 
-  @Nonnull
-  public static String getDecoded (@Nonnull final char [] aChars, @Nullable final boolean [] aCaseFlags)
+  @NonNull
+  public static String getDecoded (@NonNull final char [] aChars, @Nullable final boolean [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
     int n = INITIAL_N;

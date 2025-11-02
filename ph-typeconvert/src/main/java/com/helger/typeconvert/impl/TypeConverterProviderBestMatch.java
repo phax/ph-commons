@@ -16,12 +16,12 @@
  */
 package com.helger.typeconvert.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
 import com.helger.typeconvert.ITypeConverterProvider;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An type converter provider that tries to provide an exact match before trying
@@ -37,14 +37,14 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   private TypeConverterProviderBestMatch ()
   {}
 
-  @Nonnull
+  @NonNull
   public static TypeConverterProviderBestMatch getInstance ()
   {
     return INSTANCE;
   }
 
   @Nullable
-  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
 

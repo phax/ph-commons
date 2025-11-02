@@ -16,13 +16,13 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableDirectedGraphNode;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link com.helger.graph.IMutableDirectedGraphRelation}
@@ -36,14 +36,14 @@ public class DirectedGraphRelationFast extends DirectedGraphRelation
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public DirectedGraphRelationFast (@Nonnull final IMutableDirectedGraphNode aFrom, @Nonnull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelationFast (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
   {
     super (aFrom, aTo);
   }
 
   public DirectedGraphRelationFast (@Nullable final String sID,
-                                    @Nonnull final IMutableDirectedGraphNode aFrom,
-                                    @Nonnull final IMutableDirectedGraphNode aTo)
+                                    @NonNull final IMutableDirectedGraphNode aFrom,
+                                    @NonNull final IMutableDirectedGraphNode aTo)
   {
     super (sID, aFrom, aTo);
   }

@@ -25,6 +25,7 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.equals.EqualsHelper;
@@ -43,8 +44,6 @@ import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.typeconvert.TypeConverterException;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link ConfigFactoryJson}.
  *
@@ -52,7 +51,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class ConfigFactoryJsonTest
 {
-  private void _testDefault (@Nonnull final IConfig aConfig)
+  private void _testDefault (@NonNull final IConfig aConfig)
   {
     assertEquals ("from-private-application-json0", aConfig.getAsString ("element0"));
     assertEquals ("from-private-application-properties1", aConfig.getAsString ("element1"));

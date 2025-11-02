@@ -17,15 +17,15 @@
  */
 package com.helger.cli;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.cli.Option.EOptionMultiplicity;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A nested builder class to create <code>Option</code> instances using descriptive methods.
@@ -91,7 +91,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        the long name of the Option
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder longOpt (@Nullable final String sLongOpt)
   {
     m_sLongOpt = sLongOpt;
@@ -105,7 +105,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        the description of the option.
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder desc (@Nullable final String sDescription)
   {
     m_sDescription = sDescription;
@@ -120,7 +120,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        Number of minimum arguments. Must be &ge; 0.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder minArgs (@Nonnegative final int nMinArgs)
   {
     ValueEnforcer.isGE0 (nMinArgs, "MinArgs");
@@ -138,7 +138,7 @@ public class OptionBuilder implements IBuilder <Option>
    * @return this for chaining
    * @see #maxArgsInfinite()
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder maxArgs (final int nMaxArgs)
   {
     ValueEnforcer.isTrue (nMaxArgs == Option.INFINITE_VALUES || nMaxArgs >= 0,
@@ -153,7 +153,7 @@ public class OptionBuilder implements IBuilder <Option>
    * @return this for chaining
    * @see #maxArgs(int)
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder maxArgsInfinite ()
   {
     return maxArgs (Option.INFINITE_VALUES);
@@ -172,7 +172,7 @@ public class OptionBuilder implements IBuilder <Option>
    * @see #maxArgs(int)
    * @see #args(int)
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder args (@Nonnegative final int nMinArgs, final int nMaxArgs)
   {
     return minArgs (nMinArgs).maxArgs (nMaxArgs);
@@ -189,7 +189,7 @@ public class OptionBuilder implements IBuilder <Option>
    * @see #maxArgs(int)
    * @see #args(int, int)
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder args (@Nonnegative final int nArgs)
   {
     return minArgs (nArgs).maxArgs (nArgs);
@@ -203,7 +203,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        the display name for the argument value.
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder argName (@Nullable final String sArgName)
   {
     m_sArgName = sArgName;
@@ -217,7 +217,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        specifies whether the Option is mandatory
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder required (final boolean bRequired)
   {
     if (bRequired)
@@ -234,7 +234,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        <code>true</code> if this option can be repeated, <code>false</code> if not.
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder repeatable (final boolean bRepeatable)
   {
     if (bRepeatable)
@@ -264,7 +264,7 @@ public class OptionBuilder implements IBuilder <Option>
    *        The value separator.
    * @return this builder, to allow method chaining
    */
-  @Nonnull
+  @NonNull
   public OptionBuilder valueSeparator (final char cValueSep)
   {
     m_cValueSep = cValueSep;
@@ -278,7 +278,7 @@ public class OptionBuilder implements IBuilder <Option>
    * @throws IllegalArgumentException
    *         if neither {@code opt} or {@code longOpt} has been set
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Option build ()
   {

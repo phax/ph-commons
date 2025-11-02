@@ -25,6 +25,9 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ELockType;
 import com.helger.annotation.concurrent.GuardedBy;
@@ -60,9 +63,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Base class for WAL based DAO that uses a simple {@link ICommonsMap} for data storage.
  *
@@ -92,28 +92,28 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     private Supplier <ICommonsMap <String, IMPLTYPE>> m_aMapSupplier = CommonsHashMap::new;
     private Predicate <IMicroElement> m_aReadElementFilter = Predicates.all ();
 
-    @Nonnull
+    @NonNull
     public InitSettings <IMPLTYPE> setDoInitialRead (final boolean bDoInitialRead)
     {
       m_bDoInitialRead = bDoInitialRead;
       return this;
     }
 
-    @Nonnull
-    public InitSettings <IMPLTYPE> setMapSupplier (@Nonnull final Supplier <ICommonsMap <String, IMPLTYPE>> aMapSupplier)
+    @NonNull
+    public InitSettings <IMPLTYPE> setMapSupplier (@NonNull final Supplier <ICommonsMap <String, IMPLTYPE>> aMapSupplier)
     {
       m_aMapSupplier = ValueEnforcer.notNull (aMapSupplier, "MapSupplier");
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public InitSettings <IMPLTYPE> setOrderedMapSupplier ()
     {
       return setMapSupplier (CommonsLinkedHashMap::new);
     }
 
-    @Nonnull
-    public InitSettings <IMPLTYPE> setReadElementFilter (@Nonnull final Predicate <IMicroElement> aReadElementFilter)
+    @NonNull
+    public InitSettings <IMPLTYPE> setReadElementFilter (@NonNull final Predicate <IMicroElement> aReadElementFilter)
     {
       m_aReadElementFilter = ValueEnforcer.notNull (aReadElementFilter, "ReadElementFilter");
       return this;
@@ -143,10 +143,10 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @throws DAOException
    *         If reading and reading fails
    */
-  protected AbstractMapBasedWALDAO (@Nonnull final Class <IMPLTYPE> aImplClass,
-                                    @Nonnull final IFileRelativeIO aIO,
+  protected AbstractMapBasedWALDAO (@NonNull final Class <IMPLTYPE> aImplClass,
+                                    @NonNull final IFileRelativeIO aIO,
                                     @Nullable final String sFilename,
-                                    @Nonnull final InitSettings <IMPLTYPE> aInitSettings) throws DAOException
+                                    @NonNull final InitSettings <IMPLTYPE> aInitSettings) throws DAOException
   {
     super (aImplClass, aIO, () -> sFilename);
     m_aMap = aInitSettings.m_aMapSupplier.get ();
@@ -157,28 +157,28 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
 
   @Override
   @MustBeLocked (ELockType.WRITE)
-  protected void onRecoveryCreate (@Nonnull final IMPLTYPE aItem)
+  protected void onRecoveryCreate (@NonNull final IMPLTYPE aItem)
   {
     _addItem (aItem, EDAOActionType.CREATE);
   }
 
   @Override
   @MustBeLocked (ELockType.WRITE)
-  protected void onRecoveryUpdate (@Nonnull final IMPLTYPE aItem)
+  protected void onRecoveryUpdate (@NonNull final IMPLTYPE aItem)
   {
     _addItem (aItem, EDAOActionType.UPDATE);
   }
 
   @Override
   @MustBeLocked (ELockType.WRITE)
-  protected void onRecoveryDelete (@Nonnull final IMPLTYPE aItem)
+  protected void onRecoveryDelete (@NonNull final IMPLTYPE aItem)
   {
     m_aMap.remove (aItem.getID (), aItem);
   }
 
   @Override
-  @Nonnull
-  protected EChange onRead (@Nonnull final IMicroDocument aDoc)
+  @NonNull
+  protected EChange onRead (@NonNull final IMicroDocument aDoc)
   {
     // Read all child elements independent of the name - soft migration
     final Class <IMPLTYPE> aDataTypeClass = getDataTypeClass ();
@@ -205,7 +205,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.READ)
   protected IMicroDocument createWriteData ()
   {
@@ -216,7 +216,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return aDoc;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IDAOChangeCallback <INTERFACETYPE>> callbacks ()
   {
@@ -235,7 +235,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *         the provided ID does NOT exist.
    */
   @MustBeLocked (ELockType.WRITE)
-  private void _addItem (@Nonnull final IMPLTYPE aItem, @Nonnull final EDAOActionType eActionType)
+  private void _addItem (@NonNull final IMPLTYPE aItem, @NonNull final EDAOActionType eActionType)
   {
     ValueEnforcer.notNull (aItem, "Item");
     ValueEnforcer.isTrue (eActionType == EDAOActionType.CREATE || eActionType == EDAOActionType.UPDATE,
@@ -283,8 +283,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @MustBeLocked (ELockType.WRITE)
   @Deprecated (forRemoval = false)
   @DevelopersNote ("Avoid that this method is overridden")
-  protected final void markAsChanged (@Nonnull final IMPLTYPE aModifiedElement,
-                                      @Nonnull final EDAOActionType eActionType)
+  protected final void markAsChanged (@NonNull final IMPLTYPE aModifiedElement,
+                                      @NonNull final EDAOActionType eActionType)
   {
     super.markAsChanged (aModifiedElement, eActionType);
   }
@@ -299,8 +299,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *         If an item with the same ID is already contained
    */
   @MustBeLocked (ELockType.WRITE)
-  @Nonnull
-  protected final IMPLTYPE internalCreateItem (@Nonnull final IMPLTYPE aNewItem)
+  @NonNull
+  protected final IMPLTYPE internalCreateItem (@NonNull final IMPLTYPE aNewItem)
   {
     return internalCreateItem (aNewItem, true);
   }
@@ -318,8 +318,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
-  @Nonnull
-  protected final IMPLTYPE internalCreateItem (@Nonnull final IMPLTYPE aNewItem, final boolean bInvokeCallbacks)
+  @NonNull
+  protected final IMPLTYPE internalCreateItem (@NonNull final IMPLTYPE aNewItem, final boolean bInvokeCallbacks)
   {
     // Add to map
     _addItem (aNewItem, EDAOActionType.CREATE);
@@ -345,7 +345,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *         If no item with the same ID is already contained
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalUpdateItem (@Nonnull final IMPLTYPE aItem)
+  protected final void internalUpdateItem (@NonNull final IMPLTYPE aItem)
   {
     internalUpdateItem (aItem, true);
   }
@@ -363,7 +363,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalUpdateItem (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  protected final void internalUpdateItem (@NonNull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
   {
     // Add to map - ensure to overwrite any existing
     _addItem (aItem, EDAOActionType.UPDATE);
@@ -436,7 +436,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *        The item that was marked as "deleted"
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalMarkItemDeleted (@Nonnull final IMPLTYPE aItem)
+  protected final void internalMarkItemDeleted (@NonNull final IMPLTYPE aItem)
   {
     internalMarkItemDeleted (aItem, true);
   }
@@ -452,7 +452,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalMarkItemDeleted (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  protected final void internalMarkItemDeleted (@NonNull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
   {
     // Trigger save changes
     super.markAsChanged (aItem, EDAOActionType.UPDATE);
@@ -473,7 +473,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *        The item that was marked as "no longer deleted"
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalMarkItemUndeleted (@Nonnull final IMPLTYPE aItem)
+  protected final void internalMarkItemUndeleted (@NonNull final IMPLTYPE aItem)
   {
     internalMarkItemUndeleted (aItem, true);
   }
@@ -490,7 +490,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @since 9.2.1
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void internalMarkItemUndeleted (@Nonnull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
+  protected final void internalMarkItemUndeleted (@NonNull final IMPLTYPE aItem, final boolean bInvokeCallbacks)
   {
     // Trigger save changes
     super.markAsChanged (aItem, EDAOActionType.UPDATE);
@@ -509,20 +509,20 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    *         otherwise.
    */
   @MustBeLocked (ELockType.WRITE)
-  @Nonnull
+  @NonNull
   protected final EChange internalRemoveAllItemsNoCallback ()
   {
     return m_aMap.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final <T> ICommonsList <T> getNone ()
   {
     return new CommonsArrayList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @IsLocked (ELockType.READ)
   public final ICommonsList <INTERFACETYPE> getAll ()
@@ -532,7 +532,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aMap.values ()));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @IsLocked (ELockType.READ)
   public final ICommonsList <INTERFACETYPE> getAll (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
@@ -548,7 +548,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @IsLocked (ELockType.READ)
   protected final Iterable <IMPLTYPE> internalDirectGetAll ()
@@ -556,7 +556,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return m_aRWLock.readLockedGet (m_aMap::values);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @IsLocked (ELockType.READ)
   protected final ICommonsList <IMPLTYPE> internalGetAll (@Nullable final Predicate <? super IMPLTYPE> aFilter)
@@ -566,25 +566,25 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
 
   @IsLocked (ELockType.READ)
   public final void findAll (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
-                             @Nonnull final Consumer <? super INTERFACETYPE> aConsumer)
+                             @NonNull final Consumer <? super INTERFACETYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
     m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, aConsumer));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @IsLocked (ELockType.READ)
   public final <RETTYPE> ICommonsList <RETTYPE> getAllMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
-                                                              @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
+                                                              @NonNull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
     return m_aRWLock.readLockedGet ( () -> m_aMap.copyOfValuesMapped (aFilter, aMapper));
   }
 
   @IsLocked (ELockType.READ)
   public final <RETTYPE> void findAllMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
-                                             @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper,
-                                             @Nonnull final Consumer <? super RETTYPE> aConsumer)
+                                             @NonNull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper,
+                                             @NonNull final Consumer <? super RETTYPE> aConsumer)
   {
     // (Runnable) cast for Java 9
     m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAllMapped (m_aMap.values (),
@@ -603,7 +603,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nullable
   @IsLocked (ELockType.READ)
   public final <RETTYPE> RETTYPE findFirstMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
-                                                  @Nonnull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
+                                                  @NonNull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
     return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
@@ -779,7 +779,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     return true;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsSet <String> getAllIDs ()
   {

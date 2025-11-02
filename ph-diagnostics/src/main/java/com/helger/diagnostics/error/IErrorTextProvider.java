@@ -18,7 +18,7 @@ package com.helger.diagnostics.error;
 
 import java.util.Locale;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for converting an {@link IError} to a printable representation.
@@ -38,6 +38,6 @@ public interface IErrorTextProvider
    *        The content locale to be used. May not be <code>null</code>.
    * @return A non-<code>null</code> String.
    */
-  @Nonnull
-  String getErrorText (@Nonnull IError aError, @Nonnull Locale aContentLocale);
+  @NonNull
+  String getErrorText (@NonNull IError aError, @NonNull Locale aContentLocale);
 }

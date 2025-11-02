@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -37,9 +40,6 @@ import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeVersion;
 import com.helger.xml.serialize.write.XMLMaskHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Utility class to export a graph to something else
  *
@@ -51,9 +51,9 @@ public final class GraphVizHelper
   private GraphVizHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getAttribute (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  public static String getAttribute (@NonNull @Nonempty final String sName, @NonNull final String sValue)
   {
     return new StringBuilder (sName).append ("=<")
                                     .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
@@ -83,8 +83,8 @@ public final class GraphVizHelper
    * @param <R>
    *        Graph relation type
    */
-  @Nonnull
-  public static <N extends IBaseGraphNode <N, R>, R extends IBaseGraphRelation <N, R>> String getAsGraphVizDot (@Nonnull final IBaseGraph <N, R> aGraph,
+  @NonNull
+  public static <N extends IBaseGraphNode <N, R>, R extends IBaseGraphRelation <N, R>> String getAsGraphVizDot (@NonNull final IBaseGraph <N, R> aGraph,
                                                                                                                 @Nullable final String sNodeLabelAttr,
                                                                                                                 @Nullable final String sRelationLabelAttr)
   {
@@ -138,8 +138,8 @@ public final class GraphVizHelper
    * @param <R>
    *        Graph relation type
    */
-  @Nonnull
-  public static <N extends IDirectedGraphNode <N, R>, R extends IDirectedGraphRelation <N, R>> String getAsGraphVizDot (@Nonnull final IDirectedGraph <N, R> aGraph,
+  @NonNull
+  public static <N extends IDirectedGraphNode <N, R>, R extends IDirectedGraphRelation <N, R>> String getAsGraphVizDot (@NonNull final IDirectedGraph <N, R> aGraph,
                                                                                                                         @Nullable final String sNodeLabelAttr,
                                                                                                                         @Nullable final String sRelationLabelAttr)
   {
@@ -198,9 +198,9 @@ public final class GraphVizHelper
    * @throws InterruptedException
    *         If the sub-process did not terminate correctly!
    */
-  @Nonnull
-  public static NonBlockingByteArrayOutputStream getGraphAsImageWithGraphVizNeato (@Nonnull @Nonempty final String sFileType,
-                                                                                   @Nonnull final String sDOT) throws IOException,
+  @NonNull
+  public static NonBlockingByteArrayOutputStream getGraphAsImageWithGraphVizNeato (@NonNull @Nonempty final String sFileType,
+                                                                                   @NonNull final String sDOT) throws IOException,
                                                                                                                InterruptedException
   {
     ValueEnforcer.notEmpty (sFileType, "FileType");

@@ -24,15 +24,14 @@ import java.nio.file.Path;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Node;
 
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.io.resource.IWritableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Factory class to create the correct {@link javax.xml.transform.Result}
@@ -49,37 +48,37 @@ public final class TransformResultFactory
   private TransformResultFactory ()
   {}
 
-  @Nonnull
-  public static StreamResult create (@Nonnull final File aFile)
+  @NonNull
+  public static StreamResult create (@NonNull final File aFile)
   {
     return new StreamResult (aFile);
   }
 
-  @Nonnull
-  public static StreamResult create (@Nonnull final Path aPath)
+  @NonNull
+  public static StreamResult create (@NonNull final Path aPath)
   {
     return new StreamResult (aPath.toFile ());
   }
 
-  @Nonnull
-  public static StreamResult create (@Nonnull final IWritableResource aResource)
+  @NonNull
+  public static StreamResult create (@NonNull final IWritableResource aResource)
   {
     return new StreamResult (aResource.getAsFile ());
   }
 
-  @Nonnull
+  @NonNull
   public static StreamResult create (@Nullable @WillNotClose final OutputStream aOS)
   {
     return new StreamResult (aOS);
   }
 
-  @Nonnull
+  @NonNull
   public static StreamResult create (@Nullable @WillNotClose final Writer aWriter)
   {
     return new StreamResult (aWriter);
   }
 
-  @Nonnull
+  @NonNull
   public static DOMResult create (@Nullable final Node aNode)
   {
     return new DOMResult (aNode);

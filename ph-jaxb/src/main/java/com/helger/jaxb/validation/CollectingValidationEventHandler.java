@@ -18,6 +18,8 @@ package com.helger.jaxb.validation;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,8 +30,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
@@ -48,12 +48,12 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   {}
 
   @Override
-  protected void onEvent (@Nonnull final IError aEvent)
+  protected void onEvent (@NonNull final IError aEvent)
   {
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aEvent));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IErrorList getErrorList ()
   {
@@ -67,7 +67,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading actions!
    */
-  public void forEachResourceError (@Nonnull final Consumer <? super IError> aConsumer)
+  public void forEachResourceError (@NonNull final Consumer <? super IError> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aRWLock.readLocked ( () -> m_aErrors.forEach (aConsumer));
@@ -78,7 +78,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
    *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
-  @Nonnull
+  @NonNull
   public EChange clearResourceErrors ()
   {
     return m_aRWLock.writeLockedGet (m_aErrors::removeAll);

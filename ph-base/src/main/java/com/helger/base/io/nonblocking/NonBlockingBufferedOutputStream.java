@@ -19,11 +19,11 @@ package com.helger.base.io.nonblocking;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedOutputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedOutputStream}.
@@ -53,7 +53,7 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
    * @param aOS
    *        the underlying output stream.
    */
-  public NonBlockingBufferedOutputStream (@Nonnull final OutputStream aOS)
+  public NonBlockingBufferedOutputStream (@NonNull final OutputStream aOS)
   {
     this (aOS, 8192);
   }
@@ -69,7 +69,7 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
    * @exception IllegalArgumentException
    *            if size &lt;= 0.
    */
-  public NonBlockingBufferedOutputStream (@Nonnull final OutputStream aOS, @Nonnegative final int nSize)
+  public NonBlockingBufferedOutputStream (@NonNull final OutputStream aOS, @Nonnegative final int nSize)
   {
     super (aOS);
     ValueEnforcer.isGT0 (nSize, "Size");

@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.base.callback.ICallback;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.callback.ICallback;
 
 /**
  * Interface for MicroDOM event handlers.
@@ -33,5 +33,5 @@ public interface IMicroEventTarget extends ICallback
    * @param aEvent
    *        The event. Never <code>null</code>.
    */
-  void handleEvent (@Nonnull IMicroEvent aEvent);
+  void handleEvent (@NonNull IMicroEvent aEvent);
 }

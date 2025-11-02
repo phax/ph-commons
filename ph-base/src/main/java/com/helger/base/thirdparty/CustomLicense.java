@@ -16,6 +16,9 @@
  */
 package com.helger.base.thirdparty;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.version.Version;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a custom license.
@@ -52,8 +52,8 @@ public class CustomLicense implements ILicense
    * @param sURL
    *        The URL of the license.
    */
-  public CustomLicense (@Nonnull @Nonempty final String sID,
-                        @Nonnull @Nonempty final String sName,
+  public CustomLicense (@NonNull @Nonempty final String sID,
+                        @NonNull @Nonempty final String sName,
                         @Nullable final Version aVersion,
                         @Nullable final String sURL)
   {
@@ -63,14 +63,14 @@ public class CustomLicense implements ILicense
     m_sWebSiteURL = sURL;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {

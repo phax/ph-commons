@@ -16,7 +16,7 @@
  */
 package com.helger.config.value;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Callback interface for enumeration of available configuration value
@@ -36,5 +36,5 @@ public interface IConfigurationValueProviderWithPriorityCallback
    * @param nPriority
    *        The priority the Configuration value provide has.
    */
-  void onConfigurationValueProvider (@Nonnull IConfigurationValueProvider aCVP, int nPriority);
+  void onConfigurationValueProvider (@NonNull IConfigurationValueProvider aCVP, int nPriority);
 }

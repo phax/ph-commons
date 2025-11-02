@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -38,9 +40,6 @@ import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
 import com.helger.json.serialize.JsonReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Test class for class {@link JsonParser}.
  *
@@ -51,7 +50,7 @@ public final class JsonParserTest
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonParserTest.class);
 
   @Nullable
-  private static IJson _read (@Nonnull final String sJson, @Nullable final IJsonParserSettings aParserSettings)
+  private static IJson _read (@NonNull final String sJson, @Nullable final IJsonParserSettings aParserSettings)
   {
     final CollectingJsonParserHandler aHandler = new CollectingJsonParserHandler ();
     if (JsonReader.parseJson (new NonBlockingStringReader (sJson), aHandler, aParserSettings, null).isFailure ())

@@ -18,12 +18,12 @@ package com.helger.dao;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstraction layer around auto save stuff.
@@ -59,7 +59,7 @@ public interface IAutoSaveAware
    * @param aRunnable
    *        The runnable to be executed. May not be <code>null</code>.
    */
-  default void performWithoutAutoSave (@Nonnull final Runnable aRunnable)
+  default void performWithoutAutoSave (@NonNull final Runnable aRunnable)
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
@@ -87,7 +87,7 @@ public interface IAutoSaveAware
    *        Return type of the callable
    */
   @Nullable
-  default <RETURNTYPE> RETURNTYPE performWithoutAutoSave (@Nonnull final Supplier <RETURNTYPE> aCallable)
+  default <RETURNTYPE> RETURNTYPE performWithoutAutoSave (@NonNull final Supplier <RETURNTYPE> aCallable)
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
@@ -113,7 +113,7 @@ public interface IAutoSaveAware
    * @param <EXTYPE>
    *        Exception type that may be thrown
    */
-  default <EXTYPE extends Exception> void performWithoutAutoSaveThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
+  default <EXTYPE extends Exception> void performWithoutAutoSaveThrowing (@NonNull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
@@ -143,7 +143,7 @@ public interface IAutoSaveAware
    *        Exception type that may be thrown
    */
   @Nullable
-  default <RETURNTYPE, EXTYPE extends Exception> RETURNTYPE performWithoutAutoSaveThrowing (@Nonnull final IThrowingSupplier <RETURNTYPE, EXTYPE> aCallable) throws EXTYPE
+  default <RETURNTYPE, EXTYPE extends Exception> RETURNTYPE performWithoutAutoSaveThrowing (@NonNull final IThrowingSupplier <RETURNTYPE, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 

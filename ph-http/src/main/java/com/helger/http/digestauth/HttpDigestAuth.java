@@ -19,6 +19,8 @@ package com.helger.http.digestauth;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.http.EHttpMethod;
 import com.helger.http.RFC1945Helper;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handling for HTTP Digest Authentication
@@ -277,8 +276,8 @@ public final class HttpDigestAuth
     return nNonceCount <= 0 ? null : StringHelper.getLeadingZero (StringHex.getHexString (nNonceCount), 8);
   }
 
-  @Nonnull
-  private static String _md5 (@Nonnull final String s)
+  @NonNull
+  private static String _md5 (@NonNull final String s)
   {
     return MessageDigestValue.create (s.getBytes (CHARSET), EMessageDigestAlgorithm.MD5).getHexEncodedDigestString ();
   }
@@ -338,13 +337,13 @@ public final class HttpDigestAuth
    *        then the request is a replay.
    * @return The created DigestAuthCredentials
    */
-  @Nonnull
-  public static DigestAuthClientCredentials createDigestAuthClientCredentials (@Nonnull final EHttpMethod eMethod,
-                                                                               @Nonnull @Nonempty final String sDigestURI,
-                                                                               @Nonnull @Nonempty final String sUserName,
-                                                                               @Nonnull final String sPassword,
-                                                                               @Nonnull @Nonempty final String sRealm,
-                                                                               @Nonnull @Nonempty final String sServerNonce,
+  @NonNull
+  public static DigestAuthClientCredentials createDigestAuthClientCredentials (@NonNull final EHttpMethod eMethod,
+                                                                               @NonNull @Nonempty final String sDigestURI,
+                                                                               @NonNull @Nonempty final String sUserName,
+                                                                               @NonNull final String sPassword,
+                                                                               @NonNull @Nonempty final String sRealm,
+                                                                               @NonNull @Nonempty final String sServerNonce,
                                                                                @Nullable final String sAlgorithm,
                                                                                @Nullable final String sClientNonce,
                                                                                @Nullable final String sOpaque,

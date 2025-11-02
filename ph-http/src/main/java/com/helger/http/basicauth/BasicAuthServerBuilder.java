@@ -16,14 +16,14 @@
  */
 package com.helger.http.basicauth;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.RFC1945Helper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @NotThreadSafe
 public class BasicAuthServerBuilder
@@ -47,8 +47,8 @@ public class BasicAuthServerBuilder
    *        empty.
    * @return this
    */
-  @Nonnull
-  public BasicAuthServerBuilder setRealm (@Nonnull final String sRealm)
+  @NonNull
+  public BasicAuthServerBuilder setRealm (@NonNull final String sRealm)
   {
     ValueEnforcer.isTrue (RFC1945Helper.isQuotedTextContent (sRealm), () -> "Realm is invalid: " + sRealm);
 
@@ -61,7 +61,7 @@ public class BasicAuthServerBuilder
     return m_sRealm != null;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String build ()
   {

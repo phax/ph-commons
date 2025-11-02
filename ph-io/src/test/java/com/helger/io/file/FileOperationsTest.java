@@ -26,9 +26,8 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link FileOperations}.
@@ -37,12 +36,12 @@ import jakarta.annotation.Nonnull;
  */
 public final class FileOperationsTest
 {
-  private static void _expectedSuccess (@Nonnull final FileIOError ec)
+  private static void _expectedSuccess (@NonNull final FileIOError ec)
   {
     assertEquals ("Expected no error but got " + ec.getErrorCode (), EFileIOErrorCode.NO_ERROR, ec.getErrorCode ());
   }
 
-  private static void _expectedError (@Nonnull final FileIOError ec, @Nonnull final EFileIOErrorCode eCode)
+  private static void _expectedError (@NonNull final FileIOError ec, @NonNull final EFileIOErrorCode eCode)
   {
     assertEquals ("Expected error " + eCode + " but got " + ec.getErrorCode (), eCode, ec.getErrorCode ());
   }

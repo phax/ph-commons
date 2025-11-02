@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link OutputStream} that counts the number of read
@@ -34,7 +34,7 @@ public class CountingOutputStream extends WrappedOutputStream
 {
   private long m_nBytesWritten = 0;
 
-  public CountingOutputStream (@Nonnull final OutputStream aSourceOS)
+  public CountingOutputStream (@NonNull final OutputStream aSourceOS)
   {
     super (aSourceOS);
   }
@@ -47,7 +47,7 @@ public class CountingOutputStream extends WrappedOutputStream
   }
 
   @Override
-  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nBytesWritten += nLen;

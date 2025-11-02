@@ -25,6 +25,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.validation.Schema;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
@@ -39,9 +41,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class for creating XML DOM documents.
@@ -116,8 +115,8 @@ public final class XMLFactory
   private XMLFactory ()
   {}
 
-  public static void setFeature (@Nonnull final DocumentBuilderFactory aFactory,
-                                 @Nonnull final EXMLParserFeature eFeature,
+  public static void setFeature (@NonNull final DocumentBuilderFactory aFactory,
+                                 @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
   {
     try
@@ -135,7 +134,7 @@ public final class XMLFactory
     }
   }
 
-  public static void defaultCustomizeDocumentBuilderFactory (@Nonnull final DocumentBuilderFactory aFactory)
+  public static void defaultCustomizeDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aFactory)
   {
     /*
      * Secure processing is enabled by default since JDK 8. See class
@@ -175,7 +174,7 @@ public final class XMLFactory
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DocumentBuilderFactory createDefaultDocumentBuilderFactory ()
   {
     final DocumentBuilderFactory aFactory = DocumentBuilderFactory.newInstance ();
@@ -191,8 +190,8 @@ public final class XMLFactory
    *        The schema to use. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static DocumentBuilderFactory createDocumentBuilderFactory (@Nonnull final Schema aSchema)
+  @NonNull
+  public static DocumentBuilderFactory createDocumentBuilderFactory (@NonNull final Schema aSchema)
   {
     ValueEnforcer.notNull (aSchema, "Schema");
 
@@ -205,7 +204,7 @@ public final class XMLFactory
    * @return The default document builder factory that is not schema specific.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DocumentBuilderFactory getDocumentBuilderFactory ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultDocBuilderFactory);
@@ -215,7 +214,7 @@ public final class XMLFactory
    * @return The default document builder that is not schema specific. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DocumentBuilder getDocumentBuilder ()
   {
     // Lazily init
@@ -235,7 +234,7 @@ public final class XMLFactory
    * @return The DOM implementation of the default document builder. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DOMImplementation getDOMImplementation ()
   {
     return getDocumentBuilder ().getDOMImplementation ();
@@ -247,7 +246,7 @@ public final class XMLFactory
    *
    * @return The created document builder. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DocumentBuilder createDocumentBuilder ()
   {
     return createDocumentBuilder (getDocumentBuilderFactory ());
@@ -260,8 +259,8 @@ public final class XMLFactory
    *        The schema to use. May not be <code>null</code>.
    * @return The created document builder. Never <code>null</code>.
    */
-  @Nonnull
-  public static DocumentBuilder createDocumentBuilder (@Nonnull final Schema aSchema)
+  @NonNull
+  public static DocumentBuilder createDocumentBuilder (@NonNull final Schema aSchema)
   {
     return createDocumentBuilder (createDocumentBuilderFactory (aSchema));
   }
@@ -277,8 +276,8 @@ public final class XMLFactory
    * @throws InitializationException
    *         In case some DOM initialization goes wrong
    */
-  @Nonnull
-  public static DocumentBuilder createDocumentBuilder (@Nonnull final DocumentBuilderFactory aDocBuilderFactory)
+  @NonNull
+  public static DocumentBuilder createDocumentBuilder (@NonNull final DocumentBuilderFactory aDocBuilderFactory)
   {
     ValueEnforcer.notNull (aDocBuilderFactory, "DocBuilderFactory");
 
@@ -300,7 +299,7 @@ public final class XMLFactory
    *
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Document newDocument ()
   {
     return newDocument (getDocumentBuilder (), (EXMLVersion) null);
@@ -314,8 +313,8 @@ public final class XMLFactory
    *        The document builder to use. May not be <code>null</code>.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
-  public static Document newDocument (@Nonnull final DocumentBuilder aDocBuilder)
+  @NonNull
+  public static Document newDocument (@NonNull final DocumentBuilder aDocBuilder)
   {
     return newDocument (aDocBuilder, (EXMLVersion) null);
   }
@@ -329,7 +328,7 @@ public final class XMLFactory
    *        {@link EXMLVersion#XML_10} will be used.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Document newDocument (@Nullable final EXMLVersion eVersion)
   {
     return newDocument (getDocumentBuilder (), eVersion);
@@ -346,8 +345,8 @@ public final class XMLFactory
    *        {@link EXMLVersion#XML_10} will be used.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
-  public static Document newDocument (@Nonnull final DocumentBuilder aDocBuilder, @Nullable final EXMLVersion eVersion)
+  @NonNull
+  public static Document newDocument (@NonNull final DocumentBuilder aDocBuilder, @Nullable final EXMLVersion eVersion)
   {
     ValueEnforcer.notNull (aDocBuilder, "DocBuilder");
 
@@ -368,8 +367,8 @@ public final class XMLFactory
    *        The system ID of the document type.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
-  public static Document newDocument (@Nonnull final String sQualifiedName,
+  @NonNull
+  public static Document newDocument (@NonNull final String sQualifiedName,
                                       @Nullable final String sPublicId,
                                       @Nullable final String sSystemId)
   {
@@ -391,9 +390,9 @@ public final class XMLFactory
    *        The system ID of the document type.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Document newDocument (@Nullable final EXMLVersion eVersion,
-                                      @Nonnull final String sQualifiedName,
+                                      @NonNull final String sQualifiedName,
                                       @Nullable final String sPublicId,
                                       @Nullable final String sSystemId)
   {
@@ -416,10 +415,10 @@ public final class XMLFactory
    *        The system ID of the document type.
    * @return The created document. Never <code>null</code>.
    */
-  @Nonnull
-  public static Document newDocument (@Nonnull final DocumentBuilder aDocBuilder,
+  @NonNull
+  public static Document newDocument (@NonNull final DocumentBuilder aDocBuilder,
                                       @Nullable final EXMLVersion eVersion,
-                                      @Nonnull final String sQualifiedName,
+                                      @NonNull final String sQualifiedName,
                                       @Nullable final String sPublicId,
                                       @Nullable final String sSystemId)
   {
@@ -433,8 +432,8 @@ public final class XMLFactory
     return aDoc;
   }
 
-  public static void setFeature (@Nonnull final SAXParserFactory aFactory,
-                                 @Nonnull final EXMLParserFeature eFeature,
+  public static void setFeature (@NonNull final SAXParserFactory aFactory,
+                                 @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
   {
     try
@@ -452,7 +451,7 @@ public final class XMLFactory
     }
   }
 
-  public static void defaultCustomizeSAXParserFactory (@Nonnull final SAXParserFactory aFactory)
+  public static void defaultCustomizeSAXParserFactory (@NonNull final SAXParserFactory aFactory)
   {
     setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
     setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
@@ -464,7 +463,7 @@ public final class XMLFactory
     aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
   }
 
-  @Nonnull
+  @NonNull
   public static SAXParserFactory createDefaultSAXParserFactory ()
   {
     SAXParserFactory aFactory;
@@ -482,8 +481,8 @@ public final class XMLFactory
     return aFactory;
   }
 
-  public static void setFeature (@Nonnull final TransformerFactory aFactory,
-                                 @Nonnull final EXMLParserFeature eFeature,
+  public static void setFeature (@NonNull final TransformerFactory aFactory,
+                                 @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue,
                                  final boolean bLogOnError)
   {
@@ -503,7 +502,7 @@ public final class XMLFactory
     }
   }
 
-  public static void defaultCustomizeTransformerFactory (@Nonnull final TransformerFactory aFactory)
+  public static void defaultCustomizeTransformerFactory (@NonNull final TransformerFactory aFactory)
   {
     if (false)
     {
@@ -520,7 +519,7 @@ public final class XMLFactory
     setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false, false);
   }
 
-  @Nonnull
+  @NonNull
   public static TransformerFactory createDefaultTransformerFactory ()
   {
     try

@@ -18,9 +18,10 @@ package com.helger.jaxb.mock.external;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.CommonsArrayList;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -84,7 +85,7 @@ public class MockJAXBArchive
     return m_aCollection;
   }
 
-  @Nonnull
+  @NonNull
   public MockJAXBCollection getOnlyCollection ()
   {
     if (m_aCollection == null || m_aCollection.size () != 1)

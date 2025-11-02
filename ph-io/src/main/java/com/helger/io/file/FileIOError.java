@@ -18,15 +18,15 @@ package com.helger.io.file;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents an error with an additional error object.
@@ -42,33 +42,33 @@ public class FileIOError implements ISuccessIndicator
   private final File m_aFile2;
   private final Exception m_aException;
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final EFileIOErrorCode eCode)
+  public FileIOError (@NonNull final EFileIOOperation eOperation, @NonNull final EFileIOErrorCode eCode)
   {
     this (eOperation, eCode, null, null, null);
   }
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final EFileIOErrorCode eCode, @Nonnull final File aFile1)
+  public FileIOError (@NonNull final EFileIOOperation eOperation, @NonNull final EFileIOErrorCode eCode, @NonNull final File aFile1)
   {
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), null, null);
   }
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation,
-                      @Nonnull final EFileIOErrorCode eCode,
-                      @Nonnull final File aFile1,
-                      @Nonnull final File aFile2)
+  public FileIOError (@NonNull final EFileIOOperation eOperation,
+                      @NonNull final EFileIOErrorCode eCode,
+                      @NonNull final File aFile1,
+                      @NonNull final File aFile2)
   {
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), ValueEnforcer.notNull (aFile2, "File2"), null);
   }
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation,
-                      @Nonnull final EFileIOErrorCode eCode,
-                      @Nonnull final Exception aException)
+  public FileIOError (@NonNull final EFileIOOperation eOperation,
+                      @NonNull final EFileIOErrorCode eCode,
+                      @NonNull final Exception aException)
   {
     this (eOperation, eCode, null, null, ValueEnforcer.notNull (aException, "Exception"));
   }
 
-  public FileIOError (@Nonnull final EFileIOOperation eOperation,
-                      @Nonnull final EFileIOErrorCode eCode,
+  public FileIOError (@NonNull final EFileIOOperation eOperation,
+                      @NonNull final EFileIOErrorCode eCode,
                       @Nullable final File aFile1,
                       @Nullable final File aFile2,
                       @Nullable final Exception aException)
@@ -83,7 +83,7 @@ public class FileIOError implements ISuccessIndicator
   /**
    * @return The operation passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EFileIOOperation getOperation ()
   {
     return m_eOperation;
@@ -92,7 +92,7 @@ public class FileIOError implements ISuccessIndicator
   /**
    * @return The error code passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EFileIOErrorCode getErrorCode ()
   {
     return m_eCode;
@@ -158,7 +158,7 @@ public class FileIOError implements ISuccessIndicator
     return m_aException != null;
   }
 
-  @Nonnull
+  @NonNull
   public FileIOError withoutErrorCode ()
   {
     if (m_eCode.isSuccess ())

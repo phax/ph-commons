@@ -20,12 +20,12 @@ import java.util.Iterator;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.collection.base.EmptyIterator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents an abstract namespace context that does the predefined mapping as
@@ -42,10 +42,10 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   public abstract String getDefaultNamespaceURI ();
 
   @Nullable
-  protected abstract Iterator <String> getCustomPrefixes (@Nonnull String sNamespaceURI);
+  protected abstract Iterator <String> getCustomPrefixes (@NonNull String sNamespaceURI);
 
-  @Nonnull
-  public final Iterator <String> getPrefixes (@Nonnull final String sNamespaceURI)
+  @NonNull
+  public final Iterator <String> getPrefixes (@NonNull final String sNamespaceURI)
   {
     // According to JavaDoc
     if (sNamespaceURI == null)
@@ -60,10 +60,10 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   }
 
   @Nullable
-  protected abstract String getCustomPrefix (@Nonnull String sNamespaceURI);
+  protected abstract String getCustomPrefix (@NonNull String sNamespaceURI);
 
   @Nullable
-  public final String getPrefix (@Nonnull final String sNamespaceURI)
+  public final String getPrefix (@NonNull final String sNamespaceURI)
   {
     // According to JavaDoc
     if (sNamespaceURI == null)
@@ -83,10 +83,10 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   }
 
   @Nullable
-  protected abstract String getCustomNamespaceURI (@Nonnull String sPrefix);
+  protected abstract String getCustomNamespaceURI (@NonNull String sPrefix);
 
-  @Nonnull
-  public final String getNamespaceURI (@Nonnull final String sPrefix)
+  @NonNull
+  public final String getNamespaceURI (@NonNull final String sPrefix)
   {
     // According to JavaDoc
     if (sPrefix == null)

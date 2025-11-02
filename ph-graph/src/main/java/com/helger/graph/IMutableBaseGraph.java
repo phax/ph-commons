@@ -16,10 +16,10 @@
  */
 package com.helger.graph;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Interface for a modifiable graph.
@@ -66,8 +66,8 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    *         <code>false</code>
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
-  @Nonnull
-  EChange addNode (@Nonnull NODETYPE aNode);
+  @NonNull
+  EChange addNode (@NonNull NODETYPE aNode);
 
   /**
    * Remove an existing node from the graph. <br>
@@ -84,8 +84,8 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    *         returned <code>false</code>
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
-  @Nonnull
-  EChange removeNode (@Nonnull NODETYPE aNode);
+  @NonNull
+  EChange removeNode (@NonNull NODETYPE aNode);
 
   /**
    * Remove an existing node and all connected relations from the graph.
@@ -94,8 +94,8 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    *        The node to be removed. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  EChange removeNodeAndAllRelations (@Nonnull NODETYPE aNode);
+  @NonNull
+  EChange removeNodeAndAllRelations (@NonNull NODETYPE aNode);
 
   /**
    * Remove the passed relation from the graph.
@@ -105,6 +105,6 @@ public interface IMutableBaseGraph <NODETYPE extends IMutableBaseGraphNode <NODE
    * @return {@link EChange#CHANGED} if the relation was at least removed from
    *         the from- or the to-node
    */
-  @Nonnull
+  @NonNull
   EChange removeRelation (@Nullable RELATIONTYPE aRelation);
 }

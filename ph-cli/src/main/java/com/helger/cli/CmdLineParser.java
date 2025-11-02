@@ -19,6 +19,8 @@ package com.helger.cli;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A parser for commandline options. Based on Apache commons-cli
@@ -53,7 +52,7 @@ public class CmdLineParser
     private final Option m_aOption;
     private final String m_sMatchedText;
 
-    MatchedOption (@Nonnull final Option aOption, @Nonnull @Nonempty final String sMatchedText)
+    MatchedOption (@NonNull final Option aOption, @NonNull @Nonempty final String sMatchedText)
     {
       m_aOption = aOption;
       m_sMatchedText = sMatchedText;
@@ -62,15 +61,15 @@ public class CmdLineParser
 
   private final Options m_aOptions;
 
-  public CmdLineParser (@Nonnull final Options aOptions)
+  public CmdLineParser (@NonNull final Options aOptions)
   {
     ValueEnforcer.notNull (aOptions, "Options");
     m_aOptions = aOptions;
   }
 
   @Nullable
-  private static MatchedOption _findMatchingOption (@Nonnull final ICommonsMap <String, Option> aStrToOptionMap,
-                                                    @Nonnull @Nonempty final String sToken)
+  private static MatchedOption _findMatchingOption (@NonNull final ICommonsMap <String, Option> aStrToOptionMap,
+                                                    @NonNull @Nonempty final String sToken)
   {
     // Skip prefix (long before first)
     String sText = sToken;
@@ -114,8 +113,8 @@ public class CmdLineParser
     return null;
   }
 
-  @Nonnull
-  private static String _getDisplayName (@Nonnull final Option aOption)
+  @NonNull
+  private static String _getDisplayName (@NonNull final Option aOption)
   {
     String ret = "";
     if (aOption.hasShortOpt ())
@@ -129,14 +128,14 @@ public class CmdLineParser
     return ret;
   }
 
-  @Nonnull
-  private static String _getDisplayName (@Nonnull final OptionGroup aOptionGroup)
+  @NonNull
+  private static String _getDisplayName (@NonNull final OptionGroup aOptionGroup)
   {
     return "[" + StringImplode.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
   }
 
-  @Nonnull
-  public static ParsedCmdLine parseStatic (@Nonnull final Options aOptions, @Nullable final String [] aArgs)
+  @NonNull
+  public static ParsedCmdLine parseStatic (@NonNull final Options aOptions, @Nullable final String [] aArgs)
                                                                                                              throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
@@ -296,7 +295,7 @@ public class CmdLineParser
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public ParsedCmdLine parse (@Nullable final String [] aArgs) throws CmdLineParseException
   {
     return parseStatic (m_aOptions, aArgs);

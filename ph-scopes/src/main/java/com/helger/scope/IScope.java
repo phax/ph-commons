@@ -19,15 +19,15 @@ package com.helger.scope;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.id.IHasID;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.collection.IAttributeContainerAny;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This interface is used for all the common stuff of a scope. The following types of scopes are
@@ -92,7 +92,7 @@ public interface IScope extends IHasID <String>
    *        The consumer to be executed. May not be <code>null</code>. The parameter to the runnable
    *        is <code>this</code> scope.
    */
-  void runAtomic (@Nonnull Consumer <? super IScope> aConsumer);
+  void runAtomic (@NonNull Consumer <? super IScope> aConsumer);
 
   /**
    * Perform stuff as a single action. All actions are executed in a write-lock!
@@ -105,12 +105,12 @@ public interface IScope extends IHasID <String>
    *        The return type of the callable
    */
   @Nullable
-  <T> T runAtomic (@Nonnull Function <? super IScope, ? extends T> aFunction);
+  <T> T runAtomic (@NonNull Function <? super IScope, ? extends T> aFunction);
 
   /**
    * @return The mutable scope attributes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   IAttributeContainerAny <String> attrs ();
 
@@ -118,7 +118,7 @@ public interface IScope extends IHasID <String>
    * @return The non-<code>null</code> map with all contained attributes that implement the
    *         {@link IScopeRenewalAware} interface. May be empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {

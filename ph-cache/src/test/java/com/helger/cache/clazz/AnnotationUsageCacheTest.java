@@ -22,6 +22,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,9 +36,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.map.LRUMap;
 import com.helger.collection.map.LRUSet;
 import com.helger.collection.map.LoggingLRUMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link AnnotationUsageCache}.
@@ -63,7 +62,7 @@ public final class AnnotationUsageCacheTest
                                                                        Short.class,
                                                                        StringBuilder.class,
                                                                        Nullable.class,
-                                                                       Nonnull.class,
+                                                                       NonNull.class,
                                                                        LRUMap.class,
                                                                        LRUSet.class,
                                                                        LoggingLRUMap.class);

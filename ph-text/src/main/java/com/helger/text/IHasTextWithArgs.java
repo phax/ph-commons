@@ -18,11 +18,11 @@ package com.helger.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.text.TextFormatter;
 import com.helger.text.display.IHasDisplayTextWithArgs;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Basic interface for object providing multilingual texts with and without arguments.
@@ -43,7 +43,7 @@ public interface IHasTextWithArgs extends IHasText
    */
   @Nullable
   @Deprecated (forRemoval = false)
-  default String getTextWithArgs (@Nonnull final Locale aContentLocale)
+  default String getTextWithArgs (@NonNull final Locale aContentLocale)
   {
     return getText (aContentLocale);
   }
@@ -61,7 +61,7 @@ public interface IHasTextWithArgs extends IHasText
    * @return <code>null</code> if no text for the given locale was found.
    */
   @Nullable
-  default String getTextWithArgs (@Nonnull final Locale aContentLocale, @Nullable final Object... aArgs)
+  default String getTextWithArgs (@NonNull final Locale aContentLocale, @Nullable final Object... aArgs)
   {
     final String sText = getText (aContentLocale);
     return TextFormatter.getFormattedText (sText, aArgs);
@@ -71,7 +71,7 @@ public interface IHasTextWithArgs extends IHasText
    * @return this as an instance of {@link IHasDisplayTextWithArgs}.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default IHasDisplayTextWithArgs getAsHasDisplayTextWithArgs ()
   {
     return this::getText;

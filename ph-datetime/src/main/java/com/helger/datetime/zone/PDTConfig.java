@@ -21,6 +21,7 @@ import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.TimeZone;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class provides the most basic settings for date time operating: the
@@ -60,8 +59,8 @@ public final class PDTConfig
    *        Must be a valid, non-<code>null</code> time zone.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess setDefaultDateTimeZoneID (@Nonnull @Nonempty final String sDateTimeZoneID)
+  @NonNull
+  public static ESuccess setDefaultDateTimeZoneID (@NonNull @Nonempty final String sDateTimeZoneID)
   {
     ValueEnforcer.notEmpty (sDateTimeZoneID, "DateTimeZoneID");
 
@@ -89,13 +88,13 @@ public final class PDTConfig
    * @return The default date time zone to use. Never <code>null</code>. The
    *         default is defined by the system.
    */
-  @Nonnull
+  @NonNull
   public static ZoneId getDefaultZoneId ()
   {
     return s_aDefaultZoneId;
   }
 
-  @Nonnull
+  @NonNull
   public static ZoneId getUTCZoneId ()
   {
     return ZoneOffset.UTC;
@@ -105,7 +104,7 @@ public final class PDTConfig
    * @return The default time zone to use. Never <code>null</code>. The default
    *         is is defined by the system.
    */
-  @Nonnull
+  @NonNull
   public static TimeZone getDefaultTimeZone ()
   {
     return TimeZone.getDefault ();
@@ -115,7 +114,7 @@ public final class PDTConfig
    * @return The UTC time zone. Never <code>null</code>.
    * @since 9.1.8
    */
-  @Nonnull
+  @NonNull
   public static TimeZone getUTCTimeZone ()
   {
     return TimeZone.getTimeZone ("UTC");

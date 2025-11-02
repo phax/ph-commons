@@ -18,6 +18,8 @@ package com.helger.xml.ls;
 
 import java.lang.ref.WeakReference;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
@@ -27,9 +29,6 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.classloader.IHasClassLoader;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple LS resource resolver that can handle URLs, JAR files and file system
@@ -96,7 +95,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
    */
   @OverrideOnDemand
   @Nullable
-  protected IReadableResource internalResolveResource (@Nonnull @Nonempty final String sType,
+  protected IReadableResource internalResolveResource (@NonNull @Nonempty final String sType,
                                                        @Nullable final String sNamespaceURI,
                                                        @Nullable final String sPublicId,
                                                        @Nullable final String sSystemId,
@@ -153,7 +152,7 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
    */
   @Override
   @Nullable
-  public final LSInput mainResolveResource (@Nonnull @Nonempty final String sType,
+  public final LSInput mainResolveResource (@NonNull @Nonempty final String sType,
                                             @Nullable final String sNamespaceURI,
                                             @Nullable final String sPublicId,
                                             @Nullable final String sSystemId,

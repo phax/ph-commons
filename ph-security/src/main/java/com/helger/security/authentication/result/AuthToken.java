@@ -19,6 +19,9 @@ package com.helger.security.authentication.result;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -26,9 +29,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IAuthToken} interface.
@@ -45,7 +45,7 @@ public final class AuthToken implements IAuthToken
   private final int m_nExpirationSeconds;
   private boolean m_bExpired;
 
-  public AuthToken (@Nonnull final IAuthIdentification aIdentification, @Nonnegative final int nExpirationSeconds)
+  public AuthToken (@NonNull final IAuthIdentification aIdentification, @Nonnegative final int nExpirationSeconds)
   {
     ValueEnforcer.notNull (aIdentification, "Identification");
     ValueEnforcer.isGE0 (nExpirationSeconds, "ExpirationSeconds");
@@ -62,25 +62,25 @@ public final class AuthToken implements IAuthToken
     m_bExpired = false;
   }
 
-  @Nonnull
+  @NonNull
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   public IAuthIdentification getIdentification ()
   {
     return m_aIdentification;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getCreationDate ()
   {
     return m_aCreationDT;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getLastAccessDate ()
   {
     return m_aLastAccessDT;

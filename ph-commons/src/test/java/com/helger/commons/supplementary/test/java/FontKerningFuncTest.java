@@ -30,6 +30,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,8 +43,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.EOperatingSystem;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Reads a TTF font file and provides access to kerning information. Thanks to the Apache FOP
@@ -109,7 +108,7 @@ public final class FontKerningFuncTest
      * @throws IOException
      *         If the font could not be read.
      */
-    public Kerning (@Nonnull @WillClose final InputStream aIS) throws IOException
+    public Kerning (@NonNull @WillClose final InputStream aIS) throws IOException
     {
       ValueEnforcer.notNull (aIS, "IS");
 

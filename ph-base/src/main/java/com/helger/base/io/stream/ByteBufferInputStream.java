@@ -19,13 +19,13 @@ package com.helger.base.io.stream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.ByteBufferHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link InputStream} wrapped around a single {@link ByteBuffer}.
@@ -43,7 +43,7 @@ public final class ByteBufferInputStream extends InputStream
    * @param aBuffer
    *        {@link ByteBuffer} to use. May not be <code>null</code>.
    */
-  public ByteBufferInputStream (@Nonnull final ByteBuffer aBuffer)
+  public ByteBufferInputStream (@NonNull final ByteBuffer aBuffer)
   {
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
   }
@@ -121,13 +121,13 @@ public final class ByteBufferInputStream extends InputStream
   }
 
   @Override
-  public int read (@Nonnull final byte [] aBuf)
+  public int read (@NonNull final byte [] aBuf)
   {
     return read (aBuf, 0, aBuf.length);
   }
 
   @Override
-  public int read (@Nonnull final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public int read (@NonNull final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLen);
 
@@ -158,7 +158,7 @@ public final class ByteBufferInputStream extends InputStream
    * @return The number of bytes read. Always &ge; 0.
    */
   @Nonnegative
-  public long read (@Nonnull final ByteBuffer aDestByteBuffer)
+  public long read (@NonNull final ByteBuffer aDestByteBuffer)
   {
     ValueEnforcer.notNull (aDestByteBuffer, "DestByteBuffer");
 

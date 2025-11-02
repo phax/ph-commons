@@ -16,11 +16,11 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link com.helger.graph.IMutableGraphNode} interface with

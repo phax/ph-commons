@@ -19,14 +19,14 @@ package com.helger.base.rt;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains utility methods for handling stack traces.
@@ -62,7 +62,7 @@ public final class StackTraceHelper
   private StackTraceHelper ()
   {}
 
-  private static boolean _isUnitTestLine (@Nonnull final String sStackTraceLine)
+  private static boolean _isUnitTestLine (@NonNull final String sStackTraceLine)
   {
     for (final String s : STACKTRACE_OMIT_UNITTEST)
       if (sStackTraceLine.startsWith (s))
@@ -70,7 +70,7 @@ public final class StackTraceHelper
     return false;
   }
 
-  private static boolean _isAppSrvLine (@Nonnull final String sStackTraceLine)
+  private static boolean _isAppSrvLine (@NonNull final String sStackTraceLine)
   {
     for (final String s : STACKTRACE_OMIT_APPSRV)
       if (sStackTraceLine.startsWith (s))
@@ -78,12 +78,12 @@ public final class StackTraceHelper
     return false;
   }
 
-  private static boolean _isStopStackTraceListing (@Nonnull final String sStackTraceLine)
+  private static boolean _isStopStackTraceListing (@NonNull final String sStackTraceLine)
   {
     return _isUnitTestLine (sStackTraceLine) || _isAppSrvLine (sStackTraceLine);
   }
 
-  private static boolean _matchesParentStackTrace (@Nonnull final StackTraceElement aElement,
+  private static boolean _matchesParentStackTrace (@NonNull final StackTraceElement aElement,
                                                    @Nullable final StackTraceElement [] aParentElements)
   {
     if (aParentElements != null)
@@ -93,11 +93,11 @@ public final class StackTraceHelper
     return false;
   }
 
-  private static void _appendSingleStackTraceToString (@Nonnull final StringBuilder aSB,
-                                                       @Nonnull final StackTraceElement [] aStackTraceElements,
+  private static void _appendSingleStackTraceToString (@NonNull final StringBuilder aSB,
+                                                       @NonNull final StackTraceElement [] aStackTraceElements,
                                                        @Nullable final StackTraceElement [] aParentStackTraceElements,
                                                        final boolean bOmitCommonStackTraceElements,
-                                                       @Nonnull final String sLineSeparator)
+                                                       @NonNull final String sLineSeparator)
   {
     // add main call stack
     for (int i = 0; i < aStackTraceElements.length; ++i)
@@ -128,15 +128,15 @@ public final class StackTraceHelper
     }
   }
 
-  public static void appendStackToString (@Nonnull final StringBuilder aSB,
-                                          @Nonnull final StackTraceElement [] aStackTraceElements)
+  public static void appendStackToString (@NonNull final StringBuilder aSB,
+                                          @NonNull final StackTraceElement [] aStackTraceElements)
   {
     appendStackToString (aSB, aStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
-  public static void appendStackToString (@Nonnull final StringBuilder aSB,
-                                          @Nonnull final StackTraceElement [] aStackTraceElements,
-                                          @Nonnull final String sLineSeparator)
+  public static void appendStackToString (@NonNull final StringBuilder aSB,
+                                          @NonNull final StackTraceElement [] aStackTraceElements,
+                                          @NonNull final String sLineSeparator)
   {
     ValueEnforcer.notNull (aSB, "StringBuilder");
     ValueEnforcer.notNull (aStackTraceElements, "StackTraceElements");
@@ -145,17 +145,17 @@ public final class StackTraceHelper
     _appendSingleStackTraceToString (aSB, aStackTraceElements, null, true, sLineSeparator);
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final StackTraceElement [] aStackTraceElements,
+  @NonNull
+  public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements,
                                          final boolean bOmitCommonStackTraceElements)
   {
     return getStackAsString (aStackTraceElements, bOmitCommonStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final StackTraceElement [] aStackTraceElements,
+  @NonNull
+  public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements,
                                          final boolean bOmitCommonStackTraceElements,
-                                         @Nonnull final String sLineSeparator)
+                                         @NonNull final String sLineSeparator)
   {
     ValueEnforcer.notNull (aStackTraceElements, "StackTraceElements");
     ValueEnforcer.notNull (sLineSeparator, "LineSeparator");
@@ -171,44 +171,44 @@ public final class StackTraceHelper
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final StackTraceElement [] aStackTraceElements)
+  @NonNull
+  public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements)
   {
     return getStackAsString (aStackTraceElements, true, DEFAULT_LINE_SEPARATOR);
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final Thread aThread)
+  @NonNull
+  public static String getStackAsString (@NonNull final Thread aThread)
   {
     return getStackAsString (aThread.getStackTrace (), true, DEFAULT_LINE_SEPARATOR);
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final Thread aThread, final boolean bOmitCommonStackTraceElements)
+  @NonNull
+  public static String getStackAsString (@NonNull final Thread aThread, final boolean bOmitCommonStackTraceElements)
   {
     return getStackAsString (aThread.getStackTrace (), bOmitCommonStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
-  @Nonnull
-  public static String getStackAsString (@Nonnull final Thread aThread,
+  @NonNull
+  public static String getStackAsString (@NonNull final Thread aThread,
                                          final boolean bOmitCommonStackTraceElements,
-                                         @Nonnull final String sLineSeparator)
+                                         @NonNull final String sLineSeparator)
   {
     return getStackAsString (aThread.getStackTrace (), bOmitCommonStackTraceElements, sLineSeparator);
   }
 
-  @Nonnull
+  @NonNull
   public static String getCurrentThreadStackAsString ()
   {
     return getStackAsString (Thread.currentThread ().getStackTrace (), true, DEFAULT_LINE_SEPARATOR);
   }
 
-  private static StringBuilder _getRecursiveStackAsStringBuilder (@Nonnull final Throwable aThrowable,
+  private static StringBuilder _getRecursiveStackAsStringBuilder (@NonNull final Throwable aThrowable,
                                                                   @Nullable final Throwable aParentThrowable,
                                                                   @Nullable final StringBuilder aInitialSB,
                                                                   @Nonnegative final int nLevel,
                                                                   final boolean bOmitCommonStackTraceElements,
-                                                                  @Nonnull final String sLineSeparator)
+                                                                  @NonNull final String sLineSeparator)
   {
     // init string buffer with estimated size (very rough guess)
     final StringBuilder aSB = aInitialSB == null ? new StringBuilder () : aInitialSB;
@@ -245,7 +245,7 @@ public final class StackTraceHelper
    * @return the stack trace as newline separated string. If the passed Throwable is
    *         <code>null</code> an empty string is returned.
    */
-  @Nonnull
+  @NonNull
   public static String getStackAsString (@Nullable final Throwable t)
   {
     return getStackAsString (t, true, DEFAULT_LINE_SEPARATOR);
@@ -262,7 +262,7 @@ public final class StackTraceHelper
    * @return the stack trace as newline separated string. If the passed Throwable is
    *         <code>null</code> an empty string is returned.
    */
-  @Nonnull
+  @NonNull
   public static String getStackAsString (@Nullable final Throwable t, final boolean bOmitCommonStackTraceElements)
   {
     return getStackAsString (t, bOmitCommonStackTraceElements, DEFAULT_LINE_SEPARATOR);
@@ -282,10 +282,10 @@ public final class StackTraceHelper
    *         <code>null</code> an empty string is returned.
    * @since 9.3.6
    */
-  @Nonnull
+  @NonNull
   public static String getStackAsString (@Nullable final Throwable t,
                                          final boolean bOmitCommonStackTraceElements,
-                                         @Nonnull final String sLineSeparator)
+                                         @NonNull final String sLineSeparator)
   {
     ValueEnforcer.notNull (sLineSeparator, "LineSeparator");
 

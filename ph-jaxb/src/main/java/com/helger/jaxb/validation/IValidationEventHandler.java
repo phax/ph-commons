@@ -16,8 +16,9 @@
  */
 package com.helger.jaxb.validation;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**
@@ -30,7 +31,7 @@ import jakarta.xml.bind.ValidationEventHandler;
 @FunctionalInterface
 public interface IValidationEventHandler extends ValidationEventHandler
 {
-  @Nonnull
+  @NonNull
   default IValidationEventHandler andThen (@Nullable final ValidationEventHandler aOther)
   {
     return and (this, aOther);
@@ -47,7 +48,7 @@ public interface IValidationEventHandler extends ValidationEventHandler
    * @return Never <code>null</code>.
    * @since 8.6.0
    */
-  @Nonnull
+  @NonNull
   static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst, @Nullable final ValidationEventHandler aSecond)
   {
     if (aFirst != null)

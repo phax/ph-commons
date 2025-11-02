@@ -18,12 +18,12 @@ package com.helger.datetime.period;
 
 import java.time.LocalDate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.domain.IHasStartAndEnd;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a period consisting of 2 local date periods.
@@ -57,7 +57,7 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
                            final boolean bInclStart,
                            @Nullable final LocalDate aEnd,
                            final boolean bInclEnd,
-                           @Nonnull final LocalDate aQuery)
+                           @NonNull final LocalDate aQuery)
   {
     ValueEnforcer.notNull (aQuery, "QueryDT");
 
@@ -84,7 +84,7 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
    * @see #isInside(LocalDate, boolean, LocalDate, boolean, LocalDate)
    * @since 10.0.0
    */
-  default boolean isInPeriod (final boolean bInclBoundaries, @Nonnull final LocalDate aDate)
+  default boolean isInPeriod (final boolean bInclBoundaries, @NonNull final LocalDate aDate)
   {
     return isInside (getStart (), bInclBoundaries, getEnd (), bInclBoundaries, aDate);
   }
@@ -100,7 +100,7 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
    * @see #isNowInPeriodIncl()
    * @since 8.6.5
    */
-  default boolean isInPeriodIncl (@Nonnull final LocalDate aDate)
+  default boolean isInPeriodIncl (@NonNull final LocalDate aDate)
   {
     return isInPeriod (true, aDate);
   }
@@ -131,7 +131,7 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
    * @see #isNowInPeriodExcl()
    * @since 8.6.5
    */
-  default boolean isInPeriodExcl (@Nonnull final LocalDate aDate)
+  default boolean isInPeriodExcl (@NonNull final LocalDate aDate)
   {
     return isInPeriod (false, aDate);
   }
@@ -201,17 +201,17 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
     return false;
   }
 
-  default boolean isOverlappingWith (@Nonnull final ILocalDatePeriod aPeriod, final boolean bInclBoundaries)
+  default boolean isOverlappingWith (@NonNull final ILocalDatePeriod aPeriod, final boolean bInclBoundaries)
   {
     return hasOverlap (getStart (), getEnd (), aPeriod.getStart (), aPeriod.getEnd (), bInclBoundaries);
   }
 
-  default boolean isOverlappingWithIncl (@Nonnull final ILocalDatePeriod aPeriod)
+  default boolean isOverlappingWithIncl (@NonNull final ILocalDatePeriod aPeriod)
   {
     return isOverlappingWith (aPeriod, true);
   }
 
-  default boolean isOverlappingWithExcl (@Nonnull final ILocalDatePeriod aPeriod)
+  default boolean isOverlappingWithExcl (@NonNull final ILocalDatePeriod aPeriod)
   {
     return isOverlappingWith (aPeriod, false);
   }

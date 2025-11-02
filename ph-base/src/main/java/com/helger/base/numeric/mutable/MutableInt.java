@@ -16,14 +16,14 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around an int so that it can be passed a final object but is
@@ -42,7 +42,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
    * @param aValue
    *        The value to be used.
    */
-  public MutableInt (@Nonnull final Number aValue)
+  public MutableInt (@NonNull final Number aValue)
   {
     this (aValue.intValue ());
   }
@@ -99,7 +99,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
-  public int inc (@Nonnull final Number aDelta)
+  public int inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.intValue ());
@@ -115,7 +115,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return inc (-nDelta);
   }
 
-  public int dec (@Nonnull final Number aDelta)
+  public int dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.intValue ());
@@ -128,7 +128,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
-  public int divide (@Nonnull final Number aDivisor)
+  public int divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.intValue ());
@@ -141,13 +141,13 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
-  public int multiply (@Nonnull final Number aMultiplicand)
+  public int multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.intValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final int nValue)
   {
     if (m_nValue == nValue)
@@ -157,8 +157,8 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.intValue ());
@@ -207,12 +207,12 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return intValue ();
   }
 
-  public int compareTo (@Nonnull final MutableInt rhs)
+  public int compareTo (@NonNull final MutableInt rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableInt getClone ()
   {
     return new MutableInt (this);

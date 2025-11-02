@@ -29,6 +29,8 @@ import java.security.cert.Certificate;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +50,6 @@ import com.helger.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.io.resourceprovider.IReadableResourceProvider;
 import com.helger.io.resourceprovider.ReadableResourceProviderChain;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper methods to access Java key stores of type JKS (Java KeyStore) or PKCS12.
@@ -72,28 +71,28 @@ public final class KeyStoreHelper
   private KeyStoreHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static IReadableResourceProvider getResourceProvider ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aResourceProvider);
   }
 
-  public static void setResourceProvider (@Nonnull final IReadableResourceProvider aResourceProvider)
+  public static void setResourceProvider (@NonNull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
     RW_LOCK.writeLocked ( () -> s_aResourceProvider = aResourceProvider);
   }
 
-  @Nonnull
-  public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther) throws KeyStoreException
+  @NonNull
+  public static KeyStore getSimiliarKeyStore (@NonNull final KeyStore aOther) throws KeyStoreException
   {
     ValueEnforcer.notNull (aOther, "Other");
 
     return getSimiliarKeyStore (aOther, null);
   }
 
-  @Nonnull
-  public static KeyStore getSimiliarKeyStore (@Nonnull final KeyStore aOther,
+  @NonNull
+  public static KeyStore getSimiliarKeyStore (@NonNull final KeyStore aOther,
                                               @Nullable final Provider aSecurityProvider) throws KeyStoreException
   {
     ValueEnforcer.notNull (aOther, "Other");
@@ -122,8 +121,8 @@ public final class KeyStoreHelper
    * @throws IllegalArgumentException
    *         If the key store path is invalid
    */
-  @Nonnull
-  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+  @NonNull
+  public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
                                                                                         IOException
@@ -154,8 +153,8 @@ public final class KeyStoreHelper
    *         If the key store path is invalid
    * @since 11.1.1
    */
-  @Nonnull
-  public static KeyStore loadKeyStoreDirect (@Nonnull final IKeyStoreType aKeyStoreType,
+  @NonNull
+  public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword,
                                              @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
@@ -216,9 +215,9 @@ public final class KeyStoreHelper
    * @throws IOException
    *         In case key store loading fails
    */
-  @Nonnull
-  public static KeyStore createKeyStoreWithOnlyOneItem (@Nonnull final KeyStore aBaseKeyStore,
-                                                        @Nonnull final String sAliasToCopy,
+  @NonNull
+  public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
+                                                        @NonNull final String sAliasToCopy,
                                                         @Nullable final char [] aAliasPassword) throws GeneralSecurityException,
                                                                                                 IOException
   {
@@ -244,9 +243,9 @@ public final class KeyStoreHelper
    *         In case key store loading fails
    * @since 11.1.1
    */
-  @Nonnull
-  public static KeyStore createKeyStoreWithOnlyOneItem (@Nonnull final KeyStore aBaseKeyStore,
-                                                        @Nonnull final String sAliasToCopy,
+  @NonNull
+  public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
+                                                        @NonNull final String sAliasToCopy,
                                                         @Nullable final char [] aAliasPassword,
                                                         @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
                                                                                                     IOException
@@ -273,7 +272,7 @@ public final class KeyStoreHelper
     return aKeyStore;
   }
 
-  private static boolean _isInvalidPasswordException (@Nonnull final Exception ex)
+  private static boolean _isInvalidPasswordException (@NonNull final Exception ex)
   {
     return ex instanceof IOException && ex.getCause () instanceof UnrecoverableKeyException;
   }
@@ -291,8 +290,8 @@ public final class KeyStoreHelper
    * @return The key store loading result. Never <code>null</code>.
    * @since 11.1.9
    */
-  @Nonnull
-  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+  @NonNull
+  public static LoadedKeyStore loadKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword)
   {
@@ -314,8 +313,8 @@ public final class KeyStoreHelper
    * @return The key store loading result. Never <code>null</code>.
    * @since 11.1.9
    */
-  @Nonnull
-  public static LoadedKeyStore loadKeyStore (@Nonnull final IKeyStoreType aKeyStoreType,
+  @NonNull
+  public static LoadedKeyStore loadKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              @Nullable final char [] aKeyStorePassword,
                                              @Nullable final Provider aSecurityProvider)
@@ -364,12 +363,12 @@ public final class KeyStoreHelper
     return new LoadedKeyStore (aKeyStore, null);
   }
 
-  @Nonnull
-  private static <T extends KeyStore.Entry> LoadedKey <T> _loadKey (@Nonnull final KeyStore aKeyStore,
-                                                                    @Nonnull final String sKeyStorePath,
+  @NonNull
+  private static <T extends KeyStore.Entry> LoadedKey <T> _loadKey (@NonNull final KeyStore aKeyStore,
+                                                                    @NonNull final String sKeyStorePath,
                                                                     @Nullable final String sKeyStoreKeyAlias,
                                                                     @Nullable final char [] aKeyStoreKeyPassword,
-                                                                    @Nonnull final Class <T> aTargetClass)
+                                                                    @NonNull final Class <T> aTargetClass)
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
     ValueEnforcer.notNull (sKeyStorePath, "KeyStorePath");
@@ -443,9 +442,9 @@ public final class KeyStoreHelper
    *        The key password for the key store. Must be non-<code>null</code> to succeed.
    * @return The key loading result. Never <code>null</code>.
    */
-  @Nonnull
-  public static LoadedKey <KeyStore.PrivateKeyEntry> loadPrivateKey (@Nonnull final KeyStore aKeyStore,
-                                                                     @Nonnull final String sKeyStorePath,
+  @NonNull
+  public static LoadedKey <KeyStore.PrivateKeyEntry> loadPrivateKey (@NonNull final KeyStore aKeyStore,
+                                                                     @NonNull final String sKeyStorePath,
                                                                      @Nullable final String sKeyStoreKeyAlias,
                                                                      @Nullable final char [] aKeyStoreKeyPassword)
   {
@@ -465,9 +464,9 @@ public final class KeyStoreHelper
    *        The key password for the key store. Must be non-<code>null</code> to succeed.
    * @return The key loading result. Never <code>null</code>.
    */
-  @Nonnull
-  public static LoadedKey <KeyStore.SecretKeyEntry> loadSecretKey (@Nonnull final KeyStore aKeyStore,
-                                                                   @Nonnull final String sKeyStorePath,
+  @NonNull
+  public static LoadedKey <KeyStore.SecretKeyEntry> loadSecretKey (@NonNull final KeyStore aKeyStore,
+                                                                   @NonNull final String sKeyStorePath,
                                                                    @Nullable final String sKeyStoreKeyAlias,
                                                                    @Nullable final char [] aKeyStoreKeyPassword)
   {
@@ -487,9 +486,9 @@ public final class KeyStoreHelper
    *        The key password for the key store. Must be non-<code>null</code> to succeed.
    * @return The key loading result. Never <code>null</code>.
    */
-  @Nonnull
-  public static LoadedKey <KeyStore.TrustedCertificateEntry> loadTrustedCertificateKey (@Nonnull final KeyStore aKeyStore,
-                                                                                        @Nonnull final String sKeyStorePath,
+  @NonNull
+  public static LoadedKey <KeyStore.TrustedCertificateEntry> loadTrustedCertificateKey (@NonNull final KeyStore aKeyStore,
+                                                                                        @NonNull final String sKeyStorePath,
                                                                                         @Nullable final String sKeyStoreKeyAlias,
                                                                                         @Nullable final char [] aKeyStoreKeyPassword)
   {
@@ -509,8 +508,8 @@ public final class KeyStoreHelper
    *        The consumer for each alias. May not be <code>null</code>.
    * @since 11.1.10
    */
-  public static void iterateKeyStore (@Nonnull final KeyStore aKeyStore,
-                                      @Nonnull final IThrowingConsumer <String, KeyStoreException> aAliasConsumer)
+  public static void iterateKeyStore (@NonNull final KeyStore aKeyStore,
+                                      @NonNull final IThrowingConsumer <String, KeyStoreException> aAliasConsumer)
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
     ValueEnforcer.notNull (aAliasConsumer, "AliasConsumer");
@@ -538,7 +537,7 @@ public final class KeyStoreHelper
    * @return A non-<code>null</code> set of all trusted certificates. Never <code>null</code>.
    * @since 11.2.0
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <X509Certificate> getAllTrustedCertificates (@Nullable final KeyStore aTrustStore)
   {

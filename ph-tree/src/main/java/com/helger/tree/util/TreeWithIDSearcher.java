@@ -16,6 +16,9 @@
  */
 package com.helger.tree.util;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.collection.hierarchy.visit.DefaultHierarchyVisitorCallback;
 import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.withid.ITreeItemWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class that helps searching items within trees.
@@ -58,9 +58,9 @@ public final class TreeWithIDSearcher
    *        The ID to search. May not be <code>null</code>.
    * @return A non-<code>null</code> list with all matching items.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> ICommonsList <ITEMTYPE> findAllItemsWithIDRecursive (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> ICommonsList <ITEMTYPE> findAllItemsWithIDRecursive (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                                          @Nullable final KEYTYPE aSearchID)
   {
     return findAllItemsWithIDRecursive (aTree.getRootItem (), aSearchID);
@@ -81,16 +81,16 @@ public final class TreeWithIDSearcher
    *        The ID to search. May not be <code>null</code>.
    * @return A non-<code>null</code> list with all matching items.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> ICommonsList <ITEMTYPE> findAllItemsWithIDRecursive (@Nonnull final ITEMTYPE aTreeItem,
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> ICommonsList <ITEMTYPE> findAllItemsWithIDRecursive (@NonNull final ITEMTYPE aTreeItem,
                                                                                                                                                          @Nullable final KEYTYPE aSearchID)
   {
     final ICommonsList <ITEMTYPE> aRetList = new CommonsArrayList <> ();
     TreeVisitor.visitTreeItem (aTreeItem, new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
-      @Nonnull
+      @NonNull
       public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
       {
         if (aItem != null && aItem.getID ().equals (aSearchID))

@@ -26,12 +26,16 @@ import java.nio.file.Path;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamWriter;
 import javax.xml.transform.Result;
 import javax.xml.transform.stream.StreamResult;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.xml.sax.ContentHandler;
 
 import com.helger.annotation.WillClose;
 import com.helger.base.io.EAppend;
@@ -50,9 +54,6 @@ import com.helger.xml.microdom.serialize.MicroSAXHandler;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.SafeXMLStreamWriter;
 import com.helger.xml.transform.TransformResultFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for writing JAXB documents to various destinations.
@@ -145,7 +146,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return The XML writer settings to be used based on this writer settings. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IXMLWriterSettings getXMLWriterSettings ();
 
   /**
@@ -157,8 +158,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The result file to be written to. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final File aResultFile)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final File aResultFile)
   {
     if (USE_JAXB_CHARSET_FIX)
     {
@@ -179,8 +180,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The result path to be written to. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Path aResultPath)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final Path aResultPath)
   {
     if (USE_JAXB_CHARSET_FIX)
       return write (aObject, aResultPath.toFile ());
@@ -196,8 +197,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The output stream to write to. Will always be closed. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull @WillClose final OutputStream aOS)
   {
     try
     {
@@ -223,8 +224,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The writer to write to. Will always be closed. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull @WillClose final Writer aWriter)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull @WillClose final Writer aWriter)
   {
     try
     {
@@ -253,8 +254,8 @@ public interface IJAXBWriter <JAXBTYPE>
    * @throws BufferOverflowException
    *         If the ByteBuffer is too small
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final ByteBuffer aBuffer)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final ByteBuffer aBuffer)
   {
     return write (aObject, new ByteBufferOutputStream (aBuffer, false));
   }
@@ -268,8 +269,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The result resource to be written to. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final IWritableResource aResource)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final IWritableResource aResource)
   {
     if (USE_JAXB_CHARSET_FIX)
     {
@@ -290,8 +291,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        The marshalling function. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  ESuccess write (@Nonnull JAXBTYPE aObject, @Nonnull IJAXBMarshaller <JAXBTYPE> aMarshallerFunc);
+  @NonNull
+  ESuccess write (@NonNull JAXBTYPE aObject, @NonNull IJAXBMarshaller <JAXBTYPE> aMarshallerFunc);
 
   /**
    * Convert the passed object to XML. This method is potentially dangerous, when using StreamResult
@@ -305,8 +306,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        StreamResult are supported.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final Result aResult)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final Result aResult)
   {
     if (USE_JAXB_CHARSET_FIX && aResult instanceof StreamResult)
     {
@@ -326,8 +327,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        XML will be sent to this handler as SAX2 events. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject, @Nonnull final org.xml.sax.ContentHandler aHandler)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull final ContentHandler aHandler)
   {
     // No need for charset fix, because it is up to the ContentHandler, if it is
     // converting to a byte[] or not.
@@ -343,9 +344,8 @@ public interface IJAXBWriter <JAXBTYPE>
    *        XML will be sent to this writer. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess write (@Nonnull final JAXBTYPE aObject,
-                          @Nonnull @WillClose final javax.xml.stream.XMLStreamWriter aWriter)
+  @NonNull
+  default ESuccess write (@NonNull final JAXBTYPE aObject, @NonNull @WillClose final XMLStreamWriter aWriter)
   {
     // No need for charset fix, because it is up to the XMLStreamWriter, if it
     // is converting to a byte[] or not.
@@ -378,7 +378,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return <code>null</code> if converting the document failed.
    */
   @Nullable
-  default Document getAsDocument (@Nonnull final JAXBTYPE aObject)
+  default Document getAsDocument (@NonNull final JAXBTYPE aObject)
   {
     // No need for charset fix, because the document is returned in an internal
     // representation with String content
@@ -395,7 +395,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @since 11.0.2
    */
   @Nullable
-  default Element getAsElement (@Nonnull final JAXBTYPE aObject)
+  default Element getAsElement (@NonNull final JAXBTYPE aObject)
   {
     final Document aDoc = getAsDocument (aObject);
     return aDoc == null ? null : aDoc.getDocumentElement ();
@@ -409,7 +409,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return <code>null</code> if converting the document failed.
    */
   @Nullable
-  default IMicroDocument getAsMicroDocument (@Nonnull final JAXBTYPE aObject)
+  default IMicroDocument getAsMicroDocument (@NonNull final JAXBTYPE aObject)
   {
     // No need for charset fix, because the document is returned in an internal
     // representation with String content
@@ -425,7 +425,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return <code>null</code> if converting the document failed.
    */
   @Nullable
-  default IMicroElement getAsMicroElement (@Nonnull final JAXBTYPE aObject)
+  default IMicroElement getAsMicroElement (@NonNull final JAXBTYPE aObject)
   {
     final IMicroDocument aDoc = getAsMicroDocument (aObject);
     if (aDoc == null)
@@ -447,7 +447,7 @@ public interface IJAXBWriter <JAXBTYPE>
    *         validation errors.
    */
   @Nullable
-  default String getAsString (@Nonnull final JAXBTYPE aObject)
+  default String getAsString (@NonNull final JAXBTYPE aObject)
   {
     try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
     {
@@ -470,7 +470,7 @@ public interface IJAXBWriter <JAXBTYPE>
    *         validation errors.
    */
   @Nullable
-  default ByteBuffer getAsByteBuffer (@Nonnull final JAXBTYPE aObject)
+  default ByteBuffer getAsByteBuffer (@NonNull final JAXBTYPE aObject)
   {
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {
@@ -492,7 +492,7 @@ public interface IJAXBWriter <JAXBTYPE>
    *         validation errors.
    */
   @Nullable
-  default byte [] getAsBytes (@Nonnull final JAXBTYPE aObject)
+  default byte [] getAsBytes (@NonNull final JAXBTYPE aObject)
   {
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {
@@ -515,7 +515,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @since 9.1.8
    */
   @Nullable
-  default NonBlockingByteArrayInputStream getAsInputStream (@Nonnull final JAXBTYPE aObject)
+  default NonBlockingByteArrayInputStream getAsInputStream (@NonNull final JAXBTYPE aObject)
   {
     final byte [] aBytes = getAsBytes (aObject);
     return aBytes == null ? null : new NonBlockingByteArrayInputStream (aBytes);

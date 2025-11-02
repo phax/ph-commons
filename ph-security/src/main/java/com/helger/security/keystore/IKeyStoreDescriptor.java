@@ -18,10 +18,10 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Interface describing the parameters needed to reference a key store (without
@@ -35,14 +35,14 @@ public interface IKeyStoreDescriptor
   /**
    * @return The type of the key store. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IKeyStoreType getKeyStoreType ();
 
   /**
    * @return The path to the key store. May neither be <code>null</code> nor
    *         empty. The interpretation of the path is implementation dependent.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getKeyStorePath ();
 
@@ -50,7 +50,7 @@ public interface IKeyStoreDescriptor
    * @return The password required to open the key store. May not be
    *         <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   char [] getKeyStorePassword ();
 
   /**
@@ -64,6 +64,6 @@ public interface IKeyStoreDescriptor
    * @return The loaded key store based on the parameters in this descriptor.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LoadedKeyStore loadKeyStore ();
 }

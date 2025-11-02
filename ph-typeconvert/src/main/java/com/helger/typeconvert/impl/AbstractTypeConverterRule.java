@@ -16,11 +16,11 @@
  */
 package com.helger.typeconvert.impl;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.ITypeConverterRule;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract type converter rule implementation
@@ -35,12 +35,12 @@ public abstract class AbstractTypeConverterRule <SRC, DST> implements ITypeConve
 {
   private final ESubType m_eSubType;
 
-  protected AbstractTypeConverterRule (@Nonnull final ITypeConverterRule.ESubType eSubType)
+  protected AbstractTypeConverterRule (final ITypeConverterRule.@NonNull ESubType eSubType)
   {
     m_eSubType = ValueEnforcer.notNull (eSubType, "SubType");
   }
 
-  @Nonnull
+  @NonNull
   public final ESubType getSubType ()
   {
     return m_eSubType;

@@ -28,6 +28,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,9 +58,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.web.PDTWebDateHelper;
 import com.helger.http.CHttpHeader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstracts HTTP header interface for external usage.<br>
@@ -98,7 +97,7 @@ public class HttpHeaderMap implements
    * @param aOther
    *        Map to copy from. May not be <code>null</code>.
    */
-  public HttpHeaderMap (@Nonnull final HttpHeaderMap aOther)
+  public HttpHeaderMap (@NonNull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aHeaders.putAll (aOther.m_aHeaders);
@@ -115,7 +114,7 @@ public class HttpHeaderMap implements
    *        The source header value. May be <code>null</code>.
    * @return The unified header value without \r, \n and \t. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static String getUnifiedValue (@Nullable final String sValue)
   {
     return getUnifiedValue (sValue, DEFAULT_QUOTE_IF_NECESSARY);
@@ -133,7 +132,7 @@ public class HttpHeaderMap implements
    * @return The unified header value without \r, \n and \t. Never <code>null</code>.
    * @since 9.3.6
    */
-  @Nonnull
+  @NonNull
   public static String getUnifiedValue (@Nullable final String sValue, final boolean bQuoteIfNecessary)
   {
     final char [] aOneLiner;
@@ -204,15 +203,14 @@ public class HttpHeaderMap implements
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     return m_aHeaders.removeAll ();
   }
 
-  @Nullable
   @ReturnsMutableObject
-  private Map.Entry <String, ICommonsList <String>> _getHeaderEntryCaseInsensitive (@Nullable final String sName)
+  private Map.@Nullable Entry <String, ICommonsList <String>> _getHeaderEntryCaseInsensitive (@Nullable final String sName)
   {
     if (StringHelper.isNotEmpty (sName))
       for (final Map.Entry <String, ICommonsList <String>> aEntry : m_aHeaders.entrySet ())
@@ -229,9 +227,9 @@ public class HttpHeaderMap implements
     return aEntry == null ? null : aEntry.getValue ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
-  private ICommonsList <String> _getOrCreateHeaderList (@Nonnull @Nonempty final String sName)
+  private ICommonsList <String> _getOrCreateHeaderList (@NonNull @Nonempty final String sName)
   {
     ICommonsList <String> ret = _getHeaderListCaseInsensitive (sName);
     if (ret == null)
@@ -242,8 +240,8 @@ public class HttpHeaderMap implements
     return ret;
   }
 
-  @Nonnull
-  private EChange _setHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @NonNull
+  private EChange _setHeader (@NonNull @Nonempty final String sName, @NonNull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
@@ -253,8 +251,8 @@ public class HttpHeaderMap implements
     return _getOrCreateHeaderList (sName).set (sValue);
   }
 
-  @Nonnull
-  private EChange _addHeader (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  @NonNull
+  private EChange _addHeader (@NonNull @Nonempty final String sName, @NonNull final String sValue)
   {
     ValueEnforcer.notEmpty (sName, "Name");
     ValueEnforcer.notNull (sValue, "Value");
@@ -272,7 +270,7 @@ public class HttpHeaderMap implements
    * @param sValue
    *        The value to be set. May be <code>null</code> in which case nothing happens.
    */
-  public void setHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  public void setHeader (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     if (sValue != null)
       _setHeader (sName, sValue);
@@ -286,14 +284,14 @@ public class HttpHeaderMap implements
    * @param sValue
    *        The value to be set. May be <code>null</code> in which case nothing happens.
    */
-  public void addHeader (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  public void addHeader (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     if (sValue != null)
       _addHeader (sName, sValue);
   }
 
-  @Nonnull
-  public static String getDateTimeAsString (@Nonnull final ZonedDateTime aDT)
+  @NonNull
+  public static String getDateTimeAsString (@NonNull final ZonedDateTime aDT)
   {
     ValueEnforcer.notNull (aDT, "DateTime");
 
@@ -301,8 +299,8 @@ public class HttpHeaderMap implements
     return PDTWebDateHelper.getAsStringRFC822 (aDT);
   }
 
-  @Nonnull
-  public static String getDateTimeAsString (@Nonnull final LocalDateTime aLDT)
+  @NonNull
+  public static String getDateTimeAsString (@NonNull final LocalDateTime aLDT)
   {
     ValueEnforcer.notNull (aLDT, "DateTime");
 
@@ -318,7 +316,7 @@ public class HttpHeaderMap implements
    * @param nMillis
    *        The milliseconds to set as a date.
    */
-  public void setDateHeader (@Nonnull @Nonempty final String sName, final long nMillis)
+  public void setDateHeader (@NonNull @Nonempty final String sName, final long nMillis)
   {
     setDateHeader (sName, PDTFactory.createZonedDateTime (nMillis));
   }
@@ -332,7 +330,7 @@ public class HttpHeaderMap implements
    *        The LocalDate to set as a date. The time is set to start of day. May not be
    *        <code>null</code>.
    */
-  public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
+  public void setDateHeader (@NonNull @Nonempty final String sName, @NonNull final LocalDate aLD)
   {
     setDateHeader (sName, PDTFactory.createZonedDateTime (aLD));
   }
@@ -345,7 +343,7 @@ public class HttpHeaderMap implements
    * @param aLDT
    *        The LocalDateTime to set as a date. May not be <code>null</code>.
    */
-  public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDateTime aLDT)
+  public void setDateHeader (@NonNull @Nonempty final String sName, @NonNull final LocalDateTime aLDT)
   {
     setDateHeader (sName, PDTFactory.createZonedDateTime (aLDT));
   }
@@ -358,7 +356,7 @@ public class HttpHeaderMap implements
    * @param aDT
    *        The DateTime to set as a date. May not be <code>null</code>.
    */
-  public void setDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final ZonedDateTime aDT)
+  public void setDateHeader (@NonNull @Nonempty final String sName, @NonNull final ZonedDateTime aDT)
   {
     _setHeader (sName, getDateTimeAsString (aDT));
   }
@@ -371,7 +369,7 @@ public class HttpHeaderMap implements
    * @param nMillis
    *        The milliseconds to set as a date.
    */
-  public void addDateHeader (@Nonnull @Nonempty final String sName, final long nMillis)
+  public void addDateHeader (@NonNull @Nonempty final String sName, final long nMillis)
   {
     addDateHeader (sName, PDTFactory.createZonedDateTime (nMillis));
   }
@@ -385,7 +383,7 @@ public class HttpHeaderMap implements
    *        The LocalDate to set as a date. The time is set to start of day. May not be
    *        <code>null</code>.
    */
-  public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDate aLD)
+  public void addDateHeader (@NonNull @Nonempty final String sName, @NonNull final LocalDate aLD)
   {
     addDateHeader (sName, PDTFactory.createZonedDateTime (aLD));
   }
@@ -398,7 +396,7 @@ public class HttpHeaderMap implements
    * @param aLDT
    *        The LocalDateTime to set as a date. May not be <code>null</code>.
    */
-  public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final LocalDateTime aLDT)
+  public void addDateHeader (@NonNull @Nonempty final String sName, @NonNull final LocalDateTime aLDT)
   {
     addDateHeader (sName, PDTFactory.createZonedDateTime (aLDT));
   }
@@ -411,7 +409,7 @@ public class HttpHeaderMap implements
    * @param aDT
    *        The DateTime to set as a date. May not be <code>null</code>.
    */
-  public void addDateHeader (@Nonnull @Nonempty final String sName, @Nonnull final ZonedDateTime aDT)
+  public void addDateHeader (@NonNull @Nonempty final String sName, @NonNull final ZonedDateTime aDT)
   {
     _addHeader (sName, getDateTimeAsString (aDT));
   }
@@ -424,7 +422,7 @@ public class HttpHeaderMap implements
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
    */
-  public void setIntHeader (@Nonnull @Nonempty final String sName, final int nValue)
+  public void setIntHeader (@NonNull @Nonempty final String sName, final int nValue)
   {
     _setHeader (sName, Integer.toString (nValue));
   }
@@ -437,7 +435,7 @@ public class HttpHeaderMap implements
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
    */
-  public void addIntHeader (@Nonnull @Nonempty final String sName, final int nValue)
+  public void addIntHeader (@NonNull @Nonempty final String sName, final int nValue)
   {
     _addHeader (sName, Integer.toString (nValue));
   }
@@ -450,7 +448,7 @@ public class HttpHeaderMap implements
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
    */
-  public void setLongHeader (@Nonnull @Nonempty final String sName, final long nValue)
+  public void setLongHeader (@NonNull @Nonempty final String sName, final long nValue)
   {
     _setHeader (sName, Long.toString (nValue));
   }
@@ -463,7 +461,7 @@ public class HttpHeaderMap implements
    * @param nValue
    *        The value to be set. May not be <code>null</code>.
    */
-  public void addLongHeader (@Nonnull @Nonempty final String sName, final long nValue)
+  public void addLongHeader (@NonNull @Nonempty final String sName, final long nValue)
   {
     _addHeader (sName, Long.toString (nValue));
   }
@@ -475,7 +473,7 @@ public class HttpHeaderMap implements
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
    */
-  public void setAllHeaders (@Nonnull final HttpHeaderMap aOther)
+  public void setAllHeaders (@NonNull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     // Don't use putAll for case sensitivity
@@ -494,7 +492,7 @@ public class HttpHeaderMap implements
    * @param aOther
    *        The header map to add. May not be <code>null</code>.
    */
-  public void addAllHeaders (@Nonnull final HttpHeaderMap aOther)
+  public void addAllHeaders (@NonNull final HttpHeaderMap aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     for (final Map.Entry <String, ICommonsList <String>> aEntry : aOther.m_aHeaders.entrySet ())
@@ -505,7 +503,7 @@ public class HttpHeaderMap implements
     }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, ICommonsList <String>> getAllHeaders ()
   {
@@ -515,7 +513,7 @@ public class HttpHeaderMap implements
   /**
    * @return A copy of all contained header names. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllHeaderNames ()
   {
@@ -529,7 +527,7 @@ public class HttpHeaderMap implements
    *        The name to be searched.
    * @return The list with all matching values. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderValues (@Nullable final String sName)
   {
@@ -573,7 +571,7 @@ public class HttpHeaderMap implements
    * @return <code>null</code> if no such header is contained.
    */
   @Nullable
-  public String getHeaderCombined (@Nullable final String sName, @Nonnull final String sDelimiter)
+  public String getHeaderCombined (@Nullable final String sName, @NonNull final String sDelimiter)
   {
     if (StringHelper.isNotEmpty (sName))
     {
@@ -598,8 +596,8 @@ public class HttpHeaderMap implements
    *        The name filter to be applied. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange removeHeadersIf (@Nonnull final Predicate <? super String> aNameFilter)
+  @NonNull
+  public EChange removeHeadersIf (@NonNull final Predicate <? super String> aNameFilter)
   {
     return m_aHeaders.removeIfKey (aNameFilter);
   }
@@ -611,7 +609,7 @@ public class HttpHeaderMap implements
    *        The name to be removed. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeHeaders (@Nullable final String sName)
   {
     if (StringHelper.isEmpty (sName))
@@ -624,7 +622,7 @@ public class HttpHeaderMap implements
     return EChange.UNCHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
     final Map.Entry <String, ICommonsList <String>> aEntry = _getHeaderEntryCaseInsensitive (sName);
@@ -638,7 +636,7 @@ public class HttpHeaderMap implements
     return EChange.valueOf (bRemoved);
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <Map.Entry <String, ICommonsList <String>>> iterator ()
   {
     return m_aHeaders.entrySet ().iterator ();
@@ -665,7 +663,7 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
-  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
+  public void forEachSingleHeader (@NonNull final BiConsumer <? super String, ? super String> aConsumer,
                                    final boolean bUnifyValue)
   {
     forEachSingleHeader (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
@@ -684,7 +682,7 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String, boolean)
    * @since 9.3.7
    */
-  public void forEachSingleHeader (@Nonnull final BiConsumer <? super String, ? super String> aConsumer,
+  public void forEachSingleHeader (@NonNull final BiConsumer <? super String, ? super String> aConsumer,
                                    final boolean bUnifyValue,
                                    final boolean bQuoteIfNecessary)
   {
@@ -709,7 +707,7 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.6
    */
-  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer, final boolean bUnifyValue)
+  public void forEachHeaderLine (@NonNull final Consumer <? super String> aConsumer, final boolean bUnifyValue)
   {
     forEachHeaderLine (aConsumer, bUnifyValue, DEFAULT_QUOTE_IF_NECESSARY);
   }
@@ -727,7 +725,7 @@ public class HttpHeaderMap implements
    * @see #getUnifiedValue(String,boolean)
    * @since 9.3.7
    */
-  public void forEachHeaderLine (@Nonnull final Consumer <? super String> aConsumer,
+  public void forEachHeaderLine (@NonNull final Consumer <? super String> aConsumer,
                                  final boolean bUnifyValue,
                                  final boolean bQuoteIfNecessary)
   {
@@ -751,7 +749,7 @@ public class HttpHeaderMap implements
    *        <code>true</code> to unify the values, <code>false</code> if not
    * @return Never <code>null</code> but maybe an empty list.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderLines (final boolean bUnifyValue)
   {
@@ -769,7 +767,7 @@ public class HttpHeaderMap implements
    * @return Never <code>null</code> but maybe an empty list.
    * @since 9.3.7
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllHeaderLines (final boolean bUnifyValue, final boolean bQuoteIfNecessary)
   {
@@ -783,12 +781,12 @@ public class HttpHeaderMap implements
     _setHeader (CHttpHeader.CONTENT_LENGTH, Long.toString (nLength));
   }
 
-  public void setContentType (@Nonnull final String sContentType)
+  public void setContentType (@NonNull final String sContentType)
   {
     _setHeader (CHttpHeader.CONTENT_TYPE, sContentType);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public HttpHeaderMap getClone ()
   {
@@ -800,7 +798,7 @@ public class HttpHeaderMap implements
    *         empty.
    * @since 10.0
    */
-  @Nonnull
+  @NonNull
   public Map <String, List <String>> getAsMapStringToListString ()
   {
     final Map <String, List <String>> ret = new HashMap <> ();

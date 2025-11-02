@@ -18,6 +18,8 @@ package com.helger.text.locale;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a global cache for Locale objects to avoid too many object flowing around.<br>
@@ -73,10 +72,10 @@ public class LocaleCache implements IHasConditionalLogger
      * @return The created Locale or <code>null</code>.
      */
     @Nullable
-    Locale onMissingLocale (@Nonnull String sLocaleKey,
-                            @Nonnull String sLanguage,
-                            @Nonnull String sCountry,
-                            @Nonnull String sVariant);
+    Locale onMissingLocale (@NonNull String sLocaleKey,
+                            @NonNull String sLanguage,
+                            @NonNull String sCountry,
+                            @NonNull String sVariant);
   }
 
   private static final class SingletonHolder
@@ -134,7 +133,7 @@ public class LocaleCache implements IHasConditionalLogger
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static LocaleCache getInstance ()
   {
     final LocaleCache ret = SingletonHolder.INSTANCE;
@@ -147,7 +146,7 @@ public class LocaleCache implements IHasConditionalLogger
    *         locale to the set. Never <code>null</code>.
    * @since 9.4.2
    */
-  @Nonnull
+  @NonNull
   public final IMissingLocaleHandler getDefaultMissingLocaleHandler ()
   {
     return m_aMissingLocaleHandlerInsert;
@@ -243,10 +242,10 @@ public class LocaleCache implements IHasConditionalLogger
    *        Variant to use
    * @return String
    */
-  @Nonnull
-  private static String _buildLocaleString (@Nonnull final String sLanguage,
-                                            @Nonnull final String sCountry,
-                                            @Nonnull final String sVariant)
+  @NonNull
+  private static String _buildLocaleString (@NonNull final String sLanguage,
+                                            @NonNull final String sCountry,
+                                            @NonNull final String sVariant)
   {
     final StringBuilder aLocaleSB = new StringBuilder ();
     if (sLanguage.length () > 0)
@@ -302,7 +301,7 @@ public class LocaleCache implements IHasConditionalLogger
    * @return a set with all contained locales, except "all" and "independent". Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Locale> getAllLocales ()
   {
@@ -317,7 +316,7 @@ public class LocaleCache implements IHasConditionalLogger
    *
    * @return a set with all contained languages, except "all" and "independent"
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguages ()
   {
@@ -367,7 +366,7 @@ public class LocaleCache implements IHasConditionalLogger
     return containsLocale (sLanguage, sCountry, "");
   }
 
-  @Nonnull
+  @NonNull
   private static String _createLocaleKey (@Nullable final String sLanguage,
                                           @Nullable final String sCountry,
                                           @Nullable final String sVariant)
@@ -402,7 +401,7 @@ public class LocaleCache implements IHasConditionalLogger
   /**
    * @return A set of all system default locales. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Locale> getAllDefaultLocales ()
   {

@@ -16,6 +16,8 @@
  */
 package com.helger.base.type;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.IComparable;
@@ -24,8 +26,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.name.IHasName;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class encapsulates an internal object type.<br>
@@ -43,19 +43,19 @@ public class ObjectType implements IComparable <ObjectType>, IHasName
   // The mutable m_aHashCode does not contradict thread safety
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public ObjectType (@Nonnull @Nonempty final String sName)
+  public ObjectType (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  public int compareTo (@Nonnull final ObjectType aObjType)
+  public int compareTo (@NonNull final ObjectType aObjType)
   {
     return m_sName.compareTo (aObjType.m_sName);
   }

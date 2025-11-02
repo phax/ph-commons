@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.FilterInputStream;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around another {@link FilterInputStream} to make the wrapped
@@ -36,7 +36,7 @@ public class WrappedInputStream extends FilterInputStream
    * @param aWrappedIS
    *        The input stream to be wrapped. May not be <code>null</code>.
    */
-  public WrappedInputStream (@Nonnull final InputStream aWrappedIS)
+  public WrappedInputStream (@NonNull final InputStream aWrappedIS)
   {
     super (ValueEnforcer.notNull (aWrappedIS, "WrappedInputStream"));
   }
@@ -45,7 +45,7 @@ public class WrappedInputStream extends FilterInputStream
    * @return The input stream provided in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final InputStream getWrappedInputStream ()
   {
     return in;

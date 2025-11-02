@@ -16,14 +16,14 @@
  */
 package com.helger.collection.hierarchy.visit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.hierarchy.ChildrenProviderHasChildren;
 import com.helger.collection.hierarchy.IChildrenProvider;
 import com.helger.collection.hierarchy.IHasChildren;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Recursively visit all children provided by a given {@link IChildrenProvider} and call a callback
@@ -39,8 +39,8 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
   private final IHierarchyVisitorCallback <? super CHILDTYPE> m_aCallback;
 
-  public ChildrenProviderHierarchyVisitor (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
+  public ChildrenProviderHierarchyVisitor (@NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                           @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
     m_aChildrenProvider = ValueEnforcer.notNull (aChildrenProvider, "ChildrenProvider");
     m_aCallback = ValueEnforcer.notNull (aCallback, "Callback");
@@ -49,7 +49,7 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   /**
    * @return The children provider as passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
   {
     return m_aChildrenProvider;
@@ -58,13 +58,13 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   /**
    * @return The callback to be executed as passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IHierarchyVisitorCallback <? super CHILDTYPE> getCallback ()
   {
     return m_aCallback;
   }
 
-  @Nonnull
+  @NonNull
   private EHierarchyVisitorReturn _visitRecursive (@Nullable final CHILDTYPE aObject)
   {
     // prefix callback
@@ -159,29 +159,29 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     }
   }
 
-  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+  public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                             final boolean bInvokeOnStartObject)
   {
     visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
   }
 
-  public static <CHILDTYPE> void visitAll (@Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                           @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+  public static <CHILDTYPE> void visitAll (@NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                           @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                            final boolean bInvokeOnStartObject)
   {
     new ChildrenProviderHierarchyVisitor <> (aChildrenProvider, aCallback).visit (null, bInvokeOnStartObject);
   }
 
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitFrom (@Nullable final CHILDTYPE aStartObject,
-                                                                             @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                                                             @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                              final boolean bInvokeOnStartObject)
   {
     visitFrom (aStartObject, new ChildrenProviderHasChildren <> (), aCallback, bInvokeOnStartObject);
   }
 
   public static <CHILDTYPE> void visitFrom (@Nullable final CHILDTYPE aStartObject,
-                                            @Nonnull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
-                                            @Nonnull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
+                                            @NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
+                                            @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                             final boolean bInvokeOnStartObject)
   {
     new ChildrenProviderHierarchyVisitor <> (aChildrenProvider, aCallback).visit (aStartObject, bInvokeOnStartObject);

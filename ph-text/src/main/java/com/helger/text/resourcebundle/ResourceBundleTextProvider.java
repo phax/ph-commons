@@ -18,6 +18,9 @@ package com.helger.text.resourcebundle;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.text.AbstractHasText;
 import com.helger.text.IHasTextWithArgs;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class encapsulates the resource bundle handling.
@@ -40,19 +40,19 @@ public class ResourceBundleTextProvider extends AbstractHasText implements IHasT
 {
   private final ResourceBundleKey m_aResBundleKey;
 
-  public ResourceBundleTextProvider (@Nonnull final String sBundleName, @Nonnull final String sKey)
+  public ResourceBundleTextProvider (@NonNull final String sBundleName, @NonNull final String sKey)
   {
     this (new ResourceBundleKey (sBundleName, sKey));
   }
 
-  public ResourceBundleTextProvider (@Nonnull final ResourceBundleKey aResBundleKey)
+  public ResourceBundleTextProvider (@NonNull final ResourceBundleKey aResBundleKey)
   {
     m_aResBundleKey = ValueEnforcer.notNull (aResBundleKey, "ResBundleKey");
   }
 
   @Override
   @Nullable
-  protected String internalGetText (@Nonnull final Locale aContentLocale)
+  protected String internalGetText (@NonNull final Locale aContentLocale)
   {
     return m_aResBundleKey.getString (aContentLocale);
   }

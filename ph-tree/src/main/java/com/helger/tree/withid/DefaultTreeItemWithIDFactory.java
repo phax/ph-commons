@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of {@link AbstractTreeItemWithIDFactory} using the
@@ -35,15 +35,15 @@ import jakarta.annotation.Nonnull;
 public class DefaultTreeItemWithIDFactory <KEYTYPE, DATATYPE> extends
                                           AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
-  @Nonnull
+  @NonNull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {
     return new DefaultTreeItemWithID <> (this);
   }
 
-  @Nonnull
-  public DefaultTreeItemWithID <KEYTYPE, DATATYPE> create (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
-                                                           @Nonnull final KEYTYPE aDataID)
+  @NonNull
+  public DefaultTreeItemWithID <KEYTYPE, DATATYPE> create (@NonNull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
+                                                           @NonNull final KEYTYPE aDataID)
   {
     ValueEnforcer.notNull (aParent, "Parent");
 

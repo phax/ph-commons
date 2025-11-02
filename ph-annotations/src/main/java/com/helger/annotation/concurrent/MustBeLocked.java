@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Just to indicate that a method must be called inside a lock. When using read-write locks (class
@@ -39,6 +39,6 @@ import jakarta.annotation.Nonnull;
 @Documented
 public @interface MustBeLocked
 {
-  @Nonnull
+  @NonNull
   ELockType value();
 }

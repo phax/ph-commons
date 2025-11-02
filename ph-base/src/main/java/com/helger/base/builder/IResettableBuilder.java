@@ -16,7 +16,7 @@
  */
 package com.helger.base.builder;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Marker interface for a resettable builder
@@ -42,7 +42,7 @@ public interface IResettableBuilder <T> extends IBuilder <T>
    *        <code>false</code> if not.
    * @return The built object. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default T build (final boolean bReset)
   {
     final T ret = build ();

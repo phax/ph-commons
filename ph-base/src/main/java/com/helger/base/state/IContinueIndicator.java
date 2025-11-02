@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has continue/break indication.
@@ -38,14 +38,14 @@ public interface IContinueIndicator
     return !isContinue ();
   }
 
-  @Nonnull
-  default EContinue or (@Nonnull final IContinueIndicator aContinue)
+  @NonNull
+  default EContinue or (@NonNull final IContinueIndicator aContinue)
   {
     return EContinue.valueOf (isContinue () || aContinue.isContinue ());
   }
 
-  @Nonnull
-  default EContinue and (@Nonnull final IContinueIndicator aContinue)
+  @NonNull
+  default EContinue and (@NonNull final IContinueIndicator aContinue)
   {
     return EContinue.valueOf (isContinue () && aContinue.isContinue ());
   }

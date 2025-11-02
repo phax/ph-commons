@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link InputStream} that counts the number of read bytes.
@@ -35,7 +35,7 @@ public class CountingInputStream extends WrappedInputStream
   private long m_nPosition = 0;
   private long m_nMark = 0;
 
-  public CountingInputStream (@Nonnull final InputStream aSourceIS)
+  public CountingInputStream (@NonNull final InputStream aSourceIS)
   {
     super (aSourceIS);
   }

@@ -18,7 +18,7 @@ package com.helger.base.io.stream;
 
 import java.io.Writer;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A special {@link Writer} that does not close the stream.
@@ -27,7 +27,7 @@ import jakarta.annotation.Nonnull;
  */
 public class NonClosingWriter extends WrappedWriter
 {
-  public NonClosingWriter (@Nonnull final Writer aSourceWriter)
+  public NonClosingWriter (@NonNull final Writer aSourceWriter)
   {
     super (aSourceWriter);
   }

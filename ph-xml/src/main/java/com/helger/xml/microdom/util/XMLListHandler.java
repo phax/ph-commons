@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +43,6 @@ import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple class that reads a list from an XML input stream.<br>
@@ -79,15 +78,15 @@ public final class XMLListHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsList <String> readList (@Nonnull final IHasInputStream aISP)
+  public static ICommonsList <String> readList (@NonNull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
     return readList (aISP.getInputStream ());
   }
 
-  @Nonnull
-  public static ESuccess readList (@Nonnull final IHasInputStream aISP, @Nonnull final Collection <String> aTargetList)
+  @NonNull
+  public static ESuccess readList (@NonNull final IHasInputStream aISP, @NonNull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -104,7 +103,7 @@ public final class XMLListHandler
    */
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsList <String> readList (@Nonnull @WillClose final InputStream aIS)
+  public static ICommonsList <String> readList (@NonNull @WillClose final InputStream aIS)
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     if (readList (aIS, ret).isFailure ())
@@ -123,9 +122,9 @@ public final class XMLListHandler
    * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} if the input
    *         stream is no valid XML or any other error occurred.
    */
-  @Nonnull
-  public static ESuccess readList (@Nonnull @WillClose final InputStream aIS,
-                                   @Nonnull final Collection <String> aTargetList)
+  @NonNull
+  public static ESuccess readList (@NonNull @WillClose final InputStream aIS,
+                                   @NonNull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -150,9 +149,9 @@ public final class XMLListHandler
     return ESuccess.FAILURE;
   }
 
-  @Nonnull
-  public static ESuccess readList (@Nonnull final IMicroElement aParentElement,
-                                   @Nonnull final Collection <String> aTargetList)
+  @NonNull
+  public static ESuccess readList (@NonNull final IMicroElement aParentElement,
+                                   @NonNull final Collection <String> aTargetList)
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetList, "TargetList");
@@ -177,8 +176,8 @@ public final class XMLListHandler
     return ESuccess.FAILURE;
   }
 
-  @Nonnull
-  public static IMicroDocument createListDocument (@Nonnull final Collection <String> aCollection)
+  @NonNull
+  public static IMicroDocument createListDocument (@NonNull final Collection <String> aCollection)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
 
@@ -192,9 +191,9 @@ public final class XMLListHandler
     return aDoc;
   }
 
-  @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull final IHasOutputStream aOSP)
+  @NonNull
+  public static ESuccess writeList (@NonNull final Collection <String> aCollection,
+                                    @NonNull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 
@@ -211,9 +210,9 @@ public final class XMLListHandler
    *        May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
-  @Nonnull
-  public static ESuccess writeList (@Nonnull final Collection <String> aCollection,
-                                    @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public static ESuccess writeList (@NonNull final Collection <String> aCollection,
+                                    @NonNull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aOS, "OutputStream");

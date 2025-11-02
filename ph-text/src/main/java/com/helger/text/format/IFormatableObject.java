@@ -18,7 +18,7 @@ package com.helger.text.format;
 
 import java.util.function.Function;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Basic interface for special objects having a certain string representation.

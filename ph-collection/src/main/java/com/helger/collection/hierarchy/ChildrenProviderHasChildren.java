@@ -16,11 +16,11 @@
  */
 package com.helger.collection.hierarchy;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.collection.commons.ICommonsCollection;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A standard implementation of the {@link IChildrenProvider} interface that

@@ -16,6 +16,9 @@
  */
 package com.helger.xml.microdom.util;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.hierarchy.IChildrenProvider;
 import com.helger.xml.microdom.IMicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link IChildrenProvider} for {@link IMicroElement} objects considering
@@ -40,13 +40,13 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   private final String m_sNamespaceURI;
   private final String m_sTagName;
 
-  public ChildrenProviderElementWithName (@Nonnull @Nonempty final String sTagName)
+  public ChildrenProviderElementWithName (@NonNull @Nonempty final String sTagName)
   {
     this (null, sTagName);
   }
 
   public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI,
-                                          @Nonnull @Nonempty final String sTagName)
+                                          @NonNull @Nonempty final String sTagName)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");
@@ -73,7 +73,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     return getAllChildren (aCurrent).size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <? extends IMicroElement> getAllChildren (@Nullable final IMicroElement aCurrent)
   {

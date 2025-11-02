@@ -16,14 +16,14 @@
  */
 package com.helger.settings.exchange.configfile;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.settings.Settings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special {@link Settings} implementation that trims all values before adding
@@ -34,14 +34,14 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class TrimmedValueSettings extends Settings
 {
-  public TrimmedValueSettings (@Nonnull @Nonempty final String sName)
+  public TrimmedValueSettings (@NonNull @Nonempty final String sName)
   {
     super (sName);
   }
 
   @Override
-  @Nonnull
-  public EChange putIn (@Nonnull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
+  @NonNull
+  public EChange putIn (@NonNull @Nonempty final String sFieldName, @Nullable final Object aNewValue)
   {
     final String sRealValue = StringHelper.trim ((String) aNewValue);
     return super.putIn (sFieldName, sRealValue);

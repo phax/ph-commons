@@ -21,14 +21,14 @@ import java.security.GeneralSecurityException;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHex;
 import com.helger.security.password.salt.IPasswordSalt;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base class for {@link IPasswordHashCreator} using the PBKDF2 algorithm.
@@ -41,8 +41,8 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
   protected final int m_nIterations;
   protected final int m_nHashBytes;
 
-  protected AbstractPasswordHashCreatorPBKDF2 (@Nonnull @Nonempty final String sAlgorithmName,
-                                               @Nonnull @Nonempty final String sPBKDF2AlgorithmName,
+  protected AbstractPasswordHashCreatorPBKDF2 (@NonNull @Nonempty final String sAlgorithmName,
+                                               @NonNull @Nonempty final String sPBKDF2AlgorithmName,
                                                @Nonnegative final int nIterations,
                                                @Nonnegative final int nBytes)
   {
@@ -72,12 +72,12 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
    *        The SecretKeyFactory parameter to use. May neither be <code>null</code> nor empty.
    * @return the PBDKF2 hash of the password
    */
-  @Nonnull
-  protected static final byte [] pbkdf2 (@Nonnull final char [] aPassword,
-                                         @Nonnull final byte [] aSalt,
+  @NonNull
+  protected static final byte [] pbkdf2 (@NonNull final char [] aPassword,
+                                         @NonNull final byte [] aSalt,
                                          @Nonnegative final int nIterations,
                                          @Nonnegative final int nBytes,
-                                         @Nonnull @Nonempty final String sPBKDF2AlgorithmName)
+                                         @NonNull @Nonempty final String sPBKDF2AlgorithmName)
   {
     try
     {
@@ -98,8 +98,8 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     }
   }
 
-  @Nonnull
-  public String createPasswordHash (@Nonnull final IPasswordSalt aSalt, @Nonnull final String sPlainTextPassword)
+  @NonNull
+  public String createPasswordHash (@NonNull final IPasswordSalt aSalt, @NonNull final String sPlainTextPassword)
   {
     ValueEnforcer.notNull (aSalt, "Salt");
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");

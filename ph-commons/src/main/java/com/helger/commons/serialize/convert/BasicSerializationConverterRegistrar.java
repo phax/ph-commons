@@ -24,12 +24,12 @@ import java.nio.charset.Charset;
 
 import javax.imageio.ImageIO;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.charset.CharsetHelper;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link ISerializationConverterRegistrarSPI} for basic types like Charset etc.
@@ -43,13 +43,13 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterBufferedImage implements ISerializationConverter <BufferedImage>
   {
-    public void writeConvertedObject (@Nonnull final BufferedImage aSourceObject,
-                                      @Nonnull final ObjectOutputStream aOOS) throws IOException
+    public void writeConvertedObject (@NonNull final BufferedImage aSourceObject,
+                                      @NonNull final ObjectOutputStream aOOS) throws IOException
     {
       ImageIO.write (aSourceObject, "png", aOOS);
     }
 
-    public BufferedImage readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+    public BufferedImage readConvertedObject (@NonNull final ObjectInputStream aOIS) throws IOException
     {
       return ImageIO.read (aOIS);
     }
@@ -57,20 +57,20 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
-    public void writeConvertedObject (@Nonnull final Charset aSourceObject, @Nonnull final ObjectOutputStream aOOS)
+    public void writeConvertedObject (@NonNull final Charset aSourceObject, @NonNull final ObjectOutputStream aOOS)
                                                                                                                     throws IOException
     {
       StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }
 
-    public Charset readConvertedObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+    public Charset readConvertedObject (@NonNull final ObjectInputStream aOIS) throws IOException
     {
       final String sCharsetName = StreamHelper.readSafeUTF (aOIS);
       return CharsetHelper.getCharsetFromName (sCharsetName);
     }
   }
 
-  public void registerSerializationConverter (@Nonnull final ISerializationConverterRegistry aRegistry)
+  public void registerSerializationConverter (@NonNull final ISerializationConverterRegistry aRegistry)
   {
     aRegistry.registerSerializationConverter (BufferedImage.class, new SerializationConverterBufferedImage ());
     aRegistry.registerSerializationConverter (Charset.class, new SerializationConverterCharset ());

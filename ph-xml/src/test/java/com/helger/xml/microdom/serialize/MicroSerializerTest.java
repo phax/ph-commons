@@ -19,6 +19,7 @@ package com.helger.xml.microdom.serialize;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,6 @@ import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link MicroSerializer}
  *
@@ -42,8 +41,8 @@ public final class MicroSerializerTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MicroSerializerTest.class);
 
-  @Nonnull
-  private IMicroDocument _createLargeDoc (@Nonnull final IMicroDocument doc,
+  @NonNull
+  private IMicroDocument _createLargeDoc (@NonNull final IMicroDocument doc,
                                           final boolean bWithText,
                                           final boolean bWithAttrs)
   {

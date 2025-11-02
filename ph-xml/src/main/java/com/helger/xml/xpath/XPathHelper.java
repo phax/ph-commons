@@ -24,15 +24,15 @@ import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFunctionResolver;
 import javax.xml.xpath.XPathVariableResolver;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.xml.EXMLParserFeature;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class to create {@link XPath} and {@link XPathExpression} objects more easily.
@@ -60,7 +60,7 @@ public final class XPathHelper
    * @return The default XPath factory. Be careful when manipulating this object! Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XPathFactory getDefaultXPathFactory ()
   {
     return XPATH_FACTORY;
@@ -75,7 +75,7 @@ public final class XPathHelper
    * @throws IllegalStateException
    *         In case neither Saxon nor default factory could be instantiated!
    */
-  @Nonnull
+  @NonNull
   public static XPathFactory createXPathFactorySaxonFirst ()
   {
     // The XPath object used to compile the expressions
@@ -111,7 +111,7 @@ public final class XPathHelper
    *
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath ()
   {
     return createNewXPath (XPATH_FACTORY,
@@ -127,8 +127,8 @@ public final class XPathHelper
    *        The XPath factory object to use. May not be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
-  public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory)
+  @NonNull
+  public static XPath createNewXPath (@NonNull final XPathFactory aXPathFactory)
   {
     return createNewXPath (aXPathFactory,
                            (XPathVariableResolver) null,
@@ -144,7 +144,7 @@ public final class XPathHelper
    *        Variable resolver to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath (@Nullable final XPathVariableResolver aVariableResolver)
   {
     return createNewXPath (XPATH_FACTORY, aVariableResolver, (XPathFunctionResolver) null, (NamespaceContext) null);
@@ -159,8 +159,8 @@ public final class XPathHelper
    *        Variable resolver to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
-  public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory,
+  @NonNull
+  public static XPath createNewXPath (@NonNull final XPathFactory aXPathFactory,
                                       @Nullable final XPathVariableResolver aVariableResolver)
   {
     return createNewXPath (aXPathFactory, aVariableResolver, (XPathFunctionResolver) null, (NamespaceContext) null);
@@ -174,7 +174,7 @@ public final class XPathHelper
    *        Function resolver to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath (@Nullable final XPathFunctionResolver aFunctionResolver)
   {
     return createNewXPath (XPATH_FACTORY, (XPathVariableResolver) null, aFunctionResolver, (NamespaceContext) null);
@@ -189,8 +189,8 @@ public final class XPathHelper
    *        Function resolver to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
-  public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory,
+  @NonNull
+  public static XPath createNewXPath (@NonNull final XPathFactory aXPathFactory,
                                       @Nullable final XPathFunctionResolver aFunctionResolver)
   {
     return createNewXPath (aXPathFactory, (XPathVariableResolver) null, aFunctionResolver, (NamespaceContext) null);
@@ -204,7 +204,7 @@ public final class XPathHelper
    *        Namespace context to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath (@Nullable final NamespaceContext aNamespaceContext)
   {
     return createNewXPath (XPATH_FACTORY,
@@ -222,8 +222,8 @@ public final class XPathHelper
    *        Namespace context to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
-  public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory,
+  @NonNull
+  public static XPath createNewXPath (@NonNull final XPathFactory aXPathFactory,
                                       @Nullable final NamespaceContext aNamespaceContext)
   {
     return createNewXPath (aXPathFactory,
@@ -242,7 +242,7 @@ public final class XPathHelper
    *        Namespace context to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath (@Nullable final XPathVariableResolver aVariableResolver,
                                       @Nullable final NamespaceContext aNamespaceContext)
   {
@@ -261,7 +261,7 @@ public final class XPathHelper
    *        Namespace context to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
+  @NonNull
   public static XPath createNewXPath (@Nullable final XPathVariableResolver aVariableResolver,
                                       @Nullable final XPathFunctionResolver aFunctionResolver,
                                       @Nullable final NamespaceContext aNamespaceContext)
@@ -283,8 +283,8 @@ public final class XPathHelper
    *        Namespace context to be used. May be <code>null</code>.
    * @return The created non-<code>null</code> {@link XPath} object
    */
-  @Nonnull
-  public static XPath createNewXPath (@Nonnull final XPathFactory aXPathFactory,
+  @NonNull
+  public static XPath createNewXPath (@NonNull final XPathFactory aXPathFactory,
                                       @Nullable final XPathVariableResolver aVariableResolver,
                                       @Nullable final XPathFunctionResolver aFunctionResolver,
                                       @Nullable final NamespaceContext aNamespaceContext)
@@ -316,11 +316,11 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
+  @NonNull
   public static XPathExpression createNewXPathExpression (@Nullable final XPathVariableResolver aVariableResolver,
                                                           @Nullable final XPathFunctionResolver aFunctionResolver,
                                                           @Nullable final NamespaceContext aNamespaceContext,
-                                                          @Nonnull @Nonempty final String sXPath)
+                                                          @NonNull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath);
   }
@@ -336,9 +336,9 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
+  @NonNull
   public static XPathExpression createNewXPathExpression (@Nullable final XPathVariableResolver aVariableResolver,
-                                                          @Nonnull @Nonempty final String sXPath)
+                                                          @NonNull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (aVariableResolver), sXPath);
   }
@@ -354,9 +354,9 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
+  @NonNull
   public static XPathExpression createNewXPathExpression (@Nullable final XPathFunctionResolver aFunctionResolver,
-                                                          @Nonnull @Nonempty final String sXPath)
+                                                          @NonNull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (aFunctionResolver), sXPath);
   }
@@ -372,9 +372,9 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
+  @NonNull
   public static XPathExpression createNewXPathExpression (@Nullable final NamespaceContext aNamespaceContext,
-                                                          @Nonnull @Nonempty final String sXPath)
+                                                          @NonNull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (aNamespaceContext), sXPath);
   }
@@ -388,8 +388,8 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
-  public static XPathExpression createNewXPathExpression (@Nonnull @Nonempty final String sXPath)
+  @NonNull
+  public static XPathExpression createNewXPathExpression (@NonNull @Nonempty final String sXPath)
   {
     return createNewXPathExpression (createNewXPath (), sXPath);
   }
@@ -405,9 +405,9 @@ public final class XPathHelper
    * @throws IllegalArgumentException
    *         if the XPath cannot be compiled
    */
-  @Nonnull
-  public static XPathExpression createNewXPathExpression (@Nonnull final XPath aXPath,
-                                                          @Nonnull @Nonempty final String sXPath)
+  @NonNull
+  public static XPathExpression createNewXPathExpression (@NonNull final XPath aXPath,
+                                                          @NonNull @Nonempty final String sXPath)
   {
     ValueEnforcer.notNull (aXPath, "XPath");
     ValueEnforcer.notNull (sXPath, "XPathExpression");

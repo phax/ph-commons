@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has valid/invalid indication.
@@ -38,25 +38,25 @@ public interface IValidityIndicator
     return !isValid ();
   }
 
-  @Nonnull
-  default EValidity or (@Nonnull final IValidityIndicator aValidity)
+  @NonNull
+  default EValidity or (@NonNull final IValidityIndicator aValidity)
   {
     return or (aValidity.isValid ());
   }
 
-  @Nonnull
+  @NonNull
   default EValidity or (final boolean bValid)
   {
     return EValidity.valueOf (isValid () || bValid);
   }
 
-  @Nonnull
-  default EValidity and (@Nonnull final IValidityIndicator aValidity)
+  @NonNull
+  default EValidity and (@NonNull final IValidityIndicator aValidity)
   {
     return and (aValidity.isValid ());
   }
 
-  @Nonnull
+  @NonNull
   default EValidity and (final boolean bValid)
   {
     return EValidity.valueOf (isValid () && bValid);

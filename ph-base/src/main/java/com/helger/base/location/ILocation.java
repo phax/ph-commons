@@ -16,12 +16,12 @@
  */
 package com.helger.base.location;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.CGlobal;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface indication the position of something within a single resource
@@ -78,7 +78,7 @@ public interface ILocation
   /**
    * @return The display text of the resource location.
    */
-  @Nonnull
+  @NonNull
   default String getAsString ()
   {
     StringBuilder ret = new StringBuilder ();

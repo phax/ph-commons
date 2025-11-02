@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Enumeration;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link ClassLoader} utility methods.
@@ -49,7 +48,7 @@ public class ClassLoaderHelper
   protected ClassLoaderHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static ClassLoader getSystemClassLoader ()
   {
     return ClassLoader.getSystemClassLoader ();
@@ -63,26 +62,26 @@ public class ClassLoaderHelper
     return Thread.currentThread ().getContextClassLoader ();
   }
 
-  public static void setContextClassLoader (@Nonnull final ClassLoader aClassLoader)
+  public static void setContextClassLoader (@NonNull final ClassLoader aClassLoader)
   {
     Thread.currentThread ().setContextClassLoader (aClassLoader);
   }
 
   @Nullable
-  public static ClassLoader getClassClassLoader (@Nonnull final Class <?> aClass)
+  public static ClassLoader getClassClassLoader (@NonNull final Class <?> aClass)
   {
     // If the class represents a primitive type or void, null is returned.
     return aClass.getClassLoader ();
   }
 
   @Nullable
-  public static ClassLoader getParentClassLoader (@Nonnull final ClassLoader aClassLoader)
+  public static ClassLoader getParentClassLoader (@NonNull final ClassLoader aClassLoader)
   {
     // Some implementations may use null to represent the bootstrap class loader.
     return aClassLoader.getParent ();
   }
 
-  @Nonnull
+  @NonNull
   public static ClassLoader getDefaultClassLoader ()
   {
     ClassLoader ret = null;
@@ -102,8 +101,8 @@ public class ClassLoaderHelper
     return ret;
   }
 
-  @Nonnull
-  protected static String internalGetPathWithoutLeadingSlash (@Nonnull @Nonempty final String sPath)
+  @NonNull
+  protected static String internalGetPathWithoutLeadingSlash (@NonNull @Nonempty final String sPath)
   {
     return sPath.charAt (0) == '/' ? sPath.substring (1) : sPath;
   }
@@ -120,7 +119,7 @@ public class ClassLoaderHelper
    * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static URL getResource (@Nonnull final ClassLoader aClassLoader, @Nonnull @Nonempty final String sPath)
+  public static URL getResource (@NonNull final ClassLoader aClassLoader, @NonNull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");
@@ -170,9 +169,9 @@ public class ClassLoaderHelper
    * @throws IOException
    *         In case an internal error occurs.
    */
-  @Nonnull
-  public static Enumeration <URL> getResources (@Nonnull final ClassLoader aClassLoader,
-                                                @Nonnull @Nonempty final String sPath) throws IOException
+  @NonNull
+  public static Enumeration <URL> getResources (@NonNull final ClassLoader aClassLoader,
+                                                @NonNull @Nonempty final String sPath) throws IOException
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");
@@ -196,8 +195,8 @@ public class ClassLoaderHelper
    * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static InputStream getResourceAsStream (@Nonnull final ClassLoader aClassLoader,
-                                                 @Nonnull @Nonempty final String sPath)
+  public static InputStream getResourceAsStream (@NonNull final ClassLoader aClassLoader,
+                                                 @NonNull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");
     ValueEnforcer.notEmpty (sPath, "Path");

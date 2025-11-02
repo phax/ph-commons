@@ -18,12 +18,12 @@ package com.helger.diagnostics.error.list;
 
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.diagnostics.error.IError;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IErrorList}.
@@ -68,12 +68,12 @@ public class ErrorList extends CommonsArrayList <IError> implements IErrorList
    * @param aErrorList
    *        The error list to copy from. May be <code>null</code>.
    */
-  public ErrorList (@Nonnull final ErrorList aErrorList)
+  public ErrorList (@NonNull final ErrorList aErrorList)
   {
     super (aErrorList);
   }
 
-  @Nonnull
+  @NonNull
   public ErrorList getSubList (@Nullable final Predicate <? super IError> aFilter)
   {
     if (aFilter == null)
@@ -85,7 +85,7 @@ public class ErrorList extends CommonsArrayList <IError> implements IErrorList
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public ErrorList getClone ()
   {
     return new ErrorList (this);

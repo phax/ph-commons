@@ -25,15 +25,15 @@ import java.time.ZonedDateTime;
 import java.time.temporal.TemporalAccessor;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.datetime.rt.OffsetDate;
 import com.helger.datetime.xml.XMLOffsetDate;
 import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.datetime.xml.XMLOffsetTime;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Standard API to convert a date, time or date time to a {@link String}.
@@ -50,7 +50,7 @@ public final class PDTToString
   {}
 
   @Nullable
-  public static String getAsString (@Nullable final LocalDate aDate, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final LocalDate aDate, @NonNull final Locale aDisplayLocale)
   {
     return aDate == null ? null
                          : PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
@@ -60,7 +60,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final OffsetDate aDate, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final OffsetDate aDate, @NonNull final Locale aDisplayLocale)
   {
     return aDate == null ? null
                          : PDTFormatter.getFormatterOffsetDate (PDTFormatter.DEFAULT_STYLE,
@@ -70,7 +70,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final XMLOffsetDate aDate, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final XMLOffsetDate aDate, @NonNull final Locale aDisplayLocale)
   {
     if (aDate == null)
       return null;
@@ -84,7 +84,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final LocalTime aTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final LocalTime aTime, @NonNull final Locale aDisplayLocale)
   {
     return aTime == null ? null
                          : PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
@@ -94,7 +94,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final OffsetTime aTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final OffsetTime aTime, @NonNull final Locale aDisplayLocale)
   {
     return aTime == null ? null
                          : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
@@ -104,7 +104,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final XMLOffsetTime aTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final XMLOffsetTime aTime, @NonNull final Locale aDisplayLocale)
   {
     if (aTime == null)
       return null;
@@ -118,7 +118,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final LocalDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final LocalDateTime aDateTime, @NonNull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
@@ -128,7 +128,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final ZonedDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final ZonedDateTime aDateTime, @NonNull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterZonedDateTime (PDTFormatter.DEFAULT_STYLE,
@@ -138,7 +138,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final OffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final OffsetDateTime aDateTime, @NonNull final Locale aDisplayLocale)
   {
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterOffsetDateTime (PDTFormatter.DEFAULT_STYLE,
@@ -148,7 +148,7 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nullable final XMLOffsetDateTime aDateTime, @Nonnull final Locale aDisplayLocale)
+  public static String getAsString (@Nullable final XMLOffsetDateTime aDateTime, @NonNull final Locale aDisplayLocale)
   {
     if (aDateTime == null)
       return null;
@@ -163,13 +163,13 @@ public final class PDTToString
   }
 
   @Nullable
-  public static String getAsString (@Nonnull final String sFormatPattern, @Nullable final TemporalAccessor aPartial)
+  public static String getAsString (@NonNull final String sFormatPattern, @Nullable final TemporalAccessor aPartial)
   {
     return getAsString (sFormatPattern, aPartial, (Locale) null);
   }
 
   @Nullable
-  public static String getAsString (@Nonnull final String sFormatPattern,
+  public static String getAsString (@NonNull final String sFormatPattern,
                                     @Nullable final TemporalAccessor aPartial,
                                     @Nullable final Locale aDisplayLocale)
   {

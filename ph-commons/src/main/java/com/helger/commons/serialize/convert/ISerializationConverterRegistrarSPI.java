@@ -16,9 +16,9 @@
  */
 package com.helger.commons.serialize.convert;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their
@@ -35,5 +35,5 @@ public interface ISerializationConverterRegistrarSPI
    * @param aRegistry
    *        The registry to register your converters. Never <code>null</code>.
    */
-  void registerSerializationConverter (@Nonnull ISerializationConverterRegistry aRegistry);
+  void registerSerializationConverter (@NonNull ISerializationConverterRegistry aRegistry);
 }

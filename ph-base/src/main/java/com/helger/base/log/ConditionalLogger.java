@@ -19,6 +19,8 @@ package com.helger.base.log;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -26,9 +28,6 @@ import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.IEnabledIndicator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Conditional logger
@@ -44,12 +43,12 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   private final Logger m_aLogger;
   private final AtomicBoolean m_aEnabled;
 
-  public ConditionalLogger (@Nonnull final Logger aLogger)
+  public ConditionalLogger (@NonNull final Logger aLogger)
   {
     this (aLogger, DEFAULT_ENABLED);
   }
 
-  public ConditionalLogger (@Nonnull final Logger aLogger, final boolean bEnabled)
+  public ConditionalLogger (@NonNull final Logger aLogger, final boolean bEnabled)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
     m_aLogger = aLogger;
@@ -67,97 +66,97 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
     return m_aEnabled.getAndSet (bEnabled);
   }
 
-  public void trace (@Nonnull final Supplier <String> aMsgSupplier)
+  public void trace (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
       m_aLogger.trace (aMsgSupplier.get ());
   }
 
-  public void trace (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void trace (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
       m_aLogger.trace (aMsgSupplier.get (), ex);
   }
 
-  public void debug (@Nonnull final Supplier <String> aMsgSupplier)
+  public void debug (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
       m_aLogger.debug (aMsgSupplier.get ());
   }
 
-  public void debug (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void debug (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
       m_aLogger.debug (aMsgSupplier.get (), ex);
   }
 
-  public void info (@Nonnull final String sMsg)
+  public void info (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.info (sMsg);
   }
 
-  public void info (@Nonnull final Supplier <String> aMsgSupplier)
+  public void info (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.info (aMsgSupplier.get ());
   }
 
-  public void info (@Nonnull final String sMsg, @Nullable final Exception ex)
+  public void info (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.info (sMsg, ex);
   }
 
-  public void info (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.info (aMsgSupplier.get (), ex);
   }
 
-  public void warn (@Nonnull final String sMsg)
+  public void warn (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.warn (sMsg);
   }
 
-  public void warn (@Nonnull final Supplier <String> aMsgSupplier)
+  public void warn (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.warn (aMsgSupplier.get ());
   }
 
-  public void warn (@Nonnull final String sMsg, @Nullable final Exception ex)
+  public void warn (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.warn (sMsg, ex);
   }
 
-  public void warn (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.warn (aMsgSupplier.get (), ex);
   }
 
-  public void error (@Nonnull final String sMsg)
+  public void error (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.error (sMsg);
   }
 
-  public void error (@Nonnull final Supplier <String> aMsgSupplier)
+  public void error (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.error (aMsgSupplier.get ());
   }
 
-  public void error (@Nonnull final String sMsg, @Nullable final Exception ex)
+  public void error (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.error (sMsg, ex);
   }
 
-  public void error (@Nonnull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.error (aMsgSupplier.get (), ex);

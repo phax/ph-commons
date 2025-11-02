@@ -16,10 +16,10 @@
  */
 package com.helger.json.parser;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * This exception is thrown upon JSON parse error.
@@ -32,7 +32,7 @@ public class JsonParseException extends Exception
   private final transient IJsonParsePosition m_aErrorPos;
   private final String m_sMessage;
 
-  public JsonParseException (@Nonnull final String sMessage)
+  public JsonParseException (@NonNull final String sMessage)
   {
     super ("Json parse error: " + sMessage);
     m_aTokenStart = null;
@@ -40,9 +40,9 @@ public class JsonParseException extends Exception
     m_sMessage = sMessage;
   }
 
-  public JsonParseException (@Nonnull final IJsonParsePosition aTokenStart,
-                             @Nonnull final IJsonParsePosition aErrorPos,
-                             @Nonnull final String sMessage)
+  public JsonParseException (@NonNull final IJsonParsePosition aTokenStart,
+                             @NonNull final IJsonParsePosition aErrorPos,
+                             @NonNull final String sMessage)
   {
     super ("Json parse error " + aErrorPos.getAsString () + " for token starting at " + aTokenStart.getAsString () + ": " + sMessage);
     m_aTokenStart = aTokenStart;
@@ -113,7 +113,7 @@ public class JsonParseException extends Exception
   /**
    * @return The main error message without the automatically added prefix.
    */
-  @Nonnull
+  @NonNull
   public final String getPureMessage ()
   {
     return m_sMessage;

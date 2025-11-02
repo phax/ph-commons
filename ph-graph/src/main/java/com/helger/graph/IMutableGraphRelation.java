@@ -16,9 +16,9 @@
  */
 package com.helger.graph;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for a single undirected graph relation.
@@ -31,13 +31,13 @@ public interface IMutableGraphRelation extends IMutableBaseGraphRelation <IMutab
   /**
    * @return Node1 of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMutableGraphNode getNode1 ();
 
   /**
    * @return The ID of node1 of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default String getNode1ID ()
   {
     return getNode1 ().getID ();
@@ -46,13 +46,13 @@ public interface IMutableGraphRelation extends IMutableBaseGraphRelation <IMutab
   /**
    * @return Node2 of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMutableGraphNode getNode2 ();
 
   /**
    * @return The ID of node2 of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default String getNode2ID ()
   {
     return getNode2 ().getID ();

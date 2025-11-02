@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface to be implemented to read and write objects.
@@ -41,7 +41,7 @@ public interface ISerializationConverter <T>
    * @throws IOException
    *         In case of a stream error
    */
-  void writeConvertedObject (@Nonnull T aSourceObject, @Nonnull ObjectOutputStream aOOS) throws IOException;
+  void writeConvertedObject (@NonNull T aSourceObject, @NonNull ObjectOutputStream aOOS) throws IOException;
 
   /**
    * Read the object from the specified {@link ObjectInputStream}.
@@ -52,6 +52,6 @@ public interface ISerializationConverter <T>
    * @throws IOException
    *         In case of a stream error
    */
-  @Nonnull
-  T readConvertedObject (@Nonnull ObjectInputStream aOIS) throws IOException;
+  @NonNull
+  T readConvertedObject (@NonNull ObjectInputStream aOIS) throws IOException;
 }

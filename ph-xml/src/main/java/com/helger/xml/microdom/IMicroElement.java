@@ -20,6 +20,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
@@ -29,9 +32,6 @@ import com.helger.base.state.EContinue;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single element (=tag) of a document.
@@ -56,7 +56,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *        namespace should be removed.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   EChange setNamespaceURI (@Nullable String sNamespaceURI);
 
   /**
@@ -121,7 +121,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *
    * @return May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getTagName ();
 
   /**
@@ -180,7 +180,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *
    * @return Never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements ()
   {
@@ -195,7 +195,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *        The tag name to check. May be <code>null</code>.
    * @return Never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sTagName)
   {
@@ -212,7 +212,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *        The tag name to check. May be <code>null</code>.
    * @return Never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final String sNamespaceURI,
                                                             @Nullable final String sLocalName)
@@ -229,7 +229,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    *        are returned.
    * @return A new list and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <IMicroElement> getAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
@@ -244,7 +244,7 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
    * @return A list containing all recursively contained elements. May not be <code>null</code> but
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IMicroElement> getAllChildElementsRecursive ();
 
@@ -343,43 +343,43 @@ public interface IMicroElement extends IMicroNodeWithChildren, IMicroAttributeCo
   @Nullable
   IMicroElement getFirstChildElement (@Nullable Predicate <? super IMicroElement> aFilter);
 
-  default void forAllChildElements (@Nonnull final Consumer <? super IMicroElement> aConsumer)
+  default void forAllChildElements (@NonNull final Consumer <? super IMicroElement> aConsumer)
   {
     forAllChildElements (null, aConsumer);
   }
 
   void forAllChildElements (@Nullable Predicate <? super IMicroElement> aFilter,
-                            @Nonnull Consumer <? super IMicroElement> aConsumer);
+                            @NonNull Consumer <? super IMicroElement> aConsumer);
 
-  @Nonnull
-  default EContinue forAllChildElementsBreakable (@Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
+  @NonNull
+  default EContinue forAllChildElementsBreakable (@NonNull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return forAllChildElementsBreakable (null, aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   EContinue forAllChildElementsBreakable (@Nullable Predicate <? super IMicroElement> aFilter,
-                                          @Nonnull Function <? super IMicroElement, EContinue> aConsumer);
+                                          @NonNull Function <? super IMicroElement, EContinue> aConsumer);
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroElement getClone ();
 
-  @Nonnull
+  @NonNull
   static Predicate <? super IMicroElement> filterNamespaceURI (@Nullable final String sNamespaceURI)
   {
     return x -> x.hasNamespaceURI (sNamespaceURI);
   }
 
-  @Nonnull
+  @NonNull
   static Predicate <? super IMicroElement> filterName (@Nullable final String sTagOrLocalName)
   {
     return x -> x.hasTagName (sTagOrLocalName);
   }
 
-  @Nonnull
+  @NonNull
   static Predicate <? super IMicroElement> filterNamespaceURIAndName (@Nullable final String sNamespaceURI,
                                                                       @Nullable final String sTagOrLocalName)
   {

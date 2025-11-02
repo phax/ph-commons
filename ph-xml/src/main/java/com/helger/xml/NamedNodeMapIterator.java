@@ -19,6 +19,8 @@ package com.helger.xml;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
@@ -26,9 +28,6 @@ import org.w3c.dom.Node;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special {@link Iterator} for {@link Node} objects based on
@@ -70,7 +69,7 @@ public class NamedNodeMapIterator implements ICommonsIterableIterator <Node>
     return new ToStringGenerator (this).append ("NamedNodeMap", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static NamedNodeMapIterator createAttributeIterator (@Nullable final Element aElement)
   {

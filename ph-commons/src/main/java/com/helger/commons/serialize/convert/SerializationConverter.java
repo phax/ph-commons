@@ -20,15 +20,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to serializable format.<br>
@@ -45,7 +45,7 @@ public final class SerializationConverter
   private SerializationConverter ()
   {}
 
-  public static <T> void writeConvertedObject (@Nullable final T aObject, @Nonnull final ObjectOutputStream aOOS) throws IOException
+  public static <T> void writeConvertedObject (@Nullable final T aObject, @NonNull final ObjectOutputStream aOOS) throws IOException
   {
     ValueEnforcer.notNull (aOOS, "ObjectOutputStream");
 
@@ -65,8 +65,8 @@ public final class SerializationConverter
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE readConvertedObject (@Nonnull final ObjectInputStream aOIS,
-                                                       @Nonnull final Class <DSTTYPE> aDstClass) throws IOException
+  public static <DSTTYPE> DSTTYPE readConvertedObject (@NonNull final ObjectInputStream aOIS,
+                                                       @NonNull final Class <DSTTYPE> aDstClass) throws IOException
   {
     ValueEnforcer.notNull (aOIS, "ObjectInputStream");
     ValueEnforcer.notNull (aDstClass, "DestinationClass");

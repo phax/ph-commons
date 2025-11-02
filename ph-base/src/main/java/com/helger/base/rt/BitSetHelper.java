@@ -18,12 +18,12 @@ package com.helger.base.rt;
 
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to work with bit sets.
@@ -46,7 +46,7 @@ public final class BitSetHelper
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
    */
-  @Nonnull
+  @NonNull
   public static BitSet createBitSet (final byte nValue)
   {
     final BitSet ret = new BitSet (CGlobal.BITS_PER_BYTE);
@@ -62,7 +62,7 @@ public final class BitSetHelper
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
    */
-  @Nonnull
+  @NonNull
   public static BitSet createBitSet (final short nValue)
   {
     final BitSet ret = new BitSet (CGlobal.BITS_PER_SHORT);
@@ -78,7 +78,7 @@ public final class BitSetHelper
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
    */
-  @Nonnull
+  @NonNull
   public static BitSet createBitSet (final int nValue)
   {
     final BitSet ret = new BitSet (CGlobal.BITS_PER_INT);
@@ -94,7 +94,7 @@ public final class BitSetHelper
    *        The value to be converted to a bit set.
    * @return The non-<code>null</code> bit set.
    */
-  @Nonnull
+  @NonNull
   public static BitSet createBitSet (final long nValue)
   {
     final BitSet ret = new BitSet (CGlobal.BITS_PER_LONG);
@@ -112,7 +112,7 @@ public final class BitSetHelper
    * @return The extracted value. May be negative if the bit set has 32
    *         elements, the highest order bit is set.
    */
-  public static int getExtractedIntValue (@Nonnull final BitSet aBS)
+  public static int getExtractedIntValue (@NonNull final BitSet aBS)
   {
     ValueEnforcer.notNull (aBS, "BitSet");
 
@@ -138,7 +138,7 @@ public final class BitSetHelper
    * @return The extracted value. May be negative if the bit set has 64
    *         elements, the highest order bit is set.
    */
-  public static long getExtractedLongValue (@Nonnull final BitSet aBS)
+  public static long getExtractedLongValue (@NonNull final BitSet aBS)
   {
     ValueEnforcer.notNull (aBS, "BitSet");
 

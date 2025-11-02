@@ -23,15 +23,15 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.functional.IBooleanPredicate;
 import com.helger.base.functional.ICharPredicate;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a utility class for easier <code>toString</code> method creations. It assumes that the
@@ -112,7 +112,7 @@ public final class ToStringGenerator
       m_aSB.append ("; ");
   }
 
-  @Nonnull
+  @NonNull
   private ToStringGenerator _appendSuper (final String sSuper)
   {
     _beforeAddField ();
@@ -120,148 +120,148 @@ public final class ToStringGenerator
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final boolean aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final boolean aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final boolean [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final boolean [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final byte aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final byte aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final byte [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final byte [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final char aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final char aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append ('\'').append (aValue).append ('\'');
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final char [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final char [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final double aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final double aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final double [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final double [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final float aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final float aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final float [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final float [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final int aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final int aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final int [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final int [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final long aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final long aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final long [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final long [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, final short aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, final short aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (aValue);
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final short [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final short [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendPassword (@Nonnull final String sField)
+  @NonNull
+  public ToStringGenerator appendPassword (@NonNull final String sField)
   {
     return append (sField, CONSTANT_PASSWORD);
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final Enum <?> aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final Enum <?> aValue)
   {
     return append (sField, String.valueOf (aValue));
   }
 
-  @Nonnull
-  private ToStringGenerator _appendArray (@Nonnull final String sField, @Nonnull final Object aValue)
+  @NonNull
+  private ToStringGenerator _appendArray (@NonNull final String sField, @NonNull final Object aValue)
   {
     // Passed value is an array
     final Class <?> aCompType = aValue.getClass ().getComponentType ();
@@ -288,7 +288,7 @@ public final class ToStringGenerator
     return append (sField, (Object []) aValue);
   }
 
-  @Nonnull
+  @NonNull
   private String _getObjectValue (@Nullable final Object aValue)
   {
     if (aValue == null)
@@ -296,8 +296,8 @@ public final class ToStringGenerator
     return EqualsHelper.identityEqual (aValue, m_aSrc) ? CONSTANT_THIS : aValue.toString ();
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final Object aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final Object aValue)
   {
     if (aValue != null && aValue.getClass ().isArray ())
       return _appendArray (sField, aValue);
@@ -308,8 +308,8 @@ public final class ToStringGenerator
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator append (@Nonnull final String sField, @Nullable final Object [] aValue)
+  @NonNull
+  public ToStringGenerator append (@NonNull final String sField, @Nullable final Object [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=');
@@ -338,115 +338,115 @@ public final class ToStringGenerator
     return this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final boolean bValue,
-                                     @Nonnull final IBooleanPredicate aFilter)
+                                     @NonNull final IBooleanPredicate aFilter)
   {
     return aFilter.test (bValue) ? append (sField, bValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final boolean bValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+                                     @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, bValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final char cValue,
-                                     @Nonnull final ICharPredicate aFilter)
+                                     @NonNull final ICharPredicate aFilter)
   {
     return aFilter.test (cValue) ? append (sField, cValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final char cValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+                                     @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, cValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final int nValue,
-                                     @Nonnull final IntPredicate aFilter)
+                                     @NonNull final IntPredicate aFilter)
   {
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final int nValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+                                     @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final long nValue,
-                                     @Nonnull final LongPredicate aFilter)
+                                     @NonNull final LongPredicate aFilter)
   {
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final long nValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+                                     @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final double dValue,
-                                     @Nonnull final DoublePredicate aFilter)
+                                     @NonNull final DoublePredicate aFilter)
   {
     return aFilter.test (dValue) ? append (sField, dValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public ToStringGenerator appendIf (@NonNull final String sField,
                                      final double dValue,
-                                     @Nonnull final BooleanSupplier aFilter)
+                                     @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, dValue) : this;
   }
 
-  @Nonnull
-  public <T> ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public <T> ToStringGenerator appendIf (@NonNull final String sField,
                                          @Nullable final T aValue,
-                                         @Nonnull final Predicate <? super T> aFilter)
+                                         @NonNull final Predicate <? super T> aFilter)
   {
     return aFilter.test (aValue) ? append (sField, aValue) : this;
   }
 
-  @Nonnull
-  public <T> ToStringGenerator appendIf (@Nonnull final String sField,
+  @NonNull
+  public <T> ToStringGenerator appendIf (@NonNull final String sField,
                                          @Nullable final T aValue,
-                                         @Nonnull final BooleanSupplier aFilter)
+                                         @NonNull final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? append (sField, aValue) : this;
   }
 
-  @Nonnull
-  public ToStringGenerator appendIfNotNull (@Nonnull final String sField, @Nullable final Object aValue)
+  @NonNull
+  public ToStringGenerator appendIfNotNull (@NonNull final String sField, @Nullable final Object aValue)
   {
     return aValue == null ? this : append (sField, aValue);
   }
 
-  @Nonnull
-  public ToStringGenerator appendPasswordIf (@Nonnull final String sField, final BooleanSupplier aFilter)
+  @NonNull
+  public ToStringGenerator appendPasswordIf (@NonNull final String sField, final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? appendPassword (sField) : this;
   }
 
-  @Nonnull
+  @NonNull
   public String getToString ()
   {
     if ((m_nIndex & APPENDED_CLOSING_BRACKET) == 0)
@@ -461,7 +461,7 @@ public final class ToStringGenerator
    * @deprecated Don't call this; Use {@link #getToString()} instead
    */
   @Override
-  @Nonnull
+  @NonNull
   @Deprecated (forRemoval = false)
   public String toString ()
   {
@@ -477,8 +477,8 @@ public final class ToStringGenerator
    *        Always pass in <code>super.toString ()</code>
    * @return Never <code>null</code>
    */
-  @Nonnull
-  public static ToStringGenerator getDerived (@Nonnull final String sSuperToString)
+  @NonNull
+  public static ToStringGenerator getDerived (@NonNull final String sSuperToString)
   {
     // We don't need the object if "super.toString" is involved, because in
     // super.toString the object is already emitted!

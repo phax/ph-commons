@@ -18,7 +18,7 @@ package com.helger.base.name;
 
 import java.util.Comparator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for objects that have a locale <b>independent</b> display name.<br>
@@ -33,10 +33,10 @@ public interface IHasDisplayName
   /**
    * @return The display name of this object. Should never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getDisplayName ();
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasDisplayName> getComparatorDisplayName ()
   {
     return Comparator.comparing (IHasDisplayName::getDisplayName);

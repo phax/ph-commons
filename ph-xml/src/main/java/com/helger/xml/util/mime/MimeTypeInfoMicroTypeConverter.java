@@ -33,6 +33,9 @@
  */
 package com.helger.xml.util.mime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
@@ -46,9 +49,6 @@ import com.helger.xml.microdom.util.MicroHelper;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter <MimeTypeInfo>
 {
   private static final String ELEMENT_MIMETYPE = "mime-type";
@@ -59,9 +59,9 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
   private static final String ATTR_SOURCE = "source";
 
   @Nullable
-  public IMicroElement convertToMicroElement (@Nonnull final MimeTypeInfo aObject,
+  public IMicroElement convertToMicroElement (@NonNull final MimeTypeInfo aObject,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement eRet = new MicroElement (sNamespaceURI, sTagName);
     for (final MimeTypeWithSource aMimeType : aObject.getAllMimeTypesWithSource ())
@@ -87,7 +87,7 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
   }
 
   @Nullable
-  public MimeTypeInfo convertToNative (@Nonnull final IMicroElement aElement)
+  public MimeTypeInfo convertToNative (@NonNull final IMicroElement aElement)
   {
     final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes = new CommonsLinkedHashSet <> ();
     for (final IMicroElement eMimeType : aElement.getAllChildElements (ELEMENT_MIMETYPE))

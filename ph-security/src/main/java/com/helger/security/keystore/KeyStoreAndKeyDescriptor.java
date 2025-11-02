@@ -19,13 +19,13 @@ package com.helger.security.keystore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IKeyStoreAndKeyDescriptor}.
@@ -45,12 +45,12 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
   private LoadedKeyStore m_aLKS;
   private LoadedKey <PrivateKeyEntry> m_aLK;
 
-  public KeyStoreAndKeyDescriptor (@Nonnull final IKeyStoreType aType,
-                                   @Nonnull @Nonempty final String sPath,
-                                   @Nonnull final char [] aPassword,
+  public KeyStoreAndKeyDescriptor (@NonNull final IKeyStoreType aType,
+                                   @NonNull @Nonempty final String sPath,
+                                   @NonNull final char [] aPassword,
                                    @Nullable final Provider aProvider,
-                                   @Nonnull @Nonempty final String sKeyAlias,
-                                   @Nonnull final char [] aKeyPassword)
+                                   @NonNull @Nonempty final String sKeyAlias,
+                                   @NonNull final char [] aKeyPassword)
   {
     ValueEnforcer.notNull (aType, "Type");
     ValueEnforcer.notEmpty (sPath, "Path");
@@ -65,20 +65,20 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     m_aKeyPassword = aKeyPassword;
   }
 
-  @Nonnull
+  @NonNull
   public final IKeyStoreType getKeyStoreType ()
   {
     return m_aType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getKeyStorePath ()
   {
     return m_sPath;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final char [] getKeyStorePassword ()
   {
@@ -91,7 +91,7 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return m_aProvider;
   }
 
-  @Nonnull
+  @NonNull
   public LoadedKeyStore loadKeyStore ()
   {
     LoadedKeyStore ret = m_aLKS;
@@ -100,21 +100,21 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getKeyAlias ()
   {
     return m_sKeyAlias;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final char [] getKeyPassword ()
   {
     return m_aKeyPassword;
   }
 
-  @Nonnull
+  @NonNull
   public LoadedKey <PrivateKeyEntry> loadKey ()
   {
     LoadedKey <PrivateKeyEntry> ret = m_aLK;
@@ -144,7 +144,7 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
    * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static KeyStoreAndKeyDescriptorBuilder builder ()
   {
     return new KeyStoreAndKeyDescriptorBuilder ();
@@ -158,8 +158,8 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
    * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public static KeyStoreAndKeyDescriptorBuilder builder (@Nonnull final KeyStoreAndKeyDescriptor a)
+  @NonNull
+  public static KeyStoreAndKeyDescriptorBuilder builder (@NonNull final KeyStoreAndKeyDescriptor a)
   {
     return new KeyStoreAndKeyDescriptorBuilder (a);
   }

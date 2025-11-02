@@ -34,6 +34,8 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +60,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.io.misc.SizeHelper;
 import com.helger.io.stream.CountingFileInputStream;
 import com.helger.io.stream.CountingFileOutputStream;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Miscellaneous file utility methods.
@@ -89,7 +88,7 @@ public final class FileHelper
     CONDLOG.setEnabled (bWarnOnIssues);
   }
 
-  public static boolean equalFiles (@Nonnull final File aObj1, @Nonnull final File aObj2)
+  public static boolean equalFiles (@NonNull final File aObj1, @NonNull final File aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1,
                                       aObj2,
@@ -154,8 +153,8 @@ public final class FileHelper
     return true;
   }
 
-  @Nonnull
-  public static EChange ensureParentDirectoryIsPresent (@Nonnull final File aFile)
+  @NonNull
+  public static EChange ensureParentDirectoryIsPresent (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -270,7 +269,7 @@ public final class FileHelper
    *         <code>false</code> otherwise.
    * @see #getCanonicalFile(File)
    */
-  public static boolean isParentDirectory (@Nonnull final File aSearchDirectory, @Nonnull final File aStartDirectory)
+  public static boolean isParentDirectory (@NonNull final File aSearchDirectory, @NonNull final File aStartDirectory)
   {
     ValueEnforcer.notNull (aSearchDirectory, "SearchDirectory");
     ValueEnforcer.notNull (aStartDirectory, "StartDirectory");
@@ -300,7 +299,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static FileInputStream getInputStream (@Nonnull final File aFile)
+  public static FileInputStream getInputStream (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
     try
@@ -314,7 +313,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedInputStream getBufferedInputStream (@Nonnull final File aFile)
+  public static NonBlockingBufferedInputStream getBufferedInputStream (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -325,7 +324,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static InputStreamReader getReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static InputStreamReader getReader (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -334,7 +333,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedReader getBufferedReader (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedReader getBufferedReader (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -353,7 +352,7 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static FileOutputStream getOutputStream (@Nonnull final File aFile)
+  public static FileOutputStream getOutputStream (@NonNull final File aFile)
   {
     return getOutputStream (aFile, EAppend.DEFAULT);
   }
@@ -368,7 +367,7 @@ public final class FileHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static FileOutputStream getOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  public static FileOutputStream getOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -396,14 +395,14 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final File aFile)
   {
     return getBufferedOutputStream (aFile, EAppend.DEFAULT);
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final File aFile,
-                                                                         @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final File aFile,
+                                                                         @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -415,15 +414,15 @@ public final class FileHelper
   }
 
   @Nullable
-  public static OutputStreamWriter getWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
   @Nullable
-  public static OutputStreamWriter getWriter (@Nonnull final File aFile,
-                                              @Nonnull final EAppend eAppend,
-                                              @Nonnull final Charset aCharset)
+  public static OutputStreamWriter getWriter (@NonNull final File aFile,
+                                              @NonNull final EAppend eAppend,
+                                              @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -432,15 +431,15 @@ public final class FileHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getBufferedWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
   @Nullable
-  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final File aFile,
-                                                             @Nonnull final EAppend eAppend,
-                                                             @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final File aFile,
+                                                             @NonNull final EAppend eAppend,
+                                                             @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -453,21 +452,21 @@ public final class FileHelper
   }
 
   @Nullable
-  public static PrintWriter getPrintWriter (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static PrintWriter getPrintWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getPrintWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
   @Nullable
-  public static PrintWriter getPrintWriter (@Nonnull final File aFile,
-                                            @Nonnull final EAppend eAppend,
-                                            @Nonnull final Charset aCharset)
+  public static PrintWriter getPrintWriter (@NonNull final File aFile,
+                                            @NonNull final EAppend eAppend,
+                                            @NonNull final Charset aCharset)
   {
     return new PrintWriter (getBufferedWriter (aFile, eAppend, aCharset));
   }
 
-  @Nonnull
-  static EValidity internalCheckParentDirectoryExistanceAndAccess (@Nonnull final File aFile)
+  @NonNull
+  static EValidity internalCheckParentDirectoryExistanceAndAccess (@NonNull final File aFile)
   {
     try
     {
@@ -497,15 +496,15 @@ public final class FileHelper
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final String sFilename,
-                                                      @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@NonNull final String sFilename,
+                                                      @NonNull final ERandomAccessFileMode eMode)
   {
     return getRandomAccessFile (new File (sFilename), eMode);
   }
 
   @Nullable
-  public static RandomAccessFile getRandomAccessFile (@Nonnull final File aFile,
-                                                      @Nonnull final ERandomAccessFileMode eMode)
+  public static RandomAccessFile getRandomAccessFile (@NonNull final File aFile,
+                                                      @NonNull final ERandomAccessFileMode eMode)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");
@@ -533,7 +532,7 @@ public final class FileHelper
    * @return <code>true</code> if the first file is newer than the second file, <code>false</code>
    *         otherwise.
    */
-  public static boolean isFileNewer (@Nonnull final File aFile1, @Nonnull final File aFile2)
+  public static boolean isFileNewer (@NonNull final File aFile1, @NonNull final File aFile2)
   {
     ValueEnforcer.notNull (aFile1, "File1");
     ValueEnforcer.notNull (aFile2, "aFile2");
@@ -554,13 +553,13 @@ public final class FileHelper
     return aFile1.lastModified () > aFile2.lastModified ();
   }
 
-  @Nonnull
+  @NonNull
   public static String getFileSizeDisplay (@Nullable final File aFile)
   {
     return getFileSizeDisplay (aFile, 0);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFileSizeDisplay (@Nullable final File aFile, @Nonnegative final int nDecimals)
   {
     if (aFile != null && aFile.exists ())
@@ -568,13 +567,13 @@ public final class FileHelper
     return "";
   }
 
-  @Nonnull
+  @NonNull
   public static String getFileSizeDisplay (final long nFileSize)
   {
     return getFileSizeDisplay (nFileSize, 0);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFileSizeDisplay (@Nonnegative final long nFileSize, @Nonnegative final int nDecimals)
   {
     ValueEnforcer.isGE0 (nFileSize, "FileSize");
@@ -630,7 +629,7 @@ public final class FileHelper
    * @see FilenameHelper#isSystemInternalDirectory(CharSequence)
    */
   @Nonnegative
-  public static int getDirectoryObjectCount (@Nonnull final File aDirectory)
+  public static int getDirectoryObjectCount (@NonNull final File aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.isTrue (aDirectory.isDirectory (), "Passed object is not a directory: " + aDirectory);
@@ -642,9 +641,9 @@ public final class FileHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static ICommonsList <File> _getDirectoryContent (@Nonnull final File aDirectory,
+  private static ICommonsList <File> _getDirectoryContent (@NonNull final File aDirectory,
                                                            @Nullable final File [] aSelectedContent)
   {
     if (aSelectedContent == null)
@@ -686,9 +685,9 @@ public final class FileHelper
    *        The directory to be listed. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory)
+  public static ICommonsList <File> getDirectoryContent (@NonNull final File aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
 
@@ -706,10 +705,10 @@ public final class FileHelper
    *        The filename filter to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
-                                                         @Nonnull final FilenameFilter aFilenameFilter)
+  public static ICommonsList <File> getDirectoryContent (@NonNull final File aDirectory,
+                                                         @NonNull final FilenameFilter aFilenameFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFilenameFilter, "FilenameFilter");
@@ -728,10 +727,10 @@ public final class FileHelper
    *        The file filter to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <File> getDirectoryContent (@Nonnull final File aDirectory,
-                                                         @Nonnull final FileFilter aFileFilter)
+  public static ICommonsList <File> getDirectoryContent (@NonNull final File aDirectory,
+                                                         @NonNull final FileFilter aFileFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.notNull (aFileFilter, "FileFilter");
@@ -740,7 +739,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static URL getAsURL (@Nonnull final File aFile)
+  public static URL getAsURL (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
     try
@@ -755,7 +754,7 @@ public final class FileHelper
   }
 
   @Nullable
-  public static String getAsURLString (@Nonnull final File aFile)
+  public static String getAsURLString (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
     try

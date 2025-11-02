@@ -26,6 +26,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.io.EAppend;
@@ -41,8 +43,6 @@ import com.helger.io.resource.URLResource;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Register the IO specific type converter
  *
@@ -52,7 +52,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // File
     aRegistry.registerTypeConverter (File.class, String.class, File::getAbsolutePath);

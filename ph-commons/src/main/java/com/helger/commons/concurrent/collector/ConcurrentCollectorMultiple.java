@@ -19,6 +19,8 @@ package com.helger.commons.concurrent.collector;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Concurrent collector that performs action on multiple objects at once
@@ -87,7 +86,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @param aQueue
    *        {@link BlockingQueue} to use. May not be <code>null</code>.
    */
-  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue)
+  public ConcurrentCollectorMultiple (@NonNull final BlockingQueue <Object> aQueue)
   {
     this (aQueue, DEFAULT_MAX_PERFORM_COUNT);
   }
@@ -100,7 +99,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @param nMaxPerformCount
    *        The maximum number of objects to be put in the list for execution. Must be &gt; 0.
    */
-  public ConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue,
+  public ConcurrentCollectorMultiple (@NonNull final BlockingQueue <Object> aQueue,
                                       @Nonnegative final int nMaxPerformCount)
   {
     super (aQueue);
@@ -136,8 +135,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    * @throws IllegalStateException
    *         If another performer is already present!
    */
-  @Nonnull
-  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@Nonnull final IConcurrentPerformer <List <DATATYPE>> aPerformer)
+  @NonNull
+  public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@NonNull final IConcurrentPerformer <List <DATATYPE>> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");
@@ -153,8 +152,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *        last {@link #getMaxPerformCount()}.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  private ESuccess _perform (@Nonnull final ICommonsList <DATATYPE> aObjectsToPerform)
+  @NonNull
+  private ESuccess _perform (@NonNull final ICommonsList <DATATYPE> aObjectsToPerform)
   {
     if (aObjectsToPerform.isNotEmpty ())
     {

@@ -23,6 +23,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.annotation.misc.NoTranslationRequired;
@@ -30,9 +32,6 @@ import com.helger.text.AbstractReadOnlyMapBasedMultilingualText;
 import com.helger.text.display.IHasDisplayTextWithArgs;
 import com.helger.text.locale.LocaleCache;
 import com.helger.text.util.TextHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link DefaultTextResolver}.
@@ -56,7 +55,7 @@ public final class DefaultTextResolverTest
     }
 
     @Nullable
-    public String getDisplayText (@Nonnull final Locale aContentLocale)
+    public String getDisplayText (@NonNull final Locale aContentLocale)
     {
       return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
     }

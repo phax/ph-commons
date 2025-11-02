@@ -23,11 +23,11 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is an extension around {@link ReentrantLock} that allows for easy usage
@@ -61,7 +61,7 @@ public class SimpleLock extends ReentrantLock
    * @param aRunnable
    *        Runnable to be executed. May not be <code>null</code>.
    */
-  public void locked (@Nonnull final Runnable aRunnable)
+  public void locked (@NonNull final Runnable aRunnable)
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
@@ -86,7 +86,7 @@ public class SimpleLock extends ReentrantLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <EXTYPE extends Exception> void lockedThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
+  public <EXTYPE extends Exception> void lockedThrowing (@NonNull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
 
@@ -111,7 +111,7 @@ public class SimpleLock extends ReentrantLock
    * @param <T>
    *        Return type
    */
-  public <T> T lockedGet (@Nonnull final Supplier <? extends T> aSupplier)
+  public <T> T lockedGet (@NonNull final Supplier <? extends T> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -140,7 +140,7 @@ public class SimpleLock extends ReentrantLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T lockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T lockedGetThrowing (@NonNull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     ValueEnforcer.notNull (aCallable, "Callable");
 
@@ -162,7 +162,7 @@ public class SimpleLock extends ReentrantLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public boolean lockedBoolean (@Nonnull final BooleanSupplier aSupplier)
+  public boolean lockedBoolean (@NonNull final BooleanSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -184,7 +184,7 @@ public class SimpleLock extends ReentrantLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public double lockedDouble (@Nonnull final DoubleSupplier aSupplier)
+  public double lockedDouble (@NonNull final DoubleSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -206,7 +206,7 @@ public class SimpleLock extends ReentrantLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public int lockedInt (@Nonnull final IntSupplier aSupplier)
+  public int lockedInt (@NonNull final IntSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 
@@ -228,7 +228,7 @@ public class SimpleLock extends ReentrantLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public long lockedLong (@Nonnull final LongSupplier aSupplier)
+  public long lockedLong (@NonNull final LongSupplier aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
 

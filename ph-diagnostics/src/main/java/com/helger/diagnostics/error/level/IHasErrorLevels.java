@@ -16,10 +16,10 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.collection.commons.ICommonsIterable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface representing an object having multiple objects with an error level
@@ -182,7 +182,7 @@ public interface IHasErrorLevels <IMPLTYPE extends IHasErrorLevel> extends IComm
    * @return {@link EErrorLevel#SUCCESS} if no error is contained, the most severe contained error
    *         level otherwise.
    */
-  @Nonnull
+  @NonNull
   default IErrorLevel getMostSevereErrorLevel ()
   {
     IErrorLevel ret = EErrorLevel.LOWEST;

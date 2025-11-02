@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some very basic IO stream utility stuff. All input stream (=reading) related stuff is quite
@@ -74,7 +73,7 @@ public final class StreamHelperExt extends StreamHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
-                                                       @Nonnull final Charset aCharset)
+                                                       @NonNull final Charset aCharset)
   {
     return readStreamLines (aISP, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -98,7 +97,7 @@ public final class StreamHelperExt extends StreamHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> readStreamLines (@Nullable final IHasInputStream aISP,
-                                                       @Nonnull final Charset aCharset,
+                                                       @NonNull final Charset aCharset,
                                                        @Nonnegative final int nLinesToSkip,
                                                        @CheckForSigned final int nLinesToRead)
   {
@@ -121,7 +120,7 @@ public final class StreamHelperExt extends StreamHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                                       @Nonnull @Nonempty final Charset aCharset)
+                                                       @NonNull @Nonempty final Charset aCharset)
   {
     return readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT);
   }
@@ -137,8 +136,8 @@ public final class StreamHelperExt extends StreamHelper
    *        The list to be filled with the lines. May not be <code>null</code>.
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                      @Nonnull final Charset aCharset,
-                                      @Nonnull final List <String> aTargetList)
+                                      @NonNull final Charset aCharset,
+                                      @NonNull final List <String> aTargetList)
   {
     if (aIS != null)
       readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aTargetList::add);
@@ -163,7 +162,7 @@ public final class StreamHelperExt extends StreamHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                                       @Nonnull final Charset aCharset,
+                                                       @NonNull final Charset aCharset,
                                                        @Nonnegative final int nLinesToSkip,
                                                        @CheckForSigned final int nLinesToRead)
   {
@@ -189,8 +188,8 @@ public final class StreamHelperExt extends StreamHelper
    *        line delimiter!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                      @Nonnull @Nonempty final Charset aCharset,
-                                      @Nonnull final Consumer <? super String> aLineCallback)
+                                      @NonNull @Nonempty final Charset aCharset,
+                                      @NonNull final Consumer <? super String> aLineCallback)
   {
     if (aIS != null)
       readStreamLines (aIS, aCharset, 0, CGlobal.ILLEGAL_UINT, aLineCallback);
@@ -198,9 +197,9 @@ public final class StreamHelperExt extends StreamHelper
 
   private static void _readFromReader (final int nLinesToSkip,
                                        final int nLinesToRead,
-                                       @Nonnull final Consumer <? super String> aLineCallback,
+                                       @NonNull final Consumer <? super String> aLineCallback,
                                        final boolean bReadAllLines,
-                                       @Nonnull final NonBlockingBufferedReader aBR) throws IOException
+                                       @NonNull final NonBlockingBufferedReader aBR) throws IOException
   {
     // Skip all requested lines
     String sLine;
@@ -258,10 +257,10 @@ public final class StreamHelperExt extends StreamHelper
    *        line delimiter! Note: it is not invoked for skipped lines!
    */
   public static void readStreamLines (@WillClose @Nullable final InputStream aIS,
-                                      @Nonnull @Nonempty final Charset aCharset,
+                                      @NonNull @Nonempty final Charset aCharset,
                                       @Nonnegative final int nLinesToSkip,
                                       final int nLinesToRead,
-                                      @Nonnull final Consumer <? super String> aLineCallback)
+                                      @NonNull final Consumer <? super String> aLineCallback)
   {
     try
     {

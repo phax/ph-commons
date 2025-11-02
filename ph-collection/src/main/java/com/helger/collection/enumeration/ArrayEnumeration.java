@@ -19,6 +19,9 @@ package com.helger.collection.enumeration;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.array.ArrayHelper;
@@ -26,9 +29,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a small helper class implementing {@link Enumeration} for array input
@@ -51,7 +51,7 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
    *        The array to enumerate. May not be <code>null</code>.
    */
   @SafeVarargs
-  public ArrayEnumeration (@Nonnull final ELEMENTTYPE... aArray)
+  public ArrayEnumeration (@NonNull final ELEMENTTYPE... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -66,7 +66,7 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
    * @param nLength
    *        The maximum number of elements to be iterated.
    */
-  public ArrayEnumeration (@Nonnull final ELEMENTTYPE [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public ArrayEnumeration (@NonNull final ELEMENTTYPE [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
   {
     ValueEnforcer.notNull (aArray, "Array");
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");

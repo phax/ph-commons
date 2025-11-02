@@ -19,12 +19,11 @@ package com.helger.jaxb;
 import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special namespace prefix mapper for the Jakarta XML Binding
@@ -41,14 +40,14 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper
 {
   private final NamespaceContext m_aNC;
 
-  public JAXBNamespacePrefixMapper (@Nonnull final NamespaceContext aNC)
+  public JAXBNamespacePrefixMapper (@NonNull final NamespaceContext aNC)
   {
     m_aNC = ValueEnforcer.notNull (aNC, "NamespaceContext");
   }
 
   @Override
   @Nullable
-  public String getPreferredPrefix (@Nonnull final String sNamespaceUri,
+  public String getPreferredPrefix (@NonNull final String sNamespaceUri,
                                     @Nullable final String sSuggestion,
                                     final boolean bRequirePrefix)
   {

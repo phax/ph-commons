@@ -18,6 +18,9 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation if the {@link IMutableGraphNode} interface
@@ -59,7 +59,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return false;
   }
 
-  @Nonnull
+  @NonNull
   public EChange addRelation (@Nullable final IMutableGraphRelation aRelation)
   {
     if (aRelation == null)
@@ -78,7 +78,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeRelation (@Nullable final IMutableGraphRelation aRelation)
   {
     if (aRelation == null || m_aRelations == null)
@@ -86,7 +86,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return EChange.valueOf (m_aRelations.remove (aRelation.getID ()) != null);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllRelations ()
   {
     if (!hasRelations ())
@@ -123,7 +123,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return m_aRelations == null ? 0 : m_aRelations.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphRelation> getAllRelations ()
   {
@@ -133,7 +133,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
@@ -143,14 +143,14 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
-  public void forEachRelation (@Nonnull final Consumer <? super IMutableGraphRelation> aConsumer)
+  public void forEachRelation (@NonNull final Consumer <? super IMutableGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aRelations != null)
       m_aRelations.forEachValue (aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllRelatedNodes ()
   {
@@ -164,7 +164,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()
   {

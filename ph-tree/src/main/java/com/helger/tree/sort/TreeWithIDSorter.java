@@ -18,6 +18,9 @@ package com.helger.tree.sort;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -28,9 +31,6 @@ import com.helger.tree.IBasicTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.ITreeItemWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively -
@@ -47,8 +47,8 @@ public final class TreeWithIDSorter
   private TreeWithIDSorter ()
   {}
 
-  private static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void _sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                 @Nonnull final Comparator <? super ITEMTYPE> aComparator)
+  private static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void _sort (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                 @NonNull final Comparator <? super ITEMTYPE> aComparator)
   {
     ValueEnforcer.notNull (aTree, "Tree");
     ValueEnforcer.notNull (aComparator, "Comparator");
@@ -84,8 +84,8 @@ public final class TreeWithIDSorter
    *        The comparator to be used for sorting the tree item keys on each
    *        level.
    */
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                   @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                   @NonNull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     _sort (aTree, Comparator.comparing (IHasID::getID, aKeyComparator));
   }
@@ -104,7 +104,7 @@ public final class TreeWithIDSorter
    * @param aTree
    *        The tree to be sorted.
    */
-  public static <KEYTYPE extends Comparable <? super KEYTYPE>, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
+  public static <KEYTYPE extends Comparable <? super KEYTYPE>, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
     _sort (aTree, IHasID.getComparatorID ());
   }
@@ -125,8 +125,8 @@ public final class TreeWithIDSorter
    *        The comparator to be used for sorting the tree item keys on each
    *        level.
    */
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                      @Nonnull final Comparator <? super DATATYPE> aValueComparator)
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                      @NonNull final Comparator <? super DATATYPE> aValueComparator)
   {
     _sort (aTree, Comparator.comparing (IBasicTreeItem::getData, aValueComparator));
   }
@@ -145,7 +145,7 @@ public final class TreeWithIDSorter
    * @param aTree
    *        The tree to be sorted.
    */
-  public static <KEYTYPE, DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
+  public static <KEYTYPE, DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
     _sort (aTree, (o1, o2) -> o1.getData ().compareTo (o2.getData ()));
   }

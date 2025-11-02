@@ -18,8 +18,8 @@ package com.helger.io.provider;
 
 import java.io.Reader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A callback interface to retrieve {@link Reader} objects from a given name.
@@ -37,5 +37,5 @@ public interface IReaderProvider
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  Reader getReader (@Nonnull String sName);
+  Reader getReader (@NonNull String sName);
 }

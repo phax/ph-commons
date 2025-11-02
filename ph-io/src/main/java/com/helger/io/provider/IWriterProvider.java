@@ -18,10 +18,10 @@ package com.helger.io.provider;
 
 import java.io.Writer;
 
-import com.helger.base.io.EAppend;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.io.EAppend;
 
 /**
  * A callback interface to retrieve {@link Writer} objects from a given name.
@@ -41,5 +41,5 @@ public interface IWriterProvider
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  Writer getWriter (@Nonnull String sName, @Nonnull EAppend eAppend);
+  Writer getWriter (@NonNull String sName, @NonNull EAppend eAppend);
 }

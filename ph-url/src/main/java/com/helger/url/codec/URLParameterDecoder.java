@@ -18,12 +18,12 @@ package com.helger.url.codec;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.codec.IDecoder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Decoder for URL parameters
@@ -34,7 +34,7 @@ public class URLParameterDecoder implements IDecoder <String, String>
 {
   private final Charset m_aCharset;
 
-  public URLParameterDecoder (@Nonnull final Charset aCharset)
+  public URLParameterDecoder (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
@@ -43,7 +43,7 @@ public class URLParameterDecoder implements IDecoder <String, String>
    * @return The charset passed in the constructor. Never <code>null</code>.
    * @since 9.4.1
    */
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aCharset;

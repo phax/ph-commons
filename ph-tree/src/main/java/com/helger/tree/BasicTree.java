@@ -20,6 +20,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,8 +32,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsIterable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
@@ -49,7 +49,7 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
   // Root item.
   private final ITEMTYPE m_aRootItem;
 
-  public BasicTree (@Nonnull final ITreeItemFactory <DATATYPE, ITEMTYPE> aFactory)
+  public BasicTree (@NonNull final ITreeItemFactory <DATATYPE, ITEMTYPE> aFactory)
   {
     ValueEnforcer.notNull (aFactory, "Factory");
     m_aRootItem = aFactory.createRoot ();
@@ -71,50 +71,50 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return 1;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <ITEMTYPE> getAllChildren ()
   {
     return new CommonsArrayList <> (m_aRootItem);
   }
 
-  @Nonnull
+  @NonNull
   public final ICommonsIterable <ITEMTYPE> getChildren ()
   {
     return getAllChildren ();
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@NonNull final Consumer <? super ITEMTYPE> aConsumer)
   {
     aConsumer.accept (m_aRootItem);
   }
 
   @Override
-  @Nonnull
-  public final EContinue forAllChildrenBreakable (@Nonnull final Function <? super ITEMTYPE, EContinue> aConsumer)
+  @NonNull
+  public final EContinue forAllChildrenBreakable (@NonNull final Function <? super ITEMTYPE, EContinue> aConsumer)
   {
     return aConsumer.apply (m_aRootItem);
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                                    @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@NonNull final Predicate <? super ITEMTYPE> aFilter,
+                                    @NonNull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (aFilter.test (m_aRootItem))
       aConsumer.accept (m_aRootItem);
   }
 
   @Override
-  public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                                                    @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
-                                                    @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  public final <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super ITEMTYPE> aFilter,
+                                                    @NonNull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
+                                                    @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     if (aFilter.test (m_aRootItem))
       aConsumer.accept (aMapper.apply (m_aRootItem));
   }
 
-  @Nonnull
+  @NonNull
   public final ITEMTYPE getRootItem ()
   {
     return m_aRootItem;

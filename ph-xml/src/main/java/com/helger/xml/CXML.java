@@ -19,12 +19,12 @@ package com.helger.xml;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is just a workaround if Xerces is not in the build path. Normally you
@@ -92,7 +92,7 @@ public final class CXML
   private CXML ()
   {}
 
-  @Nonnull
+  @NonNull
   public static IComparator <QName> getComparatorQNameNamespaceURIBeforeLocalPart ()
   {
     return (o1, o2) -> {
@@ -103,7 +103,7 @@ public final class CXML
     };
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <QName> getComparatorQNameLocalPartBeforeNamespaceURI ()
   {
     return (o1, o2) -> {
@@ -114,7 +114,7 @@ public final class CXML
     };
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <QName> getComparatorQNameForNamespacePrefix ()
   {
     return (o1, o2) -> {

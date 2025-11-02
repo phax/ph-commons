@@ -41,7 +41,7 @@ public final class MainCreatePrimitiveCollectionHelperCode
         for (final EPrimitiveType ePrim : EPrimitiveType.values ())
         {
           // Collection<Primitive> newPrimitiveCollection (Primitive...)
-          aSB.append ("@Nonnull\n")
+          aSB.append ("@NonNull\n")
              .append ("@ReturnsMutableCopy\n")
              .append ("public static ")
              .append (eCollectionType.m_sClassName)
@@ -73,7 +73,7 @@ public final class MainCreatePrimitiveCollectionHelperCode
           // Collection<Primitive> newUnmodifiablePrimitiveCollection
           // (Primitive...)
           if (false)
-            aSB.append ("@Nonnull\n")
+            aSB.append ("@NonNull\n")
                .append ("@ReturnsImmutableObject\n")
                .append ("public static ")
                .append (eCollectionType.m_sUnmodifiableClassName)

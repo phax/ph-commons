@@ -18,8 +18,8 @@ package com.helger.base.functional;
 
 import java.util.function.Consumer;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an operation that accepts a single {@code boolean}-valued argument
@@ -58,7 +58,7 @@ public interface IBooleanConsumer
    * @throws NullPointerException
    *         if {@code after} is null
    */
-  @Nonnull
+  @NonNull
   default IBooleanConsumer andThen (@Nullable final IBooleanConsumer after)
   {
     return and (this, after);

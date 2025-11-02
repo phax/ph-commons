@@ -30,15 +30,15 @@ import java.time.temporal.WeekFields;
 import java.util.Comparator;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.datetime.CPDT;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some date/time utility methods.
@@ -79,12 +79,12 @@ public final class PDTHelper
     return nDayOfWeek == DayOfWeek.SATURDAY || nDayOfWeek == DayOfWeek.SUNDAY;
   }
 
-  public static boolean isWeekend (@Nonnull final LocalDateTime aDT)
+  public static boolean isWeekend (@NonNull final LocalDateTime aDT)
   {
     return isWeekendDay (aDT.getDayOfWeek ());
   }
 
-  public static boolean isWeekend (@Nonnull final LocalDate aDT)
+  public static boolean isWeekend (@NonNull final LocalDate aDT)
   {
     return isWeekendDay (aDT.getDayOfWeek ());
   }
@@ -94,17 +94,17 @@ public final class PDTHelper
     return nDayOfWeek == CPDT.START_OF_WEEK_DAY;
   }
 
-  public static boolean isFirstDayOfWeek (@Nonnull final ZonedDateTime aDT)
+  public static boolean isFirstDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
 
-  public static boolean isFirstDayOfWeek (@Nonnull final LocalDateTime aDT)
+  public static boolean isFirstDayOfWeek (@NonNull final LocalDateTime aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
 
-  public static boolean isFirstDayOfWeek (@Nonnull final LocalDate aDT)
+  public static boolean isFirstDayOfWeek (@NonNull final LocalDate aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
@@ -114,22 +114,22 @@ public final class PDTHelper
     return nDayOfWeek == CPDT.END_OF_WEEK_DAY;
   }
 
-  public static boolean isLastDayOfWeek (@Nonnull final ZonedDateTime aDT)
+  public static boolean isLastDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
-  public static boolean isLastDayOfWeek (@Nonnull final LocalDateTime aDT)
+  public static boolean isLastDayOfWeek (@NonNull final LocalDateTime aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
-  public static boolean isLastDayOfWeek (@Nonnull final LocalDate aDT)
+  public static boolean isLastDayOfWeek (@NonNull final LocalDate aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
-  public static boolean isWorkDay (@Nonnull final LocalDate aDate)
+  public static boolean isWorkDay (@NonNull final LocalDate aDate)
   {
     return !isWeekend (aDate);
   }
@@ -145,7 +145,7 @@ public final class PDTHelper
    *         will be negative! If start date equals end date the return will be 1 if it is a week
    *         day.
    */
-  public static int getWeekDays (@Nonnull final LocalDate aStartDate, @Nonnull final LocalDate aEndDate)
+  public static int getWeekDays (@NonNull final LocalDate aStartDate, @NonNull final LocalDate aEndDate)
   {
     ValueEnforcer.notNull (aStartDate, "StartDate");
     ValueEnforcer.notNull (aEndDate, "EndDate");
@@ -164,19 +164,19 @@ public final class PDTHelper
     return bFlip ? -1 * ret : ret;
   }
 
-  public static boolean isSameYearAndDay (@Nonnull final LocalDate x, @Nonnull final LocalDate y)
+  public static boolean isSameYearAndDay (@NonNull final LocalDate x, @NonNull final LocalDate y)
   {
     return x.getYear () == y.getYear () && x.getDayOfYear () == y.getDayOfYear ();
   }
 
-  public static boolean isSameYearAndWeek (@Nonnull final LocalDate x,
-                                           @Nonnull final LocalDate y,
-                                           @Nonnull final Locale aLocale)
+  public static boolean isSameYearAndWeek (@NonNull final LocalDate x,
+                                           @NonNull final LocalDate y,
+                                           @NonNull final Locale aLocale)
   {
     return x.getYear () == y.getYear () && getWeekOfWeekBasedYear (x, aLocale) == getWeekOfWeekBasedYear (y, aLocale);
   }
 
-  public static boolean isSameMonthAndDay (@Nonnull final LocalDate x, @Nonnull final LocalDate y)
+  public static boolean isSameMonthAndDay (@NonNull final LocalDate x, @NonNull final LocalDate y)
   {
     return x.getMonth () == y.getMonth () && x.getDayOfMonth () == y.getDayOfMonth ();
   }
@@ -190,7 +190,7 @@ public final class PDTHelper
     return !aLowerBound.isAfter (aDate) && !aDate.isAfter (aUpperBound);
   }
 
-  public static int getWeekOfWeekBasedYear (@Nonnull final TemporalAccessor aDT, @Nonnull final Locale aLocale)
+  public static int getWeekOfWeekBasedYear (@NonNull final TemporalAccessor aDT, @NonNull final Locale aLocale)
   {
     return aDT.get (WeekFields.of (aLocale).weekOfWeekBasedYear ());
   }
@@ -204,17 +204,17 @@ public final class PDTHelper
    *        Locale to use. May not be <code>null</code>.
    * @return the start week number.
    */
-  public static int getStartWeekOfMonth (@Nonnull final LocalDateTime aDT, @Nonnull final Locale aLocale)
+  public static int getStartWeekOfMonth (@NonNull final LocalDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
   }
 
-  public static int getStartWeekOfMonth (@Nonnull final LocalDate aDT, @Nonnull final Locale aLocale)
+  public static int getStartWeekOfMonth (@NonNull final LocalDate aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
   }
 
-  public static int getStartWeekOfMonth (@Nonnull final ZonedDateTime aDT, @Nonnull final Locale aLocale)
+  public static int getStartWeekOfMonth (@NonNull final ZonedDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
   }
@@ -228,17 +228,17 @@ public final class PDTHelper
    *        Locale to use. May not be <code>null</code>.
    * @return The end week number.
    */
-  public static int getEndWeekOfMonth (@Nonnull final LocalDateTime aDT, @Nonnull final Locale aLocale)
+  public static int getEndWeekOfMonth (@NonNull final LocalDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
 
-  public static int getEndWeekOfMonth (@Nonnull final LocalDate aDT, @Nonnull final Locale aLocale)
+  public static int getEndWeekOfMonth (@NonNull final LocalDate aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
 
-  public static int getEndWeekOfMonth (@Nonnull final ZonedDateTime aDT, @Nonnull final Locale aLocale)
+  public static int getEndWeekOfMonth (@NonNull final ZonedDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
@@ -252,8 +252,8 @@ public final class PDTHelper
    *        The date to start at. May not be <code>null</code>.
    * @return The next matching date. Never <code>null</code>.
    */
-  @Nonnull
-  public static LocalDate getCurrentOrNextWeekday (@Nonnull final LocalDate aStart)
+  @NonNull
+  public static LocalDate getCurrentOrNextWeekday (@NonNull final LocalDate aStart)
   {
     LocalDate aDT = aStart;
     while (isWeekend (aDT))
@@ -261,7 +261,7 @@ public final class PDTHelper
     return aDT;
   }
 
-  @Nonnull
+  @NonNull
   public static LocalDate getCurrentOrNextWeekday ()
   {
     return getCurrentOrNextWeekday (PDTFactory.getCurrentLocalDate ());
@@ -275,8 +275,8 @@ public final class PDTHelper
    *        The date to start at. May not be <code>null</code>.
    * @return The next matching date.
    */
-  @Nonnull
-  public static LocalDate getCurrentOrNextWeekendkDay (@Nonnull final LocalDate aStart)
+  @NonNull
+  public static LocalDate getCurrentOrNextWeekendkDay (@NonNull final LocalDate aStart)
   {
     LocalDate aDT = aStart;
     while (!isWeekend (aDT))
@@ -290,7 +290,7 @@ public final class PDTHelper
    *
    * @return The next matching date.
    */
-  @Nonnull
+  @NonNull
   public static LocalDate getCurrentOrNextWeekendkDay ()
   {
     return getCurrentOrNextWeekendkDay (PDTFactory.getCurrentLocalDate ());
@@ -340,75 +340,75 @@ public final class PDTHelper
     return birthdayCompare (aDate1, aDate2) == 0;
   }
 
-  public static boolean isNewYearsEve (@Nonnull final LocalDate aDate)
+  public static boolean isNewYearsEve (@NonNull final LocalDate aDate)
   {
     ValueEnforcer.notNull (aDate, "Date");
     return aDate.getMonth () == Month.DECEMBER && aDate.getDayOfMonth () == 31;
   }
 
-  @Nonnull
-  public static LocalDate getMax (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
+  @NonNull
+  public static LocalDate getMax (@NonNull final LocalDate aDate1, @NonNull final LocalDate aDate2)
   {
     return aDate1.isAfter (aDate2) ? aDate1 : aDate2;
   }
 
-  @Nonnull
-  public static LocalTime getMax (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
+  @NonNull
+  public static LocalTime getMax (@NonNull final LocalTime aTime1, @NonNull final LocalTime aTime2)
   {
     return aTime1.isAfter (aTime2) ? aTime1 : aTime2;
   }
 
-  @Nonnull
-  public static LocalDateTime getMax (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
+  @NonNull
+  public static LocalDateTime getMax (@NonNull final LocalDateTime aDateTime1, @NonNull final LocalDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  @Nonnull
-  public static ZonedDateTime getMax (@Nonnull final ZonedDateTime aDateTime1, @Nonnull final ZonedDateTime aDateTime2)
+  @NonNull
+  public static ZonedDateTime getMax (@NonNull final ZonedDateTime aDateTime1, @NonNull final ZonedDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  @Nonnull
-  public static OffsetDateTime getMax (@Nonnull final OffsetDateTime aDateTime1,
-                                       @Nonnull final OffsetDateTime aDateTime2)
+  @NonNull
+  public static OffsetDateTime getMax (@NonNull final OffsetDateTime aDateTime1,
+                                       @NonNull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  @Nonnull
-  public static LocalDate getMin (@Nonnull final LocalDate aDate1, @Nonnull final LocalDate aDate2)
+  @NonNull
+  public static LocalDate getMin (@NonNull final LocalDate aDate1, @NonNull final LocalDate aDate2)
   {
     return aDate1.isBefore (aDate2) ? aDate1 : aDate2;
   }
 
-  @Nonnull
-  public static LocalTime getMin (@Nonnull final LocalTime aTime1, @Nonnull final LocalTime aTime2)
+  @NonNull
+  public static LocalTime getMin (@NonNull final LocalTime aTime1, @NonNull final LocalTime aTime2)
   {
     return aTime1.isBefore (aTime2) ? aTime1 : aTime2;
   }
 
-  @Nonnull
-  public static LocalDateTime getMin (@Nonnull final LocalDateTime aDateTime1, @Nonnull final LocalDateTime aDateTime2)
+  @NonNull
+  public static LocalDateTime getMin (@NonNull final LocalDateTime aDateTime1, @NonNull final LocalDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  @Nonnull
-  public static ZonedDateTime getMin (@Nonnull final ZonedDateTime aDateTime1, @Nonnull final ZonedDateTime aDateTime2)
+  @NonNull
+  public static ZonedDateTime getMin (@NonNull final ZonedDateTime aDateTime1, @NonNull final ZonedDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  @Nonnull
-  public static OffsetDateTime getMin (@Nonnull final OffsetDateTime aDateTime1,
-                                       @Nonnull final OffsetDateTime aDateTime2)
+  @NonNull
+  public static OffsetDateTime getMin (@NonNull final OffsetDateTime aDateTime1,
+                                       @NonNull final OffsetDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
-  public static long getDaysBetween (@Nonnull final Temporal aStartIncl, @Nonnull final Temporal aEndExcl)
+  public static long getDaysBetween (@NonNull final Temporal aStartIncl, @NonNull final Temporal aEndExcl)
   {
     return ChronoUnit.DAYS.between (aStartIncl, aEndExcl);
   }
@@ -421,7 +421,7 @@ public final class PDTHelper
    * @return {@link DayOfWeek} and never <code>null</code>.
    * @since 8.6.3
    */
-  @Nonnull
+  @NonNull
   public static DayOfWeek getAsDayOfWeek (final int nCalendarDayOfWeek)
   {
     ValueEnforcer.isBetweenInclusive (nCalendarDayOfWeek, "DayOfWeek", 1, 7);
@@ -438,7 +438,7 @@ public final class PDTHelper
    * @return Something between Calendar.SUNDAY and Calendar.SATURDAY
    * @since 8.6.3
    */
-  public static int getCalendarDayOfWeek (@Nonnull final DayOfWeek eDOW)
+  public static int getCalendarDayOfWeek (@NonNull final DayOfWeek eDOW)
   {
     ValueEnforcer.notNull (eDOW, "DayOfWeek");
     return eDOW.getValue () % 7 + 1;

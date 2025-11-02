@@ -16,10 +16,10 @@
  */
 package com.helger.security.password.hash;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.security.password.salt.IPasswordSalt;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a password hash creator.
@@ -33,7 +33,7 @@ public interface IPasswordHashCreator
    *         <code>null</code> nor empty. This is a self-chosen name and not
    *         related to a JDK internal name.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getAlgorithmName ();
 
@@ -54,6 +54,6 @@ public interface IPasswordHashCreator
    * @return The String representation of the password hash. Must be valid to
    *         encode in UTF-8.
    */
-  @Nonnull
-  String createPasswordHash (IPasswordSalt aSalt, @Nonnull String sPlainTextPassword);
+  @NonNull
+  String createPasswordHash (IPasswordSalt aSalt, @NonNull String sPlainTextPassword);
 }

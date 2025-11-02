@@ -16,7 +16,7 @@
  */
 package com.helger.base.codec;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * The most basic decoding interface

@@ -18,6 +18,9 @@ package com.helger.json.mapping;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.StackTraceHelper;
@@ -26,9 +29,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a work around to read "exceptions" from JSON without actually having the need to create
@@ -43,9 +43,9 @@ public class JsonUnmappedException extends Exception
   private final String m_sMessage;
   private final ICommonsList <String> m_aStackTraceLines;
 
-  public JsonUnmappedException (@Nonnull final String sClassName,
+  public JsonUnmappedException (@NonNull final String sClassName,
                                 @Nullable final String sMessage,
-                                @Nonnull final List <String> aStackTraceLines)
+                                @NonNull final List <String> aStackTraceLines)
   {
     ValueEnforcer.notNull (sClassName, "ClassName");
     ValueEnforcer.notNull (aStackTraceLines, "StackTraceLines");
@@ -58,7 +58,7 @@ public class JsonUnmappedException extends Exception
    * @return The fully qualified name of the exception class as in
    *         "java.lang.IllegalArgumentException"
    */
-  @Nonnull
+  @NonNull
   public String getClassName ()
   {
     return m_sClassName;
@@ -79,7 +79,7 @@ public class JsonUnmappedException extends Exception
    * @return A non-null list of all stack trace lines in an arbitrary format. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllStackTraceLines ()
   {

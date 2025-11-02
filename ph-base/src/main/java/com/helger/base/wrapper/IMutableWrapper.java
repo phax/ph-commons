@@ -16,9 +16,9 @@
  */
 package com.helger.base.wrapper;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Base interface for mutable wrapping an object within another object.

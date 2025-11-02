@@ -20,11 +20,11 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.CollectionFind;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special ordered {@link Set} based interface with extended functionality based on
@@ -37,7 +37,7 @@ import jakarta.annotation.Nullable;
 public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTYPE>
 {
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <T> ICommonsOrderedSet <T> createInstance ()
   {
@@ -45,7 +45,7 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -58,9 +58,9 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsOrderedSet <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsOrderedSet <DSTTYPE> getAllMapped (@NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
     findAllMapped (aMapper, ret::add);
@@ -68,10 +68,10 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsOrderedSet <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                               @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+                                                               @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
     findAllMapped (aFilter, aMapper, ret::add);
@@ -79,9 +79,9 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE extends ELEMENTTYPE> ICommonsOrderedSet <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  default <DSTTYPE extends ELEMENTTYPE> ICommonsOrderedSet <DSTTYPE> getAllInstanceOf (@NonNull final Class <DSTTYPE> aDstClass)
   {
     final ICommonsOrderedSet <DSTTYPE> ret = createInstance ();
     findAllInstanceOf (aDstClass, ret::add);
@@ -112,7 +112,7 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
     return isEmpty () ? aDefault : CollectionFind.getLastElement (this);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <ELEMENTTYPE> getClone ();
 }

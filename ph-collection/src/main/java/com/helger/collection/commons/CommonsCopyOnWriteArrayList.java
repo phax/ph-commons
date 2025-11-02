@@ -21,10 +21,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link CommonsCopyOnWriteArrayList} implementation based on
@@ -84,7 +84,7 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    *        source data type
    */
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                                @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -129,20 +129,20 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    *        source data type
    */
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final SRCTYPE [] aValues,
-                                                @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsCopyOnWriteArrayList <T> createInstance ()
   {
     return new CommonsCopyOnWriteArrayList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsCopyOnWriteArrayList <ELEMENTTYPE> getClone ()
   {
@@ -168,7 +168,7 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
                                                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -202,11 +202,11 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                                                                  @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -237,10 +237,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                                                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
@@ -266,7 +266,7 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -300,11 +300,11 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
                                                                                                  @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -335,10 +335,10 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
-                                                                                                 @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();

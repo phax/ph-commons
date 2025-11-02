@@ -31,6 +31,7 @@ import java.util.function.Function;
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPath;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +47,6 @@ import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.xpath.XPathExpressionHelper;
 import com.helger.xml.xpath.XPathHelper;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link XMLHelper}.
  *
@@ -59,7 +58,7 @@ public final class XMLHelperTest
   private static final String TEST_NS = "http://www.helger.com/dev/unittests/commons/";
   private static final String TEST_NS2 = TEST_NS + "alt/";
 
-  @Nonnull
+  @NonNull
   private static Document _getTestDoc ()
   {
     final Document doc = XMLFactory.newDocument ();

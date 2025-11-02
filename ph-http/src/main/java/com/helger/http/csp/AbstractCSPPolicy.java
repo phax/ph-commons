@@ -16,6 +16,9 @@
  */
 package com.helger.http.csp;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract CSP policy declaration.
@@ -60,33 +60,33 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
     return m_aList.size ();
   }
 
-  @Nonnull
-  public AbstractCSPPolicy <T> addDirective (@Nonnull final T aDirective)
+  @NonNull
+  public AbstractCSPPolicy <T> addDirective (@NonNull final T aDirective)
   {
     ValueEnforcer.notNull (aDirective, "Directive");
     m_aList.add (aDirective);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDirective (@Nullable final T aDirective)
   {
     return m_aList.removeObject (aDirective);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeDirectiveAtIndex (final int nIndex)
   {
     return m_aList.removeAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllDirectives ()
   {
     return m_aList.removeAll ();
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return StringImplode.getImplodedMappedNonEmpty ("; ", m_aList, ICSPDirective::getAsStringIfHasValue);
@@ -110,7 +110,7 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String toString ()
   {
     return new ToStringGenerator (this).append ("list", m_aList).getToString ();

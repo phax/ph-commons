@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.UsedInGeneratedCode;
@@ -30,9 +33,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.ECollectionBaseType;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A small helper class that provides helper methods for easy <code>equals</code> method generation
@@ -64,8 +64,8 @@ public final class CollectionEqualsHelper
     return EqualsHelper.equals (aObj1, aObj2);
   }
 
-  public static <T> boolean equalsCollectionOnly (@Nonnull final Collection <T> aCont1,
-                                                  @Nonnull final Collection <?> aCont2)
+  public static <T> boolean equalsCollectionOnly (@NonNull final Collection <T> aCont1,
+                                                  @NonNull final Collection <?> aCont2)
   {
     if (aCont1.isEmpty () && aCont2.isEmpty ())
       return true;
@@ -81,7 +81,7 @@ public final class CollectionEqualsHelper
     return true;
   }
 
-  public static <K, V> boolean equalsMap (@Nonnull final Map <K, V> aCont1, @Nonnull final Map <?, ?> aCont2)
+  public static <K, V> boolean equalsMap (@NonNull final Map <K, V> aCont1, @NonNull final Map <?, ?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
       return false;
@@ -108,7 +108,7 @@ public final class CollectionEqualsHelper
     return true;
   }
 
-  public static <T> boolean equalsSet (@Nonnull final Set <T> aCont1, @Nonnull final Set <?> aCont2)
+  public static <T> boolean equalsSet (@NonNull final Set <T> aCont1, @NonNull final Set <?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
       return false;
@@ -118,7 +118,7 @@ public final class CollectionEqualsHelper
     return true;
   }
 
-  public static <T> boolean equalsIterator (@Nonnull final Iterator <T> aIter1, final Iterator <?> aIter2)
+  public static <T> boolean equalsIterator (@NonNull final Iterator <T> aIter1, final Iterator <?> aIter2)
   {
     while (aIter1.hasNext ())
     {
@@ -136,7 +136,7 @@ public final class CollectionEqualsHelper
     return !aIter2.hasNext ();
   }
 
-  public static <T> boolean equalsEumeration (@Nonnull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
+  public static <T> boolean equalsEumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
   {
     while (aEnum1.hasMoreElements ())
     {

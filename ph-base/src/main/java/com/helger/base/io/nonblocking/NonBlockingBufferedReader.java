@@ -26,12 +26,12 @@ import java.util.Spliterators;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A non-synchronized copy of the class {@link java.io.BufferedReader}.
@@ -68,7 +68,7 @@ public class NonBlockingBufferedReader extends Reader
    * @param aReader
    *        A Reader
    */
-  public NonBlockingBufferedReader (@Nonnull final Reader aReader)
+  public NonBlockingBufferedReader (@NonNull final Reader aReader)
   {
     this (aReader, DEFAULT_CHAR_BUFFER_SIZE);
   }
@@ -83,7 +83,7 @@ public class NonBlockingBufferedReader extends Reader
    * @exception IllegalArgumentException
    *            If size is &le; 0
    */
-  public NonBlockingBufferedReader (@Nonnull final Reader aReader, @Nonnegative final int nSize)
+  public NonBlockingBufferedReader (@NonNull final Reader aReader, @Nonnegative final int nSize)
   {
     super (aReader);
     ValueEnforcer.isGT0 (nSize, "Size");
@@ -538,7 +538,7 @@ public class NonBlockingBufferedReader extends Reader
    *         {@code BufferedReader}
    * @since 1.8
    */
-  @Nonnull
+  @NonNull
   public Stream <String> lines ()
   {
     final Iterator <String> aIter = new Iterator <> ()

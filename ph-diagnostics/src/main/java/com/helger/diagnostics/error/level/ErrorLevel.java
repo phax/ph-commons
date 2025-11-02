@@ -16,14 +16,14 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A standalone implementation of the {@link IErrorLevel} interface.
@@ -36,13 +36,13 @@ public class ErrorLevel implements IErrorLevel
   private final String m_sID;
   private final int m_nNumericLevel;
 
-  public ErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
+  public ErrorLevel (@NonNull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     m_nNumericLevel = nNumericLevel;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

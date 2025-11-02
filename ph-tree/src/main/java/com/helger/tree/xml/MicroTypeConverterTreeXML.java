@@ -16,15 +16,15 @@
  */
 package com.helger.tree.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special implementation of {@link IConverterTreeXML} that uses the
@@ -51,7 +51,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    *        The data type class - required for reading. May be in an interface
    *        as well.
    */
-  public MicroTypeConverterTreeXML (@Nonnull @Nonempty final String sElementName, @Nonnull final Class <? extends DATATYPE> aNativeClass)
+  public MicroTypeConverterTreeXML (@NonNull @Nonempty final String sElementName, @NonNull final Class <? extends DATATYPE> aNativeClass)
   {
     this (null, sElementName, aNativeClass);
   }
@@ -68,8 +68,8 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    *        as well.
    */
   public MicroTypeConverterTreeXML (@Nullable final String sNamespaceURI,
-                                    @Nonnull @Nonempty final String sElementName,
-                                    @Nonnull final Class <? extends DATATYPE> aNativeClass)
+                                    @NonNull @Nonempty final String sElementName,
+                                    @NonNull final Class <? extends DATATYPE> aNativeClass)
   {
     m_sNamespaceURI = sNamespaceURI;
     m_sElementName = ValueEnforcer.notEmpty (sElementName, "ElementName");
@@ -82,20 +82,20 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     return m_sNamespaceURI;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getElementName ()
   {
     return m_sElementName;
   }
 
-  @Nonnull
+  @NonNull
   public Class <? extends DATATYPE> getNativeClass ()
   {
     return m_aNativeClass;
   }
 
-  public void appendDataValue (@Nonnull final IMicroElement eDataElement, @Nullable final DATATYPE aObject)
+  public void appendDataValue (@NonNull final IMicroElement eDataElement, @Nullable final DATATYPE aObject)
   {
     // Append created element - or null if the passed object is null
     final IMicroElement eElement = MicroTypeConverter.convertToMicroElement (aObject, m_sNamespaceURI, m_sElementName);
@@ -103,7 +103,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
   }
 
   @Nullable
-  public DATATYPE getAsDataValue (@Nonnull final IMicroElement eDataElement)
+  public DATATYPE getAsDataValue (@NonNull final IMicroElement eDataElement)
   {
     final IMicroElement eChildElement = eDataElement.getFirstChildElement ();
     if (eChildElement != null)
@@ -129,9 +129,9 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    *        as well.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static <DATATYPE> MicroTypeConverterTreeXML <DATATYPE> create (@Nonnull @Nonempty final String sElementName,
-                                                                        @Nonnull final Class <? extends DATATYPE> aNativeClass)
+  @NonNull
+  public static <DATATYPE> MicroTypeConverterTreeXML <DATATYPE> create (@NonNull @Nonempty final String sElementName,
+                                                                        @NonNull final Class <? extends DATATYPE> aNativeClass)
   {
     return new MicroTypeConverterTreeXML <> (sElementName, aNativeClass);
   }
@@ -150,10 +150,10 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    *        as well.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> MicroTypeConverterTreeXML <DATATYPE> create (@Nullable final String sNamespaceURI,
-                                                                        @Nonnull @Nonempty final String sElementName,
-                                                                        @Nonnull final Class <? extends DATATYPE> aNativeClass)
+                                                                        @NonNull @Nonempty final String sElementName,
+                                                                        @NonNull final Class <? extends DATATYPE> aNativeClass)
   {
     return new MicroTypeConverterTreeXML <> (sNamespaceURI, sElementName, aNativeClass);
   }

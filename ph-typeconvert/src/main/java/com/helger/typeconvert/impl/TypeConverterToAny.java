@@ -16,10 +16,10 @@
  */
 package com.helger.typeconvert.impl;
 
-import com.helger.base.trait.ITypeConverterTo;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.trait.ITypeConverterTo;
 
 /**
  * An instance of {@link ITypeConverterTo} for the usage with arbitrary target classes. They must be
@@ -34,67 +34,67 @@ public class TypeConverterToAny <DST> implements ITypeConverterTo <DST>
 {
   private final Class <DST> m_aDestClass;
 
-  public TypeConverterToAny (@Nonnull final Class <DST> aClass)
+  public TypeConverterToAny (@NonNull final Class <DST> aClass)
   {
     m_aDestClass = aClass;
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final boolean value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final byte value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final char value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final double value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final float value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final int value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final long value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (final short value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
+  @NonNull
   public DST convert (@Nullable final Object value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
-  @Nonnull
-  public static <T> TypeConverterToAny <T> of (@Nonnull final Class <T> aClass)
+  @NonNull
+  public static <T> TypeConverterToAny <T> of (@NonNull final Class <T> aClass)
   {
     return new TypeConverterToAny <> (aClass);
   }

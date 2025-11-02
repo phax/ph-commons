@@ -16,10 +16,10 @@
  */
 package com.helger.jaxb;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for validating JAXB documents.
@@ -47,7 +47,7 @@ public interface IJAXBValidator <JAXBTYPE>
    *         not.
    * @see #validate(Object)
    */
-  default boolean isValid (@Nonnull final JAXBTYPE aJAXBDocument)
+  default boolean isValid (@NonNull final JAXBTYPE aJAXBDocument)
   {
     return validate (aJAXBDocument).containsNoError ();
   }
@@ -61,7 +61,7 @@ public interface IJAXBValidator <JAXBTYPE>
    *        The error list to be filled. May not be <code>null</code>.
    * @since v9.3.7
    */
-  void validate (@Nonnull JAXBTYPE aJAXBDocument, @Nonnull ErrorList aErrorList);
+  void validate (@NonNull JAXBTYPE aJAXBDocument, @NonNull ErrorList aErrorList);
 
   /**
    * Validate the passed JAXB document.
@@ -70,8 +70,8 @@ public interface IJAXBValidator <JAXBTYPE>
    *        The JAXB document to be validated. May not be <code>null</code>.
    * @return The validation results. Never <code>null</code>.
    */
-  @Nonnull
-  default IErrorList validate (@Nonnull final JAXBTYPE aJAXBDocument)
+  @NonNull
+  default IErrorList validate (@NonNull final JAXBTYPE aJAXBDocument)
   {
     final ErrorList aErrorList = new ErrorList ();
     validate (aJAXBDocument, aErrorList);

@@ -18,9 +18,9 @@ package com.helger.json.parser;
 
 import java.io.Serializable;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Read-only parsing position with a line and a column number.
@@ -41,6 +41,6 @@ public interface IJsonParsePosition extends Serializable
   @Nonnegative
   int getColumnNumber ();
 
-  @Nonnull
+  @NonNull
   String getAsString ();
 }

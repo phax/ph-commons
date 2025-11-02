@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.base.string.StringHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.string.StringHelper;
 
 /**
  * A special marker interface that is implemented by classes, that really
@@ -64,11 +64,11 @@ public interface IMicroNodeWithChildren extends IMicroNode
    * @return <code>null</code> if the element contains no text node as child
    */
   @Nullable
-  <DSTTYPE> DSTTYPE getTextContentWithConversion (@Nonnull Class <DSTTYPE> aDstClass);
+  <DSTTYPE> DSTTYPE getTextContentWithConversion (@NonNull Class <DSTTYPE> aDstClass);
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroNodeWithChildren getClone ();
 }

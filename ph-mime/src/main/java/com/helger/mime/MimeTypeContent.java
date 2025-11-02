@@ -19,6 +19,8 @@ package com.helger.mime;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
@@ -30,8 +32,6 @@ import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represent a single mapping from content bytes to an {@link IMimeType}.
@@ -55,7 +55,7 @@ public class MimeTypeContent
    * @param aMimeType
    *        The corresponding mime type. May not be <code>null</code>.
    */
-  public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes, @Nonnull final IMimeType aMimeType)
+  public MimeTypeContent (@NonNull @Nonempty final byte [] aContentBytes, @NonNull final IMimeType aMimeType)
   {
     this (aContentBytes, DEFAULT_COPY_BYTES, aMimeType);
   }
@@ -71,7 +71,7 @@ public class MimeTypeContent
    * @param aMimeType
    *        The corresponding mime type. May not be <code>null</code>.
    */
-  public MimeTypeContent (@Nonnull @Nonempty final byte [] aContentBytes, final boolean bCopyBytes, @Nonnull final IMimeType aMimeType)
+  public MimeTypeContent (@NonNull @Nonempty final byte [] aContentBytes, final boolean bCopyBytes, @NonNull final IMimeType aMimeType)
   {
     ValueEnforcer.notEmpty (aContentBytes, "ContentBytes");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -84,7 +84,7 @@ public class MimeTypeContent
    * @return A copy of the content bytes to use. Neither <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public byte [] getAllContentBytes ()
@@ -110,7 +110,7 @@ public class MimeTypeContent
    * @throws IOException
    *         In case of a write error
    */
-  public void writeContentBytes (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  public void writeContentBytes (@NonNull @WillNotClose final OutputStream aOS) throws IOException
   {
     m_aContentBytes.writeTo (aOS);
   }
@@ -118,7 +118,7 @@ public class MimeTypeContent
   /**
    * @return The matching mime type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IMimeType getMimeType ()
   {
     return m_aMimeType;
@@ -132,7 +132,7 @@ public class MimeTypeContent
    * @return <code>true</code> if the passed bytes start with the bytes in this
    *         object.
    */
-  public boolean matchesBeginning (@Nonnull final byte [] aCmpBytes)
+  public boolean matchesBeginning (@NonNull final byte [] aCmpBytes)
   {
     return ArrayHelper.startsWith (aCmpBytes, m_aContentBytes.bytes ());
   }

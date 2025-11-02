@@ -19,11 +19,11 @@ package com.helger.security.bcrypt;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.exception.InitializationException;
 import com.helger.security.random.VerySecureRandom;
-
-import jakarta.annotation.Nonnull;
 
 //Copyright (c) 2006 Damien Miller <djm@mindrot.org>
 //
@@ -1510,7 +1510,7 @@ public class BCrypt
    *        a "pointer" (as a one-entry array) to the current offset into data
    * @return the next word of material from data
    */
-  private static int _streamToWord (@Nonnull final byte [] data, @Nonnull final int [] offp)
+  private static int _streamToWord (@NonNull final byte [] data, @NonNull final int [] offp)
   {
     int word = 0;
     int off = offp[0];
@@ -1540,7 +1540,7 @@ public class BCrypt
    * @param key
    *        an array containing the key
    */
-  private void _key (@Nonnull final byte [] key)
+  private void _key (@NonNull final byte [] key)
   {
     final int [] koffp = { 0 };
     final int [] lr = { 0, 0 };
@@ -1575,7 +1575,7 @@ public class BCrypt
    * @param key
    *        password information
    */
-  private void _ekskey (@Nonnull final byte [] data, @Nonnull final byte [] key)
+  private void _ekskey (@NonNull final byte [] data, @NonNull final byte [] key)
   {
     // For quicker local access
     final int [] aP = m_aP;
@@ -1622,7 +1622,7 @@ public class BCrypt
    *        the plaintext to encrypt
    * @return an array containing the binary hashed password
    */
-  @Nonnull
+  @NonNull
   public byte [] crypt_raw (final byte [] password, final byte [] salt, final int nLogRounds, final int [] cdata)
   {
     if (nLogRounds < 4 || nLogRounds > 30)
@@ -1666,8 +1666,8 @@ public class BCrypt
    *        the salt to hash with (perhaps generated using BCrypt.gensalt)
    * @return the hashed password
    */
-  @Nonnull
-  public static String hashpw (@Nonnull final String sPassword, @Nonnull final String sSalt)
+  @NonNull
+  public static String hashpw (@NonNull final String sPassword, @NonNull final String sSalt)
   {
     if (sSalt.charAt (0) != '$' || sSalt.charAt (1) != '2')
       throw new IllegalArgumentException ("Invalid salt version");
@@ -1722,8 +1722,8 @@ public class BCrypt
    *        an instance of SecureRandom to use
    * @return an encoded salt value
    */
-  @Nonnull
-  public static String gensalt (@Nonnegative final int nLogRounds, @Nonnull final SecureRandom aRandom)
+  @NonNull
+  public static String gensalt (@Nonnegative final int nLogRounds, @NonNull final SecureRandom aRandom)
   {
     final StringBuilder rs = new StringBuilder ();
     final byte [] rnd = new byte [BCRYPT_SALT_LEN];
@@ -1749,7 +1749,7 @@ public class BCrypt
    *        factor therefore increases as 2**log_rounds.
    * @return an encoded salt value
    */
-  @Nonnull
+  @NonNull
   public static String gensalt (@Nonnegative final int log_rounds)
   {
     return gensalt (log_rounds, VerySecureRandom.getInstance ());
@@ -1761,7 +1761,7 @@ public class BCrypt
    *
    * @return an encoded salt value
    */
-  @Nonnull
+  @NonNull
   public static String gensalt ()
   {
     return gensalt (GENSALT_DEFAULT_LOG2_ROUNDS);
@@ -1777,7 +1777,7 @@ public class BCrypt
    * @return <code>true</code> if the passwords match, <code>false</code>
    *         otherwise
    */
-  public static boolean checkpw (@Nonnull final String sPlaintext, @Nonnull final String sHashed)
+  public static boolean checkpw (@NonNull final String sPlaintext, @NonNull final String sHashed)
   {
     final String sNewHashed = hashpw (sPlaintext, sHashed);
     final byte [] aHashedBytes = sHashed.getBytes (StandardCharsets.UTF_8);

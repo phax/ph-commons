@@ -19,10 +19,10 @@ package com.helger.collection.commons;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.base.FilterIterator;
 import com.helger.collection.base.IIterableIterator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A specific {@link FilterIterator} that implements {@link ICommonsIterableIterator}
@@ -40,14 +40,14 @@ public class CommonsFilterIterator <ELEMENTTYPE> extends FilterIterator <ELEMENT
     super (aBaseIter, aFilter);
   }
 
-  public CommonsFilterIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aBaseCont,
-                                @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public CommonsFilterIterator (@NonNull final Iterable <? extends ELEMENTTYPE> aBaseCont,
+                                @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     super (aBaseCont, aFilter);
   }
 
-  public CommonsFilterIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aBaseIter,
-                                @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  public CommonsFilterIterator (@NonNull final Iterator <? extends ELEMENTTYPE> aBaseIter,
+                                @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     super (aBaseIter, aFilter);
   }

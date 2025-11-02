@@ -18,9 +18,10 @@ package com.helger.jaxb.mock.external;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.commons.CommonsArrayList;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlAttribute;
@@ -90,7 +91,7 @@ public final class MockJAXBCollection
     return m_aIssue;
   }
 
-  @Nonnull
+  @NonNull
   public MockJAXBIssue getOnlyIssue ()
   {
     if (m_aIssue == null || m_aIssue.size () != 1)

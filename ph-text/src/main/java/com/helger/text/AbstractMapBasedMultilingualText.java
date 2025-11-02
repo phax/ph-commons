@@ -20,6 +20,9 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -32,9 +35,6 @@ import com.helger.base.state.EContinue;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.text.locale.LocaleHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link Map} based implementation of {@link IMultilingualText} that does
@@ -60,12 +60,12 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected AbstractMapBasedMultilingualText (@Nonnull final ICommonsOrderedMap <Locale, String> aMapToUse)
+  protected AbstractMapBasedMultilingualText (@NonNull final ICommonsOrderedMap <Locale, String> aMapToUse)
   {
     super (aMapToUse);
   }
 
-  @Nonnull
+  @NonNull
   private EContinue _beforeChange ()
   {
     return m_aChangeNotifyCallbacks.forEachBreakable (x -> x.beforeChange (this));
@@ -76,8 +76,8 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     m_aChangeNotifyCallbacks.forEach (x -> x.afterChange (this));
   }
 
-  @Nonnull
-  public final EChange addText (@Nonnull final Locale aContentLocale, @Nullable final String sText)
+  @NonNull
+  public final EChange addText (@NonNull final Locale aContentLocale, @Nullable final String sText)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -91,8 +91,8 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public final EChange setText (@Nonnull final Locale aContentLocale, @Nullable final String sText)
+  @NonNull
+  public final EChange setText (@NonNull final Locale aContentLocale, @Nullable final String sText)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -120,8 +120,8 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public final EChange removeText (@Nonnull final Locale aContentLocale)
+  @NonNull
+  public final EChange removeText (@NonNull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -138,7 +138,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.UNCHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeAll ()
   {
     if (texts ().isEmpty () || _beforeChange ().isBreak ())
@@ -149,8 +149,8 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public final EChange assignFrom (@Nonnull final IMultilingualText aMLT)
+  @NonNull
+  public final EChange assignFrom (@NonNull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 
@@ -165,7 +165,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   public final CallbackList <IChangeCallback <IMutableMultilingualText>> changeNotifyCallbacks ()
   {

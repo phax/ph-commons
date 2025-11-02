@@ -18,6 +18,9 @@ package com.helger.mime;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -32,9 +35,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.mime.parse.MimeTypeParser;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single MIME type as the combination of the content type and the sub-type and
@@ -65,7 +65,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    * @param aOther
    *        The other object to copy the data from
    */
-  public MimeType (@Nonnull final IMimeType aOther)
+  public MimeType (@NonNull final IMimeType aOther)
   {
     this (aOther.getContentType (), aOther.getContentSubType (), aOther.getAllParameters ());
   }
@@ -79,7 +79,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    * @param sContentSubType
    *        MIME content sub type. May neither be <code>null</code> nor empty.
    */
-  public MimeType (@Nonnull final EMimeContentType eContentType, @Nonnull @Nonempty final String sContentSubType)
+  public MimeType (@NonNull final EMimeContentType eContentType, @NonNull @Nonempty final String sContentSubType)
   {
     this (eContentType, sContentSubType, (Collection <? extends MimeTypeParameter>) null);
   }
@@ -95,8 +95,8 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    * @param aParameters
    *        MIME type parameters. May be <code>null</code> or empty.
    */
-  public MimeType (@Nonnull final EMimeContentType eContentType,
-                   @Nonnull @Nonempty final String sContentSubType,
+  public MimeType (@NonNull final EMimeContentType eContentType,
+                   @NonNull @Nonempty final String sContentSubType,
                    @Nullable final Collection <? extends MimeTypeParameter> aParameters)
   {
     ValueEnforcer.notNull (eContentType, "ContentType");
@@ -108,21 +108,21 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     m_aParameters = new CommonsArrayList <> (aParameters);
   }
 
-  @Nonnull
+  @NonNull
   public EMimeContentType getContentType ()
   {
     return m_eContentType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getContentSubType ()
   {
     return m_sContentSubType;
   }
 
-  @Nonnull
-  private String _getParametersAsString (@Nonnull final EMimeQuoting eQuotingAlgorithm)
+  @NonNull
+  private String _getParametersAsString (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
     final StringBuilder aSB = new StringBuilder ();
     // Append all parameters
@@ -136,9 +136,9 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getAsString (@Nonnull final EMimeQuoting eQuotingAlgorithm)
+  public String getAsString (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 
@@ -151,14 +151,14 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return m_sMainTypeAsString + _getParametersAsString (eQuotingAlgorithm);
   }
 
-  @Nonnull
+  @NonNull
   public String getAsStringWithoutParameters ()
   {
     return m_sMainTypeAsString;
   }
 
-  @Nonnull
-  public String getParametersAsString (@Nonnull final EMimeQuoting eQuotingAlgorithm)
+  @NonNull
+  public String getParametersAsString (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 
@@ -178,8 +178,8 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *        The value to use. May not be <code>null</code>. Must not be a valid MIME token.
    * @return this
    */
-  @Nonnull
-  public MimeType addParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull final String sValue)
+  @NonNull
+  public MimeType addParameter (@NonNull @Nonempty final String sAttribute, @NonNull final String sValue)
   {
     return addParameter (new MimeTypeParameter (sAttribute, sValue));
   }
@@ -191,8 +191,8 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *        The parameter to be added. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public MimeType addParameter (@Nonnull final MimeTypeParameter aParameter)
+  @NonNull
+  public MimeType addParameter (@NonNull final MimeTypeParameter aParameter)
   {
     ValueEnforcer.notNull (aParameter, "Parameter");
 
@@ -207,7 +207,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *        The parameter to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if removal was successful
    */
-  @Nonnull
+  @NonNull
   public EChange removeParameter (@Nullable final MimeTypeParameter aParameter)
   {
     return m_aParameters.removeObject (aParameter);
@@ -220,7 +220,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *        The index to remove. Should be &ge; 0.
    * @return {@link EChange#CHANGED} if removal was successful
    */
-  @Nonnull
+  @NonNull
   public EChange removeParameterAtIndex (final int nIndex)
   {
     return m_aParameters.removeAtIndex (nIndex);
@@ -231,7 +231,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    *
    * @return {@link EChange#CHANGED} if at least one parameter was present
    */
-  @Nonnull
+  @NonNull
   public EChange removeAllParameters ()
   {
     return m_aParameters.removeAll ();
@@ -245,7 +245,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
    * @return {@link EChange#CHANGED} if the parameter was removed, {@link EChange#UNCHANGED}
    *         otherwise.
    */
-  @Nonnull
+  @NonNull
   public EChange removeParameterWithName (@Nullable final String sParamName)
   {
     if (StringHelper.isNotEmpty (sParamName))
@@ -275,7 +275,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return m_aParameters.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeParameter> getAllParameters ()
   {
@@ -305,19 +305,19 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return aParam == null ? null : aParam.getValue ();
   }
 
-  @Nonnull
+  @NonNull
   public MimeType getClone ()
   {
     return new MimeType (m_eContentType, m_sContentSubType, m_aParameters);
   }
 
-  @Nonnull
+  @NonNull
   public MimeType getCopyWithoutParameters ()
   {
     return new MimeType (m_eContentType, m_sContentSubType);
   }
 
-  public int compareTo (@Nonnull final MimeType o)
+  public int compareTo (@NonNull final MimeType o)
   {
     return m_sMainTypeAsString.compareTo (o.m_sMainTypeAsString);
   }

@@ -18,10 +18,10 @@ package com.helger.io.provider;
 
 import java.io.OutputStream;
 
-import com.helger.base.io.EAppend;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.io.EAppend;
 
 /**
  * A callback interface to retrieve {@link OutputStream} objects from a given
@@ -42,5 +42,5 @@ public interface IOutputStreamProvider
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  OutputStream getOutputStream (@Nonnull String sName, @Nonnull EAppend eAppend);
+  OutputStream getOutputStream (@NonNull String sName, @NonNull EAppend eAppend);
 }

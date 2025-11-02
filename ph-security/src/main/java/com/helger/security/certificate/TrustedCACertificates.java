@@ -20,6 +20,7 @@ import java.security.cert.X509Certificate;
 
 import javax.security.auth.x500.X500Principal;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +33,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Manages a list of trusted CA certificates.
@@ -61,7 +60,7 @@ public class TrustedCACertificates
    * @param aSrc
    *        The object to copy from. May not be <code>null</code>.
    */
-  public TrustedCACertificates (@Nonnull final TrustedCACertificates aSrc)
+  public TrustedCACertificates (@NonNull final TrustedCACertificates aSrc)
   {
     ValueEnforcer.notNull (aSrc, "Src");
     m_aCerts.addAll (aSrc.m_aCerts);
@@ -76,7 +75,7 @@ public class TrustedCACertificates
    * @throws IllegalArgumentException
    *         If the provided certificate is already trusted
    */
-  public void addTrustedCACertificate (@Nonnull final X509Certificate aCert)
+  public void addTrustedCACertificate (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Certificate");
 
@@ -108,7 +107,7 @@ public class TrustedCACertificates
    * @return All the CA certificates currently contained. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsList <X509Certificate> getAllTrustedCACertificates ()
@@ -120,7 +119,7 @@ public class TrustedCACertificates
    * @return All the CA issuers currently valid. Neither <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsSet <X500Principal> getAllTrustedCAIssuers ()

@@ -16,7 +16,7 @@
  */
 package com.helger.base.version;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for objects having a version range.
@@ -30,6 +30,6 @@ public interface IHasVersionRange
    * @return The version range of the object. Should never be <code>null</code>
    *         .
    */
-  @Nonnull
+  @NonNull
   Version getVersionRange ();
 }

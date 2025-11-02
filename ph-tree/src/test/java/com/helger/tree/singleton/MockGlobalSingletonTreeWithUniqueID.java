@@ -16,10 +16,10 @@
  */
 package com.helger.tree.singleton;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.hashcode.HashCodeGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Mock global singleton
@@ -33,7 +33,7 @@ public final class MockGlobalSingletonTreeWithUniqueID extends AbstractGlobalSin
   public MockGlobalSingletonTreeWithUniqueID ()
   {}
 
-  @Nonnull
+  @NonNull
   public static MockGlobalSingletonTreeWithUniqueID getInstance ()
   {
     return getGlobalSingleton (MockGlobalSingletonTreeWithUniqueID.class);

@@ -18,8 +18,8 @@ package com.helger.io.provider;
 
 import java.io.InputStream;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * A callback interface to retrieve {@link InputStream} objects from a given
@@ -38,5 +38,5 @@ public interface IInputStreamProvider
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  InputStream getInputStream (@Nonnull String sName);
+  InputStream getInputStream (@NonNull String sName);
 }

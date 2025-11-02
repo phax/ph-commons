@@ -18,14 +18,13 @@ package com.helger.jaxb.validation;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.EErrorLevel;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
@@ -44,7 +43,7 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   {}
 
   @Override
-  protected void onEvent (@Nonnull final IError aEvent)
+  protected void onEvent (@NonNull final IError aEvent)
   {
     // As JAXB messages are not localized, we can use a fixed locale here!
     final String sMsg = "JAXB " + aEvent.getAsString (Locale.US);

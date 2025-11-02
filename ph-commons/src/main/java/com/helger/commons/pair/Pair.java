@@ -16,6 +16,9 @@
  */
 package com.helger.commons.pair;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A generic pair class. It wraps two objects of arbitrary type. If you just
@@ -55,7 +55,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     m_aSecond = aSecond;
   }
 
-  public Pair (@Nonnull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
+  public Pair (@NonNull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Pair");
     m_aFirst = rhs.getFirst ();
@@ -68,7 +68,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return m_aFirst;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setFirst (@Nullable final DATA1TYPE aFirst)
   {
     final Object aObj2 = m_aFirst;
@@ -84,7 +84,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return m_aSecond;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setSecond (@Nullable final DATA2TYPE aSecond)
   {
     final Object aObj2 = m_aSecond;
@@ -94,7 +94,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public Pair <DATA1TYPE, DATA2TYPE> getClone ()
   {
     return new Pair <> (this);
@@ -125,7 +125,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static <T, U> Pair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {
     return new Pair <> (aFirst, aSecond);

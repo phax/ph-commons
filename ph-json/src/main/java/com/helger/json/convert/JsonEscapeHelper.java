@@ -19,17 +19,17 @@ package com.helger.json.convert;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
-import com.helger.base.string.StringHex;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.string.StringHex;
 
 /**
  * Some escaping utility methods for Json
@@ -60,7 +60,7 @@ public final class JsonEscapeHelper
   private JsonEscapeHelper ()
   {}
 
-  public static void jsonEscapeToStringBuilder (@Nonnull final char [] aInput, @Nonnull final StringBuilder aSB)
+  public static void jsonEscapeToStringBuilder (@NonNull final char [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aSB, "StringBuilder");
@@ -98,7 +98,7 @@ public final class JsonEscapeHelper
     return aSB.toString ();
   }
 
-  public static void jsonEscape (@Nullable final String sInput, @Nonnull final StringBuilder aSB)
+  public static void jsonEscape (@Nullable final String sInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aSB, "StringBuilder");
 
@@ -112,7 +112,7 @@ public final class JsonEscapeHelper
     }
   }
 
-  public static void jsonEscapeToWriter (@Nonnull final char [] aInput, @Nonnull @WillNotClose final Writer aWriter)
+  public static void jsonEscapeToWriter (@NonNull final char [] aInput, @NonNull @WillNotClose final Writer aWriter)
                                                                                                                      throws IOException
   {
     ValueEnforcer.notNull (aInput, "Input");
@@ -128,7 +128,7 @@ public final class JsonEscapeHelper
     }
   }
 
-  public static void jsonEscapeToWriter (@Nullable final String sInput, @Nonnull @WillNotClose final Writer aWriter)
+  public static void jsonEscapeToWriter (@Nullable final String sInput, @NonNull @WillNotClose final Writer aWriter)
                                                                                                                      throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -151,7 +151,7 @@ public final class JsonEscapeHelper
     return ret;
   }
 
-  public static void jsonUnescapeToStringBuilder (@Nonnull final char [] aInput, @Nonnull final StringBuilder aSB)
+  public static void jsonUnescapeToStringBuilder (@NonNull final char [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aSB, "StringBuilder");
@@ -219,8 +219,8 @@ public final class JsonEscapeHelper
     }
   }
 
-  @Nonnull
-  public static String jsonUnescape (@Nonnull final String sInput)
+  @NonNull
+  public static String jsonUnescape (@NonNull final String sInput)
   {
     ValueEnforcer.notNull (sInput, "Input");
 
@@ -236,8 +236,8 @@ public final class JsonEscapeHelper
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String jsonUnescape (@Nonnull final char [] aInput)
+  @NonNull
+  public static String jsonUnescape (@NonNull final char [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 

@@ -23,6 +23,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.Schema;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.EntityResolver;
@@ -40,9 +42,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.XMLFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * DOM reader settings
@@ -105,7 +104,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
    * @param aOther
    *        The settings object to copy from. May not be <code>null</code>.
    */
-  public DOMReaderSettings (@Nonnull final IDOMReaderSettings aOther)
+  public DOMReaderSettings (@NonNull final IDOMReaderSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
 
@@ -133,7 +132,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bNamespaceAware;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setNamespaceAware (final boolean bNamespaceAware)
   {
     m_bNamespaceAware = bNamespaceAware;
@@ -145,7 +144,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bValidating;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setValidating (final boolean bValidating)
   {
     m_bValidating = bValidating;
@@ -157,7 +156,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bIgnoringElementContentWhitespace;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
     m_bIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace;
@@ -169,7 +168,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bExpandEntityReferences;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
     m_bExpandEntityReferences = bExpandEntityReferences;
@@ -181,7 +180,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bIgnoringComments;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setIgnoringComments (final boolean bIgnoringComments)
   {
     m_bIgnoringComments = bIgnoringComments;
@@ -193,7 +192,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bCoalescing;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setCoalescing (final boolean bCoalescing)
   {
     m_bCoalescing = bCoalescing;
@@ -206,7 +205,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aSchema;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setSchema (@Nullable final Schema aSchema)
   {
     m_aSchema = aSchema;
@@ -218,7 +217,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bXIncludeAware;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setXIncludeAware (final boolean bXIncludeAware)
   {
     m_bXIncludeAware = bXIncludeAware;
@@ -236,15 +235,15 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return eProperty == null ? null : m_aProperties.get (eProperty);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
     return m_aProperties.getClone ();
   }
 
-  @Nonnull
-  public final DOMReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+  @NonNull
+  public final DOMReaderSettings setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                                    @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
@@ -265,7 +264,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
     if (aProperties != null)
@@ -273,7 +272,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
     if (eProperty != null)
@@ -281,7 +280,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings removeAllPropertyValues ()
   {
     m_aProperties.removeAll ();
@@ -294,7 +293,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return (Locale) getPropertyValue (EXMLParserProperty.GENERAL_LOCALE);
   }
 
-  @Nonnull
+  @NonNull
   public DOMReaderSettings setLocale (@Nullable final Locale aLocale)
   {
     return setPropertyValue (EXMLParserProperty.GENERAL_LOCALE, aLocale);
@@ -311,15 +310,15 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return eFeature == null ? null : m_aFeatures.get (eFeature);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
     return m_aFeatures.getClone ();
   }
 
-  @Nonnull
-  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
+  @NonNull
+  public final DOMReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
@@ -327,8 +326,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
-  public final DOMReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
+  @NonNull
+  public final DOMReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature,
                                                   @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
@@ -340,7 +339,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
     if (aValues != null)
@@ -348,7 +347,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
     if (eFeature != null)
@@ -356,7 +355,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings removeFeatures (@Nullable final EXMLParserFeature... aFeatures)
   {
     if (aFeatures != null)
@@ -365,7 +364,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings removeAllFeatures ()
   {
     m_aFeatures.removeAll ();
@@ -401,7 +400,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aEntityResolver;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
     m_aEntityResolver = aEntityResolver;
@@ -414,14 +413,14 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aErrorHandler;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
     m_aErrorHandler = aErrorHandler;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
     return m_aExceptionCallbacks;
@@ -432,20 +431,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_bRequiresNewXMLParserExplicitly;
   }
 
-  @Nonnull
+  @NonNull
   public final DOMReaderSettings setRequiresNewXMLParserExplicitly (final boolean bRequiresNewXMLParserExplicitly)
   {
     m_bRequiresNewXMLParserExplicitly = bRequiresNewXMLParserExplicitly;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public DOMReaderSettings getClone ()
   {
     return new DOMReaderSettings (this);
   }
 
-  public void applyToDocumentBuilderFactory (@Nonnull final DocumentBuilderFactory aDocumentBuilderFactory)
+  public void applyToDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
@@ -482,7 +481,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
         aEntry.getKey ().applyTo (aDocumentBuilderFactory, aEntry.getValue ().booleanValue ());
   }
 
-  public void applyToDocumentBuilder (@Nonnull final DocumentBuilder aDocumentBuilder)
+  public void applyToDocumentBuilder (@NonNull final DocumentBuilder aDocumentBuilder)
   {
     ValueEnforcer.notNull (aDocumentBuilder, "DocumentBuilder");
 

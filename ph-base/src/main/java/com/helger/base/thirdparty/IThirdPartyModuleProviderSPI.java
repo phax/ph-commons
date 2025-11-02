@@ -16,9 +16,9 @@
  */
 package com.helger.base.thirdparty;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * Implement this SPI interface if your JAR file contains external third party

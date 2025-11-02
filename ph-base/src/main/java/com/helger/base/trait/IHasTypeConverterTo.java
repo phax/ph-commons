@@ -16,7 +16,7 @@
  */
 package com.helger.base.trait;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An object having or requiring a converter from primitive to something else.
@@ -31,6 +31,6 @@ public interface IHasTypeConverterTo <DSTTYPE>
    * @return The primitive converter to use to convert to the destination type. Might not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ITypeConverterTo <DSTTYPE> getTypeConverterTo ();
 }

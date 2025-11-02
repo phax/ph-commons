@@ -19,12 +19,12 @@ package com.helger.base.text;
 import java.text.MessageFormat;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class TextFormatter
@@ -52,7 +52,7 @@ public final class TextFormatter
   }
 
   @Nullable
-  public static String getFormattedText (@Nonnull final Locale aDisplayLocale,
+  public static String getFormattedText (@NonNull final Locale aDisplayLocale,
                                          @Nullable final String sText,
                                          @Nullable final Object... aArgs)
   {

@@ -19,10 +19,10 @@ package com.helger.collection.commons;
 import java.util.Collections;
 import java.util.NavigableSet;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link NavigableSet} based interface with extended functionality
@@ -35,14 +35,14 @@ import jakarta.annotation.Nonnull;
 public interface ICommonsNavigableSet <ELEMENTTYPE> extends NavigableSet <ELEMENTTYPE>, ICommonsSortedSet <ELEMENTTYPE>
 {
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default NavigableSet <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableNavigableSet (this);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsNavigableSet <ELEMENTTYPE> getClone ();
 }

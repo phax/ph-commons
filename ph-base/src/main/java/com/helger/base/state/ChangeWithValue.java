@@ -16,15 +16,15 @@
  */
 package com.helger.base.state;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.IWrapper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Wraps a change indicator and an arbitrary value.
@@ -47,7 +47,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
    * @param aObj
    *        The assigned value. May be <code>null</code>.
    */
-  public ChangeWithValue (@Nonnull final IChangeIndicator aChangeIndicator, @Nullable final DATATYPE aObj)
+  public ChangeWithValue (@NonNull final IChangeIndicator aChangeIndicator, @Nullable final DATATYPE aObj)
   {
     ValueEnforcer.notNull (aChangeIndicator, "ChangeIndicator");
 
@@ -153,7 +153,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> ChangeWithValue <DATATYPE> createChanged (@Nullable final DATATYPE aValue)
   {
     return new ChangeWithValue <> (EChange.CHANGED, aValue);
@@ -168,7 +168,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> ChangeWithValue <DATATYPE> createUnchanged (@Nullable final DATATYPE aValue)
   {
     return new ChangeWithValue <> (EChange.UNCHANGED, aValue);

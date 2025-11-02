@@ -16,10 +16,10 @@
  */
 package com.helger.tree;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of the {@link ITreeItemFactory} for {@link DefaultTreeItem}
@@ -32,14 +32,14 @@ import jakarta.annotation.Nonnull;
 @NotThreadSafe
 public class DefaultTreeItemFactory <DATATYPE> implements ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>>
 {
-  @Nonnull
+  @NonNull
   public DefaultTreeItem <DATATYPE> createRoot ()
   {
     return new DefaultTreeItem <> (this);
   }
 
-  @Nonnull
-  public DefaultTreeItem <DATATYPE> create (@Nonnull final DefaultTreeItem <DATATYPE> aParent)
+  @NonNull
+  public DefaultTreeItem <DATATYPE> create (@NonNull final DefaultTreeItem <DATATYPE> aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     return new DefaultTreeItem <> (aParent);

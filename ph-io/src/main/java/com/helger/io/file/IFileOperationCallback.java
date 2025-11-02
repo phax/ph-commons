@@ -18,10 +18,10 @@ package com.helger.io.file;
 
 import java.io.File;
 
-import com.helger.base.callback.ICallback;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.callback.ICallback;
 
 /**
  * Callback interface for {@link FileOperationManager}.
@@ -40,7 +40,7 @@ public interface IFileOperationCallback extends ICallback
    * @param aFile2
    *        The second file worked upon. May be <code>null</code>.
    */
-  default void onSuccess (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile1, @Nullable final File aFile2)
+  default void onSuccess (@NonNull final EFileIOOperation eOperation, @NonNull final File aFile1, @Nullable final File aFile2)
   {}
 
   /**
@@ -57,9 +57,9 @@ public interface IFileOperationCallback extends ICallback
    * @param aException
    *        The exception that occurred. May be <code>null</code>.
    */
-  default void onError (@Nonnull final EFileIOOperation eOperation,
-                        @Nonnull final EFileIOErrorCode eErrorCode,
-                        @Nonnull final File aFile1,
+  default void onError (@NonNull final EFileIOOperation eOperation,
+                        @NonNull final EFileIOErrorCode eErrorCode,
+                        @NonNull final File aFile1,
                         @Nullable final File aFile2,
                         @Nullable final Exception aException)
   {}

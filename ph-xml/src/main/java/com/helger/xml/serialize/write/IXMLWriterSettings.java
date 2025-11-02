@@ -20,11 +20,11 @@ import java.nio.charset.Charset;
 
 import javax.xml.namespace.NamespaceContext;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.system.ENewLineMode;
 import com.helger.xml.EXMLVersion;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for the settings to be used for serializing XML nodes.
@@ -36,19 +36,19 @@ public interface IXMLWriterSettings
   /**
    * @return The XML version to use. Default is <code>1.0</code>
    */
-  @Nonnull
+  @NonNull
   EXMLVersion getXMLVersion ();
 
   /**
    * @return The XML serialize version to use. Default is <code>XML 1.0</code>
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeVersion getSerializeVersion ();
 
   /**
    * @return Write XML declaration? Default is <code>true</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ();
 
   /**
@@ -61,46 +61,46 @@ public interface IXMLWriterSettings
   /**
    * @return Write document type? Default is <code>true</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeDocType getSerializeDocType ();
 
   /**
    * @return Write comments? Default is <code>true</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeComments getSerializeComments ();
 
   /**
    * @return Indent and/or align code? Default is
    *         <code>indent and aligned</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeIndent getIndent ();
 
   /**
    * @return The dynamic (per-element) indentation determinator. This must be
    *         changed when e.g. serializing HTML. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IXMLIndentDeterminator getIndentDeterminator ();
 
   /**
    * @return The incorrect character handling to be used. May not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ();
 
   /**
    * @return The charset to use. May never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   Charset getCharset ();
 
   /**
    * @return The namespace context to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   NamespaceContext getNamespaceContext ();
 
   /**
@@ -114,7 +114,7 @@ public interface IXMLWriterSettings
    *         must be changed when e.g. serializing HTML. Never <code>null</code>
    *         .
    */
-  @Nonnull
+  @NonNull
   IXMLBracketModeDeterminator getBracketModeDeterminator ();
 
   /**
@@ -131,14 +131,14 @@ public interface IXMLWriterSettings
    * @return The newline mode to be used. By default it is the platform specific
    *         new line mode. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ENewLineMode getNewLineMode ();
 
   /**
    * @return The string representing the new line mode. A shortcut for
    *         <code>getNewLineMode ().getText()</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getNewLineString ()
   {
@@ -149,7 +149,7 @@ public interface IXMLWriterSettings
    * @return The string to be used for indentation of a single level. By default
    *         it is 2 spaces.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getIndentationString ();
 

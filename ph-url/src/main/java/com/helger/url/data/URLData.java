@@ -18,6 +18,9 @@ package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -31,9 +34,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.url.ISimpleURL;
 import com.helger.url.codec.URLCoder;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only implementation of {@link ISimpleURL}
@@ -55,19 +55,19 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   private String m_sAnchor;
   private Charset m_aCharset;
 
-  public URLData (@Nonnull final IURLData aOther)
+  public URLData (@NonNull final IURLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.getPath (), aOther.getAllParams (), aOther.getAnchor (), aOther.getCharset ());
   }
 
-  public URLData (@Nonnull final URLData aOther)
+  public URLData (@NonNull final URLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.m_sPath, aOther.m_aParams.getClone (), aOther.m_sAnchor, aOther.m_aCharset);
   }
 
-  public URLData (@Nonnull final String sPath,
+  public URLData (@NonNull final String sPath,
                   @Nullable final ICommonsList <URLParameter> aParams,
                   @Nullable final String sAnchor,
                   @Nullable final Charset aCharset)
@@ -80,28 +80,28 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     m_aCharset = aCharset;
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_sPath;
   }
 
-  @Nonnull
-  public URLData setPath (@Nonnull final String sPath)
+  @NonNull
+  public URLData setPath (@NonNull final String sPath)
   {
     ValueEnforcer.notNull (sPath, "Path");
     m_sPath = sPath;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public ICommonsList <URLParameter> params ()
   {
     return m_aParams;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <URLParameter> getAllParams ()
   {
@@ -114,7 +114,7 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return m_aParams.findFirstMapped (x -> x.hasName (sParamName), URLParameter::getValue);
   }
 
-  @Nonnull
+  @NonNull
   public URLData setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     m_aParams.setAll (aParams);
@@ -127,7 +127,7 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return m_sAnchor;
   }
 
-  @Nonnull
+  @NonNull
   public URLData setAnchor (@Nullable final String sAnchor)
   {
     m_sAnchor = sAnchor;
@@ -140,14 +140,14 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return m_aCharset;
   }
 
-  @Nonnull
+  @NonNull
   public URLData setCharset (@Nullable final Charset aCharset)
   {
     m_aCharset = aCharset;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public URLData getClone ()
   {
     return new URLData (this);
@@ -187,7 +187,7 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static URLData createEmpty ()
   {
     return EMPTY_URL_DATA.getClone ();

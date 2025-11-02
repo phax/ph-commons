@@ -16,10 +16,10 @@
  */
 package com.helger.scope.spi;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.IRequestScope;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * SPI for handling the request scope lifecycle. Is invoked for non-web and web
@@ -36,7 +36,7 @@ public interface IRequestScopeSPI
    * @param aRequestScope
    *        The request scope object to be used. Never <code>null</code>.
    */
-  void onRequestScopeBegin (@Nonnull IRequestScope aRequestScope);
+  void onRequestScopeBegin (@NonNull IRequestScope aRequestScope);
 
   /**
    * Called before the request scope is shut down
@@ -44,5 +44,5 @@ public interface IRequestScopeSPI
    * @param aRequestScope
    *        The request scope object to be used. Never <code>null</code>.
    */
-  void onRequestScopeEnd (@Nonnull IRequestScope aRequestScope);
+  void onRequestScopeEnd (@NonNull IRequestScope aRequestScope);
 }

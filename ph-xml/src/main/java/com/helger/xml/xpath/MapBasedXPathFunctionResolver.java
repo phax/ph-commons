@@ -22,6 +22,9 @@ import javax.xml.namespace.QName;
 import javax.xml.xpath.XPathFunction;
 import javax.xml.xpath.XPathFunctionResolver;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -33,9 +36,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to
@@ -63,7 +63,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    * @param aOther
    *        Object to copy data from
    */
-  public MapBasedXPathFunctionResolver (@Nonnull final MapBasedXPathFunctionResolver aOther)
+  public MapBasedXPathFunctionResolver (@NonNull final MapBasedXPathFunctionResolver aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     m_aMap = aOther.m_aMap.getClone ();
@@ -82,11 +82,11 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        The function to be used. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange addUniqueFunction (@Nonnull final String sNamespaceURI,
-                                    @Nonnull final String sLocalPart,
+  @NonNull
+  public EChange addUniqueFunction (@NonNull final String sNamespaceURI,
+                                    @NonNull final String sLocalPart,
                                     @Nonnegative final int nArity,
-                                    @Nonnull final XPathFunction aFunction)
+                                    @NonNull final XPathFunction aFunction)
   {
     return addUniqueFunction (new QName (sNamespaceURI, sLocalPart), nArity, aFunction);
   }
@@ -102,8 +102,8 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        The function to be used. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange addUniqueFunction (@Nonnull final QName aName, @Nonnegative final int nArity, @Nonnull final XPathFunction aFunction)
+  @NonNull
+  public EChange addUniqueFunction (@NonNull final QName aName, @Nonnegative final int nArity, @NonNull final XPathFunction aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
 
@@ -125,8 +125,8 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        new functions, otherwise the old functions are kept.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange addAllFrom (@Nonnull final MapBasedXPathFunctionResolver aOther, final boolean bOverwrite)
+  @NonNull
+  public EChange addAllFrom (@NonNull final MapBasedXPathFunctionResolver aOther, final boolean bOverwrite)
   {
     ValueEnforcer.notNull (aOther, "Other");
     EChange eChange = EChange.UNCHANGED;
@@ -148,8 +148,8 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        The number of parameters of the function. Must be &ge; 0.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange removeFunction (@Nonnull final QName aName, @Nonnegative final int nArity)
+  @NonNull
+  public EChange removeFunction (@NonNull final QName aName, @Nonnegative final int nArity)
   {
     final XPathFunctionKey aKey = new XPathFunctionKey (aName, nArity);
     return removeFunction (aKey);
@@ -162,7 +162,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        The function key to be removed. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeFunction (@Nullable final XPathFunctionKey aKey)
   {
     if (aKey == null)
@@ -178,7 +178,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *        The name to be removed. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if at least one function was removed.
    */
-  @Nonnull
+  @NonNull
   public EChange removeFunctionsWithName (@Nullable final QName aName)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -196,7 +196,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    * @return A mutable copy of all contained functions. Never <code>null</code>
    *         but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <XPathFunctionKey, XPathFunction> getAllFunctions ()
   {
@@ -217,14 +217,14 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    *
    * @return {@link EChange#CHANGED} if at least one function was removed.
    */
-  @Nonnull
+  @NonNull
   public EChange clear ()
   {
     return m_aMap.removeAll ();
   }
 
   @Nullable
-  public XPathFunction resolveFunction (@Nonnull final QName aFunctionName, @Nonnegative final int nArity)
+  public XPathFunction resolveFunction (@NonNull final QName aFunctionName, @Nonnegative final int nArity)
   {
     return resolveFunction (new XPathFunctionKey (aFunctionName, nArity));
   }
@@ -235,7 +235,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     return m_aMap.get (aFunctionKey);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public MapBasedXPathFunctionResolver getClone ()
   {

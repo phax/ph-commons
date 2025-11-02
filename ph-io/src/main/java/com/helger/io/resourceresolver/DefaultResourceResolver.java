@@ -21,6 +21,8 @@ import java.io.UncheckedIOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple resource resolver that can handle URLs, JAR files and file system resources.
@@ -85,14 +84,14 @@ public class DefaultResourceResolver implements IHasConditionalLogger
    * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
    */
-  @Nonnull
+  @NonNull
   public static IReadableResource getResolvedResource (@Nullable final String sSystemId,
                                                        @Nullable final String sBaseURI)
   {
     return getResolvedResource (sSystemId, sBaseURI, (ClassLoader) null);
   }
 
-  @Nonnull
+  @NonNull
   private static ClassPathResource _resolveClassPathResource (final String sSystemId,
                                                               final String sBaseURI,
                                                               final ClassLoader aClassLoader)
@@ -113,8 +112,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     return ret;
   }
 
-  @Nonnull
-  private static URLResource _resolveJarFileResource (@Nonnull final String sSystemId, @Nonnull final String sBaseURI)
+  @NonNull
+  private static URLResource _resolveJarFileResource (@NonNull final String sSystemId, @NonNull final String sBaseURI)
                                                                                                                        throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
@@ -157,8 +156,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     return ret;
   }
 
-  @Nonnull
-  private static URLResource _resolveURLResource (final String sSystemId, @Nonnull final URL aBaseURL)
+  @NonNull
+  private static URLResource _resolveURLResource (final String sSystemId, @NonNull final URL aBaseURL)
                                                                                                        throws MalformedURLException
   {
     // Take only the path
@@ -189,8 +188,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     return ret;
   }
 
-  @Nonnull
-  private static FileSystemResource _getChildResource (@Nullable final File aBaseFile, @Nonnull final File aSystemFile)
+  @NonNull
+  private static FileSystemResource _getChildResource (@Nullable final File aBaseFile, @NonNull final File aSystemFile)
   {
     if (aBaseFile == null)
       return new FileSystemResource (aSystemFile);
@@ -217,7 +216,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
    * @throws UncheckedIOException
    *         In case the file resolution (to an absolute file) fails.
    */
-  @Nonnull
+  @NonNull
   public static IReadableResource getResolvedResource (@Nullable final String sSystemId,
                                                        @Nullable final String sBaseURI,
                                                        @Nullable final ClassLoader aClassLoader)

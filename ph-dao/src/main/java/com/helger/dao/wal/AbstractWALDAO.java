@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,9 +78,6 @@ import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
 import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for a simple DAO using write ahead logging (WAL).
@@ -134,21 +133,21 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   // Status vars
   private final WALListener m_aWALListener;
 
-  @Nonnull
-  private static String _getFilenameNew (@Nonnull final String sFilename)
+  @NonNull
+  private static String _getFilenameNew (@NonNull final String sFilename)
   {
     return sFilename + FILENAME_EXTENSION_NEW;
   }
 
-  @Nonnull
-  private static String _getFilenamePrev (@Nonnull final String sFilename)
+  @NonNull
+  private static String _getFilenamePrev (@NonNull final String sFilename)
   {
     return sFilename + FILENAME_EXTENSION_PREV;
   }
 
-  protected AbstractWALDAO (@Nonnull final Class <DATATYPE> aDataTypeClass,
-                            @Nonnull final IFileRelativeIO aIO,
-                            @Nonnull final Supplier <String> aFilenameProvider)
+  protected AbstractWALDAO (@NonNull final Class <DATATYPE> aDataTypeClass,
+                            @NonNull final IFileRelativeIO aIO,
+                            @NonNull final Supplier <String> aFilenameProvider)
   {
     m_aDataTypeClass = ValueEnforcer.notNull (aDataTypeClass, "DataTypeClass");
     m_aIO = ValueEnforcer.notNull (aIO, "DAOIO");
@@ -209,7 +208,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     }
   }
 
-  final void internalWriteLocked (@Nonnull final Runnable aRunnable)
+  final void internalWriteLocked (@NonNull final Runnable aRunnable)
   {
     m_aRWLock.writeLocked (aRunnable);
   }
@@ -217,7 +216,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * @return The file-relative IO as passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   protected final IFileRelativeIO getIO ()
   {
     return m_aIO;
@@ -226,7 +225,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * @return The filename provider used internally to build filenames. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Supplier <String> getFilenameProvider ()
   {
     return m_aFilenameProvider;
@@ -238,7 +237,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *
    * @return {@link EChange#CHANGED} if something was modified inside this method
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected EChange onInit ()
   {
@@ -254,9 +253,9 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @return {@link EChange#CHANGED} if reading the data changed something in the internal
    *         structures that requires a writing.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
-  protected abstract EChange onRead (@Nonnull IMicroDocument aDoc);
+  protected abstract EChange onRead (@NonNull IMicroDocument aDoc);
 
   /**
    * Get a {@link File} object for the specified filename that can perform the respective operation
@@ -271,8 +270,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @throws DAOException
    *         If the requested access mode cannot be provided.
    */
-  @Nonnull
-  protected final File getSafeFile (@Nonnull final String sFilename, @Nonnull final EMode eMode) throws DAOException
+  @NonNull
+  protected final File getSafeFile (@NonNull final String sFilename, @NonNull final EMode eMode) throws DAOException
   {
     ValueEnforcer.notNull (sFilename, "Filename");
     ValueEnforcer.notNull (eMode, "Mode");
@@ -293,7 +292,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
-  protected static void triggerExceptionHandlersRead (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersRead (@NonNull final Throwable t,
                                                       final boolean bIsInitialization,
                                                       @Nullable final File aFile)
   {
@@ -308,7 +307,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * @return The implementation class as specified in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   protected final Class <DATATYPE> getDataTypeClass ()
   {
     return m_aDataTypeClass;
@@ -327,7 +326,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   @Nullable
   @OverrideOnDemand
   @IsLocked (ELockType.WRITE)
-  protected DATATYPE convertWALStringToNative (@Nonnull final String sElement)
+  protected DATATYPE convertWALStringToNative (@NonNull final String sElement)
   {
     final IMicroDocument aDoc = MicroReader.readMicroXML (sElement);
     if (aDoc == null || aDoc.getDocumentElement () == null)
@@ -343,7 +342,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    */
   @OverrideOnDemand
   @IsLocked (ELockType.WRITE)
-  protected void onBetweenReadAndWAL (@Nonnull final IMicroDocument aDoc)
+  protected void onBetweenReadAndWAL (@NonNull final IMicroDocument aDoc)
   {}
 
   /**
@@ -359,9 +358,9 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @since 9.1.6
    */
   @OverrideOnDemand
-  protected void onRecoveryErrorConvertToNative (@Nonnull final EDAOActionType eActionType,
+  protected void onRecoveryErrorConvertToNative (@NonNull final EDAOActionType eActionType,
                                                  @Nonnegative final int i,
-                                                 @Nonnull final String sElement)
+                                                 @NonNull final String sElement)
   {
     LOGGER.error ("Action [" +
                   eActionType +
@@ -378,7 +377,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *        The element to be created. Never <code>null</code>.
    */
   @IsLocked (ELockType.WRITE)
-  protected abstract void onRecoveryCreate (@Nonnull DATATYPE aElement);
+  protected abstract void onRecoveryCreate (@NonNull DATATYPE aElement);
 
   /**
    * Called when a recovery is needed to update an existing item.
@@ -387,7 +386,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *        The element to be updated. Never <code>null</code>.
    */
   @IsLocked (ELockType.WRITE)
-  protected abstract void onRecoveryUpdate (@Nonnull DATATYPE aElement);
+  protected abstract void onRecoveryUpdate (@NonNull DATATYPE aElement);
 
   /**
    * Called when a recovery is needed to delete an existing item.
@@ -396,7 +395,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *        The element to be deleted. Never <code>null</code>.
    */
   @IsLocked (ELockType.WRITE)
-  protected abstract void onRecoveryDelete (@Nonnull DATATYPE aElement);
+  protected abstract void onRecoveryDelete (@NonNull DATATYPE aElement);
 
   /**
    * Call this method inside the constructor to read the file contents directly. This method is
@@ -686,7 +685,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    */
   @OverrideOnDemand
   @MustBeLocked (ELockType.WRITE)
-  protected void onFilenameChange (@Nullable final String sPreviousFilename, @Nonnull final String sNewFilename)
+  protected void onFilenameChange (@Nullable final String sPreviousFilename, @NonNull final String sNewFilename)
   {}
 
   /**
@@ -695,7 +694,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *
    * @return The non-<code>null</code> document to write to the file.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
   protected abstract IMicroDocument createWriteData ();
 
@@ -707,7 +706,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    */
   @OverrideOnDemand
   @MustBeLocked (ELockType.WRITE)
-  protected void modifyWriteData (@Nonnull final IMicroDocument aDoc)
+  protected void modifyWriteData (@NonNull final IMicroDocument aDoc)
   {
     CONDLOG.info ( () -> "Inserting automatic 'do NOT modify' header to XML");
 
@@ -726,7 +725,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * @return The {@link IXMLWriterSettings} to be used to serialize the data.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected IXMLWriterSettings getXMLWriterSettings ()
   {
@@ -754,8 +753,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *        The XML content that should be written. May be <code>null</code> if the error occurred
    *        in XML creation.
    */
-  protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
-                                                       @Nonnull final String sErrorFilename,
+  protected static void triggerExceptionHandlersWrite (@NonNull final Throwable t,
+                                                       @NonNull final String sErrorFilename,
                                                        @Nullable final IMicroDocument aDoc)
   {
     // Check if a custom exception handler is present
@@ -773,7 +772,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    *
    * @return {@link ESuccess} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
   private ESuccess _writeToFile ()
   {
@@ -898,7 +897,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   @MustBeLocked (ELockType.WRITE)
-  final void _writeToFileAndResetPendingChanges (@Nonnull final String sCallingMethodName)
+  final void _writeToFileAndResetPendingChanges (@NonNull final String sCallingMethodName)
   {
     if (_writeToFile ().isSuccess ())
       internalSetPendingChanges (false);
@@ -929,7 +928,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * This method is called if recovery from the WAL file (partially) failed an analysis might be
    * needed.
    */
-  final void _maintainWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
+  final void _maintainWALFileAfterProcessing (@NonNull @Nonempty final String sWALFilename)
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
@@ -957,7 +956,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * This method may only be triggered with valid WAL filenames, as the passed file is deleted!
    */
-  final void _deleteWALFileAfterProcessing (@Nonnull @Nonempty final String sWALFilename)
+  final void _deleteWALFileAfterProcessing (@NonNull @Nonempty final String sWALFilename)
   {
     ValueEnforcer.notEmpty (sWALFilename, "WALFilename");
     final File aWALFile = m_aIO.getFile (sWALFilename);
@@ -974,16 +973,16 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   /**
    * @return The {@link IXMLWriterSettings} to be used to serialize the data.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected IXMLWriterSettings getWALXMLWriterSettings ()
   {
     return WAL_XWS;
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected String convertNativeToWALString (@Nonnull final DATATYPE aModifiedElement)
+  protected String convertNativeToWALString (@NonNull final DATATYPE aModifiedElement)
   {
     final IMicroElement aElement = MicroTypeConverter.convertToMicroElement (aModifiedElement, "item");
     if (aElement == null)
@@ -999,11 +998,11 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
     return MicroWriter.getNodeAsString (aElement, getWALXMLWriterSettings ());
   }
 
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
-  private ESuccess _writeWALFile (@Nonnull @Nonempty final List <DATATYPE> aModifiedElements,
-                                  @Nonnull final EDAOActionType eActionType,
-                                  @Nonnull @Nonempty final String sWALFilename)
+  private ESuccess _writeWALFile (@NonNull @Nonempty final List <DATATYPE> aModifiedElements,
+                                  @NonNull final EDAOActionType eActionType,
+                                  @NonNull @Nonempty final String sWALFilename)
   {
     final FileSystemResource aWALRes = m_aIO.getResource (sWALFilename);
     CONDLOG.info ( () -> "Writing WAL file " + aWALRes);
@@ -1038,7 +1037,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @return The waiting time used before the file is effectively written. Never <code>null</code>.
    *         Default value is 10 seconds.
    */
-  @Nonnull
+  @NonNull
   public Duration getWaitingTime ()
   {
     return m_aWaitingTime;
@@ -1051,7 +1050,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    * @param aWaitingTime
    *        The waiting time to be used. May not be <code>null</code>.
    */
-  protected void setWaitingTime (@Nonnull final Duration aWaitingTime)
+  protected void setWaitingTime (@NonNull final Duration aWaitingTime)
   {
     ValueEnforcer.notNull (aWaitingTime, "WaitingTime");
     m_aWaitingTime = aWaitingTime;
@@ -1070,7 +1069,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
    */
   @MustBeLocked (ELockType.WRITE)
   @OverridingMethodsMustInvokeSuper
-  protected void markAsChanged (@Nonnull final DATATYPE aModifiedElement, @Nonnull final EDAOActionType eActionType)
+  protected void markAsChanged (@NonNull final DATATYPE aModifiedElement, @NonNull final EDAOActionType eActionType)
   {
     ValueEnforcer.notNull (aModifiedElement, "ModifiedElement");
     ValueEnforcer.notNull (eActionType, "ActionType");
@@ -1080,8 +1079,8 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   @MustBeLocked (ELockType.WRITE)
-  protected final void markAsChanged (@Nonnull final List <DATATYPE> aModifiedElements,
-                                      @Nonnull final EDAOActionType eActionType)
+  protected final void markAsChanged (@NonNull final List <DATATYPE> aModifiedElements,
+                                      @NonNull final EDAOActionType eActionType)
   {
     ValueEnforcer.notNull (aModifiedElements, "ModifiedElements");
     ValueEnforcer.notNull (eActionType, "ActionType");

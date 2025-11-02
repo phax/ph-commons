@@ -27,6 +27,7 @@ import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,7 +41,6 @@ import com.helger.jaxb.mock.external.MockJAXBCollection;
 import com.helger.jaxb.mock.external.MockJAXBIssue;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -54,7 +54,7 @@ public final class JAXBMarshallerHelperTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBMarshallerHelperTest.class);
 
-  private void _testAll (@Nonnull final Class <?> aClass) throws JAXBException
+  private void _testAll (@NonNull final Class <?> aClass) throws JAXBException
   {
     final JAXBContext aCtx = JAXBContextCache.getInstance ().getFromCache (JAXBContextCacheKey.createForClass (aClass));
     assertNotNull (aCtx);

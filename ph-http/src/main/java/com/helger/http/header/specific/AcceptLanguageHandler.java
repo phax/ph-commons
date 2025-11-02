@@ -16,14 +16,14 @@
  */
 package com.helger.http.header.specific;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handler for the request HTTP header field "Accept-Language"
@@ -42,7 +42,7 @@ public final class AcceptLanguageHandler
   private AcceptLanguageHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   public static AcceptLanguageList getAcceptLanguages (@Nullable final String sAcceptLanguage)
   {
     final AcceptLanguageList ret = new AcceptLanguageList ();

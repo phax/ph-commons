@@ -18,11 +18,11 @@ package com.helger.io.resourceprovider;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Resource provider interface for readable resources.
@@ -51,8 +51,8 @@ public interface IReadableResourceProvider
    *        The name of the resource to resolve.
    * @return The readable resource. Never <code>null</code>.
    */
-  @Nonnull
-  IReadableResource getReadableResource (@Nonnull String sName);
+  @NonNull
+  IReadableResource getReadableResource (@NonNull String sName);
 
   /**
    * Get the {@link InputStream} specified by the given name for reading. This
@@ -66,7 +66,7 @@ public interface IReadableResourceProvider
    *         returns <code>false</code>.
    */
   @Nullable
-  default InputStream getInputStream (@Nonnull final String sName)
+  default InputStream getInputStream (@NonNull final String sName)
   {
     if (!supportsReading (sName))
       return null;

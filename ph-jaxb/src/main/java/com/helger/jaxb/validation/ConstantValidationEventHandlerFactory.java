@@ -16,7 +16,8 @@
  */
 package com.helger.jaxb.validation;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
+
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**

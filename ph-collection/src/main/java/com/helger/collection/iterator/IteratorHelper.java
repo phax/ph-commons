@@ -20,6 +20,9 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.array.ArrayHelper;
@@ -27,9 +30,6 @@ import com.helger.collection.CollectionHelper;
 import com.helger.collection.base.EmptyIterator;
 import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.commons.CommonsIterableEnumeration;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public class IteratorHelper
@@ -61,32 +61,32 @@ public class IteratorHelper
     return CollectionHelper.getSizeIterator (aIterator);
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
     return aCont == null ? new EmptyIterator <> () : getIterator (aCont.iterator ());
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
     return aIter == null ? new EmptyIterator <> () : aIter;
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> getIterator (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     return new CommonsIterableEnumeration <> (aEnum);
   }
 
-  @Nonnull
+  @NonNull
   @SafeVarargs
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
   {
     return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <> () : new ArrayIterator <> (aArray);
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getReverseIterator (@Nullable final List <? extends ELEMENTTYPE> aCont)
   {
     if (CollectionHelper.isEmpty (aCont))
@@ -111,7 +111,7 @@ public class IteratorHelper
    *        Second iterator. May be <code>null</code>.
    * @return The merged iterator. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getCombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1,
                                                                           @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {

@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for manager actions to indicate continue or break states.
@@ -33,14 +33,14 @@ public enum EContinue implements IContinueIndicator
     return this == CONTINUE;
   }
 
-  @Nonnull
+  @NonNull
   public static EContinue valueOf (final boolean bContinue)
   {
     return bContinue ? CONTINUE : BREAK;
   }
 
-  @Nonnull
-  public static EContinue valueOf (@Nonnull final IContinueIndicator aContinueIndicator)
+  @NonNull
+  public static EContinue valueOf (@NonNull final IContinueIndicator aContinueIndicator)
   {
     return valueOf (aContinueIndicator.isContinue ());
   }

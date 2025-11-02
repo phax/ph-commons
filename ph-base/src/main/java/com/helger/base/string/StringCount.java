@@ -18,15 +18,15 @@ package com.helger.base.string;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for counting things in Strings
@@ -191,7 +191,7 @@ public final class StringCount
   @Nonnegative
   public static int getOccurrenceCountIgnoreCase (@Nullable final String sText,
                                                   @Nullable final String sSearch,
-                                                  @Nonnull final Locale aSortLocale)
+                                                  @NonNull final Locale aSortLocale)
   {
     return sText != null && sSearch != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale),
                                                                   sSearch.toLowerCase (aSortLocale)) : 0;
@@ -248,7 +248,7 @@ public final class StringCount
   @Nonnegative
   public static int getOccurrenceCountIgnoreCase (@Nullable final String sText,
                                                   final char cSearch,
-                                                  @Nonnull final Locale aSortLocale)
+                                                  @NonNull final Locale aSortLocale)
   {
     return sText != null ? getOccurrenceCount (sText.toLowerCase (aSortLocale), Character.toLowerCase (cSearch)) : 0;
   }

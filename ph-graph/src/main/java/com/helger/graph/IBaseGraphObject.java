@@ -16,11 +16,11 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.id.IHasID;
 import com.helger.typeconvert.collection.IAttributeContainerAny;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for graph nodes and graph relations.
@@ -32,7 +32,7 @@ public interface IBaseGraphObject extends IHasID <String>
   /**
    * @return The attributes of this graph object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   IAttributeContainerAny <String> attrs ();
 

@@ -18,12 +18,12 @@ package com.helger.base.numeric;
 
 import java.math.RoundingMode;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Contains several math help routines.
@@ -107,7 +107,7 @@ public final class MathHelper
     return getIntDivided (nDividend, nDivisor, RoundingMode.FLOOR);
   }
 
-  public static int getIntDivided (final int nDividend, final int nDivisor, @Nonnull final RoundingMode eRoundingMode)
+  public static int getIntDivided (final int nDividend, final int nDivisor, @NonNull final RoundingMode eRoundingMode)
   {
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).intValue ();
   }
@@ -124,7 +124,7 @@ public final class MathHelper
 
   public static long getLongDivided (final long nDividend,
                                      final long nDivisor,
-                                     @Nonnull final RoundingMode eRoundingMode)
+                                     @NonNull final RoundingMode eRoundingMode)
   {
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
@@ -140,7 +140,7 @@ public final class MathHelper
     return canConvertLongToInt (nValue) ? (int) nValue : nFallback;
   }
 
-  public static int getMaxInt (final int nValue, @Nonnull final int... aValues)
+  public static int getMaxInt (final int nValue, @NonNull final int... aValues)
   {
     int ret = nValue;
     for (final int n : aValues)
@@ -148,7 +148,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static long getMaxLong (final long nValue, @Nonnull final long... aValues)
+  public static long getMaxLong (final long nValue, @NonNull final long... aValues)
   {
     long ret = nValue;
     for (final long n : aValues)
@@ -156,7 +156,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMaxFloat (final float fValue, @Nonnull final float... aValues)
+  public static double getMaxFloat (final float fValue, @NonNull final float... aValues)
   {
     float ret = fValue;
     for (final float f : aValues)
@@ -164,7 +164,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMaxDouble (final double dValue, @Nonnull final double... aValues)
+  public static double getMaxDouble (final double dValue, @NonNull final double... aValues)
   {
     double ret = dValue;
     for (final double d : aValues)
@@ -172,7 +172,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static int getMinInt (final int nValue, @Nonnull final int... aValues)
+  public static int getMinInt (final int nValue, @NonNull final int... aValues)
   {
     int ret = nValue;
     for (final int n : aValues)
@@ -180,7 +180,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static long getMinLong (final long nValue, @Nonnull final long... aValues)
+  public static long getMinLong (final long nValue, @NonNull final long... aValues)
   {
     long ret = nValue;
     for (final long n : aValues)
@@ -188,7 +188,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMinFloat (final float fValue, @Nonnull final float... aValues)
+  public static double getMinFloat (final float fValue, @NonNull final float... aValues)
   {
     float ret = fValue;
     for (final float f : aValues)
@@ -196,7 +196,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMinDouble (final double dValue, @Nonnull final double... aValues)
+  public static double getMinDouble (final double dValue, @NonNull final double... aValues)
   {
     double ret = dValue;
     for (final double d : aValues)

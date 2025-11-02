@@ -18,6 +18,9 @@ package com.helger.graph;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.IClearable;
@@ -25,9 +28,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.matrix.Matrix;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a read-only graph.
@@ -63,7 +63,7 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * @return A non-<code>null</code> collection of the nodes in this graph, in
    *         arbitrary order!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, NODETYPE> getAllNodes ();
 
@@ -71,7 +71,7 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * @return A non-<code>null</code> set of all the node IDs in this graph, in
    *         arbitrary order!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllNodeIDs ();
 
@@ -82,13 +82,13 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forEachNode (@Nonnull Consumer <? super NODETYPE> aConsumer);
+  void forEachNode (@NonNull Consumer <? super NODETYPE> aConsumer);
 
   /**
    * @return A non-<code>null</code> map of the relations in this graph, in
    *         arbitrary order!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, RELATIONTYPE> getAllRelations ();
 
@@ -96,7 +96,7 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * @return A non-<code>null</code> list of the relations in this graph, in
    *         arbitrary order!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <RELATIONTYPE> getAllRelationObjs ();
 
@@ -104,7 +104,7 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * @return A non-<code>null</code> set of all the relation IDs in this graph,
    *         in arbitrary order!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllRelationIDs ();
 
@@ -116,7 +116,7 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forEachRelation (@Nonnull Consumer <? super RELATIONTYPE> aConsumer);
+  void forEachRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
    * Check if this graph contains cycles. An example for a cycle is e.g. if
@@ -148,6 +148,6 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * @throws IllegalArgumentException
    *         If this graph contains no node
    */
-  @Nonnull
+  @NonNull
   Matrix createIncidenceMatrix ();
 }

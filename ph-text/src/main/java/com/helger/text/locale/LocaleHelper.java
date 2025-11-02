@@ -21,6 +21,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -37,9 +40,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Misc locale utility methods.
@@ -122,7 +122,7 @@ public final class LocaleHelper
   private LocaleHelper ()
   {}
 
-  public static boolean equalLocales (@Nonnull final Locale aObj1, @Nonnull final Locale aObj2)
+  public static boolean equalLocales (@NonNull final Locale aObj1, @NonNull final Locale aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toString ().equals (y.toString ()));
   }
@@ -141,8 +141,8 @@ public final class LocaleHelper
    * @see #LOCALE_ALL
    * @see #LOCALE_INDEPENDENT
    */
-  @Nonnull
-  public static String getLocaleDisplayName (@Nullable final Locale aLocale, @Nonnull final Locale aContentLocale)
+  @NonNull
+  public static String getLocaleDisplayName (@Nullable final Locale aLocale, @NonNull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -160,8 +160,8 @@ public final class LocaleHelper
    *        The locale to use. May not be <code>null</code>.
    * @return The native display name of the passed locale.
    */
-  @Nonnull
-  public static String getLocaleNativeDisplayName (@Nonnull final Locale aLocale)
+  @NonNull
+  public static String getLocaleNativeDisplayName (@NonNull final Locale aLocale)
   {
     ValueEnforcer.notNull (aLocale, "Locale");
     return getLocaleDisplayName (aLocale, aLocale);
@@ -174,9 +174,9 @@ public final class LocaleHelper
    *        the locale ID in which the language list is required
    * @return The mapping from the input locale to the display text. The result map is not ordered.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsMap <Locale, String> getAllLocaleDisplayNames (@Nonnull final Locale aContentLocale)
+  public static ICommonsMap <Locale, String> getAllLocaleDisplayNames (@NonNull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 
@@ -205,10 +205,10 @@ public final class LocaleHelper
    *         most specific locale being first. The returned list has never more than three entries.
    *         The returned list may have no entries, if the passed locale has no language.
    */
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
-  public static List <Locale> getCalculatedLocaleListForResolving (@Nonnull final Locale aLocale)
+  public static List <Locale> getCalculatedLocaleListForResolving (@NonNull final Locale aLocale)
   {
     ValueEnforcer.notNull (aLocale, "Locale");
 
@@ -225,7 +225,7 @@ public final class LocaleHelper
    * @return Never <code>null</code>. If the passed parameter is <code>null</code> or empty,
    *         {@link SystemHelper#getSystemLocale()} is returned.
    */
-  @Nonnull
+  @NonNull
   public static Locale getLocaleFromString (@Nullable final String sLocaleAsString)
   {
     if (StringHelper.isEmpty (sLocaleAsString))
@@ -289,15 +289,15 @@ public final class LocaleHelper
   }
 
   @Nullable
-  public static Locale getLocaleToUseOrNull (@Nonnull final Locale aRequestLocale,
-                                             @Nonnull final Collection <Locale> aAvailableLocales)
+  public static Locale getLocaleToUseOrNull (@NonNull final Locale aRequestLocale,
+                                             @NonNull final Collection <Locale> aAvailableLocales)
   {
     return getLocaleToUseOrFallback (aRequestLocale, aAvailableLocales, null);
   }
 
   @Nullable
-  public static Locale getLocaleToUseOrFallback (@Nonnull final Locale aRequestLocale,
-                                                 @Nonnull final Collection <Locale> aAvailableLocales,
+  public static Locale getLocaleToUseOrFallback (@NonNull final Locale aRequestLocale,
+                                                 @NonNull final Collection <Locale> aAvailableLocales,
                                                  @Nullable final Locale aFallback)
   {
     ValueEnforcer.notNull (aRequestLocale, "RequestLocale");
@@ -408,7 +408,7 @@ public final class LocaleHelper
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public static EChange clearCache ()
   {
     return LOCALE_LIST_CACHE.clearCache ();

@@ -21,6 +21,8 @@ import java.util.Map;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.ContentHandler;
@@ -43,9 +45,6 @@ import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * SAX reader settings
@@ -91,7 +90,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    * @param aOther
    *        the object to copy the settings from. May not be <code>null</code>.
    */
-  public SAXReaderSettings (@Nonnull final ISAXReaderSettings aOther)
+  public SAXReaderSettings (@NonNull final ISAXReaderSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
 
@@ -113,7 +112,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aEntityResolver;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
     m_aEntityResolver = aEntityResolver;
@@ -126,7 +125,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aDTDHandler;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setDTDHandler (@Nullable final DTDHandler aDTDHandler)
   {
     m_aDTDHandler = aDTDHandler;
@@ -139,7 +138,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aContentHandler;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setContentHandler (@Nullable final ContentHandler aContentHandler)
   {
     m_aContentHandler = aContentHandler;
@@ -152,7 +151,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aErrorHandler;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
     m_aErrorHandler = aErrorHandler;
@@ -165,7 +164,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return (LexicalHandler) getPropertyValue (EXMLParserProperty.SAX_LEXICAL_HANDLER);
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setLexicalHandler (@Nullable final LexicalHandler aLexicalHandler)
   {
     return setPropertyValue (EXMLParserProperty.SAX_LEXICAL_HANDLER, aLexicalHandler);
@@ -177,7 +176,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return (DeclHandler) getPropertyValue (EXMLParserProperty.SAX_DECLARATION_HANDLER);
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setDeclarationHandler (@Nullable final DeclHandler aDeclHandler)
   {
     return setPropertyValue (EXMLParserProperty.SAX_DECLARATION_HANDLER, aDeclHandler);
@@ -194,15 +193,15 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return eProperty == null ? null : m_aProperties.get (eProperty);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
     return m_aProperties.getClone ();
   }
 
-  @Nonnull
-  public final SAXReaderSettings setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+  @NonNull
+  public final SAXReaderSettings setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                                    @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
@@ -223,7 +222,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
     if (aProperties != null)
@@ -231,7 +230,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
     if (eProperty != null)
@@ -239,7 +238,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings removeAllPropertyValues ()
   {
     m_aProperties.removeAll ();
@@ -252,7 +251,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return (Locale) getPropertyValue (EXMLParserProperty.GENERAL_LOCALE);
   }
 
-  @Nonnull
+  @NonNull
   public SAXReaderSettings setLocale (@Nullable final Locale aLocale)
   {
     return setPropertyValue (EXMLParserProperty.GENERAL_LOCALE, aLocale);
@@ -269,15 +268,15 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return eFeature == null ? null : m_aFeatures.get (eFeature);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
     return m_aFeatures.getClone ();
   }
 
-  @Nonnull
-  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
+  @NonNull
+  public final SAXReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
@@ -285,8 +284,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
-  public final SAXReaderSettings setFeatureValue (@Nonnull final EXMLParserFeature eFeature,
+  @NonNull
+  public final SAXReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature,
                                                   @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
@@ -305,7 +304,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    *        The values to be added. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
     if (aValues != null)
@@ -313,7 +312,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
     if (eFeature != null)
@@ -321,7 +320,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings removeFeatures (@Nullable final EXMLParserFeature... aFeatures)
   {
     if (aFeatures != null)
@@ -330,7 +329,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings removeAllFeatures ()
   {
     m_aFeatures.removeAll ();
@@ -351,7 +350,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aEntityResolver != null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
@@ -364,7 +363,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_aCustomSAXParserFactory;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setCustomSAXParserFactory (@Nullable final SAXParserFactory aCustomSAXParserFactory)
   {
     m_aCustomSAXParserFactory = aCustomSAXParserFactory;
@@ -376,20 +375,20 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
     return m_bRequiresNewXMLParserExplicitly;
   }
 
-  @Nonnull
+  @NonNull
   public final SAXReaderSettings setRequiresNewXMLParserExplicitly (final boolean bRequiresNewXMLParserExplicitly)
   {
     m_bRequiresNewXMLParserExplicitly = bRequiresNewXMLParserExplicitly;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public SAXReaderSettings getClone ()
   {
     return new SAXReaderSettings (this);
   }
 
-  public void applyToSAXReader (@Nonnull final XMLReader aParser)
+  public void applyToSAXReader (@NonNull final XMLReader aParser)
   {
     ValueEnforcer.notNull (aParser, "Parser");
 
@@ -433,7 +432,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    *        The parameter to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SAXReaderSettings createCloneOnDemand (@Nullable final ISAXReaderSettings aOther)
   {
     if (aOther == null)

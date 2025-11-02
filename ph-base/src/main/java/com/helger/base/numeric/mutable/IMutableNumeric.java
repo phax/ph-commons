@@ -19,9 +19,9 @@ package com.helger.base.numeric.mutable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import com.helger.base.numeric.INumber;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.numeric.INumber;
 
 /**
  * Base interface for mutable numeric values
@@ -67,55 +67,55 @@ public interface IMutableNumeric <IMPLTYPE extends IMutableNumeric <IMPLTYPE>> e
    */
   boolean isGE0 ();
 
-  @Nonnull
+  @NonNull
   default Byte getAsByte ()
   {
     return Byte.valueOf (byteValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Character getAsCharacter ()
   {
     return Character.valueOf ((char) intValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Double getAsDouble ()
   {
     return Double.valueOf (doubleValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Float getAsFloat ()
   {
     return Float.valueOf (floatValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Integer getAsInteger ()
   {
     return Integer.valueOf (intValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Long getAsLong ()
   {
     return Long.valueOf (longValue ());
   }
 
-  @Nonnull
+  @NonNull
   default Short getAsShort ()
   {
     return Short.valueOf (shortValue ());
   }
 
-  @Nonnull
+  @NonNull
   default BigInteger getAsBigInteger ()
   {
     return BigInteger.valueOf (longValue ());
   }
 
-  @Nonnull
+  @NonNull
   default BigDecimal getAsBigDecimal ()
   {
     return BigDecimal.valueOf (doubleValue ());

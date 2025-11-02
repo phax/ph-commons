@@ -20,12 +20,12 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A selection of common message digest (hash) algorithms.
@@ -43,7 +43,7 @@ public enum EMessageDigestAlgorithm
 
   private final String m_sAlgorithm;
 
-  EMessageDigestAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
+  EMessageDigestAlgorithm (@NonNull @Nonempty final String sAlgorithm)
   {
     m_sAlgorithm = sAlgorithm;
   }
@@ -51,7 +51,7 @@ public enum EMessageDigestAlgorithm
   /**
    * @return The internal name of the message digest algorithm. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAlgorithm ()
   {
@@ -64,7 +64,7 @@ public enum EMessageDigestAlgorithm
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
-  @Nonnull
+  @NonNull
   public MessageDigest createMessageDigest ()
   {
     return createMessageDigest (null);
@@ -79,7 +79,7 @@ public enum EMessageDigestAlgorithm
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
-  @Nonnull
+  @NonNull
   public MessageDigest createMessageDigest (@Nullable final Provider aSecurityProvider)
   {
     try

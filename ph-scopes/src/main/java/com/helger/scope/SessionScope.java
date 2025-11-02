@@ -16,6 +16,7 @@
  */
 package com.helger.scope;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +24,6 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EContinue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of the {@link ISessionScope} interface
@@ -36,7 +35,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SessionScope.class);
 
-  public SessionScope (@Nonnull @Nonempty final String sScopeID)
+  public SessionScope (@NonNull @Nonempty final String sScopeID)
   {
     super (sScopeID);
 
@@ -64,7 +63,7 @@ public class SessionScope extends AbstractScope implements ISessionScope
                    ScopeHelper.getDebugException ());
   }
 
-  @Nonnull
+  @NonNull
   public EContinue selfDestruct ()
   {
     // Nothing to do here!

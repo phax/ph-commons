@@ -16,11 +16,11 @@
  */
 package com.helger.graph.simple;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.graph.IMutableGraph;
 import com.helger.graph.IMutableGraphRelation;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a modifiable simple graph.
@@ -40,8 +40,8 @@ public interface ISimpleGraph extends IMutableGraph
    *        The to-node ID. May not be <code>null</code>.
    * @return The created graph relation and never <code>null</code>.
    */
-  @Nonnull
-  IMutableGraphRelation createRelation (@Nonnull String sFromNodeID, @Nonnull String sToNodeID);
+  @NonNull
+  IMutableGraphRelation createRelation (@NonNull String sFromNodeID, @NonNull String sToNodeID);
 
   /**
    * Create a new relation from the passed fromNode to the toNode. Internally
@@ -56,6 +56,6 @@ public interface ISimpleGraph extends IMutableGraph
    *        The to-node ID. May not be <code>null</code>.
    * @return The created graph relation and never <code>null</code>.
    */
-  @Nonnull
-  IMutableGraphRelation createRelation (@Nonnull @Nonempty String sRelationID, @Nonnull String sFromNodeID, @Nonnull String sToNodeID);
+  @NonNull
+  IMutableGraphRelation createRelation (@NonNull @Nonempty String sRelationID, @NonNull String sFromNodeID, @NonNull String sToNodeID);
 }

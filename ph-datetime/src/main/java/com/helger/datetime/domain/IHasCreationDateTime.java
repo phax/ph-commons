@@ -20,10 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Interface for objects having a creation date time.
@@ -85,7 +85,7 @@ public interface IHasCreationDateTime
    *         not.
    * @since 9.1.6
    */
-  default boolean isCreatedAt (@Nonnull final LocalDateTime aDT)
+  default boolean isCreatedAt (@NonNull final LocalDateTime aDT)
   {
     ValueEnforcer.notNull (aDT, "LocalDateTime");
     return hasCreationDateTime () && getCreationDateTime ().compareTo (aDT) <= 0;

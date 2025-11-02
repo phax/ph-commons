@@ -16,10 +16,10 @@
  */
 package com.helger.base.type;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Base interface for all objects having a certain {@link ObjectType}.
@@ -32,13 +32,13 @@ public interface IHasObjectType
   /**
    * @return The type of the object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ObjectType getObjectType ();
 
   /**
    * @return The name of the object type. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getObjectTypeName ()
   {

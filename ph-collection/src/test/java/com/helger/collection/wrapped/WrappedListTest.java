@@ -28,12 +28,11 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link WrappedList}.
@@ -42,7 +41,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class WrappedListTest
 {
-  private static <T> void _testList (@Nonnull final List <T> aList, @Nonnull final Class <T> aClass) throws InstantiationException,
+  private static <T> void _testList (@NonNull final List <T> aList, @NonNull final Class <T> aClass) throws InstantiationException,
                                                                                                      IllegalAccessException,
                                                                                                      NoSuchMethodException,
                                                                                                      SecurityException,

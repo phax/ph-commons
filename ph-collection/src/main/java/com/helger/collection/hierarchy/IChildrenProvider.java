@@ -16,10 +16,10 @@
  */
 package com.helger.collection.hierarchy;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.collection.commons.ICommonsCollection;
-
-import jakarta.annotation.Nullable;
 
 /**
  * This interface can be used to generically resolved children of a certain

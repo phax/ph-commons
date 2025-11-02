@@ -20,13 +20,15 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
-import com.helger.base.string.StringImplode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
+import com.helger.base.string.StringImplode;
 import com.helger.base.text.TextVariableHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashSet;
@@ -36,9 +38,6 @@ import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfig}. It is recommended to use {@link ConfigFactory} for
@@ -73,7 +72,7 @@ public class Config implements IConfig
    * @param aValueProvider
    *        The main configuration value provider. May not be <code>null</code>.
    */
-  public Config (@Nonnull final IConfigurationValueProvider aValueProvider)
+  public Config (@NonNull final IConfigurationValueProvider aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
     m_aValueProvider = aValueProvider;
@@ -83,7 +82,7 @@ public class Config implements IConfig
    * @return The configuration value provider as provided in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IConfigurationValueProvider getConfigurationValueProvider ()
   {
     return m_aValueProvider;
@@ -155,7 +154,7 @@ public class Config implements IConfig
    * @return this for chaining
    * @since 10.2.0
    */
-  @Nonnull
+  @NonNull
   public final Config setReplaceVariables (final boolean bReplaceVariables)
   {
     m_bReplaceVariables = bReplaceVariables;
@@ -181,7 +180,7 @@ public class Config implements IConfig
    * @return this for chaining
    * @since 11.1.1
    */
-  @Nonnull
+  @NonNull
   public final Config setUseVariableDefaultValues (final boolean bUseVariableDefaultValues)
   {
     m_bUseVariableDefaultValues = bUseVariableDefaultValues;
@@ -191,7 +190,7 @@ public class Config implements IConfig
   /**
    * @return The unresolved variable provider to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final UnaryOperator <String> getUnresolvedVariableProvider ()
   {
     return m_aUnresolvedVariableProvider;
@@ -205,8 +204,8 @@ public class Config implements IConfig
    * @return this for chaining
    * @since 10.2.0
    */
-  @Nonnull
-  public final Config setUnresolvedVariableProvider (@Nonnull final UnaryOperator <String> aUnresolvedVariableProvider)
+  @NonNull
+  public final Config setUnresolvedVariableProvider (@NonNull final UnaryOperator <String> aUnresolvedVariableProvider)
   {
     ValueEnforcer.notNull (aUnresolvedVariableProvider, "UnresolvedVariableProvider");
     m_aUnresolvedVariableProvider = aUnresolvedVariableProvider;
@@ -237,10 +236,10 @@ public class Config implements IConfig
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  private String _getWithVariablesReplacedRecursive (@Nonnull @Nonempty final String sConfiguredValue,
-                                                     @Nonnull final ICommonsOrderedSet <String> aUsedVarContainer)
+  private String _getWithVariablesReplacedRecursive (@NonNull @Nonempty final String sConfiguredValue,
+                                                     @NonNull final ICommonsOrderedSet <String> aUsedVarContainer)
   {
     final UnaryOperator <String> aVarProvider = sVarDecl -> {
       final String sVarName;
@@ -343,9 +342,9 @@ public class Config implements IConfig
     return sConfiguredValue;
   }
 
-  private static void _forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
+  private static void _forEachConfigurationValueProviderRecursive (@NonNull final IConfigurationValueProvider aValueProvider,
                                                                    final int nParentPriority,
-                                                                   @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+                                                                   @NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     if (aValueProvider instanceof final MultiConfigurationValueProvider aMulti)
     {
@@ -367,13 +366,13 @@ public class Config implements IConfig
     }
   }
 
-  public static void forEachConfigurationValueProviderRecursive (@Nonnull final IConfigurationValueProvider aValueProvider,
-                                                                 @Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  public static void forEachConfigurationValueProviderRecursive (@NonNull final IConfigurationValueProvider aValueProvider,
+                                                                 @NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     _forEachConfigurationValueProviderRecursive (aValueProvider, -1, aCallback);
   }
 
-  public void forEachConfigurationValueProvider (@Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  public void forEachConfigurationValueProvider (@NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
     forEachConfigurationValueProviderRecursive (m_aValueProvider, aCallback);
@@ -391,8 +390,8 @@ public class Config implements IConfig
                                        .getToString ();
   }
 
-  @Nonnull
-  public static Config create (@Nonnull final IConfigurationValueProvider aCVP)
+  @NonNull
+  public static Config create (@NonNull final IConfigurationValueProvider aCVP)
   {
     return new Config (aCVP);
   }

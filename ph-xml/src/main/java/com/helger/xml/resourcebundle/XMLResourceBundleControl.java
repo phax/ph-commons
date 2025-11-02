@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
@@ -31,8 +33,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special {@link java.util.ResourceBundle.Control} to handle XML files
@@ -47,17 +47,17 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
   @Override
   @ReturnsMutableCopy
   @CodingStyleguideUnaware
-  public List <String> getFormats (@Nonnull final String sBaseName)
+  public List <String> getFormats (@NonNull final String sBaseName)
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");
     return FORMATS.getClone ();
   }
 
   @Override
-  public ResourceBundle newBundle (@Nonnull final String sBaseName,
-                                   @Nonnull final Locale aLocale,
-                                   @Nonnull final String sFormat,
-                                   @Nonnull final ClassLoader aClassLoader,
+  public ResourceBundle newBundle (@NonNull final String sBaseName,
+                                   @NonNull final Locale aLocale,
+                                   @NonNull final String sFormat,
+                                   @NonNull final ClassLoader aClassLoader,
                                    final boolean bReload) throws IOException
   {
     ValueEnforcer.notNull (sBaseName, "BaseName");

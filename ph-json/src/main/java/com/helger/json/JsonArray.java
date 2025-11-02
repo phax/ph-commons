@@ -23,6 +23,9 @@ import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -34,9 +37,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.json.serialize.JsonReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonArray}
@@ -58,26 +58,26 @@ public class JsonArray implements IJsonArray
     m_aValues = new CommonsArrayList <> (nInitialCapacity);
   }
 
-  public JsonArray (@Nonnull final Iterable <? extends IJson> aJsons)
+  public JsonArray (@NonNull final Iterable <? extends IJson> aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
     m_aValues = new CommonsArrayList <> (aJsons);
   }
 
-  public JsonArray (@Nonnull final IJson... aJsons)
+  public JsonArray (@NonNull final IJson... aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
     m_aValues = new CommonsArrayList <> (aJsons);
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     aOOS.writeInt (m_aValues.size ());
     final String sJson = getAsJsonString ();
     StreamHelper.writeSafeUTF (aOOS, sJson);
   }
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException
   {
     final int nInitialSize = aOIS.readInt ();
     m_aValues = new CommonsArrayList <> (nInitialSize);
@@ -114,15 +114,15 @@ public class JsonArray implements IJsonArray
     return m_aValues.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <IJson> iterator ()
   {
     return m_aValues.iterator ();
   }
 
   @Override
-  @Nonnull
-  public JsonArray add (@Nonnull final IJson aValue)
+  @NonNull
+  public JsonArray add (@NonNull final IJson aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
 
@@ -130,8 +130,8 @@ public class JsonArray implements IJsonArray
     return this;
   }
 
-  @Nonnull
-  public JsonArray addAt (@Nonnegative final int nIndex, @Nonnull final IJson aValue)
+  @NonNull
+  public JsonArray addAt (@Nonnegative final int nIndex, @NonNull final IJson aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
 
@@ -139,13 +139,13 @@ public class JsonArray implements IJsonArray
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public IJson removeAndReturnAtIndex (@Nonnegative final int nIndex)
   {
     return m_aValues.removeAndReturnElementAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAtIndex (@Nonnegative final int nIndex)
   {
     return m_aValues.removeAtIndex (nIndex);
@@ -157,7 +157,7 @@ public class JsonArray implements IJsonArray
     return m_aValues.getAtIndex (nIndex);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public JsonArray getSubArray (@Nonnegative final int nStartIndex, @Nonnegative final int nEndIndex)
   {
@@ -170,7 +170,7 @@ public class JsonArray implements IJsonArray
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> getAll ()
   {
@@ -178,12 +178,12 @@ public class JsonArray implements IJsonArray
   }
 
   @Override
-  public void forEach (@Nonnull final Consumer <? super IJson> aConsumer)
+  public void forEach (@NonNull final Consumer <? super IJson> aConsumer)
   {
     m_aValues.forEach (aConsumer);
   }
 
-  public void forEachByIndex (@Nonnull final ObjIntConsumer <? super IJson> aConsumer)
+  public void forEachByIndex (@NonNull final ObjIntConsumer <? super IJson> aConsumer)
   {
     m_aValues.forEachByIndex (aConsumer);
   }
@@ -193,14 +193,14 @@ public class JsonArray implements IJsonArray
     return aValue != null && m_aValues.contains (aValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> getClonedValues ()
   {
     return m_aValues.getAllMapped (IJson::getClone);
   }
 
-  @Nonnull
+  @NonNull
   public JsonArray getClone ()
   {
     return new JsonArray (getClonedValues ());

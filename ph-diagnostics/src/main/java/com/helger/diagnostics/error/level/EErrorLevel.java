@@ -16,12 +16,12 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a generic error level.
@@ -49,13 +49,13 @@ public enum EErrorLevel implements IErrorLevel
   private final String m_sID;
   private final int m_nNumericLevel;
 
-  EErrorLevel (@Nonnull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
+  EErrorLevel (@NonNull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
   {
     m_sID = sID;
     m_nNumericLevel = nNumericLevel;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -74,7 +74,7 @@ public enum EErrorLevel implements IErrorLevel
     return EnumHelper.getFromIDOrNull (EErrorLevel.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static EErrorLevel getFromIDOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrThrow (EErrorLevel.class, sID);
@@ -92,7 +92,7 @@ public enum EErrorLevel implements IErrorLevel
     return EnumHelper.getFromIDCaseInsensitiveOrNull (EErrorLevel.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static EErrorLevel getFromIDCaseInsensitiveOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrThrow (EErrorLevel.class, sID);

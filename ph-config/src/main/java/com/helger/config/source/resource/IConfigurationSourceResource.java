@@ -16,13 +16,13 @@
  */
 package com.helger.config.source.resource;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Specific configuration source based on a readable resource.
@@ -34,7 +34,7 @@ public interface IConfigurationSourceResource extends IIterableConfigurationSour
   /**
    * @return The resource of this configuration source. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IReadableResource getResource ();
 
   /**
@@ -45,7 +45,7 @@ public interface IConfigurationSourceResource extends IIterableConfigurationSour
    *         {@link ESuccess#FAILURE} otherwise.
    * @since 9.4.5
    */
-  @Nonnull
+  @NonNull
   ESuccess reload ();
 
   /**
@@ -55,7 +55,7 @@ public interface IConfigurationSourceResource extends IIterableConfigurationSour
    *         empty.
    * @since 9.4.3
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, String> getAllConfigItems ();
 }

@@ -16,14 +16,14 @@
  */
 package com.helger.base.io.streamprovider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.InputStream} provider based on a byte array.
@@ -36,22 +36,22 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
 
   private final ByteArrayWrapper m_aBytes;
 
-  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData)
+  public ByteArrayInputStreamProvider (@NonNull final byte [] aData)
   {
     this (aData, 0, aData.length, DEFAULT_COPY_NEEDED);
   }
 
-  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData, final boolean bCopyNeeded)
+  public ByteArrayInputStreamProvider (@NonNull final byte [] aData, final boolean bCopyNeeded)
   {
     this (aData, 0, aData.length, bCopyNeeded);
   }
 
-  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public ByteArrayInputStreamProvider (@NonNull final byte [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ByteArrayInputStreamProvider (@Nonnull final byte [] aData,
+  public ByteArrayInputStreamProvider (@NonNull final byte [] aData,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen,
                                        final boolean bCopyNeeded)
@@ -65,7 +65,7 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
     return m_aBytes.isCopy ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final byte [] bytes ()
   {

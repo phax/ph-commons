@@ -18,12 +18,12 @@ package com.helger.xml.microdom.serialize;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special input stream provider that takes an existing {@link IMicroNode} and
@@ -40,7 +40,7 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
    *        The node to be streamed. May not be <code>null</code>.
    * @see XMLWriterSettings#DEFAULT_XML_CHARSET
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode)
+  public MicroDOMInputStreamProvider (@NonNull final IMicroNode aNode)
   {
     this (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -53,7 +53,7 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull final Charset aCharset)
+  public MicroDOMInputStreamProvider (@NonNull final IMicroNode aNode, @NonNull final Charset aCharset)
   {
     this (aNode, new XMLWriterSettings ().setCharset (aCharset));
   }
@@ -66,7 +66,7 @@ public class MicroDOMInputStreamProvider extends StringInputStreamProvider
    * @param aSettings
    *        The settings to use. May not be <code>null</code>.
    */
-  public MicroDOMInputStreamProvider (@Nonnull final IMicroNode aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public MicroDOMInputStreamProvider (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     super (MicroWriter.getNodeAsString (aNode, aSettings), aSettings.getCharset ());
   }

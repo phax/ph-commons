@@ -20,12 +20,12 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.codec.IEncoder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * RFC 5987 Encoder. Character Set and Language Encoding for Hypertext Transfer Protocol (HTTP)
@@ -118,13 +118,13 @@ public class RFC5987Codec implements IEncoder <String, String>
     this (StandardCharsets.UTF_8);
   }
 
-  public RFC5987Codec (@Nonnull final Charset aCharset)
+  public RFC5987Codec (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
-  @Nonnull
-  public static String getRFC5987Encoded (@Nonnull final String sSrc, @Nonnull final Charset aCharset)
+  @NonNull
+  public static String getRFC5987Encoded (@NonNull final String sSrc, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (sSrc, "Src");
 
@@ -142,8 +142,8 @@ public class RFC5987Codec implements IEncoder <String, String>
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String getRFC5987EncodedUTF8 (@Nonnull final String sSrc)
+  @NonNull
+  public static String getRFC5987EncodedUTF8 (@NonNull final String sSrc)
   {
     return getRFC5987Encoded (sSrc, StandardCharsets.UTF_8);
   }

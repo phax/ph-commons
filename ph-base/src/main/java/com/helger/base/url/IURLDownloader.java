@@ -19,11 +19,11 @@ package com.helger.base.url;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Callback interface to download data from web. Used e.g. for CRL downloads.
@@ -44,12 +44,12 @@ public interface IURLDownloader
    *         In case of error
    */
   @Nullable
-  byte [] downloadURL (@Nonnull @Nonempty String sURL) throws Exception;
+  byte [] downloadURL (@NonNull @Nonempty String sURL) throws Exception;
 
   /**
    * @return The default URL downloader using {@link URL#openStream()}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IURLDownloader createDefault ()
   {
     return sURL -> {

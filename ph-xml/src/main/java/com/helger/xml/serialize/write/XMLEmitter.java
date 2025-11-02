@@ -25,6 +25,9 @@ import java.util.Map;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -37,9 +40,6 @@ import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.xml.CXML;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.microdom.IMicroDocumentType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Converts XML constructs into a string representation.
@@ -90,7 +90,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     return s_bThrowExceptionOnNestedComments;
   }
 
-  public XMLEmitter (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final IXMLWriterSettings aSettings)
+  public XMLEmitter (@NonNull @WillNotClose final Writer aWriter, @NonNull final IXMLWriterSettings aSettings)
   {
     m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
     m_aXMLWriterSettings = ValueEnforcer.notNull (aSettings, "Settings");
@@ -104,14 +104,14 @@ public class XMLEmitter implements AutoCloseable, Flushable
   /**
    * @return The XML writer settings as provided in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IXMLWriterSettings getXMLWriterSettings ()
   {
     return m_aXMLWriterSettings;
   }
 
-  @Nonnull
-  private XMLEmitter _append (@Nonnull final String sValue)
+  @NonNull
+  private XMLEmitter _append (@NonNull final String sValue)
   {
     try
     {
@@ -124,7 +124,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  @Nonnull
+  @NonNull
   private XMLEmitter _append (final char cValue)
   {
     try
@@ -138,7 +138,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  @Nonnull
+  @NonNull
   private XMLEmitter _append (final char [] aValue, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     try
@@ -152,8 +152,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  @Nonnull
-  private XMLEmitter _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode, @Nullable final String sValue)
+  @NonNull
+  private XMLEmitter _appendMasked (@NonNull final EXMLCharMode eXMLCharMode, @Nullable final String sValue)
   {
     try
     {
@@ -170,9 +170,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  @Nonnull
-  private XMLEmitter _appendMasked (@Nonnull final EXMLCharMode eXMLCharMode,
-                                    @Nonnull final char [] aText,
+  @NonNull
+  private XMLEmitter _appendMasked (@NonNull final EXMLCharMode eXMLCharMode,
+                                    @NonNull final char [] aText,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -193,13 +193,13 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  @Nonnull
+  @NonNull
   private XMLEmitter _appendAttrValue (@Nullable final String sValue)
   {
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
   }
 
-  @Nonnull
+  @NonNull
   public XMLEmitter newLine ()
   {
     if (m_aXMLWriterSettings.getIndent ().isAlign ())
@@ -225,7 +225,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onXMLDeclaration (@Nullable final EXMLVersion eXMLVersion,
                                 @Nullable final String sEncoding,
-                                @Nonnull final ETriState eStandalone,
+                                @NonNull final ETriState eStandalone,
                                 final boolean bWithNewLine)
   {
     if (eXMLVersion != null)
@@ -260,7 +260,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sDTD
    *        the DTD to be written. May not be <code>null</code>.
    */
-  public void onDTD (@Nonnull final String sDTD)
+  public void onDTD (@NonNull final String sDTD)
   {
     _append (sDTD);
     newLine ();
@@ -277,10 +277,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        The structure document type. May not be <code>null</code>.
    * @return The string DOCTYPE representation.
    */
-  @Nonnull
-  public static String getDocTypeHTMLRepresentation (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                     @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                                     @Nonnull final IMicroDocumentType aDocType)
+  @NonNull
+  public static String getDocTypeHTMLRepresentation (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                                     @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                                     @NonNull final IMicroDocumentType aDocType)
   {
     return getDocTypeXMLRepresentation (eXMLVersion,
                                         eIncorrectCharHandling,
@@ -305,10 +305,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        The optional system ID. May be <code>null</code>.
    * @return The string DOCTYPE representation.
    */
-  @Nonnull
-  public static String getDocTypeXMLRepresentation (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                                    @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                                    @Nonnull final String sQualifiedName,
+  @NonNull
+  public static String getDocTypeXMLRepresentation (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                                    @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                                    @NonNull final String sQualifiedName,
                                                     @Nullable final String sPublicID,
                                                     @Nullable final String sSystemID)
   {
@@ -354,7 +354,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sSystemID
    *        Document type system ID
    */
-  public void onDocumentType (@Nonnull final String sQualifiedElementName,
+  public void onDocumentType (@NonNull final String sQualifiedElementName,
                               @Nullable final String sPublicID,
                               @Nullable final String sSystemID)
   {
@@ -377,7 +377,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sData
    *        The data (attributes as a string)
    */
-  public void onProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData)
+  public void onProcessingInstruction (@NonNull final String sTarget, @Nullable final String sData)
   {
     _append (PI_START)._append (sTarget);
     if (StringHelper.isNotEmpty (sData))
@@ -392,7 +392,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param sEntityRef
    *        The reference (without '&amp;' and ';' !!)
    */
-  public void onEntityReference (@Nonnull final String sEntityRef)
+  public void onEntityReference (@NonNull final String sEntityRef)
   {
     _append (ER_START)._append (sEntityRef)._append (ER_END);
   }
@@ -448,7 +448,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param nLen
    *        Number of chars to use, starting from the provided offset.
    */
-  public void onText (@Nonnull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void onText (@NonNull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     onText (aText, nOfs, nLen, true);
   }
@@ -485,7 +485,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        not. The <code>false</code> case is especially interesting for HTML inline JS and CSS
    *        code.
    */
-  public void onText (@Nonnull final char [] aText,
+  public void onText (@NonNull final char [] aText,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       final boolean bEscape)
@@ -530,7 +530,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
-  public void elementStartOpen (@Nullable final String sNamespacePrefix, @Nonnull final String sTagName)
+  public void elementStartOpen (@Nullable final String sNamespacePrefix, @NonNull final String sTagName)
   {
     _append ('<');
     if (StringHelper.isNotEmpty (sNamespacePrefix))
@@ -542,8 +542,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   public void elementAttr (@Nullable final String sAttrNamespacePrefix,
-                           @Nonnull final String sAttrName,
-                           @Nonnull final String sAttrValue)
+                           @NonNull final String sAttrName,
+                           @NonNull final String sAttrValue)
   {
     _append (' ');
     if (StringHelper.isNotEmpty (sAttrNamespacePrefix))
@@ -554,7 +554,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (sAttrValue);
   }
 
-  public void elementStartClose (@Nonnull final EXMLSerializeBracketMode eBracketMode)
+  public void elementStartClose (@NonNull final EXMLSerializeBracketMode eBracketMode)
   {
     if (eBracketMode.isSelfClosed ())
     {
@@ -582,9 +582,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        Bracket mode to use. Never <code>null</code>.
    */
   public void onElementStart (@Nullable final String sNamespacePrefix,
-                              @Nonnull final String sTagName,
+                              @NonNull final String sTagName,
                               @Nullable final Map <QName, String> aAttrs,
-                              @Nonnull final EXMLSerializeBracketMode eBracketMode)
+                              @NonNull final EXMLSerializeBracketMode eBracketMode)
   {
     elementStartOpen (sNamespacePrefix, sTagName);
 
@@ -643,8 +643,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        Bracket mode to use. Never <code>null</code>.
    */
   public void onElementEnd (@Nullable final String sNamespacePrefix,
-                            @Nonnull final String sTagName,
-                            @Nonnull final EXMLSerializeBracketMode eBracketMode)
+                            @NonNull final String sTagName,
+                            @NonNull final EXMLSerializeBracketMode eBracketMode)
   {
     if (eBracketMode.isOpenClose ())
     {

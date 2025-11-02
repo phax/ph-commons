@@ -16,9 +16,9 @@
  */
 package com.helger.graph;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for a single directed graph relation.
@@ -37,24 +37,24 @@ public interface IDirectedGraphRelation <NODETYPE extends IDirectedGraphNode <NO
   /**
    * @return The from-node of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   NODETYPE getFrom ();
 
   /**
    * @return The ID of the from-node of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getFromID ();
 
   /**
    * @return The to-node of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   NODETYPE getTo ();
 
   /**
    * @return The ID of the to-node of this relation. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getToID ();
 }

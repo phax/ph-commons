@@ -16,14 +16,14 @@
  */
 package com.helger.graph.simple;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphObjectFactory;
 import com.helger.graph.IMutableDirectedGraphRelation;
 import com.helger.graph.impl.DirectedGraph;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A simple graph object that bidirectionally links graph nodes.
@@ -38,13 +38,13 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
     this (new SimpleDirectedGraphObjectFactory ());
   }
 
-  public SimpleDirectedGraph (@Nonnull final IMutableDirectedGraphObjectFactory aFactory)
+  public SimpleDirectedGraph (@NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
     super (null, aFactory);
   }
 
-  @Nonnull
-  public IMutableDirectedGraphRelation createRelation (@Nonnull final String sFromNodeID, @Nonnull final String sToNodeID)
+  @NonNull
+  public IMutableDirectedGraphRelation createRelation (@NonNull final String sFromNodeID, @NonNull final String sToNodeID)
   {
     final IMutableDirectedGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)
@@ -55,10 +55,10 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
     return createRelation (aFromNode, aToNode);
   }
 
-  @Nonnull
-  public IMutableDirectedGraphRelation createRelation (@Nonnull @Nonempty final String sRelationID,
-                                                       @Nonnull final String sFromNodeID,
-                                                       @Nonnull final String sToNodeID)
+  @NonNull
+  public IMutableDirectedGraphRelation createRelation (@NonNull @Nonempty final String sRelationID,
+                                                       @NonNull final String sFromNodeID,
+                                                       @NonNull final String sToNodeID)
   {
     final IMutableDirectedGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)

@@ -16,13 +16,13 @@
  */
 package com.helger.scope.singleton;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.mgr.ScopeManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the base class for singleton objects that reside in the global scope.
@@ -42,7 +42,7 @@ public abstract class AbstractGlobalSingleton extends AbstractSingleton
    *        <code>false</code> if it is optional
    * @return The scope to be used for this type of singleton.
    */
-  @Nonnull
+  @NonNull
   private static IGlobalScope _getStaticScope (final boolean bMustBePresent)
   {
     return bMustBePresent ? ScopeManager.getGlobalScope () : ScopeManager.getGlobalScopeOrNull ();
@@ -59,8 +59,8 @@ public abstract class AbstractGlobalSingleton extends AbstractSingleton
    *        be public as needs to have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
-  @Nonnull
-  public static final <T extends AbstractGlobalSingleton> T getGlobalSingleton (@Nonnull final Class <T> aClass)
+  @NonNull
+  public static final <T extends AbstractGlobalSingleton> T getGlobalSingleton (@NonNull final Class <T> aClass)
   {
     return getSingleton (_getStaticScope (true), aClass);
   }
@@ -77,7 +77,7 @@ public abstract class AbstractGlobalSingleton extends AbstractSingleton
    *         <code>null</code> otherwise.
    */
   @Nullable
-  public static final <T extends AbstractGlobalSingleton> T getGlobalSingletonIfInstantiated (@Nonnull final Class <T> aClass)
+  public static final <T extends AbstractGlobalSingleton> T getGlobalSingletonIfInstantiated (@NonNull final Class <T> aClass)
   {
     return getSingletonIfInstantiated (_getStaticScope (false), aClass);
   }
@@ -91,7 +91,7 @@ public abstract class AbstractGlobalSingleton extends AbstractSingleton
    * @return <code>true</code> if the singleton for the specified class is
    *         already instantiated, <code>false</code> otherwise.
    */
-  public static final boolean isGlobalSingletonInstantiated (@Nonnull final Class <? extends AbstractGlobalSingleton> aClass)
+  public static final boolean isGlobalSingletonInstantiated (@NonNull final Class <? extends AbstractGlobalSingleton> aClass)
   {
     return isSingletonInstantiated (_getStaticScope (false), aClass);
   }
@@ -103,7 +103,7 @@ public abstract class AbstractGlobalSingleton extends AbstractSingleton
    * @return A non-<code>null</code> list with all instances of this class in
    *         the current global scope.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static final ICommonsList <AbstractGlobalSingleton> getAllGlobalSingletons ()
   {

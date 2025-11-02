@@ -16,7 +16,7 @@
  */
 package com.helger.base.id;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for objects having an ID.
@@ -38,6 +38,6 @@ public interface IIDProvider <VALUETYPE, IDTYPE>
    *        .
    * @return The ID of the object. May not be <code>null</code>.
    */
-  @Nonnull
-  IDTYPE getID (@Nonnull VALUETYPE aObject);
+  @NonNull
+  IDTYPE getID (@NonNull VALUETYPE aObject);
 }

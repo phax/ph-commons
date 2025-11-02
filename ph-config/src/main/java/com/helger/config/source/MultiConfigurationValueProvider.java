@@ -23,6 +23,8 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +44,6 @@ import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 import com.helger.io.resource.FileSystemResource;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * An implementation of {@link IConfigurationValueProvider} that supports multiple sources, ordered
  * by priority, descending.
@@ -60,7 +59,7 @@ public class MultiConfigurationValueProvider implements
     private final IConfigurationValueProvider m_aCVP;
     private final int m_nPriority;
 
-    public ConfigValueProviderWithPrio (@Nonnull final IConfigurationValueProvider aCVP, final int nPrio)
+    public ConfigValueProviderWithPrio (@NonNull final IConfigurationValueProvider aCVP, final int nPrio)
     {
       m_aCVP = aCVP;
       m_nPriority = nPrio;
@@ -136,7 +135,7 @@ public class MultiConfigurationValueProvider implements
    *        <code>true</code> to only allow the usage of initialized configuration sources.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final MultiConfigurationValueProvider setUseOnlyInitializedConfigSources (final boolean bUseOnlyInitializedConfigSources)
   {
     m_bUseOnlyInitializedConfigSources = bUseOnlyInitializedConfigSources;
@@ -150,8 +149,8 @@ public class MultiConfigurationValueProvider implements
    *        The source to be added. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final MultiConfigurationValueProvider addConfigurationSource (@Nonnull final IConfigurationSource aSource)
+  @NonNull
+  public final MultiConfigurationValueProvider addConfigurationSource (@NonNull final IConfigurationSource aSource)
   {
     ValueEnforcer.notNull (aSource, "ConfigSource");
     if (m_bUseOnlyInitializedConfigSources && !aSource.isInitializedAndUsable ())
@@ -174,7 +173,7 @@ public class MultiConfigurationValueProvider implements
    *        The priority to be used.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final MultiConfigurationValueProvider addConfigurationSource (@Nullable final IConfigurationValueProvider aCVP,
                                                                        final int nPriority)
   {
@@ -200,7 +199,7 @@ public class MultiConfigurationValueProvider implements
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Trying to resolve configuration value of key '" +
@@ -247,7 +246,7 @@ public class MultiConfigurationValueProvider implements
    * @param aCallback
    *        The callback to be invoked. May not be <code>null</code>.
    */
-  public void forEachConfigurationValueProvider (@Nonnull final IConfigurationValueProviderWithPriorityCallback aCallback)
+  public void forEachConfigurationValueProvider (@NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "aCallback");
 
@@ -259,7 +258,7 @@ public class MultiConfigurationValueProvider implements
    * Return a deep clone of this {@link MultiConfigurationValueProvider}. If the contained
    * {@link IConfigurationValueProvider} implements {@link ICloneable} it is cloned as well.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public MultiConfigurationValueProvider getClone ()
   {
@@ -298,9 +297,9 @@ public class MultiConfigurationValueProvider implements
    * @return May be <code>null</code> if no resource was found.
    */
   @Nullable
-  public static MultiConfigurationValueProvider createForClassPath (@Nonnull final ClassLoader aClassLoader,
-                                                                    @Nonnull final String sClassPathElement,
-                                                                    @Nonnull final Function <URL, IConfigurationSource> aLoader)
+  public static MultiConfigurationValueProvider createForClassPath (@NonNull final ClassLoader aClassLoader,
+                                                                    @NonNull final String sClassPathElement,
+                                                                    @NonNull final Function <URL, IConfigurationSource> aLoader)
   {
     return createForAllOccurrances (aClassLoader, sClassPathElement, aLoader, false);
   }
@@ -320,9 +319,9 @@ public class MultiConfigurationValueProvider implements
    * @return May be <code>null</code> if no resource was found.
    */
   @Nullable
-  public static MultiConfigurationValueProvider createForAllOccurrances (@Nonnull final ClassLoader aClassLoader,
-                                                                         @Nonnull final String sPathName,
-                                                                         @Nonnull final Function <URL, IConfigurationSource> aLoader,
+  public static MultiConfigurationValueProvider createForAllOccurrances (@NonNull final ClassLoader aClassLoader,
+                                                                         @NonNull final String sPathName,
+                                                                         @NonNull final Function <URL, IConfigurationSource> aLoader,
                                                                          final boolean bCheckForFile)
   {
     ValueEnforcer.notNull (aClassLoader, "ClassLoader");

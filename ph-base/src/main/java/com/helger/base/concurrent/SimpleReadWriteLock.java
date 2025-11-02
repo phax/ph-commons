@@ -23,10 +23,10 @@ import java.util.function.IntSupplier;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is an extension around {@link ReentrantReadWriteLock} that allows for
@@ -68,7 +68,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  public <T> T readLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
+  public <T> T readLockedGet (@NonNull final Supplier <? extends T> aSupplier)
   {
     readLock ().lock ();
     try
@@ -87,7 +87,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aRunnable
    *        Runnable to be executed. May not be <code>null</code>.
    */
-  public void readLocked (@Nonnull final Runnable aRunnable)
+  public void readLocked (@NonNull final Runnable aRunnable)
   {
     readLock ().lock ();
     try
@@ -110,7 +110,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <EXTYPE extends Exception> void readLockedThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
+  public <EXTYPE extends Exception> void readLockedThrowing (@NonNull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
     readLock ().lock ();
     try
@@ -137,7 +137,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T readLockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T readLockedGetThrowing (@NonNull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     readLock ().lock ();
     try
@@ -157,7 +157,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public boolean readLockedBoolean (@Nonnull final BooleanSupplier aSupplier)
+  public boolean readLockedBoolean (@NonNull final BooleanSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -177,7 +177,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public double readLockedDouble (@Nonnull final DoubleSupplier aSupplier)
+  public double readLockedDouble (@NonNull final DoubleSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -197,7 +197,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public int readLockedInt (@Nonnull final IntSupplier aSupplier)
+  public int readLockedInt (@NonNull final IntSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -217,7 +217,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public long readLockedLong (@Nonnull final LongSupplier aSupplier)
+  public long readLockedLong (@NonNull final LongSupplier aSupplier)
   {
     readLock ().lock ();
     try
@@ -236,7 +236,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param aRunnable
    *        Runnable to be executed. May not be <code>null</code>.
    */
-  public void writeLocked (@Nonnull final Runnable aRunnable)
+  public void writeLocked (@NonNull final Runnable aRunnable)
   {
     writeLock ().lock ();
     try
@@ -259,7 +259,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <EXTYPE extends Exception> void writeLockedThrowing (@Nonnull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
+  public <EXTYPE extends Exception> void writeLockedThrowing (@NonNull final IThrowingRunnable <EXTYPE> aRunnable) throws EXTYPE
   {
     writeLock ().lock ();
     try
@@ -282,7 +282,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <T>
    *        Return type
    */
-  public <T> T writeLockedGet (@Nonnull final Supplier <? extends T> aSupplier)
+  public <T> T writeLockedGet (@NonNull final Supplier <? extends T> aSupplier)
   {
     writeLock ().lock ();
     try
@@ -309,7 +309,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    * @param <EXTYPE>
    *        Exception type to be thrown
    */
-  public <T, EXTYPE extends Exception> T writeLockedGetThrowing (@Nonnull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
+  public <T, EXTYPE extends Exception> T writeLockedGetThrowing (@NonNull final IThrowingSupplier <? extends T, EXTYPE> aCallable) throws EXTYPE
   {
     writeLock ().lock ();
     try
@@ -329,7 +329,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public boolean writeLockedBoolean (@Nonnull final BooleanSupplier aSupplier)
+  public boolean writeLockedBoolean (@NonNull final BooleanSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -349,7 +349,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public double writeLockedDouble (@Nonnull final DoubleSupplier aSupplier)
+  public double writeLockedDouble (@NonNull final DoubleSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -369,7 +369,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public int writeLockedInt (@Nonnull final IntSupplier aSupplier)
+  public int writeLockedInt (@NonNull final IntSupplier aSupplier)
   {
     writeLock ().lock ();
     try
@@ -389,7 +389,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
    *        Callable to be executed. May not be <code>null</code>.
    * @return The return value of the callable. May be <code>null</code>.
    */
-  public long writeLockedLong (@Nonnull final LongSupplier aSupplier)
+  public long writeLockedLong (@NonNull final LongSupplier aSupplier)
   {
     writeLock ().lock ();
     try

@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Marker interface to indicate that something can be stopped.
@@ -29,6 +29,6 @@ public interface IStoppable
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange stop ();
 }

@@ -17,6 +17,8 @@
  */
 package com.helger.cli;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public class Option implements IOptionBase
@@ -66,7 +65,7 @@ public class Option implements IOptionBase
       return this == OPTIONAL_MANY || this == REQUIRED_MANY;
     }
 
-    @Nonnull
+    @NonNull
     public EOptionMultiplicity getAsRequired ()
     {
       if (this == OPTIONAL_ONCE)
@@ -76,7 +75,7 @@ public class Option implements IOptionBase
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public EOptionMultiplicity getAsOptional ()
     {
       if (this == REQUIRED_ONCE)
@@ -86,7 +85,7 @@ public class Option implements IOptionBase
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public EOptionMultiplicity getAsRepeatable ()
     {
       if (this == OPTIONAL_ONCE)
@@ -96,7 +95,7 @@ public class Option implements IOptionBase
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public EOptionMultiplicity getAsOnce ()
     {
       if (this == OPTIONAL_MANY)
@@ -150,7 +149,7 @@ public class Option implements IOptionBase
    * @param aBuilder
    *        builder used to create this option
    */
-  protected Option (@Nonnull final OptionBuilder aBuilder)
+  protected Option (@NonNull final OptionBuilder aBuilder)
   {
     ValueEnforcer.notNull (aBuilder, "Builder");
     m_sShortOpt = aBuilder.m_sShortOpt;
@@ -168,7 +167,7 @@ public class Option implements IOptionBase
    * @see #getShortOpt()
    * @see #getLongOpt()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getKey ()
   {
@@ -393,7 +392,7 @@ public class Option implements IOptionBase
    * @return a new {@link OptionBuilder} instance
    * @since 10.1.3
    */
-  @Nonnull
+  @NonNull
   public static OptionBuilder builder ()
   {
     return new OptionBuilder (null);
@@ -408,7 +407,7 @@ public class Option implements IOptionBase
    * @throws IllegalArgumentException
    *         if there are any non valid Option characters in {@code opt}
    */
-  @Nonnull
+  @NonNull
   public static OptionBuilder builder (@Nullable final String sShortOpt)
   {
     return new OptionBuilder (sShortOpt);

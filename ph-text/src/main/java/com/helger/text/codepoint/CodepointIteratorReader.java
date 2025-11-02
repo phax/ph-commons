@@ -18,17 +18,17 @@ package com.helger.text.codepoint;
 
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera
  */
 public class CodepointIteratorReader extends CodepointIteratorCharArray
 {
-  public CodepointIteratorReader (@Nonnull @WillClose final Reader aReader)
+  public CodepointIteratorReader (@NonNull @WillClose final Reader aReader)
   {
     super (StreamHelper.getAllCharacters (aReader));
   }

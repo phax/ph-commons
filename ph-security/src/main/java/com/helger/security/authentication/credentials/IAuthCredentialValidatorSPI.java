@@ -16,9 +16,9 @@
  */
 package com.helger.security.authentication.credentials;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * This SPI needs to be implemented by all implementing application to validate
@@ -40,7 +40,7 @@ public interface IAuthCredentialValidatorSPI
    * @return <code>true</code> if this implementation supports the specified
    *         credentials.
    */
-  boolean supportsCredentials (@Nonnull IAuthCredentials aCredentials);
+  boolean supportsCredentials (@NonNull IAuthCredentials aCredentials);
 
   /**
    * Validate the specified credentials. This method is only called if a
@@ -51,6 +51,6 @@ public interface IAuthCredentialValidatorSPI
    *        The credentials to be validated. Never <code>null</code>.
    * @return The credential validation result. May not be <code>null</code>.
    */
-  @Nonnull
-  ICredentialValidationResult validateCredentials (@Nonnull IAuthCredentials aCredentials);
+  @NonNull
+  ICredentialValidationResult validateCredentials (@NonNull IAuthCredentials aCredentials);
 }

@@ -18,6 +18,9 @@ package com.helger.diagnostics.error;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -33,9 +36,6 @@ import com.helger.base.string.StringReplace;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IErrorTextProvider} with a customizable layout.
@@ -67,12 +67,12 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
 
     private final String m_sID;
 
-    EField (@Nonnull @Nonempty final String sID)
+    EField (@NonNull @Nonempty final String sID)
     {
       m_sID = sID;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getID ()
     {
@@ -101,13 +101,13 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     /**
      * @return the error field this is about. Never <code>null</code>.
      */
-    @Nonnull
+    @NonNull
     EField getField ();
 
     /**
      * @return The unformatted text. Never <code>null</code>.
      */
-    @Nonnull
+    @NonNull
     String getUnformattedText ();
 
     /**
@@ -118,8 +118,8 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
      *        The replacement string. Must not be <code>null</code>.
      * @return The formatted text with the replacement applied.
      */
-    @Nonnull
-    String getFormattedText (@Nonnull String sReplacement);
+    @NonNull
+    String getFormattedText (@NonNull String sReplacement);
   }
 
   /**
@@ -133,7 +133,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     private final EField m_eField;
     private final String m_sText;
 
-    public FormattableItem (@Nonnull final EField eField, @Nonnull @Nonempty final String sText)
+    public FormattableItem (@NonNull final EField eField, @NonNull @Nonempty final String sText)
     {
       m_eField = ValueEnforcer.notNull (eField, "Field");
       m_sText = ValueEnforcer.notEmpty (sText, "Text");
@@ -143,21 +143,21 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
                               () -> "Text '" + sText + "' is missing placeholder '" + PLACEHOLDER + "'");
     }
 
-    @Nonnull
+    @NonNull
     public final EField getField ()
     {
       return m_eField;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getUnformattedText ()
     {
       return m_sText;
     }
 
-    @Nonnull
-    public String getFormattedText (@Nonnull final String sReplacement)
+    @NonNull
+    public String getFormattedText (@NonNull final String sReplacement)
     {
       return StringReplace.replaceAll (m_sText, PLACEHOLDER_STR, sReplacement);
     }
@@ -196,13 +196,13 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    *        Object to copy from. May not be <code>null</code>.
    * @since 8.5.5
    */
-  public ErrorTextProvider (@Nonnull final ErrorTextProvider aOther)
+  public ErrorTextProvider (@NonNull final ErrorTextProvider aOther)
   {
     m_aItems = aOther.m_aItems.getClone ();
     m_sFieldSep = aOther.m_sFieldSep;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IFormattableItem> getAllItems ()
   {
@@ -219,35 +219,35 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
    *        replaced
    * @return this for chaining
    */
-  @Nonnull
-  public ErrorTextProvider addItem (@Nonnull final EField eField, @Nonnull @Nonempty final String sText)
+  @NonNull
+  public ErrorTextProvider addItem (@NonNull final EField eField, @NonNull @Nonempty final String sText)
   {
     return addItem (new FormattableItem (eField, sText));
   }
 
-  @Nonnull
-  public ErrorTextProvider addItem (@Nonnull final IFormattableItem aItem)
+  @NonNull
+  public ErrorTextProvider addItem (@NonNull final IFormattableItem aItem)
   {
     ValueEnforcer.notNull (aItem, "Item");
     m_aItems.add (aItem);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public String getFieldSeparator ()
   {
     return m_sFieldSep;
   }
 
-  @Nonnull
-  public ErrorTextProvider setFieldSeparator (@Nonnull final String sFieldSep)
+  @NonNull
+  public ErrorTextProvider setFieldSeparator (@NonNull final String sFieldSep)
   {
     m_sFieldSep = ValueEnforcer.notNull (sFieldSep, "FieldSep");
     return this;
   }
 
-  @Nonnull
-  public String getErrorText (@Nonnull final IError aError, @Nonnull final Locale aContentLocale)
+  @NonNull
+  public String getErrorText (@NonNull final IError aError, @NonNull final Locale aContentLocale)
   {
     final StringBuilder aSB = new StringBuilder ();
     for (final IFormattableItem aItem : m_aItems)
@@ -394,7 +394,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ErrorTextProvider getClone ()
   {

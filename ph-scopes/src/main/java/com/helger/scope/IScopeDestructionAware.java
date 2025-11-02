@@ -16,7 +16,7 @@
  */
 package com.helger.scope;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A listener interfaces that is invoked before a scope is destroyed. If an
@@ -38,7 +38,7 @@ public interface IScopeDestructionAware
    * @throws Exception
    *         in case of an error
    */
-  default void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  default void onBeforeScopeDestruction (@NonNull final IScope aScopeToBeDestroyed) throws Exception
   {}
 
   /**
@@ -51,6 +51,6 @@ public interface IScopeDestructionAware
    * @throws Exception
    *         in case of an error
    */
-  default void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
+  default void onScopeDestruction (@NonNull final IScope aScopeInDestruction) throws Exception
   {}
 }

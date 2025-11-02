@@ -18,13 +18,13 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IKeyStoreDescriptor}.
@@ -41,9 +41,9 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
   // Lazily initialized
   private LoadedKeyStore m_aLKS;
 
-  public KeyStoreDescriptor (@Nonnull final IKeyStoreType aType,
-                             @Nonnull @Nonempty final String sPath,
-                             @Nonnull final char [] aPassword,
+  public KeyStoreDescriptor (@NonNull final IKeyStoreType aType,
+                             @NonNull @Nonempty final String sPath,
+                             @NonNull final char [] aPassword,
                              @Nullable final Provider aProvider)
   {
     ValueEnforcer.notNull (aType, "Type");
@@ -55,20 +55,20 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
     m_aProvider = aProvider;
   }
 
-  @Nonnull
+  @NonNull
   public final IKeyStoreType getKeyStoreType ()
   {
     return m_aType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getKeyStorePath ()
   {
     return m_sPath;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final char [] getKeyStorePassword ()
   {
@@ -81,7 +81,7 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
     return m_aProvider;
   }
 
-  @Nonnull
+  @NonNull
   public LoadedKeyStore loadKeyStore ()
   {
     LoadedKeyStore ret = m_aLKS;
@@ -104,7 +104,7 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
    * @return A new builder for {@link KeyStoreDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static KeyStoreDescriptorBuilder builder ()
   {
     return new KeyStoreDescriptorBuilder ();
@@ -118,8 +118,8 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
    * @return A new builder for {@link KeyStoreDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public static KeyStoreDescriptorBuilder builder (@Nonnull final KeyStoreDescriptor a)
+  @NonNull
+  public static KeyStoreDescriptorBuilder builder (@NonNull final KeyStoreDescriptor a)
   {
     return new KeyStoreDescriptorBuilder (a);
   }

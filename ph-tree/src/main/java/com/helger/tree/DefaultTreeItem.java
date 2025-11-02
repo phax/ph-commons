@@ -16,9 +16,9 @@
  */
 package com.helger.tree;
 
-import com.helger.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Default implementation of the {@link ITreeItem} interface
@@ -37,7 +37,7 @@ public class DefaultTreeItem <DATATYPE> extends BasicTreeItem <DATATYPE, Default
    *        The factory to use for creating tree items. May not be
    *        <code>null</code>.
    */
-  public DefaultTreeItem (@Nonnull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)
+  public DefaultTreeItem (@NonNull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)
   {
     super (aFactory);
   }
@@ -50,7 +50,7 @@ public class DefaultTreeItem <DATATYPE> extends BasicTreeItem <DATATYPE, Default
    *        root has no parent and for the root item a special no-argument
    *        constructor is present.
    */
-  public DefaultTreeItem (@Nonnull final DefaultTreeItem <DATATYPE> aParent)
+  public DefaultTreeItem (@NonNull final DefaultTreeItem <DATATYPE> aParent)
   {
     super (aParent);
   }

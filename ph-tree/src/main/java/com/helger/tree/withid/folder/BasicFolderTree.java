@@ -18,10 +18,10 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.unique.BasicTreeWithGlobalUniqueID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation class for a folder tree. The elements of the tree are
@@ -49,7 +49,7 @@ public class BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DA
    * @param aFactory
    *        The item factory to use. May not be <code>null</code>.
    */
-  public BasicFolderTree (@Nonnull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory)
+  public BasicFolderTree (@NonNull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory)
   {
     super (aFactory);
   }

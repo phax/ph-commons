@@ -16,12 +16,12 @@
  */
 package com.helger.settings;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.cache.impl.Cache;
 import com.helger.settings.factory.ISettingsFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A cache for the Settings
@@ -33,7 +33,7 @@ public class SettingsCache extends Cache <String, ISettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
 
-  public SettingsCache (@Nonnull final ISettingsFactory <?> aSettingsFactory)
+  public SettingsCache (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     super (aSettingsFactory::apply, 500, SettingsCache.class.getName ());
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
@@ -42,7 +42,7 @@ public class SettingsCache extends Cache <String, ISettings>
   /**
    * @return The settings factory as specified in the constructor.
    */
-  @Nonnull
+  @NonNull
   public final ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;

@@ -16,11 +16,11 @@
  */
 package com.helger.security.keystore;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default key store types.
@@ -74,13 +74,13 @@ public enum EKeyStoreType implements IKeyStoreType
   private final String m_sID;
   private final boolean m_bKeyStorePathRequired;
 
-  EKeyStoreType (@Nonnull @Nonempty final String sID, final boolean bKeyStorePathRequired)
+  EKeyStoreType (@NonNull @Nonempty final String sID, final boolean bKeyStorePathRequired)
   {
     m_sID = sID;
     m_bKeyStorePathRequired = bKeyStorePathRequired;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

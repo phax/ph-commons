@@ -22,13 +22,13 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A utility class that converts sizes into the corresponding Kilobyte, Megabyte
@@ -59,18 +59,18 @@ public final class SizeHelper
   private DecimalFormat m_aDF1;
   private DecimalFormat m_aDF2;
 
-  public SizeHelper (@Nonnull final Locale aDisplayLocale)
+  public SizeHelper (@NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
     m_aDFS = DecimalFormatSymbols.getInstance (aDisplayLocale);
   }
 
-  public SizeHelper (@Nonnull final DecimalFormatSymbols aDFS)
+  public SizeHelper (@NonNull final DecimalFormatSymbols aDFS)
   {
     m_aDFS = ValueEnforcer.notNull (aDFS, "DecimalFormatSymbols");
   }
 
-  @Nonnull
+  @NonNull
   private String _format (final long nSize)
   {
     // Lazy init
@@ -79,7 +79,7 @@ public final class SizeHelper
     return m_aDF0.format (nSize);
   }
 
-  @Nonnull
+  @NonNull
   private String _format (final double dSize, @Nonnegative final int nDecimals)
   {
     ValueEnforcer.isGE0 (nDecimals, "Decimals");
@@ -108,67 +108,67 @@ public final class SizeHelper
     return new DecimalFormat (aFormat.toString (), m_aDFS).format (dSize);
   }
 
-  @Nonnull
+  @NonNull
   public String getAsKB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_KILOBYTE) + KB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsKB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_KILOBYTE, nDecimals) + KB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsMB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_MEGABYTE) + MB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsMB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_MEGABYTE, nDecimals) + MB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsGB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_GIGABYTE) + GB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsGB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_GIGABYTE, nDecimals) + GB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsTB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_TERABYTE) + TB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsTB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_TERABYTE, nDecimals) + TB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsPB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_PETABYTE) + PB_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsPB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_PETABYTE, nDecimals) + PB_SUFFIX;
   }
 
-  private static void _checkConvertibility (@Nonnull final BigInteger aSize)
+  private static void _checkConvertibility (@NonNull final BigInteger aSize)
   {
     if (aSize.compareTo (CGlobal.BIGINT_MAX_LONG) > 0)
       throw new IllegalArgumentException ("The passed BigInteger is too large to be converted into a long value: " + aSize.toString ());
@@ -187,8 +187,8 @@ public final class SizeHelper
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
    */
-  @Nonnull
-  public String getAsMatching (@Nonnull final BigInteger aSize)
+  @NonNull
+  public String getAsMatching (@NonNull final BigInteger aSize)
   {
     _checkConvertibility (aSize);
     return getAsMatching (aSize.longValue ());
@@ -206,14 +206,14 @@ public final class SizeHelper
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
    */
-  @Nonnull
-  public String getAsMatching (@Nonnull final BigInteger aSize, @Nonnegative final int nDecimals)
+  @NonNull
+  public String getAsMatching (@NonNull final BigInteger aSize, @Nonnegative final int nDecimals)
   {
     _checkConvertibility (aSize);
     return getAsMatching (aSize.longValue (), nDecimals);
   }
 
-  private static void _checkConvertibility (@Nonnull final BigDecimal aSize)
+  private static void _checkConvertibility (@NonNull final BigDecimal aSize)
   {
     if (aSize.compareTo (CGlobal.BIGDEC_MAX_LONG) > 0)
       throw new IllegalArgumentException ("The passed BigDecimal is too large to be converted into a long value: " + aSize.toString ());
@@ -232,8 +232,8 @@ public final class SizeHelper
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
    */
-  @Nonnull
-  public String getAsMatching (@Nonnull final BigDecimal aSize)
+  @NonNull
+  public String getAsMatching (@NonNull final BigDecimal aSize)
   {
     _checkConvertibility (aSize);
     return getAsMatching (aSize.longValue ());
@@ -251,14 +251,14 @@ public final class SizeHelper
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
    */
-  @Nonnull
-  public String getAsMatching (@Nonnull final BigDecimal aSize, @Nonnegative final int nDecimals)
+  @NonNull
+  public String getAsMatching (@NonNull final BigDecimal aSize, @Nonnegative final int nDecimals)
   {
     _checkConvertibility (aSize);
     return getAsMatching (aSize.longValue (), nDecimals);
   }
 
-  @Nonnull
+  @NonNull
   public String getAsMatching (final long nSize)
   {
     if (nSize >= CGlobal.BYTES_PER_PETABYTE)
@@ -274,7 +274,7 @@ public final class SizeHelper
     return _format (nSize) + B_SUFFIX;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsMatching (final long nSize, @Nonnegative final int nDecimals)
   {
     if (nSize >= CGlobal.BYTES_PER_PETABYTE)
@@ -305,8 +305,8 @@ public final class SizeHelper
    * @return The non-<code>null</code> {@link SizeHelper} object for the passed
    *         locale.
    */
-  @Nonnull
-  public static SizeHelper getSizeHelperOfLocale (@Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static SizeHelper getSizeHelperOfLocale (@NonNull final Locale aDisplayLocale)
   {
     return new SizeHelper (aDisplayLocale);
   }

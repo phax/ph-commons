@@ -25,6 +25,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +40,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The global write ahead logging manager that schedules future writings of a
@@ -62,7 +61,7 @@ public final class WALListener extends AbstractGlobalSingleton
     private final ScheduledFuture <?> m_aFuture;
     private final Runnable m_aRunnable;
 
-    public WALItem (@Nonnull final ScheduledFuture <?> aFuture, @Nonnull final Runnable aRunnable)
+    public WALItem (@NonNull final ScheduledFuture <?> aFuture, @NonNull final Runnable aRunnable)
     {
       m_aFuture = aFuture;
       m_aRunnable = aRunnable;
@@ -90,14 +89,14 @@ public final class WALListener extends AbstractGlobalSingleton
   public WALListener ()
   {}
 
-  @Nonnull
+  @NonNull
   public static WALListener getInstance ()
   {
     return getGlobalSingleton (WALListener.class);
   }
 
   @Override
-  protected void onDestroy (@Nonnull final IScope aScopeInDestruction)
+  protected void onDestroy (@NonNull final IScope aScopeInDestruction)
   {
     m_aRWLock.writeLocked ( () -> {
       // Reschedule all existing scheduled items to run now
@@ -143,9 +142,9 @@ public final class WALListener extends AbstractGlobalSingleton
    *        The time to wait, until the file is physically written. May not be
    *        <code>null</code>.
    */
-  public void registerForLaterWriting (@Nonnull final AbstractWALDAO <?> aDAO,
-                                       @Nonnull final String sWALFilename,
-                                       @Nonnull final Duration aWaitingWime)
+  public void registerForLaterWriting (@NonNull final AbstractWALDAO <?> aDAO,
+                                       @NonNull final String sWALFilename,
+                                       @NonNull final Duration aWaitingWime)
   {
     // In case many DAOs of the same class exist, the filename is also added
     final String sKey = aDAO.getClass ().getName () + "::" + sWALFilename;

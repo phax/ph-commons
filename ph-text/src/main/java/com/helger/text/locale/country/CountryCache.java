@@ -18,6 +18,8 @@ package com.helger.text.locale.country;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +37,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.text.locale.LocaleCache;
-import com.helger.text.locale.LocaleHelper;
 import com.helger.text.locale.LocaleCache.IMissingLocaleHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.text.locale.LocaleHelper;
 
 /**
  * This is a global cache for country objects to avoid too many object flowing around.<br>
@@ -102,7 +101,7 @@ public class CountryCache implements IHasConditionalLogger
   /**
    * @return The one and only global instances. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static CountryCache getInstance ()
   {
     final CountryCache ret = SingletonHolder.INSTANCE;
@@ -110,9 +109,9 @@ public class CountryCache implements IHasConditionalLogger
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @VisibleForTesting
-  final EChange addCountry (@Nonnull final String sCountry)
+  final EChange addCountry (@NonNull final String sCountry)
   {
     ValueEnforcer.notNull (sCountry, "Country");
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
@@ -208,7 +207,7 @@ public class CountryCache implements IHasConditionalLogger
   /**
    * @return a set with all contained countries. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllCountries ()
   {
@@ -218,7 +217,7 @@ public class CountryCache implements IHasConditionalLogger
   /**
    * @return a set with all contained country locales. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {

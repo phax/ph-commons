@@ -18,14 +18,14 @@ package com.helger.config.json;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.config.ConfigFactory;
 import com.helger.config.json.source.ConfigurationSourceJson;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special config factory that adds the JSON files into the mix.
@@ -44,7 +44,7 @@ public final class ConfigFactoryJson
   private ConfigFactoryJson ()
   {}
 
-  public static void addDefaultJsonConfiguration (@Nonnull final MultiConfigurationValueProvider aMVP)
+  public static void addDefaultJsonConfiguration (@NonNull final MultiConfigurationValueProvider aMVP)
   {
     final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
 
@@ -67,7 +67,7 @@ public final class ConfigFactoryJson
                                  APPLICATION_JSON_PRIORITY);
   }
 
-  @Nonnull
+  @NonNull
   public static MultiConfigurationValueProvider createDefaultValueProvider ()
   {
     final MultiConfigurationValueProvider ret = ConfigFactory.createDefaultValueProvider ();

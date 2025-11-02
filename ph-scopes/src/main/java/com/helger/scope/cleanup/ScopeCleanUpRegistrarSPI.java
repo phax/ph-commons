@@ -16,12 +16,12 @@
  */
 package com.helger.scope.cleanup;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
 import com.helger.scope.spi.ScopeSPIManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
@@ -31,7 +31,7 @@ import jakarta.annotation.Nonnull;
 @Immutable
 public final class ScopeCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
+  public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 600, () -> {
       if (ScopeSPIManager.isInstantiated ())

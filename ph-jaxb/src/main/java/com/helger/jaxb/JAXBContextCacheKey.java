@@ -19,6 +19,8 @@ package com.helger.jaxb;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,8 +40,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.annotation.XmlSchema;
@@ -70,7 +70,7 @@ public class JAXBContextCacheKey
    *        Class loader. May be <code>null</code>.
    */
   @Deprecated (forRemoval = true, since = "11.0.4")
-  public JAXBContextCacheKey (@Nonnull final Package aPackage, @Nullable final ClassLoader aClassLoader)
+  public JAXBContextCacheKey (@NonNull final Package aPackage, @Nullable final ClassLoader aClassLoader)
   {
     this (new CommonsArrayList <> (aPackage), aClassLoader);
   }
@@ -84,7 +84,7 @@ public class JAXBContextCacheKey
    *        Class loader. May be <code>null</code>.
    * @since 11.0.4
    */
-  public JAXBContextCacheKey (@Nonnull final ICommonsList <Package> aPackages, @Nullable final ClassLoader aClassLoader)
+  public JAXBContextCacheKey (@NonNull final ICommonsList <Package> aPackages, @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notEmptyNoNullValue (aPackages, "Packages");
     m_aPackages = aPackages.getClone ();
@@ -113,7 +113,7 @@ public class JAXBContextCacheKey
    *        JAXB context properties. May be <code>null</code>.
    * @since v9.4.2
    */
-  public JAXBContextCacheKey (@Nonnull final ICommonsList <Class <?>> aClasses,
+  public JAXBContextCacheKey (@NonNull final ICommonsList <Class <?>> aClasses,
                               @Nullable final Map <String, ?> aProperties)
   {
     ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");
@@ -158,8 +158,8 @@ public class JAXBContextCacheKey
     return ret != null ? ret : ClassLoaderHelper.getDefaultClassLoader ();
   }
 
-  @Nonnull
-  private JAXBContext _createFromPackageAndClassLoader (@Nonnull final IConditionalLogger aCondLog)
+  @NonNull
+  private JAXBContext _createFromPackageAndClassLoader (@NonNull final IConditionalLogger aCondLog)
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
@@ -190,8 +190,8 @@ public class JAXBContextCacheKey
     }
   }
 
-  @Nonnull
-  private JAXBContext _createFromClassesAndProperties (@Nonnull final IConditionalLogger aCondLog)
+  @NonNull
+  private JAXBContext _createFromClassesAndProperties (@NonNull final IConditionalLogger aCondLog)
   {
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
@@ -223,8 +223,8 @@ public class JAXBContextCacheKey
     }
   }
 
-  @Nonnull
-  public JAXBContext createJAXBContext (@Nonnull final IConditionalLogger aCondLog)
+  @NonNull
+  public JAXBContext createJAXBContext (@NonNull final IConditionalLogger aCondLog)
   {
     if (m_aPackages != null)
       return _createFromPackageAndClassLoader (aCondLog);
@@ -272,8 +272,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForPackage (@Nonnull final Package aPackage)
+  @NonNull
+  public static JAXBContextCacheKey createForPackage (@NonNull final Package aPackage)
   {
     return createForPackage (aPackage, null);
   }
@@ -288,8 +288,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForPackage (@Nonnull final Package aPackage,
+  @NonNull
+  public static JAXBContextCacheKey createForPackage (@NonNull final Package aPackage,
                                                       @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aPackage, "Package");
@@ -304,8 +304,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForPackages (@Nonnull final ICommonsList <Package> aPackages)
+  @NonNull
+  public static JAXBContextCacheKey createForPackages (@NonNull final ICommonsList <Package> aPackages)
   {
     return createForPackages (aPackages, null);
   }
@@ -318,8 +318,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForPackages (@Nonnull final Package... aPackages)
+  @NonNull
+  public static JAXBContextCacheKey createForPackages (@NonNull final Package... aPackages)
   {
     return createForPackages (new CommonsArrayList <> (aPackages), null);
   }
@@ -334,8 +334,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForPackages (@Nonnull final ICommonsList <Package> aPackages,
+  @NonNull
+  public static JAXBContextCacheKey createForPackages (@NonNull final ICommonsList <Package> aPackages,
                                                        @Nullable final ClassLoader aClassLoader)
   {
     return new JAXBContextCacheKey (aPackages, aClassLoader);
@@ -350,8 +350,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForClass (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static JAXBContextCacheKey createForClass (@NonNull final Class <?> aClass)
   {
     return createForClass (aClass, null);
   }
@@ -369,8 +369,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForClass (@Nonnull final Class <?> aClass,
+  @NonNull
+  public static JAXBContextCacheKey createForClass (@NonNull final Class <?> aClass,
                                                     @Nullable final ClassLoader aClassLoader)
   {
     ValueEnforcer.notNull (aClass, "Class");
@@ -393,8 +393,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForClasses (@Nonnull final ICommonsList <Class <?>> aClasses)
+  @NonNull
+  public static JAXBContextCacheKey createForClasses (@NonNull final ICommonsList <Class <?>> aClasses)
   {
     return createForClasses (aClasses, null);
   }
@@ -408,8 +408,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForClasses (@Nonnull final Class <?>... aClasses)
+  @NonNull
+  public static JAXBContextCacheKey createForClasses (@NonNull final Class <?>... aClasses)
   {
     return createForClasses (new CommonsArrayList <> (aClasses), null);
   }
@@ -426,8 +426,8 @@ public class JAXBContextCacheKey
    * @return The created object. Never <code>null</code>.
    * @since 11.0.4
    */
-  @Nonnull
-  public static JAXBContextCacheKey createForClasses (@Nonnull final ICommonsList <Class <?>> aClasses,
+  @NonNull
+  public static JAXBContextCacheKey createForClasses (@NonNull final ICommonsList <Class <?>> aClasses,
                                                       @Nullable final Map <String, ?> aProperties)
   {
     ValueEnforcer.notEmptyNoNullValue (aClasses, "Classes");

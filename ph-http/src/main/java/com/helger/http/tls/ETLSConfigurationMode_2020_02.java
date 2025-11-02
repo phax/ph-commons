@@ -16,14 +16,14 @@
  */
 package com.helger.http.tls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * TLS cipher suite configuration modes according to
@@ -109,29 +109,29 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
   private final String m_sID;
   private final TLSConfigurationMode m_aMode;
 
-  ETLSConfigurationMode_2020_02 (@Nonnull @Nonempty final String sID,
-                                 @Nonnull @Nonempty final ETLSVersion [] aTLSVersions,
-                                 @Nonnull @Nonempty final String [] aCipherSuites)
+  ETLSConfigurationMode_2020_02 (@NonNull @Nonempty final String sID,
+                                 @NonNull @Nonempty final ETLSVersion [] aTLSVersions,
+                                 @NonNull @Nonempty final String [] aCipherSuites)
   {
     m_sID = sID;
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
   {
     return m_aMode.getAllCipherSuites ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public String [] getAllCipherSuitesAsArray ()
@@ -139,14 +139,14 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuitesAsArray ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
   {
     return m_aMode.getAllTLSVersions ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public ICommonsList <String> getAllTLSVersionIDs ()
@@ -154,7 +154,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDs ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public String [] getAllTLSVersionIDsAsArray ()

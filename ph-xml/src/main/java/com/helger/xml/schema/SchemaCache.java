@@ -23,6 +23,8 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
@@ -38,9 +40,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Base class for caching abstract {@link Schema} objects. A {@link Schema} is
  * immutable and can therefore safely be used in multi-threaded environments.
@@ -53,8 +52,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
 
-  public SchemaCache (@Nonnull final String sSchemaTypeName,
-                      @Nonnull final SchemaFactory aSchemaFactory,
+  public SchemaCache (@NonNull final String sSchemaTypeName,
+                      @NonNull final SchemaFactory aSchemaFactory,
                       @Nullable final ErrorHandler aErrorHandler,
                       @Nullable final LSResourceResolver aResourceResolver)
   {
@@ -67,13 +66,13 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
     m_aSchemaFactory.setResourceResolver (aResourceResolver);
   }
 
-  @Nonnull
+  @NonNull
   public final String getSchemaTypeName ()
   {
     return m_sSchemaTypeName;
   }
 
-  @Nonnull
+  @NonNull
   public final SchemaFactory getSchemaFactory ()
   {
     return m_aSchemaFactory;
@@ -91,10 +90,10 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
     return m_aSchemaFactory.getResourceResolver ();
   }
 
-  @Nonnull
-  public static Schema createSchema (@Nonnull final SchemaFactory aSchemaFactory,
-                                     @Nonnull final String sSchemaTypeName,
-                                     @Nonnull @Nonempty final ICommonsList <? extends IReadableResource> aResources)
+  @NonNull
+  public static Schema createSchema (@NonNull final SchemaFactory aSchemaFactory,
+                                     @NonNull final String sSchemaTypeName,
+                                     @NonNull @Nonempty final ICommonsList <? extends IReadableResource> aResources)
   {
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
@@ -125,8 +124,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    *        <code>null</code>.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
-  @Nonnull
-  public final Schema getSchema (@Nonnull final IReadableResource aResource)
+  @NonNull
+  public final Schema getSchema (@NonNull final IReadableResource aResource)
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
@@ -142,8 +141,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    *        elements.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
-  @Nonnull
-  public final Schema getSchema (@Nonnull @Nonempty final IReadableResource... aResources)
+  @NonNull
+  public final Schema getSchema (@NonNull @Nonempty final IReadableResource... aResources)
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
@@ -160,8 +159,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    *        elements.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
-  @Nonnull
-  public final Schema getSchema (@Nonnull @Nonempty final Collection <? extends IReadableResource> aResources)
+  @NonNull
+  public final Schema getSchema (@NonNull @Nonempty final Collection <? extends IReadableResource> aResources)
   {
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
@@ -178,8 +177,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    *        <code>null</code>.
    * @return The validator and never <code>null</code>.
    */
-  @Nonnull
-  public final Validator getValidatorFromSchema (@Nonnull final Schema aSchema)
+  @NonNull
+  public final Validator getValidatorFromSchema (@NonNull final Schema aSchema)
   {
     ValueEnforcer.notNull (aSchema, "Schema");
 
@@ -198,8 +197,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(IReadableResource)
    */
-  @Nonnull
-  public final Validator getValidator (@Nonnull final IReadableResource aResource)
+  @NonNull
+  public final Validator getValidator (@NonNull final IReadableResource aResource)
   {
     return getValidatorFromSchema (getSchema (aResource));
   }
@@ -215,8 +214,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(IReadableResource...)
    */
-  @Nonnull
-  public final Validator getValidator (@Nonnull @Nonempty final IReadableResource... aResources)
+  @NonNull
+  public final Validator getValidator (@NonNull @Nonempty final IReadableResource... aResources)
   {
     return getValidatorFromSchema (getSchema (aResources));
   }
@@ -232,8 +231,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(Collection)
    */
-  @Nonnull
-  public final Validator getValidator (@Nonnull @Nonempty final Collection <? extends IReadableResource> aResources)
+  @NonNull
+  public final Validator getValidator (@NonNull @Nonempty final Collection <? extends IReadableResource> aResources)
   {
     return getValidatorFromSchema (getSchema (aResources));
   }
@@ -245,8 +244,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    *        The resource to remove. May not be <code>null</code>.
    * @return {@link EChange}.
    */
-  @Nonnull
-  public EChange removeFromCache (@Nonnull final IReadableResource aKey)
+  @NonNull
+  public EChange removeFromCache (@NonNull final IReadableResource aKey)
   {
     return removeFromCache (new CommonsArrayList <> (aKey));
   }

@@ -18,9 +18,9 @@ package com.helger.text.compare;
 
 import java.util.Comparator;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * A special comparator that ensures that e.g. "3.10" is sorted after "3.9".
@@ -38,13 +38,13 @@ public class NaturalNumericOrderComparator implements Comparator <String>
    * @param aOtherComp
    *        The comparator to be used, if there is no numeric stuff to compare.
    */
-  public NaturalNumericOrderComparator (@Nonnull final Comparator <String> aOtherComp)
+  public NaturalNumericOrderComparator (@NonNull final Comparator <String> aOtherComp)
   {
     ValueEnforcer.notNull (aOtherComp, "OtherComp");
     m_aOtherComp = aOtherComp;
   }
 
-  @Nonnull
+  @NonNull
   public final Comparator <? super String> getOtherComparator ()
   {
     return m_aOtherComp;
@@ -106,7 +106,7 @@ public class NaturalNumericOrderComparator implements Comparator <String>
     return a.length () - b.length ();
   }
 
-  public int compare (@Nonnull final String a, @Nonnull final String b)
+  public int compare (@NonNull final String a, @NonNull final String b)
   {
     int ia = 0;
     int ib = 0;

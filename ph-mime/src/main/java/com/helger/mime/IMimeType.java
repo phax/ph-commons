@@ -16,6 +16,9 @@
  */
 package com.helger.mime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementComparable;
@@ -23,9 +26,6 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for the structured representation of a single MIME type.
@@ -39,13 +39,13 @@ public interface IMimeType extends ICloneable <IMimeType>
   /**
    * @return The content type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EMimeContentType getContentType ();
 
   /**
    * @return The content sub type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getContentSubType ();
 
   /**
@@ -58,7 +58,7 @@ public interface IMimeType extends ICloneable <IMimeType>
    * @see #getAsString(EMimeQuoting)
    * @see #getAsStringWithoutParameters()
    */
-  @Nonnull
+  @NonNull
   default String getAsString ()
   {
     return getAsString (CMimeType.DEFAULT_QUOTING);
@@ -77,9 +77,9 @@ public interface IMimeType extends ICloneable <IMimeType>
    * @see #getAsStringWithoutParameters()
    * @see #getParametersAsString(EMimeQuoting)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  String getAsString (@Nonnull EMimeQuoting eQuotingAlgorithm);
+  String getAsString (@NonNull EMimeQuoting eQuotingAlgorithm);
 
   /**
    * @return The combined string to be used as text representation but without
@@ -87,7 +87,7 @@ public interface IMimeType extends ICloneable <IMimeType>
    *         <em>subType</em></code>
    * @see #getAsString()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getAsStringWithoutParameters ();
 
@@ -105,8 +105,8 @@ public interface IMimeType extends ICloneable <IMimeType>
    * @see #getAsString(EMimeQuoting)
    * @see #getAsStringWithoutParameters()
    */
-  @Nonnull
-  String getParametersAsString (@Nonnull EMimeQuoting eQuotingAlgorithm);
+  @NonNull
+  String getParametersAsString (@NonNull EMimeQuoting eQuotingAlgorithm);
 
   /**
    * @return <code>true</code> if at least one parameter is present,
@@ -123,7 +123,7 @@ public interface IMimeType extends ICloneable <IMimeType>
   /**
    * @return All present parameters. May not be <code>null</code> but empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <MimeTypeParameter> getAllParameters ();
 
@@ -177,6 +177,6 @@ public interface IMimeType extends ICloneable <IMimeType>
    *         type. This method must even deliver a copy if no parameter are
    *         present! May not return <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMimeType getCopyWithoutParameters ();
 }

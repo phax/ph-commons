@@ -18,13 +18,13 @@ package com.helger.collection.hierarchy;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An {@link IChildrenProvider} that returns the children in
@@ -50,20 +50,20 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
    * @param aComparator
    *        The comparator to be used for sorting children.
    */
-  public ChildrenProviderSorting (@Nonnull final IChildrenProvider <CHILDTYPE> aCP,
-                                  @Nonnull final Comparator <? super CHILDTYPE> aComparator)
+  public ChildrenProviderSorting (@NonNull final IChildrenProvider <CHILDTYPE> aCP,
+                                  @NonNull final Comparator <? super CHILDTYPE> aComparator)
   {
     m_aChildrenProvider = ValueEnforcer.notNull (aCP, "ChildrenProvider");
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
 
-  @Nonnull
+  @NonNull
   public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
   {
     return m_aChildrenProvider;
   }
 
-  @Nonnull
+  @NonNull
   public Comparator <? super CHILDTYPE> getComparator ()
   {
     return m_aComparator;

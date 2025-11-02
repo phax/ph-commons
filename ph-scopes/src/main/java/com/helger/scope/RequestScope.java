@@ -16,6 +16,7 @@
  */
 package com.helger.scope;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,8 +24,6 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation for non-web request scopes.
@@ -37,7 +36,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
 
   private final String m_sSessionID;
 
-  public RequestScope (@Nonnull @Nonempty final String sScopeID, @Nonnull @Nonempty final String sSessionID)
+  public RequestScope (@NonNull @Nonempty final String sScopeID, @NonNull @Nonempty final String sSessionID)
   {
     super (sScopeID);
     m_sSessionID = ValueEnforcer.notEmpty (sSessionID, "SessionID");
@@ -47,7 +46,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
       LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getSessionID (final boolean bCreateIfNotExisting)
   {

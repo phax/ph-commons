@@ -18,14 +18,13 @@ package com.helger.xml.serialize.write;
 
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHex;
 import com.helger.base.string.StringImplode;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Define what to do, when an invalid character is to be serialized to XML.
@@ -40,8 +39,8 @@ public enum EXMLIncorrectCharacterHandling
   THROW_EXCEPTION (true, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@NonNull @Nonempty final String sText,
+                                             @NonNull final Set <Character> aInvalidChars)
     {
       throw new IllegalArgumentException ("XML content contains invalid character data: '" +
                                           sText +
@@ -59,8 +58,8 @@ public enum EXMLIncorrectCharacterHandling
   WRITE_TO_FILE_NO_LOG (false, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@NonNull @Nonempty final String sText,
+                                             @NonNull final Set <Character> aInvalidChars)
     {
       // Do nothing
     }
@@ -75,8 +74,8 @@ public enum EXMLIncorrectCharacterHandling
   WRITE_TO_FILE_LOG_WARNING (true, false)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@NonNull @Nonempty final String sText,
+                                             @NonNull final Set <Character> aInvalidChars)
     {
       LOGGER.warn ("XML content contains invalid character data (no replacement): '" +
                    sText +
@@ -92,8 +91,8 @@ public enum EXMLIncorrectCharacterHandling
   DO_NOT_WRITE_NO_LOG (false, true)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@NonNull @Nonempty final String sText,
+                                             @NonNull final Set <Character> aInvalidChars)
     {
       // Do nothing
     }
@@ -106,8 +105,8 @@ public enum EXMLIncorrectCharacterHandling
   DO_NOT_WRITE_LOG_WARNING (true, true)
   {
     @Override
-    public void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty final String sText,
-                                             @Nonnull final Set <Character> aInvalidChars)
+    public void notifyOnInvalidXMLCharacter (@NonNull @Nonempty final String sText,
+                                             @NonNull final Set <Character> aInvalidChars)
     {
       LOGGER.warn ("XML content contains invalid character data (will replace): '" +
                    sText +
@@ -166,8 +165,8 @@ public enum EXMLIncorrectCharacterHandling
     return m_bReplaceWithNothing;
   }
 
-  @Nonnull
-  private static String _getAsString (@Nonnull final Set <Character> aInvalidChars)
+  @NonNull
+  private static String _getAsString (@NonNull final Set <Character> aInvalidChars)
   {
     if (aInvalidChars.isEmpty ())
       return "NONE";
@@ -185,6 +184,6 @@ public enum EXMLIncorrectCharacterHandling
    * @param aInvalidChars
    *        The invalid characters detected within the text
    */
-  public abstract void notifyOnInvalidXMLCharacter (@Nonnull @Nonempty String sText,
-                                                    @Nonnull Set <Character> aInvalidChars);
+  public abstract void notifyOnInvalidXMLCharacter (@NonNull @Nonempty String sText,
+                                                    @NonNull Set <Character> aInvalidChars);
 }

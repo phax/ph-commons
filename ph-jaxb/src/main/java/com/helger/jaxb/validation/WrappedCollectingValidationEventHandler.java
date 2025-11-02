@@ -16,14 +16,14 @@
  */
 package com.helger.jaxb.validation;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
@@ -37,7 +37,7 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
 {
   private final ErrorList m_aErrorList;
 
-  public WrappedCollectingValidationEventHandler (@Nonnull final ErrorList aErrorList)
+  public WrappedCollectingValidationEventHandler (@NonNull final ErrorList aErrorList)
   {
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
   }
@@ -46,7 +46,7 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
    * @return The error list object passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public ErrorList wrappedErrorList ()
   {
@@ -54,7 +54,7 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
   }
 
   @Override
-  protected void onEvent (@Nonnull final IError aEvent)
+  protected void onEvent (@NonNull final IError aEvent)
   {
     m_aErrorList.add (aEvent);
   }

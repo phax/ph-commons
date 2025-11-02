@@ -19,12 +19,12 @@ package com.helger.text.codepoint;
 import java.util.NoSuchElementException;
 import java.util.function.IntPredicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Provides an iterator over Unicode Codepoints
@@ -133,7 +133,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return new char [] { c1 };
   }
 
-  @Nonnull
+  @NonNull
   public Codepoint next ()
   {
     final Codepoint ret = _toCodepoint (nextChars ());
@@ -218,8 +218,8 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return Character.isLowSurrogate (get (index));
   }
 
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter,
+  @NonNull
+  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter,
                                                final boolean bScanning,
                                                final boolean bInvert)
   {

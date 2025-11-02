@@ -19,13 +19,13 @@ package com.helger.base.io.nonblocking;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is a non-blocking version of {@link java.io.BufferedWriter}. It is 1:1 rip without the
@@ -55,7 +55,7 @@ public class NonBlockingBufferedWriter extends Writer
    * @param aWriter
    *        A Writer
    */
-  public NonBlockingBufferedWriter (@Nonnull final Writer aWriter)
+  public NonBlockingBufferedWriter (@NonNull final Writer aWriter)
   {
     this (aWriter, DEFAULT_CHAR_BUFFER_SIZE);
   }
@@ -70,7 +70,7 @@ public class NonBlockingBufferedWriter extends Writer
    * @exception IllegalArgumentException
    *            If size is &le; 0
    */
-  public NonBlockingBufferedWriter (@Nonnull final Writer aWriter, @Nonnegative final int nBufSize)
+  public NonBlockingBufferedWriter (@NonNull final Writer aWriter, @Nonnegative final int nBufSize)
   {
     super (aWriter);
     ValueEnforcer.isGT0 (nBufSize, "BufSize");
@@ -243,7 +243,7 @@ public class NonBlockingBufferedWriter extends Writer
    *
    * @return the string.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public String getAsString ()
   {
@@ -257,7 +257,7 @@ public class NonBlockingBufferedWriter extends Writer
    *        The number of characters to convert. Must be &le; than {@link #getSize()}.
    * @return the string.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (@Nonnegative final int nLength)
   {
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nNextChar);

@@ -16,7 +16,7 @@
  */
 package com.helger.diagnostics.severity;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for comparable objects based on their severity.
@@ -36,7 +36,7 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    * @return <code>true</code> if this object is equally important than the
    *         passed object!
    */
-  boolean isEQ (@Nonnull IMPLTYPE aOther);
+  boolean isEQ (@NonNull IMPLTYPE aOther);
 
   /**
    * Check if this object is of a different level (= different importance) than
@@ -48,7 +48,7 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    *         passed object!
    * @since 8.6.5
    */
-  default boolean isNE (@Nonnull final IMPLTYPE aOther)
+  default boolean isNE (@NonNull final IMPLTYPE aOther)
   {
     return !isEQ (aOther);
   }
@@ -62,7 +62,7 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    * @return <code>true</code> if this object is less important than the passed
    *         object!
    */
-  boolean isLT (@Nonnull IMPLTYPE aOther);
+  boolean isLT (@NonNull IMPLTYPE aOther);
 
   /**
    * Check if this object is of equal or lower level (= equally or less
@@ -73,7 +73,7 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    * @return <code>true</code> if this object is equally or less important than
    *         the passed object!
    */
-  boolean isLE (@Nonnull IMPLTYPE aOther);
+  boolean isLE (@NonNull IMPLTYPE aOther);
 
   /**
    * Check if this object is of higher level (= more important) than the passed
@@ -84,7 +84,7 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    * @return <code>true</code> if this object is more important than the passed
    *         object!
    */
-  boolean isGT (@Nonnull IMPLTYPE aOther);
+  boolean isGT (@NonNull IMPLTYPE aOther);
 
   /**
    * Check if this object is of equal or higher level (= equally or more
@@ -95,5 +95,5 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
    * @return <code>true</code> if this object is equally or more important than
    *         the passed object!
    */
-  boolean isGE (@Nonnull IMPLTYPE aOther);
+  boolean isGE (@NonNull IMPLTYPE aOther);
 }

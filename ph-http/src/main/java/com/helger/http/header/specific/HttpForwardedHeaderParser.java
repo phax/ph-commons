@@ -16,6 +16,8 @@
  */
 package com.helger.http.header.specific;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.http.RFC7230Helper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Parser for RFC 7239 compliant "Forwarded" header values. This class can parse a forwarded-element
@@ -61,7 +60,7 @@ public final class HttpForwardedHeaderParser
     private final char [] m_aInput;
     private int m_nPos = 0;
 
-    ParseContext (@Nonnull final String sInput)
+    ParseContext (@NonNull final String sInput)
     {
       m_aInput = sInput.toCharArray ();
     }
@@ -81,7 +80,7 @@ public final class HttpForwardedHeaderParser
       m_nPos++;
     }
 
-    @Nonnull
+    @NonNull
     String getErrorLocationDetails ()
     {
       final char c = hasMore () ? getCurrentChar () : 0;
@@ -110,7 +109,7 @@ public final class HttpForwardedHeaderParser
    * @param aContext
    *        The parsing context. May not be <code>null</code>.
    */
-  private static void _skipWhitespace (@Nonnull final ParseContext aContext)
+  private static void _skipWhitespace (@NonNull final ParseContext aContext)
   {
     while (aContext.hasMore ())
     {
@@ -129,7 +128,7 @@ public final class HttpForwardedHeaderParser
    * @return The parsed token or <code>null</code> if parsing failed.
    */
   @Nullable
-  private static String _parseToken (@Nonnull final ParseContext aContext)
+  private static String _parseToken (@NonNull final ParseContext aContext)
   {
     final int nStart = aContext.m_nPos;
 
@@ -172,7 +171,7 @@ public final class HttpForwardedHeaderParser
    * @return <code>true</code> if the character was found and consumed, <code>false</code>
    *         otherwise.
    */
-  private static boolean _expectChar (@Nonnull final ParseContext aContext, final char cExpected)
+  private static boolean _expectChar (@NonNull final ParseContext aContext, final char cExpected)
   {
     if (!aContext.hasMore () || aContext.getCurrentChar () != cExpected)
       return false;
@@ -217,7 +216,7 @@ public final class HttpForwardedHeaderParser
    *         failed.
    */
   @Nullable
-  private static String _parseQuotedString (@Nonnull final ParseContext aContext)
+  private static String _parseQuotedString (@NonNull final ParseContext aContext)
   {
     if (!aContext.hasMore () || !RFC5234Helper.isDQuote (aContext.getCurrentChar ()))
       return null;
@@ -293,7 +292,7 @@ public final class HttpForwardedHeaderParser
    * @return The parsed value or <code>null</code> if parsing failed.
    */
   @Nullable
-  private static String _parseValue (@Nonnull final ParseContext aContext)
+  private static String _parseValue (@NonNull final ParseContext aContext)
   {
     if (!aContext.hasMore ())
       return null;
@@ -324,8 +323,8 @@ public final class HttpForwardedHeaderParser
    *        The result list to add the pair to. May not be <code>null</code>.
    * @return <code>true</code> if parsing succeeded, <code>false</code> otherwise.
    */
-  private static EPairParsingResult _parseOptionalPair (@Nonnull final ParseContext aContext,
-                                                        @Nonnull final HttpForwardedHeaderHop aResult)
+  private static EPairParsingResult _parseOptionalPair (@NonNull final ParseContext aContext,
+                                                        @NonNull final HttpForwardedHeaderHop aResult)
   {
     _skipWhitespace (aContext);
 
@@ -445,8 +444,8 @@ public final class HttpForwardedHeaderParser
    *        The header value to split. May not be <code>null</code>.
    * @return A list of individual forwarded elements.
    */
-  @Nonnull
-  private static ICommonsList <String> _splitForwardedHops (@Nonnull final String sHeaderValue)
+  @NonNull
+  private static ICommonsList <String> _splitForwardedHops (@NonNull final String sHeaderValue)
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
 

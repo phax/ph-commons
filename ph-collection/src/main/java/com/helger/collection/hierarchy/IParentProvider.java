@@ -16,7 +16,7 @@
  */
 package com.helger.collection.hierarchy;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This helper interface is required to build a generic tree. This is required

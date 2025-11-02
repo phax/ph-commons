@@ -18,6 +18,7 @@ package com.helger.config.source.resource;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation of {@link IConfigurationSource} for file based
@@ -49,7 +48,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
 
   private final IReadableResource m_aRes;
 
-  protected AbstractConfigurationSourceResource (final int nPriority, @Nonnull final IReadableResource aRes)
+  protected AbstractConfigurationSourceResource (final int nPriority, @NonNull final IReadableResource aRes)
   {
     super (CONFIG_SOURCE_TYPE, nPriority);
     ValueEnforcer.notNull (aRes, "Resource");
@@ -72,7 +71,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
     }
   }
 
-  @Nonnull
+  @NonNull
   public final IReadableResource getResource ()
   {
     return m_aRes;

@@ -20,6 +20,8 @@ import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.util.ClassHierarchyCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The registry that keeps the mappings for serialization converters.
@@ -76,7 +75,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   /**
    * @return The singleton instance of this class. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SerializationConverterRegistry getInstance ()
   {
     final SerializationConverterRegistry ret = SingletonHolder.INSTANCE;
@@ -84,7 +83,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
     return ret;
   }
 
-  public <T> void registerSerializationConverter (@Nonnull final Class <T> aClass, @Nonnull final ISerializationConverter <T> aConverter)
+  public <T> void registerSerializationConverter (@NonNull final Class <T> aClass, @NonNull final ISerializationConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -146,7 +145,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public void iterateAllRegisteredSerializationConverters (@Nonnull final ISerializationConverterCallback aCallback)
+  public void iterateAllRegisteredSerializationConverters (@NonNull final ISerializationConverterCallback aCallback)
   {
     // Create a static (non weak) copy of the map
     final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aMap));

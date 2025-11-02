@@ -28,11 +28,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains helper functions that read-only access collections to find stuff
@@ -269,7 +269,7 @@ public final class CollectionFind
   @Nullable
   public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     return findFirstMapped (aCollection, aFilter, aMapper, (DSTTYPE) null);
   }
@@ -277,7 +277,7 @@ public final class CollectionFind
   @Nullable
   public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                                                @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                                                 @Nullable final DSTTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -297,7 +297,7 @@ public final class CollectionFind
 
   public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+                                            @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
@@ -315,8 +315,8 @@ public final class CollectionFind
   }
 
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+                                                       @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -344,8 +344,8 @@ public final class CollectionFind
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+                                                       @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -377,9 +377,9 @@ public final class CollectionFind
    * @since 8.5.2
    */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
-                                                       @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                       @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                        @Nullable final Predicate <? super DSTTYPE> aFilter,
-                                                       @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+                                                       @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aConsumer, "Consumer");

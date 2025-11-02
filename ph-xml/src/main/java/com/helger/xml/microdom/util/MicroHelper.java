@@ -18,6 +18,8 @@ package com.helger.xml.microdom.util;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -43,9 +45,6 @@ import com.helger.xml.microdom.MicroEntityReference;
 import com.helger.xml.microdom.MicroProcessingInstruction;
 import com.helger.xml.microdom.MicroText;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Some utility methods on micro nodes.
  *
@@ -60,8 +59,8 @@ public final class MicroHelper
   private MicroHelper ()
   {}
 
-  @Nonnull
-  public static IMicroNode append (@Nonnull final IMicroNode aSrcNode, @Nullable final Object aChild)
+  @NonNull
+  public static IMicroNode append (@NonNull final IMicroNode aSrcNode, @Nullable final Object aChild)
   {
     ValueEnforcer.notNull (aSrcNode, "SrcNode");
 
@@ -111,8 +110,8 @@ public final class MicroHelper
    * @return A non-<code>null</code> string. If the passed node is <code>null</code>, the return
    *         value is an empty string.
    */
-  @Nonnull
-  public static String getPath (@Nullable final IMicroNode aNode, @Nonnull final String sSep)
+  @NonNull
+  public static String getPath (@Nullable final IMicroNode aNode, @NonNull final String sSep)
   {
     ValueEnforcer.notNull (sSep, "Separator");
 
@@ -148,8 +147,8 @@ public final class MicroHelper
     return null;
   }
 
-  @Nonnull
-  public static IMicroNode convertToMicroNode (@Nonnull final Node aNode)
+  @NonNull
+  public static IMicroNode convertToMicroNode (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -237,8 +236,8 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement,
-                                            @Nonnull final String sChildElementName)
+  public static String getChildTextContent (@NonNull final IMicroElement eParentElement,
+                                            @NonNull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
@@ -257,8 +256,8 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement,
-                                                   @Nonnull final String sChildElementName)
+  public static String getChildTextContentTrimmed (@NonNull final IMicroElement eParentElement,
+                                                   @NonNull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;
@@ -281,9 +280,9 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@Nonnull final IMicroElement eParentElement,
-                                                                     @Nonnull final String sChildElementName,
-                                                                     @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@NonNull final IMicroElement eParentElement,
+                                                                     @NonNull final String sChildElementName,
+                                                                     @NonNull final Class <DSTTYPE> aDstClass)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentWithConversion (aDstClass) : null;
@@ -303,9 +302,9 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static String getChildTextContent (@Nonnull final IMicroElement eParentElement,
-                                            @Nonnull final String sNamespaceURI,
-                                            @Nonnull final String sChildElementName)
+  public static String getChildTextContent (@NonNull final IMicroElement eParentElement,
+                                            @NonNull final String sNamespaceURI,
+                                            @NonNull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
@@ -326,9 +325,9 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static String getChildTextContentTrimmed (@Nonnull final IMicroElement eParentElement,
-                                                   @Nonnull final String sNamespaceURI,
-                                                   @Nonnull final String sChildElementName)
+  public static String getChildTextContentTrimmed (@NonNull final IMicroElement eParentElement,
+                                                   @NonNull final String sNamespaceURI,
+                                                   @NonNull final String sChildElementName)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;
@@ -354,10 +353,10 @@ public final class MicroHelper
    *         contain any text.
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@Nonnull final IMicroElement eParentElement,
-                                                                     @Nonnull final String sNamespaceURI,
-                                                                     @Nonnull final String sChildElementName,
-                                                                     @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE getChildTextContentWithConversion (@NonNull final IMicroElement eParentElement,
+                                                                     @NonNull final String sNamespaceURI,
+                                                                     @NonNull final String sChildElementName,
+                                                                     @NonNull final Class <DSTTYPE> aDstClass)
   {
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentWithConversion (aDstClass) : null;
@@ -372,9 +371,9 @@ public final class MicroHelper
    *        The parent node to get the children from. May not be <code>null</code>.
    * @return The micro container and never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static IMicroContainer getAllChildrenAsContainer (@Nonnull final IMicroNode aParent)
+  public static IMicroContainer getAllChildrenAsContainer (@NonNull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
     aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
@@ -391,9 +390,9 @@ public final class MicroHelper
    *        The parent node to get the children from. May not be <code>null</code>.
    * @return The micro container and never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static IMicroContainer getAllOriginalChildrenAsContainer (@Nonnull final IMicroNode aParent)
+  public static IMicroContainer getAllOriginalChildrenAsContainer (@NonNull final IMicroNode aParent)
   {
     final IMicroContainer ret = new MicroContainer ();
     aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.detachFromParent ()));

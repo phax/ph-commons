@@ -18,6 +18,8 @@ package com.helger.collection.map;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,12 +30,9 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * A specific {@link LRUMap} that emits a warning once the map is full and the
- * oldest entry gets discarded.
+ * A specific {@link LRUMap} that emits a warning once the map is full and the oldest entry gets
+ * discarded.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -54,14 +53,14 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     super (nMaxSize);
   }
 
-  public LoggingLRUMap (@Nonnull final LoggingLRUMap <KEYTYPE, VALUETYPE> rhs)
+  public LoggingLRUMap (@NonNull final LoggingLRUMap <KEYTYPE, VALUETYPE> rhs)
   {
     super (rhs);
     setMapName (rhs.m_sMapName);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public LoggingLRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
     return new LoggingLRUMap <> (this);
@@ -73,7 +72,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     return m_sMapName;
   }
 
-  @Nonnull
+  @NonNull
   public final LoggingLRUMap <KEYTYPE, VALUETYPE> setMapName (@Nullable final String sMapName)
   {
     m_sMapName = sMapName;
@@ -82,7 +81,7 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
 
   @Override
   protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEntry)
+                                      final Map.@NonNull Entry <KEYTYPE, VALUETYPE> aEntry)
   {
     LOGGER.warn ("Map" +
                  (m_sMapName != null ? " '" + m_sMapName + "'" : "") +

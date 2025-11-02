@@ -18,13 +18,13 @@ package com.helger.base.codec;
 
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single decoder of char, based on reader/writer.
@@ -47,7 +47,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    *         in case something goes wrong
    * @since 9.0.0
    */
-  default void decode (@Nullable final char [] aEncodedBuffer, @Nonnull @WillNotClose final Writer aWriter)
+  default void decode (@Nullable final char [] aEncodedBuffer, @NonNull @WillNotClose final Writer aWriter)
   {
     if (aEncodedBuffer == null)
       decode (null, 0, 0, aWriter);
@@ -70,7 +70,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable char [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @Nonnull @WillNotClose Writer aWriter);
+  void decode (@Nullable char [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
 
   /**
    * Decode a char array.

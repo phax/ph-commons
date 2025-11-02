@@ -18,13 +18,13 @@ package com.helger.security.password.hash;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.security.messagedigest.MessageDigestValue;
 import com.helger.security.password.salt.IPasswordSalt;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IPasswordHashCreator} using salted SHA512 hashes.
@@ -49,8 +49,8 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
     return false;
   }
 
-  @Nonnull
-  public String createPasswordHash (@Nullable final IPasswordSalt aSalt, @Nonnull final String sPlainTextPassword)
+  @NonNull
+  public String createPasswordHash (@Nullable final IPasswordSalt aSalt, @NonNull final String sPlainTextPassword)
   {
     ValueEnforcer.notNull (sPlainTextPassword, "PlainTextPassword");
 

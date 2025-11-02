@@ -18,10 +18,10 @@ package com.helger.io.file;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.collection.commons.CommonsIterableIterator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Iterate over the content of a single directory. Iteration is <b>not</b>
@@ -38,7 +38,7 @@ public final class FileSystemIterator extends CommonsIterableIterator <File>
    * @param sBaseDir
    *        The base directory to iterate. May not be <code>null</code>.
    */
-  public FileSystemIterator (@Nonnull final String sBaseDir)
+  public FileSystemIterator (@NonNull final String sBaseDir)
   {
     this (new File (sBaseDir));
   }
@@ -49,7 +49,7 @@ public final class FileSystemIterator extends CommonsIterableIterator <File>
    * @param aBaseDir
    *        The base directory to iterate. May not be <code>null</code>.
    */
-  public FileSystemIterator (@Nonnull final File aBaseDir)
+  public FileSystemIterator (@NonNull final File aBaseDir)
   {
     super (FileHelper.getDirectoryContent (aBaseDir));
   }
@@ -63,7 +63,7 @@ public final class FileSystemIterator extends CommonsIterableIterator <File>
    *        The directory name relative to the passed base directory. May not be
    *        <code>null</code>.
    */
-  public FileSystemIterator (@Nonnull final File aBaseDir, @Nonnull final String sDirName)
+  public FileSystemIterator (@NonNull final File aBaseDir, @NonNull final String sDirName)
   {
     super (FileHelper.getDirectoryContent (new File (aBaseDir, sDirName)));
   }

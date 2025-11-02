@@ -16,6 +16,9 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -23,9 +26,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.id.factory.GlobalIDFactory;
 import com.helger.base.id.factory.IIDFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Factory class that handles the generation of graph object IDs. It allows to
@@ -77,7 +77,7 @@ public final class GraphObjectIDFactory
    *
    * @return A new graph object ID. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String createNewGraphObjectID ()
   {

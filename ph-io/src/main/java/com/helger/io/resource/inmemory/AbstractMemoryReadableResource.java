@@ -19,14 +19,14 @@ package com.helger.io.resource.inmemory;
 import java.io.File;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for an {@link IReadableResource} that is not really a resource but where the
@@ -46,7 +46,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
    *        The mandatory resource ID, used as the cache key. May neither be <code>null</code> nor
    *        empty.
    */
-  protected AbstractMemoryReadableResource (@Nonnull @Nonempty final String sResourceID)
+  protected AbstractMemoryReadableResource (@NonNull @Nonempty final String sResourceID)
   {
     m_sResourceID = ValueEnforcer.notEmpty (sResourceID, "ResourceID");
   }
@@ -54,20 +54,20 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   /**
    * @return The resource ID as provided in the constructor. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getResourceID ()
   {
     return m_sResourceID;
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_sPath;
   }
 
-  public void setPath (@Nonnull final String sPath)
+  public void setPath (@NonNull final String sPath)
   {
     ValueEnforcer.notNull (sPath, "Path");
     m_sPath = sPath;
@@ -90,9 +90,9 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
     return true;
   }
 
-  @Nonnull
+  @NonNull
   @UnsupportedOperation
-  public IReadableResource getReadableCloneForPath (@Nonnull final String sPath)
+  public IReadableResource getReadableCloneForPath (@NonNull final String sPath)
   {
     throw new UnsupportedOperationException ("Cannot clone in-memory resource '" +
                                              m_sResourceID +

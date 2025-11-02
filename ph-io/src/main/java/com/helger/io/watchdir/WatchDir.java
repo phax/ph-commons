@@ -33,6 +33,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +46,6 @@ import com.helger.base.reflection.GenericReflection;
 import com.helger.base.system.EOperatingSystem;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Generic directory watching service using the default JDK {@link WatchService}
@@ -73,7 +72,7 @@ public class WatchDir implements AutoCloseable
    * @param aDir
    *        Directory to be watched. May not be <code>null</code>.
    */
-  private void _registerDir (@Nonnull final Path aDir) throws IOException
+  private void _registerDir (@NonNull final Path aDir) throws IOException
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Register directory " +
@@ -98,7 +97,7 @@ public class WatchDir implements AutoCloseable
    * @param aStartDir
    *        The start directory to be iterated. May not be <code>null</code>.
    */
-  private void _registerDirRecursive (@Nonnull final Path aStartDir) throws IOException
+  private void _registerDirRecursive (@NonNull final Path aStartDir) throws IOException
   {
     // register directory and sub-directories
     Files.walkFileTree (aStartDir, new SimpleFileVisitor <Path> ()
@@ -123,7 +122,7 @@ public class WatchDir implements AutoCloseable
    * @throws IOException
    *         In case something goes wrong.
    */
-  public WatchDir (@Nonnull final Path aDir, final boolean bRecursive) throws IOException
+  public WatchDir (@NonNull final Path aDir, final boolean bRecursive) throws IOException
   {
     ValueEnforcer.notNull (aDir, "Directory");
     ValueEnforcer.isTrue (aDir.toFile ().isDirectory (), () -> "Provided path is not a directory: " + aDir);
@@ -163,7 +162,7 @@ public class WatchDir implements AutoCloseable
   /**
    * @return The modifiable callback list. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public CallbackList <IWatchDirCallback> callbacks ()
   {
@@ -174,7 +173,7 @@ public class WatchDir implements AutoCloseable
    * @return The start directory as specified in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Path getStartDirectory ()
   {
     return m_aStartDir;
@@ -370,7 +369,7 @@ public class WatchDir implements AutoCloseable
    *         needed anymore.
    * @since 10.1.5
    */
-  @Nonnull
+  @NonNull
   public Thread runAsyncAndReturn ()
   {
     final Thread aThread = new Thread (this::processEvents,
@@ -398,11 +397,11 @@ public class WatchDir implements AutoCloseable
    * @throws IOException
    *         In case something goes wrong.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static WatchDir createAsyncRunningWatchDir (@Nonnull final Path aDir,
+  public static WatchDir createAsyncRunningWatchDir (@NonNull final Path aDir,
                                                      final boolean bRecursive,
-                                                     @Nonnull final IWatchDirCallback aCallback) throws IOException
+                                                     @NonNull final IWatchDirCallback aCallback) throws IOException
   {
     final WatchDir ret = new WatchDir (aDir, bRecursive);
     ret.callbacks ().add (aCallback);

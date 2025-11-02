@@ -18,6 +18,7 @@ package com.helger.graph.algo;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,6 @@ import com.helger.graph.simple.ISimpleGraph;
 import com.helger.graph.simple.SimpleGraph;
 import com.helger.graph.simple.SimpleGraphObjectFastFactory;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Find the minimum spanning tree of a graph, using Kruskal's algorithm.
  *
@@ -48,14 +47,14 @@ public final class Kruskal
     private final SimpleGraph m_aGraph;
     private final int m_nTotalWeight;
 
-    public Result (@Nonnull final SimpleGraph aGraph, final int nTotalWeight)
+    public Result (@NonNull final SimpleGraph aGraph, final int nTotalWeight)
     {
       ValueEnforcer.notNull (aGraph, "Graph");
       m_aGraph = aGraph;
       m_nTotalWeight = nTotalWeight;
     }
 
-    @Nonnull
+    @NonNull
     public SimpleGraph getGraph ()
     {
       return m_aGraph;
@@ -66,7 +65,7 @@ public final class Kruskal
       return m_nTotalWeight;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getAsString ()
     {
@@ -92,8 +91,8 @@ public final class Kruskal
   private Kruskal ()
   {}
 
-  private static String _getWeightInfo (@Nonnull final IMutableGraphRelation aRel,
-                                        @Nonnull @Nonempty final String sRelationCostAttr)
+  private static String _getWeightInfo (@NonNull final IMutableGraphRelation aRel,
+                                        @NonNull @Nonempty final String sRelationCostAttr)
   {
     return "{" +
            StringImplode.getImploded (',', new CommonsTreeSet <> (aRel.getAllConnectedNodeIDs ())) +
@@ -102,9 +101,8 @@ public final class Kruskal
            "}";
   }
 
-  @Nonnull
-  public static Kruskal.Result applyKruskal (@Nonnull final ISimpleGraph aGraph,
-                                             @Nonnull @Nonempty final String sRelationCostAttr)
+  public static Kruskal.@NonNull Result applyKruskal (@NonNull final ISimpleGraph aGraph,
+                                                      @NonNull @Nonempty final String sRelationCostAttr)
   {
     final ICommonsList <IMutableGraphRelation> aSortedRelations = aGraph.getAllRelationObjs ()
                                                                         .getSortedInline (Comparator.comparingInt (x -> x.attrs ()

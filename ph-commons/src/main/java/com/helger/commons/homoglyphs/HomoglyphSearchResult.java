@@ -16,13 +16,13 @@
  */
 package com.helger.commons.homoglyphs;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Search result of a homoglyph search.
@@ -38,8 +38,8 @@ public class HomoglyphSearchResult
   private final String m_sWord;
 
   public HomoglyphSearchResult (@Nonnegative final int nIndex,
-                                @Nonnull @Nonempty final String sMatch,
-                                @Nonnull @Nonempty final String sWord)
+                                @NonNull @Nonempty final String sMatch,
+                                @NonNull @Nonempty final String sWord)
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notEmpty (sMatch, "Match");
@@ -55,21 +55,21 @@ public class HomoglyphSearchResult
     return m_nIndex;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getMatch ()
   {
     return m_sMatch;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getWord ()
   {
     return m_sWord;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return "'" + m_sMatch + "' at position " + m_nIndex + " matches '" + m_sWord + "'";

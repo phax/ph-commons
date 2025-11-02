@@ -16,10 +16,10 @@
  */
 package com.helger.typeconvert.collection;
 
-import com.helger.base.callback.ICallback;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.callback.ICallback;
 
 /**
  * Callback interface to be invoked after a value was set.
@@ -43,5 +43,5 @@ public interface IAfterSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
    * @param aNewValue
    *        The new value. May be <code>null</code> in which case the value was removed.
    */
-  void afterSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aOldValue, @Nullable VALUETYPE aNewValue);
+  void afterSetValue (@NonNull KEYTYPE aName, @Nullable VALUETYPE aOldValue, @Nullable VALUETYPE aNewValue);
 }

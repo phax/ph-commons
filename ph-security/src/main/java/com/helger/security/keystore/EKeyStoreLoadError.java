@@ -18,12 +18,12 @@ package com.helger.security.keystore;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.text.display.IHasDisplayTextWithArgs;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Errors that can occur in {@link KeyStoreHelper}
@@ -114,13 +114,13 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
   private final String m_sID;
   private final EKeyStoreLoadErrorText m_aDisplayText;
 
-  EKeyStoreLoadError (@Nonnull @Nonempty final String sID, @Nonnull final EKeyStoreLoadErrorText aDisplayText)
+  EKeyStoreLoadError (@NonNull @Nonempty final String sID, @NonNull final EKeyStoreLoadErrorText aDisplayText)
   {
     m_sID = sID;
     m_aDisplayText = aDisplayText;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -128,7 +128,7 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_aDisplayText.getDisplayText (aContentLocale);
   }

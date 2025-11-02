@@ -19,12 +19,12 @@ package com.helger.base.trait;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Add arbitrary objects to this, where this being some kind of a collection like ArrayList.
@@ -42,24 +42,24 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
                                     IHasTypeConverterTo <ELEMENTTYPE>,
                                     IGenericImplTrait <IMPLTYPE>
 {
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final ELEMENTTYPE aValue)
   {
     return addAt (CGlobal.ILLEGAL_UINT, aValue);
   }
 
-  @Nonnull
+  @NonNull
   IMPLTYPE addAt (@CheckForSigned int nIndex, ELEMENTTYPE aValue);
 
-  @Nonnull
-  default IMPLTYPE addIf (@Nonnull final ELEMENTTYPE aValue, @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  @NonNull
+  default IMPLTYPE addIf (@NonNull final ELEMENTTYPE aValue, @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter.test (aValue))
       add (aValue);
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addIfNotNull (@Nullable final ELEMENTTYPE aValue)
   {
     if (aValue != null)
@@ -74,63 +74,63 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
    *        The value to be added. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (@Nullable final Object aValue)
   {
     return add (getTypeConverterTo ().convert (aValue));
   }
 
-  @Nonnull
-  default <T> IMPLTYPE addIf (@Nullable final T aValue, @Nonnull final Predicate <? super T> aFilter)
+  @NonNull
+  default <T> IMPLTYPE addIf (@Nullable final T aValue, @NonNull final Predicate <? super T> aFilter)
   {
     if (aFilter.test (aValue))
       add (aValue);
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final boolean bValue)
   {
     return add (getTypeConverterTo ().convert (bValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final byte nValue)
   {
     return add (getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final char cValue)
   {
     return add (getTypeConverterTo ().convert (cValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final double dValue)
   {
     return add (getTypeConverterTo ().convert (dValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final float fValue)
   {
     return add (getTypeConverterTo ().convert (fValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final int nValue)
   {
     return add (getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final long nValue)
   {
     return add (getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE add (final short nValue)
   {
     return add (getTypeConverterTo ().convert (nValue));
@@ -145,61 +145,61 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
    *        The value to be added. May be <code>null</code>.
    * @return thisAsT ()
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, @Nullable final Object aValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (aValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final boolean bValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (bValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final byte nValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final char cValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (cValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final double dValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (dValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final float fValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (fValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final int nValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final long nValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAt (@Nonnegative final int nIndex, final short nValue)
   {
     return addAt (nIndex, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final boolean... aValues)
   {
     if (aValues != null)
@@ -208,7 +208,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final byte... aValues)
   {
     if (aValues != null)
@@ -217,7 +217,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final char... aValues)
   {
     if (aValues != null)
@@ -226,7 +226,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final double... aValues)
   {
     if (aValues != null)
@@ -235,7 +235,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final float... aValues)
   {
     if (aValues != null)
@@ -244,7 +244,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final int... aValues)
   {
     if (aValues != null)
@@ -253,7 +253,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final long... aValues)
   {
     if (aValues != null)
@@ -262,7 +262,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final short... aValues)
   {
     if (aValues != null)
@@ -271,7 +271,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final Object... aValues)
   {
     if (aValues != null)
@@ -280,9 +280,9 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <T> IMPLTYPE addAllMapped (@Nullable final T [] aValues,
-                                     @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+                                     @NonNull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
       for (final T aValue : aValues)
@@ -290,7 +290,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final Iterable <?> aValues)
   {
     if (aValues != null)
@@ -299,9 +299,9 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <T> IMPLTYPE addAllMapped (@Nullable final Iterable <? extends T> aValues,
-                                     @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+                                     @NonNull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
       for (final T aItem : aValues)
@@ -309,7 +309,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final boolean... aValues)
   {
     if (aValues != null)
@@ -325,7 +325,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final byte... aValues)
   {
     if (aValues != null)
@@ -341,7 +341,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final char... aValues)
   {
     if (aValues != null)
@@ -357,7 +357,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final double... aValues)
   {
     if (aValues != null)
@@ -373,7 +373,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final float... aValues)
   {
     if (aValues != null)
@@ -389,7 +389,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final int... aValues)
   {
     if (aValues != null)
@@ -405,7 +405,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final long... aValues)
   {
     if (aValues != null)
@@ -421,7 +421,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final short... aValues)
   {
     if (aValues != null)
@@ -437,7 +437,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final Object... aValues)
   {
     if (aValues != null)
@@ -453,7 +453,7 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAt (@Nonnegative final int nIndex, @Nullable final Iterable <?> aValues)
   {
     if (aValues != null)
@@ -469,10 +469,10 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <T> IMPLTYPE addAllMappedAt (@Nonnegative final int nIndex,
                                        @Nullable final T [] aValues,
-                                       @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+                                       @NonNull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
     {
@@ -486,10 +486,10 @@ public interface IGenericAdderTrait <ELEMENTTYPE extends IAddableByTrait, IMPLTY
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <T> IMPLTYPE addAllMappedAt (@Nonnegative final int nIndex,
                                        @Nullable final Iterable <? extends T> aValues,
-                                       @Nonnull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
+                                       @NonNull final Function <? super T, ? extends ELEMENTTYPE> aMapper)
   {
     if (aValues != null)
     {

@@ -16,8 +16,8 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base interface for the tri state.
@@ -96,7 +96,7 @@ public interface ITriState
    *         {@link Boolean#FALSE} if {@link #isFalse()} is true, or otherwise
    *         the passed parameter!
    */
-  @Nonnull
+  @NonNull
   default Boolean getAsBooleanObj (final boolean bUndefinedValue)
   {
     return getAsBooleanObj (Boolean.valueOf (bUndefinedValue));

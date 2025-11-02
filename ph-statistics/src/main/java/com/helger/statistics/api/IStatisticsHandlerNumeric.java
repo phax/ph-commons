@@ -18,9 +18,9 @@ package com.helger.statistics.api;
 
 import java.math.BigInteger;
 
-import com.helger.annotation.CheckForSigned;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.CheckForSigned;
 
 /**
  * Base interface for size and timer handler.
@@ -32,7 +32,7 @@ public interface IStatisticsHandlerNumeric extends IStatisticsHandler
   /**
    * @return The sum of aggregated values.
    */
-  @Nonnull
+  @NonNull
   BigInteger getSum ();
 
   /**

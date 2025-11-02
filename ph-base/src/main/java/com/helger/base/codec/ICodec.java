@@ -16,7 +16,7 @@
  */
 package com.helger.base.codec;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for a single encoder + decoder.
@@ -27,7 +27,7 @@ import jakarta.annotation.Nonnull;
  */
 public interface ICodec <DATATYPE> extends IEncoder <DATATYPE, DATATYPE>, IDecoder <DATATYPE, DATATYPE>
 {
-  @Nonnull
+  @NonNull
   static <T> IdentityCodec <T> identity ()
   {
     return new IdentityCodec <> ();

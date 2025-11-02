@@ -16,11 +16,11 @@
  */
 package com.helger.base.thirdparty;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.id.IHasID;
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.version.IHasVersion;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single license.

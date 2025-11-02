@@ -19,6 +19,9 @@ package com.helger.security.certificate;
 import java.security.cert.X509Certificate;
 import java.time.OffsetDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -28,9 +31,6 @@ import com.helger.security.revocation.CertificateRevocationCheckerDefaults;
 import com.helger.security.revocation.ERevocationCheckMode;
 import com.helger.security.revocation.RevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a specific helper class to check the validity of certificates based on specific trusted
@@ -52,7 +52,7 @@ public class TrustedCAChecker
    * @param aCACerts
    *        The trusted CA certificates to be used. May neither be <code>null</code> nor empty.
    */
-  public TrustedCAChecker (@Nonnull final X509Certificate... aCACerts)
+  public TrustedCAChecker (@NonNull final X509Certificate... aCACerts)
   {
     ValueEnforcer.notNullNoNullValue (aCACerts, "CACerts");
     for (final X509Certificate aCACert : aCACerts)
@@ -68,7 +68,7 @@ public class TrustedCAChecker
   /**
    * @return A copy of the trusted CA certificates object used internally. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public TrustedCACertificates getAllTrustedAPCertificates ()
   {
@@ -78,7 +78,7 @@ public class TrustedCAChecker
   /**
    * @return The internal revocation cache that is used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public RevocationCheckResultCache getRevocationCache ()
   {
     return m_aRevocationCache;
@@ -91,7 +91,7 @@ public class TrustedCAChecker
    *        The certificate to be checked. May be <code>null</code>.
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert)
   {
     return checkCertificate (aCert, null);
@@ -106,7 +106,7 @@ public class TrustedCAChecker
    *        The check date and time to use. May be <code>null</code> which means "now".
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
                                                    @Nullable final OffsetDateTime aCheckDT)
   {
@@ -129,10 +129,10 @@ public class TrustedCAChecker
    *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ECertificateCheckResult checkCertificate (@Nullable final X509Certificate aCert,
                                                    @Nullable final OffsetDateTime aCheckDT,
-                                                   @Nonnull final ETriState eCacheRevocationCheckResult,
+                                                   @NonNull final ETriState eCacheRevocationCheckResult,
                                                    @Nullable final ERevocationCheckMode eCheckMode)
   {
     final boolean bUseRevocationCache = eCacheRevocationCheckResult.isUndefined () ? CertificateRevocationCheckerDefaults.isCacheRevocationCheckResults ()

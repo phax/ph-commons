@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for setter method to identify whether a value is mandatory or not.
@@ -33,14 +33,14 @@ public enum EMandatory implements IMandatoryIndicator
     return this == MANDATORY;
   }
 
-  @Nonnull
+  @NonNull
   public static EMandatory valueOf (final boolean bMandatory)
   {
     return bMandatory ? MANDATORY : OPTIONAL;
   }
 
-  @Nonnull
-  public static EMandatory valueOf (@Nonnull final IMandatoryIndicator aMandatoryIndicator)
+  @NonNull
+  public static EMandatory valueOf (@NonNull final IMandatoryIndicator aMandatoryIndicator)
   {
     return valueOf (aMandatoryIndicator.isMandatory ());
   }

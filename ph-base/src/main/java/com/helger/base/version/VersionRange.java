@@ -16,6 +16,9 @@
  */
 package com.helger.base.version;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.IComparable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a range of versions. Each range needs at least a lower bound but can as
@@ -82,7 +82,7 @@ public final class VersionRange implements IComparable <VersionRange>
    * @throws IllegalArgumentException
    *         if the floor version is &lt; than the ceiling version
    */
-  @Nonnull
+  @NonNull
   public static VersionRange parse (@Nullable final String sVersionString)
   {
     final String s = sVersionString == null ? "" : sVersionString.trim ();
@@ -171,7 +171,7 @@ public final class VersionRange implements IComparable <VersionRange>
    *         if the floor version to be used is &gt; the ceiling version or if the floor version is
    *         null.
    */
-  public VersionRange (@Nonnull final Version aFloorVersion, @Nullable final Version aCeilingVersion)
+  public VersionRange (@NonNull final Version aFloorVersion, @Nullable final Version aCeilingVersion)
   {
     this (aFloorVersion, true, aCeilingVersion, true);
   }
@@ -193,7 +193,7 @@ public final class VersionRange implements IComparable <VersionRange>
    *         if the floor version to be used is &gt; the ceiling version or if the floor version is
    *         null.
    */
-  public VersionRange (@Nonnull final Version aFloorVersion,
+  public VersionRange (@NonNull final Version aFloorVersion,
                        final boolean bIncludeFloorVersion,
                        @Nullable final Version aCeilingVersion,
                        final boolean bIncludeCeilingVersion)
@@ -233,7 +233,7 @@ public final class VersionRange implements IComparable <VersionRange>
     return m_aCeilVersion;
   }
 
-  public boolean versionMatches (@Nonnull final Version rhs)
+  public boolean versionMatches (@NonNull final Version rhs)
   {
     // returns -1 if floor < rhs
     // -> error
@@ -268,7 +268,7 @@ public final class VersionRange implements IComparable <VersionRange>
    *         +1 if the floor versions are equal but the ceiling version of this has a higher upper
    *         bound than the passed version range<br>
    */
-  public int compareTo (@Nonnull final VersionRange rhs)
+  public int compareTo (@NonNull final VersionRange rhs)
   {
     int i = m_aFloorVersion.compareTo (rhs.m_aFloorVersion);
     if (i == 0)
@@ -319,7 +319,7 @@ public final class VersionRange implements IComparable <VersionRange>
    *
    * @return The version range in a parseable string format.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return getAsString (Version.DEFAULT_PRINT_ZERO_ELEMENTS);
@@ -336,7 +336,7 @@ public final class VersionRange implements IComparable <VersionRange>
    *        printed.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (final boolean bPrintZeroElements)
   {
     // special handling if no ceiling version is present

@@ -19,14 +19,14 @@ package com.helger.collection.iterator;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is a small helper class for iterating over arrays of float.
@@ -38,7 +38,7 @@ public final class ArrayIteratorFloat
   private final float [] m_aArray;
   private int m_nIndex = 0;
 
-  public ArrayIteratorFloat (@Nonnull final float... aArray)
+  public ArrayIteratorFloat (@NonNull final float... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -53,7 +53,7 @@ public final class ArrayIteratorFloat
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorFloat (@Nonnull final float [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorFloat (@NonNull final float [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
@@ -94,16 +94,16 @@ public final class ArrayIteratorFloat
     return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
   }
 
-  @Nonnull
-  public static ArrayIteratorFloat createOfsLen (@Nonnull final float [] aArray,
+  @NonNull
+  public static ArrayIteratorFloat createOfsLen (@NonNull final float [] aArray,
                                                  @Nonnegative final int nOfs,
                                                  @Nonnegative final int nLength)
   {
     return new ArrayIteratorFloat (aArray, nOfs, nLength);
   }
 
-  @Nonnull
-  public static ArrayIteratorFloat createBeginEnd (@Nonnull final float [] aArray,
+  @NonNull
+  public static ArrayIteratorFloat createBeginEnd (@NonNull final float [] aArray,
                                                    @Nonnegative final int nBegin,
                                                    @Nonnegative final int nEnd)
   {

@@ -19,6 +19,7 @@ package com.helger.base.location;
 import javax.xml.stream.Location;
 import javax.xml.transform.SourceLocator;
 
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -28,8 +29,6 @@ import com.helger.base.functional.Predicates;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link ILocation} interface. The implementation

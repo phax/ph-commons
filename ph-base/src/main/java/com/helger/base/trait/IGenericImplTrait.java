@@ -16,9 +16,9 @@
  */
 package com.helger.base.trait;
 
-import com.helger.base.reflection.GenericReflection;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.reflection.GenericReflection;
 
 /**
  * A trait to convert this to a generic implementation.
@@ -33,7 +33,7 @@ public interface IGenericImplTrait <IMPLTYPE extends IGenericImplTrait <IMPLTYPE
    * @return <code>this</code> casted to <code>IMPLTYPE</code>. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE thisAsT ()
   {
     return GenericReflection.uncheckedCast (this);

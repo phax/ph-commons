@@ -19,11 +19,11 @@ package com.helger.base.io.nonblocking;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.PushbackInputStream}.
@@ -64,7 +64,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            if size is &le; 0
    * @since JDK1.1
    */
-  public NonBlockingPushbackInputStream (@Nonnull final InputStream aIS, @Nonnegative final int nSize)
+  public NonBlockingPushbackInputStream (@NonNull final InputStream aIS, @Nonnegative final int nSize)
   {
     super (aIS);
     ValueEnforcer.isGT0 (nSize, "Size");
@@ -81,7 +81,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    * @param aIS
    *        the input stream from which bytes will be read.
    */
-  public NonBlockingPushbackInputStream (@Nonnull final InputStream aIS)
+  public NonBlockingPushbackInputStream (@NonNull final InputStream aIS)
   {
     this (aIS, 1);
   }
@@ -169,7 +169,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    * @see java.io.InputStream#read(byte[], int, int)
    */
   @Override
-  public int read (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -239,7 +239,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void unread (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -264,7 +264,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (@Nonnull final byte [] aBuf) throws IOException
+  public void unread (@NonNull final byte [] aBuf) throws IOException
   {
     unread (aBuf, 0, aBuf.length);
   }

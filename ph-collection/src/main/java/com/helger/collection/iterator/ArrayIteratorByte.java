@@ -18,13 +18,13 @@ package com.helger.collection.iterator;
 
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is a small helper class for iterating over arrays of byte.
@@ -38,12 +38,12 @@ public final class ArrayIteratorByte
   private final ByteArrayWrapper m_aBytes;
   private int m_nIndex = 0;
 
-  public ArrayIteratorByte (@Nonnull final byte... aArray)
+  public ArrayIteratorByte (@NonNull final byte... aArray)
   {
     this (aArray, 0, aArray.length, DEFAULT_COPY_NEEDED);
   }
 
-  public ArrayIteratorByte (@Nonnull final byte [] aArray, final boolean bCopyNeeded)
+  public ArrayIteratorByte (@NonNull final byte [] aArray, final boolean bCopyNeeded)
   {
     this (aArray, 0, aArray.length, bCopyNeeded);
   }
@@ -58,12 +58,12 @@ public final class ArrayIteratorByte
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorByte (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorByte (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (aBytes, nOfs, nLength, DEFAULT_COPY_NEEDED);
   }
 
-  public ArrayIteratorByte (@Nonnull final byte [] aBytes,
+  public ArrayIteratorByte (@NonNull final byte [] aBytes,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLength,
                             final boolean bCopyNeeded)

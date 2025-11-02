@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom.convert;
 
-import com.helger.base.state.EContinue;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
 /**
  * A callback interface that is used to iterate all available micro type
@@ -39,6 +39,6 @@ public interface IMicroTypeConverterCallback
    * @return {@link EContinue#CONTINUE} to continue iteration,
    *         {@link EContinue#BREAK} to stop iteration.
    */
-  @Nonnull
-  EContinue call (@Nonnull Class <?> aClass, @Nonnull IMicroTypeConverter <?> aConverter);
+  @NonNull
+  EContinue call (@NonNull Class <?> aClass, @NonNull IMicroTypeConverter <?> aConverter);
 }

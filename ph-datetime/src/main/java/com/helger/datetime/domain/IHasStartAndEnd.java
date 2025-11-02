@@ -16,7 +16,7 @@
  */
 package com.helger.datetime.domain;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base interface for an object that has a start and an end.

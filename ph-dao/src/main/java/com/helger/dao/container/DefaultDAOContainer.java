@@ -18,6 +18,9 @@ package com.helger.dao.container;
 
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IDAO;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IDAOContainer} using a list of DAOs
@@ -39,19 +39,19 @@ public class DefaultDAOContainer extends AbstractDAOContainer
 {
   private final ICommonsList <IDAO> m_aDAOs;
 
-  public DefaultDAOContainer (@Nonnull @Nonempty final IDAO... aDAOs)
+  public DefaultDAOContainer (@NonNull @Nonempty final IDAO... aDAOs)
   {
     ValueEnforcer.notEmptyNoNullValue (aDAOs, "DAOs");
     m_aDAOs = new CommonsArrayList <> (aDAOs);
   }
 
-  public DefaultDAOContainer (@Nonnull @Nonempty final Iterable <? extends IDAO> aDAOs)
+  public DefaultDAOContainer (@NonNull @Nonempty final Iterable <? extends IDAO> aDAOs)
   {
     ValueEnforcer.notEmptyNoNullValue (aDAOs, "DAOs");
     m_aDAOs = new CommonsArrayList <> (aDAOs);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IDAO> getAllContainedDAOs ()
   {

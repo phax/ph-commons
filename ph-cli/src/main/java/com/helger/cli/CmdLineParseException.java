@@ -17,8 +17,8 @@
  */
 package com.helger.cli;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base class for commandline parse exceptions. Is a checked exception, as
@@ -43,7 +43,7 @@ public class CmdLineParseException extends Exception
    * @param sMessage
    *        the detail message
    */
-  public CmdLineParseException (@Nonnull final ECmdLineParseError eError, @Nonnull final Option aOption, @Nonnull final String sMessage)
+  public CmdLineParseException (@NonNull final ECmdLineParseError eError, @NonNull final Option aOption, @NonNull final String sMessage)
   {
     super (sMessage);
     m_eError = eError;
@@ -61,9 +61,9 @@ public class CmdLineParseException extends Exception
    * @param sMessage
    *        the detail message
    */
-  public CmdLineParseException (@Nonnull final ECmdLineParseError eError,
-                                @Nonnull final OptionGroup aOptionGroup,
-                                @Nonnull final String sMessage)
+  public CmdLineParseException (@NonNull final ECmdLineParseError eError,
+                                @NonNull final OptionGroup aOptionGroup,
+                                @NonNull final String sMessage)
   {
     super (sMessage);
     m_eError = eError;
@@ -71,7 +71,7 @@ public class CmdLineParseException extends Exception
     m_aOptionGroup = aOptionGroup;
   }
 
-  @Nonnull
+  @NonNull
   public ECmdLineParseError getError ()
   {
     return m_eError;

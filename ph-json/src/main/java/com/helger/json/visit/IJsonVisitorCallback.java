@@ -16,12 +16,12 @@
  */
 package com.helger.json.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.callback.ICallback;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for visiting the JSON hierarchy.
@@ -36,7 +36,7 @@ public interface IJsonVisitorCallback extends ICallback
    * @param aValue
    *        The current value. Never <code>null</code>.
    */
-  default void onJsonValue (@Nonnull final IJsonValue aValue)
+  default void onJsonValue (@NonNull final IJsonValue aValue)
   {}
 
   /**
@@ -45,7 +45,7 @@ public interface IJsonVisitorCallback extends ICallback
    * @param aValue
    *        The current array. Never <code>null</code>.
    */
-  default void onJsonArrayStart (@Nonnull final IJsonArray aValue)
+  default void onJsonArrayStart (@NonNull final IJsonArray aValue)
   {}
 
   /**
@@ -54,7 +54,7 @@ public interface IJsonVisitorCallback extends ICallback
    * @param aValue
    *        The current array. Never <code>null</code>.
    */
-  default void onJsonArrayEnd (@Nonnull final IJsonArray aValue)
+  default void onJsonArrayEnd (@NonNull final IJsonArray aValue)
   {}
 
   /**
@@ -63,7 +63,7 @@ public interface IJsonVisitorCallback extends ICallback
    * @param aValue
    *        The current object. Never <code>null</code>.
    */
-  default void onJsonObjectStart (@Nonnull final IJsonObject aValue)
+  default void onJsonObjectStart (@NonNull final IJsonObject aValue)
   {}
 
   /**
@@ -73,7 +73,7 @@ public interface IJsonVisitorCallback extends ICallback
    * @param sName
    *        The current object's element name. Never <code>null</code>.
    */
-  default void onJsonObjectElementName (@Nonnull final String sName)
+  default void onJsonObjectElementName (@NonNull final String sName)
   {}
 
   /**
@@ -82,6 +82,6 @@ public interface IJsonVisitorCallback extends ICallback
    * @param aValue
    *        The current object. Never <code>null</code>.
    */
-  default void onJsonObjectEnd (@Nonnull final IJsonObject aValue)
+  default void onJsonObjectEnd (@NonNull final IJsonObject aValue)
   {}
 }

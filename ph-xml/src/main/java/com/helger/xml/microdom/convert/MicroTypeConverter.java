@@ -16,6 +16,9 @@
  */
 package com.helger.xml.microdom.convert;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -24,9 +27,6 @@ import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;
 import com.helger.xml.microdom.IMicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to {@link IMicroElement}.<br>
@@ -47,7 +47,7 @@ public final class MicroTypeConverter
   {}
 
   @Nullable
-  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject, @Nonnull @Nonempty final String sTagName)
+  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject, @NonNull @Nonempty final String sTagName)
   {
     // Use a null namespace
     return convertToMicroElement (aObject, null, sTagName);
@@ -56,7 +56,7 @@ public final class MicroTypeConverter
   @Nullable
   public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
                                                          @Nullable final String sNamespaceURI,
-                                                         @Nonnull @Nonempty final String sTagName)
+                                                         @NonNull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
 
@@ -77,14 +77,14 @@ public final class MicroTypeConverter
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convertToNative (aElement, aDstClass, null);
   }
 
   @Nullable
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
-                                                   @Nonnull final Class <DSTTYPE> aDstClass,
+                                                   @NonNull final Class <DSTTYPE> aDstClass,
                                                    @Nullable final DSTTYPE aNullValue)
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");

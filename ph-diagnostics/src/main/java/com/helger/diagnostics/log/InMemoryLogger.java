@@ -21,6 +21,9 @@ import java.time.Clock;
 import java.time.LocalDateTime;
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -34,9 +37,6 @@ import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevels;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Keeps a set of {@link LogMessage} objects in memory, offering an API similar to SLF4J.
  *
@@ -47,7 +47,7 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
 {
   private final ICommonsList <LogMessage> m_aMessages = new CommonsArrayList <> ();
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected LocalDateTime getCurrentLocalDateTime ()
   {
@@ -70,8 +70,8 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
    */
   @Nullable
   @OverrideOnDemand
-  protected LogMessage createLogMessage (@Nonnull final IErrorLevel aErrorLevel,
-                                         @Nonnull final Serializable aMsg,
+  protected LogMessage createLogMessage (@NonNull final IErrorLevel aErrorLevel,
+                                         @NonNull final Serializable aMsg,
                                          @Nullable final Throwable t)
   {
     return new LogMessage (getCurrentLocalDateTime (), aErrorLevel, aMsg, t);
@@ -84,16 +84,16 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
    *        The added log message. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onAddLogMessage (@Nonnull final LogMessage aLogMessage)
+  protected void onAddLogMessage (@NonNull final LogMessage aLogMessage)
   {}
 
-  public void log (@Nonnull final IErrorLevel eErrorLevel, @Nonnull final Serializable aMsg)
+  public void log (@NonNull final IErrorLevel eErrorLevel, @NonNull final Serializable aMsg)
   {
     log (eErrorLevel, aMsg, null);
   }
 
-  public void log (@Nonnull final IErrorLevel eErrorLevel,
-                   @Nonnull final Serializable aMsg,
+  public void log (@NonNull final IErrorLevel eErrorLevel,
+                   @NonNull final Serializable aMsg,
                    @Nullable final Throwable t)
   {
     final LogMessage aLogMessage = createLogMessage (eErrorLevel, aMsg, t);
@@ -104,54 +104,54 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
     }
   }
 
-  public void error (@Nonnull final Serializable aMsg)
+  public void error (@NonNull final Serializable aMsg)
   {
     error (aMsg, null);
   }
 
-  public void error (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void error (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.ERROR, aMsg, t);
   }
 
-  public void warn (@Nonnull final Serializable aMsg)
+  public void warn (@NonNull final Serializable aMsg)
   {
     warn (aMsg, null);
   }
 
-  public void warn (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void warn (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.WARN, aMsg, t);
   }
 
-  public void info (@Nonnull final Serializable aMsg)
+  public void info (@NonNull final Serializable aMsg)
   {
     log (EErrorLevel.INFO, aMsg, null);
   }
 
-  public void info (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void info (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.INFO, aMsg, t);
   }
 
-  public void success (@Nonnull final Serializable aMsg)
+  public void success (@NonNull final Serializable aMsg)
   {
     log (EErrorLevel.SUCCESS, aMsg, null);
   }
 
-  public void success (@Nonnull final Serializable aMsg, @Nullable final Throwable t)
+  public void success (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.SUCCESS, aMsg, t);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <LogMessage> getAllMessages ()
   {
     return m_aMessages.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <LogMessage> iterator ()
   {
     return m_aMessages.iterator ();
@@ -168,7 +168,7 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
     return m_aMessages.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     return m_aMessages.removeAll ();

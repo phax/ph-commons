@@ -19,6 +19,8 @@ package com.helger.xml.microdom.convert;
 import java.lang.ref.WeakReference;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.util.ClassHierarchyCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to
@@ -78,7 +77,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   /**
    * @return The singleton instance of this class. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static MicroTypeConverterRegistry getInstance ()
   {
     final MicroTypeConverterRegistry ret = SingletonHolder.INSTANCE;
@@ -101,8 +100,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
-  public <T> void registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
-                                                     @Nonnull final IMicroTypeConverter <T> aConverter)
+  public <T> void registerMicroElementTypeConverter (@NonNull final Class <T> aClass,
+                                                     @NonNull final IMicroTypeConverter <T> aConverter)
   {
     _registerMicroElementTypeConverter (aClass, aConverter);
   }
@@ -116,8 +115,8 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aConverter
    *        The type converter from and to XML
    */
-  private <T> void _registerMicroElementTypeConverter (@Nonnull final Class <T> aClass,
-                                                       @Nonnull final IMicroTypeConverter <T> aConverter)
+  private <T> void _registerMicroElementTypeConverter (@NonNull final Class <T> aClass,
+                                                       @NonNull final IMicroTypeConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
@@ -158,7 +157,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   @Nullable
-  public <T> IMicroTypeConverter <T> getConverterToNative (@Nonnull final Class <T> aDstClass)
+  public <T> IMicroTypeConverter <T> getConverterToNative (@NonNull final Class <T> aDstClass)
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
@@ -205,7 +204,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public void iterateAllRegisteredMicroTypeConverters (@Nonnull final IMicroTypeConverterCallback aCallback)
+  public void iterateAllRegisteredMicroTypeConverters (@NonNull final IMicroTypeConverterCallback aCallback)
   {
     // Create a static copy of the map (HashMap not weak!)
     final ICommonsMap <Class <?>, IMicroTypeConverter <?>> aCopy = m_aRWLock.readLockedGet (m_aMap::getClone);

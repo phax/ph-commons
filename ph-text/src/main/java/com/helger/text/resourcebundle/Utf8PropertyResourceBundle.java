@@ -21,10 +21,10 @@ import java.util.Enumeration;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.charset.CharsetHelper;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special property resource bundle that wraps all strings into UTF-8 strings.
@@ -35,12 +35,12 @@ final class Utf8PropertyResourceBundle extends ResourceBundle
 {
   private final PropertyResourceBundle m_aBundle;
 
-  Utf8PropertyResourceBundle (@Nonnull final PropertyResourceBundle aBundle)
+  Utf8PropertyResourceBundle (@NonNull final PropertyResourceBundle aBundle)
   {
     m_aBundle = ValueEnforcer.notNull (aBundle, "Bundle");
   }
 
-  @Nonnull
+  @NonNull
   public PropertyResourceBundle getBundle ()
   {
     return m_aBundle;

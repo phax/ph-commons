@@ -16,6 +16,7 @@
  */
 package com.helger.statistics.impl;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,6 @@ import com.helger.statistics.api.IMutableStatisticsHandlerKeyedSize;
 import com.helger.statistics.api.IMutableStatisticsHandlerKeyedTimer;
 import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.api.IMutableStatisticsHandlerTimer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Provides a central manager for the internal statistics.
@@ -69,16 +68,16 @@ public final class StatisticsManager
   private StatisticsManager ()
   {}
 
-  @Nonnull
-  public static IMutableStatisticsHandlerCache getCacheHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerCache getCacheHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getCacheHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerCache getCacheHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerCache getCacheHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -94,23 +93,23 @@ public final class StatisticsManager
 
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCacheHandler ()
   {
     return RWL_CACHE.readLockedGet (HDL_CACHE::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerTimer getTimerHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerTimer getTimerHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getTimerHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerTimer getTimerHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerTimer getTimerHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -123,23 +122,23 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTimerHandler ()
   {
     return RWL_TIMER.readLockedGet (HDL_TIMER::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getKeyedTimerHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -152,23 +151,23 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedTimerHandler ()
   {
     return RWL_KEYED_TIMER.readLockedGet (HDL_KEYED_TIMER::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerSize getSizeHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerSize getSizeHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getSizeHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerSize getSizeHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerSize getSizeHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -181,23 +180,23 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllSizeHandler ()
   {
     return RWL_SIZE.readLockedGet (HDL_SIZE::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getKeyedSizeHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -210,23 +209,23 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedSizeHandler ()
   {
     return RWL_KEYED_SIZE.readLockedGet (HDL_KEYED_SIZE::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerCounter getCounterHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerCounter getCounterHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getCounterHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerCounter getCounterHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerCounter getCounterHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -239,23 +238,23 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCounterHandler ()
   {
     return RWL_COUNTER.readLockedGet (HDL_COUNTER::copyOfKeySet);
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
     return getKeyedCounterHandler (aClass.getName ());
   }
 
-  @Nonnull
-  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
@@ -269,7 +268,7 @@ public final class StatisticsManager
     return aHdl;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedCounterHandler ()
   {

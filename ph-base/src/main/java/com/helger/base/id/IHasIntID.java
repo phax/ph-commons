@@ -18,7 +18,7 @@ package com.helger.base.id;
 
 import java.util.Comparator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for all objects having an int ID.
@@ -36,13 +36,13 @@ public interface IHasIntID
   /**
    * @return The {@link Integer} representation of the contained "int" ID.
    */
-  @Nonnull
+  @NonNull
   default Integer getIDObj ()
   {
     return Integer.valueOf (getID ());
   }
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasIntID> getComparatorID ()
   {
     return Comparator.comparingInt (IHasIntID::getID);

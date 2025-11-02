@@ -16,12 +16,12 @@
  */
 package com.helger.xml.sax;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.diagnostics.error.list.ErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An error handler implementation that stores all warnings, errors and fatal
@@ -33,7 +33,7 @@ import jakarta.annotation.Nonnull;
 @ThreadSafe
 public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
 {
-  public WrappedCollectingSAXErrorHandler (@Nonnull final ErrorList aErrorList)
+  public WrappedCollectingSAXErrorHandler (@NonNull final ErrorList aErrorList)
   {
     super ( () -> ValueEnforcer.notNull (aErrorList, "ErrorList"));
   }
@@ -42,7 +42,7 @@ public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
    * @return The error list object passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   public final ErrorList wrappedErrorList ()
   {

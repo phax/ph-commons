@@ -16,13 +16,13 @@
  */
 package com.helger.http;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * HTTP string helper. Based on RFC 1945 (HTTP/1.0) http://tools.ietf.org/html/rfc1945

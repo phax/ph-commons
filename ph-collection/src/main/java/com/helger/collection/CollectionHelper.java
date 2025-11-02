@@ -29,6 +29,9 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -41,9 +44,6 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public class CollectionHelper
@@ -353,7 +353,7 @@ public class CollectionHelper
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nonnegative final int nIndex,
-                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+                                                             @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     return getAtIndexMapped (aCollection, nIndex, aMapper, (DSTTYPE) null);
   }
@@ -361,7 +361,7 @@ public class CollectionHelper
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nonnegative final int nIndex,
-                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                             @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                              @Nullable final DSTTYPE aDefault)
   {
     if (nIndex >= 0)
@@ -381,7 +381,7 @@ public class CollectionHelper
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                              @Nonnegative final int nIndex,
-                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
+                                                             @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper)
   {
     return getAtIndexMapped (aCollection, aFilter, nIndex, aMapper, (DSTTYPE) null);
   }
@@ -390,7 +390,7 @@ public class CollectionHelper
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                              @Nonnegative final int nIndex,
-                                                             @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                             @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                              @Nullable final DSTTYPE aDefault)
   {
     if (aFilter == null)
@@ -487,7 +487,7 @@ public class CollectionHelper
     return aNavigableMap == null ? null : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Collection <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Collection <ELEMENTTYPE> aCollection)
@@ -495,7 +495,7 @@ public class CollectionHelper
     return aCollection == null ? Collections.emptyList () : Collections.unmodifiableCollection (aCollection);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE> List <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final List <ELEMENTTYPE> aList)
@@ -503,7 +503,7 @@ public class CollectionHelper
     return aList == null ? Collections.emptyList () : Collections.unmodifiableList (aList);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE> Set <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final Set <ELEMENTTYPE> aSet)
@@ -511,7 +511,7 @@ public class CollectionHelper
     return aSet == null ? Collections.emptySet () : Collections.unmodifiableSet (aSet);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <KEYTYPE, VALUETYPE> Map <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
@@ -519,7 +519,7 @@ public class CollectionHelper
     return aMap == null ? Collections.emptyMap () : Collections.unmodifiableMap (aMap);
   }
 
-  // @Nonnull
+  // @NonNull
   // @ReturnsImmutableObject
   // public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>>
   // SortedSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final SortedSet
@@ -529,7 +529,7 @@ public class CollectionHelper
   // Collections.unmodifiableSortedSet (aSortedSet);
   // }
   //
-  // @Nonnull
+  // @NonNull
   // @ReturnsImmutableObject
   // public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE>
   // SortedMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final
@@ -539,7 +539,7 @@ public class CollectionHelper
   // Collections.unmodifiableSortedMap (aSortedMap);
   // }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
@@ -548,7 +548,7 @@ public class CollectionHelper
                                                                                                             aNavigableSet);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
@@ -574,7 +574,7 @@ public class CollectionHelper
    * @return {@link EChange#CHANGED} if removal was successful
    * @see #removeAndReturnElementAtIndex(List, int)
    */
-  @Nonnull
+  @NonNull
   public static EChange removeAtIndex (@Nullable final List <?> aList, final int nIndex)
   {
     if (aList == null || nIndex < 0 || nIndex >= aList.size ())
@@ -623,7 +623,7 @@ public class CollectionHelper
    * @param <DATATYPE>
    *        The list element type to be cloned
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <DATATYPE> ICommonsList <DATATYPE> getGenericClonedList (@Nullable final Iterable <DATATYPE> aList)
   {
@@ -643,7 +643,7 @@ public class CollectionHelper
    * @param <DATATYPE>
    *        The set element type to be cloned
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <DATATYPE extends ICloneable <DATATYPE>> ICommonsList <DATATYPE> getClonedList (@Nullable final Iterable <DATATYPE> aList)
   {

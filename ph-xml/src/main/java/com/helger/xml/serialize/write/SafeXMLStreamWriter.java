@@ -29,6 +29,8 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamWriter;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,9 +49,6 @@ import com.helger.collection.iterator.CombinedIterator;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special stream writer, that ensures that special XML characters are handled correctly.<br>
@@ -73,9 +72,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     private boolean m_bOnAfterEndNewLine = false;
 
     public ElementState (@Nullable final String sPrefix,
-                         @Nonnull final String sLocalName,
-                         @Nonnull final EXMLSerializeBracketMode eBracketMode,
-                         @Nonnull final MapBasedNamespaceContext aNamespaceContext)
+                         @NonNull final String sLocalName,
+                         @NonNull final EXMLSerializeBracketMode eBracketMode,
+                         @NonNull final MapBasedNamespaceContext aNamespaceContext)
     {
       m_sPrefix = sPrefix;
       m_sLocalName = sLocalName;
@@ -112,8 +111,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     {}
 
     @Override
-    @Nonnull
-    public String getNamespaceURI (@Nonnull final String sPrefix)
+    @NonNull
+    public String getNamespaceURI (@NonNull final String sPrefix)
     {
       String ret = m_aInternalContext.getNamespaceURI (sPrefix);
       if (XMLConstants.NULL_NS_URI.equals (ret) && m_aUserContext != null)
@@ -123,7 +122,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
     @Override
     @Nullable
-    public String getPrefix (@Nonnull final String sUri)
+    public String getPrefix (@NonNull final String sUri)
     {
       String ret = m_aInternalContext.getPrefix (sUri);
       if (ret == null && m_aUserContext != null)
@@ -132,8 +131,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     }
 
     @Override
-    @Nonnull
-    public Iterator <String> getPrefixes (@Nonnull final String uri)
+    @NonNull
+    public Iterator <String> getPrefixes (@NonNull final String uri)
     {
       final Iterator <String> aIter1 = m_aInternalContext.getPrefixes (uri);
       if (m_aUserContext == null)
@@ -192,7 +191,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   private boolean m_bInElementStart = false;
   private final ConditionalLogger m_aCondLog = new ConditionalLogger (LOGGER, DEFAULT_DEBUG_MODE.get ());
 
-  public SafeXMLStreamWriter (@Nonnull final XMLEmitter aEmitter)
+  public SafeXMLStreamWriter (@NonNull final XMLEmitter aEmitter)
   {
     ValueEnforcer.notNull (aEmitter, "Emitter");
     m_aEmitter = aEmitter;
@@ -218,7 +217,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
    * @return this for chaining
    * @see #isDebugMode()
    */
-  @Nonnull
+  @NonNull
   public final SafeXMLStreamWriter setDebugMode (final boolean bDebugMode)
   {
     m_aCondLog.setEnabled (bDebugMode);
@@ -299,12 +298,12 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   @OverrideOnDemand
-  protected void debug (@Nonnull final Supplier <String> aSupplier)
+  protected void debug (@NonNull final Supplier <String> aSupplier)
   {
     m_aCondLog.info (aSupplier);
   }
 
-  @Nonnull
+  @NonNull
   private IXMLWriterSettings _getSettings ()
   {
     return m_aEmitter.getXMLWriterSettings ();
@@ -320,13 +319,13 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     writeStartDocument (_getSettings ().getCharset (), EXMLVersion.getFromVersionOrNull (sVersion));
   }
 
-  public void writeStartDocument (@Nonnull final String sEncoding, @Nullable final String sVersion)
+  public void writeStartDocument (@NonNull final String sEncoding, @Nullable final String sVersion)
                                                                                                     throws XMLStreamException
   {
     writeStartDocument (CharsetHelper.getCharsetFromName (sEncoding), EXMLVersion.getFromVersionOrNull (sVersion));
   }
 
-  public void writeStartDocument (@Nonnull final Charset aEncoding, @Nonnull final EXMLVersion eVersion)
+  public void writeStartDocument (@NonNull final Charset aEncoding, @NonNull final EXMLVersion eVersion)
   {
     debug ( () -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
 
@@ -336,7 +335,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     }
   }
 
-  public void writeDTD (@Nonnull final String sDTD) throws XMLStreamException
+  public void writeDTD (@NonNull final String sDTD) throws XMLStreamException
   {
     debug ( () -> "writeDTD (" + sDTD + ")");
     m_aEmitter.onDTD (sDTD);
@@ -420,7 +419,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     m_aEmitter.elementAttr (sPrefix, sLocalName, sValue);
   }
 
-  public void writeNamespace (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
+  public void writeNamespace (@Nullable final String sPrefix, @NonNull final String sNamespaceURI)
                                                                                                    throws XMLStreamException
   {
     debug ( () -> "writeNamespace (" + sPrefix + ", " + sNamespaceURI + ")");
@@ -442,7 +441,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
       writeAttribute (XMLConstants.XMLNS_ATTRIBUTE, null, sPrefix, sNamespaceURI);
   }
 
-  public void writeDefaultNamespace (@Nonnull final String sNamespaceURI) throws XMLStreamException
+  public void writeDefaultNamespace (@NonNull final String sNamespaceURI) throws XMLStreamException
   {
     writeNamespace (null, sNamespaceURI);
   }
@@ -533,12 +532,12 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     m_aEmitter.onText (aText, nStart, nLen);
   }
 
-  public void writeProcessingInstruction (@Nonnull final String sTarget) throws XMLStreamException
+  public void writeProcessingInstruction (@NonNull final String sTarget) throws XMLStreamException
   {
     writeProcessingInstruction (sTarget, null);
   }
 
-  public void writeProcessingInstruction (@Nonnull final String sTarget, @Nullable final String sData)
+  public void writeProcessingInstruction (@NonNull final String sTarget, @Nullable final String sData)
                                                                                                        throws XMLStreamException
   {
     debug ( () -> "writeProcessingInstruction (" + sTarget + ", " + sData + ")");
@@ -568,19 +567,19 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     StreamHelper.close (m_aEmitter);
   }
 
-  public String getPrefix (@Nonnull final String sUri) throws XMLStreamException
+  public String getPrefix (@NonNull final String sUri) throws XMLStreamException
   {
     debug ( () -> "getPrefix (" + sUri + ")");
     return m_aNamespaceContext.getPrefix (sUri);
   }
 
-  public void setPrefix (@Nonnull final String sPrefix, @Nonnull final String sUri) throws XMLStreamException
+  public void setPrefix (@NonNull final String sPrefix, @NonNull final String sUri) throws XMLStreamException
   {
     debug ( () -> "setPrefix (" + sPrefix + ", " + sUri + ")");
     m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sUri);
   }
 
-  public void setDefaultNamespace (@Nonnull final String sUri) throws XMLStreamException
+  public void setDefaultNamespace (@NonNull final String sUri) throws XMLStreamException
   {
     debug ( () -> "setDefaultNamespace (" + sUri + ")");
     m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sUri);
@@ -592,7 +591,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     m_aNamespaceContext.m_aUserContext = aContext;
   }
 
-  @Nonnull
+  @NonNull
   public NamespaceContext getNamespaceContext ()
   {
     debug ( () -> "getNamespaceContext ()");
@@ -617,16 +616,16 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
                                        .getToString ();
   }
 
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final Writer aWriter,
-                                            @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static SafeXMLStreamWriter create (@NonNull @WillCloseWhenClosed final Writer aWriter,
+                                            @NonNull final IXMLWriterSettings aSettings)
   {
     return new SafeXMLStreamWriter (new XMLEmitter (aWriter, aSettings));
   }
 
-  @Nonnull
-  public static SafeXMLStreamWriter create (@Nonnull @WillCloseWhenClosed final OutputStream aOS,
-                                            @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static SafeXMLStreamWriter create (@NonNull @WillCloseWhenClosed final OutputStream aOS,
+                                            @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
     return create (new OutputStreamWriter (aOS, aSettings.getCharset ()), aSettings);

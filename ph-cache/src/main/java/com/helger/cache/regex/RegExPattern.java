@@ -20,6 +20,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
@@ -29,8 +31,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class encapsulates a String and a set of options to be used in Pattern compilation
@@ -59,7 +59,7 @@ public final class RegExPattern
     CHECK_CONSISTENCY_ENABLED.set (bEnable);
   }
 
-  public static void checkPatternConsistency (@Nonnull @RegEx final String sRegEx)
+  public static void checkPatternConsistency (@NonNull @RegEx final String sRegEx)
   {
     // Check if a '$' is escaped if no digits follow
     int nIndex = 0;
@@ -99,13 +99,13 @@ public final class RegExPattern
     }
   }
 
-  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx)
+  public RegExPattern (@NonNull @Nonempty @RegEx final String sRegEx)
   {
     // Default: no options
     this (sRegEx, 0);
   }
 
-  public RegExPattern (@Nonnull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
+  public RegExPattern (@NonNull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");
     ValueEnforcer.isGE0 (nOptions, "Options");
@@ -119,7 +119,7 @@ public final class RegExPattern
   /**
    * @return The source regular expression string. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @RegEx
   public String getRegEx ()
@@ -139,7 +139,7 @@ public final class RegExPattern
   /**
    * @return The precompiled pattern. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Pattern getAsPattern ()
   {
     Pattern ret = m_aPattern;

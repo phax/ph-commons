@@ -18,6 +18,9 @@ package com.helger.typeconvert.collection;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
@@ -26,9 +29,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a generic read-only attribute container. It maps keys to values.<br>
@@ -134,14 +134,14 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
   /**
    * @return Callbacks to be invoked before values are set. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ();
 
   /**
    * @return Callbacks to be invoked after values are set. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ();
 
@@ -157,8 +157,8 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
    * @see #afterSetValueCallbacks()
    * @see #removeObject(Object)
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, @Nullable final VALUETYPE aNewValue)
   {
     // Before change checking callback
     if (beforeSetValueCallbacks ().forEachBreakable (x -> x.beforeSetValue (aName, aNewValue)).isBreak ())
@@ -174,7 +174,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   default EChange putAllIn (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -184,7 +184,7 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
     return eChange;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   IAttributeContainer <KEYTYPE, VALUETYPE> getClone ();
 }

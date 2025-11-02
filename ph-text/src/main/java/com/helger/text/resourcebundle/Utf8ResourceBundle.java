@@ -20,10 +20,10 @@ import java.util.Locale;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to handle read-only property resource bundles reading only UTF-8 text strings.
@@ -39,8 +39,8 @@ public final class Utf8ResourceBundle
   private Utf8ResourceBundle ()
   {}
 
-  @Nonnull
-  private static ResourceBundle _createUtf8PropertyResourceBundle (@Nonnull final ResourceBundle aBundle)
+  @NonNull
+  private static ResourceBundle _createUtf8PropertyResourceBundle (@NonNull final ResourceBundle aBundle)
   {
     if (aBundle instanceof final PropertyResourceBundle aPropResBundle)
       return new Utf8PropertyResourceBundle (aPropResBundle);
@@ -48,22 +48,22 @@ public final class Utf8ResourceBundle
     return aBundle;
   }
 
-  @Nonnull
-  public static ResourceBundle getBundle (@Nonnull final String sBaseName)
+  @NonNull
+  public static ResourceBundle getBundle (@NonNull final String sBaseName)
   {
     return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, Locale.getDefault ()));
   }
 
-  @Nonnull
-  public static ResourceBundle getBundle (@Nonnull final String sBaseName, @Nonnull final Locale aLocale)
+  @NonNull
+  public static ResourceBundle getBundle (@NonNull final String sBaseName, @NonNull final Locale aLocale)
   {
     return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, aLocale));
   }
 
-  @Nonnull
-  public static ResourceBundle getBundle (@Nonnull final String sBaseName,
-                                          @Nonnull final Locale aLocale,
-                                          @Nonnull final ClassLoader aClassLoader)
+  @NonNull
+  public static ResourceBundle getBundle (@NonNull final String sBaseName,
+                                          @NonNull final Locale aLocale,
+                                          @NonNull final ClassLoader aClassLoader)
   {
     return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, aLocale, aClassLoader));
   }

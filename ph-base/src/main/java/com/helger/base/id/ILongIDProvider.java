@@ -16,7 +16,7 @@
  */
 package com.helger.base.id;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for objects having a long ID.
@@ -35,5 +35,5 @@ public interface ILongIDProvider <VALUETYPE>
    *        .
    * @return The ID of the object.
    */
-  long getID (@Nonnull VALUETYPE aObject);
+  long getID (@NonNull VALUETYPE aObject);
 }

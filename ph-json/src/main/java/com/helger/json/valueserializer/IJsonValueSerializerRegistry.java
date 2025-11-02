@@ -16,7 +16,7 @@
  */
 package com.helger.json.valueserializer;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This is the callback interface implemented by
@@ -37,5 +37,5 @@ public interface IJsonValueSerializerRegistry
    *         If a value serializer for the specified class is already
    *         registered.
    */
-  void registerJsonValueSerializer (@Nonnull Class <?> aClass, @Nonnull IJsonValueSerializer aValueSerializer);
+  void registerJsonValueSerializer (@NonNull Class <?> aClass, @NonNull IJsonValueSerializer aValueSerializer);
 }

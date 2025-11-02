@@ -18,6 +18,7 @@ package com.helger.xml.transform;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +27,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.log.LogHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that simply logs data to a logger.
@@ -41,19 +40,19 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
 
   private final Locale m_aDisplayLocale;
 
-  public LoggingTransformErrorListener (@Nonnull final Locale aDisplayLocale)
+  public LoggingTransformErrorListener (@NonNull final Locale aDisplayLocale)
   {
     m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
   }
 
-  @Nonnull
+  @NonNull
   public Locale getDisplayLocale ()
   {
     return m_aDisplayLocale;
   }
 
   @Override
-  protected void internalLog (@Nonnull final IError aResError)
+  protected void internalLog (@NonNull final IError aResError)
   {
     final IErrorLevel aErrorLevel = aResError.getErrorLevel ();
     final String sText = aResError.getAsString (m_aDisplayLocale);

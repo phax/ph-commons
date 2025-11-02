@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has mandatory/optional indication.
@@ -40,14 +40,14 @@ public interface IMandatoryIndicator
     return !isMandatory ();
   }
 
-  @Nonnull
-  default EMandatory or (@Nonnull final IMandatoryIndicator aMandatory)
+  @NonNull
+  default EMandatory or (@NonNull final IMandatoryIndicator aMandatory)
   {
     return EMandatory.valueOf (isMandatory () || aMandatory.isMandatory ());
   }
 
-  @Nonnull
-  default EMandatory and (@Nonnull final IMandatoryIndicator aMandatory)
+  @NonNull
+  default EMandatory and (@NonNull final IMandatoryIndicator aMandatory)
   {
     return EMandatory.valueOf (isMandatory () && aMandatory.isMandatory ());
   }

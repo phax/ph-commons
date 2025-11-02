@@ -16,12 +16,12 @@
  */
 package com.helger.xml.serialize.write;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Determines the indentation and alignment mode of XML serialization. Alignment means: newlines
@@ -43,14 +43,14 @@ public enum EXMLSerializeIndent implements IHasID <String>
   private final boolean m_bIndent;
   private final boolean m_bAlign;
 
-  EXMLSerializeIndent (@Nonnull @Nonempty final String sID, final boolean bIndent, final boolean bAlign)
+  EXMLSerializeIndent (@NonNull @Nonempty final String sID, final boolean bIndent, final boolean bAlign)
   {
     m_sID = sID;
     m_bAlign = bAlign;
     m_bIndent = bIndent;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -73,13 +73,13 @@ public enum EXMLSerializeIndent implements IHasID <String>
     return m_bAlign;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getWithoutIndent ()
   {
     return m_bAlign ? ALIGN_ONLY : NONE;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getWithAlign ()
   {
     return m_bIndent ? INDENT_AND_ALIGN : ALIGN_ONLY;

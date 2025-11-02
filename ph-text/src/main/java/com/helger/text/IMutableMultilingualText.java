@@ -18,14 +18,14 @@ package com.helger.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
 import com.helger.base.callback.IChangeCallback;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a writable version of a multilingual text
@@ -46,8 +46,8 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    * @return {@link EChange#CHANGED} if the text was added,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange addText (@Nonnull Locale aContentLocale, @Nullable String sText);
+  @NonNull
+  EChange addText (@NonNull Locale aContentLocale, @Nullable String sText);
 
   /**
    * Set a text in the specified locale. If a text with the same locale is
@@ -61,8 +61,8 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    * @return {@link EChange#CHANGED} if the text was set,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange setText (@Nonnull Locale aContentLocale, @Nullable String sText);
+  @NonNull
+  EChange setText (@NonNull Locale aContentLocale, @Nullable String sText);
 
   /**
    * Remove the text with the specified locale.
@@ -72,8 +72,8 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    * @return {@link EChange#CHANGED} if the text was remove,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange removeText (@Nonnull Locale aContentLocale);
+  @NonNull
+  EChange removeText (@NonNull Locale aContentLocale);
 
   /**
    * Assign all fields from the passed object. All existing texts are removed!
@@ -83,13 +83,13 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    * @return {@link EChange#CHANGED} if the assignment changed anything,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange assignFrom (@Nonnull IMultilingualText aMLT);
+  @NonNull
+  EChange assignFrom (@NonNull IMultilingualText aMLT);
 
   /**
    * @return The change notify callbacks. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("Design")
   CallbackList <IChangeCallback <IMutableMultilingualText>> changeNotifyCallbacks ();
 }

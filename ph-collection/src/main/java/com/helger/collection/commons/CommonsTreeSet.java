@@ -21,10 +21,10 @@ import java.util.Comparator;
 import java.util.TreeSet;
 import java.util.function.Function;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link TreeSet} implementation based on
@@ -56,7 +56,7 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   public <SRCTYPE> CommonsTreeSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                   @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -73,20 +73,20 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   public <SRCTYPE> CommonsTreeSet (@Nullable final SRCTYPE [] aValues,
-                                   @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                   @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsTreeSet <T> createInstance ()
   {
     return new CommonsTreeSet <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsTreeSet <ELEMENTTYPE> getClone ()
   {

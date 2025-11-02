@@ -19,11 +19,11 @@ package com.helger.commons.csv;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class was created for issue #106
@@ -45,7 +45,7 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
    *        Reader that data will be read from. May not be <code>null</code>.
    *        Will not be closed in this class.
    */
-  public CSVLineReaderKeepCR (@Nonnull @WillNotClose final Reader aReader)
+  public CSVLineReaderKeepCR (@NonNull @WillNotClose final Reader aReader)
   {
     m_aReader = ValueEnforcer.notNull (aReader, "Reader");
   }

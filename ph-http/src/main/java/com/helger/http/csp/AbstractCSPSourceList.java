@@ -16,6 +16,8 @@
  */
 package com.helger.http.csp;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -30,8 +32,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.mime.IMimeType;
 import com.helger.security.messagedigest.EMessageDigestAlgorithm;
 import com.helger.url.ISimpleURL;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A source list to be used in a CSP directive ({@link CSPDirective}). It's just a convenient way to
@@ -74,8 +74,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        Scheme in the format <code>scheme ":"</code>
    * @return this
    */
-  @Nonnull
-  public IMPLTYPE addScheme (@Nonnull @Nonempty final String sScheme)
+  @NonNull
+  public IMPLTYPE addScheme (@NonNull @Nonempty final String sScheme)
   {
     ValueEnforcer.notEmpty (sScheme, "Scheme");
     ValueEnforcer.isTrue (sScheme.length () > 1 && sScheme.endsWith (":"),
@@ -91,8 +91,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        Host to add. Must be a valid URL.
    * @return this
    */
-  @Nonnull
-  public IMPLTYPE addHost (@Nonnull final ISimpleURL aHost)
+  @NonNull
+  public IMPLTYPE addHost (@NonNull final ISimpleURL aHost)
   {
     ValueEnforcer.notNull (aHost, "Host");
     return addHost (aHost.getAsString ());
@@ -105,8 +105,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        Host to add. Must be a valid URL or a star prefixed version.
    * @return this
    */
-  @Nonnull
-  public IMPLTYPE addHost (@Nonnull @Nonempty final String sHost)
+  @NonNull
+  public IMPLTYPE addHost (@NonNull @Nonempty final String sHost)
   {
     ValueEnforcer.notEmpty (sHost, "Host");
     m_aList.add (sHost);
@@ -120,8 +120,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        MIME type to add. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public IMPLTYPE addMimeType (@Nonnull final IMimeType aMimeType)
+  @NonNull
+  public IMPLTYPE addMimeType (@NonNull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (aMimeType, "aMimeType");
     m_aList.add (aMimeType.getAsString ());
@@ -133,7 +133,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordNone ()
   {
     m_aList.add (KEYWORD_NONE);
@@ -148,7 +148,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordReportSample ()
   {
     m_aList.add (KEYWORD_REPORT_SAMPLE);
@@ -161,7 +161,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordSelf ()
   {
     m_aList.add (KEYWORD_SELF);
@@ -176,7 +176,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordStrictDynamic ()
   {
     m_aList.add (KEYWORD_STRICT_DYNAMIC);
@@ -190,7 +190,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordUnsafeEval ()
   {
     m_aList.add (KEYWORD_UNSAFE_EVAL);
@@ -202,7 +202,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   public IMPLTYPE addKeywordUnsafeInline ()
   {
     m_aList.add (KEYWORD_UNSAFE_INLINE);
@@ -217,8 +217,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        The plain nonce bytes. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public IMPLTYPE addNonce (@Nonnull @Nonempty final byte [] aNonceValue)
+  @NonNull
+  public IMPLTYPE addNonce (@NonNull @Nonempty final byte [] aNonceValue)
   {
     ValueEnforcer.notEmpty (aNonceValue, "NonceValue");
     return addNonce (Base64.safeEncodeBytes (aNonceValue));
@@ -232,8 +232,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        The Base64 encoded nonce value
    * @return this for chaining
    */
-  @Nonnull
-  public IMPLTYPE addNonce (@Nonnull @Nonempty final String sNonceBase64Value)
+  @NonNull
+  public IMPLTYPE addNonce (@NonNull @Nonempty final String sNonceBase64Value)
   {
     ValueEnforcer.notEmpty (sNonceBase64Value, "NonceBase64Value");
 
@@ -253,8 +253,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        The plain hash digest value. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public IMPLTYPE addHash (@Nonnull final EMessageDigestAlgorithm eMDAlgo, @Nonnull @Nonempty final byte [] aHashValue)
+  @NonNull
+  public IMPLTYPE addHash (@NonNull final EMessageDigestAlgorithm eMDAlgo, @NonNull @Nonempty final byte [] aHashValue)
   {
     ValueEnforcer.notEmpty (aHashValue, "HashValue");
     return addHash (eMDAlgo, Base64.safeEncodeBytes (aHashValue));
@@ -272,8 +272,8 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    *        The Base64 encoded hash value
    * @return this for chaining
    */
-  @Nonnull
-  public IMPLTYPE addHash (@Nonnull final EMessageDigestAlgorithm eMDAlgo, @Nonnull final String sHashBase64Value)
+  @NonNull
+  public IMPLTYPE addHash (@NonNull final EMessageDigestAlgorithm eMDAlgo, @NonNull final String sHashBase64Value)
   {
     ValueEnforcer.notNull (eMDAlgo, "MDAlgo");
     ValueEnforcer.notEmpty (sHashBase64Value, "HashBase64Value");
@@ -301,7 +301,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
   /**
    * @return The whole source list as a single string, separated by a blank char.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return StringImplode.getImploded (' ', m_aList);
@@ -325,7 +325,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String toString ()
   {
     return new ToStringGenerator (this).append ("List", m_aList).getToString ();

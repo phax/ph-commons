@@ -18,14 +18,14 @@ package com.helger.graph;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for graph node implementations.
@@ -65,7 +65,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   /**
    * @return All incoming relations and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <RELATIONTYPE> getAllIncomingRelations ();
 
@@ -77,7 +77,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forEachIncomingRelation (@Nonnull Consumer <? super RELATIONTYPE> aConsumer);
+  void forEachIncomingRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
    * Check if this graph node is directly connected to the passed node via an
@@ -92,7 +92,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   /**
    * @return All nodes that are connected via incoming relations.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <NODETYPE> getAllFromNodes ();
 
@@ -133,7 +133,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   /**
    * @return All outgoing relations and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <RELATIONTYPE> getAllOutgoingRelations ();
 
@@ -145,7 +145,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forEachOutgoingRelation (@Nonnull Consumer <? super RELATIONTYPE> aConsumer);
+  void forEachOutgoingRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
    * Check if this graph node is directly connected to the passed node via an
@@ -160,7 +160,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   /**
    * @return All nodes that are connected via outgoing relations.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <NODETYPE> getAllToNodes ();
 
@@ -213,7 +213,7 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
     return getIncomingRelationCount () + getOutgoingRelationCount ();
   }
 
-  default void forEachRelation (@Nonnull final Consumer <? super RELATIONTYPE> aConsumer)
+  default void forEachRelation (@NonNull final Consumer <? super RELATIONTYPE> aConsumer)
   {
     forEachIncomingRelation (aConsumer);
     forEachOutgoingRelation (aConsumer);

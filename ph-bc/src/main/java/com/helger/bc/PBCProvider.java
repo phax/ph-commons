@@ -21,13 +21,12 @@ import java.security.Provider;
 import java.security.Security;
 
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * One and only BouncyCastle (BC) Provider Provider
@@ -88,7 +87,7 @@ public final class PBCProvider
    * @return The non-<code>null</code> BouncyCastleProvider instance. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Provider getProvider ()
   {
     return PROVIDER_BC;

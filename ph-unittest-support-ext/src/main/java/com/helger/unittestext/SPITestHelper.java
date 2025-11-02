@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,6 @@ import com.helger.collection.commons.ICommonsSortedMap;
 import com.helger.collection.commons.ICommonsSortedSet;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileSystemIterator;
-
-import jakarta.annotation.Nonnull;
 
 public final class SPITestHelper
 {
@@ -80,10 +79,10 @@ public final class SPITestHelper
    * @throws IOException
    *         In case of read error
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (@Nonnull final String sBaseDir,
-                                                                                                            @Nonnull final EMode eMode) throws IOException
+  public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (@NonNull final String sBaseDir,
+                                                                                                            @NonNull final EMode eMode) throws IOException
   {
     ValueEnforcer.notNull (sBaseDir, "BaseDir");
     ValueEnforcer.notNull (eMode, "Mode");
@@ -176,21 +175,21 @@ public final class SPITestHelper
     return aAllImplementations;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (MAIN_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
     return testIfAllSPIImplementationsAreValid (TEST_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
   {
@@ -199,7 +198,7 @@ public final class SPITestHelper
     return aAllImplementations;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid () throws IOException
   {

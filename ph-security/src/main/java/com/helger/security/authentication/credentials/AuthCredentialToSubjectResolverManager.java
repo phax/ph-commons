@@ -18,6 +18,9 @@ package com.helger.security.authentication.credentials;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This handler is used to resolve a subject from validated credentials. This is necessary because
@@ -53,7 +53,7 @@ public final class AuthCredentialToSubjectResolverManager
    * @return A list of all contained implementations of {@link IAuthCredentialToSubjectResolverSPI}.
    *         Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialToSubjectResolverSPI> getAllAuthCredentialToSubjectResolvers ()
   {
@@ -77,7 +77,7 @@ public final class AuthCredentialToSubjectResolverManager
    * @return <code>null</code> if no subject matches the specified credentials.
    */
   @Nullable
-  public static IAuthSubject getSubjectFromCredentials (@Nonnull final IAuthCredentials aCredentials)
+  public static IAuthSubject getSubjectFromCredentials (@NonNull final IAuthCredentials aCredentials)
   {
     for (final IAuthCredentialToSubjectResolverSPI aHdl : HDL_LIST)
       if (aHdl.supportsCredentials (aCredentials))

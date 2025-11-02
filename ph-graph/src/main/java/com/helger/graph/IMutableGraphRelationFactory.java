@@ -16,8 +16,8 @@
  */
 package com.helger.graph;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Factory interface for creating undirected graph relations.
@@ -35,8 +35,8 @@ public interface IMutableGraphRelationFactory
    *        The to node. May not be <code>null</code>.
    * @return The created graph relation and never <code>null</code>.
    */
-  @Nonnull
-  IMutableGraphRelation createRelation (@Nonnull IMutableGraphNode aFrom, @Nonnull IMutableGraphNode aTo);
+  @NonNull
+  IMutableGraphRelation createRelation (@NonNull IMutableGraphNode aFrom, @NonNull IMutableGraphNode aTo);
 
   /**
    * Create a new relation from the passed from-node to the to-node using a
@@ -51,6 +51,6 @@ public interface IMutableGraphRelationFactory
    *        The to node. May not be <code>null</code>.
    * @return The created graph relation and never <code>null</code>.
    */
-  @Nonnull
-  IMutableGraphRelation createRelation (@Nullable String sID, @Nonnull IMutableGraphNode aFrom, @Nonnull IMutableGraphNode aTo);
+  @NonNull
+  IMutableGraphRelation createRelation (@Nullable String sID, @NonNull IMutableGraphNode aFrom, @NonNull IMutableGraphNode aTo);
 }

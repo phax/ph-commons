@@ -16,13 +16,13 @@
  */
 package com.helger.config.source;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines the type of configuration sources and the respective default
@@ -52,13 +52,13 @@ public enum EConfigSourceType implements IHasID <String>
   private final String m_sID;
   private final int m_nDefaultPriority;
 
-  EConfigSourceType (@Nonnull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
+  EConfigSourceType (@NonNull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
   {
     m_sID = sID;
     m_nDefaultPriority = nDefaultPriority;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

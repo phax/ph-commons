@@ -23,10 +23,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.XMLReader;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -37,9 +40,6 @@ import com.helger.base.name.IHasName;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains constants for parser properties.
@@ -275,9 +275,9 @@ public enum EXMLParserProperty implements IHasName
   private boolean m_bWarnedOnceValidator = false;
   private final String m_sValueClassName;
 
-  EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
-                      @Nonnull @Nonempty final String sName,
-                      @Nonnull @Nonempty final String sValueClassName)
+  EXMLParserProperty (@NonNull final EXMLParserPropertyType ePropertyType,
+                      @NonNull @Nonempty final String sName,
+                      @NonNull @Nonempty final String sValueClassName)
   {
     m_ePropertyType = ePropertyType;
     m_sName = sName;
@@ -286,9 +286,9 @@ public enum EXMLParserProperty implements IHasName
     m_sValueClassName = sValueClassName;
   }
 
-  EXMLParserProperty (@Nonnull final EXMLParserPropertyType ePropertyType,
-                      @Nonnull @Nonempty final String sName,
-                      @Nonnull final Class <?> aValueClass)
+  EXMLParserProperty (@NonNull final EXMLParserPropertyType ePropertyType,
+                      @NonNull @Nonempty final String sName,
+                      @NonNull final Class <?> aValueClass)
   {
     m_ePropertyType = ePropertyType;
     m_sName = sName;
@@ -296,13 +296,13 @@ public enum EXMLParserProperty implements IHasName
     m_sValueClassName = aValueClass.getName ();
   }
 
-  @Nonnull
+  @NonNull
   public EXMLParserPropertyType getPropertyType ()
   {
     return m_ePropertyType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
@@ -315,15 +315,15 @@ public enum EXMLParserProperty implements IHasName
     return m_aValueClass;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getValueClassName ()
   {
     return m_sValueClassName;
   }
 
-  @Nonnull
-  private Object _getFixedValue (@Nonnull final Object aValue)
+  @NonNull
+  private Object _getFixedValue (@NonNull final Object aValue)
   {
     if (this == EXMLParserProperty.GENERAL_LOCALE && aValue instanceof final Locale aLocale)
     {
@@ -347,7 +347,7 @@ public enum EXMLParserProperty implements IHasName
     return aValue;
   }
 
-  public void applyTo (@Nonnull final org.xml.sax.XMLReader aParser, final Object aValue)
+  public void applyTo (@NonNull final XMLReader aParser, final Object aValue)
   {
     ValueEnforcer.notNull (aParser, "Parser");
 
@@ -373,7 +373,7 @@ public enum EXMLParserProperty implements IHasName
     }
   }
 
-  public void applyTo (@Nonnull final DocumentBuilderFactory aDocumentBuilderFactory, final Object aValue)
+  public void applyTo (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory, final Object aValue)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
@@ -401,7 +401,7 @@ public enum EXMLParserProperty implements IHasName
    *        The value to use. May be <code>null</code> depending on the context.
    * @since 9.0.1
    */
-  public void applyTo (@Nonnull final SchemaFactory aSchemaFactory, final Object aValue)
+  public void applyTo (@NonNull final SchemaFactory aSchemaFactory, final Object aValue)
   {
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
 
@@ -437,7 +437,7 @@ public enum EXMLParserProperty implements IHasName
    *        The value to use. May be <code>null</code> depending on the context.
    * @since 9.0.1
    */
-  public void applyTo (@Nonnull final Validator aValidator, final Object aValue)
+  public void applyTo (@NonNull final Validator aValidator, final Object aValue)
   {
     ValueEnforcer.notNull (aValidator, "Validator");
 
@@ -469,9 +469,9 @@ public enum EXMLParserProperty implements IHasName
     return EnumHelper.getFromNameOrNull (EXMLParserProperty.class, sName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <EXMLParserProperty> getAllPropertiesOfType (@Nonnull final EXMLParserPropertyType ePropertyType)
+  public static ICommonsList <EXMLParserProperty> getAllPropertiesOfType (@NonNull final EXMLParserPropertyType ePropertyType)
   {
     ValueEnforcer.notNull (ePropertyType, "PropertyType");
 

@@ -16,6 +16,8 @@
  */
 package com.helger.json.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,8 +25,6 @@ import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Recursively visit all Json nodes and invoke the provided callback.
@@ -40,7 +40,7 @@ public final class JsonVisitor
   private JsonVisitor ()
   {}
 
-  private static void _recursiveVisit (@Nonnull final IJson aJson, @Nonnull final IJsonVisitorCallback aCB)
+  private static void _recursiveVisit (@NonNull final IJson aJson, @NonNull final IJsonVisitorCallback aCB)
   {
     if (aJson.isValue ())
     {
@@ -84,7 +84,7 @@ public final class JsonVisitor
    * @param aCB
    *        The callback to be invoked. May not be <code>null</code>.
    */
-  public static void visit (@Nonnull final IJson aJson, @Nonnull final IJsonVisitorCallback aCB)
+  public static void visit (@NonNull final IJson aJson, @NonNull final IJsonVisitorCallback aCB)
   {
     ValueEnforcer.notNull (aJson, "JSON");
     ValueEnforcer.notNull (aCB, "Callback");

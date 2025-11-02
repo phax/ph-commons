@@ -16,14 +16,14 @@
  */
 package com.helger.xml.transform;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This implementation of {@link javax.xml.transform.ErrorListener} saves all
@@ -37,7 +37,7 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
 {
   private final ErrorList m_aErrorList;
 
-  public WrappedCollectingTransformErrorListener (@Nonnull final ErrorList aErrorList)
+  public WrappedCollectingTransformErrorListener (@NonNull final ErrorList aErrorList)
   {
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
   }
@@ -46,7 +46,7 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
    * @return The error list object passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   public ErrorList wrappedErrorList ()
   {
@@ -54,7 +54,7 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
   }
 
   @Override
-  protected void internalLog (@Nonnull final IError aResError)
+  protected void internalLog (@NonNull final IError aResError)
   {
     m_aErrorList.add (aResError);
   }

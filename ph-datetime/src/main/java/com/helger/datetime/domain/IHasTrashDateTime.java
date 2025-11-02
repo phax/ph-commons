@@ -20,10 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Interface for objects having a trash date time.
@@ -70,7 +70,7 @@ public interface IHasTrashDateTime
    *         not.
    * @since 9.1.6
    */
-  default boolean isTrashedAt (@Nonnull final LocalDateTime aDT)
+  default boolean isTrashedAt (@NonNull final LocalDateTime aDT)
   {
     ValueEnforcer.notNull (aDT, "LocalDateTime");
     return hasTrashDateTime () && getTrashDateTime ().compareTo (aDT) <= 0;

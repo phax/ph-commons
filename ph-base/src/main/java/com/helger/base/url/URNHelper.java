@@ -18,10 +18,10 @@ package com.helger.base.url;
 
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.RegEx;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for dealing with URNs

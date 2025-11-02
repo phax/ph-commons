@@ -18,6 +18,8 @@ package com.helger.cache.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +48,6 @@ import com.helger.collection.map.SoftLinkedHashMap;
 import com.helger.statistics.api.IMutableStatisticsHandlerCache;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base implementation of {@link ICache} and {@link IMutableCache}.
@@ -106,10 +105,10 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        <code>true</code> if <code>null</code> values are allowed to be in the cache,
    *        <code>false</code> if not.
    */
-  public MappedCache (@Nonnull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
-                      @Nonnull final Function <KEYTYPE, VALUETYPE> aValueProvider,
+  public MappedCache (@NonNull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
+                      @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider,
                       final int nMaxSize,
-                      @Nonnull @Nonempty final String sCacheName,
+                      @NonNull @Nonempty final String sCacheName,
                       final boolean bAllowNullValues)
   {
     ValueEnforcer.notNull (aCacheKeyProvider, "CacheKeyProvider");
@@ -131,7 +130,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * @return The cache key provider from the constructor. Never <code>null</code>.
    * @since 9.3.8
    */
-  @Nonnull
+  @NonNull
   protected final Function <KEYTYPE, KEYSTORETYPE> getCacheKeyProvider ()
   {
     return m_aCacheKeyProvider;
@@ -141,7 +140,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * @return The cache value provider from the constructor. Never <code>null</code>.
    * @since 9.3.8
    */
-  @Nonnull
+  @NonNull
   protected final Function <KEYTYPE, VALUETYPE> getValueProvider ()
   {
     return m_aValueProvider;
@@ -168,7 +167,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return m_nMaxSize > 0;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getName ()
   {
@@ -189,7 +188,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @OverrideOnDemand
   @CodingStyleguideUnaware
@@ -198,7 +197,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private String _getCacheLogText ()
   {
@@ -217,8 +216,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        The cache value. May not be <code>null</code>.
    */
   @MustBeLocked (ELockType.WRITE)
-  protected final void putInCacheNotLocked (@Nonnull final KEYSTORETYPE aCacheKey,
-                                            @Nonnull final Wrapper <VALUETYPE> aCacheValue)
+  protected final void putInCacheNotLocked (@NonNull final KEYSTORETYPE aCacheKey,
+                                            @NonNull final Wrapper <VALUETYPE> aCacheValue)
   {
     ValueEnforcer.notNull (aCacheKey, "CacheKey");
     ValueEnforcer.notNull (aCacheValue, "CacheValue");
@@ -234,7 +233,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     m_aCache.put (aCacheKey, aCacheValue);
   }
 
-  @Nonnull
+  @NonNull
   private KEYSTORETYPE _getCacheKeyNonnull (final KEYTYPE aKey)
   {
     final KEYSTORETYPE aCacheKey = m_aCacheKeyProvider.apply (aKey);
@@ -243,7 +242,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return aCacheKey;
   }
 
-  @Nonnull
+  @NonNull
   private Wrapper <VALUETYPE> _getCacheValue (final KEYTYPE aKey, final VALUETYPE aValue)
   {
     if (aValue == null)
@@ -349,7 +348,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return aCacheValue.get ();
   }
 
-  @Nonnull
+  @NonNull
   @OverridingMethodsMustInvokeSuper
   public EChange removeFromCache (final KEYTYPE aKey)
   {
@@ -372,7 +371,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @OverridingMethodsMustInvokeSuper
   public EChange clearCache ()
   {

@@ -16,14 +16,14 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a long so that it can be passed a final object but is
@@ -42,7 +42,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
    * @param aValue
    *        The value to be used.
    */
-  public MutableLong (@Nonnull final Number aValue)
+  public MutableLong (@NonNull final Number aValue)
   {
     this (aValue.longValue ());
   }
@@ -99,7 +99,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return m_nValue;
   }
 
-  public long inc (@Nonnull final Number aDelta)
+  public long inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.longValue ());
@@ -115,7 +115,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return inc (-nDelta);
   }
 
-  public long dec (@Nonnull final Number aDelta)
+  public long dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.longValue ());
@@ -128,7 +128,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return m_nValue;
   }
 
-  public long divide (@Nonnull final Number aDivisor)
+  public long divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.longValue ());
@@ -141,13 +141,13 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return m_nValue;
   }
 
-  public long multiply (@Nonnull final Number aMultiplicand)
+  public long multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.longValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final long nValue)
   {
     if (nValue == m_nValue)
@@ -157,8 +157,8 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.longValue ());
@@ -207,12 +207,12 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
     return longValue ();
   }
 
-  public int compareTo (@Nonnull final MutableLong rhs)
+  public int compareTo (@NonNull final MutableLong rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableLong getClone ()
   {
     return new MutableLong (this);

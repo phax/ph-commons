@@ -16,10 +16,10 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a directed graph.
@@ -42,7 +42,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    * @throws IllegalStateException
    *         In case the graph has no or more than one start node.
    */
-  @Nonnull
+  @NonNull
   NODETYPE getSingleStartNode ();
 
   /**
@@ -51,7 +51,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    *
    * @return A set with all start nodes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <NODETYPE> getAllStartNodes ();
 
@@ -63,7 +63,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    * @throws IllegalStateException
    *         In case the graph has no or more than one end node.
    */
-  @Nonnull
+  @NonNull
   NODETYPE getSingleEndNode ();
 
   /**
@@ -72,7 +72,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
    *
    * @return A set with all end nodes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSet <NODETYPE> getAllEndNodes ();
 }

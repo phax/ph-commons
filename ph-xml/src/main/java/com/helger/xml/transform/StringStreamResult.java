@@ -18,13 +18,13 @@ package com.helger.xml.transform;
 
 import javax.xml.transform.stream.StreamResult;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special {@link StreamResult} implementation that writes to {@link String}
@@ -49,19 +49,19 @@ public class StringStreamResult extends StreamResult
     setSystemId (sSystemID);
   }
 
-  @Nonnull
+  @NonNull
   public NonBlockingStringWriter getStringWriter ()
   {
     return m_aSW;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return m_aSW.getAsString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public char [] getAsCharArray ()
   {

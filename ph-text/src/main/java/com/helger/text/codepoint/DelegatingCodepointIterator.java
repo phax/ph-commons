@@ -18,10 +18,10 @@ package com.helger.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Base implementation of a CodepointIterator that filters the output of another
@@ -33,12 +33,12 @@ public class DelegatingCodepointIterator implements ICodepointIterator
 {
   private final AbstractCodepointIterator m_aInternal;
 
-  protected DelegatingCodepointIterator (@Nonnull final AbstractCodepointIterator aInternal)
+  protected DelegatingCodepointIterator (@NonNull final AbstractCodepointIterator aInternal)
   {
     m_aInternal = ValueEnforcer.notNull (aInternal, "Internal");
   }
 
-  @Nonnull
+  @NonNull
   public AbstractCodepointIterator getInternalIterator ()
   {
     return m_aInternal;
@@ -132,21 +132,21 @@ public class DelegatingCodepointIterator implements ICodepointIterator
   }
 
   @Override
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter)
+  @NonNull
+  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter)
   {
     return m_aInternal.restrict (aFilter);
   }
 
   @Override
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning)
+  @NonNull
+  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter, final boolean bScanning)
   {
     return m_aInternal.restrict (aFilter, bScanning);
   }
 
-  @Nonnull
-  public CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
+  @NonNull
+  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
   {
     return m_aInternal.restrict (aFilter, bScanning, bInvert);
   }

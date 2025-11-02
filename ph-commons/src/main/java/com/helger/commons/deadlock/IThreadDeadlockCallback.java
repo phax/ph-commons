@@ -16,10 +16,10 @@
  */
 package com.helger.commons.deadlock;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.callback.ICallback;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is called whenever a problem with threads is detected.
@@ -36,5 +36,5 @@ public interface IThreadDeadlockCallback extends ICallback
    *        Information on the dead-locked threads. Neither <code>null</code>
    *        nor empty.
    */
-  void onDeadlockDetected (@Nonnull @Nonempty ThreadDeadlockInfo [] aDeadlockedThreads);
+  void onDeadlockDetected (@NonNull @Nonempty ThreadDeadlockInfo [] aDeadlockedThreads);
 }

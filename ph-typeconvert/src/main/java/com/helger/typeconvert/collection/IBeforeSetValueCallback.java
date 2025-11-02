@@ -16,11 +16,11 @@
  */
 package com.helger.typeconvert.collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.callback.ICallback;
 import com.helger.base.state.EContinue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Callback interface to be invoked before a value is set.
@@ -44,6 +44,6 @@ public interface IBeforeSetValueCallback <KEYTYPE, VALUETYPE> extends ICallback
    * @return {@link EContinue#CONTINUE} if the value can be set, <code>false</code> if the value
    *         cannot be set.
    */
-  @Nonnull
-  EContinue beforeSetValue (@Nonnull KEYTYPE aName, @Nullable VALUETYPE aNewValue);
+  @NonNull
+  EContinue beforeSetValue (@NonNull KEYTYPE aName, @Nullable VALUETYPE aNewValue);
 }

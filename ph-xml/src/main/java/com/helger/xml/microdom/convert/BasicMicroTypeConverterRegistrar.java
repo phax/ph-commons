@@ -37,6 +37,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.state.EChange;
@@ -56,8 +58,6 @@ import com.helger.datetime.xml.XMLOffsetDate;
 import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.datetime.xml.XMLOffsetTime;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Implementation of {@link IMicroTypeConverterRegistrarSPI} for basic types
  * like Boolean, Byte, Integer, AtomicInteger etc.
@@ -68,7 +68,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
 {
-  public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
+  public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // String converter
     aRegistry.registerMicroElementTypeConverter (String.class, StringMicroTypeConverter.getInstance ());

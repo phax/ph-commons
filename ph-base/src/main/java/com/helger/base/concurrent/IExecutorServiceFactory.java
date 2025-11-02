@@ -18,9 +18,9 @@ package com.helger.base.concurrent;
 
 import java.util.concurrent.ExecutorService;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Factory for creating {@link ExecutorService} instances.
@@ -39,6 +39,6 @@ public interface IExecutorServiceFactory
    *        The number of parallel tasks to perform. Needs to be &gt; 0.
    * @return A non-<code>null</code> {@link ExecutorService} object.
    */
-  @Nonnull
+  @NonNull
   ExecutorService getExecutorService (@Nonnegative int nParallelTasks);
 }

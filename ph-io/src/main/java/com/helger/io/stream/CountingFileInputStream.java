@@ -21,11 +21,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link FileInputStream} sub class that keeps track of all read
@@ -40,13 +40,13 @@ public class CountingFileInputStream extends FileInputStream
   private static final IMutableStatisticsHandlerCounter STATS_READ_FILES = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
                                                                                                                "$read.files");
 
-  public CountingFileInputStream (@Nonnull final File aFile) throws FileNotFoundException
+  public CountingFileInputStream (@NonNull final File aFile) throws FileNotFoundException
   {
     super (aFile);
     STATS_READ_FILES.increment ();
   }
 
-  public CountingFileInputStream (@Nonnull final String sFilename) throws FileNotFoundException
+  public CountingFileInputStream (@NonNull final String sFilename) throws FileNotFoundException
   {
     super (sFilename);
     STATS_READ_FILES.increment ();

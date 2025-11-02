@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-parent-pom</artifactId>
-  <version>12.0.5-SNAPSHOT</version>
+  <version>12.1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-commons-parent-pom</name>
   <description>Base POM to build the ph-commons projects</description>
@@ -88,6 +88,12 @@
   
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.jspecify</groupId>
+        <artifactId>jspecify</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-jdk18on</artifactId>

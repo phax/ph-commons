@@ -16,12 +16,12 @@
  */
 package com.helger.tree.mock;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
 
 public final class MockHasName implements IHasName, Comparable <MockHasName>
 {
@@ -32,12 +32,12 @@ public final class MockHasName implements IHasName, Comparable <MockHasName>
     this (Integer.toString (nID));
   }
 
-  public MockHasName (@Nonnull @Nonempty final String sName)
+  public MockHasName (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

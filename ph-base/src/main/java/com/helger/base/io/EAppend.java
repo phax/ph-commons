@@ -20,7 +20,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.StandardOpenOption;
 import java.util.function.BooleanSupplier;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for determining the append or truncate state of output streams.
@@ -35,7 +35,7 @@ public enum EAppend implements BooleanSupplier
   TRUNCATE;
 
   /** The default is {@link #TRUNCATE} */
-  @Nonnull
+  @NonNull
   public static final EAppend DEFAULT = TRUNCATE;
 
   public boolean getAsBoolean ()
@@ -53,7 +53,7 @@ public enum EAppend implements BooleanSupplier
     return this == TRUNCATE;
   }
 
-  @Nonnull
+  @NonNull
   public OpenOption [] getAsOpenOptions ()
   {
     return this == APPEND ? new OpenOption [] { StandardOpenOption.CREATE, StandardOpenOption.APPEND }

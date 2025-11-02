@@ -18,12 +18,12 @@ package com.helger.base.rt;
 
 import java.nio.ByteBuffer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Contains some {@link ByteBuffer} utility methods.
@@ -40,7 +40,7 @@ public final class ByteBufferHelper
   {}
 
   @Nonnegative
-  private static int _doTransfer (@Nonnull final ByteBuffer aSrcBuffer, @Nonnull final ByteBuffer aDstBuffer)
+  private static int _doTransfer (@NonNull final ByteBuffer aSrcBuffer, @NonNull final ByteBuffer aDstBuffer)
   {
     final int nSrcRemaining = aSrcBuffer.remaining ();
     final int nDstRemaining = aDstBuffer.remaining ();
@@ -71,7 +71,7 @@ public final class ByteBufferHelper
    * @return The amount of data transferred. Always &ge; 0.
    */
   @Nonnegative
-  public static int transfer (@Nonnull final ByteBuffer aSrcBuffer, @Nonnull final ByteBuffer aDstBuffer, final boolean bNeedsFlip)
+  public static int transfer (@NonNull final ByteBuffer aSrcBuffer, @NonNull final ByteBuffer aDstBuffer, final boolean bNeedsFlip)
   {
     ValueEnforcer.notNull (aSrcBuffer, "SourceBuffer");
     ValueEnforcer.notNull (aDstBuffer, "DestinationBuffer");

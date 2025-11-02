@@ -16,7 +16,7 @@
  */
 package com.helger.security.revocation;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Simple interface for all objects that can be enabled and disabled.
@@ -41,14 +41,14 @@ public interface IRevokedIndicator
     return !isRevoked ();
   }
 
-  @Nonnull
-  default ERevoked or (@Nonnull final IRevokedIndicator aEnabled)
+  @NonNull
+  default ERevoked or (@NonNull final IRevokedIndicator aEnabled)
   {
     return ERevoked.valueOf (isRevoked () || aEnabled.isRevoked ());
   }
 
-  @Nonnull
-  default ERevoked and (@Nonnull final IRevokedIndicator aEnabled)
+  @NonNull
+  default ERevoked and (@NonNull final IRevokedIndicator aEnabled)
   {
     return ERevoked.valueOf (isRevoked () && aEnabled.isRevoked ());
   }

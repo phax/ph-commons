@@ -16,6 +16,8 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,8 +25,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a float so that it can be passed a final object but is mutable.
@@ -36,7 +36,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 {
   private float m_fValue;
 
-  public MutableFloat (@Nonnull final Number aValue)
+  public MutableFloat (@NonNull final Number aValue)
   {
     this (aValue.floatValue ());
   }
@@ -87,7 +87,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
-  public float inc (@Nonnull final Number aDelta)
+  public float inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.floatValue ());
@@ -103,7 +103,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return inc (-fDelta);
   }
 
-  public float dec (@Nonnull final Number aDelta)
+  public float dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.floatValue ());
@@ -116,7 +116,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
-  public float divide (@Nonnull final Number aDivisor)
+  public float divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.floatValue ());
@@ -129,13 +129,13 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
-  public float multiply (@Nonnull final Number aMultiplicand)
+  public float multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.floatValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final float fValue)
   {
     if (EqualsHelper.equals (fValue, m_fValue))
@@ -145,8 +145,8 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.floatValue ());
@@ -190,12 +190,12 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return floatValue ();
   }
 
-  public int compareTo (@Nonnull final MutableFloat rhs)
+  public int compareTo (@NonNull final MutableFloat rhs)
   {
     return CompareHelper.compare (m_fValue, rhs.m_fValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableFloat getClone ()
   {
     return new MutableFloat (this);

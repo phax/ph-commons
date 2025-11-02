@@ -18,6 +18,8 @@ package com.helger.config.source.resource.type;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.source.resource.AbstractConfigurationSourceResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Global registry mapping from a file extension to a factory to read these configuration sources.
@@ -66,7 +65,7 @@ public final class ConfigurationSourceResourceTypeRegistry
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static ConfigurationSourceResourceTypeRegistry getInstance ()
   {
     final ConfigurationSourceResourceTypeRegistry ret = SingletonHolder.INSTANCE;
@@ -91,8 +90,8 @@ public final class ConfigurationSourceResourceTypeRegistry
     });
   }
 
-  public void register (@Nonnull @Nonempty final String sFileExt,
-                        @Nonnull final Function <IReadableResource, AbstractConfigurationSourceResource> aFactory)
+  public void register (@NonNull @Nonempty final String sFileExt,
+                        @NonNull final Function <IReadableResource, AbstractConfigurationSourceResource> aFactory)
   {
     ValueEnforcer.notEmpty (sFileExt, "FileExt");
     ValueEnforcer.isFalse ( () -> sFileExt.startsWith ("."),
@@ -117,7 +116,7 @@ public final class ConfigurationSourceResourceTypeRegistry
     return m_aRWLock.readLockedGet ( () -> m_aMap.get (sFileExt));
   }
 
-  @Nonnull
+  @NonNull
   public Function <IReadableResource, AbstractConfigurationSourceResource> getFactoryOfFileExtensionOrFallback (@Nullable final String sFileExt,
                                                                                                                 @Nullable final String sFileExtFallback)
   {

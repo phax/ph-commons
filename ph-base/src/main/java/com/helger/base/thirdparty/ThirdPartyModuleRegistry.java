@@ -19,6 +19,7 @@ package com.helger.base.thirdparty;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,8 +34,6 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class manages all registered third party modules
@@ -67,7 +66,7 @@ public final class ThirdPartyModuleRegistry
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static ThirdPartyModuleRegistry getInstance ()
   {
     final ThirdPartyModuleRegistry ret = SingletonHolder.INSTANCE;
@@ -75,22 +74,22 @@ public final class ThirdPartyModuleRegistry
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
-  private EChange _registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
+  private EChange _registerThirdPartyModule (@NonNull final IThirdPartyModule aModule)
   {
     ValueEnforcer.notNull (aModule, "Module");
 
     return EChange.valueOf (m_aModules.add (aModule));
   }
 
-  @Nonnull
-  public EChange registerThirdPartyModule (@Nonnull final IThirdPartyModule aModule)
+  @NonNull
+  public EChange registerThirdPartyModule (@NonNull final IThirdPartyModule aModule)
   {
     return m_aRWLock.writeLockedGet ( () -> _registerThirdPartyModule (aModule));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {

@@ -19,13 +19,13 @@ package com.helger.security.keystore;
 import java.security.KeyStore;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.text.util.TextHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the result of loading a key store from e.g. a configuration file.
@@ -90,13 +90,13 @@ public class LoadedKeyStore implements ISuccessIndicator
    * @return <code>null</code> if no error occurred, the error text otherwise.
    */
   @Nullable
-  public String getErrorText (@Nonnull final Locale aContentLocale)
+  public String getErrorText (@NonNull final Locale aContentLocale)
   {
     return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
   }
 
   @Nullable
-  public static String getLoadError (@Nonnull final LoadedKeyStore aLKS)
+  public static String getLoadError (@NonNull final LoadedKeyStore aLKS)
   {
     // Cannot be Locale.ROOT
     return aLKS == null ? null : aLKS.getErrorText (TextHelper.EN);

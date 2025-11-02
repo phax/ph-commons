@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for setter method to identify whether a value has changed or not.
@@ -33,14 +33,14 @@ public enum EChange implements IChangeIndicator
     return this == CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public static EChange valueOf (final boolean bChanged)
   {
     return bChanged ? CHANGED : UNCHANGED;
   }
 
-  @Nonnull
-  public static EChange valueOf (@Nonnull final IChangeIndicator aChangeIndicator)
+  @NonNull
+  public static EChange valueOf (@NonNull final IChangeIndicator aChangeIndicator)
   {
     return valueOf (aChangeIndicator.isChanged ());
   }

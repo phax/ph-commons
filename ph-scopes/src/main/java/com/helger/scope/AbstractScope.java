@@ -19,6 +19,8 @@ package com.helger.scope;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +35,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.typeconvert.collection.AttributeContainerAnyConcurrent;
 import com.helger.typeconvert.collection.IAttributeContainerAny;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract scope implementation based on a Map containing the attribute values.
@@ -64,12 +63,12 @@ public abstract class AbstractScope implements IScope
    * @param sScopeID
    *        The scope ID. May neither be <code>null</code> nor empty.
    */
-  protected AbstractScope (@Nonnull @Nonempty final String sScopeID)
+  protected AbstractScope (@NonNull @Nonempty final String sScopeID)
   {
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getID ()
   {
@@ -170,19 +169,19 @@ public abstract class AbstractScope implements IScope
   }
 
   @Nullable
-  public final <T> T runAtomic (@Nonnull final Function <? super IScope, ? extends T> aFunction)
+  public final <T> T runAtomic (@NonNull final Function <? super IScope, ? extends T> aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
     return m_aRWLock.writeLockedGet ( () -> aFunction.apply (this));
   }
 
-  public final void runAtomic (@Nonnull final Consumer <? super IScope> aConsumer)
+  public final void runAtomic (@NonNull final Consumer <? super IScope> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final IAttributeContainerAny <String> attrs ()
   {

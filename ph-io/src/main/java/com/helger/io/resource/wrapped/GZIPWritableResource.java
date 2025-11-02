@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.io.EAppend;
 import com.helger.io.resource.IWritableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A writable resource that is GZIP compressed.
@@ -33,13 +33,13 @@ import jakarta.annotation.Nullable;
  */
 public class GZIPWritableResource extends AbstractWrappedWritableResource
 {
-  public GZIPWritableResource (@Nonnull final IWritableResource aBaseResource)
+  public GZIPWritableResource (@NonNull final IWritableResource aBaseResource)
   {
     super (aBaseResource);
   }
 
   @Nullable
-  public OutputStream getOutputStream (@Nonnull final EAppend eAppend)
+  public OutputStream getOutputStream (@NonNull final EAppend eAppend)
   {
     final OutputStream aIS = getWrappedWritableResource ().getOutputStream (eAppend);
     if (aIS == null)
@@ -54,8 +54,8 @@ public class GZIPWritableResource extends AbstractWrappedWritableResource
     }
   }
 
-  @Nonnull
-  public GZIPWritableResource getWritableCloneForPath (@Nonnull final String sPath)
+  @NonNull
+  public GZIPWritableResource getWritableCloneForPath (@NonNull final String sPath)
   {
     return new GZIPWritableResource (getWrappedWritableResource ().getWritableCloneForPath (sPath));
   }

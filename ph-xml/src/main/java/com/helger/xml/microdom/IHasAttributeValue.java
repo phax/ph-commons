@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for an attribute value provider.
@@ -29,6 +29,6 @@ public interface IHasAttributeValue
   /**
    * @return The non-<code>null</code> attribute value.
    */
-  @Nonnull
+  @NonNull
   String getAttrValue ();
 }

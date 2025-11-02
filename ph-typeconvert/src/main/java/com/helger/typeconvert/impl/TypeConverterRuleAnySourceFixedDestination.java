@@ -18,11 +18,11 @@ package com.helger.typeconvert.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Type converter than can convert from a base source class to a destination
@@ -37,28 +37,28 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
   private final Class <DST> m_aDstClass;
   private final Function <? super Object, ? extends DST> m_aConverter;
 
-  public TypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                     @Nonnull final Function <? super Object, ? extends DST> aConverter)
+  public TypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
+                                                     @NonNull final Function <? super Object, ? extends DST> aConverter)
   {
     super (ESubType.ANY_SRC_FIXED_DST);
     m_aDstClass = ValueEnforcer.notNull (aDstClass, "DestClass");
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
-  public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     // source class can be anything
     return m_aDstClass.equals (aDstClass);
   }
 
-  @Nonnull
+  @NonNull
   public final Class <?> getDestinationClass ()
   {
     return m_aDstClass;
   }
 
   @Nullable
-  public DST apply (@Nonnull final Object aSource)
+  public DST apply (@NonNull final Object aSource)
   {
     return m_aConverter.apply (aSource);
   }

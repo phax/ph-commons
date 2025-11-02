@@ -19,14 +19,13 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link Writer} that logs what he is doing.
@@ -44,7 +43,7 @@ public class LoggingWriter extends WrappedWriter
    * @param aSourceReader
    *        The writer that should be logged. May not be <code>null</code>.
    */
-  public LoggingWriter (@Nonnull final Writer aSourceReader)
+  public LoggingWriter (@NonNull final Writer aSourceReader)
   {
     super (aSourceReader);
   }
@@ -79,7 +78,7 @@ public class LoggingWriter extends WrappedWriter
   }
 
   @Override
-  public final void write (@Nonnull final char [] aBuf, final int nOfs, final int nLen) throws IOException
+  public final void write (@NonNull final char [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nTotalBytesWritten += nLen;

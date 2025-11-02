@@ -23,6 +23,9 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,33 +35,30 @@ import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsVector;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @Immutable
 public final class VectorHelper
 {
   private VectorHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
   {
     return new CommonsVector <> (nInitialCapacity);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector ()
   {
     return new CommonsVector <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                            @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                            @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newVector (0);
@@ -67,10 +67,10 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final SRCTYPE [] aArray,
-                                                                            @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                            @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
       return newVector (0);
@@ -79,10 +79,10 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                     @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+                                                                     @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newVector (0);
@@ -91,7 +91,7 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVectorPrefilled (@Nullable final ELEMENTTYPE aValue,
                                                                               @Nonnegative final int nElements)
@@ -104,14 +104,14 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE aValue)
   {
     return new CommonsVector <> (aValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE... aValues)
@@ -134,7 +134,7 @@ public final class VectorHelper
    * @return The non-<code>null</code> created {@link CommonsVector}.
    * @see Collections#list(Enumeration)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
@@ -143,7 +143,7 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
@@ -152,7 +152,7 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
@@ -161,7 +161,7 @@ public final class VectorHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
@@ -171,7 +171,7 @@ public final class VectorHelper
     return new CommonsVector <> (aCont);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {

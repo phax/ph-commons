@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,8 +38,6 @@ import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes .properties files. It
@@ -59,12 +58,12 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     this (ISettingsFactory.newInstance ());
   }
 
-  public SettingsPersistenceProperties (@Nonnull final ISettingsFactory <?> aSettingsFactory)
+  public SettingsPersistenceProperties (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aCharset;
@@ -78,8 +77,8 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
    *        The charset to use. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final SettingsPersistenceProperties setCharset (@Nonnull final Charset aCharset)
+  @NonNull
+  public final SettingsPersistenceProperties setCharset (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     m_aCharset = aCharset;
@@ -89,21 +88,21 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   /**
    * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   protected String getReadSettingsName ()
   {
     return "anonymous";
   }
 
-  @Nonnull
-  public ISettings readSettings (@Nonnull @WillClose final InputStream aIS)
+  @NonNull
+  public ISettings readSettings (@NonNull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -119,8 +118,8 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     return aSettings;
   }
 
-  @Nonnull
-  public ESuccess writeSettings (@Nonnull final ISettings aSettings, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 

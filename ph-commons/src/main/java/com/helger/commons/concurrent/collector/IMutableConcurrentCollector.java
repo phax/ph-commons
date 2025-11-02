@@ -16,9 +16,9 @@
  */
 package com.helger.commons.concurrent.collector;
 
-import com.helger.base.state.ESuccess;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.ESuccess;
 
 /**
  * Base interface for a concurrent queue worker. It asynchronously collects
@@ -39,8 +39,8 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
    * @throws IllegalStateException
    *         If the queue is already stopped
    */
-  @Nonnull
-  ESuccess queueObject (@Nonnull DATATYPE aObject);
+  @NonNull
+  ESuccess queueObject (@NonNull DATATYPE aObject);
 
   /**
    * Stop taking new objects in the collector. Returns directly and does not
@@ -48,7 +48,7 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
    *
    * @return {@link ESuccess}
    */
-  @Nonnull
+  @NonNull
   ESuccess stopQueuingNewObjects ();
 
   /**

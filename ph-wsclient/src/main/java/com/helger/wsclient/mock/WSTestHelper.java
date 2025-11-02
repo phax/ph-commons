@@ -18,6 +18,7 @@ package com.helger.wsclient.mock;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,7 +27,6 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
-import jakarta.annotation.Nonnull;
 import jakarta.jws.WebService;
 
 /**
@@ -44,7 +44,7 @@ public final class WSTestHelper
   {}
 
   @Nonnegative
-  public static int testIfAllSunJaxwsFilesAreValid (@Nonnull final String sBaseDir, final boolean bContinueOnError)
+  public static int testIfAllSunJaxwsFilesAreValid (@NonNull final String sBaseDir, final boolean bContinueOnError)
   {
     final int nTotalImplementationCount = 0;
     final File aFile = new File (sBaseDir, SUN_JAXWS_XML);

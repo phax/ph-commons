@@ -18,11 +18,11 @@ package com.helger.base.io.iface;
 
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link OutputStream} objects.
@@ -40,7 +40,7 @@ public interface IHasOutputStream
    * @return <code>null</code> if resolving failed.
    */
   @Nullable
-  OutputStream getOutputStream (@Nonnull EAppend eAppend);
+  OutputStream getOutputStream (@NonNull EAppend eAppend);
 
   /**
    * Get the output stream to read from the object. Each time this method is
@@ -53,7 +53,7 @@ public interface IHasOutputStream
    * @since 9.1.8
    */
   @Nullable
-  default OutputStream getBufferedOutputStream (@Nonnull final EAppend eAppend)
+  default OutputStream getBufferedOutputStream (@NonNull final EAppend eAppend)
   {
     return StreamHelper.getBuffered (getOutputStream (eAppend));
   }

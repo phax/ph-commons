@@ -16,10 +16,10 @@
  */
 package com.helger.text.codepoint;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera
@@ -28,12 +28,12 @@ public class CodepointIteratorCharSequence extends AbstractCodepointIterator
 {
   private final CharSequence m_aBuffer;
 
-  public CodepointIteratorCharSequence (@Nonnull final CharSequence aBuffer)
+  public CodepointIteratorCharSequence (@NonNull final CharSequence aBuffer)
   {
     this (aBuffer, 0, aBuffer.length ());
   }
 
-  public CodepointIteratorCharSequence (@Nonnull final CharSequence aBuffer,
+  public CodepointIteratorCharSequence (@NonNull final CharSequence aBuffer,
                                         @Nonnegative final int nOfs,
                                         @Nonnegative final int nLen)
   {

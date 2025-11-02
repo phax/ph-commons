@@ -21,6 +21,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Period;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
@@ -29,8 +31,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.numeric.MathHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Display helper methods for date/time functions.
@@ -52,7 +52,7 @@ public final class PDTDisplayHelper
     {};
     IPeriodTextProvider DE = new IPeriodTextProvider ()
     {
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getYears (@CheckForSigned final int nYears)
@@ -61,7 +61,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nYears) == 1 ? nYears + " Jahr" : nYears + " Jahre";
       }
 
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getMonths (@CheckForSigned final int nMonths)
@@ -69,7 +69,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nMonths) == 1 ? nMonths + " Monat" : nMonths + " Monate";
       }
 
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getDays (@CheckForSigned final int nDays)
@@ -77,7 +77,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nDays) == 1 ? nDays + " Tag" : nDays + " Tage";
       }
 
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getHours (@CheckForSigned final long nHours)
@@ -85,7 +85,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nHours) == 1 ? nHours + " Stunde" : nHours + " Stunden";
       }
 
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getMinutes (@CheckForSigned final long nMinutes)
@@ -93,7 +93,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nMinutes) == 1 ? nMinutes + " Minute" : nMinutes + " Minuten";
       }
 
-      @Nonnull
+      @NonNull
       @Nonempty
       @Override
       public String getSeconds (@CheckForSigned final long nSeconds)
@@ -101,7 +101,7 @@ public final class PDTDisplayHelper
         return MathHelper.abs (nSeconds) == 1 ? nSeconds + " Sekunde" : nSeconds + " Sekunden";
       }
 
-      @Nonnull
+      @NonNull
       @Override
       public String getAnd ()
       {
@@ -109,7 +109,7 @@ public final class PDTDisplayHelper
       }
     };
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getYears (@CheckForSigned final int nYears)
     {
@@ -117,48 +117,48 @@ public final class PDTDisplayHelper
       return MathHelper.abs (nYears) == 1 ? nYears + " year" : nYears + " years";
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getMonths (@CheckForSigned final int nMonths)
     {
       return MathHelper.abs (nMonths) == 1 ? nMonths + " month" : nMonths + " months";
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getDays (@CheckForSigned final int nDays)
     {
       return MathHelper.abs (nDays) == 1 ? nDays + " day" : nDays + " days";
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getHours (@CheckForSigned final long nHours)
     {
       return MathHelper.abs (nHours) == 1 ? nHours + " hour" : nHours + " hours";
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getMinutes (@CheckForSigned final long nMinutes)
     {
       return MathHelper.abs (nMinutes) == 1 ? nMinutes + " minute" : nMinutes + " minutes";
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     default String getSeconds (@CheckForSigned final long nSeconds)
     {
       return MathHelper.abs (nSeconds) == 1 ? nSeconds + " second" : nSeconds + " seconds";
     }
 
-    @Nonnull
+    @NonNull
     default String getAnd ()
     {
       return " and ";
     }
 
-    @Nonnull
+    @NonNull
     default String getComma ()
     {
       return ", ";
@@ -171,7 +171,7 @@ public final class PDTDisplayHelper
   private PDTDisplayHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getPeriodText (final int nYears,
                                       final int nMonths,
@@ -179,7 +179,7 @@ public final class PDTDisplayHelper
                                       final long nHours,
                                       final long nMinutes,
                                       final long nSeconds,
-                                      @Nonnull final IPeriodTextProvider aTextProvider)
+                                      @NonNull final IPeriodTextProvider aTextProvider)
   {
     final String sYear = aTextProvider.getYears (nYears);
     final String sMonth = aTextProvider.getMonths (nMonths);
@@ -218,11 +218,11 @@ public final class PDTDisplayHelper
     return aSB.append (aTextProvider.getAnd ()).append (aParts.getLastOrNull ()).toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getPeriodText (@Nonnull final LocalDateTime aStartLDT,
-                                      @Nonnull final LocalDateTime aEndLDT,
-                                      @Nonnull final IPeriodTextProvider aTextProvider)
+  public static String getPeriodText (@NonNull final LocalDateTime aStartLDT,
+                                      @NonNull final LocalDateTime aEndLDT,
+                                      @NonNull final IPeriodTextProvider aTextProvider)
   {
     final LocalDate aStartDate = aStartLDT.toLocalDate ();
     LocalDate aEndDate = aEndLDT.toLocalDate ();
@@ -253,16 +253,16 @@ public final class PDTDisplayHelper
     return getPeriodText (nYears, nMonth, nDays, nHours, nMinutes, nTotalSecs, aTextProvider);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getPeriodTextDE (@Nonnull final LocalDateTime aNowLDT, @Nonnull final LocalDateTime aNotAfter)
+  public static String getPeriodTextDE (@NonNull final LocalDateTime aNowLDT, @NonNull final LocalDateTime aNotAfter)
   {
     return getPeriodText (aNowLDT, aNotAfter, IPeriodTextProvider.DE);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getPeriodTextEN (@Nonnull final LocalDateTime aNowLDT, @Nonnull final LocalDateTime aNotAfter)
+  public static String getPeriodTextEN (@NonNull final LocalDateTime aNowLDT, @NonNull final LocalDateTime aNotAfter)
   {
     return getPeriodText (aNowLDT, aNotAfter, IPeriodTextProvider.EN);
   }

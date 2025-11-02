@@ -18,7 +18,7 @@ package com.helger.base.io.stream;
 
 import java.io.InputStream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A special {@link InputStream} that does not close the stream. This is e.g.
@@ -28,7 +28,7 @@ import jakarta.annotation.Nonnull;
  */
 public class NonClosingInputStream extends WrappedInputStream
 {
-  public NonClosingInputStream (@Nonnull final InputStream aSourceIS)
+  public NonClosingInputStream (@NonNull final InputStream aSourceIS)
   {
     super (aSourceIS);
   }

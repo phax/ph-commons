@@ -16,14 +16,14 @@
  */
 package com.helger.graph.simple;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphObjectFactory;
 import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.impl.GraphNodeFast;
 import com.helger.graph.impl.GraphRelationFast;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableGraphObjectFactory} with
@@ -33,28 +33,28 @@ import jakarta.annotation.Nullable;
  */
 public class SimpleGraphObjectFastFactory implements IMutableGraphObjectFactory
 {
-  @Nonnull
+  @NonNull
   public IMutableGraphNode createNode ()
   {
     return new GraphNodeFast ();
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphNode createNode (@Nullable final String sID)
   {
     return new GraphNodeFast (sID);
   }
 
-  @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
+  @NonNull
+  public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     return new GraphRelationFast (aFrom, aTo);
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphRelation createRelation (@Nullable final String sID,
-                                               @Nonnull final IMutableGraphNode aFrom,
-                                               @Nonnull final IMutableGraphNode aTo)
+                                               @NonNull final IMutableGraphNode aFrom,
+                                               @NonNull final IMutableGraphNode aTo)
   {
     return new GraphRelationFast (sID, aFrom, aTo);
   }

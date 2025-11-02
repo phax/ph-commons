@@ -16,12 +16,12 @@
  */
 package com.helger.json.parser;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents the position inside the JSON parse process.
@@ -44,7 +44,7 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
     m_nColumn = 1;
   }
 
-  public JsonParsePosition (@Nonnull final JsonParsePosition aOther)
+  public JsonParsePosition (@NonNull final JsonParsePosition aOther)
   {
     m_nLine = aOther.m_nLine;
     m_nColumn = aOther.m_nColumn;
@@ -111,13 +111,13 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
     return m_nColumn;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return "[" + m_nLine + ":" + m_nColumn + "]";
   }
 
-  @Nonnull
+  @NonNull
   public JsonParsePosition getClone ()
   {
     return new JsonParsePosition (this);

@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -28,9 +31,6 @@ import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
 import com.helger.base.codec.IByteArrayCodec;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Encoder and decoder for quoted printable stuff. Uses "=" as the escape char.
@@ -61,7 +61,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   /**
    * @return A copy of the default bit set to be used.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static BitSet getDefaultPrintableChars ()
   {
@@ -78,7 +78,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     this (PRINTABLE_CHARS);
   }
 
-  public QuotedPrintableCodec (@Nonnull final BitSet aPrintableChars)
+  public QuotedPrintableCodec (@NonNull final BitSet aPrintableChars)
   {
     m_aPrintableChars = (BitSet) aPrintableChars.clone ();
   }
@@ -86,7 +86,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   /**
    * @return A copy of the default bit set to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public BitSet getPrintableChars ()
   {
@@ -103,7 +103,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
    * @throws IOException
    *         In case writing to the OutputStream failed
    */
-  public static final void writeEncodeQuotedPrintableByte (final int b, @Nonnull final OutputStream aOS)
+  public static final void writeEncodeQuotedPrintableByte (final int b, @NonNull final OutputStream aOS)
                                                                                                          throws IOException
   {
     final char cHigh = StringHex.getHexCharUpperCase ((b >> 4) & 0xF);
@@ -116,7 +116,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null || nLen == 0)
       return;
@@ -141,7 +141,7 @@ public class QuotedPrintableCodec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null || nLen == 0)
       return;

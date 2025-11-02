@@ -16,7 +16,7 @@
  */
 package com.helger.base.exception;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This class should be used when an error occurs in the initialization phase

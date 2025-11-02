@@ -16,10 +16,10 @@
  */
 package com.helger.scope.mgr;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.scope.IRequestScope;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Auto closable wrapper around
@@ -38,12 +38,12 @@ public class Scoped implements AutoCloseable
     this ("scope-id", "session-id");
   }
 
-  public Scoped (@Nonnull @Nonempty final String sScopeID, @Nonnull @Nonempty final String sSessionID)
+  public Scoped (@NonNull @Nonempty final String sScopeID, @NonNull @Nonempty final String sSessionID)
   {
     m_aRequestScope = ScopeManager.onRequestBegin (sScopeID, sSessionID);
   }
 
-  @Nonnull
+  @NonNull
   public IRequestScope getRequestScope ()
   {
     if (m_aRequestScope == null)

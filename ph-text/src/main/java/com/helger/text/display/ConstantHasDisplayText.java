@@ -18,15 +18,15 @@ package com.helger.text.display;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation of the {@link IHasDisplayText} interface that always
@@ -41,14 +41,14 @@ public class ConstantHasDisplayText implements IHasDisplayText
 {
   private final String m_sFixedText;
 
-  public ConstantHasDisplayText (@Nonnull final String sFixedText)
+  public ConstantHasDisplayText (@NonNull final String sFixedText)
   {
     m_sFixedText = ValueEnforcer.notNull (sFixedText, "FixedText");
   }
 
   @Override
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_sFixedText;
   }

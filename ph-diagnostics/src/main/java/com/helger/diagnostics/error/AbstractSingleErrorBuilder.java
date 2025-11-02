@@ -20,6 +20,8 @@ import java.time.LocalDateTime;
 
 import javax.xml.stream.Location;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.Locator;
 import org.xml.sax.SAXParseException;
 
@@ -34,9 +36,6 @@ import com.helger.diagnostics.error.text.ConstantHasErrorText;
 import com.helger.diagnostics.error.text.DynamicHasErrorText;
 import com.helger.diagnostics.error.text.IHasErrorText;
 import com.helger.text.IMultilingualText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract builder class for {@link SingleError} and derived classes.
@@ -65,7 +64,7 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
   protected AbstractSingleErrorBuilder ()
   {}
 
-  protected AbstractSingleErrorBuilder (@Nonnull final IError aError)
+  protected AbstractSingleErrorBuilder (@NonNull final IError aError)
   {
     ValueEnforcer.notNull (aError, "Error");
     errorLevel (aError.getErrorLevel ());
@@ -76,29 +75,29 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     linkedException (aError.getLinkedException ());
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE dateTime (@Nullable final LocalDateTime aErrorDT)
   {
     m_aErrorDT = aErrorDT;
     return thisAsT ();
   }
 
-  @Nonnull
-  public final IMPLTYPE errorLevel (@Nonnull final IErrorLevel aErrorLevel)
+  @NonNull
+  public final IMPLTYPE errorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     m_aErrorLevel = aErrorLevel;
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorID (@Nullable final String sErrorID)
   {
     m_sErrorID = sErrorID;
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorFieldName (@Nullable final String sErrorFieldName)
   {
     m_sErrorFieldName = sErrorFieldName;
@@ -113,44 +112,44 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
    * @return this for chaining
    * @since 9.0.2
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorLocation (@Nullable final String sErrorLocation)
   {
     return errorLocation (new SimpleLocation (sErrorLocation));
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorLocation (@Nullable final Locator aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorLocation (@Nullable final SAXParseException aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorLocation (@Nullable final Location aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorLocation (@Nullable final ILocation aErrorLocation)
   {
     m_aErrorLocation = aErrorLocation;
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorText (@Nullable final String sErrorText)
   {
     return errorText (ConstantHasErrorText.createOnDemand (sErrorText));
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorText (@Nullable final IMultilingualText aMLT)
   {
     if (aMLT == null)
@@ -169,14 +168,14 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE errorText (@Nullable final IHasErrorText aErrorText)
   {
     m_aErrorText = aErrorText;
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   public final IMPLTYPE linkedException (@Nullable final Throwable aLinkedException)
   {
     m_aLinkedException = aLinkedException;

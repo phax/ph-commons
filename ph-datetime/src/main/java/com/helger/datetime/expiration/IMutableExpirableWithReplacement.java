@@ -16,10 +16,10 @@
  */
 package com.helger.datetime.expiration;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Interface for objects that can expire but offer a replacement once the object
@@ -39,6 +39,6 @@ public interface IMutableExpirableWithReplacement <DATATYPE> extends IMutableExp
    * @return {@link EChange#CHANGED} if something was changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange setReplacement (@Nullable DATATYPE aReplacement);
 }

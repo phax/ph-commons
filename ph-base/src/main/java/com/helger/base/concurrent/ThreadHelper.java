@@ -19,14 +19,14 @@ package com.helger.base.concurrent;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Some thread utility methods.
@@ -48,7 +48,7 @@ public final class ThreadHelper
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
    *         sleeping was interrupted
    */
-  @Nonnull
+  @NonNull
   public static ESuccess sleepMinutes (@Nonnegative final long nMinutes)
   {
     ValueEnforcer.isGE0 (nMinutes, "Minutes");
@@ -63,7 +63,7 @@ public final class ThreadHelper
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
    *         sleeping was interrupted
    */
-  @Nonnull
+  @NonNull
   public static ESuccess sleepSeconds (@Nonnegative final long nSeconds)
   {
     ValueEnforcer.isGE0 (nSeconds, "Seconds");
@@ -78,8 +78,8 @@ public final class ThreadHelper
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
    *         sleeping was interrupted
    */
-  @Nonnull
-  public static ESuccess sleep (@Nonnull final Duration aDuration)
+  @NonNull
+  public static ESuccess sleep (@NonNull final Duration aDuration)
   {
     ValueEnforcer.notNull (aDuration, "Duration");
     return sleep (aDuration.toMillis ());
@@ -95,8 +95,8 @@ public final class ThreadHelper
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
    *         sleeping was interrupted
    */
-  @Nonnull
-  public static ESuccess sleep (@Nonnegative final long nDuration, @Nonnull final TimeUnit aTimeUnit)
+  @NonNull
+  public static ESuccess sleep (@Nonnegative final long nDuration, @NonNull final TimeUnit aTimeUnit)
   {
     ValueEnforcer.isGE0 (nDuration, "Duration");
     ValueEnforcer.notNull (aTimeUnit, "TimeUnit");
@@ -112,7 +112,7 @@ public final class ThreadHelper
    * @return {@link ESuccess#SUCCESS} if sleeping was not interrupted, {@link ESuccess#FAILURE} if
    *         sleeping was interrupted
    */
-  @Nonnull
+  @NonNull
   public static ESuccess sleep (@Nonnegative final long nMilliseconds)
   {
     ValueEnforcer.isGE0 (nMilliseconds, "MilliSeconds");

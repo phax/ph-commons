@@ -18,7 +18,7 @@ package com.helger.collection.base;
 
 import java.util.Iterator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for simpler usage of
@@ -30,7 +30,7 @@ import jakarta.annotation.Nonnull;
  */
 public interface IIterableIterator <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, Iterator <ELEMENTTYPE>
 {
-  @Nonnull
+  @NonNull
   default Iterator <ELEMENTTYPE> iterator ()
   {
     return this;

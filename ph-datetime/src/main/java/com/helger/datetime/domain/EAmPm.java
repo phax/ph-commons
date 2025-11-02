@@ -19,12 +19,12 @@ package com.helger.datetime.domain;
 import java.text.DateFormatSymbols;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.id.IHasIntID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents the AM/PM values
@@ -49,7 +49,7 @@ public enum EAmPm implements IHasIntID
   }
 
   @Nullable
-  public String getDisplayName (@Nonnull final Locale aLocale)
+  public String getDisplayName (@NonNull final Locale aLocale)
   {
     return ArrayHelper.getSafeElement (DateFormatSymbols.getInstance (aLocale).getAmPmStrings (), m_nID);
   }

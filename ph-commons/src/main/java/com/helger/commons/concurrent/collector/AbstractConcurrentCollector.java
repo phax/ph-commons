@@ -20,6 +20,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,8 +33,6 @@ import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.ESuccess;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract concurrent collector based on {@link BlockingQueue}.
@@ -82,14 +81,14 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    * @param aQueue
    *        The {@link BlockingQueue} to be used. May not be <code>null</code>.
    */
-  protected AbstractConcurrentCollector (@Nonnull final BlockingQueue <Object> aQueue)
+  protected AbstractConcurrentCollector (@NonNull final BlockingQueue <Object> aQueue)
   {
     ValueEnforcer.notNull (aQueue, "Queue");
     m_aQueue = aQueue;
   }
 
-  @Nonnull
-  public final ESuccess queueObject (@Nonnull final DATATYPE aObject)
+  @NonNull
+  public final ESuccess queueObject (@NonNull final DATATYPE aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
     if (isStopped ())
@@ -119,7 +118,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     return m_aQueue.size ();
   }
 
-  @Nonnull
+  @NonNull
   public final ESuccess stopQueuingNewObjects ()
   {
     if (m_aStopTakingNewObjects.getAndSet (true))
@@ -149,7 +148,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     return m_aStopTakingNewObjects.get ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> drainQueue ()
   {

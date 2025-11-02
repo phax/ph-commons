@@ -25,14 +25,14 @@ import java.time.ZonedDateTime;
 import java.time.temporal.Temporal;
 import java.time.temporal.TemporalQuery;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.rt.OffsetDate;
 import com.helger.datetime.xml.XMLOffsetDate;
 import com.helger.datetime.xml.XMLOffsetDateTime;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Tuple with date time pattern string and query to parse into object.
@@ -47,7 +47,7 @@ public class PDTMask <T extends Temporal>
   private final String m_sPattern;
   private final TemporalQuery <T> m_aQuery;
 
-  protected PDTMask (@Nonnull @Nonempty final String sPattern, @Nonnull final TemporalQuery <T> aQuery)
+  protected PDTMask (@NonNull @Nonempty final String sPattern, @NonNull final TemporalQuery <T> aQuery)
   {
     ValueEnforcer.notEmpty (sPattern, "Pattern");
     ValueEnforcer.notNull (aQuery, "Query");
@@ -55,14 +55,14 @@ public class PDTMask <T extends Temporal>
     m_aQuery = aQuery;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPattern ()
   {
     return m_sPattern;
   }
 
-  @Nonnull
+  @NonNull
   public TemporalQuery <T> getQuery ()
   {
     return m_aQuery;
@@ -74,56 +74,56 @@ public class PDTMask <T extends Temporal>
     return new ToStringGenerator (this).append ("Pattern", m_sPattern).append ("Query", m_aQuery).getToString ();
   }
 
-  @Nonnull
-  public static PDTMask <ZonedDateTime> zonedDateTime (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <ZonedDateTime> zonedDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, ZonedDateTime::from);
   }
 
-  @Nonnull
-  public static PDTMask <OffsetDateTime> offsetDateTime (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <OffsetDateTime> offsetDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, OffsetDateTime::from);
   }
 
-  @Nonnull
-  public static PDTMask <XMLOffsetDateTime> xmlOffsetDateTime (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <XMLOffsetDateTime> xmlOffsetDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, XMLOffsetDateTime::from);
   }
 
-  @Nonnull
-  public static PDTMask <LocalDateTime> localDateTime (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <LocalDateTime> localDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, LocalDateTime::from);
   }
 
-  @Nonnull
-  public static PDTMask <OffsetDate> offsetDate (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <OffsetDate> offsetDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, OffsetDate::from);
   }
 
-  @Nonnull
-  public static PDTMask <XMLOffsetDate> xmlOffsetDate (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <XMLOffsetDate> xmlOffsetDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, XMLOffsetDate::from);
   }
 
-  @Nonnull
-  public static PDTMask <LocalDate> localDate (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <LocalDate> localDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, LocalDate::from);
   }
 
-  @Nonnull
-  public static PDTMask <YearMonth> yearMonth (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <YearMonth> yearMonth (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, YearMonth::from);
   }
 
-  @Nonnull
-  public static PDTMask <Year> year (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static PDTMask <Year> year (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, Year::from);
   }

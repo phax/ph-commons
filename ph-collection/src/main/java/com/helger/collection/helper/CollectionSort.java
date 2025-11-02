@@ -26,6 +26,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -35,9 +38,6 @@ import com.helger.collection.commons.CollectionCommonsHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsOrderedMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public class CollectionSort
@@ -59,7 +59,7 @@ public class CollectionSort
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE, LISTTYPE extends List <ELEMENTTYPE>> LISTTYPE getSortedInline (@Nullable final LISTTYPE aList,
-                                                                                             @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                                             @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     ValueEnforcer.notNull (aComparator, "Comparator");
 
@@ -80,7 +80,7 @@ public class CollectionSort
    *        the map to sort
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
@@ -100,10 +100,10 @@ public class CollectionSort
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                             @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+                                                                                             @NonNull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     return CollectionCommonsHelper.getSortedByKey (aMap, aKeyComparator);
   }
@@ -120,7 +120,7 @@ public class CollectionSort
    *        The map to sort. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
@@ -141,10 +141,10 @@ public class CollectionSort
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                               @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+                                                                                               @NonNull final Comparator <? super VALUETYPE> aValueComparator)
   {
     return CollectionCommonsHelper.getSortedByValue (aMap, aValueComparator);
   }
@@ -159,7 +159,7 @@ public class CollectionSort
    * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
@@ -178,10 +178,10 @@ public class CollectionSort
    * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter,
-                                                                                                                 @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                                                                 @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aIter), aComparator);
   }
@@ -196,7 +196,7 @@ public class CollectionSort
    * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
@@ -215,10 +215,10 @@ public class CollectionSort
    * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
-                                                                        @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                        @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aIter), aComparator);
   }
@@ -232,7 +232,7 @@ public class CollectionSort
    *        Iterable input object. May be <code>null</code>.
    * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont)
   {
@@ -251,10 +251,10 @@ public class CollectionSort
    * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Iterable <? extends ELEMENTTYPE> aCont,
-                                                                        @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                        @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aCont), aComparator);
   }
@@ -268,7 +268,7 @@ public class CollectionSort
    *        Collection input object. May be <code>null</code>.
    * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
@@ -287,10 +287,10 @@ public class CollectionSort
    * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final Collection <? extends ELEMENTTYPE> aCont,
-                                                                        @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                        @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aCont), aComparator);
   }
@@ -304,7 +304,7 @@ public class CollectionSort
    *        Array input object. May be <code>null</code>.
    * @return A {@link CommonsArrayList} based on the results of {@link Collections#sort(List)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE... aCont)
@@ -324,10 +324,10 @@ public class CollectionSort
    * @return A {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List, Comparator)}.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getSorted (@Nullable final ELEMENTTYPE [] aCont,
-                                                                        @Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+                                                                        @NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return getSortedInline (createList (aCont), aComparator);
   }

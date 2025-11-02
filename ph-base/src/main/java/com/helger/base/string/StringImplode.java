@@ -25,14 +25,14 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class StringImplode
@@ -65,15 +65,15 @@ public final class StringImplode
       return o == null ? null : o.toString ();
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder source (@Nullable final Collection <?> a)
     {
       return source (a, ImploderBuilder::_toString);
     }
 
-    @Nonnull
+    @NonNull
     public <T> ImploderBuilder source (@Nullable final Collection <T> a,
-                                       @Nonnull final Function <? super T, String> aMapper)
+                                       @NonNull final Function <? super T, String> aMapper)
     {
       ValueEnforcer.notNull (aMapper, "Mapper");
       if (a == null)
@@ -87,22 +87,22 @@ public final class StringImplode
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder source (@Nullable final String... a)
     {
       m_aSource = a == null ? null : Arrays.asList (a);
       return this;
     }
 
-    @Nonnull
+    @NonNull
     @SafeVarargs
     public final <T> ImploderBuilder source (@Nullable final T... a)
     {
       return source (a, ImploderBuilder::_toString);
     }
 
-    @Nonnull
-    public <T> ImploderBuilder source (@Nullable final T [] a, @Nonnull final Function <? super T, String> aMapper)
+    @NonNull
+    public <T> ImploderBuilder source (@Nullable final T [] a, @NonNull final Function <? super T, String> aMapper)
     {
       ValueEnforcer.notNull (aMapper, "Mapper");
       if (a == null)
@@ -116,13 +116,13 @@ public final class StringImplode
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder separator (final char c)
     {
       return separator (Character.toString (c));
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder separator (@Nullable final String s)
     {
       m_sSeparator = s;
@@ -136,7 +136,7 @@ public final class StringImplode
      *        The offset to use
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public ImploderBuilder offset (final int n)
     {
       m_nOffset = n;
@@ -151,27 +151,27 @@ public final class StringImplode
      *        The length to use
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public ImploderBuilder length (final int n)
     {
       m_nLength = n;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder filterNonEmpty ()
     {
       return filter (StringHelper::isNotEmpty);
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilder filter (@Nullable final Predicate <String> a)
     {
       m_aFilter = a;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public String build ()
     {
       final List <String> aSource = m_aSource;
@@ -230,7 +230,7 @@ public final class StringImplode
    * @return A new {@link ImploderBuilder}.
    * @since 10.0.0
    */
-  @Nonnull
+  @NonNull
   public static ImploderBuilder imploder ()
   {
     return new ImploderBuilder ();
@@ -244,7 +244,7 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImploded (@Nullable final Collection <?> aElements)
   {
     return imploder ().source (aElements).build ();
@@ -264,9 +264,9 @@ public final class StringImplode
    *        Iterable element type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (@Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).build ();
   }
@@ -281,8 +281,8 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
-  public static String getImploded (@Nonnull final String sSep, @Nullable final Collection <?> aElements)
+  @NonNull
+  public static String getImploded (@NonNull final String sSep, @Nullable final Collection <?> aElements)
   {
     return imploder ().source (aElements).separator (sSep).build ();
   }
@@ -297,7 +297,7 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImploded (final char cSep, @Nullable final Collection <?> aElements)
   {
     return imploder ().source (aElements).separator (cSep).build ();
@@ -319,10 +319,10 @@ public final class StringImplode
    *        The element type of the collection to be imploded
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMapped (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMapped (@NonNull final String sSep,
                                                         @Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (sSep).build ();
   }
@@ -343,10 +343,10 @@ public final class StringImplode
    *        The element type of the collection to be imploded
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (final char cSep,
                                                         @Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (cSep).build ();
   }
@@ -360,7 +360,7 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
+  @NonNull
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE... aElements)
   {
@@ -380,7 +380,7 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImploded (@Nullable final ELEMENTTYPE [] aElements,
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
@@ -401,9 +401,9 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (@Nullable final ELEMENTTYPE [] aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).build ();
   }
@@ -425,11 +425,11 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (@Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnegative final int nOfs,
                                                         @Nonnegative final int nLen,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).build ();
   }
@@ -446,9 +446,9 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
+  @NonNull
   @SafeVarargs
-  public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep, @Nullable final ELEMENTTYPE... aElements)
+  public static <ELEMENTTYPE> String getImploded (@NonNull final String sSep, @Nullable final ELEMENTTYPE... aElements)
   {
     return imploder ().source (aElements).separator (sSep).build ();
   }
@@ -465,7 +465,7 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
+  @NonNull
   @SafeVarargs
   public static <ELEMENTTYPE> String getImploded (final char cSep, @Nullable final ELEMENTTYPE... aElements)
   {
@@ -488,8 +488,8 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImploded (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImploded (@NonNull final String sSep,
                                                   @Nullable final ELEMENTTYPE [] aElements,
                                                   @Nonnegative final int nOfs,
                                                   @Nonnegative final int nLen)
@@ -513,10 +513,10 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMapped (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMapped (@NonNull final String sSep,
                                                         @Nullable final ELEMENTTYPE [] aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (sSep).build ();
   }
@@ -537,10 +537,10 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (final char cSep,
                                                         @Nullable final ELEMENTTYPE [] aElements,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (cSep).build ();
   }
@@ -565,12 +565,12 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMapped (final char cSep,
                                                         @Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnegative final int nOfs,
                                                         @Nonnegative final int nLen,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).separator (cSep).build ();
   }
@@ -595,12 +595,12 @@ public final class StringImplode
    *        The type of elements to be imploded.
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMapped (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMapped (@NonNull final String sSep,
                                                         @Nullable final ELEMENTTYPE [] aElements,
                                                         @Nonnegative final int nOfs,
                                                         @Nonnegative final int nLen,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).offset (nOfs).length (nLen).separator (sSep).build ();
   }
@@ -621,7 +621,7 @@ public final class StringImplode
    * @param <ELEMENTTYPE>
    *        The type of elements to be imploded.
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImploded (final char cSep,
                                                   @Nullable final ELEMENTTYPE [] aElements,
                                                   @Nonnegative final int nOfs,
@@ -639,7 +639,7 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImplodedNonEmpty (@Nullable final Collection <String> aElements)
   {
     return imploder ().source (aElements).filterNonEmpty ().build ();
@@ -660,9 +660,9 @@ public final class StringImplode
    *        Iterable element type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).filterNonEmpty ().build ();
   }
@@ -682,9 +682,9 @@ public final class StringImplode
    *        Array component type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nullable final ELEMENTTYPE [] aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).filterNonEmpty ().build ();
   }
@@ -700,8 +700,8 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
-  public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final Collection <String> aElements)
+  @NonNull
+  public static String getImplodedNonEmpty (@NonNull final String sSep, @Nullable final Collection <String> aElements)
   {
     return imploder ().source (aElements).separator (sSep).filterNonEmpty ().build ();
   }
@@ -717,7 +717,7 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final Collection <String> aElements)
   {
     return imploder ().source (aElements).separator (cSep).filterNonEmpty ().build ();
@@ -740,10 +740,10 @@ public final class StringImplode
    *        The element type of the collection to be imploded
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@NonNull final String sSep,
                                                                 @Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (sSep).filterNonEmpty ().build ();
   }
@@ -765,10 +765,10 @@ public final class StringImplode
    *        The element type of the collection to be imploded
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (final char cSep,
                                                                 @Nullable final Collection <? extends ELEMENTTYPE> aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (cSep).filterNonEmpty ().build ();
   }
@@ -784,8 +784,8 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
-  public static String getImplodedNonEmpty (@Nonnull final String sSep, @Nullable final String... aElements)
+  @NonNull
+  public static String getImplodedNonEmpty (@NonNull final String sSep, @Nullable final String... aElements)
   {
     return imploder ().source (aElements).separator (sSep).filterNonEmpty ().build ();
   }
@@ -801,7 +801,7 @@ public final class StringImplode
    *        The container to convert. May be <code>null</code> or empty.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImplodedNonEmpty (final char cSep, @Nullable final String... aElements)
   {
     return imploder ().source (aElements).separator (cSep).filterNonEmpty ().build ();
@@ -824,10 +824,10 @@ public final class StringImplode
    *        Array component type
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@NonNull final String sSep,
                                                                 @Nullable final ELEMENTTYPE [] aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (sSep).filterNonEmpty ().build ();
   }
@@ -849,10 +849,10 @@ public final class StringImplode
    *        Array component type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (final char cSep,
                                                                 @Nullable final ELEMENTTYPE [] aElements,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper).separator (cSep).filterNonEmpty ().build ();
   }
@@ -872,8 +872,8 @@ public final class StringImplode
    *        The number of elements to implode.
    * @return The concatenated string.
    */
-  @Nonnull
-  public static String getImplodedNonEmpty (@Nonnull final String sSep,
+  @NonNull
+  public static String getImplodedNonEmpty (@NonNull final String sSep,
                                             @Nullable final String [] aElements,
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen)
@@ -896,7 +896,7 @@ public final class StringImplode
    *        The number of elements to implode.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getImplodedNonEmpty (final char cSep,
                                             @Nullable final String [] aElements,
                                             @Nonnegative final int nOfs,
@@ -926,12 +926,12 @@ public final class StringImplode
    *        Array component type
    * @since 8.5.6
    */
-  @Nonnull
-  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@Nonnull final String sSep,
+  @NonNull
+  public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (@NonNull final String sSep,
                                                                 @Nullable final ELEMENTTYPE [] aElements,
                                                                 @Nonnegative final int nOfs,
                                                                 @Nonnegative final int nLen,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper)
                       .separator (sSep)
@@ -962,12 +962,12 @@ public final class StringImplode
    *        Array component type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> String getImplodedMappedNonEmpty (final char cSep,
                                                                 @Nullable final ELEMENTTYPE [] aElements,
                                                                 @Nonnegative final int nOfs,
                                                                 @Nonnegative final int nLen,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, String> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, String> aMapper)
   {
     return imploder ().source (aElements, aMapper)
                       .separator (cSep)
@@ -1001,16 +1001,16 @@ public final class StringImplode
       return o == null ? null : o.toString ();
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap source (@Nullable final Map <?, ?> a)
     {
       return source (a, ImploderBuilderMap::_toString, ImploderBuilderMap::_toString);
     }
 
-    @Nonnull
+    @NonNull
     public <K, V> ImploderBuilderMap source (@Nullable final Map <K, V> a,
-                                             @Nonnull final Function <? super K, String> aKeyMapper,
-                                             @Nonnull final Function <? super V, String> aValueMapper)
+                                             @NonNull final Function <? super K, String> aKeyMapper,
+                                             @NonNull final Function <? super V, String> aValueMapper)
     {
       ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
       ValueEnforcer.notNull (aValueMapper, "ValueMapper");
@@ -1025,59 +1025,59 @@ public final class StringImplode
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap separatorOuter (final char c)
     {
       return separatorOuter (Character.toString (c));
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap separatorOuter (@Nullable final String s)
     {
       m_sSeparatorOuter = s;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap separatorInner (final char c)
     {
       return separatorInner (Character.toString (c));
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap separatorInner (@Nullable final String s)
     {
       m_sSeparatorInner = s;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap filterKeyNonEmpty ()
     {
       return filterKey (StringHelper::isNotEmpty);
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap filterKey (@Nullable final Predicate <String> a)
     {
       m_aFilterKey = a;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap filterValueNonEmpty ()
     {
       return filterValue (StringHelper::isNotEmpty);
     }
 
-    @Nonnull
+    @NonNull
     public ImploderBuilderMap filterValue (@Nullable final Predicate <String> a)
     {
       m_aFilterValue = a;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public String build ()
     {
       final Map <String, String> aSource = m_aSource;
@@ -1117,7 +1117,7 @@ public final class StringImplode
    * @return A new {@link ImploderBuilderMap}.
    * @since 10.0.0
    */
-  @Nonnull
+  @NonNull
   public static ImploderBuilderMap imploderMap ()
   {
     return new ImploderBuilderMap ();
@@ -1140,9 +1140,9 @@ public final class StringImplode
    * @param <VALUETYPE>
    *        Map value type
    */
-  @Nonnull
-  public static <KEYTYPE, VALUETYPE> String getImploded (@Nonnull final String sSepOuter,
-                                                         @Nonnull final String sSepInner,
+  @NonNull
+  public static <KEYTYPE, VALUETYPE> String getImploded (@NonNull final String sSepOuter,
+                                                         @NonNull final String sSepInner,
                                                          @Nullable final Map <KEYTYPE, VALUETYPE> aElements)
   {
     return imploderMap ().source (aElements).separatorOuter (sSepOuter).separatorInner (sSepInner).build ();
@@ -1164,7 +1164,7 @@ public final class StringImplode
    * @param <VALUETYPE>
    *        Map value type
    */
-  @Nonnull
+  @NonNull
   public static <KEYTYPE, VALUETYPE> String getImploded (final char cSepOuter,
                                                          final char cSepInner,
                                                          @Nullable final Map <KEYTYPE, VALUETYPE> aElements)
@@ -1194,12 +1194,12 @@ public final class StringImplode
    *        Map value type
    * @since 8.5.6
    */
-  @Nonnull
-  public static <KEYTYPE, VALUETYPE> String getImplodedMapped (@Nonnull final String sSepOuter,
-                                                               @Nonnull final String sSepInner,
+  @NonNull
+  public static <KEYTYPE, VALUETYPE> String getImplodedMapped (@NonNull final String sSepOuter,
+                                                               @NonNull final String sSepInner,
                                                                @Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aElements,
-                                                               @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
-                                                               @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
+                                                               @NonNull final Function <? super KEYTYPE, String> aKeyMapper,
+                                                               @NonNull final Function <? super VALUETYPE, String> aValueMapper)
   {
     return imploderMap ().source (aElements, aKeyMapper, aValueMapper)
                          .separatorOuter (sSepOuter)
@@ -1228,12 +1228,12 @@ public final class StringImplode
    *        Map value type
    * @since 8.5.6
    */
-  @Nonnull
+  @NonNull
   public static <KEYTYPE, VALUETYPE> String getImplodedMapped (final char cSepOuter,
                                                                final char cSepInner,
                                                                @Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aElements,
-                                                               @Nonnull final Function <? super KEYTYPE, String> aKeyMapper,
-                                                               @Nonnull final Function <? super VALUETYPE, String> aValueMapper)
+                                                               @NonNull final Function <? super KEYTYPE, String> aKeyMapper,
+                                                               @NonNull final Function <? super VALUETYPE, String> aValueMapper)
   {
     return imploderMap ().source (aElements, aKeyMapper, aValueMapper)
                          .separatorOuter (cSepOuter)

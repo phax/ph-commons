@@ -19,10 +19,10 @@ package com.helger.collection.enumeration;
 import java.util.Enumeration;
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is a helper class to create an {@link Enumeration} from an existing
@@ -36,12 +36,12 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
 {
   private final Iterator <? extends ELEMENTTYPE> m_aIter;
 
-  public EnumerationFromIterator (@Nonnull final Iterable <? extends ELEMENTTYPE> aCont)
+  public EnumerationFromIterator (@NonNull final Iterable <? extends ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
-  public EnumerationFromIterator (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
+  public EnumerationFromIterator (@NonNull final Iterator <? extends ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
@@ -62,14 +62,14 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
     return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
   }
 
-  @Nonnull
-  public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterator <? extends ELEMENTTYPE> aIter)
+  @NonNull
+  public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@NonNull final Iterator <? extends ELEMENTTYPE> aIter)
   {
     return new EnumerationFromIterator <> (aIter);
   }
 
-  @Nonnull
-  public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@Nonnull final Iterable <? extends ELEMENTTYPE> aCont)
+  @NonNull
+  public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@NonNull final Iterable <? extends ELEMENTTYPE> aCont)
   {
     return new EnumerationFromIterator <> (aCont);
   }

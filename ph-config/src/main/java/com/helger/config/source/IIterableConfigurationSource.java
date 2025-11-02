@@ -18,12 +18,12 @@ package com.helger.config.source;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.value.ConfiguredValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a configuration source that provides all its possible keys.
@@ -41,7 +41,7 @@ public interface IIterableConfigurationSource extends IConfigurationSource
    *         in files), this order should be maintained. Never <code>null</code>
    *         but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, String> getAllConfigItems ();
 
@@ -52,7 +52,7 @@ public interface IIterableConfigurationSource extends IConfigurationSource
    *         <code>null</code> but maybe empty.
    * @see #getAllConfigItems()
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsMap <String, ConfiguredValue> getAllConfiguredValues ()
   {

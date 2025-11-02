@@ -20,6 +20,8 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,8 +32,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A straight forward implementation of {@link IHasByteArray}
@@ -55,7 +55,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param bCopyNeeded
    *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
-  public ByteArrayWrapper (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
+  public ByteArrayWrapper (@NonNull final byte [] aBytes, final boolean bCopyNeeded)
   {
     this (aBytes, 0, aBytes.length, bCopyNeeded);
   }
@@ -72,7 +72,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param bCopyNeeded
    *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
-  public ByteArrayWrapper (@Nonnull final byte [] aBytes,
+  public ByteArrayWrapper (@NonNull final byte [] aBytes,
                            @Nonnegative final int nOfs,
                            @Nonnegative final int nLength,
                            final boolean bCopyNeeded)
@@ -89,7 +89,7 @@ public final class ByteArrayWrapper implements IHasByteArray
     return m_bIsCopy;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public byte [] bytes ()
   {
@@ -164,9 +164,9 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @return The created instance. Never <code>null</code>.
    * @since 9.2.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ByteArrayWrapper create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS,
+  public static ByteArrayWrapper create (@NonNull final NonBlockingByteArrayOutputStream aBAOS,
                                          final boolean bCopyNeeded)
   {
     return new ByteArrayWrapper (aBAOS.directGetBuffer (), 0, aBAOS.size (), bCopyNeeded);
@@ -183,9 +183,9 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @return The created instance. Never <code>null</code>.
    * @since 9.2.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ByteArrayWrapper create (@Nonnull final String sText, @Nonnull final Charset aCharset)
+  public static ByteArrayWrapper create (@NonNull final String sText, @NonNull final Charset aCharset)
   {
     return new ByteArrayWrapper (sText.getBytes (aCharset), false);
   }
@@ -199,8 +199,8 @@ public final class ByteArrayWrapper implements IHasByteArray
    *        <code>true</code> if bytes should be copied, <code>false</code> otherwise.
    * @return The created instance. Never <code>null</code>.
    */
-  @Nonnull
-  public static ByteArrayWrapper create (@Nonnull final ByteBuffer aBuffer, final boolean bCopyNeeded)
+  @NonNull
+  public static ByteArrayWrapper create (@NonNull final ByteBuffer aBuffer, final boolean bCopyNeeded)
   {
     final byte [] aBytes = aBuffer.array ();
     final int nOfs = aBuffer.arrayOffset ();

@@ -21,6 +21,9 @@ import java.nio.charset.StandardCharsets;
 
 import javax.xml.namespace.NamespaceContext;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -33,9 +36,6 @@ import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IXMLWriterSettings} interface.<br>
@@ -138,7 +138,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * @param aOther
    *        The object to copy the settings from. May not be <code>null</code>.
    */
-  public XMLWriterSettings (@Nonnull final IXMLWriterSettings aOther)
+  public XMLWriterSettings (@NonNull final IXMLWriterSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
 
@@ -163,13 +163,13 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setOrderAttributesAndNamespaces (aOther.isOrderAttributesAndNamespaces ());
   }
 
-  @Nonnull
+  @NonNull
   public EXMLVersion getXMLVersion ()
   {
     return m_eSerializeVersion.getXMLVersionOrDefault (EXMLVersion.XML_10);
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeVersion getSerializeVersion ()
   {
     return m_eSerializeVersion;
@@ -182,14 +182,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The XML serialize version. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setSerializeVersion (@Nonnull final EXMLSerializeVersion eSerializeVersion)
+  @NonNull
+  public final XMLWriterSettings setSerializeVersion (@NonNull final EXMLSerializeVersion eSerializeVersion)
   {
     m_eSerializeVersion = ValueEnforcer.notNull (eSerializeVersion, "Version");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ()
   {
     return m_eSerializeXMLDecl;
@@ -202,8 +202,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        XML declaration handling. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setSerializeXMLDeclaration (@Nonnull final EXMLSerializeXMLDeclaration eSerializeXMLDecl)
+  @NonNull
+  public final XMLWriterSettings setSerializeXMLDeclaration (@NonNull final EXMLSerializeXMLDeclaration eSerializeXMLDecl)
   {
     m_eSerializeXMLDecl = ValueEnforcer.notNull (eSerializeXMLDecl, "SerializeXMLDecl");
     return this;
@@ -221,14 +221,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        <code>true</code> to print it, <code>false</code> to not print a new line.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setNewLineAfterXMLDeclaration (final boolean bNewLineAfterXMLDeclaration)
   {
     m_bNewLineAfterXMLDeclaration = bNewLineAfterXMLDeclaration;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeDocType getSerializeDocType ()
   {
     return m_eSerializeDocType;
@@ -241,14 +241,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        Doc type handling. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setSerializeDocType (@Nonnull final EXMLSerializeDocType eSerializeDocType)
+  @NonNull
+  public final XMLWriterSettings setSerializeDocType (@NonNull final EXMLSerializeDocType eSerializeDocType)
   {
     m_eSerializeDocType = ValueEnforcer.notNull (eSerializeDocType, "SerializeDocType");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeComments getSerializeComments ()
   {
     return m_eSerializeComments;
@@ -261,14 +261,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The comment handling. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setSerializeComments (@Nonnull final EXMLSerializeComments eSerializeComments)
+  @NonNull
+  public final XMLWriterSettings setSerializeComments (@NonNull final EXMLSerializeComments eSerializeComments)
   {
     m_eSerializeComments = ValueEnforcer.notNull (eSerializeComments, "SerializeComments");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getIndent ()
   {
     return m_eIndent;
@@ -281,14 +281,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        Indent and align definition. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setIndent (@Nonnull final EXMLSerializeIndent eIndent)
+  @NonNull
+  public final XMLWriterSettings setIndent (@NonNull final EXMLSerializeIndent eIndent)
   {
     m_eIndent = ValueEnforcer.notNull (eIndent, "Indent");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public IXMLIndentDeterminator getIndentDeterminator ()
   {
     return m_aIndentDeterminator;
@@ -301,14 +301,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The object to use. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setIndentDeterminator (@Nonnull final IXMLIndentDeterminator aIndentDeterminator)
+  @NonNull
+  public final XMLWriterSettings setIndentDeterminator (@NonNull final IXMLIndentDeterminator aIndentDeterminator)
   {
     m_aIndentDeterminator = ValueEnforcer.notNull (aIndentDeterminator, "IndentDeterminator");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ()
   {
     return m_eIncorrectCharacterHandling;
@@ -321,14 +321,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The invalid character handling. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setIncorrectCharacterHandling (@Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharacterHandling)
+  @NonNull
+  public final XMLWriterSettings setIncorrectCharacterHandling (@NonNull final EXMLIncorrectCharacterHandling eIncorrectCharacterHandling)
   {
     m_eIncorrectCharacterHandling = ValueEnforcer.notNull (eIncorrectCharacterHandling, "IncorrectCharacterHandling");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public Charset getCharset ()
   {
     return m_aCharset;
@@ -341,14 +341,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The charset to be used. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public final XMLWriterSettings setCharset (@Nonnull final Charset aCharset)
+  @NonNull
+  public final XMLWriterSettings setCharset (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public NamespaceContext getNamespaceContext ()
   {
     return m_aNamespaceContext;
@@ -361,7 +361,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *        The namespace context to be used. May be <code>null</code>.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
     // A namespace context must always be present, to resolve default namespaces
@@ -374,21 +374,21 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bUseDoubleQuotesForAttributes;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setUseDoubleQuotesForAttributes (final boolean bUseDoubleQuotesForAttributes)
   {
     m_bUseDoubleQuotesForAttributes = bUseDoubleQuotesForAttributes;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public IXMLBracketModeDeterminator getBracketModeDeterminator ()
   {
     return m_aBracketModeDeterminator;
   }
 
-  @Nonnull
-  public final XMLWriterSettings setBracketModeDeterminator (@Nonnull final IXMLBracketModeDeterminator aBracketModeDeterminator)
+  @NonNull
+  public final XMLWriterSettings setBracketModeDeterminator (@NonNull final IXMLBracketModeDeterminator aBracketModeDeterminator)
   {
     ValueEnforcer.notNull (aBracketModeDeterminator, "BracketModeDeterminator");
     m_aBracketModeDeterminator = aBracketModeDeterminator;
@@ -400,35 +400,35 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bSpaceOnSelfClosedElement;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setSpaceOnSelfClosedElement (final boolean bSpaceOnSelfClosedElement)
   {
     m_bSpaceOnSelfClosedElement = bSpaceOnSelfClosedElement;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public ENewLineMode getNewLineMode ()
   {
     return m_eNewLineMode;
   }
 
-  @Nonnull
-  public final XMLWriterSettings setNewLineMode (@Nonnull final ENewLineMode eNewLineMode)
+  @NonNull
+  public final XMLWriterSettings setNewLineMode (@NonNull final ENewLineMode eNewLineMode)
   {
     m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getIndentationString ()
   {
     return m_sIndentationString;
   }
 
-  @Nonnull
-  public final XMLWriterSettings setIndentationString (@Nonnull @Nonempty final String sIndentationString)
+  @NonNull
+  public final XMLWriterSettings setIndentationString (@NonNull @Nonempty final String sIndentationString)
   {
     m_sIndentationString = ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
     m_sIndentationStringToString = null;
@@ -440,7 +440,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bEmitNamespaces;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setEmitNamespaces (final boolean bEmitNamespaces)
   {
     m_bEmitNamespaces = bEmitNamespaces;
@@ -452,7 +452,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bPutNamespaceContextPrefixesInRoot;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setPutNamespaceContextPrefixesInRoot (final boolean bPutNamespaceContextPrefixesInRoot)
   {
     m_bPutNamespaceContextPrefixesInRoot = bPutNamespaceContextPrefixesInRoot;
@@ -464,7 +464,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bWriteCDATAAsText;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setWriteCDATAAsText (final boolean bWriteCDATAAsText)
   {
     m_bWriteCDATAAsText = bWriteCDATAAsText;
@@ -476,14 +476,14 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_bOrderAttributesAndNamespaces;
   }
 
-  @Nonnull
+  @NonNull
   public final XMLWriterSettings setOrderAttributesAndNamespaces (final boolean bOrderAttributesAndNamespaces)
   {
     m_bOrderAttributesAndNamespaces = bOrderAttributesAndNamespaces;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public XMLWriterSettings getClone ()
   {
     return new XMLWriterSettings (this);
@@ -574,7 +574,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForHTML4 ()
   {
@@ -586,7 +586,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForXHTML ()
   {
@@ -598,7 +598,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForHTML5 ()
   {
@@ -636,7 +636,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    *
    * @return {@link XMLWriterSettings} for canonicalization
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForCanonicalization ()
   {

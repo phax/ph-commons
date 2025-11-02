@@ -19,13 +19,13 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link IJsonValueSerializer} implementation that uses {@link TypeConverter}
@@ -40,13 +40,13 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   private JsonValueSerializerTypeConverterToString ()
   {}
 
-  @Nonnull
+  @NonNull
   public static JsonValueSerializerTypeConverterToString getInstance ()
   {
     return INSTANCE;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 

@@ -19,6 +19,8 @@ package com.helger.xml.schema;
 import javax.xml.XMLConstants;
 import javax.xml.validation.SchemaFactory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
 
@@ -32,9 +34,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class is used to cache XML schema objects.
@@ -61,7 +60,7 @@ public class XMLSchemaCache extends SchemaCache
    *
    * @return A new {@link SchemaFactory} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SchemaFactory createXSDSchemaFactory ()
   {
     return SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -87,7 +86,7 @@ public class XMLSchemaCache extends SchemaCache
     this (createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
   }
 
-  public XMLSchemaCache (@Nonnull final SchemaFactory aSchemaFactory,
+  public XMLSchemaCache (@NonNull final SchemaFactory aSchemaFactory,
                          @Nullable final ErrorHandler aErrorHandler,
                          @Nullable final LSResourceResolver aResourceResolver)
   {
@@ -99,7 +98,7 @@ public class XMLSchemaCache extends SchemaCache
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static XMLSchemaCache getInstance ()
   {
     final XMLSchemaCache ret = SingletonHolder.INSTANCE;
@@ -107,13 +106,13 @@ public class XMLSchemaCache extends SchemaCache
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final IHasClassLoader aClassLoaderProvider)
   {
     return getInstanceOfClassLoader (aClassLoaderProvider == null ? null : aClassLoaderProvider.getClassLoader ());
   }
 
-  @Nonnull
+  @NonNull
   public static XMLSchemaCache getInstanceOfClassLoader (@Nullable final ClassLoader aClassLoader)
   {
     if (aClassLoader == null)
@@ -135,7 +134,7 @@ public class XMLSchemaCache extends SchemaCache
     return aCache;
   }
 
-  @Nonnull
+  @NonNull
   public static EChange clearPerClassLoaderCache ()
   {
     return RW_LOCK.writeLockedGet (PER_CL_CACHE::removeAll);

@@ -18,12 +18,12 @@ package com.helger.config.fallback;
 
 import java.math.BigDecimal;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.config.IConfig;
 import com.helger.config.value.ConfiguredValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is an extended configuration interface that supports the resolution of
@@ -48,7 +48,7 @@ public interface IConfigWithFallback extends IConfig
    * @see #getConfiguredValue(String)
    */
   @Nullable
-  ConfiguredValue getConfiguredValueOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
+  ConfiguredValue getConfiguredValueOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
    * Get the configuration value as a String based on the primary or the
@@ -63,7 +63,7 @@ public interface IConfigWithFallback extends IConfig
    *         property keys could be resolved.
    */
   @Nullable
-  String getAsStringOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
+  String getAsStringOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
    * Get the configuration value as a char array based on the primary or the
@@ -79,7 +79,7 @@ public interface IConfigWithFallback extends IConfig
    * @since 11.1.10
    */
   @Nullable
-  char [] getAsCharArrayOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
+  char [] getAsCharArrayOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
    * Get the configuration value as a BigDecimal based on the primary or the
@@ -94,7 +94,7 @@ public interface IConfigWithFallback extends IConfig
    *         property keys could be resolved.
    */
   @Nullable
-  BigDecimal getAsBigDecimalOrFallback (@Nonnull String sPrimary, @Nonnull @Nonempty String... aOldOnes);
+  BigDecimal getAsBigDecimalOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
    * Get the configuration value as a int based on the primary or the
@@ -113,7 +113,7 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
    */
-  int getAsIntOrFallback (@Nonnull String sPrimary, int nBogus, int nDefault, @Nonnull @Nonempty String... aOldOnes);
+  int getAsIntOrFallback (@NonNull String sPrimary, int nBogus, int nDefault, @NonNull @Nonempty String... aOldOnes);
 
   /**
    * Get the configuration value as a long based on the primary or the
@@ -132,8 +132,8 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration
    *         property keys could be resolved.
    */
-  long getAsLongOrFallback (@Nonnull String sPrimary,
+  long getAsLongOrFallback (@NonNull String sPrimary,
                             long nBogus,
                             long nDefault,
-                            @Nonnull @Nonempty String... aOldOnes);
+                            @NonNull @Nonempty String... aOldOnes);
 }

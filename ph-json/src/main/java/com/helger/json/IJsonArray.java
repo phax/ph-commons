@@ -18,6 +18,9 @@ package com.helger.json;
 
 import java.util.function.ObjIntConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
@@ -31,9 +34,6 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.typeconvert.trait.IGetterByIndexTrait;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * JSON array.
  *
@@ -46,7 +46,7 @@ public interface IJsonArray extends
                             IGenericAdderTrait <IJson, IJsonArray>
 {
   /* Implementation for IGenericAdderTrait */
-  @Nonnull
+  @NonNull
   default ITypeConverterTo <IJson> getTypeConverterTo ()
   {
     return TypeConverterToIJson.INSTANCE;
@@ -55,7 +55,7 @@ public interface IJsonArray extends
   @Nonnegative
   int size ();
 
-  @Nonnull
+  @NonNull
   default IJsonArray addIfNotEmpty (@Nullable final String sValue)
   {
     if (StringHelper.isNotEmpty (sValue))
@@ -66,7 +66,7 @@ public interface IJsonArray extends
   @Nullable
   IJson removeAndReturnAtIndex (@Nonnegative int nIndex);
 
-  @Nonnull
+  @NonNull
   EChange removeAtIndex (@Nonnegative int nIndex);
 
   /**
@@ -149,14 +149,14 @@ public interface IJsonArray extends
    *        The end index. Must be &ge; start index.
    * @return A non-<code>null</code> JSON array.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   IJsonArray getSubArray (@Nonnegative int nStartIndex, @Nonnegative int nEndIndex);
 
   /**
    * @return A copy of all contained items. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IJson> getAll ();
 
@@ -167,7 +167,7 @@ public interface IJsonArray extends
    *        Consumer with the first param being the value and second param being the 0-based index.
    */
   @Override
-  void forEachByIndex (@Nonnull ObjIntConsumer <? super IJson> aConsumer);
+  void forEachByIndex (@NonNull ObjIntConsumer <? super IJson> aConsumer);
 
   /**
    * Check if the passed value is directly contained in the array or not.
@@ -254,7 +254,7 @@ public interface IJsonArray extends
    * @return An iterator that only iterates over child arrays.
    * @since 9.4.7
    */
-  @Nonnull
+  @NonNull
   default IIterableIterator <IJsonArray> iteratorArrays ()
   {
     return new MapperIterator <> (new FilterIterator <> (this, IJson::isArray), IJson::getAsArray);
@@ -264,7 +264,7 @@ public interface IJsonArray extends
    * @return An iterator that only iterates over child objects.
    * @since 9.4.7
    */
-  @Nonnull
+  @NonNull
   default IIterableIterator <IJsonObject> iteratorObjects ()
   {
     return new MapperIterator <> (new FilterIterator <> (this, IJson::isObject), IJson::getAsObject);
@@ -274,7 +274,7 @@ public interface IJsonArray extends
    * @return An iterator that only iterates over child values.
    * @since 9.4.7
    */
-  @Nonnull
+  @NonNull
   default IIterableIterator <IJsonValue> iteratorValues ()
   {
     return new MapperIterator <> (new FilterIterator <> (this, IJson::isValue), IJson::getAsValue);
@@ -283,10 +283,10 @@ public interface IJsonArray extends
   /**
    * @return A list of all cloned values contained in this array. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IJson> getClonedValues ();
 
-  @Nonnull
+  @NonNull
   IJsonArray getClone ();
 }

@@ -16,6 +16,9 @@
  */
 package com.helger.http.basicauth;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Credentials for HTTP basic authentication
@@ -44,7 +44,7 @@ public class BasicAuthClientCredentials
    * @param sUserName
    *        The user name to use. May neither be <code>null</code> nor empty.
    */
-  public BasicAuthClientCredentials (@Nonnull @Nonempty final String sUserName)
+  public BasicAuthClientCredentials (@NonNull @Nonempty final String sUserName)
   {
     this (sUserName, null);
   }
@@ -58,7 +58,7 @@ public class BasicAuthClientCredentials
    *        The password to use. May be <code>null</code> or empty to indicate that no password is
    *        present.
    */
-  public BasicAuthClientCredentials (@Nonnull @Nonempty final String sUserName, @Nullable final String sPassword)
+  public BasicAuthClientCredentials (@NonNull @Nonempty final String sUserName, @Nullable final String sPassword)
   {
     m_sUserName = ValueEnforcer.notEmpty (sUserName, "UserName");
     // No difference between null and empty string
@@ -68,7 +68,7 @@ public class BasicAuthClientCredentials
   /**
    * @return The user name. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getUserName ()
   {
@@ -98,7 +98,7 @@ public class BasicAuthClientCredentials
    *
    * @return The HTTP header value to use. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getRequestValue ()
   {

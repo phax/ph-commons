@@ -23,13 +23,13 @@ import java.nio.charset.CharsetEncoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EContinue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special string encoder that can be used to convert a set of
@@ -59,7 +59,7 @@ public final class StringEncoder
   private final CharsetEncoder m_aEncoder;
   private int m_nReadOffset = 0;
 
-  public StringEncoder (@Nonnull final Charset aCharset)
+  public StringEncoder (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -75,7 +75,7 @@ public final class StringEncoder
     m_aEncoder.onUnmappableCharacter (CodingErrorAction.REPLACE);
   }
 
-  private void _readInputChunk (@Nonnull final String sSource)
+  private void _readInputChunk (@NonNull final String sSource)
   {
     assert m_aInChar.remaining () <= 1;
     assert m_nReadOffset < sSource.length ();
@@ -109,8 +109,8 @@ public final class StringEncoder
    *        a ByteBuffer that will be filled with data.
    * @return {@link EContinue}
    */
-  @Nonnull
-  public EContinue encode (@Nonnull final String sSource, @Nonnull final ByteBuffer aDestBuffer)
+  @NonNull
+  public EContinue encode (@NonNull final String sSource, @NonNull final ByteBuffer aDestBuffer)
   {
     ValueEnforcer.notNull (sSource, "Source");
     ValueEnforcer.notNull (aDestBuffer, "DestBuffer");
@@ -193,8 +193,8 @@ public final class StringEncoder
    *        Source string
    * @return The new byte buffer
    */
-  @Nonnull
-  public ByteBuffer getAsNewByteBuffer (@Nonnull final String sSource)
+  @NonNull
+  public ByteBuffer getAsNewByteBuffer (@NonNull final String sSource)
   {
     // Optimized for 1 byte per character strings (ASCII)
     ByteBuffer ret = ByteBuffer.allocate (sSource.length () + BUFFER_EXTRA_BYTES);
@@ -241,9 +241,9 @@ public final class StringEncoder
    *        Source string
    * @return as encoded array
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public byte [] getAsNewArray (@Nonnull final String sSource)
+  public byte [] getAsNewArray (@NonNull final String sSource)
   {
     // Optimized for short strings
     assert m_aArrayBuffer.remaining () == m_aArrayBuffer.capacity ();

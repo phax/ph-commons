@@ -19,10 +19,10 @@ package com.helger.collection.commons;
 import java.util.Collections;
 import java.util.NavigableMap;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link NavigableMap} interface based on {@link ICommonsSortedMap}.
@@ -36,14 +36,14 @@ import jakarta.annotation.Nonnull;
 public interface ICommonsNavigableMap <KEYTYPE, VALUETYPE> extends NavigableMap <KEYTYPE, VALUETYPE>, ICommonsSortedMap <KEYTYPE, VALUETYPE>
 {
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default NavigableMap <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableNavigableMap (this);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsNavigableMap <KEYTYPE, VALUETYPE> getClone ();
 }

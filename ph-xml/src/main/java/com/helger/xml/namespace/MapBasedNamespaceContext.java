@@ -21,6 +21,9 @@ import java.util.Map;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -36,9 +39,6 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a namespace context a 1:n (namespace:prefix) mapping.
@@ -107,9 +107,9 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_sDefaultNamespaceURI;
   }
 
-  @Nonnull
-  private MapBasedNamespaceContext _addMapping (@Nonnull final String sPrefix,
-                                                @Nonnull final String sNamespaceURI,
+  @NonNull
+  private MapBasedNamespaceContext _addMapping (@NonNull final String sPrefix,
+                                                @NonNull final String sNamespaceURI,
                                                 final boolean bAllowOverwrite)
   {
     ValueEnforcer.notNull (sPrefix, "Prefix");
@@ -143,8 +143,8 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    *         If another mapping for the passed prefix is already present
    * @see #setMapping(String, String)
    */
-  @Nonnull
-  public final MapBasedNamespaceContext addMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  @NonNull
+  public final MapBasedNamespaceContext addMapping (@NonNull final String sPrefix, @NonNull final String sNamespaceURI)
   {
     return _addMapping (sPrefix, sNamespaceURI, false);
   }
@@ -161,13 +161,13 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    * @return this
    * @see #addMapping(String, String)
    */
-  @Nonnull
-  public final MapBasedNamespaceContext setMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  @NonNull
+  public final MapBasedNamespaceContext setMapping (@NonNull final String sPrefix, @NonNull final String sNamespaceURI)
   {
     return _addMapping (sPrefix, sNamespaceURI, true);
   }
 
-  @Nonnull
+  @NonNull
   public final MapBasedNamespaceContext addMappings (@Nullable final IIterableNamespaceContext aOther)
   {
     if (aOther != null)
@@ -175,7 +175,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final MapBasedNamespaceContext setMappings (@Nullable final IIterableNamespaceContext aOther)
   {
     if (aOther != null)
@@ -183,7 +183,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final MapBasedNamespaceContext addMappings (@Nullable final Map <String, String> aOther)
   {
     if (aOther != null)
@@ -192,7 +192,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final MapBasedNamespaceContext setMappings (@Nullable final Map <String, String> aOther)
   {
     if (aOther != null)
@@ -210,8 +210,8 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    *        empty.
    * @return this
    */
-  @Nonnull
-  public final MapBasedNamespaceContext addDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  @NonNull
+  public final MapBasedNamespaceContext addDefaultNamespaceURI (@NonNull final String sNamespaceURI)
   {
     return addMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
@@ -225,13 +225,13 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
    *        empty.
    * @return this
    */
-  @Nonnull
-  public final MapBasedNamespaceContext setDefaultNamespaceURI (@Nonnull final String sNamespaceURI)
+  @NonNull
+  public final MapBasedNamespaceContext setDefaultNamespaceURI (@NonNull final String sNamespaceURI)
   {
     return setMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
-  @Nonnull
+  @NonNull
   public MapBasedNamespaceContext removeMapping (@Nullable final String sPrefix)
   {
     final String sNamespaceURI = m_aPrefix2NS.remove (sPrefix);
@@ -259,7 +259,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_aNS2Prefix.containsKey (sNamespaceURI);
   }
 
-  @Nonnull
+  @NonNull
   public MapBasedNamespaceContext clear ()
   {
     if (m_aPrefix2NS.isNotEmpty ())
@@ -273,7 +273,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 
   @Override
   @Nullable
-  public Iterator <String> getCustomPrefixes (@Nonnull final String sNamespaceURI)
+  public Iterator <String> getCustomPrefixes (@NonNull final String sNamespaceURI)
   {
     final ICommonsSet <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return aAllPrefixes == null ? null : aAllPrefixes.iterator ();
@@ -281,7 +281,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 
   @Override
   @Nullable
-  public String getCustomPrefix (@Nonnull final String sNamespaceURI)
+  public String getCustomPrefix (@NonNull final String sNamespaceURI)
   {
     final ICommonsSet <String> aAllPrefixes = m_aNS2Prefix.get (sNamespaceURI);
     return CollectionFind.getFirstElement (aAllPrefixes);
@@ -289,12 +289,12 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
 
   @Override
   @Nullable
-  public String getCustomNamespaceURI (@Nonnull final String sPrefix)
+  public String getCustomNamespaceURI (@NonNull final String sPrefix)
   {
     return m_aPrefix2NS.get (sPrefix);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getPrefixToNamespaceURIMap ()
   {
@@ -312,7 +312,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_aPrefix2NS.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public MapBasedNamespaceContext getClone ()
   {

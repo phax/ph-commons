@@ -16,15 +16,15 @@
  */
 package com.helger.collection.ring;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A FIFO (first in first out) ring buffer.
@@ -112,7 +112,7 @@ public class RingBufferFifo <ELEMENTTYPE>
    * @return {@link EChange#CHANGED} if the element was successfully added or if
    *         allow overwrite is active and the element was overwritten.
    */
-  @Nonnull
+  @NonNull
   public EChange put (@Nullable final ELEMENTTYPE aElement)
   {
     if (m_nAvailable < m_nCapacity)

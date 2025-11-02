@@ -19,6 +19,8 @@ package com.helger.settings.exchange.configfile;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +43,6 @@ import com.helger.settings.ISettings;
 import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.exchange.properties.SettingsPersistenceProperties;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Builder class for {@link ConfigFile} objects. By default this build class reads properties files,
  * and uses a {@link DefaultResourceProvider} to resolve config file paths.
@@ -62,56 +61,56 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   public ConfigFileBuilder ()
   {}
 
-  @Nonnull
-  public ConfigFileBuilder settingsPersistence (@Nonnull final ISettingsPersistence aSPP)
+  @NonNull
+  public ConfigFileBuilder settingsPersistence (@NonNull final ISettingsPersistence aSPP)
   {
     ValueEnforcer.notNull (aSPP, "SPP");
     m_aSPP = aSPP;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public ISettingsPersistence settingsPersistence ()
   {
     return m_aSPP;
   }
 
-  @Nonnull
-  public ConfigFileBuilder resourceProvider (@Nonnull final IReadableResourceProvider aResProvider)
+  @NonNull
+  public ConfigFileBuilder resourceProvider (@NonNull final IReadableResourceProvider aResProvider)
   {
     ValueEnforcer.notNull (aResProvider, "ResProvider");
     m_aResProvider = aResProvider;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public IReadableResourceProvider resourceProvider ()
   {
     return m_aResProvider;
   }
 
-  @Nonnull
-  public ConfigFileBuilder addPathFromSystemProperty (@Nonnull @Nonempty final String sSystemPropertyName)
+  @NonNull
+  public ConfigFileBuilder addPathFromSystemProperty (@NonNull @Nonempty final String sSystemPropertyName)
   {
     ValueEnforcer.notEmpty (sSystemPropertyName, "SystemPropertyName");
     return addPath ( () -> SystemProperties.getPropertyValueOrNull (sSystemPropertyName));
   }
 
-  @Nonnull
-  public ConfigFileBuilder addPathFromEnvVar (@Nonnull @Nonempty final String sEnvVarName)
+  @NonNull
+  public ConfigFileBuilder addPathFromEnvVar (@NonNull @Nonempty final String sEnvVarName)
   {
     ValueEnforcer.notEmpty (sEnvVarName, "EnvVarName");
     return addPath ( () -> System.getenv ().get (sEnvVarName));
   }
 
-  @Nonnull
-  public ConfigFileBuilder addPath (@Nonnull final Supplier <? extends String> aSupplier)
+  @NonNull
+  public ConfigFileBuilder addPath (@NonNull final Supplier <? extends String> aSupplier)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
     return addPath (aSupplier.get ());
   }
 
-  @Nonnull
+  @NonNull
   public ConfigFileBuilder addPath (@Nullable final String sConfigPath)
   {
     if (StringHelper.isNotEmpty (sConfigPath))
@@ -119,8 +118,8 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
-  @Nonnull
-  public ConfigFileBuilder addPaths (@Nonnull final String... aConfigPaths)
+  @NonNull
+  public ConfigFileBuilder addPaths (@NonNull final String... aConfigPaths)
   {
     ValueEnforcer.notNullNoNullValue (aConfigPaths, "ConfigPaths");
     for (final String sPath : aConfigPaths)
@@ -128,8 +127,8 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
-  @Nonnull
-  public ConfigFileBuilder addPaths (@Nonnull final Iterable <String> aConfigPaths)
+  @NonNull
+  public ConfigFileBuilder addPaths (@NonNull final Iterable <String> aConfigPaths)
   {
     ValueEnforcer.notNullNoNullValue (aConfigPaths, "ConfigPaths");
     for (final String sPath : aConfigPaths)
@@ -137,45 +136,45 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
-  @Nonnull
-  public ConfigFileBuilder path (@Nonnull @Nonempty final String sConfigPath)
+  @NonNull
+  public ConfigFileBuilder path (@NonNull @Nonempty final String sConfigPath)
   {
     ValueEnforcer.notEmpty (sConfigPath, "ConfigPath");
     m_aPaths.set (sConfigPath);
     return this;
   }
 
-  @Nonnull
-  public ConfigFileBuilder paths (@Nonnull @Nonempty final String... aConfigPaths)
+  @NonNull
+  public ConfigFileBuilder paths (@NonNull @Nonempty final String... aConfigPaths)
   {
     ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
     m_aPaths.setAll (aConfigPaths);
     return this;
   }
 
-  @Nonnull
-  public ConfigFileBuilder paths (@Nonnull @Nonempty final Iterable <String> aConfigPaths)
+  @NonNull
+  public ConfigFileBuilder paths (@NonNull @Nonempty final Iterable <String> aConfigPaths)
   {
     ValueEnforcer.notEmptyNoNullValue (aConfigPaths, "ConfigPaths");
     m_aPaths.setAll (aConfigPaths);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllPaths ()
   {
     return m_aPaths.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   public ICommonsIterable <String> paths ()
   {
     return m_aPaths;
   }
 
-  @Nonnull
+  @NonNull
   public ConfigFile build ()
   {
     if (m_aPaths.isEmpty ())

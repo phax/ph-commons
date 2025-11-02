@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,8 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.system.SystemProperties;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Utility class for dealing with the Java class path.
@@ -48,7 +48,7 @@ public final class ClassPathHelper
   /**
    * @return A non-<code>null</code> list of all directories and files currently in the class path.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static List <String> getAllClassPathEntries ()
   {
@@ -63,7 +63,7 @@ public final class ClassPathHelper
    * @param aConsumer
    *        The target consumer invoked for all entries. May not be <code>null</code>.
    */
-  public static void forAllClassPathEntries (@Nonnull final Consumer <? super String> aConsumer)
+  public static void forAllClassPathEntries (@NonNull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     StringHelper.explode (SystemProperties.getPathSeparator (), SystemProperties.getJavaClassPath (), aConsumer);
@@ -75,7 +75,7 @@ public final class ClassPathHelper
    * @param aPS
    *        The print stream to print to. May not be <code>null</code>.
    */
-  public static void printClassPathEntries (@Nonnull final PrintStream aPS)
+  public static void printClassPathEntries (@NonNull final PrintStream aPS)
   {
     printClassPathEntries (aPS, ENewLineMode.DEFAULT.getText ());
   }
@@ -88,7 +88,7 @@ public final class ClassPathHelper
    * @param sItemSeparator
    *        The separator to be printed between each item.
    */
-  public static void printClassPathEntries (@Nonnull final PrintStream aPS, @Nonnull final String sItemSeparator)
+  public static void printClassPathEntries (@NonNull final PrintStream aPS, @NonNull final String sItemSeparator)
   {
     forAllClassPathEntries (x -> {
       aPS.print (x);

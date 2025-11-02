@@ -18,15 +18,15 @@ package com.helger.text.resolve;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.lang.EnumHelper;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.statistics.impl.StatisticsManager;
 import com.helger.text.IHasText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Resolves texts either from an override, a text provider or otherwise uses a
@@ -85,7 +85,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
    * @return The string in the passed locale. May be <code>null</code>.
    */
   @Nullable
-  protected abstract String internalGetOverrideString (@Nonnull String sID, @Nonnull Locale aContentLocale);
+  protected abstract String internalGetOverrideString (@NonNull String sID, @NonNull Locale aContentLocale);
 
   /**
    * This method must return the fallback string for the passed parameters. This
@@ -99,12 +99,12 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
    * @return The string in the passed locale. May be <code>null</code>.
    */
   @Nullable
-  protected abstract String internalGetFallbackString (@Nonnull String sID, @Nonnull Locale aContentLocale);
+  protected abstract String internalGetFallbackString (@NonNull String sID, @NonNull Locale aContentLocale);
 
   @Nullable
-  public final String getText (@Nonnull final Enum <?> aEnum,
-                               @Nonnull final IHasText aTP,
-                               @Nonnull final Locale aContentLocale)
+  public final String getText (@NonNull final Enum <?> aEnum,
+                               @NonNull final IHasText aTP,
+                               @NonNull final Locale aContentLocale)
   {
     // Get the unique text element ID
     final String sID = EnumHelper.getEnumID (aEnum);

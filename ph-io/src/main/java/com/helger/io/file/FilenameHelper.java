@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.base.system.EOperatingSystem;
 import com.helger.base.system.SystemHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * All kind of file name handling stuff. This class gives you platform independent file name
@@ -222,7 +221,7 @@ public final class FilenameHelper
    *         otherwise. Never <code>null</code>.
    * @see #getExtension(String)
    */
-  @Nonnull
+  @NonNull
   public static String getExtension (@Nullable final File aFile)
   {
     return aFile == null ? "" : getExtension (aFile.getName ());
@@ -237,7 +236,7 @@ public final class FilenameHelper
    *         otherwise. Never <code>null</code>.
    * @see #getIndexOfExtension(String)
    */
-  @Nonnull
+  @NonNull
   public static String getExtension (@Nullable final String sFilename)
   {
     final int nIndex = getIndexOfExtension (sFilename);
@@ -259,7 +258,7 @@ public final class FilenameHelper
    *         <code>false</code>.
    * @see #getExtension(File)
    */
-  public static boolean hasExtension (@Nullable final File aFile, @Nonnull final String... aExtensions)
+  public static boolean hasExtension (@Nullable final File aFile, @NonNull final String... aExtensions)
   {
     ValueEnforcer.notNull (aExtensions, "Extensions");
 
@@ -284,7 +283,7 @@ public final class FilenameHelper
    *         <code>false</code>.
    * @see #getExtension(String)
    */
-  public static boolean hasExtension (@Nullable final String sFilename, @Nonnull final String... aExtensions)
+  public static boolean hasExtension (@Nullable final String sFilename, @NonNull final String... aExtensions)
   {
     ValueEnforcer.notNull (aExtensions, "Extensions");
 
@@ -822,7 +821,7 @@ public final class FilenameHelper
    * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isUNCPath(String)
    */
-  public static boolean isUNCPath (@Nonnull final File aFile)
+  public static boolean isUNCPath (@NonNull final File aFile)
   {
     final String sPath = aFile.getAbsolutePath ();
     return isUNCPath (sPath);
@@ -837,7 +836,7 @@ public final class FilenameHelper
    * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isUNCPath(File)
    */
-  public static boolean isUNCPath (@Nonnull final String sFilename)
+  public static boolean isUNCPath (@NonNull final String sFilename)
   {
     return sFilename.startsWith (WINDOWS_UNC_PREFIX) || sFilename.startsWith (UNIX_UNC_PREFIX);
   }
@@ -851,7 +850,7 @@ public final class FilenameHelper
    * @return <code>true</code> if the file points to an UNC path, <code>false</code> if not.
    * @see #isWindowsLocalUNCPath(String)
    */
-  public static boolean isWindowsLocalUNCPath (@Nonnull final File aFile)
+  public static boolean isWindowsLocalUNCPath (@NonNull final File aFile)
   {
     final String sPath = aFile.getAbsolutePath ();
     return isWindowsLocalUNCPath (sPath);
@@ -867,7 +866,7 @@ public final class FilenameHelper
    *         not.
    * @see #isWindowsLocalUNCPath(File)
    */
-  public static boolean isWindowsLocalUNCPath (@Nonnull final String sFilename)
+  public static boolean isWindowsLocalUNCPath (@NonNull final String sFilename)
   {
     return sFilename.startsWith (WINDOWS_UNC_PREFIX_LOCAL1) || sFilename.startsWith (WINDOWS_UNC_PREFIX_LOCAL2);
   }
@@ -885,8 +884,8 @@ public final class FilenameHelper
    * @see #getPathUsingUnixSeparator(String)
    * @see #getCleanPath(String)
    */
-  @Nonnull
-  public static String getCleanPath (@Nonnull final File aFile)
+  @NonNull
+  public static String getCleanPath (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -1040,8 +1039,8 @@ public final class FilenameHelper
    * @return The combined, cleaned path.
    * @see #getCleanPath(String)
    */
-  @Nonnull
-  public static String getCleanConcatenatedUrlPath (@Nonnull final String sURL, @Nonnull final String sPath)
+  @NonNull
+  public static String getCleanConcatenatedUrlPath (@NonNull final String sURL, @NonNull final String sPath)
   {
     ValueEnforcer.notNull (sURL, "URL");
     ValueEnforcer.notNull (sPath, "Path");
@@ -1133,7 +1132,7 @@ public final class FilenameHelper
    * @see #startsWithPathSeparatorChar(CharSequence)
    */
   @Nullable
-  public static String getRelativeToParentDirectory (@Nonnull final File aFile, @Nullable final File aParentDirectory)
+  public static String getRelativeToParentDirectory (@NonNull final File aFile, @Nullable final File aParentDirectory)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -1172,8 +1171,8 @@ public final class FilenameHelper
    * @see #getCleanPath(File)
    */
   @Nullable
-  public static String getAbsoluteWithEnsuredParentDirectory (@Nonnull final File aParentDirectory,
-                                                              @Nonnull final String sFilePath)
+  public static String getAbsoluteWithEnsuredParentDirectory (@NonNull final File aParentDirectory,
+                                                              @NonNull final String sFilePath)
   {
     ValueEnforcer.notNull (aParentDirectory, "ParentDirectory");
     ValueEnforcer.notNull (sFilePath, "FilePath");

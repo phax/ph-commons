@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for top and bottom
@@ -33,8 +33,8 @@ public enum ETopBottom implements ITopBottomIndicator
     return this == TOP;
   }
 
-  @Nonnull
-  public static ETopBottom valueOf (@Nonnull final ITopBottomIndicator aTopBottomIndicator)
+  @NonNull
+  public static ETopBottom valueOf (@NonNull final ITopBottomIndicator aTopBottomIndicator)
   {
     return aTopBottomIndicator.isTop () ? TOP : BOTTOM;
   }

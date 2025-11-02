@@ -20,14 +20,14 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.ISessionScope;
 import com.helger.scope.mgr.ScopeManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the base class for singleton objects that reside in the session
@@ -42,12 +42,12 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
   protected AbstractSessionSingleton ()
   {}
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     writeAbstractSingletonFields (aOOS);
   }
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     readAbstractSingletonFields (aOIS);
   }
@@ -59,7 +59,7 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
    *        scope or no session scope is present.
    * @return The scope to be used for this type of singleton.
    */
-  @Nonnull
+  @NonNull
   private static ISessionScope _getStaticScope (final boolean bCreateIfNotExisting)
   {
     return ScopeManager.getSessionScope (bCreateIfNotExisting);
@@ -76,8 +76,8 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
    *        be public as needs to have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
-  @Nonnull
-  public static final <T extends AbstractSessionSingleton> T getSessionSingleton (@Nonnull final Class <T> aClass)
+  @NonNull
+  public static final <T extends AbstractSessionSingleton> T getSessionSingleton (@NonNull final Class <T> aClass)
   {
     return getSingleton (_getStaticScope (true), aClass);
   }
@@ -94,7 +94,7 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
    *         <code>null</code> otherwise.
    */
   @Nullable
-  public static final <T extends AbstractSessionSingleton> T getSessionSingletonIfInstantiated (@Nonnull final Class <T> aClass)
+  public static final <T extends AbstractSessionSingleton> T getSessionSingletonIfInstantiated (@NonNull final Class <T> aClass)
   {
     return getSingletonIfInstantiated (_getStaticScope (false), aClass);
   }
@@ -108,7 +108,7 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
    * @return <code>true</code> if the singleton for the specified class is
    *         already instantiated, <code>false</code> otherwise.
    */
-  public static final boolean isSessionSingletonInstantiated (@Nonnull final Class <? extends AbstractSessionSingleton> aClass)
+  public static final boolean isSessionSingletonInstantiated (@NonNull final Class <? extends AbstractSessionSingleton> aClass)
   {
     return isSingletonInstantiated (_getStaticScope (false), aClass);
   }
@@ -120,7 +120,7 @@ public abstract class AbstractSessionSingleton extends AbstractSingleton
    * @return A non-<code>null</code> list with all instances of this class in
    *         the current session scope.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static final ICommonsList <AbstractSessionSingleton> getAllSessionSingletons ()
   {

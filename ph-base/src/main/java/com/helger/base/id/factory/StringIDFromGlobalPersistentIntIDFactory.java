@@ -16,7 +16,7 @@
  */
 package com.helger.base.id.factory;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An {@link IStringIDFactory} implementation that uses a constant prefix and an
@@ -32,7 +32,7 @@ public class StringIDFromGlobalPersistentIntIDFactory extends StringIDFactory
     this (GlobalIDFactory.DEFAULT_PREFIX);
   }
 
-  public StringIDFromGlobalPersistentIntIDFactory (@Nonnull final String sPrefix)
+  public StringIDFromGlobalPersistentIntIDFactory (@NonNull final String sPrefix)
   {
     super (sPrefix, () -> Integer.toString (GlobalIDFactory.getNewPersistentIntID ()));
   }

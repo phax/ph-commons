@@ -16,13 +16,13 @@
  */
 package com.helger.xml.serialize.write;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.xml.EXMLVersion;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * XML serialization version.
@@ -43,13 +43,13 @@ public enum EXMLSerializeVersion implements IHasID <String>
   private final String m_sID;
   private final EXMLVersion m_eXMLVersion;
 
-  EXMLSerializeVersion (@Nonnull @Nonempty final String sID, @Nullable final EXMLVersion eXMLVersion)
+  EXMLSerializeVersion (@NonNull @Nonempty final String sID, @Nullable final EXMLVersion eXMLVersion)
   {
     m_sID = sID;
     m_eXMLVersion = eXMLVersion;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -97,8 +97,8 @@ public enum EXMLSerializeVersion implements IHasID <String>
    *        XML version to query. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static EXMLSerializeVersion getFromXMLVersionOrThrow (@Nonnull final EXMLVersion eXMLVersion)
+  @NonNull
+  public static EXMLSerializeVersion getFromXMLVersionOrThrow (@NonNull final EXMLVersion eXMLVersion)
   {
     switch (eXMLVersion)
     {

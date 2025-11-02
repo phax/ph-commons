@@ -16,12 +16,12 @@
  */
 package com.helger.commons.debug;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.system.CSystemProperty;
 import com.helger.base.system.SystemProperties;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Extension to class {@link GlobalDebug}

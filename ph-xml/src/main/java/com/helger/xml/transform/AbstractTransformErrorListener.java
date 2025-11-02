@@ -19,6 +19,8 @@ package com.helger.xml.transform;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.tostring.ToStringGenerator;
@@ -27,8 +29,6 @@ import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.text.IMultilingualText;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract implementation of a transformation {@link ErrorListener}.
@@ -40,10 +40,10 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
   protected AbstractTransformErrorListener ()
   {}
 
-  @Nonnull
-  private static IError _buildError (@Nonnull final TransformerException ex,
-                                     @Nonnull final IErrorLevel aErrorLevel,
-                                     @Nonnull final IMultilingualText aErrorMsg)
+  @NonNull
+  private static IError _buildError (@NonNull final TransformerException ex,
+                                     @NonNull final IErrorLevel aErrorLevel,
+                                     @NonNull final IMultilingualText aErrorMsg)
   {
     final ILocation aLocation = SimpleLocation.create (ex.getLocator ());
     return SingleError.builder ()
@@ -60,19 +60,19 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
    * @param aResError
    *        The resource error to be handled. Never <code>null</code>.
    */
-  protected abstract void internalLog (@Nonnull final IError aResError);
+  protected abstract void internalLog (@NonNull final IError aResError);
 
-  public final void warning (@Nonnull final TransformerException ex) throws TransformerException
+  public final void warning (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.WARN, EXMLTransformTexts.TRANSFORMATION_WARNING.getAsMLT ()));
   }
 
-  public final void error (@Nonnull final TransformerException ex) throws TransformerException
+  public final void error (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.ERROR, EXMLTransformTexts.TRANSFORMATION_ERROR.getAsMLT ()));
   }
 
-  public final void fatalError (@Nonnull final TransformerException ex) throws TransformerException
+  public final void fatalError (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.FATAL_ERROR, EXMLTransformTexts.TRANSFORMATION_FATAL_ERROR.getAsMLT ()));
   }

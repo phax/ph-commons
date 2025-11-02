@@ -20,6 +20,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.Immutable;
@@ -29,9 +32,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class offers helper methods that work on cached regular expression pattern as offered by
@@ -60,8 +60,8 @@ public final class RegExHelper
    *         otherwise. If both text and regular expression are <code>null</code> an empty array is
    *         returned as well since the text parameter is checked first.
    */
-  @Nonnull
-  public static String [] getSplitToArray (@Nullable final CharSequence sText, @Nonnull @RegEx final String sRegEx)
+  @NonNull
+  public static String [] getSplitToArray (@Nullable final CharSequence sText, @NonNull @RegEx final String sRegEx)
   {
     if (sText == null)
       return CGlobal.EMPTY_STRING_ARRAY;
@@ -84,9 +84,9 @@ public final class RegExHelper
    *         otherwise. If both text and regular expression are <code>null</code> an empty array is
    *         returned as well since the text parameter is checked first.
    */
-  @Nonnull
+  @NonNull
   public static String [] getSplitToArray (@Nullable final CharSequence sText,
-                                           @Nonnull @RegEx final String sRegEx,
+                                           @NonNull @RegEx final String sRegEx,
                                            @Nonnegative final int nLimit)
   {
     ValueEnforcer.notNull (sRegEx, "RegEx");
@@ -107,9 +107,9 @@ public final class RegExHelper
    *         otherwise. If both text and regular expression are <code>null</code> an empty list is
    *         returned as well since the text parameter is checked first.
    */
-  @Nonnull
+  @NonNull
   public static ICommonsList <String> getSplitToList (@Nullable final CharSequence sText,
-                                                      @Nonnull @RegEx final String sRegEx)
+                                                      @NonNull @RegEx final String sRegEx)
   {
     return new CommonsArrayList <> (getSplitToArray (sText, sRegEx));
   }
@@ -129,9 +129,9 @@ public final class RegExHelper
    *         otherwise. If both text and regular expression are <code>null</code> an empty list is
    *         returned as well since the text parameter is checked first.
    */
-  @Nonnull
+  @NonNull
   public static ICommonsList <String> getSplitToList (@Nullable final CharSequence sText,
-                                                      @Nonnull @RegEx final String sRegEx,
+                                                      @NonNull @RegEx final String sRegEx,
                                                       @Nonnegative final int nLimit)
   {
     return new CommonsArrayList <> (getSplitToArray (sText, sRegEx, nLimit));
@@ -146,8 +146,8 @@ public final class RegExHelper
    *        The value to create the matcher for. May not be <code>null</code>.
    * @return A non-<code>null</code> matcher.
    */
-  @Nonnull
-  public static Matcher getMatcher (@Nonnull @RegEx final String sRegEx, @Nonnull final String sValue)
+  @NonNull
+  public static Matcher getMatcher (@NonNull @RegEx final String sRegEx, @NonNull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
 
@@ -166,10 +166,10 @@ public final class RegExHelper
    * @return A non-<code>null</code> matcher.
    * @see Pattern#compile(String, int)
    */
-  @Nonnull
-  public static Matcher getMatcher (@Nonnull @RegEx final String sRegEx,
+  @NonNull
+  public static Matcher getMatcher (@NonNull @RegEx final String sRegEx,
                                     @Nonnegative final int nOptions,
-                                    @Nonnull final String sValue)
+                                    @NonNull final String sValue)
   {
     ValueEnforcer.notNull (sValue, "Value");
 
@@ -188,7 +188,7 @@ public final class RegExHelper
    * @return <code>true</code> if the string matches the regular expression, <code>false</code>
    *         otherwise.
    */
-  public static boolean stringMatchesPattern (@Nonnull @RegEx final String sRegEx, @Nonnull final String sValue)
+  public static boolean stringMatchesPattern (@NonNull @RegEx final String sRegEx, @NonNull final String sValue)
   {
     return getMatcher (sRegEx, sValue).matches ();
   }
@@ -208,26 +208,26 @@ public final class RegExHelper
    *         otherwise.
    * @see Pattern#compile(String, int)
    */
-  public static boolean stringMatchesPattern (@Nonnull @RegEx final String sRegEx,
+  public static boolean stringMatchesPattern (@NonNull @RegEx final String sRegEx,
                                               @Nonnegative final int nOptions,
-                                              @Nonnull final String sValue)
+                                              @NonNull final String sValue)
   {
     return getMatcher (sRegEx, nOptions, sValue).matches ();
   }
 
-  @Nonnull
-  public static String stringReplacePattern (@Nonnull @RegEx final String sRegEx,
-                                             @Nonnull final String sValue,
+  @NonNull
+  public static String stringReplacePattern (@NonNull @RegEx final String sRegEx,
+                                             @NonNull final String sValue,
                                              @Nullable final String sReplacement)
   {
     // Avoid NPE on invalid replacement parameter
     return getMatcher (sRegEx, sValue).replaceAll (StringHelper.getNotNull (sReplacement));
   }
 
-  @Nonnull
-  public static String stringReplacePattern (@Nonnull @RegEx final String sRegEx,
+  @NonNull
+  public static String stringReplacePattern (@NonNull @RegEx final String sRegEx,
                                              @Nonnegative final int nOptions,
-                                             @Nonnull final String sValue,
+                                             @NonNull final String sValue,
                                              @Nullable final String sReplacement)
   {
     // Avoid NPE on invalid replacement parameter
@@ -298,7 +298,7 @@ public final class RegExHelper
    *         contains invalid characters!
    */
   @Nullable
-  public static String getAsIdentifier (@Nullable final String s, @Nonnull final String sReplacement)
+  public static String getAsIdentifier (@Nullable final String s, @NonNull final String sReplacement)
   {
     ValueEnforcer.notNull (sReplacement, "Replacement");
 
@@ -325,7 +325,7 @@ public final class RegExHelper
    *        The regular expression to validate. May not be <code>null</code>.
    * @return <code>true</code> if the pattern is valid, <code>false</code> otherwise.
    */
-  public static boolean isValidPattern (@Nonnull @RegEx final String sRegEx)
+  public static boolean isValidPattern (@NonNull @RegEx final String sRegEx)
   {
     try
     {
@@ -350,7 +350,7 @@ public final class RegExHelper
    *         array if the regular expression contains no capturing group.
    */
   @Nullable
-  public static String [] getAllMatchingGroupValues (@Nonnull @RegEx final String sRegEx, @Nonnull final String sValue)
+  public static String [] getAllMatchingGroupValues (@NonNull @RegEx final String sRegEx, @NonNull final String sValue)
   {
     final Matcher aMatcher = getMatcher (sRegEx, sValue);
     if (!aMatcher.find ())

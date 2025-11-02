@@ -16,8 +16,8 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * MicroDOM internal event.
@@ -29,7 +29,7 @@ public interface IMicroEvent
   /**
    * @return The event type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EMicroEvent getEventType ();
 
   /**

@@ -20,10 +20,10 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Interface used in writing XML to determine the real indentation and align (as
@@ -57,14 +57,14 @@ public interface IXMLIndentDeterminator
    *        {@link IXMLWriterSettings}. Never <code>null</code>.
    * @return The indentation mode to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeIndent getIndentOuter (@Nullable String sParentNamespaceURI,
                                       @Nullable String sParentTagName,
                                       @Nullable String sNamespaceURI,
-                                      @Nonnull String sTagName,
+                                      @NonNull String sTagName,
                                       @Nullable Map <QName, String> aAttrs,
                                       boolean bHasChildren,
-                                      @Nonnull EXMLSerializeIndent eDefaultIndent);
+                                      @NonNull EXMLSerializeIndent eDefaultIndent);
 
   /**
    * Determine the outer indentation mode (after the start tag and before the
@@ -88,12 +88,12 @@ public interface IXMLIndentDeterminator
    *        {@link IXMLWriterSettings}. Never <code>null</code>.
    * @return The indentation mode to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeIndent getIndentInner (@Nullable String sParentNamespaceURI,
                                       @Nullable String sParentTagName,
                                       @Nullable String sNamespaceURI,
-                                      @Nonnull String sTagName,
+                                      @NonNull String sTagName,
                                       @Nullable Map <QName, String> aAttrs,
                                       boolean bHasChildren,
-                                      @Nonnull EXMLSerializeIndent eDefaultIndent);
+                                      @NonNull EXMLSerializeIndent eDefaultIndent);
 }

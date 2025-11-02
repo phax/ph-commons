@@ -18,9 +18,9 @@ package com.helger.io.watchdir;
 
 import java.nio.file.Path;
 
-import com.helger.base.callback.ICallback;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.callback.ICallback;
 
 /**
  * The callback interface to be implemented to get notified about changes in a
@@ -40,5 +40,5 @@ public interface IWatchDirCallback extends ICallback
    * @param aPath
    *        The affected path. Never <code>null</code>.
    */
-  void onAction (@Nonnull EWatchDirAction eAction, @Nonnull Path aPath);
+  void onAction (@NonNull EWatchDirAction eAction, @NonNull Path aPath);
 }

@@ -19,6 +19,8 @@ package com.helger.config.json.source;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.json.IJson;
 import com.helger.json.IJsonArray;
 import com.helger.json.IJsonObject;
 import com.helger.json.serialize.JsonReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IConfigurationSource} for properties file based configuration
@@ -64,9 +63,9 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   @GuardedBy ("m_aRWLock")
   private ICommonsOrderedMap <String, String> m_aProps;
 
-  private static void _recursiveFlattenJson (@Nonnull final String sNamePrefix,
-                                             @Nonnull final IJson aJson,
-                                             @Nonnull final Map <String, String> aTarget)
+  private static void _recursiveFlattenJson (@NonNull final String sNamePrefix,
+                                             @NonNull final IJson aJson,
+                                             @NonNull final Map <String, String> aTarget)
   {
     if (aJson.isValue ())
       aTarget.put (sNamePrefix, aJson.getAsValue ().getAsString ());
@@ -90,8 +89,8 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   }
 
   @Nullable
-  private static ICommonsOrderedMap <String, String> _load (@Nonnull final IReadableResource aRes,
-                                                            @Nonnull final Charset aCharset)
+  private static ICommonsOrderedMap <String, String> _load (@NonNull final IReadableResource aRes,
+                                                            @NonNull final Charset aCharset)
   {
     final JsonReader.JsonBuilder aBuilder = JsonReader.builder ()
                                                       .source (aRes, aCharset)
@@ -119,7 +118,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJson (@Nonnull final IReadableResource aRes)
+  public ConfigurationSourceJson (@NonNull final IReadableResource aRes)
   {
     this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, (Charset) null);
   }
@@ -132,7 +131,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceJson (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceJson (@NonNull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
@@ -145,7 +144,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceJson (final int nPriority, @Nonnull final IReadableResource aRes)
+  public ConfigurationSourceJson (final int nPriority, @NonNull final IReadableResource aRes)
   {
     this (nPriority, aRes, (Charset) null);
   }
@@ -161,7 +160,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
    *        Character set to use. May be <code>null</code>.
    */
   public ConfigurationSourceJson (final int nPriority,
-                                  @Nonnull final IReadableResource aRes,
+                                  @NonNull final IReadableResource aRes,
                                   @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
@@ -180,7 +179,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   /**
    * @return The charset used to load the JSON. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aCharset;
@@ -191,7 +190,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
   }
 
-  @Nonnull
+  @NonNull
   public ESuccess reload ()
   {
     // Main load
@@ -202,13 +201,13 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     final String sValue = m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()
   {

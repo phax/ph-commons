@@ -21,6 +21,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillClose;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
@@ -29,9 +32,6 @@ import com.helger.base.io.stream.StringInputStream;
 import com.helger.base.state.ESuccess;
 import com.helger.io.file.FileHelper;
 import com.helger.settings.ISettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for persisting settings via input- and output streams.
@@ -43,7 +43,7 @@ public interface ISettingsPersistence
   /**
    * @return The charset for reading and writing. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   Charset getCharset ();
 
   /**
@@ -56,8 +56,8 @@ public interface ISettingsPersistence
    * @return <code>null</code> if reading failed, a non-<code>null</code>
    *         settings object otherwise.
    */
-  @Nonnull
-  default ISettings readSettings (@Nonnull final String sSettings)
+  @NonNull
+  default ISettings readSettings (@NonNull final String sSettings)
   {
     ValueEnforcer.notNull (sSettings, "Settings");
 
@@ -72,8 +72,8 @@ public interface ISettingsPersistence
    * @return <code>null</code> if reading failed, a non-<code>null</code>
    *         settings object otherwise.
    */
-  @Nonnull
-  default ISettings readSettings (@Nonnull final File aFile)
+  @NonNull
+  default ISettings readSettings (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -89,8 +89,8 @@ public interface ISettingsPersistence
    * @return <code>null</code> if reading failed, a non-<code>null</code>
    *         settings object otherwise.
    */
-  @Nonnull
-  default ISettings readSettings (@Nonnull final IHasInputStream aISP)
+  @NonNull
+  default ISettings readSettings (@NonNull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -111,7 +111,7 @@ public interface ISettingsPersistence
    *         settings object otherwise.
    */
   @Nullable
-  ISettings readSettings (@Nonnull @WillClose InputStream aIS);
+  ISettings readSettings (@NonNull @WillClose InputStream aIS);
 
   /**
    * Write settings to a String.
@@ -122,7 +122,7 @@ public interface ISettingsPersistence
    *         writing/conversion fails.
    */
   @Nullable
-  default String writeSettings (@Nonnull final ISettings aSettings)
+  default String writeSettings (@NonNull final ISettings aSettings)
   {
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
     if (writeSettings (aSettings, aBAOS).isFailure ())
@@ -140,8 +140,8 @@ public interface ISettingsPersistence
    *        <code>null</code>.
    * @return Success and never <code>null</code>.
    */
-  @Nonnull
-  default ESuccess writeSettings (@Nonnull final ISettings aSettings, @Nonnull final File aFile)
+  @NonNull
+  default ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull final File aFile)
   {
     final OutputStream aOS = FileHelper.getOutputStream (aFile);
     if (aOS == null)
@@ -160,6 +160,6 @@ public interface ISettingsPersistence
    *        must be closed by the implementing method.
    * @return Success and never <code>null</code>.
    */
-  @Nonnull
-  ESuccess writeSettings (@Nonnull ISettings aSettings, @Nonnull @WillClose OutputStream aOS);
+  @NonNull
+  ESuccess writeSettings (@NonNull ISettings aSettings, @NonNull @WillClose OutputStream aOS);
 }

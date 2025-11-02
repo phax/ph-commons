@@ -20,14 +20,14 @@ import java.lang.annotation.Annotation;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A simple cache for the usage of a certain annotation class at other classes.
@@ -54,7 +54,7 @@ public class AnnotationUsageCache
    *        The annotation class to store the existence of. It must have the
    *        {@link RetentionPolicy#RUNTIME} to be usable within this class!
    */
-  public AnnotationUsageCache (@Nonnull final Class <? extends Annotation> aAnnotationClass)
+  public AnnotationUsageCache (@NonNull final Class <? extends Annotation> aAnnotationClass)
   {
     ValueEnforcer.notNull (aAnnotationClass, "AnnotationClass");
 
@@ -73,7 +73,7 @@ public class AnnotationUsageCache
    * @return The annotation class passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Class <? extends Annotation> getAnnotationClass ()
   {
     return m_aAnnotationClass;
@@ -89,7 +89,7 @@ public class AnnotationUsageCache
    *         <code>false</code> if not.
    * @see #hasAnnotation(Class)
    */
-  public boolean hasAnnotation (@Nonnull final Object aObject)
+  public boolean hasAnnotation (@NonNull final Object aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
 
@@ -105,7 +105,7 @@ public class AnnotationUsageCache
    * @return <code>true</code> if the provided class has the annotation,
    *         <code>false</code> if not.
    */
-  public boolean hasAnnotation (@Nonnull final Class <?> aClass)
+  public boolean hasAnnotation (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -138,7 +138,7 @@ public class AnnotationUsageCache
    * @param bHasAnnotation
    *        <code>true</code> to indicate the presence, <code>false</code> to
    */
-  public void setAnnotation (@Nonnull final Class <?> aClass, final boolean bHasAnnotation)
+  public void setAnnotation (@NonNull final Class <?> aClass, final boolean bHasAnnotation)
   {
     ValueEnforcer.notNull (aClass, "Class");
 

@@ -18,12 +18,12 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The interface representing the authentication result of an
@@ -56,6 +56,6 @@ public interface IAuthIdentification extends ISuccessIndicator
    * @return The date and time the identification occurred. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LocalDateTime getIdentificationDateTime ();
 }

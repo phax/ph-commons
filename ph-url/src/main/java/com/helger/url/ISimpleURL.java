@@ -20,13 +20,13 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.url.URLHelper;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a simple URL that works around the usability issues with the Java default
@@ -36,30 +36,30 @@ import jakarta.annotation.Nullable;
  */
 public interface ISimpleURL extends IURLData
 {
-  @Nonnull
-  ISimpleURL getWithPath (@Nonnull String sPath);
+  @NonNull
+  ISimpleURL getWithPath (@NonNull String sPath);
 
-  @Nonnull
+  @NonNull
   ISimpleURL getWithParams (@Nullable ICommonsList <URLParameter> aParams);
 
-  @Nonnull
+  @NonNull
   ISimpleURL getWithAnchor (@Nullable String sAnchor);
 
-  @Nonnull
+  @NonNull
   ISimpleURL getWithCharset (@Nullable Charset aCharset);
 
   /**
    * @return The final string representation of this URL, encoding the request parameters with the
    *         charset of this URL.
    */
-  @Nonnull
+  @NonNull
   default String getAsString ()
   {
     return SimpleURLHelper.getURLString (this);
   }
 
   @Deprecated (forRemoval = true, since = "12.0.0-rc2")
-  @Nonnull
+  @NonNull
   default String getAsStringWithEncodedParameters ()
   {
     return getAsString ();
@@ -73,14 +73,14 @@ public interface ISimpleURL extends IURLData
    * @return encoded string
    */
   @Deprecated (forRemoval = true, since = "12.0.0-rc2")
-  @Nonnull
+  @NonNull
   default String getAsStringWithEncodedParameters (@Nullable final Charset aCharset)
   {
     return getWithCharset (aCharset).getAsString ();
   }
 
   @Deprecated (forRemoval = true, since = "12.0.0-rc2")
-  @Nonnull
+  @NonNull
   default String getAsStringWithoutEncodedParameters ()
   {
     return getAsString ();

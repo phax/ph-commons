@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for manager actions to indicate success or failure.
@@ -33,20 +33,20 @@ public enum ESuccess implements ISuccessIndicator
     return this == SUCCESS;
   }
 
-  @Nonnull
+  @NonNull
   public static ESuccess valueOf (final boolean bSuccess)
   {
     return bSuccess ? SUCCESS : FAILURE;
   }
 
-  @Nonnull
-  public static ESuccess valueOf (@Nonnull final ISuccessIndicator aSuccessIndicator)
+  @NonNull
+  public static ESuccess valueOf (@NonNull final ISuccessIndicator aSuccessIndicator)
   {
     return valueOf (aSuccessIndicator.isSuccess ());
   }
 
-  @Nonnull
-  public static ESuccess valueOfChange (@Nonnull final IChangeIndicator aChange)
+  @NonNull
+  public static ESuccess valueOfChange (@NonNull final IChangeIndicator aChange)
   {
     return valueOf (aChange.isChanged ());
   }

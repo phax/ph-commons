@@ -18,15 +18,14 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.concurrent.BlockingQueue;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Concurrent collector that performs action on each object separately
@@ -68,7 +67,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    * @param aQueue
    *        {@link BlockingQueue} to use. May not be <code>null</code>.
    */
-  public ConcurrentCollectorSingle (@Nonnull final BlockingQueue <Object> aQueue)
+  public ConcurrentCollectorSingle (@NonNull final BlockingQueue <Object> aQueue)
   {
     super (aQueue);
   }
@@ -95,8 +94,8 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    * @throws IllegalStateException
    *         If another performer is already present!
    */
-  @Nonnull
-  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@Nonnull final IConcurrentPerformer <DATATYPE> aPerformer)
+  @NonNull
+  public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@NonNull final IConcurrentPerformer <DATATYPE> aPerformer)
   {
     if (m_aPerformer != null)
       throw new IllegalStateException ("Another performer is already set!");

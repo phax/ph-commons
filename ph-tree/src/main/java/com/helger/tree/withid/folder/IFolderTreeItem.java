@@ -18,9 +18,9 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import com.helger.tree.withid.ITreeItemWithID;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.tree.withid.ITreeItemWithID;
 
 /**
  * This interface represents a single folder within a directory tree. Each
@@ -45,6 +45,6 @@ public interface IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
    *         aggregation of the ID with a separator and the parent's unique
    *         name.
    */
-  @Nonnull
+  @NonNull
   KEYTYPE getGlobalUniqueDataID ();
 }

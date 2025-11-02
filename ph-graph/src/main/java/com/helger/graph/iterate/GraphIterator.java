@@ -18,6 +18,9 @@ package com.helger.graph.iterate;
 
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -28,9 +31,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple iterator for undirected graphs.
@@ -52,7 +52,7 @@ public final class GraphIterator implements ICommonsIterableIterator <IMutableGr
    */
   private boolean m_bHasCycles = false;
 
-  public GraphIterator (@Nonnull final IMutableGraphNode aStartNode)
+  public GraphIterator (@NonNull final IMutableGraphNode aStartNode)
   {
     ValueEnforcer.notNull (aStartNode, "startNode");
 
@@ -62,8 +62,8 @@ public final class GraphIterator implements ICommonsIterableIterator <IMutableGr
     m_aIter = aList.iterator ();
   }
 
-  private void _traverseDFS (@Nonnull final IMutableGraphNode aStartNode,
-                             @Nonnull final ICommonsList <IMutableGraphNode> aList)
+  private void _traverseDFS (@NonNull final IMutableGraphNode aStartNode,
+                             @NonNull final ICommonsList <IMutableGraphNode> aList)
   {
     m_aHandledObjects.add (aStartNode.getID ());
     aList.add (aStartNode);

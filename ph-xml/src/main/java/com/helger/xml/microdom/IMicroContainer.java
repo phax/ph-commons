@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This interface is just a hull for a node that has no properties itself but
@@ -29,6 +29,6 @@ public interface IMicroContainer extends IMicroNodeWithChildren
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroContainer getClone ();
 }

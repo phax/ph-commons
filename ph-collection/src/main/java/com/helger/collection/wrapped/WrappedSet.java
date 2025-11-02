@@ -20,6 +20,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -27,9 +30,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a facade for a {@link Set}. It may be used to wrap any kind of
@@ -45,12 +45,12 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
   @CodingStyleguideUnaware
   private final Set <ELEMENTTYPE> m_aSrc;
 
-  public WrappedSet (@Nonnull final Set <ELEMENTTYPE> aSet)
+  public WrappedSet (@NonNull final Set <ELEMENTTYPE> aSet)
   {
     m_aSrc = ValueEnforcer.notNull (aSet, "Set");
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
   protected Set <ELEMENTTYPE> directGetSource ()
@@ -58,7 +58,7 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
     return m_aSrc;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public WrappedSet <ELEMENTTYPE> getClone ()
   {
@@ -70,7 +70,7 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
     return m_aSrc.add (aElement);
   }
 
-  public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
   }

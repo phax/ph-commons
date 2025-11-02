@@ -23,6 +23,9 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
@@ -37,9 +40,6 @@ import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.json.valueserializer.JsonValueSerializerConstant;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 import com.helger.json.valueserializer.JsonValueSerializerRegistry;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonValue}.
@@ -75,14 +75,14 @@ public class JsonValue implements IJsonValue
     m_aValue = aValue;
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter ();
     appendAsJsonString (aWriter);
     StreamHelper.writeSafeUTF (aOOS, aWriter.getAsString ());
   }
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException
   {
     final String sJson = StreamHelper.readSafeUTF (aOIS);
     final JsonValue aJson = (JsonValue) JsonReader.readFromString (sJson);
@@ -134,13 +134,13 @@ public class JsonValue implements IJsonValue
    * @return The default {@link IJsonValueSerializer} to be used if none is registered. This is the
    *         "as string" serializer.
    */
-  @Nonnull
+  @NonNull
   public static IJsonValueSerializer getDefaultJsonValueSerializer ()
   {
     return JsonValueSerializerEscaped.getInstance ();
   }
 
-  @Nonnull
+  @NonNull
   public IJsonValueSerializer getValueSerializer ()
   {
     if (this == NULL)
@@ -158,12 +158,12 @@ public class JsonValue implements IJsonValue
     return ret;
   }
 
-  public void appendAsJsonString (@Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     getValueSerializer ().appendAsJsonString (m_aValue, aWriter);
   }
 
-  @Nonnull
+  @NonNull
   public JsonValue getClone ()
   {
     // No need to clone, as this object is immutable!
@@ -197,25 +197,25 @@ public class JsonValue implements IJsonValue
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static JsonValue create (final boolean bValue)
   {
     return bValue ? TRUE : FALSE;
   }
 
-  @Nonnull
+  @NonNull
   public static JsonValue create (final char cValue)
   {
     return create (Character.toString (cValue));
   }
 
-  @Nonnull
+  @NonNull
   public static JsonValue create (final double dValue)
   {
     return create (Double.valueOf (dValue));
   }
 
-  @Nonnull
+  @NonNull
   public static JsonValue create (final int nValue)
   {
     // Use cached value
@@ -225,7 +225,7 @@ public class JsonValue implements IJsonValue
     return create (Integer.valueOf (nValue));
   }
 
-  @Nonnull
+  @NonNull
   public static JsonValue create (final long nValue)
   {
     if (nValue >= Integer.MIN_VALUE && nValue <= Integer.MAX_VALUE)
@@ -241,7 +241,7 @@ public class JsonValue implements IJsonValue
    *        The source value
    * @return the {@link JsonValue}
    */
-  @Nonnull
+  @NonNull
   public static JsonValue create (@Nullable final Object aValue)
   {
     // Special null constant

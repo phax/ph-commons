@@ -19,6 +19,9 @@ package com.helger.collection.map;
 import java.util.Arrays;
 import java.util.function.IntFunction;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,9 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.reflection.GenericReflection;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special int-Object map. Based on: https://github.com/mikvor/hashmapTest
@@ -90,7 +90,7 @@ public class IntObjectMap <T> implements IHasSize
     m_nThreshold = (int) (nCapacity * fFillFactor);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   private static <T> T [] _createValueArray (@Nonnegative final int nSize)
   {
@@ -116,7 +116,7 @@ public class IntObjectMap <T> implements IHasSize
   }
 
   @Nullable
-  public T computeIfAbsent (final int key, @Nonnull final IntFunction <? extends T> aProvider)
+  public T computeIfAbsent (final int key, @NonNull final IntFunction <? extends T> aProvider)
   {
     T ret = get (key);
     if (ret == null)
@@ -335,7 +335,7 @@ public class IntObjectMap <T> implements IHasSize
     void accept (int nKey, T aValue);
   }
 
-  public void forEach (@Nonnull final IConsumer <T> aConsumer)
+  public void forEach (@NonNull final IConsumer <T> aConsumer)
   {
     if (m_bHasFreeKey)
       aConsumer.accept (FREE_KEY, m_aFreeValue);

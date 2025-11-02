@@ -18,10 +18,10 @@ package com.helger.collection.map;
 
 import java.util.HashMap;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsHashMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Soft {@link HashMap} implementation based on
@@ -43,7 +43,7 @@ public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
     super (new CommonsHashMap <> ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SoftHashMap <K, V> getClone ()
   {

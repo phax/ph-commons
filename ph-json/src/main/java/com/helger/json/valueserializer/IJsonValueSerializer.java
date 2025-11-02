@@ -19,11 +19,11 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.json.IJsonValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for handling the serialization of simple {@link IJsonValue}
@@ -46,5 +46,5 @@ public interface IJsonValueSerializer
    * @throws IOException
    *         in case of a write error
    */
-  void appendAsJsonString (@Nullable Object aValue, @Nonnull @WillNotClose Writer aWriter) throws IOException;
+  void appendAsJsonString (@Nullable Object aValue, @NonNull @WillNotClose Writer aWriter) throws IOException;
 }

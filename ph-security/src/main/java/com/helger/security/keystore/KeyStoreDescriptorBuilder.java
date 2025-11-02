@@ -18,11 +18,11 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.builder.IBuilder;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Builder class for class {@link KeyStoreDescriptor}.
@@ -39,46 +39,46 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
   public KeyStoreDescriptorBuilder ()
   {}
 
-  public KeyStoreDescriptorBuilder (@Nonnull final KeyStoreDescriptor aSrc)
+  public KeyStoreDescriptorBuilder (@NonNull final KeyStoreDescriptor aSrc)
   {
     type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
     m_aType = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreDescriptorBuilder path (@Nullable final String s)
   {
     m_sPath = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreDescriptorBuilder password (@Nullable final char [] a)
   {
     m_aPassword = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreDescriptorBuilder provider (@Nullable final Provider a)
   {
     m_aProvider = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public KeyStoreDescriptor build () throws IllegalStateException
   {
     if (m_aType == null)

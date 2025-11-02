@@ -16,6 +16,8 @@
  */
 package com.helger.xml.ls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
@@ -26,9 +28,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A class that collects all requested resources.
@@ -47,7 +46,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
   public CollectingLSResourceResolver ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <LSResourceData> getAllRequestedResources ()
   {

@@ -19,14 +19,14 @@ package com.helger.xml.mock;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroWriter;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper methods for handling XML based testing
@@ -50,7 +50,7 @@ public final class XMLTestHelper
    *        The object to test
    * @return The object read after conversion
    */
-  public static <T> T testMicroTypeConversion (@Nonnull final T aObj)
+  public static <T> T testMicroTypeConversion (@NonNull final T aObj)
   {
     assertNotNull (aObj);
 

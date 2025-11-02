@@ -16,12 +16,12 @@
  */
 package com.helger.security.authentication.result;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.string.StringHex;
 import com.helger.security.random.VerySecureRandom;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Create authentication token IDs.
@@ -37,13 +37,13 @@ public final class AuthTokenIDGenerator
   private AuthTokenIDGenerator ()
   {}
 
-  @Nonnull
+  @NonNull
   public static String generateNewTokenID ()
   {
     return generateNewTokenID (DEFAULT_TOKEN_BYTES);
   }
 
-  @Nonnull
+  @NonNull
   public static String generateNewTokenID (@Nonnegative final int nBytes)
   {
     final byte [] aID = new byte [nBytes];

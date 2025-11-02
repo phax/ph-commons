@@ -18,7 +18,7 @@ package com.helger.base.io.stream;
 
 import java.io.OutputStream;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A special {@link OutputStream} that does not close the stream.
@@ -27,7 +27,7 @@ import jakarta.annotation.Nonnull;
  */
 public class NonClosingOutputStream extends WrappedOutputStream
 {
-  public NonClosingOutputStream (@Nonnull final OutputStream aSourceOS)
+  public NonClosingOutputStream (@NonNull final OutputStream aSourceOS)
   {
     super (aSourceOS);
   }

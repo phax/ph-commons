@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid.unique;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.DefaultTreeItemWithID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special tree item factory that maintains a unique ID over all items!
@@ -35,14 +35,14 @@ public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends
                                                 AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   @Override
-  @Nonnull
-  protected DefaultTreeItemWithID <KEYTYPE, DATATYPE> internalCreate (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
-                                                                      @Nonnull final KEYTYPE aDataID)
+  @NonNull
+  protected DefaultTreeItemWithID <KEYTYPE, DATATYPE> internalCreate (@NonNull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
+                                                                      @NonNull final KEYTYPE aDataID)
   {
     return new DefaultTreeItemWithID <> (aParent, aDataID);
   }
 
-  @Nonnull
+  @NonNull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {
     return new DefaultTreeItemWithID <> (this);

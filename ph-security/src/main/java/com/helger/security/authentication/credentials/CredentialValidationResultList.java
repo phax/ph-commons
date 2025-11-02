@@ -18,6 +18,9 @@ package com.helger.security.authentication.credentials;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation of {@link ICredentialValidationResult} that uses multiple
@@ -46,14 +46,14 @@ public class CredentialValidationResultList implements ICredentialValidationResu
    * @param aResults
    *        The collection of results. May neither be <code>null</code> nor empty.
    */
-  public CredentialValidationResultList (@Nonnull @Nonempty final Iterable <? extends ICredentialValidationResult> aResults)
+  public CredentialValidationResultList (@NonNull @Nonempty final Iterable <? extends ICredentialValidationResult> aResults)
   {
     ValueEnforcer.notEmpty (aResults, "Results");
     m_aResults = new CommonsArrayList <> (aResults);
     m_bFailure = m_aResults.containsAny (ICredentialValidationResult::isFailure);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <ICredentialValidationResult> getResults ()
   {
@@ -72,7 +72,7 @@ public class CredentialValidationResultList implements ICredentialValidationResu
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aDisplayLocale)
+  public String getDisplayText (@NonNull final Locale aDisplayLocale)
   {
     return StringImplode.getImplodedMapped ('\n', m_aResults, x -> x.getDisplayText (aDisplayLocale));
   }

@@ -18,14 +18,13 @@ package com.helger.scope.singleton;
 
 import static org.junit.Assert.assertEquals;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
 import com.helger.scope.IScope;
 import com.helger.scope.mock.ScopeTestRule;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link AbstractGlobalSingleton}.
@@ -53,7 +52,7 @@ public final class GlobalSingletonRecursionFuncTest
     }
 
     @Override
-    protected void onAfterInstantiation (@Nonnull final IScope aScope)
+    protected void onAfterInstantiation (@NonNull final IScope aScope)
     {
       ++m_nCountVirtual;
       final int nCountCtor = getInstance ().m_nCountCtor;

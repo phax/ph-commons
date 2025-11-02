@@ -16,6 +16,8 @@
  */
 package com.helger.xml.microdom.util;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,8 +25,6 @@ import com.helger.collection.hierarchy.IChildrenProvider;
 import com.helger.collection.hierarchy.visit.ChildrenProviderHierarchyVisitor;
 import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a
@@ -50,7 +50,7 @@ public final class MicroVisitor
    * @param aCallback
    *        The callback to call. May not be <code>null</code>.
    */
-  public static void visit (@Nonnull final IMicroNode aNode, @Nonnull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
+  public static void visit (@NonNull final IMicroNode aNode, @NonNull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);
@@ -69,9 +69,9 @@ public final class MicroVisitor
    * @param aCallback
    *        The callback to call. May not be <code>null</code>.
    */
-  public static <T extends IMicroNode> void visit (@Nonnull final T aNode,
-                                                   @Nonnull final IChildrenProvider <T> aChildrenProvider,
-                                                   @Nonnull final IHierarchyVisitorCallback <? super T> aCallback)
+  public static <T extends IMicroNode> void visit (@NonNull final T aNode,
+                                                   @NonNull final IChildrenProvider <T> aChildrenProvider,
+                                                   @NonNull final IHierarchyVisitorCallback <? super T> aCallback)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aChildrenProvider, aCallback, false);

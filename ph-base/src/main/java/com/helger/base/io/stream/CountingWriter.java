@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link Writer} that counts the number of read chars.
@@ -34,7 +34,7 @@ public class CountingWriter extends WrappedWriter
 {
   private long m_nCharsWritten = 0;
 
-  public CountingWriter (@Nonnull final Writer aSourceOS)
+  public CountingWriter (@NonNull final Writer aSourceOS)
   {
     super (aSourceOS);
   }
@@ -47,7 +47,7 @@ public class CountingWriter extends WrappedWriter
   }
 
   @Override
-  public void write (@Nonnull final char [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (@NonNull final char [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nCharsWritten += nLen;

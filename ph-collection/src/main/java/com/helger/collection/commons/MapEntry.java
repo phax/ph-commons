@@ -18,13 +18,13 @@ package com.helger.collection.commons;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple implementation of Map.Entry.<br>
@@ -44,7 +44,7 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
   private final KEYTYPE m_aKey;
   private VALUETYPE m_aValue;
 
-  public MapEntry (@Nonnull final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
+  public MapEntry (final Map.@NonNull Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
   {
     this (aEntry.getKey (), aEntry.getValue ());
   }

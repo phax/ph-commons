@@ -20,14 +20,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.MapEntry;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Soft {@link HashMap} implementation based on
@@ -58,7 +58,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     }
 
     @Override
-    protected final boolean removeEldestEntry (@Nonnull final Map.Entry <K, SoftValue <K, V>> aEldest)
+    protected final boolean removeEldestEntry (final Map.@NonNull Entry <K, SoftValue <K, V>> aEldest)
     {
       final Map.Entry <K, V> aEntry = new MapEntry <> (aEldest.getKey (), aEldest.getValue ().get ());
       return m_aFilter.test (aEntry);
@@ -118,10 +118,10 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
    *        The map entry that is removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <K, V> aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize, final Map.@NonNull Entry <K, V> aEldest)
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SoftLinkedHashMap <K, V> getClone ()
   {

@@ -22,6 +22,8 @@ import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -31,8 +33,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.io.iface.IWriteToStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.ByteArrayOutputStream}.
@@ -75,9 +75,9 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     m_aBuf = new byte [nSize];
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static byte [] _enlarge (@Nonnull final byte [] aBuf, @Nonnegative final int nNewSize)
+  private static byte [] _enlarge (@NonNull final byte [] aBuf, @Nonnegative final int nNewSize)
   {
     final byte [] ret = new byte [nNewSize];
     System.arraycopy (aBuf, 0, ret, 0, aBuf.length);
@@ -104,7 +104,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * Just overloaded to avoid the IOException in the generic OutputStream.write method.
    */
   @Override
-  public void write (@Nonnull final byte [] aBuf)
+  public void write (@NonNull final byte [] aBuf)
   {
     write (aBuf, 0, aBuf.length);
   }
@@ -121,7 +121,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *        the number of bytes to write.
    */
   @Override
-  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen)
+  public void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen)
   {
     // Disable because this can have a performance impact!
     if (false)
@@ -147,7 +147,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @exception IOException
    *            if an I/O error occurs.
    */
-  public void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  public void writeTo (@NonNull @WillNotClose final OutputStream aOS) throws IOException
   {
     aOS.write (m_aBuf, 0, m_nCount);
   }
@@ -160,7 +160,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @throws IOException
    *         If reading fails
    */
-  public void readFrom (@Nonnull @WillNotClose final InputStream aIS) throws IOException
+  public void readFrom (@NonNull @WillNotClose final InputStream aIS) throws IOException
   {
     while (true)
     {
@@ -196,7 +196,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *
    * @return the current contents of this output stream, as a byte array.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public byte [] toByteArray ()
   {
@@ -248,12 +248,12 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     return m_nCount > 0;
   }
 
-  public boolean startsWith (@Nonnull final byte [] aBytes)
+  public boolean startsWith (@NonNull final byte [] aBytes)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes);
   }
 
-  public boolean startsWith (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public boolean startsWith (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes, nOfs, nLen);
   }
@@ -271,8 +271,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *        the charset to be used. May not be <code>null</code>.
    * @return String decoded from the buffer's contents.
    */
-  @Nonnull
-  public String getAsString (@Nonnull final Charset aCharset)
+  @NonNull
+  public String getAsString (@NonNull final Charset aCharset)
   {
     return new String (m_aBuf, 0, m_nCount, aCharset);
   }
@@ -292,8 +292,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *        the charset to be used. May not be <code>null</code>.
    * @return String decoded from the buffer's contents.
    */
-  @Nonnull
-  public String getAsString (@Nonnegative final int nLength, @Nonnull final Charset aCharset)
+  @NonNull
+  public String getAsString (@Nonnegative final int nLength, @NonNull final Charset aCharset)
   {
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
     return new String (m_aBuf, 0, nLength, aCharset);
@@ -316,10 +316,10 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *        the charset to be used. May not be <code>null</code>.
    * @return String decoded from the buffer's contents.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (@Nonnegative final int nOfs,
                              @Nonnegative final int nLength,
-                             @Nonnull final Charset aCharset)
+                             @NonNull final Charset aCharset)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
@@ -329,7 +329,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * @return The internally used byte buffer. Never <code>null</code>. Handle with care!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public byte [] directGetBuffer ()
   {
@@ -343,7 +343,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @see #toByteArray()
    * @since 9.1.3
    */
-  @Nonnull
+  @NonNull
   public byte [] getBufferOrCopy ()
   {
     if (m_aBuf.length == m_nCount)
@@ -374,7 +374,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @return A new {@link NonBlockingByteArrayInputStream}.
    * @since 9.0.0
    */
-  @Nonnull
+  @NonNull
   public NonBlockingByteArrayInputStream getAsInputStream ()
   {
     return new NonBlockingByteArrayInputStream (m_aBuf, 0, m_nCount);

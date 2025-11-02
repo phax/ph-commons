@@ -19,12 +19,12 @@ package com.helger.typeconvert.collection;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for all kind of string-string mapping container. This
@@ -40,77 +40,77 @@ public class StringMap extends AttributeContainer <String, String> implements IS
     super ();
   }
 
-  public StringMap (@Nonnull final Map <String, String> aMap)
+  public StringMap (@NonNull final Map <String, String> aMap)
   {
     super (aMap);
   }
 
-  public StringMap (@Nonnull final String sName, @Nonnull final String sValue)
+  public StringMap (@NonNull final String sName, @NonNull final String sValue)
   {
     put (sName, sValue);
   }
 
-  @Nonnull
-  public final StringMap addIfNotNull (@Nonnull final String sName, @Nonnull final Object aValue)
+  @NonNull
+  public final StringMap addIfNotNull (@NonNull final String sName, @NonNull final Object aValue)
   {
     return addIfNotNull (sName, TypeConverter.convert (aValue, String.class));
   }
 
-  @Nonnull
-  public final StringMap addIfNotNull (@Nonnull final String sName, @Nullable final String sValue)
+  @NonNull
+  public final StringMap addIfNotNull (@NonNull final String sName, @Nullable final String sValue)
   {
     super.putIfNotNull (sName, sValue);
     return this;
   }
 
-  @Nonnull
-  public final StringMap addIf (@Nonnull final String sName,
+  @NonNull
+  public final StringMap addIf (@NonNull final String sName,
                                 @Nullable final String sValue,
-                                @Nonnull final Predicate <? super String> aFilter)
+                                @NonNull final Predicate <? super String> aFilter)
   {
     super.putIf (sName, sValue, aFilter);
     return this;
   }
 
-  @Nonnull
-  public final StringMap add (@Nonnull final String sName, @Nonnull final Object aValue)
+  @NonNull
+  public final StringMap add (@NonNull final String sName, @NonNull final Object aValue)
   {
     return add (sName, TypeConverter.convert (aValue, String.class));
   }
 
-  @Nonnull
-  public final StringMap add (@Nonnull final String sName, @Nullable final String sValue)
+  @NonNull
+  public final StringMap add (@NonNull final String sName, @Nullable final String sValue)
   {
     putIn (sName, sValue);
     return this;
   }
 
-  @Nonnull
-  public final StringMap add (@Nonnull final String sName, final boolean bValue)
+  @NonNull
+  public final StringMap add (@NonNull final String sName, final boolean bValue)
   {
     return add (sName, Boolean.toString (bValue));
   }
 
-  @Nonnull
-  public final StringMap add (@Nonnull final String sName, final int nValue)
+  @NonNull
+  public final StringMap add (@NonNull final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
   }
 
-  @Nonnull
-  public final StringMap add (@Nonnull final String sName, final long nValue)
+  @NonNull
+  public final StringMap add (@NonNull final String sName, final long nValue)
   {
     return add (sName, Long.toString (nValue));
   }
 
-  @Nonnull
-  public final StringMap addWithoutValue (@Nonnull final String sName)
+  @NonNull
+  public final StringMap addWithoutValue (@NonNull final String sName)
   {
     return add (sName, "");
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public StringMap getClone ()
   {

@@ -18,6 +18,8 @@ package com.helger.base.io.streamprovider;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -26,8 +28,6 @@ import com.helger.base.io.iface.IHasReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.StringInputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.InputStream} provider based on a {@link String}.
@@ -39,56 +39,56 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   private String m_sData;
   private Charset m_aCharset;
 
-  public StringInputStreamProvider (@Nonnull final char [] aChars, @Nonnull final Charset aCharset)
+  public StringInputStreamProvider (@NonNull final char [] aChars, @NonNull final Charset aCharset)
   {
     this (new String (aChars), aCharset);
   }
 
-  public StringInputStreamProvider (@Nonnull final char [] aChars,
+  public StringInputStreamProvider (@NonNull final char [] aChars,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
-                                    @Nonnull final Charset aCharset)
+                                    @NonNull final Charset aCharset)
   {
     this (new String (aChars, nOfs, nLen), aCharset);
   }
 
-  public StringInputStreamProvider (@Nonnull final CharSequence aData, @Nonnull final Charset aCharset)
+  public StringInputStreamProvider (@NonNull final CharSequence aData, @NonNull final Charset aCharset)
   {
     this (aData.toString (), aCharset);
   }
 
-  public StringInputStreamProvider (@Nonnull final String sData, @Nonnull final Charset aCharset)
+  public StringInputStreamProvider (@NonNull final String sData, @NonNull final Charset aCharset)
   {
     m_sData = ValueEnforcer.notNull (sData, "Data");
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
-  @Nonnull
+  @NonNull
   public final String getData ()
   {
     return m_sData;
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aCharset;
   }
 
-  @Nonnull
+  @NonNull
   public final StringInputStream getInputStream ()
   {
     return new StringInputStream (m_sData, m_aCharset);
   }
 
   @Override
-  @Nonnull
-  public final NonBlockingStringReader getReader (@Nonnull final Charset aCharset)
+  @NonNull
+  public final NonBlockingStringReader getReader (@NonNull final Charset aCharset)
   {
     return new NonBlockingStringReader (m_sData);
   }
 
-  @Nonnull
+  @NonNull
   public final NonBlockingStringReader getReader ()
   {
     return new NonBlockingStringReader (m_sData);

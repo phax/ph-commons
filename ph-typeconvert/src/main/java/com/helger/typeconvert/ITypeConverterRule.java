@@ -16,7 +16,7 @@
  */
 package com.helger.typeconvert;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Flexible type converter that can handle multiple source and/or destination
@@ -51,7 +51,7 @@ public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
   /**
    * @return The sub type of the converter rule. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ESubType getSubType ();
 
   /**
@@ -67,5 +67,5 @@ public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
    * @return <code>true</code> if conversion is possible, <code>false</code>
    *         otherwise.
    */
-  boolean canConvert (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
+  boolean canConvert (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass);
 }

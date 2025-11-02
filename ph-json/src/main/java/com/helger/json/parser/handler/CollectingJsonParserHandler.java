@@ -16,6 +16,9 @@
  */
 package com.helger.json.parser.handler;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.collection.stack.NonBlockingStack;
@@ -24,9 +27,6 @@ import com.helger.json.IJsonCollection;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This {@link IJsonParserHandler} constructs the whole JSON tree while parsing it. The resulting
@@ -42,7 +42,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
   private final NonBlockingStack <IJsonCollection> m_aStack = new NonBlockingStack <> ();
   private final NonBlockingStack <String> m_aObjectName = new NonBlockingStack <> ();
 
-  private void _addToStackPeek (@Nonnull final IJson aValue)
+  private void _addToStackPeek (@NonNull final IJson aValue)
   {
     // Debug only
     if (false)
@@ -63,7 +63,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
     }
   }
 
-  private void _addSimple (@Nonnull final IJson aValue)
+  private void _addSimple (@NonNull final IJson aValue)
   {
     if (m_aJson == null)
       m_aJson = aValue;
@@ -71,7 +71,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
       _addToStackPeek (aValue);
   }
 
-  private void _addCollection (@Nonnull final IJsonCollection aValue)
+  private void _addCollection (@NonNull final IJsonCollection aValue)
   {
     _addSimple (aValue);
 
@@ -79,18 +79,18 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
     m_aStack.push (aValue);
   }
 
-  public void onWhitespace (@Nonnull @Nonempty final String sWhitespace)
+  public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {}
 
-  public void onComment (@Nonnull final String sComment)
+  public void onComment (@NonNull final String sComment)
   {}
 
-  public void onString (@Nonnull final String sString, @Nonnull final String sUnescaped)
+  public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {
     _addSimple (JsonValue.create (sUnescaped));
   }
 
-  public void onNumber (@Nonnull final String sNumber, @Nonnull final Number aNumber)
+  public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {
     _addSimple (JsonValue.create (aNumber));
   }
@@ -128,7 +128,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
     _addCollection (new JsonObject ());
   }
 
-  public void onObjectName (@Nonnull final String sString, @Nonnull final String sName)
+  public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {
     m_aObjectName.push (sName);
   }

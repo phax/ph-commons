@@ -19,11 +19,11 @@ package com.helger.collection.hierarchy;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Extends {@link IHasChildren} by indicating that the child items are sorted!
@@ -76,7 +76,7 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *         if no child is present at all.
    */
   @Nullable
-  default CHILDTYPE findFirstChild (@Nonnull final Predicate <? super CHILDTYPE> aFilter)
+  default CHILDTYPE findFirstChild (@NonNull final Predicate <? super CHILDTYPE> aFilter)
   {
     if (hasNoChildren ())
       return null;
@@ -98,8 +98,8 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    *        The destination type to be mapped to
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
-                                                  @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper)
+  default <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super CHILDTYPE> aFilter,
+                                                  @NonNull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper)
   {
     if (hasNoChildren ())
       return null;

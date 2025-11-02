@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract tree item with ID factory implementation
@@ -38,13 +38,13 @@ public abstract class AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE
                                                     ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   @OverrideOnDemand
-  public void onRemoveItem (@Nonnull final ITEMTYPE aItem)
+  public void onRemoveItem (@NonNull final ITEMTYPE aItem)
   {
     // it doesn't matter to us
   }
 
   @OverrideOnDemand
-  public void onAddItem (@Nonnull final ITEMTYPE aItem)
+  public void onAddItem (@NonNull final ITEMTYPE aItem)
   {
     // it doesn't matter to us
   }

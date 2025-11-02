@@ -21,12 +21,12 @@ import java.util.LinkedHashSet;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link LinkedHashSet} implementation based on {@link ICommonsOrderedSet}.
@@ -64,14 +64,14 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
-                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                         @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
     addAllMapped (aValues, aMapper);
   }
 
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                         @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -90,21 +90,21 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final SRCTYPE [] aValues,
-                                         @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                         @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (ArrayHelper.getSize (aValues));
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsLinkedHashSet <T> createInstance ()
   {
     return new CommonsLinkedHashSet <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsLinkedHashSet <ELEMENTTYPE> getClone ()
   {
@@ -125,7 +125,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        data type to create the list of
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -155,11 +155,11 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getSize (aValues));
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -187,10 +187,10 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                                                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getSize (aValues));
@@ -212,7 +212,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -242,11 +242,11 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
                                                                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (ArrayHelper.getSize (aValues));
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -274,10 +274,10 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
-                                                                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (ArrayHelper.getSize (aValues));

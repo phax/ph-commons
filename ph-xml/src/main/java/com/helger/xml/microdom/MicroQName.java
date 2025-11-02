@@ -18,6 +18,8 @@ package com.helger.xml.microdom;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a simple qualified name. A combination of namespace URI and local name.
@@ -51,12 +50,12 @@ public final class MicroQName implements IMicroQName
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public MicroQName (@Nonnull @Nonempty final String sName)
+  public MicroQName (@NonNull @Nonempty final String sName)
   {
     this (XMLConstants.NULL_NS_URI, sName);
   }
 
-  public MicroQName (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sName)
+  public MicroQName (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, sName);
     // Unify empty string to null
@@ -89,7 +88,7 @@ public final class MicroQName implements IMicroQName
     return m_sNamespaceURI;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

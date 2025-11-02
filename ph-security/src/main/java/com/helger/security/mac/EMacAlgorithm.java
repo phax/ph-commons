@@ -22,12 +22,12 @@ import java.security.Provider;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A selection of common hash algorithms.
@@ -45,7 +45,7 @@ public enum EMacAlgorithm
 
   private final String m_sAlgorithm;
 
-  EMacAlgorithm (@Nonnull @Nonempty final String sAlgorithm)
+  EMacAlgorithm (@NonNull @Nonempty final String sAlgorithm)
   {
     m_sAlgorithm = sAlgorithm;
   }
@@ -53,7 +53,7 @@ public enum EMacAlgorithm
   /**
    * @return The internal name of the message digest algorithm. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAlgorithm ()
   {
@@ -65,7 +65,7 @@ public enum EMacAlgorithm
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
-  @Nonnull
+  @NonNull
   public Mac createMac ()
   {
     return createMac (null);
@@ -79,7 +79,7 @@ public enum EMacAlgorithm
    * @throws IllegalStateException
    *         If this algorithm is not supported by this Java runtime.
    */
-  @Nonnull
+  @NonNull
   public Mac createMac (@Nullable final Provider aSecurityProvider)
   {
     try
@@ -101,8 +101,8 @@ public enum EMacAlgorithm
    *        The key bytes to use. May not be <code>null</code>.
    * @return The new {@link SecretKeySpec}.
    */
-  @Nonnull
-  public SecretKeySpec createSecretKey (@Nonnull final byte [] aKey)
+  @NonNull
+  public SecretKeySpec createSecretKey (@NonNull final byte [] aKey)
   {
     return new SecretKeySpec (aKey, m_sAlgorithm);
   }

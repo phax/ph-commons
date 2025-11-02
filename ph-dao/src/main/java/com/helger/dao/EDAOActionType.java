@@ -16,12 +16,12 @@
  */
 package com.helger.dao;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration with the different actions that can occur in a DAO. This is used
@@ -37,12 +37,12 @@ public enum EDAOActionType implements IHasID <String>
 
   private final String m_sID;
 
-  EDAOActionType (@Nonnull @Nonempty final String sID)
+  EDAOActionType (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

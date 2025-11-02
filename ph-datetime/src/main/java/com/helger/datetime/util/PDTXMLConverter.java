@@ -32,6 +32,8 @@ import javax.xml.datatype.DatatypeConstants;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +44,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.exception.InitializationException;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.zone.PDTConfig;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class for XML date/time data type handling.
@@ -79,7 +78,7 @@ public final class PDTXMLConverter
   /**
    * @return The global {@link DatatypeFactory} used internally in this class.
    */
-  @Nonnull
+  @NonNull
   public static DatatypeFactory getDatatypeFactory ()
   {
     return DT_FACTORY;
@@ -107,7 +106,7 @@ public final class PDTXMLConverter
    * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes
    *         steps :)
    */
-  public static int getTimezoneOffsetInMinutes (@Nonnull final Calendar aCalendar)
+  public static int getTimezoneOffsetInMinutes (@NonNull final Calendar aCalendar)
   {
     final int nOffsetInMillis = aCalendar.getTimeZone ().getOffset (aCalendar.getTimeInMillis ());
     return getTimezoneOffsetInMinutes (nOffsetInMillis);
@@ -121,8 +120,8 @@ public final class PDTXMLConverter
    *        The source date. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static GregorianCalendar getCalendar (@Nonnull final Date aDate)
+  @NonNull
+  public static GregorianCalendar getCalendar (@NonNull final Date aDate)
   {
     final GregorianCalendar aCalendar = new GregorianCalendar (PDTFactory.getTimeZone (aDate), Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTime (aDate);
@@ -137,7 +136,7 @@ public final class PDTXMLConverter
    * @return Never <code>null</code>.
    * @since 9.1.8
    */
-  @Nonnull
+  @NonNull
   public static GregorianCalendar getCalendarDefaultTimeZone (final long nMillis)
   {
     final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
@@ -153,7 +152,7 @@ public final class PDTXMLConverter
    * @return Never <code>null</code>.
    * @since 9.1.8
    */
-  @Nonnull
+  @NonNull
   public static GregorianCalendar getCalendarUTC (final long nMillis)
   {
     final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getUTCTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
@@ -165,7 +164,7 @@ public final class PDTXMLConverter
    * @return A new XML calendar instance, with all fields uninitialized. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar createNewCalendar ()
   {
     return DT_FACTORY.newXMLGregorianCalendar ();
@@ -176,7 +175,7 @@ public final class PDTXMLConverter
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarDateNow ()
   {
     return getXMLCalendarDate (PDTFactory.getCurrentLocalDate ());
@@ -304,7 +303,7 @@ public final class PDTXMLConverter
    *         values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarDate (final int nYear, final int nMonth, final int nDay)
   {
     return getXMLCalendarDate (nYear, nMonth, nDay, DatatypeConstants.FIELD_UNDEFINED);
@@ -343,7 +342,7 @@ public final class PDTXMLConverter
    *         values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarDate (final int nYear, final int nMonth, final int nDay, final int nTimezone)
   {
     return DT_FACTORY.newXMLGregorianCalendarDate (nYear, nMonth, nDay, nTimezone);
@@ -354,7 +353,7 @@ public final class PDTXMLConverter
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarTimeNow ()
   {
     return getXMLCalendarTime (PDTFactory.getCurrentLocalTime ());
@@ -468,7 +467,7 @@ public final class PDTXMLConverter
    *         values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarTime (final int nHour, final int nMinute, final int nSecond, final int nMilliSecond)
   {
     return getXMLCalendarTime (nHour, nMinute, nSecond, nMilliSecond, DatatypeConstants.FIELD_UNDEFINED);
@@ -509,7 +508,7 @@ public final class PDTXMLConverter
    *         values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarTime (final int nHour,
                                                          final int nMinute,
                                                          final int nSecond,
@@ -525,7 +524,7 @@ public final class PDTXMLConverter
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarNow ()
   {
     return getXMLCalendar (PDTFactory.getCurrentZonedDateTime ());
@@ -536,7 +535,7 @@ public final class PDTXMLConverter
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarNowUTC ()
   {
     return getXMLCalendar (LocalDateTime.now (Clock.systemUTC ()));
@@ -647,7 +646,7 @@ public final class PDTXMLConverter
    *        Milliseconds since 1.1.1970
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendar (final long nMillis)
   {
     return DT_FACTORY.newXMLGregorianCalendar (getCalendarDefaultTimeZone (nMillis));
@@ -661,7 +660,7 @@ public final class PDTXMLConverter
    * @return Never <code>null</code>.
    * @since 9.1.8
    */
-  @Nonnull
+  @NonNull
   public static XMLGregorianCalendar getXMLCalendarUTC (final long nMillis)
   {
     return DT_FACTORY.newXMLGregorianCalendar (getCalendarUTC (nMillis));

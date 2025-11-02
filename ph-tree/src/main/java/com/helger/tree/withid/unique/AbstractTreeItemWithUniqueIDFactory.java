@@ -16,6 +16,9 @@
  */
 package com.helger.tree.withid.unique;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -27,9 +30,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.tree.withid.ITreeItemWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An abstract tree item factory that maintains a unique ID over all items. It
@@ -55,13 +55,13 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     this (new CommonsHashMap <> ());
   }
 
-  protected AbstractTreeItemWithUniqueIDFactory (@Nonnull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
+  protected AbstractTreeItemWithUniqueIDFactory (@NonNull final ICommonsMap <KEYTYPE, ITEMTYPE> aItemStore)
   {
     m_aItemStore = ValueEnforcer.notNull (aItemStore, "ItemStore");
   }
 
-  @Nonnull
-  protected final ITEMTYPE addToItemStore (@Nonnull final KEYTYPE aDataID, @Nonnull final ITEMTYPE aItem)
+  @NonNull
+  protected final ITEMTYPE addToItemStore (@NonNull final KEYTYPE aDataID, @NonNull final ITEMTYPE aItem)
   {
     // Is the ID already in use?
     if (m_aItemStore.containsKey (aDataID))
@@ -70,8 +70,8 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return aItem;
   }
 
-  @Nonnull
-  protected abstract ITEMTYPE internalCreate (@Nonnull final ITEMTYPE aParent, @Nonnull final KEYTYPE aDataID);
+  @NonNull
+  protected abstract ITEMTYPE internalCreate (@NonNull final ITEMTYPE aParent, @NonNull final KEYTYPE aDataID);
 
   /**
    * Get the ID of the passed tree item to use for internal storage.
@@ -80,15 +80,15 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
    *        The item who's ID is to be resolved.
    * @return The ID of the item
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected KEYTYPE internalGetItemID (@Nonnull final ITEMTYPE aItem)
+  protected KEYTYPE internalGetItemID (@NonNull final ITEMTYPE aItem)
   {
     return aItem.getID ();
   }
 
-  @Nonnull
-  public final ITEMTYPE create (@Nonnull final ITEMTYPE aParent, @Nonnull final KEYTYPE aDataID)
+  @NonNull
+  public final ITEMTYPE create (@NonNull final ITEMTYPE aParent, @NonNull final KEYTYPE aDataID)
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
@@ -97,13 +97,13 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return addToItemStore (internalGetItemID (aTreeItem), aTreeItem);
   }
 
-  public final void onRemoveItem (@Nonnull final ITEMTYPE aTreeItem)
+  public final void onRemoveItem (@NonNull final ITEMTYPE aTreeItem)
   {
     // Remove item from item store
     m_aItemStore.remove (internalGetItemID (aTreeItem));
   }
 
-  public final void onAddItem (@Nonnull final ITEMTYPE aTreeItem)
+  public final void onAddItem (@NonNull final ITEMTYPE aTreeItem)
   {
     // Add item to item store
     addToItemStore (internalGetItemID (aTreeItem), aTreeItem);
@@ -126,14 +126,14 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return m_aItemStore.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllItems ()
   {
     return m_aItemStore.copyOfValues ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllItemDatas ()
   {

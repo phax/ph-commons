@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.concurrent.SimpleLock;
 import com.helger.base.io.nonblocking.NonBlockingBitInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The {@link BitInputStream} allows reading individual bits from a general Java
@@ -49,7 +49,7 @@ public class BitInputStream extends NonBlockingBitInputStream
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
-  public BitInputStream (@Nonnull final InputStream aIS, @Nonnull final ByteOrder aByteOrder)
+  public BitInputStream (@NonNull final InputStream aIS, @NonNull final ByteOrder aByteOrder)
   {
     super (aIS, aByteOrder);
   }

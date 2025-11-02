@@ -16,11 +16,11 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single graph node.
@@ -37,7 +37,7 @@ public interface IMutableGraphNode extends IMutableBaseGraphNode <IMutableGraphN
    *        The relation to be added to this node. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed
    */
-  @Nonnull
+  @NonNull
   EChange addRelation (@Nullable IMutableGraphRelation aRelation);
 
   /**
@@ -47,6 +47,6 @@ public interface IMutableGraphNode extends IMutableBaseGraphNode <IMutableGraphN
    *        The relation to be removed from this node. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if something changed
    */
-  @Nonnull
+  @NonNull
   EChange removeRelation (@Nullable IMutableGraphRelation aRelation);
 }

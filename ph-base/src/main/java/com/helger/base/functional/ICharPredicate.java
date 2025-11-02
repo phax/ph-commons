@@ -16,7 +16,7 @@
  */
 package com.helger.base.functional;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a predicate (char-valued function) of one {@code char}-valued argument. This is the
@@ -45,7 +45,7 @@ public interface ICharPredicate
    *
    * @return a predicate that represents the logical negation of this predicate
    */
-  @Nonnull
+  @NonNull
   default ICharPredicate negate ()
   {
     return x -> !test (x);
@@ -67,8 +67,8 @@ public interface ICharPredicate
    * @throws NullPointerException
    *         if other is null
    */
-  @Nonnull
-  default ICharPredicate and (@Nonnull final ICharPredicate aOther)
+  @NonNull
+  default ICharPredicate and (@NonNull final ICharPredicate aOther)
   {
     return x -> test (x) && aOther.test (x);
   }
@@ -89,8 +89,8 @@ public interface ICharPredicate
    * @throws NullPointerException
    *         if other is null
    */
-  @Nonnull
-  default ICharPredicate or (@Nonnull final ICharPredicate aOther)
+  @NonNull
+  default ICharPredicate or (@NonNull final ICharPredicate aOther)
   {
     return x -> test (x) || aOther.test (x);
   }

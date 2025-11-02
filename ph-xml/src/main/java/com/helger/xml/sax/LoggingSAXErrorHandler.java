@@ -18,6 +18,7 @@ package com.helger.xml.sax;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
@@ -27,8 +28,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.log.LogHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler that simply logs data to a logger.
@@ -43,10 +42,10 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   public LoggingSAXErrorHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @OverrideOnDemand
-  protected String getErrorMessage (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
+  protected String getErrorMessage (@NonNull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     // As the SAX error messages are not localized at the moment, we can use
     // a fixed locale here
@@ -54,7 +53,7 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   }
 
   @Override
-  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
+  protected void internalLog (@NonNull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     LogHelper.log (LOGGER, aErrorLevel, getErrorMessage (aErrorLevel, aException));
   }

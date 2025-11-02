@@ -24,6 +24,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -33,9 +36,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * <p>
@@ -1307,7 +1307,7 @@ public final class Base64
    * possible, though silly, to specify ORDERED <b>and</b> URLSAFE in which case one of them will be
    * picked, though there is no guarantee as to which one will be picked.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   private static byte [] _getAlphabet (final int nOptions)
   {
@@ -1323,7 +1323,7 @@ public final class Base64
    * possible, though silly, to specify ORDERED and URL_SAFE in which case one of them will be
    * picked, though there is no guarantee as to which one will be picked.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   static byte [] _getDecodabet (final int nOptions)
   {
@@ -1359,10 +1359,10 @@ public final class Base64
    * @return four byte array in Base64 notation.
    * @since 1.5.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@Nonnull final byte [] b4,
-                              @Nonnull final byte [] threeBytes,
+  static byte [] _encode3to4 (@NonNull final byte [] b4,
+                              @NonNull final byte [] threeBytes,
                               @Nonnegative final int numSigBytes,
                               final int options)
   {
@@ -1396,12 +1396,12 @@ public final class Base64
    * @return the <var>destination</var> array
    * @since 1.3
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@Nonnull final byte [] source,
+  static byte [] _encode3to4 (@NonNull final byte [] source,
                               @Nonnegative final int srcOffset,
                               @Nonnegative final int numSigBytes,
-                              @Nonnull final byte [] destination,
+                              @NonNull final byte [] destination,
                               @Nonnegative final int destOffset,
                               final int options)
   {
@@ -1458,7 +1458,7 @@ public final class Base64
    *        output buffer
    * @since 2.3
    */
-  public static void encode (@Nonnull final ByteBuffer raw, @Nonnull final ByteBuffer encoded)
+  public static void encode (@NonNull final ByteBuffer raw, @NonNull final ByteBuffer encoded)
   {
     final byte [] raw3 = new byte [3];
     final byte [] enc4 = new byte [4];
@@ -1483,7 +1483,7 @@ public final class Base64
    *        output buffer
    * @since 2.3
    */
-  public static void encode (@Nonnull final ByteBuffer raw, @Nonnull final CharBuffer encoded)
+  public static void encode (@NonNull final ByteBuffer raw, @NonNull final CharBuffer encoded)
   {
     final byte [] raw3 = new byte [3];
     final byte [] enc4 = new byte [4];
@@ -1510,8 +1510,8 @@ public final class Base64
    *         if source array is null
    * @since 1.4
    */
-  @Nonnull
-  public static String encodeBytes (@Nonnull final byte [] source)
+  @NonNull
+  public static String encodeBytes (@NonNull final byte [] source)
   {
     // Since we're not going to have the GZIP encoding turned on,
     // we're not going to have an IOException thrown, so
@@ -1562,8 +1562,8 @@ public final class Base64
    *         if source array is null
    * @since 2.0
    */
-  @Nonnull
-  public static String encodeBytes (@Nonnull final byte [] source, final int options) throws IOException
+  @NonNull
+  public static String encodeBytes (@NonNull final byte [] source, final int options) throws IOException
   {
     return encodeBytes (source, 0, source.length, options);
   }
@@ -1589,8 +1589,8 @@ public final class Base64
    *         if source array, offset, or length are invalid
    * @since 1.4
    */
-  @Nonnull
-  public static String encodeBytes (@Nonnull final byte [] source, final int off, final int len)
+  @NonNull
+  public static String encodeBytes (@NonNull final byte [] source, final int off, final int len)
   {
     // Since we're not going to have the GZIP encoding turned on,
     // we're not going to have an IOException thrown, so
@@ -1647,8 +1647,8 @@ public final class Base64
    *         if source array, offset, or length are invalid
    * @since 2.0
    */
-  @Nonnull
-  public static String encodeBytes (@Nonnull final byte [] source,
+  @NonNull
+  public static String encodeBytes (@NonNull final byte [] source,
                                     @Nonnegative final int off,
                                     @Nonnegative final int len,
                                     final int nOptions) throws IOException
@@ -1671,9 +1671,9 @@ public final class Base64
    *         if source array is null
    * @since 2.3.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeBytesToBytes (@Nonnull final byte [] source)
+  public static byte [] encodeBytesToBytes (@NonNull final byte [] source)
   {
     byte [] encoded;
     try
@@ -1711,9 +1711,9 @@ public final class Base64
    *         if source array, offset, or length are invalid
    * @since 2.3.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeBytesToBytes (@Nonnull final byte [] aSource,
+  public static byte [] encodeBytesToBytes (@NonNull final byte [] aSource,
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen,
                                             final int nOptions) throws IOException
@@ -1848,9 +1848,9 @@ public final class Base64
    * @since 1.3
    */
   @Nonnegative
-  static int _decode4to3 (@Nonnull final byte [] source,
+  static int _decode4to3 (@NonNull final byte [] source,
                           final int srcOffset,
-                          @Nonnull final byte [] destination,
+                          @NonNull final byte [] destination,
                           final int destOffset,
                           final int options)
   {
@@ -1939,9 +1939,9 @@ public final class Base64
    *         In case of error
    * @since 2.3.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] source) throws IOException
+  public static byte [] decode (@NonNull final byte [] source) throws IOException
   {
     return decode (source, NO_OPTIONS);
   }
@@ -1962,9 +1962,9 @@ public final class Base64
    *         In case of error
    * @since 2.3.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] source, final int options) throws IOException
+  public static byte [] decode (@NonNull final byte [] source, final int options) throws IOException
   {
     return decode (source, 0, source.length, options);
   }
@@ -1989,9 +1989,9 @@ public final class Base64
    *         If bogus characters exist in source data
    * @since 1.3
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final byte [] aSource, final int nOfs, final int nLen, final int nOptions)
+  public static byte [] decode (@NonNull final byte [] aSource, final int nOfs, final int nLen, final int nOptions)
                                                                                                                     throws IOException
   {
     // Lots of error checking and exception throwing
@@ -2069,9 +2069,9 @@ public final class Base64
    *         If there is a problem
    * @since 1.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final String s) throws IOException
+  public static byte [] decode (@NonNull final String s) throws IOException
   {
     return decode (s, NO_OPTIONS);
   }
@@ -2091,9 +2091,9 @@ public final class Base64
    *         if <code>s</code> is null
    * @since 1.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@Nonnull final String s, final int options) throws IOException
+  public static byte [] decode (@NonNull final String s, final int options) throws IOException
   {
     ValueEnforcer.notNull (s, "InputString");
 
@@ -2269,7 +2269,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  public static String safeDecodeAsString (@Nullable final String sEncoded, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     if (sEncoded != null)
@@ -2295,7 +2295,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes, @Nonnull final Charset aCharset)
+  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -2319,7 +2319,7 @@ public final class Base64
   public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength,
-                                           @Nonnull final Charset aCharset)
+                                           @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     if (aEncodedBytes != null)
@@ -2431,7 +2431,7 @@ public final class Base64
    * @return The encoded byte array.
    */
   @Nullable
-  public static String safeEncode (@Nonnull final String s, @Nonnull final Charset aCharset)
+  public static String safeEncode (@NonNull final String s, @NonNull final Charset aCharset)
   {
     final byte [] aDecoded = s.getBytes (aCharset);
     return encodeBytes (aDecoded);

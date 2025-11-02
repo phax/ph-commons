@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has interrupted indication.
@@ -38,14 +38,14 @@ public interface IInterruptIndicator
     return !isInterrupted ();
   }
 
-  @Nonnull
-  default EInterrupt or (@Nonnull final IInterruptIndicator aInterrupt)
+  @NonNull
+  default EInterrupt or (@NonNull final IInterruptIndicator aInterrupt)
   {
     return EInterrupt.valueOf (isInterrupted () || aInterrupt.isInterrupted ());
   }
 
-  @Nonnull
-  default EInterrupt and (@Nonnull final IInterruptIndicator aInterrupt)
+  @NonNull
+  default EInterrupt and (@NonNull final IInterruptIndicator aInterrupt)
   {
     return EInterrupt.valueOf (isInterrupted () && aInterrupt.isInterrupted ());
   }

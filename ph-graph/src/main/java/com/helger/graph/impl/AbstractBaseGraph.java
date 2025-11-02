@@ -18,6 +18,9 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableBaseGraph;
 import com.helger.graph.IMutableBaseGraphNode;
 import com.helger.graph.IMutableBaseGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple graph object that bidirectionally links graph nodes.
@@ -82,21 +82,21 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     return m_aNodes.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, NODETYPE> getAllNodes ()
   {
     return m_aNodes.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllNodeIDs ()
   {
     return m_aNodes.copyOfKeySet ();
   }
 
-  public void forEachNode (@Nonnull final Consumer <? super NODETYPE> aConsumer)
+  public void forEachNode (@NonNull final Consumer <? super NODETYPE> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aNodes.values ().forEach (aConsumer);

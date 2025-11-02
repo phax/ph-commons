@@ -17,13 +17,13 @@
  */
 package com.helger.cli;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 @NotThreadSafe
 public class OptionGroup extends CommonsArrayList <Option> implements IOptionBase
@@ -33,14 +33,14 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
   public OptionGroup ()
   {}
 
-  @Nonnull
-  public OptionGroup addOption (@Nonnull final OptionBuilder aBuilder)
+  @NonNull
+  public OptionGroup addOption (@NonNull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }
 
-  @Nonnull
-  public OptionGroup addOption (@Nonnull final Option aOption)
+  @NonNull
+  public OptionGroup addOption (@NonNull final Option aOption)
   {
     ValueEnforcer.notNull (aOption, "Option");
     super.add (aOption);
@@ -52,14 +52,14 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
     return m_bRequired;
   }
 
-  @Nonnull
+  @NonNull
   public final OptionGroup setRequired (final boolean bRequired)
   {
     m_bRequired = bRequired;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllOptions ()
   {

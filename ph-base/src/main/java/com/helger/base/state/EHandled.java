@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum to identify whether something was handled or not.
@@ -34,14 +34,14 @@ public enum EHandled implements IHandledIndicator
     return this == HANDLED;
   }
 
-  @Nonnull
+  @NonNull
   public static EHandled valueOf (final boolean bHandleded)
   {
     return bHandleded ? HANDLED : UNHANDLED;
   }
 
-  @Nonnull
-  public static EHandled valueOf (@Nonnull final IHandledIndicator aHandledIndicator)
+  @NonNull
+  public static EHandled valueOf (@NonNull final IHandledIndicator aHandledIndicator)
   {
     return valueOf (aHandledIndicator.isHandled ());
   }

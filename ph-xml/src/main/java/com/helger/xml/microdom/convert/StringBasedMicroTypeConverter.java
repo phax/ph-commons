@@ -16,13 +16,13 @@
  */
 package com.helger.xml.microdom.convert;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.microdom.IMicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation if {@link IMicroTypeConverter} that uses a regular type
@@ -37,17 +37,17 @@ public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConver
 {
   private final Class <T> m_aNativeClass;
 
-  public StringBasedMicroTypeConverter (@Nonnull final Class <T> aNativeClass)
+  public StringBasedMicroTypeConverter (@NonNull final Class <T> aNativeClass)
   {
     ValueEnforcer.notNull (aNativeClass, "NativeClass");
 
     m_aNativeClass = aNativeClass;
   }
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final T aObject,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final T aObject,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull @Nonempty final String sTagName)
+                                              @NonNull @Nonempty final String sTagName)
   {
     // Convert object to string
     final String sValue = TypeConverter.convert (aObject, String.class);
@@ -56,8 +56,8 @@ public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConver
     return StringMicroTypeConverter.getInstance ().convertToMicroElement (sValue, sNamespaceURI, sTagName);
   }
 
-  @Nonnull
-  public T convertToNative (@Nonnull final IMicroElement aElement)
+  @NonNull
+  public T convertToNative (@NonNull final IMicroElement aElement)
   {
     // Convert micro element to string
     final String sValue = StringMicroTypeConverter.getInstance ().convertToNative (aElement);

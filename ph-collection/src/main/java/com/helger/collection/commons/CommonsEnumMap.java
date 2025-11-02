@@ -18,9 +18,9 @@ package com.helger.collection.commons;
 
 import java.util.EnumMap;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link EnumMap} implementation based on {@link ICommonsMap}.
@@ -34,12 +34,12 @@ import jakarta.annotation.Nonnull;
 public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends EnumMap <KEYTYPE, VALUETYPE> implements
                             ICommonsMap <KEYTYPE, VALUETYPE>
 {
-  public CommonsEnumMap (@Nonnull final Class <KEYTYPE> aKeyClass)
+  public CommonsEnumMap (@NonNull final Class <KEYTYPE> aKeyClass)
   {
     super (aKeyClass);
   }
 
-  public CommonsEnumMap (@Nonnull final EnumMap <KEYTYPE, ? extends VALUETYPE> aMap)
+  public CommonsEnumMap (@NonNull final EnumMap <KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (aMap);
   }
@@ -47,7 +47,7 @@ public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends 
   // Cannot overwrite createInstance because of the special key type generics
   // constraints
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsEnumMap <KEYTYPE, VALUETYPE> getClone ()
   {

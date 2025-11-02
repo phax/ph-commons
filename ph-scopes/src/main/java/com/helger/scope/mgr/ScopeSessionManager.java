@@ -16,6 +16,8 @@
  */
 package com.helger.scope.mgr;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +42,6 @@ import com.helger.scope.singleton.AbstractGlobalSingleton;
 import com.helger.scope.spi.ScopeSPIManager;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Internal manager class for session scopes.<br>
@@ -82,7 +81,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   public ScopeSessionManager ()
   {}
 
-  @Nonnull
+  @NonNull
   public static ScopeSessionManager getInstance ()
   {
     // This special handling is needed, because this global singleton is
@@ -117,7 +116,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    * @param aSessionScope
    *        The session scope that was just created. May not be <code>null</code>.
    */
-  public void onScopeBegin (@Nonnull final ISessionScope aSessionScope)
+  public void onScopeBegin (@NonNull final ISessionScope aSessionScope)
   {
     ValueEnforcer.notNull (aSessionScope, "SessionScope");
 
@@ -144,7 +143,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
    * @param aSessionScope
    *        The session scope to be ended. May not be <code>null</code>.
    */
-  public void onScopeEnd (@Nonnull final ISessionScope aSessionScope)
+  public void onScopeEnd (@NonNull final ISessionScope aSessionScope)
   {
     ValueEnforcer.notNull (aSessionScope, "SessionScope");
 
@@ -213,7 +212,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   /**
    * @return A non-<code>null</code>, mutable copy of all managed session scopes.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ISessionScope> getAllSessionScopes ()
   {
@@ -280,7 +279,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     return m_aRWLock.readLockedBoolean ( () -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
     return m_aRWLock.writeLockedGet ( () -> {
@@ -296,7 +295,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     return m_aRWLock.readLockedBoolean ( () -> m_bEndAllSessionsOnScopeEnd);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {
     return m_aRWLock.writeLockedGet ( () -> {
@@ -308,7 +307,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   @Override
-  protected void onDestroy (@Nonnull final IScope aScopeInDestruction)
+  protected void onDestroy (@NonNull final IScope aScopeInDestruction)
   {
     if (isDestroyAllSessionsOnScopeEnd ())
       destroyAllSessions ();

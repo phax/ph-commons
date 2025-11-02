@@ -16,7 +16,7 @@
  */
 package com.helger.base.functional;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a predicate (boolean-valued function) of one {@code boolean}-valued argument. This is
@@ -46,7 +46,7 @@ public interface IBooleanPredicate
    *
    * @return a predicate that represents the logical negation of this predicate
    */
-  @Nonnull
+  @NonNull
   default IBooleanPredicate negate ()
   {
     return x -> !test (x);
@@ -68,8 +68,8 @@ public interface IBooleanPredicate
    * @throws NullPointerException
    *         if other is null
    */
-  @Nonnull
-  default IBooleanPredicate and (@Nonnull final IBooleanPredicate aOther)
+  @NonNull
+  default IBooleanPredicate and (@NonNull final IBooleanPredicate aOther)
   {
     return x -> test (x) && aOther.test (x);
   }
@@ -90,32 +90,32 @@ public interface IBooleanPredicate
    * @throws NullPointerException
    *         if other is null
    */
-  @Nonnull
-  default IBooleanPredicate or (@Nonnull final IBooleanPredicate aOther)
+  @NonNull
+  default IBooleanPredicate or (@NonNull final IBooleanPredicate aOther)
   {
     return x -> test (x) || aOther.test (x);
   }
 
-  @Nonnull
+  @NonNull
   static IBooleanPredicate all ()
   {
     return x -> true;
   }
 
-  @Nonnull
+  @NonNull
   static IBooleanPredicate none ()
   {
     return x -> false;
   }
 
-  @Nonnull
+  @NonNull
   static IBooleanPredicate ifTrue ()
   {
     // This is a brainer ;) "if true" is the identity function
     return x -> x;
   }
 
-  @Nonnull
+  @NonNull
   static IBooleanPredicate ifFalse ()
   {
     return x -> !x;

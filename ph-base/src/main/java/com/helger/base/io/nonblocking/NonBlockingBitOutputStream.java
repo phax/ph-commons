@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,8 +31,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The {@link NonBlockingBitOutputStream} allows writing individual bits to a general Java
@@ -74,7 +73,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
-  public NonBlockingBitOutputStream (@Nonnull final OutputStream aOS, @Nonnull final ByteOrder aByteOrder)
+  public NonBlockingBitOutputStream (@NonNull final OutputStream aOS, @NonNull final ByteOrder aByteOrder)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
     ValueEnforcer.notNull (aByteOrder, "ByteOrder");
@@ -87,7 +86,7 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   /**
    * @return The byte order used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ByteOrder getByteOrder ()
   {
     return m_bHighOrderBitFirst ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN;

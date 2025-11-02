@@ -18,6 +18,7 @@ package com.helger.xml;
 
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -26,8 +27,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Iterate all children of the start node, but NOT the start node itself.
@@ -39,7 +38,7 @@ public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
 {
   private final ICommonsList <Node> m_aOpen = new CommonsArrayList <> ();
 
-  public RecursiveNodeIterator (@Nonnull final Node aNode)
+  public RecursiveNodeIterator (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     m_aOpen.add (aNode);
@@ -50,7 +49,7 @@ public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
     return m_aOpen.isNotEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   public Node next ()
   {
     if (m_aOpen.isEmpty ())
@@ -85,8 +84,8 @@ public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
    *        The node to iterate the children from. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static RecursiveNodeIterator createChildNodeIterator (@Nonnull final Node aNode)
+  @NonNull
+  public static RecursiveNodeIterator createChildNodeIterator (@NonNull final Node aNode)
   {
     // Create a regular one
     final RecursiveNodeIterator ret = new RecursiveNodeIterator (aNode);

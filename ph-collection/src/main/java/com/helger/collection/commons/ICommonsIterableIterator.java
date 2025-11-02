@@ -20,9 +20,9 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.collection.base.IIterableIterator;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.collection.base.IIterableIterator;
 
 /**
  * This is a merged interface of {@link Iterator} and {@link Iterable} for simpler usage of
@@ -36,20 +36,20 @@ public interface ICommonsIterableIterator <ELEMENTTYPE> extends
                                           ICommonsIterable <ELEMENTTYPE>,
                                           IIterableIterator <ELEMENTTYPE>
 {
-  @Nonnull
+  @NonNull
   default Iterator <ELEMENTTYPE> iterator ()
   {
     return this;
   }
 
-  @Nonnull
-  default ICommonsIterableIterator <ELEMENTTYPE> withFilter (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  @NonNull
+  default ICommonsIterableIterator <ELEMENTTYPE> withFilter (@NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return new CommonsFilterIterator <> (this, aFilter);
   }
 
-  @Nonnull
-  default <DSTTYPE> ICommonsIterableIterator <DSTTYPE> withMapper (@Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+  @NonNull
+  default <DSTTYPE> ICommonsIterableIterator <DSTTYPE> withMapper (@NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     return new CommonsMapperIterator <> (this, aMapper);
   }

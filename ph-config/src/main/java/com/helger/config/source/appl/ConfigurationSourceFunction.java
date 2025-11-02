@@ -19,6 +19,8 @@ package com.helger.config.source.appl;
 import java.util.function.Function;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +32,6 @@ import com.helger.config.source.AbstractConfigurationSource;
 import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for application based
@@ -55,7 +54,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
    * @param aValueProvider
    *        The value provider to be used. May not be <code>null</code>.
    */
-  public ConfigurationSourceFunction (@Nonnull final UnaryOperator <String> aValueProvider)
+  public ConfigurationSourceFunction (@NonNull final UnaryOperator <String> aValueProvider)
   {
     this (SOURCE_TYPE.getDefaultPriority (), aValueProvider);
   }
@@ -68,7 +67,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
    * @param aValueProvider
    *        The value provider to be used. May not be <code>null</code>.
    */
-  public ConfigurationSourceFunction (final int nPriority, @Nonnull final UnaryOperator <String> aValueProvider)
+  public ConfigurationSourceFunction (final int nPriority, @NonNull final UnaryOperator <String> aValueProvider)
   {
     super (SOURCE_TYPE, nPriority);
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
@@ -79,7 +78,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
    * @return The value provider as passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final UnaryOperator <String> getValueProvider ()
   {
     return m_aValueProvider;
@@ -91,7 +90,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     final String sValue = m_aValueProvider.apply (sKey);
     if (sValue == null)

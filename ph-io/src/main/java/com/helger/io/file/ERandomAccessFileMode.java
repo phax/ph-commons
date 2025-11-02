@@ -16,11 +16,11 @@
  */
 package com.helger.io.file;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a set of predefined open modes for RandomAccessFile objects.
@@ -49,12 +49,12 @@ public enum ERandomAccessFileMode
 
   private final String m_sMode;
 
-  ERandomAccessFileMode (@Nonnull @Nonempty final String sMode)
+  ERandomAccessFileMode (@NonNull @Nonempty final String sMode)
   {
     m_sMode = sMode;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getMode ()
   {

@@ -16,9 +16,9 @@
  */
 package com.helger.typeconvert;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their
@@ -35,5 +35,5 @@ public interface ITypeConverterRegistrarSPI
    * @param aRegistry
    *        The destination registry. Never <code>null</code>.
    */
-  void registerTypeConverter (@Nonnull ITypeConverterRegistry aRegistry);
+  void registerTypeConverter (@NonNull ITypeConverterRegistry aRegistry);
 }

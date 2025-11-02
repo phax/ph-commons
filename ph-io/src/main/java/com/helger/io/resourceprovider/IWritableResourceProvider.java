@@ -18,12 +18,12 @@ package com.helger.io.resourceprovider;
 
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.io.EAppend;
 import com.helger.io.resource.IWritableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Resource provider interface for readable and writable resources.
@@ -52,8 +52,8 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
    *        The name of the resource to resolve.
    * @return The writable resource. Never <code>null</code>.
    */
-  @Nonnull
-  IWritableResource getWritableResource (@Nonnull String sName);
+  @NonNull
+  IWritableResource getWritableResource (@NonNull String sName);
 
   /**
    * Get the {@link OutputStream} specified by the given name for reading. This
@@ -69,7 +69,7 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
    *         {@link #supportsWriting(String)} returns <code>false</code>.
    */
   @Nullable
-  default OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  default OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     if (!supportsWriting (sName))
       return null;

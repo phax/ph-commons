@@ -37,6 +37,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.string.StringParser;
@@ -49,8 +51,6 @@ import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.impl.TypeConverter;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Register the date and time specific type converter
  *
@@ -60,7 +60,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Source: Calendar
     aRegistry.registerTypeConverter (Calendar.class,

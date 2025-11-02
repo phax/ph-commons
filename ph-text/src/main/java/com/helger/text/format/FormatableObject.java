@@ -18,12 +18,12 @@ package com.helger.text.format;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single object with an additional formatter.

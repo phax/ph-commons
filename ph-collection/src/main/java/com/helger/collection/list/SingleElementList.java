@@ -20,6 +20,9 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.ListIterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -38,9 +41,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.iterator.SingleElementIterator;
 import com.helger.collection.iterator.SingleElementListIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link ICommonsList} interface handling exactly one element and no more!
@@ -68,14 +68,14 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> SingleElementList <T> createInstance ()
   {
     return new SingleElementList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SingleElementList <ELEMENTTYPE> getClone ()
   {
@@ -100,7 +100,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     m_bHasElement = true;
   }
 
-  public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.isTrue (aElements.size () <= 1, "Cannot add lists with more than one element!");
@@ -110,7 +110,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return i.hasNext () && add (i.next ());
   }
 
-  public boolean addAll (@Nonnegative final int nIndex, @Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@Nonnegative final int nIndex, @NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     if (nIndex != 0)
       throw new IndexOutOfBoundsException ("Only index 0 is valid!");
@@ -129,7 +129,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return m_bHasElement && EqualsHelper.equals (aObj1, aElement);
   }
 
-  public boolean containsAll (@Nonnull final Collection <?> aElements)
+  public boolean containsAll (@NonNull final Collection <?> aElements)
   {
     for (final Object aElement : aElements)
       if (!contains (aElement))
@@ -154,7 +154,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return !m_bHasElement;
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <ELEMENTTYPE> iterator ()
   {
     return m_bHasElement ? new SingleElementIterator <> (m_aElement) : new EmptyIterator <> ();
@@ -165,13 +165,13 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return contains (aElement) ? 0 : -1;
   }
 
-  @Nonnull
+  @NonNull
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
     return m_bHasElement ? new SingleElementListIterator <> (m_aElement) : new EmptyListIterator <> ();
   }
 
-  @Nonnull
+  @NonNull
   public ListIterator <ELEMENTTYPE> listIterator (final int nIndex)
   {
     if (!m_bHasElement || nIndex != 0)
@@ -210,7 +210,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   }
 
   @UnsupportedOperation
-  public boolean retainAll (@Nonnull final Collection <?> aElements)
+  public boolean retainAll (@NonNull final Collection <?> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     if (m_bHasElement)
@@ -239,7 +239,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return m_bHasElement ? 1 : 0;
   }
 
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   public ICommonsList <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
   {
@@ -255,7 +255,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public Object [] toArray ()
   {
     if (m_bHasElement)
@@ -267,8 +267,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return CGlobal.EMPTY_OBJECT_ARRAY;
   }
 
-  @Nonnull
-  public <ARRAYELEMENTTYPE> ARRAYELEMENTTYPE [] toArray (@Nonnull final ARRAYELEMENTTYPE [] aDest)
+  @NonNull
+  public <ARRAYELEMENTTYPE> ARRAYELEMENTTYPE [] toArray (@NonNull final ARRAYELEMENTTYPE [] aDest)
   {
     ValueEnforcer.notNull (aDest, "Dest");
 

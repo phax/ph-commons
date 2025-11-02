@@ -16,8 +16,8 @@
  */
 package com.helger.base.name;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface for a handler the provides the locale <b>independent</b> name of an object.
@@ -39,7 +39,7 @@ public interface IDisplayNameProvider <DATATYPE>
   @Nullable
   String getDisplayName (@Nullable DATATYPE aObject);
 
-  @Nonnull
+  @NonNull
   static IDisplayNameProvider <IHasDisplayName> createHasDisplayName ()
   {
     return aObject -> aObject == null ? null : aObject.getDisplayName ();

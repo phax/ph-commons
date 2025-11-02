@@ -18,6 +18,8 @@ package com.helger.commons.homoglyphs;
 
 import java.nio.IntBuffer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -27,8 +29,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.map.IntObjectMap;
 import com.helger.collection.set.IntSet;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Use this class to detect occurrences of target words inside a String, where the target words may
@@ -55,7 +55,7 @@ public class Homoglyph
    *        a List of Sets, with each Set containing a group of Unicode codepoints that are
    *        homoglyphs
    */
-  public Homoglyph (@Nonnull final ICommonsList <IntSet> aHomoglyphs)
+  public Homoglyph (@NonNull final ICommonsList <IntSet> aHomoglyphs)
   {
     ValueEnforcer.notNull (aHomoglyphs, "Homoglyphs");
     for (final IntSet aSet : aHomoglyphs)
@@ -84,7 +84,7 @@ public class Homoglyph
     return true;
   }
 
-  @Nonnull
+  @NonNull
   private ICommonsList <HomoglyphSearchResult> _checkForWord (final CodePoints text, final CodePoints targetWord)
   {
     final ICommonsList <HomoglyphSearchResult> ret = new CommonsArrayList <> ();
@@ -106,7 +106,7 @@ public class Homoglyph
    * @return a List containing the results of the search, if no matches were found an empty list
    *         will be returned
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <HomoglyphSearchResult> search (final String text, final Iterable <String> aTargetWords)
   {
@@ -128,7 +128,7 @@ public class Homoglyph
    * @return a List containing the results of the search, if no matches were found an empty list
    *         will be returned
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <HomoglyphSearchResult> search (final String text, final String... targetWords)
   {
@@ -140,7 +140,7 @@ public class Homoglyph
     private final String m_sText;
     private final int [] m_aCodepoints;
 
-    public CodePoints (@Nonnull final String sText)
+    public CodePoints (@NonNull final String sText)
     {
       m_sText = sText;
 
@@ -162,13 +162,13 @@ public class Homoglyph
       return m_aCodepoints.length;
     }
 
-    @Nonnull
+    @NonNull
     public String getText ()
     {
       return m_sText;
     }
 
-    @Nonnull
+    @NonNull
     public String subStringAt (@Nonnegative final int nOfs, @Nonnegative final int nLen)
     {
       final StringBuilder sb = new StringBuilder (nLen);

@@ -16,8 +16,8 @@
  */
 package com.helger.mime.parse;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Exception for errors that occur during MIME type parsing.<br>
@@ -27,12 +27,12 @@ import jakarta.annotation.Nullable;
  */
 public class MimeTypeParserException extends Exception
 {
-  public MimeTypeParserException (@Nonnull final String sMsg)
+  public MimeTypeParserException (@NonNull final String sMsg)
   {
     super (sMsg);
   }
 
-  public MimeTypeParserException (@Nonnull final String sMsg, @Nullable final Throwable aCause)
+  public MimeTypeParserException (@NonNull final String sMsg, @Nullable final Throwable aCause)
   {
     super (sMsg, aCause);
   }

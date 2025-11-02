@@ -18,13 +18,13 @@ package com.helger.io.file;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.callback.CallbackList;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Manage file operations, and persist the last errors for later retrieval, as well as offering a
@@ -50,7 +50,7 @@ public class FileOperationManager implements IFileOperationManager
   public FileOperationManager ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public CallbackList <IFileOperationCallback> callbacks ()
   {
@@ -69,7 +69,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError == null ? null : m_aLastError.getOperation ();
   }
 
-  private void _handleLastError (@Nonnull final FileIOError aLastError)
+  private void _handleLastError (@NonNull final FileIOError aLastError)
   {
     if (m_aCallbacks.isNotEmpty ())
     {
@@ -91,112 +91,112 @@ public class FileOperationManager implements IFileOperationManager
     }
   }
 
-  @Nonnull
-  public FileIOError createDir (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError createDir (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.createDir (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError createDirIfNotExisting (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError createDirIfNotExisting (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.createDirIfNotExisting (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError createDirRecursive (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError createDirRecursive (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.createDirRecursive (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError createDirRecursiveIfNotExisting (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError createDirRecursiveIfNotExisting (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.createDirRecursiveIfNotExisting (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteDir (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError deleteDir (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.deleteDir (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteDirIfExisting (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError deleteDirIfExisting (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.deleteDirIfExisting (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteDirRecursive (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError deleteDirRecursive (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.deleteDirRecursive (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteDirRecursiveIfExisting (@Nonnull final File aDir)
+  @NonNull
+  public FileIOError deleteDirRecursiveIfExisting (@NonNull final File aDir)
   {
     m_aLastError = FileOperations.deleteDirRecursiveIfExisting (aDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteFile (@Nonnull final File aFile)
+  @NonNull
+  public FileIOError deleteFile (@NonNull final File aFile)
   {
     m_aLastError = FileOperations.deleteFile (aFile);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError deleteFileIfExisting (@Nonnull final File aFile)
+  @NonNull
+  public FileIOError deleteFileIfExisting (@NonNull final File aFile)
   {
     m_aLastError = FileOperations.deleteFileIfExisting (aFile);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError renameDir (@Nonnull final File aSourceDir, @Nonnull final File aTargetDir)
+  @NonNull
+  public FileIOError renameDir (@NonNull final File aSourceDir, @NonNull final File aTargetDir)
   {
     m_aLastError = FileOperations.renameDir (aSourceDir, aTargetDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError renameFile (@Nonnull final File aSourceFile, @Nonnull final File aTargetFile)
+  @NonNull
+  public FileIOError renameFile (@NonNull final File aSourceFile, @NonNull final File aTargetFile)
   {
     m_aLastError = FileOperations.renameFile (aSourceFile, aTargetFile);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError copyDirRecursive (@Nonnull final File aSourceDir, @Nonnull final File aTargetDir)
+  @NonNull
+  public FileIOError copyDirRecursive (@NonNull final File aSourceDir, @NonNull final File aTargetDir)
   {
     m_aLastError = FileOperations.copyDirRecursive (aSourceDir, aTargetDir);
     _handleLastError (m_aLastError);
     return m_aLastError;
   }
 
-  @Nonnull
-  public FileIOError copyFile (@Nonnull final File aSourceFile, @Nonnull final File aTargetFile)
+  @NonNull
+  public FileIOError copyFile (@NonNull final File aSourceFile, @NonNull final File aTargetFile)
   {
     m_aLastError = FileOperations.copyFile (aSourceFile, aTargetFile);
     _handleLastError (m_aLastError);

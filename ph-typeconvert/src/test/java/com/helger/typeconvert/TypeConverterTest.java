@@ -34,6 +34,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
@@ -68,8 +69,6 @@ import com.helger.typeconvert.mock.IMockInterface;
 import com.helger.typeconvert.mock.MockImplementation;
 import com.helger.typeconvert.mock.MockSubImplementation;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link TypeConverter}.
  *
@@ -103,8 +102,8 @@ public final class TypeConverterTest
                                                             MutableLong.class,
                                                             MutableShort.class };
 
-  @Nonnull
-  private static Object _instantiate (@Nonnull final Class <?> aClass) throws Exception
+  @NonNull
+  private static Object _instantiate (@NonNull final Class <?> aClass) throws Exception
   {
     if (aClass == AtomicBoolean.class)
       return new AtomicBoolean ((aClass.hashCode () % 2) == 0);

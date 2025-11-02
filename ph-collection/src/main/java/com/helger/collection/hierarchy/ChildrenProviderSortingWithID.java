@@ -18,10 +18,10 @@ package com.helger.collection.hierarchy;
 
 import java.util.Comparator;
 
-import com.helger.base.reflection.GenericReflection;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.reflection.GenericReflection;
 
 /**
  * An {@link IChildrenProviderWithID} with ID that returns the children in
@@ -36,14 +36,14 @@ import jakarta.annotation.Nullable;
 public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE> implements
                                            IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
-  public ChildrenProviderSortingWithID (@Nonnull final IChildrenProviderWithID <KEYTYPE, CHILDTYPE> aCP,
-                                        @Nonnull final Comparator <? super CHILDTYPE> aComparator)
+  public ChildrenProviderSortingWithID (@NonNull final IChildrenProviderWithID <KEYTYPE, CHILDTYPE> aCP,
+                                        @NonNull final Comparator <? super CHILDTYPE> aComparator)
   {
     super (aCP, aComparator);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public IChildrenProviderWithID <KEYTYPE, CHILDTYPE> getChildrenProvider ()
   {
     return GenericReflection.uncheckedCast (super.getChildrenProvider ());

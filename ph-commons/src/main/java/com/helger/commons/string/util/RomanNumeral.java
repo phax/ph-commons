@@ -18,11 +18,11 @@ package com.helger.commons.string.util;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An object of type RomanNumeral is an integer between 1 and 3999. It can be
@@ -76,7 +76,7 @@ public final class RomanNumeral
    * @param sRoman
    *        the roman numeral to be converted to an int
    */
-  private RomanNumeral (@Nonnull final String sRoman)
+  private RomanNumeral (@NonNull final String sRoman)
   {
     ValueEnforcer.notEmpty (sRoman, "Roman");
 
@@ -162,7 +162,7 @@ public final class RomanNumeral
     }
   }
 
-  @Nonnull
+  @NonNull
   private static String _getAsRomanString (final int nValue)
   {
     // Return the standard representation of this Roman numeral.
@@ -182,7 +182,7 @@ public final class RomanNumeral
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   private String _asRomanString ()
   {
     return _getAsRomanString (m_nValue);
@@ -200,7 +200,7 @@ public final class RomanNumeral
     return new RomanNumeral (sRoman)._asInt ();
   }
 
-  @Nonnull
+  @NonNull
   public static String intToRomanString (final int nValue)
   {
     return new RomanNumeral (nValue)._asRomanString ();

@@ -18,7 +18,7 @@ package com.helger.base.io.stream;
 
 import java.io.Reader;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A special {@link Reader} that does not close the stream. This is e.g. helpful
@@ -28,7 +28,7 @@ import jakarta.annotation.Nonnull;
  */
 public class NonClosingReader extends WrappedReader
 {
-  public NonClosingReader (@Nonnull final Reader aSourceReader)
+  public NonClosingReader (@NonNull final Reader aSourceReader)
   {
     super (aSourceReader);
   }

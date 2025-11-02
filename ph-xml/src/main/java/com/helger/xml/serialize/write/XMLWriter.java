@@ -21,6 +21,8 @@ import java.io.Writer;
 
 import javax.xml.namespace.NamespaceContext;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -37,9 +39,6 @@ import com.helger.base.state.ESuccess;
 import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.EXMLVersion;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a helper class to serialize DOM nodes to a String.
@@ -75,8 +74,8 @@ public final class XMLWriter
    *        and on error).
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToStream (@Nonnull final Node aNode, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public static ESuccess writeToStream (@NonNull final Node aNode, @NonNull @WillClose final OutputStream aOS)
   {
     return writeToStream (aNode, aOS, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -95,10 +94,10 @@ public final class XMLWriter
    *        The serialization settings to be used. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToStream (@Nonnull final Node aNode,
-                                        @Nonnull @WillClose final OutputStream aOS,
-                                        @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToStream (@NonNull final Node aNode,
+                                        @NonNull @WillClose final OutputStream aOS,
+                                        @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -137,8 +136,8 @@ public final class XMLWriter
    *        closed anyway directly after the operation finishes (on success and on error).
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToWriter (@Nonnull final Node aNode, @Nonnull @WillClose final Writer aWriter)
+  @NonNull
+  public static ESuccess writeToWriter (@NonNull final Node aNode, @NonNull @WillClose final Writer aWriter)
   {
     return writeToWriter (aNode, aWriter, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -156,10 +155,10 @@ public final class XMLWriter
    *        The serialization settings to be used. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeToWriter (@Nonnull final Node aNode,
-                                        @Nonnull @WillClose final Writer aWriter,
-                                        @Nonnull final IXMLWriterSettings aSettings)
+  @NonNull
+  public static ESuccess writeToWriter (@NonNull final Node aNode,
+                                        @NonNull @WillClose final Writer aWriter,
+                                        @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -198,7 +197,7 @@ public final class XMLWriter
    * @since 8.6.3
    */
   @Nullable
-  public static String getNodeAsString (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public static String getNodeAsString (@NonNull final Node aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     // start serializing
     try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
@@ -227,7 +226,7 @@ public final class XMLWriter
    * @since 8.6.3
    */
   @Nullable
-  public static String getNodeAsString (@Nonnull final Node aNode)
+  public static String getNodeAsString (@NonNull final Node aNode)
   {
     return getNodeAsString (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -243,7 +242,7 @@ public final class XMLWriter
    * @since 8.6.3
    */
   @Nullable
-  public static byte [] getNodeAsBytes (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public static byte [] getNodeAsBytes (@NonNull final Node aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -273,7 +272,7 @@ public final class XMLWriter
    * @since 8.6.3
    */
   @Nullable
-  public static byte [] getNodeAsBytes (@Nonnull final Node aNode)
+  public static byte [] getNodeAsBytes (@NonNull final Node aNode)
   {
     return getNodeAsBytes (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }

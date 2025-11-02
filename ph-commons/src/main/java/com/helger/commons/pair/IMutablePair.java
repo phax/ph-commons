@@ -16,9 +16,9 @@
  */
 package com.helger.commons.pair;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EChange;
 
 /**
  * Interface for a writable pair.
@@ -39,7 +39,7 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
    *        implementation.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   EChange setFirst (DATA1TYPE aFirst);
 
   /**
@@ -50,6 +50,6 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
    *        implementation.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   EChange setSecond (DATA2TYPE aSecond);
 }

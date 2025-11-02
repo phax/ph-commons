@@ -19,6 +19,9 @@ package com.helger.json.convert;
 import java.util.Collection;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.array.ArrayHelper;
@@ -30,9 +33,6 @@ import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class for converting objects from and to {@link IJson}.
@@ -72,7 +72,7 @@ public final class JsonConverter
    *        Source Object to convert May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static IJson convertToJson (@Nullable final Object aObject)
   {
     if (aObject == null)

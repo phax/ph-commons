@@ -22,6 +22,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.numeric.mutable.MutableBigDecimal;
@@ -35,8 +37,6 @@ import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.numeric.mutable.MutableShort;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Implementation of {@link IJsonValueSerializerRegistrarSPI} for basic types
  * like Boolean, Byte, Integer, AtomicInteger etc.
@@ -47,7 +47,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class DefaultJsonValueSerializerRegistrarSPI implements IJsonValueSerializerRegistrarSPI
 {
-  public void registerJsonValueSerializer (@Nonnull final IJsonValueSerializerRegistry aRegistry)
+  public void registerJsonValueSerializer (@NonNull final IJsonValueSerializerRegistry aRegistry)
   {
     aRegistry.registerJsonValueSerializer (AtomicBoolean.class, JsonValueSerializerToString.getInstance ());
     aRegistry.registerJsonValueSerializer (AtomicInteger.class, JsonValueSerializerToString.getInstance ());

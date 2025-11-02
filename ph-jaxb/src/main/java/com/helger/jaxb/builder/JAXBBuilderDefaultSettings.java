@@ -20,6 +20,7 @@ import java.nio.charset.Charset;
 
 import javax.xml.namespace.NamespaceContext;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,6 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**

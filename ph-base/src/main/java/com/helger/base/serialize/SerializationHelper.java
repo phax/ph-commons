@@ -22,13 +22,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.reflection.GenericReflection;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Global serialization helper method.
@@ -51,8 +51,8 @@ public final class SerializationHelper
    * @throws IllegalStateException
    *         If serialization failed
    */
-  @Nonnull
-  public static byte [] getSerializedByteArray (@Nonnull final Serializable aData)
+  @NonNull
+  public static byte [] getSerializedByteArray (@NonNull final Serializable aData)
   {
     ValueEnforcer.notNull (aData, "Data");
 
@@ -89,8 +89,8 @@ public final class SerializationHelper
    * @param <T>
    *        The type of the deserialized object
    */
-  @Nonnull
-  public static <T> T getDeserializedObject (@Nonnull final byte [] aData)
+  @NonNull
+  public static <T> T getDeserializedObject (@NonNull final byte [] aData)
   {
     ValueEnforcer.notNull (aData, "Data");
 

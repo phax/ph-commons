@@ -16,9 +16,9 @@
  */
 package com.helger.config.source.resource.type;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other configuration source resource types
@@ -34,5 +34,5 @@ public interface IConfigurationSourceResourceTypeRegistrarSPI
    * @param aRegistry
    *        The destination registry. Never <code>null</code>.
    */
-  void registerResourceType (@Nonnull ConfigurationSourceResourceTypeRegistry aRegistry);
+  void registerResourceType (@NonNull ConfigurationSourceResourceTypeRegistry aRegistry);
 }

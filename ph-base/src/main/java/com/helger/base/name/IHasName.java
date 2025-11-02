@@ -18,7 +18,7 @@ package com.helger.base.name;
 
 import java.util.Comparator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for all objects that have a mandatory <b>INTERNAL</b> name that is not
@@ -33,10 +33,10 @@ public interface IHasName
   /**
    * @return The name of the object. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getName ();
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasName> getComparatorName ()
   {
     return Comparator.comparing (IHasName::getName);

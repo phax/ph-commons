@@ -24,6 +24,8 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +46,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.xml.XMLHelper;
 import com.helger.xml.namespace.IIterableNamespaceContext;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract XML serializer implementation that works with IMicroNode and org.w3c.dom.Node objects.
@@ -103,7 +102,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return null;
     }
 
-    public void addPrefixNamespaceMapping (@Nullable final String sPrefix, @Nonnull final String sNamespaceURI)
+    public void addPrefixNamespaceMapping (@Nullable final String sPrefix, @NonNull final String sNamespaceURI)
     {
       if (LOGGER.isTraceEnabled ())
         LOGGER.trace ("Adding namespace mapping " + sPrefix + ":" + sNamespaceURI);
@@ -143,7 +142,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     @Nullable
-    public String getPrefixOfNamespaceURI (@Nonnull final String sNamespaceURI)
+    public String getPrefixOfNamespaceURI (@NonNull final String sNamespaceURI)
     {
       // is it the default?
       if (sNamespaceURI.equals (m_sDefaultNamespaceURI))
@@ -184,7 +183,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList <> ();
     private final NamespaceContext m_aNamespaceCtx;
 
-    public NamespaceStack (@Nonnull final NamespaceContext aNamespaceCtx)
+    public NamespaceStack (@NonNull final NamespaceContext aNamespaceCtx)
     {
       m_aNamespaceCtx = aNamespaceCtx;
     }
@@ -207,7 +206,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * @param sNamespaceURI
      *        Namespace URI to use. May neither be <code>null</code> nor empty.
      */
-    public void addNamespaceMapping (@Nullable final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
+    public void addNamespaceMapping (@Nullable final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
     {
       // Add the namespace to the current level
       m_aStack.getFirstOrNull ().addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
@@ -255,7 +254,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * @return <code>null</code> if no namespace prefix is required.
      */
     @Nullable
-    private String _getUsedPrefixOfNamespace (@Nonnull final String sNamespaceURI)
+    private String _getUsedPrefixOfNamespace (@NonNull final String sNamespaceURI)
     {
       ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
 
@@ -282,7 +281,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      *        The prefix to be checked
      * @return <code>true</code> if somewhere in the stack, the specified prefix is already used
      */
-    private boolean _containsNoPrefix (@Nonnull final String sPrefix)
+    private boolean _containsNoPrefix (@NonNull final String sPrefix)
     {
       // find existing prefix (iterate current to root)
       return m_aStack.containsNone (x -> x.getNamespaceURIOfPrefix (sPrefix) != null);
@@ -296,7 +295,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * @return <code>null</code> if no namespace context mapping is present
      */
     @Nullable
-    private String _getMappedPrefix (@Nonnull final String sNamespaceURI)
+    private String _getMappedPrefix (@NonNull final String sNamespaceURI)
     {
       ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
 
@@ -339,9 +338,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     @Nullable
-    public String getElementNamespacePrefixToUse (@Nonnull final String sNamespaceURI,
+    public String getElementNamespacePrefixToUse (@NonNull final String sNamespaceURI,
                                                   final boolean bIsRootElement,
-                                                  @Nonnull final Map <QName, String> aAttrMap)
+                                                  @NonNull final Map <QName, String> aAttrMap)
     {
       final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
@@ -371,10 +370,10 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     @Nullable
-    public String getAttributeNamespacePrefixToUse (@Nonnull final String sNamespaceURI,
-                                                    @Nonnull final String sName,
-                                                    @Nonnull final String sValue,
-                                                    @Nonnull final Map <QName, String> aAttrMap)
+    public String getAttributeNamespacePrefixToUse (@NonNull final String sNamespaceURI,
+                                                    @NonNull final String sName,
+                                                    @NonNull final String sValue,
+                                                    @NonNull final Map <QName, String> aAttrMap)
     {
       final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
       if (sNamespaceURI.equals (sDefaultNamespaceURI))
@@ -445,7 +444,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
   private final ICommonsOrderedMap <String, String> m_aRootNSMap = new CommonsLinkedHashMap <> ();
 
-  protected AbstractXMLSerializer (@Nonnull final IXMLWriterSettings aSettings)
+  protected AbstractXMLSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
     m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
 
@@ -468,7 +467,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
   }
 
-  @Nonnull
+  @NonNull
   public final IXMLWriterSettings getSettings ()
   {
     return m_aSettings;
@@ -481,7 +480,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    * @param aAttrMap
    *        the attribute map to be filled. May not be <code>null</code>.
    */
-  protected final void handlePutNamespaceContextPrefixInRoot (@Nonnull final Map <QName, String> aAttrMap)
+  protected final void handlePutNamespaceContextPrefixInRoot (@NonNull final Map <QName, String> aAttrMap)
   {
     if (m_aSettings.isEmitNamespaces () &&
         m_aNSStack.size () == 1 &&
@@ -497,21 +496,21 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
   }
 
-  protected abstract void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+  protected abstract void emitNode (@NonNull final XMLEmitter aXMLWriter,
                                     @Nullable final NODETYPE aParentNode,
                                     @Nullable final NODETYPE aPrevSibling,
-                                    @Nonnull final NODETYPE aNode,
+                                    @NonNull final NODETYPE aNode,
                                     @Nullable final NODETYPE aNextSibling);
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected XMLEmitter createXMLEmitter (@Nonnull @WillNotClose final Writer aWriter,
-                                         @Nonnull final IXMLWriterSettings aSettings)
+  protected XMLEmitter createXMLEmitter (@NonNull @WillNotClose final Writer aWriter,
+                                         @NonNull final IXMLWriterSettings aSettings)
   {
     return new XMLEmitter (aWriter, aSettings);
   }
 
-  public final void write (@Nonnull final NODETYPE aNode, @Nonnull final XMLEmitter aXMLEmitter)
+  public final void write (@NonNull final NODETYPE aNode, @NonNull final XMLEmitter aXMLEmitter)
   {
     // No parent node
     // No previous and no next sibling
@@ -526,7 +525,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    * @param aOS
    *        The stream to serialize onto. May not be <code>null</code>.
    */
-  public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final OutputStream aOS)
+  public final void write (@NonNull final NODETYPE aNode, @NonNull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -547,7 +546,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    * @param aWriter
    *        The writer to serialize onto. May not be <code>null</code>.
    */
-  public final void write (@Nonnull final NODETYPE aNode, @Nonnull @WillNotClose final Writer aWriter)
+  public final void write (@NonNull final NODETYPE aNode, @NonNull @WillNotClose final Writer aWriter)
   {
     final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
     // No parent node

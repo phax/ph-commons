@@ -21,31 +21,30 @@ import java.util.function.Supplier;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
 import com.helger.base.exception.InitializationException;
 import com.helger.xml.XMLFactory;
 
-import jakarta.annotation.Nonnull;
-
 public final class SAXReaderFactory implements Supplier <XMLReader>
 {
-  @Nonnull
+  @NonNull
   public XMLReader get ()
   {
     return createXMLReader ();
   }
 
-  @Nonnull
+  @NonNull
   public static XMLReader createXMLReader ()
   {
     final SAXParserFactory aFactory = XMLFactory.createDefaultSAXParserFactory ();
     return createXMLReader (aFactory);
   }
 
-  @Nonnull
-  public static XMLReader createXMLReader (@Nonnull final SAXParserFactory aFactory)
+  @NonNull
+  public static XMLReader createXMLReader (@NonNull final SAXParserFactory aFactory)
   {
     try
     {

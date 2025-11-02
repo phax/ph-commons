@@ -27,11 +27,10 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.state.ESuccess;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ConcurrentCollectorMultiple}.
@@ -91,7 +90,7 @@ public final class ConcurrentCollectorMultipleTest
     assertNotNull (ccm);
   }
 
-  private void _test (@Nonnull final MockConcurrentCollectorMultiple aQueue) throws InterruptedException
+  private void _test (@NonNull final MockConcurrentCollectorMultiple aQueue) throws InterruptedException
   {
     final int nThreads = 10 + ThreadLocalRandom.current ().nextInt (20);
     final int nPerThreadQueueAdd = 10_000 + ThreadLocalRandom.current ().nextInt (10_000);

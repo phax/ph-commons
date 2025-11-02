@@ -16,9 +16,9 @@
  */
 package com.helger.commons.serialize.convert;
 
-import com.helger.base.state.EContinue;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
 /**
  * A callback interface that is used to iterate all available serialization
@@ -40,6 +40,6 @@ public interface ISerializationConverterCallback
    * @return {@link EContinue#CONTINUE} to continue iteration,
    *         {@link EContinue#BREAK} to stop iteration.
    */
-  @Nonnull
-  EContinue call (@Nonnull Class <?> aClass, @Nonnull ISerializationConverter <?> aConverter);
+  @NonNull
+  EContinue call (@NonNull Class <?> aClass, @NonNull ISerializationConverter <?> aConverter);
 }

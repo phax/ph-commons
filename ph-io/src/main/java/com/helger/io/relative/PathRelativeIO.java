@@ -18,6 +18,8 @@ package com.helger.io.relative;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -27,8 +29,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IPathRelativeIO}.
@@ -41,7 +41,7 @@ public class PathRelativeIO implements IPathRelativeIO
   private final String m_sBasePath;
   private final String m_sBaseURL;
 
-  public PathRelativeIO (@Nonnull @Nonempty final String sBasePath)
+  public PathRelativeIO (@NonNull @Nonempty final String sBasePath)
   {
     ValueEnforcer.notEmpty (sBasePath, "BasePath");
     m_sBasePath = sBasePath;
@@ -54,22 +54,22 @@ public class PathRelativeIO implements IPathRelativeIO
     m_sBaseURL = sBaseURL != null ? sBaseURL : sBasePath;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getBasePath ()
   {
     return m_sBasePath;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getBaseURL ()
   {
     return m_sBaseURL;
   }
 
-  @Nonnull
-  public IReadableResource getResource (@Nonnull @Nonempty final String sRelativePath)
+  @NonNull
+  public IReadableResource getResource (@NonNull @Nonempty final String sRelativePath)
   {
     ValueEnforcer.notEmpty (sRelativePath, "RelativePath");
 

@@ -21,12 +21,12 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IXMLIndentDeterminator} for real HTML. It uses the default indent and
@@ -36,20 +36,20 @@ import jakarta.annotation.Nullable;
  */
 public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
 {
-  private static boolean _isPreOrCode (@Nonnull final String sTagName)
+  private static boolean _isPreOrCode (@NonNull final String sTagName)
   {
     final String sUCTagName = sTagName.toUpperCase (Locale.US);
     return sUCTagName.equals ("PRE") || sUCTagName.equals ("CODE");
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
                                              @Nullable final String sNamespaceURI,
-                                             @Nonnull final String sTagName,
+                                             @NonNull final String sTagName,
                                              @Nullable final Map <QName, String> aAttrs,
                                              final boolean bHasChildren,
-                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+                                             @NonNull final EXMLSerializeIndent eDefaultIndent)
   {
     if (StringHelper.isNotEmpty (sParentTagName) && _isPreOrCode (sParentTagName))
     {
@@ -61,14 +61,14 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
     return eDefaultIndent;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
                                              @Nullable final String sNamespaceURI,
-                                             @Nonnull final String sTagName,
+                                             @NonNull final String sTagName,
                                              @Nullable final Map <QName, String> aAttr,
                                              final boolean bHasChildren,
-                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+                                             @NonNull final EXMLSerializeIndent eDefaultIndent)
   {
     if (_isPreOrCode (sTagName))
     {

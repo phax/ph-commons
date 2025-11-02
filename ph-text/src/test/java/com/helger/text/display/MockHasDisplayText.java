@@ -19,35 +19,35 @@ package com.helger.text.display;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.text.util.TextHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public final class MockHasDisplayText implements IHasDisplayText
 {
   private final ICommonsMap <Locale, String> m_aNames = new CommonsHashMap <> ();
 
-  public MockHasDisplayText (@Nonnull final Locale aLocale, @Nullable final String sText)
+  public MockHasDisplayText (@NonNull final Locale aLocale, @Nullable final String sText)
   {
     m_aNames.put (aLocale, sText);
   }
 
-  public MockHasDisplayText (@Nonnull final Map <Locale, String> aNames)
+  public MockHasDisplayText (@NonNull final Map <Locale, String> aNames)
   {
     m_aNames.putAll (aNames);
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aLocale)
+  public String getDisplayText (@NonNull final Locale aLocale)
   {
     return m_aNames.get (aLocale);
   }
 
-  @Nonnull
+  @NonNull
   public static MockHasDisplayText createDE_EN (@Nullable final String sDE, @Nullable final String sEN)
   {
     return new MockHasDisplayText (CollectionHelperExt.createMap (new Locale [] { TextHelper.DE, TextHelper.EN },

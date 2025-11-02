@@ -27,6 +27,8 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
@@ -39,8 +41,6 @@ import com.helger.base.numeric.MathHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Jama = Java Matrix class.
@@ -151,7 +151,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *            All rows must have the same length
    * @see #constructWithCopy
    */
-  Matrix (@Nonnull final double [] [] aOther)
+  Matrix (@NonNull final double [] [] aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     ValueEnforcer.isGT0 (aOther.length, "rows");
@@ -175,7 +175,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nCols
    *        Number of columns.
    */
-  Matrix (@Nonnull final double [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
+  Matrix (@NonNull final double [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
   {
     ValueEnforcer.notNull (aOther, "Other");
     ValueEnforcer.isGT0 (nRows, "rows");
@@ -199,7 +199,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception IllegalArgumentException
    *            Array length must be a multiple of nRows.
    */
-  public Matrix (@Nonnull final double [] aVals, @Nonnegative final int nRows)
+  public Matrix (@NonNull final double [] aVals, @Nonnegative final int nRows)
   {
     m_nRows = nRows;
     m_nCols = (nRows != 0 ? aVals.length / nRows : 0);
@@ -224,8 +224,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception IllegalArgumentException
    *            All rows must have the same length
    */
-  @Nonnull
-  public static Matrix constructWithCopy (@Nonnull final double [] [] aArray)
+  @NonNull
+  public static Matrix constructWithCopy (@NonNull final double [] [] aArray)
   {
     final int nRows = aArray.length;
     final int nCols = aArray[0].length;
@@ -245,7 +245,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   /**
    * @return a deep copy of a matrix
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getClone ()
   {
@@ -265,7 +265,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Pointer to the two-dimensional array of matrix elements.
    */
-  @Nonnull
+  @NonNull
   public double [] [] internalGetArray ()
   {
     return m_aData;
@@ -276,7 +276,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Two-dimensional array copy of matrix elements.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public double [] [] getArrayCopy ()
   {
@@ -295,7 +295,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Matrix elements packed in a one-dimensional array by columns.
    */
-  @Nonnull
+  @NonNull
   public double [] getColumnPackedCopy ()
   {
     final double [] ret = new double [m_nRows * m_nCols];
@@ -313,7 +313,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Matrix elements packed in a one-dimensional array by rows.
    */
-  @Nonnull
+  @NonNull
   public double [] getRowPackedCopy ()
   {
     final double [] ret = new double [m_nRows * m_nCols];
@@ -386,7 +386,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getMatrix (@Nonnegative final int nStartRowIndex,
                            @Nonnegative final int nEndRowIndex,
@@ -416,9 +416,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnull final int [] aRows, @Nonnull final int [] aCols)
+  public Matrix getMatrix (@NonNull final int [] aRows, @NonNull final int [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (aRows.length, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -446,11 +446,11 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getMatrix (@Nonnegative final int nStartRowIndex,
                            @Nonnegative final int nEndRowIndex,
-                           @Nonnull final int [] aCols)
+                           @NonNull final int [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -476,9 +476,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@Nonnull final int [] aRows,
+  public Matrix getMatrix (@NonNull final int [] aRows,
                            @Nonnegative final int nStartColumnIndex,
                            @Nonnegative final int nEndColumnIndex)
   {
@@ -530,7 +530,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
                          @Nonnegative final int nEndRowIndex,
                          @Nonnegative final int nStartColumnIndex,
                          @Nonnegative final int nEndColumnIndex,
-                         @Nonnull final Matrix aMatrix)
+                         @NonNull final Matrix aMatrix)
   {
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)
     {
@@ -552,7 +552,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  public void setMatrix (@Nonnull final int [] aRows, @Nonnull final int [] aCols, @Nonnull final Matrix aMatrix)
+  public void setMatrix (@NonNull final int [] aRows, @NonNull final int [] aCols, @NonNull final Matrix aMatrix)
   {
     for (int nRow = 0; nRow < aRows.length; nRow++)
     {
@@ -577,10 +577,10 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  public void setMatrix (@Nonnull final int [] aRows,
+  public void setMatrix (@NonNull final int [] aRows,
                          @Nonnegative final int nStartColumnIndex,
                          @Nonnegative final int nEndColumnIndex,
-                         @Nonnull final Matrix aMatrix)
+                         @NonNull final Matrix aMatrix)
   {
     for (int nRow = 0; nRow < aRows.length; nRow++)
     {
@@ -607,8 +607,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   public void setMatrix (@Nonnegative final int nStartRowIndex,
                          @Nonnegative final int nEndRowIndex,
-                         @Nonnull final int [] aCols,
-                         @Nonnull final Matrix aMatrix)
+                         @NonNull final int [] aCols,
+                         @NonNull final Matrix aMatrix)
   {
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)
     {
@@ -626,7 +626,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return A'
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @CheckReturnValue
   public Matrix transpose ()
@@ -711,7 +711,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return -A
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix uminus ()
   {
@@ -733,7 +733,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param aMatrix
    *        Matrix to check
    */
-  private void _checkMatrixDimensions (@Nonnull final Matrix aMatrix)
+  private void _checkMatrixDimensions (@NonNull final Matrix aMatrix)
   {
     if (aMatrix.m_nRows != m_nRows)
       throw new IllegalArgumentException ("Matrix row dimensions must agree.");
@@ -748,9 +748,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return A + B
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix plus (@Nonnull final Matrix aMatrix)
+  public Matrix plus (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     final Matrix aNewMatrix = new Matrix (m_nRows, m_nCols);
@@ -773,8 +773,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return this
    */
-  @Nonnull
-  public Matrix plusEquals (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix plusEquals (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -794,9 +794,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return A - B
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix minus (@Nonnull final Matrix aMatrix)
+  public Matrix minus (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     final Matrix aNewMatrix = new Matrix (m_nRows, m_nCols);
@@ -819,8 +819,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return this
    */
-  @Nonnull
-  public Matrix minusEquals (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix minusEquals (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -840,9 +840,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return A.*B
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix arrayTimes (@Nonnull final Matrix aMatrix)
+  public Matrix arrayTimes (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     final Matrix aNewMatrix = new Matrix (m_nRows, m_nCols);
@@ -865,8 +865,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return this
    */
-  @Nonnull
-  public Matrix arrayTimesEquals (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix arrayTimesEquals (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -886,9 +886,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return A./B
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix arrayRightDivide (@Nonnull final Matrix aMatrix)
+  public Matrix arrayRightDivide (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     final Matrix aNewMatrix = new Matrix (m_nRows, m_nCols);
@@ -911,8 +911,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return this
    */
-  @Nonnull
-  public Matrix arrayRightDivideEquals (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix arrayRightDivideEquals (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -932,9 +932,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return B.\A
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix arrayLeftDivide (@Nonnull final Matrix aMatrix)
+  public Matrix arrayLeftDivide (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     final Matrix aNewMatrix = new Matrix (m_nRows, m_nCols);
@@ -957,8 +957,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        another matrix
    * @return this
    */
-  @Nonnull
-  public Matrix arrayLeftDivideEquals (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix arrayLeftDivideEquals (@NonNull final Matrix aMatrix)
   {
     _checkMatrixDimensions (aMatrix);
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -979,7 +979,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        scalar
    * @return s*A
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix times (final double s)
   {
@@ -1002,7 +1002,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        scalar
    * @return this
    */
-  @Nonnull
+  @NonNull
   public Matrix timesEquals (final double s)
   {
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -1023,9 +1023,9 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception IllegalArgumentException
    *            Matrix inner dimensions must agree.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix times (@Nonnull final Matrix aMatrix)
+  public Matrix times (@NonNull final Matrix aMatrix)
   {
     if (aMatrix.m_nRows != m_nCols)
       throw new IllegalArgumentException ("Matrix inner dimensions must agree.");
@@ -1058,7 +1058,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @return LUDecomposition
    * @see LUDecomposition
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public LUDecomposition lu ()
   {
@@ -1071,7 +1071,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @return QRDecomposition
    * @see QRDecomposition
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public QRDecomposition qr ()
   {
@@ -1084,7 +1084,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @return CholeskyDecomposition
    * @see CholeskyDecomposition
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CholeskyDecomposition chol ()
   {
@@ -1097,7 +1097,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @return SingularValueDecomposition
    * @see SingularValueDecomposition
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SingularValueDecomposition svd ()
   {
@@ -1110,7 +1110,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @return EigenvalueDecomposition
    * @see EigenvalueDecomposition
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public EigenvalueDecomposition eig ()
   {
@@ -1124,8 +1124,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        right hand side
    * @return solution if A is square, least squares solution otherwise
    */
-  @Nonnull
-  public Matrix solve (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix solve (@NonNull final Matrix aMatrix)
   {
     // squared matrix??
     if (m_nRows == m_nCols)
@@ -1141,8 +1141,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        right hand side
    * @return solution if A is square, least squares solution otherwise.
    */
-  @Nonnull
-  public Matrix solveTranspose (@Nonnull final Matrix aMatrix)
+  @NonNull
+  public Matrix solveTranspose (@NonNull final Matrix aMatrix)
   {
     return transpose ().solve (aMatrix.transpose ());
   }
@@ -1152,7 +1152,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return inverse(A) if A is square, pseudoinverse otherwise.
    */
-  @Nonnull
+  @NonNull
   public Matrix inverse ()
   {
     return solve (identity (m_nRows, m_nRows));
@@ -1211,7 +1211,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Number of columns.
    * @return An nRows-by-nCols matrix with uniformly distributed random elements.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Matrix random (@Nonnegative final int nRows, @Nonnegative final int nCols)
   {
@@ -1236,7 +1236,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Number of columns.
    * @return An nRows-by-nCols matrix with ones on the diagonal and zeros elsewhere.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Matrix identity (@Nonnegative final int nRows, @Nonnegative final int nCols)
   {
@@ -1262,7 +1262,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nFractionDigits
    *        Number of digits after the decimal.
    */
-  public void print (@Nonnull final PrintWriter aPW,
+  public void print (@NonNull final PrintWriter aPW,
                      @Nonnegative final int nWidth,
                      @Nonnegative final int nFractionDigits)
   {
@@ -1292,7 +1292,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *        Column width.
    * @see java.text.DecimalFormat#setDecimalFormatSymbols
    */
-  public void print (@Nonnull final PrintWriter aPW, @Nonnull final NumberFormat aFormat, @Nonnegative final int nWidth)
+  public void print (@NonNull final PrintWriter aPW, @NonNull final NumberFormat aFormat, @Nonnegative final int nWidth)
   {
     aPW.println (); // start on new line.
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -1349,8 +1349,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @throws IOException
    *         In case of an I/O error
    */
-  @Nonnull
-  public static Matrix read (@Nonnull @WillNotClose final Reader aReader) throws IOException
+  @NonNull
+  public static Matrix read (@NonNull @WillNotClose final Reader aReader) throws IOException
   {
     final StreamTokenizer aTokenizer = new StreamTokenizer (StreamHelper.getBuffered (aReader));
 

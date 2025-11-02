@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.base64.Base64;
@@ -30,8 +32,6 @@ import com.helger.base.io.nonblocking.NonBlockingBufferedInputStream;
 import com.helger.base.io.nonblocking.NonBlockingBufferedOutputStream;
 import com.helger.base.state.ESuccess;
 import com.helger.io.file.FileHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains the {@link File} based APIs for Base64
@@ -62,8 +62,8 @@ public final class Base64File
    *         if dataToEncode is null
    * @since 2.1
    */
-  @Nonnull
-  public static ESuccess encodeToFile (@Nonnull final byte [] aDataToEncode, @Nonnull final File aFile)
+  @NonNull
+  public static ESuccess encodeToFile (@NonNull final byte [] aDataToEncode, @NonNull final File aFile)
                                                                                                         throws IOException
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
@@ -98,8 +98,8 @@ public final class Base64File
    *         if there is an error
    * @since 2.1
    */
-  @Nonnull
-  public static ESuccess decodeToFile (@Nonnull final String sDataToDecode, @Nonnull final File aFile)
+  @NonNull
+  public static ESuccess decodeToFile (@NonNull final String sDataToDecode, @NonNull final File aFile)
                                                                                                        throws IOException
   {
     ValueEnforcer.notNull (sDataToDecode, "DataToDecode");
@@ -132,9 +132,9 @@ public final class Base64File
    *         if there is an error
    * @since 2.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decodeFromFile (@Nonnull final String sFilename) throws IOException
+  public static byte [] decodeFromFile (@NonNull final String sFilename) throws IOException
   {
     // Setup some useful variables
     final File aFile = new File (sFilename);
@@ -189,8 +189,8 @@ public final class Base64File
    *         if there is an error
    * @since 2.1
    */
-  @Nonnull
-  public static String encodeFromFile (@Nonnull final String sFilename) throws IOException
+  @NonNull
+  public static String encodeFromFile (@NonNull final String sFilename) throws IOException
   {
     // Setup some useful variables
     final File aFile = new File (sFilename);
@@ -242,7 +242,7 @@ public final class Base64File
    *         if there is an error
    * @since 2.2
    */
-  public static void encodeFileToFile (@Nonnull final String infile, @Nonnull final File aFile) throws IOException
+  public static void encodeFileToFile (@NonNull final String infile, @NonNull final File aFile) throws IOException
   {
     final String encoded = encodeFromFile (infile);
     try (final OutputStream out = FileHelper.getBufferedOutputStream (aFile))
@@ -263,7 +263,7 @@ public final class Base64File
    *         if there is an error
    * @since 2.2
    */
-  public static void decodeFileToFile (@Nonnull final String aInFile, @Nonnull final File aOutFile) throws IOException
+  public static void decodeFileToFile (@NonNull final String aInFile, @NonNull final File aOutFile) throws IOException
   {
     final byte [] decoded = decodeFromFile (aInFile);
     try (final OutputStream out = FileHelper.getBufferedOutputStream (aOutFile))

@@ -16,9 +16,9 @@
  */
 package com.helger.config.source;
 
-import com.helger.config.value.IConfigurationValueProvider;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.config.value.IConfigurationValueProvider;
 
 /**
  * An abstract configuration source.
@@ -30,7 +30,7 @@ public interface IConfigurationSource extends IConfigurationValueProvider
   /**
    * @return The configuration source type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EConfigSourceType getSourceType ();
 
   /**

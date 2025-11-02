@@ -18,14 +18,14 @@ package com.helger.io.resource.inmemory;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An in-memory {@link IReadableResource} based on an {@link InputStream}.
@@ -45,14 +45,14 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
    *        The InputStream to read from. May not be <code>null</code>. This Stream is NOT closed by
    *        this class.
    */
-  public ReadableResourceInputStream (@Nullable final String sResourceID, @Nonnull @WillNotClose final InputStream aIS)
+  public ReadableResourceInputStream (@Nullable final String sResourceID, @NonNull @WillNotClose final InputStream aIS)
   {
     // Ensure a unique resource ID
     super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "input-stream");
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }
 
-  @Nonnull
+  @NonNull
   public final InputStream getInputStream ()
   {
     return m_aIS;

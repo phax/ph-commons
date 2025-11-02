@@ -18,12 +18,12 @@ package com.helger.security.authentication.credentials;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link ICredentialValidationResult}.
@@ -50,12 +50,12 @@ public class CredentialValidationResult implements ICredentialValidationResult
    * @param sErrorMsg
    *        The error message. May neither be <code>null</code> nor empty.
    */
-  public CredentialValidationResult (@Nonnull @Nonempty final String sErrorMsg)
+  public CredentialValidationResult (@NonNull @Nonempty final String sErrorMsg)
   {
     m_sErrorMsg = ValueEnforcer.notEmpty (sErrorMsg, "ErrorMessage");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getErrorMessage ()
   {
@@ -74,7 +74,7 @@ public class CredentialValidationResult implements ICredentialValidationResult
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aDisplayLocale)
+  public String getDisplayText (@NonNull final Locale aDisplayLocale)
   {
     return m_sErrorMsg;
   }

@@ -20,6 +20,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
@@ -28,9 +31,6 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 import com.helger.tree.withid.unique.ITreeWithGlobalUniqueID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default proxy interface for {@link ITreeWithGlobalUniqueID}.
@@ -44,7 +44,7 @@ import jakarta.annotation.Nullable;
 public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
                                         ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
-  @Nonnull
+  @NonNull
   DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ();
 
   @Override
@@ -65,7 +65,7 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().getChildCount ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsCollection <DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllChildren ()
   {
@@ -79,27 +79,27 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
   }
 
   @Override
-  default void forAllChildren (@Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
+  default void forAllChildren (@NonNull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
   {
     getProxyTree ().forAllChildren (aConsumer);
   }
 
   @Override
-  default void forAllChildren (@Nonnull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
-                               @Nonnull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
+  default void forAllChildren (@NonNull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
+                               @NonNull final Consumer <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aConsumer)
   {
     getProxyTree ().forAllChildren (aFilter, aConsumer);
   }
 
   @Override
-  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
-                                               @Nonnull final Function <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>, ? extends DSTTYPE> aMapper,
-                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  default <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> aFilter,
+                                               @NonNull final Function <? super DefaultTreeItemWithID <KEYTYPE, VALUETYPE>, ? extends DSTTYPE> aMapper,
+                                               @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     getProxyTree ().forAllChildrenMapped (aFilter, aMapper, aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   default DefaultTreeItemWithID <KEYTYPE, VALUETYPE> getRootItem ()
   {
     return getProxyTree ().getRootItem ();
@@ -148,7 +148,7 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().getItemCount ();
   }
 
-  @Nonnull
+  @NonNull
   default ICommonsCollection <DefaultTreeItemWithID <KEYTYPE, VALUETYPE>> getAllItems ()
   {
     return getProxyTree ().getAllItems ();
@@ -170,14 +170,14 @@ public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
     return getProxyTree ().getItemDataWithID (aDataID);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsCollection <VALUETYPE> getAllItemDatas ()
   {
     return getProxyTree ().getAllItemDatas ();
   }
 
-  @Nonnull
+  @NonNull
   default EChange removeItemWithID (@Nullable final KEYTYPE aDataID)
   {
     return getProxyTree ().removeItemWithID (aDataID);

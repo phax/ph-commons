@@ -19,12 +19,12 @@ package com.helger.base.compare;
 import java.text.Collator;
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A small helper class that provides comparison methods that are <code>null</code> safe. Also
@@ -238,7 +238,7 @@ public class CompareHelper
    */
   public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
                                         @Nullable final DATATYPE aObj2,
-                                        @Nonnull final Comparator <? super DATATYPE> aComp)
+                                        @NonNull final Comparator <? super DATATYPE> aComp)
   {
     // Legacy behavior: null values come first
     return compare (aObj1, aObj2, aComp, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -264,7 +264,7 @@ public class CompareHelper
    */
   public static <DATATYPE> int compare (@Nullable final DATATYPE aObj1,
                                         @Nullable final DATATYPE aObj2,
-                                        @Nonnull final Comparator <? super DATATYPE> aComp,
+                                        @NonNull final Comparator <? super DATATYPE> aComp,
                                         final boolean bNullValuesComeFirst)
   {
     if (EqualsHelper.identityEqual (aObj1, aObj2))
@@ -278,7 +278,7 @@ public class CompareHelper
 
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
-                             @Nonnull final Collator aCollator)
+                             @NonNull final Collator aCollator)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -286,7 +286,7 @@ public class CompareHelper
 
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
-                             @Nonnull final Collator aCollator,
+                             @NonNull final Collator aCollator,
                              final boolean bNullValuesComeFirst)
   {
     if (EqualsHelper.identityEqual (sStr1, sStr2))

@@ -16,14 +16,14 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a char so that it can be passed a final object but is
@@ -54,7 +54,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
    * @param aValue
    *        The value to be used.
    */
-  public MutableChar (@Nonnull final Character aValue)
+  public MutableChar (@NonNull final Character aValue)
   {
     this (aValue.charValue ());
   }
@@ -70,7 +70,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     m_cValue = cValue;
   }
 
-  public MutableChar (@Nonnull final MutableChar aOther)
+  public MutableChar (@NonNull final MutableChar aOther)
   {
     this (aOther.m_cValue);
   }
@@ -121,7 +121,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return m_cValue;
   }
 
-  public int inc (@Nonnull final MutableChar aMC)
+  public int inc (@NonNull final MutableChar aMC)
   {
     ValueEnforcer.notNull (aMC, "MC");
     return inc (aMC.m_cValue);
@@ -137,26 +137,26 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return inc (-nDelta);
   }
 
-  public int dec (@Nonnull final MutableChar aMC)
+  public int dec (@NonNull final MutableChar aMC)
   {
     ValueEnforcer.notNull (aMC, "MC");
     return inc (-aMC.m_cValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final int cValue)
   {
     return set ((char) cValue);
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final MutableChar aMC)
+  @NonNull
+  public EChange set (@NonNull final MutableChar aMC)
   {
     ValueEnforcer.notNull (aMC, "MC");
     return set (aMC.m_cValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final char cValue)
   {
     if (m_cValue == cValue)
@@ -211,12 +211,12 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return charValue ();
   }
 
-  public int compareTo (@Nonnull final MutableChar rhs)
+  public int compareTo (@NonNull final MutableChar rhs)
   {
     return CompareHelper.compare (m_cValue, rhs.m_cValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableChar getClone ()
   {
     return new MutableChar (this);

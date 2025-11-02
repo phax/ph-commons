@@ -18,6 +18,8 @@ package com.helger.scope.spi;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,9 +35,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IGlobalScope;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.ISessionScope;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is an internal class, that triggers the SPI implementations registered for scope lifecycle
@@ -74,7 +73,7 @@ public final class ScopeSPIManager
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static ScopeSPIManager getInstance ()
   {
     final ScopeSPIManager ret = SingletonHolder.INSTANCE;
@@ -98,7 +97,7 @@ public final class ScopeSPIManager
   /**
    * @return All registered global scope SPI listeners. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
@@ -108,7 +107,7 @@ public final class ScopeSPIManager
   /**
    * @return All registered session scope SPI listeners. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
@@ -118,7 +117,7 @@ public final class ScopeSPIManager
   /**
    * @return All registered request scope SPI listeners. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IRequestScopeSPI> getAllRequestScopeSPIs ()
   {
@@ -135,12 +134,12 @@ public final class ScopeSPIManager
   }
 
   @Nullable
-  private static Exception _propagate (@Nonnull final Exception ex)
+  private static Exception _propagate (@NonNull final Exception ex)
   {
     return ex instanceof IMockException ? null : ex;
   }
 
-  public void onGlobalScopeBegin (@Nonnull final IGlobalScope aGlobalScope)
+  public void onGlobalScopeBegin (@NonNull final IGlobalScope aGlobalScope)
   {
     for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
       try
@@ -154,7 +153,7 @@ public final class ScopeSPIManager
       }
   }
 
-  public void onGlobalScopeEnd (@Nonnull final IGlobalScope aGlobalScope)
+  public void onGlobalScopeEnd (@NonNull final IGlobalScope aGlobalScope)
   {
     for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
       try
@@ -168,7 +167,7 @@ public final class ScopeSPIManager
       }
   }
 
-  public void onSessionScopeBegin (@Nonnull final ISessionScope aSessionScope)
+  public void onSessionScopeBegin (@NonNull final ISessionScope aSessionScope)
   {
     for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
       try
@@ -182,7 +181,7 @@ public final class ScopeSPIManager
       }
   }
 
-  public void onSessionScopeEnd (@Nonnull final ISessionScope aSessionScope)
+  public void onSessionScopeEnd (@NonNull final ISessionScope aSessionScope)
   {
     for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
       try
@@ -196,7 +195,7 @@ public final class ScopeSPIManager
       }
   }
 
-  public void onRequestScopeBegin (@Nonnull final IRequestScope aRequestScope)
+  public void onRequestScopeBegin (@NonNull final IRequestScope aRequestScope)
   {
     for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())
       try
@@ -210,7 +209,7 @@ public final class ScopeSPIManager
       }
   }
 
-  public void onRequestScopeEnd (@Nonnull final IRequestScope aRequestScope)
+  public void onRequestScopeEnd (@NonNull final IRequestScope aRequestScope)
   {
     for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())
       try

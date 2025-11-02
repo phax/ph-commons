@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,6 @@ import com.helger.base.numeric.mutable.MutableBoolean;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.MapEntry;
 import com.helger.unittest.support.TestHelper;
-
-import jakarta.annotation.Nonnull;
 
 public final class SoftLinkedHashMapTest
 {
@@ -56,7 +55,7 @@ public final class SoftLinkedHashMapTest
 
       @Override
       protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                          @Nonnull final Map.Entry <Integer, BigDecimal> aEldest)
+                                          final Map.@NonNull Entry <Integer, BigDecimal> aEldest)
       {
         LOGGER.info ("Removed eldest entry " + aEldest.getKey ());
       }

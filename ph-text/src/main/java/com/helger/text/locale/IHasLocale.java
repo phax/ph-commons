@@ -18,7 +18,7 @@ package com.helger.text.locale;
 
 import java.util.Locale;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for objects having a locale.
@@ -31,6 +31,6 @@ public interface IHasLocale
   /**
    * @return The relevant locale. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   Locale getLocale ();
 }

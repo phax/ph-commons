@@ -16,13 +16,13 @@
  */
 package com.helger.scope.singleton;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.scope.IRequestScope;
 import com.helger.scope.mgr.ScopeManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the base class for singleton objects that reside in the request
@@ -60,8 +60,8 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
    *        be public as needs to have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
-  @Nonnull
-  public static final <T extends AbstractRequestSingleton> T getRequestSingleton (@Nonnull final Class <T> aClass)
+  @NonNull
+  public static final <T extends AbstractRequestSingleton> T getRequestSingleton (@NonNull final Class <T> aClass)
   {
     return getSingleton (_getStaticScope (true), aClass);
   }
@@ -78,7 +78,7 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
    *         <code>null</code> otherwise.
    */
   @Nullable
-  public static final <T extends AbstractRequestSingleton> T getRequestSingletonIfInstantiated (@Nonnull final Class <T> aClass)
+  public static final <T extends AbstractRequestSingleton> T getRequestSingletonIfInstantiated (@NonNull final Class <T> aClass)
   {
     return getSingletonIfInstantiated (_getStaticScope (false), aClass);
   }
@@ -92,7 +92,7 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
    * @return <code>true</code> if the singleton for the specified class is
    *         already instantiated, <code>false</code> otherwise.
    */
-  public static final boolean isRequestSingletonInstantiated (@Nonnull final Class <? extends AbstractRequestSingleton> aClass)
+  public static final boolean isRequestSingletonInstantiated (@NonNull final Class <? extends AbstractRequestSingleton> aClass)
   {
     return isSingletonInstantiated (_getStaticScope (false), aClass);
   }
@@ -104,7 +104,7 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
    * @return A non-<code>null</code> list with all instances of this class in
    *         the current request scope.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static final ICommonsList <AbstractRequestSingleton> getAllRequestSingletons ()
   {

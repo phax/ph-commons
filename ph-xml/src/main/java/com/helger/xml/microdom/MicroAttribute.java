@@ -16,15 +16,15 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroAttribute} interface.
@@ -37,38 +37,38 @@ public class MicroAttribute implements IMicroAttribute
   private final IMicroQName m_aQName;
   private String m_sAttributeValue;
 
-  public MicroAttribute (@Nonnull @Nonempty final String sAttributeName, @Nonnull final String sAttributeValue)
+  public MicroAttribute (@NonNull @Nonempty final String sAttributeName, @NonNull final String sAttributeValue)
   {
     this (null, sAttributeName, sAttributeValue);
   }
 
   public MicroAttribute (@Nullable final String sNamespaceURI,
-                         @Nonnull @Nonempty final String sAttributeName,
-                         @Nonnull final String sAttributeValue)
+                         @NonNull @Nonempty final String sAttributeName,
+                         @NonNull final String sAttributeValue)
   {
     this (new MicroQName (sNamespaceURI, sAttributeName), sAttributeValue);
   }
 
-  public MicroAttribute (@Nonnull final IMicroQName aQName, @Nonnull final String sAttributeValue)
+  public MicroAttribute (@NonNull final IMicroQName aQName, @NonNull final String sAttributeValue)
   {
     m_aQName = ValueEnforcer.notNull (aQName, "QName");
     m_sAttributeValue = ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
   }
 
-  @Nonnull
+  @NonNull
   public IMicroQName getAttributeQName ()
   {
     return m_aQName;
   }
 
-  @Nonnull
+  @NonNull
   public String getAttributeValue ()
   {
     return m_sAttributeValue;
   }
 
-  @Nonnull
-  public EChange setAttributeValue (@Nonnull final String sAttributeValue)
+  @NonNull
+  public EChange setAttributeValue (@NonNull final String sAttributeValue)
   {
     ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
     if (sAttributeValue.equals (m_sAttributeValue))
@@ -77,7 +77,7 @@ public class MicroAttribute implements IMicroAttribute
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public MicroAttribute getClone ()
   {
     // QName is immutable!

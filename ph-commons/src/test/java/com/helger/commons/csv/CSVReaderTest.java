@@ -44,6 +44,7 @@ import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
@@ -53,8 +54,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link CSVReader}.
  *
@@ -62,7 +61,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class CSVReaderTest
 {
-  @Nonnull
+  @NonNull
   private static CSVReader _createCSVReader ()
   {
     final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);

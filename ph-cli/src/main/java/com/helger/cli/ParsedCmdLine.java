@@ -19,6 +19,9 @@ package com.helger.cli;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a parsed command line. Parsing happens in class {@link CmdLineParser}.
@@ -48,7 +48,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   public ParsedCmdLine ()
   {}
 
-  void internalAddValue (@Nonnull final IOptionBase aOption, @Nonnull final ICommonsList <String> aValues)
+  void internalAddValue (@NonNull final IOptionBase aOption, @NonNull final ICommonsList <String> aValues)
   {
     ValueEnforcer.notNull (aOption, "Option");
     ValueEnforcer.notNull (aValues, "Values");
@@ -56,7 +56,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     m_aParams.computeIfAbsent (aOption, k -> new CommonsArrayList <> ()).addAll (aValues);
   }
 
-  void internalAddUnhandledToken (@Nonnull @Nonempty final String sUnknownToken)
+  void internalAddUnhandledToken (@NonNull @Nonempty final String sUnknownToken)
   {
     ValueEnforcer.notEmpty (sUnknownToken, "UnknownToken");
     m_aUnknownTokens.add (sUnknownToken);
@@ -102,7 +102,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   }
 
   @Nullable
-  public String getValue (@Nonnull final IOptionBase aOption)
+  public String getValue (@NonNull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
     return aValues == null ? null : aValues.getFirstOrNull ();
@@ -117,7 +117,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
 
   @Nullable
   @ReturnsMutableObject
-  public ICommonsList <String> values (@Nonnull final IOptionBase aOption)
+  public ICommonsList <String> values (@NonNull final IOptionBase aOption)
   {
     final ICommonsList <String> aValues = _find (aOption);
     return aValues == null ? null : aValues.getClone ();
@@ -125,13 +125,13 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
 
   @Nullable
   @ReturnsMutableObject
-  public ICommonsList <String> values (@Nonnull final String sOption)
+  public ICommonsList <String> values (@NonNull final String sOption)
   {
     final ICommonsList <String> aValues = _find (sOption);
     return aValues == null ? null : aValues.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public ICommonsList <String> unknownTokens ()
   {

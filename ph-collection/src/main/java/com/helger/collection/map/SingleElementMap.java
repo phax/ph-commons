@@ -20,6 +20,9 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -33,9 +36,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.commons.MapEntry;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link ICommonsMap} implementation that can only keep 0 or 1 element.
@@ -61,7 +61,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     put (aKey, aValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public SingleElementMap <KEYTYPE, VALUETYPE> getClone ()
   {
@@ -149,7 +149,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   }
 
   @ReturnsImmutableObject
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   public Set <KEYTYPE> keySet ()
   {
@@ -157,13 +157,13 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   }
 
   @ReturnsImmutableObject
-  @Nonnull
+  @NonNull
   public Collection <VALUETYPE> values ()
   {
     return m_bHasElement ? new CommonsArrayList <> (m_aValue) : new CommonsArrayList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @CodingStyleguideUnaware
   public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()

@@ -16,6 +16,9 @@
  */
 package com.helger.tree.withid.unique;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,9 +29,6 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.tree.withid.BasicTreeWithID;
 import com.helger.tree.withid.ITreeItemWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A managed tree is a specialized version of the tree, where each item is
@@ -50,7 +50,7 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 {
   private final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> m_aFactory;
 
-  public BasicTreeWithGlobalUniqueID (@Nonnull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory)
+  public BasicTreeWithGlobalUniqueID (@NonNull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory)
   {
     super (aFactory);
     m_aFactory = aFactory;
@@ -59,7 +59,7 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   /**
    * @return The factory used for creation. For internal use only.
    */
-  @Nonnull
+  @NonNull
   protected final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ()
   {
     return m_aFactory;
@@ -96,21 +96,21 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return m_aFactory.getItemCount ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <ITEMTYPE> getAllItems ()
   {
     return m_aFactory.getAllItems ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <DATATYPE> getAllItemDatas ()
   {
     return m_aFactory.getAllItemDatas ();
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeItemWithID (@Nullable final KEYTYPE aDataID)
   {
     final ITEMTYPE aItem = getItemWithID (aDataID);

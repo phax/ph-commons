@@ -24,6 +24,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -31,9 +34,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.MapEntry;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Soft {@link Map} implementation based on http://www.javaspecialists.eu/archive/Issue015.html<br>
@@ -84,14 +84,14 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       return m_aKey;
     }
 
-    @Nonnull
+    @NonNull
     public final SoftValue <K, V> getValue ()
     {
       return m_aSoftValue;
     }
 
-    @Nonnull
-    public final SoftValue <K, V> setValue (@Nonnull final SoftValue <K, V> aNew)
+    @NonNull
+    public final SoftValue <K, V> setValue (@NonNull final SoftValue <K, V> aNew)
     {
       final SoftValue <K, V> aOld = aNew;
       m_aSoftValue = aNew;
@@ -105,7 +105,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     {
       private final Iterator <Entry <K, SoftValue <K, V>>> m_aSrcIter;
 
-      private SoftIterator (@Nonnull final Iterator <Entry <K, SoftValue <K, V>>> aSrcIter)
+      private SoftIterator (@NonNull final Iterator <Entry <K, SoftValue <K, V>>> aSrcIter)
       {
         m_aSrcIter = aSrcIter;
       }
@@ -115,8 +115,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
         return m_aSrcIter.hasNext ();
       }
 
-      @Nonnull
-      public Map.Entry <K, V> next ()
+      public Map.@NonNull Entry <K, V> next ()
       {
         final Map.Entry <K, SoftValue <K, V>> e = m_aSrcIter.next ();
         return new MapEntry <> (e.getKey (), e.getValue ().get ());
@@ -133,19 +132,19 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     private final Set <Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
     private final ReferenceQueue <V> m_aQueue;
 
-    private SoftEntrySet (@Nonnull final Set <Entry <K, SoftValue <K, V>>> aSrcEntrySet,
-                          @Nonnull final ReferenceQueue <V> aQueue)
+    private SoftEntrySet (@NonNull final Set <Entry <K, SoftValue <K, V>>> aSrcEntrySet,
+                          @NonNull final ReferenceQueue <V> aQueue)
     {
       m_aSrcEntrySet = aSrcEntrySet;
       m_aQueue = aQueue;
     }
 
-    public boolean add (@Nonnull final Map.Entry <K, V> aEntry)
+    public boolean add (final Map.@NonNull Entry <K, V> aEntry)
     {
       return m_aSrcEntrySet.add (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
-    public boolean addAll (@Nonnull final Collection <? extends Map.Entry <K, V>> c)
+    public boolean addAll (@NonNull final Collection <? extends Map.Entry <K, V>> c)
     {
       boolean result = false;
       for (final Map.Entry <K, V> e : c)
@@ -167,7 +166,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       return m_aSrcEntrySet.contains (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
     }
 
-    public boolean containsAll (@Nonnull final Collection <?> c)
+    public boolean containsAll (@NonNull final Collection <?> c)
     {
       for (final Object x : c)
         if (!this.contains (x))
@@ -180,7 +179,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       return m_aSrcEntrySet.isEmpty ();
     }
 
-    @Nonnull
+    @NonNull
     public Iterator <Map.Entry <K, V>> iterator ()
     {
       final Iterator <Map.Entry <K, SoftValue <K, V>>> aSrcIter = m_aSrcEntrySet.iterator ();
@@ -214,13 +213,13 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       return m_aSrcEntrySet.size ();
     }
 
-    @Nonnull
+    @NonNull
     public Object [] toArray ()
     {
       return toArray (new MapEntry <?, ?> [0]);
     }
 
-    @Nonnull
+    @NonNull
     public <T> T [] toArray (@Nullable final T [] a)
     {
       MapEntry <K, V> [] result = null;
@@ -245,7 +244,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   /** Reference queue for cleared SoftReference objects. */
   private final ReferenceQueue <V> m_aQueue = new ReferenceQueue <> ();
 
-  protected AbstractSoftMap (@Nonnull final Map <K, SoftValue <K, V>> aSrcMap)
+  protected AbstractSoftMap (@NonNull final Map <K, SoftValue <K, V>> aSrcMap)
   {
     m_aSrcMap = ValueEnforcer.notNull (aSrcMap, "SrcMap");
   }

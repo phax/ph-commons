@@ -21,12 +21,12 @@ import java.io.OutputStream;
 
 import javax.crypto.Mac;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A transparent stream that updates the associated Mac using the bits going
@@ -63,7 +63,7 @@ public class MacOutputStream extends WrappedOutputStream
    * @param aMac
    *        the Mac to associate with this stream.
    */
-  public MacOutputStream (@Nonnull final OutputStream aOS, @Nonnull final Mac aMac)
+  public MacOutputStream (@NonNull final OutputStream aOS, @NonNull final Mac aMac)
   {
     super (aOS);
     setMac (aMac);
@@ -75,7 +75,7 @@ public class MacOutputStream extends WrappedOutputStream
    * @return the Mac associated with this stream.
    * @see #setMac(Mac)
    */
-  @Nonnull
+  @NonNull
   public final Mac getMac ()
   {
     return m_aMac;
@@ -89,7 +89,7 @@ public class MacOutputStream extends WrappedOutputStream
    *        <code>null</code>.
    * @see #getMac()
    */
-  public final void setMac (@Nonnull final Mac aMac)
+  public final void setMac (@NonNull final Mac aMac)
   {
     ValueEnforcer.notNull (aMac, "Mac");
     m_aMac = aMac;
@@ -141,7 +141,7 @@ public class MacOutputStream extends WrappedOutputStream
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public void write (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     out.write (aBuf, nOfs, nLen);
     if (m_bOn)

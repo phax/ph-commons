@@ -18,12 +18,12 @@ package com.helger.config.json.spi;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.config.json.source.ConfigurationSourceJson;
 import com.helger.config.source.resource.type.ConfigurationSourceResourceTypeRegistry;
 import com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * SPI implementation that registers the JSON source type for reading configuration items.
@@ -33,7 +33,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public class JsonConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {
-  public void registerResourceType (@Nonnull final ConfigurationSourceResourceTypeRegistry aRegistry)
+  public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
     aRegistry.register (ConfigurationSourceJson.FILE_EXT, x -> new ConfigurationSourceJson (x, StandardCharsets.UTF_8));
   }

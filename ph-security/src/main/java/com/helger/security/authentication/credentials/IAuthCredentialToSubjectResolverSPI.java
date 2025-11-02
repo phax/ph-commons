@@ -16,11 +16,11 @@
  */
 package com.helger.security.authentication.credentials;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This interface needs to be implemented by all classes that are used for
@@ -39,7 +39,7 @@ public interface IAuthCredentialToSubjectResolverSPI
    * @return <code>true</code> if this class can handle the given credentials,
    *         <code>false</code> otherwise.
    */
-  boolean supportsCredentials (@Nonnull IAuthCredentials aCredentials);
+  boolean supportsCredentials (@NonNull IAuthCredentials aCredentials);
 
   /**
    * This method is only called if
@@ -55,5 +55,5 @@ public interface IAuthCredentialToSubjectResolverSPI
    *         subject otherwise.
    */
   @Nullable
-  IAuthSubject getSubjectFromCredentials (@Nonnull IAuthCredentials aCredentials);
+  IAuthSubject getSubjectFromCredentials (@NonNull IAuthCredentials aCredentials);
 }

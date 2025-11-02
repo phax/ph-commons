@@ -19,6 +19,9 @@ package com.helger.xml.microdom;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.ReturnsImmutableObject;
@@ -32,9 +35,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects having attributes. Currently this is only an element.
@@ -205,7 +205,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    */
   @Nullable
   default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sAttrName,
-                                                             @Nonnull final Class <DSTTYPE> aDstClass)
+                                                             @NonNull final Class <DSTTYPE> aDstClass)
   {
     return getAttributeValueWithConversion ((String) null, sAttrName, aDstClass);
   }
@@ -231,7 +231,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
   @Nullable
   default <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final String sNamespaceURI,
                                                              @Nullable final String sAttrName,
-                                                             @Nonnull final Class <DSTTYPE> aDstClass)
+                                                             @NonNull final Class <DSTTYPE> aDstClass)
   {
     if (sAttrName == null)
       return null;
@@ -256,7 +256,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    */
   @Nullable
   <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable IMicroQName aAttrName,
-                                                     @Nonnull Class <DSTTYPE> aDstClass);
+                                                     @NonNull Class <DSTTYPE> aDstClass);
 
   default boolean getAttributeValueAsBool (@Nullable final String sAttrName, final boolean bDefault)
   {
@@ -389,7 +389,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @param aConsumer
    *        The consumer. May not be <code>null</code>. May only perform reading operations!
    */
-  void forAllAttributes (@Nonnull Consumer <? super IMicroAttribute> aConsumer);
+  void forAllAttributes (@NonNull Consumer <? super IMicroAttribute> aConsumer);
 
   /**
    * Iterate all attribute objects.
@@ -398,7 +398,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The consumer that takes the QName and the value. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forAllAttributes (@Nonnull BiConsumer <? super IMicroQName, ? super String> aConsumer);
+  void forAllAttributes (@NonNull BiConsumer <? super IMicroQName, ? super String> aConsumer);
 
   /**
    * Iterate all attribute objects.
@@ -407,7 +407,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The consumer that takes the namespace URI, the attribute local name and the attribute
    *        value. May not be <code>null</code>. May only perform reading operations!
    */
-  void forAllAttributes (@Nonnull ITriConsumer <? super String, ? super String, ? super String> aConsumer);
+  void forAllAttributes (@NonNull ITriConsumer <? super String, ? super String, ? super String> aConsumer);
 
   /**
    * Set an attribute value of this element.
@@ -418,8 +418,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, @Nullable final String sAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, @Nullable final String sAttrValue)
   {
     return setAttribute (new MicroQName (sAttrName), sAttrValue);
   }
@@ -435,9 +435,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    @Nullable final String sAttrValue)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), sAttrValue);
@@ -452,8 +452,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  IMPLTYPE setAttribute (@Nonnull IMicroQName aAttrName, @Nullable String sAttrValue);
+  @NonNull
+  IMPLTYPE setAttribute (@NonNull IMicroQName aAttrName, @Nullable String sAttrValue);
 
   /**
    * Set an attribute value of this element.
@@ -465,8 +465,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, @Nonnull final IHasAttributeValue aAttrValueProvider)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, @NonNull final IHasAttributeValue aAttrValueProvider)
   {
     return setAttribute (new MicroQName (sAttrName), aAttrValueProvider);
   }
@@ -483,10 +483,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
-                                   @Nonnull final IHasAttributeValue aAttrValueProvider)
+                                   @NonNull final String sAttrName,
+                                   @NonNull final IHasAttributeValue aAttrValueProvider)
   {
     return setAttribute (new MicroQName (sNamespaceURI, sAttrName), aAttrValueProvider);
   }
@@ -501,9 +501,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName,
-                                 @Nonnull final IHasAttributeValue aAttrValueProvider)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName,
+                                 @NonNull final IHasAttributeValue aAttrValueProvider)
   {
     ValueEnforcer.notNull (aAttrValueProvider, "AttrValueProvider");
     return setAttribute (aAttrName, aAttrValueProvider.getAttrValue ());
@@ -521,8 +521,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, final boolean bAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, final boolean bAttrValue)
   {
     return setAttribute (sAttrName, Boolean.toString (bAttrValue));
   }
@@ -541,9 +541,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    final boolean bAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, Boolean.toString (bAttrValue));
@@ -561,8 +561,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, final boolean bAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName, final boolean bAttrValue)
   {
     return setAttribute (aAttrName, Boolean.toString (bAttrValue));
   }
@@ -577,8 +577,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, final double dAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, final double dAttrValue)
   {
     return setAttribute (sAttrName, Double.toString (dAttrValue));
   }
@@ -595,9 +595,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    final double dAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, Double.toString (dAttrValue));
@@ -613,8 +613,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, final double dAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName, final double dAttrValue)
   {
     return setAttribute (aAttrName, Double.toString (dAttrValue));
   }
@@ -629,8 +629,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, final float fAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, final float fAttrValue)
   {
     return setAttribute (sAttrName, Float.toString (fAttrValue));
   }
@@ -647,9 +647,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    final float fAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, Float.toString (fAttrValue));
@@ -665,8 +665,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, final float fAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName, final float fAttrValue)
   {
     return setAttribute (aAttrName, Float.toString (fAttrValue));
   }
@@ -681,8 +681,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, final int nAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, final int nAttrValue)
   {
     return setAttribute (sAttrName, Integer.toString (nAttrValue));
   }
@@ -699,9 +699,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    final int nAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, Integer.toString (nAttrValue));
@@ -717,8 +717,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, final int nAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName, final int nAttrValue)
   {
     return setAttribute (aAttrName, Integer.toString (nAttrValue));
   }
@@ -733,8 +733,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final String sAttrName, final long nAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final String sAttrName, final long nAttrValue)
   {
     return setAttribute (sAttrName, Long.toString (nAttrValue));
   }
@@ -751,9 +751,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNS (@Nullable final String sNamespaceURI,
-                                   @Nonnull final String sAttrName,
+                                   @NonNull final String sAttrName,
                                    final long nAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, Long.toString (nAttrValue));
@@ -769,8 +769,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        The new value to be set.
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttribute (@Nonnull final IMicroQName aAttrName, final long nAttrValue)
+  @NonNull
+  default IMPLTYPE setAttribute (@NonNull final IMicroQName aAttrName, final long nAttrValue)
   {
     return setAttribute (aAttrName, Long.toString (nAttrValue));
   }
@@ -786,8 +786,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final Object aAttrValue)
+  @NonNull
+  default IMPLTYPE setAttributeWithConversion (@NonNull final String sAttrName, @Nullable final Object aAttrValue)
   {
     return setAttributeWithConversion (new MicroQName (sAttrName), aAttrValue);
   }
@@ -803,9 +803,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @deprecated Don't call this; Call {@link #setAttribute(String, String)} directly
    */
   @Deprecated (forRemoval = false)
-  @Nonnull
+  @NonNull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
-  default IMPLTYPE setAttributeWithConversion (@Nonnull final String sAttrName, @Nullable final String sAttrValue)
+  default IMPLTYPE setAttributeWithConversion (@NonNull final String sAttrName, @Nullable final String sAttrValue)
   {
     return setAttribute (sAttrName, sAttrValue);
   }
@@ -823,9 +823,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
+  @NonNull
   default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
-                                                 @Nonnull final String sAttrName,
+                                                 @NonNull final String sAttrName,
                                                  @Nullable final Object aAttrValue)
   {
     return setAttributeWithConversion (new MicroQName (sNamespaceURI, sAttrName), aAttrValue);
@@ -844,10 +844,10 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @deprecated Don't call this; Call {@link #setAttributeNS(String, String, String)} directly.
    */
   @Deprecated (forRemoval = false)
-  @Nonnull
+  @NonNull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttributeNS is enough")
   default IMPLTYPE setAttributeNSWithConversion (@Nullable final String sNamespaceURI,
-                                                 @Nonnull final String sAttrName,
+                                                 @NonNull final String sAttrName,
                                                  @Nullable final String sAttrValue)
   {
     return setAttributeNS (sNamespaceURI, sAttrName, sAttrValue);
@@ -864,8 +864,8 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *        If the value is <code>null</code> the attribute is removed (if present)
    * @return this
    */
-  @Nonnull
-  default IMPLTYPE setAttributeWithConversion (@Nonnull final IMicroQName aAttrName, @Nullable final Object aAttrValue)
+  @NonNull
+  default IMPLTYPE setAttributeWithConversion (@NonNull final IMicroQName aAttrName, @Nullable final Object aAttrValue)
   {
     final String sAttrValue = TypeConverter.convert (aAttrValue, String.class);
     return setAttribute (aAttrName, sAttrValue);
@@ -882,9 +882,9 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @deprecated Don't call this; Call {@link #setAttribute(IMicroQName, String)} directly.
    */
   @Deprecated (forRemoval = false)
-  @Nonnull
+  @NonNull
   @DevelopersNote ("No need for setAttributeWithConversion - setAttribute is enough")
-  default IMPLTYPE setAttributeWithConversion (@Nonnull final IMicroQName aAttrName, @Nullable final String sAttrValue)
+  default IMPLTYPE setAttributeWithConversion (@NonNull final IMicroQName aAttrName, @Nullable final String sAttrValue)
   {
     return setAttribute (aAttrName, sAttrValue);
   }
@@ -897,7 +897,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
    *         such attribute exists at this element.
    */
-  @Nonnull
+  @NonNull
   default EChange removeAttribute (@Nullable final String sAttrName)
   {
     return removeAttributeNS (null, sAttrName);
@@ -913,7 +913,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
    *         such attribute exists at this element.
    */
-  @Nonnull
+  @NonNull
   default EChange removeAttributeNS (@Nullable final String sNamespaceURI, @Nullable final String sAttrName)
   {
     if (StringHelper.isEmpty (sAttrName))
@@ -929,7 +929,7 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    * @return {@link EChange#CHANGED} if the attribute was removed, {@link EChange#UNCHANGED} if no
    *         such attribute exists at this element.
    */
-  @Nonnull
+  @NonNull
   EChange removeAttribute (@Nullable IMicroQName aAttrName);
 
   /**
@@ -937,6 +937,6 @@ public interface IMicroAttributeContainer <IMPLTYPE extends IMicroAttributeConta
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   EChange removeAllAttributes ();
 }

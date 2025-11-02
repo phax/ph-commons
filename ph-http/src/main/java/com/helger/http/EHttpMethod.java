@@ -16,12 +16,12 @@
  */
 package com.helger.http;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * HTTP 1.1 methods.<br>
@@ -44,12 +44,12 @@ public enum EHttpMethod implements IHasName
 
   private final String m_sName;
 
-  EHttpMethod (@Nonnull @Nonempty final String sName)
+  EHttpMethod (@NonNull @Nonempty final String sName)
   {
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {

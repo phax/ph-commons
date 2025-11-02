@@ -18,14 +18,14 @@ package com.helger.json.serialize;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHex;
 import com.helger.base.system.ENewLineMode;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IJsonWriterSettings}.
@@ -60,7 +60,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public JsonWriterSettings ()
   {}
 
-  public JsonWriterSettings (@Nonnull final IJsonWriterSettings aOther)
+  public JsonWriterSettings (@NonNull final IJsonWriterSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     setIndentEnabled (aOther.isIdentEnabled ());
@@ -75,36 +75,36 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return m_bIndentEnabled;
   }
 
-  @Nonnull
+  @NonNull
   public final JsonWriterSettings setIndentEnabled (final boolean bIndentEnabled)
   {
     m_bIndentEnabled = bIndentEnabled;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getIndentString ()
   {
     return m_sIndentString;
   }
 
-  @Nonnull
-  public final JsonWriterSettings setIndentString (@Nonnull @Nonempty final String sIndentString)
+  @NonNull
+  public final JsonWriterSettings setIndentString (@NonNull @Nonempty final String sIndentString)
   {
     m_sIndentString = ValueEnforcer.notEmpty (sIndentString, "IndentString");
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNewlineString ()
   {
     return m_sNewlineString;
   }
 
-  @Nonnull
-  public final JsonWriterSettings setNewlineString (@Nonnull @Nonempty final String sNewlineString)
+  @NonNull
+  public final JsonWriterSettings setNewlineString (@NonNull @Nonempty final String sNewlineString)
   {
     m_sNewlineString = ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
     return this;
@@ -115,7 +115,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return m_bWriteNewlineAtEnd;
   }
 
-  @Nonnull
+  @NonNull
   public final JsonWriterSettings setWriteNewlineAtEnd (final boolean bWriteNewlineAtEnd)
   {
     m_bWriteNewlineAtEnd = bWriteNewlineAtEnd;
@@ -127,14 +127,14 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return m_bQuoteNames;
   }
 
-  @Nonnull
+  @NonNull
   public final JsonWriterSettings setQuoteNames (final boolean bQuoteNames)
   {
     m_bQuoteNames = bQuoteNames;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public JsonWriterSettings getClone ()
   {
     return new JsonWriterSettings (this);

@@ -22,7 +22,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An enum that defines the revocation checking modes.
@@ -59,7 +59,7 @@ public enum ERevocationCheckMode
 
   ERevocationCheckMode (final boolean bOCSP,
                         final boolean bCRL,
-                        @Nonnull final Set <PKIXRevocationChecker.Option> aOptions)
+                        @NonNull final Set <PKIXRevocationChecker.Option> aOptions)
   {
     m_bOCSP = bOCSP;
     m_bCRL = bCRL;
@@ -86,7 +86,7 @@ public enum ERevocationCheckMode
     return !m_bOCSP && !m_bCRL;
   }
 
-  public void addAllOptionsTo (@Nonnull final Collection <? super PKIXRevocationChecker.Option> aTarget)
+  public void addAllOptionsTo (@NonNull final Collection <? super PKIXRevocationChecker.Option> aTarget)
   {
     aTarget.addAll (m_aOptions);
   }

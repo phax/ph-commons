@@ -16,15 +16,15 @@
  */
 package com.helger.tree.withid.unique;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.hierarchy.IChildrenProviderWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.ITreeWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A specialized version of the tree, where each item is required to have a
@@ -81,13 +81,13 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   /**
    * @return A non-<code>null</code> collection of all items.
    */
-  @Nonnull
+  @NonNull
   ICommonsCollection <ITEMTYPE> getAllItems ();
 
   /**
    * @return A non-<code>null</code> collection of all item datas.
    */
-  @Nonnull
+  @NonNull
   ICommonsCollection <DATATYPE> getAllItemDatas ();
 
   /**
@@ -98,7 +98,7 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
    * @return {@link EChange#CHANGED} if the item was removed,
    *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EChange removeItemWithID (@Nullable KEYTYPE aDataID);
 
   /**

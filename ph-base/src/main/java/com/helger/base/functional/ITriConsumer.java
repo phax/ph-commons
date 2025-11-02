@@ -18,8 +18,8 @@ package com.helger.base.functional;
 
 import java.util.function.Consumer;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an operation that accepts three input arguments and returns no
@@ -66,7 +66,7 @@ public interface ITriConsumer <T, U, V>
    * @return a composed {@code ITriConsumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    */
-  @Nonnull
+  @NonNull
   default ITriConsumer <T, U, V> andThen (@Nullable final ITriConsumer <? super T, ? super U, ? super V> after)
   {
     if (after == null)

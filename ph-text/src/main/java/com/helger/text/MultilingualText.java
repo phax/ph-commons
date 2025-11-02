@@ -20,10 +20,10 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a multilingual text. It is internally represented as a
@@ -37,12 +37,12 @@ public class MultilingualText extends AbstractMapBasedMultilingualText
   public MultilingualText ()
   {}
 
-  public MultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  public MultilingualText (@NonNull final Locale aContentLocale, @NonNull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
-  public MultilingualText (@Nonnull final Map <Locale, String> aContent)
+  public MultilingualText (@NonNull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
 
@@ -50,7 +50,7 @@ public class MultilingualText extends AbstractMapBasedMultilingualText
       internalAddText (aEntry);
   }
 
-  public MultilingualText (@Nonnull final IMultilingualText aMLT)
+  public MultilingualText (@NonNull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

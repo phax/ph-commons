@@ -16,9 +16,9 @@
  */
 package com.helger.security.authentication.credentials.usernamepw;
 
-import com.helger.security.authentication.credentials.IAuthCredentials;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.security.authentication.credentials.IAuthCredentials;
 
 /**
  * This interface represents username and password credentials passed from a

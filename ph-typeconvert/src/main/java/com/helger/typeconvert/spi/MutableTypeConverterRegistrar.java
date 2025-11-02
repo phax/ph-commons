@@ -19,6 +19,8 @@ package com.helger.typeconvert.spi;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.numeric.mutable.MutableBigDecimal;
@@ -35,8 +37,6 @@ import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.impl.TypeConverter;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Register the mutable* specific type converter
  *
@@ -46,7 +46,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class MutableTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // MutableBigDecimal
     aRegistry.registerTypeConverter (MutableBigDecimal.class, BigDecimal.class, MutableBigDecimal::getAsBigDecimal);

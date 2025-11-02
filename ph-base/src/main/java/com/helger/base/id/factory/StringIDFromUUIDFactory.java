@@ -18,10 +18,10 @@ package com.helger.base.id.factory;
 
 import java.util.UUID;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link IStringIDFactory} implementation that uses a random UUIDs.
@@ -36,7 +36,7 @@ public class StringIDFromUUIDFactory implements IStringIDFactory
   public StringIDFromUUIDFactory ()
   {}
 
-  @Nonnull
+  @NonNull
   public String getNewID ()
   {
     return UUID.randomUUID ().toString ();

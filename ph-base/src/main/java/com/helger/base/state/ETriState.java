@@ -16,12 +16,12 @@
  */
 package com.helger.base.state;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents an object that has one of 3 different states compared to a boolean
@@ -38,13 +38,13 @@ public enum ETriState implements IHasID <String>, ITriState
   private final String m_sID;
   private final Boolean m_aBoolean;
 
-  ETriState (@Nonnull @Nonempty final String sID, @Nullable final Boolean aBoolean)
+  ETriState (@NonNull @Nonempty final String sID, @Nullable final Boolean aBoolean)
   {
     m_sID = sID;
     m_aBoolean = aBoolean;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -90,20 +90,20 @@ public enum ETriState implements IHasID <String>, ITriState
     return this == UNDEFINED ? aUndefinedValue : m_aBoolean;
   }
 
-  @Nonnull
+  @NonNull
   public static ETriState valueOf (final boolean bValue)
   {
     return bValue ? TRUE : FALSE;
   }
 
-  @Nonnull
+  @NonNull
   public static ETriState valueOf (@Nullable final Boolean aValue)
   {
     return aValue == null ? UNDEFINED : valueOf (aValue.booleanValue ());
   }
 
-  @Nonnull
-  public static ETriState valueOf (@Nonnull final ITriState aTriState)
+  @NonNull
+  public static ETriState valueOf (@NonNull final ITriState aTriState)
   {
     return valueOf (aTriState.getAsBooleanObj (null));
   }
@@ -114,7 +114,7 @@ public enum ETriState implements IHasID <String>, ITriState
     return EnumHelper.getFromIDOrNull (ETriState.class, sID);
   }
 
-  @Nonnull
+  @NonNull
   public static ETriState getFromIDOrUndefined (@Nullable final String sID)
   {
     return getFromIDOrDefault (sID, UNDEFINED);

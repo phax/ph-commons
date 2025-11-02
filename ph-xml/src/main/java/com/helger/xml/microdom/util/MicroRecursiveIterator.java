@@ -18,14 +18,14 @@ package com.helger.xml.microdom.util;
 
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.microdom.IMicroNode;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Class for recursively visiting all children of an {@link IMicroNode}. It
@@ -37,7 +37,7 @@ public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroN
 {
   private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
 
-  public MicroRecursiveIterator (@Nonnull final IMicroNode aNode)
+  public MicroRecursiveIterator (@NonNull final IMicroNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     m_aOpen.add (aNode);
@@ -48,7 +48,7 @@ public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroN
     return m_aOpen.isNotEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   public IMicroNode next ()
   {
     if (m_aOpen.isEmpty ())
@@ -75,8 +75,8 @@ public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroN
    * @return Never <code>null</code>.
    * @since 10.1.7
    */
-  @Nonnull
-  public static MicroRecursiveIterator createChildNodeIterator (@Nonnull final IMicroNode aNode)
+  @NonNull
+  public static MicroRecursiveIterator createChildNodeIterator (@NonNull final IMicroNode aNode)
   {
     // Create a regular one
     final MicroRecursiveIterator ret = new MicroRecursiveIterator (aNode);

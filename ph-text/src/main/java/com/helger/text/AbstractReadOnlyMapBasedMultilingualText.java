@@ -22,6 +22,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.text.locale.LocaleHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link Map} based implementation of {@link IMultilingualText} that does not provide writing
@@ -67,7 +66,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.
    */
-  protected AbstractReadOnlyMapBasedMultilingualText (@Nonnull final ICommonsOrderedMap <Locale, String> aMapToUse)
+  protected AbstractReadOnlyMapBasedMultilingualText (@NonNull final ICommonsOrderedMap <Locale, String> aMapToUse)
   {
     m_aTexts = ValueEnforcer.notNull (aMapToUse, "MapToUse");
   }
@@ -92,7 +91,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return CONSISTENCY_CHECK_ENABED.get ();
   }
 
-  private static void _performConsistencyChecks (@Nonnull final String sValue)
+  private static void _performConsistencyChecks (@NonNull final String sValue)
   {
     // String contains masked newline? warning only!
     if (sValue.contains ("\\n"))
@@ -113,12 +112,12 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     }
   }
 
-  protected final void internalAddText (@Nonnull final Map.Entry <Locale, String> aEntry)
+  protected final void internalAddText (final Map.@NonNull Entry <Locale, String> aEntry)
   {
     internalAddText (aEntry.getKey (), aEntry.getValue ());
   }
 
-  protected final void internalAddText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
+  protected final void internalAddText (@NonNull final Locale aContentLocale, @Nullable final String sValue)
   {
     // Check here as well, because this method is invoked in constructors of
     // derived classes
@@ -130,7 +129,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     internalSetText (aContentLocale, sValue);
   }
 
-  protected final void internalSetText (@Nonnull final Locale aContentLocale, @Nullable final String sValue)
+  protected final void internalSetText (@NonNull final Locale aContentLocale, @Nullable final String sValue)
   {
     if (sValue != null && CONSISTENCY_CHECK_ENABED.get ())
       _performConsistencyChecks (sValue);
@@ -140,14 +139,14 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
 
   @Override
   @Nullable
-  protected final String internalGetText (@Nonnull final Locale aContentLocale)
+  protected final String internalGetText (@NonNull final Locale aContentLocale)
   {
     return m_aTexts.get (aContentLocale);
   }
 
   @Override
   @Nullable
-  protected final Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
+  protected final Locale internalGetLocaleToUseWithFallback (@NonNull final Locale aContentLocale)
   {
     // Always perform locale fallback resolution
     return LocaleHelper.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
@@ -162,7 +161,7 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return false;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsOrderedMap <Locale, String> texts ()
   {

@@ -18,6 +18,8 @@ package com.helger.xml.sax;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.InputSource;
 
 import com.helger.annotation.WillClose;
@@ -26,9 +28,6 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link org.xml.sax.InputSource} that ensures that the passed {@link InputStream} is closed. This
@@ -39,33 +38,33 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CachingSAXInputSource extends InputSource
 {
-  @Nonnull
-  private static NonBlockingByteArrayInputStream _getCachedInputStream (@Nonnull @WillClose final InputStream aIS)
+  @NonNull
+  private static NonBlockingByteArrayInputStream _getCachedInputStream (@NonNull @WillClose final InputStream aIS)
   {
     return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
   }
 
-  public CachingSAXInputSource (@Nonnull final IReadableResource aRes)
+  public CachingSAXInputSource (@NonNull final IReadableResource aRes)
   {
     this (aRes.getInputStream (), aRes.getResourceID ());
   }
 
-  public CachingSAXInputSource (@Nonnull final IHasInputStream aISP)
+  public CachingSAXInputSource (@NonNull final IHasInputStream aISP)
   {
     this (aISP.getInputStream (), null);
   }
 
-  public CachingSAXInputSource (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
+  public CachingSAXInputSource (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     this (aISP.getInputStream (), sSystemID);
   }
 
-  public CachingSAXInputSource (@Nonnull @WillClose final InputStream aIS)
+  public CachingSAXInputSource (@NonNull @WillClose final InputStream aIS)
   {
     this (aIS, null);
   }
 
-  public CachingSAXInputSource (@Nonnull @WillClose final InputStream aIS, @Nullable final String sSystemID)
+  public CachingSAXInputSource (@NonNull @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
     super (_getCachedInputStream (aIS));
     setSystemId (sSystemID);

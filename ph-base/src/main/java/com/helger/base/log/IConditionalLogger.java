@@ -18,8 +18,8 @@ package com.helger.base.log;
 
 import java.util.function.Supplier;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Conditional logger activity interface
@@ -29,35 +29,35 @@ import jakarta.annotation.Nullable;
  */
 public interface IConditionalLogger
 {
-  void trace (@Nonnull Supplier <String> aMsgSupplier);
+  void trace (@NonNull Supplier <String> aMsgSupplier);
 
-  void trace (@Nonnull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  void trace (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
 
-  void debug (@Nonnull Supplier <String> aMsgSupplier);
+  void debug (@NonNull Supplier <String> aMsgSupplier);
 
-  void debug (@Nonnull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  void debug (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
 
-  void info (@Nonnull String sMsg);
+  void info (@NonNull String sMsg);
 
-  void info (@Nonnull Supplier <String> aMsgSupplier);
+  void info (@NonNull Supplier <String> aMsgSupplier);
 
-  void info (@Nonnull String sMsg, @Nullable Exception ex);
+  void info (@NonNull String sMsg, @Nullable Exception ex);
 
-  void info (@Nonnull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  void info (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
 
-  void warn (@Nonnull String sMsg);
+  void warn (@NonNull String sMsg);
 
-  void warn (@Nonnull Supplier <String> aMsgSupplier);
+  void warn (@NonNull Supplier <String> aMsgSupplier);
 
-  void warn (@Nonnull String sMsg, @Nullable Exception ex);
+  void warn (@NonNull String sMsg, @Nullable Exception ex);
 
-  void warn (@Nonnull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  void warn (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
 
-  void error (@Nonnull String sMsg);
+  void error (@NonNull String sMsg);
 
-  void error (@Nonnull Supplier <String> aMsgSupplier);
+  void error (@NonNull Supplier <String> aMsgSupplier);
 
-  void error (@Nonnull String sMsg, @Nullable Exception ex);
+  void error (@NonNull String sMsg, @Nullable Exception ex);
 
-  void error (@Nonnull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  void error (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
 }

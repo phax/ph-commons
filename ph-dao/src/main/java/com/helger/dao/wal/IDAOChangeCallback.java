@@ -16,10 +16,10 @@
  */
 package com.helger.dao.wal;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.callback.ICallback;
 import com.helger.base.id.IHasID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for DAO stuff
@@ -36,7 +36,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    * @param aNewItem
    *        The newly created item. Never <code>null</code>.
    */
-  default void onCreateItem (@Nonnull final INTERFACETYPE aNewItem)
+  default void onCreateItem (@NonNull final INTERFACETYPE aNewItem)
   {}
 
   /**
@@ -45,7 +45,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    * @param aItem
    *        The updated item. Never <code>null</code>.
    */
-  default void onUpdateItem (@Nonnull final INTERFACETYPE aItem)
+  default void onUpdateItem (@NonNull final INTERFACETYPE aItem)
   {}
 
   /**
@@ -54,7 +54,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    * @param aItem
    *        The removed item. Never <code>null</code>.
    */
-  default void onDeleteItem (@Nonnull final INTERFACETYPE aItem)
+  default void onDeleteItem (@NonNull final INTERFACETYPE aItem)
   {}
 
   /**
@@ -64,7 +64,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    * @param aItem
    *        The item that was marked as deleted. Never <code>null</code>.
    */
-  default void onMarkItemDeleted (@Nonnull final INTERFACETYPE aItem)
+  default void onMarkItemDeleted (@NonNull final INTERFACETYPE aItem)
   {}
 
   /**
@@ -74,6 +74,6 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    *        The item that was marked as not deleted anymore. Never
    *        <code>null</code>.
    */
-  default void onMarkItemUndeleted (@Nonnull final INTERFACETYPE aItem)
+  default void onMarkItemUndeleted (@NonNull final INTERFACETYPE aItem)
   {}
 }

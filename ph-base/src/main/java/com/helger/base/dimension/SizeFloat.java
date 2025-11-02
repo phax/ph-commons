@@ -16,6 +16,8 @@
  */
 package com.helger.base.dimension;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -23,8 +25,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents an object having width and height.
@@ -37,17 +37,17 @@ public class SizeFloat implements IHasDimensionFloat
   private final float m_dWidth;
   private final float m_dHeight;
 
-  public SizeFloat (@Nonnull final IHasDimensionInt aObj)
+  public SizeFloat (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnull final IHasDimensionLong aObj)
+  public SizeFloat (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeFloat (@Nonnull final IHasDimensionFloat aObj)
+  public SizeFloat (@NonNull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -80,7 +80,7 @@ public class SizeFloat implements IHasDimensionFloat
    * @return An array with 2 elements, where the first element is the width, and the second is the
    *         height.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeFloat getBestMatchingSize (@Nonnegative final float dMaxWidth, @Nonnegative final float dMaxHeight)
   {
@@ -102,7 +102,7 @@ public class SizeFloat implements IHasDimensionFloat
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToWidth (@Nonnegative final float dNewWidth)
   {
@@ -114,7 +114,7 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (dNewWidth, m_dHeight * dMultFactory);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToHeight (@Nonnegative final float dNewHeight)
   {
@@ -126,36 +126,36 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (m_dWidth * dMultFactory, dNewHeight);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasDimensionInt aToAdd)
+  public SizeFloat getAdded (@NonNull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeFloat getAdded (@Nonnull final IHasDimensionFloat aToAdd)
+  public SizeFloat getAdded (@NonNull final IHasDimensionFloat aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
+  public SizeFloat getSubtracted (@NonNull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
     return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeFloat getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
+  public SizeFloat getSubtracted (@NonNull final IHasDimensionFloat aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

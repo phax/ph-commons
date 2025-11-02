@@ -16,6 +16,9 @@
  */
 package com.helger.base.thirdparty;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.version.Version;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of the {@link IThirdPartyModule} interface.
@@ -45,7 +45,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
   private final String m_sWebSiteURL;
   private final boolean m_bOptional;
 
-  public ThirdPartyModule (@Nonnull final IThirdPartyModule aOther, final boolean bOptional)
+  public ThirdPartyModule (@NonNull final IThirdPartyModule aOther, final boolean bOptional)
   {
     this (aOther.getDisplayName (),
           aOther.getCopyrightOwner (),
@@ -55,33 +55,33 @@ public final class ThirdPartyModule implements IThirdPartyModule
           bOptional);
   }
 
-  public ThirdPartyModule (@Nonnull @Nonempty final String sDisplayName,
-                           @Nonnull @Nonempty final String sCopyrightOwner,
-                           @Nonnull final ILicense aLicense)
+  public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
+                           @NonNull @Nonempty final String sCopyrightOwner,
+                           @NonNull final ILicense aLicense)
   {
     this (sDisplayName, sCopyrightOwner, aLicense, DEFAULT_OPTIONAL);
   }
 
-  public ThirdPartyModule (@Nonnull @Nonempty final String sDisplayName,
-                           @Nonnull @Nonempty final String sCopyrightOwner,
-                           @Nonnull final ILicense aLicense,
+  public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
+                           @NonNull @Nonempty final String sCopyrightOwner,
+                           @NonNull final ILicense aLicense,
                            final boolean bOptional)
   {
     this (sDisplayName, sCopyrightOwner, aLicense, (Version) null, (String) null, bOptional);
   }
 
-  public ThirdPartyModule (@Nonnull @Nonempty final String sDisplayName,
-                           @Nonnull @Nonempty final String sCopyrightOwner,
-                           @Nonnull final ILicense aLicense,
+  public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
+                           @NonNull @Nonempty final String sCopyrightOwner,
+                           @NonNull final ILicense aLicense,
                            @Nullable final Version aVersion,
                            @Nullable final String sWebsiteURL)
   {
     this (sDisplayName, sCopyrightOwner, aLicense, aVersion, sWebsiteURL, DEFAULT_OPTIONAL);
   }
 
-  public ThirdPartyModule (@Nonnull @Nonempty final String sDisplayName,
-                           @Nonnull @Nonempty final String sCopyrightOwner,
-                           @Nonnull final ILicense aLicense,
+  public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
+                           @NonNull @Nonempty final String sCopyrightOwner,
+                           @NonNull final ILicense aLicense,
                            @Nullable final Version aVersion,
                            @Nullable final String sWebsiteURL,
                            final boolean bOptional)
@@ -94,21 +94,21 @@ public final class ThirdPartyModule implements IThirdPartyModule
     m_bOptional = bOptional;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
     return m_sDisplayName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getCopyrightOwner ()
   {
     return m_sCopyrightOwner;
   }
 
-  @Nonnull
+  @NonNull
   public ILicense getLicense ()
   {
     return m_aLicense;
@@ -131,7 +131,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return m_bOptional;
   }
 
-  @Nonnull
+  @NonNull
   public ThirdPartyModule getAsOptionalCopy ()
   {
     if (m_bOptional)
@@ -139,7 +139,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return new ThirdPartyModule (this, true);
   }
 
-  @Nonnull
+  @NonNull
   public ThirdPartyModule getAsNonOptionalCopy ()
   {
     if (!m_bOptional)

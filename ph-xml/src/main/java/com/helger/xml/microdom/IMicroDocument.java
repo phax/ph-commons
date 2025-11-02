@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.base.state.ETriState;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.ETriState;
 
 /**
  * Represents a complete document.
@@ -32,7 +32,7 @@ public interface IMicroDocument extends IMicroNodeWithChildren
    * @return The standalone value. Never <code>null</code>.
    * @since 9.3.5
    */
-  @Nonnull
+  @NonNull
   ETriState getStandalone ();
 
   /**
@@ -51,7 +51,7 @@ public interface IMicroDocument extends IMicroNodeWithChildren
    *        The new value. May not be <code>null</code>.
    * @since 9.3.5
    */
-  void setStandalone (@Nonnull ETriState eStandalone);
+  void setStandalone (@NonNull ETriState eStandalone);
 
   /**
    * Change the standalone state of this document.
@@ -80,6 +80,6 @@ public interface IMicroDocument extends IMicroNodeWithChildren
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroDocument getClone ();
 }

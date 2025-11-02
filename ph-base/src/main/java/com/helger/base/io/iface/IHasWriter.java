@@ -18,9 +18,9 @@ package com.helger.base.io.iface;
 
 import java.io.Writer;
 
-import com.helger.base.io.stream.StreamHelper;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.io.stream.StreamHelper;
 
 /**
  * A callback interface to retrieve {@link Writer} objects.

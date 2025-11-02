@@ -18,11 +18,10 @@ package com.helger.io.file;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A logging implementation of the {@link IFileOperationCallback} interface.
@@ -34,8 +33,8 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingFileOperationCallback.class);
 
   @Override
-  public void onSuccess (@Nonnull final EFileIOOperation eOperation,
-                         @Nonnull final File aFile1,
+  public void onSuccess (@NonNull final EFileIOOperation eOperation,
+                         @NonNull final File aFile1,
                          @Nullable final File aFile2)
   {
     if (LOGGER.isDebugEnabled ())
@@ -48,9 +47,9 @@ public class LoggingFileOperationCallback implements IFileOperationCallback
   }
 
   @Override
-  public void onError (@Nonnull final EFileIOOperation eOperation,
-                       @Nonnull final EFileIOErrorCode eErrorCode,
-                       @Nonnull final File aFile1,
+  public void onError (@NonNull final EFileIOOperation eOperation,
+                       @NonNull final EFileIOErrorCode eErrorCode,
+                       @NonNull final File aFile1,
                        @Nullable final File aFile2,
                        @Nullable final Exception aException)
   {

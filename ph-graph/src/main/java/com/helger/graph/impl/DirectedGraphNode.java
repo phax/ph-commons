@@ -18,6 +18,9 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -35,9 +38,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation if the {@link IMutableDirectedGraphNode} interface
@@ -65,7 +65,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return true;
   }
 
-  public void addIncomingRelation (@Nonnull final IMutableDirectedGraphRelation aNewRelation)
+  public void addIncomingRelation (@NonNull final IMutableDirectedGraphRelation aNewRelation)
   {
     ValueEnforcer.notNull (aNewRelation, "NewRelation");
     ValueEnforcer.isTrue (aNewRelation.getTo () == this, "Passed incoming relation is not based on this node");
@@ -108,27 +108,27 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return m_aIncoming != null && aRelation != null && aRelation.equals (m_aIncoming.get (aRelation.getID ()));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllIncomingRelations ()
   {
     return m_aIncoming == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aIncoming.values ());
   }
 
-  public void forEachIncomingRelation (@Nonnull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
+  public void forEachIncomingRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aIncoming != null)
       m_aIncoming.forEachValue (aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeIncomingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return aRelation == null || m_aIncoming == null ? EChange.UNCHANGED : m_aIncoming.removeObject (aRelation.getID ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllIncomingRelations ()
   {
     if (!hasIncomingRelations ())
@@ -142,7 +142,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return getIncomingRelationFrom (aNode) != null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllFromNodes ()
   {
@@ -162,7 +162,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return null;
   }
 
-  public void addOutgoingRelation (@Nonnull final IMutableDirectedGraphRelation aNewRelation)
+  public void addOutgoingRelation (@NonNull final IMutableDirectedGraphRelation aNewRelation)
   {
     ValueEnforcer.notNull (aNewRelation, "NewRelation");
     ValueEnforcer.isTrue (aNewRelation.getFrom () == this, "Passed outgoing relation is not based on this node");
@@ -204,21 +204,21 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return m_aOutgoing != null && aRelation != null && aRelation.equals (m_aOutgoing.get (aRelation.getID ()));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllOutgoingRelations ()
   {
     return m_aOutgoing == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aOutgoing.values ());
   }
 
-  public void forEachOutgoingRelation (@Nonnull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
+  public void forEachOutgoingRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aOutgoing != null)
       m_aOutgoing.values ().forEach (aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllToNodes ()
   {
@@ -228,13 +228,13 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeOutgoingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return aRelation == null || m_aOutgoing == null ? EChange.UNCHANGED : m_aOutgoing.removeObject (aRelation.getID ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllOutgoingRelations ()
   {
     if (!hasOutgoingRelations ())
@@ -281,7 +281,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return aIncoming != null ? aIncoming : aOutgoing;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphRelation> getAllRelations ()
   {
@@ -293,7 +293,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
@@ -305,7 +305,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllRelatedNodes ()
   {
@@ -319,7 +319,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()
   {

@@ -38,16 +38,15 @@ import org.bouncycastle.operator.DigestCalculator;
 import org.bouncycastle.operator.DigestCalculatorProvider;
 import org.bouncycastle.operator.OperatorCreationException;
 import org.bouncycastle.operator.jcajce.JcaDigestCalculatorProviderBuilder;
+import org.jspecify.annotations.NonNull;
 
 import com.helger.base.state.ETriState;
 import com.helger.bc.PBCProvider;
 import com.helger.security.oscp.EOCSPResponseStatus;
 
-import jakarta.annotation.Nonnull;
-
 public final class OCSPFuncTest
 {
-  @Nonnull
+  @NonNull
   public static OCSPReq generateOCSPRequest (final X509Certificate aIssuerCert, final BigInteger aCheckSerialNumber) throws OCSPException
   {
     try
@@ -85,8 +84,8 @@ public final class OCSPFuncTest
     }
   }
 
-  @Nonnull
-  public static ETriState evalOCSPResponse (@Nonnull final OCSPResp aOCSPResponse) throws OCSPException
+  @NonNull
+  public static ETriState evalOCSPResponse (@NonNull final OCSPResp aOCSPResponse) throws OCSPException
   {
     final EOCSPResponseStatus eStatus = EOCSPResponseStatus.getFromValueOrNull (aOCSPResponse.getStatus ());
     if (eStatus == null)

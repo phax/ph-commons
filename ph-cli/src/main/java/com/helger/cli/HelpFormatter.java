@@ -22,6 +22,9 @@ import java.io.PrintWriter;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
@@ -35,9 +38,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A formatter of help messages for command line options.
@@ -224,7 +224,7 @@ public class HelpFormatter
    * @param sPrefix
    *        the new value of 'syntaxPrefix'
    */
-  public void setSyntaxPrefix (@Nonnull final String sPrefix)
+  public void setSyntaxPrefix (@NonNull final String sPrefix)
   {
     ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sDefaultSyntaxPrefix = sPrefix;
@@ -235,7 +235,7 @@ public class HelpFormatter
    *
    * @return the 'syntaxPrefix'
    */
-  @Nonnull
+  @NonNull
   public String getSyntaxPrefix ()
   {
     return m_sDefaultSyntaxPrefix;
@@ -247,7 +247,7 @@ public class HelpFormatter
    * @param sNewLine
    *        the new value of 'newLine'
    */
-  public void setNewLine (@Nonnull final String sNewLine)
+  public void setNewLine (@NonNull final String sNewLine)
   {
     ValueEnforcer.notNull (sNewLine, "NewLine");
     m_sDefaultNewLine = sNewLine;
@@ -258,7 +258,7 @@ public class HelpFormatter
    *
    * @return the 'newLine'
    */
-  @Nonnull
+  @NonNull
   public String getNewLine ()
   {
     return m_sDefaultNewLine;
@@ -270,7 +270,7 @@ public class HelpFormatter
    * @param sPrefix
    *        the new value of 'optPrefix'
    */
-  public void setOptPrefix (@Nonnull final String sPrefix)
+  public void setOptPrefix (@NonNull final String sPrefix)
   {
     ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sOptPrefix = sPrefix;
@@ -281,7 +281,7 @@ public class HelpFormatter
    *
    * @return the 'optPrefix'
    */
-  @Nonnull
+  @NonNull
   public String getOptPrefix ()
   {
     return m_sOptPrefix;
@@ -293,7 +293,7 @@ public class HelpFormatter
    * @param sPrefix
    *        the new value of 'longOptPrefix'
    */
-  public void setLongOptPrefix (@Nonnull final String sPrefix)
+  public void setLongOptPrefix (@NonNull final String sPrefix)
   {
     ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sLongOptPrefix = sPrefix;
@@ -304,7 +304,7 @@ public class HelpFormatter
    *
    * @return the 'longOptPrefix'
    */
-  @Nonnull
+  @NonNull
   public String getLongOptPrefix ()
   {
     return m_sLongOptPrefix;
@@ -317,7 +317,7 @@ public class HelpFormatter
    * @param sLongOptSeparator
    *        the separator, typically ' ' or '='.
    */
-  public void setLongOptSeparator (@Nonnull final String sLongOptSeparator)
+  public void setLongOptSeparator (@NonNull final String sLongOptSeparator)
   {
     ValueEnforcer.notNull (sLongOptSeparator, "LongOptSeparator");
     m_sLongOptSeparator = sLongOptSeparator;
@@ -329,7 +329,7 @@ public class HelpFormatter
    *
    * @return the separator
    */
-  @Nonnull
+  @NonNull
   public String getLongOptSeparator ()
   {
     return m_sLongOptSeparator;
@@ -341,7 +341,7 @@ public class HelpFormatter
    * @param sName
    *        the new value of 'argName'
    */
-  public void setArgName (@Nonnull final String sName)
+  public void setArgName (@NonNull final String sName)
   {
     ValueEnforcer.notNull (sName, "Name");
     m_sArgName = sName;
@@ -352,7 +352,7 @@ public class HelpFormatter
    *
    * @return the 'argName'
    */
-  @Nonnull
+  @NonNull
   public String getArgName ()
   {
     return m_sArgName;
@@ -391,7 +391,7 @@ public class HelpFormatter
    * @param aOptions
    *        the Options instance
    */
-  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax, @Nonnull final Options aOptions)
+  public void printHelp (@NonNull @Nonempty final String sCmdLineSyntax, @NonNull final Options aOptions)
   {
     printHelp (getWidth (), sCmdLineSyntax, null, aOptions, null, false);
   }
@@ -407,8 +407,8 @@ public class HelpFormatter
    * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
-                         @Nonnull final Options aOptions,
+  public void printHelp (@NonNull @Nonempty final String sCmdLineSyntax,
+                         @NonNull final Options aOptions,
                          final boolean bAutoUsage)
   {
     printHelp (getWidth (), sCmdLineSyntax, null, aOptions, null, bAutoUsage);
@@ -427,9 +427,9 @@ public class HelpFormatter
    * @param sFooter
    *        the banner to display at the end of the help
    */
-  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
+  public void printHelp (@NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          @Nullable final String sFooter)
   {
     printHelp (sCmdLineSyntax, sHeader, aOptions, sFooter, false);
@@ -450,9 +450,9 @@ public class HelpFormatter
    * @param bAutoUsage
    *        whether to print an automatically generated usage statement
    */
-  public void printHelp (@Nonnull @Nonempty final String sCmdLineSyntax,
+  public void printHelp (@NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          @Nullable final String sFooter,
                          final boolean bAutoUsage)
   {
@@ -475,9 +475,9 @@ public class HelpFormatter
    *        the banner to display at the end of the help
    */
   public void printHelp (final int nWidth,
-                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          @Nullable final String sFooter)
   {
     printHelp (nWidth, sCmdLineSyntax, sHeader, aOptions, sFooter, false);
@@ -501,9 +501,9 @@ public class HelpFormatter
    *        whether to print an automatically generated usage statement
    */
   public void printHelp (final int nWidth,
-                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          @Nullable final String sFooter,
                          final boolean bAutoUsage)
   {
@@ -542,11 +542,11 @@ public class HelpFormatter
    * @throws IllegalStateException
    *         if there is no room to print a line
    */
-  public void printHelp (@Nonnull final PrintWriter aPW,
+  public void printHelp (@NonNull final PrintWriter aPW,
                          final int nWidth,
-                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          final int nLeftPad,
                          final int nDescPad,
                          @Nullable final String sFooter)
@@ -578,11 +578,11 @@ public class HelpFormatter
    * @throws IllegalStateException
    *         if there is no room to print a line
    */
-  public void printHelp (@Nonnull final PrintWriter aPW,
+  public void printHelp (@NonNull final PrintWriter aPW,
                          final int nWidth,
-                         @Nonnull @Nonempty final String sCmdLineSyntax,
+                         @NonNull @Nonempty final String sCmdLineSyntax,
                          @Nullable final String sHeader,
-                         @Nonnull final Options aOptions,
+                         @NonNull final Options aOptions,
                          final int nLeftPad,
                          final int nDescPad,
                          @Nullable final String sFooter,
@@ -616,7 +616,7 @@ public class HelpFormatter
    * @param aOptions
    *        The command line Options
    */
-  public void printUsage (@Nonnull final PrintWriter aPW,
+  public void printUsage (@NonNull final PrintWriter aPW,
                           final int nWidth,
                           final String sAppName,
                           final Options aOptions)
@@ -711,7 +711,7 @@ public class HelpFormatter
    * @param bRequired
    *        whether the Option is required or not
    */
-  private void _appendOption (@Nonnull final StringBuilder aSB, @Nonnull final Option aOption, final boolean bRequired)
+  private void _appendOption (@NonNull final StringBuilder aSB, @NonNull final Option aOption, final boolean bRequired)
   {
     if (!bRequired)
       aSB.append ('[');
@@ -743,7 +743,7 @@ public class HelpFormatter
    * @param sCmdLineSyntax
    *        The usage statement.
    */
-  public void printUsage (@Nonnull final PrintWriter aPW, final int nWidth, final String sCmdLineSyntax)
+  public void printUsage (@NonNull final PrintWriter aPW, final int nWidth, final String sCmdLineSyntax)
   {
     final int nArgPos = sCmdLineSyntax.indexOf (' ') + 1;
 
@@ -765,9 +765,9 @@ public class HelpFormatter
    * @param nDescPad
    *        the number of characters of padding to be prefixed to each description line
    */
-  public void printOptions (@Nonnull final PrintWriter aPW,
+  public void printOptions (@NonNull final PrintWriter aPW,
                             final int nWidth,
-                            @Nonnull final Options aOptions,
+                            @NonNull final Options aOptions,
                             final int nLeftPad,
                             final int nDescPad)
   {
@@ -787,7 +787,7 @@ public class HelpFormatter
    * @param sText
    *        The text to be written to the PrintWriter
    */
-  public void printWrapped (@Nonnull final PrintWriter aPW, final int nWidth, @Nonnull final String sText)
+  public void printWrapped (@NonNull final PrintWriter aPW, final int nWidth, @NonNull final String sText)
   {
     printWrapped (aPW, nWidth, 0, sText);
   }
@@ -804,10 +804,10 @@ public class HelpFormatter
    * @param sText
    *        The text to be written to the PrintWriter
    */
-  public void printWrapped (@Nonnull final PrintWriter aPW,
+  public void printWrapped (@NonNull final PrintWriter aPW,
                             final int nWidth,
                             final int nNextLineTabStop,
-                            @Nonnull final String sText)
+                            @NonNull final String sText)
   {
     final StringBuilder aSB = new StringBuilder (sText.length ());
 
@@ -830,9 +830,9 @@ public class HelpFormatter
    *        the number of characters of padding to be prefixed to each description line
    * @return the StringBuilder with the rendered Options contents.
    */
-  protected StringBuilder renderOptions (@Nonnull final StringBuilder ret,
+  protected StringBuilder renderOptions (@NonNull final StringBuilder ret,
                                          final int nWidth,
-                                         @Nonnull final Options aOptions,
+                                         @NonNull final Options aOptions,
                                          final int nLeftPad,
                                          final int nDescPad)
   {
@@ -982,7 +982,7 @@ public class HelpFormatter
    *        The text to be rendered.
    * @return The provided {@link StringBuilder}
    */
-  @Nonnull
+  @NonNull
   private StringBuilder _renderWrappedTextBlock (final StringBuilder aSB,
                                                  final int nWidth,
                                                  final int nNextLineTabStop,
@@ -1074,7 +1074,7 @@ public class HelpFormatter
    *        The length of the String of padding to create.
    * @return The String of padding
    */
-  @Nonnull
+  @NonNull
   protected static String createPadding (@Nonnegative final int nLen)
   {
     return StringHelper.getRepeated (' ', nLen);

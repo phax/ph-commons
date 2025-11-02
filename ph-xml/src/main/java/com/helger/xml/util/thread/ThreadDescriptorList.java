@@ -20,6 +20,8 @@ import java.lang.Thread.State;
 import java.util.Comparator;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,9 +46,6 @@ import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * This class contains a list of {@link ThreadDescriptor} objects.
  *
@@ -63,22 +62,22 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   public ThreadDescriptorList ()
   {}
 
-  @Nonnull
-  public ThreadDescriptorList addDescriptor (@Nonnull final ThreadDescriptor aDescriptor)
+  @NonNull
+  public ThreadDescriptorList addDescriptor (@NonNull final ThreadDescriptor aDescriptor)
   {
     ValueEnforcer.notNull (aDescriptor, "Descriptor");
     m_aList.add (aDescriptor);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ThreadDescriptor> getAllDescriptors ()
   {
     return m_aList.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public ThreadDescriptorList setError (@Nullable final String sError)
   {
     m_sError = sError;
@@ -91,7 +90,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return m_sError;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   private ICommonsMap <State, ICommonsNavigableSet <Long>> _getStateMap ()
   {
@@ -106,7 +105,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return aStateMap;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
@@ -137,7 +136,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroNode ()
   {
     final IMicroElement eRet = new MicroElement ("threadlist");
@@ -167,14 +166,14 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return eRet;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  private static String _getAsString (@Nonnull final Throwable t)
+  private static String _getAsString (@NonNull final Throwable t)
   {
     return t.getMessage () + " -- " + t.getClass ().getName ();
   }
 
-  @Nonnull
+  @NonNull
   public static ThreadDescriptorList createWithAllThreads ()
   {
     // add dump of all threads

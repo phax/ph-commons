@@ -20,18 +20,17 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.annotation.Nonnull;
-
 public final class JavaURLFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaURLFuncTest.class);
 
-  private void _log (@Nonnull final URL aURL) throws URISyntaxException
+  private void _log (@NonNull final URL aURL) throws URISyntaxException
   {
     LOGGER.info ("Next URL");
     LOGGER.info ("  protocol = " + aURL.getProtocol ());

@@ -16,6 +16,8 @@
  */
 package com.helger.config.source.sysprop;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +32,6 @@ import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for system properties.
@@ -63,7 +62,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Querying configuration property '" + sKey + "' as SystemProperty");
@@ -82,7 +81,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
     return new ConfiguredValue (this, sValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllConfigItems ()
   {

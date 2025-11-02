@@ -16,7 +16,7 @@
  */
 package com.helger.diagnostics.error;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * The default builder to build {@link SingleError} instances.
@@ -28,13 +28,13 @@ public final class SingleErrorBuilder extends AbstractSingleErrorBuilder <Single
   public SingleErrorBuilder ()
   {}
 
-  public SingleErrorBuilder (@Nonnull final IError aError)
+  public SingleErrorBuilder (@NonNull final IError aError)
   {
     super (aError);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public SingleError build ()
   {
     if (m_aErrorLevel == null)

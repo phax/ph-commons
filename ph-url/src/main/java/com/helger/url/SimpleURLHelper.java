@@ -22,6 +22,8 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.url.param.URLParameter;
 import com.helger.url.protocol.IURLProtocol;
 import com.helger.url.protocol.URLProtocolRegistry;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @Immutable
 public final class SimpleURLHelper
 {
@@ -58,7 +57,7 @@ public final class SimpleURLHelper
 
   public static void parseQueryParameters (@Nullable final String sQueryString,
                                            @Nullable final IDecoder <String, String> aParameterDecoder,
-                                           @Nonnull final Consumer <URLParameter> aParameterHandler)
+                                           @NonNull final Consumer <URLParameter> aParameterHandler)
   {
     if (StringHelper.isNotEmpty (sQueryString))
       for (final String sKeyValuePair : StringHelper.getExploded (CURL.AMPERSAND, sQueryString))
@@ -85,7 +84,7 @@ public final class SimpleURLHelper
         }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <URLParameter> getParsedQueryParameters (@Nullable final String sQueryString,
                                                                       @Nullable final IDecoder <String, String> aParameterDecoder)
@@ -95,8 +94,8 @@ public final class SimpleURLHelper
     return ret;
   }
 
-  @Nonnull
-  public static URLData getAsURLData (@Nonnull final String sHref, @Nullable final Charset aCharset)
+  @NonNull
+  public static URLData getAsURLData (@NonNull final String sHref, @Nullable final Charset aCharset)
   {
     return getAsURLData (sHref, aCharset, aCharset == null ? null : new URLParameterDecoder (aCharset));
   }
@@ -112,8 +111,8 @@ public final class SimpleURLHelper
    *        The parameter decoder to use. May be <code>null</code>.
    * @return the corresponding {@link URLData} representation of the passed URL
    */
-  @Nonnull
-  public static URLData getAsURLData (@Nonnull final String sHref,
+  @NonNull
+  public static URLData getAsURLData (@NonNull final String sHref,
                                       @Nullable final Charset aCharset,
                                       @Nullable final IDecoder <String, String> aParameterDecoder)
   {
@@ -197,8 +196,8 @@ public final class SimpleURLHelper
     return aSB.toString ();
   }
 
-  @Nonnull
-  public static String getURLString (@Nonnull final IURLData aURL)
+  @NonNull
+  public static String getURLString (@NonNull final IURLData aURL)
   {
     return getURLString (aURL.getPath (), aURL.getAllParams (), aURL.getAnchor (), aURL.getCharset ());
   }

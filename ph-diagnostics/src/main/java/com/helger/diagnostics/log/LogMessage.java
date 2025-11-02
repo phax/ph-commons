@@ -19,14 +19,14 @@ package com.helger.diagnostics.log;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevelComparable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single log message.
@@ -41,9 +41,9 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
   private final Serializable m_aMsg;
   private final Throwable m_aThrowable;
 
-  public LogMessage (@Nonnull final LocalDateTime aIssueDT,
-                     @Nonnull final IErrorLevel aErrorLevel,
-                     @Nonnull final Serializable aMsg,
+  public LogMessage (@NonNull final LocalDateTime aIssueDT,
+                     @NonNull final IErrorLevel aErrorLevel,
+                     @NonNull final Serializable aMsg,
                      @Nullable final Throwable aThrowable)
   {
     m_aIssueDT = ValueEnforcer.notNull (aIssueDT, "IssueDT");
@@ -52,19 +52,19 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
     m_aThrowable = aThrowable;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getIssueDateTime ()
   {
     return m_aIssueDT;
   }
 
-  @Nonnull
+  @NonNull
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
   }
 
-  @Nonnull
+  @NonNull
   public Serializable getMessage ()
   {
     return m_aMsg;

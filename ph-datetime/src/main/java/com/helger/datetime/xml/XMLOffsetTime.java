@@ -49,6 +49,9 @@ import java.time.temporal.ValueRange;
 import java.time.zone.ZoneRules;
 import java.util.Objects;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.UsedInGeneratedCode;
@@ -56,9 +59,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.datetime.zone.PDTConfig;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A version of {@link OffsetTime} that has an optional {@link ZoneOffset}
@@ -104,7 +104,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *
    * @return the current time using the system clock and default time-zone, not null
    */
-  @Nonnull
+  @NonNull
   public static XMLOffsetTime now ()
   {
     return now (Clock.systemDefaultZone ());
@@ -124,7 +124,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone ID to use, not null
    * @return the current time using the system clock, not null
    */
-  @Nonnull
+  @NonNull
   public static XMLOffsetTime now (final ZoneId zone)
   {
     return now (Clock.system (zone));
@@ -143,8 +143,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the clock to use, not null
    * @return the current time, not null
    */
-  @Nonnull
-  public static XMLOffsetTime now (@Nonnull final Clock clock)
+  @NonNull
+  public static XMLOffsetTime now (@NonNull final Clock clock)
   {
     Objects.requireNonNull (clock, "clock");
     final Instant now = clock.instant (); // called once
@@ -159,8 +159,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @return the offset time and never <code>null</code>
    * @since 11.0.0
    */
-  @Nonnull
-  public static XMLOffsetTime of (@Nonnull final LocalTime time)
+  @NonNull
+  public static XMLOffsetTime of (@NonNull final LocalTime time)
   {
     return new XMLOffsetTime (time, null);
   }
@@ -174,14 +174,14 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone offset, not null
    * @return the offset time and never <code>null</code>
    */
-  @Nonnull
-  public static XMLOffsetTime of (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
+  @NonNull
+  public static XMLOffsetTime of (@NonNull final LocalTime time, @Nullable final ZoneOffset offset)
   {
     return new XMLOffsetTime (time, offset);
   }
 
-  @Nonnull
-  public static XMLOffsetTime of (@Nonnull final OffsetTime ofsTime)
+  @NonNull
+  public static XMLOffsetTime of (@NonNull final OffsetTime ofsTime)
   {
     return new XMLOffsetTime (ofsTime.toLocalTime (), ofsTime.getOffset ());
   }
@@ -210,7 +210,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if the value of any field is out of range
    */
-  @Nonnull
+  @NonNull
   public static XMLOffsetTime of (final int hour,
                                   final int minute,
                                   final int second,
@@ -235,8 +235,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the time-zone, which may be an offset, not null
    * @return the offset time, not null
    */
-  @Nonnull
-  public static XMLOffsetTime ofInstant (@Nonnull final Instant instant, @Nonnull final ZoneId zone)
+  @NonNull
+  public static XMLOffsetTime ofInstant (@NonNull final Instant instant, @NonNull final ZoneId zone)
   {
     Objects.requireNonNull (instant, "instant");
     Objects.requireNonNull (zone, "zone");
@@ -269,8 +269,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if unable to convert to an {@code XMLOffsetTime}
    */
-  @Nonnull
-  public static XMLOffsetTime from (@Nonnull final TemporalAccessor temporal)
+  @NonNull
+  public static XMLOffsetTime from (@NonNull final TemporalAccessor temporal)
   {
     if (temporal instanceof final XMLOffsetTime aXOT)
       return aXOT;
@@ -311,8 +311,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
-  @Nonnull
-  public static XMLOffsetTime parse (@Nonnull final CharSequence text)
+  @NonNull
+  public static XMLOffsetTime parse (@NonNull final CharSequence text)
   {
     return parse (text, DateTimeFormatter.ISO_TIME);
   }
@@ -330,8 +330,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeParseException
    *         if the text cannot be parsed
    */
-  @Nonnull
-  public static XMLOffsetTime parse (@Nonnull final CharSequence text, @Nonnull final DateTimeFormatter formatter)
+  @NonNull
+  public static XMLOffsetTime parse (@NonNull final CharSequence text, @NonNull final DateTimeFormatter formatter)
   {
     Objects.requireNonNull (formatter, "formatter");
     return formatter.parse (text, XMLOffsetTime::from);
@@ -345,7 +345,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @param offset
    *        the zone offset, maybe <code>null</code>
    */
-  protected XMLOffsetTime (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
+  protected XMLOffsetTime (@NonNull final LocalTime time, @Nullable final ZoneOffset offset)
   {
     m_aTime = Objects.requireNonNull (time, "time");
     m_aOffset = offset;
@@ -360,8 +360,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone offset to create with, maybe <code>null</code>
    * @return {@code this} or the newly created value
    */
-  @Nonnull
-  protected XMLOffsetTime with (@Nonnull final LocalTime time, @Nullable final ZoneOffset offset)
+  @NonNull
+  protected XMLOffsetTime with (@NonNull final LocalTime time, @Nullable final ZoneOffset offset)
   {
     if (m_aTime == time && EqualsHelper.equals (m_aOffset, offset))
       return this;
@@ -476,8 +476,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if the field is not supported
    */
   @Override
-  @Nonnull
-  public ValueRange range (@Nonnull final TemporalField field)
+  @NonNull
+  public ValueRange range (@NonNull final TemporalField field)
   {
     if (field instanceof ChronoField)
     {
@@ -517,7 +517,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override // override for Javadoc
-  public int get (@Nonnull final TemporalField field)
+  public int get (@NonNull final TemporalField field)
   {
     return Temporal.super.get (field);
   }
@@ -548,7 +548,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  public long getLong (@Nonnull final TemporalField field)
+  public long getLong (@NonNull final TemporalField field)
   {
     if (field instanceof ChronoField)
     {
@@ -598,7 +598,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone offset to change to, not null
    * @return an {@code XMLOffsetTime} based on this time with the requested offset, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withOffsetSameLocal (@Nullable final ZoneOffset offset)
   {
     return EqualsHelper.equals (offset, m_aOffset) ? this : new XMLOffsetTime (m_aTime, offset);
@@ -622,7 +622,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone offset to change to, not null
    * @return an {@code XMLOffsetTime} based on this time with the requested offset, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withOffsetSameInstant (@Nullable final ZoneOffset offset)
   {
     if (EqualsHelper.equals (offset, m_aOffset))
@@ -642,7 +642,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *
    * @return the time part of this date-time, not null
    */
-  @Nonnull
+  @NonNull
   public LocalTime toLocalTime ()
   {
     return m_aTime;
@@ -721,8 +721,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime with (@Nonnull final TemporalAdjuster adjuster)
+  @NonNull
+  public XMLOffsetTime with (@NonNull final TemporalAdjuster adjuster)
   {
     // optimizations
     if (adjuster instanceof final LocalTime aLT)
@@ -773,8 +773,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime with (@Nonnull final TemporalField field, final long newValue)
+  @NonNull
+  public XMLOffsetTime with (@NonNull final TemporalField field, final long newValue)
   {
     if (field instanceof ChronoField)
     {
@@ -801,7 +801,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if the hour value is invalid
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withHour (final int hour)
   {
     return with (m_aTime.withHour (hour), m_aOffset);
@@ -820,7 +820,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if the minute value is invalid
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withMinute (final int minute)
   {
     return with (m_aTime.withMinute (minute), m_aOffset);
@@ -839,7 +839,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if the second value is invalid
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withSecond (final int second)
   {
     return with (m_aTime.withSecond (second), m_aOffset);
@@ -858,7 +858,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if the nanos value is invalid
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime withNano (final int nanoOfSecond)
   {
     return with (m_aTime.withNano (nanoOfSecond), m_aOffset);
@@ -887,8 +887,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws UnsupportedTemporalTypeException
    *         if the unit is not supported
    */
-  @Nonnull
-  public XMLOffsetTime truncatedTo (@Nonnull final TemporalUnit unit)
+  @NonNull
+  public XMLOffsetTime truncatedTo (@NonNull final TemporalUnit unit)
   {
     return with (m_aTime.truncatedTo (unit), m_aOffset);
   }
@@ -917,8 +917,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime plus (@Nonnull final TemporalAmount amountToAdd)
+  @NonNull
+  public XMLOffsetTime plus (@NonNull final TemporalAmount amountToAdd)
   {
     return (XMLOffsetTime) amountToAdd.addTo (this);
   }
@@ -953,8 +953,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime plus (final long amountToAdd, @Nonnull final TemporalUnit unit)
+  @NonNull
+  public XMLOffsetTime plus (final long amountToAdd, @NonNull final TemporalUnit unit)
   {
     if (unit instanceof ChronoUnit)
       return with (m_aTime.plus (amountToAdd, unit), m_aOffset);
@@ -974,7 +974,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the hours to add, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the hours added, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime plusHours (final long hours)
   {
     return with (m_aTime.plusHours (hours), m_aOffset);
@@ -992,7 +992,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the minutes to add, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the minutes added, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime plusMinutes (final long minutes)
   {
     return with (m_aTime.plusMinutes (minutes), m_aOffset);
@@ -1010,7 +1010,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the seconds to add, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the seconds added, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime plusSeconds (final long seconds)
   {
     return with (m_aTime.plusSeconds (seconds), m_aOffset);
@@ -1028,7 +1028,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the nanos to add, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the nanoseconds added, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime plusNanos (final long nanos)
   {
     return with (m_aTime.plusNanos (nanos), m_aOffset);
@@ -1058,8 +1058,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime minus (@Nonnull final TemporalAmount amountToSubtract)
+  @NonNull
+  public XMLOffsetTime minus (@NonNull final TemporalAmount amountToSubtract)
   {
     return (XMLOffsetTime) amountToSubtract.subtractFrom (this);
   }
@@ -1090,8 +1090,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public XMLOffsetTime minus (final long amountToSubtract, @Nonnull final TemporalUnit unit)
+  @NonNull
+  public XMLOffsetTime minus (final long amountToSubtract, @NonNull final TemporalUnit unit)
   {
     return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract,
                                                                                                    unit);
@@ -1109,7 +1109,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the hours to subtract, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the hours subtracted, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime minusHours (final long hours)
   {
     return with (m_aTime.minusHours (hours), m_aOffset);
@@ -1127,7 +1127,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the minutes to subtract, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the minutes subtracted, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime minusMinutes (final long minutes)
   {
     return with (m_aTime.minusMinutes (minutes), m_aOffset);
@@ -1145,7 +1145,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the seconds to subtract, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the seconds subtracted, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime minusSeconds (final long seconds)
   {
     return with (m_aTime.minusSeconds (seconds), m_aOffset);
@@ -1164,13 +1164,13 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the nanos to subtract, may be negative
    * @return an {@code XMLOffsetTime} based on this time with the nanoseconds subtracted, not null
    */
-  @Nonnull
+  @NonNull
   public XMLOffsetTime minusNanos (final long nanos)
   {
     return with (m_aTime.minusNanos (nanos), m_aOffset);
   }
 
-  @Nonnull
+  @NonNull
   protected ZoneOffset getOffsetOrDefault ()
   {
     ZoneOffset ret = m_aOffset;
@@ -1182,8 +1182,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return ret;
   }
 
-  @Nonnull
-  protected ZoneOffset getOffsetOrDefault (@Nonnull final LocalDateTime aAt)
+  @NonNull
+  protected ZoneOffset getOffsetOrDefault (@NonNull final LocalDateTime aAt)
   {
     ZoneOffset ret = m_aOffset;
     if (ret == null)
@@ -1217,8 +1217,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    */
   @SuppressWarnings ("unchecked")
   @Override
-  @Nonnull
-  public <R> R query (@Nonnull final TemporalQuery <R> query)
+  @NonNull
+  public <R> R query (@NonNull final TemporalQuery <R> query)
   {
     if (query == TemporalQueries.offset () || query == TemporalQueries.zone ())
       return (R) getOffsetOrDefault ();
@@ -1264,8 +1264,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  @Nonnull
-  public Temporal adjustInto (@Nonnull final Temporal temporal)
+  @NonNull
+  public Temporal adjustInto (@NonNull final Temporal temporal)
   {
     return temporal.with (NANO_OF_DAY, m_aTime.toNanoOfDay ())
                    .with (OFFSET_SECONDS, m_aOffset != null ? m_aOffset.getTotalSeconds () : 0);
@@ -1322,7 +1322,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if numeric overflow occurs
    */
   @Override
-  public long until (@Nonnull final Temporal endExclusive, @Nonnull final TemporalUnit unit)
+  public long until (@NonNull final Temporal endExclusive, @NonNull final TemporalUnit unit)
   {
     final XMLOffsetTime end = XMLOffsetTime.from (endExclusive);
     if (unit instanceof ChronoUnit)
@@ -1362,8 +1362,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * @throws DateTimeException
    *         if an error occurs during printing
    */
-  @Nonnull
-  public String format (@Nonnull final DateTimeFormatter formatter)
+  @NonNull
+  public String format (@NonNull final DateTimeFormatter formatter)
   {
     Objects.requireNonNull (formatter, "formatter");
     return formatter.format (this);
@@ -1379,8 +1379,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the date to combine with, not null
    * @return the offset date-time formed from this time and the specified date, not null
    */
-  @Nonnull
-  public OffsetDateTime atDate (@Nonnull final LocalDate date)
+  @NonNull
+  public OffsetDateTime atDate (@NonNull final LocalDate date)
   {
     final LocalDateTime aLDT = date.atTime (m_aTime);
     return OffsetDateTime.of (aLDT, getOffsetOrDefault (aLDT));
@@ -1396,8 +1396,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the date to combine with, not null
    * @return the offset date-time formed from this time and the specified date, not null
    */
-  @Nonnull
-  public XMLOffsetDateTime atXMLDate (@Nonnull final LocalDate date)
+  @NonNull
+  public XMLOffsetDateTime atXMLDate (@NonNull final LocalDate date)
   {
     return XMLOffsetDateTime.of (date, m_aTime, m_aOffset);
   }
@@ -1443,7 +1443,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *         if {@code other} is null
    */
   @Override
-  public int compareTo (@Nonnull final XMLOffsetTime o)
+  public int compareTo (@NonNull final XMLOffsetTime o)
   {
     if (EqualsHelper.equals (m_aOffset, o.m_aOffset))
       return m_aTime.compareTo (o.m_aTime);
@@ -1466,7 +1466,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the other time to compare to, not null
    * @return true if this is after the instant of the specified time
    */
-  public boolean isAfter (@Nonnull final XMLOffsetTime other)
+  public boolean isAfter (@NonNull final XMLOffsetTime other)
   {
     return toEpochNano () > other.toEpochNano ();
   }
@@ -1483,7 +1483,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the other time to compare to, not null
    * @return true if this is before the instant of the specified time
    */
-  public boolean isBefore (@Nonnull final XMLOffsetTime other)
+  public boolean isBefore (@NonNull final XMLOffsetTime other)
   {
     return toEpochNano () < other.toEpochNano ();
   }
@@ -1500,7 +1500,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    *        the other time to compare to, not null
    * @return true if this is equal to the instant of the specified time
    */
-  public boolean isEqual (@Nonnull final XMLOffsetTime other)
+  public boolean isEqual (@NonNull final XMLOffsetTime other)
   {
     return toEpochNano () == other.toEpochNano ();
   }
@@ -1550,7 +1550,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   }
 
   // Don't use "getAsString" for compatibility with the rest of the Java DT API
-  @Nonnull
+  @NonNull
   @Nonempty
   @Deprecated (forRemoval = false)
   public String getAsString ()

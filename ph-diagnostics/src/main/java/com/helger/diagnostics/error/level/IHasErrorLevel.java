@@ -16,11 +16,11 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.state.IErrorIndicator;
 import com.helger.base.state.ISuccessIndicator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface representing an object having an error level.
@@ -33,7 +33,7 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
   /**
    * @return The error level of this object. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IErrorLevel getErrorLevel ();
 
   /**

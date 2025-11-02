@@ -42,6 +42,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,9 +62,6 @@ import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.crl.CRLCache;
 import com.helger.security.crl.CRLHelper;
 import com.helger.security.keystore.KeyStoreHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A utility class to configure the revocation check in a fine grained way. This
@@ -113,7 +112,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The certificate to be checked. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE certificate (@Nullable final X509Certificate a)
   {
     m_aCert = a;
@@ -127,7 +126,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The CA certificate to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE validCA (@Nullable final X509Certificate a)
   {
     m_aValidCAs.set (a);
@@ -143,7 +142,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE validCAs (@Nullable final Iterable <? extends X509Certificate> a)
   {
     m_aValidCAs.setAll (a);
@@ -159,7 +158,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE validCAs (@Nullable final X509Certificate... a)
   {
     m_aValidCAs.setAll (a);
@@ -174,7 +173,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The trust store to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE validCAs (@Nullable final KeyStore aTrustStore)
   {
     return validCAs (KeyStoreHelper.getAllTrustedCertificates (aTrustStore));
@@ -188,7 +187,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        A CA certificate to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE addValidCA (@Nullable final X509Certificate a)
   {
     if (a != null)
@@ -204,7 +203,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        A CA certificates to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE addValidCAs (@Nullable final Iterable <? extends X509Certificate> a)
   {
     m_aValidCAs.addAll (a);
@@ -219,7 +218,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        A CA certificates to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE addValidCAs (@Nullable final X509Certificate... a)
   {
     m_aValidCAs.addAll (a);
@@ -234,7 +233,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The trust store to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE addValidCAs (@Nullable final KeyStore aTrustStore)
   {
     return addValidCAs (KeyStoreHelper.getAllTrustedCertificates (aTrustStore));
@@ -256,7 +255,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkDateNow ()
   {
     return checkDate ((Date) null);
@@ -270,7 +269,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The date to check at. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkDate (@Nullable final LocalDateTime a)
   {
     return checkDate (a == null ? null : PDTFactory.createDate (a));
@@ -284,7 +283,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The date to check at. May be <code>null</code>.
    * @return thisAsT () for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkDate (@Nullable final OffsetDateTime a)
   {
     return checkDate (a == null ? null : PDTFactory.createDate (a));
@@ -298,7 +297,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The date to check at. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkDate (@Nullable final ZonedDateTime a)
   {
     return checkDate (a == null ? null : PDTFactory.createDate (a));
@@ -312,7 +311,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The date to check at. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkDate (@Nullable final Date a)
   {
     m_aCheckDate = a;
@@ -327,7 +326,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The revocation check mode to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE checkMode (@Nullable final ERevocationCheckMode e)
   {
     m_eCheckMode = e;
@@ -342,7 +341,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The exception handler to be called. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE exceptionHandler (@Nullable final Consumer <? super GeneralSecurityException> a)
   {
     m_aExceptionHdl = a;
@@ -357,7 +356,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        <code>true</code> to enable it, <code>false</code> to disable it.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE allowSoftFail (final boolean b)
   {
     m_eAllowSoftFail = ETriState.valueOf (b);
@@ -369,7 +368,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE allowSoftFailUndefined ()
   {
     m_eAllowSoftFail = ETriState.UNDEFINED;
@@ -384,7 +383,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The handler to be called. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE softFailExceptionHandler (@Nullable final Consumer <? super List <CertPathValidatorException>> a)
   {
     m_aSoftFailExceptionHdl = a;
@@ -406,7 +405,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    * @return this for chaining
    * @see CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE executeInSynchronizedBlock (final boolean b)
   {
     m_eExecuteInSynchronizedBlock = ETriState.valueOf (b);
@@ -422,7 +421,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        the number of milliseconds.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE executionDurationWarnMS (final long n)
   {
     return executionDurationWarn (Duration.ofMillis (n));
@@ -437,7 +436,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        the duration to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final IMPLTYPE executionDurationWarn (@Nullable final Duration a)
   {
     m_aExecutionDurationWarn = a;
@@ -451,8 +450,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    *        The cache to be used. Must not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final IMPLTYPE crlCache (@Nonnull final CRLCache a)
+  @NonNull
+  public final IMPLTYPE crlCache (@NonNull final CRLCache a)
   {
     ValueEnforcer.notNull (a, "CRLCache");
     m_aCRLCache = a;
@@ -481,7 +480,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
    * {@link CertificateRevocationCheckerDefaults#isExecuteInSynchronizedBlock()}</li>
    * </ul>
    */
-  @Nonnull
+  @NonNull
   public ERevoked build ()
   {
     // Fallback to global settings where possible

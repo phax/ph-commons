@@ -19,6 +19,9 @@ package com.helger.base.codec.impl;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
@@ -26,9 +29,6 @@ import com.helger.base.codec.EncodeException;
 import com.helger.base.codec.IByteArrayCodec;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in
@@ -423,7 +423,7 @@ public class Base32Codec implements IByteArrayCodec
     return nByte == ' ' || nByte == '\n' || nByte == '\r' || nByte == '\t';
   }
 
-  @Nonnull
+  @NonNull
   public Base32Codec setPad (final byte nPad)
   {
     if (_isInAlphabet (nPad) || _isWhiteSpace (nPad))
@@ -437,7 +437,7 @@ public class Base32Codec implements IByteArrayCodec
     return m_bAddPadding;
   }
 
-  @Nonnull
+  @NonNull
   public Base32Codec setAddPaddding (final boolean bAddPadding)
   {
     m_bAddPadding = bAddPadding;
@@ -453,7 +453,7 @@ public class Base32Codec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null || nLen == 0)
       return;
@@ -600,7 +600,7 @@ public class Base32Codec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null || nLen == 0)
       return;

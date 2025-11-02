@@ -16,14 +16,14 @@
  */
 package com.helger.url.provider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.url.ISimpleURL;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link IHasSimpleURL} that has a constant URL.
@@ -35,12 +35,12 @@ public class ConstantHasSimpleURL implements IHasSimpleURL
 {
   private final ISimpleURL m_aURL;
 
-  public ConstantHasSimpleURL (@Nonnull final ISimpleURL aURL)
+  public ConstantHasSimpleURL (@NonNull final ISimpleURL aURL)
   {
     m_aURL = ValueEnforcer.notNull (aURL, "URL");
   }
 
-  @Nonnull
+  @NonNull
   public final ISimpleURL getSimpleURL ()
   {
     return m_aURL;

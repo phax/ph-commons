@@ -22,6 +22,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.base.log.IHasConditionalLogger;
 import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringParser;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class wraps all the Java system properties like version number etc.
@@ -114,7 +113,7 @@ public final class SystemProperties implements IHasConditionalLogger
   /**
    * @return A copy of the set with all property names for which warnings were emitted.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Set <String> getAllWarnedPropertyNames ()
   {
@@ -131,8 +130,8 @@ public final class SystemProperties implements IHasConditionalLogger
    *        The value of the system property.
    * @return {@link EChange}
    */
-  @Nonnull
-  public static EChange setPropertyValue (@Nonnull final String sKey, final boolean bValue)
+  @NonNull
+  public static EChange setPropertyValue (@NonNull final String sKey, final boolean bValue)
   {
     return setPropertyValue (sKey, Boolean.toString (bValue));
   }
@@ -147,8 +146,8 @@ public final class SystemProperties implements IHasConditionalLogger
    * @since 8.5.7
    * @return {@link EChange}
    */
-  @Nonnull
-  public static EChange setPropertyValue (@Nonnull final String sKey, final int nValue)
+  @NonNull
+  public static EChange setPropertyValue (@NonNull final String sKey, final int nValue)
   {
     return setPropertyValue (sKey, Integer.toString (nValue));
   }
@@ -163,8 +162,8 @@ public final class SystemProperties implements IHasConditionalLogger
    * @since 8.5.7
    * @return {@link EChange}
    */
-  @Nonnull
-  public static EChange setPropertyValue (@Nonnull final String sKey, final long nValue)
+  @NonNull
+  public static EChange setPropertyValue (@NonNull final String sKey, final long nValue)
   {
     return setPropertyValue (sKey, Long.toString (nValue));
   }
@@ -179,8 +178,8 @@ public final class SystemProperties implements IHasConditionalLogger
    *        removed.
    * @return {@link EChange}
    */
-  @Nonnull
-  public static EChange setPropertyValue (@Nonnull final String sKey, @Nullable final String sValue)
+  @NonNull
+  public static EChange setPropertyValue (@NonNull final String sKey, @Nullable final String sValue)
   {
     boolean bChanged;
     if (sValue == null)
@@ -207,7 +206,7 @@ public final class SystemProperties implements IHasConditionalLogger
    *         property with that key.
    */
   @Nullable
-  public static String removePropertyValue (@Nonnull final String sKey)
+  public static String removePropertyValue (@NonNull final String sKey)
   {
     final String sOldValue = System.clearProperty (sKey);
     if (sOldValue != null)
@@ -483,7 +482,7 @@ public final class SystemProperties implements IHasConditionalLogger
    * @return A map with all system properties where the key is the system property name and the
    *         value is the system property value.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static NonBlockingProperties getAllProperties ()
   {
@@ -500,7 +499,7 @@ public final class SystemProperties implements IHasConditionalLogger
   /**
    * @return A set with all defined property names. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Set <String> getAllPropertyNames ()
   {
@@ -531,7 +530,7 @@ public final class SystemProperties implements IHasConditionalLogger
    * @return An array with all system property names which are relevant for debugging/proxy
    *         handling. Never <code>null</code> and never empty. Each call returns a new array.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static String [] getAllJavaNetSystemProperties ()
   {

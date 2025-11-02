@@ -20,6 +20,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsHashSet;
@@ -28,9 +31,6 @@ import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple backward iterator for directed graphs (following the incoming
@@ -52,19 +52,19 @@ public final class DirectedGraphIteratorBackward implements ICommonsIterableIter
     private final IMutableDirectedGraphNode m_aNode;
     private final Iterator <IMutableDirectedGraphRelation> m_aIncomingIt;
 
-    private IterationNode (@Nonnull final IMutableDirectedGraphNode aNode)
+    private IterationNode (@NonNull final IMutableDirectedGraphNode aNode)
     {
       m_aNode = ValueEnforcer.notNull (aNode, "Node");
       m_aIncomingIt = aNode.getAllIncomingRelations ().iterator ();
     }
 
-    @Nonnull
+    @NonNull
     public IMutableDirectedGraphNode getNode ()
     {
       return m_aNode;
     }
 
-    @Nonnull
+    @NonNull
     public Iterator <IMutableDirectedGraphRelation> getIncomingRelationIterator ()
     {
       return m_aIncomingIt;
@@ -94,12 +94,12 @@ public final class DirectedGraphIteratorBackward implements ICommonsIterableIter
    */
   private boolean m_bHasCycles = false;
 
-  public DirectedGraphIteratorBackward (@Nonnull final IMutableDirectedGraphNode aStartNode)
+  public DirectedGraphIteratorBackward (@NonNull final IMutableDirectedGraphNode aStartNode)
   {
     this (aStartNode, null);
   }
 
-  public DirectedGraphIteratorBackward (@Nonnull final IMutableDirectedGraphNode aStartNode,
+  public DirectedGraphIteratorBackward (@NonNull final IMutableDirectedGraphNode aStartNode,
                                         @Nullable final Predicate <? super IMutableDirectedGraphRelation> aRelationFilter)
   {
     ValueEnforcer.notNull (aStartNode, "StartNode");

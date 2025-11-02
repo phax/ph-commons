@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +32,6 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.crl.CRLCache;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A helper class with certificate revocation check default settings.
@@ -79,7 +78,7 @@ public final class CertificateRevocationCheckerDefaults
    * @return The global revocation check mode. Never <code>null</code>. The
    *         default is {@link ERevocationCheckMode#OCSP}.
    */
-  @Nonnull
+  @NonNull
   public static ERevocationCheckMode getRevocationCheckMode ()
   {
     return RW_LOCK.readLockedGet ( () -> s_eRevocationCheckMode);
@@ -93,7 +92,7 @@ public final class CertificateRevocationCheckerDefaults
    *        The global revocation check mode to use. May not be
    *        <code>null</code>.
    */
-  public static void setRevocationCheckMode (@Nonnull final ERevocationCheckMode eRevocationCheckMode)
+  public static void setRevocationCheckMode (@NonNull final ERevocationCheckMode eRevocationCheckMode)
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
     RW_LOCK.writeLocked ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
@@ -104,7 +103,7 @@ public final class CertificateRevocationCheckerDefaults
    * @return The exception handler to be invoked in case of an exception in
    *         certificate checking.
    */
-  @Nonnull
+  @NonNull
   public static Consumer <? super GeneralSecurityException> getExceptionHdl ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aExceptionHdl);
@@ -117,7 +116,7 @@ public final class CertificateRevocationCheckerDefaults
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
    */
-  public static void setExceptionHdl (@Nonnull final Consumer <? super GeneralSecurityException> aExceptionHdl)
+  public static void setExceptionHdl (@NonNull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
     RW_LOCK.writeLocked ( () -> s_aExceptionHdl = aExceptionHdl);
@@ -163,7 +162,7 @@ public final class CertificateRevocationCheckerDefaults
    *         checking.
    * @see #isAllowSoftFail()
    */
-  @Nonnull
+  @NonNull
   public static Consumer <? super List <CertPathValidatorException>> getSoftFailExceptionHdl ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aSoftFailExceptionHdl);
@@ -176,7 +175,7 @@ public final class CertificateRevocationCheckerDefaults
    *        The handler to be used. May not be <code>null</code>.
    * @see #isAllowSoftFail()
    */
-  public static void setSoftFailExceptionHdl (@Nonnull final Consumer <? super List <? extends CertPathValidatorException>> aSoftFailExceptionHdl)
+  public static void setSoftFailExceptionHdl (@NonNull final Consumer <? super List <? extends CertPathValidatorException>> aSoftFailExceptionHdl)
   {
     ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
     RW_LOCK.writeLocked ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
@@ -209,7 +208,7 @@ public final class CertificateRevocationCheckerDefaults
   /**
    * @return The default CRL cache to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static CRLCache getDefaultCRLCache ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultCRLCache);
@@ -221,7 +220,7 @@ public final class CertificateRevocationCheckerDefaults
    * @param aCRLCache
    *        The cache to be used. Never <code>null</code>.
    */
-  public static void setDefaultCRLCache (@Nonnull final CRLCache aCRLCache)
+  public static void setDefaultCRLCache (@NonNull final CRLCache aCRLCache)
   {
     ValueEnforcer.notNull (aCRLCache, "CRLCache");
     RW_LOCK.writeLocked ( () -> s_aDefaultCRLCache = aCRLCache);

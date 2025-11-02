@@ -20,9 +20,9 @@ import java.security.Key;
 
 import javax.xml.crypto.KeySelectorResult;
 
-import com.helger.base.tostring.ToStringGenerator;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * Special implements of {@link KeySelectorResult} with a constant, nullable

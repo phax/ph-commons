@@ -21,13 +21,13 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link LinkedHashMap} implementation based on
@@ -70,38 +70,38 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   public <COLLTYPE> CommonsLinkedHashMap (@Nullable final COLLTYPE [] aValues,
-                                          @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                          @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                          @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                          @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (ArrayHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsLinkedHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
-                                          @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                          @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                          @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                          @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsLinkedHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
-                                                          @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
-                                                          @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+                                                          @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                          @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <K, V> CommonsLinkedHashMap <K, V> createInstance ()
   {
     return new CommonsLinkedHashMap <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsLinkedHashMap <KEYTYPE, VALUETYPE> getClone ()
   {

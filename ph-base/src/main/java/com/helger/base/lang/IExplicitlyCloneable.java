@@ -16,9 +16,9 @@
  */
 package com.helger.base.lang;
 
-import com.helger.annotation.style.UsedInGeneratedCode;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.UsedInGeneratedCode;
 
 /**
  * A marker interface for objects using {@link Cloneable} but in a more explicit way. Note: cannot
@@ -89,6 +89,6 @@ public interface IExplicitlyCloneable extends Cloneable
    *         instance cannot be cloned.
    * @see java.lang.Cloneable
    */
-  @Nonnull
+  @NonNull
   Object clone () throws CloneNotSupportedException;
 }

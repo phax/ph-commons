@@ -20,6 +20,8 @@ import java.security.cert.CRL;
 import java.time.Duration;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.impl.Cache;
 import com.helger.datetime.expiration.ExpiringObject;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A cache for CRLs read from remote locations.
  *
@@ -46,9 +45,9 @@ public class CRLCache
   @ThreadSafe
   private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
-    public CRLInternalCache (@Nonnull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
+    public CRLInternalCache (@NonNull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
                              final int nMaxSize,
-                             @Nonnull @Nonempty final String sCacheName,
+                             @NonNull @Nonempty final String sCacheName,
                              final boolean bAllowNullValues)
     {
       super (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
@@ -75,7 +74,7 @@ public class CRLCache
    * @param aCachingDuration
    *        The caching duration to be used. Must not be <code>null</code>.
    */
-  public CRLCache (@Nonnull final CRLDownloader aDownloader, @Nonnull final Duration aCachingDuration)
+  public CRLCache (@NonNull final CRLDownloader aDownloader, @NonNull final Duration aCachingDuration)
   {
     ValueEnforcer.notNull (aDownloader, "CRLDownloader");
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
@@ -89,13 +88,13 @@ public class CRLCache
     m_aCachingDuration = aCachingDuration;
   }
 
-  @Nonnull
+  @NonNull
   public final CRLDownloader getDownloader ()
   {
     return m_aDownloader;
   }
 
-  @Nonnull
+  @NonNull
   public final Duration getCachingDuration ()
   {
     return m_aCachingDuration;
@@ -141,14 +140,14 @@ public class CRLCache
    * @param aCRL
    *        The CRL to be used. May not be <code>null</code>.
    */
-  public void setCRLOfURL (@Nonnull @Nonempty final String sCRLURL, @Nonnull final CRL aCRL)
+  public void setCRLOfURL (@NonNull @Nonempty final String sCRLURL, @NonNull final CRL aCRL)
   {
     ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
     ValueEnforcer.notNull (aCRL, "CRL");
     m_aCache.insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
   }
 
-  @Nonnull
+  @NonNull
   public EChange clearCache ()
   {
     return m_aCache.clearCache ();
@@ -163,7 +162,7 @@ public class CRLCache
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static CRLCache createDefault ()
   {
     return new CRLCache (new CRLDownloader (), DEFAULT_CACHING_DURATION);

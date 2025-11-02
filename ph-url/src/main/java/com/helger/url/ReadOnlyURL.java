@@ -20,6 +20,9 @@ import java.net.URI;
 import java.net.URL;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only implementation of {@link ISimpleURL} which is immutable
@@ -44,18 +44,18 @@ public class ReadOnlyURL implements ISimpleURL
 {
   private final URLData m_aData;
 
-  protected ReadOnlyURL (@Nonnull final URLData aURLData)
+  protected ReadOnlyURL (@NonNull final URLData aURLData)
   {
     m_aData = aURLData;
   }
 
-  @Nonnull
+  @NonNull
   public final String getPath ()
   {
     return m_aData.getPath ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <URLParameter> getAllParams ()
   {
@@ -74,21 +74,21 @@ public class ReadOnlyURL implements ISimpleURL
     return m_aData.getAnchor ();
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aData.getCharset ();
   }
 
-  @Nonnull
-  public final ReadOnlyURL getWithPath (@Nonnull final String sPath)
+  @NonNull
+  public final ReadOnlyURL getWithPath (@NonNull final String sPath)
   {
     if (m_aData.getPath ().equals (sPath))
       return this;
     return new ReadOnlyURL (m_aData.getClone ().setPath (sPath));
   }
 
-  @Nonnull
+  @NonNull
   public final ReadOnlyURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     if (EqualsHelper.equals (m_aData.params (), aParams))
@@ -96,7 +96,7 @@ public class ReadOnlyURL implements ISimpleURL
     return new ReadOnlyURL (m_aData.getClone ().setParams (aParams));
   }
 
-  @Nonnull
+  @NonNull
   public final ReadOnlyURL getWithAnchor (@Nullable final String sAnchor)
   {
     if (m_aData.hasAnchor (sAnchor))
@@ -104,7 +104,7 @@ public class ReadOnlyURL implements ISimpleURL
     return new ReadOnlyURL (m_aData.getClone ().setAnchor (sAnchor));
   }
 
-  @Nonnull
+  @NonNull
   public final ReadOnlyURL getWithCharset (@Nullable final Charset aCharset)
   {
     if (EqualsHelper.equals (m_aData.getCharset (), aCharset))
@@ -135,44 +135,44 @@ public class ReadOnlyURL implements ISimpleURL
     return new ToStringGenerator (null).append ("Data", m_aData).getToString ();
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final IURLData aURLData)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final IURLData aURLData)
   {
     return new ReadOnlyURL (new URLData (aURLData));
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final URL aURL)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final URL aURL)
   {
     return of (aURL, URLData.DEFAULT_CHARSET);
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final URL aURL, @Nullable final Charset aCharset)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final URL aURL, @Nullable final Charset aCharset)
   {
     return of (aURL.toExternalForm (), aCharset);
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final URI aURI)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final URI aURI)
   {
     return of (aURI, URLData.DEFAULT_CHARSET);
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final URI aURI, @Nullable final Charset aCharset)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final URI aURI, @Nullable final Charset aCharset)
   {
     return of (aURI.toString (), aCharset);
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final String sHref)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final String sHref)
   {
     return of (sHref, URLData.DEFAULT_CHARSET);
   }
 
-  @Nonnull
-  public static ReadOnlyURL of (@Nonnull final String sHref, @Nullable final Charset aCharset)
+  @NonNull
+  public static ReadOnlyURL of (@NonNull final String sHref, @Nullable final Charset aCharset)
   {
     return new ReadOnlyURL (SimpleURLHelper.getAsURLData (sHref, aCharset));
   }

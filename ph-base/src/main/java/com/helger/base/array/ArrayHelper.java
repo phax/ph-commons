@@ -24,6 +24,9 @@ import java.util.function.Function;
 import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -34,9 +37,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Provides additional helper methods for array handling.
@@ -61,8 +61,8 @@ public final class ArrayHelper
    *        The array to get the type from. May not be <code>null</code>.
    * @return The class that determines a single element of the array.
    */
-  @Nonnull
-  public static <ELEMENTTYPE> Class <? extends ELEMENTTYPE> getComponentType (@Nonnull final ELEMENTTYPE [] aArray)
+  @NonNull
+  public static <ELEMENTTYPE> Class <? extends ELEMENTTYPE> getComponentType (@NonNull final ELEMENTTYPE [] aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");
     final Class <?> aComponentType = aArray.getClass ().getComponentType ();
@@ -469,9 +469,9 @@ public final class ArrayHelper
     return aArray;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnull final Class <? extends ELEMENTTYPE> aClass,
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@NonNull final Class <? extends ELEMENTTYPE> aClass,
                                                           @Nonnegative final int nSize)
   {
     ValueEnforcer.notNull (aClass, "class");
@@ -494,9 +494,9 @@ public final class ArrayHelper
    *        Destination size. Must be &ge; 0.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> ELEMENTTYPE [] createArraySameType (@Nonnull final ELEMENTTYPE [] aArray,
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArraySameType (@NonNull final ELEMENTTYPE [] aArray,
                                                                   @Nonnegative final int nSize)
   {
     return createArray (getComponentType (aArray), nSize);
@@ -514,10 +514,10 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed collection is empty, a non- <code>null</code> array
    *         with all elements of the collection otherwise.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                          @Nonnull final Class <ELEMENTTYPE> aClass)
+                                                          @NonNull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.notNull (aClass, "class");
 
@@ -541,10 +541,10 @@ public final class ArrayHelper
    *        type!
    * @return The created array and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] createArraySingleElement (@Nullable final ELEMENTTYPE aElement,
-                                                                       @Nonnull final Class <ELEMENTTYPE> aClass)
+                                                                       @NonNull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.notNull (aClass, "class");
 
@@ -564,10 +564,10 @@ public final class ArrayHelper
    *        The vararg array
    * @return The wrapped array
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("use getCopy otherwise")
   @SafeVarargs
-  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnull final ELEMENTTYPE... aArray)
+  public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@NonNull final ELEMENTTYPE... aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");
     return aArray;
@@ -587,11 +587,11 @@ public final class ArrayHelper
    *        is <code>null</code>.
    * @return The created array filled with the given value.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnegative final int nArraySize,
-                                                          @Nonnull final ELEMENTTYPE aValue,
-                                                          @Nonnull final Class <ELEMENTTYPE> aClass)
+                                                          @NonNull final ELEMENTTYPE aValue,
+                                                          @NonNull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.isGE0 (nArraySize, "ArraySize");
     ValueEnforcer.notNull (aClass, "class");
@@ -601,11 +601,11 @@ public final class ArrayHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@Nonnull final Collection <? extends SRCTYPE> aCollection,
-                                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                                 @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@NonNull final Collection <? extends SRCTYPE> aCollection,
+                                                                 @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                                 @NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aCollection, "Collection");
     ValueEnforcer.notNull (aMapper, "Converter");
@@ -618,11 +618,11 @@ public final class ArrayHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@Nullable final SRCTYPE [] aArray,
-                                                                 @Nonnull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
-                                                                 @Nonnull final Class <DSTTYPE> aDstClass)
+                                                                 @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
+                                                                 @NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aMapper, "Converter");
     ValueEnforcer.notNull (aDstClass, "DestClass");
@@ -1227,14 +1227,14 @@ public final class ArrayHelper
     return ret;
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray, @Nullable final byte [] aSearch)
+  public static boolean startsWith (@NonNull final byte [] aArray, @Nullable final byte [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray,
+  public static boolean startsWith (@NonNull final byte [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final byte [] aSearch)
   {
@@ -1243,7 +1243,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray,
+  public static boolean startsWith (@NonNull final byte [] aArray,
                                     @Nullable final byte [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
@@ -1251,7 +1251,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray,
+  public static boolean startsWith (@NonNull final byte [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final byte [] aSearch,
                                     @Nonnegative final int nSearchOfs,
@@ -1260,7 +1260,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@Nonnull final byte [] aArray,
+  public static boolean startsWith (@NonNull final byte [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final byte [] aSearch,
@@ -1276,14 +1276,14 @@ public final class ArrayHelper
     return true;
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray, @Nullable final char [] aSearch)
+  public static boolean startsWith (@NonNull final char [] aArray, @Nullable final char [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray,
+  public static boolean startsWith (@NonNull final char [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final char [] aSearch)
   {
@@ -1292,7 +1292,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray,
+  public static boolean startsWith (@NonNull final char [] aArray,
                                     @Nullable final char [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
@@ -1300,7 +1300,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray,
+  public static boolean startsWith (@NonNull final char [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final char [] aSearch,
                                     @Nonnegative final int nSearchOfs,
@@ -1309,7 +1309,7 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@Nonnull final char [] aArray,
+  public static boolean startsWith (@NonNull final char [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
                                     @Nullable final char [] aSearch,
@@ -2180,11 +2180,11 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] getConcatenated (@Nullable final ELEMENTTYPE aHead,
                                                               @Nullable final ELEMENTTYPE [] aTailArray,
-                                                              @Nonnull final Class <ELEMENTTYPE> aClass)
+                                                              @NonNull final Class <ELEMENTTYPE> aClass)
   {
     if (isEmpty (aTailArray))
       return createArraySingleElement (aHead, aClass);
@@ -2213,11 +2213,11 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] getConcatenated (@Nullable final ELEMENTTYPE [] aHeadArray,
                                                               @Nullable final ELEMENTTYPE aTail,
-                                                              @Nonnull final Class <ELEMENTTYPE> aClass)
+                                                              @NonNull final Class <ELEMENTTYPE> aClass)
   {
     if (isEmpty (aHeadArray))
       return createArraySingleElement (aTail, aClass);
@@ -2267,7 +2267,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static boolean [] getConcatenated (final boolean aHead, @Nullable final boolean... aTailArray)
   {
@@ -2290,7 +2290,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static boolean [] getConcatenated (@Nullable final boolean [] aHeadArray, final boolean aTail)
   {
@@ -2340,7 +2340,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static byte [] getConcatenated (final byte aHead, @Nullable final byte... aTailArray)
   {
@@ -2363,7 +2363,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static byte [] getConcatenated (@Nullable final byte [] aHeadArray, final byte aTail)
   {
@@ -2441,7 +2441,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static char [] getConcatenated (final char aHead, @Nullable final char... aTailArray)
   {
@@ -2464,7 +2464,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static char [] getConcatenated (@Nullable final char [] aHeadArray, final char aTail)
   {
@@ -2514,7 +2514,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static double [] getConcatenated (final double aHead, @Nullable final double... aTailArray)
   {
@@ -2537,7 +2537,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static double [] getConcatenated (@Nullable final double [] aHeadArray, final double aTail)
   {
@@ -2587,7 +2587,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static float [] getConcatenated (final float aHead, @Nullable final float... aTailArray)
   {
@@ -2610,7 +2610,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static float [] getConcatenated (@Nullable final float [] aHeadArray, final float aTail)
   {
@@ -2660,7 +2660,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static int [] getConcatenated (final int aHead, @Nullable final int... aTailArray)
   {
@@ -2683,7 +2683,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static int [] getConcatenated (@Nullable final int [] aHeadArray, final int aTail)
   {
@@ -2733,7 +2733,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static long [] getConcatenated (final long aHead, @Nullable final long... aTailArray)
   {
@@ -2756,7 +2756,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static long [] getConcatenated (@Nullable final long [] aHeadArray, final long aTail)
   {
@@ -2806,7 +2806,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static short [] getConcatenated (final short aHead, @Nullable final short... aTailArray)
   {
@@ -2829,7 +2829,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static short [] getConcatenated (@Nullable final short [] aHeadArray, final short aTail)
   {
@@ -2852,7 +2852,7 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static String [] getConcatenated (@Nullable final String [] aHeadArray, @Nullable final String... aTailArray)
   {
@@ -2879,7 +2879,7 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static String [] getConcatenated (final String aHead, @Nullable final String... aTailArray)
   {
@@ -2902,7 +2902,7 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static String [] getConcatenated (@Nullable final String [] aHeadArray, final String aTail)
   {
@@ -4036,7 +4036,7 @@ public final class ArrayHelper
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
+                                                                @NonNull final Function <? super ELEMENTTYPE, RETTYPE> aMapper)
   {
     return findFirstMapped (aArray, aFilter, aMapper, (RETTYPE) null);
   }
@@ -4044,7 +4044,7 @@ public final class ArrayHelper
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                                @Nonnull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
+                                                                @NonNull final Function <? super ELEMENTTYPE, RETTYPE> aMapper,
                                                                 @Nullable final RETTYPE aDefault)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -4091,7 +4091,7 @@ public final class ArrayHelper
   }
 
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
-                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+                                            @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     if (isNotEmpty (aArray))
       for (final ELEMENTTYPE aElement : aArray)
@@ -4099,7 +4099,7 @@ public final class ArrayHelper
   }
 
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
-                                            @Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
+                                            @NonNull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
   {
     if (isNotEmpty (aArray))
     {
@@ -4114,7 +4114,7 @@ public final class ArrayHelper
 
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                            @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+                                            @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     if (aFilter == null)
       forEach (aArray, aConsumer);

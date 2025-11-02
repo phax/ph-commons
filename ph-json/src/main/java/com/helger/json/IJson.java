@@ -16,15 +16,15 @@
  */
 package com.helger.json;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.trait.IAddableByTrait;
 import com.helger.json.serialize.IJsonWriterSettings;
 import com.helger.json.serialize.JsonWriter;
 import com.helger.json.serialize.JsonWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for all JSON object types: list, object and key-value-pair
@@ -91,7 +91,7 @@ public interface IJson extends ICloneable <IJson>, IAddableByTrait
    * @see JsonWriterSettings#DEFAULT_SETTINGS
    * @see JsonWriter
    */
-  @Nonnull
+  @NonNull
   default String getAsJsonString ()
   {
     return getAsJsonString (JsonWriterSettings.DEFAULT_SETTINGS);
@@ -106,8 +106,8 @@ public interface IJson extends ICloneable <IJson>, IAddableByTrait
    * @see #getAsJsonString()
    * @see JsonWriter
    */
-  @Nonnull
-  default String getAsJsonString (@Nonnull final IJsonWriterSettings aWriterSettings)
+  @NonNull
+  default String getAsJsonString (@NonNull final IJsonWriterSettings aWriterSettings)
   {
     return new JsonWriter (aWriterSettings).writeAsString (this);
   }

@@ -21,6 +21,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -38,9 +41,6 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Basic tree item with ID implementation, independent of the implementation type.
@@ -80,7 +80,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aFactory
    *        The tree item factory to use. May not be <code>null</code>.
    */
-  public BasicTreeItemWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory)
+  public BasicTreeItemWithID (@NonNull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory)
   {
     this (aFactory, null);
   }
@@ -93,7 +93,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aDataID
    *        The data ID to use for the root item. May be <code>null</code>.
    */
-  public BasicTreeItemWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory,
+  public BasicTreeItemWithID (@NonNull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory,
                               @Nullable final KEYTYPE aDataID)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
@@ -108,7 +108,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public BasicTreeItemWithID (@Nonnull final ITEMTYPE aParent, @Nonnull final KEYTYPE aDataID)
+  public BasicTreeItemWithID (@NonNull final ITEMTYPE aParent, @NonNull final KEYTYPE aDataID)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     if (!(aParent instanceof BasicTreeItemWithID <?, ?, ?>))
@@ -121,7 +121,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     m_aDataID = aDataID;
   }
 
-  @Nonnull
+  @NonNull
   public final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ()
   {
     return m_aFactory;
@@ -160,8 +160,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aParent == null;
   }
 
-  @Nonnull
-  private ITEMTYPE _asT (@Nonnull final BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE> aItem)
+  @NonNull
+  private ITEMTYPE _asT (@NonNull final BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE> aItem)
   {
     return GenericReflection.uncheckedCast (aItem);
   }
@@ -235,24 +235,24 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@NonNull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                                    @Nonnull final Consumer <? super ITEMTYPE> aConsumer)
+  public final void forAllChildren (@NonNull final Predicate <? super ITEMTYPE> aFilter,
+                                    @NonNull final Consumer <? super ITEMTYPE> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.findAll (aFilter, aConsumer);
   }
 
   @Override
-  public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                                                    @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
-                                                    @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  public final <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super ITEMTYPE> aFilter,
+                                                    @NonNull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper,
+                                                    @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
@@ -293,15 +293,15 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
 
   @Override
   @Nullable
-  public final ITEMTYPE findFirstChild (@Nonnull final Predicate <? super ITEMTYPE> aFilter)
+  public final ITEMTYPE findFirstChild (@NonNull final Predicate <? super ITEMTYPE> aFilter)
   {
     return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
   }
 
   @Override
   @Nullable
-  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super ITEMTYPE> aFilter,
-                                                       @Nonnull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper)
+  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super ITEMTYPE> aFilter,
+                                                       @NonNull final Function <? super ITEMTYPE, ? extends DSTTYPE> aMapper)
   {
     return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
   }
@@ -373,7 +373,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildMap == null ? null : m_aChildMap.get (aDataID);
   }
 
-  public final boolean isSameOrChildOf (@Nonnull final ITEMTYPE aParent)
+  public final boolean isSameOrChildOf (@NonNull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
 
@@ -388,8 +388,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return false;
   }
 
-  @Nonnull
-  public final ESuccess changeParent (@Nonnull final ITEMTYPE aNewParent)
+  @NonNull
+  public final ESuccess changeParent (@NonNull final ITEMTYPE aNewParent)
   {
     ValueEnforcer.notNull (aNewParent, "NewParent");
 
@@ -411,9 +411,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return ESuccess.valueOfChange (aNewParent.internalAddChild (getID (), aThis, false));
   }
 
-  @Nonnull
-  public final EChange internalAddChild (@Nonnull final KEYTYPE aDataID,
-                                         @Nonnull final ITEMTYPE aChild,
+  @NonNull
+  public final EChange internalAddChild (@NonNull final KEYTYPE aDataID,
+                                         @NonNull final ITEMTYPE aChild,
                                          final boolean bAllowOverwrite)
   {
     ValueEnforcer.notNull (aChild, "Child");
@@ -436,7 +436,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return EChange.CHANGED;
   }
 
-  private void _recursiveRemoveFromFactory (@Nonnull final ITEMTYPE aItem)
+  private void _recursiveRemoveFromFactory (@NonNull final ITEMTYPE aItem)
   {
     // Recursively remove this node and all child nodes from the factory!
     if (aItem.hasChildren ())
@@ -445,7 +445,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     m_aFactory.onRemoveItem (aItem);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeChild (@Nullable final KEYTYPE aDataID)
   {
     if (aDataID == null)
@@ -467,7 +467,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeAllChildren ()
   {
     if (m_aChildMap == null || m_aChildMap.isEmpty ())
@@ -486,7 +486,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return EChange.CHANGED;
   }
 
-  public final void reorderChildrenByItems (@Nonnull final Comparator <? super ITEMTYPE> aComparator)
+  public final void reorderChildrenByItems (@NonNull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)
       m_aChildren.sort (aComparator);

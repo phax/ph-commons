@@ -19,14 +19,14 @@ package com.helger.cli;
 
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Manager for {@link IOptionBase} objects which may be {@link Option} or {@link OptionGroup}.
@@ -60,13 +60,13 @@ public class Options implements ICommonsIterable <IOptionBase>
     return null;
   }
 
-  @Nonnull
-  public Options addOption (@Nonnull final OptionBuilder aBuilder)
+  @NonNull
+  public Options addOption (@NonNull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }
 
-  private void _validateOption (@Nonnull final Option aOption)
+  private void _validateOption (@NonNull final Option aOption)
   {
     ValueEnforcer.notNull (aOption, "Option");
     if (aOption.hasShortOpt ())
@@ -81,16 +81,16 @@ public class Options implements ICommonsIterable <IOptionBase>
                                   "' is already contained!");
   }
 
-  @Nonnull
-  public Options addOption (@Nonnull final Option aOption)
+  @NonNull
+  public Options addOption (@NonNull final Option aOption)
   {
     _validateOption (aOption);
     m_aOptions.add (aOption);
     return this;
   }
 
-  @Nonnull
-  public Options addOptionGroup (@Nonnull final OptionGroup aOptionGroup)
+  @NonNull
+  public Options addOptionGroup (@NonNull final OptionGroup aOptionGroup)
   {
     ValueEnforcer.notNull (aOptionGroup, "OptionGroup");
     for (final Option aOption : aOptionGroup)
@@ -99,20 +99,20 @@ public class Options implements ICommonsIterable <IOptionBase>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllOptions ()
   {
     return m_aOptions.getAllInstanceOf (Option.class);
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <IOptionBase> iterator ()
   {
     return m_aOptions.iterator ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllResolvedOptions ()
   {

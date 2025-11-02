@@ -16,13 +16,13 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroDocument} interface.
@@ -44,7 +44,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
       addChild (aDocType);
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.DOCUMENT;
@@ -55,13 +55,13 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     return "#document";
   }
 
-  private static boolean _canBeAppendedToDocumentRoot (@Nonnull final IMicroNode aNode)
+  private static boolean _canBeAppendedToDocumentRoot (@NonNull final IMicroNode aNode)
   {
     return aNode.isDocumentType () || aNode.isProcessingInstruction () || aNode.isComment () || aNode.isElement ();
   }
 
   @Override
-  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@NonNull final AbstractMicroNode aChildNode)
   {
     if (!_canBeAppendedToDocumentRoot (aChildNode))
       throw new MicroException ("Cannot add nodes of type " + aChildNode + " to a document");
@@ -81,13 +81,13 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     super.onAddChild (aChildNode);
   }
 
-  @Nonnull
+  @NonNull
   public ETriState getStandalone ()
   {
     return m_eStandalone;
   }
 
-  public void setStandalone (@Nonnull final ETriState eStandalone)
+  public void setStandalone (@NonNull final ETriState eStandalone)
   {
     ValueEnforcer.notNull (eStandalone, "Standalone");
     m_eStandalone = eStandalone;
@@ -113,7 +113,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     return null;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroDocument getClone ()
   {
     final MicroDocument ret = new MicroDocument ();

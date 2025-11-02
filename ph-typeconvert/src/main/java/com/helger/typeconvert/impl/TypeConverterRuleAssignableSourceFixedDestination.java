@@ -18,11 +18,11 @@ package com.helger.typeconvert.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract type converter than can convert from a base source class to a
@@ -40,9 +40,9 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
   private final Class <DST> m_aDstClass;
   private final Function <? super SRC, ? extends DST> m_aConverter;
 
-  public TypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                            @Nonnull final Class <DST> aDstClass,
-                                                            @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  public TypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
+                                                            @NonNull final Class <DST> aDstClass,
+                                                            @NonNull final Function <? super SRC, ? extends DST> aConverter)
   {
     super (ESubType.ASSIGNABLE_SRC_FIXED_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
@@ -50,25 +50,25 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
-  public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     return m_aDstClass.equals (aDstClass) && m_aSrcClass.isAssignableFrom (aSrcClass);
   }
 
-  @Nonnull
+  @NonNull
   public final Class <SRC> getSourceClass ()
   {
     return m_aSrcClass;
   }
 
-  @Nonnull
+  @NonNull
   public final Class <DST> getDestinationClass ()
   {
     return m_aDstClass;
   }
 
   @Nullable
-  public DST apply (@Nonnull final SRC aSource)
+  public DST apply (@NonNull final SRC aSource)
   {
     return m_aConverter.apply (aSource);
   }

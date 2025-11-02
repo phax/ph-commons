@@ -26,12 +26,12 @@ import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class StringEncoding
@@ -50,9 +50,9 @@ public final class StringEncoding
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray, @Nonnull final Charset aCharset)
+  public static byte [] encodeCharToBytes (@NonNull final char [] aCharArray, @NonNull final Charset aCharset)
   {
     return encodeCharToBytes (aCharArray, 0, aCharArray.length, aCharset);
   }
@@ -72,12 +72,12 @@ public final class StringEncoding
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@Nonnull final char [] aCharArray,
+  public static byte [] encodeCharToBytes (@NonNull final char [] aCharArray,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLen,
-                                           @Nonnull final Charset aCharset)
+                                           @NonNull final Charset aCharset)
   {
     ValueEnforcer.isArrayOfsLen (aCharArray, nOfs, nLen);
 
@@ -123,8 +123,8 @@ public final class StringEncoding
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray, @Nonnull final Charset aCharset)
+  @NonNull
+  public static char [] decodeBytesToChars (@NonNull final byte [] aByteArray, @NonNull final Charset aCharset)
   {
     return decodeBytesToChars (aByteArray, 0, aByteArray.length, aCharset);
   }
@@ -144,11 +144,11 @@ public final class StringEncoding
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @Nonnull
-  public static char [] decodeBytesToChars (@Nonnull final byte [] aByteArray,
+  @NonNull
+  public static char [] decodeBytesToChars (@NonNull final byte [] aByteArray,
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen,
-                                            @Nonnull final Charset aCharset)
+                                            @NonNull final Charset aCharset)
   {
     final CharsetDecoder aDecoder = aCharset.newDecoder ();
     final int nDecodedLen = (int) (nLen * (double) aDecoder.maxCharsPerByte ());

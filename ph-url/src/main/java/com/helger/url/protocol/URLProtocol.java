@@ -16,13 +16,13 @@
  */
 package com.helger.url.protocol;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple implementation of the {@link IURLProtocol} interface.
@@ -34,13 +34,13 @@ public class URLProtocol implements IURLProtocol
   private final String m_sProtocol;
   private final boolean m_bAllowsForQueryParameters;
 
-  public URLProtocol (@Nonnull @Nonempty final String sProtocol, final boolean bAllowsForQueryParameters)
+  public URLProtocol (@NonNull @Nonempty final String sProtocol, final boolean bAllowsForQueryParameters)
   {
     m_sProtocol = ValueEnforcer.notEmpty (sProtocol, "Protocol");
     m_bAllowsForQueryParameters = bAllowsForQueryParameters;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getProtocol ()
   {

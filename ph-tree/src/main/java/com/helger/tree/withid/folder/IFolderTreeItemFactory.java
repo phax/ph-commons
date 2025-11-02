@@ -18,10 +18,10 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.aggregate.IAggregator;
 import com.helger.tree.withid.unique.ITreeItemWithUniqueIDFactory;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A factory interface that creates tree items.

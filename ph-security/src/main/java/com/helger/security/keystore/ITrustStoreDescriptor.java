@@ -18,10 +18,10 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Interface describing the parameters needed to reference a trust store.
@@ -34,14 +34,14 @@ public interface ITrustStoreDescriptor
   /**
    * @return The type of the trust store. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IKeyStoreType getTrustStoreType ();
 
   /**
    * @return The path to the trust store. May neither be <code>null</code> nor
    *         empty. The interpretation of the path is implementation dependent.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getTrustStorePath ();
 
@@ -49,7 +49,7 @@ public interface ITrustStoreDescriptor
    * @return The password required to open the trust store. May not be
    *         <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   char [] getTrustStorePassword ();
 
   /**
@@ -63,6 +63,6 @@ public interface ITrustStoreDescriptor
    * @return The loaded trust store based on the parameters in this descriptor.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LoadedKeyStore loadTrustStore ();
 }

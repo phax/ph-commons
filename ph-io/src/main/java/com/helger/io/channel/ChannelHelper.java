@@ -23,6 +23,8 @@ import java.nio.channels.FileLock;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +36,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.mock.exception.IMockException;
 import com.helger.base.state.ESuccess;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some very basic NIO channel utility stuff.
@@ -70,8 +69,8 @@ public final class ChannelHelper
    *         In case of IO error
    */
   @Nonnegative
-  public static long channelCopy (@Nonnull @WillNotClose final ReadableByteChannel aSrc,
-                                  @Nonnull @WillNotClose final WritableByteChannel aDest) throws IOException
+  public static long channelCopy (@NonNull @WillNotClose final ReadableByteChannel aSrc,
+                                  @NonNull @WillNotClose final WritableByteChannel aDest) throws IOException
   {
     ValueEnforcer.notNull (aSrc, "SourceChannel");
     ValueEnforcer.isTrue (aSrc.isOpen (), "SourceChannel is not open!");
@@ -101,8 +100,8 @@ public final class ChannelHelper
    * @return The number of bytes written.
    */
   @Nonnegative
-  private static long _channelCopy1 (@Nonnull @WillNotClose final ReadableByteChannel aSrc,
-                                     @Nonnull @WillNotClose final WritableByteChannel aDest) throws IOException
+  private static long _channelCopy1 (@NonNull @WillNotClose final ReadableByteChannel aSrc,
+                                     @NonNull @WillNotClose final WritableByteChannel aDest) throws IOException
   {
     long nBytesWritten = 0;
     final ByteBuffer aBuffer = ByteBuffer.allocateDirect (16 * 1024);
@@ -141,8 +140,8 @@ public final class ChannelHelper
    *        Destination channel. May not be <code>null</code>. Is not closed after the operation.
    * @return The number of bytes written.
    */
-  private static long _channelCopy2 (@Nonnull @WillNotClose final ReadableByteChannel aSrc,
-                                     @Nonnull @WillNotClose final WritableByteChannel aDest) throws IOException
+  private static long _channelCopy2 (@NonNull @WillNotClose final ReadableByteChannel aSrc,
+                                     @NonNull @WillNotClose final WritableByteChannel aDest) throws IOException
   {
     long nBytesWritten = 0;
     final ByteBuffer aBuffer = ByteBuffer.allocateDirect (16 * 1024);
@@ -161,7 +160,7 @@ public final class ChannelHelper
     return nBytesWritten;
   }
 
-  @Nonnull
+  @NonNull
   public static ESuccess close (@Nullable final Channel aChannel)
   {
     if (aChannel != null && aChannel.isOpen ())
@@ -169,7 +168,7 @@ public final class ChannelHelper
     return ESuccess.FAILURE;
   }
 
-  @Nonnull
+  @NonNull
   public static ESuccess release (@Nullable final FileLock aFileLock)
   {
     if (aFileLock != null)

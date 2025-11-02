@@ -18,12 +18,12 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special implementation of {@link ICSVLineReader} using a
@@ -42,7 +42,7 @@ public class CSVLineReaderNonBlockingBufferedReader implements ICSVLineReader
    *        Reader that data will be read from. May not be <code>null</code>.
    *        Will not be closed in this class.
    */
-  public CSVLineReaderNonBlockingBufferedReader (@Nonnull @WillNotClose final NonBlockingBufferedReader aReader)
+  public CSVLineReaderNonBlockingBufferedReader (@NonNull @WillNotClose final NonBlockingBufferedReader aReader)
   {
     m_aReader = ValueEnforcer.notNull (aReader, "Reader");
   }

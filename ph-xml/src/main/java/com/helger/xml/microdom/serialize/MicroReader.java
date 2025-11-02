@@ -24,6 +24,7 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.ext.EntityResolver2;
@@ -41,8 +42,6 @@ import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.ISAXReaderSettings;
 import com.helger.xml.serialize.read.SAXReader;
 import com.helger.xml.serialize.read.SAXReaderSettings;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class to read an XML stream into an {@link IMicroDocument}.

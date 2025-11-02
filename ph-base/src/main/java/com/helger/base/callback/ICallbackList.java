@@ -18,12 +18,12 @@ package com.helger.base.callback;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.iface.IHasSize;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for a list of {@link ICallback} objects.<br>
@@ -41,7 +41,7 @@ public interface ICallbackList <CALLBACKTYPE extends ICallback> extends Iterable
    * @return A list of all callbacks. Never <code>null</code> and only containing
    *         non-<code>null</code> elements.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   List <CALLBACKTYPE> getAllCallbacks ();
 

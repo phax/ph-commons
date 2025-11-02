@@ -16,10 +16,10 @@
  */
 package com.helger.io.resource;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.io.iface.IHasOutputStreamAndWriter;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for an abstract writable resource.
@@ -38,6 +38,6 @@ public interface IWritableResource extends IHasOutputStreamAndWriter, IResourceB
    * @return The resource of the same implementation but a different path. May
    *         not be <code>null</code>.
    */
-  @Nonnull
-  IWritableResource getWritableCloneForPath (@Nonnull String sPath);
+  @NonNull
+  IWritableResource getWritableCloneForPath (@NonNull String sPath);
 }

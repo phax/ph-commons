@@ -20,13 +20,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.url.URLHelper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.Binding;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.EndpointReference;
@@ -42,7 +42,7 @@ public final class WSClientConfigTest
   {
     private final Map <String, Object> m_aRC;
 
-    public MockBP (@Nonnull final Map <String, Object> aRC)
+    public MockBP (@NonNull final Map <String, Object> aRC)
     {
       m_aRC = aRC;
     }

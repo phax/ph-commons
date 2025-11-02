@@ -16,16 +16,16 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.graph.simple.SimpleDirectedGraph;
 import com.helger.graph.simple.SimpleGraph;
-
-import jakarta.annotation.Nonnull;
 
 public abstract class AbstractGraphTestCase
 {
   protected static final String ATTR_VALUE = "value";
 
-  @Nonnull
+  @NonNull
   private static IMutableDirectedGraphNode _createDGN (final SimpleDirectedGraph aGraph, final int i)
   {
     final IMutableDirectedGraphNode aNode = aGraph.createNode (Integer.toString (i));
@@ -33,7 +33,7 @@ public abstract class AbstractGraphTestCase
     return aNode;
   }
 
-  @Nonnull
+  @NonNull
   private static IMutableGraphNode _createGN (final SimpleGraph aGraph, final int i)
   {
     final IMutableGraphNode aNode = aGraph.createNode (Integer.toString (i));
@@ -41,12 +41,12 @@ public abstract class AbstractGraphTestCase
     return aNode;
   }
 
-  protected static final int _getNodeValue (@Nonnull final IMutableBaseGraphNode <?, ?> aGN)
+  protected static final int _getNodeValue (@NonNull final IMutableBaseGraphNode <?, ?> aGN)
   {
     return aGN.attrs ().getAsInt (ATTR_VALUE);
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleDirectedGraph _buildDirectedGraph ()
   {
     final SimpleDirectedGraph aGraph = new SimpleDirectedGraph ();
@@ -70,7 +70,7 @@ public abstract class AbstractGraphTestCase
     return aGraph;
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleGraph _buildGraph ()
   {
     final SimpleGraph aGraph = new SimpleGraph ();
@@ -94,7 +94,7 @@ public abstract class AbstractGraphTestCase
     return aGraph;
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleDirectedGraph _buildSimpleDirectedGraphCycle ()
   {
     final SimpleDirectedGraph aGraph = new SimpleDirectedGraph ();
@@ -105,7 +105,7 @@ public abstract class AbstractGraphTestCase
     return aGraph;
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleDirectedGraph _buildSimpleDirectedGraphCycle2 ()
   {
     final SimpleDirectedGraph aGraph = new SimpleDirectedGraph ();
@@ -120,7 +120,7 @@ public abstract class AbstractGraphTestCase
     return aGraph;
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleGraph _buildSimpleGraphCycle ()
   {
     final SimpleGraph aGraph = new SimpleGraph ();
@@ -131,7 +131,7 @@ public abstract class AbstractGraphTestCase
     return aGraph;
   }
 
-  @Nonnull
+  @NonNull
   protected SimpleGraph _buildSimpleGraphCycle2 ()
   {
     final SimpleGraph aGraph = new SimpleGraph ();

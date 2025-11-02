@@ -16,12 +16,12 @@
  */
 package com.helger.http.tls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * TLS version enum.
@@ -40,12 +40,12 @@ public enum ETLSVersion implements IHasID <String>
 
   private final String m_sID;
 
-  ETLSVersion (@Nonnull @Nonempty final String sID)
+  ETLSVersion (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

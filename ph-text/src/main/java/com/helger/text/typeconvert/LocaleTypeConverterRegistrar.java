@@ -18,13 +18,13 @@ package com.helger.text.typeconvert;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.text.locale.LocaleCache;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Register the locale specific type converter
@@ -35,7 +35,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Locale
     aRegistry.registerTypeConverter (String.class,

@@ -20,9 +20,9 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
-import com.helger.base.tostring.ToStringGenerator;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * Abstract base implementation of the {@link URIResolver} interface.

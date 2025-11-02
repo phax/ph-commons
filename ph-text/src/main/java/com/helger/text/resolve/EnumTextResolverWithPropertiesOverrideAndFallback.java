@@ -19,6 +19,8 @@ package com.helger.text.resolve;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +39,6 @@ import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.statistics.impl.StatisticsManager;
 import com.helger.text.locale.LocaleHelper;
 import com.helger.text.resourcebundle.ResourceBundleHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Text resolving class that performs the fallback handling for locales other than German and
@@ -105,7 +104,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    * @return <code>null</code> if no such bundle exists
    */
   @Nullable
-  private ResourceBundle _getResourceBundle (@Nonnull @Nonempty final String sBundleName, @Nonnull final Locale aLocale)
+  private ResourceBundle _getResourceBundle (@NonNull @Nonempty final String sBundleName, @NonNull final Locale aLocale)
   {
     ResourceBundle ret = m_aRWLock.readLockedGet ( () -> {
       if (!m_bUseResourceBundleCache)
@@ -136,8 +135,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
   @Override
   @Nullable
-  protected String internalGetOverrideString (@Nonnull @PropertyKey final String sID,
-                                              @Nonnull final Locale aContentLocale)
+  protected String internalGetOverrideString (@NonNull @PropertyKey final String sID,
+                                              @NonNull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
@@ -158,8 +157,8 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
   @Override
   @Nullable
-  protected String internalGetFallbackString (@Nonnull @PropertyKey final String sID,
-                                              @Nonnull final Locale aContentLocale)
+  protected String internalGetFallbackString (@NonNull @PropertyKey final String sID,
+                                              @NonNull final Locale aContentLocale)
   {
     // Try all possible locales of the passed locale
     for (final Locale aLocale : LocaleHelper.getCalculatedLocaleListForResolving (aContentLocale))
@@ -189,7 +188,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   /**
    * @return A set with all resource keys used in overriding. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedOverrideBundleNames ()
   {
@@ -199,7 +198,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   /**
    * @return A set with all resource keys used as fallback. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllUsedFallbackBundleNames ()
   {

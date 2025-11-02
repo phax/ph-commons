@@ -22,11 +22,11 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Package utility class to make sure the package dependencies stay clean
@@ -38,7 +38,7 @@ public final class CollectionCommonsHelper
   private CollectionCommonsHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   private static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> _newOrderedMap (@Nullable final List <? extends Map.Entry <KEYTYPE, VALUETYPE>> aList)
   {
@@ -59,7 +59,7 @@ public final class CollectionCommonsHelper
    *        the map to sort
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
@@ -85,10 +85,10 @@ public final class CollectionCommonsHelper
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                             @Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+                                                                                             @NonNull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     ValueEnforcer.notNull (aKeyComparator, "KeyComparator");
 
@@ -113,7 +113,7 @@ public final class CollectionCommonsHelper
    *        The map to sort. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE extends Comparable <? super VALUETYPE>> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
@@ -140,10 +140,10 @@ public final class CollectionCommonsHelper
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <KEYTYPE, VALUETYPE> ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nullable final Map <KEYTYPE, VALUETYPE> aMap,
-                                                                                               @Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+                                                                                               @NonNull final Comparator <? super VALUETYPE> aValueComparator)
   {
     ValueEnforcer.notNull (aValueComparator, "ValueComparator");
 

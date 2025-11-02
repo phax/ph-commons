@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Simple interface for all objects that can be enabled and disabled.
@@ -40,14 +40,14 @@ public interface IEnabledIndicator
     return !isEnabled ();
   }
 
-  @Nonnull
-  default EEnabled or (@Nonnull final IEnabledIndicator aEnabled)
+  @NonNull
+  default EEnabled or (@NonNull final IEnabledIndicator aEnabled)
   {
     return EEnabled.valueOf (isEnabled () || aEnabled.isEnabled ());
   }
 
-  @Nonnull
-  default EEnabled and (@Nonnull final IEnabledIndicator aEnabled)
+  @NonNull
+  default EEnabled and (@NonNull final IEnabledIndicator aEnabled)
   {
     return EEnabled.valueOf (isEnabled () && aEnabled.isEnabled ());
   }

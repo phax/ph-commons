@@ -18,7 +18,7 @@ package com.helger.base.id;
 
 import java.util.Comparator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for all objects having a long ID.
@@ -36,13 +36,13 @@ public interface IHasLongID
   /**
    * @return The {@link Long} representation of the contained "long" ID.
    */
-  @Nonnull
+  @NonNull
   default Long getIDObj ()
   {
     return Long.valueOf (getID ());
   }
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasLongID> getComparatorID ()
   {
     return Comparator.comparingLong (IHasLongID::getID);

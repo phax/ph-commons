@@ -18,6 +18,8 @@ package com.helger.xml;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.DOMImplementation;
@@ -31,9 +33,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.dom.EXMLDOMFeature;
 import com.helger.xml.dom.EXMLDOMFeatureVersion;
 import com.helger.xml.dom.EXMLDOMNodeType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Misc. XML DOM helper method for checking the setup etc.
@@ -68,7 +67,7 @@ public final class XMLDebug
     _initFeature (EXMLDOMFeature.DOM_FEATURE_XPATH);
   }
 
-  private static void _initFeature (@Nonnull final EXMLDOMFeature eFeature)
+  private static void _initFeature (@NonNull final EXMLDOMFeature eFeature)
   {
     final DOMImplementation aDOMImplementation = XMLFactory.getDOMImplementation ();
     for (final EXMLDOMFeatureVersion eFeatureVersion : EXMLDOMFeatureVersion.values ())
@@ -87,7 +86,7 @@ public final class XMLDebug
   private XMLDebug ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
   {
@@ -96,7 +95,7 @@ public final class XMLDebug
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsList <String> getAllSupportedFeatures (@Nonnull final EXMLDOMFeatureVersion eFeatureVersion)
+  public static ICommonsList <String> getAllSupportedFeatures (@NonNull final EXMLDOMFeatureVersion eFeatureVersion)
   {
     final ICommonsList <String> ret = SUPPORTED_FEATURES.get (eFeatureVersion);
     return ret == null ? null : ret.getClone ();
@@ -112,7 +111,7 @@ public final class XMLDebug
         LOGGER.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
   }
 
-  @Nonnull
+  @NonNull
   public static String getNodeTypeAsString (final int nNodeType)
   {
     final EXMLDOMNodeType eNodeType = EXMLDOMNodeType.getFromIDOrNull (nNodeType);

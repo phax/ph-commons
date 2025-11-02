@@ -34,13 +34,13 @@ package com.helger.commons.csv;
 
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A very simple CSV parser released under a commercial-friendly license. This just implements
@@ -101,7 +101,7 @@ public class CSVParser
    *        the delimiter to use for separating entries
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setSeparatorChar (final char cSeparator)
   {
     if (cSeparator == CCSV.NULL_CHARACTER)
@@ -127,7 +127,7 @@ public class CSVParser
    *        the character to use for quoted element.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setQuoteChar (final char cQuoteChar)
   {
     m_cQuoteChar = cQuoteChar;
@@ -151,7 +151,7 @@ public class CSVParser
    *        the character to use for escaping a separator or quote.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setEscapeChar (final char cEscapeChar)
   {
     m_cEscapeChar = cEscapeChar;
@@ -175,7 +175,7 @@ public class CSVParser
    *        if <code>true</code>, characters outside the quotes are ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setStrictQuotes (final boolean bStrictQuotes)
   {
     m_bStrictQuotes = bStrictQuotes;
@@ -198,7 +198,7 @@ public class CSVParser
    *        if <code>true</code>, white space in front of a quote in a field is ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setIgnoreLeadingWhiteSpace (final boolean bIgnoreLeadingWhiteSpace)
   {
     m_bIgnoreLeadingWhiteSpace = bIgnoreLeadingWhiteSpace;
@@ -220,7 +220,7 @@ public class CSVParser
    *        if <code>true</code>, quotations are ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVParser setIgnoreQuotations (final boolean bIgnoreQuotations)
   {
     m_bIgnoreQuotations = bIgnoreQuotations;
@@ -436,8 +436,8 @@ public class CSVParser
    * @return new position in the line.
    */
   @Nonnegative
-  private static int _appendNextCharacterAndAdvanceLoop (@Nonnull final String sLine,
-                                                         @Nonnull final StringBuilder aSB,
+  private static int _appendNextCharacterAndAdvanceLoop (@NonNull final String sLine,
+                                                         @NonNull final StringBuilder aSB,
                                                          @Nonnegative final int nIndex)
   {
     aSB.append (sLine.charAt (nIndex + 1));
@@ -468,7 +468,7 @@ public class CSVParser
    *        current index in line
    * @return true if the following character is a quote
    */
-  private boolean _isNextCharacterEscapedQuote (@Nonnull final String sNextLine,
+  private boolean _isNextCharacterEscapedQuote (@NonNull final String sNextLine,
                                                 final boolean bInQuotes,
                                                 final int nIndex)
   {
@@ -529,7 +529,7 @@ public class CSVParser
    *        current index in line
    * @return <code>true</code> if the following character is a quote
    */
-  protected boolean isNextCharacterEscapable (@Nonnull final String sNextLine,
+  protected boolean isNextCharacterEscapable (@NonNull final String sNextLine,
                                               final boolean bInQuotes,
                                               final int nIndex)
   {
@@ -546,7 +546,7 @@ public class CSVParser
    *        A sequence of characters to examine
    * @return <code>true</code> if every character in the sequence is whitespace
    */
-  protected boolean isAllWhiteSpace (@Nonnull final CharSequence sb)
+  protected boolean isAllWhiteSpace (@NonNull final CharSequence sb)
   {
     return StringHelper.isAllWhitespace (sb);
   }

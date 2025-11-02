@@ -21,6 +21,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,9 +48,6 @@ import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.CXML;
 import com.helger.xml.CXMLRegEx;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Default implementation of the {@link IMicroElement} interface.
  *
@@ -62,12 +61,12 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   private final String m_sTagName;
   private ICommonsOrderedMap <IMicroQName, MicroAttribute> m_aAttrs;
 
-  public MicroElement (@Nonnull @Nonempty final String sTagName)
+  public MicroElement (@NonNull @Nonempty final String sTagName)
   {
     this (null, sTagName);
   }
 
-  public MicroElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  public MicroElement (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     m_sNamespaceURI = sNamespaceURI;
@@ -95,13 +94,13 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                               "' is not a valid element name!");
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.ELEMENT;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeName ()
   {
@@ -162,19 +161,19 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.copyOfKeySet ();
   }
 
-  public void forAllAttributes (@Nonnull final Consumer <? super IMicroAttribute> aConsumer)
+  public void forAllAttributes (@NonNull final Consumer <? super IMicroAttribute> aConsumer)
   {
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (aConsumer);
   }
 
-  public void forAllAttributes (@Nonnull final BiConsumer <? super IMicroQName, ? super String> aConsumer)
+  public void forAllAttributes (@NonNull final BiConsumer <? super IMicroQName, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (a -> aConsumer.accept (a.getAttributeQName (), a.getAttributeValue ()));
   }
 
-  public void forAllAttributes (@Nonnull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
+  public void forAllAttributes (@NonNull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (x -> aConsumer.accept (x.getNamespaceURI (),
@@ -190,7 +189,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   private static <DSTTYPE> DSTTYPE _getConvertedToType (@Nullable final String sAttrValue,
-                                                        @Nonnull final Class <DSTTYPE> aDstClass)
+                                                        @NonNull final Class <DSTTYPE> aDstClass)
   {
     // Avoid having a conversion issue with empty strings!
     if (StringHelper.isEmpty (sAttrValue))
@@ -201,7 +200,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
 
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName,
-                                                            @Nonnull final Class <DSTTYPE> aDstClass)
+                                                            @NonNull final Class <DSTTYPE> aDstClass)
   {
     final String sAttrValue = getAttributeValue (aAttrName);
     return _getConvertedToType (sAttrValue, aDstClass);
@@ -212,7 +211,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs != null && aAttrName != null && m_aAttrs.containsKey (aAttrName);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAttribute (@Nullable final IMicroQName aAttrName)
   {
     if (m_aAttrs == null || aAttrName == null)
@@ -220,8 +219,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.removeObject (aAttrName);
   }
 
-  @Nonnull
-  public MicroElement setAttribute (@Nonnull final IMicroQName aAttrName, @Nullable final String sAttrValue)
+  @NonNull
+  public MicroElement setAttribute (@NonNull final IMicroQName aAttrName, @Nullable final String sAttrValue)
   {
     ValueEnforcer.notNull (aAttrName, "AttrName");
     if (sAttrValue != null)
@@ -235,7 +234,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAllAttributes ()
   {
     if (m_aAttrs == null)
@@ -249,7 +248,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_sNamespaceURI;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setNamespaceURI (@Nullable final String sNamespaceURI)
   {
     final Object aObj1 = m_sNamespaceURI;
@@ -265,13 +264,13 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_sNamespaceURI == null ? null : m_sTagName;
   }
 
-  @Nonnull
+  @NonNull
   public String getTagName ()
   {
     return m_sTagName;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
   {
@@ -283,7 +282,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return ret;
   }
 
-  private static boolean _containsChildElementRecursive (@Nonnull final IMicroNode aStartNode,
+  private static boolean _containsChildElementRecursive (@NonNull final IMicroNode aStartNode,
                                                          @Nullable final Predicate <? super IMicroElement> aFilter)
   {
     return aStartNode.containsAnyChild (x -> {
@@ -308,10 +307,10 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return _containsChildElementRecursive (this, aFilter);
   }
 
-  @Nonnull
-  private static EContinue _forAllChildElementsBreakable (@Nonnull final IMicroNode aStartNode,
+  @NonNull
+  private static EContinue _forAllChildElementsBreakable (@NonNull final IMicroNode aStartNode,
                                                           @Nullable final Predicate <? super IMicroElement> aFilter,
-                                                          @Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
+                                                          @NonNull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return aStartNode.forAllChildrenBreakable (x -> {
       if (x.isElement ())
@@ -329,7 +328,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
-  private static IMicroElement _findFirstChildElement (@Nonnull final IMicroNode aStartNode,
+  private static IMicroElement _findFirstChildElement (@NonNull final IMicroNode aStartNode,
                                                        @Nullable final Predicate <? super IMicroElement> aFilter)
   {
     final Wrapper <IMicroElement> ret = new Wrapper <> ();
@@ -347,9 +346,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return _findFirstChildElement (this, aFilter);
   }
 
-  private static void _forAllChildElements (@Nonnull final IMicroNode aStartNode,
+  private static void _forAllChildElements (@NonNull final IMicroNode aStartNode,
                                             @Nullable final Predicate <? super IMicroElement> aFilter,
-                                            @Nonnull final Consumer <? super IMicroElement> aConsumer)
+                                            @NonNull final Consumer <? super IMicroElement> aConsumer)
   {
     aStartNode.forAllChildren (aChildNode -> {
       if (aChildNode.isElement ())
@@ -365,19 +364,19 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   }
 
   public void forAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter,
-                                   @Nonnull final Consumer <? super IMicroElement> aConsumer)
+                                   @NonNull final Consumer <? super IMicroElement> aConsumer)
   {
     _forAllChildElements (this, aFilter, aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   public EContinue forAllChildElementsBreakable (@Nullable final Predicate <? super IMicroElement> aFilter,
-                                                 @Nonnull final Function <? super IMicroElement, EContinue> aConsumer)
+                                                 @NonNull final Function <? super IMicroElement, EContinue> aConsumer)
   {
     return _forAllChildElementsBreakable (this, aFilter, aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getClone ()
   {
     final MicroElement ret = new MicroElement (m_sNamespaceURI, m_sTagName);

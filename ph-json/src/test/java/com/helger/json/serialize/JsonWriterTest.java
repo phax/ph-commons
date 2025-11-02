@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableBoolean;
@@ -52,8 +53,6 @@ import com.helger.json.IJson;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.convert.JsonConverter;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link JsonWriter}.

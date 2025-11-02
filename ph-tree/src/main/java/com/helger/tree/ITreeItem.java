@@ -18,10 +18,10 @@ package com.helger.tree;
 
 import java.util.Comparator;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Base interface for simple tree items
@@ -37,7 +37,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   /**
    * @return The factory used to create instances of this interface.
    */
-  @Nonnull
+  @NonNull
   ITreeItemFactory <DATATYPE, ITEMTYPE> getFactory ();
 
   /**
@@ -48,8 +48,8 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * @return {@link EChange#UNCHANGED} if the child is already contained,
    *         {@link EChange#CHANGED} upon success.
    */
-  @Nonnull
-  EChange internalAddChild (@Nonnull ITEMTYPE aChild);
+  @NonNull
+  EChange internalAddChild (@NonNull ITEMTYPE aChild);
 
   /**
    * Add a child item to this item.
@@ -58,7 +58,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *        the data associated with this item
    * @return the created TreeItem object
    */
-  @Nonnull
+  @NonNull
   ITEMTYPE createChildItem (@Nullable DATATYPE aData);
 
   /**
@@ -69,8 +69,8 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * @return {@link EChange#CHANGED} if the removal succeeded,
    *         {@link EChange#UNCHANGED} otherwise
    */
-  @Nonnull
-  EChange removeChild (@Nonnull ITEMTYPE aChild);
+  @NonNull
+  EChange removeChild (@NonNull ITEMTYPE aChild);
 
   /**
    * Reorder the child items based on the item itself.
@@ -78,5 +78,5 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * @param aComparator
    *        The comparator use. May not be <code>null</code>.
    */
-  void reorderChildItems (@Nonnull Comparator <? super ITEMTYPE> aComparator);
+  void reorderChildItems (@NonNull Comparator <? super ITEMTYPE> aComparator);
 }

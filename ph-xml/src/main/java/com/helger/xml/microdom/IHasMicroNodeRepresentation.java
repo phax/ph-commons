@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for object that have a representation as {@link IMicroNode}
@@ -29,6 +29,6 @@ public interface IHasMicroNodeRepresentation
   /**
    * @return this as an {@link IMicroNode}. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMicroNode getAsMicroNode ();
 }

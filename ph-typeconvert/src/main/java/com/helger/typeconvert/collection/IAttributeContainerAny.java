@@ -16,10 +16,10 @@
  */
 package com.helger.typeconvert.collection;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is the writable extension of the {@link IAttributeContainer &lt;String,
@@ -43,8 +43,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final boolean bValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final boolean bValue)
   {
     return putIn (aName, Boolean.valueOf (bValue));
   }
@@ -60,8 +60,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final int nValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final int nValue)
   {
     return putIn (aName, Integer.valueOf (nValue));
   }
@@ -77,8 +77,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final long nValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final long nValue)
   {
     return putIn (aName, Long.valueOf (nValue));
   }
@@ -94,8 +94,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final short nValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final short nValue)
   {
     return putIn (aName, Short.valueOf (nValue));
   }
@@ -111,8 +111,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final float fValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final float fValue)
   {
     return putIn (aName, Float.valueOf (fValue));
   }
@@ -128,8 +128,8 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    * @return {@link EChange#CHANGED} if something changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  default EChange putIn (@Nonnull final KEYTYPE aName, final double dValue)
+  @NonNull
+  default EChange putIn (@NonNull final KEYTYPE aName, final double dValue)
   {
     return putIn (aName, Double.valueOf (dValue));
   }
@@ -148,7 +148,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *         already present, <code>true</code> is returned. Any other than the
    *         first call for the same flag is always returning <code>true</code>.
    */
-  default boolean getAndSetFlag (@Nonnull final KEYTYPE aName)
+  default boolean getAndSetFlag (@NonNull final KEYTYPE aName)
   {
     final Object aOldValue = get (aName);
     if (aOldValue != null)
@@ -162,7 +162,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
     return false;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   IAttributeContainerAny <KEYTYPE> getClone ();
 }

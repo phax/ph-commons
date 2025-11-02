@@ -16,7 +16,8 @@
  */
 package com.helger.jaxb;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;
@@ -39,5 +40,5 @@ public interface IJAXBMarshaller <JAXBTYPE>
    * @throws JAXBException
    *         In case writing to XML fails.
    */
-  void doMarshal (@Nonnull Marshaller aMarshaller, @Nonnull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
+  void doMarshal (@NonNull Marshaller aMarshaller, @NonNull JAXBElement <JAXBTYPE> aJAXBElement) throws JAXBException;
 }

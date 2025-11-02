@@ -23,12 +23,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Wraps file operations.
@@ -83,10 +83,10 @@ public final class PathOperations
     void op (Path aPath1, Path aPath2) throws IOException;
   }
 
-  @Nonnull
-  private static FileIOError _perform (@Nonnull final EFileIOOperation eOperation,
-                                       @Nonnull final IOpPath aRunnable,
-                                       @Nonnull final Path aPath)
+  @NonNull
+  private static FileIOError _perform (@NonNull final EFileIOOperation eOperation,
+                                       @NonNull final IOpPath aRunnable,
+                                       @NonNull final Path aPath)
   {
     try
     {
@@ -107,11 +107,11 @@ public final class PathOperations
     }
   }
 
-  @Nonnull
-  private static FileIOError _perform (@Nonnull final EFileIOOperation eOp,
-                                       @Nonnull final IOpPath2 aRunnable,
-                                       @Nonnull final Path aPath1,
-                                       @Nonnull final Path aPath2)
+  @NonNull
+  private static FileIOError _perform (@NonNull final EFileIOOperation eOp,
+                                       @NonNull final IOpPath2 aRunnable,
+                                       @NonNull final Path aPath1,
+                                       @NonNull final Path aPath2)
   {
     try
     {
@@ -132,7 +132,7 @@ public final class PathOperations
     }
   }
 
-  @Nonnull
+  @NonNull
   private static Path _getUnifiedPath (final Path aPath)
   {
     return aPath.toAbsolutePath ().normalize ();
@@ -145,8 +145,8 @@ public final class PathOperations
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError createDir (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError createDir (@NonNull final Path aDir)
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
@@ -178,8 +178,8 @@ public final class PathOperations
    *        <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError createDirIfNotExisting (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError createDirIfNotExisting (@NonNull final Path aDir)
   {
     final FileIOError aError = createDir (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.TARGET_ALREADY_EXISTS))
@@ -195,8 +195,8 @@ public final class PathOperations
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError createDirRecursive (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError createDirRecursive (@NonNull final Path aDir)
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
@@ -229,8 +229,8 @@ public final class PathOperations
    * @return A non-<code>null</code> error code.
    * @see #createDirRecursive(Path)
    */
-  @Nonnull
-  public static FileIOError createDirRecursiveIfNotExisting (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError createDirRecursiveIfNotExisting (@NonNull final Path aDir)
   {
     final FileIOError aError = createDirRecursive (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.TARGET_ALREADY_EXISTS))
@@ -246,8 +246,8 @@ public final class PathOperations
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError deleteDir (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError deleteDir (@NonNull final Path aDir)
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
@@ -281,8 +281,8 @@ public final class PathOperations
    * @return A non-<code>null</code> error code.
    * @see #deleteDir(Path)
    */
-  @Nonnull
-  public static FileIOError deleteDirIfExisting (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError deleteDirIfExisting (@NonNull final Path aDir)
   {
     final FileIOError aError = deleteDir (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
@@ -297,8 +297,8 @@ public final class PathOperations
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError deleteDirRecursive (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError deleteDirRecursive (@NonNull final Path aDir)
   {
     ValueEnforcer.notNull (aDir, "Directory");
 
@@ -363,8 +363,8 @@ public final class PathOperations
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError deleteDirRecursiveIfExisting (@Nonnull final Path aDir)
+  @NonNull
+  public static FileIOError deleteDirRecursiveIfExisting (@NonNull final Path aDir)
   {
     final FileIOError aError = deleteDirRecursive (aDir);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
@@ -379,8 +379,8 @@ public final class PathOperations
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError deleteFile (@Nonnull final Path aFile)
+  @NonNull
+  public static FileIOError deleteFile (@NonNull final Path aFile)
   {
     ValueEnforcer.notNull (aFile, "Path");
 
@@ -404,8 +404,8 @@ public final class PathOperations
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError deleteFileIfExisting (@Nonnull final Path aFile)
+  @NonNull
+  public static FileIOError deleteFileIfExisting (@NonNull final Path aFile)
   {
     final FileIOError aError = deleteFile (aFile);
     if (aError.getErrorCode ().equals (EFileIOErrorCode.SOURCE_DOES_NOT_EXIST))
@@ -413,7 +413,7 @@ public final class PathOperations
     return aError;
   }
 
-  private static void _atomicMove (@Nonnull final Path aSourcePath, @Nonnull final Path aTargetPath) throws IOException
+  private static void _atomicMove (@NonNull final Path aSourcePath, @NonNull final Path aTargetPath) throws IOException
   {
     Files.move (aSourcePath, aTargetPath, StandardCopyOption.ATOMIC_MOVE);
   }
@@ -427,8 +427,8 @@ public final class PathOperations
    *        The destination file name. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError renameFile (@Nonnull final Path aSourceFile, @Nonnull final Path aTargetFile)
+  @NonNull
+  public static FileIOError renameFile (@NonNull final Path aSourceFile, @NonNull final Path aTargetFile)
   {
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
@@ -473,8 +473,8 @@ public final class PathOperations
    *        The destination directory name. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError renameDir (@Nonnull final Path aSourceDir, @Nonnull final Path aTargetDir)
+  @NonNull
+  public static FileIOError renameDir (@NonNull final Path aSourceDir, @NonNull final Path aTargetDir)
   {
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");
@@ -525,8 +525,8 @@ public final class PathOperations
    *        an existing file.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError copyFile (@Nonnull final Path aSourceFile, @Nonnull final Path aTargetFile)
+  @NonNull
+  public static FileIOError copyFile (@NonNull final Path aSourceFile, @NonNull final Path aTargetFile)
   {
     ValueEnforcer.notNull (aSourceFile, "SourceFile");
     ValueEnforcer.notNull (aTargetFile, "TargetFile");
@@ -571,8 +571,8 @@ public final class PathOperations
    *        be existing. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  public static FileIOError copyDirRecursive (@Nonnull final Path aSourceDir, @Nonnull final Path aTargetDir)
+  @NonNull
+  public static FileIOError copyDirRecursive (@NonNull final Path aSourceDir, @NonNull final Path aTargetDir)
   {
     ValueEnforcer.notNull (aSourceDir, "SourceDirectory");
     ValueEnforcer.notNull (aTargetDir, "TargetDirectory");

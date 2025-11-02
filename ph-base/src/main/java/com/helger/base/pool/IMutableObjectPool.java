@@ -16,10 +16,10 @@
  */
 package com.helger.base.pool;
 
-import com.helger.base.state.ESuccess;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.ESuccess;
 
 /**
  * Simple pool interface.
@@ -48,6 +48,6 @@ public interface IMutableObjectPool <DATATYPE>
    *        <code>null</code>.
    * @return {@link ESuccess#SUCCESS} upon success
    */
-  @Nonnull
-  ESuccess returnObject (@Nonnull DATATYPE aItem);
+  @NonNull
+  ESuccess returnObject (@NonNull DATATYPE aItem);
 }

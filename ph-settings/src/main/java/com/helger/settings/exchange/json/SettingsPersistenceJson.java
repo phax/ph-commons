@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.util.Comparator;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +44,6 @@ import com.helger.settings.exchange.ISettingsPersistence;
 import com.helger.settings.factory.ISettingsFactory;
 import com.helger.typeconvert.impl.TypeConverter;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes .json files. It
  * assumes the ISO-8859-1 charset.
@@ -63,12 +62,12 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     this (ISettingsFactory.newInstance ());
   }
 
-  public SettingsPersistenceJson (@Nonnull final ISettingsFactory <?> aSettingsFactory)
+  public SettingsPersistenceJson (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aCharset;
@@ -81,8 +80,8 @@ public class SettingsPersistenceJson implements ISettingsPersistence
    *        The charset to use. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final SettingsPersistenceJson setCharset (@Nonnull final Charset aCharset)
+  @NonNull
+  public final SettingsPersistenceJson setCharset (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     m_aCharset = aCharset;
@@ -92,22 +91,22 @@ public class SettingsPersistenceJson implements ISettingsPersistence
   /**
    * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final ISettingsFactory <?> getSettingsFactory ()
   {
     return m_aSettingsFactory;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   protected String getReadSettingsName ()
   {
     return "anonymous";
   }
 
-  private static void _recursiveReadSettings (@Nonnull final String sNamePrefix,
-                                              @Nonnull final IJson aJson,
-                                              @Nonnull final ISettings aSettings)
+  private static void _recursiveReadSettings (@NonNull final String sNamePrefix,
+                                              @NonNull final IJson aJson,
+                                              @NonNull final ISettings aSettings)
   {
     if (aJson.isValue ())
       aSettings.putIn (sNamePrefix, aJson.getAsValue ().getAsString ());
@@ -121,8 +120,8 @@ public class SettingsPersistenceJson implements ISettingsPersistence
         throw new IllegalArgumentException ("JSON arrays are not supported in settings");
   }
 
-  @Nonnull
-  public ISettings readSettings (@Nonnull @WillClose final InputStream aIS)
+  @NonNull
+  public ISettings readSettings (@NonNull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -141,8 +140,8 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     return aSettings;
   }
 
-  @Nonnull
-  public ESuccess writeSettings (@Nonnull final ISettings aSettings, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 

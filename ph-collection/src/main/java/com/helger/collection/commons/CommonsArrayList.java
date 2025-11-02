@@ -22,13 +22,13 @@ import java.util.Enumeration;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link ArrayList} implementation based on {@link ICommonsList}.
@@ -119,7 +119,7 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final Collection <? extends SRCTYPE> aValues,
-                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (CollectionHelper.getSize (aValues));
     addAllMapped (aValues, aMapper);
@@ -140,7 +140,7 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -189,21 +189,21 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    *        source data type
    */
   public <SRCTYPE> CommonsArrayList (@Nullable final SRCTYPE [] aValues,
-                                     @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     super (ArrayHelper.getSize (aValues));
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsArrayList <T> createInstance ()
   {
     return new CommonsArrayList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsArrayList <ELEMENTTYPE> getClone ()
   {
@@ -228,7 +228,7 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        data type to create the list of
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
                                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -261,11 +261,11 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                                                       @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (CollectionHelper.getSize (aValues));
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -296,10 +296,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (CollectionHelper.getSize (aValues));
@@ -324,7 +324,7 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                              @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -357,11 +357,11 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
                                                                                       @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                                                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (ArrayHelper.getSize (aValues));
     ret.addAllMapped (aValues, aFilter, aMapper);
@@ -392,10 +392,10 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
    * @param <ELEMENTTYPE>
    *        final data type of the list
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,
-                                                                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                                                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (ArrayHelper.getSize (aValues));

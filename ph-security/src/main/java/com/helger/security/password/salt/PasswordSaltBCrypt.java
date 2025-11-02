@@ -19,6 +19,8 @@ package com.helger.security.password.salt;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -28,8 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.bcrypt.BCrypt;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Implementation of {@link IPasswordSalt} using {@link BCrypt#gensalt(int)}.
@@ -72,7 +72,7 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
     return m_aBytes.length;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public byte [] getSaltBytes ()
@@ -80,7 +80,7 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
     return ArrayHelper.getCopy (m_aBytes);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSaltString ()
   {

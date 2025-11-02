@@ -16,9 +16,9 @@
  */
 package com.helger.collection.hierarchy;
 
-import com.helger.collection.commons.ICommonsCollection;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.collection.commons.ICommonsCollection;
 
 public class MockChildrenProvider implements IChildrenProvider <MockHasChildren>
 {

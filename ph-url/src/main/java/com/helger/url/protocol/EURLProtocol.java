@@ -16,10 +16,10 @@
  */
 package com.helger.url.protocol;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Specifies a list of known protocols.<br>
@@ -143,7 +143,7 @@ public enum EURLProtocol implements IURLProtocol
 
   private final String m_sProtocol;
 
-  EURLProtocol (@Nonnull @Nonempty final String sProtocol)
+  EURLProtocol (@NonNull @Nonempty final String sProtocol)
   {
     m_sProtocol = sProtocol;
   }
@@ -151,7 +151,7 @@ public enum EURLProtocol implements IURLProtocol
   /**
    * @return The underlying text representation of the protocol.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getProtocol ()
   {

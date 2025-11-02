@@ -16,9 +16,9 @@
  */
 package com.helger.base.cleanup;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * Cleanup interface
@@ -34,5 +34,5 @@ public interface ICleanUpRegistrarSPI
    * @param aRegistry
    *        The destination registry. Never <code>null</code>.
    */
-  void registerCleanUpAction (@Nonnull ICleanUpRegistry aRegistry);
+  void registerCleanUpAction (@NonNull ICleanUpRegistry aRegistry);
 }

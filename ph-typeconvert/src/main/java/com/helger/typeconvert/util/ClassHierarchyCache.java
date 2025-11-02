@@ -18,6 +18,7 @@ package com.helger.typeconvert.util;
 
 import java.lang.ref.WeakReference;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +41,6 @@ import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.map.LRUMap;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * A small class hierarchy cache
  *
@@ -56,7 +55,7 @@ public final class ClassHierarchyCache
     // Store it in the correct order, but without duplicates
     private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList <> ();
 
-    public ClassList (@Nonnull final Class <?> aClass)
+    public ClassList (@NonNull final Class <?> aClass)
     {
       ValueEnforcer.notNull (aClass, "Class");
 
@@ -82,7 +81,7 @@ public final class ClassHierarchyCache
         m_aList.add (new WeakReference <> (aCurClass));
     }
 
-    @Nonnull
+    @NonNull
     @ReturnsMutableCopy
     public ICommonsOrderedSet <Class <?>> getAsSet ()
     {
@@ -97,7 +96,7 @@ public final class ClassHierarchyCache
       return ret;
     }
 
-    @Nonnull
+    @NonNull
     @ReturnsMutableCopy
     public ICommonsList <Class <?>> getAsList ()
     {
@@ -112,7 +111,7 @@ public final class ClassHierarchyCache
       return ret;
     }
 
-    @Nonnull
+    @NonNull
     public ICommonsIterableIterator <WeakReference <Class <?>>> iterator ()
     {
       return m_aList.iterator2 ();
@@ -144,7 +143,7 @@ public final class ClassHierarchyCache
    *
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public static EChange clearCache ()
   {
     final EChange ret = RW_LOCK.writeLockedGet (CLASS_HIERARCHY::removeAll);
@@ -156,8 +155,8 @@ public final class ClassHierarchyCache
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  private static ClassList _getClassList (@Nonnull final Class <?> aClass)
+  @NonNull
+  private static ClassList _getClassList (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     final String sKey = aClass.getName ();
@@ -183,9 +182,9 @@ public final class ClassHierarchyCache
    * @return A non-<code>null</code> and non-empty Set containing the passed
    *         class and all super classes, and all super-interfaces.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsSet <Class <?>> getClassHierarchy (@Nonnull final Class <?> aClass)
+  public static ICommonsSet <Class <?>> getClassHierarchy (@NonNull final Class <?> aClass)
   {
     return _getClassList (aClass).getAsSet ();
   }
@@ -201,9 +200,9 @@ public final class ClassHierarchyCache
    *         class and all super classes, and all super-interfaces. Duplicates
    *         were already removed.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <Class <?>> getClassHierarchyList (@Nonnull final Class <?> aClass)
+  public static ICommonsList <Class <?>> getClassHierarchyList (@NonNull final Class <?> aClass)
   {
     return _getClassList (aClass).getAsList ();
   }
@@ -219,8 +218,8 @@ public final class ClassHierarchyCache
    *         class and all super classes, and all super-interfaces. Duplicates
    *         were already removed.
    */
-  @Nonnull
-  public static ICommonsIterable <WeakReference <Class <?>>> getClassHierarchyIterator (@Nonnull final Class <?> aClass)
+  @NonNull
+  public static ICommonsIterable <WeakReference <Class <?>>> getClassHierarchyIterator (@NonNull final Class <?> aClass)
   {
     return _getClassList (aClass);
   }

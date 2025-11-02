@@ -16,12 +16,11 @@
  */
 package com.helger.xml.sax;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.diagnostics.error.level.IErrorLevel;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler that ignores all errors.
@@ -35,7 +34,7 @@ public class DoNothingSAXErrorHandler extends AbstractSAXErrorHandler
   {}
 
   @Override
-  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
+  protected void internalLog (@NonNull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     // do nothing
   }

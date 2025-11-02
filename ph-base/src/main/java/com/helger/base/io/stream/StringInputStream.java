@@ -19,9 +19,9 @@ package com.helger.base.io.stream;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 
 /**
  * An input stream based on an input String.
@@ -30,7 +30,7 @@ import jakarta.annotation.Nonnull;
  */
 public class StringInputStream extends NonBlockingByteArrayInputStream
 {
-  public StringInputStream (@Nonnull final String sInput, @Nonnull final Charset aCharset)
+  public StringInputStream (@NonNull final String sInput, @NonNull final Charset aCharset)
   {
     super (sInput.getBytes (aCharset));
   }
@@ -43,8 +43,8 @@ public class StringInputStream extends NonBlockingByteArrayInputStream
    * @return Never <code>null</code>.
    * @since 10.1.5
    */
-  @Nonnull
-  public static StringInputStream utf8 (@Nonnull final String sInput)
+  @NonNull
+  public static StringInputStream utf8 (@NonNull final String sInput)
   {
     return new StringInputStream (sInput, StandardCharsets.UTF_8);
   }

@@ -22,15 +22,15 @@ import java.util.function.Function;
 import java.util.function.ObjIntConsumer;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.functional.IThrowingConsumer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.state.EContinue;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Extended version of {@link Iterable} with some additional default methods.
@@ -52,7 +52,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @param aConsumer
    *        The consumer to use. May not be <code>null</code>.
    */
-  default void forEachByIndex (@Nonnull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
+  default void forEachByIndex (@NonNull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
   {
     int nIndex = 0;
     for (final ELEMENTTYPE aItem : this)
@@ -70,8 +70,8 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *        The consumer to be invoked. May not be <code>null</code>.
    * @return {@link EContinue#BREAK} if iteration was stopped, {@link EContinue#CONTINUE} otherwise.
    */
-  @Nonnull
-  default EContinue forEachBreakable (@Nonnull final Function <? super ELEMENTTYPE, EContinue> aConsumer)
+  @NonNull
+  default EContinue forEachBreakable (@NonNull final Function <? super ELEMENTTYPE, EContinue> aConsumer)
   {
     Objects.requireNonNull (aConsumer);
     for (final ELEMENTTYPE aElement : this)
@@ -91,7 +91,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *        the type of Exception to be thrown
    * @since 10.0.0
    */
-  default <EXTYPE extends Throwable> void forEachThrowing (@Nonnull final IThrowingConsumer <? super ELEMENTTYPE, EXTYPE> aConsumer) throws EXTYPE
+  default <EXTYPE extends Throwable> void forEachThrowing (@NonNull final IThrowingConsumer <? super ELEMENTTYPE, EXTYPE> aConsumer) throws EXTYPE
   {
     for (final ELEMENTTYPE aCallback : this)
       aConsumer.accept (aCallback);
@@ -107,7 +107,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *        The consumer to be invoked for all matching elements. May not be <code>null</code>.
    */
   default void findAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                        @Nonnull final Consumer <? super ELEMENTTYPE> aConsumer)
+                        @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
     CollectionFind.findAll (this, aFilter, aConsumer);
   }
@@ -123,8 +123,8 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */
-  default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
-                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  default <DSTTYPE> void findAllMapped (@NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                        @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     CollectionFind.findAllMapped (this, aMapper, aConsumer);
   }
@@ -145,8 +145,8 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *        The destination type to be mapped to
    */
   default <DSTTYPE> void findAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
-                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+                                        @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                        @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     CollectionFind.findAllMapped (this, aFilter, aMapper, aConsumer);
   }
@@ -167,9 +167,9 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *        The destination type to be mapped to
    * @since 8.5.2
    */
-  default <DSTTYPE> void findAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+  default <DSTTYPE> void findAllMapped (@NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                         @Nullable final Predicate <? super DSTTYPE> aFilter,
-                                        @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+                                        @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     CollectionFind.findAllMapped (this, aMapper, aFilter, aConsumer);
   }
@@ -187,8 +187,8 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @param <DSTTYPE>
    *        The destination type to be casted to
    */
-  default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass,
-                                                                @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  default <DSTTYPE extends ELEMENTTYPE> void findAllInstanceOf (@NonNull final Class <DSTTYPE> aDstClass,
+                                                                @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     findAllMapped (aDstClass::isInstance, aDstClass::cast, aConsumer);
   }
@@ -249,7 +249,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    */
   @Nullable
   default <DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                             @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+                                             @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     return findFirstMapped (aFilter, aMapper, null);
   }
@@ -275,7 +275,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    */
   @Nullable
   default <DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                             @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
+                                             @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper,
                                              @Nullable final DSTTYPE aDefault)
   {
     return CollectionFind.findFirstMapped (this, aFilter, aMapper, aDefault);
@@ -321,7 +321,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *         otherwise. If no filter is supplied the return value is identical to
    *         {@link ICommonsCollection#isNotEmpty()}.
    */
-  default boolean containsOnly (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  default boolean containsOnly (@NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CollectionFind.containsOnly (this, aFilter);
   }
@@ -370,7 +370,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @since 9.3.3
    */
   @Nonnegative
-  default int findFirstIndex (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  default int findFirstIndex (@NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     int nIndex = 0;
     for (final ELEMENTTYPE aElement : this)
@@ -391,7 +391,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    * @since 9.3.3
    */
   @Nonnegative
-  default int findLastIndex (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+  default int findLastIndex (@NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     int ret = -1;
     int nIndex = 0;

@@ -16,9 +16,9 @@
  */
 package com.helger.base.callback;
 
-import com.helger.base.state.EContinue;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
 /**
  * Simple notification interface.
@@ -38,8 +38,8 @@ public interface IChangeCallback <DATATYPE> extends ICallback
    *         return value is {@link EContinue#BREAK} the action will not be
    *         performed.
    */
-  @Nonnull
-  EContinue beforeChange (@Nonnull DATATYPE aObjectToChange);
+  @NonNull
+  EContinue beforeChange (@NonNull DATATYPE aObjectToChange);
 
   /**
    * Called after the object changed.
@@ -47,5 +47,5 @@ public interface IChangeCallback <DATATYPE> extends ICallback
    * @param aChangedObject
    *        The changed object. Never <code>null</code>.
    */
-  void afterChange (@Nonnull DATATYPE aChangedObject);
+  void afterChange (@NonNull DATATYPE aChangedObject);
 }

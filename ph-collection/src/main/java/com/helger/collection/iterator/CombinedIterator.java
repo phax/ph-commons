@@ -19,11 +19,11 @@ package com.helger.collection.iterator;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.base.EmptyIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A specific enumeration iterating over two consecutive enumerations.
@@ -87,7 +87,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> create (@Nullable final Iterator <ELEMENTTYPE> aIter1,
                                                              @Nullable final Iterator <ELEMENTTYPE> aIter2)
   {

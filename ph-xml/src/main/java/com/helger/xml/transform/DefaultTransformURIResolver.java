@@ -20,14 +20,14 @@ import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link javax.xml.transform.URIResolver} interface using
@@ -68,7 +68,7 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
    * @return this for chaining
    * @since 9.1.5
    */
-  @Nonnull
+  @NonNull
   public final DefaultTransformURIResolver setDefaultBase (@Nullable final String sDefaultBase)
   {
     m_sDefaultBase = sDefaultBase;

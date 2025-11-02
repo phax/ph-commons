@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -38,9 +41,6 @@ import com.helger.url.data.IMutableURLData;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstraction of the string parts of a URL but much simpler (and faster) than {@link java.net.URL}.
@@ -58,47 +58,47 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     m_aData = URLData.createEmpty ();
   }
 
-  public SimpleURL (@Nonnull final URL aURL)
+  public SimpleURL (@NonNull final URL aURL)
   {
     this (aURL, URLData.DEFAULT_CHARSET);
   }
 
-  public SimpleURL (@Nonnull final URL aURL, @Nonnull final Charset aCharset)
+  public SimpleURL (@NonNull final URL aURL, @NonNull final Charset aCharset)
   {
     this (aURL.toExternalForm (), aCharset);
   }
 
-  public SimpleURL (@Nonnull final URI aURI)
+  public SimpleURL (@NonNull final URI aURI)
   {
     this (aURI, URLData.DEFAULT_CHARSET);
   }
 
-  public SimpleURL (@Nonnull final URI aURI, @Nonnull final Charset aCharset)
+  public SimpleURL (@NonNull final URI aURI, @NonNull final Charset aCharset)
   {
     this (aURI.toString (), aCharset);
   }
 
-  public SimpleURL (@Nonnull final IURLData aURLData)
+  public SimpleURL (@NonNull final IURLData aURLData)
   {
     m_aData = new URLData (aURLData);
   }
 
-  public SimpleURL (@Nonnull final String sHref)
+  public SimpleURL (@NonNull final String sHref)
   {
     this (sHref, URLData.DEFAULT_CHARSET);
   }
 
-  public SimpleURL (@Nonnull final String sHref, @Nullable final Charset aCharset)
+  public SimpleURL (@NonNull final String sHref, @Nullable final Charset aCharset)
   {
     this (SimpleURLHelper.getAsURLData (sHref, aCharset, aCharset == null ? null : new URLParameterDecoder (aCharset)));
   }
 
-  public SimpleURL (@Nonnull final String sHref, @Nullable final Map <String, String> aParams)
+  public SimpleURL (@NonNull final String sHref, @Nullable final Map <String, String> aParams)
   {
     this (sHref, aParams, null);
   }
 
-  public SimpleURL (@Nonnull final String sHref,
+  public SimpleURL (@NonNull final String sHref,
                     @Nullable final Map <String, String> aParams,
                     @Nullable final String sAnchor)
   {
@@ -110,12 +110,12 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
       m_aData.setAnchor (sAnchor);
   }
 
-  public SimpleURL (@Nonnull final String sHref, @Nullable final Iterable <URLParameter> aParams)
+  public SimpleURL (@NonNull final String sHref, @Nullable final Iterable <URLParameter> aParams)
   {
     this (sHref, aParams, null);
   }
 
-  public SimpleURL (@Nonnull final String sHref,
+  public SimpleURL (@NonNull final String sHref,
                     @Nullable final Iterable <URLParameter> aParams,
                     @Nullable final String sAnchor)
   {
@@ -125,20 +125,20 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
       m_aData.setAnchor (sAnchor);
   }
 
-  @Nonnull
+  @NonNull
   public final String getPath ()
   {
     return m_aData.getPath ();
   }
 
-  @Nonnull
-  public SimpleURL setPath (@Nonnull final String sPath)
+  @NonNull
+  public SimpleURL setPath (@NonNull final String sPath)
   {
     m_aData.setPath (sPath);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ICommonsList <URLParameter> params ()
   {
@@ -151,75 +151,75 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return m_aData.getFirstParamValue (sParamName);
   }
 
-  @Nonnull
+  @NonNull
   public SimpleURL setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     m_aData.setParams (aParams);
     return this;
   }
 
-  @Nonnull
-  public SimpleURL withParams (@Nonnull final Consumer <? super ICommonsList <URLParameter>> aParamConsumer)
+  @NonNull
+  public SimpleURL withParams (@NonNull final Consumer <? super ICommonsList <URLParameter>> aParamConsumer)
   {
     ValueEnforcer.notNull (aParamConsumer, "ParamConsumer");
     aParamConsumer.accept (m_aData.params ());
     return this;
   }
 
-  @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sParamName)
+  @NonNull
+  public SimpleURL add (@NonNull @Nonempty final String sParamName)
   {
     m_aData.params ().add (new URLParameter (sParamName));
     return this;
   }
 
-  @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sParamName, final boolean bParamValue)
+  @NonNull
+  public SimpleURL add (@NonNull @Nonempty final String sParamName, final boolean bParamValue)
   {
     add (sParamName, Boolean.toString (bParamValue));
     return this;
   }
 
-  @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sParamName, final int nParamValue)
+  @NonNull
+  public SimpleURL add (@NonNull @Nonempty final String sParamName, final int nParamValue)
   {
     add (sParamName, Integer.toString (nParamValue));
     return this;
   }
 
-  @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sParamName, final long nParamValue)
+  @NonNull
+  public SimpleURL add (@NonNull @Nonempty final String sParamName, final long nParamValue)
   {
     add (sParamName, Long.toString (nParamValue));
     return this;
   }
 
-  @Nonnull
-  public SimpleURL add (@Nonnull @Nonempty final String sParamName, @Nullable final String sParamValue)
+  @NonNull
+  public SimpleURL add (@NonNull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
     m_aData.params ().add (new URLParameter (sParamName, StringHelper.getNotNull (sParamValue)));
     return this;
   }
 
-  @Nonnull
-  public SimpleURL addIfNotNull (@Nonnull @Nonempty final String sParamName, @Nullable final String sParamValue)
+  @NonNull
+  public SimpleURL addIfNotNull (@NonNull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
     if (sParamValue != null)
       add (sParamName, sParamValue);
     return this;
   }
 
-  @Nonnull
-  public SimpleURL addIf (@Nonnull @Nonempty final String sParamName,
+  @NonNull
+  public SimpleURL addIf (@NonNull @Nonempty final String sParamName,
                           @Nullable final String sParamValue,
-                          @Nonnull final Predicate <String> aPredicate)
+                          @NonNull final Predicate <String> aPredicate)
   {
     if (aPredicate.test (sParamValue))
       add (sParamName, sParamValue);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
     if (aParams != null)
@@ -234,35 +234,35 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return m_aData.getAnchor ();
   }
 
-  @Nonnull
+  @NonNull
   public SimpleURL setAnchor (@Nullable final String sAnchor)
   {
     m_aData.setAnchor (sAnchor);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aData.getCharset ();
   }
 
-  @Nonnull
+  @NonNull
   public SimpleURL setCharset (@Nullable final Charset aCharset)
   {
     m_aData.setCharset (aCharset);
     return this;
   }
 
-  @Nonnull
-  public final SimpleURL getWithPath (@Nonnull final String sPath)
+  @NonNull
+  public final SimpleURL getWithPath (@NonNull final String sPath)
   {
     if (m_aData.getPath ().equals (sPath))
       return this;
     return new SimpleURL (m_aData.getClone ().setPath (sPath));
   }
 
-  @Nonnull
+  @NonNull
   public final SimpleURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
     if (EqualsHelper.equals (m_aData.params (), aParams))
@@ -270,7 +270,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setParams (aParams));
   }
 
-  @Nonnull
+  @NonNull
   public final SimpleURL getWithAnchor (@Nullable final String sAnchor)
   {
     if (m_aData.hasAnchor (sAnchor))
@@ -278,7 +278,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setAnchor (sAnchor));
   }
 
-  @Nonnull
+  @NonNull
   public final SimpleURL getWithCharset (@Nullable final Charset aCharset)
   {
     if (EqualsHelper.equals (m_aData.getCharset (), aCharset))
@@ -286,7 +286,7 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setCharset (aCharset));
   }
 
-  @Nonnull
+  @NonNull
   public SimpleURL getClone ()
   {
     return new SimpleURL (this);

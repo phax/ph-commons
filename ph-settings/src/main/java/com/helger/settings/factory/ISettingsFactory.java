@@ -18,13 +18,13 @@ package com.helger.settings.factory;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.settings.ISettings;
 import com.helger.settings.Settings;
 import com.helger.settings.SettingsWithDefault;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is just a type definition for the settings factory. The factory
@@ -45,17 +45,17 @@ public interface ISettingsFactory <T extends ISettings> extends Function <String
    *        empty.
    * @return The created settings object. May not be <code>null</code>.
    */
-  @Nonnull
-  T apply (@Nonnull @Nonempty String sName);
+  @NonNull
+  T apply (@NonNull @Nonempty String sName);
 
-  @Nonnull
+  @NonNull
   static ISettingsFactory <Settings> newInstance ()
   {
     return Settings::new;
   }
 
-  @Nonnull
-  static ISettingsFactory <SettingsWithDefault> newInstance (@Nonnull final ISettings aDefaultSettings)
+  @NonNull
+  static ISettingsFactory <SettingsWithDefault> newInstance (@NonNull final ISettings aDefaultSettings)
   {
     ValueEnforcer.notNull (aDefaultSettings, "DefaultSettings");
     return sName -> new SettingsWithDefault (sName, aDefaultSettings);

@@ -16,10 +16,9 @@
  */
 package com.helger.xml.ls;
 
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link LSResourceResolver} implementation that does nothing.

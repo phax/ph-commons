@@ -19,7 +19,7 @@ package com.helger.annotation.meta;
 
 import java.lang.annotation.Annotation;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Findbugs JSR 305
@@ -40,6 +40,6 @@ public interface TypeQualifierValidator <A extends Annotation>
    * @return a value indicating whether or not the value is an member of the values denoted by the
    *         type qualifier
    */
-  @Nonnull
-  When forConstantValue (@Nonnull A annotation, Object value);
+  @NonNull
+  When forConstantValue (@NonNull A annotation, Object value);
 }

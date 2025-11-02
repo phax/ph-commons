@@ -22,6 +22,7 @@ import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,6 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.callback.CallbackList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}
@@ -95,7 +94,7 @@ public class ThreadDeadlockDetector
     }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public CallbackList <IThreadDeadlockCallback> callbacks ()
   {

@@ -18,6 +18,8 @@ package com.helger.commons.math;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,8 +28,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Utility class for generating all possible combinations of elements for a
@@ -70,8 +70,8 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    * @param aCallback
    *        Callback to invoke
    */
-  public void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
-                                      @Nonnull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
+  public void iterateAllCombinations (@NonNull final ICommonsList <DATATYPE> aElements,
+                                      @NonNull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -98,9 +98,9 @@ public final class CombinationGeneratorFlexible <DATATYPE>
    *        the elements to distribute to the specified slots (may be empty!)
    * @return a set of slot allocations representing all possible combinations
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements)
+  public ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@NonNull final ICommonsList <DATATYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
 
@@ -109,16 +109,16 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     return aAllResults;
   }
 
-  public static <DATATYPE> void iterateAllCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
+  public static <DATATYPE> void iterateAllCombinations (@NonNull final ICommonsList <DATATYPE> aElements,
                                                         final boolean bAllowEmpty,
-                                                        @Nonnull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
+                                                        @NonNull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
     new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements, aCallback);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <DATATYPE> ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@Nonnull final ICommonsList <DATATYPE> aElements,
+  public static <DATATYPE> ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@NonNull final ICommonsList <DATATYPE> aElements,
                                                                                   final boolean bAllowEmpty)
   {
     return new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).getCombinations (aElements);

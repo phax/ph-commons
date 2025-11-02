@@ -16,10 +16,10 @@
  */
 package com.helger.scope.mgr;
 
-import com.helger.scope.IScope;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.scope.IScope;
 
 /**
  * This enumeration defines all the possible non-web scopes including some
@@ -36,7 +36,7 @@ public enum EScope
   /** The request scope. */
   REQUEST;
 
-  @Nonnull
+  @NonNull
   public IScope getScope ()
   {
     return getScope (true);
@@ -63,7 +63,7 @@ public enum EScope
    *         If an illegal enumeration value is passed.
    */
   @Nullable
-  public static IScope getScope (@Nonnull final EScope eScope, final boolean bCreateIfNotExisting)
+  public static IScope getScope (@NonNull final EScope eScope, final boolean bCreateIfNotExisting)
   {
     switch (eScope)
     {

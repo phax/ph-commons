@@ -27,6 +27,8 @@ import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.validation.Schema;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.helpers.DefaultHandler;
@@ -57,8 +59,6 @@ import com.helger.xml.serialize.write.EXMLSerializeIndent;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
@@ -110,7 +110,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @since 9.1.5
    * @see #createSimpleJAXBElement(QName, Class)
    */
-  public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType, @Nonnull final QName aQName)
+  public GenericJAXBMarshaller (@NonNull final Class <JAXBTYPE> aType, @NonNull final QName aQName)
   {
     this (aType, createSimpleJAXBElement (aQName, aType));
   }
@@ -125,8 +125,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        can usually be done using the respective's package ObjectFactory implementation. May not
    *        be <code>null</code>.
    */
-  public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
-                                @Nonnull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
+  public GenericJAXBMarshaller (@NonNull final Class <JAXBTYPE> aType,
+                                @NonNull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aWrapper)
   {
     this (aType, null, aWrapper);
   }
@@ -144,9 +144,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        can usually be done using the respective's package ObjectFactory implementation. May not
    *        be <code>null</code>.
    */
-  public GenericJAXBMarshaller (@Nonnull final Class <JAXBTYPE> aType,
+  public GenericJAXBMarshaller (@NonNull final Class <JAXBTYPE> aType,
                                 @Nullable final List <? extends ClassPathResource> aXSDs,
-                                @Nonnull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
+                                @NonNull final Function <? super JAXBTYPE, ? extends JAXBElement <JAXBTYPE>> aJAXBElementWrapper)
   {
     m_aType = ValueEnforcer.notNull (aType, "Type");
     if (aXSDs != null)
@@ -170,7 +170,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return The type as passed in the constructor. Never <code>null</code>.
    * @since v9.4.2
    */
-  @Nonnull
+  @NonNull
   protected final Class <JAXBTYPE> getType ()
   {
     return m_aType;
@@ -199,7 +199,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        The event handler to be used. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
     m_aEventHandler = aEventHandler;
@@ -215,8 +215,8 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 11.0.0
    */
-  @Nonnull
-  public final GenericJAXBMarshaller <JAXBTYPE> setCollectErrors (@Nonnull final ErrorList aErrorList)
+  @NonNull
+  public final GenericJAXBMarshaller <JAXBTYPE> setCollectErrors (@NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aErrorList, "ErrorList");
 
@@ -237,7 +237,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 8.5.3
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setNamespaceContext (@Nullable final NamespaceContext aNSContext)
   {
     m_aNSContext = aNSContext;
@@ -257,7 +257,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 8.5.3
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setFormattedOutput (final boolean bWriteFormatted)
   {
     m_bFormattedOutput = bWriteFormatted;
@@ -278,7 +278,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 8.5.3
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setCharset (@Nullable final Charset aCharset)
   {
     m_aCharset = aCharset;
@@ -299,7 +299,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 8.5.3
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setIndentString (@Nullable final String sIndentString)
   {
     m_sIndentString = sIndentString;
@@ -319,7 +319,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 11.0.3
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setUseSchema (final boolean bUseSchema)
   {
     m_bUseSchema = bUseSchema;
@@ -340,7 +340,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 8.6.0
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setSchemaLocation (@Nullable final String sSchemaLocation)
   {
     m_sSchemaLocation = sSchemaLocation;
@@ -358,7 +358,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *         properties. Never <code>null</code>.
    * @since 12.0.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public XMLWriterSettings xmlWriterSettings ()
   {
@@ -374,15 +374,15 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return ret;
   }
 
-  @Nonnull
-  public final GenericJAXBMarshaller <JAXBTYPE> withXMLWriterSettings (@Nonnull final Consumer <? super XMLWriterSettings> aConsumer)
+  @NonNull
+  public final GenericJAXBMarshaller <JAXBTYPE> withXMLWriterSettings (@NonNull final Consumer <? super XMLWriterSettings> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     aConsumer.accept (m_aXWS);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   public IXMLWriterSettings getXMLWriterSettings ()
   {
@@ -398,7 +398,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return this for chaining
    * @since 9.0.0
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
     m_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation;
@@ -418,7 +418,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        <code>true</code> to use it (default), <code>false</code> if not.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> setUseContextCache (final boolean bUseContextCache)
   {
     m_bUseContextCache = bUseContextCache;
@@ -429,7 +429,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return Read exception callbacks. Never <code>null</code>.
    * @since 9.2.2
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IExceptionCallback <JAXBException>> readExceptionCallbacks ()
   {
@@ -440,7 +440,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return Write exception callbacks. Never <code>null</code>.
    * @since 9.2.2
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IExceptionCallback <JAXBException>> writeExceptionCallbacks ()
   {
@@ -451,7 +451,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @return A list of all XSD resources used for validation. Never <code>null</code> but maybe
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public final ICommonsList <ClassPathResource> getOriginalXSDs ()
@@ -490,7 +490,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *         In case creation fails
    * @since 9.4.2
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected JAXBContext getJAXBContext (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
@@ -508,7 +508,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @throws JAXBException
    *         In case the creation fails.
    */
-  @Nonnull
+  @NonNull
   private Unmarshaller _createUnmarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
     final JAXBContext aJAXBContext = getJAXBContext (aClassLoader);
@@ -533,13 +533,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        The object to customize. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void customizeUnmarshaller (@Nonnull final Unmarshaller aUnmarshaller)
+  protected void customizeUnmarshaller (@NonNull final Unmarshaller aUnmarshaller)
   {
     // empty
   }
 
   @Nullable
-  public final JAXBTYPE read (@Nonnull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
+  public final JAXBTYPE read (@NonNull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
   {
     ValueEnforcer.notNull (aHandler, "Handler");
 
@@ -563,7 +563,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @throws JAXBException
    *         In case of an error.
    */
-  @Nonnull
+  @NonNull
   private Marshaller _createMarshaller (@Nullable final ClassLoader aClassLoader) throws JAXBException
   {
     final JAXBContext aJAXBContext = getJAXBContext (aClassLoader);
@@ -618,14 +618,14 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        The object to customize. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void customizeMarshaller (@Nonnull final Marshaller aMarshaller)
+  protected void customizeMarshaller (@NonNull final Marshaller aMarshaller)
   {
     // empty
   }
 
-  @Nonnull
-  public final ESuccess write (@Nonnull final JAXBTYPE aObject,
-                               @Nonnull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
+  @NonNull
+  public final ESuccess write (@NonNull final JAXBTYPE aObject,
+                               @NonNull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aMarshallerFunc, "MarshallerFunc");
@@ -655,12 +655,12 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    *        The object to customize. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void customizeMarshallerForValidation (@Nonnull final Marshaller aMarshaller)
+  protected void customizeMarshallerForValidation (@NonNull final Marshaller aMarshaller)
   {
     // empty
   }
 
-  public void validate (@Nonnull final JAXBTYPE aObject, @Nonnull final ErrorList aErrorList)
+  public void validate (@NonNull final JAXBTYPE aObject, @NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aErrorList, "ErrorList");
@@ -730,9 +730,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
    * @since 9.1.5
    * @see #GenericJAXBMarshaller(Class, QName)
    */
-  @Nonnull
-  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@Nonnull final QName aQName,
-                                                                           @Nonnull final Class <T> aClass)
+  @NonNull
+  public static <T> Function <T, JAXBElement <T>> createSimpleJAXBElement (@NonNull final QName aQName,
+                                                                           @NonNull final Class <T> aClass)
   {
     return aValue -> new JAXBElement <> (aQName, aClass, null, aValue);
   }

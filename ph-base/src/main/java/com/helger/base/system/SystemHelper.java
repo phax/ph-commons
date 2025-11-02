@@ -19,11 +19,11 @@ package com.helger.base.system;
 import java.nio.charset.Charset;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Get information about the system we're running on.
@@ -58,7 +58,7 @@ public final class SystemHelper
   /**
    * @return The current processor architecture and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EProcessorArchitecture getProcessorArchitecture ()
   {
     return EProcessorArchitecture.getCurrentArchitecture ();
@@ -67,7 +67,7 @@ public final class SystemHelper
   /**
    * @return The operating system we're running on.
    */
-  @Nonnull
+  @NonNull
   public static EOperatingSystem getOperatingSystem ()
   {
     return EOperatingSystem.getCurrentOS ();
@@ -76,7 +76,7 @@ public final class SystemHelper
   /**
    * @return The name and version of the operating system we're running on.
    */
-  @Nonnull
+  @NonNull
   public static String getOperatingSystemName ()
   {
     return EOperatingSystem.getCurrentOSName () + " [" + EOperatingSystem.getCurrentOSVersion () + "]";
@@ -85,7 +85,7 @@ public final class SystemHelper
   /**
    * @return The current Java version that is running. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EJavaVersion getJavaVersion ()
   {
     return EJavaVersion.getCurrentVersion ();
@@ -95,7 +95,7 @@ public final class SystemHelper
    * @return The vendor of the Java Virtual Machine (JVM) that we're operating
    *         on.
    */
-  @Nonnull
+  @NonNull
   public static EJVMVendor getJVMVendor ()
   {
     return EJVMVendor.getCurrentVendor ();
@@ -104,7 +104,7 @@ public final class SystemHelper
   /**
    * @return The system locale.
    */
-  @Nonnull
+  @NonNull
   public static Locale getSystemLocale ()
   {
     return Locale.getDefault ();
@@ -113,7 +113,7 @@ public final class SystemHelper
   /**
    * @return The system charset.
    */
-  @Nonnull
+  @NonNull
   public static Charset getSystemCharset ()
   {
     return Charset.defaultCharset ();
@@ -122,7 +122,7 @@ public final class SystemHelper
   /**
    * @return The name of the system charset.
    */
-  @Nonnull
+  @NonNull
   public static String getSystemCharsetName ()
   {
     return getSystemCharset ().name ();

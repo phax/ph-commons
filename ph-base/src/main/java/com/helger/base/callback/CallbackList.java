@@ -24,6 +24,8 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +39,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages a list of callbacks. In reality it is a Set of callbacks.
@@ -77,8 +76,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *        the callback list to set. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange set (@Nonnull final CallbackList <CALLBACKTYPE> rhs)
+  @NonNull
+  public EChange set (@NonNull final CallbackList <CALLBACKTYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "rhs");
 
@@ -98,8 +97,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *        The callback to be used. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange set (@Nonnull final CALLBACKTYPE aCallback)
+  @NonNull
+  public EChange set (@NonNull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
@@ -118,8 +117,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *        May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
-  public EChange add (@Nonnull final CALLBACKTYPE aCallback)
+  @NonNull
+  public EChange add (@NonNull final CALLBACKTYPE aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
@@ -133,9 +132,9 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *        The elements to be added. May be null.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   @SafeVarargs
-  public final EChange addAll (@Nonnull final CALLBACKTYPE... aCallbacks)
+  public final EChange addAll (@NonNull final CALLBACKTYPE... aCallbacks)
   {
     ValueEnforcer.notNullNoNullValue (aCallbacks, "Callbacks");
 
@@ -155,7 +154,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *        May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeObject (@Nullable final CALLBACKTYPE aCallback)
   {
     if (aCallback == null)
@@ -169,7 +168,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
    *
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     return m_aRWLock.writeLockedGet ( () -> {
@@ -179,7 +178,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     });
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public List <CALLBACKTYPE> getAllCallbacks ()
   {
@@ -232,20 +231,20 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     }
   }
 
-  @Nonnull
+  @NonNull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
     return m_aRWLock.readLockedGet ( () -> new CallbackList <> (this));
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <CALLBACKTYPE> iterator ()
   {
     return m_aRWLock.readLockedGet (m_aCallbacks::iterator);
   }
 
   @Override
-  public void forEach (@Nonnull final Consumer <? super CALLBACKTYPE> aConsumer)
+  public void forEach (@NonNull final Consumer <? super CALLBACKTYPE> aConsumer)
   {
     // Create a copy to iterate!
     for (final CALLBACKTYPE aCallback : getAllCallbacks ())
@@ -259,8 +258,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
       }
   }
 
-  @Nonnull
-  public EContinue forEachBreakable (@Nonnull final Function <? super CALLBACKTYPE, EContinue> aFunction)
+  @NonNull
+  public EContinue forEachBreakable (@NonNull final Function <? super CALLBACKTYPE, EContinue> aFunction)
   {
     // Create a copy to iterate!
     for (final CALLBACKTYPE aCallback : getAllCallbacks ())

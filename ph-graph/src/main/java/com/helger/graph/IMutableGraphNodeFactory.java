@@ -16,7 +16,7 @@
  */
 package com.helger.graph;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Factory interface for creating undirected graph nodes

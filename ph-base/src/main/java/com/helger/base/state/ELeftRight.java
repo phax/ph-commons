@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for left and right
@@ -33,8 +33,8 @@ public enum ELeftRight implements ILeftRightIndicator
     return this == LEFT;
   }
 
-  @Nonnull
-  public static ELeftRight valueOf (@Nonnull final ILeftRightIndicator aLeftRightIndicator)
+  @NonNull
+  public static ELeftRight valueOf (@NonNull final ILeftRightIndicator aLeftRightIndicator)
   {
     return aLeftRightIndicator.isLeft () ? LEFT : RIGHT;
   }

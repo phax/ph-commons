@@ -32,6 +32,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -53,9 +56,6 @@ import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.datetime.xml.XMLOffsetTime;
 import com.helger.typeconvert.trait.IGetterDirectTrait;
 import com.helger.typeconvert.util.ClassHierarchyCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Mock objects by invoking their constructors with arbitrary objects. It separates into static
@@ -93,29 +93,29 @@ public final class CommonsMock
      * @param <T>
      *        data type of the parameter
      */
-    public <T> Param (@Nonnull @Nonempty final String sParamName,
-                      @Nonnull final Class <T> aParamClass,
-                      @Nonnull final Supplier <T> aDefaultValueSupplier)
+    public <T> Param (@NonNull @Nonempty final String sParamName,
+                      @NonNull final Class <T> aParamClass,
+                      @NonNull final Supplier <T> aDefaultValueSupplier)
     {
       m_sParamName = ValueEnforcer.notEmpty (sParamName, "ParamName");
       m_aParamClass = ValueEnforcer.notNull (aParamClass, "ParamClass");
       m_aDefaultValueSupplier = ValueEnforcer.notNull (aDefaultValueSupplier, "DefaultValueSupplier");
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getParamName ()
     {
       return m_sParamName;
     }
 
-    @Nonnull
+    @NonNull
     public Class <?> getParamClass ()
     {
       return m_aParamClass;
     }
 
-    @Nonnull
+    @NonNull
     public IGetterDirectTrait getDefaultValue ()
     {
       final Object aDefaultValue = m_aDefaultValueSupplier.get ();
@@ -128,8 +128,8 @@ public final class CommonsMock
       return ClassHelper.getClassLocalName (m_aParamClass) + ":" + m_sParamName;
     }
 
-    @Nonnull
-    public static Param createConstant (@Nonnull @Nonempty final String sParamName, final boolean bDefault)
+    @NonNull
+    public static Param createConstant (@NonNull @Nonempty final String sParamName, final boolean bDefault)
     {
       return createConstant (sParamName, boolean.class, Boolean.valueOf (bDefault));
     }
@@ -147,9 +147,9 @@ public final class CommonsMock
      * @param <T>
      *        data type create the constant of
      */
-    @Nonnull
-    public static <T> Param createConstant (@Nonnull @Nonempty final String sParamName,
-                                            @Nonnull final Class <T> aParamClass,
+    @NonNull
+    public static <T> Param createConstant (@NonNull @Nonempty final String sParamName,
+                                            @NonNull final Class <T> aParamClass,
                                             @Nullable final T aDefault)
     {
       return new Param (sParamName, aParamClass, () -> aDefault);
@@ -162,9 +162,9 @@ public final class CommonsMock
     private final Param [] m_aParams;
     private final Function <IGetterDirectTrait [], ?> m_aFct;
 
-    private MockSupplier (@Nonnull final Class <?> aDstClass,
+    private MockSupplier (@NonNull final Class <?> aDstClass,
                           @Nullable final Param [] aParams,
-                          @Nonnull final Function <IGetterDirectTrait [], ?> aFct)
+                          @NonNull final Function <IGetterDirectTrait [], ?> aFct)
     {
       m_aDstClass = aDstClass;
       m_aParams = aParams;
@@ -215,8 +215,8 @@ public final class CommonsMock
      *        The constant value to be returned. May not be <code>null</code>.
      * @return Never <code>null</code>.
      */
-    @Nonnull
-    public static MockSupplier createConstant (@Nonnull final Object aConstant)
+    @NonNull
+    public static MockSupplier createConstant (@NonNull final Object aConstant)
     {
       ValueEnforcer.notNull (aConstant, "Constant");
       return new MockSupplier (aConstant.getClass (), null, aParam -> aConstant);
@@ -233,9 +233,9 @@ public final class CommonsMock
      * @param <T>
      *        The type to be mocked
      */
-    @Nonnull
-    public static <T> MockSupplier createNoParams (@Nonnull final Class <T> aDstClass,
-                                                   @Nonnull final Supplier <T> aSupplier)
+    @NonNull
+    public static <T> MockSupplier createNoParams (@NonNull final Class <T> aDstClass,
+                                                   @NonNull final Supplier <T> aSupplier)
     {
       ValueEnforcer.notNull (aDstClass, "DstClass");
       ValueEnforcer.notNull (aSupplier, "Supplier");
@@ -256,10 +256,10 @@ public final class CommonsMock
      * @param <T>
      *        The type to be mocked
      */
-    @Nonnull
-    public static <T> MockSupplier create (@Nonnull final Class <T> aDstClass,
-                                           @Nonnull final Param [] aParams,
-                                           @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
+    @NonNull
+    public static <T> MockSupplier create (@NonNull final Class <T> aDstClass,
+                                           @NonNull final Param [] aParams,
+                                           @NonNull final Function <IGetterDirectTrait [], T> aSupplier)
     {
       ValueEnforcer.notNull (aDstClass, "DstClass");
       ValueEnforcer.notNull (aParams, "Params");
@@ -297,7 +297,7 @@ public final class CommonsMock
       {
         private final AtomicInteger m_aCount = new AtomicInteger (0);
 
-        @Nonnull
+        @NonNull
         @Nonempty
         public String get ()
         {
@@ -346,7 +346,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static <T> void registerStaticConstant (@Nonnull final T aObject)
+  public static <T> void registerStaticConstant (@NonNull final T aObject)
   {
     registerStatic (MockSupplier.createConstant (aObject));
   }
@@ -364,7 +364,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static <T> void registerStatic (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
+  public static <T> void registerStatic (@NonNull final Class <T> aClass, @NonNull final Supplier <T> aSupplier)
   {
     registerStatic (MockSupplier.createNoParams (aClass, aSupplier));
   }
@@ -382,9 +382,9 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public static <T> void registerStatic (@Nonnull final Class <T> aDstClass,
-                                         @Nonnull final Param [] aParams,
-                                         @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
+  public static <T> void registerStatic (@NonNull final Class <T> aDstClass,
+                                         @NonNull final Param [] aParams,
+                                         @NonNull final Function <IGetterDirectTrait [], T> aSupplier)
   {
     registerStatic (MockSupplier.create (aDstClass, aParams, aSupplier));
   }
@@ -397,8 +397,8 @@ public final class CommonsMock
    * @param aTargetMap
    *        Map to register it to. May not be <code>null</code>.
    */
-  private static void _register (@Nonnull final MockSupplier aSupplier,
-                                 @Nonnull final Map <Class <?>, MockSupplier> aTargetMap)
+  private static void _register (@NonNull final MockSupplier aSupplier,
+                                 @NonNull final Map <Class <?>, MockSupplier> aTargetMap)
   {
     ValueEnforcer.notNull (aSupplier, "Supplier");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
@@ -427,7 +427,7 @@ public final class CommonsMock
    * @param aSupplier
    *        The supplier to be registered. May not be <code>null</code>.
    */
-  public static void registerStatic (@Nonnull final MockSupplier aSupplier)
+  public static void registerStatic (@NonNull final MockSupplier aSupplier)
   {
     // Register globally
     _register (aSupplier, STATIC_SUPPLIERS);
@@ -441,7 +441,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public <T> void registerPerInstanceConstant (@Nonnull final T aObject)
+  public <T> void registerPerInstanceConstant (@NonNull final T aObject)
   {
     registerPerInstance (MockSupplier.createConstant (aObject));
   }
@@ -459,7 +459,7 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public <T> void registerPerInstance (@Nonnull final Class <T> aClass, @Nonnull final Supplier <T> aSupplier)
+  public <T> void registerPerInstance (@NonNull final Class <T> aClass, @NonNull final Supplier <T> aSupplier)
   {
     registerPerInstance (MockSupplier.createNoParams (aClass, aSupplier));
   }
@@ -477,9 +477,9 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  public <T> void registerPerInstance (@Nonnull final Class <T> aDstClass,
-                                       @Nonnull final Param [] aParams,
-                                       @Nonnull final Function <IGetterDirectTrait [], T> aSupplier)
+  public <T> void registerPerInstance (@NonNull final Class <T> aDstClass,
+                                       @NonNull final Param [] aParams,
+                                       @NonNull final Function <IGetterDirectTrait [], T> aSupplier)
   {
     registerPerInstance (MockSupplier.create (aDstClass, aParams, aSupplier));
   }
@@ -490,14 +490,14 @@ public final class CommonsMock
    * @param aSupplier
    *        The supplier to be registered. May not be <code>null</code>.
    */
-  public void registerPerInstance (@Nonnull final MockSupplier aSupplier)
+  public void registerPerInstance (@NonNull final MockSupplier aSupplier)
   {
     // Register per-instance
     _register (aSupplier, m_aPerInstanceSupplier);
   }
 
-  @Nonnull
-  private Object _mock (@Nonnull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel)
+  @NonNull
+  private Object _mock (@NonNull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel)
                                                                                                               throws Exception
   {
     // Check for static supplier
@@ -585,8 +585,8 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  @Nonnull
-  public <T> T mock (@Nonnull final Class <T> aClass, @Nullable final Object... aParams)
+  @NonNull
+  public <T> T mock (@NonNull final Class <T> aClass, @Nullable final Object... aParams)
   {
     try
     {
@@ -618,10 +618,10 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> ICommonsList <T> mockMany (@Nonnegative final int nCount,
-                                        @Nonnull final Class <T> aClass,
+                                        @NonNull final Class <T> aClass,
                                         @Nullable final Object... aParams)
   {
     final ICommonsList <T> ret = new CommonsArrayList <> (nCount);
@@ -644,10 +644,10 @@ public final class CommonsMock
    * @param <T>
    *        The type to be mocked
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> ICommonsSet <T> mockSet (@Nonnegative final int nCount,
-                                      @Nonnull final Class <T> aClass,
+                                      @NonNull final Class <T> aClass,
                                       @Nullable final Object... aParams)
   {
     final ICommonsSet <T> ret = new CommonsHashSet <> (nCount);

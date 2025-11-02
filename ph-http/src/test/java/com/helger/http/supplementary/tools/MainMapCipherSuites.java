@@ -18,6 +18,7 @@ package com.helger.http.supplementary.tools;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +29,6 @@ import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Map OpenSSL cipher suite names to IANA cipher suite names
  *
@@ -39,7 +38,7 @@ public class MainMapCipherSuites
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MainMapCipherSuites.class);
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   private static ICommonsMap <String, String> readMap ()
   {

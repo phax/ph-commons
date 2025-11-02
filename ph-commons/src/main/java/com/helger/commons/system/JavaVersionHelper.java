@@ -20,6 +20,8 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Month;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,6 @@ import com.helger.base.string.StringRemove;
 import com.helger.base.system.SystemProperties;
 import com.helger.datetime.format.PDTFromString;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class that holds the current class version. Must be a separate class to maintain the
@@ -64,16 +63,16 @@ public final class JavaVersionHelper
                                                                                               59,
                                                                                               0);
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion)
+  static int [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion)
   {
     return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion (), true);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@Nonnull final String sOriginalJavaVersion,
+  static int [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion,
                                      @Nullable final String sJavaRuntimeVersion,
                                      final boolean bThrowExceptionOnError)
   {

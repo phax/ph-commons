@@ -16,15 +16,15 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroDataAware} interface.
@@ -35,7 +35,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 {
   private final StringBuilder m_aSB;
 
-  public MicroDataAware (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public MicroDataAware (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aSB = new StringBuilder (nLen + 16).append (aChars, nOfs, nLen);
@@ -49,7 +49,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
       m_aSB = new StringBuilder (aText);
   }
 
-  @Nonnull
+  @NonNull
   public StringBuilder getData ()
   {
     return m_aSB;
@@ -66,7 +66,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     m_aSB.append (sData);
   }
 
-  public void appendData (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void appendData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.append (aChars, nOfs, nLen);
   }
@@ -81,7 +81,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     m_aSB.insert (0, sData);
   }
 
-  public void prependData (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void prependData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.insert (0, aChars, nOfs, nLen);
   }
@@ -91,7 +91,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     m_aSB.insert (0, cChar);
   }
 
-  @Nonnull
+  @NonNull
   public MicroDataAware getClone ()
   {
     return new MicroDataAware (m_aSB);

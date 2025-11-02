@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
@@ -29,9 +32,6 @@ import com.helger.io.file.FileIOError;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.FilenameHelper;
 import com.helger.io.resource.FileSystemResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An extended {@link IPathRelativeIO} version that uses files as the basis.
@@ -44,13 +44,13 @@ public interface IFileRelativeIO extends IPathRelativeIO
   /**
    * @return The base path. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   File getBasePathFile ();
 
   /**
    * @return The absolute base path that is used. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getBasePath ()
   {
@@ -65,8 +65,8 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @return The "absolute" {@link File} and never <code>null</code>.
    * @see #getBasePathFile()
    */
-  @Nonnull
-  default File getFile (@Nonnull final String sRelativePath)
+  @NonNull
+  default File getFile (@NonNull final String sRelativePath)
   {
     return new File (getBasePathFile (), sRelativePath);
   }
@@ -79,8 +79,8 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @return The "absolute" {@link FileSystemResource} and never <code>null</code>.
    * @see #getBasePathFile()
    */
-  @Nonnull
-  default FileSystemResource getResource (@Nonnull final String sRelativePath)
+  @NonNull
+  default FileSystemResource getResource (@NonNull final String sRelativePath)
   {
     return new FileSystemResource (getFile (sRelativePath));
   }
@@ -93,7 +93,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @return <code>null</code> if the passed file is not a child of this base directory.
    */
   @Nullable
-  default String getRelativeFilename (@Nonnull final File aAbsoluteFile)
+  default String getRelativeFilename (@NonNull final File aAbsoluteFile)
   {
     return FilenameHelper.getRelativeToParentDirectory (aAbsoluteFile, getBasePathFile ());
   }
@@ -107,7 +107,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *         otherwise.
    * @see #getBasePathFile()
    */
-  default boolean existsFile (@Nonnull final String sRelativePath)
+  default boolean existsFile (@NonNull final String sRelativePath)
   {
     return getFile (sRelativePath).isFile ();
   }
@@ -121,7 +121,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *         otherwise.
    * @see #getBasePathFile()
    */
-  default boolean existsDir (@Nonnull final String sRelativePath)
+  default boolean existsDir (@NonNull final String sRelativePath)
   {
     return getFile (sRelativePath).isDirectory ();
   }
@@ -136,7 +136,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @see #getBasePathFile()
    */
   @Nullable
-  default OutputStream getOutputStream (@Nonnull final String sRelativePath)
+  default OutputStream getOutputStream (@NonNull final String sRelativePath)
   {
     return getOutputStream (sRelativePath, EAppend.TRUNCATE);
   }
@@ -152,7 +152,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @see #getBasePathFile()
    */
   @Nullable
-  default OutputStream getOutputStream (@Nonnull final String sRelativePath, @Nonnull final EAppend eAppend)
+  default OutputStream getOutputStream (@NonNull final String sRelativePath, @NonNull final EAppend eAppend)
   {
     return getResource (sRelativePath).getOutputStream (eAppend);
   }
@@ -168,7 +168,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @see #getBasePathFile()
    */
   @Nullable
-  default Writer getWriter (@Nonnull final String sRelativePath, @Nonnull final Charset aCharset)
+  default Writer getWriter (@NonNull final String sRelativePath, @NonNull final Charset aCharset)
   {
     return getWriter (sRelativePath, aCharset, EAppend.TRUNCATE);
   }
@@ -186,9 +186,9 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @see #getBasePathFile()
    */
   @Nullable
-  default Writer getWriter (@Nonnull final String sRelativePath,
-                            @Nonnull final Charset aCharset,
-                            @Nonnull final EAppend eAppend)
+  default Writer getWriter (@NonNull final String sRelativePath,
+                            @NonNull final Charset aCharset,
+                            @NonNull final EAppend eAppend)
   {
     return getResource (sRelativePath).getWriter (aCharset, eAppend);
   }
@@ -203,52 +203,52 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @return Success indicator. Never <code>null</code>.
    * @see #getBasePathFile()
    */
-  @Nonnull
-  default FileIOError createDirectory (@Nonnull final String sRelativePath, final boolean bRecursive)
+  @NonNull
+  default FileIOError createDirectory (@NonNull final String sRelativePath, final boolean bRecursive)
   {
     final File aDir = getFile (sRelativePath);
     return bRecursive ? FileOperationManager.INSTANCE.createDirRecursiveIfNotExisting (aDir)
                       : FileOperationManager.INSTANCE.createDirIfNotExisting (aDir);
   }
 
-  @Nonnull
-  default FileIOError deleteDirectory (@Nonnull final String sRelativePath, final boolean bDeleteRecursively)
+  @NonNull
+  default FileIOError deleteDirectory (@NonNull final String sRelativePath, final boolean bDeleteRecursively)
   {
     final File aDir = getFile (sRelativePath);
     return bDeleteRecursively ? FileOperationManager.INSTANCE.deleteDirRecursive (aDir) : FileOperationManager.INSTANCE
                                                                                                                        .deleteDir (aDir);
   }
 
-  @Nonnull
-  default FileIOError deleteDirectoryIfExisting (@Nonnull final String sRelativePath, final boolean bDeleteRecursively)
+  @NonNull
+  default FileIOError deleteDirectoryIfExisting (@NonNull final String sRelativePath, final boolean bDeleteRecursively)
   {
     final File aDir = getFile (sRelativePath);
     return bDeleteRecursively ? FileOperationManager.INSTANCE.deleteDirRecursiveIfExisting (aDir)
                               : FileOperationManager.INSTANCE.deleteDirIfExisting (aDir);
   }
 
-  @Nonnull
-  default FileIOError deleteFile (@Nonnull final String sRelativePath)
+  @NonNull
+  default FileIOError deleteFile (@NonNull final String sRelativePath)
   {
     return FileOperationManager.INSTANCE.deleteFile (getFile (sRelativePath));
   }
 
-  @Nonnull
-  default FileIOError deleteFileIfExisting (@Nonnull final String sRelativePath)
+  @NonNull
+  default FileIOError deleteFileIfExisting (@NonNull final String sRelativePath)
   {
     return FileOperationManager.INSTANCE.deleteFileIfExisting (getFile (sRelativePath));
   }
 
-  @Nonnull
-  default FileIOError renameDir (@Nonnull final String sOldDirName, @Nonnull final String sNewDirName)
+  @NonNull
+  default FileIOError renameDir (@NonNull final String sOldDirName, @NonNull final String sNewDirName)
   {
     final File fOld = getFile (sOldDirName);
     final File fNew = getFile (sNewDirName);
     return FileOperationManager.INSTANCE.renameDir (fOld, fNew);
   }
 
-  @Nonnull
-  default FileIOError renameFile (@Nonnull final String sOldFilename, @Nonnull final String sNewFilename)
+  @NonNull
+  default FileIOError renameFile (@NonNull final String sOldFilename, @NonNull final String sNewFilename)
   {
     final File fOld = getFile (sOldFilename);
     final File fNew = getFile (sNewFilename);
@@ -266,10 +266,10 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *        the bytes to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess writeFile (@Nonnull final String sRelativePath,
-                              @Nonnull final EAppend eAppend,
-                              @Nonnull final byte [] aBytes)
+  @NonNull
+  default ESuccess writeFile (@NonNull final String sRelativePath,
+                              @NonNull final EAppend eAppend,
+                              @NonNull final byte [] aBytes)
   {
     // save to file
     final OutputStream aOS = getOutputStream (sRelativePath, eAppend);
@@ -291,10 +291,10 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *        The character set to use. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess saveFile (@Nonnull final String sRelativePath,
-                             @Nonnull final String sContent,
-                             @Nonnull final Charset aCharset)
+  @NonNull
+  default ESuccess saveFile (@NonNull final String sRelativePath,
+                             @NonNull final String sContent,
+                             @NonNull final Charset aCharset)
   {
     return saveFile (sRelativePath, sContent.getBytes (aCharset));
   }
@@ -308,8 +308,8 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *        the bytes to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess saveFile (@Nonnull final String sRelativePath, final byte [] aBytes)
+  @NonNull
+  default ESuccess saveFile (@NonNull final String sRelativePath, final byte [] aBytes)
   {
     return writeFile (sRelativePath, EAppend.TRUNCATE, aBytes);
   }
@@ -325,10 +325,10 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *        The character set to use. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess appendFile (@Nonnull final String sRelativePath,
-                               @Nonnull final String sContent,
-                               @Nonnull final Charset aCharset)
+  @NonNull
+  default ESuccess appendFile (@NonNull final String sRelativePath,
+                               @NonNull final String sContent,
+                               @NonNull final Charset aCharset)
   {
     return appendFile (sRelativePath, sContent.getBytes (aCharset));
   }
@@ -342,8 +342,8 @@ public interface IFileRelativeIO extends IPathRelativeIO
    *        the bytes to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  default ESuccess appendFile (@Nonnull final String sRelativePath, @Nonnull final byte [] aBytes)
+  @NonNull
+  default ESuccess appendFile (@NonNull final String sRelativePath, @NonNull final byte [] aBytes)
   {
     return writeFile (sRelativePath, EAppend.APPEND, aBytes);
   }

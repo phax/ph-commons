@@ -20,6 +20,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillClose;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -38,9 +41,6 @@ import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A special {@link ISettingsPersistence} implementation that reads and writes .xml files.
  *
@@ -55,19 +55,19 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   private final ISettingsFactory <T> m_aSettingsFactory;
   private final IXMLWriterSettings m_aXWS;
 
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory)
+  public SettingsPersistenceXML (@NonNull final ISettingsFactory <T> aSettingsFactory)
   {
     this (aSettingsFactory, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public SettingsPersistenceXML (@Nonnull final ISettingsFactory <T> aSettingsFactory,
-                                 @Nonnull final IXMLWriterSettings aXWS)
+  public SettingsPersistenceXML (@NonNull final ISettingsFactory <T> aSettingsFactory,
+                                 @NonNull final IXMLWriterSettings aXWS)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
     m_aXWS = aXWS;
   }
 
-  @Nonnull
+  @NonNull
   public final Charset getCharset ()
   {
     return m_aXWS.getCharset ();
@@ -76,7 +76,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   /**
    * @return The settings factory as specified in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingsFactory;
@@ -85,14 +85,14 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   /**
    * @return The XML writer settings as specified in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IXMLWriterSettings getXMLWriterSettings ()
   {
     return m_aXWS;
   }
 
-  @Nonnull
-  public T readSettings (@Nonnull @WillClose final InputStream aIS)
+  @NonNull
+  public T readSettings (@NonNull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -118,7 +118,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   /**
    * @return The document root element local name. May neither be <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @OverrideOnDemand
   protected String getWriteElementName ()
@@ -126,8 +126,8 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     return "settings";
   }
 
-  @Nonnull
-  public ESuccess writeSettings (@Nonnull final ISettings aSettings, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -153,7 +153,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     }
   }
 
-  @Nonnull
+  @NonNull
   public static SettingsPersistenceXML <Settings> createDefault ()
   {
     return new SettingsPersistenceXML <> (ISettingsFactory.newInstance ());

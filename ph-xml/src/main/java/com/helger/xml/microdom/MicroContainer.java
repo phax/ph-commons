@@ -16,8 +16,8 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Default implementation of the {@link IMicroContainer} interface.
@@ -43,19 +43,19 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
         addChild (aChildNode);
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.CONTAINER;
   }
 
-  @Nonnull
+  @NonNull
   public String getNodeName ()
   {
     return "#container";
   }
 
-  @Nonnull
+  @NonNull
   public IMicroContainer getClone ()
   {
     final IMicroContainer ret = new MicroContainer ();
@@ -71,7 +71,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
    *        The micro node array to add to the {@link IMicroContainer}
    * @return The created {@link IMicroContainer} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static IMicroContainer createWithClones (@Nullable final IMicroNode... aChildNodes)
   {
     final IMicroContainer ret = new MicroContainer ();
@@ -89,7 +89,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
    *        The micro node container to add to the {@link IMicroContainer}
    * @return The created {@link IMicroContainer} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static IMicroContainer createWithClones (@Nullable final Iterable <? extends IMicroNode> aChildNodes)
   {
     final IMicroContainer ret = new MicroContainer ();

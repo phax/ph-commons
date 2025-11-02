@@ -16,10 +16,10 @@
  */
 package com.helger.tree.withid.unique;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.DefaultTreeItemWithID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A managed tree is a specialized version of the tree, where each item is
@@ -41,7 +41,7 @@ public class DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> extends
     this (new DefaultTreeItemWithUniqueIDFactory <> ());
   }
 
-  public DefaultTreeWithGlobalUniqueID (@Nonnull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
+  public DefaultTreeWithGlobalUniqueID (@NonNull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
   {
     super (aFactory);
   }

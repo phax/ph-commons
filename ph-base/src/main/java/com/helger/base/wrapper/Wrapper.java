@@ -16,6 +16,9 @@
  */
 package com.helger.base.wrapper;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
@@ -24,9 +27,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a stupid wrapper around any object. Its original purpose was the encapsulation of return
@@ -64,7 +64,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
    * @param aRhs
    *        The other wrapper to use. May not be <code>null</code>.
    */
-  public Wrapper (@Nonnull final IWrapper <DATATYPE> aRhs)
+  public Wrapper (@NonNull final IWrapper <DATATYPE> aRhs)
   {
     m_aObj = ValueEnforcer.notNull (aRhs, "Wrapper").get ();
   }
@@ -75,7 +75,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     return m_aObj;
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (@Nullable final DATATYPE aObj)
   {
     if (EqualsHelper.equals (m_aObj, aObj))
@@ -84,7 +84,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     return EChange.CHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Wrapper <DATATYPE> getClone ()
   {

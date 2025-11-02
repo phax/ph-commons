@@ -18,14 +18,13 @@ package com.helger.base.system;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasDisplayName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This enumeration is used to determine the currently running Operating system.
@@ -106,13 +105,13 @@ public enum EOperatingSystem implements IHasDisplayName
    *        <code>true</code> if this OS is Unix based, <code>false</code> if
    *        not
    */
-  EOperatingSystem (@Nonnull @Nonempty final String sDisplayName, final boolean bUnixBased)
+  EOperatingSystem (@NonNull @Nonempty final String sDisplayName, final boolean bUnixBased)
   {
     m_sDisplayName = sDisplayName;
     m_bUnixBased = bUnixBased;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {
@@ -180,7 +179,7 @@ public enum EOperatingSystem implements IHasDisplayName
   /**
    * @return The newline mode matching this operating system.
    */
-  @Nonnull
+  @NonNull
   public ENewLineMode getNewLineMode ()
   {
     if (isWindowsBased ())
@@ -200,7 +199,7 @@ public enum EOperatingSystem implements IHasDisplayName
    *         could not be determined, {@link #UNKNOWN} is returned and never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EOperatingSystem forName (@Nullable final String sOSName)
   {
     if (sOSName == null)
@@ -229,7 +228,7 @@ public enum EOperatingSystem implements IHasDisplayName
   /**
    * @return The current OS. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EOperatingSystem getCurrentOS ()
   {
     return INSTANCE;

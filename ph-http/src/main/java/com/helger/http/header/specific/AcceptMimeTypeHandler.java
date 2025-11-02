@@ -16,6 +16,8 @@
  */
 package com.helger.http.header.specific;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,6 @@ import com.helger.mime.EMimeContentType;
 import com.helger.mime.IMimeType;
 import com.helger.mime.MimeType;
 import com.helger.mime.parse.MimeTypeParser;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handler for the request HTTP header field "Accept"
@@ -51,7 +50,7 @@ public final class AcceptMimeTypeHandler
   private AcceptMimeTypeHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   public static AcceptMimeTypeList getAcceptMimeTypes (@Nullable final String sAcceptMimeTypes)
   {
     final AcceptMimeTypeList ret = new AcceptMimeTypeList ();

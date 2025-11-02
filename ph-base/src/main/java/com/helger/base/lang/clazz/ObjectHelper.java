@@ -16,11 +16,11 @@
  */
 package com.helger.base.lang.clazz;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class ObjectHelper
 {
@@ -38,7 +38,7 @@ public final class ObjectHelper
    *         the address.
    * @see System#identityHashCode(Object)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getObjectAddress (@Nullable final Object aObject)
   {

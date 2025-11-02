@@ -19,6 +19,8 @@ package com.helger.text.codepoint;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -29,8 +31,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringEncoding;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single Unicode Codepoint
@@ -51,12 +51,12 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aEncoding
    *        Charset
    */
-  public Codepoint (@Nonnull final byte [] aBytes, @Nonnull final Charset aEncoding)
+  public Codepoint (@NonNull final byte [] aBytes, @NonNull final Charset aEncoding)
   {
     this (StringEncoding.decodeBytesToChars (aBytes, aEncoding));
   }
 
-  private static int _getValueFromCharSequence (@Nonnull final CharSequence s)
+  private static int _getValueFromCharSequence (@NonNull final CharSequence s)
   {
     ValueEnforcer.notNull (s, "CharSequence");
     final int nLength = s.length ();
@@ -73,7 +73,7 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aCS
    *        {@link CharSequence}
    */
-  public Codepoint (@Nonnull final CharSequence aCS)
+  public Codepoint (@NonNull final CharSequence aCS)
   {
     this (_getValueFromCharSequence (aCS));
   }
@@ -84,12 +84,12 @@ public class Codepoint implements IComparable <Codepoint>
    * @param sValue
    *        String
    */
-  public Codepoint (@Nonnull final String sValue)
+  public Codepoint (@NonNull final String sValue)
   {
     this (sValue.toCharArray ());
   }
 
-  private static int _getValueFromCharArray (@Nonnull final char [] aChars)
+  private static int _getValueFromCharArray (@NonNull final char [] aChars)
   {
     ValueEnforcer.notEmpty (aChars, "CharArray");
     final int nLength = aChars.length;
@@ -106,7 +106,7 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aChars
    *        char array
    */
-  public Codepoint (@Nonnull final char [] aChars)
+  public Codepoint (@NonNull final char [] aChars)
   {
     this (_getValueFromCharArray (aChars));
   }
@@ -141,7 +141,7 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aCodepoint
    *        Object to copy
    */
-  public Codepoint (@Nonnull final Codepoint aCodepoint)
+  public Codepoint (@NonNull final Codepoint aCodepoint)
   {
     this (aCodepoint.m_nValue);
   }
@@ -244,14 +244,14 @@ public class Codepoint implements IComparable <Codepoint>
     return Character.isLetterOrDigit (m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
     return CodepointHelper.getAsString (m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public char [] getAsChars ()
   {
@@ -268,8 +268,8 @@ public class Codepoint implements IComparable <Codepoint>
     return Character.charCount (m_nValue);
   }
 
-  @Nonnull
-  public byte [] getAsBytes (@Nonnull final Charset aCharset)
+  @NonNull
+  public byte [] getAsBytes (@NonNull final Charset aCharset)
   {
     return getAsString ().getBytes (aCharset);
   }
@@ -295,7 +295,7 @@ public class Codepoint implements IComparable <Codepoint>
   /**
    * @return Get the next codepoint
    */
-  @Nonnull
+  @NonNull
   public final Codepoint next ()
   {
     if (m_nValue == Character.MAX_CODE_POINT)
@@ -306,7 +306,7 @@ public class Codepoint implements IComparable <Codepoint>
   /**
    * @return Get the previous codepoint
    */
-  @Nonnull
+  @NonNull
   public final Codepoint previous ()
   {
     if (m_nValue == Character.MIN_CODE_POINT)
@@ -314,12 +314,12 @@ public class Codepoint implements IComparable <Codepoint>
     return new Codepoint (m_nValue - 1);
   }
 
-  public void appendTo (@Nonnull final StringBuilder aSB)
+  public void appendTo (@NonNull final StringBuilder aSB)
   {
     aSB.append (getAsChars ());
   }
 
-  public int compareTo (@Nonnull final Codepoint o)
+  public int compareTo (@NonNull final Codepoint o)
   {
     return CompareHelper.compare (m_nValue, o.m_nValue);
   }

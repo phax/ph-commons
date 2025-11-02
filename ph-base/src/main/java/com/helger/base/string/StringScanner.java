@@ -16,12 +16,12 @@
  */
 package com.helger.base.string;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Simple string scanner.
@@ -35,7 +35,7 @@ public class StringScanner
   private final int m_nMaxIndex;
   private int m_nCurIndex = 0;
 
-  public StringScanner (@Nonnull final String sInput)
+  public StringScanner (@NonNull final String sInput)
   {
     m_sInput = ValueEnforcer.notNull (sInput, "Input");
     m_nMaxIndex = sInput.length ();
@@ -53,7 +53,7 @@ public class StringScanner
     return m_nMaxIndex - m_nCurIndex;
   }
 
-  @Nonnull
+  @NonNull
   public StringScanner skipWhitespaces ()
   {
     while (m_nCurIndex < m_nMaxIndex && Character.isWhitespace (getCurrentChar ()))
@@ -61,7 +61,7 @@ public class StringScanner
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public StringScanner skipbackWhitespaces ()
   {
     while (m_nCurIndex > 0 && m_nCurIndex < m_nMaxIndex && Character.isWhitespace (getCurrentChar ()))
@@ -69,14 +69,14 @@ public class StringScanner
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public StringScanner skip (final int nCount)
   {
     m_nCurIndex = Math.min (Math.max (m_nCurIndex + nCount, 0), m_nMaxIndex);
     return this;
   }
 
-  public int findFirstIndex (@Nonnull final char... aChars)
+  public int findFirstIndex (@NonNull final char... aChars)
   {
     int ret = -1;
     for (final char c : aChars)
@@ -110,7 +110,7 @@ public class StringScanner
     return getCurrentChar () == c;
   }
 
-  @Nonnull
+  @NonNull
   public StringScanner setIndex (@Nonnegative final int nIndex)
   {
     ValueEnforcer.isBetweenInclusive (nIndex, "Index", 0, m_nMaxIndex);
@@ -123,7 +123,7 @@ public class StringScanner
    *
    * @return The remaining string. May not be <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   public String getRest ()
   {
     final String ret = m_sInput.substring (m_nCurIndex);
@@ -131,7 +131,7 @@ public class StringScanner
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public String getUntilIndex (final int nEndIndex)
   {
     final String ret = m_sInput.substring (m_nCurIndex, nEndIndex);
@@ -139,7 +139,7 @@ public class StringScanner
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public String getUntilWhiteSpace ()
   {
     final int nStart = m_nCurIndex;
@@ -156,7 +156,7 @@ public class StringScanner
    * @return A non-<code>null</code> string with all characters from the current index until the end
    *         character, but not including the end character.
    */
-  @Nonnull
+  @NonNull
   public String getUntil (final char cEndExcl)
   {
     final int nStart = m_nCurIndex;
@@ -165,7 +165,7 @@ public class StringScanner
     return m_sInput.substring (nStart, m_nCurIndex);
   }
 
-  @Nonnull
+  @NonNull
   public String getUntilBalanced (final int nStartLevel, final char cOpenChar, final char cCloseChar)
   {
     final int nStart = m_nCurIndex;

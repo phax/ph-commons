@@ -16,12 +16,12 @@
  */
 package com.helger.base.thirdparty;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.version.IHasVersion;
 import com.helger.base.version.Version;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents meta information for a single third-party module (aka JAR file).
@@ -33,13 +33,13 @@ public interface IThirdPartyModule extends IHasDisplayName, IHasVersion
   /**
    * @return The copyright owner of this module. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getCopyrightOwner ();
 
   /**
    * @return The license used by this module. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ILicense getLicense ();
 
   /**
@@ -66,13 +66,13 @@ public interface IThirdPartyModule extends IHasDisplayName, IHasVersion
    * @return A copy of this module but being optional. If this module is already
    *         optional, <code>this</code> is returned.
    */
-  @Nonnull
+  @NonNull
   IThirdPartyModule getAsOptionalCopy ();
 
   /**
    * @return A copy of this module but without being optional. If this module is
    *         not optional, <code>this</code> is returned.
    */
-  @Nonnull
+  @NonNull
   IThirdPartyModule getAsNonOptionalCopy ();
 }

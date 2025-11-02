@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom.convert;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This is the callback interface implemented by
@@ -37,5 +37,5 @@ public interface IMicroTypeConverterRegistry
    * @param <T>
    *        Data type
    */
-  <T> void registerMicroElementTypeConverter (@Nonnull Class <T> aClass, @Nonnull IMicroTypeConverter <T> aConverter);
+  <T> void registerMicroElementTypeConverter (@NonNull Class <T> aClass, @NonNull IMicroTypeConverter <T> aConverter);
 }

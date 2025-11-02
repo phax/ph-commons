@@ -16,14 +16,14 @@
  */
 package com.helger.graph.simple;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphObjectFactory;
 import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.impl.Graph;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A simple graph object that bidirectionally links graph nodes.
@@ -38,13 +38,13 @@ public class SimpleGraph extends Graph implements ISimpleGraph
     this (new SimpleGraphObjectFactory ());
   }
 
-  public SimpleGraph (@Nonnull final IMutableGraphObjectFactory aFactory)
+  public SimpleGraph (@NonNull final IMutableGraphObjectFactory aFactory)
   {
     super (null, aFactory);
   }
 
-  @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final String sFromNodeID, @Nonnull final String sToNodeID)
+  @NonNull
+  public IMutableGraphRelation createRelation (@NonNull final String sFromNodeID, @NonNull final String sToNodeID)
   {
     final IMutableGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)
@@ -55,10 +55,10 @@ public class SimpleGraph extends Graph implements ISimpleGraph
     return createRelation (aFromNode, aToNode);
   }
 
-  @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull @Nonempty final String sRelationID,
-                                               @Nonnull final String sFromNodeID,
-                                               @Nonnull final String sToNodeID)
+  @NonNull
+  public IMutableGraphRelation createRelation (@NonNull @Nonempty final String sRelationID,
+                                               @NonNull final String sFromNodeID,
+                                               @NonNull final String sToNodeID)
   {
     final IMutableGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)

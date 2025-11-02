@@ -18,6 +18,8 @@ package com.helger.mime.determine;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.collection.commons.ICommonsSet;
 import com.helger.mime.CMimeType;
 import com.helger.mime.IMimeType;
 import com.helger.mime.MimeTypeContent;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains a basic set of MimeType determination method.
@@ -129,7 +128,7 @@ public final class MimeTypeDeterminator
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static MimeTypeDeterminator getInstance ()
   {
     final MimeTypeDeterminator ret = SingletonHolder.INSTANCE;
@@ -144,8 +143,8 @@ public final class MimeTypeDeterminator
    *        The content type to register. May not be <code>null</code>.
    * @return {@link EChange#CHANGED} if the object was successfully registered.
    */
-  @Nonnull
-  public EChange registerMimeTypeContent (@Nonnull final MimeTypeContent aMimeTypeContent)
+  @NonNull
+  public EChange registerMimeTypeContent (@NonNull final MimeTypeContent aMimeTypeContent)
   {
     ValueEnforcer.notNull (aMimeTypeContent, "MimeTypeContent");
 
@@ -160,7 +159,7 @@ public final class MimeTypeDeterminator
    * @return {@link EChange#CHANGED} if the object was successfully
    *         unregistered.
    */
-  @Nonnull
+  @NonNull
   public EChange unregisterMimeTypeContent (@Nullable final MimeTypeContent aMimeTypeContent)
   {
     if (aMimeTypeContent == null)
@@ -180,8 +179,8 @@ public final class MimeTypeDeterminator
    * @return {@link #DEFAULT_MIME_TYPE} if no matching MIME type was found.
    *         Never <code>null</code>.
    */
-  @Nonnull
-  public IMimeType getMimeTypeFromString (@Nullable final String s, @Nonnull final Charset aCharset)
+  @NonNull
+  public IMimeType getMimeTypeFromString (@Nullable final String s, @NonNull final Charset aCharset)
   {
     return getMimeTypeFromString (s, aCharset, DEFAULT_MIME_TYPE);
   }
@@ -201,7 +200,7 @@ public final class MimeTypeDeterminator
    *         <code>null</code>.
    */
   @Nullable
-  public IMimeType getMimeTypeFromString (@Nullable final String s, @Nonnull final Charset aCharset, @Nullable final IMimeType aDefault)
+  public IMimeType getMimeTypeFromString (@Nullable final String s, @NonNull final Charset aCharset, @Nullable final IMimeType aDefault)
   {
     return getMimeTypeFromBytes (s == null ? null : s.getBytes (aCharset), aDefault);
   }
@@ -214,7 +213,7 @@ public final class MimeTypeDeterminator
    * @return {@link #DEFAULT_MIME_TYPE} if no specific MIME type was found.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IMimeType getMimeTypeFromBytes (@Nullable final byte [] b)
   {
     return getMimeTypeFromBytes (b, DEFAULT_MIME_TYPE);
@@ -251,7 +250,7 @@ public final class MimeTypeDeterminator
    * @return A copy of all registered {@link MimeTypeContent} objects. Never
    *         <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <MimeTypeContent> getAllMimeTypeContents ()
   {

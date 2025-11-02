@@ -22,10 +22,10 @@ import java.util.function.IntPredicate;
 import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
-import com.helger.annotation.concurrent.Immutable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Some globally usable predicates.
@@ -39,151 +39,151 @@ public final class Predicates
   private Predicates ()
   {}
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> Predicate <DATATYPE> all ()
   {
     return x -> true;
   }
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> Predicate <DATATYPE> none ()
   {
     return x -> false;
   }
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> Predicate <DATATYPE> notNull ()
   {
     return Objects::nonNull;
   }
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> Predicate <DATATYPE> isNull ()
   {
     return Objects::isNull;
   }
 
-  @Nonnull
+  @NonNull
   public static ICharPredicate charIsEQ0 ()
   {
     return x -> x == 0;
   }
 
-  @Nonnull
+  @NonNull
   public static ICharPredicate charIsNE0 ()
   {
     return x -> x != 0;
   }
 
-  @Nonnull
+  @NonNull
   public static ICharPredicate charIsGT0 ()
   {
     return x -> x > 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsLT0 ()
   {
     return x -> x < 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsLE0 ()
   {
     return x -> x <= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsEQ0 ()
   {
     return x -> x == 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsNE0 ()
   {
     return x -> x != 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsGE0 ()
   {
     return x -> x >= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static DoublePredicate doubleIsGT0 ()
   {
     return x -> x > 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsLT0 ()
   {
     return x -> x < 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsLE0 ()
   {
     return x -> x <= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsEQ0 ()
   {
     return x -> x == 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsNE0 ()
   {
     return x -> x != 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsGE0 ()
   {
     return x -> x >= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static IntPredicate intIsGT0 ()
   {
     return x -> x > 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsLT0 ()
   {
     return x -> x < 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsLE0 ()
   {
     return x -> x <= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsEQ0 ()
   {
     return x -> x == 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsNE0 ()
   {
     return x -> x != 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsGE0 ()
   {
     return x -> x >= 0;
   }
 
-  @Nonnull
+  @NonNull
   public static LongPredicate longIsGT0 ()
   {
     return x -> x > 0;

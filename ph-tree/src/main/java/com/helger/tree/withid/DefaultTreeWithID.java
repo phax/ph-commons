@@ -16,9 +16,9 @@
  */
 package com.helger.tree.withid;
 
-import com.helger.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Root class for a simple tree. The elements of the tree are not sorted by any
@@ -38,7 +38,7 @@ public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends BasicTreeWithID <KEYT
     this (new DefaultTreeItemWithIDFactory <> ());
   }
 
-  public DefaultTreeWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
+  public DefaultTreeWithID (@NonNull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
   {
     super (aFactory);
   }

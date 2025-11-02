@@ -21,6 +21,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -30,9 +33,6 @@ import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
 import com.helger.cache.impl.Cache;
 import com.helger.datetime.EDTType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Create common {@link DateTimeFormatter} objects used for printing and parsing date and time
@@ -56,10 +56,10 @@ public final class PDTFormatter
     private final FormatStyle m_eStyle;
     private final EDTFormatterMode m_eMode;
 
-    CacheKey (@Nonnull final EDTType eDTType,
+    CacheKey (@NonNull final EDTType eDTType,
               @Nullable final Locale aLocale,
-              @Nonnull final FormatStyle eStyle,
-              @Nonnull final EDTFormatterMode eMode)
+              @NonNull final FormatStyle eStyle,
+              @NonNull final EDTFormatterMode eMode)
     {
       ValueEnforcer.notNull (eDTType, "DTType");
       ValueEnforcer.notNull (eStyle, "Style");
@@ -143,8 +143,8 @@ public final class PDTFormatter
       }, 1_000, LocalizedDateFormatCache.class.getName ());
     }
 
-    @Nonnull
-    public static String getSourcePattern (@Nonnull final CacheKey aKey)
+    @NonNull
+    public static String getSourcePattern (@NonNull final CacheKey aKey)
     {
       switch (aKey.m_eDTType)
       {
@@ -178,7 +178,7 @@ public final class PDTFormatter
   private PDTFormatter ()
   {}
 
-  @Nonnull
+  @NonNull
   public static FormatStyle toFormatStyle (final int nStyle)
   {
     switch (nStyle)
@@ -196,7 +196,7 @@ public final class PDTFormatter
     }
   }
 
-  public static int toDateStyle (@Nonnull final FormatStyle eStyle)
+  public static int toDateStyle (@NonNull final FormatStyle eStyle)
   {
     switch (eStyle)
     {
@@ -213,11 +213,11 @@ public final class PDTFormatter
     }
   }
 
-  @Nonnull
-  public static String getPattern (@Nonnull final EDTType eDTType,
+  @NonNull
+  public static String getPattern (@NonNull final EDTType eDTType,
                                    @Nullable final Locale aLocale,
-                                   @Nonnull final FormatStyle eStyle,
-                                   @Nonnull final EDTFormatterMode eMode)
+                                   @NonNull final FormatStyle eStyle,
+                                   @NonNull final EDTFormatterMode eMode)
   {
     return LocalizedDateFormatCache.getSourcePattern (new CacheKey (eDTType, aLocale, eStyle, eMode));
   }
@@ -231,8 +231,8 @@ public final class PDTFormatter
    *        The display locale to be used. May be <code>null</code>.
    * @return The modified date time formatter. Never <code>null</code>.
    */
-  @Nonnull
-  public static DateTimeFormatter getWithLocale (@Nonnull final DateTimeFormatter aFormatter,
+  @NonNull
+  public static DateTimeFormatter getWithLocale (@NonNull final DateTimeFormatter aFormatter,
                                                  @Nullable final Locale aDisplayLocale)
   {
     DateTimeFormatter ret = aFormatter;
@@ -241,8 +241,8 @@ public final class PDTFormatter
     return ret;
   }
 
-  @Nonnull
-  private static DateTimeFormatter _getFormatter (@Nonnull final CacheKey aCacheKey,
+  @NonNull
+  private static DateTimeFormatter _getFormatter (@NonNull final CacheKey aCacheKey,
                                                   @Nullable final Locale aDisplayLocale)
   {
     final DateTimeFormatter aFormatter = PARSER_CACHE.getFromCache (aCacheKey);
@@ -261,10 +261,10 @@ public final class PDTFormatter
    * @return The created date formatter. Never <code>null</code>.
    * @since 8.5.6
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterDate (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterDate (@NonNull final FormatStyle eStyle,
                                                     @Nullable final Locale aDisplayLocale,
-                                                    @Nonnull final EDTFormatterMode eMode)
+                                                    @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_DATE, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -281,10 +281,10 @@ public final class PDTFormatter
    * @return The created date formatter. Never <code>null</code>.
    * @since 10.1.2
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterOffsetDate (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterOffsetDate (@NonNull final FormatStyle eStyle,
                                                           @Nullable final Locale aDisplayLocale,
-                                                          @Nonnull final EDTFormatterMode eMode)
+                                                          @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.OFFSET_DATE, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -301,10 +301,10 @@ public final class PDTFormatter
    * @return The created time formatter. Never <code>null</code>.
    * @since 8.5.6
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterTime (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterTime (@NonNull final FormatStyle eStyle,
                                                     @Nullable final Locale aDisplayLocale,
-                                                    @Nonnull final EDTFormatterMode eMode)
+                                                    @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -321,10 +321,10 @@ public final class PDTFormatter
    * @return The created time formatter. Never <code>null</code>.
    * @since 10.0.0
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterOffsetTime (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterOffsetTime (@NonNull final FormatStyle eStyle,
                                                           @Nullable final Locale aDisplayLocale,
-                                                          @Nonnull final EDTFormatterMode eMode)
+                                                          @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.OFFSET_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -341,10 +341,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    * @since 8.5.6
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterDateTime (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterDateTime (@NonNull final FormatStyle eStyle,
                                                         @Nullable final Locale aDisplayLocale,
-                                                        @Nonnull final EDTFormatterMode eMode)
+                                                        @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.LOCAL_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -361,10 +361,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    * @since 10.1.2
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterOffsetDateTime (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterOffsetDateTime (@NonNull final FormatStyle eStyle,
                                                               @Nullable final Locale aDisplayLocale,
-                                                              @Nonnull final EDTFormatterMode eMode)
+                                                              @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.OFFSET_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -381,10 +381,10 @@ public final class PDTFormatter
    * @return The created date time formatter. Never <code>null</code>.
    * @since 10.1.2
    */
-  @Nonnull
-  public static DateTimeFormatter getFormatterZonedDateTime (@Nonnull final FormatStyle eStyle,
+  @NonNull
+  public static DateTimeFormatter getFormatterZonedDateTime (@NonNull final FormatStyle eStyle,
                                                              @Nullable final Locale aDisplayLocale,
-                                                             @Nonnull final EDTFormatterMode eMode)
+                                                             @NonNull final EDTFormatterMode eMode)
   {
     return _getFormatter (new CacheKey (EDTType.ZONED_DATE_TIME, aDisplayLocale, eStyle, eMode), aDisplayLocale);
   }
@@ -398,8 +398,8 @@ public final class PDTFormatter
    * @throws IllegalArgumentException
    *         If the pattern is illegal
    */
-  @Nonnull
-  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern)
+  @NonNull
+  public static DateTimeFormatter getForPattern (@NonNull final String sPattern)
   {
     return getForPattern (sPattern, null);
   }
@@ -416,8 +416,8 @@ public final class PDTFormatter
    * @throws IllegalArgumentException
    *         If the pattern is illegal
    */
-  @Nonnull
-  public static DateTimeFormatter getForPattern (@Nonnull final String sPattern, @Nullable final Locale aDisplayLocale)
+  @NonNull
+  public static DateTimeFormatter getForPattern (@NonNull final String sPattern, @Nullable final Locale aDisplayLocale)
   {
     final DateTimeFormatter aDTF = DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
     return getWithLocale (aDTF, aDisplayLocale);

@@ -18,6 +18,9 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
 import com.helger.base.equals.EqualsHelper;
@@ -26,9 +29,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.tree.withid.BasicTreeItemWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base implementation of the {@link IFolderTreeItem} interface.
@@ -58,7 +58,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
    * @param aFactory
    *        The item factory to use.
    */
-  public BasicFolderTreeItem (@Nonnull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory)
+  public BasicFolderTreeItem (@NonNull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory)
   {
     super (aFactory);
     m_aKeyCombinator = aFactory.getKeyCombinator ();
@@ -72,7 +72,7 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
    * @param aDataID
    *        The data ID of the root item.
    */
-  public BasicFolderTreeItem (@Nonnull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory,
+  public BasicFolderTreeItem (@NonNull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE> aFactory,
                               @Nullable final KEYTYPE aDataID)
   {
     super (aFactory, aDataID);
@@ -88,14 +88,14 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public BasicFolderTreeItem (@Nonnull final ITEMTYPE aParent, @Nonnull final KEYTYPE aDataID)
+  public BasicFolderTreeItem (@NonNull final ITEMTYPE aParent, @NonNull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
     // Cast is necessary to access the implementation
     m_aKeyCombinator = ((BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>) aParent).m_aKeyCombinator;
   }
 
-  @Nonnull
+  @NonNull
   public final KEYTYPE getGlobalUniqueDataID ()
   {
     if (m_aKeyCombinator == null)

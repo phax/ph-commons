@@ -24,6 +24,8 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.InputSource;
 
 import com.helger.annotation.Nonnegative;
@@ -37,9 +39,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Factory class to create the correct {@link InputSource} objects for different input types.
@@ -56,31 +55,31 @@ public final class InputSourceFactory
   {}
 
   @Nullable
-  public static InputSource create (@Nonnull final File aFile)
+  public static InputSource create (@NonNull final File aFile)
   {
     return create (new FileSystemResource (aFile));
   }
 
   @Nullable
-  public static InputSource create (@Nonnull final Path aPath)
+  public static InputSource create (@NonNull final Path aPath)
   {
     return create (new FileSystemResource (aPath));
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final URI aURI)
+  @NonNull
+  public static InputSource create (@NonNull final URI aURI)
   {
     return create (URLHelper.getAsURL (aURI));
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final URL aURL)
+  @NonNull
+  public static InputSource create (@NonNull final URL aURL)
   {
     return create (new URLResource (aURL));
   }
 
   @Nullable
-  public static InputSource create (@Nonnull final IHasInputStream aISP)
+  public static InputSource create (@NonNull final IHasInputStream aISP)
   {
     if (aISP instanceof final IReadableResource aRes)
       return create (aRes);
@@ -88,7 +87,7 @@ public final class InputSourceFactory
   }
 
   @Nullable
-  public static InputSource create (@Nonnull final IReadableResource aResource)
+  public static InputSource create (@NonNull final IReadableResource aResource)
   {
     if (aResource instanceof FileSystemResource)
     {
@@ -111,48 +110,48 @@ public final class InputSourceFactory
     return new ReadableResourceSAXInputSource (aResource);
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final CharSequence aXML)
+  @NonNull
+  public static InputSource create (@NonNull final CharSequence aXML)
   {
     return new StringSAXInputSource (aXML);
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final String sXML)
+  @NonNull
+  public static InputSource create (@NonNull final String sXML)
   {
     return new StringSAXInputSource (sXML);
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final char [] aXML)
+  @NonNull
+  public static InputSource create (@NonNull final char [] aXML)
   {
     return new StringSAXInputSource (aXML);
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final char [] aXML,
+  @NonNull
+  public static InputSource create (@NonNull final char [] aXML,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
     return new StringSAXInputSource (aXML, nOfs, nLen);
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final byte [] aXML)
+  @NonNull
+  public static InputSource create (@NonNull final byte [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final byte [] aXML,
+  @NonNull
+  public static InputSource create (@NonNull final byte [] aXML,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }
 
-  @Nonnull
-  public static InputSource create (@Nonnull final ByteBuffer aXML)
+  @NonNull
+  public static InputSource create (@NonNull final ByteBuffer aXML)
   {
     return create (new ByteBufferInputStream (aXML));
   }

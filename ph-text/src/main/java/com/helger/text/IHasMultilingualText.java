@@ -16,7 +16,7 @@
  */
 package com.helger.text;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Basic interface for object providing multilingual texts.
@@ -31,6 +31,6 @@ public interface IHasMultilingualText
    *
    * @return May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMultilingualText getMultilingualText ();
 }

@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +42,6 @@ import com.helger.base.name.IHasName;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some enum utility methods.
@@ -65,23 +64,23 @@ public final class EnumHelper
   {}
 
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@NonNull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
     return findFirst (aClass, aFilter, null);
   }
 
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@NonNull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter,
                                                                        @Nullable final ENUMTYPE eDefault)
   {
     return ArrayHelper.findFirst (aClass.getEnumConstants (), aFilter, eDefault);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> getAll (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> getAll (@NonNull final Class <ENUMTYPE> aClass,
                                                                            @Nullable final Predicate <? super ENUMTYPE> aFilter)
   {
     if (aFilter == null)
@@ -108,7 +107,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given ID is present.
    */
   @Nullable
-  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrNull (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                          @Nullable final KEYTYPE aID)
   {
     return getFromIDOrDefault (aClass, aID, null);
@@ -130,7 +129,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
-  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrDefault (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                             @Nullable final KEYTYPE aID,
                                                                                                             @Nullable final ENUMTYPE eDefault)
   {
@@ -157,8 +156,8 @@ public final class EnumHelper
    * @throws IllegalArgumentException
    *         if no enum item with the given ID is present
    */
-  @Nonnull
-  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  @NonNull
+  public static <KEYTYPE, ENUMTYPE extends Enum <ENUMTYPE> & IHasID <KEYTYPE>> ENUMTYPE getFromIDOrThrow (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                           @Nullable final KEYTYPE aID)
   {
     final ENUMTYPE aEnum = getFromIDOrNull (aClass, aID);
@@ -179,7 +178,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrNull (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                               @Nullable final String sID)
   {
     return getFromIDCaseInsensitiveOrDefault (aClass, sID, null);
@@ -199,7 +198,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrDefault (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                                  @Nullable final String sID,
                                                                                                                  @Nullable final ENUMTYPE eDefault)
   {
@@ -224,8 +223,8 @@ public final class EnumHelper
    * @throws IllegalArgumentException
    *         if no enum item with the given ID is present
    */
-  @Nonnull
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  @NonNull
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasID <String>> ENUMTYPE getFromIDCaseInsensitiveOrThrow (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                                @Nullable final String sID)
   {
     final ENUMTYPE aEnum = getFromIDCaseInsensitiveOrNull (aClass, sID);
@@ -246,7 +245,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrNull (@NonNull final Class <ENUMTYPE> aClass,
                                                                                          final int nID)
   {
     return getFromIDOrDefault (aClass, nID, null);
@@ -266,7 +265,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrDefault (@NonNull final Class <ENUMTYPE> aClass,
                                                                                             final int nID,
                                                                                             @Nullable final ENUMTYPE eDefault)
   {
@@ -335,8 +334,8 @@ public final class EnumHelper
    * @throws IllegalArgumentException
    *         if no enum item with the given ID is present
    */
-  @Nonnull
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  @NonNull
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasIntID> ENUMTYPE getFromIDOrThrow (@NonNull final Class <ENUMTYPE> aClass,
                                                                                           final int nID)
   {
     final ENUMTYPE aEnum = getFromIDOrNull (aClass, nID);
@@ -357,7 +356,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given name is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrNull (@NonNull final Class <ENUMTYPE> aClass,
                                                                                           @Nullable final String sName)
   {
     return getFromNameOrDefault (aClass, sName, null);
@@ -377,7 +376,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given name is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrDefault (@NonNull final Class <ENUMTYPE> aClass,
                                                                                              @Nullable final String sName,
                                                                                              @Nullable final ENUMTYPE eDefault)
   {
@@ -402,8 +401,8 @@ public final class EnumHelper
    * @throws IllegalArgumentException
    *         if no enum item with the given name is present
    */
-  @Nonnull
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  @NonNull
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameOrThrow (@NonNull final Class <ENUMTYPE> aClass,
                                                                                            @Nullable final String sName)
   {
     final ENUMTYPE aEnum = getFromNameOrNull (aClass, sName);
@@ -424,7 +423,7 @@ public final class EnumHelper
    * @return <code>null</code> if no enum item with the given ID is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrNull (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrNull (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                          @Nullable final String sName)
   {
     return getFromNameCaseInsensitiveOrDefault (aClass, sName, null);
@@ -444,7 +443,7 @@ public final class EnumHelper
    * @return The default parameter if no enum item with the given name is present.
    */
   @Nullable
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrDefault (@Nonnull final Class <ENUMTYPE> aClass,
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrDefault (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                             @Nullable final String sName,
                                                                                                             @Nullable final ENUMTYPE eDefault)
   {
@@ -469,8 +468,8 @@ public final class EnumHelper
    * @throws IllegalArgumentException
    *         if no enum item with the given name is present
    */
-  @Nonnull
-  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrThrow (@Nonnull final Class <ENUMTYPE> aClass,
+  @NonNull
+  public static <ENUMTYPE extends Enum <ENUMTYPE> & IHasName> ENUMTYPE getFromNameCaseInsensitiveOrThrow (@NonNull final Class <ENUMTYPE> aClass,
                                                                                                           @Nullable final String sName)
   {
     final ENUMTYPE aEnum = getFromNameCaseInsensitiveOrNull (aClass, sName);
@@ -487,15 +486,15 @@ public final class EnumHelper
    * @return The unique ID as a combination of the class name and the enum entry name. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public static String getEnumID (@Nonnull final Enum <?> aEnum)
+  @NonNull
+  public static String getEnumID (@NonNull final Enum <?> aEnum)
   {
     // No explicit null check, because this method is used heavily in
     // locale resolving, so we want to spare some CPU cycles :)
     return aEnum.getClass ().getName () + '.' + aEnum.name ();
   }
 
-  @Nonnull
+  @NonNull
   public static EChange clearCache ()
   {
     return RW_LOCK_INTCACHE.writeLockedGet ( () -> {

@@ -19,6 +19,9 @@ package com.helger.base.codec.base64;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -30,9 +33,6 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Encoder and decoder for Base64
@@ -50,9 +50,9 @@ public class Base64Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen * 4 / 3, 4);
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected Base64OutputStream createBase64OutputStream (@Nonnull @WillNotClose final OutputStream aOS)
+  protected Base64OutputStream createBase64OutputStream (@NonNull @WillNotClose final OutputStream aOS)
   {
     return new Base64OutputStream (new NonClosingOutputStream (aOS));
   }
@@ -60,7 +60,7 @@ public class Base64Codec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null || nLen == 0)
       return;
@@ -91,9 +91,9 @@ public class Base64Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen, 4) * 3 / 4;
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  protected Base64InputStream createBase64InputStream (@Nonnull final NonBlockingByteArrayInputStream aBAIS)
+  protected Base64InputStream createBase64InputStream (@NonNull final NonBlockingByteArrayInputStream aBAIS)
   {
     return new Base64InputStream (aBAIS);
   }
@@ -101,7 +101,7 @@ public class Base64Codec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer != null)
       try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncodedBuffer,

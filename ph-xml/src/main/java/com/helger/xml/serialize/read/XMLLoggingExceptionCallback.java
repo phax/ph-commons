@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -29,9 +31,6 @@ import com.helger.diagnostics.callback.exception.LoggingExceptionCallback;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special version of the {@link LoggingExceptionCallback} that handles the most common XML
@@ -44,13 +43,13 @@ public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
   public XMLLoggingExceptionCallback ()
   {}
 
-  public XMLLoggingExceptionCallback (@Nonnull final IErrorLevel aErrorLevel)
+  public XMLLoggingExceptionCallback (@NonNull final IErrorLevel aErrorLevel)
   {
     setErrorLevel (aErrorLevel);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @Nonempty
   @OverrideOnDemand
   protected String getLogMessage (@Nullable final Throwable t)

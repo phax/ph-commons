@@ -21,15 +21,15 @@ import java.io.Writer;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class StringReplace
@@ -52,7 +52,7 @@ public final class StringReplace
    *         not contained.
    */
   public static String replaceAllSafe (@Nullable final String sInputString,
-                                       @Nonnull final String sSearchText,
+                                       @NonNull final String sSearchText,
                                        @Nullable final CharSequence aReplacementText)
   {
     return replaceAll (sInputString, sSearchText, StringHelper.getNotNull (aReplacementText, ""));
@@ -77,8 +77,8 @@ public final class StringReplace
    */
   @Nullable
   public static String replaceAll (@Nullable final String sInputString,
-                                   @Nonnull final String sSearchText,
-                                   @Nonnull final CharSequence aReplacementText)
+                                   @NonNull final String sSearchText,
+                                   @NonNull final CharSequence aReplacementText)
   {
     ValueEnforcer.notEmpty (sSearchText, "SearchText");
     ValueEnforcer.notNull (aReplacementText, "ReplacementText");
@@ -188,8 +188,8 @@ public final class StringReplace
    */
   @Nullable
   public static String replaceAllRepeatedly (@Nullable final String sInputString,
-                                             @Nonnull final String sSearchText,
-                                             @Nonnull final String sReplacementText)
+                                             @NonNull final String sSearchText,
+                                             @NonNull final String sReplacementText)
   {
     ValueEnforcer.notEmpty (sSearchText, "SearchText");
     ValueEnforcer.notNull (sReplacementText, "ReplacementText");
@@ -225,9 +225,9 @@ public final class StringReplace
    * @return {@link CGlobal#ILLEGAL_UINT} if no replacement was needed, and therefore the length of
    *         the input array could be used.
    */
-  public static int getReplaceMultipleResultLength (@Nonnull final char [] aInputString,
-                                                    @Nonnull @Nonempty final char [] aSearchChars,
-                                                    @Nonnull @Nonempty final char [] [] aReplacementStrings)
+  public static int getReplaceMultipleResultLength (@NonNull final char [] aInputString,
+                                                    @NonNull @Nonempty final char [] aSearchChars,
+                                                    @NonNull @Nonempty final char [] [] aReplacementStrings)
   {
     int nResultLen = 0;
     boolean bAnyReplacement = false;
@@ -260,10 +260,10 @@ public final class StringReplace
    * @return The replaced version of the string or an empty char array if the input string was
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static char [] replaceMultiple (@Nullable final String sInputString,
-                                         @Nonnull final char [] aSearchChars,
-                                         @Nonnull final char [] [] aReplacementStrings)
+                                         @NonNull final char [] aSearchChars,
+                                         @NonNull final char [] [] aReplacementStrings)
   {
     // Any input text?
     if (StringHelper.isEmpty (sInputString))
@@ -285,10 +285,10 @@ public final class StringReplace
    * @return The replaced version of the string or an empty char array if the input string was
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static char [] replaceMultiple (@Nullable final char [] aInput,
-                                         @Nonnull final char [] aSearchChars,
-                                         @Nonnull final char [] [] aReplacementStrings)
+                                         @NonNull final char [] aSearchChars,
+                                         @NonNull final char [] [] aReplacementStrings)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
@@ -358,9 +358,9 @@ public final class StringReplace
    */
   @Nonnegative
   public static int replaceMultipleTo (@Nullable final String sInputString,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
+                                       @NonNull final char [] aSearchChars,
+                                       @NonNull final char [] [] aReplacementStrings,
+                                       @NonNull final Writer aTarget) throws IOException
   {
     if (StringHelper.isEmpty (sInputString))
       return 0;
@@ -387,9 +387,9 @@ public final class StringReplace
    */
   @Nonnegative
   public static int replaceMultipleTo (@Nullable final char [] aInput,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
+                                       @NonNull final char [] aSearchChars,
+                                       @NonNull final char [] [] aReplacementStrings,
+                                       @NonNull final Writer aTarget) throws IOException
   {
     return aInput == null ? 0 : replaceMultipleTo (aInput,
                                                    0,
@@ -424,9 +424,9 @@ public final class StringReplace
   public static int replaceMultipleTo (@Nullable final char [] aInput,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen,
-                                       @Nonnull final char [] aSearchChars,
-                                       @Nonnull final char [] [] aReplacementStrings,
-                                       @Nonnull final Writer aTarget) throws IOException
+                                       @NonNull final char [] aSearchChars,
+                                       @NonNull final char [] [] aReplacementStrings,
+                                       @NonNull final Writer aTarget) throws IOException
   {
     if (aInput != null)
       ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
@@ -485,9 +485,9 @@ public final class StringReplace
    * @return The replaced version of the string or an empty char array if the input string was
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static char [] replaceMultiple (@Nullable final String sInputString,
-                                         @Nonnull final char [] aSearchChars,
+                                         @NonNull final char [] aSearchChars,
                                          final char cReplacementChar)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
@@ -531,9 +531,9 @@ public final class StringReplace
    *        The target StringBuilder to write the result to. May not be <code>null</code>.
    */
   public static void replaceMultipleTo (@Nullable final String sInputString,
-                                        @Nonnull final char [] aSearchChars,
+                                        @NonNull final char [] aSearchChars,
                                         final char cReplacementChar,
-                                        @Nonnull final StringBuilder aTarget)
+                                        @NonNull final StringBuilder aTarget)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aTarget, "Target");
@@ -577,9 +577,9 @@ public final class StringReplace
    * @since 8.6.3
    */
   public static void replaceMultipleTo (@Nullable final String sInputString,
-                                        @Nonnull final char [] aSearchChars,
+                                        @NonNull final char [] aSearchChars,
                                         final char cReplacementChar,
-                                        @Nonnull final Writer aTarget) throws IOException
+                                        @NonNull final Writer aTarget) throws IOException
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aTarget, "Target");
@@ -620,9 +620,9 @@ public final class StringReplace
    *         <code>null</code>.
    * @since 8.6.3
    */
-  @Nonnull
+  @NonNull
   public static String replaceMultipleAsString (@Nullable final String sInputString,
-                                                @Nonnull final char [] aSearchChars,
+                                                @NonNull final char [] aSearchChars,
                                                 final char cReplacementChar)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");

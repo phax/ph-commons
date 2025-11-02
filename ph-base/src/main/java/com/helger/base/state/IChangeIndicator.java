@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has changed/unchanged indication.
@@ -38,25 +38,25 @@ public interface IChangeIndicator
     return !isChanged ();
   }
 
-  @Nonnull
-  default EChange or (@Nonnull final IChangeIndicator aChange)
+  @NonNull
+  default EChange or (@NonNull final IChangeIndicator aChange)
   {
     return or (aChange.isChanged ());
   }
 
-  @Nonnull
+  @NonNull
   default EChange or (final boolean bChange)
   {
     return EChange.valueOf (isChanged () || bChange);
   }
 
-  @Nonnull
-  default EChange and (@Nonnull final IChangeIndicator aChange)
+  @NonNull
+  default EChange and (@NonNull final IChangeIndicator aChange)
   {
     return and (aChange.isChanged ());
   }
 
-  @Nonnull
+  @NonNull
   default EChange and (final boolean bChange)
   {
     return EChange.valueOf (isChanged () && bChange);

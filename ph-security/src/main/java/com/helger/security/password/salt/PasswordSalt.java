@@ -18,6 +18,9 @@ package com.helger.security.password.salt;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -29,9 +32,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringHex;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.random.VerySecureRandom;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IPasswordSalt} using {@link VerySecureRandom}.
@@ -54,7 +54,7 @@ public final class PasswordSalt implements IPasswordSalt
    * @param aBytes
    *        Salt bytes to use. May not be <code>null</code> or empty.
    */
-  public PasswordSalt (@Nonnull @Nonempty final byte [] aBytes)
+  public PasswordSalt (@NonNull @Nonempty final byte [] aBytes)
   {
     ValueEnforcer.notEmpty (aBytes, "Bytes");
     m_aSaltBytes = aBytes;
@@ -67,7 +67,7 @@ public final class PasswordSalt implements IPasswordSalt
     return m_aSaltBytes.length;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public byte [] getSaltBytes ()
@@ -75,7 +75,7 @@ public final class PasswordSalt implements IPasswordSalt
     return ArrayHelper.getCopy (m_aSaltBytes);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getSaltString ()
   {
@@ -110,7 +110,7 @@ public final class PasswordSalt implements IPasswordSalt
    *         bytes.
    * @since 10.1.4
    */
-  @Nonnull
+  @NonNull
   public static PasswordSalt createRandom ()
   {
     return createRandom (DEFAULT_SALT_BYTES);
@@ -124,7 +124,7 @@ public final class PasswordSalt implements IPasswordSalt
    * @return the new salt object
    * @since 10.1.4
    */
-  @Nonnull
+  @NonNull
   public static PasswordSalt createRandom (@Nonnegative final int nSaltBytes)
   {
     ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");

@@ -16,12 +16,12 @@
  */
 package com.helger.http.csp;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasName;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A single CSP directive. It's a name-value-pair.
@@ -33,7 +33,7 @@ public interface ICSPDirective extends IHasName
   /**
    * @return The name of this directive.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getName ();
 
@@ -48,7 +48,7 @@ public interface ICSPDirective extends IHasName
     return StringHelper.isNotEmpty (getValue ());
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getAsString ()
   {

@@ -19,14 +19,14 @@ package com.helger.base.codec.base64;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedOutputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A {@link Base64OutputStream} will write data to another
@@ -61,7 +61,7 @@ public class Base64OutputStream extends WrappedOutputStream
    *        the <code>OutputStream</code> to which data will be written.
    * @since 1.3
    */
-  public Base64OutputStream (@Nonnull final OutputStream aOS)
+  public Base64OutputStream (@NonNull final OutputStream aOS)
   {
     this (aOS, Base64.ENCODE);
   }
@@ -88,7 +88,7 @@ public class Base64OutputStream extends WrappedOutputStream
    * @see Base64#DO_BREAK_LINES
    * @since 1.3
    */
-  public Base64OutputStream (@Nonnull final OutputStream aOS, final int nOptions)
+  public Base64OutputStream (@NonNull final OutputStream aOS, final int nOptions)
   {
     super (aOS);
     m_bBreakLines = (nOptions & Base64.DO_BREAK_LINES) != 0;
@@ -112,7 +112,7 @@ public class Base64OutputStream extends WrappedOutputStream
    *        empty.
    * @since 9.3.4
    */
-  public void setNewLineBytes (@Nonnull @Nonempty final byte [] aNewLineBytes)
+  public void setNewLineBytes (@NonNull @Nonempty final byte [] aNewLineBytes)
   {
     ValueEnforcer.notEmpty (aNewLineBytes, "NewLineBytes");
     m_aNewLineBytes = ArrayHelper.getCopy (aNewLineBytes);
@@ -192,7 +192,7 @@ public class Base64OutputStream extends WrappedOutputStream
    * @since 1.3
    */
   @Override
-  public void write (@Nonnull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     // Encoding suspended?
     if (m_bSuspendEncoding)

@@ -22,11 +22,10 @@ import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PDTFormatPatterns}.
@@ -35,11 +34,11 @@ import jakarta.annotation.Nonnull;
  */
 public final class PDTFormatPatternsTest
 {
-  private void _checkPatternConsistency (@Nonnull final String sDefault,
-                                         @Nonnull final String sShort,
-                                         @Nonnull final String sMedium,
-                                         @Nonnull final String sLong,
-                                         @Nonnull final String sFull,
+  private void _checkPatternConsistency (@NonNull final String sDefault,
+                                         @NonNull final String sShort,
+                                         @NonNull final String sMedium,
+                                         @NonNull final String sLong,
+                                         @NonNull final String sFull,
                                          final boolean bShortCanBeMedium,
                                          final boolean bShortCanBeLong,
                                          final boolean bMediumCanBeLong,

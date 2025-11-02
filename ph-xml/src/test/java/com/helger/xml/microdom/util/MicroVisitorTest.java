@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableInt;
@@ -30,8 +31,6 @@ import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroNode;
 import com.helger.xml.microdom.serialize.MicroReader;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link MicroVisitor}.
@@ -52,7 +51,7 @@ public final class MicroVisitorTest
     MicroVisitor.visit (doc, new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
-      @Nonnull
+      @NonNull
       public EHierarchyVisitorReturn onItemBeforeChildren (final IMicroNode aItem)
       {
         if (aItem.isProcessingInstruction ())
@@ -67,8 +66,8 @@ public final class MicroVisitorTest
     MicroVisitor.visit (doc.getDocumentElement (), new DefaultHierarchyVisitorCallback <IMicroNode> ()
     {
       @Override
-      @Nonnull
-      public EHierarchyVisitorReturn onItemBeforeChildren (@Nonnull final IMicroNode aItem)
+      @NonNull
+      public EHierarchyVisitorReturn onItemBeforeChildren (@NonNull final IMicroNode aItem)
       {
         if (aItem.isProcessingInstruction ())
           aInt.inc ();

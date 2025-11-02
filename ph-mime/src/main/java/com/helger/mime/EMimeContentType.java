@@ -16,13 +16,13 @@
  */
 package com.helger.mime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Determines the most well known MIME content types.
@@ -63,7 +63,7 @@ public enum EMimeContentType implements IHasID <String>
    * @param sText
    *        Must be lowercase MIME content type
    */
-  EMimeContentType (@Nonnull @Nonempty final String sText)
+  EMimeContentType (@NonNull @Nonempty final String sText)
   {
     m_sText = sText;
   }
@@ -71,7 +71,7 @@ public enum EMimeContentType implements IHasID <String>
   /**
    * @return The lower case text representation of this MIME content type.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
@@ -82,7 +82,7 @@ public enum EMimeContentType implements IHasID <String>
    * @return The lower case text representation of this MIME content type.
    * @see #getID()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getText ()
   {
@@ -96,8 +96,8 @@ public enum EMimeContentType implements IHasID <String>
    *        The content sub type to append. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public MimeType buildMimeType (@Nonnull @Nonempty final String sContentSubType)
+  @NonNull
+  public MimeType buildMimeType (@NonNull @Nonempty final String sContentSubType)
   {
     return new MimeType (this, sContentSubType);
   }

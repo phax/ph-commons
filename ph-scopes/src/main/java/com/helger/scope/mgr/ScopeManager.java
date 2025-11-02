@@ -19,6 +19,8 @@ package com.helger.scope.mgr;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,9 +39,6 @@ import com.helger.scope.RequestScope;
 import com.helger.scope.ScopeHelper;
 import com.helger.scope.SessionScope;
 import com.helger.scope.spi.ScopeSPIManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the manager class for non-web scope handling. The following scopes are supported:
@@ -88,7 +87,7 @@ public final class ScopeManager
    * @param aGlobalScope
    *        The scope to be set. May not be <code>null</code>.
    */
-  public static void setGlobalScope (@Nonnull final IGlobalScope aGlobalScope)
+  public static void setGlobalScope (@NonNull final IGlobalScope aGlobalScope)
   {
     ValueEnforcer.notNull (aGlobalScope, "GlobalScope");
 
@@ -119,15 +118,15 @@ public final class ScopeManager
    *        The scope ID to use
    * @return The created global scope object. Never <code>null</code>.
    */
-  @Nonnull
-  public static IGlobalScope onGlobalBegin (@Nonnull @Nonempty final String sScopeID)
+  @NonNull
+  public static IGlobalScope onGlobalBegin (@NonNull @Nonempty final String sScopeID)
   {
     return onGlobalBegin (sScopeID, GlobalScope::new);
   }
 
-  @Nonnull
-  public static <T extends IGlobalScope> T onGlobalBegin (@Nonnull @Nonempty final String sScopeID,
-                                                          @Nonnull final Function <? super String, T> aFactory)
+  @NonNull
+  public static <T extends IGlobalScope> T onGlobalBegin (@NonNull @Nonempty final String sScopeID,
+                                                          @NonNull final Function <? super String, T> aFactory)
   {
     final T aGlobalScope = aFactory.apply (sScopeID);
     setGlobalScope (aGlobalScope);
@@ -149,7 +148,7 @@ public final class ScopeManager
     return getGlobalScopeOrNull () != null;
   }
 
-  @Nonnull
+  @NonNull
   public static IGlobalScope getGlobalScope ()
   {
     final IGlobalScope aGlobalScope = getGlobalScopeOrNull ();
@@ -203,7 +202,7 @@ public final class ScopeManager
    *         If no request scope is present or if the underlying request scope does not have a
    *         session ID.
    */
-  @Nonnull
+  @NonNull
   public static ISessionScope getSessionScope ()
   {
     return getSessionScope (ScopeManager.DEFAULT_CREATE_SCOPE);
@@ -229,7 +228,7 @@ public final class ScopeManager
 
   @Nullable
   public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting,
-                                               @Nonnull final Function <? super String, ? extends ISessionScope> aFactory)
+                                               @NonNull final Function <? super String, ? extends ISessionScope> aFactory)
   {
     final IRequestScope aRequestScope = getRequestScopeOrNull ();
     if (aRequestScope != null)
@@ -269,7 +268,7 @@ public final class ScopeManager
    * @param aSessionScope
    *        The session scope to be destroyed. May not be <code>null</code>.
    */
-  public static void destroySessionScope (@Nonnull final ISessionScope aSessionScope)
+  public static void destroySessionScope (@NonNull final ISessionScope aSessionScope)
   {
     ValueEnforcer.notNull (aSessionScope, "SessionScope");
 
@@ -284,7 +283,7 @@ public final class ScopeManager
    * @param aRequestScope
    *        The request scope to use. May not be <code>null</code>.
    */
-  public static void internalSetAndInitRequestScope (@Nonnull final IRequestScope aRequestScope)
+  public static void internalSetAndInitRequestScope (@NonNull final IRequestScope aRequestScope)
   {
     ValueEnforcer.notNull (aRequestScope, "RequestScope");
     ValueEnforcer.isTrue (ScopeManager::isGlobalScopePresent,
@@ -314,17 +313,17 @@ public final class ScopeManager
     ScopeSPIManager.getInstance ().onRequestScopeBegin (aRequestScope);
   }
 
-  @Nonnull
-  public static IRequestScope onRequestBegin (@Nonnull @Nonempty final String sScopeID,
-                                              @Nonnull @Nonempty final String sSessionID)
+  @NonNull
+  public static IRequestScope onRequestBegin (@NonNull @Nonempty final String sScopeID,
+                                              @NonNull @Nonempty final String sSessionID)
   {
     return onRequestBegin (sScopeID, sSessionID, RequestScope::new);
   }
 
-  @Nonnull
-  public static <T extends IRequestScope> T onRequestBegin (@Nonnull @Nonempty final String sScopeID,
-                                                            @Nonnull @Nonempty final String sSessionID,
-                                                            @Nonnull final BiFunction <? super String, ? super String, T> aFactory)
+  @NonNull
+  public static <T extends IRequestScope> T onRequestBegin (@NonNull @Nonempty final String sScopeID,
+                                                            @NonNull @Nonempty final String sSessionID,
+                                                            @NonNull final BiFunction <? super String, ? super String, T> aFactory)
   {
     final T aRequestScope = aFactory.apply (sScopeID, sSessionID);
     internalSetAndInitRequestScope (aRequestScope);
@@ -353,7 +352,7 @@ public final class ScopeManager
    * @throws IllegalStateException
    *         If no request scope is present
    */
-  @Nonnull
+  @NonNull
   public static IRequestScope getRequestScope ()
   {
     final IRequestScope aScope = getRequestScopeOrNull ();
@@ -362,7 +361,7 @@ public final class ScopeManager
     return aScope;
   }
 
-  private static void _destroyRequestScope (@Nonnull final IRequestScope aRequestScope)
+  private static void _destroyRequestScope (@NonNull final IRequestScope aRequestScope)
   {
     // call SPIs
     ScopeSPIManager.getInstance ().onRequestScopeEnd (aRequestScope);

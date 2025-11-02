@@ -21,12 +21,12 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.CollectionFind;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link SortedMap} based interface with extended functionality based on
@@ -46,7 +46,7 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
    * Create a new {@link CommonsTreeMap}.
    */
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <K, V> ICommonsSortedMap <K, V> createInstance ()
   {
@@ -54,7 +54,7 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSortedSet <KEYTYPE> copyOfKeySet ()
   {
@@ -62,7 +62,7 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSortedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
@@ -74,7 +74,7 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
@@ -126,14 +126,14 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default SortedMap <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSortedMap (this);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSortedMap <KEYTYPE, VALUETYPE> getClone ();
 }

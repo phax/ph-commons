@@ -16,7 +16,7 @@
  */
 package com.helger.commons.supplementary.tools.collection;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 enum ECollectionType
 {
@@ -35,7 +35,7 @@ enum ECollectionType
   final String m_sSuffix;
   final String m_sUnmodifiableClassName;
 
-  private ECollectionType (@Nonnull final String sClassName, @Nonnull final String sUnmodifiableClassName, @Nonnull final String sSuffix)
+  private ECollectionType (@NonNull final String sClassName, @NonNull final String sUnmodifiableClassName, @NonNull final String sSuffix)
   {
     m_sClassName = sClassName;
     m_sSuffix = sSuffix;

@@ -19,14 +19,14 @@ package com.helger.datetime.zone;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents the combination of Zone ID string and ID object.
@@ -82,44 +82,44 @@ public class PDTZoneID
   private final String m_sZoneID;
   private final ZoneId m_aZoneID;
 
-  protected PDTZoneID (@Nonnull @Nonempty final String sZoneID, @Nonnull final ZoneId aZoneId)
+  protected PDTZoneID (@NonNull @Nonempty final String sZoneID, @NonNull final ZoneId aZoneId)
   {
     m_sZoneID = ValueEnforcer.notEmpty (sZoneID, "ZoneIDString");
     m_aZoneID = ValueEnforcer.notNull (aZoneId, "ZoneID");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getZoneIDString ()
   {
     return m_sZoneID;
   }
 
-  @Nonnull
+  @NonNull
   public ZoneId getZoneID ()
   {
     return m_aZoneID;
   }
 
-  @Nonnull
-  public static PDTZoneID of (@Nonnull final String sZoneID)
+  @NonNull
+  public static PDTZoneID of (@NonNull final String sZoneID)
   {
     return new PDTZoneID (sZoneID, ZoneId.of (sZoneID));
   }
 
-  @Nonnull
-  public static PDTZoneID ofHours (@Nonnull final String sZoneID, final int nHours)
+  @NonNull
+  public static PDTZoneID ofHours (@NonNull final String sZoneID, final int nHours)
   {
     return new PDTZoneID (sZoneID, ZoneOffset.ofHours (nHours));
   }
 
-  @Nonnull
+  @NonNull
   public static ICommonsIterable <PDTZoneID> getDefaultZoneIDs ()
   {
     return ZONES;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <PDTZoneID> getAllDefaultZoneIDs ()
   {

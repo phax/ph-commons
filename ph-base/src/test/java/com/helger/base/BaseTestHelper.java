@@ -20,12 +20,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains default test methods to test the correctness of implementations of standard
@@ -42,7 +42,7 @@ public final class BaseTestHelper
   private BaseTestHelper ()
   {}
 
-  private static <DATATYPE> void _testEqualsImplementation (@Nonnull final DATATYPE aObject)
+  private static <DATATYPE> void _testEqualsImplementation (@NonNull final DATATYPE aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
     assertTrue ("Passed objects are not equal", aObject.equals (aObject));
@@ -51,8 +51,8 @@ public final class BaseTestHelper
     assertFalse ("Object may no be equal to null", aObject.equals (null));
   }
 
-  public static <DATATYPE> void testEqualsImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testEqualsImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
+                                                                                @NonNull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
@@ -61,8 +61,8 @@ public final class BaseTestHelper
     assertTrue ("Passed objects are not identical!", aObject2.equals (aObject));
   }
 
-  public static <DATATYPE> void testEqualsImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                    @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testEqualsImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject,
+                                                                                    @NonNull final DATATYPE aObject2)
   {
     _testEqualsImplementation (aObject);
     _testEqualsImplementation (aObject2);
@@ -71,15 +71,15 @@ public final class BaseTestHelper
     assertFalse ("Passed objects are identical!", aObject2.equals (aObject));
   }
 
-  private static <DATATYPE> void _testHashcodeImplementation (@Nonnull final DATATYPE aObject)
+  private static <DATATYPE> void _testHashcodeImplementation (@NonNull final DATATYPE aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
     assertTrue ("hashCode() invocations must be consistent", aObject.hashCode () == aObject.hashCode ());
     assertFalse ("hashCode() may not be 0", aObject.hashCode () == 0);
   }
 
-  public static <DATATYPE> void testHashcodeImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                  @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testHashcodeImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
+                                                                                  @NonNull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject);
     _testHashcodeImplementation (aObject2);
@@ -89,8 +89,8 @@ public final class BaseTestHelper
     assertTrue ("hashCode() invocations must be consistent", aObject2.hashCode () == aObject.hashCode ());
   }
 
-  public static <DATATYPE> void testHashcodeImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                      @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testHashcodeImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject1,
+                                                                                      @NonNull final DATATYPE aObject2)
   {
     _testHashcodeImplementation (aObject1);
     _testHashcodeImplementation (aObject2);
@@ -107,7 +107,7 @@ public final class BaseTestHelper
    * @param aObject
    *        The object to be tested.
    */
-  public static void testToStringImplementation (@Nonnull final Object aObject)
+  public static void testToStringImplementation (@NonNull final Object aObject)
   {
     assertNotNull ("Passed object may not be null!", aObject);
     assertNotNull ("toString() may not return null!", aObject.toString ());
@@ -115,8 +115,8 @@ public final class BaseTestHelper
     assertTrue ("toString() invocations must be consistent", aObject.toString ().equals (aObject.toString ()));
   }
 
-  public static <DATATYPE> void testToStringImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject,
-                                                                                  @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testToStringImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
+                                                                                  @NonNull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
@@ -124,8 +124,8 @@ public final class BaseTestHelper
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
-  public static <DATATYPE> void testToStringImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject,
-                                                                                      @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testToStringImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject,
+                                                                                      @NonNull final DATATYPE aObject2)
   {
     testToStringImplementation (aObject);
     testToStringImplementation (aObject2);
@@ -144,8 +144,8 @@ public final class BaseTestHelper
    * @param aObject2
    *        Second object. May not be <code>null</code>.
    */
-  public static <DATATYPE> void testDefaultImplementationWithEqualContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                 @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testDefaultImplementationWithEqualContentObject (@NonNull final DATATYPE aObject1,
+                                                                                 @NonNull final DATATYPE aObject2)
   {
     testEqualsImplementationWithEqualContentObject (aObject1, aObject2);
     testHashcodeImplementationWithEqualContentObject (aObject1, aObject2);
@@ -163,8 +163,8 @@ public final class BaseTestHelper
    * @param aObject2
    *        Second object. May not be <code>null</code>.
    */
-  public static <DATATYPE> void testDefaultImplementationWithDifferentContentObject (@Nonnull final DATATYPE aObject1,
-                                                                                     @Nonnull final DATATYPE aObject2)
+  public static <DATATYPE> void testDefaultImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject1,
+                                                                                     @NonNull final DATATYPE aObject2)
   {
     testEqualsImplementationWithDifferentContentObject (aObject1, aObject2);
     testHashcodeImplementationWithDifferentContentObject (aObject1, aObject2);
@@ -178,7 +178,7 @@ public final class BaseTestHelper
    * @param aCloneable
    *        The cloneable object to test
    */
-  public static void testGetClone (@Nonnull final ICloneable <?> aCloneable)
+  public static void testGetClone (@NonNull final ICloneable <?> aCloneable)
   {
     final Object aClone = aCloneable.getClone ();
     assertNotNull ("Clone returned a null object", aClone);

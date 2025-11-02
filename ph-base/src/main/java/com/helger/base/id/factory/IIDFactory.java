@@ -16,9 +16,9 @@
  */
 package com.helger.base.id.factory;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Interface for an object creating unique IDs.
@@ -34,6 +34,6 @@ public interface IIDFactory <IDTYPE> extends IBaseIDFactory
   /**
    * @return The new unique ID. May never be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IDTYPE getNewID ();
 }

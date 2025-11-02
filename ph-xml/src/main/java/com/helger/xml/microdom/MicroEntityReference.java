@@ -16,13 +16,13 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroEntityReference} interface.
@@ -34,18 +34,18 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
 {
   private final String m_sName;
 
-  public MicroEntityReference (@Nonnull @Nonempty final String sName)
+  public MicroEntityReference (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "EntityReferenceName");
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.ENTITY_REFERENCE;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeName ()
   {
@@ -53,21 +53,21 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeValue ()
   {
     return getName ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroEntityReference getClone ()
   {
     return new MicroEntityReference (m_sName);

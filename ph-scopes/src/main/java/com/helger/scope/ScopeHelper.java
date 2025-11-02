@@ -16,11 +16,11 @@
  */
 package com.helger.scope;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Global scope utility methods that don't nicely fit somewhere else.

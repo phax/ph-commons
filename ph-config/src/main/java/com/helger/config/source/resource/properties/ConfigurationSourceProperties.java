@@ -19,6 +19,8 @@ package com.helger.config.source.resource.properties;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +40,6 @@ import com.helger.config.value.ConfiguredValue;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.rt.PropertiesLoader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Implementation of {@link IConfigurationSource} for properties file based configuration sources.
  *
@@ -58,7 +57,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   private NonBlockingProperties m_aProps;
 
   @Nullable
-  private static NonBlockingProperties _load (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  private static NonBlockingProperties _load (@NonNull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     if (aCharset == null)
       return PropertiesLoader.loadProperties (aRes);
@@ -71,7 +70,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes)
+  public ConfigurationSourceProperties (@NonNull final IReadableResource aRes)
   {
     this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, null);
   }
@@ -84,7 +83,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @param aCharset
    *        Character set to use. May be <code>null</code>.
    */
-  public ConfigurationSourceProperties (@Nonnull final IReadableResource aRes, @Nullable final Charset aCharset)
+  public ConfigurationSourceProperties (@NonNull final IReadableResource aRes, @Nullable final Charset aCharset)
   {
     this (CONFIG_SOURCE_TYPE.getDefaultPriority (), aRes, aCharset);
   }
@@ -97,7 +96,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    * @param aRes
    *        Resource to read from. May not be <code>null</code>.
    */
-  public ConfigurationSourceProperties (final int nPriority, @Nonnull final IReadableResource aRes)
+  public ConfigurationSourceProperties (final int nPriority, @NonNull final IReadableResource aRes)
   {
     this (nPriority, aRes, null);
   }
@@ -113,7 +112,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
    *        Character set to use. May be <code>null</code>.
    */
   public ConfigurationSourceProperties (final int nPriority,
-                                        @Nonnull final IReadableResource aRes,
+                                        @NonNull final IReadableResource aRes,
                                         @Nullable final Charset aCharset)
   {
     super (nPriority, aRes);
@@ -143,7 +142,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
   }
 
-  @Nonnull
+  @NonNull
   public ESuccess reload ()
   {
     // Main load
@@ -154,13 +153,13 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     final String sValue = m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()
   {

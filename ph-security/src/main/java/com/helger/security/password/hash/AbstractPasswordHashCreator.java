@@ -16,11 +16,11 @@
  */
 package com.helger.security.password.hash;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract base class of {@link IPasswordHashCreator}.
@@ -31,12 +31,12 @@ public abstract class AbstractPasswordHashCreator implements IPasswordHashCreato
 {
   private final String m_sAlgorithmName;
 
-  protected AbstractPasswordHashCreator (@Nonnull @Nonempty final String sAlgorithmName)
+  protected AbstractPasswordHashCreator (@NonNull @Nonempty final String sAlgorithmName)
   {
     m_sAlgorithmName = ValueEnforcer.notEmpty (sAlgorithmName, "Algorithm");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getAlgorithmName ()
   {

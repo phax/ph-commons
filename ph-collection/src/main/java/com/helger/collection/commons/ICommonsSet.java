@@ -21,12 +21,12 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link Set} interface with extended functionality based on
@@ -49,14 +49,14 @@ public interface ICommonsSet <ELEMENTTYPE> extends
    * @param <T>
    *        Set element type
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <T> ICommonsSet <T> createInstance ()
   {
     return new CommonsHashSet <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -68,28 +68,28 @@ public interface ICommonsSet <ELEMENTTYPE> extends
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsSet <DSTTYPE> ret = createInstance ();
     findAllMapped (aMapper, ret::add);
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsSet <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                        @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+                                                        @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsSet <DSTTYPE> ret = createInstance ();
     findAllMapped (aFilter, aMapper, ret::add);
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE extends ELEMENTTYPE> ICommonsSet <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  default <DSTTYPE extends ELEMENTTYPE> ICommonsSet <DSTTYPE> getAllInstanceOf (@NonNull final Class <DSTTYPE> aDstClass)
   {
     final ICommonsSet <DSTTYPE> ret = createInstance ();
     findAllInstanceOf (aDstClass, ret::add);
@@ -112,7 +112,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default Set <ELEMENTTYPE> getAsUnmodifiable ()
   {

@@ -18,11 +18,11 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.builder.IBuilder;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Builder class for class {@link TrustStoreDescriptor}.
@@ -39,46 +39,46 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
   public TrustStoreDescriptorBuilder ()
   {}
 
-  public TrustStoreDescriptorBuilder (@Nonnull final TrustStoreDescriptor aSrc)
+  public TrustStoreDescriptorBuilder (@NonNull final TrustStoreDescriptor aSrc)
   {
     type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
   }
 
-  @Nonnull
+  @NonNull
   public final TrustStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
     m_aType = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final TrustStoreDescriptorBuilder path (@Nullable final String s)
   {
     m_sPath = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final TrustStoreDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
-  @Nonnull
+  @NonNull
   public final TrustStoreDescriptorBuilder password (@Nullable final char [] a)
   {
     m_aPassword = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final TrustStoreDescriptorBuilder provider (@Nullable final Provider a)
   {
     m_aProvider = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public TrustStoreDescriptor build () throws IllegalStateException
   {
     if (m_aType == null)

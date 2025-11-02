@@ -19,6 +19,8 @@ package com.helger.base.numeric.mutable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
@@ -28,8 +30,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.numeric.BigHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a {@link BigDecimal} so that it can be passed a final object but is
@@ -52,18 +52,18 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     this (BigHelper.toBigDecimal (dValue));
   }
 
-  public MutableBigDecimal (@Nonnull final MutableBigDecimal aOther)
+  public MutableBigDecimal (@NonNull final MutableBigDecimal aOther)
   {
     this (aOther.m_aValue);
   }
 
-  public MutableBigDecimal (@Nonnull final BigDecimal aValue)
+  public MutableBigDecimal (@NonNull final BigDecimal aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public BigDecimal getAsBigDecimal ()
   {
     return m_aValue;
@@ -98,33 +98,33 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
    *
    * @return The by 1 incremented value.
    */
-  @Nonnull
+  @NonNull
   public BigDecimal inc ()
   {
     return inc (BigDecimal.ONE);
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal inc (final long nDelta)
   {
     return inc (BigHelper.toBigDecimal (nDelta));
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal inc (final double dDelta)
   {
     return inc (BigHelper.toBigDecimal (dDelta));
   }
 
-  @Nonnull
-  public BigDecimal inc (@Nonnull final MutableBigDecimal aDelta)
+  @NonNull
+  public BigDecimal inc (@NonNull final MutableBigDecimal aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.m_aValue);
   }
 
-  @Nonnull
-  public BigDecimal inc (@Nonnull final BigDecimal aDelta)
+  @NonNull
+  public BigDecimal inc (@NonNull final BigDecimal aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     m_aValue = m_aValue.add (aDelta);
@@ -132,67 +132,67 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal dec ()
   {
     return inc (CGlobal.BIGDEC_MINUS_ONE);
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal dec (final long nDelta)
   {
     return inc (BigHelper.toBigDecimal (-nDelta));
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal dec (final double dDelta)
   {
     return inc (BigHelper.toBigDecimal (-dDelta));
   }
 
-  @Nonnull
-  public BigDecimal dec (@Nonnull final BigDecimal aDelta)
+  @NonNull
+  public BigDecimal dec (@NonNull final BigDecimal aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.negate ());
   }
 
-  @Nonnull
-  public BigDecimal dec (@Nonnull final MutableBigDecimal aDelta)
+  @NonNull
+  public BigDecimal dec (@NonNull final MutableBigDecimal aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.m_aValue.negate ());
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal divide (final long nDivisor,
                             @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+                            @NonNull final RoundingMode eRoundingMode)
   {
     return divide (BigHelper.toBigDecimal (nDivisor), nScale, eRoundingMode);
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal divide (final double dDivisor,
                             @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+                            @NonNull final RoundingMode eRoundingMode)
   {
     return divide (BigHelper.toBigDecimal (dDivisor), nScale, eRoundingMode);
   }
 
-  @Nonnull
-  public BigDecimal divide (@Nonnull final MutableBigDecimal aDivisor,
+  @NonNull
+  public BigDecimal divide (@NonNull final MutableBigDecimal aDivisor,
                             @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+                            @NonNull final RoundingMode eRoundingMode)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.m_aValue, nScale, eRoundingMode);
   }
 
-  @Nonnull
-  public BigDecimal divide (@Nonnull final BigDecimal aDivisor,
+  @NonNull
+  public BigDecimal divide (@NonNull final BigDecimal aDivisor,
                             @Nonnegative final int nScale,
-                            @Nonnull final RoundingMode eRoundingMode)
+                            @NonNull final RoundingMode eRoundingMode)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     m_aValue = m_aValue.divide (aDivisor, nScale, eRoundingMode);
@@ -200,27 +200,27 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal multiply (final long nMultiplicand)
   {
     return multiply (BigHelper.toBigDecimal (nMultiplicand));
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal multiply (final double dMultiplicand)
   {
     return multiply (BigHelper.toBigDecimal (dMultiplicand));
   }
 
-  @Nonnull
-  public BigDecimal multiply (@Nonnull final MutableBigDecimal aMultiplicand)
+  @NonNull
+  public BigDecimal multiply (@NonNull final MutableBigDecimal aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.m_aValue);
   }
 
-  @Nonnull
-  public BigDecimal multiply (@Nonnull final BigDecimal aMultiplicand)
+  @NonNull
+  public BigDecimal multiply (@NonNull final BigDecimal aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     m_aValue = m_aValue.multiply (aMultiplicand);
@@ -228,27 +228,27 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final long nDelta)
   {
     return set (BigHelper.toBigDecimal (nDelta));
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final double dDelta)
   {
     return set (BigHelper.toBigDecimal (dDelta));
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final MutableBigDecimal aValue)
+  @NonNull
+  public EChange set (@NonNull final MutableBigDecimal aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.m_aValue);
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final BigDecimal aValue)
+  @NonNull
+  public EChange set (@NonNull final BigDecimal aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     if (aValue.equals (m_aValue))
@@ -283,7 +283,7 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return BigHelper.isGE0 (m_aValue);
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal getAndInc ()
   {
     final BigDecimal ret = getAsBigDecimal ();
@@ -291,19 +291,19 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal incAndGet ()
   {
     inc ();
     return getAsBigDecimal ();
   }
 
-  public int compareTo (@Nonnull final MutableBigDecimal rhs)
+  public int compareTo (@NonNull final MutableBigDecimal rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableBigDecimal getClone ()
   {
     return new MutableBigDecimal (this);

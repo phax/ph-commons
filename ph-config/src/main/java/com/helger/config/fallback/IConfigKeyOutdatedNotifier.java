@@ -16,9 +16,9 @@
  */
 package com.helger.config.fallback;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Sanity callback interface to notify about the usage of an outdated
@@ -40,5 +40,5 @@ public interface IConfigKeyOutdatedNotifier
    *        The new and corrected configuration key used. Neither
    *        <code>null</code> nor empty.
    */
-  void onOutdatedConfigurationKey (@Nonnull @Nonempty String sOldConfigKey, @Nonnull @Nonempty String sNewConfigKey);
+  void onOutdatedConfigurationKey (@NonNull @Nonempty String sOldConfigKey, @NonNull @Nonempty String sNewConfigKey);
 }

@@ -21,6 +21,8 @@ import static org.junit.Assert.fail;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
@@ -30,9 +32,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.IFileFilter;
 import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link FileSystemFolderTree}.
@@ -83,7 +82,7 @@ public final class FileSystemFolderTreeTest
                                new DefaultHierarchyVisitorCallback <DefaultFolderTreeItem <String, File, ICommonsList <File>>> ()
                                {
                                  @Override
-                                 @Nonnull
+                                 @NonNull
                                  public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final DefaultFolderTreeItem <String, File, ICommonsList <File>> aFolder)
                                  {
                                    if (aFolder != null)

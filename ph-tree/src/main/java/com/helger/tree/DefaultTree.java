@@ -16,9 +16,9 @@
  */
 package com.helger.tree;
 
-import com.helger.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Default implementation of the {@link ITree} interface using
@@ -36,7 +36,7 @@ public class DefaultTree <DATATYPE> extends BasicTree <DATATYPE, DefaultTreeItem
     this (new DefaultTreeItemFactory <> ());
   }
 
-  public DefaultTree (@Nonnull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)
+  public DefaultTree (@NonNull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)
   {
     super (aFactory);
   }

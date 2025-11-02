@@ -16,6 +16,8 @@
  */
 package com.helger.base.id.factory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +28,6 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class should not be static since it may have an impact if this class is used by different
@@ -78,7 +77,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aIntIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -106,7 +105,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentIntIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setPersistentIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -134,7 +133,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aLongIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -162,7 +161,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentLongIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setPersistentLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -190,7 +189,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aStringIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -218,7 +217,7 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentStringIDFactory);
   }
 
-  @Nonnull
+  @NonNull
   public static EChange setPersistentStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {
     return RW_LOCK.writeLockedGet ( () -> {
@@ -287,7 +286,7 @@ public final class GlobalIDFactory
   /**
    * @return A new String ID
    */
-  @Nonnull
+  @NonNull
   public static String getNewStringID ()
   {
     return RW_LOCK.readLockedGet ( () -> {
@@ -308,7 +307,7 @@ public final class GlobalIDFactory
   /**
    * @return A new persistent String ID
    */
-  @Nonnull
+  @NonNull
   public static String getNewPersistentStringID ()
   {
     return RW_LOCK.readLockedGet ( () -> {
@@ -415,7 +414,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve
    * @return An array of new String IDs
    */
-  @Nonnull
+  @NonNull
   public static String [] getBulkNewStringIDs (@Nonnegative final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
@@ -444,7 +443,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve. Must be &gt; 0.
    * @return An array of new persistent String IDs
    */
-  @Nonnull
+  @NonNull
   public static String [] getBulkNewPersistentStringIDs (@Nonnegative final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");

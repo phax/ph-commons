@@ -18,6 +18,8 @@ package com.helger.base.timing;
 
 import java.time.Duration;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,8 +27,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IStoppable;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Simple stop watch based on {@link System#nanoTime()}.
@@ -57,7 +57,7 @@ public class StopWatch implements IStoppable
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange reset ()
   {
     if (m_nDurationNanos == 0)
@@ -79,7 +79,7 @@ public class StopWatch implements IStoppable
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public final EChange start ()
   {
     // Already started?
@@ -96,7 +96,7 @@ public class StopWatch implements IStoppable
    *         and is now stopped, and {@link EChange#UNCHANGED} if the stop watch
    *         was already stopped.
    */
-  @Nonnull
+  @NonNull
   public EChange stop ()
   {
     // Already stopped?
@@ -162,7 +162,7 @@ public class StopWatch implements IStoppable
   /**
    * @return The elapsed duration. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Duration getDuration ()
   {
     return Duration.ofNanos (m_nDurationNanos);
@@ -188,7 +188,7 @@ public class StopWatch implements IStoppable
    *
    * @return The elapsed duration or 0 if the stop watch was never started.
    */
-  @Nonnull
+  @NonNull
   public Duration stopAndGetDuration ()
   {
     stop ();
@@ -202,7 +202,7 @@ public class StopWatch implements IStoppable
    * @return The elapsed duration or 0 if the stop watch was never started.
    * @since 10.0.0
    */
-  @Nonnull
+  @NonNull
   public Duration getLapDuration ()
   {
     stop ();
@@ -223,7 +223,7 @@ public class StopWatch implements IStoppable
    * @return A new {@link StopWatch} object that is started. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static StopWatch createdStarted ()
   {
@@ -234,7 +234,7 @@ public class StopWatch implements IStoppable
    * @return A new {@link StopWatch} object that is NOT started. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static StopWatch createdStopped ()
   {
@@ -249,8 +249,8 @@ public class StopWatch implements IStoppable
    *        The runnable to be executed. May not be <code>null</code>.
    * @return The elapsed Duration. Never <code>null</code>.
    */
-  @Nonnull
-  public static Duration runMeasured (@Nonnull final Runnable aRunnable)
+  @NonNull
+  public static Duration runMeasured (@NonNull final Runnable aRunnable)
   {
     final StopWatch aSW = createdStarted ();
     aRunnable.run ();

@@ -42,6 +42,8 @@ import java.time.format.SignStyle;
 import java.time.temporal.Temporal;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,9 +64,6 @@ import com.helger.datetime.zone.PDTConfig;
 import com.helger.datetime.zone.PDTZoneID;
 import com.helger.datetime.zone.WithZoneId;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A helper class that parses Dates out of Strings with date time in RFC822 and W3CDateTime formats
@@ -173,8 +172,8 @@ public final class PDTWebDateHelper
    *         <b>null</b> if it was not possible to parse the the string with any of the masks.
    */
   @Nullable
-  public static OffsetDateTime parseOffsetDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
-                                                             @Nonnull @Nonempty final String sDate)
+  public static OffsetDateTime parseOffsetDateTimeUsingMask (@NonNull final PDTMask <?> [] aMasks,
+                                                             @NonNull @Nonempty final String sDate)
   {
     for (final PDTMask <?> aMask : aMasks)
     {
@@ -209,8 +208,8 @@ public final class PDTWebDateHelper
    *         <b>null</b> if it was not possible to parse the the string with any of the masks.
    */
   @Nullable
-  public static ZonedDateTime parseZonedDateTimeUsingMask (@Nonnull final PDTMask <?> [] aMasks,
-                                                           @Nonnull @Nonempty final String sDate,
+  public static ZonedDateTime parseZonedDateTimeUsingMask (@NonNull final PDTMask <?> [] aMasks,
+                                                           @NonNull @Nonempty final String sDate,
                                                            @Nullable final ZoneId aDTZ)
   {
     for (final PDTMask <?> aMask : aMasks)
@@ -243,8 +242,8 @@ public final class PDTWebDateHelper
    *         (never <code>null</code>) and and the extracted time zone (may be <code>null</code>)
    *         are contained.
    */
-  @Nonnull
-  public static WithZoneId extractDateTimeZone (@Nonnull final String sDate)
+  @NonNull
+  public static WithZoneId extractDateTimeZone (@NonNull final String sDate)
   {
     ValueEnforcer.notNull (sDate, "Date");
 
@@ -452,7 +451,7 @@ public final class PDTWebDateHelper
   /**
    * @return The current date time formatted using RFC 822
    */
-  @Nonnull
+  @NonNull
   public static String getCurrentDateTimeAsStringRFC822 ()
   {
     // Important to use date time zone GMT as this is what the standard
@@ -465,7 +464,7 @@ public final class PDTWebDateHelper
   /**
    * @return The current date time formatted using W3C format
    */
-  @Nonnull
+  @NonNull
   public static String getCurrentDateTimeAsStringW3C ()
   {
     // Use no milli seconds as the standard printer does not print them!
@@ -534,7 +533,7 @@ public final class PDTWebDateHelper
                                                    .withChronology (IsoChronology.INSTANCE);
   }
 
-  @Nonnull
+  @NonNull
   public static DateTimeFormatter getXSDFormatterDateTime (@Nullable final ZoneId aOverrideZoneID)
   {
     DateTimeFormatter ret = XSD_DATE_TIME;
@@ -577,7 +576,7 @@ public final class PDTWebDateHelper
   }
 
   @Nullable
-  public static String getAsStringXSD (@Nonnull final ZoneId aZoneID, @Nullable final ZonedDateTime aZDT)
+  public static String getAsStringXSD (@NonNull final ZoneId aZoneID, @Nullable final ZonedDateTime aZDT)
   {
     return aZDT == null ? null : getXSDFormatterDateTime (aZoneID).format (aZDT);
   }
@@ -623,7 +622,7 @@ public final class PDTWebDateHelper
     return getXSDFormatterDateTime (null).format (aODT);
   }
 
-  @Nonnull
+  @NonNull
   public static DateTimeFormatter getXSDFormatterDate ()
   {
     return XSD_DATE;
@@ -681,7 +680,7 @@ public final class PDTWebDateHelper
     return getXSDFormatterDate ().format (aOD);
   }
 
-  @Nonnull
+  @NonNull
   public static DateTimeFormatter getXSDFormatterTime ()
   {
     return XSD_TIME;

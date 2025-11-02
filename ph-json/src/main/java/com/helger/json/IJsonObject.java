@@ -20,6 +20,9 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
@@ -31,9 +34,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a JSON object that is a map from String to IJson
@@ -47,7 +47,7 @@ public interface IJsonObject extends
                              IGenericMapAdderTrait <String, IJson, IJsonObject>
 {
   /* Implementation for IGenericMapAdderTrait */
-  @Nonnull
+  @NonNull
   default ITypeConverterTo <IJson> getTypeConverterTo ()
   {
     return TypeConverterToIJson.INSTANCE;
@@ -59,16 +59,16 @@ public interface IJsonObject extends
   @Nullable
   IJson removeKeyAndReturnValue (@Nullable String sName);
 
-  @Nonnull
+  @NonNull
   EChange removeKey (@Nullable String sName);
 
   boolean containsKey (@Nullable String sName);
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> keySet ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IJson> values ();
 
@@ -155,7 +155,7 @@ public interface IJsonObject extends
   /**
    * @return A copy of all contained items. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, IJson> getAll ();
 
@@ -165,7 +165,7 @@ public interface IJsonObject extends
    * @param aConsumer
    *        Consumer with the first param being the key and second param being the value.
    */
-  void forEach (@Nonnull BiConsumer <? super String, ? super IJson> aConsumer);
+  void forEach (@NonNull BiConsumer <? super String, ? super IJson> aConsumer);
 
   /**
    * Check if the passed value is directly contained in the object or not.
@@ -260,8 +260,8 @@ public interface IJsonObject extends
    * @since 8.6.4
    */
   @Nullable
-  default IJson computeIfAbsent (@Nonnull final String sName,
-                                 @Nonnull final Function <? super String, ? extends IJson> aValueProvider)
+  default IJson computeIfAbsent (@NonNull final String sName,
+                                 @NonNull final Function <? super String, ? extends IJson> aValueProvider)
   {
     IJson ret = get (sName);
     if (ret == null)
@@ -277,10 +277,10 @@ public interface IJsonObject extends
    * @return A map of all cloned values contained in this object in the same order. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, IJson> getClonedValues ();
 
-  @Nonnull
+  @NonNull
   IJsonObject getClone ();
 }

@@ -16,10 +16,10 @@
  */
 package com.helger.scope.spi;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.ISessionScope;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * SPI for handling the session scope lifecycle. Is invoked for non-web and web
@@ -36,7 +36,7 @@ public interface ISessionScopeSPI
    * @param aSessionScope
    *        The session scope object to be used. Never <code>null</code>.
    */
-  void onSessionScopeBegin (@Nonnull ISessionScope aSessionScope);
+  void onSessionScopeBegin (@NonNull ISessionScope aSessionScope);
 
   /**
    * Called before the session scope is shut down
@@ -44,5 +44,5 @@ public interface ISessionScopeSPI
    * @param aSessionScope
    *        The session scope object to be used. Never <code>null</code>.
    */
-  void onSessionScopeEnd (@Nonnull ISessionScope aSessionScope);
+  void onSessionScopeEnd (@NonNull ISessionScope aSessionScope);
 }

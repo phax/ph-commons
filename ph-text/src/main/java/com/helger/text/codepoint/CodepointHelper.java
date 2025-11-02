@@ -18,15 +18,15 @@ package com.helger.text.codepoint;
 
 import java.util.function.IntPredicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.cache.regex.RegExHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * General utilities for dealing with Unicode characters
@@ -52,7 +52,7 @@ public final class CodepointHelper
    * @return <code>true</code> if all the characters in chars are within the set
    *         [low,high]
    */
-  public static boolean inRange (@Nonnull final char [] aChars, final char cLow, final char cHigh)
+  public static boolean inRange (@NonNull final char [] aChars, final char cLow, final char cHigh)
   {
     for (final char c : aChars)
       if (c < cLow || c > cHigh)
@@ -134,8 +134,8 @@ public final class CodepointHelper
    * @return the codepoint at the given location, automatically dealing with
    *         surrogate pairs
    */
-  @Nonnull
-  public static Codepoint codepointAt (@Nonnull final CharSequence aSeq, final int nIndex)
+  @NonNull
+  public static Codepoint codepointAt (@NonNull final CharSequence aSeq, final int nIndex)
   {
     final char c = aSeq.charAt (nIndex);
     if (c < Character.MIN_HIGH_SURROGATE || c > Character.MAX_LOW_SURROGATE)
@@ -173,7 +173,7 @@ public final class CodepointHelper
    * @param aCodepoint
    *        codepoint to be inserted
    */
-  public static void insert (final CharSequence aSeq, final int nIndex, @Nonnull final Codepoint aCodepoint)
+  public static void insert (final CharSequence aSeq, final int nIndex, @NonNull final Codepoint aCodepoint)
   {
     insert (aSeq, nIndex, aCodepoint.getValue ());
   }
@@ -189,7 +189,7 @@ public final class CodepointHelper
    * @param nCodepoint
    *        codepoint to be inserted
    */
-  public static void insert (@Nonnull final CharSequence aSeq, final int nIndex, final int nCodepoint)
+  public static void insert (@NonNull final CharSequence aSeq, final int nIndex, final int nCodepoint)
   {
     if (!(aSeq instanceof StringBuilder))
     {
@@ -222,7 +222,7 @@ public final class CodepointHelper
    * @param aCodepoint
    *        codepoint to be set
    */
-  public static void setChar (@Nonnull final CharSequence aSeq, final int nIndex, @Nonnull final Codepoint aCodepoint)
+  public static void setChar (@NonNull final CharSequence aSeq, final int nIndex, @NonNull final Codepoint aCodepoint)
   {
     setChar (aSeq, nIndex, aCodepoint.getValue ());
   }
@@ -238,7 +238,7 @@ public final class CodepointHelper
    * @param nCodepoint
    *        codepoint to be set
    */
-  public static void setChar (@Nonnull final CharSequence aSeq, final int nIndex, final int nCodepoint)
+  public static void setChar (@NonNull final CharSequence aSeq, final int nIndex, final int nCodepoint)
   {
     if (!(aSeq instanceof StringBuilder) && !(aSeq instanceof StringBuffer))
     {
@@ -278,7 +278,7 @@ public final class CodepointHelper
    *         counts as a single codepoint
    */
   @Nonnegative
-  public static int length (@Nonnull final CharSequence aSeq)
+  public static int length (@NonNull final CharSequence aSeq)
   {
     return length (new CodepointIteratorCharSequence (aSeq));
   }
@@ -290,13 +290,13 @@ public final class CodepointHelper
    *         counts as a single codepoint
    */
   @Nonnegative
-  public static int length (@Nonnull final char [] aArray)
+  public static int length (@NonNull final char [] aArray)
   {
     return length (new CodepointIteratorCharArray (aArray));
   }
 
   @Nonnegative
-  public static int length (@Nonnull final AbstractCodepointIterator aIter)
+  public static int length (@NonNull final AbstractCodepointIterator aIter)
   {
     int n = 0;
     while (aIter.hasNext ())
@@ -313,7 +313,7 @@ public final class CodepointHelper
    * @return the String representation of the codepoint, automatically dealing
    *         with surrogate pairs
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getAsString (final int nCodepoint)
   {
@@ -363,13 +363,13 @@ public final class CodepointHelper
    *        Source string
    * @return the modified string
    */
-  @Nonnull
-  public static String stripBidiInternal (@Nonnull final String sStr)
+  @NonNull
+  public static String stripBidiInternal (@NonNull final String sStr)
   {
     return RegExHelper.stringReplacePattern ("[\u202A\u202B\u202D\u202E\u200E\u200F\u202C]", sStr, "");
   }
 
-  @Nonnull
+  @NonNull
   private static String _wrap (final String s, final char c1, final char c2)
   {
     final StringBuilder buf = new StringBuilder (s);
@@ -436,7 +436,7 @@ public final class CodepointHelper
   }
 
   @CheckForSigned
-  public static int getIndex (@Nonnull final int [] aCodepointSet, final int nValue)
+  public static int getIndex (@NonNull final int [] aCodepointSet, final int nValue)
   {
     int nStart = 0;
     int nEnd = aCodepointSet.length;
@@ -466,7 +466,7 @@ public final class CodepointHelper
    *        Value to check
    * @return <code>true</code> if the value is located within the set
    */
-  public static boolean inverseSetContains (@Nonnull final int [] aCodepointSet, final int value)
+  public static boolean inverseSetContains (@NonNull final int [] aCodepointSet, final int value)
   {
     int nStart = 0;
     int nEnd = aCodepointSet.length;
@@ -750,7 +750,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verify (final AbstractCodepointIterator aIter, @Nonnull final ECodepointProfile eProfile)
+  public static void verify (final AbstractCodepointIterator aIter, @NonNull final ECodepointProfile eProfile)
   {
     verify (aIter, eProfile.getFilter ());
   }
@@ -763,7 +763,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verify (@Nullable final char [] aArray, @Nonnull final ECodepointProfile eProfile)
+  public static void verify (@Nullable final char [] aArray, @NonNull final ECodepointProfile eProfile)
   {
     if (aArray != null)
       verify (new CodepointIteratorCharArray (aArray), eProfile);
@@ -777,7 +777,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verify (@Nullable final String sStr, @Nonnull final ECodepointProfile eProfile)
+  public static void verify (@Nullable final String sStr, @NonNull final ECodepointProfile eProfile)
   {
     if (sStr != null)
       verify (new CodepointIteratorCharSequence (sStr), eProfile);
@@ -806,7 +806,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verifyNot (final ICodepointIterator aIter, @Nonnull final ECodepointProfile eProfile)
+  public static void verifyNot (final ICodepointIterator aIter, @NonNull final ECodepointProfile eProfile)
   {
     final CodepointIteratorRestricted rci = aIter.restrict (eProfile.getFilter (), false, true);
     while (rci.hasNext ())
@@ -821,7 +821,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verifyNot (final char [] aArray, @Nonnull final ECodepointProfile eProfile)
+  public static void verifyNot (final char [] aArray, @NonNull final ECodepointProfile eProfile)
   {
     verifyNot (new CodepointIteratorCharArray (aArray), eProfile);
   }

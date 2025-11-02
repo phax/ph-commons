@@ -16,10 +16,10 @@
  */
 package com.helger.dao;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.callback.ICallback;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface to handle thrown exception objects in DAO write actions.
@@ -40,5 +40,5 @@ public interface IDAOWriteExceptionCallback extends ICallback
    *        the content that should be written to the file. Never
    *        <code>null</code>.
    */
-  void onDAOWriteException (@Nonnull Throwable t, @Nonnull IReadableResource aResource, @Nonnull CharSequence aFileContent);
+  void onDAOWriteException (@NonNull Throwable t, @NonNull IReadableResource aResource, @NonNull CharSequence aFileContent);
 }

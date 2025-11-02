@@ -20,10 +20,10 @@ import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link CopyOnWriteArraySet} implementation based on
@@ -50,7 +50,7 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
   }
 
   public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                               @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                               @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -67,20 +67,20 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
   }
 
   public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final SRCTYPE [] aValues,
-                                               @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                               @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsCopyOnWriteArraySet <T> createInstance ()
   {
     return new CommonsCopyOnWriteArraySet <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsCopyOnWriteArraySet <ELEMENTTYPE> getClone ()
   {

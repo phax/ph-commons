@@ -22,14 +22,14 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link List} interface with extended functionality based on {@link ICommonsCollection}.
@@ -50,7 +50,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @param <T>
    *        List element type
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <T> ICommonsList <T> createInstance ()
   {
@@ -67,7 +67,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *         entries if no filter is provided).
    * @see #findAll(Predicate, java.util.function.Consumer)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -90,9 +90,9 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @see #getAllMapped(Predicate, Function)
    * @see #findAllMapped(Function, java.util.function.Consumer)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllMapped (aMapper, ret::add);
@@ -113,10 +113,10 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @see #getAllMapped(Function)
    * @see #findAllMapped(Predicate, Function, java.util.function.Consumer)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> getAllMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
-                                                         @Nonnull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
+                                                         @NonNull final Function <? super ELEMENTTYPE, DSTTYPE> aMapper)
   {
     final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllMapped (aFilter, aMapper, ret::add);
@@ -134,9 +134,9 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *        The destination type to be casted to
    * @see #findAllInstanceOf(Class, java.util.function.Consumer)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@Nonnull final Class <DSTTYPE> aDstClass)
+  default <DSTTYPE extends ELEMENTTYPE> ICommonsList <DSTTYPE> getAllInstanceOf (@NonNull final Class <DSTTYPE> aDstClass)
   {
     final ICommonsList <DSTTYPE> ret = createInstance ();
     findAllInstanceOf (aDstClass, ret::add);
@@ -239,7 +239,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @return {@link EChange#CHANGED} if removal was successful
    * @see #removeAndReturnElementAtIndex(int)
    */
-  @Nonnull
+  @NonNull
   default EChange removeAtIndex (final int nIndex)
   {
     if (nIndex < 0 || nIndex >= size ())
@@ -292,7 +292,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default List <ELEMENTTYPE> getAsUnmodifiable ()
   {
@@ -306,8 +306,8 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *        The comparator used for sorting. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  default ICommonsList <ELEMENTTYPE> getSortedInline (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+  @NonNull
+  default ICommonsList <ELEMENTTYPE> getSortedInline (@NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     sort (aComparator);
     return this;
@@ -318,7 +318,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   default ICommonsList <ELEMENTTYPE> reverse ()
   {
     Collections.reverse (this);
@@ -335,7 +335,7 @@ public interface ICommonsList <ELEMENTTYPE> extends
    * @return this for chaining
    * @since 8.6.0
    */
-  @Nonnull
+  @NonNull
   default ICommonsList <ELEMENTTYPE> swapItems (final int nFirstIndex, final int nSecondIndex)
   {
     if (nFirstIndex != nSecondIndex)

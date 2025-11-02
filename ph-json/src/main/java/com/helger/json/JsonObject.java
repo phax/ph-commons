@@ -23,6 +23,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -36,9 +39,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.json.serialize.JsonReader;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IJsonObject}.
@@ -62,20 +62,20 @@ public class JsonObject implements IJsonObject
     m_aValues = new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
-  public JsonObject (@Nonnull final Map <String, ? extends IJson> aJsons)
+  public JsonObject (@NonNull final Map <String, ? extends IJson> aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
     m_aValues = new CommonsLinkedHashMap <> (aJsons);
   }
 
-  private void writeObject (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  private void writeObject (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     aOOS.writeInt (m_aValues.size ());
     final String sJson = getAsJsonString ();
     StreamHelper.writeSafeUTF (aOOS, sJson);
   }
 
-  private void readObject (@Nonnull final ObjectInputStream aOIS) throws IOException
+  private void readObject (@NonNull final ObjectInputStream aOIS) throws IOException
   {
     final int nInitialSize = aOIS.readInt ();
     m_aValues = new CommonsLinkedHashMap <> (nInitialSize);
@@ -112,14 +112,14 @@ public class JsonObject implements IJsonObject
     return m_aValues.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   public Iterator <Map.Entry <String, IJson>> iterator ()
   {
     return m_aValues.entrySet ().iterator ();
   }
 
-  @Nonnull
-  public JsonObject add (@Nonnull final String sName, @Nonnull final IJson aValue)
+  @NonNull
+  public JsonObject add (@NonNull final String sName, @NonNull final IJson aValue)
   {
     ValueEnforcer.notNull (sName, "Name");
     ValueEnforcer.notNull (aValue, "Value");
@@ -134,7 +134,7 @@ public class JsonObject implements IJsonObject
     return m_aValues.remove (sName);
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeKey (@Nullable final String sName)
   {
     return m_aValues.removeObject (sName);
@@ -145,14 +145,14 @@ public class JsonObject implements IJsonObject
     return m_aValues.containsKey (sName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> keySet ()
   {
     return m_aValues.copyOfKeySet ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> values ()
   {
@@ -165,14 +165,14 @@ public class JsonObject implements IJsonObject
     return m_aValues.get (sName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IJson> getAll ()
   {
     return m_aValues.getClone ();
   }
 
-  public void forEach (@Nonnull final BiConsumer <? super String, ? super IJson> aConsumer)
+  public void forEach (@NonNull final BiConsumer <? super String, ? super IJson> aConsumer)
   {
     m_aValues.forEach (aConsumer);
   }
@@ -182,7 +182,7 @@ public class JsonObject implements IJsonObject
     return aValue != null && m_aValues.containsValue (aValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IJson> getClonedValues ()
   {
@@ -192,7 +192,7 @@ public class JsonObject implements IJsonObject
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public JsonObject getClone ()
   {
     return new JsonObject (getClonedValues ());

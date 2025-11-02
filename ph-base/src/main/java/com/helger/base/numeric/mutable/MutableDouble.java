@@ -16,6 +16,8 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,8 +25,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a double so that it can be passed a final object but is mutable.
@@ -36,7 +36,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
   private double m_dValue;
 
-  public MutableDouble (@Nonnull final Number aValue)
+  public MutableDouble (@NonNull final Number aValue)
   {
     this (aValue.doubleValue ());
   }
@@ -87,7 +87,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
-  public double inc (@Nonnull final Number aDelta)
+  public double inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.doubleValue ());
@@ -103,7 +103,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return inc (-dDelta);
   }
 
-  public double dec (@Nonnull final Number aDelta)
+  public double dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.doubleValue ());
@@ -116,7 +116,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
-  public double divide (@Nonnull final Number aDivisor)
+  public double divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.doubleValue ());
@@ -129,13 +129,13 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
-  public double multiply (@Nonnull final Number aMultiplicand)
+  public double multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.doubleValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final double dValue)
   {
     if (EqualsHelper.equals (dValue, m_dValue))
@@ -145,8 +145,8 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.doubleValue ());
@@ -190,12 +190,12 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return doubleValue ();
   }
 
-  public int compareTo (@Nonnull final MutableDouble rhs)
+  public int compareTo (@NonNull final MutableDouble rhs)
   {
     return CompareHelper.compare (m_dValue, rhs.m_dValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableDouble getClone ()
   {
     return new MutableDouble (this);

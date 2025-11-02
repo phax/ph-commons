@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a comment node.
@@ -28,6 +28,6 @@ public interface IMicroComment extends IMicroNode, IMicroDataAware
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroComment getClone ();
 }

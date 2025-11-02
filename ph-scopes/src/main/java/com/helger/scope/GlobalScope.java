@@ -16,14 +16,13 @@
  */
 package com.helger.scope;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.lang.clazz.ClassHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of the {@link IGlobalScope} interface.<br>
@@ -36,7 +35,7 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (GlobalScope.class);
 
-  public GlobalScope (@Nonnull @Nonempty final String sScopeID)
+  public GlobalScope (@NonNull @Nonempty final String sScopeID)
   {
     super (sScopeID);
 

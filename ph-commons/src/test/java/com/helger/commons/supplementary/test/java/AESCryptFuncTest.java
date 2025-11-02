@@ -26,6 +26,7 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -33,8 +34,6 @@ import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.system.CryptoPolicy;
-
-import jakarta.annotation.Nonnull;
 
 public final class AESCryptFuncTest
 {
@@ -58,25 +57,25 @@ public final class AESCryptFuncTest
       m_aBytes = ArrayHelper.getCopy (aBytes);
     }
 
-    @Nonnull
+    @NonNull
     public String getAlgorithm ()
     {
       return "AES";
     }
 
-    @Nonnull
+    @NonNull
     public String getFormat ()
     {
       return "RAW";
     }
 
-    @Nonnull
+    @NonNull
     public byte [] getEncoded ()
     {
       return ArrayHelper.getCopy (m_aBytes);
     }
 
-    @Nonnull
+    @NonNull
     public static SecretKey generateKey ()
     {
       final int nKeyLengthBytes = CryptoPolicy.isUnlimitedStrengthCryptoAvailable () ? 32 : 16;
@@ -103,7 +102,7 @@ public final class AESCryptFuncTest
     private final SecretKey m_aKey;
     private Cipher m_aCipher;
 
-    public AESCrypter (@Nonnull final SecretKey aKey)
+    public AESCrypter (@NonNull final SecretKey aKey)
     {
       ValueEnforcer.notNull (aKey, "Key");
       m_aKey = aKey;

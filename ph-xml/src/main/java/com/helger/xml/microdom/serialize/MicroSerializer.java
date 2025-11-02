@@ -20,6 +20,9 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
@@ -45,9 +48,6 @@ import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLEmitter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Materializes micro nodes into a string representation.
  *
@@ -60,16 +60,16 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     this (XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
-  public MicroSerializer (@Nonnull final IXMLWriterSettings aSettings)
+  public MicroSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
     super (aSettings);
   }
 
   @Override
-  protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+  protected void emitNode (@NonNull final XMLEmitter aXMLWriter,
                            @Nullable final IMicroNode aParentNode,
                            @Nullable final IMicroNode aPrevSibling,
-                           @Nonnull final IMicroNode aNode,
+                           @NonNull final IMicroNode aNode,
                            @Nullable final IMicroNode aNextSibling)
   {
     ValueEnforcer.notNull (aNode, "Node");
@@ -123,9 +123,9 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
    * @param aChildren
    *        The node list to be serialized. May not be <code>null</code>.
    */
-  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter,
+  private void _writeNodeList (@NonNull final XMLEmitter aXMLWriter,
                                @Nullable final IMicroNode aParentNode,
-                               @Nonnull final List <IMicroNode> aChildren)
+                               @NonNull final List <IMicroNode> aChildren)
   {
     final int nLastIndex = aChildren.size () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
@@ -138,7 +138,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
+  private void _writeDocument (@NonNull final XMLEmitter aXMLWriter, final IMicroDocument aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
@@ -154,39 +154,39 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       _writeNodeList (aXMLWriter, aDocument, aDocument.getAllChildren ());
   }
 
-  private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, final IMicroDocumentType aDocType)
+  private void _writeDocumentType (@NonNull final XMLEmitter aXMLWriter, final IMicroDocumentType aDocType)
   {
     if (m_aSettings.getSerializeDocType ().isEmit ())
       aXMLWriter.onDocumentType (aDocType.getQualifiedName (), aDocType.getPublicID (), aDocType.getSystemID ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
-                                                   @Nonnull final IMicroProcessingInstruction aPI)
+  private static void _writeProcessingInstruction (@NonNull final XMLEmitter aXMLWriter,
+                                                   @NonNull final IMicroProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private void _writeContainer (@Nonnull final XMLEmitter aXMLWriter,
-                                @Nonnull final IMicroNode aParentNode,
-                                @Nonnull final IMicroContainer aContainer)
+  private void _writeContainer (@NonNull final XMLEmitter aXMLWriter,
+                                @NonNull final IMicroNode aParentNode,
+                                @NonNull final IMicroContainer aContainer)
   {
     // A container has no own properties!
     if (aContainer.hasChildren ())
       _writeNodeList (aXMLWriter, aParentNode, aContainer.getAllChildren ());
   }
 
-  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
-                                             @Nonnull final IMicroEntityReference aEntRef)
+  private static void _writeEntityReference (@NonNull final XMLEmitter aXMLWriter,
+                                             @NonNull final IMicroEntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getName ());
   }
 
-  private static void _writeText (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroText aText)
+  private static void _writeText (@NonNull final XMLEmitter aXMLWriter, @NonNull final IMicroText aText)
   {
     aXMLWriter.onText (aText.getData ().toString (), aText.isEscape ());
   }
 
-  private void _writeComment (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroComment aComment)
+  private void _writeComment (@NonNull final XMLEmitter aXMLWriter, @NonNull final IMicroComment aComment)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
@@ -204,7 +204,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     }
   }
 
-  private void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final IMicroCDATA aCDATA)
+  private void _writeCDATA (@NonNull final XMLEmitter aXMLWriter, @NonNull final IMicroCDATA aCDATA)
   {
     if (m_aSettings.isWriteCDATAAsText ())
       aXMLWriter.onText (aCDATA.getData ().toString ());
@@ -212,15 +212,15 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
       aXMLWriter.onCDATA (aCDATA.getData ().toString ());
   }
 
-  private static boolean _isInlineNode (@Nonnull final IMicroNode aNode)
+  private static boolean _isInlineNode (@NonNull final IMicroNode aNode)
   {
     return aNode.isText () || aNode.isCDATA () || aNode.isEntityReference ();
   }
 
-  private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
+  private void _writeElement (@NonNull final XMLEmitter aXMLWriter,
                               @Nullable final IMicroNode aParentNode,
                               @Nullable final IMicroNode aPrevSibling,
-                              @Nonnull final IMicroElement aElement,
+                              @NonNull final IMicroElement aElement,
                               @Nullable final IMicroNode aNextSibling)
   {
     // use either local name or tag name (depending on namespace prefix)

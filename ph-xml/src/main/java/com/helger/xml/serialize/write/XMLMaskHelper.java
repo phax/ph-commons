@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -32,9 +35,6 @@ import com.helger.base.string.StringReplace;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.xml.EXMLVersion;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the methods for masking XML content.
@@ -320,7 +320,7 @@ public final class XMLMaskHelper
 
   private static final char [] INT_HEX_UC = "0123456789ABCDEF".toCharArray ();
 
-  @Nonnull
+  @NonNull
   public static String getXMLNumericReference (final char n)
   {
     final StringBuilder aSB = new StringBuilder (16);
@@ -346,7 +346,7 @@ public final class XMLMaskHelper
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getXML10EntityReferenceString (final char c)
   {
@@ -372,7 +372,7 @@ public final class XMLMaskHelper
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getXML11EntityReferenceString (final char c)
   {
@@ -402,7 +402,7 @@ public final class XMLMaskHelper
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHTMLEntityReferenceString (final char c)
   {
@@ -452,8 +452,8 @@ public final class XMLMaskHelper
 
   @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] _findSourceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                         @Nonnull final EXMLCharMode eXMLCharMode)
+  private static char [] _findSourceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                         @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -503,8 +503,8 @@ public final class XMLMaskHelper
 
   @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] [] _findReplaceMap (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                             @Nonnull final EXMLCharMode eXMLCharMode)
+  private static char [] [] _findReplaceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                             @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -559,9 +559,9 @@ public final class XMLMaskHelper
    *        Character set to use. May not be <code>null</code>.
    * @return A new array with the same length as the source set.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static char [] _getAsCharArray (@Nonnull final Set <Character> aChars)
+  private static char [] _getAsCharArray (@NonNull final Set <Character> aChars)
   {
     ValueEnforcer.notNull (aChars, "Chars");
 
@@ -572,9 +572,9 @@ public final class XMLMaskHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static char [] [] _createEmptyReplacement (@Nonnull final char [] aSrcMap)
+  private static char [] [] _createEmptyReplacement (@NonNull final char [] aSrcMap)
   {
     final char [] [] ret = new char [aSrcMap.length] [];
     for (int i = 0; i < aSrcMap.length; ++i)
@@ -582,10 +582,10 @@ public final class XMLMaskHelper
     return ret;
   }
 
-  @Nonnull
-  public static char [] getMaskedXMLText (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                          @Nonnull final EXMLCharMode eXMLCharMode,
-                                          @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+  @NonNull
+  public static char [] getMaskedXMLText (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                          @NonNull final EXMLCharMode eXMLCharMode,
+                                          @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                           @Nullable final String s)
   {
     if (StringHelper.isEmpty (s))
@@ -623,9 +623,9 @@ public final class XMLMaskHelper
   }
 
   @Nonnegative
-  public static int getMaskedXMLTextLength (@Nonnull final EXMLVersion eXMLVersion,
-                                            @Nonnull final EXMLCharMode eXMLCharMode,
-                                            @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+  public static int getMaskedXMLTextLength (@NonNull final EXMLVersion eXMLVersion,
+                                            @NonNull final EXMLCharMode eXMLCharMode,
+                                            @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                             @Nullable final String s)
   {
     return getMaskedXMLTextLength (EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion),
@@ -635,9 +635,9 @@ public final class XMLMaskHelper
   }
 
   @Nonnegative
-  public static int getMaskedXMLTextLength (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                            @Nonnull final EXMLCharMode eXMLCharMode,
-                                            @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+  public static int getMaskedXMLTextLength (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                            @NonNull final EXMLCharMode eXMLCharMode,
+                                            @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                             @Nullable final String s)
   {
     if (StringHelper.isEmpty (s))
@@ -679,23 +679,23 @@ public final class XMLMaskHelper
     return ret;
   }
 
-  public static void maskXMLTextTo (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                    @Nonnull final EXMLCharMode eXMLCharMode,
-                                    @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+  public static void maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                    @NonNull final EXMLCharMode eXMLCharMode,
+                                    @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                     @Nullable final String s,
-                                    @Nonnull final Writer aWriter) throws IOException
+                                    @NonNull final Writer aWriter) throws IOException
   {
     if (StringHelper.isNotEmpty (s))
       maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
   }
 
-  public static void maskXMLTextTo (@Nonnull final EXMLSerializeVersion eXMLVersion,
-                                    @Nonnull final EXMLCharMode eXMLCharMode,
-                                    @Nonnull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                    @Nonnull final char [] aSrcText,
+  public static void maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                    @NonNull final EXMLCharMode eXMLCharMode,
+                                    @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                    @NonNull final char [] aSrcText,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
-                                    @Nonnull final Writer aWriter) throws IOException
+                                    @NonNull final Writer aWriter) throws IOException
   {
     if (nLen == 0)
       return;

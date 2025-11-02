@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Provides an Iterator over the data found in opencsv.
@@ -42,7 +42,7 @@ public class CSVIterator implements Iterator <ICommonsList <String>>
    * @throws IOException
    *         if unable to read data from the reader.
    */
-  public CSVIterator (@Nonnull final CSVReader aReader) throws IOException
+  public CSVIterator (@NonNull final CSVReader aReader) throws IOException
   {
     ValueEnforcer.notNull (aReader, "Reader");
     m_aReader = aReader;
@@ -66,7 +66,7 @@ public class CSVIterator implements Iterator <ICommonsList <String>>
    *
    * @return The next element of the iterator. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ICommonsList <String> next ()
   {
     final ICommonsList <String> ret = m_aNextLine;

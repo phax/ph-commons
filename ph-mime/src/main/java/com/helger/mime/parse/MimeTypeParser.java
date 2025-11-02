@@ -16,6 +16,8 @@
  */
 package com.helger.mime.parse;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.mime.CMimeType;
 import com.helger.mime.EMimeContentType;
 import com.helger.mime.EMimeQuoting;
 import com.helger.mime.MimeType;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class handles the String parsing of MIME types.
@@ -70,7 +69,7 @@ public final class MimeTypeParser
   /**
    * @return A copy of the array with all TSpecial chars. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static char [] getAllTSpecialChars ()
   {
@@ -128,9 +127,9 @@ public final class MimeTypeParser
     return true;
   }
 
-  private static void _parseAndAddParameters (@Nonnull final MimeType aMimeType,
-                                              @Nonnull @Nonempty final String sParameters,
-                                              @Nonnull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
+  private static void _parseAndAddParameters (@NonNull final MimeType aMimeType,
+                                              @NonNull @Nonempty final String sParameters,
+                                              @NonNull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
     if (eQuotingAlgorithm.isQuotedString ())
     {
@@ -316,7 +315,7 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType, @Nonnull final EMimeQuoting eQuotingAlgorithm)
+  public static MimeType parseMimeType (@Nullable final String sMimeType, @NonNull final EMimeQuoting eQuotingAlgorithm)
                                                                                                                          throws MimeTypeParserException
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
@@ -415,7 +414,7 @@ public final class MimeTypeParser
    */
   @Nullable
   public static MimeType safeParseMimeType (@Nullable final String sMimeType,
-                                            @Nonnull final EMimeQuoting eQuotingAlgorithm)
+                                            @NonNull final EMimeQuoting eQuotingAlgorithm)
   {
     String sRealMimeType = sMimeType;
     if (RFC2616Codec.isMaybeEncoded (sRealMimeType))

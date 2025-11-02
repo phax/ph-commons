@@ -16,11 +16,11 @@
  */
 package com.helger.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * XML version determinator.
@@ -37,7 +37,7 @@ public enum EXMLVersion
 
   private final String m_sVersion;
 
-  EXMLVersion (@Nonnull @Nonempty final String sVersion)
+  EXMLVersion (@NonNull @Nonempty final String sVersion)
   {
     m_sVersion = sVersion;
   }
@@ -45,7 +45,7 @@ public enum EXMLVersion
   /**
    * @return The textual representation of the XML version number.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getVersion ()
   {

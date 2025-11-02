@@ -16,6 +16,8 @@
  */
 package com.helger.statistics.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.callback.ICallback;
 import com.helger.statistics.api.IStatisticsHandlerCache;
 import com.helger.statistics.api.IStatisticsHandlerCounter;
@@ -24,8 +26,6 @@ import com.helger.statistics.api.IStatisticsHandlerKeyedSize;
 import com.helger.statistics.api.IStatisticsHandlerKeyedTimer;
 import com.helger.statistics.api.IStatisticsHandlerSize;
 import com.helger.statistics.api.IStatisticsHandlerTimer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Callback interface for visiting statistics.
@@ -42,7 +42,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onCache (@Nonnull final String sName, @Nonnull final IStatisticsHandlerCache aHandler)
+  default void onCache (@NonNull final String sName, @NonNull final IStatisticsHandlerCache aHandler)
   {}
 
   /**
@@ -53,7 +53,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onTimer (@Nonnull final String sName, @Nonnull final IStatisticsHandlerTimer aHandler)
+  default void onTimer (@NonNull final String sName, @NonNull final IStatisticsHandlerTimer aHandler)
   {}
 
   /**
@@ -64,7 +64,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onKeyedTimer (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedTimer aHandler)
+  default void onKeyedTimer (@NonNull final String sName, @NonNull final IStatisticsHandlerKeyedTimer aHandler)
   {}
 
   /**
@@ -75,7 +75,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onSize (@Nonnull final String sName, @Nonnull final IStatisticsHandlerSize aHandler)
+  default void onSize (@NonNull final String sName, @NonNull final IStatisticsHandlerSize aHandler)
   {}
 
   /**
@@ -86,7 +86,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onKeyedSize (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedSize aHandler)
+  default void onKeyedSize (@NonNull final String sName, @NonNull final IStatisticsHandlerKeyedSize aHandler)
   {}
 
   /**
@@ -97,7 +97,7 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onCounter (@Nonnull final String sName, @Nonnull final IStatisticsHandlerCounter aHandler)
+  default void onCounter (@NonNull final String sName, @NonNull final IStatisticsHandlerCounter aHandler)
   {}
 
   /**
@@ -108,6 +108,6 @@ public interface IStatisticsVisitorCallback extends ICallback
    * @param aHandler
    *        Statistics handler. Never <code>null</code>.
    */
-  default void onKeyedCounter (@Nonnull final String sName, @Nonnull final IStatisticsHandlerKeyedCounter aHandler)
+  default void onKeyedCounter (@NonNull final String sName, @NonNull final IStatisticsHandlerKeyedCounter aHandler)
   {}
 }

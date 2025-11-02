@@ -16,9 +16,9 @@
  */
 package com.helger.base.callback.exception;
 
-import com.helger.base.callback.ICallback;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.callback.ICallback;
 
 /**
  * Callback interface to handle thrown exception objects.
@@ -37,5 +37,5 @@ public interface IExceptionCallback <EXTYPE extends Throwable> extends ICallback
    * @param ex
    *        The exception. Never <code>null</code>.
    */
-  void onException (@Nonnull EXTYPE ex);
+  void onException (@NonNull EXTYPE ex);
 }

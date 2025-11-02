@@ -18,14 +18,14 @@ package com.helger.cache.regex;
 
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.cache.impl.Cache;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class provides a cached for compiled regular expressions. It caches up
@@ -57,7 +57,7 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static RegExCache getInstance ()
   {
     final RegExCache ret = SingletonHolder.INSTANCE;
@@ -76,8 +76,8 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
    * @throws IllegalArgumentException
    *         If the passed regular expression has an illegal syntax
    */
-  @Nonnull
-  public static Pattern getPattern (@Nonnull @Nonempty @RegEx final String sRegEx)
+  @NonNull
+  public static Pattern getPattern (@NonNull @Nonempty @RegEx final String sRegEx)
   {
     return getInstance ().getFromCache (new RegExPattern (sRegEx));
   }
@@ -96,8 +96,8 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
    * @throws IllegalArgumentException
    *         If the passed regular expression has an illegal syntax
    */
-  @Nonnull
-  public static Pattern getPattern (@Nonnull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
+  @NonNull
+  public static Pattern getPattern (@NonNull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {
     return getInstance ().getFromCache (new RegExPattern (sRegEx, nOptions));
   }

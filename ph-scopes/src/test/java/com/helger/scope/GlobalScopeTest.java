@@ -21,11 +21,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.numeric.mutable.MutableBoolean;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link GlobalScope}.
@@ -46,7 +45,7 @@ public final class GlobalScopeTest
     final MutableBoolean aDestroyedCalled = new MutableBoolean (false);
     assertTrue (aGS.attrs ().putIn ("key2", new IScopeDestructionAware ()
     {
-      public void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+      public void onBeforeScopeDestruction (@NonNull final IScope aScopeToBeDestroyed) throws Exception
       {
         assertFalse (aPreDestroyedCalled.booleanValue ());
         assertFalse (aDestroyedCalled.booleanValue ());
@@ -54,7 +53,7 @@ public final class GlobalScopeTest
         aPreDestroyedCalled.set (true);
       }
 
-      public void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
+      public void onScopeDestruction (@NonNull final IScope aScopeInDestruction) throws Exception
       {
         assertTrue (aPreDestroyedCalled.booleanValue ());
         assertFalse (aDestroyedCalled.booleanValue ());

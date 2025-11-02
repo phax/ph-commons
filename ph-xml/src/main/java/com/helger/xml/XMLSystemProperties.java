@@ -16,6 +16,7 @@
  */
 package com.helger.xml;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.system.EJavaVersion;
 import com.helger.base.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReader;
-
-import jakarta.annotation.Nullable;
 
 /**
  * This class wraps all the special Java XML system properties. <br>

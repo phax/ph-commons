@@ -16,7 +16,7 @@
  */
 package com.helger.security.authentication.subject.user;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Callback interface for resolving the current user ID.

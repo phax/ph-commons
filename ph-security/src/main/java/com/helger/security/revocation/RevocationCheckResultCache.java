@@ -20,6 +20,7 @@ import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.impl.MappedCache;
 import com.helger.datetime.expiration.ExpiringObject;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An revocation cache that checks the revocation status of each certificate and keeps the status
@@ -50,8 +49,8 @@ public class RevocationCheckResultCache
   private final Function <X509Certificate, ERevoked> m_aRevocationChecker;
   private final Duration m_aCachingDuration;
 
-  @Nonnull
-  private static String _getKey (@Nonnull final X509Certificate aCert)
+  @NonNull
+  private static String _getKey (@NonNull final X509Certificate aCert)
   {
     return aCert.getSubjectX500Principal ().getName () +
            "-" +
@@ -60,14 +59,14 @@ public class RevocationCheckResultCache
            aCert.getSerialNumber ().toString ();
   }
 
-  public RevocationCheckResultCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
-                                     @Nonnull final Duration aCachingDuration)
+  public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                     @NonNull final Duration aCachingDuration)
   {
     this (aRevocationChecker, aCachingDuration, DEFAULT_MAX_SIZE);
   }
 
-  public RevocationCheckResultCache (@Nonnull final Function <X509Certificate, ERevoked> aRevocationChecker,
-                                     @Nonnull final Duration aCachingDuration,
+  public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
+                                     @NonNull final Duration aCachingDuration,
                                      final int nMaxSize)
   {
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
@@ -82,19 +81,19 @@ public class RevocationCheckResultCache
     m_aCachingDuration = aCachingDuration;
   }
 
-  @Nonnull
+  @NonNull
   public final Function <X509Certificate, ERevoked> getRevocationChecker ()
   {
     return m_aRevocationChecker;
   }
 
-  @Nonnull
+  @NonNull
   public final Duration getCachingDuration ()
   {
     return m_aCachingDuration;
   }
 
-  public boolean isRevoked (@Nonnull final X509Certificate aCert)
+  public boolean isRevoked (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
@@ -112,7 +111,7 @@ public class RevocationCheckResultCache
     return aObject.getObject ().isRevoked ();
   }
 
-  @Nonnull
+  @NonNull
   public EChange clearCache ()
   {
     return m_aCache.clearCache ();

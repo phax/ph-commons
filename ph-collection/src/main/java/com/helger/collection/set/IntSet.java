@@ -18,11 +18,11 @@ package com.helger.collection.set;
 
 import java.util.function.IntConsumer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.iface.IHasSize;
 import com.helger.collection.map.IntObjectMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special int-Set. Uses {@link IntObjectMap} internally.
@@ -70,7 +70,7 @@ public class IntSet implements IHasSize
     return m_aMap.put (key, Boolean.TRUE) == null;
   }
 
-  public void forEach (@Nonnull final IntConsumer aConsumer)
+  public void forEach (@NonNull final IntConsumer aConsumer)
   {
     m_aMap.forEach ( (k, v) -> aConsumer.accept (k));
   }

@@ -16,14 +16,14 @@
  */
 package com.helger.base.numeric.mutable;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a byte so that it can be passed a final object but is mutable.
@@ -52,7 +52,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
    * @param aValue
    *        The value to be used.
    */
-  public MutableByte (@Nonnull final Number aValue)
+  public MutableByte (@NonNull final Number aValue)
   {
     this (aValue.byteValue ());
   }
@@ -115,7 +115,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return m_nValue;
   }
 
-  public int inc (@Nonnull final Number aDelta)
+  public int inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.byteValue ());
@@ -131,19 +131,19 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return inc (-nDelta);
   }
 
-  public int dec (@Nonnull final Number aDelta)
+  public int dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.byteValue ());
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final int nValue)
   {
     return set ((byte) nValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final byte nValue)
   {
     if (m_nValue == nValue)
@@ -153,8 +153,8 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Number aValue)
+  @NonNull
+  public EChange set (@NonNull final Number aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.byteValue ());
@@ -203,12 +203,12 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
     return byteValue ();
   }
 
-  public int compareTo (@Nonnull final MutableByte rhs)
+  public int compareTo (@NonNull final MutableByte rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableByte getClone ()
   {
     return new MutableByte (this);

@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for setter method to identify whether a value has changed or not.
@@ -33,14 +33,14 @@ public enum EInterrupt implements IInterruptIndicator
     return this == INTERRUPTED;
   }
 
-  @Nonnull
+  @NonNull
   public static EInterrupt valueOf (final boolean bInterrupted)
   {
     return bInterrupted ? INTERRUPTED : NOT_INTERRUPTED;
   }
 
-  @Nonnull
-  public static EInterrupt valueOf (@Nonnull final IInterruptIndicator aInterruptIndicator)
+  @NonNull
+  public static EInterrupt valueOf (@NonNull final IInterruptIndicator aInterruptIndicator)
   {
     return valueOf (aInterruptIndicator.isInterrupted ());
   }

@@ -30,6 +30,9 @@ import java.util.function.Consumer;
 import java.util.function.IntConsumer;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
@@ -44,9 +47,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.ICharConsumer;
 import com.helger.base.functional.ICharPredicate;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple string utility methods, originally in StringHelper.
@@ -243,7 +243,7 @@ public class StringHelper
    * @return An empty string if the passed parameter is <code>null</code>, the passed string
    *         otherwise.
    */
-  @Nonnull
+  @NonNull
   public static String getNotNull (@Nullable final String s)
   {
     return getNotNull (s, "");
@@ -281,7 +281,7 @@ public class StringHelper
    * @since 10.2.0
    */
   @Nullable
-  public static String getNotNull (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfNull)
+  public static String getNotNull (@Nullable final String s, @NonNull final Supplier <String> aDefaultIfNull)
   {
     return s == null ? aDefaultIfNull.get () : s;
   }
@@ -295,7 +295,7 @@ public class StringHelper
    * @return An empty string if the passed parameter is <code>null</code>, the passed
    *         {@link CharSequence} otherwise.
    */
-  @Nonnull
+  @NonNull
   public static CharSequence getNotNull (@Nullable final CharSequence s)
   {
     return getNotNull (s, "");
@@ -334,7 +334,7 @@ public class StringHelper
    */
   @Nullable
   public static CharSequence getNotNull (@Nullable final CharSequence s,
-                                         @Nonnull final Supplier <? extends CharSequence> aDefaultIfNull)
+                                         @NonNull final Supplier <? extends CharSequence> aDefaultIfNull)
   {
     return s == null ? aDefaultIfNull.get () : s;
   }
@@ -371,7 +371,7 @@ public class StringHelper
    * @since 10.2.0
    */
   @Nullable
-  public static String getNotEmpty (@Nullable final String s, @Nonnull final Supplier <String> aDefaultIfEmpty)
+  public static String getNotEmpty (@Nullable final String s, @NonNull final Supplier <String> aDefaultIfEmpty)
   {
     return hasNoText (s) ? aDefaultIfEmpty.get () : s;
   }
@@ -425,7 +425,7 @@ public class StringHelper
    * @return A non-<code>null</code> string containing the string element for the given number of
    *         times.
    */
-  @Nonnull
+  @NonNull
   public static String getRepeated (final char cElement, @Nonnegative final int nRepeats)
   {
     ValueEnforcer.isGE0 (nRepeats, "Repeats");
@@ -451,8 +451,8 @@ public class StringHelper
    * @return A non-<code>null</code> string containing the string element for the given number of
    *         times.
    */
-  @Nonnull
-  public static String getRepeated (@Nonnull final String sElement, @Nonnegative final int nRepeats)
+  @NonNull
+  public static String getRepeated (@NonNull final String sElement, @Nonnegative final int nRepeats)
   {
     ValueEnforcer.notNull (sElement, "Element");
     ValueEnforcer.isGE0 (nRepeats, "Repeats");
@@ -494,7 +494,7 @@ public class StringHelper
    *        "700")
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   private static String _getWithLeadingOrTrailing (@Nullable final String sSrc,
                                                    @Nonnegative final int nMinLen,
                                                    final char cGap,
@@ -544,7 +544,7 @@ public class StringHelper
    *        The character to be used at the beginning
    * @return A non-<code>null</code> string that has at least nLen chars
    */
-  @Nonnull
+  @NonNull
   public static String getWithLeading (@Nullable final String sSrc, @Nonnegative final int nMinLen, final char cFront)
   {
     return _getWithLeadingOrTrailing (sSrc, nMinLen, cFront, true);
@@ -563,7 +563,7 @@ public class StringHelper
    * @return A non-<code>null</code> string that has at least nLen chars
    * @see #getWithLeading(String, int, char)
    */
-  @Nonnull
+  @NonNull
   public static String getWithLeading (final int nValue, @Nonnegative final int nMinLen, final char cFront)
   {
     return _getWithLeadingOrTrailing (Integer.toString (nValue), nMinLen, cFront, true);
@@ -582,7 +582,7 @@ public class StringHelper
    * @return A non-<code>null</code> string that has at least nLen chars
    * @see #getWithLeading(String, int, char)
    */
-  @Nonnull
+  @NonNull
   public static String getWithLeading (final long nValue, @Nonnegative final int nMinLen, final char cFront)
   {
     return _getWithLeadingOrTrailing (Long.toString (nValue), nMinLen, cFront, true);
@@ -602,7 +602,7 @@ public class StringHelper
    *        The character to be used at the end
    * @return A non-<code>null</code> string that has at least nLen chars
    */
-  @Nonnull
+  @NonNull
   public static String getWithTrailing (@Nullable final String sSrc, @Nonnegative final int nMinLen, final char cEnd)
   {
     return _getWithLeadingOrTrailing (sSrc, nMinLen, cEnd, false);
@@ -632,7 +632,7 @@ public class StringHelper
     return aValue == null ? null : getLeadingZero (aValue.shortValue (), nChars);
   }
 
-  @Nonnull
+  @NonNull
   public static String getLeadingZero (final int nValue, final int nChars)
   {
     final boolean bNeg = nValue < 0;
@@ -649,7 +649,7 @@ public class StringHelper
     return aSB.append (sValue).toString ();
   }
 
-  @Nonnull
+  @NonNull
   public static String getLeadingZero (final long nValue, final int nChars)
   {
     final boolean bNeg = nValue < 0;
@@ -666,8 +666,8 @@ public class StringHelper
     return aSB.append (sValue).toString ();
   }
 
-  @Nonnull
-  public static String getLeadingZero (@Nonnull final String sValue, final int nChars)
+  @NonNull
+  public static String getLeadingZero (@NonNull final String sValue, final int nChars)
   {
     return getWithLeading (sValue, nChars, '0');
   }
@@ -908,7 +908,7 @@ public class StringHelper
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
                                           @Nullable final String sSearch,
-                                          @Nonnull final Locale aSortLocale)
+                                          @NonNull final Locale aSortLocale)
   {
     return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
                                                                                            .indexOf (sSearch.toLowerCase (aSortLocale))
@@ -933,7 +933,7 @@ public class StringHelper
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
                                           @Nonnegative final int nFromIndex,
                                           @Nullable final String sSearch,
-                                          @Nonnull final Locale aSortLocale)
+                                          @NonNull final Locale aSortLocale)
   {
     return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
                                                                                                                         aSortLocale)
@@ -957,7 +957,7 @@ public class StringHelper
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
                                               @Nullable final String sSearch,
-                                              @Nonnull final Locale aSortLocale)
+                                              @NonNull final Locale aSortLocale)
   {
     return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
                                                                                            .lastIndexOf (sSearch.toLowerCase (aSortLocale))
@@ -982,7 +982,7 @@ public class StringHelper
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
                                               @Nonnegative final int nFromIndex,
                                               @Nullable final String sSearch,
-                                              @Nonnull final Locale aSortLocale)
+                                              @NonNull final Locale aSortLocale)
   {
     return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
                                                                                                                         aSortLocale)
@@ -1006,7 +1006,7 @@ public class StringHelper
    */
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
                                           final char cSearch,
-                                          @Nonnull final Locale aSortLocale)
+                                          @NonNull final Locale aSortLocale)
   {
     return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
                                                         .indexOf (Character.toLowerCase (cSearch))
@@ -1031,7 +1031,7 @@ public class StringHelper
   public static int getIndexOfIgnoreCase (@Nullable final String sText,
                                           @Nonnegative final int nFromIndex,
                                           final char cSearch,
-                                          @Nonnull final Locale aSortLocale)
+                                          @NonNull final Locale aSortLocale)
   {
     return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
                                                                        .indexOf (Character.toLowerCase (cSearch),
@@ -1053,7 +1053,7 @@ public class StringHelper
    */
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
                                               final char cSearch,
-                                              @Nonnull final Locale aSortLocale)
+                                              @NonNull final Locale aSortLocale)
   {
     return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
                                                         .lastIndexOf (Character.toLowerCase (cSearch))
@@ -1078,7 +1078,7 @@ public class StringHelper
   public static int getLastIndexOfIgnoreCase (@Nullable final String sText,
                                               @Nonnegative final int nFromIndex,
                                               final char cSearch,
-                                              @Nonnull final Locale aSortLocale)
+                                              @NonNull final Locale aSortLocale)
   {
     return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
                                                                        .lastIndexOf (Character.toLowerCase (cSearch),
@@ -1130,7 +1130,7 @@ public class StringHelper
    */
   public static boolean containsIgnoreCase (@Nullable final String sText,
                                             @Nullable final String sSearch,
-                                            @Nonnull final Locale aSortLocale)
+                                            @NonNull final Locale aSortLocale)
   {
     return getIndexOfIgnoreCase (sText, sSearch, aSortLocale) != CGlobal.STRING_NOT_FOUND;
   }
@@ -1149,7 +1149,7 @@ public class StringHelper
    */
   public static boolean containsIgnoreCase (@Nullable final String sText,
                                             final char cSearch,
-                                            @Nonnull final Locale aSortLocale)
+                                            @NonNull final Locale aSortLocale)
   {
     return getIndexOfIgnoreCase (sText, cSearch, aSortLocale) != CGlobal.STRING_NOT_FOUND;
   }
@@ -1164,7 +1164,7 @@ public class StringHelper
    * @return <code>true</code> if at least any of the search char is contained in the input char
    *         array, <code>false</code> otherwise.
    */
-  public static boolean containsAny (@Nullable final char [] aInput, @Nonnull final char [] aSearchChars)
+  public static boolean containsAny (@Nullable final char [] aInput, @NonNull final char [] aSearchChars)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
@@ -1185,7 +1185,7 @@ public class StringHelper
    * @return <code>true</code> if at least any of the search char is contained in the input char
    *         array, <code>false</code> otherwise.
    */
-  public static boolean containsAny (@Nullable final String sInput, @Nonnull final char [] aSearchChars)
+  public static boolean containsAny (@Nullable final String sInput, @NonNull final char [] aSearchChars)
   {
     return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
   }
@@ -1198,7 +1198,7 @@ public class StringHelper
    * @param aConsumer
    *        The consumer to be used. May not be <code>null</code>.
    */
-  public static void iterateChars (@Nullable final String sInputString, @Nonnull final ICharConsumer aConsumer)
+  public static void iterateChars (@Nullable final String sInputString, @NonNull final ICharConsumer aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
@@ -1514,7 +1514,7 @@ public class StringHelper
    * @param aConsumer
    *        The consumer to be used. May not be <code>null</code>.
    */
-  public static void iterateCodePoints (@Nullable final String sInputString, @Nonnull final IntConsumer aConsumer)
+  public static void iterateCodePoints (@Nullable final String sInputString, @NonNull final IntConsumer aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
@@ -1545,7 +1545,7 @@ public class StringHelper
    */
   public static void explode (final char cSep,
                               @Nullable final String sElements,
-                              @Nonnull final Consumer <? super String> aConsumer)
+                              @NonNull final Consumer <? super String> aConsumer)
   {
     explode (cSep, sElements, -1, aConsumer);
   }
@@ -1568,7 +1568,7 @@ public class StringHelper
   public static void explode (final char cSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
-                              @Nonnull final Consumer <? super String> aConsumer)
+                              @NonNull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
@@ -1610,9 +1610,9 @@ public class StringHelper
    * @param aConsumer
    *        The non-<code>null</code> consumer that is invoked for each exploded element
    */
-  public static void explode (@Nonnull final String sSep,
+  public static void explode (@NonNull final String sSep,
                               @Nullable final String sElements,
-                              @Nonnull final Consumer <? super String> aConsumer)
+                              @NonNull final Consumer <? super String> aConsumer)
   {
     explode (sSep, sElements, -1, aConsumer);
   }
@@ -1632,10 +1632,10 @@ public class StringHelper
    * @param aConsumer
    *        The non-<code>null</code> consumer that is invoked for each exploded element
    */
-  public static void explode (@Nonnull final String sSep,
+  public static void explode (@NonNull final String sSep,
                               @Nullable final String sElements,
                               final int nMaxItems,
-                              @Nonnull final Consumer <? super String> aConsumer)
+                              @NonNull final Consumer <? super String> aConsumer)
   {
     ValueEnforcer.notNull (sSep, "Separator");
     ValueEnforcer.notNull (aConsumer, "Collection");
@@ -1695,7 +1695,7 @@ public class StringHelper
    *        larger than the number of elements found, it has no effect.
    * @return The passed collection and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static String [] getExplodedArray (final char cSep,
                                             @Nullable final String sElements,
                                             @CheckForSigned final int nMaxItems)
@@ -1749,7 +1749,7 @@ public class StringHelper
    *        The concatenated String to convert. May be <code>null</code> or empty.
    * @return The passed collection and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static String [] getExplodedArray (final char cSep, @Nullable final String sElements)
   {
     return getExplodedArray (cSep, sElements, -1);
@@ -1774,13 +1774,13 @@ public class StringHelper
    *        elements
    * @return The passed collection and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("The passed parameter")
   @CodingStyleguideUnaware
   public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (final char cSep,
                                                                              @Nullable final String sElements,
                                                                              final int nMaxItems,
-                                                                             @Nonnull final COLLTYPE aCollection)
+                                                                             @NonNull final COLLTYPE aCollection)
   {
     explode (cSep, sElements, nMaxItems, aCollection::add);
     return aCollection;
@@ -1797,7 +1797,7 @@ public class StringHelper
    * @return The {@link List} represented by the passed string. Never <code>null</code>. If the
    *         passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static List <String> getExploded (final char cSep, @Nullable final String sElements)
   {
@@ -1819,7 +1819,7 @@ public class StringHelper
    * @return The {@link List} represented by the passed string. Never <code>null</code>. If the
    *         passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static List <String> getExploded (final char cSep, @Nullable final String sElements, final int nMaxItems)
   {
@@ -1848,12 +1848,12 @@ public class StringHelper
    *        elements
    * @return The passed collection and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
-  public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (@Nonnull final String sSep,
+  public static <COLLTYPE extends Collection <String>> COLLTYPE getExploded (@NonNull final String sSep,
                                                                              @Nullable final String sElements,
                                                                              final int nMaxItems,
-                                                                             @Nonnull final COLLTYPE aCollection)
+                                                                             @NonNull final COLLTYPE aCollection)
   {
     explode (sSep, sElements, nMaxItems, aCollection::add);
     return aCollection;
@@ -1870,9 +1870,9 @@ public class StringHelper
    * @return The {@link List} represented by the passed string. Never <code>null</code>. If the
    *         passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static List <String> getExploded (@Nonnull final String sSep, @Nullable final String sElements)
+  public static List <String> getExploded (@NonNull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1);
   }
@@ -1892,9 +1892,9 @@ public class StringHelper
    * @return The {@link List} represented by the passed string. Never <code>null</code>. If the
    *         passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static List <String> getExploded (@Nonnull final String sSep,
+  public static List <String> getExploded (@NonNull final String sSep,
                                            @Nullable final String sElements,
                                            final int nMaxItems)
   {
@@ -1915,9 +1915,9 @@ public class StringHelper
    * @return The {@link Set} represented by the passed string. Never <code>null</code>. If the
    *         passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static HashSet <String> getExplodedToSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static HashSet <String> getExplodedToSet (@NonNull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new HashSet <> ());
   }
@@ -1933,9 +1933,9 @@ public class StringHelper
    * @return The ordered {@link Set} represented by the passed string. Never <code>null</code>. If
    *         the passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static LinkedHashSet <String> getExplodedToOrderedSet (@Nonnull final String sSep,
+  public static LinkedHashSet <String> getExplodedToOrderedSet (@NonNull final String sSep,
                                                                 @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new LinkedHashSet <> ());
@@ -1952,9 +1952,9 @@ public class StringHelper
    * @return The sorted {@link Set} represented by the passed string. Never <code>null</code>. If
    *         the passed input string is <code>null</code> or "" an empty list is returned.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static TreeSet <String> getExplodedToSortedSet (@Nonnull final String sSep, @Nullable final String sElements)
+  public static TreeSet <String> getExplodedToSortedSet (@NonNull final String sSep, @Nullable final String sElements)
   {
     return getExploded (sSep, sElements, -1, new TreeSet <> ());
   }
@@ -1970,7 +1970,7 @@ public class StringHelper
    *        May be <code>null</code>.
    * @return The concatenated string. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static String getConcatenatedOnDemand (@Nullable final String sFront, @Nullable final String sEnd)
   {
     if (sFront == null)
@@ -1992,7 +1992,7 @@ public class StringHelper
    *        May be <code>null</code>.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getConcatenatedOnDemand (@Nullable final String sFront,
                                                 @Nullable final String sSep,
                                                 @Nullable final String sEnd)
@@ -2021,7 +2021,7 @@ public class StringHelper
    *        May be <code>null</code>.
    * @return The concatenated string.
    */
-  @Nonnull
+  @NonNull
   public static String getConcatenatedOnDemand (@Nullable final String sFront,
                                                 final char cSep,
                                                 @Nullable final String sEnd)
@@ -2047,7 +2047,7 @@ public class StringHelper
    *         <code>"'" + sSource + "'"</code> otherwise.
    * @since 9.2.0
    */
-  @Nonnull
+  @NonNull
   public static String getQuoted (@Nullable final String sSource)
   {
     return sSource == null ? "null" : "'" + sSource + "'";
@@ -2063,7 +2063,7 @@ public class StringHelper
    * @see #getQuoted(String)
    * @since 9.2.0
    */
-  public static void appendQuoted (@Nonnull final StringBuilder aTarget, @Nullable final String sSource)
+  public static void appendQuoted (@NonNull final StringBuilder aTarget, @Nullable final String sSource)
   {
     if (sSource == null)
       aTarget.append ("null");
@@ -2083,7 +2083,7 @@ public class StringHelper
    * @see #getQuoted(String)
    * @since 9.2.0
    */
-  public static void appendQuoted (@Nonnull final Appendable aTarget, @Nullable final String sSource) throws IOException
+  public static void appendQuoted (@NonNull final Appendable aTarget, @Nullable final String sSource) throws IOException
   {
     if (sSource == null)
       aTarget.append ("null");
@@ -2407,14 +2407,14 @@ public class StringHelper
     return isEmpty (s) ? s : s.trim ();
   }
 
-  @Nonnull
-  public static String getCutAfterLength (@Nonnull final String sValue, @Nonnegative final int nMaxLength)
+  @NonNull
+  public static String getCutAfterLength (@NonNull final String sValue, @Nonnegative final int nMaxLength)
   {
     return getCutAfterLength (sValue, nMaxLength, null);
   }
 
-  @Nonnull
-  public static String getCutAfterLength (@Nonnull final String sValue,
+  @NonNull
+  public static String getCutAfterLength (@NonNull final String sValue,
                                           @Nonnegative final int nMaxLength,
                                           @Nullable final String sNewSuffix)
   {
@@ -2437,7 +2437,7 @@ public class StringHelper
    *         <code>null</code>.
    * @see Object#toString()
    */
-  @Nonnull
+  @NonNull
   public static String getToString (@Nullable final Object aObject)
   {
     return getToString (aObject, "");
@@ -2469,7 +2469,7 @@ public class StringHelper
    *        The source string. May be <code>null</code>.
    * @return An empty, non-<code>null</code> string if the passed string has a length &le; 1.
    */
-  @Nonnull
+  @NonNull
   public static String getWithoutLeadingChar (@Nullable final String sStr)
   {
     return getWithoutLeadingChars (sStr, 1);
@@ -2485,7 +2485,7 @@ public class StringHelper
    * @return An empty, non-<code>null</code> string if the passed string has a length &le;
    *         <code>nCount</code>.
    */
-  @Nonnull
+  @NonNull
   public static String getWithoutLeadingChars (@Nullable final String sStr, @Nonnegative final int nCount)
   {
     ValueEnforcer.isGE0 (nCount, "Count");
@@ -2502,7 +2502,7 @@ public class StringHelper
    *        The source string. May be <code>null</code>.
    * @return An empty, non-<code>null</code> string if the passed string has a length &le; 1.
    */
-  @Nonnull
+  @NonNull
   public static String getWithoutTrailingChar (@Nullable final String sStr)
   {
     return getWithoutTrailingChars (sStr, 1);
@@ -2518,7 +2518,7 @@ public class StringHelper
    * @return An empty, non-<code>null</code> string if the passed string has a length &le;
    *         <code>nCount</code>.
    */
-  @Nonnull
+  @NonNull
   public static String getWithoutTrailingChars (@Nullable final String sStr, @Nonnegative final int nCount)
   {
     ValueEnforcer.isGE0 (nCount, "Count");
@@ -2536,7 +2536,7 @@ public class StringHelper
    *        The source string. May be <code>null</code>
    * @return A non-<code>null</code> string representing the passed string without any spaces
    */
-  @Nonnull
+  @NonNull
   public static String getWithoutAnySpaces (@Nullable final String sStr)
   {
     if (sStr == null)

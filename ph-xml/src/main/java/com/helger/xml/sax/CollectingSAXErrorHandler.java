@@ -18,6 +18,7 @@ package com.helger.xml.sax;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXParseException;
 
 import com.helger.annotation.concurrent.GuardedBy;
@@ -30,8 +31,6 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An error handler implementation that stores all warnings, errors and fatal
@@ -59,7 +58,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
    *        The error list provider. May not be <code>null</code>.
    * @since 9.2.0
    */
-  protected CollectingSAXErrorHandler (@Nonnull final Supplier <? extends ErrorList> aErrorListProvider)
+  protected CollectingSAXErrorHandler (@NonNull final Supplier <? extends ErrorList> aErrorListProvider)
   {
     m_aErrors = aErrorListProvider.get ();
     if (m_aErrors == null)
@@ -67,13 +66,13 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   }
 
   @Override
-  protected void internalLog (@Nonnull final IErrorLevel aErrorLevel, final SAXParseException aException)
+  protected void internalLog (@NonNull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     final IError aError = getSaxParseError (aErrorLevel, aException);
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aError));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IErrorList getErrorList ()
   {
@@ -90,7 +89,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
    *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
-  @Nonnull
+  @NonNull
   public EChange clearResourceErrors ()
   {
     return m_aRWLock.writeLockedGet (m_aErrors::removeAll);

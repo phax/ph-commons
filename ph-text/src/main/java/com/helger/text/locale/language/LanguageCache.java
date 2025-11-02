@@ -18,6 +18,8 @@ package com.helger.text.locale.language;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,11 +37,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.text.locale.LocaleCache;
-import com.helger.text.locale.LocaleHelper;
 import com.helger.text.locale.LocaleCache.IMissingLocaleHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.text.locale.LocaleHelper;
 
 /**
  * This is a global cache for language objects to avoid too many objects flowing around.<br>
@@ -100,7 +99,7 @@ public final class LanguageCache implements IHasConditionalLogger
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static LanguageCache getInstance ()
   {
     final LanguageCache ret = SingletonHolder.INSTANCE;
@@ -108,9 +107,9 @@ public final class LanguageCache implements IHasConditionalLogger
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @VisibleForTesting
-  EChange addLanguage (@Nonnull final String sLanguage)
+  EChange addLanguage (@NonNull final String sLanguage)
   {
     ValueEnforcer.notNull (sLanguage, "Language");
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
@@ -203,7 +202,7 @@ public final class LanguageCache implements IHasConditionalLogger
   /**
    * @return a set with all contained languages. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllLanguages ()
   {
@@ -213,7 +212,7 @@ public final class LanguageCache implements IHasConditionalLogger
   /**
    * @return a set with all contained language locales. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguageLocales ()
   {

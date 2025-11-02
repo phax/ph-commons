@@ -18,6 +18,9 @@ package com.helger.diagnostics.error.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforce.ValueEnforcer;
@@ -26,9 +29,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.text.IHasText;
 import com.helger.text.display.IHasDisplayText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A implementation of {@link IHasErrorText} based on {@link IHasText}. Cannot
@@ -42,18 +42,18 @@ public class DynamicHasErrorText implements IHasErrorText
 {
   private final IHasText m_aText;
 
-  public DynamicHasErrorText (@Nonnull final IHasDisplayText aText)
+  public DynamicHasErrorText (@NonNull final IHasDisplayText aText)
   {
     this (aText.getAsHasText ());
   }
 
-  public DynamicHasErrorText (@Nonnull final IHasText aText)
+  public DynamicHasErrorText (@NonNull final IHasText aText)
   {
     m_aText = ValueEnforcer.notNull (aText, "Text");
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_aText.getText (aContentLocale);
   }

@@ -16,12 +16,12 @@
  */
 package com.helger.base.system;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringParser;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Enumeration for representing the current Java JDK version.
@@ -138,7 +138,7 @@ public enum EJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
    * @return <code>true</code> if this Java version is old or equal than the passed version.
    */
-  public boolean isOlderOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
+  public boolean isOlderOrEqualsThan (@NonNull final EJavaVersion eJavaVersion)
   {
     return m_dMinVersionIncl <= eJavaVersion.m_dMinVersionIncl;
   }
@@ -150,7 +150,7 @@ public enum EJavaVersion
    *        the Java version to be checked. May not be <code>null</code>.
    * @return <code>true</code> if this Java version is newer or equal than the passed version.
    */
-  public boolean isNewerOrEqualsThan (@Nonnull final EJavaVersion eJavaVersion)
+  public boolean isNewerOrEqualsThan (@NonNull final EJavaVersion eJavaVersion)
   {
     return m_dMinVersionIncl >= eJavaVersion.m_dMinVersionIncl;
   }
@@ -168,7 +168,7 @@ public enum EJavaVersion
    * @return The current Java version. If the Java version could not be determined, {@link #UNKNOWN}
    *         is returned and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EJavaVersion getCurrentVersion ()
   {
     return INSTANCE;
@@ -183,14 +183,14 @@ public enum EJavaVersion
    *        Minor version number
    * @return {@link #UNKNOWN} if the version could not be determined.
    */
-  @Nonnull
+  @NonNull
   public static EJavaVersion getFromMajorAndMinor (final int nMajor, final int nMinor)
   {
     final double dVersion = StringParser.parseBigDecimal (nMajor + "." + nMinor).doubleValue ();
     return getFromVersionNumber (dVersion);
   }
 
-  @Nonnull
+  @NonNull
   public static EJavaVersion getFromVersionNumber (final double dVersion)
   {
     for (final EJavaVersion eVersion : values ())

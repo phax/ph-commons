@@ -21,6 +21,7 @@ import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +32,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringParser;
 import com.helger.base.system.SystemProperties;
 import com.helger.base.timing.StopWatch;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A secure random generator initialized with another secure random
@@ -111,7 +110,7 @@ public final class VerySecureRandom
    *
    * @return A new {@link SecureRandom} instance. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   private static SecureRandom _createSecureRandomInstance ()
   {
     SecureRandom aSecureRandom;
@@ -232,7 +231,7 @@ public final class VerySecureRandom
    * @return The {@link SecureRandom} instance that does the hard work. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SecureRandom getInstance ()
   {
     final int nReSeedInterval = getReSeedInterval ();

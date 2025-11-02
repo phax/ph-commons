@@ -18,6 +18,8 @@ package com.helger.config.fallback;
 
 import java.math.BigDecimal;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +29,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link IConfigWithFallback}.
@@ -53,7 +52,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
 
   private IConfigKeyOutdatedNotifier m_aOutdatedNotifier = DEFAULT_OUTDATED_NOTIFIER;
 
-  public ConfigWithFallback (@Nonnull final IConfigurationValueProvider aValueProvider)
+  public ConfigWithFallback (@NonNull final IConfigurationValueProvider aValueProvider)
   {
     super (aValueProvider);
   }
@@ -62,7 +61,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
    * @return The outdated key notifier to be invoked, when an old configuration key was used. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IConfigKeyOutdatedNotifier getOutdatedNotifier ()
   {
     return m_aOutdatedNotifier;
@@ -75,8 +74,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
    *        The outdated key identifier to be used. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final ConfigWithFallback setOutdatedNotifier (@Nonnull final IConfigKeyOutdatedNotifier aOutdatedNotifier)
+  @NonNull
+  public final ConfigWithFallback setOutdatedNotifier (@NonNull final IConfigKeyOutdatedNotifier aOutdatedNotifier)
   {
     ValueEnforcer.notNull (aOutdatedNotifier, "OutdatedNotifier");
     m_aOutdatedNotifier = aOutdatedNotifier;
@@ -84,8 +83,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   @Nullable
-  public ConfiguredValue getConfiguredValueOrFallback (@Nonnull final String sPrimary,
-                                                       @Nonnull final String... aOldOnes)
+  public ConfiguredValue getConfiguredValueOrFallback (@NonNull final String sPrimary,
+                                                       @NonNull final String... aOldOnes)
   {
     ConfiguredValue ret = getConfiguredValue (sPrimary);
     if (ret == null)
@@ -106,7 +105,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   @Nullable
-  public String getAsStringOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
+  public String getAsStringOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
     String ret = getAsString (sPrimary);
     if (StringHelper.isEmpty (ret))
@@ -127,7 +126,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   @Nullable
-  public char [] getAsCharArrayOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
+  public char [] getAsCharArrayOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
     char [] ret = getAsCharArray (sPrimary);
     if (ret == null)
@@ -148,7 +147,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   @Nullable
-  public BigDecimal getAsBigDecimalOrFallback (@Nonnull final String sPrimary, @Nonnull final String... aOldOnes)
+  public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
     BigDecimal ret = getAsBigDecimal (sPrimary);
     if (ret == null)
@@ -168,10 +167,10 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
-  public int getAsIntOrFallback (@Nonnull final String sPrimary,
+  public int getAsIntOrFallback (@NonNull final String sPrimary,
                                  final int nBogus,
                                  final int nDefault,
-                                 @Nonnull final String... aOldOnes)
+                                 @NonNull final String... aOldOnes)
   {
     int ret = getAsInt (sPrimary, nBogus);
     if (ret == nBogus)
@@ -191,10 +190,10 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret == nBogus ? nDefault : ret;
   }
 
-  public long getAsLongOrFallback (@Nonnull final String sPrimary,
+  public long getAsLongOrFallback (@NonNull final String sPrimary,
                                    final long nBogus,
                                    final long nDefault,
-                                   @Nonnull final String... aOldOnes)
+                                   @NonNull final String... aOldOnes)
   {
     long ret = getAsLong (sPrimary, nBogus);
     if (ret == nBogus)

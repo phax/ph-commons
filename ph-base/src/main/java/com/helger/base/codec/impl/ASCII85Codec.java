@@ -19,14 +19,14 @@ package com.helger.base.codec.impl;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayStreamDecoder;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Decoder for ASCII85 encoded values
@@ -48,7 +48,7 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
       return;

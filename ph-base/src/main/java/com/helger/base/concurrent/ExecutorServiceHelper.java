@@ -19,6 +19,7 @@ package com.helger.base.concurrent;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +27,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EInterrupt;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Wrapper around an {@link ExecutorService} with additional helper methods.
@@ -51,8 +50,8 @@ public final class ExecutorServiceHelper
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
-  @Nonnull
-  public static EInterrupt waitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES)
+  @NonNull
+  public static EInterrupt waitUntilAllTasksAreFinished (@NonNull final ExecutorService aES)
   {
     return waitUntilAllTasksAreFinished (aES, 1, TimeUnit.SECONDS);
   }
@@ -71,10 +70,10 @@ public final class ExecutorServiceHelper
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
-  @Nonnull
-  public static EInterrupt waitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES,
+  @NonNull
+  public static EInterrupt waitUntilAllTasksAreFinished (@NonNull final ExecutorService aES,
                                                          @Nonnegative final long nTimeout,
-                                                         @Nonnull final TimeUnit eUnit)
+                                                         @NonNull final TimeUnit eUnit)
   {
     ValueEnforcer.notNull (aES, "ExecutorService");
 
@@ -104,8 +103,8 @@ public final class ExecutorServiceHelper
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
-  @Nonnull
-  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES)
+  @NonNull
+  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@NonNull final ExecutorService aES)
   {
     return shutdownAndWaitUntilAllTasksAreFinished (aES, 1, TimeUnit.SECONDS);
   }
@@ -125,10 +124,10 @@ public final class ExecutorServiceHelper
    * @return {@link EInterrupt#INTERRUPTED} if the executor service was
    *         interrupted while awaiting termination. Never <code>null</code>.
    */
-  @Nonnull
-  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@Nonnull final ExecutorService aES,
+  @NonNull
+  public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@NonNull final ExecutorService aES,
                                                                     @Nonnegative final long nTimeout,
-                                                                    @Nonnull final TimeUnit eUnit)
+                                                                    @NonNull final TimeUnit eUnit)
   {
     ValueEnforcer.notNull (aES, "ExecutorService");
 

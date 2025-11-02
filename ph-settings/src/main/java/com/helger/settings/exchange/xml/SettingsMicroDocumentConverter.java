@@ -19,6 +19,9 @@ package com.helger.settings.exchange.xml;
 import java.util.Comparator;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.settings.ISettings;
@@ -29,9 +32,6 @@ import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {
@@ -47,21 +47,21 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
    * @param aSettingsFactory
    *        Settings factory to be used. May not be <code>null</code>.
    */
-  public SettingsMicroDocumentConverter (@Nonnull final ISettingsFactory <T> aSettingsFactory)
+  public SettingsMicroDocumentConverter (@NonNull final ISettingsFactory <T> aSettingsFactory)
   {
     m_aSettingFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
-  @Nonnull
+  @NonNull
   public ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingFactory;
   }
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final T aObject,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final T aObject,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, sTagName);
     eRoot.setAttribute (ATTR_NAME, aObject.getName ());
@@ -85,7 +85,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
     return eRoot;
   }
 
-  @Nonnull
+  @NonNull
   public T convertToNative (final IMicroElement aElement)
   {
     // Create new settings object

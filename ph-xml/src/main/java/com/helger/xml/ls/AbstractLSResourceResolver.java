@@ -16,13 +16,12 @@
  */
 package com.helger.xml.ls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.annotation.Nonempty;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract {@link LSResourceResolver} base implementation.
@@ -45,7 +44,7 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
     return m_aWrappedResourceResolver;
   }
 
-  @Nonnull
+  @NonNull
   public AbstractLSResourceResolver setWrappedResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {
     m_aWrappedResourceResolver = aWrappedResourceResolver;
@@ -98,14 +97,14 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
    *         connection to the resource.
    */
   @Nullable
-  public abstract LSInput mainResolveResource (@Nonnull @Nonempty final String sType,
+  public abstract LSInput mainResolveResource (@NonNull @Nonempty final String sType,
                                                @Nullable final String sNamespaceURI,
                                                @Nullable final String sPublicId,
                                                @Nullable final String sSystemId,
                                                @Nullable final String sBaseURI);
 
   @Nullable
-  public final LSInput resolveResource (@Nonnull @Nonempty final String sType,
+  public final LSInput resolveResource (@NonNull @Nonempty final String sType,
                                         @Nullable final String sNamespaceURI,
                                         @Nullable final String sPublicId,
                                         @Nullable final String sSystemId,

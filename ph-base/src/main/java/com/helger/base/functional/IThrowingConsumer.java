@@ -16,8 +16,8 @@
  */
 package com.helger.base.functional;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an operation that accepts a single input argument and returns no
@@ -59,7 +59,7 @@ public interface IThrowingConsumer <T, EXTYPE extends Throwable>
    * @return a composed {@code Consumer} that performs in sequence this
    *         operation followed by the {@code after} operation
    */
-  @Nonnull
+  @NonNull
   default IThrowingConsumer <T, EXTYPE> andThen (@Nullable final IThrowingConsumer <? super T, ? extends EXTYPE> after)
   {
     if (after == null)

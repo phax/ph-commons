@@ -16,14 +16,14 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroProcessingInstruction} interface.
@@ -36,24 +36,24 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   private final String m_sTarget;
   private final String m_sData;
 
-  public MicroProcessingInstruction (@Nonnull @Nonempty final String sTarget)
+  public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget)
   {
     this (sTarget, null);
   }
 
-  public MicroProcessingInstruction (@Nonnull @Nonempty final String sTarget, @Nullable final String sData)
+  public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget, @Nullable final String sData)
   {
     m_sTarget = ValueEnforcer.notEmpty (sTarget, "Target");
     m_sData = sData;
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.PROCESSING_INSTRUCTION;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeName ()
   {
@@ -61,7 +61,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeValue ()
   {
@@ -78,7 +78,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
     return m_sData;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroProcessingInstruction getClone ()
   {
     return new MicroProcessingInstruction (m_sTarget, m_sData);

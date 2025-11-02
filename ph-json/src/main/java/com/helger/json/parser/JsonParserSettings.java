@@ -16,12 +16,12 @@
  */
 package com.helger.json.parser;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains the settings for the JSON parser. Prior to v12 they were contained directly
@@ -54,7 +54,7 @@ public final class JsonParserSettings implements IJsonParserSettings
   public JsonParserSettings ()
   {}
 
-  public JsonParserSettings (@Nonnull final IJsonParserSettings rhs)
+  public JsonParserSettings (@NonNull final IJsonParserSettings rhs)
   {
     assignFrom (rhs);
   }
@@ -73,7 +73,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        <code>true</code> to track the position, <code>false</code> if not.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setTrackPosition (final boolean bTrackPosition)
   {
     m_bTrackPosition = bTrackPosition;
@@ -91,7 +91,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        The tab-size to use. Must be &gt; 0.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setTabSize (@Nonnegative final int nTabSize)
   {
     ValueEnforcer.isGT0 (nTabSize, "TabSize");
@@ -110,7 +110,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        reading numerical values.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setAlwaysUseBigNumber (final boolean bAlwaysUseBigNumber)
   {
     m_bAlwaysUseBigNumber = bAlwaysUseBigNumber;
@@ -128,7 +128,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        certain non-quoted values are also supported.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setRequireStringQuotes (final boolean bRequireStringQuotes)
   {
     m_bRequireStringQuotes = bRequireStringQuotes;
@@ -146,7 +146,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        if not.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setAllowSpecialCharsInStrings (final boolean bAllowSpecialCharsInStrings)
   {
     m_bAllowSpecialCharsInStrings = bAllowSpecialCharsInStrings;
@@ -171,7 +171,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        <code>true</code> to check for EOI, <code>false</code> if not.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setCheckForEOI (final boolean bCheckForEOI)
   {
     m_bCheckForEOI = bCheckForEOI;
@@ -192,7 +192,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    *        The maximum nesting depth of the JSON to read. Must be &gt; 0.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public JsonParserSettings setMaxNestingDepth (@Nonnegative final int nMaxNestingDepth)
   {
     ValueEnforcer.isGT0 (nMaxNestingDepth, "MaxNestingDepth");
@@ -200,7 +200,7 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
-  public void assignFrom (@Nonnull final IJsonParserSettings rhs)
+  public void assignFrom (@NonNull final IJsonParserSettings rhs)
   {
     ValueEnforcer.notNull (rhs, "rhs");
     setTrackPosition (rhs.isTrackPosition ());

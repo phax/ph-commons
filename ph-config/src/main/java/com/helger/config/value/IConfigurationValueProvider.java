@@ -16,10 +16,10 @@
  */
 package com.helger.config.value;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * A generic configuration value provider.
@@ -36,5 +36,5 @@ public interface IConfigurationValueProvider
    * @return <code>null</code> if no such value is available.
    */
   @Nullable
-  ConfiguredValue getConfigurationValue (@Nonnull @Nonempty String sKey);
+  ConfiguredValue getConfigurationValue (@NonNull @Nonempty String sKey);
 }

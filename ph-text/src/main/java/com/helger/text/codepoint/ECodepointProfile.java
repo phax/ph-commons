@@ -18,7 +18,7 @@ package com.helger.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Apache Abdera
@@ -65,12 +65,12 @@ public enum ECodepointProfile
 
   private final IntPredicate m_aFilter;
 
-  ECodepointProfile (@Nonnull final IntPredicate aFilter)
+  ECodepointProfile (@NonNull final IntPredicate aFilter)
   {
     m_aFilter = aFilter;
   }
 
-  @Nonnull
+  @NonNull
   public IntPredicate getFilter ()
   {
     return m_aFilter;

@@ -27,6 +27,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.SortedMap;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,9 +45,6 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Whole lotta charset management routines.
@@ -82,8 +81,8 @@ public final class CharsetHelper
    * @throws IllegalArgumentException
    *         If the charset could not be resolved.
    */
-  @Nonnull
-  public static Charset getCharsetFromName (@Nonnull @Nonempty final String sCharsetName)
+  @NonNull
+  public static Charset getCharsetFromName (@NonNull @Nonempty final String sCharsetName)
   {
     ValueEnforcer.notNull (sCharsetName, "CharsetName");
     try
@@ -145,7 +144,7 @@ public final class CharsetHelper
   /**
    * @return An immutable collection of all available charsets from the standard charset provider.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Map <String, Charset> getAllCharsets ()
   {
@@ -154,8 +153,8 @@ public final class CharsetHelper
 
   @Nullable
   public static String getAsStringInOtherCharset (@Nullable final String sText,
-                                                  @Nonnull final Charset aCurrentCharset,
-                                                  @Nonnull final Charset aNewCharset)
+                                                  @NonNull final Charset aCurrentCharset,
+                                                  @NonNull final Charset aNewCharset)
   {
     ValueEnforcer.notNull (aCurrentCharset, "CurrentCharset");
     ValueEnforcer.notNull (aNewCharset, "NewCharset");
@@ -244,7 +243,7 @@ public final class CharsetHelper
     private final EUnicodeBOM m_eBOM;
     private final Charset m_aCharset;
 
-    public InputStreamAndCharset (@Nonnull final InputStream aIS,
+    public InputStreamAndCharset (@NonNull final InputStream aIS,
                                   @Nullable final EUnicodeBOM eBOM,
                                   @Nullable final Charset aCharset)
     {
@@ -253,7 +252,7 @@ public final class CharsetHelper
       m_aCharset = aCharset;
     }
 
-    @Nonnull
+    @NonNull
     public InputStream getInputStream ()
     {
       return m_aIS;
@@ -303,8 +302,8 @@ public final class CharsetHelper
    *         and never the one passed in as a parameter, because the returned IS is a push-back
    *         InputStream that has a couple of bytes already buffered!
    */
-  @Nonnull
-  public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@Nonnull @WillNotClose final InputStream aIS)
+  @NonNull
+  public static InputStreamAndCharset getInputStreamAndCharsetFromBOM (@NonNull @WillNotClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -355,9 +354,9 @@ public final class CharsetHelper
     }
   }
 
-  @Nonnull
-  public static InputStreamReader getReaderByBOM (@Nonnull final InputStream aIS,
-                                                  @Nonnull final Charset aFallbackCharset)
+  @NonNull
+  public static InputStreamReader getReaderByBOM (@NonNull final InputStream aIS,
+                                                  @NonNull final Charset aFallbackCharset)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");

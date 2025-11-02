@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +43,6 @@ import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple class that reads a generic String-to-String mapping from a classpath resource into a
@@ -82,15 +81,15 @@ public final class XMLMapHandler
 
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> readMap (@Nonnull final IHasInputStream aISP)
+  public static ICommonsMap <String, String> readMap (@NonNull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
     return readMap (aISP.getInputStream ());
   }
 
-  @Nonnull
-  public static ESuccess readMap (@Nonnull final IHasInputStream aISP, @Nonnull final Map <String, String> aTargetMap)
+  @NonNull
+  public static ESuccess readMap (@NonNull final IHasInputStream aISP, @NonNull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");
 
@@ -106,7 +105,7 @@ public final class XMLMapHandler
    */
   @Nullable
   @ReturnsMutableCopy
-  public static ICommonsMap <String, String> readMap (@Nonnull @WillClose final InputStream aIS)
+  public static ICommonsMap <String, String> readMap (@NonNull @WillClose final InputStream aIS)
   {
     final ICommonsMap <String, String> ret = new CommonsHashMap <> ();
     if (readMap (aIS, ret).isFailure ())
@@ -124,9 +123,9 @@ public final class XMLMapHandler
    * @return {@link ESuccess#SUCCESS} if the stream could be opened, if it could be read as XML and
    *         if the root element was correct. {@link ESuccess#FAILURE} otherwise.
    */
-  @Nonnull
-  public static ESuccess readMap (@Nonnull @WillClose final InputStream aIS,
-                                  @Nonnull final Map <String, String> aTargetMap)
+  @NonNull
+  public static ESuccess readMap (@NonNull @WillClose final InputStream aIS,
+                                  @NonNull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
@@ -147,9 +146,9 @@ public final class XMLMapHandler
     return ESuccess.FAILURE;
   }
 
-  @Nonnull
-  public static ESuccess readMap (@Nonnull final IMicroElement aParentElement,
-                                  @Nonnull final Map <String, String> aTargetMap)
+  @NonNull
+  public static ESuccess readMap (@NonNull final IMicroElement aParentElement,
+                                  @NonNull final Map <String, String> aTargetMap)
   {
     ValueEnforcer.notNull (aParentElement, "ParentElement");
     ValueEnforcer.notNull (aTargetMap, "TargetMap");
@@ -183,8 +182,8 @@ public final class XMLMapHandler
     return ESuccess.FAILURE;
   }
 
-  @Nonnull
-  public static IMicroDocument createMapDocument (@Nonnull final Map <String, String> aMap)
+  @NonNull
+  public static IMicroDocument createMapDocument (@NonNull final Map <String, String> aMap)
   {
     ValueEnforcer.notNull (aMap, "Map");
 
@@ -199,8 +198,8 @@ public final class XMLMapHandler
     return aDoc;
   }
 
-  @Nonnull
-  public static ESuccess writeMap (@Nonnull final Map <String, String> aMap, @Nonnull final IHasOutputStream aOSP)
+  @NonNull
+  public static ESuccess writeMap (@NonNull final Map <String, String> aMap, @NonNull final IHasOutputStream aOSP)
   {
     ValueEnforcer.notNull (aOSP, "OutputStreamProvider");
 
@@ -217,8 +216,8 @@ public final class XMLMapHandler
    *        May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
-  @Nonnull
-  public static ESuccess writeMap (@Nonnull final Map <String, String> aMap, @Nonnull @WillClose final OutputStream aOS)
+  @NonNull
+  public static ESuccess writeMap (@NonNull final Map <String, String> aMap, @NonNull @WillClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aMap, "Map");
     ValueEnforcer.notNull (aOS, "OutputStream");

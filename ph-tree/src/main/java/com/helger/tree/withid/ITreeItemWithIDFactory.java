@@ -16,7 +16,7 @@
  */
 package com.helger.tree.withid;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A factory interface that creates tree items.
@@ -37,7 +37,7 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
    *
    * @return New root entry. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ITEMTYPE createRoot ();
 
   /**
@@ -49,7 +49,7 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
    *        The data ID of the new element
    * @return The created non-root entry. May not be <code>null</code>.
    */
-  ITEMTYPE create (@Nonnull ITEMTYPE aParent, @Nonnull KEYTYPE aDataID);
+  ITEMTYPE create (@NonNull ITEMTYPE aParent, @NonNull KEYTYPE aDataID);
 
   /**
    * To be called once a tree item is removed from the owning tree. This method
@@ -58,7 +58,7 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
    * @param aItem
    *        The item that was removed.
    */
-  void onRemoveItem (@Nonnull ITEMTYPE aItem);
+  void onRemoveItem (@NonNull ITEMTYPE aItem);
 
   /**
    * To be called once a tree item is added to the owning tree. This method is
@@ -67,5 +67,5 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
    * @param aItem
    *        The item that was added.
    */
-  void onAddItem (@Nonnull ITEMTYPE aItem);
+  void onAddItem (@NonNull ITEMTYPE aItem);
 }

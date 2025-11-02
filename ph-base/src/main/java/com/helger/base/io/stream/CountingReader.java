@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around a {@link Reader} that counts the number of read bytes.
@@ -36,7 +36,7 @@ public class CountingReader extends WrappedReader
   private long m_nPosition = 0;
   private long m_nMark = 0;
 
-  public CountingReader (@Nonnull final Reader aSourceReader)
+  public CountingReader (@NonNull final Reader aSourceReader)
   {
     super (aSourceReader);
   }

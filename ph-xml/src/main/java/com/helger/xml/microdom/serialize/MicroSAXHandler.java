@@ -21,6 +21,8 @@ import java.util.Locale;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.Attributes;
@@ -51,9 +53,6 @@ import com.helger.xml.microdom.IMicroText;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.MicroDocumentType;
 import com.helger.xml.sax.AbstractSAXErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The SAX handler used by the {@link MicroReader}.
@@ -97,7 +96,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  private void _updatePosition (@Nonnull final String sWhat)
+  private void _updatePosition (@NonNull final String sWhat)
   {
     if (m_aLocator != null)
     {
@@ -150,7 +149,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   public void startElement (@Nullable final String sNamespaceURI,
-                            @Nonnull final String sLocalName,
+                            @NonNull final String sLocalName,
                             @Nullable final String sQName,
                             @Nullable final Attributes aAttributes)
   {
@@ -197,7 +196,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     m_aParent.addProcessingInstruction (sTarget, sData);
   }
 
-  public void characters (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+  public void characters (@NonNull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
   {
     _updatePosition ("characters");
     if (m_bCDATAMode)
@@ -244,7 +243,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void comment (@Nonnull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+  public void comment (@NonNull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
                                                                                                                      throws SAXException
   {
     _updatePosition ("comment");
@@ -258,7 +257,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void ignorableWhitespace (@Nonnull final char [] aChars,
+  public void ignorableWhitespace (@NonNull final char [] aChars,
                                    @Nonnegative final int nStart,
                                    @Nonnegative final int nLength)
   {
@@ -318,7 +317,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   public InputSource resolveEntity (@Nullable final String sName,
                                     @Nullable final String sPublicId,
                                     @Nullable final String sBaseURI,
-                                    @Nonnull final String sSystemId) throws SAXException, IOException
+                                    @NonNull final String sSystemId) throws SAXException, IOException
   {
     _updatePosition ("resolveEntity2");
     final EntityResolver2 aER2 = m_aEntityResolver2;
@@ -391,17 +390,17 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   // For namespace handling
-  public void startPrefixMapping (@Nonnull final String sPrefix, @Nonnull final String sNamespaceURI)
+  public void startPrefixMapping (@NonNull final String sPrefix, @NonNull final String sNamespaceURI)
                                                                                                       throws SAXException
   {}
 
   // for namespace handling
-  public void endPrefixMapping (@Nonnull final String sPrefix) throws SAXException
+  public void endPrefixMapping (@NonNull final String sPrefix) throws SAXException
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  private static String _getMsg (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
+  private static String _getMsg (@NonNull final IErrorLevel aErrorLevel, @NonNull final SAXParseException ex)
   {
     return AbstractSAXErrorHandler.getSaxParseError (aErrorLevel, ex).getAsString (Locale.ROOT);
   }

@@ -19,12 +19,12 @@ package com.helger.datetime.format;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.cache.impl.Cache;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class provides a cache for {@link DateTimeFormatter} instances. It caches up to a limited
@@ -56,7 +56,7 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static DateTimeFormatterCache getInstance ()
   {
     final DateTimeFormatterCache ret = SingletonHolder.INSTANCE;
@@ -73,8 +73,8 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
    * @throws IllegalArgumentException
    *         If the pattern is invalid
    */
-  @Nonnull
-  public static DateTimeFormatter getDateTimeFormatterStrict (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static DateTimeFormatter getDateTimeFormatterStrict (@NonNull @Nonempty final String sPattern)
   {
     return getDateTimeFormatter (sPattern, ResolverStyle.STRICT);
   }
@@ -88,8 +88,8 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
    * @throws IllegalArgumentException
    *         If the pattern is invalid
    */
-  @Nonnull
-  public static DateTimeFormatter getDateTimeFormatterSmart (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static DateTimeFormatter getDateTimeFormatterSmart (@NonNull @Nonempty final String sPattern)
   {
     return getDateTimeFormatter (sPattern, ResolverStyle.SMART);
   }
@@ -103,8 +103,8 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
    * @throws IllegalArgumentException
    *         If the pattern is invalid
    */
-  @Nonnull
-  public static DateTimeFormatter getDateTimeFormatterLenient (@Nonnull @Nonempty final String sPattern)
+  @NonNull
+  public static DateTimeFormatter getDateTimeFormatterLenient (@NonNull @Nonempty final String sPattern)
   {
     return getDateTimeFormatter (sPattern, ResolverStyle.LENIENT);
   }
@@ -120,9 +120,9 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
    * @throws IllegalArgumentException
    *         If the pattern is invalid
    */
-  @Nonnull
-  public static DateTimeFormatter getDateTimeFormatter (@Nonnull @Nonempty final String sPattern,
-                                                        @Nonnull final ResolverStyle eResolverStyle)
+  @NonNull
+  public static DateTimeFormatter getDateTimeFormatter (@NonNull @Nonempty final String sPattern,
+                                                        @NonNull final ResolverStyle eResolverStyle)
   {
     return getInstance ().getFromCache (new DateTimeFormatterPattern (sPattern, eResolverStyle));
   }

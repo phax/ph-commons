@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Basic interface for the common action of resetting an objects contents to the
@@ -32,6 +32,6 @@ public interface IClearable
    * @return {@link EChange#CHANGED} if at least one element was cleared,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange removeAll ();
 }

@@ -18,11 +18,11 @@ package com.helger.typeconvert.collection;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for all kind of string-object mapping container. This
@@ -47,7 +47,7 @@ public class AttributeContainerAnyConcurrent <KEYTYPE> extends AttributeContaine
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public AttributeContainerAnyConcurrent <KEYTYPE> getClone ()
   {

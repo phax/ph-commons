@@ -19,6 +19,9 @@ package com.helger.io.resource.inmemory;
 import java.io.InputStream;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.bytes.ByteArrayWrapper;
@@ -27,9 +30,6 @@ import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An in-memory {@link IReadableResource} based on a byte array.
@@ -42,24 +42,24 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 
   private final ByteArrayWrapper m_aBytes;
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes)
+  public ReadableResourceByteArray (@NonNull final byte [] aBytes)
   {
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
+  public ReadableResourceByteArray (@NonNull final byte [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
     this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes, final boolean bCopyNeeded)
+  public ReadableResourceByteArray (@NonNull final byte [] aBytes, final boolean bCopyNeeded)
   {
     this ((String) null, aBytes, bCopyNeeded);
   }
 
-  public ReadableResourceByteArray (@Nonnull final byte [] aBytes,
+  public ReadableResourceByteArray (@NonNull final byte [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
@@ -67,13 +67,13 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this ((String) null, aBytes, nOfs, nLen, bCopyNeeded);
   }
 
-  public ReadableResourceByteArray (@Nullable final String sResourceID, @Nonnull final byte [] aBytes)
+  public ReadableResourceByteArray (@Nullable final String sResourceID, @NonNull final byte [] aBytes)
   {
     this (sResourceID, aBytes, DEFAULT_COPY_NEEDED);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @Nonnull final byte [] aBytes,
+                                    @NonNull final byte [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -81,14 +81,14 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @Nonnull final byte [] aBytes,
+                                    @NonNull final byte [] aBytes,
                                     final boolean bCopyNeeded)
   {
     this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @Nonnull final byte [] aBytes,
+                                    @NonNull final byte [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
@@ -105,7 +105,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.isCopy ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final byte [] bytes ()
   {
@@ -130,7 +130,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   @Override
   public InputStream getInputStream ()
   {

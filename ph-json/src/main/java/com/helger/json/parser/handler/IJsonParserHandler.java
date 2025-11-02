@@ -16,9 +16,9 @@
  */
 package com.helger.json.parser.handler;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * This interface is invoked during JSON parsing to perform different things
@@ -35,7 +35,7 @@ public interface IJsonParserHandler
    * @param sWhitespace
    *        Whitespaces string. Never <code>null</code> and never empty.
    */
-  void onWhitespace (@Nonnull @Nonempty String sWhitespace);
+  void onWhitespace (@NonNull @Nonempty String sWhitespace);
 
   /**
    * Called for JSON comments
@@ -43,7 +43,7 @@ public interface IJsonParserHandler
    * @param sComment
    *        The comment without the leading "/*" and the trailing "*" + "/"
    */
-  void onComment (@Nonnull String sComment);
+  void onComment (@NonNull String sComment);
 
   /**
    * Called for JSON strings that are NOT object names.
@@ -53,7 +53,7 @@ public interface IJsonParserHandler
    * @param sUnescaped
    *        The unescaped string excluding the quotes.
    */
-  void onString (@Nonnull String sString, @Nonnull String sUnescaped);
+  void onString (@NonNull String sString, @NonNull String sUnescaped);
 
   /**
    * Called for JSON numbers
@@ -64,7 +64,7 @@ public interface IJsonParserHandler
    * @param aNumber
    *        The parsed number. Never <code>null</code>.
    */
-  void onNumber (@Nonnull String sNumber, @Nonnull Number aNumber);
+  void onNumber (@NonNull String sNumber, @NonNull Number aNumber);
 
   /**
    * Called for the keyword <code>false</code>
@@ -112,7 +112,7 @@ public interface IJsonParserHandler
    * @param sName
    *        The unescaped name excluding the quotes.
    */
-  void onObjectName (@Nonnull String sString, @Nonnull String sName);
+  void onObjectName (@NonNull String sString, @NonNull String sName);
 
   /**
    * Called between the object element name and the object element value (':').

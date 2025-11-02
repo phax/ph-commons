@@ -20,14 +20,14 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EContinue;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsIterable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple interface, indicating that an item has direct children.
@@ -97,7 +97,7 @@ public interface IHasChildren <CHILDTYPE>
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
    */
-  default void forAllChildren (@Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildren (@NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
       getChildren ().forEach (aConsumer);
@@ -113,8 +113,8 @@ public interface IHasChildren <CHILDTYPE>
    * @return {@link EContinue#BREAK} if iteration was stopped,
    *         {@link EContinue#CONTINUE} otherwise.
    */
-  @Nonnull
-  default EContinue forAllChildrenBreakable (@Nonnull final Function <? super CHILDTYPE, EContinue> aConsumer)
+  @NonNull
+  default EContinue forAllChildrenBreakable (@NonNull final Function <? super CHILDTYPE, EContinue> aConsumer)
   {
     if (hasChildren ())
       return getChildren ().forEachBreakable (aConsumer);
@@ -134,7 +134,7 @@ public interface IHasChildren <CHILDTYPE>
    *        The consumer to be invoked for all children matching the filter. May
    *        not be <code>null</code>.
    */
-  default void forAllChildren (@Nonnull final Predicate <? super CHILDTYPE> aFilter, @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildren (@NonNull final Predicate <? super CHILDTYPE> aFilter, @NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
       getChildren ().findAll (aFilter, aConsumer);
@@ -158,9 +158,9 @@ public interface IHasChildren <CHILDTYPE>
    * @param <DSTTYPE>
    *        The destination data type.
    */
-  default <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
-                                               @Nonnull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper,
-                                               @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  default <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super CHILDTYPE> aFilter,
+                                               @NonNull final Function <? super CHILDTYPE, ? extends DSTTYPE> aMapper,
+                                               @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     if (hasChildren ())
       getChildren ().findAllMapped (aFilter, aMapper, aConsumer);

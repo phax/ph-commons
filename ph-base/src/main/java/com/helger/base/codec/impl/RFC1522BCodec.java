@@ -19,12 +19,12 @@ package com.helger.base.codec.impl;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.base64.Base64;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Identical to the Base64 encoding defined by <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC
@@ -55,7 +55,7 @@ public class RFC1522BCodec extends AbstractRFC1522Codec
    * @param aCharset
    *        the default string charset to use.
    */
-  public RFC1522BCodec (@Nonnull final Charset aCharset)
+  public RFC1522BCodec (@NonNull final Charset aCharset)
   {
     super (aCharset);
   }

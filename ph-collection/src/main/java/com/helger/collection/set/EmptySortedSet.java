@@ -21,13 +21,13 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.SortedSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.collection.base.EmptyIterator;
 import com.helger.collection.commons.ICommonsSortedSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of an empty sorted set.
@@ -42,7 +42,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
   {}
 
   @Override
-  @Nonnull
+  @NonNull
   public Iterator <T> iterator ()
   {
     return new EmptyIterator <> ();
@@ -73,21 +73,21 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return null;
   }
 
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> subSet (final Object fromElement, final Object toElement)
   {
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> headSet (final Object toElement)
   {
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> tailSet (final Object fromElement)
   {
@@ -106,7 +106,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return null;
   }
 
-  @Nonnull
+  @NonNull
   public EmptySortedSet <T> getClone ()
   {
     return this;

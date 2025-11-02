@@ -16,12 +16,12 @@
  */
 package com.helger.base.type;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of an object that has an {@link ObjectType} and an ID.
@@ -43,7 +43,7 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
    *        The typed object to copy the stuff from. May not be
    *        <code>null</code>.
    */
-  public TypedObject (@Nonnull final ITypedObject <IDTYPE> aObj)
+  public TypedObject (@NonNull final ITypedObject <IDTYPE> aObj)
   {
     this (aObj.getObjectType (), aObj.getID ());
   }
@@ -56,19 +56,19 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
    * @param aID
    *        ID to be used. May not be <code>null</code>.
    */
-  public TypedObject (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
+  public TypedObject (@NonNull final ObjectType aObjectType, @NonNull final IDTYPE aID)
   {
     m_aObjectType = ValueEnforcer.notNull (aObjectType, "ObjectType");
     m_aID = ValueEnforcer.notNull (aID, "ID");
   }
 
-  @Nonnull
+  @NonNull
   public ObjectType getObjectType ()
   {
     return m_aObjectType;
   }
 
-  @Nonnull
+  @NonNull
   public IDTYPE getID ()
   {
     return m_aID;
@@ -107,8 +107,8 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
    *        <code>null</code>.
    * @return new {@link TypedObject}
    */
-  @Nonnull
-  public static <IDTYPE> TypedObject <IDTYPE> create (@Nonnull final ITypedObject <IDTYPE> aObj)
+  @NonNull
+  public static <IDTYPE> TypedObject <IDTYPE> create (@NonNull final ITypedObject <IDTYPE> aObj)
   {
     return new TypedObject <> (aObj);
   }
@@ -124,8 +124,8 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
    *        ID to be used. May not be <code>null</code>.
    * @return new {@link TypedObject}
    */
-  @Nonnull
-  public static <IDTYPE> TypedObject <IDTYPE> create (@Nonnull final ObjectType aObjectType, @Nonnull final IDTYPE aID)
+  @NonNull
+  public static <IDTYPE> TypedObject <IDTYPE> create (@NonNull final ObjectType aObjectType, @NonNull final IDTYPE aID)
   {
     return new TypedObject <> (aObjectType, aID);
   }

@@ -16,6 +16,8 @@
  */
 package com.helger.typeconvert.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +32,6 @@ import com.helger.typeconvert.ITypeConverter;
 import com.helger.typeconvert.ITypeConverterProvider;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for converting base types likes "boolean" to object types like "Boolean".<br>
@@ -78,49 +77,49 @@ public final class TypeConverter implements IHasConditionalLogger
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final boolean aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final boolean aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Boolean.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final byte aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final byte aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Byte.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final char aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final char aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Character.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final double aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final double aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Double.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final float aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final float aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Float.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final int aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final int aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Integer.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final long aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final long aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Long.valueOf (aSrcValue), aDstClass);
   }
 
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (final short aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (final short aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Short.valueOf (aSrcValue), aDstClass);
   }
@@ -138,7 +137,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static boolean convertToBoolean (@Nonnull final Object aSrcValue)
+  public static boolean convertToBoolean (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (boolean.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -177,7 +176,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static byte convertToByte (@Nonnull final Object aSrcValue)
+  public static byte convertToByte (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (byte.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -216,7 +215,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static char convertToChar (@Nonnull final Object aSrcValue)
+  public static char convertToChar (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (char.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -255,7 +254,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static double convertToDouble (@Nonnull final Object aSrcValue)
+  public static double convertToDouble (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (double.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -294,7 +293,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static float convertToFloat (@Nonnull final Object aSrcValue)
+  public static float convertToFloat (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (float.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -333,7 +332,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static int convertToInt (@Nonnull final Object aSrcValue)
+  public static int convertToInt (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (int.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -372,7 +371,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static long convertToLong (@Nonnull final Object aSrcValue)
+  public static long convertToLong (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (long.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -411,7 +410,7 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    * @see TypeConverterProviderBestMatch
    */
-  public static short convertToShort (@Nonnull final Object aSrcValue)
+  public static short convertToShort (@NonNull final Object aSrcValue)
   {
     if (aSrcValue == null)
       throw new TypeConverterException (short.class, EReason.NULL_SOURCE_NOT_ALLOWED);
@@ -455,7 +454,7 @@ public final class TypeConverter implements IHasConditionalLogger
    * @see TypeConverterProviderBestMatch
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (@Nullable final Object aSrcValue, @Nonnull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convert (@Nullable final Object aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass);
   }
@@ -475,11 +474,11 @@ public final class TypeConverter implements IHasConditionalLogger
     return aPrimitiveWrapperType != null ? aPrimitiveWrapperType : aClass;
   }
 
-  @Nonnull
-  private static Object _performConversion (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
-                                            @Nonnull final Class <?> aSrcClass,
-                                            @Nonnull final Class <?> aUsableDstClass,
-                                            @Nonnull final Object aSrcValue)
+  @NonNull
+  private static Object _performConversion (@NonNull final ITypeConverterProvider aTypeConverterProvider,
+                                            @NonNull final Class <?> aSrcClass,
+                                            @NonNull final Class <?> aUsableDstClass,
+                                            @NonNull final Object aSrcValue)
   {
     // try to find matching converter
     final ITypeConverter <Object, Object> aConverter = aTypeConverterProvider.getTypeConverter (aSrcClass,
@@ -540,9 +539,9 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
+  public static <DSTTYPE> DSTTYPE convert (@NonNull final ITypeConverterProvider aTypeConverterProvider,
                                            @Nullable final Object aSrcValue,
-                                           @Nonnull final Class <DSTTYPE> aDstClass)
+                                           @NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aTypeConverterProvider, "TypeConverterProvider");
     ValueEnforcer.notNull (aDstClass, "DstClass");
@@ -587,7 +586,7 @@ public final class TypeConverter implements IHasConditionalLogger
    */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (@Nullable final Object aSrcValue,
-                                           @Nonnull final Class <DSTTYPE> aDstClass,
+                                           @NonNull final Class <DSTTYPE> aDstClass,
                                            @Nullable final DSTTYPE aDefault)
   {
     return convert (TypeConverterProviderBestMatch.getInstance (), aSrcValue, aDstClass, aDefault);
@@ -612,9 +611,9 @@ public final class TypeConverter implements IHasConditionalLogger
    *         If the converter itself throws an exception
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convert (@Nonnull final ITypeConverterProvider aTypeConverterProvider,
+  public static <DSTTYPE> DSTTYPE convert (@NonNull final ITypeConverterProvider aTypeConverterProvider,
                                            @Nullable final Object aSrcValue,
-                                           @Nonnull final Class <DSTTYPE> aDstClass,
+                                           @NonNull final Class <DSTTYPE> aDstClass,
                                            @Nullable final DSTTYPE aDefault)
   {
     try

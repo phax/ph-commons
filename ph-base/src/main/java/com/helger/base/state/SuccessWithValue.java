@@ -16,15 +16,15 @@
  */
 package com.helger.base.state;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.IWrapper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Wraps a success indicator and an arbitrary value.
@@ -45,7 +45,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
    * @param aSuccessIndicator
    *        The success indicator. May not be <code>null</code>.
    */
-  public SuccessWithValue (@Nonnull final ISuccessIndicator aSuccessIndicator)
+  public SuccessWithValue (@NonNull final ISuccessIndicator aSuccessIndicator)
   {
     this (aSuccessIndicator, null);
   }
@@ -58,7 +58,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
    * @param aObj
    *        The assigned value. May be <code>null</code>.
    */
-  public SuccessWithValue (@Nonnull final ISuccessIndicator aSuccessIndicator, @Nullable final DATATYPE aObj)
+  public SuccessWithValue (@NonNull final ISuccessIndicator aSuccessIndicator, @Nullable final DATATYPE aObj)
   {
     ValueEnforcer.notNull (aSuccessIndicator, "SuccessIndicator");
 
@@ -166,8 +166,8 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static <DATATYPE> SuccessWithValue <DATATYPE> create (@Nonnull final ISuccessIndicator aSuccessIndicator,
+  @NonNull
+  public static <DATATYPE> SuccessWithValue <DATATYPE> create (@NonNull final ISuccessIndicator aSuccessIndicator,
                                                                @Nullable final DATATYPE aValue)
   {
     return new SuccessWithValue <> (aSuccessIndicator, aValue);
@@ -182,7 +182,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> SuccessWithValue <DATATYPE> createSuccess (@Nullable final DATATYPE aValue)
   {
     return new SuccessWithValue <> (ESuccess.SUCCESS, aValue);
@@ -197,7 +197,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
    *        The value to be used. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> SuccessWithValue <DATATYPE> createFailure (@Nullable final DATATYPE aValue)
   {
     return new SuccessWithValue <> (ESuccess.FAILURE, aValue);

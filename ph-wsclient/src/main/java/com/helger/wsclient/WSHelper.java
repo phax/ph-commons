@@ -16,11 +16,12 @@
  */
 package com.helger.wsclient;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
 import com.helger.base.system.SystemProperties;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.ws.handler.MessageContext;
 
 /**
@@ -112,7 +113,7 @@ public final class WSHelper
     SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
   }
 
-  public static boolean isOutboundMessage (@Nonnull final MessageContext aContext)
+  public static boolean isOutboundMessage (@NonNull final MessageContext aContext)
   {
     return ((Boolean) aContext.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY)).booleanValue ();
   }

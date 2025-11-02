@@ -18,12 +18,12 @@ package com.helger.xml.microdom.convert;
 
 import java.awt.Color;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringParser;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Micro type converter for class {@link Color}.
@@ -38,10 +38,10 @@ public final class ColorMicroTypeConverter implements IMicroTypeConverter <Color
   private static final String ATTR_BLUE = "blue";
   private static final String ATTR_ALPHA = "alpha";
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final Color aObject,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final Color aObject,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull final String sTagName)
+                                              @NonNull final String sTagName)
   {
     final IMicroElement aElement = new MicroElement (sNamespaceURI, sTagName);
 
@@ -53,8 +53,8 @@ public final class ColorMicroTypeConverter implements IMicroTypeConverter <Color
     return aElement;
   }
 
-  @Nonnull
-  public Color convertToNative (@Nonnull final IMicroElement aElement)
+  @NonNull
+  public Color convertToNative (@NonNull final IMicroElement aElement)
   {
     final int nRed = StringParser.parseInt (aElement.getAttributeValue (ATTR_RED), 0);
     final int nGreen = StringParser.parseInt (aElement.getAttributeValue (ATTR_GREEN), 0);

@@ -21,6 +21,8 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,8 +30,6 @@ import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.datetime.web.PDTWebDateHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
@@ -46,14 +46,13 @@ public class AdapterOffsetTime extends XmlAdapter <String, OffsetTime>
 
   private static Function <LocalTime, ZoneOffset> s_aZOSupplier = x -> ZoneOffset.UTC;
 
-  @Nonnull
+  @NonNull
   public static Function <LocalTime, ZoneOffset> getFallbackZoneOffsetSupplier ()
   {
     return s_aZOSupplier;
   }
 
-  @Nonnull
-  public static void setFallbackZoneOffsetSupplier (@Nonnull final Function <LocalTime, ZoneOffset> aZOSupplier)
+  public static void setFallbackZoneOffsetSupplier (@NonNull final Function <LocalTime, ZoneOffset> aZOSupplier)
   {
     ValueEnforcer.notNull (aZOSupplier, "ZoneOffsetSupplier");
     s_aZOSupplier = aZOSupplier;

@@ -19,11 +19,11 @@ package com.helger.text.codepoint;
 import java.util.Iterator;
 import java.util.function.IntPredicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * BAse interface for codepoint iterators
@@ -126,18 +126,18 @@ public interface ICodepointIterator extends Iterator <Codepoint>
    */
   boolean isLow (@Nonnegative int nIndex);
 
-  @Nonnull
-  default CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter)
+  @NonNull
+  default CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter)
   {
     return restrict (aFilter, false);
   }
 
-  @Nonnull
-  default CodepointIteratorRestricted restrict (@Nonnull final IntPredicate aFilter, final boolean bScanning)
+  @NonNull
+  default CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter, final boolean bScanning)
   {
     return restrict (aFilter, bScanning, false);
   }
 
-  @Nonnull
-  CodepointIteratorRestricted restrict (@Nonnull IntPredicate aFilter, boolean bScanning, boolean bInvert);
+  @NonNull
+  CodepointIteratorRestricted restrict (@NonNull IntPredicate aFilter, boolean bScanning, boolean bInvert);
 }

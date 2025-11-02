@@ -18,14 +18,14 @@ package com.helger.commons.deadlock;
 
 import java.lang.management.ThreadInfo;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents information about a single deadlocked thread.
@@ -39,8 +39,8 @@ public class ThreadDeadlockInfo
   private final Thread m_aThread;
   private final StackTraceElement [] m_aStackTrace;
 
-  public ThreadDeadlockInfo (@Nonnull final ThreadInfo aThreadInfo,
-                             @Nonnull final Thread aThread,
+  public ThreadDeadlockInfo (@NonNull final ThreadInfo aThreadInfo,
+                             @NonNull final Thread aThread,
                              @Nullable final StackTraceElement [] aStackTrace)
   {
     m_aThreadInfo = ValueEnforcer.notNull (aThreadInfo, "ThreadInfo");
@@ -51,7 +51,7 @@ public class ThreadDeadlockInfo
   /**
    * @return The {@link ThreadInfo} as returned from JMX bean
    */
-  @Nonnull
+  @NonNull
   public ThreadInfo getThreadInfo ()
   {
     return m_aThreadInfo;
@@ -60,7 +60,7 @@ public class ThreadDeadlockInfo
   /**
    * @return The underlying thread. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Thread getThread ()
   {
     return m_aThread;

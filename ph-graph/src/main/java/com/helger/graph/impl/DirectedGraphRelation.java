@@ -16,6 +16,9 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableDirectedGraphRelation} interface
@@ -40,14 +40,14 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   private final IMutableDirectedGraphNode m_aFrom;
   private final IMutableDirectedGraphNode m_aTo;
 
-  public DirectedGraphRelation (@Nonnull final IMutableDirectedGraphNode aFrom, @Nonnull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelation (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
   {
     this (null, aFrom, aTo);
   }
 
   public DirectedGraphRelation (@Nullable final String sID,
-                                @Nonnull final IMutableDirectedGraphNode aFrom,
-                                @Nonnull final IMutableDirectedGraphNode aTo)
+                                @NonNull final IMutableDirectedGraphNode aFrom,
+                                @NonNull final IMutableDirectedGraphNode aTo)
   {
     super (sID);
     ValueEnforcer.notNull (aFrom, "From");
@@ -66,39 +66,39 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
     return m_aFrom.equals (aNode) || m_aTo.equals (aNode);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllConnectedNodes ()
   {
     return new CommonsLinkedHashSet <> (m_aFrom, m_aTo);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
   {
     return new CommonsLinkedHashSet <> (m_aFrom.getID (), m_aTo.getID ());
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphNode getFrom ()
   {
     return m_aFrom;
   }
 
-  @Nonnull
+  @NonNull
   public String getFromID ()
   {
     return m_aFrom.getID ();
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphNode getTo ()
   {
     return m_aTo;
   }
 
-  @Nonnull
+  @NonNull
   public String getToID ()
   {
     return m_aTo.getID ();

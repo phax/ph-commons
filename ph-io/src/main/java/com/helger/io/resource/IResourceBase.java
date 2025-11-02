@@ -19,10 +19,10 @@ package com.helger.io.resource;
 import java.io.File;
 import java.net.URL;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Base interface for an abstract readable resource.
@@ -36,13 +36,13 @@ public interface IResourceBase
    * @return A non-<code>null</code> resource ID used e.g. for system IDs in XML
    *         resolving.
    */
-  @Nonnull
+  @NonNull
   String getResourceID ();
 
   /**
    * @return The requested path. Never <code>null</code>
    */
-  @Nonnull
+  @NonNull
   String getPath ();
 
   /**

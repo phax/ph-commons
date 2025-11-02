@@ -19,10 +19,10 @@ package com.helger.base.equals;
 import java.util.Objects;
 import java.util.function.BiPredicate;
 
-import com.helger.annotation.style.UsedInGeneratedCode;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.UsedInGeneratedCode;
 
 public class EqualsHelper
 {
@@ -242,7 +242,7 @@ public class EqualsHelper
    */
   public static <T> boolean equalsCustom (@Nullable final T aObj1,
                                           @Nullable final T aObj2,
-                                          @Nonnull final BiPredicate <T, T> aPredicate)
+                                          @NonNull final BiPredicate <T, T> aPredicate)
   {
     Objects.requireNonNull (aPredicate, "Predicate");
 

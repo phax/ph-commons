@@ -19,11 +19,11 @@ package com.helger.base.codec.base64;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.stream.WrappedInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A {@link Base64InputStream} will read data from another
@@ -61,7 +61,7 @@ public class Base64InputStream extends WrappedInputStream
    *        the <code>InputStream</code> from which to read data.
    * @since 1.3
    */
-  public Base64InputStream (@Nonnull final InputStream pin)
+  public Base64InputStream (@NonNull final InputStream pin)
   {
     this (pin, Base64.DECODE);
   }
@@ -88,7 +88,7 @@ public class Base64InputStream extends WrappedInputStream
    * @see Base64#DO_BREAK_LINES
    * @since 2.0
    */
-  public Base64InputStream (@Nonnull final InputStream aIS, final int nOptions)
+  public Base64InputStream (@NonNull final InputStream aIS, final int nOptions)
   {
     super (aIS);
     m_nOptions = nOptions;
@@ -232,7 +232,7 @@ public class Base64InputStream extends WrappedInputStream
    * @since 1.3
    */
   @Override
-  public int read (@Nonnull final byte [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (@NonNull final byte [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     int nIndex = 0;
     for (; nIndex < nLen; nIndex++)

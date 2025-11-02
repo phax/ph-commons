@@ -16,9 +16,9 @@
  */
 package com.helger.text;
 
-import com.helger.base.string.StringHelper;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.string.StringHelper;
 
 /**
  * Base interface for objects that have a locale <b>independent</b> description.

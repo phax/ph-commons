@@ -20,6 +20,9 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
@@ -31,9 +34,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.IMicroQName;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link IMicroTypeConverterRegistrarSPI} implementation for
@@ -50,10 +50,10 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     private static final String ELEMENT_TEXT = "text";
     private static final IMicroQName ATTR_LOCALE = new MicroQName ("locale");
 
-    @Nonnull
-    public final IMicroElement convertToMicroElement (@Nonnull final T aSource,
+    @NonNull
+    public final IMicroElement convertToMicroElement (@NonNull final T aSource,
                                                       @Nullable final String sNamespaceURI,
-                                                      @Nonnull @Nonempty final String sTagName)
+                                                      @NonNull @Nonempty final String sTagName)
     {
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
       for (final Map.Entry <Locale, String> aEntry : aSource.texts ().getSortedByKey (Comparator.comparing (Locale::toString)).entrySet ())
@@ -65,8 +65,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
       return eMText;
     }
 
-    @Nonnull
-    protected static MultilingualText convertToMLT (@Nonnull final IMicroElement aElement)
+    @NonNull
+    protected static MultilingualText convertToMLT (@NonNull final IMicroElement aElement)
     {
       final MultilingualText aMLT = new MultilingualText ();
       final LocaleCache aLC = LocaleCache.getInstance ();
@@ -81,8 +81,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
 
   public static final class ReadOnlyMultilingualTextConverter extends AbstractMLTConverter <ReadOnlyMultilingualText>
   {
-    @Nonnull
-    public ReadOnlyMultilingualText convertToNative (@Nonnull final IMicroElement aElement)
+    @NonNull
+    public ReadOnlyMultilingualText convertToNative (@NonNull final IMicroElement aElement)
     {
       return new ReadOnlyMultilingualText (convertToMLT (aElement));
     }
@@ -90,14 +90,14 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
 
   public static final class MultilingualTextConverter extends AbstractMLTConverter <MultilingualText>
   {
-    @Nonnull
-    public MultilingualText convertToNative (@Nonnull final IMicroElement aElement)
+    @NonNull
+    public MultilingualText convertToNative (@NonNull final IMicroElement aElement)
     {
       return convertToMLT (aElement);
     }
   }
 
-  public void registerMicroTypeConverter (@Nonnull final IMicroTypeConverterRegistry aRegistry)
+  public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
     aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class, new ReadOnlyMultilingualTextConverter ());

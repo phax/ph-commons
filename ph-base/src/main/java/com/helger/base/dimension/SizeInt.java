@@ -16,6 +16,8 @@
  */
 package com.helger.base.dimension;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -23,8 +25,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.numeric.MathHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents an object having width and height.
@@ -37,7 +37,7 @@ public class SizeInt implements IHasDimensionInt
   private final int m_nWidth;
   private final int m_nHeight;
 
-  public SizeInt (@Nonnull final IHasDimensionInt aObj)
+  public SizeInt (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -70,7 +70,7 @@ public class SizeInt implements IHasDimensionInt
    * @return An array with 2 elements, where the first element is the width, and
    *         the second is the height.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeInt getBestMatchingSize (@Nonnegative final int nMaxWidth, @Nonnegative final int nMaxHeight)
   {
@@ -92,7 +92,7 @@ public class SizeInt implements IHasDimensionInt
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
   {
@@ -104,7 +104,7 @@ public class SizeInt implements IHasDimensionInt
     return new SizeInt (nNewWidth, (int) (m_nHeight * dMultFactory));
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
   {
@@ -116,18 +116,18 @@ public class SizeInt implements IHasDimensionInt
     return new SizeInt ((int) (m_nWidth * dMultFactory), nNewHeight);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeInt getAdded (@Nonnull final IHasDimensionInt aToAdd)
+  public SizeInt getAdded (@NonNull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeInt (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeInt getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
+  public SizeInt getSubtracted (@NonNull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

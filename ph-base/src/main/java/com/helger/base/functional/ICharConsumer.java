@@ -18,8 +18,8 @@ package com.helger.base.functional;
 
 import java.util.function.Consumer;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents an operation that accepts a single {@code char}-valued argument
@@ -58,7 +58,7 @@ public interface ICharConsumer
    * @throws NullPointerException
    *         if {@code after} is null
    */
-  @Nonnull
+  @NonNull
   default ICharConsumer andThen (@Nullable final ICharConsumer after)
   {
     return and (this, after);

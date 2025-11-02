@@ -29,9 +29,8 @@ import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PathOperations}.
@@ -40,12 +39,12 @@ import jakarta.annotation.Nonnull;
  */
 public final class PathOperationsTest
 {
-  private static void _expectedSuccess (@Nonnull final FileIOError ec)
+  private static void _expectedSuccess (@NonNull final FileIOError ec)
   {
     assertEquals ("Expected no error but got " + ec.getErrorCode (), EFileIOErrorCode.NO_ERROR, ec.getErrorCode ());
   }
 
-  private static void _expectedError (@Nonnull final FileIOError ec, @Nonnull final EFileIOErrorCode eCode)
+  private static void _expectedError (@NonNull final FileIOError ec, @NonNull final EFileIOErrorCode eCode)
   {
     assertEquals ("Expected error " + eCode + " but got " + ec.getErrorCode (), eCode, ec.getErrorCode ());
   }

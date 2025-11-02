@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.math.BigDecimal;
 
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
@@ -30,8 +31,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.json.convert.JsonConverter;
 import com.helger.json.serialize.JsonReader;
 import com.helger.unittest.support.TestHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for equals and hashCode.

@@ -18,14 +18,14 @@ package com.helger.base.string;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 @Immutable
 public class StringHex
@@ -66,8 +66,8 @@ public class StringHex
    *        The charset to use. May not be <code>null</code>.
    * @return The String representation of the byte array of the string.
    */
-  @Nonnull
-  public static String getHexEncoded (@Nonnull final String sInput, @Nonnull final Charset aCharset)
+  @NonNull
+  public static String getHexEncoded (@NonNull final String sInput, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (sInput, "Input");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -82,8 +82,8 @@ public class StringHex
    *        The byte array to be converted to a String. May not be <code>null</code>.
    * @return The String representation of the byte array.
    */
-  @Nonnull
-  public static String getHexEncoded (@Nonnull final byte [] aInput)
+  @NonNull
+  public static String getHexEncoded (@NonNull final byte [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 
@@ -101,8 +101,8 @@ public class StringHex
    *        Number of bytes to encode
    * @return The String representation of the byte array.
    */
-  @Nonnull
-  public static String getHexEncoded (@Nonnull final byte [] aInput, final int nOfs, final int nLen)
+  @NonNull
+  public static String getHexEncoded (@NonNull final byte [] aInput, final int nOfs, final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
 
@@ -144,27 +144,27 @@ public class StringHex
     return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@Nonnull final String sInput)
+  public static byte [] getHexDecoded (@NonNull final String sInput)
   {
     ValueEnforcer.notNull (sInput, "Input");
 
     return getHexDecoded (sInput.toCharArray (), 0, sInput.length ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@Nonnull final char [] aInput)
+  public static byte [] getHexDecoded (@NonNull final char [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 
     return getHexDecoded (aInput, 0, aInput.length);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@Nonnull final char [] aInput,
+  public static byte [] getHexDecoded (@NonNull final char [] aInput,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen)
   {
@@ -185,33 +185,33 @@ public class StringHex
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexString (final byte nValue)
   {
     // Bytes are always handled unsigned
     return Integer.toString (nValue & 0xff, CGlobal.HEX_RADIX);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexStringLeadingZero (final byte nValue, final int nDigits)
   {
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexStringLeadingZero2 (final byte nValue)
   {
     final String ret = getHexString (nValue);
     return ret.length () >= 2 ? ret : '0' + ret;
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexString (final int nValue)
   {
     return Integer.toString (nValue, CGlobal.HEX_RADIX);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexStringLeadingZero (final int nValue, final int nDigits)
   {
     if (nValue < 0)
@@ -219,13 +219,13 @@ public class StringHex
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexString (final long nValue)
   {
     return Long.toString (nValue, CGlobal.HEX_RADIX);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexStringLeadingZero (final long nValue, final int nDigits)
   {
     if (nValue < 0)
@@ -233,13 +233,13 @@ public class StringHex
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexString (final short nValue)
   {
     return Integer.toString (nValue & 0xffff, CGlobal.HEX_RADIX);
   }
 
-  @Nonnull
+  @NonNull
   public static String getHexStringLeadingZero (final short nValue, final int nDigits)
   {
     // Short are always handled unsigned

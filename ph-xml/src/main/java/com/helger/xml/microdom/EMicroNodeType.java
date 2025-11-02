@@ -16,13 +16,12 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Node;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasIntID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Denotes the type of {@link IMicroNode} objects.

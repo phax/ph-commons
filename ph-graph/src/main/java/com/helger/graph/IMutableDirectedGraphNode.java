@@ -16,11 +16,11 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for graph node implementations.
@@ -38,7 +38,7 @@ public interface IMutableDirectedGraphNode extends
    * @param aRelation
    *        The relation to be added. May not be <code>null</code>.
    */
-  void addIncomingRelation (@Nonnull IMutableDirectedGraphRelation aRelation);
+  void addIncomingRelation (@NonNull IMutableDirectedGraphRelation aRelation);
 
   /**
    * Remove the passed relation from the set of incoming relations.
@@ -48,7 +48,7 @@ public interface IMutableDirectedGraphNode extends
    * @return {@link EChange#CHANGED} if the passed relation was successfully
    *         removed from the incoming relations.
    */
-  @Nonnull
+  @NonNull
   EChange removeIncomingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
 
   /**
@@ -57,7 +57,7 @@ public interface IMutableDirectedGraphNode extends
    * @return {@link EChange#CHANGED} if the at least one relation was
    *         successfully removed from the incoming relations.
    */
-  @Nonnull
+  @NonNull
   EChange removeAllIncomingRelations ();
 
   /**
@@ -66,7 +66,7 @@ public interface IMutableDirectedGraphNode extends
    * @param aRelation
    *        The relation to be added. May not be <code>null</code>.
    */
-  void addOutgoingRelation (@Nonnull IMutableDirectedGraphRelation aRelation);
+  void addOutgoingRelation (@NonNull IMutableDirectedGraphRelation aRelation);
 
   /**
    * Remove the passed relation from the set of outgoing relations.
@@ -76,7 +76,7 @@ public interface IMutableDirectedGraphNode extends
    * @return {@link EChange#CHANGED} if the passed relation was successfully
    *         removed from the outgoing relations.
    */
-  @Nonnull
+  @NonNull
   EChange removeOutgoingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
 
   /**
@@ -85,10 +85,10 @@ public interface IMutableDirectedGraphNode extends
    * @return {@link EChange#CHANGED} if the at least one relation was
    *         successfully removed from the outgoing relations.
    */
-  @Nonnull
+  @NonNull
   EChange removeAllOutgoingRelations ();
 
-  @Nonnull
+  @NonNull
   default EChange removeAllRelations ()
   {
     EChange ret = EChange.UNCHANGED;

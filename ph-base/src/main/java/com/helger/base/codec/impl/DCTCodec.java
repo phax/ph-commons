@@ -21,6 +21,7 @@ import java.awt.image.PixelGrabber;
 
 import javax.imageio.ImageIO;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayDecoder;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Decoder for Discrete Cosinus Transformation (DCT)

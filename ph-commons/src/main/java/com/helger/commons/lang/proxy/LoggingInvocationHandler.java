@@ -22,15 +22,14 @@ import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public class LoggingInvocationHandler implements InvocationHandler
 {
@@ -41,7 +40,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   private final String m_sLogPrefix;
   private boolean m_bProxyReturnValues = DEFAULT_PROXY_RETURN_VALUES;
 
-  public LoggingInvocationHandler (@Nonnull final Object aActualTarget)
+  public LoggingInvocationHandler (@NonNull final Object aActualTarget)
   {
     m_aActualTarget = aActualTarget;
     // Calculate only once
@@ -64,14 +63,14 @@ public class LoggingInvocationHandler implements InvocationHandler
    *        feature.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public LoggingInvocationHandler setProxyReturnValues (final boolean bProxyReturnValues)
   {
     m_bProxyReturnValues = bProxyReturnValues;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   private static String _getParameter (@Nullable final Parameter [] aParams, @Nullable final Object [] aArgs)
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -95,7 +94,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @Nullable
-  public Object invoke (@Nonnull final Object aProxy, @Nonnull final Method aMethod, @Nonnull final Object [] aArgs)
+  public Object invoke (@NonNull final Object aProxy, @NonNull final Method aMethod, @NonNull final Object [] aArgs)
                                                                                                                      throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
@@ -130,16 +129,16 @@ public class LoggingInvocationHandler implements InvocationHandler
     return ret;
   }
 
-  @Nonnull
-  public static <T> T proxying (@Nonnull final Class <? extends T> aInterfaceClass, @Nonnull final T aActualTarget)
+  @NonNull
+  public static <T> T proxying (@NonNull final Class <? extends T> aInterfaceClass, @NonNull final T aActualTarget)
   {
     return proxying (aInterfaceClass, aActualTarget, LoggingInvocationHandler::new);
   }
 
-  @Nonnull
-  public static <T> T proxying (@Nonnull final Class <? extends T> aInterfaceClass,
-                                @Nonnull final T aActualTarget,
-                                @Nonnull final Function <? super T, ? extends InvocationHandler> aFactory)
+  @NonNull
+  public static <T> T proxying (@NonNull final Class <? extends T> aInterfaceClass,
+                                @NonNull final T aActualTarget,
+                                @NonNull final Function <? super T, ? extends InvocationHandler> aFactory)
   {
     ValueEnforcer.isTrue (aInterfaceClass.isInterface (), "Only interface classes can be proxied!");
     final Object ret = Proxy.newProxyInstance (aInterfaceClass.getClassLoader (),

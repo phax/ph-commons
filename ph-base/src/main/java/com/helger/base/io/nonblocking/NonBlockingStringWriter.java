@@ -19,6 +19,9 @@ package com.helger.base.io.nonblocking;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -26,9 +29,6 @@ import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.io.iface.IWriteToWriter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringWriter}.<br>
@@ -88,7 +88,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
    *        Number of characters to write
    */
   @Override
-  public void write (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     if (nLen > 0)
@@ -115,7 +115,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
    *        Number of characters to write
    */
   @Override
-  public void write (@Nonnull final String sStr, final int nOfs, final int nLen)
+  public void write (@NonNull final String sStr, final int nOfs, final int nLen)
   {
     m_aSB.append (sStr.substring (nOfs, nOfs + nLen));
   }
@@ -128,7 +128,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
    * @throws IOException
    *         If an I/O error occurs.
    */
-  public void writeTo (@Nonnull final Writer aWriter) throws IOException
+  public void writeTo (@NonNull final Writer aWriter) throws IOException
   {
     aWriter.write (m_aSB.toString ());
   }
@@ -234,7 +234,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   /**
    * @return The contained StringBuilder. Never <code>null</code>. Handle with care!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   public StringBuilder directGetStringBuilder ()
   {
@@ -244,7 +244,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   /**
    * @return Return the buffer's current value as a string.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public char [] getAsCharArray ()
   {
@@ -257,7 +257,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   /**
    * @return the buffer's current value as a string.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return m_aSB.toString ();

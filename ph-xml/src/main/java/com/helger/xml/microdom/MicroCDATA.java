@@ -16,12 +16,12 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroCDATA} interface.
@@ -32,7 +32,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
 {
   private final MicroDataAware m_aData;
 
-  public MicroCDATA (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public MicroCDATA (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData = new MicroDataAware (aChars, nOfs, nLen);
   }
@@ -42,18 +42,18 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData = new MicroDataAware (sText);
   }
 
-  private MicroCDATA (@Nonnull final MicroDataAware aData)
+  private MicroCDATA (@NonNull final MicroDataAware aData)
   {
     m_aData = aData.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.CDATA;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getNodeName ()
   {
@@ -61,13 +61,13 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getNodeValue ()
   {
     return getData ().toString ();
   }
 
-  @Nonnull
+  @NonNull
   public CharSequence getData ()
   {
     return m_aData.getData ();
@@ -78,7 +78,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData.appendData (sData);
   }
 
-  public void appendData (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void appendData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.appendData (aChars, nOfs, nLen);
   }
@@ -93,7 +93,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData.prependData (sData);
   }
 
-  public void prependData (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void prependData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.prependData (aChars, nOfs, nLen);
   }
@@ -108,7 +108,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData.setData (sData);
   }
 
-  @Nonnull
+  @NonNull
   public IMicroCDATA getClone ()
   {
     return new MicroCDATA (m_aData);

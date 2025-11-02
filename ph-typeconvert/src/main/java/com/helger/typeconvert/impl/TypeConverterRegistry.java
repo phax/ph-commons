@@ -20,6 +20,8 @@ import java.lang.ref.WeakReference;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +50,6 @@ import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.ITypeConverterRule;
 import com.helger.typeconvert.util.ClassHierarchyCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains all the default type converters for the default types that are required. The
@@ -89,7 +88,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static TypeConverterRegistry getInstance ()
   {
     final TypeConverterRegistry ret = SingletonHolder.INSTANCE;
@@ -97,9 +96,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("internal use only")
-  private ICommonsMap <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@Nonnull final Class <?> aClass)
+  private ICommonsMap <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@NonNull final Class <?> aClass)
   {
     ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLockedGet ( () -> m_aConverter.get (aClass));
     if (ret == null)
@@ -122,9 +121,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * @param aConverter
    *        The convert to use. May not be <code>null</code>.
    */
-  private void _registerTypeConverter (@Nonnull final Class <?> aSrcClass,
-                                       @Nonnull final Class <?> aDstClass,
-                                       @Nonnull final ITypeConverter <?, ?> aConverter)
+  private void _registerTypeConverter (@NonNull final Class <?> aSrcClass,
+                                       @NonNull final Class <?> aDstClass,
+                                       @NonNull final ITypeConverter <?, ?> aConverter)
   {
     ValueEnforcer.notNull (aSrcClass, "SrcClass");
     ValueEnforcer.isTrue (ClassHelper.isPublic (aSrcClass), () -> "Source " + aSrcClass + " is no public class!");
@@ -174,16 +173,16 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     });
   }
 
-  public <SRC, DST> void registerTypeConverter (@Nonnull final Class <SRC> aSrcClass,
-                                                @Nonnull final Class <DST> aDstClass,
-                                                @Nonnull final ITypeConverter <SRC, DST> aConverter)
+  public <SRC, DST> void registerTypeConverter (@NonNull final Class <SRC> aSrcClass,
+                                                @NonNull final Class <DST> aDstClass,
+                                                @NonNull final ITypeConverter <SRC, DST> aConverter)
   {
     _registerTypeConverter (aSrcClass, aDstClass, aConverter);
   }
 
-  public <DST> void registerTypeConverter (@Nonnull final Class <?> [] aSrcClasses,
-                                           @Nonnull final Class <DST> aDstClass,
-                                           @Nonnull final ITypeConverter <?, DST> aConverter)
+  public <DST> void registerTypeConverter (@NonNull final Class <?> [] aSrcClasses,
+                                           @NonNull final Class <DST> aDstClass,
+                                           @NonNull final ITypeConverter <?, DST> aConverter)
   {
     for (final Class <?> aSrcClass : aSrcClasses)
       _registerTypeConverter (aSrcClass, aDstClass, aConverter);
@@ -247,9 +246,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    *        {@link EContinue#CONTINUE} to continue iteration or {@link EContinue#BREAK} to break
    *        iteration at the current position.
    */
-  private void _iterateFuzzyConverters (@Nonnull final Class <?> aSrcClass,
-                                        @Nonnull final Class <?> aDstClass,
-                                        @Nonnull final ITypeConverterCallback aCallback)
+  private void _iterateFuzzyConverters (@NonNull final Class <?> aSrcClass,
+                                        @NonNull final Class <?> aDstClass,
+                                        @NonNull final ITypeConverterCallback aCallback)
   {
     // For all possible source classes
     for (final WeakReference <Class <?>> aCurWRSrcClass : ClassHierarchyCache.getClassHierarchyIterator (aSrcClass))
@@ -326,7 +325,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * @param aCallback
    *        The callback invoked for all iterations.
    */
-  public void iterateAllRegisteredTypeConverters (@Nonnull final ITypeConverterCallback aCallback)
+  public void iterateAllRegisteredTypeConverters (@NonNull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
     final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aConverter));
@@ -352,7 +351,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     });
   }
 
-  public void registerTypeConverterRule (@Nonnull final ITypeConverterRule <?, ?> aTypeConverterRule)
+  public void registerTypeConverterRule (@NonNull final ITypeConverterRule <?, ?> aTypeConverterRule)
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
@@ -367,30 +366,30 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                     aTypeConverterRule.getSubType ());
   }
 
-  public <DST> void registerTypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                                        @Nonnull final Function <? super Object, ? extends DST> aConverter)
+  public <DST> void registerTypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
+                                                                        @NonNull final Function <? super Object, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination <> (aDstClass, aConverter));
   }
 
-  public <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                                    @Nonnull final Class <DST> aDstClass,
-                                                                                    @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  public <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                                    @NonNull final Class <DST> aDstClass,
+                                                                                    @NonNull final Function <? super SRC, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleAssignableSourceFixedDestination <> (aSrcClass,
                                                                                          aDstClass,
                                                                                          aConverter));
   }
 
-  public <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                        @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
+  public <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                        @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination <> (aSrcClass, aInBetweenConverter));
   }
 
-  public <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                                    @Nonnull final Class <DST> aDstClass,
-                                                                                    @Nonnull final Function <? super SRC, ? extends DST> aConverter)
+  public <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                                    @NonNull final Class <DST> aDstClass,
+                                                                                    @NonNull final Function <? super SRC, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAssignableDestination <> (aSrcClass,
                                                                                          aDstClass,

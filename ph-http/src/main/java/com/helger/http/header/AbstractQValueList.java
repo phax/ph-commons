@@ -19,14 +19,14 @@ package com.helger.http.header;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a base class for all QValue'd stuff
@@ -43,21 +43,21 @@ public abstract class AbstractQValueList <KEYTYPE>
   public AbstractQValueList ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   protected final ICommonsOrderedMap <KEYTYPE, QValue> qvalueMap ()
   {
     return m_aMap;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValues ()
   {
     return m_aMap.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesLowerThan (final double dQuality)
   {
@@ -71,7 +71,7 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesLowerOrEqual (final double dQuality)
   {
@@ -85,7 +85,7 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesGreaterThan (final double dQuality)
   {
@@ -99,7 +99,7 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesGreaterOrEqual (final double dQuality)
   {
@@ -118,7 +118,7 @@ public abstract class AbstractQValueList <KEYTYPE>
    *         headers.
    * @since 9.3.5
    */
-  @Nonnull
+  @NonNull
   public abstract String getAsHttpHeaderValue ();
 
   /**
@@ -132,8 +132,8 @@ public abstract class AbstractQValueList <KEYTYPE>
    *         headers.
    * @since 9.3.5
    */
-  @Nonnull
-  protected String getAsHttpHeaderValue (@Nonnull final Function <KEYTYPE, String> aKeyTransformer)
+  @NonNull
+  protected String getAsHttpHeaderValue (@NonNull final Function <KEYTYPE, String> aKeyTransformer)
   {
     return getAsHttpHeaderValue (m_aMap, aKeyTransformer);
   }
@@ -151,9 +151,9 @@ public abstract class AbstractQValueList <KEYTYPE>
    *        Key type
    * @since 9.3.5
    */
-  @Nonnull
-  public static <T> String getAsHttpHeaderValue (@Nonnull final ICommonsOrderedMap <T, QValue> aMap,
-                                                 @Nonnull final Function <T, String> aKeyTransformer)
+  @NonNull
+  public static <T> String getAsHttpHeaderValue (@NonNull final ICommonsOrderedMap <T, QValue> aMap,
+                                                 @NonNull final Function <T, String> aKeyTransformer)
   {
     ValueEnforcer.notNull (aMap, "Map");
     ValueEnforcer.notNull (aKeyTransformer, "KeyTransformer");

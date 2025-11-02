@@ -19,6 +19,8 @@ package com.helger.base.io.stream;
 import java.io.InputStream;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -26,8 +28,6 @@ import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special implementation of {@link IHasInputStream} with that has an
@@ -51,7 +51,7 @@ public class HasInputStream implements IHasInputStream
    *        (e.g. from a byte[]) or <code>false</code> if it can be invoked only
    *        once (e.g. from an open socket).
    */
-  public HasInputStream (@Nonnull final Supplier <? extends InputStream> aISP, final boolean bReadMultiple)
+  public HasInputStream (@NonNull final Supplier <? extends InputStream> aISP, final boolean bReadMultiple)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "ISP");
     m_bReadMultiple = bReadMultiple;
@@ -80,9 +80,9 @@ public class HasInputStream implements IHasInputStream
    *        {@link InputStream} provider. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static HasInputStream multiple (@Nonnull final Supplier <? extends InputStream> aISP)
+  public static HasInputStream multiple (@NonNull final Supplier <? extends InputStream> aISP)
   {
     return new HasInputStream (aISP, true);
   }
@@ -94,9 +94,9 @@ public class HasInputStream implements IHasInputStream
    *        {@link InputStream} provider. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static HasInputStream once (@Nonnull final Supplier <? extends InputStream> aISP)
+  public static HasInputStream once (@NonNull final Supplier <? extends InputStream> aISP)
   {
     return new HasInputStream (aISP, false);
   }
@@ -105,12 +105,12 @@ public class HasInputStream implements IHasInputStream
   {
     private final NonBlockingByteArrayOutputStream m_aBAOS;
 
-    public HISNBBAOS (@Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+    public HISNBBAOS (@NonNull final NonBlockingByteArrayOutputStream aBAOS)
     {
       m_aBAOS = aBAOS;
     }
 
-    @Nonnull
+    @NonNull
     public InputStream getInputStream ()
     {
       return m_aBAOS.getAsInputStream ();
@@ -132,9 +132,9 @@ public class HasInputStream implements IHasInputStream
    * @return Never <code>null</code>.
    * @since 9.2.1
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static IHasInputStream create (@Nonnull final NonBlockingByteArrayOutputStream aBAOS)
+  public static IHasInputStream create (@NonNull final NonBlockingByteArrayOutputStream aBAOS)
   {
     ValueEnforcer.notNull (aBAOS, "BAOS");
     return new HISNBBAOS (aBAOS);
@@ -144,12 +144,12 @@ public class HasInputStream implements IHasInputStream
   {
     private final byte [] m_aBytes;
 
-    public HISByteArray (@Nonnull final byte [] aBytes)
+    public HISByteArray (@NonNull final byte [] aBytes)
     {
       m_aBytes = aBytes;
     }
 
-    @Nonnull
+    @NonNull
     public InputStream getInputStream ()
     {
       return new NonBlockingByteArrayInputStream (m_aBytes);
@@ -172,9 +172,9 @@ public class HasInputStream implements IHasInputStream
    * @return Never <code>null</code>.
    * @since 11.2.0
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static IHasInputStream create (@Nonnull final byte [] aBytes)
+  public static IHasInputStream create (@NonNull final byte [] aBytes)
   {
     ValueEnforcer.notNull (aBytes, "Bytes");
     return new HISByteArray (aBytes);

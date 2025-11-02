@@ -16,6 +16,8 @@
  */
 package com.helger.url.protocol;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.url.data.IURLData;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A central registry for supported URL protocols. By default, the registry will include all
@@ -70,7 +69,7 @@ public final class URLProtocolRegistry
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static URLProtocolRegistry getInstance ()
   {
     final URLProtocolRegistry ret = SingletonHolder.INSTANCE;
@@ -86,7 +85,7 @@ public final class URLProtocolRegistry
    * @throws IllegalArgumentException
    *         If another handler for this protocol is already installed.
    */
-  public void registerProtocol (@Nonnull final IURLProtocol aProtocol)
+  public void registerProtocol (@NonNull final IURLProtocol aProtocol)
   {
     ValueEnforcer.notNull (aProtocol, "Protocol");
 
@@ -104,7 +103,7 @@ public final class URLProtocolRegistry
   /**
    * @return All registered protocols
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <IURLProtocol> getAllProtocols ()
   {
@@ -197,7 +196,7 @@ public final class URLProtocolRegistry
   }
 
   @Nullable
-  public String getWithProtocolIfNone (@Nonnull final IURLProtocol aProtocol, @Nullable final String sURL)
+  public String getWithProtocolIfNone (@NonNull final IURLProtocol aProtocol, @Nullable final String sURL)
   {
     ValueEnforcer.notNull (aProtocol, "Protocol");
     if (sURL == null || hasKnownProtocol (sURL))

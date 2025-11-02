@@ -19,9 +19,9 @@ package com.helger.collection.commons;
 import java.util.Enumeration;
 import java.util.NoSuchElementException;
 
-import com.helger.base.tostring.ToStringGenerator;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * Create an iterable iterator from an existing enumeration.

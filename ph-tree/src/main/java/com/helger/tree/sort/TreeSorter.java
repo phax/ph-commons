@@ -18,6 +18,9 @@ package com.helger.tree.sort;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -27,9 +30,6 @@ import com.helger.collection.hierarchy.visit.EHierarchyVisitorReturn;
 import com.helger.tree.IBasicTree;
 import com.helger.tree.IBasicTreeItem;
 import com.helger.tree.ITreeItem;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Sort {@link com.helger.tree.ITree} instances recursively.
@@ -45,8 +45,8 @@ public final class TreeSorter
   private TreeSorter ()
   {}
 
-  private static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void _sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
-                                                                                         @Nonnull final Comparator <? super ITEMTYPE> aComparator)
+  private static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void _sort (@NonNull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
+                                                                                         @NonNull final Comparator <? super ITEMTYPE> aComparator)
   {
     ValueEnforcer.notNull (aTree, "Tree");
     ValueEnforcer.notNull (aComparator, "Comparator");
@@ -55,7 +55,7 @@ public final class TreeSorter
     ChildrenProviderHierarchyVisitor.visitFrom (aTree.getRootItem (), new DefaultHierarchyVisitorCallback <ITEMTYPE> ()
     {
       @Override
-      @Nonnull
+      @NonNull
       public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aTreeItem)
       {
         if (aTreeItem != null)
@@ -77,8 +77,8 @@ public final class TreeSorter
    * @param <ITEMTYPE>
    *        The tree item type
    */
-  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
-                                                                                       @Nonnull final Comparator <? super DATATYPE> aValueComparator)
+  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@NonNull final IBasicTree <? extends DATATYPE, ITEMTYPE> aTree,
+                                                                                       @NonNull final Comparator <? super DATATYPE> aValueComparator)
   {
     _sort (aTree, Comparator.comparing (IBasicTreeItem::getData, aValueComparator));
   }
@@ -95,7 +95,7 @@ public final class TreeSorter
    * @param <ITEMTYPE>
    *        The tree item type
    */
-  public static <DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
+  public static <DATATYPE extends Comparable <? super DATATYPE>, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void sort (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree)
   {
     _sort (aTree, (o1, o2) -> o1.getData ().compareTo (o2.getData ()));
   }

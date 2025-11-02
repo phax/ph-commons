@@ -16,12 +16,12 @@
  */
 package com.helger.tree.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.tree.mock.MockHasName;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.util.MicroHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class MockHasNameConverter implements IConverterTreeXML <MockHasName>
 {
@@ -31,14 +31,14 @@ public final class MockHasNameConverter implements IConverterTreeXML <MockHasNam
     return "bla";
   }
 
-  public void appendDataValue (@Nonnull final IMicroElement eDataElement, @Nullable final MockHasName aAnyName)
+  public void appendDataValue (@NonNull final IMicroElement eDataElement, @Nullable final MockHasName aAnyName)
   {
     final IMicroElement eName = eDataElement.addElementNS (getNamespaceURI (), "name");
     if (aAnyName != null)
       eName.addText (aAnyName.getName ());
   }
 
-  @Nonnull
+  @NonNull
   public MockHasName getAsDataValue (final IMicroElement eDataElement)
   {
     return new MockHasName (MicroHelper.getChildTextContent (eDataElement, getNamespaceURI (), "name"));

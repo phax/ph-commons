@@ -16,6 +16,8 @@
  */
 package com.helger.settings.exchange.configfile;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.io.resource.IReadableResource;
 import com.helger.settings.ISettings;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A configuration file that consists of a readable resource that backed the
@@ -95,7 +94,7 @@ public class ConfigFile implements IGetterByKeyTrait <String>
     return m_aSettings == null ? null : m_aSettings.getValue (sFieldName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, Object> getAllEntries ()
   {

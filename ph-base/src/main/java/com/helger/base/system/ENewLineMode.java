@@ -16,10 +16,10 @@
  */
 package com.helger.base.system;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Determines the different newline modes for th different operating systems.
@@ -41,7 +41,7 @@ public enum ENewLineMode
 
   private final String m_sText;
 
-  ENewLineMode (@Nonnull @Nonempty final String sText)
+  ENewLineMode (@NonNull @Nonempty final String sText)
   {
     m_sText = sText;
   }
@@ -50,7 +50,7 @@ public enum ENewLineMode
    * @return The textual representation of the new line in this mode. Neither <code>null</code> nor
    *         empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getText ()
   {

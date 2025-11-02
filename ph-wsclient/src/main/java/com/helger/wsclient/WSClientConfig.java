@@ -27,6 +27,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,8 +47,6 @@ import com.helger.http.header.HttpHeaderMap;
 import com.helger.http.security.HostnameVerifierVerifyAll;
 import com.helger.http.security.TrustManagerTrustAll;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.ws.BindingProvider;
 import jakarta.xml.ws.handler.Handler;
 import jakarta.xml.ws.handler.MessageContext;
@@ -124,7 +124,7 @@ public class WSClientConfig
    *         if initializing the SSL context failed
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setSSLSocketFactoryTrustAll () throws KeyManagementException
   {
     return setSSLSocketFactoryTrustAll (GlobalDebug.isDebugMode ());
@@ -142,7 +142,7 @@ public class WSClientConfig
    * @return this for chaining
    * @since 9.1.5
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setSSLSocketFactoryTrustAll (final boolean bDebugMode) throws KeyManagementException
   {
     try
@@ -166,7 +166,7 @@ public class WSClientConfig
    *        {@link SSLSocketFactory} is to be used.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setSSLSocketFactory (@Nullable final SSLSocketFactory aSSLSocketFactory)
   {
     m_aSSLSocketFactory = aSSLSocketFactory;
@@ -189,7 +189,7 @@ public class WSClientConfig
    *
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setHostnameVerifierTrustAll ()
   {
     return setHostnameVerifierTrustAll (GlobalDebug.isDebugMode ());
@@ -204,7 +204,7 @@ public class WSClientConfig
    * @return this for chaining
    * @since 9.1.5
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setHostnameVerifierTrustAll (final boolean bDebugMode)
   {
     return setHostnameVerifier (new HostnameVerifierVerifyAll (bDebugMode));
@@ -218,7 +218,7 @@ public class WSClientConfig
    *        {@link HostnameVerifier} is to be used.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setHostnameVerifier (@Nullable final HostnameVerifier aHostnameVerifier)
   {
     m_aHostnameVerifier = aHostnameVerifier;
@@ -250,7 +250,7 @@ public class WSClientConfig
    *        Milliseconds. Only values &ge; 0 are considered.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setConnectionTimeoutMS (final int nConnectionTimeoutMS)
   {
     m_nConnectionTimeoutMS = nConnectionTimeoutMS;
@@ -283,7 +283,7 @@ public class WSClientConfig
    *        Milliseconds. Only values &ge; 0 are considered.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setRequestTimeoutMS (final int nRequestTimeoutMS)
   {
     m_nRequestTimeoutMS = nRequestTimeoutMS;
@@ -318,7 +318,7 @@ public class WSClientConfig
    * @return this for chaining
    * @since 8.5.7
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setChunkSize (final int nChunkSize)
   {
     m_nChunkSize = nChunkSize;
@@ -352,7 +352,7 @@ public class WSClientConfig
    *        The user name to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setUserName (@Nullable final String sUserName)
   {
     m_sUserName = sUserName;
@@ -386,7 +386,7 @@ public class WSClientConfig
    *        The password to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setPassword (@Nullable final String sPassword)
   {
     m_sPassword = sPassword;
@@ -418,7 +418,7 @@ public class WSClientConfig
    *        The SOAP Action to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setSOAPAction (@Nullable final String sSOAPAction)
   {
     m_sSOAPAction = sSOAPAction;
@@ -428,7 +428,7 @@ public class WSClientConfig
   /**
    * @return The mutable HTTP header map used inside
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public HttpHeaderMap httpHeaders ()
   {
@@ -442,7 +442,7 @@ public class WSClientConfig
    *        <code>true</code> to enable, <code>false</code> to disable.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setCompressedRequest (final boolean bCompress)
   {
     if (bCompress)
@@ -459,7 +459,7 @@ public class WSClientConfig
    *        <code>true</code> to enable, <code>false</code> to disable.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final WSClientConfig setCompressedResponse (final boolean bCompress)
   {
     if (bCompress)
@@ -474,14 +474,14 @@ public class WSClientConfig
     return m_eCookiesSupport.isTrue ();
   }
 
-  @Nonnull
+  @NonNull
   public final WSClientConfig setCookiesSupportEnabled (final boolean bEnabled)
   {
     m_eCookiesSupport = ETriState.valueOf (bEnabled);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public ICommonsList <Handler <? extends MessageContext>> handlers ()
   {
@@ -495,7 +495,7 @@ public class WSClientConfig
    *        The request context to be filled. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void customizeRequestContext (@Nonnull final Map <String, Object> aRequestContext)
+  protected void customizeRequestContext (@NonNull final Map <String, Object> aRequestContext)
   {}
 
   protected final boolean isWorkAroundMASM0003 ()
@@ -511,7 +511,7 @@ public class WSClientConfig
 
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
-  public void applyWSSettingsToBindingProvider (@Nonnull final BindingProvider aBP)
+  public void applyWSSettingsToBindingProvider (@NonNull final BindingProvider aBP)
   {
     final Map <String, Object> aRequestContext = aBP.getRequestContext ();
 

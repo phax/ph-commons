@@ -16,10 +16,10 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.trait.IGenericImplTrait;
 import com.helger.diagnostics.severity.ISeverityComparable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for objects that have a severity based on {@link IErrorLevel}.
@@ -33,38 +33,38 @@ public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelCompar
                                           ISeverityComparable <IMPLTYPE>,
                                           IGenericImplTrait <IMPLTYPE>
 {
-  default int compareTo (@Nonnull final IMPLTYPE aOther)
+  default int compareTo (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().compareTo (aOther.getErrorLevel ());
   }
 
-  default boolean isEQ (@Nonnull final IMPLTYPE aOther)
+  default boolean isEQ (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isEQ (aOther.getErrorLevel ());
   }
 
   @Override
-  default boolean isNE (@Nonnull final IMPLTYPE aOther)
+  default boolean isNE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isNE (aOther.getErrorLevel ());
   }
 
-  default boolean isLT (@Nonnull final IMPLTYPE aOther)
+  default boolean isLT (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isLT (aOther.getErrorLevel ());
   }
 
-  default boolean isLE (@Nonnull final IMPLTYPE aOther)
+  default boolean isLE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isLE (aOther.getErrorLevel ());
   }
 
-  default boolean isGT (@Nonnull final IMPLTYPE aOther)
+  default boolean isGT (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isGT (aOther.getErrorLevel ());
   }
 
-  default boolean isGE (@Nonnull final IMPLTYPE aOther)
+  default boolean isGE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isGE (aOther.getErrorLevel ());
   }

@@ -18,8 +18,8 @@ package com.helger.io.file;
 
 import java.io.File;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface for a manager operating on the file system. Is implemented by
@@ -50,8 +50,8 @@ public interface IFileOperationManager
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError createDir (@Nonnull File aDir);
+  @NonNull
+  FileIOError createDir (@NonNull File aDir);
 
   /**
    * Create a new directory if it does not exist. The direct parent directory
@@ -62,8 +62,8 @@ public interface IFileOperationManager
    *        <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError createDirIfNotExisting (@Nonnull File aDir);
+  @NonNull
+  FileIOError createDirIfNotExisting (@NonNull File aDir);
 
   /**
    * Create a new directory. The parent directories are created if they are
@@ -73,8 +73,8 @@ public interface IFileOperationManager
    *        The directory to be created. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError createDirRecursive (@Nonnull File aDir);
+  @NonNull
+  FileIOError createDirRecursive (@NonNull File aDir);
 
   /**
    * Create a new directory if it does not exist. The direct parent directory
@@ -85,8 +85,8 @@ public interface IFileOperationManager
    *        <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError createDirRecursiveIfNotExisting (@Nonnull File aDir);
+  @NonNull
+  FileIOError createDirRecursiveIfNotExisting (@NonNull File aDir);
 
   /**
    * Delete an existing directory. The directory needs to be empty before it can
@@ -96,8 +96,8 @@ public interface IFileOperationManager
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteDir (@Nonnull File aDir);
+  @NonNull
+  FileIOError deleteDir (@NonNull File aDir);
 
   /**
    * Delete an existing directory if it is existing. The directory needs to be
@@ -107,8 +107,8 @@ public interface IFileOperationManager
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteDirIfExisting (@Nonnull File aDir);
+  @NonNull
+  FileIOError deleteDirIfExisting (@NonNull File aDir);
 
   /**
    * Delete an existing directory including all child objects.
@@ -117,8 +117,8 @@ public interface IFileOperationManager
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteDirRecursive (@Nonnull File aDir);
+  @NonNull
+  FileIOError deleteDirRecursive (@NonNull File aDir);
 
   /**
    * Delete an existing directory including all child objects if it is existing.
@@ -127,8 +127,8 @@ public interface IFileOperationManager
    *        The directory to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteDirRecursiveIfExisting (@Nonnull File aDir);
+  @NonNull
+  FileIOError deleteDirRecursiveIfExisting (@NonNull File aDir);
 
   /**
    * Delete an existing file.
@@ -137,8 +137,8 @@ public interface IFileOperationManager
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteFile (@Nonnull File aFile);
+  @NonNull
+  FileIOError deleteFile (@NonNull File aFile);
 
   /**
    * Delete a file if it is existing.
@@ -147,8 +147,8 @@ public interface IFileOperationManager
    *        The file to be deleted. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError deleteFileIfExisting (@Nonnull File aFile);
+  @NonNull
+  FileIOError deleteFileIfExisting (@NonNull File aFile);
 
   /**
    * Rename a directory.
@@ -159,8 +159,8 @@ public interface IFileOperationManager
    *        The destination directory name. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError renameDir (@Nonnull File aSourceDir, @Nonnull File aTargetDir);
+  @NonNull
+  FileIOError renameDir (@NonNull File aSourceDir, @NonNull File aTargetDir);
 
   /**
    * Rename a file.
@@ -171,8 +171,8 @@ public interface IFileOperationManager
    *        The destination file name. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError renameFile (@Nonnull File aSourceFile, @Nonnull File aTargetFile);
+  @NonNull
+  FileIOError renameFile (@NonNull File aSourceFile, @NonNull File aTargetFile);
 
   /**
    * Copy a directory including all child objects.
@@ -184,8 +184,8 @@ public interface IFileOperationManager
    *        be existing. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError copyDirRecursive (@Nonnull File aSourceDir, @Nonnull File aTargetDir);
+  @NonNull
+  FileIOError copyDirRecursive (@NonNull File aSourceDir, @NonNull File aTargetDir);
 
   /**
    * Copies the source file to the target file.
@@ -198,6 +198,6 @@ public interface IFileOperationManager
    *        an existing file.
    * @return A non-<code>null</code> error code.
    */
-  @Nonnull
-  FileIOError copyFile (@Nonnull File aSourceFile, @Nonnull File aTargetFile);
+  @NonNull
+  FileIOError copyFile (@NonNull File aSourceFile, @NonNull File aTargetFile);
 }

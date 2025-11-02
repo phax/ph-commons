@@ -16,7 +16,7 @@
  */
 package com.helger.statistics.api;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Statistics handler for a keyed counter.

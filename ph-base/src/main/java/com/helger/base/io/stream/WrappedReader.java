@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.FilterReader;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around another {@link FilterReader} to make the wrapped
@@ -36,7 +36,7 @@ public class WrappedReader extends FilterReader
    * @param aWrappedReader
    *        The reader to be wrapped. May not be <code>null</code>.
    */
-  public WrappedReader (@Nonnull final Reader aWrappedReader)
+  public WrappedReader (@NonNull final Reader aWrappedReader)
   {
     super (ValueEnforcer.notNull (aWrappedReader, "WrappedReader"));
   }
@@ -45,7 +45,7 @@ public class WrappedReader extends FilterReader
    * @return The wrapped reader provided in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Reader getWrappedReader ()
   {
     return in;

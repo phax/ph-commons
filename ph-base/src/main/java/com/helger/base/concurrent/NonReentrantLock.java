@@ -21,7 +21,7 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Non reentrant lock. Copied from Netty 3.7 sources.
@@ -66,7 +66,7 @@ public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
     return isHeldExclusively ();
   }
 
-  @Nonnull
+  @NonNull
   public Condition newCondition ()
   {
     return new ConditionObject ();

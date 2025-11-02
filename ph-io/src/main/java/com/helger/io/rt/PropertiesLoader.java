@@ -22,15 +22,15 @@ import java.io.Reader;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.rt.PropertiesHelper;
 import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class to ease the use of {@link Properties} class.
@@ -46,7 +46,7 @@ public final class PropertiesLoader
   {}
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final File aFile)
+  public static NonBlockingProperties loadProperties (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -54,7 +54,7 @@ public final class PropertiesLoader
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final File aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingProperties loadProperties (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -62,7 +62,7 @@ public final class PropertiesLoader
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes)
+  public static NonBlockingProperties loadProperties (@NonNull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -73,8 +73,8 @@ public final class PropertiesLoader
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull final IReadableResource aRes,
-                                                      @Nonnull final Charset aCharset)
+  public static NonBlockingProperties loadProperties (@NonNull final IReadableResource aRes,
+                                                      @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aRes, "Resource");
     ValueEnforcer.notNull (aCharset, "Charset");

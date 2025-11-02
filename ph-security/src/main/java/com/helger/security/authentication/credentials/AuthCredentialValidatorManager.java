@@ -18,6 +18,8 @@ package com.helger.security.authentication.credentials;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,8 +27,6 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 @Immutable
 public final class AuthCredentialValidatorManager
@@ -43,15 +43,15 @@ public final class AuthCredentialValidatorManager
   private AuthCredentialValidatorManager ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialValidatorSPI> getAllAuthCredentialValidators ()
   {
     return new CommonsArrayList <> (HDL_LIST);
   }
 
-  @Nonnull
-  public static ICredentialValidationResult validateCredentials (@Nonnull final IAuthCredentials aCredentials)
+  @NonNull
+  public static ICredentialValidationResult validateCredentials (@NonNull final IAuthCredentials aCredentials)
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 

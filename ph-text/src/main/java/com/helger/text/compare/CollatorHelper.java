@@ -21,6 +21,8 @@ import java.text.ParseException;
 import java.text.RuleBasedCollator;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.string.StringReplace;
 import com.helger.base.system.SystemHelper;
 import com.helger.cache.impl.Cache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class to easily create commonly used {@link Collator} objects.
@@ -108,7 +107,7 @@ public final class CollatorHelper
    *        indicate the usage of the default locale.
    * @return The created {@link RuleBasedCollator} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Collator getCollatorSpaceBeforeDot (@Nullable final Locale aLocale)
   {
@@ -124,7 +123,7 @@ public final class CollatorHelper
    *
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public static EChange clearCache ()
   {
     return COLLATOR_CACHE.clearCache ();

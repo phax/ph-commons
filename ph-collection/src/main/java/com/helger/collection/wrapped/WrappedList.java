@@ -21,6 +21,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -28,9 +31,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a facade for a {@link List}. It may be used to wrap any kind of
@@ -46,19 +46,19 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
   @CodingStyleguideUnaware
   private final List <ELEMENTTYPE> m_aSrc;
 
-  public WrappedList (@Nonnull final List <ELEMENTTYPE> aList)
+  public WrappedList (@NonNull final List <ELEMENTTYPE> aList)
   {
     m_aSrc = ValueEnforcer.notNull (aList, "List");
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public WrappedList <ELEMENTTYPE> getClone ()
   {
     return new WrappedList <> (m_aSrc);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
   protected List <ELEMENTTYPE> directGetSource ()
@@ -82,12 +82,12 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
     m_aSrc.add (nIndex, aElement);
   }
 
-  public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
   }
 
-  public boolean addAll (@Nonnegative final int nIndex, @Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@Nonnegative final int nIndex, @NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (nIndex, aElements);
   }

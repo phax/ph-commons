@@ -18,12 +18,12 @@ package com.helger.cache.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Builder class for {@link Cache} objects.
@@ -46,35 +46,35 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   public CacheBuilder ()
   {}
 
-  @Nonnull
+  @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> valueProvider (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {
     m_aValueProvider = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> maxSize (final int n)
   {
     m_nMaxSize = n;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> name (@Nullable final String s)
   {
     m_sName = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> allowNullValues (final boolean b)
   {
     m_bAllowNullValues = b;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public Cache <KEYTYPE, VALUETYPE> build ()
   {
     if (m_aValueProvider == null)

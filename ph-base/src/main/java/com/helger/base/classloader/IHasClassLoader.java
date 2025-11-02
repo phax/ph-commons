@@ -16,7 +16,7 @@
  */
 package com.helger.base.classloader;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base interface for all objects having optional support for custom

@@ -16,6 +16,8 @@
  */
 package com.helger.commons.vendor;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -27,8 +29,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Contains some general vendor specific information. This is mainly for keeping the CI in all
@@ -69,13 +69,13 @@ public final class VendorInfo
   private VendorInfo ()
   {}
 
-  @Nonnull
+  @NonNull
   public static String getVendorLocation ()
   {
     return s_sVendorLocation;
   }
 
-  public static void setVendorLocation (@Nonnull @Nonempty final String sVendorLocation)
+  public static void setVendorLocation (@NonNull @Nonempty final String sVendorLocation)
   {
     s_sVendorLocation = ValueEnforcer.notEmpty (sVendorLocation, "VendorLocation");
   }
@@ -91,42 +91,42 @@ public final class VendorInfo
     s_nInceptionYear = ValueEnforcer.isGE0 (nInceptionYear, "InceptionYear");
   }
 
-  @Nonnull
+  @NonNull
   public static String getVendorName ()
   {
     return s_sVendorName;
   }
 
-  public static void setVendorName (@Nonnull @Nonempty final String sVendorName)
+  public static void setVendorName (@NonNull @Nonempty final String sVendorName)
   {
     s_sVendorName = ValueEnforcer.notEmpty (sVendorName, "VendorName");
   }
 
-  @Nonnull
+  @NonNull
   public static String getVendorURL ()
   {
     return s_sVendorURL;
   }
 
-  public static void setVendorURL (@Nonnull @Nonempty final String sVendorURL)
+  public static void setVendorURL (@NonNull @Nonempty final String sVendorURL)
   {
     ValueEnforcer.notEmpty (sVendorURL, "VendorURL");
     s_sVendorURL = sVendorURL;
   }
 
-  @Nonnull
+  @NonNull
   public static String getVendorEmail ()
   {
     return s_sVendorEmail;
   }
 
-  @Nonnull
+  @NonNull
   public static String getVendorEmailSuffix ()
   {
     return s_sVendorEmailSuffix;
   }
 
-  public static void setVendorEmail (@Nonnull @Nonempty final String sVendorEmail)
+  public static void setVendorEmail (@NonNull @Nonempty final String sVendorEmail)
   {
     ValueEnforcer.notEmpty (sVendorEmail, "VendorEmail");
     ValueEnforcer.isTrue (EmailAddressHelper.isValid (sVendorEmail), () -> "Illegal vendor email: " + sVendorEmail);
@@ -137,7 +137,7 @@ public final class VendorInfo
   /**
    * @return These are the lines that should used for prefixing generated files.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <String> getFileHeaderLines ()
   {

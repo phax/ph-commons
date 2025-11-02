@@ -16,10 +16,10 @@
  */
 package com.helger.base.codec;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single decoder for chars.

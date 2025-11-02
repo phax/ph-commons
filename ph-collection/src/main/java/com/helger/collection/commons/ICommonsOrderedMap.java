@@ -19,11 +19,11 @@ package com.helger.collection.commons;
 import java.util.Map;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.CollectionFind;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link Map} interface for ordered maps (like {@link CommonsLinkedHashMap}) based on
@@ -38,7 +38,7 @@ import jakarta.annotation.Nullable;
 public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KEYTYPE, VALUETYPE>
 {
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <K, V> ICommonsOrderedMap <K, V> createInstance ()
   {
@@ -46,7 +46,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet ()
   {
@@ -54,7 +54,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
@@ -64,7 +64,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
@@ -100,7 +100,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
     return aKey == null ? aDefault : get (aKey);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <KEYTYPE, VALUETYPE> getClone ();
 }

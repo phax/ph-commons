@@ -18,15 +18,15 @@ package com.helger.base.charset;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.array.bytes.ByteArrayWrapper;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines the most common Byte Order Markers for Unicode encoded text files. <br>
@@ -99,7 +99,7 @@ public enum EUnicodeBOM
   private final String m_sCharsetName;
   private final Charset m_aCharset;
 
-  EUnicodeBOM (@Nonnull @Nonempty final byte [] aBytes, @Nullable final String sCharset)
+  EUnicodeBOM (@NonNull @Nonempty final byte [] aBytes, @Nullable final String sCharset)
   {
     ValueEnforcer.isBetweenInclusive (aBytes.length, "Byte count", 1, MAXIMUM_BOM_BYTE_COUNT);
     m_aBOMBytes = new ByteArrayWrapper (aBytes, false);
@@ -110,7 +110,7 @@ public enum EUnicodeBOM
   /**
    * @return A copy of the byte array that identifies this BOM.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public byte [] getAllBytes ()

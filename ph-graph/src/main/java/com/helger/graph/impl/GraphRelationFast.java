@@ -16,13 +16,13 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableGraphNode;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link com.helger.graph.IMutableGraphRelation} interface
@@ -36,12 +36,12 @@ public class GraphRelationFast extends GraphRelation
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public GraphRelationFast (@Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
+  public GraphRelationFast (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     super (aFrom, aTo);
   }
 
-  public GraphRelationFast (@Nullable final String sID, @Nonnull final IMutableGraphNode aFrom, @Nonnull final IMutableGraphNode aTo)
+  public GraphRelationFast (@Nullable final String sID, @NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     super (sID, aFrom, aTo);
   }

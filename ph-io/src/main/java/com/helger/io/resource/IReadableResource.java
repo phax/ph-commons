@@ -16,10 +16,10 @@
  */
 package com.helger.io.resource;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.io.iface.IHasInputStreamAndReader;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for an abstract readable resource.
@@ -38,6 +38,6 @@ public interface IReadableResource extends IHasInputStreamAndReader, IResourceBa
    * @return The resource of the same implementation but a different path. May
    *         not be <code>null</code>.
    */
-  @Nonnull
-  IReadableResource getReadableCloneForPath (@Nonnull String sPath);
+  @NonNull
+  IReadableResource getReadableCloneForPath (@NonNull String sPath);
 }

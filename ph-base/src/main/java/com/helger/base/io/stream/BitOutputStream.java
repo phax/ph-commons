@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.concurrent.SimpleLock;
 import com.helger.base.io.nonblocking.NonBlockingBitOutputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The BitOutputStream allows writing individual bits to a general Java
@@ -50,7 +50,7 @@ public class BitOutputStream extends NonBlockingBitOutputStream
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
-  public BitOutputStream (@Nonnull final OutputStream aOS, @Nonnull final ByteOrder aByteOrder)
+  public BitOutputStream (@NonNull final OutputStream aOS, @NonNull final ByteOrder aByteOrder)
   {
     super (aOS, aByteOrder);
   }

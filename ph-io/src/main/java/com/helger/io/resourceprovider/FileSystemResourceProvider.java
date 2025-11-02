@@ -18,6 +18,8 @@ package com.helger.io.resourceprovider;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,9 +36,6 @@ import com.helger.io.resource.FileSystemResource;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.IWritableResource;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple resource provider that only uses files.
@@ -58,7 +57,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     this ((File) null);
   }
 
-  public FileSystemResourceProvider (@Nonnull final String sBasePath)
+  public FileSystemResourceProvider (@NonNull final String sBasePath)
   {
     this (new File (sBasePath));
   }
@@ -90,15 +89,15 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     return m_aRWLock.readLockedBoolean ( () -> m_bCanReadRelativePaths);
   }
 
-  @Nonnull
+  @NonNull
   public final FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
   {
     m_aRWLock.writeLockedBoolean ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
     return this;
   }
 
-  @Nonnull
-  private File _getFile (@Nonnull final String sName)
+  @NonNull
+  private File _getFile (@NonNull final String sName)
   {
     ValueEnforcer.notNull (sName, "Name");
 
@@ -134,14 +133,14 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     return true;
   }
 
-  @Nonnull
-  public IReadableResource getReadableResource (@Nonnull final String sName)
+  @NonNull
+  public IReadableResource getReadableResource (@NonNull final String sName)
   {
     return new FileSystemResource (_getFile (sName));
   }
 
-  @Nonnull
-  public IWritableResource getWritableResource (@Nonnull final String sName)
+  @NonNull
+  public IWritableResource getWritableResource (@NonNull final String sName)
   {
     return new FileSystemResource (_getFile (sName));
   }

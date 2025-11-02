@@ -18,15 +18,15 @@ package com.helger.io.resourceprovider;
 
 import java.net.MalformedURLException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The URL resource provider.
@@ -41,7 +41,7 @@ public final class URLResourceProvider implements IReadableResourceProvider
     return URLResource.isExplicitURLResource (sName);
   }
 
-  public IReadableResource getReadableResource (@Nonnull final String sURL)
+  public IReadableResource getReadableResource (@NonNull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");
 

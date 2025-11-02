@@ -22,11 +22,11 @@ import java.io.FilenameFilter;
 import java.util.Objects;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.cache.regex.RegExHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract interface that collects {@link FileFilter}, {@link FilenameFilter} and
@@ -54,7 +54,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   /**
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IFileFilter directoryOnly ()
   {
     return FileHelper::existsDir;
@@ -63,7 +63,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   /**
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IFileFilter directoryPublic ()
   {
     return aFile -> FileHelper.existsDir (aFile) && !FilenameHelper.isHiddenFilename (aFile);
@@ -72,7 +72,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   /**
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IFileFilter parentDirectoryPublic ()
   {
     return aFile -> {
@@ -84,7 +84,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   /**
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IFileFilter fileOnly ()
   {
     return FileHelper::existsFile;
@@ -93,7 +93,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   /**
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   static IFileFilter filenameHidden ()
   {
     return FilenameHelper::isHiddenFilename;
@@ -104,8 +104,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The extension to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameStartsWith (@Nonnull @Nonempty final String sPrefix)
+  @NonNull
+  static IFileFilter filenameStartsWith (@NonNull @Nonempty final String sPrefix)
   {
     Objects.requireNonNull (sPrefix);
     return aFile -> {
@@ -124,8 +124,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The suffix to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameEndsWith (@Nonnull @Nonempty final String sSuffix)
+  @NonNull
+  static IFileFilter filenameEndsWith (@NonNull @Nonempty final String sSuffix)
   {
     Objects.requireNonNull (sSuffix);
     return aFile -> {
@@ -144,8 +144,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The filename to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameEquals (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  static IFileFilter filenameEquals (@NonNull @Nonempty final String sFilename)
   {
     Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
@@ -156,8 +156,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The filename to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  static IFileFilter filenameEqualsIgnoreCase (@NonNull @Nonempty final String sFilename)
   {
     Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
@@ -168,8 +168,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The filename to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameNotEquals (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  static IFileFilter filenameNotEquals (@NonNull @Nonempty final String sFilename)
   {
     Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && !sFilename.equals (FilenameHelper.getSecureFilename (aFile.getName ()));
@@ -180,8 +180,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *        The filename to use. May neither be <code>null</code> nor empty.
    * @return The created {@link IFileFilter}. Never <code>null</code>.
    */
-  @Nonnull
-  static IFileFilter filenameNotEqualsIgnoreCase (@Nonnull @Nonempty final String sFilename)
+  @NonNull
+  static IFileFilter filenameNotEqualsIgnoreCase (@NonNull @Nonempty final String sFilename)
   {
     Objects.requireNonNull (sFilename);
     return aFile -> aFile != null && !sFilename.equalsIgnoreCase (FilenameHelper.getSecureFilename (aFile.getName ()));
@@ -197,8 +197,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    * @see #filenameMatchAny(String...)
    * @see #filenameMatchNone(String...)
    */
-  @Nonnull
-  static IFileFilter filenameMatchAnyRegEx (@Nonnull @Nonempty final String... aRegExs)
+  @NonNull
+  static IFileFilter filenameMatchAnyRegEx (@NonNull @Nonempty final String... aRegExs)
   {
     Objects.requireNonNull (aRegExs);
     return aFile -> {
@@ -224,8 +224,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    * @see #filenameMatchAny(String...)
    * @see #filenameMatchNone(String...)
    */
-  @Nonnull
-  static IFileFilter filenameMatchNoRegEx (@Nonnull @Nonempty final String... aRegExs)
+  @NonNull
+  static IFileFilter filenameMatchNoRegEx (@NonNull @Nonempty final String... aRegExs)
   {
     Objects.requireNonNull (aRegExs);
     return aFile -> {
@@ -251,8 +251,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    * @see #filenameMatchNoRegEx(String...)
    * @see #filenameMatchNone(String...)
    */
-  @Nonnull
-  static IFileFilter filenameMatchAny (@Nonnull @Nonempty final String... aFilenames)
+  @NonNull
+  static IFileFilter filenameMatchAny (@NonNull @Nonempty final String... aFilenames)
   {
     Objects.requireNonNull (aFilenames);
     return aFile -> {
@@ -278,8 +278,8 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    * @see #filenameMatchNoRegEx(String...)
    * @see #filenameMatchAny(String...)
    */
-  @Nonnull
-  static IFileFilter filenameMatchNone (@Nonnull @Nonempty final String... aFilenames)
+  @NonNull
+  static IFileFilter filenameMatchNone (@NonNull @Nonempty final String... aFilenames)
   {
     Objects.requireNonNull (aFilenames);
     return aFile -> {

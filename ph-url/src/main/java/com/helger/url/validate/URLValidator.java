@@ -19,11 +19,11 @@ package com.helger.url.validate;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Check if a URL is valid.

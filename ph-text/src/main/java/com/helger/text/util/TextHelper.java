@@ -21,6 +21,8 @@ import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,8 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.text.IMultilingualText;
 import com.helger.text.MultilingualText;
 import com.helger.text.locale.LocaleCache;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Utility methods for formatting text using {@link MessageFormat}.
@@ -50,27 +50,27 @@ public final class TextHelper
   private TextHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static MultilingualText create_DE (@Nonnull final String sDE)
+  public static MultilingualText create_DE (@NonNull final String sDE)
   {
     final MultilingualText ret = new MultilingualText ();
     ret.addText (DE, sDE);
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static MultilingualText create_EN (@Nonnull final String sEN)
+  public static MultilingualText create_EN (@NonNull final String sEN)
   {
     final MultilingualText ret = new MultilingualText ();
     ret.addText (EN, sEN);
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static MultilingualText create_DE_EN (@Nonnull final String sDE, @Nonnull final String sEN)
+  public static MultilingualText create_DE_EN (@NonNull final String sDE, @NonNull final String sEN)
   {
     final MultilingualText ret = new MultilingualText ();
     ret.addText (DE, sDE);
@@ -87,10 +87,10 @@ public final class TextHelper
    *        The list of locales of which the strings are desired. May not be <code>null</code>.
    * @return The object containing only the texts of the given locales. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static MultilingualText getCopyWithLocales (@Nonnull final IMultilingualText aMLT,
-                                                     @Nonnull final Collection <Locale> aContentLocales)
+  public static MultilingualText getCopyWithLocales (@NonNull final IMultilingualText aMLT,
+                                                     @NonNull final Collection <Locale> aContentLocales)
   {
     final MultilingualText ret = new MultilingualText ();
     for (final Locale aConrentLocale : aContentLocales)
@@ -99,9 +99,9 @@ public final class TextHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static MultilingualText createMultilingualTextFromMap (@Nonnull final Map <String, String> aMap)
+  public static MultilingualText createMultilingualTextFromMap (@NonNull final Map <String, String> aMap)
   {
     ValueEnforcer.notNull (aMap, "Map");
 

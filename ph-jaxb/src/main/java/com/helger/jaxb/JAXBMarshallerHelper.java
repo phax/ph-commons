@@ -21,11 +21,11 @@ import java.nio.charset.Charset;
 import javax.xml.namespace.NamespaceContext;
 
 import org.glassfish.jaxb.runtime.api.JAXBRIContext;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.PropertyException;
 
@@ -52,8 +52,8 @@ public final class JAXBMarshallerHelper
   private JAXBMarshallerHelper ()
   {}
 
-  private static void _setProperty (@Nonnull final Marshaller aMarshaller,
-                                    @Nonnull final String sPropertyName,
+  private static void _setProperty (@NonNull final Marshaller aMarshaller,
+                                    @NonNull final String sPropertyName,
                                     @Nullable final Object aValue)
   {
     try
@@ -67,7 +67,7 @@ public final class JAXBMarshallerHelper
   }
 
   @Nullable
-  private static Object _getProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
+  private static Object _getProperty (@NonNull final Marshaller aMarshaller, @NonNull final String sPropertyName)
   {
     try
     {
@@ -79,19 +79,19 @@ public final class JAXBMarshallerHelper
     }
   }
 
-  private static boolean _getBooleanProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
+  private static boolean _getBooleanProperty (@NonNull final Marshaller aMarshaller, @NonNull final String sPropertyName)
   {
     return ((Boolean) _getProperty (aMarshaller, sPropertyName)).booleanValue ();
   }
 
   @Nullable
-  private static String _getStringProperty (@Nonnull final Marshaller aMarshaller, @Nonnull final String sPropertyName)
+  private static String _getStringProperty (@NonNull final Marshaller aMarshaller, @NonNull final String sPropertyName)
   {
     return (String) _getProperty (aMarshaller, sPropertyName);
   }
 
   @Nullable
-  public static String getEncoding (@Nonnull final Marshaller aMarshaller)
+  public static String getEncoding (@NonNull final Marshaller aMarshaller)
   {
     return _getStringProperty (aMarshaller, Marshaller.JAXB_ENCODING);
   }
@@ -104,7 +104,7 @@ public final class JAXBMarshallerHelper
    * @param aEncoding
    *        the value to be set
    */
-  public static void setEncoding (@Nonnull final Marshaller aMarshaller, @Nullable final Charset aEncoding)
+  public static void setEncoding (@NonNull final Marshaller aMarshaller, @Nullable final Charset aEncoding)
   {
     setEncoding (aMarshaller, aEncoding == null ? null : aEncoding.name ());
   }
@@ -117,12 +117,12 @@ public final class JAXBMarshallerHelper
    * @param sEncoding
    *        the value to be set
    */
-  public static void setEncoding (@Nonnull final Marshaller aMarshaller, @Nullable final String sEncoding)
+  public static void setEncoding (@NonNull final Marshaller aMarshaller, @Nullable final String sEncoding)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_ENCODING, sEncoding);
   }
 
-  public static boolean isFormattedOutput (@Nonnull final Marshaller aMarshaller)
+  public static boolean isFormattedOutput (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT);
   }
@@ -135,13 +135,13 @@ public final class JAXBMarshallerHelper
    * @param bFormattedOutput
    *        the value to be set
    */
-  public static void setFormattedOutput (@Nonnull final Marshaller aMarshaller, final boolean bFormattedOutput)
+  public static void setFormattedOutput (@NonNull final Marshaller aMarshaller, final boolean bFormattedOutput)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.valueOf (bFormattedOutput));
   }
 
   @Nullable
-  public static String getSchemaLocation (@Nonnull final Marshaller aMarshaller)
+  public static String getSchemaLocation (@NonNull final Marshaller aMarshaller)
   {
     return _getStringProperty (aMarshaller, Marshaller.JAXB_SCHEMA_LOCATION);
   }
@@ -154,13 +154,13 @@ public final class JAXBMarshallerHelper
    * @param sSchemaLocation
    *        the value to be set
    */
-  public static void setSchemaLocation (@Nonnull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
+  public static void setSchemaLocation (@NonNull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_SCHEMA_LOCATION, sSchemaLocation);
   }
 
   @Nullable
-  public static String getNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller)
+  public static String getNoNamespaceSchemaLocation (@NonNull final Marshaller aMarshaller)
   {
     return _getStringProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION);
   }
@@ -173,12 +173,12 @@ public final class JAXBMarshallerHelper
    * @param sSchemaLocation
    *        the value to be set
    */
-  public static void setNoNamespaceSchemaLocation (@Nonnull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
+  public static void setNoNamespaceSchemaLocation (@NonNull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, sSchemaLocation);
   }
 
-  public static boolean isFragment (@Nonnull final Marshaller aMarshaller)
+  public static boolean isFragment (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FRAGMENT);
   }
@@ -191,13 +191,13 @@ public final class JAXBMarshallerHelper
    * @param bFragment
    *        the value to be set
    */
-  public static void setFragment (@Nonnull final Marshaller aMarshaller, final boolean bFragment)
+  public static void setFragment (@NonNull final Marshaller aMarshaller, final boolean bFragment)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_FRAGMENT, Boolean.valueOf (bFragment));
   }
 
   @Nullable
-  public static String getJakartaIndentString (@Nonnull final Marshaller aMarshaller)
+  public static String getJakartaIndentString (@NonNull final Marshaller aMarshaller)
   {
     return _getStringProperty (aMarshaller, JAKARTA_INDENT_STRING);
   }
@@ -210,13 +210,13 @@ public final class JAXBMarshallerHelper
    * @param sIndentString
    *        the value to be set
    */
-  public static void setJakartaIndentString (@Nonnull final Marshaller aMarshaller, @Nullable final String sIndentString)
+  public static void setJakartaIndentString (@NonNull final Marshaller aMarshaller, @Nullable final String sIndentString)
   {
     _setProperty (aMarshaller, JAKARTA_INDENT_STRING, sIndentString);
   }
 
   @Nullable
-  public static Object getJakartaCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller)
+  public static Object getJakartaCharacterEscapeHandler (@NonNull final Marshaller aMarshaller)
   {
     return _getProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2);
   }
@@ -230,13 +230,13 @@ public final class JAXBMarshallerHelper
    * @param aCharacterEscapeHandler
    *        the value to be set
    */
-  public static void setJakartaCharacterEscapeHandler (@Nonnull final Marshaller aMarshaller, @Nonnull final Object aCharacterEscapeHandler)
+  public static void setJakartaCharacterEscapeHandler (@NonNull final Marshaller aMarshaller, @NonNull final Object aCharacterEscapeHandler)
   {
     _setProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2, aCharacterEscapeHandler);
   }
 
   @Nullable
-  public static JAXBNamespacePrefixMapper getJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller)
+  public static JAXBNamespacePrefixMapper getJakartaNamespacePrefixMapper (@NonNull final Marshaller aMarshaller)
   {
     return (JAXBNamespacePrefixMapper) _getProperty (aMarshaller, JAKARTA_PREFIX_MAPPER);
   }
@@ -256,8 +256,8 @@ public final class JAXBMarshallerHelper
    *         if the JAXB reference implementation was not found (requires the
    *         <code>com.sun.xml.bind:jaxb-impl</code> artefact)
    */
-  public static void setJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
-                                                      @Nonnull final NamespaceContext aNamespaceContext)
+  public static void setJakartaNamespacePrefixMapper (@NonNull final Marshaller aMarshaller,
+                                                      @NonNull final NamespaceContext aNamespaceContext)
   {
     final JAXBNamespacePrefixMapper aNamespacePrefixMapper = new JAXBNamespacePrefixMapper (aNamespaceContext);
     setJakartaNamespacePrefixMapper (aMarshaller, aNamespacePrefixMapper);
@@ -271,14 +271,14 @@ public final class JAXBMarshallerHelper
    * @param aNamespacePrefixMapper
    *        the value to be set
    */
-  public static void setJakartaNamespacePrefixMapper (@Nonnull final Marshaller aMarshaller,
-                                                      @Nonnull final JAXBNamespacePrefixMapper aNamespacePrefixMapper)
+  public static void setJakartaNamespacePrefixMapper (@NonNull final Marshaller aMarshaller,
+                                                      @NonNull final JAXBNamespacePrefixMapper aNamespacePrefixMapper)
   {
     _setProperty (aMarshaller, JAKARTA_PREFIX_MAPPER, aNamespacePrefixMapper);
   }
 
   @Nullable
-  public static String getJakartaXMLHeaders (@Nonnull final Marshaller aMarshaller)
+  public static String getJakartaXMLHeaders (@NonNull final Marshaller aMarshaller)
   {
     return _getStringProperty (aMarshaller, JAKARTA_XML_HEADERS);
   }
@@ -291,12 +291,12 @@ public final class JAXBMarshallerHelper
    * @param sXMLHeaders
    *        the value to be set
    */
-  public static void setJakartaXMLHeaders (@Nonnull final Marshaller aMarshaller, @Nonnull final String sXMLHeaders)
+  public static void setJakartaXMLHeaders (@NonNull final Marshaller aMarshaller, @NonNull final String sXMLHeaders)
   {
     _setProperty (aMarshaller, JAKARTA_XML_HEADERS, sXMLHeaders);
   }
 
-  public static boolean isJakartaCanonicalization (@Nonnull final Marshaller aMarshaller)
+  public static boolean isJakartaCanonicalization (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, JAKARTA_C14N);
   }
@@ -309,12 +309,12 @@ public final class JAXBMarshallerHelper
    * @param bCanonicalize
    *        the value to be set
    */
-  public static void setJakartaCanonicalization (@Nonnull final Marshaller aMarshaller, final boolean bCanonicalize)
+  public static void setJakartaCanonicalization (@NonNull final Marshaller aMarshaller, final boolean bCanonicalize)
   {
     _setProperty (aMarshaller, JAKARTA_C14N, Boolean.valueOf (bCanonicalize));
   }
 
-  public static boolean isJakartaObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller)
+  public static boolean isJakartaObjectIdentityCycleDetection (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION);
   }
@@ -327,7 +327,7 @@ public final class JAXBMarshallerHelper
    * @param bObjectIdentityCycleDetection
    *        the value to be set
    */
-  public static void setJakartaObjectIdentityCycleDetection (@Nonnull final Marshaller aMarshaller,
+  public static void setJakartaObjectIdentityCycleDetection (@NonNull final Marshaller aMarshaller,
                                                              final boolean bObjectIdentityCycleDetection)
   {
     _setProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION, Boolean.valueOf (bObjectIdentityCycleDetection));

@@ -25,6 +25,7 @@ import java.nio.ByteBuffer;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
@@ -46,8 +47,6 @@ import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerTimer;
 import com.helger.statistics.impl.StatisticsManager;
 import com.helger.xml.sax.InputSourceFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to read XML documents via SAX
@@ -73,88 +72,88 @@ public final class SAXReader
   private SAXReader ()
   {}
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final File aFile, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final File aFile, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aFile), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final URI aURI, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final URI aURI, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aURI), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final URL aURL, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final URL aURL, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aURL), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IHasInputStream aISP, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final IHasInputStream aISP, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aISP), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final IReadableResource aResource,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final IReadableResource aResource,
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aResource), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final CharSequence aXML, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final CharSequence aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final String sXML, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final String sXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (sXML), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final char [] aXML, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final char [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final char [] aXML,
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final char [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final byte [] aXML, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final byte [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final byte [] aXML,
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final byte [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull final ByteBuffer aXML, @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull final ByteBuffer aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final InputStream aIS,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull @WillClose final InputStream aIS,
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -168,9 +167,9 @@ public final class SAXReader
     }
   }
 
-  @Nonnull
-  public static ESuccess readXMLSAX (@Nonnull @WillClose final Reader aReader,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@NonNull @WillClose final Reader aReader,
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -195,9 +194,9 @@ public final class SAXReader
    *        Reader settings. At least a content handler should be set. May be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise
    */
-  @Nonnull
-  public static ESuccess readXMLSAX (@WillClose @Nonnull final InputSource aIS,
-                                     @Nonnull final ISAXReaderSettings aSettings)
+  @NonNull
+  public static ESuccess readXMLSAX (@WillClose @NonNull final InputSource aIS,
+                                     @NonNull final ISAXReaderSettings aSettings)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aSettings, "Settings");

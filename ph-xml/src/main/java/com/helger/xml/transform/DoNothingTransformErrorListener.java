@@ -16,10 +16,10 @@
  */
 package com.helger.xml.transform;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.diagnostics.error.IError;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * {@link javax.xml.transform.ErrorListener} that does nothing.
@@ -33,6 +33,6 @@ public class DoNothingTransformErrorListener extends AbstractTransformErrorListe
   {}
 
   @Override
-  protected void internalLog (@Nonnull final IError aResError)
+  protected void internalLog (@NonNull final IError aResError)
   {}
 }

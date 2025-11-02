@@ -20,13 +20,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Predefined HTTP constants.
@@ -329,7 +329,7 @@ public final class CHttp
   private CHttp ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getHttpResponseMessage (final int nResponseCode)
   {
@@ -524,7 +524,7 @@ public final class CHttp
     return nMillis / CGlobal.MILLISECONDS_PER_SECOND * CGlobal.MILLISECONDS_PER_SECOND;
   }
 
-  @Nonnull
+  @NonNull
   public static LocalDateTime convertMillisToLocalDateTime (final long nMillis)
   {
     // Round down to the nearest second for a proper compare

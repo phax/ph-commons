@@ -18,6 +18,9 @@ package com.helger.xml.util.mime;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -35,9 +38,6 @@ import com.helger.mime.IMimeType;
 import com.helger.mime.parse.MimeTypeParser;
 import com.helger.mime.parse.MimeTypeParserException;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Represents a single MIME type with information relevant for us.
  *
@@ -54,29 +54,29 @@ public final class MimeTypeInfo
     // status vars
     private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-    public MimeTypeWithSource (@Nonnull final String sMimeType) throws MimeTypeParserException
+    public MimeTypeWithSource (@NonNull final String sMimeType) throws MimeTypeParserException
     {
       this (MimeTypeParser.parseMimeType (sMimeType), (String) null);
     }
 
-    public MimeTypeWithSource (@Nonnull final IMimeType aMimeType)
+    public MimeTypeWithSource (@NonNull final IMimeType aMimeType)
     {
       this (aMimeType, (String) null);
     }
 
-    public MimeTypeWithSource (@Nonnull final IMimeType aMimeType, @Nullable final String sSource)
+    public MimeTypeWithSource (@NonNull final IMimeType aMimeType, @Nullable final String sSource)
     {
       m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
       m_sSource = sSource;
     }
 
-    @Nonnull
+    @NonNull
     public IMimeType getMimeType ()
     {
       return m_aMimeType;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getMimeTypeAsString ()
     {
@@ -126,18 +126,18 @@ public final class MimeTypeInfo
     // status vars
     private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-    public ExtensionWithSource (@Nonnull final String sExt)
+    public ExtensionWithSource (@NonNull final String sExt)
     {
       this (sExt, (String) null);
     }
 
-    public ExtensionWithSource (@Nonnull final String sExt, @Nullable final String sSource)
+    public ExtensionWithSource (@NonNull final String sExt, @Nullable final String sSource)
     {
       m_sExt = ValueEnforcer.notNull (sExt, "Extension");
       m_sSource = sSource;
     }
 
-    @Nonnull
+    @NonNull
     public String getExtension ()
     {
       return m_sExt;
@@ -149,7 +149,7 @@ public final class MimeTypeInfo
       return m_sSource;
     }
 
-    public boolean matches (@Nonnull @Nonempty final String sExtension)
+    public boolean matches (@NonNull @Nonempty final String sExtension)
     {
       if (m_sExt.contains (sExtension))
         return true;
@@ -198,11 +198,11 @@ public final class MimeTypeInfo
   private final ICommonsOrderedSet <ExtensionWithSource> m_aExtensions;
   private final String m_sSource;
 
-  public MimeTypeInfo (@Nonnull @Nonempty final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes,
+  public MimeTypeInfo (@NonNull @Nonempty final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes,
                        @Nullable final String sComment,
-                       @Nonnull final ICommonsOrderedSet <String> aParentTypes,
-                       @Nonnull final ICommonsOrderedSet <String> aGlobs,
-                       @Nonnull final ICommonsOrderedSet <ExtensionWithSource> aExtensions,
+                       @NonNull final ICommonsOrderedSet <String> aParentTypes,
+                       @NonNull final ICommonsOrderedSet <String> aGlobs,
+                       @NonNull final ICommonsOrderedSet <ExtensionWithSource> aExtensions,
                        @Nullable final String sSource)
   {
     ValueEnforcer.notEmptyNoNullValue (aMimeTypes, "MimeTypes");
@@ -217,7 +217,7 @@ public final class MimeTypeInfo
     m_sSource = sSource;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsSet <MimeTypeWithSource> getAllMimeTypesWithSource ()
@@ -225,7 +225,7 @@ public final class MimeTypeInfo
     return m_aMimeTypes.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsSet <IMimeType> getAllMimeTypes ()
@@ -233,7 +233,7 @@ public final class MimeTypeInfo
     return m_aMimeTypes.getAllMapped (MimeTypeWithSource::getMimeType);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllMimeTypeStrings ()
@@ -259,19 +259,19 @@ public final class MimeTypeInfo
     return false;
   }
 
-  @Nonnull
+  @NonNull
   public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
     return m_aMimeTypes.getFirst ();
   }
 
-  @Nonnull
+  @NonNull
   public IMimeType getPrimaryMimeType ()
   {
     return getPrimaryMimeTypeWithSource ().getMimeType ();
   }
 
-  @Nonnull
+  @NonNull
   public String getPrimaryMimeTypeString ()
   {
     return getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
@@ -288,7 +288,7 @@ public final class MimeTypeInfo
     return StringHelper.isNotEmpty (m_sComment);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllParentTypes ()
   {
@@ -300,7 +300,7 @@ public final class MimeTypeInfo
     return !m_aParentTypes.isEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllGlobs ()
   {
@@ -318,14 +318,14 @@ public final class MimeTypeInfo
     return m_aGlobs.isNotEmpty ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <ExtensionWithSource> getAllExtensionsWithSource ()
   {
     return m_aExtensions.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllExtensions ()
   {
@@ -361,14 +361,14 @@ public final class MimeTypeInfo
     return false;
   }
 
-  void addExtension (@Nonnull final ExtensionWithSource aExt)
+  void addExtension (@NonNull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aExt, "Ext");
     // Don't add to glob - can easily be constructed from all extensions
     m_aExtensions.add (aExt);
   }
 
-  void addMimeType (@Nonnull final MimeTypeWithSource aMimeType)
+  void addMimeType (@NonNull final MimeTypeWithSource aMimeType)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
     // Don't add to glob - can easily be constructed from all extensions

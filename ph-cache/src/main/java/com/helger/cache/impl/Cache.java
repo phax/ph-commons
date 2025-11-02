@@ -18,13 +18,13 @@ package com.helger.cache.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.cache.ICache;
 import com.helger.cache.IMutableCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class
@@ -41,34 +41,34 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
 {
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
 
-  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
-                @Nonnull @Nonempty final String sCacheName)
+  public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+                @NonNull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
   }
 
-  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+  public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
-                @Nonnull @Nonempty final String sCacheName)
+                @NonNull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, nMaxSize, sCacheName, DEFAULT_ALLOW_NULL_VALUES);
   }
 
-  public Cache (@Nonnull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+  public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
-                @Nonnull @Nonempty final String sCacheName,
+                @NonNull @Nonempty final String sCacheName,
                 final boolean bAllowNullValues)
   {
     super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
   }
 
-  @Nonnull
+  @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder ()
   {
     return new CacheBuilder <> ();
   }
 
-  @Nonnull
+  @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {
     return new CacheBuilder <KEYTYPE, VALUETYPE> ().valueProvider (a);

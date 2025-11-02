@@ -18,13 +18,13 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of {@link ITrustStoreDescriptor}.
@@ -41,9 +41,9 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
   // Lazily initialized
   private LoadedKeyStore m_aLTS;
 
-  public TrustStoreDescriptor (@Nonnull final IKeyStoreType aType,
-                               @Nonnull @Nonempty final String sPath,
-                               @Nonnull final char [] aPassword,
+  public TrustStoreDescriptor (@NonNull final IKeyStoreType aType,
+                               @NonNull @Nonempty final String sPath,
+                               @NonNull final char [] aPassword,
                                @Nullable final Provider aProvider)
   {
     ValueEnforcer.notNull (aType, "Type");
@@ -55,20 +55,20 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
     m_aProvider = aProvider;
   }
 
-  @Nonnull
+  @NonNull
   public final IKeyStoreType getTrustStoreType ()
   {
     return m_aType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getTrustStorePath ()
   {
     return m_sPath;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final char [] getTrustStorePassword ()
   {
@@ -81,7 +81,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
     return m_aProvider;
   }
 
-  @Nonnull
+  @NonNull
   public LoadedKeyStore loadTrustStore ()
   {
     LoadedKeyStore ret = m_aLTS;
@@ -104,7 +104,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
    * @return A new builder for {@link TrustStoreDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static TrustStoreDescriptorBuilder builder ()
   {
     return new TrustStoreDescriptorBuilder ();
@@ -118,8 +118,8 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
    * @return A new builder for {@link TrustStoreDescriptor} objects. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public static TrustStoreDescriptorBuilder builder (@Nonnull final TrustStoreDescriptor a)
+  @NonNull
+  public static TrustStoreDescriptorBuilder builder (@NonNull final TrustStoreDescriptor a)
   {
     return new TrustStoreDescriptorBuilder (a);
   }

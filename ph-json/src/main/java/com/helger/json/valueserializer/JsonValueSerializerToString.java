@@ -19,11 +19,11 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link IJsonValueSerializer} implementation that uses "toString" to convert
@@ -38,13 +38,13 @@ public final class JsonValueSerializerToString implements IJsonValueSerializer
   private JsonValueSerializerToString ()
   {}
 
-  @Nonnull
+  @NonNull
   public static JsonValueSerializerToString getInstance ()
   {
     return INSTANCE;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write (String.valueOf (aValue));
   }

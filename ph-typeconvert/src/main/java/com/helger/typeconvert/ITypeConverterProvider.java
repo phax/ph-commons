@@ -16,8 +16,8 @@
  */
 package com.helger.typeconvert;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Find the correct type converter provider from a source class to a destination
@@ -38,5 +38,5 @@ public interface ITypeConverterProvider
    * @return <code>null</code> if no such type converter was found
    */
   @Nullable
-  ITypeConverter <Object, Object> getTypeConverter (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass);
+  ITypeConverter <Object, Object> getTypeConverter (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass);
 }

@@ -18,13 +18,13 @@ package com.helger.base.io.streamprovider;
 
 import java.nio.ByteBuffer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStreamAndReader;
 import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.InputStream} provider based on a
@@ -36,19 +36,19 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
 {
   private final ByteBuffer m_aBuffer;
 
-  public ByteBufferInputStreamProvider (@Nonnull final ByteBuffer aBuffer)
+  public ByteBufferInputStreamProvider (@NonNull final ByteBuffer aBuffer)
   {
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final ByteBuffer getByteBuffer ()
   {
     return m_aBuffer;
   }
 
-  @Nonnull
+  @NonNull
   public final ByteBufferInputStream getInputStream ()
   {
     return new ByteBufferInputStream (m_aBuffer);

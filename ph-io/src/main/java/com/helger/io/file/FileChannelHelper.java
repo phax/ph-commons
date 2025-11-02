@@ -27,6 +27,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileChannel.MapMode;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +42,6 @@ import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.io.stream.ByteBufferOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Miscellaneous {@link FileChannel} utility methods.
@@ -76,8 +75,8 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  private static InputStream _getMappedInputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                    @Nonnull final File aFile)
+  private static InputStream _getMappedInputStream (@NonNull @WillNotClose final FileChannel aChannel,
+                                                    @NonNull final File aFile)
   {
     try
     {
@@ -93,7 +92,7 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  public static InputStream getInputStream (@Nonnull final File aFile)
+  public static InputStream getInputStream (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -116,13 +115,13 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  public static FileChannel getFileReadChannel (@Nonnull final String sFilename)
+  public static FileChannel getFileReadChannel (@NonNull final String sFilename)
   {
     return getFileReadChannel (new File (sFilename));
   }
 
   @Nullable
-  public static FileChannel getFileReadChannel (@Nonnull final File aFile)
+  public static FileChannel getFileReadChannel (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -139,7 +138,7 @@ public final class FileChannelHelper
    * @return The Input stream to use.
    */
   @Nullable
-  public static InputStream getMappedInputStream (@Nonnull final File aFile)
+  public static InputStream getMappedInputStream (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -159,8 +158,8 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  private static OutputStream _getMappedOutputStream (@Nonnull @WillNotClose final FileChannel aChannel,
-                                                      @Nonnull final File aFile)
+  private static OutputStream _getMappedOutputStream (@NonNull @WillNotClose final FileChannel aChannel,
+                                                      @NonNull final File aFile)
   {
     try
     {
@@ -177,25 +176,25 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final String sFilename)
+  public static FileChannel getFileWriteChannel (@NonNull final String sFilename)
   {
     return getFileWriteChannel (sFilename, EAppend.DEFAULT);
   }
 
   @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
+  public static FileChannel getFileWriteChannel (@NonNull final String sFilename, @NonNull final EAppend eAppend)
   {
     return getFileWriteChannel (new File (sFilename), eAppend);
   }
 
   @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final File aFile)
+  public static FileChannel getFileWriteChannel (@NonNull final File aFile)
   {
     return getFileWriteChannel (aFile, EAppend.DEFAULT);
   }
 
   @Nullable
-  public static FileChannel getFileWriteChannel (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  public static FileChannel getFileWriteChannel (@NonNull final File aFile, @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -205,25 +204,25 @@ public final class FileChannelHelper
   }
 
   @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final String sFilename)
+  public static OutputStream getMappedOutputStream (@NonNull final String sFilename)
   {
     return getMappedOutputStream (new File (sFilename));
   }
 
   @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend)
+  public static OutputStream getMappedOutputStream (@NonNull final String sFilename, @NonNull final EAppend eAppend)
   {
     return getMappedOutputStream (new File (sFilename), eAppend);
   }
 
   @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final File aFile)
+  public static OutputStream getMappedOutputStream (@NonNull final File aFile)
   {
     return getMappedOutputStream (aFile, EAppend.DEFAULT);
   }
 
   @Nullable
-  public static OutputStream getMappedOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend)
+  public static OutputStream getMappedOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");

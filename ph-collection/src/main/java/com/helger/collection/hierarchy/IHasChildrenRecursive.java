@@ -19,7 +19,7 @@ package com.helger.collection.hierarchy;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A simple interface, indicating that an item has children which also has
@@ -31,7 +31,7 @@ import jakarta.annotation.Nonnull;
  */
 public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive <CHILDTYPE>> extends IHasChildren <CHILDTYPE>
 {
-  default void forAllChildrenRecursive (@Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildrenRecursive (@NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {
     forAllChildren (aChildNode -> {
       aConsumer.accept (aChildNode);
@@ -39,8 +39,8 @@ public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive 
     });
   }
 
-  default void forAllChildrenRecursive (@Nonnull final Predicate <? super CHILDTYPE> aFilter,
-                                        @Nonnull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildrenRecursive (@NonNull final Predicate <? super CHILDTYPE> aFilter,
+                                        @NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {
     forAllChildren (aChildNode -> {
       if (aFilter.test (aChildNode))

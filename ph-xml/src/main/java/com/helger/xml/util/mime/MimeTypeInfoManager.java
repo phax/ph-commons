@@ -20,6 +20,9 @@ import java.io.File;
 import java.util.Comparator;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -49,9 +52,6 @@ import com.helger.xml.microdom.convert.MicroTypeConverter;
 import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the central manager for all {@link MimeTypeInfo} objects.
@@ -94,7 +94,7 @@ public class MimeTypeInfoManager
   /**
    * @return The default instance that contains all predefined {@link MimeTypeInfo}s.
    */
-  @Nonnull
+  @NonNull
   public static MimeTypeInfoManager getDefaultInstance ()
   {
     final MimeTypeInfoManager ret = SingletonHolder.INSTANCE;
@@ -108,7 +108,7 @@ public class MimeTypeInfoManager
    * @return this
    * @see #MIME_TYPE_INFO_XML
    */
-  @Nonnull
+  @NonNull
   public MimeTypeInfoManager readDefault ()
   {
     return read (new ClassPathResource (MIME_TYPE_INFO_XML));
@@ -121,8 +121,8 @@ public class MimeTypeInfoManager
    *        The resource to read. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public MimeTypeInfoManager read (@Nonnull final IReadableResource aRes)
+  @NonNull
+  public MimeTypeInfoManager read (@NonNull final IReadableResource aRes)
   {
     ValueEnforcer.notNull (aRes, "Resource");
 
@@ -142,7 +142,7 @@ public class MimeTypeInfoManager
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   public EChange clearCache ()
   {
     return m_aRWLock.writeLockedGet ( () -> {
@@ -167,7 +167,7 @@ public class MimeTypeInfoManager
     readDefault ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IMicroDocument getAsDocument ()
   {
@@ -182,7 +182,7 @@ public class MimeTypeInfoManager
     return aDoc;
   }
 
-  public void registerMimeType (@Nonnull final MimeTypeInfo aInfo)
+  public void registerMimeType (@NonNull final MimeTypeInfo aInfo)
   {
     ValueEnforcer.notNull (aInfo, "Info");
     final ICommonsSet <MimeTypeWithSource> aMimeTypes = aInfo.getAllMimeTypesWithSource ();
@@ -215,7 +215,7 @@ public class MimeTypeInfoManager
   }
 
   @VisibleForTesting
-  public final void addExtension (@Nonnull final MimeTypeInfo aInfo, @Nonnull final ExtensionWithSource aExt)
+  public final void addExtension (@NonNull final MimeTypeInfo aInfo, @NonNull final ExtensionWithSource aExt)
   {
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aExt, "Ext");
@@ -227,7 +227,7 @@ public class MimeTypeInfoManager
   }
 
   @VisibleForTesting
-  public final void addMimeType (@Nonnull final MimeTypeInfo aInfo, @Nonnull final MimeTypeWithSource aMimeType)
+  public final void addMimeType (@NonNull final MimeTypeInfo aInfo, @NonNull final MimeTypeWithSource aMimeType)
   {
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -314,7 +314,7 @@ public class MimeTypeInfoManager
   /**
    * @return A non-<code>null</code> set with all mime types infos known to this instance.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllMimeTypeInfos ()
   {
@@ -324,7 +324,7 @@ public class MimeTypeInfoManager
   /**
    * @return A non-<code>null</code> set with all mime types known to this instance.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMimeType> getAllMimeTypes ()
   {
@@ -336,7 +336,7 @@ public class MimeTypeInfoManager
   /**
    * @return A non-<code>null</code> set with all mime types known to this instance.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllMimeTypeStrings ()
   {
@@ -353,7 +353,7 @@ public class MimeTypeInfoManager
    * @return <code>true</code> if at least one mime type is associated with the extension of the
    *         passed filename, <code>false</code> otherwise.
    */
-  public boolean containsMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
+  public boolean containsMimeTypeForFilename (@NonNull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -369,9 +369,9 @@ public class MimeTypeInfoManager
    * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
    *         extension of the passed filename.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsSet <IMimeType> getAllMimeTypesForFilename (@Nonnull @Nonempty final String sFilename)
+  public ICommonsSet <IMimeType> getAllMimeTypesForFilename (@NonNull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -387,9 +387,9 @@ public class MimeTypeInfoManager
    * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
    *         extension of the passed filename.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsSet <String> getAllMimeTypeStringsForFilename (@Nonnull @Nonempty final String sFilename)
+  public ICommonsSet <String> getAllMimeTypeStringsForFilename (@NonNull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -407,7 +407,7 @@ public class MimeTypeInfoManager
    *         filename
    */
   @Nullable
-  public IMimeType getPrimaryMimeTypeForFilename (@Nonnull @Nonempty final String sFilename)
+  public IMimeType getPrimaryMimeTypeForFilename (@NonNull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -425,7 +425,7 @@ public class MimeTypeInfoManager
    *         filename
    */
   @Nullable
-  public String getPrimaryMimeTypeStringForFilename (@Nonnull @Nonempty final String sFilename)
+  public String getPrimaryMimeTypeStringForFilename (@NonNull @Nonempty final String sFilename)
   {
     ValueEnforcer.notEmpty (sFilename, "Filename");
 
@@ -441,7 +441,7 @@ public class MimeTypeInfoManager
    * @return <code>true</code> if at least one mime type is associated, <code>false</code> if no
    *         mime type is associated with the extension
    */
-  public boolean containsMimeTypeForExtension (@Nonnull final String sExtension)
+  public boolean containsMimeTypeForExtension (@NonNull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
@@ -457,9 +457,9 @@ public class MimeTypeInfoManager
    * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
    *         passed extension.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsOrderedSet <IMimeType> getAllMimeTypesForExtension (@Nonnull final String sExtension)
+  public ICommonsOrderedSet <IMimeType> getAllMimeTypesForExtension (@NonNull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
@@ -479,9 +479,9 @@ public class MimeTypeInfoManager
    * @return Never <code>null</code> but maybe empty set if no mime type is associated with the
    *         passed extension.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public ICommonsOrderedSet <String> getAllMimeTypeStringsForExtension (@Nonnull final String sExtension)
+  public ICommonsOrderedSet <String> getAllMimeTypeStringsForExtension (@NonNull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
@@ -501,7 +501,7 @@ public class MimeTypeInfoManager
    * @return <code>null</code> if no mime type is associated with the passed extension.
    */
   @Nullable
-  public IMimeType getPrimaryMimeTypeForExtension (@Nonnull final String sExtension)
+  public IMimeType getPrimaryMimeTypeForExtension (@NonNull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
@@ -519,7 +519,7 @@ public class MimeTypeInfoManager
    * @return <code>null</code> if no mime type is associated with the passed extension.
    */
   @Nullable
-  public String getPrimaryMimeTypeStringForExtension (@Nonnull final String sExtension)
+  public String getPrimaryMimeTypeStringForExtension (@NonNull final String sExtension)
   {
     ValueEnforcer.notNull (sExtension, "Extension");
 
@@ -536,7 +536,7 @@ public class MimeTypeInfoManager
    *        The mime type to search. May be <code>null</code>.
    * @return Never <code>null</code> but empty set if no extensions are present.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllExtensionsOfMimeType (@Nullable final IMimeType aMimeType)
   {
@@ -577,7 +577,7 @@ public class MimeTypeInfoManager
    *        The mime type to search. May be <code>null</code>.
    * @return Never <code>null</code> but empty set if no globs are present.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllGlobsOfMimeType (@Nullable final IMimeType aMimeType)
   {

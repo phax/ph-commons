@@ -16,14 +16,14 @@
  */
 package com.helger.xml.cleanup;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
 import com.helger.xml.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.util.mime.MimeTypeInfoManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
@@ -33,7 +33,7 @@ import jakarta.annotation.Nonnull;
 @Immutable
 public final class XMLCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
+  public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 700, () -> {
       if (MimeTypeInfoManager.isDefaultInstantiated ())

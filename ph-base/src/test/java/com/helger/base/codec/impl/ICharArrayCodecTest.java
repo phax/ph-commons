@@ -21,13 +21,12 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.ICharArrayCodec;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link ICharArrayCodec}
@@ -36,7 +35,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class ICharArrayCodecTest
 {
-  private void _testCodec (@Nonnull final ICharArrayCodec c, @Nonnull final char [] aSrcChars)
+  private void _testCodec (@NonNull final ICharArrayCodec c, @NonNull final char [] aSrcChars)
   {
     // all
     {
@@ -83,7 +82,7 @@ public final class ICharArrayCodecTest
     }
   }
 
-  private void _testCodec (@Nonnull final ICharArrayCodec c)
+  private void _testCodec (@NonNull final ICharArrayCodec c)
   {
     _testCodec (c, CGlobal.EMPTY_CHAR_ARRAY);
     _testCodec (c, "Hallo JÜnit".toCharArray ());

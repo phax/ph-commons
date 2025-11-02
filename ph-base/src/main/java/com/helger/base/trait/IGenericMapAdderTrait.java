@@ -21,10 +21,10 @@ import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import com.helger.base.string.StringHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.string.StringHelper;
 
 /**
  * Add arbitrary objects to this, where this is a Map based structure like HashMap or TreeMap.
@@ -45,116 +45,116 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
                                        IHasTypeConverterTo <VALUETYPE>,
                                        IGenericImplTrait <IMPLTYPE>
 {
-  @Nonnull
-  IMPLTYPE add (@Nonnull KEYTYPE sName, @Nonnull VALUETYPE aValue);
+  @NonNull
+  IMPLTYPE add (@NonNull KEYTYPE sName, @NonNull VALUETYPE aValue);
 
-  @Nonnull
-  default IMPLTYPE addIf (@Nonnull final KEYTYPE sName,
-                          @Nonnull final VALUETYPE aValue,
-                          @Nonnull final Predicate <? super VALUETYPE> aFilter)
+  @NonNull
+  default IMPLTYPE addIf (@NonNull final KEYTYPE sName,
+                          @NonNull final VALUETYPE aValue,
+                          @NonNull final Predicate <? super VALUETYPE> aFilter)
   {
     if (aFilter.test (aValue))
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE addIf (@Nonnull final KEYTYPE sName,
-                          @Nonnull final VALUETYPE aValue,
-                          @Nonnull final BooleanSupplier aFilter)
+  @NonNull
+  default IMPLTYPE addIf (@NonNull final KEYTYPE sName,
+                          @NonNull final VALUETYPE aValue,
+                          @NonNull final BooleanSupplier aFilter)
   {
     if (aFilter.getAsBoolean ())
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE addIfNotNull (@Nonnull final KEYTYPE sName, @Nullable final VALUETYPE aValue)
+  @NonNull
+  default IMPLTYPE addIfNotNull (@NonNull final KEYTYPE sName, @Nullable final VALUETYPE aValue)
   {
     if (aValue != null)
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, @Nullable final Object aValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, @Nullable final Object aValue)
   {
     return add (sName, getTypeConverterTo ().convert (aValue));
   }
 
-  @Nonnull
-  default IMPLTYPE addIf (@Nonnull final KEYTYPE sName,
+  @NonNull
+  default IMPLTYPE addIf (@NonNull final KEYTYPE sName,
                           @Nullable final Object aValue,
-                          @Nonnull final BooleanSupplier aSupplier)
+                          @NonNull final BooleanSupplier aSupplier)
   {
     if (aSupplier.getAsBoolean ())
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default <T> IMPLTYPE addIf (@Nonnull final KEYTYPE sName,
+  @NonNull
+  default <T> IMPLTYPE addIf (@NonNull final KEYTYPE sName,
                               @Nullable final T aValue,
-                              @Nonnull final Predicate <? super T> aFilter)
+                              @NonNull final Predicate <? super T> aFilter)
   {
     if (aFilter.test (aValue))
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE addIfNotNull (@Nonnull final KEYTYPE sName, @Nullable final Object aValue)
+  @NonNull
+  default IMPLTYPE addIfNotNull (@NonNull final KEYTYPE sName, @Nullable final Object aValue)
   {
     if (aValue != null)
       add (sName, aValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE addIfNotEmpty (@Nonnull final KEYTYPE sName, @Nullable final String sValue)
+  @NonNull
+  default IMPLTYPE addIfNotEmpty (@NonNull final KEYTYPE sName, @Nullable final String sValue)
   {
     if (StringHelper.isNotEmpty (sValue))
       add (sName, sValue);
     return thisAsT ();
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final Map.Entry <? extends KEYTYPE, ?> aEntry)
+  @NonNull
+  default IMPLTYPE add (final Map.@NonNull Entry <? extends KEYTYPE, ?> aEntry)
   {
     return add (aEntry.getKey (), aEntry.getValue ());
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, final boolean bValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, final boolean bValue)
   {
     return add (sName, getTypeConverterTo ().convert (bValue));
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, final char cValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, final char cValue)
   {
     return add (sName, getTypeConverterTo ().convert (cValue));
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, final double dValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, final double dValue)
   {
     return add (sName, getTypeConverterTo ().convert (dValue));
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, final int nValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, final int nValue)
   {
     return add (sName, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
-  default IMPLTYPE add (@Nonnull final KEYTYPE sName, final long nValue)
+  @NonNull
+  default IMPLTYPE add (@NonNull final KEYTYPE sName, final long nValue)
   {
     return add (sName, getTypeConverterTo ().convert (nValue));
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final Iterable <Map.Entry <KEYTYPE, VALUETYPE>> aIterable)
   {
     if (aIterable != null)
@@ -163,7 +163,7 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (aMap != null)
@@ -172,7 +172,7 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAny (@Nullable final Map <? extends KEYTYPE, ?> aMap)
   {
     if (aMap != null)
@@ -181,7 +181,7 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default IMPLTYPE addAllAny (@Nullable final Iterable <Map.Entry <KEYTYPE, ?>> aIterable)
   {
     if (aIterable != null)
@@ -190,9 +190,9 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <SRCVALUETYPE> IMPLTYPE addAllMapped (@Nullable final Map <? extends KEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                @Nonnull final Function <? super SRCVALUETYPE, VALUETYPE> aValueMapper)
+                                                @NonNull final Function <? super SRCVALUETYPE, VALUETYPE> aValueMapper)
   {
     if (aMap != null)
       for (final var aEntry : aMap.entrySet ())
@@ -200,10 +200,10 @@ public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTra
     return thisAsT ();
   }
 
-  @Nonnull
+  @NonNull
   default <SRCKEYTYPE, SRCVALUETYPE> IMPLTYPE addAllMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                            @Nonnull final Function <? super SRCKEYTYPE, KEYTYPE> aKeyMapper,
-                                                            @Nonnull final Function <? super SRCVALUETYPE, VALUETYPE> aValueMapper)
+                                                            @NonNull final Function <? super SRCKEYTYPE, KEYTYPE> aKeyMapper,
+                                                            @NonNull final Function <? super SRCVALUETYPE, VALUETYPE> aValueMapper)
   {
     if (aMap != null)
       for (final var aEntry : aMap.entrySet ())

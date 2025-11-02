@@ -18,11 +18,11 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for an auth token.
@@ -38,20 +38,20 @@ public interface IAuthToken extends IHasID <String>
    * @return The secret key token representing a session of a subject. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getID ();
 
   /**
    * @return The underlying identification object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IAuthIdentification getIdentification ();
 
   /**
    * @return The date and time when the token was created. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LocalDateTime getCreationDate ();
 
   /**
@@ -59,7 +59,7 @@ public interface IAuthToken extends IHasID <String>
    *         was never accessed before, the creation date time is returned.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LocalDateTime getLastAccessDate ();
 
   /**

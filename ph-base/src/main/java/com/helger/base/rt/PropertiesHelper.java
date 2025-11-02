@@ -25,15 +25,15 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.system.SystemProperties;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class to ease the use of {@link Properties} class.
@@ -48,9 +48,9 @@ public final class PropertiesHelper
   private PropertiesHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static Map <String, String> getAsStringMap (@Nonnull final Properties aProps)
+  public static Map <String, String> getAsStringMap (@NonNull final Properties aProps)
   {
     ValueEnforcer.notNull (aProps, "Props");
 
@@ -61,7 +61,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull @WillClose final InputStream aIS)
+  public static NonBlockingProperties loadProperties (@NonNull @WillClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -84,7 +84,7 @@ public final class PropertiesHelper
   }
 
   @Nullable
-  public static NonBlockingProperties loadProperties (@Nonnull @WillClose final Reader aReader)
+  public static NonBlockingProperties loadProperties (@NonNull @WillClose final Reader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
 
@@ -133,7 +133,7 @@ public final class PropertiesHelper
    */
   @Nullable
   public static String expandProperties (@Nullable final String sValue,
-                                         @Nonnull final UnaryOperator <String> aValueProvider)
+                                         @NonNull final UnaryOperator <String> aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
 

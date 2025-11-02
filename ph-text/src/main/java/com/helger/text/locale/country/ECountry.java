@@ -18,6 +18,9 @@ package com.helger.text.locale.country;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
@@ -25,9 +28,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.text.display.IHasDisplayText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Country enum.
@@ -461,7 +461,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   private final boolean m_bIsCountrySub;
   private final Locale m_aCountry;
 
-  ECountry (@Nonnull final IHasDisplayText eName)
+  ECountry (@NonNull final IHasDisplayText eName)
   {
     m_sID = name ().toLowerCase (Locale.US);
     // Work around for illegal country code "UK"
@@ -477,7 +477,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   /**
    * @return the country ID (incl. all state information). Always lowercase!
    */
-  @Nonnull
+  @NonNull
   public String getID ()
   {
     return m_sID;
@@ -486,14 +486,14 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   /**
    * @return the ISO country code (the part before the first underscore). Always lowercase.
    */
-  @Nonnull
+  @NonNull
   public String getISOCountryCode ()
   {
     return m_sISOCountryCode;
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_aName.getDisplayText (aContentLocale);
   }
@@ -538,7 +538,7 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   /**
    * @return A non-<code>null</code> set of all contained country locales in this enumeration.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <Locale> getCountryListAsLocales ()
   {

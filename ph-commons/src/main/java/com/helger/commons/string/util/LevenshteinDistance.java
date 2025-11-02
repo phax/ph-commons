@@ -16,14 +16,14 @@
  */
 package com.helger.commons.string.util;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility class for calculating the Levenshtein distance of 2 strings.
@@ -52,9 +52,9 @@ public final class LevenshteinDistance
    *        &gt; 0
    * @return non negative distance
    */
-  private static int _getDistance111 (@Nonnull final char [] aStr1,
+  private static int _getDistance111 (@NonNull final char [] aStr1,
                                       @Nonnegative final int nLen1,
-                                      @Nonnull final char [] aStr2,
+                                      @NonNull final char [] aStr2,
                                       @Nonnegative final int nLen2)
   {
     // previous cost array, horizontally
@@ -108,9 +108,9 @@ public final class LevenshteinDistance
    *        &ge; 0
    * @return non negative distance
    */
-  private static int _getDistance (@Nonnull final char [] aStr1,
+  private static int _getDistance (@NonNull final char [] aStr1,
                                    @Nonnegative final int nLen1,
-                                   @Nonnull final char [] aStr2,
+                                   @NonNull final char [] aStr2,
                                    @Nonnegative final int nLen2,
                                    @Nonnegative final int nCostInsert,
                                    @Nonnegative final int nCostDelete,

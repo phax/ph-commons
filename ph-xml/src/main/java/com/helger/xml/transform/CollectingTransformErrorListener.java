@@ -16,6 +16,8 @@
  */
 package com.helger.xml.transform;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -24,8 +26,6 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This implementation of {@link javax.xml.transform.ErrorListener} saves all
@@ -46,12 +46,12 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   }
 
   @Override
-  protected void internalLog (@Nonnull final IError aResError)
+  protected void internalLog (@NonNull final IError aResError)
   {
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aResError));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ErrorList getErrorList ()
   {
@@ -63,7 +63,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
    *
    * @return {@link EChange#CHANGED} if at least one item was cleared.
    */
-  @Nonnull
+  @NonNull
   public EChange clearResourceErrors ()
   {
     return m_aRWLock.writeLockedGet (m_aErrors::removeAll);

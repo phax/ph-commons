@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a text node.
@@ -44,6 +44,6 @@ public interface IMicroText extends IMicroNode, IMicroDataAware
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroText getClone ();
 }

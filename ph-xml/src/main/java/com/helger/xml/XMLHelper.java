@@ -25,6 +25,8 @@ import javax.xml.XMLConstants;
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -50,9 +52,6 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains multiple XML utility methods.
@@ -106,8 +105,8 @@ public final class XMLHelper
     return null;
   }
 
-  @Nonnull
-  public static String getLocalNameOrTagName (@Nonnull final Element aElement)
+  @NonNull
+  public static String getLocalNameOrTagName (@NonNull final Element aElement)
   {
     String ret = aElement.getLocalName ();
     if (ret == null)
@@ -115,8 +114,8 @@ public final class XMLHelper
     return ret;
   }
 
-  @Nonnull
-  public static String getLocalNameOrName (@Nonnull final Attr aAttr)
+  @NonNull
+  public static String getLocalNameOrName (@NonNull final Attr aAttr)
   {
     String ret = aAttr.getLocalName ();
     if (ret == null)
@@ -139,7 +138,7 @@ public final class XMLHelper
     return null;
   }
 
-  public static boolean hasNoNamespaceURI (@Nonnull final Node aNode)
+  public static boolean hasNoNamespaceURI (@NonNull final Node aNode)
   {
     return StringHelper.isEmpty (aNode.getNamespaceURI ());
   }
@@ -174,47 +173,47 @@ public final class XMLHelper
     return aNL == null || aNL.getLength () == 0;
   }
 
-  @Nonnull
+  @NonNull
   public static Predicate <? super Node> filterNodeIsElement ()
   {
     return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
   }
 
-  @Nonnull
+  @NonNull
   public static Predicate <? super Element> filterElementWithNamespace ()
   {
     return x -> x != null && StringHelper.isNotEmpty (x.getNamespaceURI ());
   }
 
-  @Nonnull
+  @NonNull
   public static Predicate <? super Element> filterElementWithoutNamespace ()
   {
     return x -> x != null && hasNoNamespaceURI (x);
   }
 
-  @Nonnull
+  @NonNull
   public static Predicate <? super Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
   }
 
-  @Nonnull
+  @NonNull
   public static Predicate <? super Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
-                                                                                    @Nonnull @Nonempty final String sLocalName)
+                                                                                    @NonNull @Nonempty final String sLocalName)
   {
     ValueEnforcer.notEmpty (sLocalName, "LocalName");
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
   }
 
-  @Nonnull
-  public static Predicate <? super Element> filterElementWithTagName (@Nonnull @Nonempty final String sTagName)
+  @NonNull
+  public static Predicate <? super Element> filterElementWithTagName (@NonNull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
-  @Nonnull
-  public static Predicate <? super Element> filterElementWithTagNameNoNS (@Nonnull @Nonempty final String sTagName)
+  @NonNull
+  public static Predicate <? super Element> filterElementWithTagNameNoNS (@NonNull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
     return x -> hasNoNamespaceURI (x) && x.getTagName ().equals (sTagName);
@@ -262,7 +261,7 @@ public final class XMLHelper
    */
   @Nullable
   public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
-                                                    @Nonnull @Nonempty final String sTagName)
+                                                    @NonNull @Nonempty final String sTagName)
   {
     if (aStartNode == null)
       return null;
@@ -283,7 +282,7 @@ public final class XMLHelper
   @Nullable
   public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
                                                     @Nullable final String sNamespaceURI,
-                                                    @Nonnull @Nonempty final String sLocalName)
+                                                    @NonNull @Nonempty final String sLocalName)
   {
     if (aStartNode == null)
       return null;
@@ -306,7 +305,7 @@ public final class XMLHelper
    */
   @Nullable
   public static Element getChildElementOfNames (@Nullable final Element aStartElement,
-                                                @Nonnull final String... aTagNames)
+                                                @NonNull final String... aTagNames)
   {
     ValueEnforcer.notEmptyNoNullValue (aTagNames, "TagNames");
 
@@ -321,8 +320,8 @@ public final class XMLHelper
     return aCurElement;
   }
 
-  @Nonnull
-  public static Node append (@Nonnull final Node aParentNode, @Nullable final Object aChild)
+  @NonNull
+  public static Node append (@NonNull final Node aParentNode, @Nullable final Object aChild)
   {
     ValueEnforcer.notNull (aParentNode, "ParentNode");
 
@@ -381,7 +380,7 @@ public final class XMLHelper
     return aParentNode;
   }
 
-  public static void append (@Nonnull final Node aParentNode, @Nonnull final Iterable <?> aNodesToAppend)
+  public static void append (@NonNull final Node aParentNode, @NonNull final Iterable <?> aNodesToAppend)
   {
     ValueEnforcer.notNull (aParentNode, "ParentNode");
     for (final Object aNode : aNodesToAppend)
@@ -402,14 +401,14 @@ public final class XMLHelper
 
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent,
-                                                @Nonnull @Nonempty final String sTagName)
+                                                @NonNull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
-                                                    @Nonnull @Nonempty final String sTagName)
+                                                    @NonNull @Nonempty final String sTagName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
@@ -423,7 +422,7 @@ public final class XMLHelper
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent,
                                                   @Nullable final String sNamespaceURI,
-                                                  @Nonnull @Nonempty final String sLocalName)
+                                                  @NonNull @Nonempty final String sLocalName)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
                                                                                       sNamespaceURI,
@@ -437,7 +436,7 @@ public final class XMLHelper
    *        the parent element
    * @return a non-null Iterator
    */
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode);
@@ -450,7 +449,7 @@ public final class XMLHelper
    *        the parent element
    * @return a non-null Iterator
    */
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithoutNamespace ());
@@ -467,9 +466,9 @@ public final class XMLHelper
    * @throws IllegalArgumentException
    *         if the passed tag name is null or empty
    */
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
-                                                                         @Nonnull @Nonempty final String sTagName)
+                                                                         @NonNull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagNameNoNS (sTagName));
   }
@@ -486,30 +485,30 @@ public final class XMLHelper
    * @throws IllegalArgumentException
    *         if the passed tag name is null or empty
    */
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
-                                                                     @Nonnull @Nonempty final String sTagName)
+                                                                     @NonNull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
-  @Nonnull
+  @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI,
-                                                                       @Nonnull @Nonempty final String sLocalName)
+                                                                       @NonNull @Nonempty final String sLocalName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
                                                                                                      sLocalName));
   }
 
-  public static boolean hasSameElementName (@Nonnull final Element aFirst, @Nonnull final Element aSecond)
+  public static boolean hasSameElementName (@NonNull final Element aFirst, @NonNull final Element aSecond)
   {
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
@@ -522,9 +521,9 @@ public final class XMLHelper
     return StringHelper.isEmpty (sSecondNS) && aFirst.getTagName ().equals (aSecond.getTagName ());
   }
 
-  @Nonnull
-  private static String _getPathToNode (@Nonnull final Node aNode,
-                                        @Nonnull final String sSep,
+  @NonNull
+  private static String _getPathToNode (@NonNull final Node aNode,
+                                        @NonNull final String sSep,
                                         final boolean bExcludeDocumentNode,
                                         final boolean bZeroBasedIndex,
                                         final boolean bForceUseIndex,
@@ -684,7 +683,7 @@ public final class XMLHelper
      *        Node to be used. Should not be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder node (@Nullable final Node a)
     {
       m_aNode = a;
@@ -698,7 +697,7 @@ public final class XMLHelper
      *        The separator char
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder separator (final char c)
     {
       return separator (Character.toString (c));
@@ -711,7 +710,7 @@ public final class XMLHelper
      *        The separator string. Should not be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder separator (@Nullable final String s)
     {
       m_sSeperator = s;
@@ -725,7 +724,7 @@ public final class XMLHelper
      *        <code>true</code> to exclude it, <code>false</code> to include it
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder excludeDocumentNode (final boolean b)
     {
       m_bExcludeDocumentNode = b;
@@ -738,7 +737,7 @@ public final class XMLHelper
      * @return this for chaining
      * @see #excludeDocumentNode(boolean)
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder excludeDocumentNode ()
     {
       return excludeDocumentNode (true);
@@ -750,7 +749,7 @@ public final class XMLHelper
      * @return this for chaining
      * @see #excludeDocumentNode(boolean)
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder includeDocumentNode ()
     {
       return excludeDocumentNode (false);
@@ -765,7 +764,7 @@ public final class XMLHelper
      *        <code>true</code> to use a 0-based index, <code>false</code>
      * @return this for chaining.
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder zeroBasedIndex (final boolean b)
     {
       m_bZeroBasedIndex = b;
@@ -778,7 +777,7 @@ public final class XMLHelper
      * @return this for chaining
      * @see #zeroBasedIndex(boolean)
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder zeroBasedIndex ()
     {
       return zeroBasedIndex (true);
@@ -790,7 +789,7 @@ public final class XMLHelper
      * @return this for chaining
      * @see #zeroBasedIndex(boolean)
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder oneBasedIndex ()
     {
       return zeroBasedIndex (false);
@@ -806,7 +805,7 @@ public final class XMLHelper
      *        <code>true</code> to force the index, <code>false</code> to omit it if possible.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder forceUseIndex (final boolean b)
     {
       m_bForceUseIndex = b;
@@ -822,7 +821,7 @@ public final class XMLHelper
      *        <code>true</code> to use a trailing separator, <code>false</code> to omit it.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder trailingSeparator (final boolean b)
     {
       m_bTrailingSeparator = b;
@@ -837,7 +836,7 @@ public final class XMLHelper
      *        namespace URI
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder compareIncludingNamespaceURI (final boolean b)
     {
       m_bCompareIncludingNamespaceURI = b;
@@ -851,14 +850,14 @@ public final class XMLHelper
      *        The namespace context to be used. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public PathToNodeBuilder namespaceContext (@Nullable final NamespaceContext a)
     {
       m_aNamespaceCtx = a;
       return this;
     }
 
-    @Nonnull
+    @NonNull
     public String build ()
     {
       if (m_aNode == null)
@@ -879,7 +878,7 @@ public final class XMLHelper
     }
   }
 
-  @Nonnull
+  @NonNull
   public static PathToNodeBuilder pathToNodeBuilder ()
   {
     return new PathToNodeBuilder ();
@@ -892,8 +891,8 @@ public final class XMLHelper
    *        The node to check.
    * @return A non-<code>null</code> path.
    */
-  @Nonnull
-  public static String getPathToNode (@Nonnull final Node aNode)
+  @NonNull
+  public static String getPathToNode (@NonNull final Node aNode)
   {
     return getPathToNode (aNode, "/");
   }
@@ -908,8 +907,8 @@ public final class XMLHelper
    *        The separator string to use. May not be <code>null</code>.
    * @return The path to the node.
    */
-  @Nonnull
-  public static String getPathToNode (@Nonnull final Node aNode, @Nonnull final String sSep)
+  @NonNull
+  public static String getPathToNode (@NonNull final Node aNode, @NonNull final String sSep)
   {
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
@@ -928,8 +927,8 @@ public final class XMLHelper
    *        The node to check.
    * @return A non-<code>null</code> path.
    */
-  @Nonnull
-  public static String getPathToNode2 (@Nonnull final Node aNode)
+  @NonNull
+  public static String getPathToNode2 (@NonNull final Node aNode)
   {
     return getPathToNode2 (aNode, "/");
   }
@@ -944,8 +943,8 @@ public final class XMLHelper
    *        The separator string to use. May not be <code>null</code>.
    * @return The path to the node.
    */
-  @Nonnull
-  public static String getPathToNode2 (@Nonnull final Node aNode, @Nonnull final String sSep)
+  @NonNull
+  public static String getPathToNode2 (@NonNull final Node aNode, @NonNull final String sSep)
   {
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
@@ -963,7 +962,7 @@ public final class XMLHelper
    * @param aElement
    *        The element whose children are to be removed.
    */
-  public static void removeAllChildElements (@Nonnull final Element aElement)
+  public static void removeAllChildElements (@NonNull final Element aElement)
   {
     ValueEnforcer.notNull (aElement, "Element");
 
@@ -998,7 +997,7 @@ public final class XMLHelper
    * @return <code>null</code> if the attribute does not exists, the string value otherwise
    */
   @Nullable
-  public static String getAttributeValue (@Nonnull final Element aElement, @Nonnull final String sAttrName)
+  public static String getAttributeValue (@NonNull final Element aElement, @NonNull final String sAttrName)
   {
     return getAttributeValue (aElement, sAttrName, null);
   }
@@ -1017,8 +1016,8 @@ public final class XMLHelper
    * @return the default value if the attribute does not exists, the string value otherwise
    */
   @Nullable
-  public static String getAttributeValue (@Nonnull final Element aElement,
-                                          @Nonnull final String sAttrName,
+  public static String getAttributeValue (@NonNull final Element aElement,
+                                          @NonNull final String sAttrName,
                                           @Nullable final String sDefault)
   {
     final Attr aAttr = aElement.getAttributeNode (sAttrName);
@@ -1039,9 +1038,9 @@ public final class XMLHelper
    * @return <code>null</code> if the attribute does not exists, the string value otherwise
    */
   @Nullable
-  public static String getAttributeValueNS (@Nonnull final Element aElement,
+  public static String getAttributeValueNS (@NonNull final Element aElement,
                                             @Nullable final String sNamespaceURI,
-                                            @Nonnull final String sAttrName)
+                                            @NonNull final String sAttrName)
   {
     return getAttributeValueNS (aElement, sNamespaceURI, sAttrName, null);
   }
@@ -1062,16 +1061,16 @@ public final class XMLHelper
    * @return the default value if the attribute does not exists, the string value otherwise
    */
   @Nullable
-  public static String getAttributeValueNS (@Nonnull final Element aElement,
+  public static String getAttributeValueNS (@NonNull final Element aElement,
                                             @Nullable final String sNamespaceURI,
-                                            @Nonnull final String sAttrName,
+                                            @NonNull final String sAttrName,
                                             @Nullable final String sDefault)
   {
     final Attr aAttr = aElement.getAttributeNodeNS (sNamespaceURI, sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <Attr> getAllAttributesAsList (@Nullable final Element aSrcNode)
   {
@@ -1080,7 +1079,7 @@ public final class XMLHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
   {
@@ -1091,13 +1090,13 @@ public final class XMLHelper
   }
 
   public static void forAllAttributes (@Nullable final Element aSrcNode,
-                                       @Nonnull final Consumer <? super Attr> aConsumer)
+                                       @NonNull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
   public static void forAllAttributes (@Nullable final Element aSrcNode,
-                                       @Nonnull final BiConsumer <? super String, ? super String> aConsumer)
+                                       @NonNull final BiConsumer <? super String, ? super String> aConsumer)
   {
     forAllAttributes (aSrcNode, x -> aConsumer.accept (x.getName (), x.getValue ()));
   }
@@ -1112,7 +1111,7 @@ public final class XMLHelper
    * @return If the namespace prefix is empty (if it equals {@link XMLConstants#DEFAULT_NS_PREFIX}
    *         or <code>null</code>) than "xmlns" is returned, else "xmlns:<i>prefix</i>" is returned.
    */
-  @Nonnull
+  @NonNull
   public static QName getXMLNSAttrQName (@Nullable final String sNSPrefix)
   {
     if (sNSPrefix != null)
@@ -1136,7 +1135,7 @@ public final class XMLHelper
    * @return {@link XMLConstants#DEFAULT_NS_PREFIX} or the provided prefix. Never <code>null</code>.
    * @since 8.4.1
    */
-  @Nonnull
+  @NonNull
   public static String getPrefix (@Nullable final Element aElement)
   {
     final String sPrefix = aElement == null ? null : aElement.getPrefix ();
@@ -1152,8 +1151,8 @@ public final class XMLHelper
    * @return The created {@link QName}.
    * @since 8.4.1
    */
-  @Nonnull
-  public static QName getQName (@Nonnull final Element aElement)
+  @NonNull
+  public static QName getQName (@NonNull final Element aElement)
   {
     final String sNamespaceURI = aElement.getNamespaceURI ();
     if (sNamespaceURI == null)
@@ -1171,7 +1170,7 @@ public final class XMLHelper
    *        The Consumer to be invoked for every node. May not be <code>null</code>.
    * @since 10.1.7
    */
-  public static void iterateChildren (@Nonnull final Node aParent, @Nonnull final Consumer <? super Node> aConsumer)
+  public static void iterateChildren (@NonNull final Node aParent, @NonNull final Consumer <? super Node> aConsumer)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -1188,8 +1187,8 @@ public final class XMLHelper
     }
   }
 
-  private static void _recursiveIterateChildren (@Nonnull final Node aParent,
-                                                 @Nonnull final Consumer <? super Node> aConsumer)
+  private static void _recursiveIterateChildren (@NonNull final Node aParent,
+                                                 @NonNull final Consumer <? super Node> aConsumer)
   {
     final NodeList aNodeList = aParent.getChildNodes ();
     if (aNodeList != null)
@@ -1215,8 +1214,8 @@ public final class XMLHelper
    *        The Consumer to be invoked for every node. May not be <code>null</code>.
    * @since 10.1.7
    */
-  public static void recursiveIterateChildren (@Nonnull final Node aParent,
-                                               @Nonnull final Consumer <? super Node> aConsumer)
+  public static void recursiveIterateChildren (@NonNull final Node aParent,
+                                               @NonNull final Consumer <? super Node> aConsumer)
   {
     ValueEnforcer.notNull (aParent, "Parent");
     ValueEnforcer.notNull (aConsumer, "Consumer");

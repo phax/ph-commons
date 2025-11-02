@@ -19,6 +19,9 @@ package com.helger.statistics.impl;
 import java.math.BigInteger;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
@@ -31,9 +34,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.statistics.api.IStatisticsHandlerKeyedNumeric;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for a keyed numeric statistic handler
@@ -86,7 +86,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
       return m_nMax;
     }
 
-    @Nonnull
+    @NonNull
     public BigInteger getSum ()
     {
       return m_aSum;
@@ -121,7 +121,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     return m_aInvocationCount.get ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
   {

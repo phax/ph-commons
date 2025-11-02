@@ -18,12 +18,12 @@ package com.helger.text.format;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base implementation class of the {@link Function} interface that provides the
@@ -48,7 +48,7 @@ public abstract class AbstractFormatterString implements Function <Object, Strin
    *         .
    */
   @OverrideOnDemand
-  @Nonnull
+  @NonNull
   protected String getValueAsString (@Nullable final Object aValue)
   {
     final String sValue = TypeConverter.convert (aValue, String.class);

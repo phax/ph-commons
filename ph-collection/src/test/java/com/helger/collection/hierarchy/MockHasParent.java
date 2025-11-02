@@ -16,11 +16,11 @@
  */
 package com.helger.collection.hierarchy;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.id.IHasID;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nullable;
 
 public final class MockHasParent implements IHasParent <MockHasParent>, IHasID <String>
 {

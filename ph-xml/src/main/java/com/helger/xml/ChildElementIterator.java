@@ -16,14 +16,13 @@
  */
 package com.helger.xml;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Iterate child elements of a single node. Does not iterate recursively. Does
@@ -48,7 +47,7 @@ public class ChildElementIterator implements ICommonsIterableIterator <Element>
     return m_aIter.hasNext ();
   }
 
-  @Nonnull
+  @NonNull
   public final Element next ()
   {
     return m_aIter.next ();

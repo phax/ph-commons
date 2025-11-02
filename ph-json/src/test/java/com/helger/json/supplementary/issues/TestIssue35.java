@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.annotation.Nonnegative;
@@ -31,17 +32,15 @@ import com.helger.json.parser.JsonParseException;
 import com.helger.json.parser.JsonParserSettings;
 import com.helger.json.serialize.JsonReader;
 
-import jakarta.annotation.Nonnull;
-
 public final class TestIssue35
 {
-  @Nonnull
+  @NonNull
   public static String _createNestedDoc (@Nonnegative final int nNesting,
-                                         @Nonnull final String sBeginning,
-                                         @Nonnull final String sLevelOpen,
-                                         @Nonnull final String sContent,
-                                         @Nonnull final String sLevelClose,
-                                         @Nonnull final String sEnd)
+                                         @NonNull final String sBeginning,
+                                         @NonNull final String sLevelOpen,
+                                         @NonNull final String sContent,
+                                         @NonNull final String sLevelClose,
+                                         @NonNull final String sEnd)
   {
     final StringBuilder ret = new StringBuilder (sBeginning.length () +
                                                  nNesting * (sLevelOpen.length () + sLevelClose.length ()) +

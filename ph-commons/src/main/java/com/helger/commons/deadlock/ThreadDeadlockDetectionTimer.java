@@ -19,6 +19,7 @@ package com.helger.commons.deadlock;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,8 +28,6 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IStoppable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A dead lock detection timer that checks for dead locks in a certain interval.
@@ -77,7 +76,7 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
    *
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   public EChange stop ()
   {
     if (!m_aTimerTask.cancel ())

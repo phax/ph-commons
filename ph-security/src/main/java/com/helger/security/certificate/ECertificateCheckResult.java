@@ -16,13 +16,13 @@
  */
 package com.helger.security.certificate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.state.IValidityIndicator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Enumeration for all potential certificate check outcomes.
@@ -42,20 +42,20 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
   private final String m_sID;
   private final String m_sReason;
 
-  ECertificateCheckResult (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sReason)
+  ECertificateCheckResult (@NonNull @Nonempty final String sID, @NonNull @Nonempty final String sReason)
   {
     m_sID = sID;
     m_sReason = sReason;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getReason ()
   {

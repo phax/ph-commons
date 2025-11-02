@@ -16,11 +16,11 @@
  */
 package com.helger.scope.singleton;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.scope.IScope;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Mock implementation of {@link AbstractRequestSingleton}.
@@ -34,12 +34,12 @@ public final class MockRequestSingletonWithScopeCtor extends AbstractRequestSing
 
   @Deprecated (forRemoval = false)
   @UsedViaReflection
-  public MockRequestSingletonWithScopeCtor (@Nonnull final IScope aScope)
+  public MockRequestSingletonWithScopeCtor (@NonNull final IScope aScope)
   {
     m_aScope = ValueEnforcer.notNull (aScope, "Scope");
   }
 
-  @Nonnull
+  @NonNull
   public static MockRequestSingletonWithScopeCtor getInstance ()
   {
     return getRequestSingleton (MockRequestSingletonWithScopeCtor.class);
@@ -55,7 +55,7 @@ public final class MockRequestSingletonWithScopeCtor extends AbstractRequestSing
     return i;
   }
 
-  @Nonnull
+  @NonNull
   public IScope getScope ()
   {
     return m_aScope;

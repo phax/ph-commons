@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for checks to indicate valid or invalid.
@@ -33,14 +33,14 @@ public enum EValidity implements IValidityIndicator
     return this == VALID;
   }
 
-  @Nonnull
+  @NonNull
   public static EValidity valueOf (final boolean bValidity)
   {
     return bValidity ? VALID : INVALID;
   }
 
-  @Nonnull
-  public static EValidity valueOf (@Nonnull final IValidityIndicator aValidityIndicator)
+  @NonNull
+  public static EValidity valueOf (@NonNull final IValidityIndicator aValidityIndicator)
   {
     return valueOf (aValidityIndicator.isValid ());
   }

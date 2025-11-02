@@ -16,7 +16,7 @@
  */
 package com.helger.json;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * An interface for non JSON objects which implement a conversion to a JSON
@@ -31,6 +31,6 @@ public interface IHasJson
    * @return a JSON object representing this object. May not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IJson getAsJson ();
 }

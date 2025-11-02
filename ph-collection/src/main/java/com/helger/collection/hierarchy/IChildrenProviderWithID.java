@@ -16,7 +16,7 @@
  */
 package com.helger.collection.hierarchy;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * This interface can be used to generically resolved children of a certain

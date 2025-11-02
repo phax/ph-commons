@@ -19,10 +19,10 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import com.helger.datetime.helper.PDTFactory;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.datetime.helper.PDTFactory;
 
 /**
  * Read-only interface for objects that can expire.
@@ -73,7 +73,7 @@ public interface IExpirable
    *         expiration date is in the past, <code>false</code> otherwise.
    * @see #isExpirationDefined()
    */
-  default boolean isExpiredAt (@Nonnull final LocalDateTime aDT)
+  default boolean isExpiredAt (@NonNull final LocalDateTime aDT)
   {
     return isExpirationDefined () && aDT.isAfter (getExpirationDateTime ());
   }
@@ -91,7 +91,7 @@ public interface IExpirable
    * @see #isExpiredAt(LocalDateTime)
    * @since 11.2.0
    */
-  default boolean isExpiredIn (@Nonnull final Duration aDuration)
+  default boolean isExpiredIn (@NonNull final Duration aDuration)
   {
     return isExpiredAt (PDTFactory.getCurrentLocalDateTime ().plus (aDuration));
   }

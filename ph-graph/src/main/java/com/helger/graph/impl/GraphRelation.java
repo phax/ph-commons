@@ -16,6 +16,9 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,9 +28,6 @@ import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.graph.IMutableGraphNode;
 import com.helger.graph.IMutableGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMutableGraphRelation} interface
@@ -40,12 +40,12 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   private final IMutableGraphNode m_aNode1;
   private final IMutableGraphNode m_aNode2;
 
-  public GraphRelation (@Nonnull final IMutableGraphNode aNode1, @Nonnull final IMutableGraphNode aNode2)
+  public GraphRelation (@NonNull final IMutableGraphNode aNode1, @NonNull final IMutableGraphNode aNode2)
   {
     this (null, aNode1, aNode2);
   }
 
-  public GraphRelation (@Nullable final String sID, @Nonnull final IMutableGraphNode aNode1, @Nonnull final IMutableGraphNode aNode2)
+  public GraphRelation (@Nullable final String sID, @NonNull final IMutableGraphNode aNode1, @NonNull final IMutableGraphNode aNode2)
   {
     super (sID);
     ValueEnforcer.notNull (aNode1, "Node1");
@@ -64,27 +64,27 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
     return aNode != null && (m_aNode1.equals (aNode) || m_aNode2.equals (aNode));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllConnectedNodes ()
   {
     return new CommonsLinkedHashSet <> (m_aNode1, m_aNode2);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
   {
     return new CommonsLinkedHashSet <> (m_aNode1.getID (), m_aNode2.getID ());
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphNode getNode1 ()
   {
     return m_aNode1;
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphNode getNode2 ()
   {
     return m_aNode2;

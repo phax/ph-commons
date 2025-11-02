@@ -18,10 +18,10 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Interface for objects that can expire.
@@ -39,7 +39,7 @@ public interface IMutableExpirable extends IExpirable
    * @return {@link EChange#CHANGED} if the expiration date time changed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange setExpirationDateTime (@Nullable LocalDateTime aExpirationDateTime);
 
   /**
@@ -48,7 +48,7 @@ public interface IMutableExpirable extends IExpirable
    * @return {@link EChange#CHANGED} if the expiration was reset,
    *         {@link EChange#UNCHANGED} if no expiration was defined.
    */
-  @Nonnull
+  @NonNull
   default EChange resetExpiration ()
   {
     return setExpirationDateTime (null);

@@ -16,9 +16,9 @@
  */
 package com.helger.typeconvert;
 
-import com.helger.base.state.EContinue;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
 /**
  * A callback interface that is used in several places of the type conversion
@@ -29,6 +29,6 @@ import jakarta.annotation.Nonnull;
 @FunctionalInterface
 public interface ITypeConverterCallback
 {
-  @Nonnull
-  EContinue call (@Nonnull Class <?> aSrcClass, @Nonnull Class <?> aDstClass, @Nonnull ITypeConverter <?, ?> aConverter);
+  @NonNull
+  EContinue call (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass, @NonNull ITypeConverter <?, ?> aConverter);
 }

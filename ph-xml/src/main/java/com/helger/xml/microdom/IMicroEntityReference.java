@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents the reference to an entity. An example entity is e.g.
@@ -29,13 +29,13 @@ import jakarta.annotation.Nonnull;
  */
 public interface IMicroEntityReference extends IMicroNode, IHasName
 {
-  @Nonnull
+  @NonNull
   @Nonempty
   String getName ();
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroEntityReference getClone ();
 }

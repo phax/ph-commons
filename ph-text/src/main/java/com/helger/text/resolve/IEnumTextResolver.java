@@ -18,13 +18,13 @@ package com.helger.text.resolve;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.text.TextFormatter;
 import com.helger.text.IHasText;
 import com.helger.text.IHasTextWithArgs;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an enum-based text resolver.
@@ -45,7 +45,7 @@ public interface IEnumTextResolver
    * @return <code>null</code> if no text could be resolved.
    */
   @Nullable
-  String getText (@Nonnull Enum <?> aEnum, @Nonnull IHasText aTP, @Nonnull Locale aContentLocale);
+  String getText (@NonNull Enum <?> aEnum, @NonNull IHasText aTP, @NonNull Locale aContentLocale);
 
   /**
    * Get the text of an enumeration item.
@@ -63,9 +63,9 @@ public interface IEnumTextResolver
   @Nullable
   @Deprecated (forRemoval = false)
   @DevelopersNote ("Use getText instead when no argument is needed")
-  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                  @Nonnull final IHasTextWithArgs aTP,
-                                  @Nonnull final Locale aContentLocale)
+  default String getTextWithArgs (@NonNull final Enum <?> aEnum,
+                                  @NonNull final IHasTextWithArgs aTP,
+                                  @NonNull final Locale aContentLocale)
   {
     return getText (aEnum, aTP, aContentLocale);
   }
@@ -85,9 +85,9 @@ public interface IEnumTextResolver
    * @return <code>null</code> if no text could be resolved.
    */
   @Nullable
-  default String getTextWithArgs (@Nonnull final Enum <?> aEnum,
-                                  @Nonnull final IHasTextWithArgs aTP,
-                                  @Nonnull final Locale aContentLocale,
+  default String getTextWithArgs (@NonNull final Enum <?> aEnum,
+                                  @NonNull final IHasTextWithArgs aTP,
+                                  @NonNull final Locale aContentLocale,
                                   @Nullable final Object... aArgs)
   {
     final String sText = getText (aEnum, aTP, aContentLocale);

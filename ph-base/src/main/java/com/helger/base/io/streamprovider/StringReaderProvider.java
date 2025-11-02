@@ -16,14 +16,14 @@
  */
 package com.helger.base.io.streamprovider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasReader;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.Reader} provider based on a {@link String}.
@@ -34,33 +34,33 @@ public class StringReaderProvider implements IHasReader
 {
   private final String m_sData;
 
-  public StringReaderProvider (@Nonnull final char [] aChars)
+  public StringReaderProvider (@NonNull final char [] aChars)
   {
     this (new String (aChars));
   }
 
-  public StringReaderProvider (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public StringReaderProvider (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (new String (aChars, nOfs, nLength));
   }
 
-  public StringReaderProvider (@Nonnull final CharSequence aData)
+  public StringReaderProvider (@NonNull final CharSequence aData)
   {
     this (aData.toString ());
   }
 
-  public StringReaderProvider (@Nonnull final String sData)
+  public StringReaderProvider (@NonNull final String sData)
   {
     m_sData = ValueEnforcer.notNull (sData, "Data");
   }
 
-  @Nonnull
+  @NonNull
   public String getData ()
   {
     return m_sData;
   }
 
-  @Nonnull
+  @NonNull
   public final NonBlockingStringReader getReader ()
   {
     return new NonBlockingStringReader (m_sData);

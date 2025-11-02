@@ -19,6 +19,9 @@ package com.helger.base.codec.impl;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,9 +32,6 @@ import com.helger.base.codec.ICodec;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringEncoding;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implements methods common to all codecs defined in RFC 1522.
@@ -67,12 +67,12 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
    * @param aCharset
    *        the default string charset to use.
    */
-  protected AbstractRFC1522Codec (@Nonnull final Charset aCharset)
+  protected AbstractRFC1522Codec (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
-  @Nonnull
+  @NonNull
   public Charset getCharset ()
   {
     return m_aCharset;
@@ -83,7 +83,7 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
    *
    * @return name of the codec
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   protected abstract String getRFC1522Encoding ();
 

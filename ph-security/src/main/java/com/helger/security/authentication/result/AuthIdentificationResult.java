@@ -16,13 +16,13 @@
  */
 package com.helger.security.authentication.result;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the overall authentication result.
@@ -101,8 +101,8 @@ public class AuthIdentificationResult implements ISuccessIndicator
    *        The auth token. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static AuthIdentificationResult createSuccess (@Nonnull final IAuthToken aAuthToken)
+  @NonNull
+  public static AuthIdentificationResult createSuccess (@NonNull final IAuthToken aAuthToken)
   {
     ValueEnforcer.notNull (aAuthToken, "AuthToken");
     return new AuthIdentificationResult (aAuthToken, null);
@@ -116,8 +116,8 @@ public class AuthIdentificationResult implements ISuccessIndicator
    *        failure!
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static AuthIdentificationResult createFailure (@Nonnull final ICredentialValidationResult aCredentialValidationFailure)
+  @NonNull
+  public static AuthIdentificationResult createFailure (@NonNull final ICredentialValidationResult aCredentialValidationFailure)
   {
     ValueEnforcer.notNull (aCredentialValidationFailure, "CredentialValidationFailure");
     return new AuthIdentificationResult (null, aCredentialValidationFailure);

@@ -23,15 +23,15 @@ import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link IInputStreamProvider} and {@link IOutputStreamProvider} interfaces
@@ -49,49 +49,49 @@ public final class FileSystemCharStreamProvider implements
   private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;
 
-  public FileSystemCharStreamProvider (@Nonnull final String sBasePath, @Nonnull final Charset aCharset)
+  public FileSystemCharStreamProvider (@NonNull final String sBasePath, @NonNull final Charset aCharset)
   {
     this (new File (sBasePath), aCharset);
   }
 
-  public FileSystemCharStreamProvider (@Nonnull final File aBasePath, @Nonnull final Charset aCharset)
+  public FileSystemCharStreamProvider (@NonNull final File aBasePath, @NonNull final Charset aCharset)
   {
     m_aByteStreamResolver = new FileSystemByteStreamProvider (aBasePath);
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
-  @Nonnull
+  @NonNull
   public File getBasePath ()
   {
     return m_aByteStreamResolver.getBasePath ();
   }
 
-  @Nonnull
+  @NonNull
   public Charset getCharset ()
   {
     return m_aCharset;
   }
 
   @Nullable
-  public InputStream getInputStream (@Nonnull final String sName)
+  public InputStream getInputStream (@NonNull final String sName)
   {
     return m_aByteStreamResolver.getInputStream (sName);
   }
 
   @Nullable
-  public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  public OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     return m_aByteStreamResolver.getOutputStream (sName, eAppend);
   }
 
   @Nullable
-  public Reader getReader (@Nonnull final String sName)
+  public Reader getReader (@NonNull final String sName)
   {
     return StreamHelper.createReader (getInputStream (sName), m_aCharset);
   }
 
   @Nullable
-  public Writer getWriter (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  public Writer getWriter (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     return StreamHelper.createWriter (getOutputStream (sName, eAppend), m_aCharset);
   }

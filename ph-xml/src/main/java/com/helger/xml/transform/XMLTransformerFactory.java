@@ -28,6 +28,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.URIResolver;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +40,6 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringImplode;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.XMLFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A global factory for XML transformation objects.
@@ -66,7 +65,7 @@ public final class XMLTransformerFactory
   private XMLTransformerFactory ()
   {}
 
-  @Nonnull
+  @NonNull
   public static TransformerFactory createTransformerFactory (@Nullable final ErrorListener aErrorListener,
                                                              @Nullable final URIResolver aURIResolver)
   {
@@ -95,7 +94,7 @@ public final class XMLTransformerFactory
    *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http")
    * @since 9.1.2
    */
-  public static void makeTransformerFactorySecure (@Nonnull final TransformerFactory aFactory,
+  public static void makeTransformerFactorySecure (@NonNull final TransformerFactory aFactory,
                                                    @Nullable final String... aAllowedExternalSchemes)
   {
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -121,7 +120,7 @@ public final class XMLTransformerFactory
   /**
    * @return The default transformer factory.
    */
-  @Nonnull
+  @NonNull
   public static TransformerFactory getDefaultTransformerFactory ()
   {
     return DEFAULT_FACTORY;
@@ -147,7 +146,7 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Transformer newTransformer (@Nonnull final TransformerFactory aTransformerFactory)
+  public static Transformer newTransformer (@NonNull final TransformerFactory aTransformerFactory)
   {
     ValueEnforcer.notNull (aTransformerFactory, "TransformerFactory");
 
@@ -171,7 +170,7 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Transformer newTransformer (@Nonnull final IReadableResource aResource)
+  public static Transformer newTransformer (@NonNull final IReadableResource aResource)
   {
     return newTransformer (DEFAULT_FACTORY, aResource);
   }
@@ -186,8 +185,8 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Transformer newTransformer (@Nonnull final TransformerFactory aTransformerFactory,
-                                            @Nonnull final IReadableResource aResource)
+  public static Transformer newTransformer (@NonNull final TransformerFactory aTransformerFactory,
+                                            @NonNull final IReadableResource aResource)
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
@@ -203,7 +202,7 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Transformer newTransformer (@Nonnull final Source aSource)
+  public static Transformer newTransformer (@NonNull final Source aSource)
   {
     return newTransformer (DEFAULT_FACTORY, aSource);
   }
@@ -218,8 +217,8 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Transformer newTransformer (@Nonnull final TransformerFactory aTransformerFactory,
-                                            @Nonnull final Source aSource)
+  public static Transformer newTransformer (@NonNull final TransformerFactory aTransformerFactory,
+                                            @NonNull final Source aSource)
   {
     ValueEnforcer.notNull (aTransformerFactory, "TransformerFactory");
     ValueEnforcer.notNull (aSource, "Source");
@@ -244,7 +243,7 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Templates newTemplates (@Nonnull final IReadableResource aResource)
+  public static Templates newTemplates (@NonNull final IReadableResource aResource)
   {
     return newTemplates (DEFAULT_FACTORY, aResource);
   }
@@ -258,7 +257,7 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Templates newTemplates (@Nonnull final Source aSource)
+  public static Templates newTemplates (@NonNull final Source aSource)
   {
     return newTemplates (DEFAULT_FACTORY, aSource);
   }
@@ -273,8 +272,8 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Templates newTemplates (@Nonnull final TransformerFactory aFactory,
-                                        @Nonnull final IReadableResource aResource)
+  public static Templates newTemplates (@NonNull final TransformerFactory aFactory,
+                                        @NonNull final IReadableResource aResource)
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
@@ -291,8 +290,8 @@ public final class XMLTransformerFactory
    * @return <code>null</code> if something goes wrong
    */
   @Nullable
-  public static Templates newTemplates (@Nonnull final TransformerFactory aTransformerFactory,
-                                        @Nonnull final Source aSource)
+  public static Templates newTemplates (@NonNull final TransformerFactory aTransformerFactory,
+                                        @NonNull final Source aSource)
   {
     ValueEnforcer.notNull (aTransformerFactory, "TransformerFactory");
     ValueEnforcer.notNull (aSource, "Source");

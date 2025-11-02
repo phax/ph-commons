@@ -18,6 +18,9 @@ package com.helger.base.numeric.mutable;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.compare.CompareHelper;
@@ -25,9 +28,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Object wrapper around a boolean so that it can be passed a final object but
@@ -45,12 +45,12 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
     m_bValue = bValue;
   }
 
-  public MutableBoolean (@Nonnull final Boolean aValue)
+  public MutableBoolean (@NonNull final Boolean aValue)
   {
     this (aValue.booleanValue ());
   }
 
-  public MutableBoolean (@Nonnull final MutableBoolean aValue)
+  public MutableBoolean (@NonNull final MutableBoolean aValue)
   {
     this (aValue.m_bValue);
   }
@@ -67,27 +67,27 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
     return m_bValue;
   }
 
-  @Nonnull
+  @NonNull
   public Boolean getAsBoolean ()
   {
     return Boolean.valueOf (m_bValue);
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final Boolean aValue)
+  @NonNull
+  public EChange set (@NonNull final Boolean aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.booleanValue ());
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final MutableBoolean aValue)
+  @NonNull
+  public EChange set (@NonNull final MutableBoolean aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.m_bValue);
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final boolean bValue)
   {
     if (m_bValue == bValue)
@@ -98,25 +98,25 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
   }
 
   @Nullable
-  public <T> T getIf (@Nonnull final Supplier <? extends T> aSupplier)
+  public <T> T getIf (@NonNull final Supplier <? extends T> aSupplier)
   {
     return getIf (aSupplier, null);
   }
 
   @Nullable
-  public <T> T getIf (@Nonnull final Supplier <? extends T> aSupplier, @Nullable final T aDefault)
+  public <T> T getIf (@NonNull final Supplier <? extends T> aSupplier, @Nullable final T aDefault)
   {
     if (m_bValue)
       return aSupplier.get ();
     return aDefault;
   }
 
-  public int compareTo (@Nonnull final MutableBoolean rhs)
+  public int compareTo (@NonNull final MutableBoolean rhs)
   {
     return CompareHelper.compareFalseBeforeTrue (m_bValue, rhs.m_bValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableBoolean getClone ()
   {
     return new MutableBoolean (this);

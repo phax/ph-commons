@@ -18,11 +18,11 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default folder tree item factory implementation.
@@ -51,9 +51,9 @@ public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends C
   }
 
   @Override
-  @Nonnull
-  protected DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> internalCreate (@Nonnull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent,
-                                                                                @Nonnull final KEYTYPE aDataID)
+  @NonNull
+  protected DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> internalCreate (@NonNull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent,
+                                                                                @NonNull final KEYTYPE aDataID)
   {
     return new DefaultFolderTreeItem <> (aParent, aDataID);
   }

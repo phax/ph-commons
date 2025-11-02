@@ -16,11 +16,11 @@
  */
 package com.helger.base.email;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.name.IHasDisplayName;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Aggregation of a personal name and an email address.
@@ -32,7 +32,7 @@ public interface IEmailAddress extends IHasDisplayName
   /**
    * @return The main email address. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getAddress ();
 
   /**
@@ -49,7 +49,7 @@ public interface IEmailAddress extends IHasDisplayName
     return StringHelper.isNotEmpty (getPersonal ());
   }
 
-  @Nonnull
+  @NonNull
   default String getDisplayName ()
   {
     if (hasPersonal ())

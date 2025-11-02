@@ -19,6 +19,8 @@ package com.helger.xml.serialize.write;
 import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.CDATASection;
 import org.w3c.dom.Comment;
 import org.w3c.dom.DOMException;
@@ -38,9 +40,6 @@ import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.xml.EXMLVersion;
 import com.helger.xml.XMLHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Internal XML serializer that takes org.w3c.dom.Node objects, extracts the information to
  * serialize and passes the respective information to an {@link XMLEmitter} object.
@@ -49,16 +48,16 @@ import jakarta.annotation.Nullable;
  */
 public class XMLSerializer extends AbstractXMLSerializer <Node>
 {
-  public XMLSerializer (@Nonnull final IXMLWriterSettings aSettings)
+  public XMLSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
     super (aSettings);
   }
 
   @Override
-  protected void emitNode (@Nonnull final XMLEmitter aXMLWriter,
+  protected void emitNode (@NonNull final XMLEmitter aXMLWriter,
                            @Nullable final Node aParentNode,
                            @Nullable final Node aPrevSibling,
-                           @Nonnull final Node aNode,
+                           @NonNull final Node aNode,
                            @Nullable final Node aNextSibling)
   {
     final short nNodeType = aNode.getNodeType ();
@@ -89,9 +88,9 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
                     throw new IllegalArgumentException ("Passed node type " + nNodeType + " is not yet supported");
   }
 
-  private void _writeNodeList (@Nonnull final XMLEmitter aXMLWriter,
-                               @Nonnull final Node aParentNode,
-                               @Nonnull final NodeList aChildren)
+  private void _writeNodeList (@NonNull final XMLEmitter aXMLWriter,
+                               @NonNull final Node aParentNode,
+                               @NonNull final NodeList aChildren)
   {
     final int nLastIndex = aChildren.getLength () - 1;
     for (int nIndex = 0; nIndex <= nLastIndex; ++nIndex)
@@ -104,7 +103,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     }
   }
 
-  private void _writeDocument (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Document aDocument)
+  private void _writeDocument (@NonNull final XMLEmitter aXMLWriter, @NonNull final Document aDocument)
   {
     if (m_aSettings.getSerializeXMLDeclaration ().isEmit ())
     {
@@ -132,25 +131,25 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     _writeNodeList (aXMLWriter, aDocument, aDocument.getChildNodes ());
   }
 
-  private void _writeDocumentType (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final DocumentType aDocType)
+  private void _writeDocumentType (@NonNull final XMLEmitter aXMLWriter, @NonNull final DocumentType aDocType)
   {
     if (m_aSettings.getSerializeDocType ().isEmit ())
       aXMLWriter.onDocumentType (aDocType.getName (), aDocType.getPublicId (), aDocType.getSystemId ());
   }
 
-  private static void _writeProcessingInstruction (@Nonnull final XMLEmitter aXMLWriter,
-                                                   @Nonnull final ProcessingInstruction aPI)
+  private static void _writeProcessingInstruction (@NonNull final XMLEmitter aXMLWriter,
+                                                   @NonNull final ProcessingInstruction aPI)
   {
     aXMLWriter.onProcessingInstruction (aPI.getTarget (), aPI.getData ());
   }
 
-  private static void _writeEntityReference (@Nonnull final XMLEmitter aXMLWriter,
-                                             @Nonnull final EntityReference aEntRef)
+  private static void _writeEntityReference (@NonNull final XMLEmitter aXMLWriter,
+                                             @NonNull final EntityReference aEntRef)
   {
     aXMLWriter.onEntityReference (aEntRef.getNodeName ());
   }
 
-  private void _writeComment (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Comment aComment)
+  private void _writeComment (@NonNull final XMLEmitter aXMLWriter, @NonNull final Comment aComment)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
@@ -164,13 +163,13 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     }
   }
 
-  private static void _writeText (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
+  private static void _writeText (@NonNull final XMLEmitter aXMLWriter, @NonNull final Text aText)
   {
     // DOM text is always escaped!
     aXMLWriter.onText (aText.getData ());
   }
 
-  private void _writeCDATA (@Nonnull final XMLEmitter aXMLWriter, @Nonnull final Text aText)
+  private void _writeCDATA (@NonNull final XMLEmitter aXMLWriter, @NonNull final Text aText)
   {
     if (m_aSettings.isWriteCDATAAsText ())
       aXMLWriter.onText (aText.getData ());
@@ -178,10 +177,10 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       aXMLWriter.onCDATA (aText.getData ());
   }
 
-  private void _writeElement (@Nonnull final XMLEmitter aXMLWriter,
+  private void _writeElement (@NonNull final XMLEmitter aXMLWriter,
                               @Nullable final Node aParentNode,
                               @Nullable final Node aPrevSibling,
-                              @Nonnull final Element aElement,
+                              @NonNull final Element aElement,
                               @Nullable final Node aNextSibling)
   {
     // use either local name or tag name (depending on namespace prefix)

@@ -18,6 +18,9 @@ package com.helger.json.mapping;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.location.ILocation;
@@ -27,9 +30,6 @@ import com.helger.base.state.ETriState;
 import com.helger.base.string.StringHelper;
 import com.helger.json.IJsonObject;
 import com.helger.json.JsonObject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains some JSON mappings to commonly used data types.
@@ -64,7 +64,7 @@ public final class JsonMapper
    * @return A non-<code>null</code> JSON value string.
    * @see #getJsonTriState(ETriState)
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getJsonTriState (final boolean b)
   {

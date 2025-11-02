@@ -16,6 +16,9 @@
  */
 package com.helger.http.header.specific;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -25,9 +28,6 @@ import com.helger.http.header.QValue;
 import com.helger.mime.IMimeType;
 import com.helger.mime.parse.MimeTypeParser;
 import com.helger.mime.parse.MimeTypeParserException;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a list of "Accept" HTTP header values, created e.g. by the
@@ -41,16 +41,16 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
   public AcceptMimeTypeList ()
   {}
 
-  @Nonnull
-  public AcceptMimeTypeList addMimeType (@Nonnull @Nonempty final String sMimeType, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptMimeTypeList addMimeType (@NonNull @Nonempty final String sMimeType, @Nonnegative final double dQuality)
                                                                                                                         throws MimeTypeParserException
   {
     ValueEnforcer.notEmpty (sMimeType, "MimeType");
     return addMimeType (MimeTypeParser.parseMimeType (sMimeType), dQuality);
   }
 
-  @Nonnull
-  public AcceptMimeTypeList addMimeType (@Nonnull final IMimeType aMimeType, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptMimeTypeList addMimeType (@NonNull final IMimeType aMimeType, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
     ValueEnforcer.isFalse (aMimeType.hasAnyParameters (), "MimeTypes used here may not contain any parameter!");
@@ -66,8 +66,8 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    *        The charset name to query. May not be <code>null</code>.
    * @return The {@link QValue} of the mime type
    */
-  @Nonnull
-  public QValue getQValueOfMimeType (@Nonnull final IMimeType aMimeType)
+  @NonNull
+  public QValue getQValueOfMimeType (@NonNull final IMimeType aMimeType)
   {
     ValueEnforcer.notNull (aMimeType, "MimeType");
 
@@ -101,7 +101,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    * @return 0 means not accepted, 1 means fully accepted. If the passed MIME type is invalid, the
    *         "not accepted" quality is returned.
    */
-  public double getQualityOfMimeType (@Nonnull final String sMimeType)
+  public double getQualityOfMimeType (@NonNull final String sMimeType)
   {
     return getQualityOfMimeType (MimeTypeParser.safeParseMimeType (sMimeType));
   }
@@ -128,7 +128,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    *        The MIME type to check
    * @return <code>true</code> if it is supported, <code>false</code> if not
    */
-  public boolean supportsMimeType (@Nonnull final String sMimeType)
+  public boolean supportsMimeType (@NonNull final String sMimeType)
   {
     return supportsMimeType (MimeTypeParser.safeParseMimeType (sMimeType));
   }
@@ -154,7 +154,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    *        The MIME type to check
    * @return <code>true</code> if it is supported, <code>false</code> if not
    */
-  public boolean explicitlySupportsMimeType (@Nonnull final String sMimeType)
+  public boolean explicitlySupportsMimeType (@NonNull final String sMimeType)
   {
     return explicitlySupportsMimeType (MimeTypeParser.safeParseMimeType (sMimeType));
   }
@@ -184,7 +184,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    * @see #getQValueOfMimeType(IMimeType)
    */
   @Nullable
-  public IMimeType getPreferredMimeType (@Nonnull final IMimeType... aMimeTypes)
+  public IMimeType getPreferredMimeType (@NonNull final IMimeType... aMimeTypes)
   {
     IMimeType ret = null;
     QValue qret = null;
@@ -206,7 +206,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getAsHttpHeaderValue ()
   {
     return getAsHttpHeaderValue (IMimeType::getAsString);

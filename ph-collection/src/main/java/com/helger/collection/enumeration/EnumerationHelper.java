@@ -22,13 +22,13 @@ import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.base.EmptyEnumeration;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class EnumerationHelper
@@ -75,7 +75,7 @@ public final class EnumerationHelper
    *        The array to enumerate.
    * @return an Enumeration object
    */
-  @Nonnull
+  @NonNull
   @SafeVarargs
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final ELEMENTTYPE... aArray)
   {
@@ -91,7 +91,7 @@ public final class EnumerationHelper
    *        The container to enumerate.
    * @return an Enumeration object
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
     return CollectionHelper.isEmpty (aCont) ? new EmptyEnumeration <> () : getEnumeration (aCont.iterator ());
@@ -106,7 +106,7 @@ public final class EnumerationHelper
    *        iterator object to use
    * @return an Enumeration object
    */
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> Enumeration <ELEMENTTYPE> getEnumeration (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
     if (aIter == null)
@@ -125,7 +125,7 @@ public final class EnumerationHelper
    *        map object to use
    * @return an Enumeration object
    */
-  @Nonnull
+  @NonNull
   public static <KEYTYPE, VALUETYPE> Enumeration <Map.Entry <KEYTYPE, VALUETYPE>> getEnumeration (@Nullable final Map <KEYTYPE, VALUETYPE> aMap)
   {
     if (aMap == null)

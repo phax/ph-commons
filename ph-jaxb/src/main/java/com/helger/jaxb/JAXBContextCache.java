@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,7 +26,6 @@ import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
 import com.helger.cache.impl.Cache;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBContext;
 
 /**
@@ -80,7 +80,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static JAXBContextCache getInstance ()
   {
     final JAXBContextCache ret = SingletonHolder.INSTANCE;

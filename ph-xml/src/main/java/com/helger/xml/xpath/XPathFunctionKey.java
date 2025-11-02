@@ -18,6 +18,8 @@ package com.helger.xml.xpath;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.CompareHelper;
@@ -25,8 +27,6 @@ import com.helger.base.compare.IComparable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains a single key for a map-based function resolver.
@@ -47,7 +47,7 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
    * @param nArity
    *        The number of parameters the function takes. Must be &ge; 0.
    */
-  public XPathFunctionKey (@Nonnull final QName aFunctionName, @Nonnegative final int nArity)
+  public XPathFunctionKey (@NonNull final QName aFunctionName, @Nonnegative final int nArity)
   {
     m_aFunctionName = ValueEnforcer.notNull (aFunctionName, "FunctionName");
     m_nArity = ValueEnforcer.isGE0 (nArity, "Arity");
@@ -56,7 +56,7 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
   /**
    * @return The function name and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public QName getFunctionName ()
   {
     return m_aFunctionName;
@@ -71,7 +71,7 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
     return m_nArity;
   }
 
-  public int compareTo (@Nonnull final XPathFunctionKey o)
+  public int compareTo (@NonNull final XPathFunctionKey o)
   {
     // 1st namespace URI
     int ret = CompareHelper.compare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());

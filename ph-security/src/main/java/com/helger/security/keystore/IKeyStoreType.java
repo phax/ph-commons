@@ -21,10 +21,10 @@ import java.security.KeyStoreException;
 import java.security.NoSuchProviderException;
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for the different types of key stores (like JKS or PKCS12).
@@ -40,7 +40,7 @@ public interface IKeyStoreType extends IHasID <String>
    *         if no Provider supports a KeyStoreSpi implementation for the
    *         specified type.
    */
-  @Nonnull
+  @NonNull
   default KeyStore getKeyStore () throws KeyStoreException
   {
     return KeyStore.getInstance (getID ());
@@ -70,8 +70,8 @@ public interface IKeyStoreType extends IHasID <String>
    *            if the specified provider is not registered in the security
    *            provider list.
    */
-  @Nonnull
-  default KeyStore getKeyStore (@Nonnull @Nonempty final String sProvider) throws KeyStoreException,
+  @NonNull
+  default KeyStore getKeyStore (@NonNull @Nonempty final String sProvider) throws KeyStoreException,
                                                                            NoSuchProviderException
   {
     return KeyStore.getInstance (getID (), sProvider);
@@ -86,8 +86,8 @@ public interface IKeyStoreType extends IHasID <String>
    *         if no Provider supports a KeyStoreSpi implementation for the
    *         specified type.
    */
-  @Nonnull
-  default KeyStore getKeyStore (@Nonnull final Provider aProvider) throws KeyStoreException
+  @NonNull
+  default KeyStore getKeyStore (@NonNull final Provider aProvider) throws KeyStoreException
   {
     return KeyStore.getInstance (getID (), aProvider);
   }

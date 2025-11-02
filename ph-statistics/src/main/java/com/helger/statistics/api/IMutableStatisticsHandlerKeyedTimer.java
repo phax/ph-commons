@@ -16,9 +16,9 @@
  */
 package com.helger.statistics.api;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Statistics handler for keyed timer.

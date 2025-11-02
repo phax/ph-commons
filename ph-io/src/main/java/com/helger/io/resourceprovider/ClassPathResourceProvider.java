@@ -16,6 +16,9 @@
  */
 package com.helger.io.resourceprovider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
@@ -24,9 +27,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple resource provider that only uses files.
@@ -72,8 +72,8 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
     return StringHelper.isNotEmpty (sName);
   }
 
-  @Nonnull
-  public IReadableResource getReadableResource (@Nonnull final String sName)
+  @NonNull
+  public IReadableResource getReadableResource (@NonNull final String sName)
   {
     ValueEnforcer.notNull (sName, "Name");
 

@@ -16,7 +16,7 @@
  */
 package com.helger.base.clone;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This is a type-safe replacement interface for the default
@@ -32,6 +32,6 @@ public interface ICloneable <DATATYPE>
   /**
    * @return A 100% deep-copy of the implementing class.
    */
-  @Nonnull
+  @NonNull
   DATATYPE getClone ();
 }

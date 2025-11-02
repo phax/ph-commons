@@ -19,6 +19,7 @@ package com.helger.config;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,8 +40,6 @@ import com.helger.io.resource.URLResource;
 import com.helger.io.resourceprovider.ClassPathResourceProvider;
 import com.helger.io.resourceprovider.FileSystemResourceProvider;
 import com.helger.io.resourceprovider.ReadableResourceProviderChain;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Factory for creating {@link IConfig} objects.
@@ -94,7 +93,7 @@ public final class ConfigFactory
    * @since 9.4.5
    * @see #createDefaultValueProvider()
    */
-  @Nonnull
+  @NonNull
   public static MultiConfigurationValueProvider createValueProviderSystemOnly ()
   {
     final MultiConfigurationValueProvider aMCSVP = new MultiConfigurationValueProvider ();
@@ -110,7 +109,7 @@ public final class ConfigFactory
    *         configuration items.
    * @since 9.4.8
    */
-  @Nonnull
+  @NonNull
   public static ReadableResourceProviderChain createDefaultResourceProviderChain ()
   {
     return new ReadableResourceProviderChain (new FileSystemResourceProvider ().setCanReadRelativePaths (true),
@@ -156,7 +155,7 @@ public final class ConfigFactory
    *
    * @return A new value provider. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static MultiConfigurationValueProvider createDefaultValueProvider ()
   {
     final MultiConfigurationValueProvider aMCSVP = new MultiConfigurationValueProvider ();
@@ -283,7 +282,7 @@ public final class ConfigFactory
    * @see #getDefaultConfig()
    * @since 9.4.5
    */
-  @Nonnull
+  @NonNull
   public static IConfig getSystemConfig ()
   {
     return SYSTEM_ONLY;
@@ -296,7 +295,7 @@ public final class ConfigFactory
    * @return The default configuration to be used. Never <code>null</code>.
    * @see #createDefaultValueProvider()
    */
-  @Nonnull
+  @NonNull
   public static IConfig getDefaultConfig ()
   {
     return DEFAULT_INSTANCE;

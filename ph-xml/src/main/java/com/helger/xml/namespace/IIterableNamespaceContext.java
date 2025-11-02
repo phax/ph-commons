@@ -18,11 +18,11 @@ package com.helger.xml.namespace;
 
 import javax.xml.namespace.NamespaceContext;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special namespace context interface that allows the iteration of the
@@ -38,7 +38,7 @@ public interface IIterableNamespaceContext extends NamespaceContext
    *
    * @return The map with all prefixes mapped to the namespace URIs.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, String> getPrefixToNamespaceURIMap ();
 }

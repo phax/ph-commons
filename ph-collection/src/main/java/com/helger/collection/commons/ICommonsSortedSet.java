@@ -19,11 +19,11 @@ package com.helger.collection.commons;
 import java.util.Collections;
 import java.util.SortedSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link SortedSet} based interface with extended functionality based
@@ -60,14 +60,14 @@ public interface ICommonsSortedSet <ELEMENTTYPE> extends SortedSet <ELEMENTTYPE>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default SortedSet <ELEMENTTYPE> getAsUnmodifiable ()
   {
     return Collections.unmodifiableSortedSet (this);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsSortedSet <ELEMENTTYPE> getClone ();
 }

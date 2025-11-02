@@ -20,14 +20,14 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the methods to parse String objects to numeric values. Before v3.7.0 this was
@@ -55,9 +55,9 @@ public final class StringParser
    *        The string to unified. Never <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  private static String _getUnifiedDecimal (@Nonnull @Nonempty final String sStr)
+  private static String _getUnifiedDecimal (@NonNull @Nonempty final String sStr)
   {
     return StringReplace.replaceAll (sStr, ',', '.');
   }
@@ -184,7 +184,7 @@ public final class StringParser
    *        The string to be parsed. May be <code>null</code>.
    * @return the <code>Boolean</code> value represented by the string. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static Boolean parseBoolObj (@Nullable final String sStr)
   {
     return Boolean.valueOf (sStr);
@@ -1434,7 +1434,7 @@ public final class StringParser
   @Nullable
   public static BigDecimal parseBigDecimal (@Nullable final String sStr,
                                             @Nonnegative final int nScale,
-                                            @Nonnull final RoundingMode eRoundingMode)
+                                            @NonNull final RoundingMode eRoundingMode)
   {
     return parseBigDecimal (sStr, nScale, eRoundingMode, null);
   }
@@ -1456,7 +1456,7 @@ public final class StringParser
   @Nullable
   public static BigDecimal parseBigDecimal (@Nullable final String sStr,
                                             @Nonnegative final int nScale,
-                                            @Nonnull final RoundingMode eRoundingMode,
+                                            @NonNull final RoundingMode eRoundingMode,
                                             @Nullable final BigDecimal aDefault)
   {
     ValueEnforcer.isGE0 (nScale, "Scale");

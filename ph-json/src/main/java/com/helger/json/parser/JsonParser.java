@@ -19,6 +19,8 @@ package com.helger.json.parser;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.base.state.EEOI;
 import com.helger.base.string.StringHex;
 import com.helger.json.CJson;
 import com.helger.json.parser.handler.IJsonParserHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a generic JSON parser that invokes a custom callback for all found elements. This can be
@@ -65,7 +64,7 @@ public class JsonParser
       return m_cQuote;
     }
 
-    @Nonnull
+    @NonNull
     public static EStringQuoteMode getFromCharOrDefault (final int c)
     {
       if (c == '\'')
@@ -97,7 +96,7 @@ public class JsonParser
   private final JsonStringBuilder m_aSB1 = new JsonStringBuilder (256);
   private final JsonStringBuilder m_aSB2 = new JsonStringBuilder (256);
 
-  public JsonParser (@Nonnull @WillNotClose final Reader aReader, @Nonnull final IJsonParserHandler aCallback)
+  public JsonParser (@NonNull @WillNotClose final Reader aReader, @NonNull final IJsonParserHandler aCallback)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -110,7 +109,7 @@ public class JsonParser
    * @return The mutable parser settings to be used. Never <code>null</code>.
    * @since v12.0.0
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final JsonParserSettings jsonParserSettings ()
   {
@@ -121,7 +120,7 @@ public class JsonParser
    * @return The immutable parser settings to be used. Never <code>null</code>.
    * @since v12.0.0
    */
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   public final IJsonParserSettings getJsonParserSettings ()
   {
@@ -197,7 +196,7 @@ public class JsonParser
       }
   }
 
-  @Nonnull
+  @NonNull
   private static String _getPrintableChar (final int c)
   {
     if (c == EOI_CHAR)
@@ -209,8 +208,8 @@ public class JsonParser
     return "'" + (char) c + "'";
   }
 
-  @Nonnull
-  private JsonParseException _parseEx (@Nullable final IJsonParsePosition aTokenStart, @Nonnull final String sMsg)
+  @NonNull
+  private JsonParseException _parseEx (@Nullable final IJsonParsePosition aTokenStart, @NonNull final String sMsg)
   {
     if (m_aSettings.isTrackPosition ())
       return new JsonParseException (aTokenStart, m_aParsePos, sMsg);
@@ -323,9 +322,9 @@ public class JsonParser
     return ret;
   }
 
-  private void _readStringEscapeChar (@Nonnull final IJsonParsePosition aStartPos,
-                                      @Nonnull final JsonStringBuilder aStrStringOriginalContent,
-                                      @Nonnull final JsonStringBuilder aStrStringUnescapedContent) throws JsonParseException
+  private void _readStringEscapeChar (@NonNull final IJsonParsePosition aStartPos,
+                                      @NonNull final JsonStringBuilder aStrStringOriginalContent,
+                                      @NonNull final JsonStringBuilder aStrStringUnescapedContent) throws JsonParseException
   {
     final int c2 = _readChar ();
     aStrStringOriginalContent.append ((char) c2);
@@ -380,7 +379,7 @@ public class JsonParser
     private final String m_sOriginal;
     private final String m_sUnescaped;
 
-    private TwoStrings (@Nonnull final String sOriginal, @Nonnull final String sUnescaped)
+    private TwoStrings (@NonNull final String sOriginal, @NonNull final String sUnescaped)
     {
       m_sOriginal = sOriginal;
       m_sUnescaped = sUnescaped;
@@ -394,8 +393,8 @@ public class JsonParser
    *         the unescaped read string without leading and trailing quotes
    * @throws JsonParseException
    */
-  @Nonnull
-  private TwoStrings _readString (@Nonnull final EStringQuoteMode eQuoteMode) throws JsonParseException
+  @NonNull
+  private TwoStrings _readString (@NonNull final EStringQuoteMode eQuoteMode) throws JsonParseException
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
     final JsonStringBuilder aStrStringOriginalContent = m_aSB1.reset ();
@@ -483,8 +482,8 @@ public class JsonParser
     return new TwoStrings (aStrStringOriginalContent.getAsString (), aStrStringUnescapedContent.getAsString ());
   }
 
-  @Nonnull
-  private static Number _parseNumberInt (@Nonnull final JsonStringBuilder s)
+  @NonNull
+  private static Number _parseNumberInt (@NonNull final JsonStringBuilder s)
   {
     final int nLen = s.getLength ();
 
@@ -564,12 +563,12 @@ public class JsonParser
     return Long.valueOf (r);
   }
 
-  @Nonnull
-  private Number _parseNumber (@Nonnull final IJsonParsePosition aStartPos,
+  @NonNull
+  private Number _parseNumber (@NonNull final IJsonParsePosition aStartPos,
                                final boolean bIsDecimal,
                                final boolean bHasExponent,
                                final boolean bHasPositiveExponent,
-                               @Nonnull final JsonStringBuilder aNumChars) throws JsonParseException
+                               @NonNull final JsonStringBuilder aNumChars) throws JsonParseException
   {
     try
     {
@@ -701,7 +700,7 @@ public class JsonParser
     m_aCallback.onNumber (aStrNumber.getAsString (), aNum);
   }
 
-  private void _expect (@Nonnull final String sKeyword) throws JsonParseException
+  private void _expect (@NonNull final String sKeyword) throws JsonParseException
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
@@ -842,7 +841,7 @@ public class JsonParser
    * @throws JsonParseException
    *         In case of parse exceptions
    */
-  @Nonnull
+  @NonNull
   private EEOI _readValue () throws JsonParseException
   {
     _skipSpaces ();
@@ -920,7 +919,7 @@ public class JsonParser
    * @throws JsonParseException
    *         In case a parse error occurs.
    */
-  @Nonnull
+  @NonNull
   public EEOI parse () throws JsonParseException
   {
     final EEOI eEOI = _readValue ();

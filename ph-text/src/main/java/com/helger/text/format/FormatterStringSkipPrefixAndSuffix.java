@@ -16,13 +16,13 @@
  */
 package com.helger.text.format;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A formatter that skip a prefix and/or a suffix to a string.
@@ -34,19 +34,19 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   private final String m_sPrefix;
   private final String m_sSuffix;
 
-  public FormatterStringSkipPrefixAndSuffix (@Nonnull final String sPrefix, @Nonnull final String sSuffix)
+  public FormatterStringSkipPrefixAndSuffix (@NonNull final String sPrefix, @NonNull final String sSuffix)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
 
-  @Nonnull
+  @NonNull
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
-  @Nonnull
+  @NonNull
   public String getSuffix ()
   {
     return m_sSuffix;
@@ -87,14 +87,14 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
     return ToStringGenerator.getDerived (super.toString ()).append ("Prefix", m_sPrefix).append ("Suffix", m_sSuffix).getToString ();
   }
 
-  @Nonnull
-  public static FormatterStringSkipPrefixAndSuffix createPrefixOnly (@Nonnull final String sPrefix)
+  @NonNull
+  public static FormatterStringSkipPrefixAndSuffix createPrefixOnly (@NonNull final String sPrefix)
   {
     return new FormatterStringSkipPrefixAndSuffix (sPrefix, "");
   }
 
-  @Nonnull
-  public static FormatterStringSkipPrefixAndSuffix createSuffixOnly (@Nonnull final String sSuffix)
+  @NonNull
+  public static FormatterStringSkipPrefixAndSuffix createSuffixOnly (@NonNull final String sSuffix)
   {
     return new FormatterStringSkipPrefixAndSuffix ("", sSuffix);
   }

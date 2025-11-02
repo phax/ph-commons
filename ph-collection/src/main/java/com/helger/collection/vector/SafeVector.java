@@ -18,6 +18,9 @@ package com.helger.collection.vector;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
@@ -25,9 +28,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsVector;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a specialized {@link CommonsVector} that can handle read accesses on
@@ -62,7 +62,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    * @param aFactory
    *        The factory to use. May not be <code>null</code>.
    */
-  public SafeVector (@Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  public SafeVector (@NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
   {
     m_aFactory = ValueEnforcer.notNull (aFactory, "Factory");
   }
@@ -71,7 +71,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    * @return The factory for filling missing values as provided in the
    *         constructor.
    */
-  @Nonnull
+  @NonNull
   public Supplier <? extends ELEMENTTYPE> getFactory ()
   {
     return m_aFactory;
@@ -93,7 +93,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   }
 
   @Nullable
-  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @Nonnull final Supplier <? extends ELEMENTTYPE> aFactory)
+  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
   {
     _ensureSize (nIndex);
     ELEMENTTYPE ret = super.get (nIndex);
@@ -106,7 +106,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   }
 
   @Override
-  public synchronized ELEMENTTYPE set (@Nonnegative final int nIndex, @Nonnull final ELEMENTTYPE aElement)
+  public synchronized ELEMENTTYPE set (@Nonnegative final int nIndex, @NonNull final ELEMENTTYPE aElement)
   {
     _ensureSize (nIndex);
     return super.set (nIndex, aElement);

@@ -16,6 +16,9 @@
  */
 package com.helger.security.password.hash;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.security.password.salt.IPasswordSalt;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class combines password hash and the used algorithm.
@@ -46,9 +46,9 @@ public final class PasswordHash
   private final IPasswordSalt m_aSalt;
   private final String m_sPasswordHashValue;
 
-  public PasswordHash (@Nonnull @Nonempty final String sAlgorithmName,
+  public PasswordHash (@NonNull @Nonempty final String sAlgorithmName,
                        @Nullable final IPasswordSalt aSalt,
-                       @Nonnull @Nonempty final String sPasswordHashValue)
+                       @NonNull @Nonempty final String sPasswordHashValue)
   {
     ValueEnforcer.notEmpty (sAlgorithmName, "AlgorithmName");
     ValueEnforcer.isTrue ( () -> sAlgorithmName.length () <= ALGORITHM_NAME_MAX_LENGTH, "AlgorithmName is too long");
@@ -59,7 +59,7 @@ public final class PasswordHash
     m_sPasswordHashValue = sPasswordHashValue;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAlgorithmName ()
   {
@@ -83,7 +83,7 @@ public final class PasswordHash
     return m_aSalt == null ? null : m_aSalt.getSaltString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPasswordHashValue ()
   {

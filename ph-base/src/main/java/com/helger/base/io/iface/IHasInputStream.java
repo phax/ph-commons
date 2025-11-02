@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.function.Function;
 
-import com.helger.base.io.stream.StreamHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.io.stream.StreamHelper;
 
 /**
  * A callback interface to retrieve {@link InputStream} objects.
@@ -69,7 +69,7 @@ public interface IHasInputStream
    * @since 11.1.5
    */
   @Nullable
-  default <T> T withInputStreamDo (@Nonnull final Function <InputStream, T> aFunc) throws IOException
+  default <T> T withInputStreamDo (@NonNull final Function <InputStream, T> aFunc) throws IOException
   {
     try (final InputStream aIS = getInputStream ())
     {
@@ -92,7 +92,7 @@ public interface IHasInputStream
    * @since 11.1.5
    */
   @Nullable
-  default <T> T withBufferedInputStreamDo (@Nonnull final Function <InputStream, T> aFunc) throws IOException
+  default <T> T withBufferedInputStreamDo (@NonNull final Function <InputStream, T> aFunc) throws IOException
   {
     try (final InputStream aIS = getBufferedInputStream ())
     {

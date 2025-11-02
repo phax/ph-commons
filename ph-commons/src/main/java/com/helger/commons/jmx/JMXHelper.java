@@ -21,14 +21,13 @@ import java.lang.management.ManagementFactory;
 import javax.management.JMException;
 import javax.management.ObjectName;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Some generic JMX utility classes
@@ -46,8 +45,8 @@ public final class JMXHelper
   private JMXHelper ()
   {}
 
-  @Nonnull
-  public static ESuccess exposeMBean (@Nonnull final Object aObject, @Nonnull final ObjectName aObjectName)
+  @NonNull
+  public static ESuccess exposeMBean (@NonNull final Object aObject, @NonNull final ObjectName aObjectName)
   {
     ValueEnforcer.notNull (aObject, "Object");
     ValueEnforcer.notNull (aObjectName, "ObjectName");
@@ -64,14 +63,14 @@ public final class JMXHelper
     }
   }
 
-  @Nonnull
-  public static ESuccess exposeMBeanWithAutoName (@Nonnull final Object aObj)
+  @NonNull
+  public static ESuccess exposeMBeanWithAutoName (@NonNull final Object aObj)
   {
     return exposeMBean (aObj, ObjectNameHelper.createWithDefaultProperties (aObj));
   }
 
-  @Nonnull
-  public static ESuccess exposeMBeanWithAutoName (@Nonnull final Object aObj, @Nonnull final String sName)
+  @NonNull
+  public static ESuccess exposeMBeanWithAutoName (@NonNull final Object aObj, @NonNull final String sName)
   {
     return exposeMBean (aObj, ObjectNameHelper.createWithDefaultProperties (aObj, sName));
   }

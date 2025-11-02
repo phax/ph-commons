@@ -16,12 +16,12 @@
  */
 package com.helger.base.thirdparty;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.version.Version;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a bunch of Open Source licenses regularly used.
@@ -95,8 +95,8 @@ public enum ELicense implements ILicense
    * @param sURL
    *        The URL of the license.
    */
-  ELicense (@Nonnull @Nonempty final String sID,
-            @Nonnull @Nonempty final String sName,
+  ELicense (@NonNull @Nonempty final String sID,
+            @NonNull @Nonempty final String sName,
             @Nullable final Version aVersion,
             @Nullable final String sURL)
   {
@@ -106,14 +106,14 @@ public enum ELicense implements ILicense
     m_sURL = sURL;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDisplayName ()
   {

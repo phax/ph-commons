@@ -19,9 +19,9 @@ package com.helger.base.email;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-import com.helger.annotation.concurrent.Immutable;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.concurrent.Immutable;
 
 /**
  * Perform simple email address validation based on a regular expression.

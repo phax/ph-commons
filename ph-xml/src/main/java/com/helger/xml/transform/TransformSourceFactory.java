@@ -27,6 +27,8 @@ import java.nio.file.Path;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Node;
 
 import com.helger.annotation.Nonnegative;
@@ -38,9 +40,6 @@ import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.url.URLHelper;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resource.URLResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Factory class to create the correct {@link javax.xml.transform.Source} objects for different
@@ -57,104 +56,104 @@ public final class TransformSourceFactory
   private TransformSourceFactory ()
   {}
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final File aFile)
+  @NonNull
+  public static StreamSource create (@NonNull final File aFile)
   {
     return new StreamSource (aFile);
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final Path aPath)
+  @NonNull
+  public static StreamSource create (@NonNull final Path aPath)
   {
     return new StreamSource (aPath.toFile ());
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final URI aURI)
+  @NonNull
+  public static StreamSource create (@NonNull final URI aURI)
   {
     return create (URLHelper.getAsURL (aURI));
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final URL aURL)
+  @NonNull
+  public static StreamSource create (@NonNull final URL aURL)
   {
     return create (new URLResource (aURL));
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final IHasInputStream aISP)
+  @NonNull
+  public static StreamSource create (@NonNull final IHasInputStream aISP)
   {
     if (aISP instanceof final IReadableResource aRes)
       return create (aRes);
     return create (aISP.getInputStream ());
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final IReadableResource aResource)
+  @NonNull
+  public static StreamSource create (@NonNull final IReadableResource aResource)
   {
     // Read into memory
     return new CachingTransformStreamSource (aResource);
   }
 
-  @Nonnull
-  public static StringStreamSource create (@Nonnull final CharSequence aXML)
+  @NonNull
+  public static StringStreamSource create (@NonNull final CharSequence aXML)
   {
     return new StringStreamSource (aXML);
   }
 
-  @Nonnull
-  public static StringStreamSource create (@Nonnull final String sXML)
+  @NonNull
+  public static StringStreamSource create (@NonNull final String sXML)
   {
     return new StringStreamSource (sXML);
   }
 
-  @Nonnull
-  public static StringStreamSource create (@Nonnull final char [] aXML)
+  @NonNull
+  public static StringStreamSource create (@NonNull final char [] aXML)
   {
     return new StringStreamSource (aXML);
   }
 
-  @Nonnull
-  public static StringStreamSource create (@Nonnull final char [] aXML,
+  @NonNull
+  public static StringStreamSource create (@NonNull final char [] aXML,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength)
   {
     return new StringStreamSource (aXML, nOfs, nLength);
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final byte [] aXML)
+  @NonNull
+  public static StreamSource create (@NonNull final byte [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final byte [] aXML,
+  @NonNull
+  public static StreamSource create (@NonNull final byte [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLength)
   {
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLength));
   }
 
-  @Nonnull
-  public static StreamSource create (@Nonnull final ByteBuffer aXML)
+  @NonNull
+  public static StreamSource create (@NonNull final ByteBuffer aXML)
   {
     return create (new ByteBufferInputStream (aXML));
   }
 
-  @Nonnull
+  @NonNull
   public static StreamSource create (@Nullable final InputStream aIS)
   {
     return new StreamSource (aIS);
   }
 
-  @Nonnull
+  @NonNull
   public static StreamSource create (@Nullable final Reader aReader)
   {
     return new StreamSource (aReader);
   }
 
-  @Nonnull
+  @NonNull
   public static DOMSource create (@Nullable final Node aNode)
   {
     return new DOMSource (aNode);

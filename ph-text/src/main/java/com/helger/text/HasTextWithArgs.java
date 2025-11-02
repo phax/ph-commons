@@ -18,6 +18,9 @@ package com.helger.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -25,9 +28,6 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.text.TextFormatter;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special implementation of {@link IHasText} that encapsulates arguments to be put into the
@@ -42,13 +42,13 @@ public class HasTextWithArgs implements IHasText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
-  public HasTextWithArgs (@Nonnull final IHasText aParentText, @Nonnull @Nonempty final Object... aArgs)
+  public HasTextWithArgs (@NonNull final IHasText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
   }
 
-  @Nonnull
+  @NonNull
   public IHasText getParentText ()
   {
     return m_aParentText;
@@ -59,7 +59,7 @@ public class HasTextWithArgs implements IHasText
    *
    * @return a copy of all arguments. Neither <code>null</code> nor empty-
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public Object [] getAllArgs ()
@@ -68,7 +68,7 @@ public class HasTextWithArgs implements IHasText
   }
 
   @Nullable
-  public String getText (@Nonnull final Locale aContentLocale)
+  public String getText (@NonNull final Locale aContentLocale)
   {
     final String sText = m_aParentText.getText (aContentLocale);
     return TextFormatter.getFormattedText (sText, m_aArgs);

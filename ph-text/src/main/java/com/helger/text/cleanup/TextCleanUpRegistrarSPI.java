@@ -16,6 +16,8 @@
  */
 package com.helger.text.cleanup;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
@@ -26,8 +28,6 @@ import com.helger.text.locale.country.CountryCache;
 import com.helger.text.locale.language.LanguageCache;
 import com.helger.text.resolve.DefaultTextResolver;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * The sole purpose of this class to clear all caches, that reside in this library.
  *
@@ -36,7 +36,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class TextCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
+  public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 300, () -> {
       // Reinitialize singletons to the default values

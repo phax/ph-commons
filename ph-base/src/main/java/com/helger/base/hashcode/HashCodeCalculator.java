@@ -18,15 +18,15 @@ package com.helger.base.hashcode;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class provides the hash code generation for different data types.
@@ -220,7 +220,7 @@ public final class HashCodeCalculator
     return append (nPrevHashCode, hashCode (x));
   }
 
-  public static int hashCode (@Nonnull final boolean [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final boolean [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -230,7 +230,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -240,7 +240,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -250,7 +250,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final double [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final double [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -260,7 +260,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -270,7 +270,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -280,7 +280,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -290,7 +290,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -300,7 +300,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@Nonnull final Object [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (@NonNull final Object [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;

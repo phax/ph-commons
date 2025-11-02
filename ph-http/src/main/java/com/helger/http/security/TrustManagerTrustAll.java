@@ -21,13 +21,12 @@ import java.util.Arrays;
 
 import javax.net.ssl.X509TrustManager;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A trust manager that accepts all certificates.

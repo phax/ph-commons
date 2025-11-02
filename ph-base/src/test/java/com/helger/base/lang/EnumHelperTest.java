@@ -23,13 +23,12 @@ import static org.junit.Assert.fail;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.compare.ESortOrder;
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IHasIntID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link EnumHelper}.
@@ -55,7 +54,7 @@ public final class EnumHelperTest
     WARN,
     ERROR;
 
-    @Nonnull
+    @NonNull
     public String getID ()
     {
       return name ().toLowerCase (Locale.ROOT);

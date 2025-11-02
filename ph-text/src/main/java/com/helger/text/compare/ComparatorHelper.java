@@ -21,12 +21,12 @@ import java.util.Comparator;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper to create {@link Comparator} based objects
@@ -39,39 +39,39 @@ public final class ComparatorHelper
   private ComparatorHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static Comparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
     return getComparatorCollating (CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale));
   }
 
-  @Nonnull
-  public static Comparator <String> getComparatorCollating (@Nonnull final Collator aCollator)
+  @NonNull
+  public static Comparator <String> getComparatorCollating (@NonNull final Collator aCollator)
   {
     return Comparator.nullsFirst (aCollator::compare);
   }
 
-  @Nonnull
-  public static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
+  @NonNull
+  public static <T> Comparator <T> getComparatorCollating (@NonNull final Function <? super T, String> aMapper,
                                                            @Nullable final Locale aSortLocale)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aSortLocale));
   }
 
-  @Nonnull
-  public static <T> Comparator <T> getComparatorCollating (@Nonnull final Function <? super T, String> aMapper,
-                                                           @Nonnull final Collator aCollator)
+  @NonNull
+  public static <T> Comparator <T> getComparatorCollating (@NonNull final Function <? super T, String> aMapper,
+                                                           @NonNull final Collator aCollator)
   {
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aCollator));
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringLongestFirst ()
   {
     return getComparatorStringLongestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringLongestFirst (final boolean bNullValuesComeFirst)
   {
     return (c1, c2) -> CompareHelper.compare (c1, c2, (o1, o2) -> {
@@ -80,13 +80,13 @@ public final class ComparatorHelper
     }, bNullValuesComeFirst);
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringShortestFirst ()
   {
     return getComparatorStringShortestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringShortestFirst (final boolean bNullValuesComeFirst)
   {
     return (c1, c2) -> CompareHelper.compare (c1, c2, (o1, o2) -> {
@@ -95,13 +95,13 @@ public final class ComparatorHelper
     }, bNullValuesComeFirst);
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringIgnoreCase ()
   {
     return getComparatorStringIgnoreCase (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
-  @Nonnull
+  @NonNull
   public static IComparator <String> getComparatorStringIgnoreCase (final boolean bNullValuesComeFirst)
   {
     return (c1, c2) -> CompareHelper.compareIgnoreCase (c1, c2, bNullValuesComeFirst);

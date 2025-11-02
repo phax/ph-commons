@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,6 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.spi.ServiceLoaderHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class contains all the cleanup actions which resets library caches etc. to their original
@@ -58,7 +57,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
       m_aRunnable = aRunnable;
     }
 
-    public int compareTo (@Nonnull final Item o)
+    public int compareTo (@NonNull final Item o)
     {
       return Integer.compare (m_nPriority, o.m_nPriority);
     }
@@ -84,7 +83,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static CleanUpRegistry getInstance ()
   {
     final CleanUpRegistry ret = SingletonHolder.INSTANCE;
@@ -118,7 +117,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     _reinitialize ();
   }
 
-  public void registerCleanup (final int nPriority, @Nonnull final Runnable aRunnable)
+  public void registerCleanup (final int nPriority, @NonNull final Runnable aRunnable)
   {
     Objects.requireNonNull (aRunnable, "Runnable");
 

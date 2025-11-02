@@ -20,11 +20,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Non-synchronized version of {@link java.io.BufferedInputStream}.
@@ -105,7 +105,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * Check to make sure that underlying input stream has not been nulled out due to close; if not
    * return it;
    */
-  @Nonnull
+  @NonNull
   private InputStream _getInIfOpen () throws IOException
   {
     final InputStream ret = in;
@@ -117,7 +117,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   /**
    * Check to make sure that buffer has not been nulled out due to close; if not return it;
    */
-  @Nonnull
+  @NonNull
   private byte [] _getBufIfOpen () throws IOException
   {
     final byte [] ret = m_aBuf;
@@ -134,7 +134,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * @param aIS
    *        the underlying input stream.
    */
-  public NonBlockingBufferedInputStream (@Nonnull final InputStream aIS)
+  public NonBlockingBufferedInputStream (@NonNull final InputStream aIS)
   {
     this (aIS, DEFAULT_BUFFER_SIZE);
   }
@@ -151,7 +151,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * @exception IllegalArgumentException
    *            if size &le; 0.
    */
-  public NonBlockingBufferedInputStream (@Nonnull final InputStream aIS, @Nonnegative final int nSize)
+  public NonBlockingBufferedInputStream (@NonNull final InputStream aIS, @Nonnegative final int nSize)
   {
     super (aIS);
     ValueEnforcer.isGT0 (nSize, "Size");
@@ -236,7 +236,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * Read characters into a portion of an array, reading from the underlying stream at most once if
    * necessary.
    */
-  private int _read1 (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  private int _read1 (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
                                                                                                              throws IOException
   {
     int nAvail = m_nCount - m_nPos;

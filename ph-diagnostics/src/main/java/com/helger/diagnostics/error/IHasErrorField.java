@@ -18,11 +18,11 @@ package com.helger.diagnostics.error;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for an object that has an error field.
@@ -69,7 +69,7 @@ public interface IHasErrorField
     return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
   }
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasErrorField> getComparatorErrorFieldName ()
   {
     return Comparator.nullsFirst (Comparator.comparing (IHasErrorField::getErrorFieldName));

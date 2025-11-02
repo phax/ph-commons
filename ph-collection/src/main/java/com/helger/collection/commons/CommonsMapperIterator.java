@@ -19,10 +19,10 @@ package com.helger.collection.commons;
 import java.util.Iterator;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.base.MapperIterator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A specific {@link MapperIterator} that implements {@link ICommonsIterableIterator}
@@ -36,20 +36,20 @@ import jakarta.annotation.Nonnull;
 public class CommonsMapperIterator <SRCTYPE, ELEMENTTYPE> extends MapperIterator <SRCTYPE, ELEMENTTYPE> implements
                                    ICommonsIterableIterator <ELEMENTTYPE>
 {
-  public CommonsMapperIterator (@Nonnull final IIterableIterator <? extends SRCTYPE> aBaseIter,
-                                @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+  public CommonsMapperIterator (@NonNull final IIterableIterator <? extends SRCTYPE> aBaseIter,
+                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     super (aBaseIter, aConverter);
   }
 
-  public CommonsMapperIterator (@Nonnull final Iterable <? extends SRCTYPE> aBaseCont,
-                                @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+  public CommonsMapperIterator (@NonNull final Iterable <? extends SRCTYPE> aBaseCont,
+                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     super (aBaseCont, aConverter);
   }
 
-  public CommonsMapperIterator (@Nonnull final Iterator <? extends SRCTYPE> aBaseIter,
-                                @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
+  public CommonsMapperIterator (@NonNull final Iterator <? extends SRCTYPE> aBaseIter,
+                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     super (aBaseIter, aConverter);
   }

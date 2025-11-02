@@ -18,12 +18,12 @@ package com.helger.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.collection.commons.ICommonsOrderedMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for a multilingual text
@@ -37,7 +37,7 @@ public interface IMultilingualText extends IHasTextWithArgs
    * @return The Locale to text map. Never <code>null</code>.
    * @since 9.1.8
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   ICommonsOrderedMap <Locale, String> texts ();
 

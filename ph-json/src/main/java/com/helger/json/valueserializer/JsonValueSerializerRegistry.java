@@ -16,6 +16,8 @@
  */
 package com.helger.json.valueserializer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Registry that determines the {@link IJsonValueSerializer} object to be used for certain classes.
@@ -62,14 +61,14 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   /**
    * @return The singleton instance of this class. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static JsonValueSerializerRegistry getInstance ()
   {
     return INSTANCE;
   }
 
-  public void registerJsonValueSerializer (@Nonnull final Class <?> aClass,
-                                           @Nonnull final IJsonValueSerializer aValueSerializer)
+  public void registerJsonValueSerializer (@NonNull final Class <?> aClass,
+                                           @NonNull final IJsonValueSerializer aValueSerializer)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aValueSerializer, "ValueSerializer");

@@ -22,6 +22,9 @@ import javax.xml.transform.Source;
 import javax.xml.validation.Schema;
 import javax.xml.validation.Validator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
@@ -32,9 +35,6 @@ import com.helger.io.resource.IReadableResource;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.sax.WrappedCollectingSAXErrorHandler;
 import com.helger.xml.transform.TransformSourceFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A helper class for simple XSD validation.
@@ -50,43 +50,43 @@ public final class XMLSchemaValidationHelper
   private XMLSchemaValidationHelper ()
   {}
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull final IReadableResource aSchema, @Nonnull final IReadableResource aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull final IReadableResource aSchema, @NonNull final IReadableResource aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas, @Nonnull final IReadableResource aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas, @NonNull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
     return validate (aSchemas, TransformSourceFactory.create (aXML));
   }
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull final Schema aSchema, @Nonnull final IReadableResource aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull final Schema aSchema, @NonNull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
     return validate (aSchema, TransformSourceFactory.create (aXML));
   }
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource aSchema, @Nonnull final Source aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull @Nonempty final IReadableResource aSchema, @NonNull final Source aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull @Nonempty final IReadableResource [] aSchemas, @Nonnull final Source aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas, @NonNull final Source aXML)
   {
     // Get Schema from XMLSchemaCache
     return validate (XMLSchemaCache.getInstance ().getSchema (aSchemas), aXML);
   }
 
-  @Nonnull
-  public static IErrorList validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML)
+  @NonNull
+  public static IErrorList validate (@NonNull final Schema aSchema, @NonNull final Source aXML)
   {
     final ErrorList aErrorList = new ErrorList ();
     validate (aSchema, aXML, aErrorList);
@@ -107,7 +107,7 @@ public final class XMLSchemaValidationHelper
    *         If XSD validation failed with an exception
    * @since 8.5.3
    */
-  public static void validate (@Nonnull final Schema aSchema, @Nonnull final Source aXML, @Nonnull final ErrorList aErrorList)
+  public static void validate (@NonNull final Schema aSchema, @NonNull final Source aXML, @NonNull final ErrorList aErrorList)
   {
     validate (aSchema, aXML, aErrorList, (Locale) null);
   }
@@ -129,9 +129,9 @@ public final class XMLSchemaValidationHelper
    *         If XSD validation failed with an exception
    * @since 9.0.1
    */
-  public static void validate (@Nonnull final Schema aSchema,
-                               @Nonnull final Source aXML,
-                               @Nonnull final ErrorList aErrorList,
+  public static void validate (@NonNull final Schema aSchema,
+                               @NonNull final Source aXML,
+                               @NonNull final ErrorList aErrorList,
                                @Nullable final Locale aLocale)
   {
     ValueEnforcer.notNull (aSchema, "Schema");

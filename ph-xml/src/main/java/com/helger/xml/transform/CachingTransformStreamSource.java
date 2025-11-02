@@ -20,6 +20,9 @@ import java.io.InputStream;
 
 import javax.xml.transform.stream.StreamSource;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.iface.IHasInputStream;
@@ -27,9 +30,6 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link javax.xml.transform.Source} that ensures that the passed {@link InputStream} is copied.
@@ -40,17 +40,17 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class CachingTransformStreamSource extends StreamSource
 {
-  public CachingTransformStreamSource (@Nonnull final IReadableResource aResource)
+  public CachingTransformStreamSource (@NonNull final IReadableResource aResource)
   {
     this (aResource.getInputStream (), aResource.getResourceID ());
   }
 
-  public CachingTransformStreamSource (@Nonnull final IHasInputStream aIIS)
+  public CachingTransformStreamSource (@NonNull final IHasInputStream aIIS)
   {
     this (aIIS, null);
   }
 
-  public CachingTransformStreamSource (@Nonnull final IHasInputStream aIIS, @Nullable final String sSystemID)
+  public CachingTransformStreamSource (@NonNull final IHasInputStream aIIS, @Nullable final String sSystemID)
   {
     this (aIIS.getInputStream (), sSystemID);
   }

@@ -24,6 +24,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.BooleanSupplier;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains "runtime assertions" utility methods. It works like
@@ -88,7 +87,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isTrue (final boolean bValue, @Nonnull final String sMsg)
+  public static void isTrue (final boolean bValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
       isTrue (bValue, () -> sMsg);
@@ -104,7 +103,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isTrue (final boolean bValue, @Nonnull final Supplier <? extends String> aMsg)
+  public static void isTrue (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
     if (isEnabled ())
       if (!bValue)
@@ -121,7 +120,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isTrue (@Nonnull final BooleanSupplier aValue, @Nonnull final String sMsg)
+  public static void isTrue (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
       isTrue (aValue, () -> sMsg);
@@ -137,7 +136,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isTrue (@Nonnull final BooleanSupplier aValue, @Nonnull final Supplier <? extends String> aMsg)
+  public static void isTrue (@NonNull final BooleanSupplier aValue, @NonNull final Supplier <? extends String> aMsg)
   {
     if (isEnabled ())
       if (!aValue.getAsBoolean ())
@@ -154,7 +153,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isFalse (final boolean bValue, @Nonnull final String sMsg)
+  public static void isFalse (final boolean bValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
       isFalse (bValue, () -> sMsg);
@@ -170,7 +169,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isFalse (final boolean bValue, @Nonnull final Supplier <? extends String> aMsg)
+  public static void isFalse (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
     if (isEnabled ())
       if (bValue)
@@ -187,7 +186,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isFalse (@Nonnull final BooleanSupplier aValue, @Nonnull final String sMsg)
+  public static void isFalse (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
       isFalse (aValue, () -> sMsg);
@@ -203,7 +202,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isFalse (@Nonnull final BooleanSupplier aValue, @Nonnull final Supplier <? extends String> aMsg)
+  public static void isFalse (@NonNull final BooleanSupplier aValue, @NonNull final Supplier <? extends String> aMsg)
   {
     if (isEnabled ())
       if (aValue.getAsBoolean ())
@@ -225,8 +224,8 @@ public final class ValueEnforcer
    *        Type to check.
    */
   public static <T> void isInstanceOf (@Nullable final T aValue,
-                                       @Nonnull final Class <? extends T> aClass,
-                                       @Nonnull final String sMsg)
+                                       @NonNull final Class <? extends T> aClass,
+                                       @NonNull final String sMsg)
   {
     if (isEnabled ())
       isInstanceOf (aValue, aClass, () -> sMsg);
@@ -247,8 +246,8 @@ public final class ValueEnforcer
    *        Type to check.
    */
   public static <T> void isInstanceOf (@Nullable final T aValue,
-                                       @Nonnull final Class <? extends T> aClass,
-                                       @Nonnull final Supplier <? extends String> aMsg)
+                                       @NonNull final Class <? extends T> aClass,
+                                       @NonNull final Supplier <? extends String> aMsg)
   {
     notNull (aClass, "Class");
     if (isEnabled ())
@@ -273,7 +272,7 @@ public final class ValueEnforcer
    * @throws NullPointerException
    *         if the passed value is <code>null</code>.
    */
-  public static <T> T notNull (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T> T notNull (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       if (aValue == null)
@@ -294,7 +293,7 @@ public final class ValueEnforcer
    * @throws NullPointerException
    *         if the passed value is <code>null</code>.
    */
-  public static <T> T notNull (@Nonnull final T aValue, @Nonnull final Supplier <? extends String> aName)
+  public static <T> T notNull (@NonNull final T aValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (aValue == null)
@@ -312,7 +311,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isNull (@Nullable final Object aValue, @Nonnull final String sName)
+  public static void isNull (@Nullable final Object aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       isNull (aValue, () -> sName);
@@ -328,7 +327,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isNull (@Nullable final Object aValue, @Nonnull final Supplier <? extends String> aName)
+  public static void isNull (@Nullable final Object aValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (aValue != null)
@@ -348,7 +347,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static <T extends CharSequence> T notEmpty (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends CharSequence> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -368,8 +367,8 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static <T extends CharSequence> T notEmpty (@Nonnull final T aValue,
-                                                     @Nonnull final Supplier <? extends String> aName)
+  public static <T extends CharSequence> T notEmpty (@NonNull final T aValue,
+                                                     @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -391,7 +390,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static <T> T [] notEmpty (@Nonnull final T [] aValue, @Nonnull final String sName)
+  public static <T> T [] notEmpty (@NonNull final T [] aValue, @NonNull final String sName)
   {
     return notEmpty (aValue, () -> sName);
   }
@@ -409,7 +408,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static <T> T [] notEmpty (@Nonnull final T [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static <T> T [] notEmpty (@NonNull final T [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -429,7 +428,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static boolean [] notEmpty (@Nonnull final boolean [] aValue, @Nonnull final String sName)
+  public static boolean [] notEmpty (@NonNull final boolean [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -447,7 +446,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static boolean [] notEmpty (@Nonnull final boolean [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static boolean [] notEmpty (@NonNull final boolean [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -467,7 +466,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static byte [] notEmpty (@Nonnull final byte [] aValue, @Nonnull final String sName)
+  public static byte [] notEmpty (@NonNull final byte [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -485,7 +484,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static byte [] notEmpty (@Nonnull final byte [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static byte [] notEmpty (@NonNull final byte [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -505,7 +504,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static char [] notEmpty (@Nonnull final char [] aValue, @Nonnull final String sName)
+  public static char [] notEmpty (@NonNull final char [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -523,7 +522,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static char [] notEmpty (@Nonnull final char [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static char [] notEmpty (@NonNull final char [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -543,7 +542,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static double [] notEmpty (@Nonnull final double [] aValue, @Nonnull final String sName)
+  public static double [] notEmpty (@NonNull final double [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -561,7 +560,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static double [] notEmpty (@Nonnull final double [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static double [] notEmpty (@NonNull final double [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -581,7 +580,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static float [] notEmpty (@Nonnull final float [] aValue, @Nonnull final String sName)
+  public static float [] notEmpty (@NonNull final float [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -599,7 +598,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static float [] notEmpty (@Nonnull final float [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static float [] notEmpty (@NonNull final float [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -619,7 +618,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static int [] notEmpty (@Nonnull final int [] aValue, @Nonnull final String sName)
+  public static int [] notEmpty (@NonNull final int [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -637,7 +636,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static int [] notEmpty (@Nonnull final int [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static int [] notEmpty (@NonNull final int [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -657,7 +656,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static long [] notEmpty (@Nonnull final long [] aValue, @Nonnull final String sName)
+  public static long [] notEmpty (@NonNull final long [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -675,7 +674,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static long [] notEmpty (@Nonnull final long [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static long [] notEmpty (@NonNull final long [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -695,7 +694,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static short [] notEmpty (@Nonnull final short [] aValue, @Nonnull final String sName)
+  public static short [] notEmpty (@NonNull final short [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -713,7 +712,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static short [] notEmpty (@Nonnull final short [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static short [] notEmpty (@NonNull final short [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -736,7 +735,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Collection <?>> T notEmpty (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Collection <?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -757,8 +756,8 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Collection <?>> T notEmpty (@Nonnull final T aValue,
-                                                       @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Collection <?>> T notEmpty (@NonNull final T aValue,
+                                                       @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -781,7 +780,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Iterable <?>> T notEmpty (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Iterable <?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -802,8 +801,8 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Iterable <?>> T notEmpty (@Nonnull final T aValue,
-                                                     @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Iterable <?>> T notEmpty (@NonNull final T aValue,
+                                                     @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -826,7 +825,7 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notEmpty (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Map <?, ?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -847,8 +846,8 @@ public final class ValueEnforcer
    *         if the passed value is empty
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notEmpty (@Nonnull final T aValue,
-                                                   @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Map <?, ?>> T notEmpty (@NonNull final T aValue,
+                                                   @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -872,7 +871,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T> T [] noNullValue (@Nonnull final T [] aValue, @Nonnull final String sName)
+  public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return noNullValue (aValue, () -> sName);
@@ -894,7 +893,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T> T [] noNullValue (@Nonnull final T [] aValue, @Nonnull final Supplier <? extends String> aName)
+  public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (aValue != null)
@@ -925,7 +924,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T extends Iterable <?>> T noNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return noNullValue (aValue, () -> sName);
@@ -947,8 +946,8 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T extends Iterable <?>> T noNullValue (@Nonnull final T aValue,
-                                                        @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue,
+                                                        @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (aValue != null)
@@ -985,7 +984,7 @@ public final class ValueEnforcer
    */
   @Nullable
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T noNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return noNullValue (aValue, () -> sName);
@@ -1009,8 +1008,8 @@ public final class ValueEnforcer
    */
   @Nullable
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T noNullValue (@Nonnull final T aValue,
-                                                      @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue,
+                                                      @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (aValue != null)
@@ -1040,7 +1039,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is null or a <code>null</code> value is contained
    */
-  public static <T> T [] notNullNoNullValue (@Nonnull final T [] aValue, @Nonnull final String sName)
+  public static <T> T [] notNullNoNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notNullNoNullValue (aValue, () -> sName);
@@ -1061,8 +1060,8 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is null or a <code>null</code> value is contained
    */
-  public static <T> T [] notNullNoNullValue (@Nonnull final T [] aValue,
-                                             @Nonnull final Supplier <? extends String> aName)
+  public static <T> T [] notNullNoNullValue (@NonNull final T [] aValue,
+                                             @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     noNullValue (aValue, aName);
@@ -1083,7 +1082,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is <code>null</code> or a <code>null</code> value is contained
    */
-  public static <T extends Iterable <?>> T notNullNoNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Iterable <?>> T notNullNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notNullNoNullValue (aValue, () -> sName);
@@ -1104,8 +1103,8 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is <code>null</code> or a <code>null</code> value is contained
    */
-  public static <T extends Iterable <?>> T notNullNoNullValue (@Nonnull final T aValue,
-                                                               @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Iterable <?>> T notNullNoNullValue (@NonNull final T aValue,
+                                                               @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     noNullValue (aValue, aName);
@@ -1127,7 +1126,7 @@ public final class ValueEnforcer
    *         if the passed value is <code>null</code> or a <code>null</code> value is contained
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notNullNoNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Map <?, ?>> T notNullNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notNullNoNullValue (aValue, () -> sName);
@@ -1149,8 +1148,8 @@ public final class ValueEnforcer
    *         if the passed value is <code>null</code> or a <code>null</code> value is contained
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notNullNoNullValue (@Nonnull final T aValue,
-                                                             @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Map <?, ?>> T notNullNoNullValue (@NonNull final T aValue,
+                                                             @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     noNullValue (aValue, aName);
@@ -1171,7 +1170,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty or a <code>null</code> value is contained
    */
-  public static <T> T [] notEmptyNoNullValue (@Nonnull final T [] aValue, @Nonnull final String sName)
+  public static <T> T [] notEmptyNoNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmptyNoNullValue (aValue, () -> sName);
@@ -1192,8 +1191,8 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty or a <code>null</code> value is contained
    */
-  public static <T> T [] notEmptyNoNullValue (@Nonnull final T [] aValue,
-                                              @Nonnull final Supplier <? extends String> aName)
+  public static <T> T [] notEmptyNoNullValue (@NonNull final T [] aValue,
+                                              @NonNull final Supplier <? extends String> aName)
   {
     notEmpty (aValue, aName);
     noNullValue (aValue, aName);
@@ -1214,7 +1213,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty or a <code>null</code> value is contained
    */
-  public static <T extends Iterable <?>> T notEmptyNoNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Iterable <?>> T notEmptyNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmptyNoNullValue (aValue, () -> sName);
@@ -1235,8 +1234,8 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty or a <code>null</code> value is contained
    */
-  public static <T extends Iterable <?>> T notEmptyNoNullValue (@Nonnull final T aValue,
-                                                                @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Iterable <?>> T notEmptyNoNullValue (@NonNull final T aValue,
+                                                                @NonNull final Supplier <? extends String> aName)
   {
     notEmpty (aValue, aName);
     noNullValue (aValue, aName);
@@ -1258,7 +1257,7 @@ public final class ValueEnforcer
    *         if the passed value is empty or a <code>null</code> value is contained
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notEmptyNoNullValue (@Nonnull final T aValue, @Nonnull final String sName)
+  public static <T extends Map <?, ?>> T notEmptyNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmptyNoNullValue (aValue, () -> sName);
@@ -1280,8 +1279,8 @@ public final class ValueEnforcer
    *         if the passed value is empty or a <code>null</code> value is contained
    */
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T notEmptyNoNullValue (@Nonnull final T aValue,
-                                                              @Nonnull final Supplier <? extends String> aName)
+  public static <T extends Map <?, ?>> T notEmptyNoNullValue (@NonNull final T aValue,
+                                                              @NonNull final Supplier <? extends String> aName)
   {
     notEmpty (aValue, aName);
     noNullValue (aValue, aName);
@@ -1301,9 +1300,9 @@ public final class ValueEnforcer
    *        The value that may not be equal to aValue. May not be <code>null</code>.
    * @return The passed value.
    */
-  public static <T> T notNullNotEquals (@Nonnull final T aValue,
-                                        @Nonnull final String sName,
-                                        @Nonnull final T aUnexpectedValue)
+  public static <T> T notNullNotEquals (@NonNull final T aValue,
+                                        @NonNull final String sName,
+                                        @NonNull final T aUnexpectedValue)
   {
     if (isEnabled ())
       return notNullNotEquals (aValue, () -> sName, aUnexpectedValue);
@@ -1323,9 +1322,9 @@ public final class ValueEnforcer
    *        The value that may not be equal to aValue. May not be <code>null</code>.
    * @return The passed value.
    */
-  public static <T> T notNullNotEquals (@Nonnull final T aValue,
-                                        @Nonnull final Supplier <? extends String> aName,
-                                        @Nonnull final T aUnexpectedValue)
+  public static <T> T notNullNotEquals (@NonNull final T aValue,
+                                        @NonNull final Supplier <? extends String> aName,
+                                        @NonNull final T aUnexpectedValue)
   {
     notNull (aValue, aName);
     notNull (aUnexpectedValue, "UnexpectedValue");
@@ -1354,9 +1353,9 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static <T> T notNullAndEquals (@Nonnull final T aValue,
-                                        @Nonnull final String sName,
-                                        @Nonnull final T aExpectedValue)
+  public static <T> T notNullAndEquals (@NonNull final T aValue,
+                                        @NonNull final String sName,
+                                        @NonNull final T aExpectedValue)
   {
     if (isEnabled ())
       return notNullAndEquals (aValue, () -> sName, aExpectedValue);
@@ -1378,9 +1377,9 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static <T> T notNullAndEquals (@Nonnull final T aValue,
-                                        @Nonnull final Supplier <? extends String> aName,
-                                        @Nonnull final T aExpectedValue)
+  public static <T> T notNullAndEquals (@NonNull final T aValue,
+                                        @NonNull final Supplier <? extends String> aName,
+                                        @NonNull final T aExpectedValue)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1410,7 +1409,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static <T> T isSame (@Nullable final T aValue, @Nonnull final String sName, @Nullable final T aExpectedValue)
+  public static <T> T isSame (@Nullable final T aValue, @NonNull final String sName, @Nullable final T aExpectedValue)
   {
     if (isEnabled ())
       return isSame (aValue, () -> sName, aExpectedValue);
@@ -1435,7 +1434,7 @@ public final class ValueEnforcer
    *         if the passed value is not <code>null</code>.
    */
   public static <T> T isSame (@Nullable final T aValue,
-                              @Nonnull final Supplier <? extends String> aName,
+                              @NonNull final Supplier <? extends String> aName,
                               @Nullable final T aExpectedValue)
   {
     if (isEnabled ())
@@ -1465,7 +1464,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static <T> T isEqual (final T aValue, @Nullable final T aExpectedValue, @Nonnull final String sName)
+  public static <T> T isEqual (final T aValue, @Nullable final T aExpectedValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isEqual (aValue, aExpectedValue, () -> sName);
@@ -1490,7 +1489,7 @@ public final class ValueEnforcer
    */
   public static <T> T isEqual (final T aValue,
                                @Nullable final T aExpectedValue,
-                               @Nonnull final Supplier <? extends String> aName)
+                               @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (!EqualsHelper.equals (aValue, aExpectedValue))
@@ -1516,7 +1515,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isEqual (final int nValue, final int nExpectedValue, @Nonnull final String sName)
+  public static void isEqual (final int nValue, final int nExpectedValue, @NonNull final String sName)
   {
     if (isEnabled ())
       isEqual (nValue, nExpectedValue, () -> sName);
@@ -1537,7 +1536,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final int nValue,
                               final int nExpectedValue,
-                              @Nonnull final Supplier <? extends String> aName)
+                              @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue != nExpectedValue)
@@ -1562,7 +1561,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isEqual (final long nValue, final long nExpectedValue, @Nonnull final String sName)
+  public static void isEqual (final long nValue, final long nExpectedValue, @NonNull final String sName)
   {
     if (isEnabled ())
       isEqual (nValue, nExpectedValue, () -> sName);
@@ -1583,7 +1582,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final long nValue,
                               final long nExpectedValue,
-                              @Nonnull final Supplier <? extends String> aName)
+                              @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue != nExpectedValue)
@@ -1608,7 +1607,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is not <code>null</code>.
    */
-  public static void isEqual (final double dValue, final double dExpectedValue, @Nonnull final String sName)
+  public static void isEqual (final double dValue, final double dExpectedValue, @NonNull final String sName)
   {
     if (isEnabled ())
       isEqual (dValue, dExpectedValue, () -> sName);
@@ -1629,7 +1628,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final double dValue,
                               final double dExpectedValue,
-                              @Nonnull final Supplier <? extends String> aName)
+                              @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (!EqualsHelper.equals (dValue, dExpectedValue))
@@ -1641,14 +1640,14 @@ public final class ValueEnforcer
                                             dExpectedValue);
   }
 
-  public static int isGE0 (final int nValue, @Nonnull final String sName)
+  public static int isGE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static int isGE0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  public static int isGE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue < 0)
@@ -1659,14 +1658,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static long isGE0 (final long nValue, @Nonnull final String sName)
+  public static long isGE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static long isGE0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  public static long isGE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue < 0)
@@ -1677,14 +1676,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static short isGE0 (final short nValue, @Nonnull final String sName)
+  public static short isGE0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static short isGE0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
+  public static short isGE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue < 0)
@@ -1695,14 +1694,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static double isGE0 (final double dValue, @Nonnull final String sName)
+  public static double isGE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (dValue, () -> sName);
     return dValue;
   }
 
-  public static double isGE0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  public static double isGE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (dValue < 0)
@@ -1713,14 +1712,14 @@ public final class ValueEnforcer
     return dValue;
   }
 
-  public static float isGE0 (final float fValue, @Nonnull final String sName)
+  public static float isGE0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (fValue, () -> sName);
     return fValue;
   }
 
-  public static float isGE0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
+  public static float isGE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (fValue < 0)
@@ -1731,14 +1730,14 @@ public final class ValueEnforcer
     return fValue;
   }
 
-  public static BigDecimal isGE0 (@Nonnull final BigDecimal aValue, @Nonnull final String sName)
+  public static BigDecimal isGE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigDecimal isGE0 (@Nonnull final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigDecimal isGE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1750,14 +1749,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static BigInteger isGE0 (@Nonnull final BigInteger aValue, @Nonnull final String sName)
+  public static BigInteger isGE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigInteger isGE0 (@Nonnull final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigInteger isGE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1769,14 +1768,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static int isGT0 (final int nValue, @Nonnull final String sName)
+  public static int isGT0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static int isGT0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  public static int isGT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue <= 0)
@@ -1787,14 +1786,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static long isGT0 (final long nValue, @Nonnull final String sName)
+  public static long isGT0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static long isGT0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  public static long isGT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue <= 0)
@@ -1805,14 +1804,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static short isGT0 (final short nValue, @Nonnull final String sName)
+  public static short isGT0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static short isGT0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
+  public static short isGT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue <= 0)
@@ -1823,14 +1822,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static double isGT0 (final double dValue, @Nonnull final String sName)
+  public static double isGT0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (dValue, () -> sName);
     return dValue;
   }
 
-  public static double isGT0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  public static double isGT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (dValue <= 0)
@@ -1841,14 +1840,14 @@ public final class ValueEnforcer
     return dValue;
   }
 
-  public static float isGT0 (final float fValue, @Nonnull final String sName)
+  public static float isGT0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (fValue, () -> sName);
     return fValue;
   }
 
-  public static float isGT0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
+  public static float isGT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (fValue <= 0)
@@ -1859,14 +1858,14 @@ public final class ValueEnforcer
     return fValue;
   }
 
-  public static BigDecimal isGT0 (@Nonnull final BigDecimal aValue, @Nonnull final String sName)
+  public static BigDecimal isGT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigDecimal isGT0 (@Nonnull final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigDecimal isGT0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1878,14 +1877,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static BigInteger isGT0 (@Nonnull final BigInteger aValue, @Nonnull final String sName)
+  public static BigInteger isGT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isGT0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigInteger isGT0 (@Nonnull final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigInteger isGT0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1897,14 +1896,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static int isNE0 (final int nValue, @Nonnull final String sName)
+  public static int isNE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isNE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static int isNE0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  public static int isNE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue == 0)
@@ -1915,14 +1914,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static long isNE0 (final long nValue, @Nonnull final String sName)
+  public static long isNE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isNE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static long isNE0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  public static long isNE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue == 0)
@@ -1933,14 +1932,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static double isNE0 (final double dValue, @Nonnull final String sName)
+  public static double isNE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isNE0 (dValue, () -> sName);
     return dValue;
   }
 
-  public static double isNE0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  public static double isNE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (dValue == 0)
@@ -1951,14 +1950,14 @@ public final class ValueEnforcer
     return dValue;
   }
 
-  public static BigDecimal isNE0 (@Nonnull final BigDecimal aValue, @Nonnull final String sName)
+  public static BigDecimal isNE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isNE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigDecimal isNE0 (@Nonnull final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigDecimal isNE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1970,14 +1969,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static BigInteger isNE0 (@Nonnull final BigInteger aValue, @Nonnull final String sName)
+  public static BigInteger isNE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isNE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigInteger isNE0 (@Nonnull final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigInteger isNE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -1989,14 +1988,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static int isLE0 (final int nValue, @Nonnull final String sName)
+  public static int isLE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static int isLE0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  public static int isLE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue > 0)
@@ -2007,14 +2006,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static long isLE0 (final long nValue, @Nonnull final String sName)
+  public static long isLE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static long isLE0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  public static long isLE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue > 0)
@@ -2025,14 +2024,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static short isLE0 (final short nValue, @Nonnull final String sName)
+  public static short isLE0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static short isLE0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
+  public static short isLE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue > 0)
@@ -2043,14 +2042,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static double isLE0 (final double dValue, @Nonnull final String sName)
+  public static double isLE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (dValue, () -> sName);
     return dValue;
   }
 
-  public static double isLE0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  public static double isLE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (dValue > 0)
@@ -2061,14 +2060,14 @@ public final class ValueEnforcer
     return dValue;
   }
 
-  public static float isLE0 (final float fValue, @Nonnull final String sName)
+  public static float isLE0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (fValue, () -> sName);
     return fValue;
   }
 
-  public static float isLE0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
+  public static float isLE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (fValue > 0)
@@ -2079,14 +2078,14 @@ public final class ValueEnforcer
     return fValue;
   }
 
-  public static BigDecimal isLE0 (@Nonnull final BigDecimal aValue, @Nonnull final String sName)
+  public static BigDecimal isLE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigDecimal isLE0 (@Nonnull final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigDecimal isLE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -2098,14 +2097,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static BigInteger isLE0 (@Nonnull final BigInteger aValue, @Nonnull final String sName)
+  public static BigInteger isLE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLE0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigInteger isLE0 (@Nonnull final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigInteger isLE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -2117,14 +2116,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static int isLT0 (final int nValue, @Nonnull final String sName)
+  public static int isLT0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static int isLT0 (final int nValue, @Nonnull final Supplier <? extends String> aName)
+  public static int isLT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue >= 0)
@@ -2135,14 +2134,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static long isLT0 (final long nValue, @Nonnull final String sName)
+  public static long isLT0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static long isLT0 (final long nValue, @Nonnull final Supplier <? extends String> aName)
+  public static long isLT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue >= 0)
@@ -2153,14 +2152,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static short isLT0 (final short nValue, @Nonnull final String sName)
+  public static short isLT0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
 
-  public static short isLT0 (final short nValue, @Nonnull final Supplier <? extends String> aName)
+  public static short isLT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (nValue >= 0)
@@ -2171,14 +2170,14 @@ public final class ValueEnforcer
     return nValue;
   }
 
-  public static double isLT0 (final double dValue, @Nonnull final String sName)
+  public static double isLT0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (dValue, () -> sName);
     return dValue;
   }
 
-  public static double isLT0 (final double dValue, @Nonnull final Supplier <? extends String> aName)
+  public static double isLT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (dValue >= 0)
@@ -2189,14 +2188,14 @@ public final class ValueEnforcer
     return dValue;
   }
 
-  public static float isLT0 (final float fValue, @Nonnull final String sName)
+  public static float isLT0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (fValue, () -> sName);
     return fValue;
   }
 
-  public static float isLT0 (final float fValue, @Nonnull final Supplier <? extends String> aName)
+  public static float isLT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
       if (fValue >= 0)
@@ -2207,14 +2206,14 @@ public final class ValueEnforcer
     return fValue;
   }
 
-  public static BigDecimal isLT0 (@Nonnull final BigDecimal aValue, @Nonnull final String sName)
+  public static BigDecimal isLT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigDecimal isLT0 (@Nonnull final BigDecimal aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigDecimal isLT0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -2226,14 +2225,14 @@ public final class ValueEnforcer
     return aValue;
   }
 
-  public static BigInteger isLT0 (@Nonnull final BigInteger aValue, @Nonnull final String sName)
+  public static BigInteger isLT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return isLT0 (aValue, () -> sName);
     return aValue;
   }
 
-  public static BigInteger isLT0 (@Nonnull final BigInteger aValue, @Nonnull final Supplier <? extends String> aName)
+  public static BigInteger isLT0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -2260,7 +2259,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static int isBetweenInclusive (final int nValue,
-                                        @Nonnull final String sName,
+                                        @NonNull final String sName,
                                         final int nLowerBoundInclusive,
                                         final int nUpperBoundInclusive)
   {
@@ -2284,7 +2283,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static int isBetweenInclusive (final int nValue,
-                                        @Nonnull final Supplier <? extends String> aName,
+                                        @NonNull final Supplier <? extends String> aName,
                                         final int nLowerBoundInclusive,
                                         final int nUpperBoundInclusive)
   {
@@ -2316,7 +2315,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static long isBetweenInclusive (final long nValue,
-                                         @Nonnull final String sName,
+                                         @NonNull final String sName,
                                          final long nLowerBoundInclusive,
                                          final long nUpperBoundInclusive)
   {
@@ -2340,7 +2339,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static long isBetweenInclusive (final long nValue,
-                                         @Nonnull final Supplier <? extends String> aName,
+                                         @NonNull final Supplier <? extends String> aName,
                                          final long nLowerBoundInclusive,
                                          final long nUpperBoundInclusive)
   {
@@ -2372,7 +2371,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static short isBetweenInclusive (final short nValue,
-                                          @Nonnull final String sName,
+                                          @NonNull final String sName,
                                           final short nLowerBoundInclusive,
                                           final short nUpperBoundInclusive)
   {
@@ -2396,7 +2395,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static short isBetweenInclusive (final short nValue,
-                                          @Nonnull final Supplier <? extends String> aName,
+                                          @NonNull final Supplier <? extends String> aName,
                                           final short nLowerBoundInclusive,
                                           final short nUpperBoundInclusive)
   {
@@ -2428,7 +2427,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static double isBetweenInclusive (final double dValue,
-                                           @Nonnull final String sName,
+                                           @NonNull final String sName,
                                            final double dLowerBoundInclusive,
                                            final double dUpperBoundInclusive)
   {
@@ -2452,7 +2451,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static double isBetweenInclusive (final double dValue,
-                                           @Nonnull final Supplier <? extends String> aName,
+                                           @NonNull final Supplier <? extends String> aName,
                                            final double dLowerBoundInclusive,
                                            final double dUpperBoundInclusive)
   {
@@ -2484,7 +2483,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static float isBetweenInclusive (final float fValue,
-                                          @Nonnull final String sName,
+                                          @NonNull final String sName,
                                           final float fLowerBoundInclusive,
                                           final float fUpperBoundInclusive)
   {
@@ -2508,7 +2507,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static float isBetweenInclusive (final float fValue,
-                                          @Nonnull final Supplier <? extends String> aName,
+                                          @NonNull final Supplier <? extends String> aName,
                                           final float fLowerBoundInclusive,
                                           final float fUpperBoundInclusive)
   {
@@ -2539,10 +2538,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigDecimal isBetweenInclusive (@Nonnull final BigDecimal aValue,
-                                               @Nonnull final String sName,
-                                               @Nonnull final BigDecimal aLowerBoundInclusive,
-                                               @Nonnull final BigDecimal aUpperBoundInclusive)
+  public static BigDecimal isBetweenInclusive (@NonNull final BigDecimal aValue,
+                                               @NonNull final String sName,
+                                               @NonNull final BigDecimal aLowerBoundInclusive,
+                                               @NonNull final BigDecimal aUpperBoundInclusive)
   {
     if (isEnabled ())
       return isBetweenInclusive (aValue, () -> sName, aLowerBoundInclusive, aUpperBoundInclusive);
@@ -2563,10 +2562,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigDecimal isBetweenInclusive (@Nonnull final BigDecimal aValue,
-                                               @Nonnull final Supplier <? extends String> aName,
-                                               @Nonnull final BigDecimal aLowerBoundInclusive,
-                                               @Nonnull final BigDecimal aUpperBoundInclusive)
+  public static BigDecimal isBetweenInclusive (@NonNull final BigDecimal aValue,
+                                               @NonNull final Supplier <? extends String> aName,
+                                               @NonNull final BigDecimal aLowerBoundInclusive,
+                                               @NonNull final BigDecimal aUpperBoundInclusive)
   {
     notNull (aValue, aName);
     notNull (aLowerBoundInclusive, "LowerBoundInclusive");
@@ -2598,10 +2597,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigInteger isBetweenInclusive (@Nonnull final BigInteger aValue,
-                                               @Nonnull final String sName,
-                                               @Nonnull final BigInteger aLowerBoundInclusive,
-                                               @Nonnull final BigInteger aUpperBoundInclusive)
+  public static BigInteger isBetweenInclusive (@NonNull final BigInteger aValue,
+                                               @NonNull final String sName,
+                                               @NonNull final BigInteger aLowerBoundInclusive,
+                                               @NonNull final BigInteger aUpperBoundInclusive)
   {
     if (isEnabled ())
       return isBetweenInclusive (aValue, () -> sName, aLowerBoundInclusive, aUpperBoundInclusive);
@@ -2622,10 +2621,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigInteger isBetweenInclusive (@Nonnull final BigInteger aValue,
-                                               @Nonnull final Supplier <? extends String> aName,
-                                               @Nonnull final BigInteger aLowerBoundInclusive,
-                                               @Nonnull final BigInteger aUpperBoundInclusive)
+  public static BigInteger isBetweenInclusive (@NonNull final BigInteger aValue,
+                                               @NonNull final Supplier <? extends String> aName,
+                                               @NonNull final BigInteger aLowerBoundInclusive,
+                                               @NonNull final BigInteger aUpperBoundInclusive)
   {
     notNull (aValue, aName);
     notNull (aLowerBoundInclusive, "LowerBoundInclusive");
@@ -2658,7 +2657,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static int isBetweenExclusive (final int nValue,
-                                        @Nonnull final String sName,
+                                        @NonNull final String sName,
                                         final int nLowerBoundExclusive,
                                         final int nUpperBoundExclusive)
   {
@@ -2682,7 +2681,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static int isBetweenExclusive (final int nValue,
-                                        @Nonnull final Supplier <? extends String> aName,
+                                        @NonNull final Supplier <? extends String> aName,
                                         final int nLowerBoundExclusive,
                                         final int nUpperBoundExclusive)
   {
@@ -2714,7 +2713,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static long isBetweenExclusive (final long nValue,
-                                         @Nonnull final String sName,
+                                         @NonNull final String sName,
                                          final long nLowerBoundExclusive,
                                          final long nUpperBoundExclusive)
   {
@@ -2738,7 +2737,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static long isBetweenExclusive (final long nValue,
-                                         @Nonnull final Supplier <? extends String> aName,
+                                         @NonNull final Supplier <? extends String> aName,
                                          final long nLowerBoundExclusive,
                                          final long nUpperBoundExclusive)
   {
@@ -2770,7 +2769,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static short isBetweenExclusive (final short nValue,
-                                          @Nonnull final String sName,
+                                          @NonNull final String sName,
                                           final short nLowerBoundExclusive,
                                           final short nUpperBoundExclusive)
   {
@@ -2794,7 +2793,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static short isBetweenExclusive (final short nValue,
-                                          @Nonnull final Supplier <? extends String> aName,
+                                          @NonNull final Supplier <? extends String> aName,
                                           final short nLowerBoundExclusive,
                                           final short nUpperBoundExclusive)
   {
@@ -2826,7 +2825,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static double isBetweenExclusive (final double dValue,
-                                           @Nonnull final String sName,
+                                           @NonNull final String sName,
                                            final double dLowerBoundExclusive,
                                            final double dUpperBoundExclusive)
   {
@@ -2850,7 +2849,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static double isBetweenExclusive (final double dValue,
-                                           @Nonnull final Supplier <? extends String> aName,
+                                           @NonNull final Supplier <? extends String> aName,
                                            final double dLowerBoundExclusive,
                                            final double dUpperBoundExclusive)
   {
@@ -2882,7 +2881,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static float isBetweenExclusive (final float fValue,
-                                          @Nonnull final String sName,
+                                          @NonNull final String sName,
                                           final float fLowerBoundExclusive,
                                           final float fUpperBoundExclusive)
   {
@@ -2906,7 +2905,7 @@ public final class ValueEnforcer
    * @return The value
    */
   public static float isBetweenExclusive (final float fValue,
-                                          @Nonnull final Supplier <? extends String> aName,
+                                          @NonNull final Supplier <? extends String> aName,
                                           final float fLowerBoundExclusive,
                                           final float fUpperBoundExclusive)
   {
@@ -2937,10 +2936,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigDecimal isBetweenExclusive (@Nonnull final BigDecimal aValue,
-                                               @Nonnull final String sName,
-                                               @Nonnull final BigDecimal aLowerBoundExclusive,
-                                               @Nonnull final BigDecimal aUpperBoundExclusive)
+  public static BigDecimal isBetweenExclusive (@NonNull final BigDecimal aValue,
+                                               @NonNull final String sName,
+                                               @NonNull final BigDecimal aLowerBoundExclusive,
+                                               @NonNull final BigDecimal aUpperBoundExclusive)
   {
     if (isEnabled ())
       return isBetweenExclusive (aValue, () -> sName, aLowerBoundExclusive, aUpperBoundExclusive);
@@ -2961,10 +2960,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigDecimal isBetweenExclusive (@Nonnull final BigDecimal aValue,
-                                               @Nonnull final Supplier <? extends String> aName,
-                                               @Nonnull final BigDecimal aLowerBoundExclusive,
-                                               @Nonnull final BigDecimal aUpperBoundExclusive)
+  public static BigDecimal isBetweenExclusive (@NonNull final BigDecimal aValue,
+                                               @NonNull final Supplier <? extends String> aName,
+                                               @NonNull final BigDecimal aLowerBoundExclusive,
+                                               @NonNull final BigDecimal aUpperBoundExclusive)
   {
     notNull (aValue, aName);
     notNull (aLowerBoundExclusive, "LowerBoundInclusive");
@@ -2996,10 +2995,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigInteger isBetweenExclusive (@Nonnull final BigInteger aValue,
-                                               @Nonnull final String sName,
-                                               @Nonnull final BigInteger aLowerBoundExclusive,
-                                               @Nonnull final BigInteger aUpperBoundExclusive)
+  public static BigInteger isBetweenExclusive (@NonNull final BigInteger aValue,
+                                               @NonNull final String sName,
+                                               @NonNull final BigInteger aLowerBoundExclusive,
+                                               @NonNull final BigInteger aUpperBoundExclusive)
   {
     if (isEnabled ())
       return isBetweenExclusive (aValue, () -> sName, aLowerBoundExclusive, aUpperBoundExclusive);
@@ -3020,10 +3019,10 @@ public final class ValueEnforcer
    *        Upper bound
    * @return The value
    */
-  public static BigInteger isBetweenExclusive (@Nonnull final BigInteger aValue,
-                                               @Nonnull final Supplier <? extends String> aName,
-                                               @Nonnull final BigInteger aLowerBoundExclusive,
-                                               @Nonnull final BigInteger aUpperBoundExclusive)
+  public static BigInteger isBetweenExclusive (@NonNull final BigInteger aValue,
+                                               @NonNull final Supplier <? extends String> aName,
+                                               @NonNull final BigInteger aLowerBoundExclusive,
+                                               @NonNull final BigInteger aUpperBoundExclusive)
   {
     notNull (aValue, aName);
     notNull (aLowerBoundExclusive, "LowerBoundInclusive");
@@ -3058,7 +3057,7 @@ public final class ValueEnforcer
                                             ")");
   }
 
-  public static void isArrayOfsLen (@Nonnull final Object [] aArray,
+  public static void isArrayOfsLen (@NonNull final Object [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3066,7 +3065,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final boolean [] aArray,
+  public static void isArrayOfsLen (@NonNull final boolean [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3074,7 +3073,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final byte [] aArray,
+  public static void isArrayOfsLen (@NonNull final byte [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3082,7 +3081,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final char [] aArray,
+  public static void isArrayOfsLen (@NonNull final char [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3090,7 +3089,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final double [] aArray,
+  public static void isArrayOfsLen (@NonNull final double [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3098,7 +3097,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final float [] aArray,
+  public static void isArrayOfsLen (@NonNull final float [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3106,7 +3105,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final int [] aArray,
+  public static void isArrayOfsLen (@NonNull final int [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3114,7 +3113,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final long [] aArray,
+  public static void isArrayOfsLen (@NonNull final long [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3122,7 +3121,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@Nonnull final short [] aArray,
+  public static void isArrayOfsLen (@NonNull final short [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {

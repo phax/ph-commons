@@ -26,11 +26,10 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 import com.helger.base.compare.ESortOrder;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Test class for class {@link ToStringGenerator}.

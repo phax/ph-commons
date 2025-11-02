@@ -18,6 +18,9 @@ package com.helger.http.cache;
 
 import java.util.concurrent.TimeUnit;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -29,9 +32,6 @@ import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class is used to build the response HTTP header field Cache-Control value in a structured
@@ -65,7 +65,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    * @param aBase
    *        The object to copy the settings from. May not be <code>null</code>.
    */
-  public CacheControlBuilder (@Nonnull final CacheControlBuilder aBase)
+  public CacheControlBuilder (@NonNull final CacheControlBuilder aBase)
   {
     ValueEnforcer.notNull (aBase, "Base");
 
@@ -90,8 +90,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        The duration in the passed unit
    * @return this
    */
-  @Nonnull
-  public CacheControlBuilder setMaxAge (@Nonnull final TimeUnit eTimeUnit, final long nDuration)
+  @NonNull
+  public CacheControlBuilder setMaxAge (@NonNull final TimeUnit eTimeUnit, final long nDuration)
   {
     return setMaxAgeSeconds (eTimeUnit.toSeconds (nDuration));
   }
@@ -103,7 +103,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Days to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setMaxAgeDays (@Nonnegative final long nDays)
   {
     return setMaxAgeSeconds (nDays * CGlobal.SECONDS_PER_DAY);
@@ -116,7 +116,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Hours to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setMaxAgeHours (@Nonnegative final long nHours)
   {
     return setMaxAgeSeconds (nHours * CGlobal.SECONDS_PER_HOUR);
@@ -129,7 +129,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Minutes to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setMaxAgeMinutes (@Nonnegative final long nMinutes)
   {
     return setMaxAgeSeconds (nMinutes * CGlobal.SECONDS_PER_MINUTE);
@@ -145,7 +145,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Seconds to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setMaxAgeSeconds (@Nonnegative final long nSeconds)
   {
     ValueEnforcer.isGE0 (nSeconds, "Seconds");
@@ -174,8 +174,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        The duration in the passed unit
    * @return this
    */
-  @Nonnull
-  public CacheControlBuilder setSharedMaxAge (@Nonnull final TimeUnit eTimeUnit, final long nDuration)
+  @NonNull
+  public CacheControlBuilder setSharedMaxAge (@NonNull final TimeUnit eTimeUnit, final long nDuration)
   {
     return setSharedMaxAgeSeconds (eTimeUnit.toSeconds (nDuration));
   }
@@ -188,7 +188,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Days to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setSharedMaxAgeDays (@Nonnegative final long nDays)
   {
     return setSharedMaxAgeSeconds (nDays * CGlobal.SECONDS_PER_DAY);
@@ -202,7 +202,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Hours to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setSharedMaxAgeHours (@Nonnegative final long nHours)
   {
     return setSharedMaxAgeSeconds (nHours * CGlobal.SECONDS_PER_HOUR);
@@ -216,7 +216,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Minutes to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setSharedMaxAgeMinutes (@Nonnegative final long nMinutes)
   {
     return setSharedMaxAgeSeconds (nMinutes * CGlobal.SECONDS_PER_MINUTE);
@@ -230,7 +230,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        Seconds to keep it
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setSharedMaxAgeSeconds (@Nonnegative final long nSeconds)
   {
     ValueEnforcer.isGE0 (nSeconds, "Seconds");
@@ -257,7 +257,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable public
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setPublic (final boolean bPublic)
   {
     m_bPublic = bPublic;
@@ -277,7 +277,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable private
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setPrivate (final boolean bPrivate)
   {
     m_bPrivate = bPrivate;
@@ -299,7 +299,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable no-cache
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setNoCache (final boolean bNoCache)
   {
     m_bNoCache = bNoCache;
@@ -319,7 +319,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable no-store
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setNoStore (final boolean bNoStore)
   {
     m_bNoStore = bNoStore;
@@ -345,7 +345,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable no-transform
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setNoTransform (final boolean bNoTransform)
   {
     m_bNoTransform = bNoTransform;
@@ -367,7 +367,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable must-revalidate
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setMustRevalidate (final boolean bMustRevalidate)
   {
     m_bMustRevalidate = bMustRevalidate;
@@ -387,7 +387,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    *        <code>true</code> to enable proxy-revalidate
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CacheControlBuilder setProxyRevalidate (final boolean bProxyRevalidate)
   {
     m_bProxyRevalidate = bProxyRevalidate;
@@ -399,8 +399,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
     return m_bProxyRevalidate;
   }
 
-  @Nonnull
-  public CacheControlBuilder addExtension (@Nonnull @Nonempty final String sExtension)
+  @NonNull
+  public CacheControlBuilder addExtension (@NonNull @Nonempty final String sExtension)
   {
     ValueEnforcer.notEmpty (sExtension, "Extension");
     if (sExtension.indexOf (',') >= 0)
@@ -409,14 +409,14 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllExtensions ()
   {
     return m_aExtensions.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public String getAsHTTPHeaderValue ()
   {
     final ICommonsList <String> aItems = new CommonsArrayList <> ();
@@ -442,7 +442,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
     return StringImplode.getImploded (", ", aItems);
   }
 
-  @Nonnull
+  @NonNull
   public CacheControlBuilder getClone ()
   {
     return new CacheControlBuilder (this);

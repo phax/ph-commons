@@ -16,6 +16,7 @@
  */
 package com.helger.http.header;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +25,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents the quality value of an HTTP Accept* header.
@@ -146,7 +145,7 @@ public class QValue implements Comparable <QValue>
     return isAboveMinimumQuality () && isBelowMaximumQuality ();
   }
 
-  public int compareTo (@Nonnull final QValue rhs)
+  public int compareTo (@NonNull final QValue rhs)
   {
     return Double.compare (m_dQuality, rhs.m_dQuality);
   }

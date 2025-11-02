@@ -18,15 +18,15 @@ package com.helger.base.lang.clazz;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link Supplier} that always creates a new instance via reflection
@@ -85,13 +85,13 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
     return new ToStringGenerator (this).append ("Class", m_aClass).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass)
   {
     return create (aClass, false);
   }
 
-  @Nonnull
+  @NonNull
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
                                                                  final boolean bCheckInstancable)
   {

@@ -19,6 +19,8 @@ package com.helger.base.io.stream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -26,8 +28,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.ByteBufferHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * {@link java.io.InputStream} wrapped around one or more
@@ -49,7 +49,7 @@ public final class MultiByteBufferInputStream extends InputStream
    *        Array of {@link ByteBuffer}. May neither be <code>null</code> nor
    *        empty and may not contain <code>null</code> elements.
    */
-  public MultiByteBufferInputStream (@Nonnull @Nonempty final ByteBuffer... aBuffers)
+  public MultiByteBufferInputStream (@NonNull @Nonempty final ByteBuffer... aBuffers)
   {
     ValueEnforcer.notEmpty (aBuffers, "Buffers");
 
@@ -70,7 +70,7 @@ public final class MultiByteBufferInputStream extends InputStream
   /**
    * @return A copy of the array with the byte buffers. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ByteBuffer [] getAllBuffers ()
   {
@@ -172,13 +172,13 @@ public final class MultiByteBufferInputStream extends InputStream
   }
 
   @Override
-  public int read (@Nonnull final byte [] aBuf)
+  public int read (@NonNull final byte [] aBuf)
   {
     return read (aBuf, 0, aBuf.length);
   }
 
   @Override
-  public int read (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public int read (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 
@@ -246,7 +246,7 @@ public final class MultiByteBufferInputStream extends InputStream
    * @return The number of bytes read. Always &ge; 0.
    */
   @Nonnegative
-  public long read (@Nonnull final ByteBuffer aDestByteBuffer)
+  public long read (@NonNull final ByteBuffer aDestByteBuffer)
   {
     ValueEnforcer.notNull (aDestByteBuffer, "DestByteBuffer");
 

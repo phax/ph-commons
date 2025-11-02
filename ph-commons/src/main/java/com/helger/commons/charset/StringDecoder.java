@@ -23,11 +23,11 @@ import java.nio.charset.CharsetDecoder;
 import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special string decoder that can be used to convert a byte source to a
@@ -46,7 +46,7 @@ public final class StringDecoder
   private final CharsetDecoder m_aDecoder;
   private CharBuffer m_aBuffer = CharBuffer.allocate (INITIAL_BUFFER_SIZE);
 
-  public StringDecoder (@Nonnull final Charset aCharset)
+  public StringDecoder (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -88,7 +88,7 @@ public final class StringDecoder
       throw new IllegalStateException ();
   }
 
-  private void _decode (@Nonnull final ByteBuffer aByteBuffer, final boolean bEndOfInput)
+  private void _decode (@NonNull final ByteBuffer aByteBuffer, final boolean bEndOfInput)
   {
     // Call decode at least once to pass the endOfInput signal through
     do
@@ -118,35 +118,35 @@ public final class StringDecoder
     assert !aByteBuffer.hasRemaining ();
   }
 
-  public void decode (@Nonnull final byte [] aBuf)
+  public void decode (@NonNull final byte [] aBuf)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
     _decode (ByteBuffer.wrap (aBuf, 0, aBuf.length), false);
   }
 
-  public void decode (@Nonnull final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void decode (@NonNull final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLen);
 
     _decode (ByteBuffer.wrap (aBuffer, nOfs, nLen), false);
   }
 
-  public void decode (@Nonnull final ByteBuffer aByteBuffer)
+  public void decode (@NonNull final ByteBuffer aByteBuffer)
   {
     ValueEnforcer.notNull (aByteBuffer, "ByteBuffer");
 
     _decode (aByteBuffer, false);
   }
 
-  @Nonnull
-  public String finish (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  @NonNull
+  public String finish (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return finish (ByteBuffer.wrap (aBuf, nOfs, nLen));
   }
 
-  @Nonnull
-  public String finish (@Nonnull final ByteBuffer aByteBuffer)
+  @NonNull
+  public String finish (@NonNull final ByteBuffer aByteBuffer)
   {
     ValueEnforcer.notNull (aByteBuffer, "ByteBuffer");
 

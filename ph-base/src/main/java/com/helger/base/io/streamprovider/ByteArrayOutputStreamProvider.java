@@ -18,13 +18,13 @@ package com.helger.base.io.streamprovider;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.io.EAppend;
 import com.helger.base.io.iface.IHasOutputStreamAndWriter;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.OutputStream} provider based on a byte array.
@@ -38,8 +38,8 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
   public ByteArrayOutputStreamProvider ()
   {}
 
-  @Nonnull
-  public final NonBlockingByteArrayOutputStream getOutputStream (@Nonnull final EAppend eAppend)
+  @NonNull
+  public final NonBlockingByteArrayOutputStream getOutputStream (@NonNull final EAppend eAppend)
   {
     if (eAppend.isTruncate ())
       m_aOS.reset ();
@@ -54,15 +54,15 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
   /**
    * @return All bytes already written
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public final byte [] getBytes ()
   {
     return m_aOS.toByteArray ();
   }
 
-  @Nonnull
-  public final String getAsString (@Nonnull final Charset aCharset)
+  @NonNull
+  public final String getAsString (@NonNull final Charset aCharset)
   {
     return m_aOS.getAsString (aCharset);
   }

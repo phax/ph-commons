@@ -18,6 +18,9 @@ package com.helger.typeconvert.collection;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -25,9 +28,6 @@ import com.helger.base.callback.CallbackList;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsConcurrentHashMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for all kind of any-any mapping container. This implementation is
@@ -54,14 +54,14 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
     super (aMap);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ()
   {
     return m_aBeforeCallbacks;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()
   {
@@ -84,7 +84,7 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public AttributeContainerConcurrent <KEYTYPE, VALUETYPE> getClone ()
   {

@@ -18,14 +18,14 @@ package com.helger.statistics.impl;
 
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.statistics.api.IStatisticsHandlerNumeric;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract base class for numeric statistic handler
@@ -66,7 +66,7 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
     }
   }
 
-  @Nonnull
+  @NonNull
   public final BigInteger getSum ()
   {
     return m_aRWLock.readLockedGet ( () -> m_aSum);

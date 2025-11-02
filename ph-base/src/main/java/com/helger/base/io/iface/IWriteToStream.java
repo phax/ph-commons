@@ -19,11 +19,11 @@ package com.helger.base.io.iface;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A simple interface for objects that can write to an {@link OutputStream}.
@@ -42,7 +42,7 @@ public interface IWriteToStream
    * @throws IOException
    *         In case of IO error
    */
-  void writeTo (@Nonnull @WillNotClose OutputStream aOS) throws IOException;
+  void writeTo (@NonNull @WillNotClose OutputStream aOS) throws IOException;
 
   /**
    * Write everything to the passed output stream and close it.
@@ -52,7 +52,7 @@ public interface IWriteToStream
    * @throws IOException
    *         In case of IO error. Even than the OutputStream is closed!
    */
-  default void writeToAndClose (@Nonnull @WillClose final OutputStream aOS) throws IOException
+  default void writeToAndClose (@NonNull @WillClose final OutputStream aOS) throws IOException
   {
     try
     {

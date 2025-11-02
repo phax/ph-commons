@@ -18,7 +18,7 @@ package com.helger.typeconvert;
 
 import java.util.function.Function;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Callback interface for registering new type converters.
@@ -42,9 +42,9 @@ public interface ITypeConverterRegistry
    * @param <DST>
    *        Destination type
    */
-  <SRC, DST> void registerTypeConverter (@Nonnull Class <SRC> aSrcClass,
-                                         @Nonnull Class <DST> aDstClass,
-                                         @Nonnull ITypeConverter <SRC, DST> aConverter);
+  <SRC, DST> void registerTypeConverter (@NonNull Class <SRC> aSrcClass,
+                                         @NonNull Class <DST> aDstClass,
+                                         @NonNull ITypeConverter <SRC, DST> aConverter);
 
   /**
    * Register a type converter.
@@ -60,9 +60,9 @@ public interface ITypeConverterRegistry
    * @param <DST>
    *        Destination type
    */
-  <DST> void registerTypeConverter (@Nonnull Class <?> [] aSrcClasses,
-                                    @Nonnull Class <DST> aDstClass,
-                                    @Nonnull ITypeConverter <?, DST> aConverter);
+  <DST> void registerTypeConverter (@NonNull Class <?> [] aSrcClasses,
+                                    @NonNull Class <DST> aDstClass,
+                                    @NonNull ITypeConverter <?, DST> aConverter);
 
   /**
    * Register a flexible type converter rule.
@@ -70,19 +70,19 @@ public interface ITypeConverterRegistry
    * @param aTypeConverterRule
    *        The type converter rule to be registered. May not be <code>null</code>.
    */
-  void registerTypeConverterRule (@Nonnull ITypeConverterRule <?, ?> aTypeConverterRule);
+  void registerTypeConverterRule (@NonNull ITypeConverterRule <?, ?> aTypeConverterRule);
 
-  <DST> void registerTypeConverterRuleAnySourceFixedDestination (@Nonnull final Class <DST> aDstClass,
-                                                                 @Nonnull final Function <? super Object, ? extends DST> aConverter);
+  <DST> void registerTypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
+                                                                 @NonNull final Function <? super Object, ? extends DST> aConverter);
 
-  <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                             @Nonnull final Class <DST> aDstClass,
-                                                                             @Nonnull final Function <? super SRC, ? extends DST> aConverter);
+  <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                             @NonNull final Class <DST> aDstClass,
+                                                                             @NonNull final Function <? super SRC, ? extends DST> aConverter);
 
-  <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                 @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter);
+  <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                 @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter);
 
-  <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                                             @Nonnull final Class <DST> aDstClass,
-                                                                             @Nonnull final Function <? super SRC, ? extends DST> aConverter);
+  <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@NonNull final Class <SRC> aSrcClass,
+                                                                             @NonNull final Class <DST> aDstClass,
+                                                                             @NonNull final Function <? super SRC, ? extends DST> aConverter);
 }

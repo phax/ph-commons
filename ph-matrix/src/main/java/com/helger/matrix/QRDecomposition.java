@@ -16,10 +16,10 @@
  */
 package com.helger.matrix;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * QR Decomposition.
@@ -71,7 +71,7 @@ public class QRDecomposition
    * @param aMatrix
    *        Rectangular matrix
    */
-  public QRDecomposition (@Nonnull final Matrix aMatrix)
+  public QRDecomposition (@NonNull final Matrix aMatrix)
   {
     // Initialize.
     m_aQR = aMatrix.getArrayCopy ();
@@ -137,7 +137,7 @@ public class QRDecomposition
    *
    * @return Lower trapezoidal matrix whose columns define the reflections
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getH ()
   {
@@ -160,7 +160,7 @@ public class QRDecomposition
    *
    * @return R
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getR ()
   {
@@ -188,7 +188,7 @@ public class QRDecomposition
    *
    * @return Q
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getQ ()
   {
@@ -229,9 +229,9 @@ public class QRDecomposition
    * @exception RuntimeException
    *            Matrix is rank deficient.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix solve (@Nonnull final Matrix aMatrix)
+  public Matrix solve (@NonNull final Matrix aMatrix)
   {
     if (aMatrix.getRowDimension () != m_nRows)
       throw new IllegalArgumentException ("Matrix row dimensions must agree.");

@@ -16,10 +16,10 @@
  */
 package com.helger.jaxb.validation;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.diagnostics.error.IError;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
@@ -36,7 +36,7 @@ public class DoNothingValidationEventHandler extends AbstractValidationEventHand
   }
 
   @Override
-  protected void onEvent (@Nonnull final IError aEvent)
+  protected void onEvent (@NonNull final IError aEvent)
   {
     // Do nothing
   }

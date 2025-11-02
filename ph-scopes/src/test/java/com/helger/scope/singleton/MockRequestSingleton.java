@@ -16,9 +16,9 @@
  */
 package com.helger.scope.singleton;
 
-import com.helger.annotation.style.UsedViaReflection;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.UsedViaReflection;
 
 /**
  * Mock implementation of {@link AbstractRequestSingleton}.
@@ -34,7 +34,7 @@ public final class MockRequestSingleton extends AbstractRequestSingleton
   public MockRequestSingleton ()
   {}
 
-  @Nonnull
+  @NonNull
   public static MockRequestSingleton getInstance ()
   {
     return getRequestSingleton (MockRequestSingleton.class);

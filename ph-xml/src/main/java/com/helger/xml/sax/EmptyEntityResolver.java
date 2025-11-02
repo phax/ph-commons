@@ -16,10 +16,9 @@
  */
 package com.helger.xml.sax;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special {@link EntityResolver} implementation that always delivers an empty
@@ -29,7 +28,7 @@ import jakarta.annotation.Nonnull;
  */
 public class EmptyEntityResolver implements EntityResolver
 {
-  @Nonnull
+  @NonNull
   public InputSource resolveEntity (final String sPublicId, final String sSystemId)
   {
     // Create an empty document

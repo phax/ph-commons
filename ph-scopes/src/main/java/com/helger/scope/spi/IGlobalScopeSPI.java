@@ -16,10 +16,10 @@
  */
 package com.helger.scope.spi;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.IGlobalScope;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * SPI for handling the global scope lifecycle. Is invoked for non-web and web
@@ -36,7 +36,7 @@ public interface IGlobalScopeSPI
    * @param aGlobalScope
    *        The global scope object to be used. Never <code>null</code>.
    */
-  void onGlobalScopeBegin (@Nonnull IGlobalScope aGlobalScope);
+  void onGlobalScopeBegin (@NonNull IGlobalScope aGlobalScope);
 
   /**
    * Called before the global scope is shut down
@@ -44,5 +44,5 @@ public interface IGlobalScopeSPI
    * @param aGlobalScope
    *        The global scope object to be used. Never <code>null</code>.
    */
-  void onGlobalScopeEnd (@Nonnull IGlobalScope aGlobalScope);
+  void onGlobalScopeEnd (@NonNull IGlobalScope aGlobalScope);
 }

@@ -18,6 +18,8 @@ package com.helger.security.crl;
 
 import java.security.cert.CRL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +28,6 @@ import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.url.IURLDownloader;
 import com.helger.url.protocol.EURLProtocol;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A class for downloading CRL data. This class is as thread-safe as the used {@link IURLDownloader}
@@ -56,7 +55,7 @@ public class CRLDownloader
    * @param aUrlDownloader
    *        The URL downloader to use. May not be <code>null</code>.
    */
-  public CRLDownloader (@Nonnull final IURLDownloader aUrlDownloader)
+  public CRLDownloader (@NonNull final IURLDownloader aUrlDownloader)
   {
     ValueEnforcer.notNull (aUrlDownloader, "UrlDownloader");
     m_aURLDownloader = aUrlDownloader;
@@ -65,14 +64,14 @@ public class CRLDownloader
   /**
    * @return The internal URL downloader used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final IURLDownloader getURLDownloader ()
   {
     return m_aURLDownloader;
   }
 
   @Nullable
-  public CRL downloadCRL (@Nonnull final String sCRLURL)
+  public CRL downloadCRL (@NonNull final String sCRLURL)
   {
     if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL))
     {

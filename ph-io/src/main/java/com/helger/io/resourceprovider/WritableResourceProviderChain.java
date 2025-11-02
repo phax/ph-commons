@@ -19,6 +19,9 @@ package com.helger.io.resourceprovider;
 import java.io.OutputStream;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -30,9 +33,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.IWritableResource;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A resource provider chain implementation of {@link IWritableResourceProvider} .
  *
@@ -43,7 +43,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
 {
   protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList <> ();
 
-  public WritableResourceProviderChain (@Nonnull final IReadableResourceProvider... aResProviders)
+  public WritableResourceProviderChain (@NonNull final IReadableResourceProvider... aResProviders)
   {
     super (aResProviders);
 
@@ -55,7 +55,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
 
-  public WritableResourceProviderChain (@Nonnull final Iterable <? extends IReadableResourceProvider> aResProviders)
+  public WritableResourceProviderChain (@NonNull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     super (aResProviders);
 
@@ -67,7 +67,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public ICommonsList <IWritableResourceProvider> getAllContainedWritingResourceProviders ()
@@ -81,9 +81,9 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     return m_aWritableResourceProviders.containsAny (x -> x.supportsWriting (sName));
   }
 
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
-  public IWritableResource getWritableResource (@Nonnull final String sName)
+  public IWritableResource getWritableResource (@NonNull final String sName)
   {
     // Use the first resource provider that supports the name
     for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
@@ -96,8 +96,8 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   }
 
   @Nullable
-  public IWritableResource getWritableResourceIf (@Nonnull final String sName,
-                                                  @Nonnull final Predicate <? super IWritableResource> aReturnFilter)
+  public IWritableResource getWritableResourceIf (@NonNull final String sName,
+                                                  @NonNull final Predicate <? super IWritableResource> aReturnFilter)
   {
     // Use the first resource provider that supports the name
     for (final IWritableResourceProvider aResProvider : m_aWritableResourceProviders)
@@ -112,7 +112,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
 
   @Override
   @Nullable
-  public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  public OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     // Use the first resource provider that supports the name and creates a
     // valid output stream

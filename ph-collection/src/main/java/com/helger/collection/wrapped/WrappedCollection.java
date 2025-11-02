@@ -20,15 +20,15 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsCollection;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a facade for a {@link Set}. It may be used to wrap any kind of
@@ -44,12 +44,12 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @CodingStyleguideUnaware
   private final Collection <ELEMENTTYPE> m_aSrc;
 
-  public WrappedCollection (@Nonnull final Collection <ELEMENTTYPE> aSet)
+  public WrappedCollection (@NonNull final Collection <ELEMENTTYPE> aSet)
   {
     m_aSrc = ValueEnforcer.notNull (aSet, "Set");
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
   protected Collection <ELEMENTTYPE> directGetSource ()
@@ -62,7 +62,7 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
     return m_aSrc.add (aElement);
   }
 
-  public boolean addAll (@Nonnull final Collection <? extends ELEMENTTYPE> aElements)
+  public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
   }

@@ -16,9 +16,9 @@
  */
 package com.helger.scope;
 
-import com.helger.base.state.EContinue;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EContinue;
 
 /**
  * Interface for a single session scope object.
@@ -35,6 +35,6 @@ public interface ISessionScope extends IScope
    * @return {@link EContinue#BREAK} to indicate that the regular destruction
    *         should not be performed!
    */
-  @Nonnull
+  @NonNull
   EContinue selfDestruct ();
 }

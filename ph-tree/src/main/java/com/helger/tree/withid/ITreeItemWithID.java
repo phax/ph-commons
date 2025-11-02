@@ -18,14 +18,14 @@ package com.helger.tree.withid;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.id.IHasID;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.tree.IBasicTreeItem;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a basic tree item with an ID. Never use this class directly but
@@ -46,7 +46,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   /**
    * @return The factory used to create instances of this interface.
    */
-  @Nonnull
+  @NonNull
   ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ();
 
   /**
@@ -101,8 +101,8 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *        if <code>true</code> existing elements are overwritten.
    * @return {@link EChange}
    */
-  @Nonnull
-  EChange internalAddChild (@Nonnull KEYTYPE aDataID, @Nonnull ITEMTYPE aChild, boolean bAllowOverwrite);
+  @NonNull
+  EChange internalAddChild (@NonNull KEYTYPE aDataID, @NonNull ITEMTYPE aChild, boolean bAllowOverwrite);
 
   /**
    * Add a direct child item to this item. If another item with the same ID is
@@ -140,7 +140,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *        The ID of the element to be removed. May not be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   EChange removeChild (@Nullable KEYTYPE aDataID);
 
   /**
@@ -148,7 +148,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   EChange removeAllChildren ();
 
   /**
@@ -157,5 +157,5 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aComparator
    *        The comparator use. May not be <code>null</code>.
    */
-  void reorderChildrenByItems (@Nonnull Comparator <? super ITEMTYPE> aComparator);
+  void reorderChildrenByItems (@NonNull Comparator <? super ITEMTYPE> aComparator);
 }

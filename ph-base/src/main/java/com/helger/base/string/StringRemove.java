@@ -16,13 +16,13 @@
  */
 package com.helger.base.string;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class StringRemove
@@ -130,8 +130,8 @@ public final class StringRemove
    * @return The version of the string without the passed characters or an empty String if the input
    *         string was <code>null</code>.
    */
-  @Nonnull
-  public static String removeMultiple (@Nullable final String sInputString, @Nonnull final char [] aRemoveChars)
+  @NonNull
+  public static String removeMultiple (@Nullable final String sInputString, @NonNull final char [] aRemoveChars)
   {
     ValueEnforcer.notNull (aRemoveChars, "RemoveChars");
 

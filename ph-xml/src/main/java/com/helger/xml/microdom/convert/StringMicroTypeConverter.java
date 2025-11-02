@@ -16,13 +16,13 @@
  */
 package com.helger.xml.microdom.convert;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default {@link IMicroTypeConverter} implementation for {@link String}
@@ -38,24 +38,24 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
   private StringMicroTypeConverter ()
   {}
 
-  @Nonnull
+  @NonNull
   public static StringMicroTypeConverter getInstance ()
   {
     return INSTANCE;
   }
 
-  @Nonnull
-  public IMicroElement convertToMicroElement (@Nonnull final String aObject,
+  @NonNull
+  public IMicroElement convertToMicroElement (@NonNull final String aObject,
                                               @Nullable final String sNamespaceURI,
-                                              @Nonnull @Nonempty final String sTagName)
+                                              @NonNull @Nonempty final String sTagName)
   {
     final IMicroElement e = new MicroElement (sNamespaceURI, sTagName);
     e.addText (aObject);
     return e;
   }
 
-  @Nonnull
-  public String convertToNative (@Nonnull final IMicroElement aElement)
+  @NonNull
+  public String convertToNative (@NonNull final IMicroElement aElement)
   {
     return aElement.getTextContent ();
   }

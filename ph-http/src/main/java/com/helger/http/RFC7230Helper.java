@@ -18,11 +18,11 @@ package com.helger.http;
 
 import java.util.BitSet;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.codec.RFC5234Helper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class for RFC 7230

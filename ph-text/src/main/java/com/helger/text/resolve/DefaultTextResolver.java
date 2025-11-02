@@ -18,14 +18,14 @@ package com.helger.text.resolve;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.misc.Singleton;
 import com.helger.text.IHasText;
 import com.helger.text.IHasTextWithArgs;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Resolves texts either from a text provider or otherwise uses a fallback to a
@@ -55,7 +55,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
   /**
    * @return The singleton instance. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static DefaultTextResolver getInstance ()
   {
     final DefaultTextResolver ret = SingletonHolder.INSTANCE;
@@ -76,9 +76,9 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *         locale
    */
   @Nullable
-  public static String getTextStatic (@Nonnull final Enum <?> aEnum,
-                                      @Nonnull final IHasText aTP,
-                                      @Nonnull final Locale aContentLocale)
+  public static String getTextStatic (@NonNull final Enum <?> aEnum,
+                                      @NonNull final IHasText aTP,
+                                      @NonNull final Locale aContentLocale)
   {
     return getInstance ().getText (aEnum, aTP, aContentLocale);
   }
@@ -100,9 +100,9 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
   @Nullable
   @Deprecated (forRemoval = false)
   @DevelopersNote ("Use getTextStatic instead when no argument is needed!")
-  public static String getTextWithArgsStatic (@Nonnull final Enum <?> aEnum,
-                                              @Nonnull final IHasTextWithArgs aTP,
-                                              @Nonnull final Locale aContentLocale)
+  public static String getTextWithArgsStatic (@NonNull final Enum <?> aEnum,
+                                              @NonNull final IHasTextWithArgs aTP,
+                                              @NonNull final Locale aContentLocale)
   {
     return getTextStatic (aEnum, aTP, aContentLocale);
   }
@@ -123,9 +123,9 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *         locale
    */
   @Nullable
-  public static String getTextWithArgsStatic (@Nonnull final Enum <?> aEnum,
-                                              @Nonnull final IHasTextWithArgs aTP,
-                                              @Nonnull final Locale aContentLocale,
+  public static String getTextWithArgsStatic (@NonNull final Enum <?> aEnum,
+                                              @NonNull final IHasTextWithArgs aTP,
+                                              @NonNull final Locale aContentLocale,
                                               @Nullable final Object... aArgs)
   {
     return getInstance ().getTextWithArgs (aEnum, aTP, aContentLocale, aArgs);

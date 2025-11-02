@@ -16,9 +16,9 @@
  */
 package com.helger.tree;
 
-import com.helger.collection.hierarchy.IHasChildren;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.collection.hierarchy.IHasChildren;
 
 /**
  * Base interface for a tree.
@@ -36,6 +36,6 @@ public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE
    *         should not be displayed but it is the parent node of all displayed
    *         root items and therefore cannot be removed.
    */
-  @Nonnull
+  @NonNull
   ITEMTYPE getRootItem ();
 }

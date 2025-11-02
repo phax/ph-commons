@@ -16,6 +16,8 @@
  */
 package com.helger.diagnostics.callback.exception;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -30,9 +32,6 @@ import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
 import com.helger.diagnostics.log.LogHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that
@@ -53,7 +52,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   /**
    * @return The configured error level. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
@@ -66,8 +65,8 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
    *        Error level to use. May not be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
-  public final LoggingExceptionCallback setErrorLevel (@Nonnull final IErrorLevel aErrorLevel)
+  @NonNull
+  public final LoggingExceptionCallback setErrorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
     m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     return this;
@@ -80,7 +79,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
    *        The exception to be logged. May theoretically be <code>null</code>.
    * @return The text to be logged. May neither be <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @OverrideOnDemand
   protected String getLogMessage (@Nullable final Throwable t)

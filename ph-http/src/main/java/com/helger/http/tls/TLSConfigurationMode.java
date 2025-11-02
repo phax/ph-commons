@@ -21,6 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLParameters;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,9 +38,6 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Standalone implementation of {@link ITLSConfigurationMode}.
@@ -76,8 +75,8 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
       LOGGER.debug ("Initialized TLS ContextMap with " + TLS_CONTEXT_MAP.keySet () + " keys");
   }
 
-  public static boolean isSupportedCipherSuiteInSSLContext (@Nonnull final ETLSVersion [] aTLSVersions,
-                                                            @Nonnull @Nonempty final String sCipherSuite)
+  public static boolean isSupportedCipherSuiteInSSLContext (@NonNull final ETLSVersion [] aTLSVersions,
+                                                            @NonNull @Nonempty final String sCipherSuite)
   {
     // Check if the cipher suite is available for any TLS version
     for (final ETLSVersion eTLSVersion : aTLSVersions)
@@ -116,8 +115,8 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
    *        The cipher suites to be used. May not be <code>null</code> and may
    *        not contain <code>null</code> values.
    */
-  public TLSConfigurationMode (@Nonnull @Nonempty final ETLSVersion [] aTLSVersions,
-                               @Nonnull final String [] aCipherSuites)
+  public TLSConfigurationMode (@NonNull @Nonempty final ETLSVersion [] aTLSVersions,
+                               @NonNull final String [] aCipherSuites)
   {
     ValueEnforcer.notEmptyNoNullValue (aTLSVersions, "TLSVersions");
     ValueEnforcer.notNullNoNullValue (aCipherSuites, "CipherSuites");
@@ -127,14 +126,14 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
                                                        x -> isSupportedCipherSuiteInSSLContext (aTLSVersions, x));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
   {
     return m_aTLSVersions.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @Override
   public ICommonsList <String> getAllTLSVersionIDs ()
@@ -152,7 +151,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
     return getAllTLSVersionIDs ().toArray (new String [m_aTLSVersions.size ()]);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
   {

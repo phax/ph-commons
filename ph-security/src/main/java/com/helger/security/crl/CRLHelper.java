@@ -34,6 +34,7 @@ import org.bouncycastle.asn1.x509.DistributionPointName;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +44,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to deal with CRLs. This class requires BouncyCastle to be in the
@@ -71,8 +70,8 @@ public final class CRLHelper
    * @throws IllegalArgumentException
    *         In case of conversion errors
    */
-  @Nonnull
-  public static X509CRL convertToCRL (@Nonnull @Nonempty final byte [] aCRLBytes)
+  @NonNull
+  public static X509CRL convertToCRL (@NonNull @Nonempty final byte [] aCRLBytes)
   {
     ValueEnforcer.notEmpty (aCRLBytes, "CRLBytes");
 
@@ -101,8 +100,8 @@ public final class CRLHelper
    * @return Never <code>null</code> but maybe empty list of distribution
    *         points.
    */
-  @Nonnull
-  public static ICommonsList <String> getAllDistributionPoints (@Nonnull final X509Certificate aCert)
+  @NonNull
+  public static ICommonsList <String> getAllDistributionPoints (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Certificate");
     final ICommonsList <String> ret = new CommonsArrayList <> ();

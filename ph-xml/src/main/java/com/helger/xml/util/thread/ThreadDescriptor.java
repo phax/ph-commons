@@ -23,6 +23,8 @@ import java.lang.management.MonitorInfo;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,9 +37,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.xml.microdom.IHasMicroNodeRepresentation;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the information of a single thread at a certain point of time.
@@ -80,7 +79,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return RW_LOCK.readLockedBoolean ( () -> s_bEnableThreadInfo);
   }
 
-  public ThreadDescriptor (@Nonnull final Thread aThread, @Nullable final String sStackTrace)
+  public ThreadDescriptor (@NonNull final Thread aThread, @Nullable final String sStackTrace)
   {
     ValueEnforcer.notNull (aThread, "Thread");
 
@@ -115,7 +114,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return m_eState;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDescriptor ()
   {
@@ -128,14 +127,14 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return m_sStackTrace;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getStackTraceNotNull ()
   {
     return StringHelper.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
   }
 
-  @Nonnull
+  @NonNull
   public String getLockInfo ()
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -180,7 +179,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return aSB.toString ();
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsString ()
   {
@@ -190,7 +189,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return sDescriptor + "\n" + sStackTrace + sLockInfo;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroElement getAsMicroNode ()
   {
     final IMicroElement eRet = new MicroElement ("thread");
@@ -243,7 +242,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return eRet;
   }
 
-  @Nonnull
+  @NonNull
   public static ThreadDescriptor createForCurrentThread (@Nullable final Throwable t)
   {
     final String sThrowableStackTrace = StackTraceHelper.getStackAsString (t, false);

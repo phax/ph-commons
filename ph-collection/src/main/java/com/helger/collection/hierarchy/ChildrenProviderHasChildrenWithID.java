@@ -18,10 +18,10 @@ package com.helger.collection.hierarchy;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.id.IHasID;
-
-import jakarta.annotation.Nullable;
 
 /**
  * An implementation of the {@link IChildrenProviderWithID} interface that works

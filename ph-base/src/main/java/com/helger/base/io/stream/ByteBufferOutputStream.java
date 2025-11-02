@@ -21,6 +21,8 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,8 +30,6 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IWriteToStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Wrapper for an {@link java.io.OutputStream} around a {@link java.nio.ByteBuffer}.
@@ -82,7 +82,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aArray
    *        The array to be backed by a {@link ByteBuffer}.
    */
-  public ByteBufferOutputStream (@Nonnull final byte [] aArray)
+  public ByteBufferOutputStream (@NonNull final byte [] aArray)
   {
     this (ByteBuffer.wrap (aArray), false);
   }
@@ -97,7 +97,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param nLen
    *        Number of bytes to wrap. Must be &ge; 0.
    */
-  public ByteBufferOutputStream (@Nonnull final byte [] aArray,
+  public ByteBufferOutputStream (@NonNull final byte [] aArray,
                                  @Nonnegative final int nOfs,
                                  @Nonnegative final int nLen)
   {
@@ -112,7 +112,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCanGrow
    *        <code>true</code> if the buffer can grow, <code>false</code> otherwise.
    */
-  public ByteBufferOutputStream (@Nonnull final ByteBuffer aBuffer, final boolean bCanGrow)
+  public ByteBufferOutputStream (@NonNull final ByteBuffer aBuffer, final boolean bCanGrow)
   {
     ValueEnforcer.notNull (aBuffer, "Buffer");
 
@@ -123,7 +123,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
   /**
    * @return The contained buffer. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ByteBuffer getBuffer ()
   {
     return m_aBuffer;
@@ -164,7 +164,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    *
    * @return The content of the buffer as a byte array. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public byte [] getAsByteArray ()
   {
@@ -175,7 +175,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
     return ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
-  @Nonnull
+  @NonNull
   public NonBlockingByteArrayInputStream getAsByteArrayInputStream (final boolean bCopyNeeded)
   {
     final byte [] aBytes = m_aBuffer.array ();
@@ -193,7 +193,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aDestBuffer
    *        The destination buffer to write to. May not be <code>null</code>.
    */
-  public void writeTo (@Nonnull final ByteBuffer aDestBuffer)
+  public void writeTo (@NonNull final ByteBuffer aDestBuffer)
   {
     writeTo (aDestBuffer, true);
   }
@@ -208,7 +208,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCompactBuffer
    *        <code>true</code> to compact the buffer afterwards, <code>false</code> otherwise.
    */
-  public void writeTo (@Nonnull final ByteBuffer aDestBuffer, final boolean bCompactBuffer)
+  public void writeTo (@NonNull final ByteBuffer aDestBuffer, final boolean bCompactBuffer)
   {
     ValueEnforcer.notNull (aDestBuffer, "DestBuffer");
 
@@ -225,7 +225,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aBuf
    *        The buffer to be filled. May not be <code>null</code>.
    */
-  public void writeTo (@Nonnull final byte [] aBuf)
+  public void writeTo (@NonNull final byte [] aBuf)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
@@ -241,7 +241,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCompactBuffer
    *        <code>true</code> to compact the buffer afterwards, <code>false</code> otherwise.
    */
-  public void writeTo (@Nonnull final byte [] aBuf, final boolean bCompactBuffer)
+  public void writeTo (@NonNull final byte [] aBuf, final boolean bCompactBuffer)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
@@ -259,7 +259,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param nLen
    *        Number of bytes to copy. Must be &ge; 0.
    */
-  public void writeTo (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void writeTo (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     writeTo (aBuf, nOfs, nLen, true);
   }
@@ -277,7 +277,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCompactBuffer
    *        <code>true</code> to compact the buffer afterwards, <code>false</code> otherwise.
    */
-  public void writeTo (@Nonnull final byte [] aBuf,
+  public void writeTo (@NonNull final byte [] aBuf,
                        @Nonnegative final int nOfs,
                        @Nonnegative final int nLen,
                        final boolean bCompactBuffer)
@@ -299,7 +299,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @throws IOException
    *         In case of IO error
    */
-  public void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  public void writeTo (@NonNull @WillNotClose final OutputStream aOS) throws IOException
   {
     writeTo (aOS, true);
   }
@@ -316,7 +316,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @throws IOException
    *         In case of IO error
    */
-  public void writeTo (@Nonnull @WillNotClose final OutputStream aOS, final boolean bClearBuffer) throws IOException
+  public void writeTo (@NonNull @WillNotClose final OutputStream aOS, final boolean bClearBuffer) throws IOException
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
@@ -333,8 +333,8 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    *        The charset to use. May not be <code>null</code>.
    * @return The String representation.
    */
-  @Nonnull
-  public String getAsString (@Nonnull final Charset aCharset)
+  @NonNull
+  public String getAsString (@NonNull final Charset aCharset)
   {
     return new String (m_aBuffer.array (), m_aBuffer.arrayOffset (), m_aBuffer.position (), aCharset);
   }
@@ -359,7 +359,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
   }
 
   @Override
-  public void write (@Nonnull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_bCanGrow && nLen > m_aBuffer.remaining ())
       _growBy (nLen);
@@ -373,7 +373,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aSrcBuffer
    *        The buffer to use. May not be <code>null</code>.
    */
-  public void write (@Nonnull final ByteBuffer aSrcBuffer)
+  public void write (@NonNull final ByteBuffer aSrcBuffer)
   {
     ValueEnforcer.notNull (aSrcBuffer, "SourceBuffer");
 

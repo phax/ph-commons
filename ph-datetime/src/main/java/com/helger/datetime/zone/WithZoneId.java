@@ -18,11 +18,11 @@ package com.helger.datetime.zone;
 
 import java.time.ZoneId;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A combination of a date/time string and an optional {@link ZoneId}.
@@ -35,13 +35,13 @@ public class WithZoneId
   private final String m_sStr;
   private final ZoneId m_aZoneID;
 
-  public WithZoneId (@Nonnull final String sStr, @Nullable final ZoneId aZoneID)
+  public WithZoneId (@NonNull final String sStr, @Nullable final ZoneId aZoneID)
   {
     m_sStr = ValueEnforcer.notNull (sStr, "Str");
     m_aZoneID = aZoneID;
   }
 
-  @Nonnull
+  @NonNull
   public String getString ()
   {
     return m_sStr;

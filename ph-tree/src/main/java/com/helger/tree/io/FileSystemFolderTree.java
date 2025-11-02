@@ -19,6 +19,9 @@ package com.helger.tree.io;
 import java.io.File;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringImplode;
@@ -29,9 +32,6 @@ import com.helger.io.file.FilenameHelper;
 import com.helger.tree.withid.folder.DefaultFolderTree;
 import com.helger.tree.withid.folder.DefaultFolderTreeItem;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Represents a folder tree with the file system contents. This structure is eagerly filled!
  *
@@ -40,8 +40,8 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class FileSystemFolderTree extends DefaultFolderTree <String, File, ICommonsList <File>>
 {
-  private static void _iterate (@Nonnull final DefaultFolderTreeItem <String, File, ICommonsList <File>> aTreeItem,
-                                @Nonnull final File aDir,
+  private static void _iterate (@NonNull final DefaultFolderTreeItem <String, File, ICommonsList <File>> aTreeItem,
+                                @NonNull final File aDir,
                                 @Nullable final Predicate <? super File> aDirFilter,
                                 @Nullable final Predicate <? super File> aFileFilter)
   {
@@ -70,24 +70,24 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
     }
   }
 
-  public FileSystemFolderTree (@Nonnull final String sStartDir)
+  public FileSystemFolderTree (@NonNull final String sStartDir)
   {
     this (new File (sStartDir));
   }
 
-  public FileSystemFolderTree (@Nonnull final File aStartDir)
+  public FileSystemFolderTree (@NonNull final File aStartDir)
   {
     this (aStartDir, (Predicate <? super File>) null, (Predicate <? super File>) null);
   }
 
-  public FileSystemFolderTree (@Nonnull final String sStartDir,
+  public FileSystemFolderTree (@NonNull final String sStartDir,
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)
   {
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
-  public FileSystemFolderTree (@Nonnull final File aStartDir,
+  public FileSystemFolderTree (@NonNull final File aStartDir,
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)
   {

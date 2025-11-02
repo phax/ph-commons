@@ -19,12 +19,12 @@ package com.helger.datetime.expiration;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An object that can expire.
@@ -47,7 +47,7 @@ public class ExpiringObject <DATATYPE> implements IExpirable
    * @param aExpirationDT
    *        The expiration date time. May not be <code>null</code>.
    */
-  public ExpiringObject (@Nullable final DATATYPE aObj, @Nonnull final LocalDateTime aExpirationDT)
+  public ExpiringObject (@Nullable final DATATYPE aObj, @NonNull final LocalDateTime aExpirationDT)
   {
     ValueEnforcer.notNull (aExpirationDT, "ExpirationDT");
     m_aObj = aObj;
@@ -63,7 +63,7 @@ public class ExpiringObject <DATATYPE> implements IExpirable
     return m_aObj;
   }
 
-  @Nonnull
+  @NonNull
   public final LocalDateTime getExpirationDateTime ()
   {
     return m_aExpirationDT;
@@ -89,9 +89,9 @@ public class ExpiringObject <DATATYPE> implements IExpirable
    *        <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static <DATATYPE> ExpiringObject <DATATYPE> ofDuration (@Nullable final DATATYPE aObj,
-                                                                 @Nonnull final Duration aValidityDuration)
+                                                                 @NonNull final Duration aValidityDuration)
   {
     ValueEnforcer.notNull (aValidityDuration, "ValidityDuration");
     ValueEnforcer.isFalse (aValidityDuration::isNegative, "ValidityDuration must not be negative");

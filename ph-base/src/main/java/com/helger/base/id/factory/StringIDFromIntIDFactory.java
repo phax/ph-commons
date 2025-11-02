@@ -16,7 +16,7 @@
  */
 package com.helger.base.id.factory;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A factory that creates String IDs based on a specified {@link IIntIDFactory}.
@@ -26,12 +26,12 @@ import jakarta.annotation.Nonnull;
  */
 public class StringIDFromIntIDFactory extends StringIDFactory
 {
-  public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory)
+  public StringIDFromIntIDFactory (@NonNull final IIntIDFactory aIntIDFactory)
   {
     this (aIntIDFactory, GlobalIDFactory.DEFAULT_PREFIX);
   }
 
-  public StringIDFromIntIDFactory (@Nonnull final IIntIDFactory aIntIDFactory, @Nonnull final String sPrefix)
+  public StringIDFromIntIDFactory (@NonNull final IIntIDFactory aIntIDFactory, @NonNull final String sPrefix)
   {
     super (sPrefix, () -> Integer.toString (aIntIDFactory.getNewID ()));
   }

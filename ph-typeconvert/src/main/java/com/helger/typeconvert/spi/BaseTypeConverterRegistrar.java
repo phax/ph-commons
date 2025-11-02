@@ -23,6 +23,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,8 +35,6 @@ import com.helger.base.string.StringParser;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Register the base type converter
@@ -69,7 +68,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
    * <li>StringBuilder</li>
    * </ul>
    */
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // to Boolean
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,

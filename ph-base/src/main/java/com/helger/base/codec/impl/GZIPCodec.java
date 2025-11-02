@@ -21,6 +21,9 @@ import java.io.OutputStream;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
@@ -29,9 +32,6 @@ import com.helger.base.codec.IByteArrayCodec;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.NonClosingOutputStream;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Encoder and decoder for GZip compression
@@ -46,7 +46,7 @@ public class GZIPCodec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null || nLen == 0)
       return;
@@ -67,7 +67,7 @@ public class GZIPCodec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null || nLen == 0)
       return;

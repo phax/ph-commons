@@ -18,11 +18,11 @@ package com.helger.text.compare;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.CompareHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class CompareHelperExt extends CompareHelper
@@ -32,7 +32,7 @@ public final class CompareHelperExt extends CompareHelper
 
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
-                             @Nonnull final Locale aSortLocale)
+                             @NonNull final Locale aSortLocale)
   {
     // Legacy behavior: null values come first
     return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
@@ -40,7 +40,7 @@ public final class CompareHelperExt extends CompareHelper
 
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
-                             @Nonnull final Locale aSortLocale,
+                             @NonNull final Locale aSortLocale,
                              final boolean bNullValuesComeFirst)
   {
     return compare (sStr1, sStr2, CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale), bNullValuesComeFirst);

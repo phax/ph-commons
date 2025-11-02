@@ -16,6 +16,8 @@
  */
 package com.helger.http.header.specific;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +26,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handler for the request HTTP header field "Accept-Encoding"
@@ -60,7 +59,7 @@ public final class AcceptEncodingHandler
   private AcceptEncodingHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   public static AcceptEncodingList getAcceptEncodings (@Nullable final String sAcceptEncoding)
   {
     final AcceptEncodingList ret = new AcceptEncodingList ();

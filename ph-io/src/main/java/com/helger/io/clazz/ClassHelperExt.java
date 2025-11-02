@@ -18,15 +18,15 @@ package com.helger.io.clazz;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link Class} helper methods.
@@ -55,7 +55,7 @@ public final class ClassHelperExt extends ClassHelper
    * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static InputStream getResourceAsStream (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
+  public static InputStream getResourceAsStream (@NonNull final Class <?> aClass, @NonNull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notEmpty (sPath, "Path");

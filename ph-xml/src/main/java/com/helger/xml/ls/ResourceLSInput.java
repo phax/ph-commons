@@ -20,6 +20,8 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.ls.LSInput;
 
 import com.helger.annotation.style.UnsupportedOperation;
@@ -28,9 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Simple {@link LSInput} implementation.
@@ -47,12 +46,12 @@ public class ResourceLSInput implements LSInput
   private String m_sBaseURI;
   private String m_sStringData;
 
-  public ResourceLSInput (@Nonnull final IReadableResource aResource)
+  public ResourceLSInput (@NonNull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
-  public ResourceLSInput (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
+  public ResourceLSInput (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     m_sSystemId = sSystemID;
@@ -69,13 +68,13 @@ public class ResourceLSInput implements LSInput
     m_sBaseURI = sBaseURI;
   }
 
-  @Nonnull
+  @NonNull
   public IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;
   }
 
-  @Nonnull
+  @NonNull
   public InputStream getByteStream ()
   {
     return m_aISP.getInputStream ();

@@ -18,13 +18,13 @@ package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Mutable version of the {@link IURLData} interface.
@@ -36,29 +36,29 @@ import jakarta.annotation.Nullable;
  */
 public interface IMutableURLData <IMPLTYPE extends IMutableURLData <IMPLTYPE>> extends IURLData
 {
-  @Nonnull
-  IMPLTYPE setPath (@Nonnull String sPath);
+  @NonNull
+  IMPLTYPE setPath (@NonNull String sPath);
 
   /**
    * @return The mutable list of all query string parameters. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsImmutableObject
   ICommonsList <URLParameter> params ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   default ICommonsList <URLParameter> getAllParams ()
   {
     return params ().getClone ();
   }
 
-  @Nonnull
+  @NonNull
   IMPLTYPE setParams (@Nullable ICommonsList <URLParameter> aParams);
 
-  @Nonnull
+  @NonNull
   IMPLTYPE setAnchor (@Nullable String sAnchor);
 
-  @Nonnull
+  @NonNull
   IMPLTYPE setCharset (@Nullable Charset aCharset);
 }

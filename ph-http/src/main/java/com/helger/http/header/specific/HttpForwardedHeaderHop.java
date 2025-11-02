@@ -18,6 +18,8 @@ package com.helger.http.header.specific;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,9 +34,6 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.http.RFC7230Helper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class contains the different value pairs for a single "Forwarded" header hop as defined in
@@ -65,14 +64,14 @@ public class HttpForwardedHeaderHop
   public HttpForwardedHeaderHop ()
   {}
 
-  @Nonnull
-  private static String _getUnifiedToken (@Nonnull final String s)
+  @NonNull
+  private static String _getUnifiedToken (@NonNull final String s)
   {
     return s.toLowerCase (Locale.ROOT);
   }
 
-  @Nonnull
-  public HttpForwardedHeaderHop addPair (@Nonnull @Nonempty final String sToken, @Nonnull final String sValue)
+  @NonNull
+  public HttpForwardedHeaderHop addPair (@NonNull @Nonempty final String sToken, @NonNull final String sValue)
   {
     ValueEnforcer.notEmpty (sToken, "Token");
     ValueEnforcer.isTrue ( () -> RFC7230Helper.isValidToken (sToken), "Token is not valid according to RFC 7230");
@@ -93,7 +92,7 @@ public class HttpForwardedHeaderHop
    * @return <code>null</code> if no such token is present.
    */
   @Nullable
-  public String getFirstValue (@Nonnull @Nonempty final String sToken)
+  public String getFirstValue (@NonNull @Nonempty final String sToken)
   {
     ValueEnforcer.notEmpty (sToken, "Token");
     return m_aPairs.get (_getUnifiedToken (sToken));
@@ -106,7 +105,7 @@ public class HttpForwardedHeaderHop
    *        The token to check. May not be <code>null</code> or empty.
    * @return <code>true</code> if the token is present, <code>false</code> otherwise.
    */
-  public boolean containsToken (@Nonnull @Nonempty final String sToken)
+  public boolean containsToken (@NonNull @Nonempty final String sToken)
   {
     ValueEnforcer.notEmpty (sToken, "Token");
     return m_aPairs.containsKey (_getUnifiedToken (sToken));
@@ -160,7 +159,7 @@ public class HttpForwardedHeaderHop
    * @return {@link EChange#CHANGED} if the value was removed, {@link EChange#UNCHANGED} otherwise.
    */
   @Nullable
-  public EChange removePair (@Nonnull @Nonempty final String sToken)
+  public EChange removePair (@NonNull @Nonempty final String sToken)
   {
     ValueEnforcer.notEmpty (sToken, "Token");
     return m_aPairs.removeObject (_getUnifiedToken (sToken));
@@ -171,7 +170,7 @@ public class HttpForwardedHeaderHop
    *
    * @return A mutable copy of all token names. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllTokens ()
   {
@@ -183,7 +182,7 @@ public class HttpForwardedHeaderHop
    *
    * @return A mutable copy of all pairs. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllPairs ()
   {
@@ -195,7 +194,7 @@ public class HttpForwardedHeaderHop
    *
    * @return this for chaining.
    */
-  @Nonnull
+  @NonNull
   public HttpForwardedHeaderHop removeAll ()
   {
     m_aPairs.clear ();
@@ -240,8 +239,8 @@ public class HttpForwardedHeaderHop
    *        The client identifier. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public HttpForwardedHeaderHop setFor (@Nonnull final String sClientIdentifier)
+  @NonNull
+  public HttpForwardedHeaderHop setFor (@NonNull final String sClientIdentifier)
   {
     return addPair (PARAM_FOR, sClientIdentifier);
   }
@@ -265,8 +264,8 @@ public class HttpForwardedHeaderHop
    *        The host header value. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public HttpForwardedHeaderHop setHost (@Nonnull final String sHost)
+  @NonNull
+  public HttpForwardedHeaderHop setHost (@NonNull final String sHost)
   {
     return addPair (PARAM_HOST, sHost);
   }
@@ -290,8 +289,8 @@ public class HttpForwardedHeaderHop
    *        The proxy identifier. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public HttpForwardedHeaderHop setBy (@Nonnull final String sProxyIdentifier)
+  @NonNull
+  public HttpForwardedHeaderHop setBy (@NonNull final String sProxyIdentifier)
   {
     return addPair (PARAM_BY, sProxyIdentifier);
   }
@@ -315,8 +314,8 @@ public class HttpForwardedHeaderHop
    *        The protocol scheme. May not be <code>null</code>.
    * @return this for chaining.
    */
-  @Nonnull
-  public HttpForwardedHeaderHop setProto (@Nonnull final String sProtocolScheme)
+  @NonNull
+  public HttpForwardedHeaderHop setProto (@NonNull final String sProtocolScheme)
   {
     return addPair (PARAM_PROTO, sProtocolScheme);
   }
@@ -340,7 +339,7 @@ public class HttpForwardedHeaderHop
    *        The value to check. May not be <code>null</code>.
    * @return <code>true</code> if the value needs quoting, <code>false</code> otherwise.
    */
-  private static boolean _needsQuoting (@Nonnull final String sValue)
+  private static boolean _needsQuoting (@NonNull final String sValue)
   {
     // Check if it's a valid token
     return !RFC7230Helper.isValidToken (sValue);
@@ -352,7 +351,7 @@ public class HttpForwardedHeaderHop
    *
    * @return The string representation. Never <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     if (m_aPairs.isEmpty ())

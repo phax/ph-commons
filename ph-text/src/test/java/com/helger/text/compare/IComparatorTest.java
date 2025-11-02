@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.compare.IComparator;
@@ -40,8 +41,6 @@ import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.unittest.support.TestHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link IComparator}.
@@ -162,7 +161,7 @@ public final class IComparatorTest
 
   private static final class MyStringCompi implements IComparator <String>
   {
-    public int compare (@Nonnull final String sStr1, @Nonnull final String sStr2)
+    public int compare (@NonNull final String sStr1, @NonNull final String sStr2)
     {
       if (sStr1.equals ("b"))
         return -1;

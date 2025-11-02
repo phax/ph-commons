@@ -18,6 +18,8 @@ package com.helger.collection.map;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -26,8 +28,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special ordered map, that has an upper limit of contained elements. It is therefore a "Last
@@ -61,14 +61,14 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
     m_nMaxSize = nMaxSize;
   }
 
-  public LRUMap (@Nonnull final LRUMap <KEYTYPE, VALUETYPE> rhs)
+  public LRUMap (@NonNull final LRUMap <KEYTYPE, VALUETYPE> rhs)
   {
     this (rhs.m_nMaxSize);
     putAll (rhs);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public LRUMap <KEYTYPE, VALUETYPE> getClone ()
   {
     return new LRUMap <> (this);
@@ -93,11 +93,11 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
    */
   @OverrideOnDemand
   protected void onRemoveEldestEntry (@Nonnegative final int nSize,
-                                      @Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
+                                      final Map.@NonNull Entry <KEYTYPE, VALUETYPE> aEldest)
   {}
 
   @Override
-  protected final boolean removeEldestEntry (@Nonnull final Map.Entry <KEYTYPE, VALUETYPE> aEldest)
+  protected final boolean removeEldestEntry (final Map.@NonNull Entry <KEYTYPE, VALUETYPE> aEldest)
   {
     final int nSize = size ();
     if (nSize <= m_nMaxSize)

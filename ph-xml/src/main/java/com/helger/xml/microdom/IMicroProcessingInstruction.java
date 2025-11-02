@@ -16,8 +16,8 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents a processing instruction.
@@ -29,7 +29,7 @@ public interface IMicroProcessingInstruction extends IMicroNode
   /**
    * @return The target (e.g. xml-stylesheet)
    */
-  @Nonnull
+  @NonNull
   String getTarget ();
 
   /**
@@ -41,6 +41,6 @@ public interface IMicroProcessingInstruction extends IMicroNode
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroProcessingInstruction getClone ();
 }

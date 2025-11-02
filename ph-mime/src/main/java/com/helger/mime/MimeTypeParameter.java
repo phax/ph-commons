@@ -16,14 +16,14 @@
  */
 package com.helger.mime;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.mime.parse.MimeTypeParser;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a single MIME type parameter.
@@ -47,7 +47,7 @@ public class MimeTypeParameter
    *        The value to use. May not be <code>null</code>. Must not be a valid
    *        MIME token.
    */
-  public MimeTypeParameter (@Nonnull @Nonempty final String sAttribute, @Nonnull final String sValue)
+  public MimeTypeParameter (@NonNull @Nonempty final String sAttribute, @NonNull final String sValue)
   {
     ValueEnforcer.isTrue (MimeTypeParser.isToken (sAttribute), () -> "MimeType parameter name is not a valid token: " + sAttribute);
     ValueEnforcer.notNull (sValue, "Value");
@@ -61,7 +61,7 @@ public class MimeTypeParameter
    * @return The parameter name. Neither <code>null</code> nor empty and
    *         confirmed to be a valid MIME token.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAttribute ()
   {
@@ -72,7 +72,7 @@ public class MimeTypeParameter
    * @return The value of the parameter. Never <code>null</code>. No quoting or
    *         escaping is applied to this value!
    */
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;
@@ -94,9 +94,9 @@ public class MimeTypeParameter
    * @return The value of the parameter. Neither <code>null</code> nor empty. If
    *         necessary, quoting is applied according to the passed algorithm.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public String getValueQuotedIfNecessary (@Nonnull final EMimeQuoting eQuotingAlgorithm)
+  public String getValueQuotedIfNecessary (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
     return m_bValueRequiresQuoting ? eQuotingAlgorithm.getQuotedString (m_sValue) : m_sValue;
   }

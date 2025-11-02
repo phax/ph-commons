@@ -20,6 +20,8 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.system.EJavaVersion;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Resource bundle utility methods.<br>
@@ -51,16 +50,16 @@ public final class ResourceBundleHelper
   {}
 
   @Nullable
-  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName,
-                                                  @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getResourceBundle (@NonNull final String sBundleName,
+                                                  @NonNull final Locale aContentLocale)
   {
     return getResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nullable
-  public static ResourceBundle getResourceBundle (@Nonnull final String sBundleName,
-                                                  @Nonnull final Locale aContentLocale,
-                                                  @Nonnull final ClassLoader aClassLoader)
+  public static ResourceBundle getResourceBundle (@NonNull final String sBundleName,
+                                                  @NonNull final Locale aContentLocale,
+                                                  @NonNull final ClassLoader aClassLoader)
   {
     try
     {
@@ -73,16 +72,16 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName,
-                                                      @Nonnull final Locale aContentLocale)
+  public static ResourceBundle getUtf8ResourceBundle (@NonNull final String sBundleName,
+                                                      @NonNull final Locale aContentLocale)
   {
     return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
   @Nullable
-  public static ResourceBundle getUtf8ResourceBundle (@Nonnull final String sBundleName,
-                                                      @Nonnull final Locale aContentLocale,
-                                                      @Nonnull final ClassLoader aClassLoader)
+  public static ResourceBundle getUtf8ResourceBundle (@NonNull final String sBundleName,
+                                                      @NonNull final Locale aContentLocale,
+                                                      @NonNull final ClassLoader aClassLoader)
   {
     try
     {
@@ -101,7 +100,7 @@ public final class ResourceBundleHelper
 
   @Nullable
   public static String getString (@Nullable final ResourceBundle aResourceBundle,
-                                  @Nonnull @PropertyKey final String sKey)
+                                  @NonNull @PropertyKey final String sKey)
   {
     if (aResourceBundle != null)
       try
@@ -116,35 +115,35 @@ public final class ResourceBundleHelper
   }
 
   @Nullable
-  public static String getString (@Nonnull final String sBundleName,
-                                  @Nonnull final Locale aContentLocale,
-                                  @Nonnull @PropertyKey final String sKey)
+  public static String getString (@NonNull final String sBundleName,
+                                  @NonNull final Locale aContentLocale,
+                                  @NonNull @PropertyKey final String sKey)
   {
     return getString (getResourceBundle (sBundleName, aContentLocale), sKey);
   }
 
   @Nullable
-  public static String getString (@Nonnull final String sBundleName,
-                                  @Nonnull final Locale aContentLocale,
-                                  @Nonnull @PropertyKey final String sKey,
-                                  @Nonnull final ClassLoader aClassLoader)
+  public static String getString (@NonNull final String sBundleName,
+                                  @NonNull final Locale aContentLocale,
+                                  @NonNull @PropertyKey final String sKey,
+                                  @NonNull final ClassLoader aClassLoader)
   {
     return getString (getResourceBundle (sBundleName, aContentLocale, aClassLoader), sKey);
   }
 
   @Nullable
-  public static String getUtf8String (@Nonnull final String sBundleName,
-                                      @Nonnull final Locale aContentLocale,
-                                      @Nonnull @PropertyKey final String sKey)
+  public static String getUtf8String (@NonNull final String sBundleName,
+                                      @NonNull final Locale aContentLocale,
+                                      @NonNull @PropertyKey final String sKey)
   {
     return getString (getUtf8ResourceBundle (sBundleName, aContentLocale), sKey);
   }
 
   @Nullable
-  public static String getUtf8String (@Nonnull final String sBundleName,
-                                      @Nonnull final Locale aContentLocale,
-                                      @Nonnull @PropertyKey final String sKey,
-                                      @Nonnull final ClassLoader aClassLoader)
+  public static String getUtf8String (@NonNull final String sBundleName,
+                                      @NonNull final Locale aContentLocale,
+                                      @NonNull @PropertyKey final String sKey,
+                                      @NonNull final ClassLoader aClassLoader)
   {
     return getString (getUtf8ResourceBundle (sBundleName, aContentLocale, aClassLoader), sKey);
   }
@@ -163,7 +162,7 @@ public final class ResourceBundleHelper
    * @param aClassLoader
    *        The class loader to be used. May not be <code>null</code>.
    */
-  public static void clearCache (@Nonnull final ClassLoader aClassLoader)
+  public static void clearCache (@NonNull final ClassLoader aClassLoader)
   {
     ResourceBundle.clearCache (aClassLoader);
     if (LOGGER.isDebugEnabled ())

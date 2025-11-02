@@ -21,13 +21,13 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IXMLBracketModeDeterminator} for HTML5. This is not
@@ -57,14 +57,14 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
                                                                                    "TRACKE",
                                                                                    "WBR");
 
-  private static boolean _isVoidElement (@Nonnull final String sTagName)
+  private static boolean _isVoidElement (@NonNull final String sTagName)
   {
     return VOID_ELEMENTS.contains (sTagName.toUpperCase (Locale.US));
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeBracketMode getBracketMode (@Nullable final String sNamespaceURI,
-                                                  @Nonnull final String sTagName,
+                                                  @NonNull final String sTagName,
                                                   @Nullable final Map <QName, String> aAttrs,
                                                   final boolean bHasChildren)
   {

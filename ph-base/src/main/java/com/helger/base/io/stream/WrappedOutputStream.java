@@ -20,10 +20,10 @@ import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around another {@link FilterOutputStream} to make the wrapped
@@ -33,7 +33,7 @@ import jakarta.annotation.Nonnull;
  */
 public class WrappedOutputStream extends FilterOutputStream
 {
-  public WrappedOutputStream (@Nonnull final OutputStream aWrappedOS)
+  public WrappedOutputStream (@NonNull final OutputStream aWrappedOS)
   {
     super (ValueEnforcer.notNull (aWrappedOS, "WrappedOutputStream"));
   }
@@ -42,14 +42,14 @@ public class WrappedOutputStream extends FilterOutputStream
    * @return The output stream provided in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final OutputStream getWrappedOutputStream ()
   {
     return out;
   }
 
   @Override
-  public void write (@Nonnull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     out.write (aBuf, nOfs, nLen);

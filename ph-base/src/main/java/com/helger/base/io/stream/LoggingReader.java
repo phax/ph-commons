@@ -19,14 +19,13 @@ package com.helger.base.io.stream;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around an {@link Reader} that logs read and skip actions.
@@ -44,7 +43,7 @@ public class LoggingReader extends WrappedReader
    * @param aSourceReader
    *        The reader that should be logged. May not be <code>null</code>.
    */
-  public LoggingReader (@Nonnull final Reader aSourceReader)
+  public LoggingReader (@NonNull final Reader aSourceReader)
   {
     super (aSourceReader);
   }

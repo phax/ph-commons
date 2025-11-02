@@ -19,14 +19,14 @@ package com.helger.http.header.specific;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains a list of Accept-Encoding values as specified by the HTTP header
@@ -39,14 +39,14 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   public AcceptEncodingList ()
   {}
 
-  @Nonnull
-  private static String _unify (@Nonnull final String sEncoding)
+  @NonNull
+  private static String _unify (@NonNull final String sEncoding)
   {
     return sEncoding.toLowerCase (Locale.US);
   }
 
-  @Nonnull
-  public AcceptEncodingList addEncoding (@Nonnull final String sEncoding, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptEncodingList addEncoding (@NonNull final String sEncoding, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sEncoding, "Encoding");
     qvalueMap ().put (_unify (sEncoding), new QValue (dQuality));
@@ -60,8 +60,8 @@ public class AcceptEncodingList extends AbstractQValueList <String>
    *        The encoding name to query. May not be <code>null</code>.
    * @return The matching {@link QValue} and never <code>null</code>.
    */
-  @Nonnull
-  public QValue getQValueOfEncoding (@Nonnull final String sEncoding)
+  @NonNull
+  public QValue getQValueOfEncoding (@NonNull final String sEncoding)
   {
     ValueEnforcer.notNull (sEncoding, "Encoding");
 
@@ -88,7 +88,7 @@ public class AcceptEncodingList extends AbstractQValueList <String>
    *        The encoding name to query. May not be <code>null</code>.
    * @return 0 means not accepted, 1 means fully accepted.
    */
-  public double getQualityOfEncoding (@Nonnull final String sEncoding)
+  public double getQualityOfEncoding (@NonNull final String sEncoding)
   {
     return getQValueOfEncoding (sEncoding).getQuality ();
   }
@@ -100,12 +100,12 @@ public class AcceptEncodingList extends AbstractQValueList <String>
    *        The encoding to be checked. May not be <code>null</code>.
    * @return <code>true</code> if the encoding is supported, <code>false</code> if not.
    */
-  public boolean supportsEncoding (@Nonnull final String sEncoding)
+  public boolean supportsEncoding (@NonNull final String sEncoding)
   {
     return getQValueOfEncoding (sEncoding).isAboveMinimumQuality ();
   }
 
-  public boolean explicitlySupportsEncoding (@Nonnull final String sEncoding)
+  public boolean explicitlySupportsEncoding (@NonNull final String sEncoding)
   {
     ValueEnforcer.notNull (sEncoding, "Encoding");
 
@@ -172,7 +172,7 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getAsHttpHeaderValue ()
   {
     return getAsHttpHeaderValue (Function.identity ());

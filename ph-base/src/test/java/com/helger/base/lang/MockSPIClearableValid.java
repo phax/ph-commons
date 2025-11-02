@@ -16,18 +16,18 @@
  */
 package com.helger.base.lang;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.state.EChange;
 import com.helger.base.state.IClearable;
-
-import jakarta.annotation.Nonnull;
 
 @IsSPIImplementation
 public final class MockSPIClearableValid implements IClearable
 {
   private int m_nCallCount = 0;
 
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     m_nCallCount++;

@@ -22,6 +22,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.ByteOrder;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,9 +42,6 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Encoder and decoder for the LZW algorithm
@@ -81,7 +80,7 @@ public class LZWCodec implements IByteArrayCodec
       return m_nTableIndex;
     }
 
-    public void setChildNode (@Nonnegative final byte nIndex, @Nonnull final LZWNode aNode)
+    public void setChildNode (@Nonnegative final byte nIndex, @NonNull final LZWNode aNode)
     {
       ValueEnforcer.notNull (aNode, "Node");
       if (m_aChildren == null)
@@ -104,7 +103,7 @@ public class LZWCodec implements IByteArrayCodec
      * @return The node that resides at the data path.
      */
     @Nullable
-    public LZWNode getChildNode (@Nonnull final byte [] aBuffer)
+    public LZWNode getChildNode (@NonNull final byte [] aBuffer)
     {
       LZWNode aCurNode = this;
       for (final byte aByte : aBuffer)
@@ -150,7 +149,7 @@ public class LZWCodec implements IByteArrayCodec
       m_nCodeBits = 9;
     }
 
-    public final void addEntry (@Nonnull final byte [] aByteSeq, final boolean bForEncode)
+    public final void addEntry (@NonNull final byte [] aByteSeq, final boolean bForEncode)
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
@@ -192,7 +191,7 @@ public class LZWCodec implements IByteArrayCodec
      * @throws IOException
      *         In case EOF is reached
      */
-    public int readCode (@Nonnull final NonBlockingBitInputStream aBIS) throws IOException
+    public int readCode (@NonNull final NonBlockingBitInputStream aBIS) throws IOException
     {
       return aBIS.readBits (m_nCodeBits);
     }
@@ -254,7 +253,7 @@ public class LZWCodec implements IByteArrayCodec
     }
 
     @Nullable
-    public LZWNode getNode (@Nonnull final byte [] aBytes)
+    public LZWNode getNode (@NonNull final byte [] aBytes)
     {
       return m_aRoot.getChildNode (aBytes);
     }
@@ -268,7 +267,7 @@ public class LZWCodec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aOS, "OutputStream");
 
@@ -351,8 +350,8 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
-  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+  public void decode (@NonNull @WillNotClose final InputStream aEncodedIS,
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -427,7 +426,7 @@ public class LZWCodec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
       return;

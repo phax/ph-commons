@@ -16,14 +16,13 @@
  */
 package com.helger.statistics.impl;
 
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.statistics.api.IMutableStatisticsHandlerKeyedSize;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IMutableStatisticsHandlerKeyedSize}

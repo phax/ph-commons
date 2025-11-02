@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
@@ -30,8 +31,6 @@ import com.helger.base.codec.IByteArrayCodec;
 import com.helger.base.codec.IdentityByteArrayCodec;
 import com.helger.base.codec.base64.Base64Codec;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link IByteArrayCodec}
  *
@@ -39,7 +38,7 @@ import jakarta.annotation.Nonnull;
  */
 public final class IByteArrayCodecTest
 {
-  private void _testCodec (@Nonnull final IByteArrayCodec c, @Nonnull final byte [] aSrcBytes)
+  private void _testCodec (@NonNull final IByteArrayCodec c, @NonNull final byte [] aSrcBytes)
   {
     // all
     {
@@ -72,7 +71,7 @@ public final class IByteArrayCodecTest
     }
   }
 
-  private void _testCodec (@Nonnull final IByteArrayCodec c)
+  private void _testCodec (@NonNull final IByteArrayCodec c)
   {
     _testCodec (c, CGlobal.EMPTY_BYTE_ARRAY);
     _testCodec (c, "Hallo JÜnit".getBytes (StandardCharsets.ISO_8859_1));

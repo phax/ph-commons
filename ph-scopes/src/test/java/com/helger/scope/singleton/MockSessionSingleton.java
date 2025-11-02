@@ -16,10 +16,10 @@
  */
 package com.helger.scope.singleton;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.hashcode.HashCodeGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Mock implementation of {@link AbstractSessionSingleton}.
@@ -35,7 +35,7 @@ public final class MockSessionSingleton extends AbstractSessionSingleton
   public MockSessionSingleton ()
   {}
 
-  @Nonnull
+  @NonNull
   public static MockSessionSingleton getInstance ()
   {
     return getSessionSingleton (MockSessionSingleton.class);

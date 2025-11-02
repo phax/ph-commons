@@ -16,8 +16,8 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents the document type of a document. Instances of the class may only
@@ -27,7 +27,7 @@ import jakarta.annotation.Nullable;
  */
 public interface IMicroDocumentType extends IMicroNode
 {
-  @Nonnull
+  @NonNull
   String getQualifiedName ();
 
   @Nullable
@@ -39,6 +39,6 @@ public interface IMicroDocumentType extends IMicroNode
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroDocumentType getClone ();
 }

@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has handled indication.
@@ -39,14 +39,14 @@ public interface IHandledIndicator
     return !isHandled ();
   }
 
-  @Nonnull
-  default EHandled or (@Nonnull final IHandledIndicator aOther)
+  @NonNull
+  default EHandled or (@NonNull final IHandledIndicator aOther)
   {
     return EHandled.valueOf (isHandled () || aOther.isHandled ());
   }
 
-  @Nonnull
-  default EHandled and (@Nonnull final IHandledIndicator aOther)
+  @NonNull
+  default EHandled and (@NonNull final IHandledIndicator aOther)
   {
     return EHandled.valueOf (isHandled () && aOther.isHandled ());
   }

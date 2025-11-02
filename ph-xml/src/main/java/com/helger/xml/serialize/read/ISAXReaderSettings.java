@@ -18,18 +18,17 @@ package com.helger.xml.serialize.read;
 
 import javax.xml.parsers.SAXParserFactory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.ContentHandler;
 import org.xml.sax.DTDHandler;
+import org.xml.sax.XMLReader;
 import org.xml.sax.ext.DeclHandler;
 import org.xml.sax.ext.LexicalHandler;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * Read-only interface for the {@link SAXReaderSettings}. Implementations of
- * this interface are meant to define settings that can be used with
- * org.xml.sax.XMLReader instances.
+ * Read-only interface for the {@link SAXReaderSettings}. Implementations of this interface are
+ * meant to define settings that can be used with org.xml.sax.XMLReader instances.
  *
  * @author Philip Helger
  */
@@ -54,33 +53,30 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
   LexicalHandler getLexicalHandler ();
 
   /**
-   * @return The special DTD declaration event handler to be used. May be
-   *         <code>null</code>.
+   * @return The special DTD declaration event handler to be used. May be <code>null</code>.
    */
   @Nullable
   DeclHandler getDeclarationHandler ();
 
   /**
-   * @return <code>true</code> if a new XML parser is explicitly required for
-   *         this instance.
+   * @return <code>true</code> if a new XML parser is explicitly required for this instance.
    */
   boolean isRequiresNewXMLParserExplicitly ();
 
   /**
-   * @return A custom SAX parser factory. This is only needed to work around
-   *         some of the default SAXParserFactory configuration cannot be
-   *         applied.
+   * @return A custom SAX parser factory. This is only needed to work around some of the default
+   *         SAXParserFactory configuration cannot be applied.
    * @since 11.2.0
    */
   @Nullable
   SAXParserFactory getCustomSAXParserFactory ();
 
   /**
-   * Check if the current settings require a separate
-   * {@link org.xml.sax.XMLReader} or if a pooled default object can be used.
+   * Check if the current settings require a separate {@link org.xml.sax.XMLReader} or if a pooled
+   * default object can be used.
    *
-   * @return <code>true</code> if a separate {@link org.xml.sax.XMLReader} is
-   *         required, <code>false</code> if not.
+   * @return <code>true</code> if a separate {@link org.xml.sax.XMLReader} is required,
+   *         <code>false</code> if not.
    */
   boolean requiresNewXMLParser ();
 
@@ -88,8 +84,7 @@ public interface ISAXReaderSettings extends IBaseXMLReaderSettings
    * Apply all settings of this object onto the specified XMLReader object
    *
    * @param aParser
-   *        The XML reader to apply the settings onto. May not be
-   *        <code>null</code>.
+   *        The XML reader to apply the settings onto. May not be <code>null</code>.
    */
-  void applyToSAXReader (@Nonnull org.xml.sax.XMLReader aParser);
+  void applyToSAXReader (@NonNull XMLReader aParser);
 }

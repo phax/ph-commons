@@ -16,11 +16,11 @@
  */
 package com.helger.security.password.salt;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for a password salt.
@@ -38,7 +38,7 @@ public interface IPasswordSalt
   /**
    * @return A copy of the pure salt bytes. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   byte [] getSaltBytes ();
@@ -47,7 +47,7 @@ public interface IPasswordSalt
    * @return The salt bytes in a string representation for easy serialization.
    *         Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getSaltString ();
 }

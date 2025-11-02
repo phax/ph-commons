@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.function.BiPredicate;
 import java.util.function.ToIntFunction;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
@@ -32,8 +34,6 @@ import com.helger.base.hashcode.HashCodeCalculator;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.reflection.GenericReflection;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.JAXBElement;
 
 /**
@@ -147,7 +147,7 @@ public final class JAXBHelper
 
   private static <T> boolean _listEquals (@Nullable final List <T> aObj1,
                                           @Nullable final List <T> aObj2,
-                                          @Nonnull BiPredicate <T, T> aEquals)
+                                          @NonNull BiPredicate <T, T> aEquals)
   {
     if (EqualsHelper.identityEqual (aObj1, aObj2))
       return true;
@@ -267,7 +267,7 @@ public final class JAXBHelper
     return aHC.getHashCode ();
   }
 
-  private static <T> int _listHashCode (@Nullable final List <T> aList, @Nonnull final ToIntFunction <T> aHashCode)
+  private static <T> int _listHashCode (@Nullable final List <T> aList, @NonNull final ToIntFunction <T> aHashCode)
   {
     if (aList == null)
       return HashCodeCalculator.HASHCODE_NULL;

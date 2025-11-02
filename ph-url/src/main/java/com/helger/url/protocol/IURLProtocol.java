@@ -16,10 +16,10 @@
  */
 package com.helger.url.protocol;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Base interface for an URL protocol descriptor. See {@link EURLProtocol} for an implementation.
@@ -33,7 +33,7 @@ public interface IURLProtocol
    *
    * @return The underlying text representation of the protocol. Never <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getProtocol ();
 

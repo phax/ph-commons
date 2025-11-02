@@ -16,10 +16,10 @@
  */
 package com.helger.base.callback.exception;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nullable;
 
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that stores the last

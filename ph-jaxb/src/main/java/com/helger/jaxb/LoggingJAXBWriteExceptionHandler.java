@@ -16,13 +16,13 @@
  */
 package com.helger.jaxb;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.callback.exception.IExceptionCallback;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.MarshalException;
 
@@ -39,7 +39,7 @@ public class LoggingJAXBWriteExceptionHandler implements IExceptionCallback <JAX
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJAXBWriteExceptionHandler.class);
 
-  public void onException (@Nonnull final JAXBException ex)
+  public void onException (@NonNull final JAXBException ex)
   {
     if (ex instanceof MarshalException)
       LOGGER.error ("Marshal exception writing object", ex);

@@ -20,6 +20,9 @@ import java.util.AbstractSet;
 import java.util.Iterator;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -28,12 +31,9 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsOrderedSet;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
- * A special ordered set, that has an upper limit of contained elements. It is
- * therefore a "Last Recently Used" cache.<br>
+ * A special ordered set, that has an upper limit of contained elements. It is therefore a "Last
+ * Recently Used" cache.<br>
  * The underlying data structure is a {@link LRUMap} map.
  *
  * @author Philip Helger
@@ -52,13 +52,14 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
       super (nMaxSize);
     }
 
-    LRUCacheMap (@Nonnull final LRUCacheMap rhs)
+    LRUCacheMap (@NonNull final LRUCacheMap rhs)
     {
       super (rhs);
     }
 
     @Override
-    protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final Map.Entry <ELEMENTTYPE, Boolean> aEldest)
+    protected void onRemoveEldestEntry (@Nonnegative final int nSize,
+                                        final Map.@NonNull Entry <ELEMENTTYPE, Boolean> aEldest)
     {
       LRUSet.this.onRemoveEldestEntry (nSize, aEldest.getKey ());
     }
@@ -76,15 +77,15 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
     m_aMap = new LRUCacheMap (rhs.m_aMap);
   }
 
-  @Nonnull
+  @NonNull
   public LRUSet <ELEMENTTYPE> getClone ()
   {
     return new LRUSet <> (this);
   }
 
   /**
-   * Protected method that is invoked every time an element is removed from the
-   * cache, because the maximum size is exceeded.
+   * Protected method that is invoked every time an element is removed from the cache, because the
+   * maximum size is exceeded.
    *
    * @param nSize
    *        Current size of the map. Always &ge; 0.
@@ -92,7 +93,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
    *        The entry that is to be removed. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @Nonnull final ELEMENTTYPE aEldest)
+  protected void onRemoveEldestEntry (@Nonnegative final int nSize, @NonNull final ELEMENTTYPE aEldest)
   {}
 
   /**
@@ -114,7 +115,7 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public Iterator <ELEMENTTYPE> iterator ()
   {
     return m_aMap.keySet ().iterator ();

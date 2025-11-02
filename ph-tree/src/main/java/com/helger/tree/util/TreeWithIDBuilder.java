@@ -19,6 +19,9 @@ package com.helger.tree.util;
 import java.util.Collection;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -31,9 +34,6 @@ import com.helger.collection.hierarchy.IHasParent;
 import com.helger.collection.hierarchy.IParentProvider;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 import com.helger.tree.withid.DefaultTreeWithID;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Utility classes for building a tree from flat collections.
@@ -49,9 +49,9 @@ public final class TreeWithIDBuilder
   private TreeWithIDBuilder ()
   {}
 
-  @Nonnull
-  private static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> _buildTree (@Nonnull final List <DATATYPE> aOpen,
-                                                                                                                @Nonnull final IParentProvider <DATATYPE> aParentResolver)
+  @NonNull
+  private static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> _buildTree (@NonNull final List <DATATYPE> aOpen,
+                                                                                                                @NonNull final IParentProvider <DATATYPE> aParentResolver)
   {
     final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <> ();
     final ICommonsMap <KEYTYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aIDMap = new CommonsHashMap <> ();
@@ -112,9 +112,9 @@ public final class TreeWithIDBuilder
    *         if the hierarchy cannot be determined because an object references
    *         a parent that is not in the list!
    */
-  @Nonnull
-  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@Nonnull final Collection <? extends DATATYPE> aAll,
-                                                                                                              @Nonnull final IParentProvider <DATATYPE> aParentResolver)
+  @NonNull
+  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final Collection <? extends DATATYPE> aAll,
+                                                                                                              @NonNull final IParentProvider <DATATYPE> aParentResolver)
   {
     ValueEnforcer.notNull (aAll, "All");
     ValueEnforcer.notNull (aParentResolver, "ParentResolver");
@@ -140,9 +140,9 @@ public final class TreeWithIDBuilder
    *         if the hierarchy cannot be determined because an object references
    *         a parent that is not in the list!
    */
-  @Nonnull
-  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@Nonnull final DATATYPE [] aAll,
-                                                                                                              @Nonnull final IParentProvider <DATATYPE> aParentResolver)
+  @NonNull
+  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final DATATYPE [] aAll,
+                                                                                                              @NonNull final IParentProvider <DATATYPE> aParentResolver)
   {
     ValueEnforcer.notNull (aAll, "All");
     ValueEnforcer.notNull (aParentResolver, "ParentResolver");
@@ -165,8 +165,8 @@ public final class TreeWithIDBuilder
    *         if the hierarchy cannot be determined because an object references
    *         a parent that is not in the list!
    */
-  @Nonnull
-  public static <KEYTYPE, DATATYPE extends IHasParent <DATATYPE> & IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@Nonnull final Collection <? extends DATATYPE> aAll)
+  @NonNull
+  public static <KEYTYPE, DATATYPE extends IHasParent <DATATYPE> & IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final Collection <? extends DATATYPE> aAll)
   {
     ValueEnforcer.notNull (aAll, "All");
 
@@ -174,7 +174,7 @@ public final class TreeWithIDBuilder
   }
 
   private static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> void _buildTreeRecursive (@Nullable final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParentItem,
-                                                                                        @Nonnull final IChildrenProvider <DATATYPE> aChildrenResolver)
+                                                                                        @NonNull final IChildrenProvider <DATATYPE> aChildrenResolver)
   {
     if (aParentItem != null)
     {
@@ -188,8 +188,8 @@ public final class TreeWithIDBuilder
     }
   }
 
-  @Nonnull
-  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@Nonnull final IChildrenProvider <DATATYPE> aChildrenResolver)
+  @NonNull
+  public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final IChildrenProvider <DATATYPE> aChildrenResolver)
   {
     ValueEnforcer.notNull (aChildrenResolver, "ChildrenResolver");
 

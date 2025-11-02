@@ -20,13 +20,13 @@ import java.nio.charset.Charset;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a list of Accept-Charset values as specified in the HTTP header
@@ -38,21 +38,21 @@ public class AcceptCharsetList extends AbstractQValueList <String>
   public AcceptCharsetList ()
   {}
 
-  @Nonnull
-  private static String _unify (@Nonnull final String sCharset)
+  @NonNull
+  private static String _unify (@NonNull final String sCharset)
   {
     return sCharset.toLowerCase (Locale.US);
   }
 
-  @Nonnull
-  public AcceptCharsetList addCharset (@Nonnull final Charset aCharset, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptCharsetList addCharset (@NonNull final Charset aCharset, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     return addCharset (aCharset.name (), dQuality);
   }
 
-  @Nonnull
-  public AcceptCharsetList addCharset (@Nonnull @Nonempty final String sCharset, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptCharsetList addCharset (@NonNull @Nonempty final String sCharset, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sCharset, "Charset");
     qvalueMap ().put (_unify (sCharset), new QValue (dQuality));
@@ -66,8 +66,8 @@ public class AcceptCharsetList extends AbstractQValueList <String>
    *        The charset name to query. May not be <code>null</code>.
    * @return The associated {@link QValue}.
    */
-  @Nonnull
-  public QValue getQValueOfCharset (@Nonnull final String sCharset)
+  @NonNull
+  public QValue getQValueOfCharset (@NonNull final String sCharset)
   {
     ValueEnforcer.notNull (sCharset, "Charset");
 
@@ -93,17 +93,17 @@ public class AcceptCharsetList extends AbstractQValueList <String>
    *        The charset name to query. May not be <code>null</code>.
    * @return 0 means not accepted, 1 means fully accepted.
    */
-  public double getQualityOfCharset (@Nonnull final String sCharset)
+  public double getQualityOfCharset (@NonNull final String sCharset)
   {
     return getQValueOfCharset (sCharset).getQuality ();
   }
 
-  public boolean supportsCharset (@Nonnull final String sCharset)
+  public boolean supportsCharset (@NonNull final String sCharset)
   {
     return getQValueOfCharset (sCharset).isAboveMinimumQuality ();
   }
 
-  public boolean explicitlySupportsCharset (@Nonnull final String sCharset)
+  public boolean explicitlySupportsCharset (@NonNull final String sCharset)
   {
     ValueEnforcer.notNull (sCharset, "Charset");
 
@@ -112,7 +112,7 @@ public class AcceptCharsetList extends AbstractQValueList <String>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getAsHttpHeaderValue ()
   {
     return getAsHttpHeaderValue (Function.identity ());

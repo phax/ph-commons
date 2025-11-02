@@ -16,12 +16,11 @@
  */
 package com.helger.xml.sax;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Extended {@link ErrorHandler} interface with chaining method.
@@ -39,7 +38,7 @@ public interface ISAXErrorHandler extends ErrorHandler
    *        The other handler to use. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default ISAXErrorHandler andThen (@Nullable final ErrorHandler aOther)
   {
     final ISAXErrorHandler aThis = this;
@@ -48,19 +47,19 @@ public interface ISAXErrorHandler extends ErrorHandler
 
     return new ISAXErrorHandler ()
     {
-      public void warning (@Nonnull final SAXParseException aEx) throws SAXException
+      public void warning (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.warning (aEx);
         aOther.warning (aEx);
       }
 
-      public void error (@Nonnull final SAXParseException aEx) throws SAXException
+      public void error (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.error (aEx);
         aOther.error (aEx);
       }
 
-      public void fatalError (@Nonnull final SAXParseException aEx) throws SAXException
+      public void fatalError (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.fatalError (aEx);
         aOther.fatalError (aEx);

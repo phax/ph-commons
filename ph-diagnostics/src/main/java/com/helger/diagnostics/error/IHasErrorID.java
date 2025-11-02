@@ -18,11 +18,11 @@ package com.helger.diagnostics.error;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for objects having an error ID
@@ -68,7 +68,7 @@ public interface IHasErrorID
     return EqualsHelper.equals (getErrorID (), sErrorID);
   }
 
-  @Nonnull
+  @NonNull
   static Comparator <IHasErrorID> getComparatorErrorID ()
   {
     return Comparator.nullsFirst (Comparator.comparing (IHasErrorID::getErrorID));

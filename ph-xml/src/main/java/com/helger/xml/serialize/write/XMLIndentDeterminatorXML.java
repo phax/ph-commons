@@ -20,11 +20,11 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of {@link IXMLIndentDeterminator} for real XML. It always uses
@@ -34,27 +34,27 @@ import jakarta.annotation.Nullable;
  */
 public class XMLIndentDeterminatorXML implements IXMLIndentDeterminator
 {
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
                                              @Nullable final String sNamespaceURI,
-                                             @Nonnull final String sTagName,
+                                             @NonNull final String sTagName,
                                              @Nullable final Map <QName, String> aAttrs,
                                              final boolean bHasChildren,
-                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+                                             @NonNull final EXMLSerializeIndent eDefaultIndent)
   {
     // Always use the default
     return eDefaultIndent;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
                                              @Nullable final String sNamespaceURI,
-                                             @Nonnull final String sTagName,
+                                             @NonNull final String sTagName,
                                              @Nullable final Map <QName, String> aAttrs,
                                              final boolean bHasChildren,
-                                             @Nonnull final EXMLSerializeIndent eDefaultIndent)
+                                             @NonNull final EXMLSerializeIndent eDefaultIndent)
   {
     // Always use the default
     return eDefaultIndent;

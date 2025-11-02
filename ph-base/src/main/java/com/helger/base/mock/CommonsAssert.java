@@ -16,13 +16,13 @@
  */
 package com.helger.base.mock;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Extensions for the default JUnit assertions.
@@ -49,7 +49,7 @@ public class CommonsAssert
     fail ("Forced fail");
   }
 
-  public static void fail (@Nonnull final String sMsg)
+  public static void fail (@NonNull final String sMsg)
   {
     throw new IllegalArgumentException (sMsg);
   }
@@ -61,7 +61,7 @@ public class CommonsAssert
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (final boolean x, @Nonnull final Boolean y)
+  public static void assertEquals (final boolean x, @NonNull final Boolean y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.booleanValue ());
@@ -72,7 +72,7 @@ public class CommonsAssert
     assertNotEquals ((String) null, x, y);
   }
 
-  public static void assertNotEquals (final boolean x, @Nonnull final Boolean y)
+  public static void assertNotEquals (final boolean x, @NonNull final Boolean y)
   {
     ValueEnforcer.notNull (y, "y");
     assertNotEquals ((String) null, x, y.booleanValue ());
@@ -107,7 +107,7 @@ public class CommonsAssert
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (final double x, @Nonnull final Double y)
+  public static void assertEquals (final double x, @NonNull final Double y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.doubleValue ());
@@ -133,7 +133,7 @@ public class CommonsAssert
     assertEquals ((String) null, x, y);
   }
 
-  public static void assertEquals (final float x, @Nonnull final Float y)
+  public static void assertEquals (final float x, @NonNull final Float y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.floatValue ());

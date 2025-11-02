@@ -18,10 +18,10 @@ package com.helger.text.codepoint;
 
 import java.util.function.IntPredicate;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * @author Apache Abdera
@@ -32,20 +32,20 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
   private final boolean m_bScanningOnly;
   private final boolean m_bInvert;
 
-  public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal, @Nonnull final IntPredicate aFilter)
+  public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal, @NonNull final IntPredicate aFilter)
   {
     this (aInternal, aFilter, false);
   }
 
-  public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final IntPredicate aFilter,
+  public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
+                                      @NonNull final IntPredicate aFilter,
                                       final boolean bScanningOnly)
   {
     this (aInternal, aFilter, bScanningOnly, false);
   }
 
-  public CodepointIteratorRestricted (@Nonnull final AbstractCodepointIterator aInternal,
-                                      @Nonnull final IntPredicate aFilter,
+  public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
+                                      @NonNull final IntPredicate aFilter,
                                       final boolean bScanningOnly,
                                       final boolean bInvert)
   {

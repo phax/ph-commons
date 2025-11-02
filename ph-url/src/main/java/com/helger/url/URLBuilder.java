@@ -21,6 +21,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.url.data.IURLData;
 import com.helger.url.data.URLData;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Builder class for {@link ISimpleURL} objects
@@ -48,25 +48,25 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     m_aData = URLData.createEmpty ();
   }
 
-  protected URLBuilder (@Nonnull final URLData aData)
+  protected URLBuilder (@NonNull final URLData aData)
   {
     m_aData = aData;
   }
 
-  @Nonnull
+  @NonNull
   public IURLData urlData ()
   {
     return m_aData;
   }
 
-  @Nonnull
-  public URLBuilder path (@Nonnull final String s)
+  @NonNull
+  public URLBuilder path (@NonNull final String s)
   {
     m_aData.setPath (s);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public URLBuilder params (@Nullable final Map <String, String> a)
   {
     m_aData.params ().removeAll ();
@@ -76,95 +76,95 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public URLBuilder params (@Nullable final ICommonsList <URLParameter> a)
   {
     m_aData.setParams (a);
     return this;
   }
 
-  @Nonnull
-  public URLBuilder addParam (@Nonnull @Nonempty final String sName, final boolean b)
+  @NonNull
+  public URLBuilder addParam (@NonNull @Nonempty final String sName, final boolean b)
   {
     return addParam (sName, Boolean.toString (b));
   }
 
-  @Nonnull
-  public URLBuilder addParam (@Nonnull @Nonempty final String sName, final int n)
+  @NonNull
+  public URLBuilder addParam (@NonNull @Nonempty final String sName, final int n)
   {
     return addParam (sName, Integer.toString (n));
   }
 
-  @Nonnull
-  public URLBuilder addParam (@Nonnull @Nonempty final String sName, final long n)
+  @NonNull
+  public URLBuilder addParam (@NonNull @Nonempty final String sName, final long n)
   {
     return addParam (sName, Long.toString (n));
   }
 
-  @Nonnull
-  public URLBuilder addParam (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  @NonNull
+  public URLBuilder addParam (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     return addParam (new URLParameter (sName, sValue));
   }
 
-  @Nonnull
-  public URLBuilder addParam (@Nonnull final URLParameter aParam)
+  @NonNull
+  public URLBuilder addParam (@NonNull final URLParameter aParam)
   {
     ValueEnforcer.notNull (aParam, "Param");
     m_aData.params ().add (aParam);
     return this;
   }
 
-  @Nonnull
-  public URLBuilder removeParam (@Nonnull @Nonempty final String sName)
+  @NonNull
+  public URLBuilder removeParam (@NonNull @Nonempty final String sName)
   {
     m_aData.params ().removeIf (x -> x.hasName (sName));
     return this;
   }
 
-  @Nonnull
-  public URLBuilder param (@Nonnull @Nonempty final String sName, @Nullable final String sValue)
+  @NonNull
+  public URLBuilder param (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     removeParam (sName);
     return addParam (sName, sValue);
   }
 
-  @Nonnull
-  public URLBuilder param (@Nonnull final URLParameter aParam)
+  @NonNull
+  public URLBuilder param (@NonNull final URLParameter aParam)
   {
     ValueEnforcer.notNull (aParam, "Param");
     removeParam (aParam.getName ());
     return addParam (aParam);
   }
 
-  @Nonnull
+  @NonNull
   public URLBuilder anchor (@Nullable final String s)
   {
     m_aData.setAnchor (s);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public URLBuilder charset (@Nullable final Charset a)
   {
     m_aData.setCharset (a);
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public ISimpleURL build ()
   {
     return new ReadOnlyURL (m_aData);
   }
 
-  @Nonnull
+  @NonNull
   public static URLBuilder of (@Nullable final IURLData aURLData)
   {
     // Copy the URL data if present
     return aURLData == null ? new URLBuilder () : new URLBuilder (new URLData (aURLData));
   }
 
-  @Nonnull
+  @NonNull
   public static URLBuilder of (@Nullable final String sURL)
   {
     if (StringHelper.isEmpty (sURL))
@@ -172,13 +172,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return new URLBuilder (SimpleURLHelper.getAsURLData (sURL, URLData.DEFAULT_CHARSET));
   }
 
-  @Nonnull
+  @NonNull
   public static URLBuilder of (@Nullable final URL aURL)
   {
     return of (aURL == null ? null : aURL.toExternalForm ());
   }
 
-  @Nonnull
+  @NonNull
   public static URLBuilder of (@Nullable final URI aURI)
   {
     return of (aURI == null ? null : aURI.toString ());

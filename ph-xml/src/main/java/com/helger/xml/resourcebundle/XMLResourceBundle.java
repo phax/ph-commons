@@ -23,6 +23,9 @@ import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
@@ -39,9 +42,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
 import com.helger.xml.microdom.serialize.MicroReader;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Helper class to handle XML based properties. It is read-only.<br>
  * See <a href= "http://docs.oracle.com/javase/6/docs/api/java/util/ResourceBundle.Control.html"
@@ -54,9 +54,9 @@ public final class XMLResourceBundle extends ResourceBundle
 {
   private final ICommonsOrderedMap <String, String> m_aValues;
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsOrderedMap <String, String> readFromPropertiesXML (@Nonnull @WillClose final InputStream aIS)
+  public static ICommonsOrderedMap <String, String> readFromPropertiesXML (@NonNull @WillClose final InputStream aIS)
   {
     final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
     final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
@@ -66,8 +66,8 @@ public final class XMLResourceBundle extends ResourceBundle
     return ret;
   }
 
-  @Nonnull
-  public static IMicroDocument getAsPropertiesXML (@Nonnull final Map <String, String> aMap)
+  @NonNull
+  public static IMicroDocument getAsPropertiesXML (@NonNull final Map <String, String> aMap)
   {
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.addElement ("properties");
@@ -77,7 +77,7 @@ public final class XMLResourceBundle extends ResourceBundle
   }
 
   @DevelopersNote ("Don't use it manually - use the static methods of this class!")
-  XMLResourceBundle (@Nonnull @WillNotClose final InputStream aIS)
+  XMLResourceBundle (@NonNull @WillNotClose final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -85,7 +85,7 @@ public final class XMLResourceBundle extends ResourceBundle
     m_aValues = readFromPropertiesXML (aIS);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllValues ()
   {
@@ -121,22 +121,22 @@ public final class XMLResourceBundle extends ResourceBundle
     return EnumerationHelper.getEnumeration (m_aValues.keySet ());
   }
 
-  @Nonnull
-  public static XMLResourceBundle getXMLBundle (@Nonnull final String sBaseName)
+  @NonNull
+  public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName)
   {
     return getXMLBundle (sBaseName, Locale.getDefault ());
   }
 
-  @Nonnull
-  public static XMLResourceBundle getXMLBundle (@Nonnull final String sBaseName, @Nonnull final Locale aLocale)
+  @NonNull
+  public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName, @NonNull final Locale aLocale)
   {
     return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, aLocale, new XMLResourceBundleControl ());
   }
 
-  @Nonnull
-  public static XMLResourceBundle getXMLBundle (@Nonnull final String sBaseName,
-                                                @Nonnull final Locale aLocale,
-                                                @Nonnull final ClassLoader aClassLoader)
+  @NonNull
+  public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName,
+                                                @NonNull final Locale aLocale,
+                                                @NonNull final ClassLoader aClassLoader)
   {
     return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName,
                                                          aLocale,

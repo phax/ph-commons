@@ -16,7 +16,7 @@
  */
 package com.helger.tree;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for a simple tree item factory
@@ -34,7 +34,7 @@ public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYP
    *
    * @return New root entry. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ITEMTYPE createRoot ();
 
   /**
@@ -44,6 +44,6 @@ public interface ITreeItemFactory <DATATYPE, ITEMTYPE extends ITreeItem <DATATYP
    *        The parent entry to use. May not be <code>null</code>.
    * @return The created non-root entry. May not be <code>null</code>.
    */
-  @Nonnull
-  ITEMTYPE create (@Nonnull ITEMTYPE aParent);
+  @NonNull
+  ITEMTYPE create (@NonNull ITEMTYPE aParent);
 }

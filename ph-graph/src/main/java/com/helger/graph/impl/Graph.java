@@ -18,6 +18,9 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -36,9 +39,6 @@ import com.helger.graph.IMutableGraphRelation;
 import com.helger.graph.iterate.GraphIterator;
 import com.helger.matrix.Matrix;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A simple graph object that bidirectionally links graph nodes.
  *
@@ -50,7 +50,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   private final IMutableGraphObjectFactory m_aFactory;
   private ETriState m_eCacheHasCycles = ETriState.UNDEFINED;
 
-  public Graph (@Nullable final String sID, @Nonnull final IMutableGraphObjectFactory aFactory)
+  public Graph (@Nullable final String sID, @NonNull final IMutableGraphObjectFactory aFactory)
   {
     super (sID);
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -68,7 +68,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     m_eCacheHasCycles = ETriState.UNDEFINED;
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphNode createNode ()
   {
     // Create node with new ID
@@ -85,8 +85,8 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return addNode (aNode).isChanged () ? aNode : null;
   }
 
-  @Nonnull
-  public EChange addNode (@Nonnull final IMutableGraphNode aNode)
+  @NonNull
+  public EChange addNode (@NonNull final IMutableGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -102,8 +102,8 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange removeNode (@Nonnull final IMutableGraphNode aNode)
+  @NonNull
+  public EChange removeNode (@NonNull final IMutableGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -117,8 +117,8 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange removeNodeAndAllRelations (@Nonnull final IMutableGraphNode aNode)
+  @NonNull
+  public EChange removeNodeAndAllRelations (@NonNull final IMutableGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -136,8 +136,8 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  private IMutableGraphRelation _connect (@Nonnull final IMutableGraphRelation aRelation)
+  @NonNull
+  private IMutableGraphRelation _connect (@NonNull final IMutableGraphRelation aRelation)
   {
     EChange eChange = EChange.UNCHANGED;
     for (final IMutableGraphNode aNode : aRelation.getAllConnectedNodes ())
@@ -147,22 +147,22 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return aRelation;
   }
 
-  @Nonnull
-  public IMutableGraphRelation createRelation (@Nonnull final IMutableGraphNode aFrom,
-                                               @Nonnull final IMutableGraphNode aTo)
+  @NonNull
+  public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom,
+                                               @NonNull final IMutableGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }
 
-  @Nonnull
+  @NonNull
   public IMutableGraphRelation createRelation (@Nullable final String sID,
-                                               @Nonnull final IMutableGraphNode aFrom,
-                                               @Nonnull final IMutableGraphNode aTo)
+                                               @NonNull final IMutableGraphNode aFrom,
+                                               @NonNull final IMutableGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (sID, aFrom, aTo));
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeRelation (@Nullable final IMutableGraphRelation aRelation)
   {
     EChange ret = EChange.UNCHANGED;
@@ -176,7 +176,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableGraphRelation> getAllRelations ()
   {
@@ -186,7 +186,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableGraphRelation> getAllRelationObjs ()
   {
@@ -196,14 +196,14 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
-  public void forEachRelation (@Nonnull final Consumer <? super IMutableGraphRelation> aConsumer)
+  public void forEachRelation (@NonNull final Consumer <? super IMutableGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     for (final IMutableGraphNode aNode : m_aNodes.values ())
       aNode.forEachRelation (aConsumer);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
@@ -213,7 +213,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     if (m_aNodes.removeAll ().isUnchanged ())
@@ -264,7 +264,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public Matrix createIncidenceMatrix ()
   {
     final int nNodeCount = getNodeCount ();

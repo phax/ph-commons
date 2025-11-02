@@ -16,9 +16,8 @@
  */
 package com.helger.xml.ls;
 
+import org.jspecify.annotations.NonNull;
 import org.w3c.dom.ls.LSResourceResolver;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Factory interface for objects having an {@link LSResourceResolver}.
@@ -32,6 +31,6 @@ public interface IHasLSResourceResolver
    * @return The {@link LSResourceResolver} to be used. May not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   LSResourceResolver getResourceResolver ();
 }

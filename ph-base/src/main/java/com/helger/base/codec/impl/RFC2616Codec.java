@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
@@ -27,9 +30,6 @@ import com.helger.base.codec.EncodeException;
 import com.helger.base.codec.ICharArrayCodec;
 import com.helger.base.codec.RFC5234Helper;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Codec for RFC 2616 (HTTP/1.1) HTTP header values.
@@ -115,7 +115,7 @@ public class RFC2616Codec implements ICharArrayCodec
   public void encode (@Nullable final char [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final Writer aWriter)
+                      @NonNull @WillNotClose final Writer aWriter)
   {
     // Length 0 is okay, because it results in an empty string
     if (aDecodedBuffer == null)
@@ -156,7 +156,7 @@ public class RFC2616Codec implements ICharArrayCodec
   public void decode (@Nullable final char [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final Writer aWriter)
+                      @NonNull @WillNotClose final Writer aWriter)
   {
     if (aEncodedBuffer == null)
       return;

@@ -16,14 +16,14 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public interface IMockNullableTest
 {
   void paramUndefined (String s);
 
-  void paramNonnull (@Nonnull String s);
+  void paramNonnull (@NonNull String s);
 
   void paramNullable (@Nullable String s);
 }

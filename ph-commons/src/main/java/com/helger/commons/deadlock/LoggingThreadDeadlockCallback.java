@@ -16,12 +16,11 @@
  */
 package com.helger.commons.deadlock;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.rt.StackTraceHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A logging implementation of {@link IThreadDeadlockCallback}.
@@ -32,7 +31,7 @@ public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingThreadDeadlockCallback.class);
 
-  public void onDeadlockDetected (@Nonnull final ThreadDeadlockInfo [] aDeadlockedThreads)
+  public void onDeadlockDetected (@NonNull final ThreadDeadlockInfo [] aDeadlockedThreads)
   {
     final StringBuilder aMsg = new StringBuilder ();
     aMsg.append (aDeadlockedThreads.length).append (" deadlocked threads:\n");

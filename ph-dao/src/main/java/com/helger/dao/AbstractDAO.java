@@ -18,6 +18,7 @@ package com.helger.dao;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.io.file.FileIOError;
 import com.helger.io.file.FileOperationManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base implementation of {@link IDAO}
@@ -102,7 +101,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    * @return The static mutable exception handler list that is invoked for read exceptions. Never
    *         <code>null</code>. The list applies to ALL DAOs since it is static.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public static final CallbackList <IDAOReadExceptionCallback> exceptionHandlersRead ()
   {
@@ -113,7 +112,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    * @return The static mutable exception handler list that is invoked for write exceptions. Never
    *         <code>null</code>. The list applies to ALL DAOs since it is static.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public static final CallbackList <IDAOWriteExceptionCallback> exceptionHandlersWrite ()
   {
@@ -199,7 +198,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    * @throws DAOException
    *         If the requested access mode cannot be provided.
    */
-  protected static void checkFileAccess (@Nonnull final File aFile, @Nonnull final EMode eMode) throws DAOException
+  protected static void checkFileAccess (@NonNull final File aFile, @NonNull final EMode eMode) throws DAOException
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");

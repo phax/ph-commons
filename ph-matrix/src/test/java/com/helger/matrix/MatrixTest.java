@@ -33,6 +33,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,8 +41,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.string.StringHelper;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileOperations;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * TestMatrix tests the functionality of the Jama Matrix class and associated decompositions.
@@ -1279,7 +1278,7 @@ public final class MatrixTest
 
   /** Check norm of difference of arrays. **/
 
-  private static void _check (@Nonnull final double [] [] x, @Nonnull final double [] [] y)
+  private static void _check (@NonNull final double [] [] x, @NonNull final double [] [] y)
   {
     final Matrix a = new Matrix (x);
     final Matrix b = new Matrix (y);
@@ -1288,7 +1287,7 @@ public final class MatrixTest
 
   /** Check norm of difference of Matrices. **/
 
-  private static void _check (@Nonnull final Matrix x, @Nonnull final Matrix y)
+  private static void _check (@NonNull final Matrix x, @NonNull final Matrix y)
   {
     if (x.norm1 () == 0. && y.norm1 () < 10 * EPSILON)
       return;

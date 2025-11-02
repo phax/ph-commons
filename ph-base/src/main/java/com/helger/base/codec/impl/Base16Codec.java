@@ -20,6 +20,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
@@ -28,9 +31,6 @@ import com.helger.base.codec.IByteArrayCodec;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base16 encoder and decoder.
@@ -52,8 +52,8 @@ public class Base16Codec implements IByteArrayCodec
     return nDecodedLen * 2;
   }
 
-  public void encode (@Nonnull @WillNotClose final InputStream aDecodedIS,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+  public void encode (@NonNull @WillNotClose final InputStream aDecodedIS,
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aDecodedIS, "DecodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -76,7 +76,7 @@ public class Base16Codec implements IByteArrayCodec
   public void encode (@Nullable final byte [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null || nLen == 0)
       return;
@@ -97,8 +97,8 @@ public class Base16Codec implements IByteArrayCodec
     return nEncodedLen / 2;
   }
 
-  public void decode (@Nonnull @WillNotClose final InputStream aEncodedIS,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+  public void decode (@NonNull @WillNotClose final InputStream aEncodedIS,
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     ValueEnforcer.notNull (aEncodedIS, "EncodedInputStream");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -146,7 +146,7 @@ public class Base16Codec implements IByteArrayCodec
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
       return;

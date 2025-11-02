@@ -20,10 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Interface for objects having a deletion date time.
@@ -70,7 +70,7 @@ public interface IHasDeletionDateTime
    *         not.
    * @since 9.1.6
    */
-  default boolean isDeletedAt (@Nonnull final LocalDateTime aDT)
+  default boolean isDeletedAt (@NonNull final LocalDateTime aDT)
   {
     ValueEnforcer.notNull (aDT, "LocalDateTime");
     return hasDeletionDateTime () && getDeletionDateTime ().compareTo (aDT) <= 0;

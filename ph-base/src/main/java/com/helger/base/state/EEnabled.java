@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for setter method to identify whether an object is enabled or not.
@@ -33,14 +33,14 @@ public enum EEnabled implements IEnabledIndicator
     return this == ENABLED;
   }
 
-  @Nonnull
+  @NonNull
   public static EEnabled valueOf (final boolean bEnabled)
   {
     return bEnabled ? ENABLED : DISABLED;
   }
 
-  @Nonnull
-  public static EEnabled valueOf (@Nonnull final IEnabledIndicator aEnabledIndicator)
+  @NonNull
+  public static EEnabled valueOf (@NonNull final IEnabledIndicator aEnabledIndicator)
   {
     return valueOf (aEnabledIndicator.isEnabled ());
   }

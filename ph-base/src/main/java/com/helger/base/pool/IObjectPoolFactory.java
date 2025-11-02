@@ -18,9 +18,9 @@ package com.helger.base.pool;
 
 import java.util.function.Supplier;
 
-import com.helger.base.state.ESuccess;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.ESuccess;
 
 /**
  * An extended factory for objects in the {@link ObjectPool}.
@@ -38,7 +38,7 @@ public interface IObjectPoolFactory <DATATYPE>
    *
    * @return A new object of data type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   DATATYPE create ();
 
   /**
@@ -49,8 +49,8 @@ public interface IObjectPoolFactory <DATATYPE>
    *        The item to be borrowed. Never <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the object can be reused, {@link ESuccess#FAILURE} if not.
    */
-  @Nonnull
-  ESuccess activate (@Nonnull DATATYPE aItem);
+  @NonNull
+  ESuccess activate (@NonNull DATATYPE aItem);
 
   /**
    * Called when an object is returned to the pool. This method has no return value - only
@@ -59,7 +59,7 @@ public interface IObjectPoolFactory <DATATYPE>
    * @param aItem
    *        The item to be returned. Never <code>null</code>.
    */
-  void passivate (@Nonnull DATATYPE aItem);
+  void passivate (@NonNull DATATYPE aItem);
 
   /**
    * Wrapper around {@link Supplier} to create an {@link IObjectPoolFactory}.
@@ -70,25 +70,25 @@ public interface IObjectPoolFactory <DATATYPE>
    *        The supplier to wrap. May not be <code>null</code>.
    * @return A new instance of {@link IObjectPoolFactory}.
    */
-  @Nonnull
-  static <T> IObjectPoolFactory <T> wrap (@Nonnull final Supplier <? extends T> aSupplier)
+  @NonNull
+  static <T> IObjectPoolFactory <T> wrap (@NonNull final Supplier <? extends T> aSupplier)
   {
     return new IObjectPoolFactory <> ()
     {
-      @Nonnull
+      @NonNull
       public T create ()
       {
         return aSupplier.get ();
       }
 
-      @Nonnull
-      public ESuccess activate (@Nonnull final T aItem)
+      @NonNull
+      public ESuccess activate (@NonNull final T aItem)
       {
         // empty
         return ESuccess.SUCCESS;
       }
 
-      public void passivate (@Nonnull final T aItem)
+      public void passivate (@NonNull final T aItem)
       {
         // empty
       }

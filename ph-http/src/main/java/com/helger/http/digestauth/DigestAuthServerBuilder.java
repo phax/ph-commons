@@ -16,6 +16,8 @@
  */
 package com.helger.http.digestauth;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -25,8 +27,6 @@ import com.helger.collection.commons.CommonsLinkedHashSet;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.http.RFC1945Helper;
 import com.helger.url.ISimpleURL;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to build the value of the {@link com.helger.http.CHttpHeader#WWW_AUTHENTICATE} value
@@ -58,8 +58,8 @@ public class DigestAuthServerBuilder
    *        The realm to be used. May not be <code>null</code> and should not be empty.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder setRealm (@Nonnull final String sRealm)
+  @NonNull
+  public DigestAuthServerBuilder setRealm (@NonNull final String sRealm)
   {
     if (!RFC1945Helper.isQuotedTextContent (sRealm))
       throw new IllegalArgumentException ("realm is invalid: " + sRealm);
@@ -83,8 +83,8 @@ public class DigestAuthServerBuilder
    *        The absolute or relative path which is protected. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder addDomain (@Nonnull final ISimpleURL aURL)
+  @NonNull
+  public DigestAuthServerBuilder addDomain (@NonNull final ISimpleURL aURL)
   {
     ValueEnforcer.notNull (aURL, "Url");
 
@@ -126,8 +126,8 @@ public class DigestAuthServerBuilder
    *        The nonce value to be set. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder setNonce (@Nonnull final String sNonce)
+  @NonNull
+  public DigestAuthServerBuilder setNonce (@NonNull final String sNonce)
   {
     if (!RFC1945Helper.isQuotedTextContent (sNonce))
       throw new IllegalArgumentException ("nonce is invalid: " + sNonce);
@@ -145,8 +145,8 @@ public class DigestAuthServerBuilder
    *        The opaque value. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder setOpaque (@Nonnull final String sOpaque)
+  @NonNull
+  public DigestAuthServerBuilder setOpaque (@NonNull final String sOpaque)
   {
     if (!RFC1945Helper.isQuotedTextContent (sOpaque))
       throw new IllegalArgumentException ("opaque is invalid: " + sOpaque);
@@ -168,8 +168,8 @@ public class DigestAuthServerBuilder
    *        Stale value. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder setStale (@Nonnull final ETriState eStale)
+  @NonNull
+  public DigestAuthServerBuilder setStale (@NonNull final ETriState eStale)
   {
     m_eStale = ValueEnforcer.notNull (eStale, "Stale");
     return this;
@@ -195,8 +195,8 @@ public class DigestAuthServerBuilder
    *        Algorithm name
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder setAlgorithm (@Nonnull final String sAlgorithm)
+  @NonNull
+  public DigestAuthServerBuilder setAlgorithm (@NonNull final String sAlgorithm)
   {
     if (!RFC1945Helper.isToken (sAlgorithm))
       throw new IllegalArgumentException ("The passed algorithm is not a valid token: " + sAlgorithm);
@@ -218,8 +218,8 @@ public class DigestAuthServerBuilder
    *        The qop-option to add. May not be <code>null</code>.
    * @return this
    */
-  @Nonnull
-  public DigestAuthServerBuilder addQOP (@Nonnull final String sQOP)
+  @NonNull
+  public DigestAuthServerBuilder addQOP (@NonNull final String sQOP)
   {
     if (!RFC1945Helper.isToken (sQOP))
       throw new IllegalArgumentException ("The passed qop-option is not a token: " + sQOP);
@@ -233,7 +233,7 @@ public class DigestAuthServerBuilder
     return m_sRealm != null && m_sNonce != null;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String build ()
   {

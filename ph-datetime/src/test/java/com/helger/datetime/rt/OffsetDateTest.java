@@ -69,13 +69,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.unittest.support.TestHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test {@link OffsetDate}.
@@ -133,7 +132,7 @@ public final class OffsetDateTest
     void accept (final int y, final int m, final int d, final String offsetId, final String parsable);
   }
 
-  private static void data_sampleToString (@Nonnull final ISampleWithString aSample)
+  private static void data_sampleToString (@NonNull final ISampleWithString aSample)
   {
     aSample.accept (2008, 7, 5, "Z", "2008-07-05Z");
     aSample.accept (2008, 7, 5, "+00", "2008-07-05Z");
@@ -511,7 +510,7 @@ public final class OffsetDateTest
     void accept (final int y, final int m, final int d, final ZoneOffset offset);
   }
 
-  private static void data_sampleDates (@Nonnull final ISample aSample)
+  private static void data_sampleDates (@NonNull final ISample aSample)
   {
     aSample.accept (2008, 7, 5, OFFSET_PTWO);
     aSample.accept (2007, 7, 5, OFFSET_PONE);
@@ -658,7 +657,7 @@ public final class OffsetDateTest
     void accept (final long expected, final OffsetDate od1, final OffsetDate od2, final TemporalUnit unit);
   }
 
-  private static void data_until (@Nonnull final IUntil aSample)
+  private static void data_until (@NonNull final IUntil aSample)
   {
     aSample.accept (1,
                     OffsetDate.of (2007, 6, 30, OFFSET_PONE),

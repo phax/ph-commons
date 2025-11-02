@@ -18,9 +18,19 @@ package com.helger.typeconvert.trait;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.NClob;
+import java.sql.RowId;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.reflection.GenericReflection;
@@ -30,9 +40,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsOrderedSet;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A generic convert Object to anything with convenience API.
@@ -140,7 +147,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
+  default <T> T getCastedValue (@Nonnegative final int nIndex, @NonNull final Class <T> aClass)
   {
     return aClass.cast (getValue (nIndex));
   }
@@ -164,7 +171,7 @@ public interface IGetterByIndexTrait
   @Nullable
   default <T> T getCastedValue (@Nonnegative final int nIndex,
                                 @Nullable final T aDefault,
-                                @Nonnull final Class <T> aClass)
+                                @NonNull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -185,7 +192,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getSafeCastedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
+  default <T> T getSafeCastedValue (@Nonnegative final int nIndex, @NonNull final Class <T> aClass)
   {
     return getSafeCastedValue (nIndex, null, aClass);
   }
@@ -207,8 +214,8 @@ public interface IGetterByIndexTrait
    * @since 9.0.1
    */
   default void onSafeCastError (@Nonnegative final int nIndex,
-                                @Nonnull final Class <?> aClass,
-                                @Nonnull final Object aValue)
+                                @NonNull final Class <?> aClass,
+                                @NonNull final Object aValue)
   {
     // empty
   }
@@ -232,7 +239,7 @@ public interface IGetterByIndexTrait
   @Nullable
   default <T> T getSafeCastedValue (@Nonnegative final int nIndex,
                                     @Nullable final T aDefault,
-                                    @Nonnull final Class <T> aClass)
+                                    @NonNull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
     final T ret = aValue != null && aClass.isAssignableFrom (aValue.getClass ()) ? aClass.cast (aValue) : aDefault;
@@ -256,7 +263,7 @@ public interface IGetterByIndexTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getConvertedValue (@Nonnegative final int nIndex, @Nonnull final Class <T> aClass)
+  default <T> T getConvertedValue (@Nonnegative final int nIndex, @NonNull final Class <T> aClass)
   {
     return TypeConverter.convert (getValue (nIndex), aClass);
   }
@@ -281,7 +288,7 @@ public interface IGetterByIndexTrait
   @Nullable
   default <T> T getConvertedValue (@Nonnegative final int nIndex,
                                    @Nullable final T aDefault,
-                                   @Nonnull final Class <T> aClass)
+                                   @NonNull final Class <T> aClass)
   {
     final Object aValue = getValue (nIndex);
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
@@ -709,7 +716,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.Blob getAsSqlBlob (@Nonnegative final int nIndex)
+  default Blob getAsSqlBlob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.Blob.class);
   }
@@ -721,7 +728,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.Clob getAsSqlClob (@Nonnegative final int nIndex)
+  default Clob getAsSqlClob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.Clob.class);
   }
@@ -733,7 +740,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.Date getAsSqlDate (@Nonnegative final int nIndex)
+  default Date getAsSqlDate (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.Date.class);
   }
@@ -745,7 +752,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.NClob getAsSqlNClob (@Nonnegative final int nIndex)
+  default NClob getAsSqlNClob (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.NClob.class);
   }
@@ -757,7 +764,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.RowId getAsSqlRowId (@Nonnegative final int nIndex)
+  default RowId getAsSqlRowId (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.RowId.class);
   }
@@ -769,7 +776,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.Time getAsSqlTime (@Nonnegative final int nIndex)
+  default Time getAsSqlTime (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.Time.class);
   }
@@ -781,7 +788,7 @@ public interface IGetterByIndexTrait
    * @see #getConvertedValue(int,Object,Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex)
+  default Timestamp getAsSqlTimestamp (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, java.sql.Timestamp.class);
   }

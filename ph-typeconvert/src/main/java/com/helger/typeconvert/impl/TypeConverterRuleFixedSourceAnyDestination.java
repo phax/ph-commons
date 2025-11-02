@@ -18,10 +18,10 @@ package com.helger.typeconvert.impl;
 
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Abstract type converter than can convert from a base source class to a
@@ -38,15 +38,15 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
   // Status vars
   private Class <?> m_aEffectiveDstClass;
 
-  public TypeConverterRuleFixedSourceAnyDestination (@Nonnull final Class <SRC> aSrcClass,
-                                                     @Nonnull final Function <? super SRC, ? extends Object> aInBetweenConverter)
+  public TypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
+                                                     @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
     super (ESubType.FIXED_SRC_ANY_DST);
     m_aSrcClass = ValueEnforcer.notNull (aSrcClass, "SrcClass");
     m_aInBetweenConverter = ValueEnforcer.notNull (aInBetweenConverter, "InBetweenConverter");
   }
 
-  public final boolean canConvert (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     // destination class can be anything
     if (!m_aSrcClass.equals (aSrcClass))
@@ -56,19 +56,19 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
     return true;
   }
 
-  @Nonnull
-  protected Object getInBetweenValue (@Nonnull final SRC aSource)
+  @NonNull
+  protected Object getInBetweenValue (@NonNull final SRC aSource)
   {
     return m_aInBetweenConverter.apply (aSource);
   }
 
-  public final Object apply (@Nonnull final SRC aSource)
+  public final Object apply (@NonNull final SRC aSource)
   {
     final Object aInBetweenValue = getInBetweenValue (aSource);
     return TypeConverter.convert (aInBetweenValue, m_aEffectiveDstClass);
   }
 
-  @Nonnull
+  @NonNull
   public final Class <?> getSourceClass ()
   {
     return m_aSrcClass;

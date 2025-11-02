@@ -16,7 +16,7 @@
  */
 package com.helger.security.revocation;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum for setter method to identify whether an object is revoked or not.
@@ -34,14 +34,14 @@ public enum ERevoked implements IRevokedIndicator
     return this == REVOKED;
   }
 
-  @Nonnull
+  @NonNull
   public static ERevoked valueOf (final boolean bEnabled)
   {
     return bEnabled ? REVOKED : NOT_REVOKED;
   }
 
-  @Nonnull
-  public static ERevoked valueOf (@Nonnull final IRevokedIndicator aEnabledIndicator)
+  @NonNull
+  public static ERevoked valueOf (@NonNull final IRevokedIndicator aEnabledIndicator)
   {
     return valueOf (aEnabledIndicator.isRevoked ());
   }

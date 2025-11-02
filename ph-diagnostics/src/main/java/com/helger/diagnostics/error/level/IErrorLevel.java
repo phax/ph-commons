@@ -16,6 +16,9 @@
  */
 package com.helger.diagnostics.error.level;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.equals.EqualsHelper;
@@ -23,9 +26,6 @@ import com.helger.base.id.IHasID;
 import com.helger.base.state.IErrorIndicator;
 import com.helger.base.state.ISuccessIndicator;
 import com.helger.diagnostics.severity.ISeverityComparable;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface representing a single error level.
@@ -69,38 +69,38 @@ public interface IErrorLevel extends
     return isLT (EErrorLevel.ERROR);
   }
 
-  default int compareTo (@Nonnull final IErrorLevel aErrorLevel)
+  default int compareTo (@NonNull final IErrorLevel aErrorLevel)
   {
     return Integer.compare (getNumericLevel (), aErrorLevel.getNumericLevel ());
   }
 
-  default boolean isEQ (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isEQ (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () == aErrorLevel.getNumericLevel ();
   }
 
   @Override
-  default boolean isNE (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isNE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () != aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isLT (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isLT (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () < aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isLE (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isLE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () <= aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isGT (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isGT (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () > aErrorLevel.getNumericLevel ();
   }
 
-  default boolean isGE (@Nonnull final IErrorLevel aErrorLevel)
+  default boolean isGE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }

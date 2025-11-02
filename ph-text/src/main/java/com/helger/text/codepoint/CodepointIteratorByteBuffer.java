@@ -19,14 +19,14 @@ package com.helger.text.codepoint;
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Apache Abdera
  */
 public class CodepointIteratorByteBuffer extends CodepointIteratorCharBuffer
 {
-  public CodepointIteratorByteBuffer (@Nonnull final ByteBuffer aBytes, @Nonnull final Charset aCharset)
+  public CodepointIteratorByteBuffer (@NonNull final ByteBuffer aBytes, @NonNull final Charset aCharset)
   {
     super (aCharset.decode (aBytes));
   }

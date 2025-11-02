@@ -16,10 +16,10 @@
  */
 package com.helger.base.rt;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-
-import jakarta.annotation.Nullable;
 
 /**
  * Misc helper methods for handling booleans.

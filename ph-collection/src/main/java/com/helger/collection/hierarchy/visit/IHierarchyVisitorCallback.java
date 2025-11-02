@@ -16,10 +16,10 @@
  */
 package com.helger.collection.hierarchy.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.callback.ICallback;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface with callbacks for visiting a hierarchy.
@@ -66,7 +66,7 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
    * @return A non-<code>null</code> status code that determines how to continue
    *         iteration.
    */
-  @Nonnull
+  @NonNull
   EHierarchyVisitorReturn onItemBeforeChildren (DATATYPE aItem);
 
   /**
@@ -80,7 +80,7 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
    * @return A non-<code>null</code> status code that determines how to continue
    *         iteration.
    */
-  @Nonnull
+  @NonNull
   EHierarchyVisitorReturn onItemAfterChildren (DATATYPE aItem);
 
   /**

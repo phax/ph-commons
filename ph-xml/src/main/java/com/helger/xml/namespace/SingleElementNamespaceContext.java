@@ -20,6 +20,9 @@ import java.util.Iterator;
 
 import javax.xml.XMLConstants;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -28,9 +31,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.helper.CollectionHelperExt;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a namespace context having exactly 1 item.
@@ -49,12 +49,12 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
    * @param sNamespaceURI
    *        The namespace URI to use. May neither be <code>null</code> nor empty.
    */
-  public SingleElementNamespaceContext (@Nonnull @Nonempty final String sNamespaceURI)
+  public SingleElementNamespaceContext (@NonNull @Nonempty final String sNamespaceURI)
   {
     this (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
-  public SingleElementNamespaceContext (@Nonnull final String sPrefix, @Nonnull @Nonempty final String sNamespaceURI)
+  public SingleElementNamespaceContext (@NonNull final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sNamespaceURI = ValueEnforcer.notEmpty (sNamespaceURI, "NamespaceURI");
@@ -88,7 +88,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
     return m_sPrefix.equals (sPrefix) ? m_sNamespaceURI : null;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()
   {

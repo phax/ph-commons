@@ -16,7 +16,8 @@
  */
 package com.helger.jaxb;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
+
 import jakarta.xml.bind.JAXBElement;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
@@ -31,7 +32,7 @@ import jakarta.xml.bind.Unmarshaller;
 @FunctionalInterface
 public interface IJAXBUnmarshaller <JAXBTYPE>
 {
-  @Nonnull
-  JAXBElement <JAXBTYPE> doUnmarshal (@Nonnull Unmarshaller aUnmarshaller,
-                                      @Nonnull Class <JAXBTYPE> aClass) throws JAXBException;
+  @NonNull
+  JAXBElement <JAXBTYPE> doUnmarshal (@NonNull Unmarshaller aUnmarshaller,
+                                      @NonNull Class <JAXBTYPE> aClass) throws JAXBException;
 }

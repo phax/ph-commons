@@ -16,11 +16,11 @@
  */
 package com.helger.xml.microdom.convert;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.xml.microdom.IMicroElement;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface to be implemented to marshal between IMicroElement and a native
@@ -44,7 +44,7 @@ public interface IMicroTypeConverter <T>
    *         specified namespace and tag name otherwise.
    */
   @Nullable
-  default IMicroElement convertToMicroElement (@Nonnull final T aObject, @Nonnull @Nonempty final String sTagName)
+  default IMicroElement convertToMicroElement (@NonNull final T aObject, @NonNull @Nonempty final String sTagName)
   {
     return convertToMicroElement (aObject, (String) null, sTagName);
   }
@@ -63,7 +63,7 @@ public interface IMicroTypeConverter <T>
    *         specified namespace and tag name otherwise.
    */
   @Nullable
-  IMicroElement convertToMicroElement (@Nonnull T aObject, @Nullable String sNamespaceURI, @Nonnull @Nonempty String sTagName);
+  IMicroElement convertToMicroElement (@NonNull T aObject, @Nullable String sNamespaceURI, @NonNull @Nonempty String sTagName);
 
   /**
    * Convert the passed object to a native element.
@@ -73,5 +73,5 @@ public interface IMicroTypeConverter <T>
    * @return <code>null</code> if conversion to a native object failed.
    */
   @Nullable
-  T convertToNative (@Nonnull IMicroElement aElement);
+  T convertToNative (@NonNull IMicroElement aElement);
 }

@@ -16,7 +16,7 @@
  */
 package com.helger.commons.serialize.convert;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * This is the callback interface implemented by
@@ -41,5 +41,5 @@ public interface ISerializationConverterRegistry
    * @param <T>
    *        Type for which a converter should be registered
    */
-  <T> void registerSerializationConverter (@Nonnull Class <T> aClass, @Nonnull ISerializationConverter <T> aConverter);
+  <T> void registerSerializationConverter (@NonNull Class <T> aClass, @NonNull ISerializationConverter <T> aConverter);
 }

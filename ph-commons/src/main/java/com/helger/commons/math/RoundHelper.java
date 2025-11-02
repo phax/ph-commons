@@ -23,13 +23,13 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class for rounding numeric values in a flexible way.
@@ -80,8 +80,8 @@ public final class RoundHelper
    */
   public static double getRounded (final double dValue,
                                    @Nonnegative final int nScale,
-                                   @Nonnull final RoundingMode eMode,
-                                   @Nonnull final EDecimalType eType)
+                                   @NonNull final RoundingMode eMode,
+                                   @NonNull final EDecimalType eType)
   {
     ValueEnforcer.isGE0 (nScale, "Scale");
     ValueEnforcer.notNull (eMode, "RoundingMode");
@@ -172,11 +172,11 @@ public final class RoundHelper
    * @return the string representation of the double value. For NaN and infinite values, the return
    *         of {@link Double#toString()} is returned.
    */
-  @Nonnull
+  @NonNull
   public static String getFormatted (final double dValue,
                                      @Nonnegative final int nScale,
-                                     @Nonnull final EDecimalType eType,
-                                     @Nonnull final Locale aLocale)
+                                     @NonNull final EDecimalType eType,
+                                     @NonNull final Locale aLocale)
   {
     ValueEnforcer.isGE0 (nScale, "Scale");
     ValueEnforcer.notNull (eType, "Type");
@@ -206,25 +206,25 @@ public final class RoundHelper
     return aDF.format (dValue);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFormattedFix (final double dValue, @Nonnegative final int nScale, final Locale aLocale)
   {
     return getFormatted (dValue, nScale, EDecimalType.FIX, aLocale);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFormattedFix2 (final double dValue, final Locale aLocale)
   {
     return getFormattedFix (dValue, 2, aLocale);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFormattedExp (final double dValue, @Nonnegative final int nScale, final Locale aLocale)
   {
     return getFormatted (dValue, nScale, EDecimalType.EXP, aLocale);
   }
 
-  @Nonnull
+  @NonNull
   public static String getFormattedExp2 (final double dValue, final Locale aLocale)
   {
     return getFormattedExp (dValue, 2, aLocale);

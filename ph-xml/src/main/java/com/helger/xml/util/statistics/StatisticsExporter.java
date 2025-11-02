@@ -16,14 +16,14 @@
  */
 package com.helger.xml.util.statistics;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.statistics.visit.StatisticsVisitor;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroDocument;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Class for exporting statistics.
@@ -76,7 +76,7 @@ public final class StatisticsExporter
   private StatisticsExporter ()
   {}
 
-  @Nonnull
+  @NonNull
   public static IMicroDocument getAsXMLDocument ()
   {
     final IMicroDocument aDoc = new MicroDocument ();

@@ -19,14 +19,14 @@ package com.helger.collection.stack;
 import java.util.Collection;
 import java.util.EmptyStackException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A version of a stack that does not use {@link java.util.Vector} but an
@@ -161,7 +161,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public NonBlockingStack <ELEMENTTYPE> getClone ()
   {
     return new NonBlockingStack <> (this);

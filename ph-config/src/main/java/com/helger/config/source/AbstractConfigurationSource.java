@@ -20,15 +20,15 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Abstract base class for any configuration source.
@@ -55,14 +55,14 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
    * @param nPriority
    *        The priority to use. The higher the more important.
    */
-  protected AbstractConfigurationSource (@Nonnull final EConfigSourceType eSourceType, final int nPriority)
+  protected AbstractConfigurationSource (@NonNull final EConfigSourceType eSourceType, final int nPriority)
   {
     ValueEnforcer.notNull (eSourceType, "Type");
     m_eSourceType = eSourceType;
     m_nPriority = nPriority;
   }
 
-  @Nonnull
+  @NonNull
   public final EConfigSourceType getSourceType ()
   {
     return m_eSourceType;
@@ -73,7 +73,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     return m_nPriority;
   }
 
-  public static boolean isSecretKey (@Nonnull final String sKey)
+  public static boolean isSecretKey (@NonNull final String sKey)
   {
     // Bad heuristics but better then nothing
     final String sRealKey = sKey.toLowerCase (Locale.ROOT);
@@ -81,7 +81,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   }
 
   // Old name before v12: "mapToStringNoSecrets"
-  @Nonnull
+  @NonNull
   protected static <V> String mapToStringIgnoreSecrets (@Nullable final Map <String, V> aMap)
   {
     if (aMap == null)

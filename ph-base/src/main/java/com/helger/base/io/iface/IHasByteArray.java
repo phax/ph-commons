@@ -21,6 +21,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -29,8 +31,6 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.string.StringHex;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Base interface for all objects owning a byte array.
@@ -60,7 +60,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @return A copy of all bytes contained, from {@link #getOffset()} for {@link #size()} bytes.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default byte [] getAllBytes ()
   {
@@ -71,7 +71,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @return A reference to the contained byte array. Gives write access to the payload! Don't
    *         forget to apply {@link #getOffset()} and {@link #size()}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   byte [] bytes ();
 
@@ -103,7 +103,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
     return getOffset () > 0;
   }
 
-  @Nonnull
+  @NonNull
   default InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (bytes (), getOffset (), size ());
@@ -122,7 +122,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @throws IOException
    *         In case of a write error.
    */
-  default void writeTo (@Nonnull @WillNotClose final OutputStream aOS) throws IOException
+  default void writeTo (@NonNull @WillNotClose final OutputStream aOS) throws IOException
   {
     aOS.write (bytes (), getOffset (), size ());
   }
@@ -134,7 +134,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    *        The bytes to compare to. May not be <code>null</code>.
    * @return <code>true</code> if the passed bytes start with the bytes in this object.
    */
-  default boolean startsWith (@Nonnull final byte [] aCmpBytes)
+  default boolean startsWith (@NonNull final byte [] aCmpBytes)
   {
     return ArrayHelper.startsWith (bytes (), getOffset (), size (), aCmpBytes, 0, aCmpBytes.length);
   }
@@ -143,7 +143,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @return The hex encoded version of this string. Never <code>null</code> but maybe empty, if the
    *         underlying array length is empty.
    */
-  @Nonnull
+  @NonNull
   default String getHexEncoded ()
   {
     return StringHex.getHexEncoded (bytes (), getOffset (), size ());
@@ -156,8 +156,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    *         {@link #size()}.
    * @since 10.1.3
    */
-  @Nonnull
-  default String getBytesAsString (@Nonnull final Charset aCharset)
+  @NonNull
+  default String getBytesAsString (@NonNull final Charset aCharset)
   {
     return new String (bytes (), getOffset (), size (), aCharset);
   }

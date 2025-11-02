@@ -16,6 +16,9 @@
  */
 package com.helger.graph.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -24,9 +27,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.graph.IMutableBaseGraphObject;
 import com.helger.typeconvert.collection.AttributeContainerAny;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for graph nodes and graph relations.
@@ -53,14 +53,14 @@ public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
       m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public final AttributeContainerAny <String> attrs ()
   {

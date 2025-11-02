@@ -16,7 +16,7 @@
  */
 package com.helger.http;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * HTTP response header "Referrer-Policy" values. See
@@ -41,12 +41,12 @@ public enum EHttpReferrerPolicy
 
   private final String m_sValue;
 
-  EHttpReferrerPolicy (@Nonnull final String sValue)
+  EHttpReferrerPolicy (@NonNull final String sValue)
   {
     m_sValue = sValue;
   }
 
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;

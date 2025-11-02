@@ -21,6 +21,8 @@ import java.util.function.Supplier;
 
 import javax.xml.validation.Schema;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
@@ -40,9 +42,6 @@ import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
 import com.helger.xml.XMLFactory;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * DOM reader default settings
@@ -195,14 +194,14 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet ( () -> DEFAULT_PROPS.get (eProperty));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
   {
     return RW_LOCK.readLockedGet (DEFAULT_PROPS::getClone);
   }
 
-  public static void setPropertyValue (@Nonnull final EXMLParserProperty eProperty,
+  public static void setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                        @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
@@ -223,7 +222,7 @@ public final class DOMReaderDefaultSettings
     }
   }
 
-  @Nonnull
+  @NonNull
   public static EChange removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
     if (eProperty == null)
@@ -232,7 +231,7 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.writeLockedGet ( () -> DEFAULT_PROPS.removeObject (eProperty));
   }
 
-  @Nonnull
+  @NonNull
   public static EChange removeAllPropertyValues ()
   {
     return RW_LOCK.writeLockedGet (DEFAULT_PROPS::removeAll);
@@ -252,21 +251,21 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet ((Supplier <Boolean>) () -> DEFAULT_FEATURES.get (eFeature));
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
   {
     return RW_LOCK.readLockedGet (DEFAULT_FEATURES::getClone);
   }
 
-  public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, final boolean bValue)
+  public static void setFeatureValue (@NonNull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
     RW_LOCK.writeLocked ((Runnable) () -> DEFAULT_FEATURES.put (eFeature, Boolean.valueOf (bValue)));
   }
 
-  public static void setFeatureValue (@Nonnull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
+  public static void setFeatureValue (@NonNull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
@@ -286,7 +285,7 @@ public final class DOMReaderDefaultSettings
     }
   }
 
-  @Nonnull
+  @NonNull
   public static EChange removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
     if (eFeature == null)
@@ -295,7 +294,7 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.writeLockedGet ( () -> DEFAULT_FEATURES.removeObject (eFeature));
   }
 
-  @Nonnull
+  @NonNull
   public static EChange removeAllFeatures ()
   {
     return RW_LOCK.writeLockedGet (DEFAULT_FEATURES::removeAll);
@@ -348,7 +347,7 @@ public final class DOMReaderDefaultSettings
     RW_LOCK.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public static CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {

@@ -16,13 +16,13 @@
  */
 package com.helger.typeconvert;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.misc.NoTranslationRequired;
 import com.helger.base.text.TextFormatter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Exceptions of this type are only thrown from the TypeConverter class if type conversion fails.
@@ -42,24 +42,24 @@ public final class TypeConverterException extends RuntimeException
     private final int m_nParamCount;
     private final String m_sMsg;
 
-    EReason (@Nonnegative final int nParamCount, @Nonnull @Nonempty final String sMsg)
+    EReason (@Nonnegative final int nParamCount, @NonNull @Nonempty final String sMsg)
     {
       m_nParamCount = nParamCount;
       m_sMsg = sMsg;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getMessage (@Nonnull final Class <?> aDstClass)
+    public String getMessage (@NonNull final Class <?> aDstClass)
     {
       if (m_nParamCount != 1)
         throw new IllegalStateException ("Message does not expect 1 parameter!");
       return TextFormatter.getFormattedText (m_sMsg, aDstClass.getName ());
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getMessage (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+    public String getMessage (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
     {
       if (m_nParamCount != 2)
         throw new IllegalStateException ("Message does not expect 2 parameters!");
@@ -79,7 +79,7 @@ public final class TypeConverterException extends RuntimeException
    * @param eReason
    *        The reason code why the transformation failed. May not be <code>null</code>.
    */
-  public TypeConverterException (@Nonnull final Class <?> aDstClass, @Nonnull final EReason eReason)
+  public TypeConverterException (@NonNull final Class <?> aDstClass, @NonNull final EReason eReason)
   {
     super (eReason.getMessage (aDstClass));
     m_aSrcClass = null;
@@ -97,9 +97,9 @@ public final class TypeConverterException extends RuntimeException
    * @param eReason
    *        The reason code why the transformation failed. May not be <code>null</code>.
    */
-  public TypeConverterException (@Nonnull final Class <?> aSrcClass,
-                                 @Nonnull final Class <?> aDstClass,
-                                 @Nonnull final EReason eReason)
+  public TypeConverterException (@NonNull final Class <?> aSrcClass,
+                                 @NonNull final Class <?> aDstClass,
+                                 @NonNull final EReason eReason)
   {
     this (aSrcClass, aDstClass, eReason, null);
   }
@@ -116,9 +116,9 @@ public final class TypeConverterException extends RuntimeException
    * @param aCause
    *        A causing exception. May be <code>null</code>.
    */
-  public TypeConverterException (@Nonnull final Class <?> aSrcClass,
-                                 @Nonnull final Class <?> aDstClass,
-                                 @Nonnull final EReason eReason,
+  public TypeConverterException (@NonNull final Class <?> aSrcClass,
+                                 @NonNull final Class <?> aDstClass,
+                                 @NonNull final EReason eReason,
                                  @Nullable final Throwable aCause)
   {
     super (eReason.getMessage (aSrcClass, aDstClass), aCause);
@@ -139,7 +139,7 @@ public final class TypeConverterException extends RuntimeException
   /**
    * @return The conversion destination class. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public Class <?> getDstClass ()
   {
     return m_aDstClass;
@@ -148,7 +148,7 @@ public final class TypeConverterException extends RuntimeException
   /**
    * @return The conversion failing reason. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EReason getReason ()
   {
     return m_eReason;

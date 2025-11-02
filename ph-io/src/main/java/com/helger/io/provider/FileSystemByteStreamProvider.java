@@ -20,15 +20,15 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.FileHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link IInputStreamProvider} and
@@ -41,12 +41,12 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
 {
   private final File m_aBasePath;
 
-  public FileSystemByteStreamProvider (@Nonnull final String sBasePath)
+  public FileSystemByteStreamProvider (@NonNull final String sBasePath)
   {
     this (new File (sBasePath));
   }
 
-  public FileSystemByteStreamProvider (@Nonnull final File aBasePath)
+  public FileSystemByteStreamProvider (@NonNull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
     ValueEnforcer.isTrue (aBasePath.exists (), () -> "Base path does not exist: " + aBasePath);
@@ -54,20 +54,20 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
     m_aBasePath = aBasePath;
   }
 
-  @Nonnull
+  @NonNull
   public File getBasePath ()
   {
     return m_aBasePath;
   }
 
   @Nullable
-  public InputStream getInputStream (@Nonnull final String sName)
+  public InputStream getInputStream (@NonNull final String sName)
   {
     return FileHelper.getInputStream (new File (m_aBasePath, sName));
   }
 
   @Nullable
-  public OutputStream getOutputStream (@Nonnull final String sName, @Nonnull final EAppend eAppend)
+  public OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     return FileHelper.getOutputStream (new File (m_aBasePath, sName), eAppend);
   }

@@ -16,7 +16,7 @@
  */
 package com.helger.base.cleanup;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Callback interface for registering new type converters.
@@ -37,5 +37,5 @@ public interface ICleanUpRegistry
    * @param aRunnable
    *        The runnable to be executed. May not be <code>null</code>.
    */
-  void registerCleanup (int nPriority, @Nonnull Runnable aRunnable);
+  void registerCleanup (int nPriority, @NonNull Runnable aRunnable);
 }

@@ -16,7 +16,7 @@
  */
 package com.helger.base.id;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Interface for objects having an int ID.
@@ -35,5 +35,5 @@ public interface IIntIDProvider <VALUETYPE>
    *        .
    * @return The ID of the object.
    */
-  int getID (@Nonnull VALUETYPE aObject);
+  int getID (@NonNull VALUETYPE aObject);
 }

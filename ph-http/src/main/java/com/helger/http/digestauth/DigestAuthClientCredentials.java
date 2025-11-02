@@ -16,6 +16,9 @@
  */
 package com.helger.http.digestauth;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
@@ -27,9 +30,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.RFC1945Helper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Credentials for HTTP digest authentication
@@ -53,11 +53,11 @@ public class DigestAuthClientCredentials
   private final String m_sMessageQOP;
   private final int m_nNonceCount;
 
-  public DigestAuthClientCredentials (@Nonnull @Nonempty final String sUserName,
-                                      @Nonnull @Nonempty final String sRealm,
-                                      @Nonnull @Nonempty final String sServerNonce,
-                                      @Nonnull @Nonempty final String sDigestURI,
-                                      @Nonnull @Nonempty final String sResponse,
+  public DigestAuthClientCredentials (@NonNull @Nonempty final String sUserName,
+                                      @NonNull @Nonempty final String sRealm,
+                                      @NonNull @Nonempty final String sServerNonce,
+                                      @NonNull @Nonempty final String sDigestURI,
+                                      @NonNull @Nonempty final String sResponse,
                                       @Nullable final String sAlgorithm,
                                       @Nullable final String sClientNonce,
                                       @Nullable final String sOpaque,
@@ -102,7 +102,7 @@ public class DigestAuthClientCredentials
   /**
    * @return The user name. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getUserName ()
   {
@@ -112,7 +112,7 @@ public class DigestAuthClientCredentials
   /**
    * @return The realm. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getRealm ()
   {
@@ -122,7 +122,7 @@ public class DigestAuthClientCredentials
   /**
    * @return The nonce. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getServerNonce ()
   {
@@ -132,7 +132,7 @@ public class DigestAuthClientCredentials
   /**
    * @return The digest URI. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getDigestURI ()
   {
@@ -175,7 +175,7 @@ public class DigestAuthClientCredentials
     return m_nNonceCount;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getRequestValue ()
   {

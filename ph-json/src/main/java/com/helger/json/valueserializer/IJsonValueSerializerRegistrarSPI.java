@@ -16,9 +16,9 @@
  */
 package com.helger.json.valueserializer;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their
@@ -36,5 +36,5 @@ public interface IJsonValueSerializerRegistrarSPI
    * @param aRegistry
    *        The registry to register your serializers. Never <code>null</code>.
    */
-  void registerJsonValueSerializer (@Nonnull IJsonValueSerializerRegistry aRegistry);
+  void registerJsonValueSerializer (@NonNull IJsonValueSerializerRegistry aRegistry);
 }

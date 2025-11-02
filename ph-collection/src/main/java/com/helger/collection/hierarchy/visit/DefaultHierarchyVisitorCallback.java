@@ -16,10 +16,10 @@
  */
 package com.helger.collection.hierarchy.visit;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The default implementation of the {@link IHierarchyVisitorCallback} interface
@@ -63,14 +63,14 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     --m_nLevel;
   }
 
-  @Nonnull
+  @NonNull
   public EHierarchyVisitorReturn onItemBeforeChildren (final DATATYPE aItem)
   {
     // Always continue
     return EHierarchyVisitorReturn.CONTINUE;
   }
 
-  @Nonnull
+  @NonNull
   public EHierarchyVisitorReturn onItemAfterChildren (final DATATYPE aItem)
   {
     // Always continue

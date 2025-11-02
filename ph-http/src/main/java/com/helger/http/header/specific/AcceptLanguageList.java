@@ -19,12 +19,12 @@ package com.helger.http.header.specific;
 import java.util.Locale;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.http.header.AbstractQValueList;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a list of Accept-Language values as specified in the HTTP header
@@ -36,14 +36,14 @@ public class AcceptLanguageList extends AbstractQValueList <String>
   public AcceptLanguageList ()
   {}
 
-  @Nonnull
-  private static String _unify (@Nonnull final String sLanguage)
+  @NonNull
+  private static String _unify (@NonNull final String sLanguage)
   {
     return sLanguage.toLowerCase (Locale.US);
   }
 
-  @Nonnull
-  public AcceptLanguageList addLanguage (@Nonnull final String sLanguage, @Nonnegative final double dQuality)
+  @NonNull
+  public AcceptLanguageList addLanguage (@NonNull final String sLanguage, @Nonnegative final double dQuality)
   {
     ValueEnforcer.notEmpty (sLanguage, "Language");
     qvalueMap ().put (_unify (sLanguage), new QValue (dQuality));
@@ -57,8 +57,8 @@ public class AcceptLanguageList extends AbstractQValueList <String>
    *        The language name to query. May not be <code>null</code>.
    * @return The associated {@link QValue}. Never <code>null</code>.
    */
-  @Nonnull
-  public QValue getQValueOfLanguage (@Nonnull final String sLanguage)
+  @NonNull
+  public QValue getQValueOfLanguage (@NonNull final String sLanguage)
   {
     ValueEnforcer.notNull (sLanguage, "Language");
 
@@ -85,17 +85,17 @@ public class AcceptLanguageList extends AbstractQValueList <String>
    *        The language name to query. May not be <code>null</code>.
    * @return 0 means not accepted, 1 means fully accepted.
    */
-  public double getQualityOfLanguage (@Nonnull final String sLanguage)
+  public double getQualityOfLanguage (@NonNull final String sLanguage)
   {
     return getQValueOfLanguage (sLanguage).getQuality ();
   }
 
-  public boolean supportsLanguage (@Nonnull final String sLanguage)
+  public boolean supportsLanguage (@NonNull final String sLanguage)
   {
     return getQValueOfLanguage (sLanguage).isAboveMinimumQuality ();
   }
 
-  public boolean explicitlySupportsLanguage (@Nonnull final String sLanguage)
+  public boolean explicitlySupportsLanguage (@NonNull final String sLanguage)
   {
     ValueEnforcer.notNull (sLanguage, "Language");
 
@@ -104,7 +104,7 @@ public class AcceptLanguageList extends AbstractQValueList <String>
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String getAsHttpHeaderValue ()
   {
     return getAsHttpHeaderValue (Function.identity ());

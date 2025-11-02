@@ -21,6 +21,8 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.MissingResourceException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -32,8 +34,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.set.IntSet;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class providing methods that supply populated Homoglyph objects.
@@ -60,7 +60,7 @@ public final class HomoglyphBuilder
    * @throws IOException
    *         if the char_codes.txt exists but cannot be read
    */
-  @Nonnull
+  @NonNull
   public static Homoglyph build () throws IOException
   {
     return build (new ClassPathResource (CHAR_CODES_FILE));
@@ -78,8 +78,8 @@ public final class HomoglyphBuilder
    * @throws IOException
    *         if the specified file cannot be read
    */
-  @Nonnull
-  public static Homoglyph build (@Nonnull final IReadableResource aRes) throws IOException
+  @NonNull
+  public static Homoglyph build (@NonNull final IReadableResource aRes) throws IOException
   {
     ValueEnforcer.notNull (aRes, "Resource");
     return build (aRes.getReader (StandardCharsets.ISO_8859_1));
@@ -97,8 +97,8 @@ public final class HomoglyphBuilder
    * @throws IOException
    *         if the specified Reader cannot be read
    */
-  @Nonnull
-  public static Homoglyph build (@Nonnull @WillClose final Reader aReader) throws IOException
+  @NonNull
+  public static Homoglyph build (@NonNull @WillClose final Reader aReader) throws IOException
   {
     ValueEnforcer.notNull (aReader, "reader");
     try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aReader))

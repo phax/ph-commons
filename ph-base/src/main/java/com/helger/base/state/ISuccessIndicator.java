@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Very simple interface for an object that has success/failure indication.
@@ -38,14 +38,14 @@ public interface ISuccessIndicator
     return !isSuccess ();
   }
 
-  @Nonnull
-  default ESuccess or (@Nonnull final ISuccessIndicator aSuccess)
+  @NonNull
+  default ESuccess or (@NonNull final ISuccessIndicator aSuccess)
   {
     return ESuccess.valueOf (isSuccess () || aSuccess.isSuccess ());
   }
 
-  @Nonnull
-  default ESuccess and (@Nonnull final ISuccessIndicator aSuccess)
+  @NonNull
+  default ESuccess and (@NonNull final ISuccessIndicator aSuccess)
   {
     return ESuccess.valueOf (isSuccess () && aSuccess.isSuccess ());
   }

@@ -16,6 +16,8 @@
  */
 package com.helger.config.source.envvar;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.config.source.EConfigSourceType;
 import com.helger.config.source.IConfigurationSource;
 import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IConfigurationSource} for environment
@@ -63,7 +62,7 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
   }
 
   @Nullable
-  public ConfiguredValue getConfigurationValue (@Nonnull @Nonempty final String sKey)
+  public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
     // Unify the naming to the environment conventions
     final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
@@ -92,7 +91,7 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
     return new ConfiguredValue (this, sValue);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllConfigItems ()
   {

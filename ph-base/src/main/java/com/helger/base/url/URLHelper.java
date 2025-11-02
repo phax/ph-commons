@@ -30,6 +30,8 @@ import java.net.URLConnection;
 import java.util.function.Consumer;
 import java.util.jar.JarEntry;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,9 +47,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.base.wrapper.IMutableWrapper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * URL utilities.
@@ -308,7 +307,7 @@ public final class URLHelper
    * @return <code>null</code> if the input stream could not be opened.
    */
   @Nullable
-  public static InputStream getInputStream (@Nonnull final URL aURL,
+  public static InputStream getInputStream (@NonNull final URL aURL,
                                             @CheckForSigned final int nConnectTimeoutMS,
                                             @CheckForSigned final int nReadTimeoutMS,
                                             @Nullable final Consumer <? super URLConnection> aConnectionModifier,
@@ -441,8 +440,8 @@ public final class URLHelper
     return null;
   }
 
-  @Nonnull
-  public static File getAsFile (@Nonnull final URL aURL)
+  @NonNull
+  public static File getAsFile (@NonNull final URL aURL)
   {
     ValueEnforcer.notNull (aURL, "URL");
     ValueEnforcer.isEqual (CURL.PROTOCOL_FILE, aURL.getProtocol (), () -> "Not a file URL: " + aURL.toExternalForm ());
@@ -497,7 +496,7 @@ public final class URLHelper
    * @return <code>null</code> if the path could not be resolved.
    */
   @Nullable
-  public static URL getClassPathURL (@Nonnull @Nonempty final String sPath)
+  public static URL getClassPathURL (@NonNull @Nonempty final String sPath)
   {
     ValueEnforcer.notEmpty (sPath, "Path");
 
@@ -517,13 +516,13 @@ public final class URLHelper
     return ret;
   }
 
-  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath)
+  public static boolean isClassPathURLExisting (@NonNull @Nonempty final String sPath)
   {
     return getClassPathURL (sPath) != null;
   }
 
-  public static boolean isClassPathURLExisting (@Nonnull @Nonempty final String sPath,
-                                                @Nonnull final ClassLoader aClassLoader)
+  public static boolean isClassPathURLExisting (@NonNull @Nonempty final String sPath,
+                                                @NonNull final ClassLoader aClassLoader)
   {
     return ClassLoaderHelper.getResource (aClassLoader, sPath) != null;
   }

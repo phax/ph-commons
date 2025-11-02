@@ -19,6 +19,8 @@ package com.helger.http.basicauth;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,9 +31,6 @@ import com.helger.base.codec.base64.Base64;
 import com.helger.base.string.StringHelper;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.http.digestauth.HttpDigestAuth;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handling for HTTP Basic Authentication
@@ -107,9 +106,9 @@ public final class HttpBasicAuth
    * @return The HTTP header value to use. Neither <code>null</code> nor empty.
    * @since 9.3.5
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getHttpHeaderValue (@Nonnull @Nonempty final String sUserName, @Nullable final String sPassword)
+  public static String getHttpHeaderValue (@NonNull @Nonempty final String sUserName, @Nullable final String sPassword)
   {
     final String sCombined = StringHelper.getConcatenatedOnDemand (sUserName, USERNAME_PASSWORD_SEPARATOR, sPassword);
     return HEADER_VALUE_PREFIX_BASIC + " " + Base64.safeEncode (sCombined, CHARSET);

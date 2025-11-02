@@ -19,10 +19,10 @@ package com.helger.text;
 import java.util.Locale;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a multilingual text that cannot be altered after the
@@ -40,12 +40,12 @@ public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingu
   public ReadOnlyMultilingualText ()
   {}
 
-  public ReadOnlyMultilingualText (@Nonnull final Locale aContentLocale, @Nonnull final String sValue)
+  public ReadOnlyMultilingualText (@NonNull final Locale aContentLocale, @NonNull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
-  public ReadOnlyMultilingualText (@Nonnull final Map <Locale, String> aContent)
+  public ReadOnlyMultilingualText (@NonNull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
 
@@ -53,7 +53,7 @@ public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingu
       internalAddText (aEntry);
   }
 
-  public ReadOnlyMultilingualText (@Nonnull final IMultilingualText aMLT)
+  public ReadOnlyMultilingualText (@NonNull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");
 

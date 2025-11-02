@@ -19,12 +19,12 @@ package com.helger.mime;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.codec.impl.QuotedPrintableCodec;
 import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.mime.parse.MimeTypeParser;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Defines the possible MIME type parameter value quotings
@@ -41,9 +41,9 @@ public enum EMimeQuoting
   QUOTED_STRING
   {
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
+    public String getQuotedString (@NonNull @Nonempty final String sUnquotedString)
     {
       final StringBuilder aSB = new StringBuilder (sUnquotedString.length () * 2);
       aSB.append (QUOTED_STRING_SEPARATOR_CHAR);
@@ -60,9 +60,9 @@ public enum EMimeQuoting
     }
 
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
+    public String getUnquotedString (@NonNull @Nonempty final String sQuotedString)
     {
       throw new UnsupportedOperationException ("This is handled directly inside the MimeTypeParser!");
     }
@@ -76,18 +76,18 @@ public enum EMimeQuoting
   QUOTED_PRINTABLE
   {
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
+    public String getQuotedString (@NonNull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
       return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
     }
 
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
+    public String getUnquotedString (@NonNull @Nonempty final String sQuotedString)
     {
       // Use default BitSet for decoding!
       return new QuotedPrintableCodec ().getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
@@ -103,18 +103,18 @@ public enum EMimeQuoting
   URL_ESCAPE
   {
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getQuotedString (@Nonnull @Nonempty final String sUnquotedString)
+    public String getQuotedString (@NonNull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
       return new RFC3986Codec (PRINTABLE_URL).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
     }
 
     @Override
-    @Nonnull
+    @NonNull
     @Nonempty
-    public String getUnquotedString (@Nonnull @Nonempty final String sQuotedString)
+    public String getUnquotedString (@NonNull @Nonempty final String sQuotedString)
     {
       return new RFC3986Codec (PRINTABLE_URL).getDecodedAsString (sQuotedString, StandardCharsets.UTF_8);
     }
@@ -140,13 +140,13 @@ public enum EMimeQuoting
     }
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public abstract String getQuotedString (@Nonnull @Nonempty String sUnquotedString);
+  public abstract String getQuotedString (@NonNull @Nonempty String sUnquotedString);
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public abstract String getUnquotedString (@Nonnull @Nonempty String sQuotedString);
+  public abstract String getUnquotedString (@NonNull @Nonempty String sQuotedString);
 
   /**
    * @return <code>true</code> if this == {@link #QUOTED_STRING},

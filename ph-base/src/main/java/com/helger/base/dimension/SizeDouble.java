@@ -16,6 +16,8 @@
  */
 package com.helger.base.dimension;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -23,8 +25,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents an object having width and height.
@@ -37,22 +37,22 @@ public class SizeDouble implements IHasDimensionDouble
   private final double m_dWidth;
   private final double m_dHeight;
 
-  public SizeDouble (@Nonnull final IHasDimensionInt aObj)
+  public SizeDouble (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeDouble (@Nonnull final IHasDimensionLong aObj)
+  public SizeDouble (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeDouble (@Nonnull final IHasDimensionFloat aObj)
+  public SizeDouble (@NonNull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeDouble (@Nonnull final IHasDimensionDouble aObj)
+  public SizeDouble (@NonNull final IHasDimensionDouble aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -85,7 +85,7 @@ public class SizeDouble implements IHasDimensionDouble
    * @return An array with 2 elements, where the first element is the width, and the second is the
    *         height.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeDouble getBestMatchingSize (@Nonnegative final double dMaxWidth, @Nonnegative final double dMaxHeight)
   {
@@ -107,7 +107,7 @@ public class SizeDouble implements IHasDimensionDouble
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeDouble getScaledToWidth (@Nonnegative final double dNewWidth)
   {
@@ -119,7 +119,7 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (dNewWidth, m_dHeight * dMultFactory);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeDouble getScaledToHeight (@Nonnegative final double dNewHeight)
   {
@@ -131,54 +131,54 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth * dMultFactory, dNewHeight);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getAdded (@Nonnull final IHasDimensionInt aToAdd)
+  public SizeDouble getAdded (@NonNull final IHasDimensionInt aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getAdded (@Nonnull final IHasDimensionFloat aToAdd)
+  public SizeDouble getAdded (@NonNull final IHasDimensionFloat aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getAdded (@Nonnull final IHasDimensionDouble aToAdd)
+  public SizeDouble getAdded (@NonNull final IHasDimensionDouble aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getSubtracted (@Nonnull final IHasDimensionInt aToSubtract)
+  public SizeDouble getSubtracted (@NonNull final IHasDimensionInt aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
     return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getSubtracted (@Nonnull final IHasDimensionFloat aToSubtract)
+  public SizeDouble getSubtracted (@NonNull final IHasDimensionFloat aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
     return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeDouble getSubtracted (@Nonnull final IHasDimensionDouble aToSubtract)
+  public SizeDouble getSubtracted (@NonNull final IHasDimensionDouble aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

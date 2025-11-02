@@ -16,12 +16,12 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroEvent} interface.
@@ -35,14 +35,14 @@ public final class MicroEvent implements IMicroEvent
   private final IMicroNode m_aSourceNode;
   private final IMicroNode m_aTargetNode;
 
-  public MicroEvent (@Nonnull final EMicroEvent eEventType, @Nullable final IMicroNode aSourceNode, @Nullable final IMicroNode aTargetNode)
+  public MicroEvent (@NonNull final EMicroEvent eEventType, @Nullable final IMicroNode aSourceNode, @Nullable final IMicroNode aTargetNode)
   {
     m_eEventType = ValueEnforcer.notNull (eEventType, "EventType");
     m_aSourceNode = aSourceNode;
     m_aTargetNode = aTargetNode;
   }
 
-  @Nonnull
+  @NonNull
   public EMicroEvent getEventType ()
   {
     return m_eEventType;

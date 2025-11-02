@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ForkJoinPool;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,8 +32,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.timing.StopWatch;
-
-import jakarta.annotation.Nonnull;
 
 public class PromiseFuncTest
 {
@@ -48,14 +47,14 @@ public class PromiseFuncTest
       this (ForkJoinPool.commonPool ());
     }
 
-    public Promise (@Nonnull final ExecutorService aES)
+    public Promise (@NonNull final ExecutorService aES)
     {
       ValueEnforcer.notNull (aES, "ES");
       m_aES = aES;
     }
 
-    @Nonnull
-    public Promise runAsync (@Nonnull final Runnable aRunnable)
+    @NonNull
+    public Promise runAsync (@NonNull final Runnable aRunnable)
     {
       if (m_aCF != null)
         m_aCF = m_aCF.thenRunAsync (aRunnable, m_aES);

@@ -16,6 +16,8 @@
  */
 package com.helger.base.dimension;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckReturnValue;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -23,8 +25,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.numeric.MathHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents an object having width and height.
@@ -37,12 +37,12 @@ public class SizeLong implements IHasDimensionLong
   private final long m_nWidth;
   private final long m_nHeight;
 
-  public SizeLong (@Nonnull final IHasDimensionInt aObj)
+  public SizeLong (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
-  public SizeLong (@Nonnull final IHasDimensionLong aObj)
+  public SizeLong (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
@@ -75,7 +75,7 @@ public class SizeLong implements IHasDimensionLong
    * @return An array with 2 elements, where the first element is the width, and
    *         the second is the height.
    */
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeLong getBestMatchingSize (@Nonnegative final long nMaxWidth, @Nonnegative final long nMaxHeight)
   {
@@ -97,7 +97,7 @@ public class SizeLong implements IHasDimensionLong
     return this;
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeLong getScaledToWidth (@Nonnegative final long nNewWidth)
   {
@@ -109,7 +109,7 @@ public class SizeLong implements IHasDimensionLong
     return new SizeLong (nNewWidth, (long) (m_nHeight * dMultFactory));
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
   public SizeLong getScaledToHeight (@Nonnegative final long nNewHeight)
   {
@@ -121,18 +121,18 @@ public class SizeLong implements IHasDimensionLong
     return new SizeLong ((long) (m_nWidth * dMultFactory), nNewHeight);
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeLong getAdded (@Nonnull final IHasDimensionLong aToAdd)
+  public SizeLong getAdded (@NonNull final IHasDimensionLong aToAdd)
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
     return new SizeLong (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
-  @Nonnull
+  @NonNull
   @CheckReturnValue
-  public SizeLong getSubtracted (@Nonnull final IHasDimensionLong aToSubtract)
+  public SizeLong getSubtracted (@NonNull final IHasDimensionLong aToSubtract)
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 

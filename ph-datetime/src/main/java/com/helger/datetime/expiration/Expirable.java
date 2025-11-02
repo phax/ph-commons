@@ -18,13 +18,13 @@ package com.helger.datetime.expiration;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IMutableExpirable}
@@ -49,7 +49,7 @@ public class Expirable implements IMutableExpirable
     return m_aExpirationDateTime;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {
     final Object aObj2 = m_aExpirationDateTime;

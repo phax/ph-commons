@@ -18,8 +18,8 @@ package com.helger.typeconvert;
 
 import java.util.function.Function;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Special interface that is used to convert between values of different types.
@@ -42,5 +42,5 @@ public interface ITypeConverter <SRC, DST> extends Function <SRC, DST>
    * @return The converted value. May be <code>null</code>.
    */
   @Nullable
-  DST apply (@Nonnull SRC aSource);
+  DST apply (@NonNull SRC aSource);
 }

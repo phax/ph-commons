@@ -16,12 +16,12 @@
  */
 package com.helger.xml.serialize.write;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Defines the different characters modes that are relevant to determine invalid
@@ -46,12 +46,12 @@ public enum EXMLCharMode implements IHasID <String>
 
   private final String m_sID;
 
-  EXMLCharMode (@Nonnull @Nonempty final String sID)
+  EXMLCharMode (@NonNull @Nonempty final String sID)
   {
     m_sID = sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getID ()
   {

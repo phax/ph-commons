@@ -18,15 +18,15 @@ package com.helger.commons.supplementary.test.code;
 
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 public final class StringTrieFuncTest <DATATYPE>
 {
@@ -56,13 +56,13 @@ public final class StringTrieFuncTest <DATATYPE>
     return m_nSize;
   }
 
-  public boolean contains (@Nonnull @Nonempty final String sKey)
+  public boolean contains (@NonNull @Nonempty final String sKey)
   {
     return get (sKey) != null;
   }
 
   @Nullable
-  public DATATYPE get (@Nonnull @Nonempty final String sKey)
+  public DATATYPE get (@NonNull @Nonempty final String sKey)
   {
     if (StringHelper.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
@@ -96,7 +96,7 @@ public final class StringTrieFuncTest <DATATYPE>
   // return subtrie corresponding to given key
   @Nullable
   private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode,
-                                @Nonnull @Nonempty final char [] aKey,
+                                @NonNull @Nonempty final char [] aKey,
                                 @Nonnegative final int nIndex)
   {
     if (aNode != null)
@@ -141,7 +141,7 @@ public final class StringTrieFuncTest <DATATYPE>
     return ret;
   }
 
-  public void put (@Nonnull @Nonempty final String sKey, @Nullable final DATATYPE aValue)
+  public void put (@NonNull @Nonempty final String sKey, @Nullable final DATATYPE aValue)
   {
     if (StringHelper.isEmpty (sKey))
       throw new IllegalArgumentException ("key must have length >= 1");
@@ -229,7 +229,7 @@ public final class StringTrieFuncTest <DATATYPE>
     return s.substring (0, nLength);
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsCollection <String> getAllKeys ()
   {
     final ICommonsList <String> aList = new CommonsArrayList <> ();
@@ -239,8 +239,8 @@ public final class StringTrieFuncTest <DATATYPE>
 
   // all keys in subtrie rooted at x with given prefix
   private void _collect (@Nullable final Node <DATATYPE> aNode,
-                         @Nonnull final String sPrefix,
-                         @Nonnull final List <String> aList)
+                         @NonNull final String sPrefix,
+                         @NonNull final List <String> aList)
   {
     if (aNode != null)
     {
@@ -254,8 +254,8 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   // all keys starting with given prefix
-  @Nonnull
-  public ICommonsCollection <String> prefixMatch (@Nonnull @Nonempty final String sPrefix)
+  @NonNull
+  public ICommonsCollection <String> prefixMatch (@NonNull @Nonempty final String sPrefix)
   {
     if (StringHelper.isEmpty (sPrefix))
       throw new IllegalArgumentException ("prefix must have length >= 1");
@@ -273,8 +273,8 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   // return all keys matching given wilcard pattern
-  @Nonnull
-  public ICommonsCollection <String> wildcardMatch (@Nonnull final String sPattern)
+  @NonNull
+  public ICommonsCollection <String> wildcardMatch (@NonNull final String sPattern)
   {
     final ICommonsList <String> queue = new CommonsArrayList <> ();
     collect (m_aRoot, "", 0, sPattern, queue);
@@ -282,10 +282,10 @@ public final class StringTrieFuncTest <DATATYPE>
   }
 
   public void collect (@Nullable final Node <DATATYPE> aNode,
-                       @Nonnull final String sPrefix,
+                       @NonNull final String sPrefix,
                        @Nonnegative final int nIndex,
-                       @Nonnull final String sPattern,
-                       @Nonnull final List <String> aList)
+                       @NonNull final String sPattern,
+                       @NonNull final List <String> aList)
   {
     if (aNode != null)
     {

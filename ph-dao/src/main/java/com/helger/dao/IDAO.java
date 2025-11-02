@@ -18,9 +18,9 @@ package com.helger.dao;
 
 import java.time.LocalDateTime;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Base DAO interface. DAO = Data Access Object. A DAO implementation usually

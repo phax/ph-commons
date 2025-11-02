@@ -18,12 +18,12 @@ package com.helger.commons.math;
 
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Smart class for calculating factorials.
@@ -93,7 +93,7 @@ public final class FactorialHelper
     FactorialSplit ()
     {}
 
-    @Nonnull
+    @NonNull
     private BigInteger _getProduct (final int n)
     {
       final int m = n / 2;
@@ -113,7 +113,7 @@ public final class FactorialHelper
       return _getProduct (n - m).multiply (_getProduct (m));
     }
 
-    @Nonnull
+    @NonNull
     public BigInteger getFactorial (@Nonnegative final int n)
     {
       ValueEnforcer.isGE0 (n, "n");
@@ -143,7 +143,7 @@ public final class FactorialHelper
     }
   }
 
-  @Nonnull
+  @NonNull
   public static BigInteger getAnyFactorialLinear (@Nonnegative final int n)
   {
     return new FactorialSplit ().getFactorial (n);

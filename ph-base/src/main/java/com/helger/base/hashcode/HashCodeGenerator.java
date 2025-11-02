@@ -16,14 +16,14 @@
  */
 package com.helger.base.hashcode;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A small hash code creation class based on the article found in the net. See
@@ -78,7 +78,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @param aSrcObject
    *        The source object from which the class is extracted. May not be <code>null</code>.
    */
-  public HashCodeGenerator (@Nonnull final Object aSrcObject)
+  public HashCodeGenerator (@NonNull final Object aSrcObject)
   {
     this (aSrcObject instanceof final Class <?> aClass ? aClass : aSrcObject.getClass ());
   }
@@ -91,7 +91,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        The class this instance is about to create a hash code for. May not be
    *        <code>null</code>.
    */
-  public HashCodeGenerator (@Nonnull final Class <?> aClass)
+  public HashCodeGenerator (@NonNull final Class <?> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -127,7 +127,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final boolean x)
   {
     _checkClosed ();
@@ -142,7 +142,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final byte x)
   {
     _checkClosed ();
@@ -157,7 +157,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final char x)
   {
     _checkClosed ();
@@ -172,7 +172,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final double x)
   {
     _checkClosed ();
@@ -187,7 +187,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final float x)
   {
     _checkClosed ();
@@ -202,7 +202,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final int x)
   {
     _checkClosed ();
@@ -217,7 +217,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final long x)
   {
     _checkClosed ();
@@ -232,7 +232,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (final short x)
   {
     _checkClosed ();
@@ -247,7 +247,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final Object x)
   {
     _checkClosed ();
@@ -262,7 +262,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final boolean [] x)
   {
     _checkClosed ();
@@ -281,7 +281,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final boolean [] x,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
@@ -298,7 +298,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final byte [] x)
   {
     _checkClosed ();
@@ -317,7 +317,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -332,7 +332,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final char [] x)
   {
     _checkClosed ();
@@ -351,7 +351,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -366,7 +366,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final double [] x)
   {
     _checkClosed ();
@@ -385,7 +385,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final double [] x,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
@@ -402,7 +402,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final float [] x)
   {
     _checkClosed ();
@@ -421,7 +421,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -436,7 +436,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final int [] x)
   {
     _checkClosed ();
@@ -455,7 +455,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -470,7 +470,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final long [] x)
   {
     _checkClosed ();
@@ -489,7 +489,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -504,7 +504,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final short [] x)
   {
     _checkClosed ();
@@ -523,7 +523,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
@@ -538,7 +538,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Array to add
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final Object [] x)
   {
     _checkClosed ();
@@ -557,7 +557,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public HashCodeGenerator append (@Nullable final Object [] x,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
@@ -621,7 +621,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    *        Always pass in <code>super.hashCode ()</code>
    * @return Never <code>null</code>
    */
-  @Nonnull
+  @NonNull
   @UsedInGeneratedCode
   public static HashCodeGenerator getDerived (final int nSuperHashCode)
   {
@@ -641,7 +641,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return The generated hashCode.
    * @since 9.4.5
    */
-  public static int getHashCode (@Nonnull final Object aThis, @Nullable final Object... aMembers)
+  public static int getHashCode (@NonNull final Object aThis, @Nullable final Object... aMembers)
   {
     final HashCodeGenerator aHCGen = new HashCodeGenerator (aThis);
     if (aMembers != null)

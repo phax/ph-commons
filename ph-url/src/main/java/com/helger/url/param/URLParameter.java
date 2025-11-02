@@ -16,6 +16,9 @@
  */
 package com.helger.url.param;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.codec.IEncoder;
@@ -24,9 +27,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.url.CURL;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single URL parameter. It consists of a mandatory name and an optional
@@ -43,12 +43,12 @@ public class URLParameter
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public URLParameter (@Nonnull @Nonempty final String sName)
+  public URLParameter (@NonNull @Nonempty final String sName)
   {
     this (sName, "");
   }
 
-  public URLParameter (@Nonnull @Nonempty final String sName, @Nonnull final String sValue)
+  public URLParameter (@NonNull @Nonempty final String sName, @NonNull final String sValue)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
     m_sValue = ValueEnforcer.notNull (sValue, "Value");
@@ -57,7 +57,7 @@ public class URLParameter
   /**
    * @return The name of the URL parameter. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
@@ -79,7 +79,7 @@ public class URLParameter
   /**
    * @return The value of the URL parameter. Never <code>null</code> but maybe empty.
    */
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;
@@ -105,7 +105,7 @@ public class URLParameter
     return m_sValue.equals (sValue);
   }
 
-  public void appendTo (@Nonnull final StringBuilder aSB,
+  public void appendTo (@NonNull final StringBuilder aSB,
                         @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {
     // Name

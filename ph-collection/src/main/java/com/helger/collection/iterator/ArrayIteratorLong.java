@@ -19,14 +19,14 @@ package com.helger.collection.iterator;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is a small helper class for iterating over arrays of long.
@@ -38,7 +38,7 @@ public final class ArrayIteratorLong
   private final long [] m_aArray;
   private int m_nIndex = 0;
 
-  public ArrayIteratorLong (@Nonnull final long... aArray)
+  public ArrayIteratorLong (@NonNull final long... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -53,7 +53,7 @@ public final class ArrayIteratorLong
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorLong (@Nonnull final long [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorLong (@NonNull final long [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);

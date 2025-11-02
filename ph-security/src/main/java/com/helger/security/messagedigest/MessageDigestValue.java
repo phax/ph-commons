@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.MessageDigest;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillClose;
@@ -31,8 +33,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasByteArray;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a single message digest value as the combination of the algorithm and the digest
@@ -48,14 +48,14 @@ public class MessageDigestValue implements IHasByteArray
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final ByteArrayWrapper m_aBytes;
 
-  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
-                             @Nonnull @Nonempty final byte [] aDigestBytes)
+  public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
+                             @NonNull @Nonempty final byte [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
 
-  public MessageDigestValue (@Nonnull final EMessageDigestAlgorithm eAlgorithm,
-                             @Nonnull @Nonempty final byte [] aDigestBytes,
+  public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
+                             @NonNull @Nonempty final byte [] aDigestBytes,
                              final boolean bIsCopyNeeded)
   {
     ValueEnforcer.notNull (eAlgorithm, "Algorithm");
@@ -67,7 +67,7 @@ public class MessageDigestValue implements IHasByteArray
   /**
    * @return The message digest algorithm used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EMessageDigestAlgorithm getAlgorithm ()
   {
     return m_eAlgorithm;
@@ -83,7 +83,7 @@ public class MessageDigestValue implements IHasByteArray
    *         <code>null</code>.
    * @since 9.1.3
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableObject
   public byte [] bytes ()
@@ -106,7 +106,7 @@ public class MessageDigestValue implements IHasByteArray
   /**
    * @return The hex-encoded String of the message digest bytes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getHexEncodedDigestString ()
   {
@@ -145,9 +145,9 @@ public class MessageDigestValue implements IHasByteArray
    *        The algorithm to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static MessageDigestValue create (@Nonnull final byte [] aBytes,
-                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm)
+  @NonNull
+  public static MessageDigestValue create (@NonNull final byte [] aBytes,
+                                           @NonNull final EMessageDigestAlgorithm eAlgorithm)
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     aMD.update (aBytes);
@@ -166,9 +166,9 @@ public class MessageDigestValue implements IHasByteArray
    * @throws IOException
    *         In case reading throws an IOException
    */
-  @Nonnull
-  public static MessageDigestValue create (@Nonnull @WillClose final InputStream aIS,
-                                           @Nonnull final EMessageDigestAlgorithm eAlgorithm) throws IOException
+  @NonNull
+  public static MessageDigestValue create (@NonNull @WillClose final InputStream aIS,
+                                           @NonNull final EMessageDigestAlgorithm eAlgorithm) throws IOException
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();
     StreamHelper.readUntilEOF (aIS, (aBytes, nBytes) -> aMD.update (aBytes, 0, nBytes));

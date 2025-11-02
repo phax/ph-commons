@@ -24,10 +24,13 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathFactory;
 import javax.xml.xpath.XPathFactoryConfigurationException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXNotRecognizedException;
 import org.xml.sax.SAXNotSupportedException;
+import org.xml.sax.XMLReader;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
@@ -35,9 +38,6 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Contains constants for parser features.<br>
@@ -506,26 +506,26 @@ public enum EXMLParserFeature implements IHasName
   @CodingStyleguideUnaware
   private boolean m_bWarnedOnce = false;
 
-  EXMLParserFeature (@Nonnull final EXMLParserFeatureType eType, @Nonnull @Nonempty final String sName)
+  EXMLParserFeature (@NonNull final EXMLParserFeatureType eType, @NonNull @Nonempty final String sName)
   {
     m_eType = eType;
     m_sName = sName;
   }
 
-  @Nonnull
+  @NonNull
   public EXMLParserFeatureType getFeatureType ()
   {
     return m_eType;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getName ()
   {
     return m_sName;
   }
 
-  public void applyTo (@Nonnull final org.xml.sax.XMLReader aParser, final boolean bValue)
+  public void applyTo (@NonNull final XMLReader aParser, final boolean bValue)
   {
     ValueEnforcer.notNull (aParser, "Parser");
 
@@ -553,7 +553,7 @@ public enum EXMLParserFeature implements IHasName
     }
   }
 
-  public void applyTo (@Nonnull final DocumentBuilderFactory aDocumentBuilderFactory, final boolean bValue)
+  public void applyTo (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory, final boolean bValue)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
 
@@ -570,7 +570,7 @@ public enum EXMLParserFeature implements IHasName
     }
   }
 
-  public void applyTo (@Nonnull final XPathFactory aXPathFactory, final boolean bValue)
+  public void applyTo (@NonNull final XPathFactory aXPathFactory, final boolean bValue)
   {
     ValueEnforcer.notNull (aXPathFactory, "XPathFactory");
 
@@ -593,9 +593,9 @@ public enum EXMLParserFeature implements IHasName
     return EnumHelper.getFromNameOrNull (EXMLParserFeature.class, sName);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static List <EXMLParserFeature> getAllFeaturesOfType (@Nonnull final EXMLParserFeatureType eFeatureType)
+  public static List <EXMLParserFeature> getAllFeaturesOfType (@NonNull final EXMLParserFeatureType eFeatureType)
   {
     ValueEnforcer.notNull (eFeatureType, "FeatureType");
 

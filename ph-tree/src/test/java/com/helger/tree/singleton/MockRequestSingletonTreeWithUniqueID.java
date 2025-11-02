@@ -16,10 +16,10 @@
  */
 package com.helger.tree.singleton;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.UsedViaReflection;
 import com.helger.base.hashcode.HashCodeGenerator;
-
-import jakarta.annotation.Nonnull;
 
 public final class MockRequestSingletonTreeWithUniqueID extends
                                                         AbstractRequestSingletonTreeWithUniqueID <String, String>
@@ -29,7 +29,7 @@ public final class MockRequestSingletonTreeWithUniqueID extends
   public MockRequestSingletonTreeWithUniqueID ()
   {}
 
-  @Nonnull
+  @NonNull
   public static MockRequestSingletonTreeWithUniqueID getInstance ()
   {
     return getRequestSingleton (MockRequestSingletonTreeWithUniqueID.class);

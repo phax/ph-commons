@@ -24,6 +24,8 @@ import java.time.ZonedDateTime;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +60,6 @@ import com.helger.xml.microdom.serialize.MicroReader;
 import com.helger.xml.microdom.serialize.MicroWriter;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for a simple DAO.
@@ -103,7 +102,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   private int m_nWriteCount = 0;
   private LocalDateTime m_aLastWriteDT;
 
-  protected AbstractSimpleDAO (@Nonnull final IFileRelativeIO aIO, @Nonnull final Supplier <String> aFilenameProvider)
+  protected AbstractSimpleDAO (@NonNull final IFileRelativeIO aIO, @NonNull final Supplier <String> aFilenameProvider)
   {
     m_aIO = ValueEnforcer.notNull (aIO, "IO");
     m_aFilenameProvider = ValueEnforcer.notNull (aFilenameProvider, "FilenameProvider");
@@ -112,7 +111,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   /**
    * @return The file-relative IO as passed in the constructor. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   protected final IFileRelativeIO getIO ()
   {
     return m_aIO;
@@ -121,7 +120,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   /**
    * @return The filename provider used internally to build filenames. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Supplier <String> getFilenameProvider ()
   {
     return m_aFilenameProvider;
@@ -133,7 +132,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *
    * @return {@link EChange#CHANGED} if something was modified inside this method
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected EChange onInit ()
   {
@@ -149,12 +148,12 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    * @return {@link EChange#CHANGED} if reading the data changed something in the internal
    *         structures that requires a writing.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
-  protected abstract EChange onRead (@Nonnull IMicroDocument aDoc);
+  protected abstract EChange onRead (@NonNull IMicroDocument aDoc);
 
-  @Nonnull
-  protected final File getSafeFile (@Nonnull final String sFilename, @Nonnull final EMode eMode) throws DAOException
+  @NonNull
+  protected final File getSafeFile (@NonNull final String sFilename, @NonNull final EMode eMode) throws DAOException
   {
     ValueEnforcer.notNull (sFilename, "Filename");
     ValueEnforcer.notNull (eMode, "Mode");
@@ -222,7 +221,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
    */
-  protected static void triggerExceptionHandlersRead (@Nonnull final Throwable t,
+  protected static void triggerExceptionHandlersRead (@NonNull final Throwable t,
                                                       final boolean bIsInitialization,
                                                       @Nullable final File aFile)
   {
@@ -362,7 +361,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    */
   @OverrideOnDemand
   @MustBeLocked (ELockType.WRITE)
-  protected void onFilenameChange (@Nullable final String sPreviousFilename, @Nonnull final String sNewFilename)
+  protected void onFilenameChange (@Nullable final String sPreviousFilename, @NonNull final String sNewFilename)
   {}
 
   /**
@@ -371,7 +370,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *
    * @return The non-<code>null</code> document to write to the file.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
   protected abstract IMicroDocument createWriteData ();
 
@@ -383,7 +382,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    */
   @OverrideOnDemand
   @MustBeLocked (ELockType.WRITE)
-  protected void modifyWriteData (@Nonnull final IMicroDocument aDoc)
+  protected void modifyWriteData (@NonNull final IMicroDocument aDoc)
   {
     final IMicroComment aComment = new MicroComment ("This file was generated automatically - do NOT modify!\n" +
                                                      "Written at " +
@@ -408,13 +407,13 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    */
   @OverrideOnDemand
   @MustBeLocked (ELockType.WRITE)
-  protected void beforeWriteToFile (@Nonnull final String sFilename, @Nonnull final File aFile)
+  protected void beforeWriteToFile (@NonNull final String sFilename, @NonNull final File aFile)
   {}
 
   /**
    * @return The {@link IXMLWriterSettings} to be used to serialize the data.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected IXMLWriterSettings getXMLWriterSettings ()
   {
@@ -442,8 +441,8 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *        The XML content that should be written. May be <code>null</code> if the error occurred
    *        in XML creation.
    */
-  protected static void triggerExceptionHandlersWrite (@Nonnull final Throwable t,
-                                                       @Nonnull final String sErrorFilename,
+  protected static void triggerExceptionHandlersWrite (@NonNull final Throwable t,
+                                                       @NonNull final String sErrorFilename,
                                                        @Nullable final IMicroDocument aDoc)
   {
     // Check if a custom exception handler is present
@@ -461,7 +460,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    *
    * @return {@link ESuccess} and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @MustBeLocked (ELockType.WRITE)
   private ESuccess _writeToFile ()
   {

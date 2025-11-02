@@ -16,10 +16,10 @@
  */
 package com.helger.base.lang;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Defines a generic interface for appending objects to something.
@@ -35,7 +35,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (boolean x);
 
   /**
@@ -43,7 +43,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (byte x);
 
   /**
@@ -51,7 +51,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (char x);
 
   /**
@@ -59,7 +59,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (double x);
 
   /**
@@ -67,7 +67,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (float x);
 
   /**
@@ -75,7 +75,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (int x);
 
   /**
@@ -83,7 +83,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (long x);
 
   /**
@@ -91,7 +91,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (short x);
 
   /**
@@ -99,7 +99,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable Object x);
 
   /**
@@ -107,7 +107,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable boolean [] x);
 
   /**
@@ -119,7 +119,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable boolean [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -127,7 +127,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable byte [] x);
 
   /**
@@ -139,7 +139,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable byte [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -147,7 +147,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable char [] x);
 
   /**
@@ -159,7 +159,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable char [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -167,7 +167,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable double [] x);
 
   /**
@@ -179,7 +179,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable double [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -187,7 +187,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable float [] x);
 
   /**
@@ -199,7 +199,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable float [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -207,7 +207,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable int [] x);
 
   /**
@@ -219,7 +219,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable int [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -227,7 +227,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable long [] x);
 
   /**
@@ -239,7 +239,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable long [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -247,7 +247,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable short [] x);
 
   /**
@@ -259,7 +259,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable short [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
@@ -267,7 +267,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        value to be appended
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable Object [] x);
 
   /**
@@ -279,6 +279,6 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    *        Number of array items to use. Must be &ge; 0.
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMPLTYPE append (@Nullable Object [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 }

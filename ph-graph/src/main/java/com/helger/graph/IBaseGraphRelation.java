@@ -16,12 +16,12 @@
  */
 package com.helger.graph;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsOrderedSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single undirected graph relation.
@@ -50,14 +50,14 @@ public interface IBaseGraphRelation <NODETYPE extends IBaseGraphNode <NODETYPE, 
   /**
    * @return A list with all connected nodes. Usually 2 elements.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <NODETYPE> getAllConnectedNodes ();
 
   /**
    * @return A list with the ID of all connected nodes. Usually 2 elements.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllConnectedNodeIDs ();
 }

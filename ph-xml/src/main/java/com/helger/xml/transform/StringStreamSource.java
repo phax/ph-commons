@@ -18,13 +18,13 @@ package com.helger.xml.transform;
 
 import javax.xml.transform.stream.StreamSource;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special {@link StreamSource} implementation that reads from {@link String} objects.
@@ -34,27 +34,27 @@ import jakarta.annotation.Nullable;
 @NotThreadSafe
 public class StringStreamSource extends StreamSource
 {
-  public StringStreamSource (@Nonnull final char [] aInput)
+  public StringStreamSource (@NonNull final char [] aInput)
   {
     super (new NonBlockingStringReader (aInput));
   }
 
-  public StringStreamSource (@Nonnull final char [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public StringStreamSource (@NonNull final char [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     super (new NonBlockingStringReader (aInput, nOfs, nLen));
   }
 
-  public StringStreamSource (@Nonnull final CharSequence aInput)
+  public StringStreamSource (@NonNull final CharSequence aInput)
   {
     this (aInput instanceof final String sInput ? sInput : aInput.toString ());
   }
 
-  public StringStreamSource (@Nonnull final String sInput)
+  public StringStreamSource (@NonNull final String sInput)
   {
     this (sInput, null);
   }
 
-  public StringStreamSource (@Nonnull final String sInput, @Nullable final String sSystemID)
+  public StringStreamSource (@NonNull final String sInput, @Nullable final String sSystemID)
   {
     super (new NonBlockingStringReader (sInput));
     setSystemId (sSystemID);

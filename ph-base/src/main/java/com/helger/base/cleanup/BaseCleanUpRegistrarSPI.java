@@ -16,17 +16,17 @@
  */
 package com.helger.base.cleanup;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.system.SystemProperties;
 import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 
-import jakarta.annotation.Nonnull;
-
 @IsSPIImplementation
 public final class BaseCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
-  public void registerCleanUpAction (@Nonnull final ICleanUpRegistry aRegistry)
+  public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN, () -> {
       if (ThirdPartyModuleRegistry.isInstantiated ())

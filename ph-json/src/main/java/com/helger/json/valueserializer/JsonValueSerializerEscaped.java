@@ -19,12 +19,12 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.convert.JsonEscapeHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link IJsonValueSerializer} that writes an escaped string.
@@ -38,20 +38,20 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
   private JsonValueSerializerEscaped ()
   {}
 
-  @Nonnull
+  @NonNull
   public static JsonValueSerializerEscaped getInstance ()
   {
     return INSTANCE;
   }
 
-  public static void appendEscapedJsonString (@Nonnull final String sValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public static void appendEscapedJsonString (@NonNull final String sValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write ('"');
     JsonEscapeHelper.jsonEscapeToWriter (sValue, aWriter);
     aWriter.write ('"');
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     appendEscapedJsonString (String.valueOf (aValue), aWriter);
   }

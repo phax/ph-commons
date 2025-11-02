@@ -22,13 +22,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteOrder;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The {@link NonBlockingBitInputStream} allows reading individual bits from a general Java
@@ -68,7 +68,7 @@ public class NonBlockingBitInputStream implements Closeable
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */
-  public NonBlockingBitInputStream (@Nonnull final InputStream aIS, @Nonnull final ByteOrder aByteOrder)
+  public NonBlockingBitInputStream (@NonNull final InputStream aIS, @NonNull final ByteOrder aByteOrder)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aByteOrder, "ByteOrder");
@@ -81,7 +81,7 @@ public class NonBlockingBitInputStream implements Closeable
   /**
    * @return The byte order used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ByteOrder getByteOrder ()
   {
     return m_bHighOrderBitFirst ? ByteOrder.LITTLE_ENDIAN : ByteOrder.BIG_ENDIAN;

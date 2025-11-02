@@ -28,6 +28,8 @@ import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CopyOnWriteArraySet;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.codec.base64.Base64;
@@ -43,8 +45,6 @@ import com.helger.collection.helper.PrimitiveCollectionHelper;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Register the base type converter
@@ -70,7 +70,7 @@ public final class CollectionTypeConverterRegistrar implements ITypeConverterReg
    * <li>Set</li>
    * </ul>
    */
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // to CommonsList<?>
     aRegistry.registerTypeConverterRuleAnySourceFixedDestination (ArrayList.class, aSource -> {

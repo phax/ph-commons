@@ -16,6 +16,9 @@
  */
 package com.helger.tree.mock;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
@@ -26,15 +29,12 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.collection.hierarchy.IHasChildren;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 public final class MockHasChildren implements IHasChildren <MockHasChildren>, IHasID <String>
 {
   private final String m_sID;
   private final ICommonsList <MockHasChildren> m_aList;
 
-  public MockHasChildren (@Nonnull final String sID, @Nullable final MockHasChildren... aList)
+  public MockHasChildren (@NonNull final String sID, @Nullable final MockHasChildren... aList)
   {
     m_sID = sID;
     m_aList = CollectionHelperExt.createList (aList);
@@ -56,14 +56,14 @@ public final class MockHasChildren implements IHasChildren <MockHasChildren>, IH
     return m_aList.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsCollection <MockHasChildren> getAllChildren ()
   {
     return m_aList.getClone ();
   }
 
-  @Nonnull
+  @NonNull
   public ICommonsIterable <MockHasChildren> getChildren ()
   {
     return m_aList;

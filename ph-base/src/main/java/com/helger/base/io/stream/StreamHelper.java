@@ -22,6 +22,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.function.LongConsumer;
 import java.util.function.ObjIntConsumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -49,9 +51,6 @@ import com.helger.base.mock.exception.IMockException;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.state.ESuccess;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @Immutable
 public class StreamHelper
 {
@@ -70,7 +69,7 @@ public class StreamHelper
    * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static byte [] createDefaultCopyBufferBytes ()
   {
@@ -81,34 +80,34 @@ public class StreamHelper
    * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static char [] createDefaultCopyBufferChars ()
   {
     return new char [DEFAULT_BUFSIZE];
   }
 
-  @Nonnull
-  public static NonBlockingStringReader createReader (@Nonnull final String sText)
+  @NonNull
+  public static NonBlockingStringReader createReader (@NonNull final String sText)
   {
     return new NonBlockingStringReader (sText);
   }
 
-  @Nonnull
-  public static NonBlockingStringReader createReader (@Nonnull final char [] aChars)
+  @NonNull
+  public static NonBlockingStringReader createReader (@NonNull final char [] aChars)
   {
     return new NonBlockingStringReader (aChars);
   }
 
   @Nullable
-  public static InputStreamReader createReader (@Nullable final InputStream aIS, @Nonnull final Charset aCharset)
+  public static InputStreamReader createReader (@Nullable final InputStream aIS, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     return aIS == null ? null : new InputStreamReader (aIS, aCharset);
   }
 
   @Nullable
-  public static OutputStreamWriter createWriter (@Nullable final OutputStream aOS, @Nonnull final Charset aCharset)
+  public static OutputStreamWriter createWriter (@Nullable final OutputStream aOS, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
     return aOS == null ? null : new OutputStreamWriter (aOS, aCharset);
@@ -146,7 +145,7 @@ public class StreamHelper
   }
 
   @Nullable
-  protected static Exception internalGetPropagatableException (@Nonnull final Exception ex)
+  protected static Exception internalGetPropagatableException (@NonNull final Exception ex)
   {
     return ex instanceof IMockException ? null : ex;
   }
@@ -158,7 +157,7 @@ public class StreamHelper
    *        The object to be closed. May be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the object was successfully closed.
    */
-  @Nonnull
+  @NonNull
   public static ESuccess closeWithoutFlush (@Nullable @WillClose final AutoCloseable aCloseable)
   {
     if (aCloseable != null)
@@ -187,7 +186,7 @@ public class StreamHelper
    *        The object to be closed. May be <code>null</code>.
    * @return {@link ESuccess} if the object was successfully closed.
    */
-  @Nonnull
+  @NonNull
   public static ESuccess close (@Nullable @WillClose final AutoCloseable aCloseable)
   {
     if (aCloseable != null)
@@ -225,7 +224,7 @@ public class StreamHelper
    *        The flushable to be flushed. May be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the object was successfully flushed.
    */
-  @Nonnull
+  @NonNull
   public static ESuccess flush (@Nullable final Flushable aFlushable)
   {
     if (aFlushable != null)
@@ -320,7 +319,7 @@ public class StreamHelper
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
-  @Nonnull
+  @NonNull
   public static ESuccess copyInputStreamToOutputStream (@WillClose @Nullable final InputStream aIS,
                                                         @WillNotClose @Nullable final OutputStream aOS)
   {
@@ -338,7 +337,7 @@ public class StreamHelper
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
-  @Nonnull
+  @NonNull
   public static ESuccess copyInputStreamToOutputStreamAndCloseOS (@WillClose @Nullable final InputStream aIS,
                                                                   @WillClose @Nullable final OutputStream aOS)
   {
@@ -348,7 +347,7 @@ public class StreamHelper
   /**
    * @return A new {@link CopyByteStreamBuilder}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static CopyByteStreamBuilder copyByteStream ()
   {
     return new CopyByteStreamBuilder ();
@@ -382,7 +381,7 @@ public class StreamHelper
      *        The InputStream to read from. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder from (@Nullable final InputStream a)
     {
       m_aIS = a;
@@ -395,7 +394,7 @@ public class StreamHelper
      *        Default is {@link #DEFAULT_CLOSE_SOURCE}
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder closeFrom (final boolean b)
     {
       m_bCloseIS = b;
@@ -407,7 +406,7 @@ public class StreamHelper
      *        The OutputStream to write to. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder to (@Nullable final OutputStream a)
     {
       m_aOS = a;
@@ -419,7 +418,7 @@ public class StreamHelper
      *        <code>true</code> to close the OutputStream, <code>false</code> to leave it open.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder closeTo (final boolean b)
     {
       m_bCloseOS = b;
@@ -431,7 +430,7 @@ public class StreamHelper
      *        The buffer to use. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder buffer (@Nullable final byte [] a)
     {
       m_aBuffer = a;
@@ -445,7 +444,7 @@ public class StreamHelper
      * @return this for chaining
      * @see #unlimited()
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder limit (final long n)
     {
       m_nLimit = n;
@@ -461,7 +460,7 @@ public class StreamHelper
      * @since 10.1.0
      * @see #unlimited()
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder limit (@Nullable final Long a)
     {
       return a == null ? unlimited () : limit (a.longValue ());
@@ -473,7 +472,7 @@ public class StreamHelper
      * @return this for chaining
      * @see #limit(long)
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder unlimited ()
     {
       return limit (CGlobal.ILLEGAL_ULONG);
@@ -485,7 +484,7 @@ public class StreamHelper
      *        <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
     {
       m_aExceptionCallback = a;
@@ -499,7 +498,7 @@ public class StreamHelper
      *        successful, and not in case of an exception.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder copyByteCount (@Nullable final MutableLong a)
     {
       m_aCopyByteCount = a;
@@ -513,7 +512,7 @@ public class StreamHelper
      * @return this for chaining
      * @since 11.0.3
      */
-    @Nonnull
+    @NonNull
     public CopyByteStreamBuilder progressCallback (@Nullable final LongConsumer a)
     {
       m_aProgressCallback = a;
@@ -521,9 +520,9 @@ public class StreamHelper
     }
 
     @Nonnegative
-    private static long _copyInputStreamToOutputStream (@Nonnull @WillNotClose final InputStream aIS,
-                                                        @Nonnull @WillNotClose final OutputStream aOS,
-                                                        @Nonnull final byte [] aBuffer,
+    private static long _copyInputStreamToOutputStream (@NonNull @WillNotClose final InputStream aIS,
+                                                        @NonNull @WillNotClose final OutputStream aOS,
+                                                        @NonNull final byte [] aBuffer,
                                                         @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       final int nBufferLength = aBuffer.length;
@@ -545,9 +544,9 @@ public class StreamHelper
     }
 
     @Nonnegative
-    private static long _copyInputStreamToOutputStreamWithLimit (@Nonnull @WillNotClose final InputStream aIS,
-                                                                 @Nonnull @WillNotClose final OutputStream aOS,
-                                                                 @Nonnull final byte [] aBuffer,
+    private static long _copyInputStreamToOutputStreamWithLimit (@NonNull @WillNotClose final InputStream aIS,
+                                                                 @NonNull @WillNotClose final OutputStream aOS,
+                                                                 @NonNull final byte [] aBuffer,
                                                                  @Nonnegative final long nLimit,
                                                                  @Nullable final LongConsumer aProgressCallback) throws IOException
     {
@@ -586,7 +585,7 @@ public class StreamHelper
     /**
      * This method performs the main copying
      */
-    @Nonnull
+    @NonNull
     public ESuccess build ()
     {
       try
@@ -676,7 +675,7 @@ public class StreamHelper
    *         returns <code>null</code> if copying fails.
    */
   @Nullable
-  public static NonBlockingByteArrayOutputStream getCopy (@Nonnull @WillClose final InputStream aIS)
+  public static NonBlockingByteArrayOutputStream getCopy (@NonNull @WillClose final InputStream aIS)
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (nAvailable);
@@ -697,7 +696,7 @@ public class StreamHelper
    *         returns <code>null</code> if copying fails.
    */
   @Nullable
-  public static NonBlockingByteArrayOutputStream getCopyWithLimit (@Nonnull @WillClose final InputStream aIS,
+  public static NonBlockingByteArrayOutputStream getCopyWithLimit (@NonNull @WillClose final InputStream aIS,
                                                                    @Nonnegative final long nLimit)
   {
     final int nAvailable = Math.max (DEFAULT_BUFSIZE, getAvailable (aIS));
@@ -758,7 +757,7 @@ public class StreamHelper
    */
   @Nullable
   public static String getAllBytesAsString (@Nullable final IHasInputStream aISP,
-                                            @Nonnull @Nonempty final Charset aCharset)
+                                            @NonNull @Nonempty final Charset aCharset)
   {
     if (aISP == null)
       return null;
@@ -777,7 +776,7 @@ public class StreamHelper
    */
   @Nullable
   public static String getAllBytesAsString (@Nullable @WillClose final InputStream aIS,
-                                            @Nonnull @Nonempty final Charset aCharset)
+                                            @NonNull @Nonempty final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -804,7 +803,7 @@ public class StreamHelper
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
-  @Nonnull
+  @NonNull
   public static ESuccess copyReaderToWriter (@WillClose @Nullable final Reader aReader,
                                              @WillNotClose @Nullable final Writer aWriter)
   {
@@ -822,7 +821,7 @@ public class StreamHelper
    * @return <code>{@link ESuccess#SUCCESS}</code> if copying took place, <code>
    *         {@link ESuccess#FAILURE}</code> otherwise
    */
-  @Nonnull
+  @NonNull
   public static ESuccess copyReaderToWriterAndCloseWriter (@Nullable @WillClose final Reader aReader,
                                                            @Nullable @WillClose final Writer aWriter)
   {
@@ -832,7 +831,7 @@ public class StreamHelper
   /**
    * @return A new {@link CopyCharStreamBuilder}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static CopyCharStreamBuilder copyCharStream ()
   {
     return new CopyCharStreamBuilder ();
@@ -865,7 +864,7 @@ public class StreamHelper
      *        The Reader to read from. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder from (@Nullable final Reader a)
     {
       m_aReader = a;
@@ -878,7 +877,7 @@ public class StreamHelper
      *        {@link #DEFAULT_CLOSE_FROM}
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder closeFrom (final boolean b)
     {
       m_bCloseReader = b;
@@ -890,7 +889,7 @@ public class StreamHelper
      *        The Writer to write to. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder to (@Nullable final Writer a)
     {
       m_aWriter = a;
@@ -902,7 +901,7 @@ public class StreamHelper
      *        <code>true</code> to close the Writer, <code>false</code> to leave it open.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder closeTo (final boolean b)
     {
       m_bCloseWriter = b;
@@ -914,7 +913,7 @@ public class StreamHelper
      *        The buffer to use. May be <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder buffer (@Nullable final char [] a)
     {
       m_aBuffer = a;
@@ -928,7 +927,7 @@ public class StreamHelper
      * @return this for chaining
      * @see #unlimited()
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder limit (final long n)
     {
       m_nLimit = n;
@@ -944,7 +943,7 @@ public class StreamHelper
      * @since 10.1.0
      * @see #unlimited()
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder limit (@Nullable final Long a)
     {
       return a == null ? unlimited () : limit (a.longValue ());
@@ -956,7 +955,7 @@ public class StreamHelper
      * @return this for chaining
      * @see #limit(long)
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder unlimited ()
     {
       return limit (CGlobal.ILLEGAL_ULONG);
@@ -968,7 +967,7 @@ public class StreamHelper
      *        <code>null</code>.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder exceptionCallback (@Nullable final IExceptionCallback <IOException> a)
     {
       m_aExceptionCallback = a;
@@ -982,7 +981,7 @@ public class StreamHelper
      *        successful, and not in case of an exception.
      * @return this for chaining
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder copyCharCount (@Nullable final MutableLong a)
     {
       m_aCopyCharCount = a;
@@ -996,7 +995,7 @@ public class StreamHelper
      * @return this for chaining
      * @since 11.0.3
      */
-    @Nonnull
+    @NonNull
     public CopyCharStreamBuilder progressCallback (@Nullable final LongConsumer a)
     {
       m_aProgressCallback = a;
@@ -1004,9 +1003,9 @@ public class StreamHelper
     }
 
     @Nonnegative
-    private static long _copyReaderToWriter (@Nonnull @WillNotClose final Reader aReader,
-                                             @Nonnull @WillNotClose final Writer aWriter,
-                                             @Nonnull final char [] aBuffer,
+    private static long _copyReaderToWriter (@NonNull @WillNotClose final Reader aReader,
+                                             @NonNull @WillNotClose final Writer aWriter,
+                                             @NonNull final char [] aBuffer,
                                              @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       long nTotalCharsWritten = 0;
@@ -1027,9 +1026,9 @@ public class StreamHelper
     }
 
     @Nonnegative
-    private static long _copyReaderToWriterWithLimit (@Nonnull @WillNotClose final Reader aReader,
-                                                      @Nonnull @WillNotClose final Writer aWriter,
-                                                      @Nonnull final char [] aBuffer,
+    private static long _copyReaderToWriterWithLimit (@NonNull @WillNotClose final Reader aReader,
+                                                      @NonNull @WillNotClose final Writer aWriter,
+                                                      @NonNull final char [] aBuffer,
                                                       @Nonnegative final long nLimit,
                                                       @Nullable final LongConsumer aProgressCallback) throws IOException
     {
@@ -1067,7 +1066,7 @@ public class StreamHelper
     /**
      * This method performs the main copying
      */
-    @Nonnull
+    @NonNull
     public ESuccess build ()
     {
       try
@@ -1126,7 +1125,7 @@ public class StreamHelper
   }
 
   @Nullable
-  public static NonBlockingStringWriter getCopy (@Nonnull @WillClose final Reader aReader)
+  public static NonBlockingStringWriter getCopy (@NonNull @WillClose final Reader aReader)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
     if (copyCharStream ().from (aReader).closeFrom (true).to (aWriter).closeTo (false).build ().isFailure ())
@@ -1135,7 +1134,7 @@ public class StreamHelper
   }
 
   @Nullable
-  public static NonBlockingStringWriter getCopyWithLimit (@Nonnull @WillClose final Reader aReader,
+  public static NonBlockingStringWriter getCopyWithLimit (@NonNull @WillClose final Reader aReader,
                                                           @Nonnegative final long nLimit)
   {
     final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (DEFAULT_BUFSIZE);
@@ -1208,9 +1207,9 @@ public class StreamHelper
    *        The non-negative amount of bytes to be written. May not be &lt; 0.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeStream (@WillClose @Nonnull final OutputStream aOS,
-                                      @Nonnull final byte [] aBuf,
+  @NonNull
+  public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS,
+                                      @NonNull final byte [] aBuf,
                                       @Nonnegative final int nOfs,
                                       @Nonnegative final int nLen)
   {
@@ -1244,8 +1243,8 @@ public class StreamHelper
    *        The byte array to be written. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeStream (@WillClose @Nonnull final OutputStream aOS, @Nonnull final byte [] aBuf)
+  @NonNull
+  public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS, @NonNull final byte [] aBuf)
   {
     return writeStream (aOS, aBuf, 0, aBuf.length);
   }
@@ -1262,10 +1261,10 @@ public class StreamHelper
    *        The charset to be used, to convert the String to a byte array.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  public static ESuccess writeStream (@WillClose @Nonnull final OutputStream aOS,
-                                      @Nonnull final String sContent,
-                                      @Nonnull final Charset aCharset)
+  @NonNull
+  public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS,
+                                      @NonNull final String sContent,
+                                      @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (sContent, "Content");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -1283,7 +1282,7 @@ public class StreamHelper
    * @throws IOException
    *         In case something goes wrong internally
    */
-  public static void skipFully (@Nonnull final InputStream aIS, @Nonnegative final long nBytesToSkip) throws IOException
+  public static void skipFully (@NonNull final InputStream aIS, @Nonnegative final long nBytesToSkip) throws IOException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.isGE0 (nBytesToSkip, "BytesToSkip");
@@ -1328,7 +1327,7 @@ public class StreamHelper
    *         In case reading fails
    */
   @Nonnegative
-  public static int readFully (@Nonnull final InputStream aIS, @Nonnull final byte [] aBuffer) throws IOException
+  public static int readFully (@NonNull final InputStream aIS, @NonNull final byte [] aBuffer) throws IOException
   {
     return readFully (aIS, aBuffer, 0, aBuffer.length);
   }
@@ -1350,8 +1349,8 @@ public class StreamHelper
    *         In case reading fails
    */
   @Nonnegative
-  public static int readFully (@Nonnull @WillNotClose final InputStream aIS,
-                               @Nonnull final byte [] aBuffer,
+  public static int readFully (@NonNull @WillNotClose final InputStream aIS,
+                               @NonNull final byte [] aBuffer,
                                @Nonnegative final int nOfs,
                                @Nonnegative final int nLen) throws IOException
   {
@@ -1374,9 +1373,9 @@ public class StreamHelper
     return nTotalBytesRead;
   }
 
-  private static void _readUntilEOF (@Nonnull @WillNotClose final InputStream aIS,
-                                     @Nonnull final byte [] aBuffer,
-                                     @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
+  private static void _readUntilEOF (@NonNull @WillNotClose final InputStream aIS,
+                                     @NonNull final byte [] aBuffer,
+                                     @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
     ValueEnforcer.notNull (aBuffer, "Buffer");
@@ -1388,15 +1387,15 @@ public class StreamHelper
       aConsumer.accept (aBuffer, nBytesRead);
   }
 
-  public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
-                                   @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
+  public static void readUntilEOF (@NonNull @WillClose final InputStream aIS,
+                                   @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     readUntilEOF (aIS, createDefaultCopyBufferBytes (), aConsumer);
   }
 
-  public static void readUntilEOF (@Nonnull @WillClose final InputStream aIS,
-                                   @Nonnull final byte [] aBuffer,
-                                   @Nonnull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
+  public static void readUntilEOF (@NonNull @WillClose final InputStream aIS,
+                                   @NonNull final byte [] aBuffer,
+                                   @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     try
     {
@@ -1412,9 +1411,9 @@ public class StreamHelper
     }
   }
 
-  private static void _readUntilEOF (@Nonnull @WillNotClose final Reader aReader,
-                                     @Nonnull final char [] aBuffer,
-                                     @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
+  private static void _readUntilEOF (@NonNull @WillNotClose final Reader aReader,
+                                     @NonNull final char [] aBuffer,
+                                     @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aBuffer, "Buffer");
@@ -1426,15 +1425,15 @@ public class StreamHelper
       aConsumer.accept (aBuffer, nCharsRead);
   }
 
-  public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
-                                   @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
+  public static void readUntilEOF (@NonNull @WillClose final Reader aReader,
+                                   @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     readUntilEOF (aReader, new char [DEFAULT_BUFSIZE], aConsumer);
   }
 
-  public static void readUntilEOF (@Nonnull @WillClose final Reader aReader,
-                                   @Nonnull final char [] aBuffer,
-                                   @Nonnull final ObjIntConsumer <? super char []> aConsumer) throws IOException
+  public static void readUntilEOF (@NonNull @WillClose final Reader aReader,
+                                   @NonNull final char [] aBuffer,
+                                   @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     try
     {
@@ -1486,7 +1485,7 @@ public class StreamHelper
    *         on write error
    * @see #readSafeUTF(DataInput)
    */
-  public static void writeSafeUTF (@Nonnull final DataOutput aDO, @Nullable final String sStr) throws IOException
+  public static void writeSafeUTF (@NonNull final DataOutput aDO, @Nullable final String sStr) throws IOException
   {
     ValueEnforcer.notNull (aDO, "DataOutput");
     if (sStr == null)
@@ -1528,7 +1527,7 @@ public class StreamHelper
    * @see #writeSafeUTF(DataOutput, String)
    */
   @Nullable
-  public static String readSafeUTF (@Nonnull final DataInput aDI) throws IOException
+  public static String readSafeUTF (@NonNull final DataInput aDI) throws IOException
   {
     ValueEnforcer.notNull (aDI, "DataInput");
 

@@ -21,13 +21,13 @@ import java.io.IOException;
 import java.io.UncheckedIOException;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasIntID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.base.state.ISuccessIndicator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a set of predefined error codes that can occur in file operations.
@@ -90,8 +90,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
-  @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile)
+  @NonNull
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final File aFile)
   {
     return new FileIOError (eOperation, this, aFile);
   }
@@ -106,8 +106,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
-  @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final Path aPath)
+  @NonNull
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final Path aPath)
   {
     return new FileIOError (eOperation, this, aPath.toFile ());
   }
@@ -125,8 +125,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
-  @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final File aFile1, @Nonnull final File aFile2)
+  @NonNull
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final File aFile1, @NonNull final File aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -146,8 +146,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
-  @Nonnull
-  public FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final Path aFile1, @Nonnull final Path aFile2)
+  @NonNull
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final Path aFile1, @NonNull final Path aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -173,8 +173,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        The occurred {@link SecurityException}. Never <code>null</code>.
    * @return The non-<code>null</code> {@link FileIOError}.
    */
-  @Nonnull
-  public static FileIOError getSecurityAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final SecurityException ex)
+  @NonNull
+  public static FileIOError getSecurityAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final SecurityException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.SECURITY_ERROR, ex);
   }
@@ -188,8 +188,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        The occurred {@link IOException}. Never <code>null</code>.
    * @return The non-<code>null</code> {@link FileIOError}.
    */
-  @Nonnull
-  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final IOException ex)
+  @NonNull
+  public static FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final IOException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }
@@ -204,8 +204,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    *        The occurred {@link UncheckedIOException}. Never <code>null</code>.
    * @return The non-<code>null</code> {@link FileIOError}.
    */
-  @Nonnull
-  public static FileIOError getAsIOError (@Nonnull final EFileIOOperation eOperation, @Nonnull final UncheckedIOException ex)
+  @NonNull
+  public static FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final UncheckedIOException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }

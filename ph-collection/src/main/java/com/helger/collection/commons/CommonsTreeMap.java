@@ -22,10 +22,10 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Function;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link TreeMap} implementation based on
@@ -55,35 +55,35 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
   }
 
   public <COLLTYPE> CommonsTreeMap (@Nullable final COLLTYPE [] aValues,
-                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                    @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsTreeMap (@Nullable final Collection <? extends COLLTYPE> aValues,
-                                    @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                    @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                    @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                    @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsTreeMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
-                                                    @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
-                                                    @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+                                                    @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                    @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <K, V> CommonsTreeMap <K, V> createInstance ()
   {
     return new CommonsTreeMap <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsTreeMap <KEYTYPE, VALUETYPE> getClone ()
   {

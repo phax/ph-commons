@@ -16,9 +16,9 @@
  */
 package com.helger.cache;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EChange;
 
 /**
  * Interface for a very simple Map-like cache.
@@ -40,7 +40,7 @@ public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VAL
    * @return {@link EChange#CHANGED} upon success, {@link EChange#UNCHANGED} if
    *         the key was not within the cache,
    */
-  @Nonnull
+  @NonNull
   EChange removeFromCache (KEYTYPE aKey);
 
   /**
@@ -48,6 +48,6 @@ public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VAL
    *
    * @return {@link EChange}.
    */
-  @Nonnull
+  @NonNull
   EChange clearCache ();
 }

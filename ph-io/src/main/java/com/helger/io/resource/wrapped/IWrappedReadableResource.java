@@ -16,9 +16,9 @@
  */
 package com.helger.io.resource.wrapped;
 
-import com.helger.io.resource.IReadableResource;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * Interface for readable resources that are "wrapped".
@@ -30,7 +30,7 @@ public interface IWrappedReadableResource extends IReadableResource
   /**
    * @return The wrapped resource. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IReadableResource getWrappedReadableResource ();
 
   default boolean isReadMultiple ()

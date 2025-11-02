@@ -23,6 +23,8 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -42,8 +44,6 @@ import com.helger.json.IJsonValue;
 import com.helger.json.convert.JsonEscapeHelper;
 import com.helger.json.valueserializer.JsonValueSerializerEscaped;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Convert {@link IJson} objects to a String.
  *
@@ -59,7 +59,7 @@ public class JsonWriter
     this (JsonWriterSettings.DEFAULT_SETTINGS);
   }
 
-  public JsonWriter (@Nonnull final IJsonWriterSettings aSettings)
+  public JsonWriter (@NonNull final IJsonWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     m_aSettings = aSettings.getClone ();
@@ -68,15 +68,15 @@ public class JsonWriter
   /**
    * @return A clone of the JSON writer settings to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public IJsonWriterSettings getSettings ()
   {
     return m_aSettings.getClone ();
   }
 
-  private void _writeToWriter (@Nonnull final IJson aJson,
-                               @Nonnull @WillNotClose final Writer aWriter,
+  private void _writeToWriter (@NonNull final IJson aJson,
+                               @NonNull @WillNotClose final Writer aWriter,
                                final int nIndentLevel) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
@@ -180,7 +180,7 @@ public class JsonWriter
     }
   }
 
-  public void writeToWriter (@Nonnull final IJson aJson, @Nonnull @WillNotClose final Writer aWriter) throws IOException
+  public void writeToWriter (@NonNull final IJson aJson, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -193,7 +193,7 @@ public class JsonWriter
     aWriter.flush ();
   }
 
-  public void writeToWriterAndClose (@Nonnull final IJson aJson, @Nonnull @WillClose final Writer aWriter)
+  public void writeToWriterAndClose (@NonNull final IJson aJson, @NonNull @WillClose final Writer aWriter)
                                                                                                            throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
@@ -209,8 +209,8 @@ public class JsonWriter
     }
   }
 
-  @Nonnull
-  public String writeAsString (@Nonnull final IJson aJson)
+  @NonNull
+  public String writeAsString (@NonNull final IJson aJson)
   {
     ValueEnforcer.notNull (aJson, "Json");
 
@@ -238,9 +238,9 @@ public class JsonWriter
    *         On IO error
    * @since 9.4.0
    */
-  public void writeToStream (@Nonnull final IJson aJson,
-                             @Nonnull @WillNotClose final OutputStream aOS,
-                             @Nonnull final Charset aCharset) throws IOException
+  public void writeToStream (@NonNull final IJson aJson,
+                             @NonNull @WillNotClose final OutputStream aOS,
+                             @NonNull final Charset aCharset) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -267,9 +267,9 @@ public class JsonWriter
    *         On IO error
    * @since 9.4.0
    */
-  public void writeToStreamAndClose (@Nonnull final IJson aJson,
-                                     @Nonnull @WillClose final OutputStream aOS,
-                                     @Nonnull final Charset aCharset) throws IOException
+  public void writeToStreamAndClose (@NonNull final IJson aJson,
+                                     @NonNull @WillClose final OutputStream aOS,
+                                     @NonNull final Charset aCharset) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aOS, "OutputStream");
@@ -292,8 +292,8 @@ public class JsonWriter
    * @return The created byte array and never <code>null</code>.
    * @since 9.4.0
    */
-  @Nonnull
-  public byte [] writeAsByteArray (@Nonnull final IJson aJson, @Nonnull final Charset aCharset)
+  @NonNull
+  public byte [] writeAsByteArray (@NonNull final IJson aJson, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aJson, "Json");
 

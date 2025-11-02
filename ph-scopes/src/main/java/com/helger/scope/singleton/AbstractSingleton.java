@@ -22,6 +22,8 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,9 +43,6 @@ import com.helger.scope.IScope;
 import com.helger.scope.IScopeDestructionAware;
 import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base class for all singletons.
@@ -77,7 +76,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @throws IOException
    *         In case writing failed
    */
-  protected final void writeAbstractSingletonFields (@Nonnull final ObjectOutputStream aOOS) throws IOException
+  protected final void writeAbstractSingletonFields (@NonNull final ObjectOutputStream aOOS) throws IOException
   {
     aOOS.writeObject (m_aStatus);
   }
@@ -93,7 +92,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @throws ClassNotFoundException
    *         In case reading failed
    */
-  protected final void readAbstractSingletonFields (@Nonnull final ObjectInputStream aOIS) throws IOException,
+  protected final void readAbstractSingletonFields (@NonNull final ObjectInputStream aOIS) throws IOException,
                                                                                            ClassNotFoundException
   {
     m_aStatus = (BitSet) aOIS.readObject ();
@@ -149,7 +148,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *        The scope in which the object was instantiated. Never <code>null</code>.
    */
   @OverrideOnDemand
-  protected void onAfterInstantiation (@Nonnull final IScope aScope)
+  protected void onAfterInstantiation (@NonNull final IScope aScope)
   {}
 
   protected final void setInInstantiation (final boolean bInInstantiation)
@@ -233,7 +232,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *         If something goes wrong
    */
   @OverrideOnDemand
-  protected void onBeforeDestroy (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  protected void onBeforeDestroy (@NonNull final IScope aScopeToBeDestroyed) throws Exception
   {}
 
   /*
@@ -241,7 +240,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * #onBeforeDestroy()} method.
    */
   @Override
-  public final void onBeforeScopeDestruction (@Nonnull final IScope aScopeToBeDestroyed) throws Exception
+  public final void onBeforeScopeDestruction (@NonNull final IScope aScopeToBeDestroyed) throws Exception
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("onBeforeScopeDestruction for '" + toString () + "' in scope " + aScopeToBeDestroyed.toString ());
@@ -281,7 +280,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *         If something goes wrong
    */
   @OverrideOnDemand
-  protected void onDestroy (@Nonnull final IScope aScopeInDestruction) throws Exception
+  protected void onDestroy (@NonNull final IScope aScopeInDestruction) throws Exception
   {}
 
   /*
@@ -289,7 +288,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * method.
    */
   @Override
-  public final void onScopeDestruction (@Nonnull final IScope aScopeInDestruction) throws Exception
+  public final void onScopeDestruction (@NonNull final IScope aScopeInDestruction) throws Exception
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("onScopeDestruction for '" + toString () + "' in scope " + aScopeInDestruction.toString ());
@@ -344,8 +343,8 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *        The class for which the key is to be created. May not be <code>null</code>.
    * @return The non-<code>null</code> key.
    */
-  @Nonnull
-  public static final String getSingletonScopeKey (@Nonnull final Class <? extends AbstractSingleton> aClass)
+  @NonNull
+  public static final String getSingletonScopeKey (@NonNull final Class <? extends AbstractSingleton> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
 
@@ -368,7 +367,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   @Nullable
   public static final <T extends AbstractSingleton> T getSingletonIfInstantiated (@Nullable final IScope aScope,
-                                                                                  @Nonnull final Class <T> aClass)
+                                                                                  @NonNull final Class <T> aClass)
   {
     ValueEnforcer.notNull (aClass, "Class");
     if (aScope != null)
@@ -400,7 +399,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *         <code>false</code> otherwise.
    */
   public static final boolean isSingletonInstantiated (@Nullable final IScope aScope,
-                                                       @Nonnull final Class <? extends AbstractSingleton> aClass)
+                                                       @NonNull final Class <? extends AbstractSingleton> aClass)
   {
     return getSingletonIfInstantiated (aScope, aClass) != null;
   }
@@ -418,9 +417,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @throws IllegalStateException
    *         If instantiation failed
    */
-  @Nonnull
-  private static <T extends AbstractSingleton> T _instantiateSingleton (@Nonnull final Class <T> aClass,
-                                                                        @Nonnull final IScope aScope)
+  @NonNull
+  private static <T extends AbstractSingleton> T _instantiateSingleton (@NonNull final Class <T> aClass,
+                                                                        @NonNull final IScope aScope)
   {
     // create new object in passed scope
     try
@@ -481,9 +480,9 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    *        have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
-  @Nonnull
-  public static final <T extends AbstractSingleton> T getSingleton (@Nonnull final IScope aScope,
-                                                                    @Nonnull final Class <T> aClass)
+  @NonNull
+  public static final <T extends AbstractSingleton> T getSingleton (@NonNull final IScope aScope,
+                                                                    @NonNull final Class <T> aClass)
   {
     ValueEnforcer.notNull (aScope, "aScope");
     ValueEnforcer.notNull (aClass, "Class");
@@ -569,10 +568,10 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @return A non-<code>null</code> list with all instances of the passed class in the passed
    *         scope.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static final <T extends AbstractSingleton> ICommonsList <T> getAllSingletons (@Nullable final IScope aScope,
-                                                                                       @Nonnull final Class <T> aDesiredClass)
+                                                                                       @NonNull final Class <T> aDesiredClass)
   {
     ValueEnforcer.notNull (aDesiredClass, "DesiredClass");
 
@@ -585,7 +584,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Status", m_aStatus).getToString ();

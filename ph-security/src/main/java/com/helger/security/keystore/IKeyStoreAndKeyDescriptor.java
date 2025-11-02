@@ -18,9 +18,9 @@ package com.helger.security.keystore;
 
 import java.security.KeyStore.PrivateKeyEntry;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.Nonempty;
 
 /**
  * Interface describing the parameters needed to reference a key store with a
@@ -37,7 +37,7 @@ public interface IKeyStoreAndKeyDescriptor extends IKeyStoreDescriptor
    * @return The alias of the key inside a key store. May neither be
    *         <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getKeyAlias ();
 
@@ -45,13 +45,13 @@ public interface IKeyStoreAndKeyDescriptor extends IKeyStoreDescriptor
    * @return The password required to access the key inside the key store. May
    *         not be <code>null</code> but may be empty.
    */
-  @Nonnull
+  @NonNull
   char [] getKeyPassword ();
 
   /**
    * @return The loaded key based on the loaded key store and the parameters in
    *         this descriptor.
    */
-  @Nonnull
+  @NonNull
   LoadedKey <PrivateKeyEntry> loadKey ();
 }

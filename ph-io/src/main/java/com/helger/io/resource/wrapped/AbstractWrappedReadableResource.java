@@ -20,12 +20,12 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around a readable resource for {@link InputStream} manipulation .
@@ -36,24 +36,24 @@ public abstract class AbstractWrappedReadableResource implements IWrappedReadabl
 {
   private final IReadableResource m_aBaseResource;
 
-  protected AbstractWrappedReadableResource (@Nonnull final IReadableResource aBaseResource)
+  protected AbstractWrappedReadableResource (@NonNull final IReadableResource aBaseResource)
   {
     m_aBaseResource = ValueEnforcer.notNull (aBaseResource, "BaseResource");
   }
 
-  @Nonnull
+  @NonNull
   public IReadableResource getWrappedReadableResource ()
   {
     return m_aBaseResource;
   }
 
-  @Nonnull
+  @NonNull
   public String getResourceID ()
   {
     return m_aBaseResource.getResourceID ();
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_aBaseResource.getPath ();

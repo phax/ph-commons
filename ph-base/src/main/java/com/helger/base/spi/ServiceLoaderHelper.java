@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,6 @@ import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * {@link ServiceLoader} helper class.
@@ -79,9 +78,9 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The SPI interface class. May not be <code>null</code>.
    * @return A list of all currently available plugins
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass)
+  public static <T> List <T> getAllSPIImplementations (@NonNull final Class <T> aSPIClass)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
@@ -97,10 +96,10 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The class loader to use for the SPI loader. May not be <code>null</code>.
    * @return A list of all currently available plugins
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                       @Nonnull final ClassLoader aClassLoader)
+  public static <T> List <T> getAllSPIImplementations (@NonNull final Class <T> aSPIClass,
+                                                       @NonNull final ClassLoader aClassLoader)
   {
     return getAllSPIImplementations (aSPIClass, aClassLoader, null);
   }
@@ -116,9 +115,9 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        An optional logger to use. May be <code>null</code>.
    * @return A list of all currently available plugins
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
+  public static <T> List <T> getAllSPIImplementations (@NonNull final Class <T> aSPIClass,
                                                        @Nullable final Logger aLogger)
   {
     return getAllSPIImplementations (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
@@ -137,10 +136,10 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        An optional logger to use. May be <code>null</code>.
    * @return A collection of all currently available plugins. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <T> List <T> getAllSPIImplementations (@Nonnull final Class <T> aSPIClass,
-                                                       @Nonnull final ClassLoader aClassLoader,
+  public static <T> List <T> getAllSPIImplementations (@NonNull final Class <T> aSPIClass,
+                                                       @NonNull final ClassLoader aClassLoader,
                                                        @Nullable final Logger aLogger)
   {
     ValueEnforcer.notNull (aSPIClass, "SPIClass");
@@ -191,7 +190,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    * @return A collection of all currently available plugins. Never <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass)
+  public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass)
   {
     return getFirstSPIImplementation (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), null);
   }
@@ -209,8 +208,8 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    * @return A collection of all currently available plugins. Never <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass,
-                                                 @Nonnull final ClassLoader aClassLoader)
+  public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass,
+                                                 @NonNull final ClassLoader aClassLoader)
   {
     return getFirstSPIImplementation (aSPIClass, aClassLoader, null);
   }
@@ -228,7 +227,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    * @return A collection of all currently available plugins. Never <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass, @Nullable final Logger aLogger)
+  public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass, @Nullable final Logger aLogger)
   {
     return getFirstSPIImplementation (aSPIClass, ClassLoaderHelper.getDefaultClassLoader (), aLogger);
   }
@@ -248,8 +247,8 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    * @return A collection of all currently available plugins. Never <code>null</code>.
    */
   @Nullable
-  public static <T> T getFirstSPIImplementation (@Nonnull final Class <T> aSPIClass,
-                                                 @Nonnull final ClassLoader aClassLoader,
+  public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass,
+                                                 @NonNull final ClassLoader aClassLoader,
                                                  @Nullable final Logger aLogger)
   {
     final Logger aRealLogger = aLogger != null ? aLogger : LOGGER;

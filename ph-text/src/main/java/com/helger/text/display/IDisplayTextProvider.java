@@ -19,10 +19,10 @@ package com.helger.text.display;
 import java.util.Comparator;
 import java.util.Locale;
 
-import com.helger.text.compare.ComparatorHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.text.compare.ComparatorHelper;
 
 /**
  * Interface for a handler that provides the locale <b>dependent</b> name of an object.
@@ -44,16 +44,16 @@ public interface IDisplayTextProvider <DATATYPE>
    * @return The display text of the passed object in the given locale. May be <code>null</code>.
    */
   @Nullable
-  String getDisplayText (@Nullable DATATYPE aObject, @Nonnull Locale aContentLocale);
+  String getDisplayText (@Nullable DATATYPE aObject, @NonNull Locale aContentLocale);
 
-  @Nonnull
-  default Comparator <DATATYPE> getComparatorCollating (@Nonnull final Locale aContentLocale,
+  @NonNull
+  default Comparator <DATATYPE> getComparatorCollating (@NonNull final Locale aContentLocale,
                                                         @Nullable final Locale aSortLocale)
   {
     return ComparatorHelper.getComparatorCollating (x -> getDisplayText (x, aContentLocale), aSortLocale);
   }
 
-  @Nonnull
+  @NonNull
   static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
   {
     return (x, aContentLocale) -> x == null ? null : x.getDisplayText (aContentLocale);

@@ -18,14 +18,14 @@ package com.helger.collection.map;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Special int-float-primitive map. Based on:
@@ -103,7 +103,7 @@ public class IntDoubleMap implements IHasSize
     m_nThreshold = (int) (nCapacity * fFillFactor);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   private static double [] _createValueArray (@Nonnegative final int nSize)
   {
@@ -126,7 +126,7 @@ public class IntDoubleMap implements IHasSize
     return idx != -1 ? m_aValues[idx] : fDefault;
   }
 
-  public double computeIfAbsent (final int key, @Nonnull final IKeyToValueFunction aProvider)
+  public double computeIfAbsent (final int key, @NonNull final IKeyToValueFunction aProvider)
   {
     double ret = get (key);
     if (ret == NO_VALUE)
@@ -336,7 +336,7 @@ public class IntDoubleMap implements IHasSize
     void accept (int nKey, double dValue);
   }
 
-  public void forEach (@Nonnull final IConsumer aConsumer)
+  public void forEach (@NonNull final IConsumer aConsumer)
   {
     if (m_bHasFreeKey)
       aConsumer.accept (FREE_KEY, m_dFreeValue);

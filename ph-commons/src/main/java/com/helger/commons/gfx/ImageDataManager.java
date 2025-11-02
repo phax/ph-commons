@@ -23,6 +23,8 @@ import java.io.InputStream;
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,9 +44,6 @@ import com.helger.collection.map.LRUMap;
 import com.helger.io.resource.IReadableResource;
 import com.helger.statistics.api.IMutableStatisticsHandlerCache;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This service class is used to cache information about images. It is used to set the HTML
@@ -85,7 +84,7 @@ public final class ImageDataManager
     return s_bDefaultInstantiated;
   }
 
-  @Nonnull
+  @NonNull
   public static ImageDataManager getInstance ()
   {
     final ImageDataManager ret = SingletonHolder.INSTANCE;
@@ -94,7 +93,7 @@ public final class ImageDataManager
   }
 
   @Nullable
-  private static SizeInt _readImageData (@Nonnull final IHasInputStream aRes)
+  private static SizeInt _readImageData (@NonNull final IHasInputStream aRes)
   {
     SizeInt aData = null;
 
@@ -193,7 +192,7 @@ public final class ImageDataManager
    *        The resource to be removed. May be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public EChange clearCachedSize (@Nullable final IReadableResource aRes)
   {
     if (aRes == null)
@@ -217,7 +216,7 @@ public final class ImageDataManager
    *
    * @return {@link EChange} - never null
    */
-  @Nonnull
+  @NonNull
   public EChange clearCache ()
   {
     return m_aRWLock.writeLockedGet ( () -> {
@@ -233,14 +232,14 @@ public final class ImageDataManager
     });
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <IReadableResource, SizeInt> getAllCachedSizes ()
   {
     return m_aRWLock.readLockedGet (m_aImageData::getClone);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IReadableResource> getAllNotExistingResources ()
   {

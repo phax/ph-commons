@@ -16,6 +16,7 @@
  */
 package com.helger.xml.sax;
 
+import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
@@ -25,8 +26,6 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.SingleError;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * java.xml error handler base class.
@@ -51,8 +50,8 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
    *        The exception to convert. May not be <code>null</code>.
    * @return The {@link IError} representation. Never <code>null</code>.
    */
-  @Nonnull
-  public static IError getSaxParseError (@Nonnull final IErrorLevel aErrorLevel, @Nonnull final SAXParseException ex)
+  @NonNull
+  public static IError getSaxParseError (@NonNull final IErrorLevel aErrorLevel, @NonNull final SAXParseException ex)
   {
     return SingleError.builder ()
                       .errorLevel (aErrorLevel)
@@ -62,7 +61,7 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
                       .build ();
   }
 
-  protected abstract void internalLog (@Nonnull IErrorLevel aErrorLevel, @Nonnull SAXParseException aException);
+  protected abstract void internalLog (@NonNull IErrorLevel aErrorLevel, @NonNull SAXParseException aException);
 
   public final void warning (final SAXParseException ex) throws SAXException
   {

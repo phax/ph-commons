@@ -16,10 +16,10 @@
  */
 package com.helger.settings;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.state.EChange;
 
 /**
  * Read-only settings with default are a special kind of settings. The behave
@@ -33,7 +33,7 @@ public interface ISettingsWithDefault extends ISettings
   /**
    * @return The underlying default settings object. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ISettings getDefaultSettings ();
 
   /**
@@ -45,7 +45,7 @@ public interface ISettingsWithDefault extends ISettings
    *         the field does neither exist in this settings nor in the default
    *         settings.
    */
-  boolean isSetToDefault (@Nonnull String sFieldName);
+  boolean isSetToDefault (@NonNull String sFieldName);
 
   /**
    * Change the preferences values of the given field name back to the default
@@ -56,8 +56,8 @@ public interface ISettingsWithDefault extends ISettings
    * @return {@link EChange#CHANGED} if the value was changed by setting it to
    *         default, {@link EChange#UNCHANGED} if nothing happened.
    */
-  @Nonnull
-  EChange setToDefault (@Nonnull String sFieldName);
+  @NonNull
+  EChange setToDefault (@NonNull String sFieldName);
 
   /**
    * Set all fields to default. This effects only fields that are present in the
@@ -66,7 +66,7 @@ public interface ISettingsWithDefault extends ISettings
    *
    * @return {@link EChange#CHANGED} if at least one field value was changed.
    */
-  @Nonnull
+  @NonNull
   EChange setAllToDefault ();
 
   /**

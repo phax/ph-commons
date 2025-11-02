@@ -16,11 +16,11 @@
  */
 package com.helger.json;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.trait.ITypeConverterTo;
 import com.helger.json.convert.JsonConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An instance of {@link ITypeConverterTo} for the usage with JSON.
@@ -34,55 +34,55 @@ public class TypeConverterToIJson implements ITypeConverterTo <IJson>
   protected TypeConverterToIJson ()
   {}
 
-  @Nonnull
+  @NonNull
   public IJson convert (final boolean value)
   {
     return JsonValue.create (value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final byte value)
   {
     return convert ((int) value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final char value)
   {
     return JsonValue.create (value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final double value)
   {
     return JsonValue.create (value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final float value)
   {
     return convert ((double) value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final int value)
   {
     return JsonValue.create (value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final long value)
   {
     return JsonValue.create (value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (final short value)
   {
     return convert ((int) value);
   }
 
-  @Nonnull
+  @NonNull
   public IJson convert (@Nullable final Object value)
   {
     return JsonConverter.convertToJson (value);

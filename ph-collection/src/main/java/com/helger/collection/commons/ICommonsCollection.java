@@ -24,15 +24,15 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Case collection interface for my extended collection classes.
@@ -48,7 +48,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
 
   boolean isEmpty ();
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <ELEMENTTYPE> getCopyAsList ()
   {
@@ -155,7 +155,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    */
   @Nullable
   default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nonnegative final int nIndex,
-                                              @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+                                              @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     return getAtIndexMapped (nIndex, aMapper, null);
   }
@@ -177,7 +177,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    */
   @Nullable
   default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nonnegative final int nIndex,
-                                              @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper,
+                                              @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper,
                                               @Nullable final DSTTYPE aDefault)
   {
     return CollectionHelper.getAtIndexMapped (this, nIndex, aMapper, aDefault);
@@ -200,9 +200,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #getAtIndexMapped(Predicate, int, Function, Object)
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter,
+  default <DSTTYPE> DSTTYPE getAtIndexMapped (@NonNull final Predicate <? super ELEMENTTYPE> aFilter,
                                               @Nonnegative final int nIndex,
-                                              @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
+                                              @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
     return getAtIndexMapped (aFilter, nIndex, aMapper, null);
   }
@@ -226,9 +226,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #getAtIndexMapped(Predicate, int, Function)
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nonnull final Predicate <? super ELEMENTTYPE> aFilter,
+  default <DSTTYPE> DSTTYPE getAtIndexMapped (@NonNull final Predicate <? super ELEMENTTYPE> aFilter,
                                               @Nonnegative final int nIndex,
-                                              @Nonnull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper,
+                                              @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper,
                                               @Nullable final DSTTYPE aDefault)
   {
     return CollectionHelper.getAtIndexMapped (this, aFilter, nIndex, aMapper, aDefault);
@@ -242,8 +242,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The comparator used for sorting. May not be <code>null</code>.
    * @return A non-<code>null</code> list of element. Never <code>null</code>.
    */
-  @Nonnull
-  default ICommonsList <ELEMENTTYPE> getSorted (@Nonnull final Comparator <? super ELEMENTTYPE> aComparator)
+  @NonNull
+  default ICommonsList <ELEMENTTYPE> getSorted (@NonNull final Comparator <? super ELEMENTTYPE> aComparator)
   {
     return new CommonsArrayList <> (this).getSortedInline (aComparator);
   }
@@ -258,7 +258,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         {@link EChange#UNCHANGED} otherwise (e.g. because if is already contained).
    * @see #add(Object)
    */
-  @Nonnull
+  @NonNull
   default EChange addObject (@Nullable final ELEMENTTYPE aElement)
   {
     return EChange.valueOf (add (aElement));
@@ -274,7 +274,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return {@link EChange#CHANGED} if the element was added, {@link EChange#UNCHANGED} otherwise.
    * @see #add(Object)
    */
-  @Nonnull
+  @NonNull
   default EChange addIf (@Nullable final ELEMENTTYPE aElement, @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (aFilter != null && !aFilter.test (aElement))
@@ -292,7 +292,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #add(Object)
    * @see #addIf(Object, Predicate)
    */
-  @Nonnull
+  @NonNull
   default EChange addIfNotNull (@Nullable final ELEMENTTYPE aElement)
   {
     if (aElement == null)
@@ -308,7 +308,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return {@link EChange#CHANGED} if at least one element was added, {@link EChange#UNCHANGED}.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aElements)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -326,7 +326,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return {@link EChange#CHANGED} if at least one element was added, {@link EChange#UNCHANGED}.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -344,7 +344,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return {@link EChange#CHANGED} if at least one element was added, {@link EChange#UNCHANGED}.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -362,7 +362,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return {@link EChange#CHANGED} if at least one element was added, {@link EChange#UNCHANGED}.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
     EChange eChange = EChange.UNCHANGED;
@@ -383,7 +383,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         Never <code>null</code>.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final ELEMENTTYPE [] aElements,
                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -409,7 +409,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         Never <code>null</code>.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -435,7 +435,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         Never <code>null</code>.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum,
                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -464,7 +464,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         Never <code>null</code>.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default EChange addAll (@Nullable final Iterator <? extends ELEMENTTYPE> aIter,
                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -495,9 +495,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <SRCTYPE>
    *        The source type to be mapped from
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -521,9 +521,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <SRCTYPE>
    *        The source type to be mapped from
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -550,10 +550,10 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <SRCTYPE>
    *        The source type to be mapped from
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -584,10 +584,10 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param <SRCTYPE>
    *        The source type to be mapped from
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,
                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
 
@@ -619,9 +619,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The source type to be mapped from
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final Iterable <? extends SRCTYPE> aElements,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -657,9 +657,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The source type to be mapped from
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange addAllMapped (@Nullable final SRCTYPE [] aElements,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     ValueEnforcer.notNull (aMapper, "Mapper");
@@ -687,7 +687,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #clear()
    * @see #add(Object)
    */
-  @Nonnull
+  @NonNull
   default EChange set (@Nullable final ELEMENTTYPE aValue)
   {
     return removeAll ().or (add (aValue));
@@ -703,7 +703,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #removeAll()
    * @see #addAll(Iterable)
    */
-  @Nonnull
+  @NonNull
   default EChange setAll (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
   {
     return removeAll ().or (addAll (aValues));
@@ -719,7 +719,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #removeAll()
    * @see #addAll(Object...)
    */
-  @Nonnull
+  @NonNull
   default EChange setAll (@SuppressWarnings ("unchecked") @Nullable final ELEMENTTYPE... aValues)
   {
     return removeAll ().or (addAll (aValues));
@@ -741,9 +741,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The source type to be mapped from
    * @since 9.1.0
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange setAllMapped (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     return removeAll ().or (addAllMapped (aValues, aMapper));
   }
@@ -764,9 +764,9 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *        The source type to be mapped from
    * @since 9.1.0
    */
-  @Nonnull
+  @NonNull
   default <SRCTYPE> EChange setAllMapped (@Nullable final SRCTYPE [] aValues,
-                                          @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     return removeAll ().or (addAllMapped (aValues, aMapper));
   }
@@ -779,7 +779,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         {@link EChange#UNCHANGED} otherwise.
    * @see #clear()
    */
-  @Nonnull
+  @NonNull
   default EChange removeAll ()
   {
     if (isEmpty ())
@@ -798,7 +798,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    *         {@link EChange#UNCHANGED} otherwise.
    * @see #remove(Object)
    */
-  @Nonnull
+  @NonNull
   default EChange removeObject (@Nullable final ELEMENTTYPE aElement)
   {
     return EChange.valueOf (remove (aElement));
@@ -808,7 +808,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @return An unmodifiable version of this collection. Never <code>null</code> .
    * @see Collections
    */
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default Collection <ELEMENTTYPE> getAsUnmodifiable ()
   {
@@ -821,7 +821,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #iterator()
    * @see CommonsIterableIterator
    */
-  @Nonnull
+  @NonNull
   default ICommonsIterableIterator <ELEMENTTYPE> iterator2 ()
   {
     return new CommonsIterableIterator <> (this);

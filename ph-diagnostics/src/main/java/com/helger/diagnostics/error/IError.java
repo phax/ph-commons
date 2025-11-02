@@ -19,15 +19,15 @@ package com.helger.diagnostics.error;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.diagnostics.error.level.IHasErrorLevelComparable;
 import com.helger.diagnostics.error.text.IHasErrorText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Common interface for single errors and resource errors.
@@ -85,7 +85,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    *         available.
    * @see #hasErrorLocation()
    */
-  @Nonnull
+  @NonNull
   default ILocation getErrorLocation ()
   {
     return SimpleLocation.NO_LOCATION;
@@ -124,7 +124,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @see #getErrorTexts()
    */
   @Nullable
-  default String getErrorText (@Nonnull final Locale aContentLocale)
+  default String getErrorText (@NonNull final Locale aContentLocale)
   {
     final IHasErrorText aErrorText = getErrorTexts ();
     return aErrorText == null ? null : aErrorText.getDisplayText (aContentLocale);
@@ -200,9 +200,9 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @see ErrorTextProvider#DEFAULT
    * @see #getAsStringLocaleIndepdent()
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  default String getAsString (@Nonnull final Locale aContentLocale)
+  default String getAsString (@NonNull final Locale aContentLocale)
   {
     return ErrorTextProvider.DEFAULT.getErrorText (this, aContentLocale);
   }
@@ -216,7 +216,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * @see #getAsString(Locale)
    * @since 11.1.4
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getAsStringLocaleIndepdent ()
   {

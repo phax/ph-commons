@@ -40,15 +40,15 @@ import java.io.Writer;
 import java.util.Iterator;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.iterator.ArrayIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A very simple CSV writer released under a commercial-friendly license.
@@ -98,7 +98,7 @@ public class CSVWriter implements Closeable, Flushable
    * @param aWriter
    *        the writer to an underlying CSV source. May not be <code>null</code> .
    */
-  public CSVWriter (@Nonnull @WillCloseWhenClosed final Writer aWriter)
+  public CSVWriter (@NonNull @WillCloseWhenClosed final Writer aWriter)
   {
     ValueEnforcer.notNull (aWriter, "Writer");
     m_aRawWriter = aWriter;
@@ -120,7 +120,7 @@ public class CSVWriter implements Closeable, Flushable
    *        the delimiter to use for separating entries
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVWriter setSeparatorChar (final char cSeparator)
   {
     if (cSeparator == CCSV.NULL_CHARACTER)
@@ -144,7 +144,7 @@ public class CSVWriter implements Closeable, Flushable
    *        the character to use for quoted element.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVWriter setQuoteChar (final char cQuoteChar)
   {
     m_cQuoteChar = cQuoteChar;
@@ -166,7 +166,7 @@ public class CSVWriter implements Closeable, Flushable
    *        the character to use for escaping a separator or quote.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVWriter setEscapeChar (final char cEscapeChar)
   {
     m_cEscapeChar = cEscapeChar;
@@ -176,7 +176,7 @@ public class CSVWriter implements Closeable, Flushable
   /**
    * @return the line delimiting string. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getLineEnd ()
   {
@@ -190,8 +190,8 @@ public class CSVWriter implements Closeable, Flushable
    *        The line end. May neither be <code>null</code> nor empty.
    * @return this
    */
-  @Nonnull
-  public CSVWriter setLineEnd (@Nonnull @Nonempty final String sLineEnd)
+  @NonNull
+  public CSVWriter setLineEnd (@NonNull @Nonempty final String sLineEnd)
   {
     ValueEnforcer.notNull (sLineEnd, "LineEnd");
     m_sLineEnd = sLineEnd;
@@ -216,7 +216,7 @@ public class CSVWriter implements Closeable, Flushable
    * @return this for chaining
    * @since 8.6.6
    */
-  @Nonnull
+  @NonNull
   public CSVWriter setAvoidFinalLineEnd (final boolean bAvoidFinalLineEnd)
   {
     m_bAvoidFinalLineEnd = bAvoidFinalLineEnd;
@@ -242,7 +242,7 @@ public class CSVWriter implements Closeable, Flushable
    * @return this for chaining
    * @since 8.6.6
    */
-  @Nonnull
+  @NonNull
   public CSVWriter setApplyQuotesToAll (final boolean bApplyQuotesToAll)
   {
     m_bApplyQuotesToAll = bApplyQuotesToAll;
@@ -258,7 +258,7 @@ public class CSVWriter implements Closeable, Flushable
    *        <code>true</code> if all values are to be quoted. <code>false</code> if quotes only to
    *        be applied to values which contain the separator, escape, quote or new line characters.
    */
-  public void writeAll (@Nonnull final List <? extends List <String>> aAllLines, final boolean bApplyQuotesToAll)
+  public void writeAll (@NonNull final List <? extends List <String>> aAllLines, final boolean bApplyQuotesToAll)
   {
     for (final List <String> aLine : aAllLines)
       writeNext (aLine, bApplyQuotesToAll);
@@ -271,7 +271,7 @@ public class CSVWriter implements Closeable, Flushable
    *        a List of List of String, with each List of String representing a line of the file.
    * @see #isApplyQuotesToAll()
    */
-  public void writeAll (@Nonnull final List <? extends List <String>> aAllLines)
+  public void writeAll (@NonNull final List <? extends List <String>> aAllLines)
   {
     writeAll (aAllLines, m_bApplyQuotesToAll);
   }
@@ -437,7 +437,7 @@ public class CSVWriter implements Closeable, Flushable
    *        - element of data to check for special characters.
    * @return true if the line contains the quote, escape, separator, newline or return.
    */
-  protected boolean stringContainsSpecialCharacters (@Nonnull final String sLine)
+  protected boolean stringContainsSpecialCharacters (@NonNull final String sLine)
   {
     return sLine.indexOf (m_cQuoteChar) != -1 ||
            sLine.indexOf (m_cEscapeChar) != -1 ||
@@ -453,8 +453,8 @@ public class CSVWriter implements Closeable, Flushable
    *        element to process.
    * @return a StringBuilder with the elements data.
    */
-  @Nonnull
-  protected StringBuilder getEscapedText (@Nonnull final String sNextElement)
+  @NonNull
+  protected StringBuilder getEscapedText (@NonNull final String sNextElement)
   {
     if (m_cEscapeChar == NO_ESCAPE_CHARACTER)
       return new StringBuilder (sNextElement);

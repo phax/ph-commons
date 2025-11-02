@@ -18,10 +18,10 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Singular Value Decomposition.
@@ -79,7 +79,7 @@ public class SingularValueDecomposition
    * @param aMatrix
    *        Rectangular matrix
    */
-  public SingularValueDecomposition (@Nonnull final Matrix aMatrix)
+  public SingularValueDecomposition (@NonNull final Matrix aMatrix)
   {
     // Derived from LINPACK code.
     // Initialize.
@@ -515,7 +515,7 @@ public class SingularValueDecomposition
    *
    * @return U
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getU ()
   {
@@ -527,7 +527,7 @@ public class SingularValueDecomposition
    *
    * @return V
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getV ()
   {
@@ -539,7 +539,7 @@ public class SingularValueDecomposition
    *
    * @return diagonal of S.
    */
-  @Nonnull
+  @NonNull
   public double [] getSingularValues ()
   {
     return m_aData;
@@ -550,7 +550,7 @@ public class SingularValueDecomposition
    *
    * @return S
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getS ()
   {

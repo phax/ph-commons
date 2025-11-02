@@ -19,11 +19,11 @@ package com.helger.base.io.iface;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A callback interface to retrieve {@link Writer} objects based on
@@ -44,7 +44,7 @@ public interface IHasOutputStreamAndWriter extends IHasOutputStream
    * @return <code>null</code> if no output stream could be retrieved.
    */
   @Nullable
-  default Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
+  default Writer getWriter (@NonNull final Charset aCharset, @NonNull final EAppend eAppend)
   {
     return StreamHelper.createWriter (getOutputStream (eAppend), aCharset);
   }
@@ -61,7 +61,7 @@ public interface IHasOutputStreamAndWriter extends IHasOutputStream
    * @since 9.1.8
    */
   @Nullable
-  default Writer getBufferedWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
+  default Writer getBufferedWriter (@NonNull final Charset aCharset, @NonNull final EAppend eAppend)
   {
     return StreamHelper.getBuffered (getWriter (aCharset, eAppend));
   }

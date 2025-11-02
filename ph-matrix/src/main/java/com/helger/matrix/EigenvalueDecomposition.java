@@ -18,12 +18,12 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Eigenvalues and eigenvectors of a real matrix.
@@ -1022,7 +1022,7 @@ public class EigenvalueDecomposition
    * @param aMatrix
    *        Square matrix
    */
-  public EigenvalueDecomposition (@Nonnull final Matrix aMatrix)
+  public EigenvalueDecomposition (@NonNull final Matrix aMatrix)
   {
     final double [] [] aArray = aMatrix.internalGetArray ();
     m_nDim = aMatrix.getColumnDimension ();
@@ -1091,7 +1091,7 @@ public class EigenvalueDecomposition
    *
    * @return V
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getV ()
   {
@@ -1103,7 +1103,7 @@ public class EigenvalueDecomposition
    *
    * @return real(diag(D))
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("took code as is")
   public double [] directGetRealEigenvalues ()
   {
@@ -1115,7 +1115,7 @@ public class EigenvalueDecomposition
    *
    * @return imag(diag(D))
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject ("took code as is")
   public double [] directGetImagEigenvalues ()
   {
@@ -1127,7 +1127,7 @@ public class EigenvalueDecomposition
    *
    * @return D
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getD ()
   {

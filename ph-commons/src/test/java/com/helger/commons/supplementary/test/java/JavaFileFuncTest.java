@@ -19,6 +19,7 @@ package com.helger.commons.supplementary.test.java;
 import java.io.File;
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,13 +28,11 @@ import com.helger.base.system.EOperatingSystem;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FilenameHelper;
 
-import jakarta.annotation.Nonnull;
-
 public final class JavaFileFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileFuncTest.class);
 
-  private static void _log (@Nonnull final File f)
+  private static void _log (@NonNull final File f)
   {
     LOGGER.info ("Next file:");
     LOGGER.info ("  AbsolutePath:  " + f.getAbsolutePath ());

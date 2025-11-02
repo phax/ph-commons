@@ -18,10 +18,10 @@ package com.helger.matrix;
 
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.numeric.MathHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * LU Decomposition.
@@ -73,7 +73,7 @@ public class LUDecomposition
    *        Rectangular matrix
    */
 
-  public LUDecomposition (@Nonnull final Matrix aMatrix)
+  public LUDecomposition (@NonNull final Matrix aMatrix)
   {
     // Use a "left-looking", dot-product, Crout/Doolittle algorithm.
     m_aLU = aMatrix.getArrayCopy ();
@@ -178,7 +178,7 @@ public class LUDecomposition
    *
    * @return L
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getL ()
   {
@@ -205,7 +205,7 @@ public class LUDecomposition
    *
    * @return U
    */
-  @Nonnull
+  @NonNull
   public Matrix getU ()
   {
     final Matrix aNewMatrix = new Matrix (m_nCols, m_nCols);
@@ -228,7 +228,7 @@ public class LUDecomposition
    *
    * @return piv
    */
-  @Nonnull
+  @NonNull
   public int [] getPivot ()
   {
     return Arrays.copyOf (m_aPivot, m_nRows);
@@ -239,7 +239,7 @@ public class LUDecomposition
    *
    * @return (double) piv
    */
-  @Nonnull
+  @NonNull
   public double [] getDoublePivot ()
   {
     final double [] vals = new double [m_nRows];
@@ -276,9 +276,9 @@ public class LUDecomposition
    * @exception RuntimeException
    *            Matrix is singular.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix solve (@Nonnull final Matrix aMatrix)
+  public Matrix solve (@NonNull final Matrix aMatrix)
   {
     if (aMatrix.getRowDimension () != m_nRows)
       throw new IllegalArgumentException ("Matrix row dimensions must agree.");

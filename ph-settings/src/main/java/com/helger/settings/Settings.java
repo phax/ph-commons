@@ -16,6 +16,9 @@
  */
 package com.helger.settings;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.collection.AttributeContainerAny;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default implementation of the {@link ISettings} object.
@@ -43,7 +43,7 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
    * @param sName
    *        Name of the settings. May neither be <code>null</code> nor empty.
    */
-  public Settings (@Nonnull @Nonempty final String sName)
+  public Settings (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
@@ -54,15 +54,15 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
    * @param aOther
    *        Object to copy from. May not be <code>null</code>.
    */
-  public Settings (@Nonnull final ISettings aOther)
+  public Settings (@NonNull final ISettings aOther)
   {
     this (aOther.getName ());
     putAllIn (aOther);
   }
 
-  @Nonnull
+  @NonNull
   @Override
-  public EChange putIn (@Nonnull @Nonempty final String sName, @Nullable final Object aNewValue)
+  public EChange putIn (@NonNull @Nonempty final String sName, @Nullable final Object aNewValue)
   {
     // Additional check, that name may not be empty
     ValueEnforcer.notEmpty (sName, "Name");
@@ -70,7 +70,7 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
     return super.putIn (sName, aNewValue);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getName ()
   {

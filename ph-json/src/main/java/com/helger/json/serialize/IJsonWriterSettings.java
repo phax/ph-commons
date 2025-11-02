@@ -16,10 +16,10 @@
  */
 package com.helger.json.serialize;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.base.clone.ICloneable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Settings for configuring the JSON write process.
@@ -38,7 +38,7 @@ public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>
    * @return The string to be used to indent a single level, if indentation is
    *         enabled. By default this is two spaces.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getIndentString ();
 
@@ -46,7 +46,7 @@ public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>
    * @return The string to be used as the newline separator. By default it is
    *         the system newline string.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getNewlineString ();
 

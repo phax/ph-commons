@@ -20,6 +20,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -33,9 +36,6 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Basic implementation class for the micro document object model. It overrides all methods required
@@ -58,14 +58,14 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     return m_aChildren;
   }
 
-  private void _afterInsertAsChildOfThis (@Nonnull final AbstractMicroNode aChildNode)
+  private void _afterInsertAsChildOfThis (@NonNull final AbstractMicroNode aChildNode)
   {
     aChildNode.internalSetParentNode (this);
     onEvent (EMicroEvent.NODE_INSERTED, this, aChildNode);
   }
 
   @Override
-  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@NonNull final AbstractMicroNode aChildNode)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to documents");
@@ -76,8 +76,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode,
-                                       @Nonnull final IMicroNode aSuccessor)
+  protected final void onInsertBefore (@NonNull final AbstractMicroNode aChildNode,
+                                       @NonNull final IMicroNode aSuccessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
@@ -91,8 +91,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode,
-                                      @Nonnull final IMicroNode aPredecessor)
+  protected final void onInsertAfter (@NonNull final AbstractMicroNode aChildNode,
+                                      @NonNull final IMicroNode aPredecessor)
   {
     if (aChildNode.isDocument ())
       throw new MicroException ("Cannot add document to nodes");
@@ -106,7 +106,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  protected final void onInsertAtIndex (@Nonnegative final int nIndex, @Nonnull final AbstractMicroNode aChildNode)
+  protected final void onInsertAtIndex (@Nonnegative final int nIndex, @NonNull final AbstractMicroNode aChildNode)
   {
     if (nIndex < 0)
       throw new MicroException ("Cannot insert element at index " + nIndex + "!");
@@ -118,7 +118,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     _afterInsertAsChildOfThis (aChildNode);
   }
 
-  private void _afterRemoveChildOfThis (@Nonnull final IMicroNode aChildNode)
+  private void _afterRemoveChildOfThis (@NonNull final IMicroNode aChildNode)
   {
     if (m_aChildren.contains (aChildNode))
       throw new IllegalStateException ("Child " + aChildNode + " is contained more than once in it's parents list");
@@ -130,8 +130,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  @Nonnull
-  protected final EChange onRemoveChild (@Nonnull final IMicroNode aChildNode)
+  @NonNull
+  protected final EChange onRemoveChild (@NonNull final IMicroNode aChildNode)
   {
     if (!aChildNode.hasParent ())
       throw new MicroException ("The passed child node to be removed has no parent!");
@@ -144,7 +144,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  @Nonnull
+  @NonNull
   protected final EChange onRemoveChildAtIndex (@Nonnegative final int nIndex)
   {
     // Resolve index - may be invalid
@@ -164,7 +164,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  @Nonnull
+  @NonNull
   protected final EChange onRemoveAllChildren ()
   {
     if (m_aChildren == null || m_aChildren.isEmpty ())
@@ -201,15 +201,15 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public final void forAllChildren (@NonNull final Consumer <? super IMicroNode> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
   }
 
   @Override
-  @Nonnull
-  public EContinue forAllChildrenBreakable (@Nonnull final Function <? super IMicroNode, EContinue> aConsumer)
+  @NonNull
+  public EContinue forAllChildrenBreakable (@NonNull final Function <? super IMicroNode, EContinue> aConsumer)
   {
     if (m_aChildren != null)
       return m_aChildren.forEachBreakable (aConsumer);
@@ -217,24 +217,24 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Override
-  public final void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                    @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public final void forAllChildren (@NonNull final Predicate <? super IMicroNode> aFilter,
+                                    @NonNull final Consumer <? super IMicroNode> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.findAll (aFilter, aConsumer);
   }
 
   @Override
-  public final <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                                    @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
-                                                    @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  public final <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
+                                                    @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
+                                                    @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     if (m_aChildren != null)
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
   @Override
-  public boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  public boolean containsAnyChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
     if (m_aChildren == null)
@@ -264,15 +264,15 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
 
   @Override
   @Nullable
-  public final IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  public final IMicroNode findFirstChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
     return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
   }
 
   @Override
   @Nullable
-  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                                       @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  public final <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
+                                                       @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
   {
     return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
   }
@@ -320,7 +320,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   }
 
   @Nullable
-  public <DSTTYPE> DSTTYPE getTextContentWithConversion (@Nonnull final Class <DSTTYPE> aDstClass)
+  public <DSTTYPE> DSTTYPE getTextContentWithConversion (@NonNull final Class <DSTTYPE> aDstClass)
   {
     // Get the regular content
     final String sTextContent = getTextContent ();

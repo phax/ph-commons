@@ -20,10 +20,10 @@ import java.util.Map;
 
 import javax.xml.namespace.QName;
 
-import com.helger.annotation.style.MustImplementEqualsAndHashcode;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
  * Interface used in writing XML to determine which of the bracket mode as
@@ -48,9 +48,9 @@ public interface IXMLBracketModeDeterminator
    *        <code>true</code> if the current element has children
    * @return The bracket mode to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EXMLSerializeBracketMode getBracketMode (@Nullable String sNamespaceURI,
-                                           @Nonnull String sTagName,
+                                           @NonNull String sTagName,
                                            @Nullable Map <QName, String> aAttrs,
                                            boolean bHasChildren);
 }

@@ -16,14 +16,13 @@
  */
 package com.helger.json.parser.errorhandler;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.json.parser.JsonParseException;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An implementation of {@link IJsonParseExceptionCallback} that logs all
@@ -39,15 +38,15 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
   public LoggingJsonParseExceptionCallback ()
   {}
 
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String createLoggingStringParseError (@Nonnull final JsonParseException ex)
+  public static String createLoggingStringParseError (@NonNull final JsonParseException ex)
   {
     // Is null if the constructor with String only was used
     return ex.getMessage ();
   }
 
-  public void onException (@Nonnull final JsonParseException ex)
+  public void onException (@NonNull final JsonParseException ex)
   {
     LOGGER.error (createLoggingStringParseError (ex));
   }

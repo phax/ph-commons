@@ -20,12 +20,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.datetime.format.PDTToString;
 import com.helger.datetime.helper.PDTFactory;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Some date time specific routines especially helpful for IO.
@@ -52,7 +52,7 @@ public final class PDTIOHelper
    * @return The current local date time formatted for usage in a file name. It
    *         uses the pattern <code>YYYYMMDD_HHMMSS</code>.
    */
-  @Nonnull
+  @NonNull
   public static String getCurrentLocalDateTimeForFilename ()
   {
     return getLocalDateTimeForFilename (PDTFactory.getCurrentLocalDateTime ());
@@ -66,8 +66,8 @@ public final class PDTIOHelper
    *        The local date time to be formatted. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getLocalDateTimeForFilename (@Nonnull final LocalDateTime aDT)
+  @NonNull
+  public static String getLocalDateTimeForFilename (@NonNull final LocalDateTime aDT)
   {
     return PDTToString.getAsString (PATTERN_DATETIME, aDT);
   }
@@ -89,7 +89,7 @@ public final class PDTIOHelper
    *        The date to be formatted. May not be <code>null</code>.
    * @return The formatted string.
    */
-  public static String getDateForFilename (@Nonnull final LocalDate aLocalDate)
+  public static String getDateForFilename (@NonNull final LocalDate aLocalDate)
   {
     return PDTToString.getAsString (PATTERN_DATE, aLocalDate);
   }
@@ -111,7 +111,7 @@ public final class PDTIOHelper
    *        The time to be formatted. May not be <code>null</code>.
    * @return The formatted string.
    */
-  public static String getTimeForFilename (@Nonnull final LocalTime aLocalTime)
+  public static String getTimeForFilename (@NonNull final LocalTime aLocalTime)
   {
     return PDTToString.getAsString (PATTERN_TIME, aLocalTime);
   }

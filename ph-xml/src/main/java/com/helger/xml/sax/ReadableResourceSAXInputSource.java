@@ -18,6 +18,8 @@ package com.helger.xml.sax;
 
 import java.io.InputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -26,9 +28,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Special {@link InputSource} implementation that reads from
@@ -44,18 +43,18 @@ public class ReadableResourceSAXInputSource extends InputSource
 
   private final IHasInputStream m_aISP;
 
-  public ReadableResourceSAXInputSource (@Nonnull final IReadableResource aResource)
+  public ReadableResourceSAXInputSource (@NonNull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
-  public ReadableResourceSAXInputSource (@Nonnull final IHasInputStream aISP, @Nullable final String sSystemID)
+  public ReadableResourceSAXInputSource (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     setSystemId (sSystemID);
   }
 
-  @Nonnull
+  @NonNull
   public final IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;

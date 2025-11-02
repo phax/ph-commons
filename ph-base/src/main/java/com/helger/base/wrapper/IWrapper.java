@@ -18,7 +18,7 @@ package com.helger.base.wrapper;
 
 import java.util.function.Supplier;
 
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Base interface for wrapping an object within another object.

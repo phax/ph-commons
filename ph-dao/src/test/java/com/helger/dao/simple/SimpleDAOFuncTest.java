@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
@@ -27,8 +28,6 @@ import com.helger.dao.DAOException;
 import com.helger.io.relative.FileRelativeIO;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.MicroDocument;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link AbstractSimpleDAO}.
@@ -46,14 +45,14 @@ public final class SimpleDAOFuncTest
     }
 
     @Override
-    @Nonnull
-    protected EChange onRead (@Nonnull final IMicroDocument aDoc)
+    @NonNull
+    protected EChange onRead (@NonNull final IMicroDocument aDoc)
     {
       return EChange.UNCHANGED;
     }
 
     @Override
-    @Nonnull
+    @NonNull
     protected IMicroDocument createWriteData ()
     {
       final MicroDocument aDoc = new MicroDocument ();

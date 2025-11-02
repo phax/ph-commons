@@ -23,6 +23,9 @@ import java.io.UncheckedIOException;
 import java.util.Iterator;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillCloseWhenClosed;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,9 +35,6 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A very simple CSV reader released under a commercial-friendly license.
@@ -60,7 +60,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @param aReader
    *        the reader to an underlying CSV source.
    */
-  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader)
+  public CSVReader (@NonNull @WillCloseWhenClosed final Reader aReader)
   {
     this (aReader, new CSVParser (), CCSV.DEFAULT_KEEP_CR);
   }
@@ -73,7 +73,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @param bKeepCR
    *        <code>true</code> to keep carriage returns in data read, <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader, final boolean bKeepCR)
+  public CSVReader (@NonNull @WillCloseWhenClosed final Reader aReader, final boolean bKeepCR)
   {
     this (aReader, new CSVParser (), bKeepCR);
   }
@@ -88,8 +88,8 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @param bKeepCR
    *        <code>true</code> to keep carriage returns in data read, <code>false</code> otherwise
    */
-  public CSVReader (@Nonnull @WillCloseWhenClosed final Reader aReader,
-                    @Nonnull final CSVParser aParser,
+  public CSVReader (@NonNull @WillCloseWhenClosed final Reader aReader,
+                    @NonNull final CSVParser aParser,
                     final boolean bKeepCR)
   {
     ValueEnforcer.notNull (aReader, "Reader");
@@ -115,7 +115,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
   /**
    * @return the CSVParser used by the reader.
    */
-  @Nonnull
+  @NonNull
   public CSVParser getParser ()
   {
     return m_aParser;
@@ -136,7 +136,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        the delimiter to use for separating entries
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setSeparatorChar (final char cSeparator)
   {
     m_aParser.setSeparatorChar (cSeparator);
@@ -158,7 +158,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        the character to use for quoted element.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setQuoteChar (final char cQuoteChar)
   {
     m_aParser.setQuoteChar (cQuoteChar);
@@ -180,7 +180,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        the character to use for escaping a separator or quote.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setEscapeChar (final char cEscapeChar)
   {
     m_aParser.setEscapeChar (cEscapeChar);
@@ -202,7 +202,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        if <code>true</code>, characters outside the quotes are ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setStrictQuotes (final boolean bStrictQuotes)
   {
     m_aParser.setStrictQuotes (bStrictQuotes);
@@ -225,7 +225,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        if <code>true</code>, white space in front of a quote in a field is ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setIgnoreLeadingWhiteSpace (final boolean bIgnoreLeadingWhiteSpace)
   {
     m_aParser.setIgnoreLeadingWhiteSpace (bIgnoreLeadingWhiteSpace);
@@ -247,7 +247,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        if <code>true</code>, quotations are ignored
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setIgnoreQuotations (final boolean bIgnoreQuotations)
   {
     m_aParser.setIgnoreQuotations (bIgnoreQuotations);
@@ -273,7 +273,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        the line number to skip for start reading.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setSkipLines (@Nonnegative final int nSkipLines)
   {
     ValueEnforcer.isGE0 (nSkipLines, "SkipLines");
@@ -319,7 +319,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *        otherwise.
    * @return this
    */
-  @Nonnull
+  @NonNull
   public CSVReader setVerifyReader (final boolean bVerifyReader)
   {
     m_bVerifyReader = bVerifyReader;
@@ -334,7 +334,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @throws IOException
    *         if bad things happen during the read
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ICommonsList <String>> readAll () throws IOException
   {
@@ -356,7 +356,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    * @throws IOException
    *         if bad things happen during the read
    */
-  public void readAll (@Nonnull final Consumer <? super ICommonsList <String>> aLineConsumer) throws IOException
+  public void readAll (@NonNull final Consumer <? super ICommonsList <String>> aLineConsumer) throws IOException
   {
     while (m_bHasNext)
     {
@@ -464,7 +464,7 @@ public class CSVReader implements Closeable, ICommonsIterable <ICommonsList <Str
    *
    * @return an ICommonsList&lt;String&gt; iterator.
    */
-  @Nonnull
+  @NonNull
   public Iterator <ICommonsList <String>> iterator ()
   {
     try

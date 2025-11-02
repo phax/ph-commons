@@ -16,13 +16,13 @@
  */
 package com.helger.security.authentication.subject;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default dummy implementation of the {@link IAuthSubject} interface that has
@@ -36,20 +36,20 @@ public class AuthSubject implements IAuthSubject
   private final String m_sID;
   private final String m_sDisplayName;
 
-  public AuthSubject (@Nonnull @Nonempty final String sID, @Nonnull @Nonempty final String sDisplayName)
+  public AuthSubject (@NonNull @Nonempty final String sID, @NonNull @Nonempty final String sDisplayName)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     m_sDisplayName = ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getID ()
   {
     return m_sID;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public final String getDisplayName ()
   {

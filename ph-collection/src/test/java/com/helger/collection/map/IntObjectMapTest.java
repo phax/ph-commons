@@ -22,13 +22,12 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Random;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.annotation.Nonempty;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
-
-import jakarta.annotation.Nonnull;
 
 public final class IntObjectMapTest
 {
@@ -39,7 +38,7 @@ public final class IntObjectMapTest
     return new IntObjectMap <> (size, fillFactor);
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   private static String _make (final int i)
   {

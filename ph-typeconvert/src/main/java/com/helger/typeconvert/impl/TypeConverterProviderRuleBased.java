@@ -16,12 +16,12 @@
  */
 package com.helger.typeconvert.impl;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.ITypeConverter;
 import com.helger.typeconvert.ITypeConverterProvider;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A rule based type converter provider. Implemented as a singleton.
@@ -35,14 +35,14 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   private TypeConverterProviderRuleBased ()
   {}
 
-  @Nonnull
+  @NonNull
   public static TypeConverterProviderRuleBased getInstance ()
   {
     return INSTANCE;
   }
 
   @Nullable
-  public ITypeConverter <Object, Object> getTypeConverter (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     return GenericReflection.uncheckedCast (TypeConverterRegistry.getInstance ().getRuleBasedConverter (aSrcClass, aDstClass));
   }

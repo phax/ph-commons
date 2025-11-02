@@ -16,9 +16,9 @@
  */
 package com.helger.tree.withid;
 
-import com.helger.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Special implementation of {@link BasicTreeItemWithID} using the item type
@@ -40,7 +40,7 @@ public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends
    * @param aFactory
    *        The tree item factory to use. May not be <code>null</code>.
    */
-  public DefaultTreeItemWithID (@Nonnull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
+  public DefaultTreeItemWithID (@NonNull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
   {
     super (aFactory);
   }
@@ -54,7 +54,7 @@ public class DefaultTreeItemWithID <KEYTYPE, DATATYPE> extends
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public DefaultTreeItemWithID (@Nonnull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent, @Nonnull final KEYTYPE aDataID)
+  public DefaultTreeItemWithID (@NonNull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent, @NonNull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
   }

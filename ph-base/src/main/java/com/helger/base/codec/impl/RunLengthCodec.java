@@ -19,14 +19,14 @@ package com.helger.base.codec.impl;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayStreamDecoder;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Decoder for run length encoding
@@ -43,7 +43,7 @@ public class RunLengthCodec implements IByteArrayStreamDecoder
   public void decode (@Nullable final byte [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
-                      @Nonnull @WillNotClose final OutputStream aOS)
+                      @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null || nLen == 0)
       return;

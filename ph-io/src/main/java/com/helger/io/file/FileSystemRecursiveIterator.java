@@ -20,6 +20,9 @@ import java.io.File;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
@@ -28,9 +31,6 @@ import com.helger.base.string.StringCount;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Recursively iterate the content of a file system directory. This is a depth first iteration,
@@ -49,7 +49,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
   private final ICommonsList <File> m_aFilesLeft;
 
   @Nonnegative
-  private static int _getLevel (@Nonnull final File aFile)
+  private static int _getLevel (@NonNull final File aFile)
   {
     return StringCount.getCharCount (aFile.getAbsolutePath (), File.separatorChar);
   }
@@ -60,7 +60,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
    * @param sBaseDir
    *        The base directory to start with. May not be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir)
+  public FileSystemRecursiveIterator (@NonNull final String sBaseDir)
   {
     this (new File (sBaseDir), (Predicate <File>) null);
   }
@@ -71,7 +71,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
    * @param aBaseDir
    *        The base directory to start with. May not be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir)
+  public FileSystemRecursiveIterator (@NonNull final File aBaseDir)
   {
     this (aBaseDir, (Predicate <File>) null);
   }
@@ -85,7 +85,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
    *        An optional filter that controls, into which sub-directories this iterator should
    *        descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final String sBaseDir, @Nullable final Predicate <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@NonNull final String sBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
     this (new File (sBaseDir), aRecursionFilter);
   }
@@ -99,7 +99,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
    *        An optional filter that controls, into which sub-directories this iterator should
    *        descend to. May be <code>null</code>.
    */
-  public FileSystemRecursiveIterator (@Nonnull final File aBaseDir, @Nullable final Predicate <File> aRecursionFilter)
+  public FileSystemRecursiveIterator (@NonNull final File aBaseDir, @Nullable final Predicate <File> aRecursionFilter)
   {
     ValueEnforcer.notNull (aBaseDir, "BaseDirectory");
     m_nStartLevel = _getLevel (aBaseDir);
@@ -132,12 +132,12 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
    * @return <code>true</code> if all children of this directory should be investigated
    */
   @OverrideOnDemand
-  protected boolean recurseIntoDirectory (@Nonnull final File aDirectory)
+  protected boolean recurseIntoDirectory (@NonNull final File aDirectory)
   {
     return m_aRecursionFilter == null || m_aRecursionFilter.test (aDirectory);
   }
 
-  @Nonnull
+  @NonNull
   public final File next ()
   {
     if (!hasNext ())

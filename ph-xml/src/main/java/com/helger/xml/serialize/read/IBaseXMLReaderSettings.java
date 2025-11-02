@@ -18,6 +18,8 @@ package com.helger.xml.serialize.read;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 
@@ -28,9 +30,6 @@ import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.xml.EXMLParserFeature;
 import com.helger.xml.EXMLParserProperty;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base Read-only interface for DOM and SAX reader settings.
@@ -58,7 +57,7 @@ public interface IBaseXMLReaderSettings
    * @return A copy of all contained parser property values. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ();
 
@@ -89,7 +88,7 @@ public interface IBaseXMLReaderSettings
   /**
    * @return A copy of all defined parser features at the associated values.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ();
 
@@ -109,7 +108,7 @@ public interface IBaseXMLReaderSettings
   /**
    * @return A special exception handler to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ();
 

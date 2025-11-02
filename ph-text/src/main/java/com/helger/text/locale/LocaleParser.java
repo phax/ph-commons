@@ -22,12 +22,12 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Helper class to safely parse formatted numbers.
@@ -44,26 +44,26 @@ public final class LocaleParser
   {}
 
   @Nullable
-  public static Number parse (final String sStr, @Nonnull final Locale aParseLocale)
+  public static Number parse (final String sStr, @NonNull final Locale aParseLocale)
   {
     return parse (sStr, aParseLocale, (Number) null);
   }
 
   @Nullable
-  public static Number parse (final String sStr, @Nonnull final Locale aParseLocale, @Nullable final Number aDefault)
+  public static Number parse (final String sStr, @NonNull final Locale aParseLocale, @Nullable final Number aDefault)
   {
     return parse (sStr, NumberFormat.getInstance (aParseLocale), aDefault);
   }
 
   @Nullable
-  public static Number parse (@Nullable final String sStr, @Nonnull final NumberFormat aNF)
+  public static Number parse (@Nullable final String sStr, @NonNull final NumberFormat aNF)
   {
     return parse (sStr, aNF, (Number) null);
   }
 
   @Nullable
   public static Number parse (@Nullable final String sStr,
-                              @Nonnull final NumberFormat aNF,
+                              @NonNull final NumberFormat aNF,
                               @Nullable final Number aDefault)
   {
     ValueEnforcer.notNull (aNF, "NumberFormat");
@@ -83,97 +83,97 @@ public final class LocaleParser
     return aDefault;
   }
 
-  public static float parseFloat (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final float fDefault)
+  public static float parseFloat (@Nullable final String sStr, @NonNull final Locale aParseLocale, final float fDefault)
   {
     return parseFloat (sStr, NumberFormat.getInstance (aParseLocale), fDefault);
   }
 
-  public static float parseFloat (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final float fDefault)
+  public static float parseFloat (@Nullable final String sStr, @NonNull final NumberFormat aNF, final float fDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? fDefault : aNum.floatValue ();
   }
 
   public static double parseDouble (@Nullable final String sStr,
-                                    @Nonnull final Locale aParseLocale,
+                                    @NonNull final Locale aParseLocale,
                                     final double dDefault)
   {
     return parseDouble (sStr, NumberFormat.getInstance (aParseLocale), dDefault);
   }
 
-  public static double parseDouble (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final double dDefault)
+  public static double parseDouble (@Nullable final String sStr, @NonNull final NumberFormat aNF, final double dDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? dDefault : aNum.doubleValue ();
   }
 
-  public static byte parseByte (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final byte nDefault)
+  public static byte parseByte (@Nullable final String sStr, @NonNull final Locale aParseLocale, final byte nDefault)
   {
     return parseByte (sStr, NumberFormat.getIntegerInstance (aParseLocale), nDefault);
   }
 
-  public static byte parseByte (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final byte nDefault)
+  public static byte parseByte (@Nullable final String sStr, @NonNull final NumberFormat aNF, final byte nDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? nDefault : aNum.byteValue ();
   }
 
-  public static int parseInt (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final int nDefault)
+  public static int parseInt (@Nullable final String sStr, @NonNull final Locale aParseLocale, final int nDefault)
   {
     return parseInt (sStr, NumberFormat.getIntegerInstance (aParseLocale), nDefault);
   }
 
-  public static int parseInt (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final int nDefault)
+  public static int parseInt (@Nullable final String sStr, @NonNull final NumberFormat aNF, final int nDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? nDefault : aNum.intValue ();
   }
 
-  public static long parseLong (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final long nDefault)
+  public static long parseLong (@Nullable final String sStr, @NonNull final Locale aParseLocale, final long nDefault)
   {
     return parseLong (sStr, NumberFormat.getIntegerInstance (aParseLocale), nDefault);
   }
 
-  public static long parseLong (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final long nDefault)
+  public static long parseLong (@Nullable final String sStr, @NonNull final NumberFormat aNF, final long nDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? nDefault : aNum.longValue ();
   }
 
-  public static short parseShort (@Nullable final String sStr, @Nonnull final Locale aParseLocale, final short nDefault)
+  public static short parseShort (@Nullable final String sStr, @NonNull final Locale aParseLocale, final short nDefault)
   {
     return parseShort (sStr, NumberFormat.getIntegerInstance (aParseLocale), nDefault);
   }
 
-  public static short parseShort (@Nullable final String sStr, @Nonnull final NumberFormat aNF, final short nDefault)
+  public static short parseShort (@Nullable final String sStr, @NonNull final NumberFormat aNF, final short nDefault)
   {
     final Number aNum = parse (sStr, aNF);
     return aNum == null ? nDefault : aNum.shortValue ();
   }
 
   @Nullable
-  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @Nonnull final Locale aParseLocale)
+  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @NonNull final Locale aParseLocale)
   {
     return parseBigDecimal (sStr, aParseLocale, (BigDecimal) null);
   }
 
   @Nullable
   public static BigDecimal parseBigDecimal (@Nullable final String sStr,
-                                            @Nonnull final Locale aParseLocale,
+                                            @NonNull final Locale aParseLocale,
                                             @Nullable final BigDecimal aDefault)
   {
     return parseBigDecimal (sStr, NumberFormat.getInstance (aParseLocale), aDefault);
   }
 
   @Nullable
-  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @Nonnull final DecimalFormat aNF)
+  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @NonNull final DecimalFormat aNF)
   {
     return parseBigDecimal (sStr, aNF, (BigDecimal) null);
   }
 
   @Nullable
   public static BigDecimal parseBigDecimal (@Nullable final String sStr,
-                                            @Nonnull final DecimalFormat aNF,
+                                            @NonNull final DecimalFormat aNF,
                                             @Nullable final BigDecimal aDefault)
   {
     ValueEnforcer.notNull (aNF, "NumberFormat");
@@ -183,14 +183,14 @@ public final class LocaleParser
   }
 
   @Nullable
-  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @Nonnull final NumberFormat aNF)
+  public static BigDecimal parseBigDecimal (@Nullable final String sStr, @NonNull final NumberFormat aNF)
   {
     return parseBigDecimal (sStr, aNF, (BigDecimal) null);
   }
 
   @Nullable
   public static BigDecimal parseBigDecimal (@Nullable final String sStr,
-                                            @Nonnull final NumberFormat aNF,
+                                            @NonNull final NumberFormat aNF,
                                             @Nullable final BigDecimal aDefault)
   {
     BigDecimal ret = null;

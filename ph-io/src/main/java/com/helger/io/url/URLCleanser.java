@@ -20,6 +20,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
@@ -27,8 +29,6 @@ import com.helger.base.string.StringParser;
 import com.helger.base.string.StringReplace;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.stream.StreamHelperExt;
-
-import jakarta.annotation.Nullable;
 
 /**
  * URL cleanser.

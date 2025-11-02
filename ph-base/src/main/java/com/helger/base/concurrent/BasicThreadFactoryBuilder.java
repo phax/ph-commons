@@ -18,12 +18,12 @@ package com.helger.base.concurrent;
 
 import java.util.concurrent.ThreadFactory;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.builder.IResettableBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * <p>
@@ -31,10 +31,9 @@ import jakarta.annotation.Nullable;
  * BasicThreadFactory}.
  * </p>
  * <p>
- * Using this builder class instances of {@code BasicThreadFactory} can be created and
- * initialized. The class provides methods that correspond to the configuration options supported
- * by {@code BasicThreadFactory}. Method chaining is supported. Refer to the documentation of
- * {@code
+ * Using this builder class instances of {@code BasicThreadFactory} can be created and initialized.
+ * The class provides methods that correspond to the configuration options supported by
+ * {@code BasicThreadFactory}. Method chaining is supported. Refer to the documentation of {@code
  * BasicThreadFactory} for a usage example.
  * </p>
  *
@@ -73,8 +72,8 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    * @throws NullPointerException
    *         if the passed in {@code ThreadFactory} is <b>null</b>
    */
-  @Nonnull
-  public final BasicThreadFactoryBuilder wrappedFactory (@Nonnull final ThreadFactory aWrappedFactory)
+  @NonNull
+  public final BasicThreadFactoryBuilder wrappedFactory (@NonNull final ThreadFactory aWrappedFactory)
   {
     ValueEnforcer.notNull (aWrappedFactory, "Factory");
     m_aWrappedFactory = aWrappedFactory;
@@ -89,7 +88,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    *        the {@code ThreadGroup} to use. May be <code>null</code>.
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final BasicThreadFactoryBuilder threadGroup (@Nullable final ThreadGroup aThreadGroup)
   {
     m_aThreadGroup = aThreadGroup;
@@ -106,8 +105,8 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    * @throws NullPointerException
    *         if the exception handler is <b>null</b>
    */
-  @Nonnull
-  public final BasicThreadFactoryBuilder uncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aExceptionHandler)
+  @NonNull
+  public final BasicThreadFactoryBuilder uncaughtExceptionHandler (final Thread.@NonNull UncaughtExceptionHandler aExceptionHandler)
   {
     ValueEnforcer.notNull (aExceptionHandler, "ExceptionHandler");
     m_aUncaughtExceptionHandler = aExceptionHandler;
@@ -116,8 +115,8 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
 
   /**
    * Sets the naming pattern to be used by the new {@code
-   * BasicThreadFactory}. The formatting is done with {@link String#format(String, Object...)}
-   * using the thread counter (type long) as the only parameter.
+   * BasicThreadFactory}. The formatting is done with {@link String#format(String, Object...)} using
+   * the thread counter (type long) as the only parameter.
    *
    * @param sNamingPattern
    *        the naming pattern (must not be <b>null</b>)
@@ -125,8 +124,8 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    * @throws NullPointerException
    *         if the naming pattern is <b>null</b>
    */
-  @Nonnull
-  public final BasicThreadFactoryBuilder namingPattern (@Nonnull final String sNamingPattern)
+  @NonNull
+  public final BasicThreadFactoryBuilder namingPattern (@NonNull final String sNamingPattern)
   {
     ValueEnforcer.notNull (sNamingPattern, "NamingPattern");
     m_sNamingPattern = sNamingPattern;
@@ -141,7 +140,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    *        the priority
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final BasicThreadFactoryBuilder priority (final int nPriority)
   {
     m_nPriority = Integer.valueOf (nPriority);
@@ -149,14 +148,14 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   }
 
   /**
-   * Sets the daemon flag for the new {@code BasicThreadFactory}. If this flag is set to
-   * <b>true</b> the new thread factory will create daemon threads.
+   * Sets the daemon flag for the new {@code BasicThreadFactory}. If this flag is set to <b>true</b>
+   * the new thread factory will create daemon threads.
    *
    * @param bDaemon
    *        the value of the daemon flag
    * @return this for chaining
    */
-  @Nonnull
+  @NonNull
   public final BasicThreadFactoryBuilder daemon (final boolean bDaemon)
   {
     m_eDaemon = ETriState.valueOf (bDaemon);
@@ -185,7 +184,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
    *
    * @return the new {@code BasicThreadFactory}
    */
-  @Nonnull
+  @NonNull
   public BasicThreadFactory build ()
   {
     return new BasicThreadFactory (this);

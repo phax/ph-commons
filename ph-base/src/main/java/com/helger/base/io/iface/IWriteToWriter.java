@@ -19,11 +19,11 @@ package com.helger.base.io.iface;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.io.stream.StreamHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A simple interface for objects that can write to a {@link Writer}.
@@ -43,7 +43,7 @@ public interface IWriteToWriter
    * @throws IOException
    *         In case of IO error
    */
-  void writeTo (@Nonnull @WillNotClose Writer aWriter) throws IOException;
+  void writeTo (@NonNull @WillNotClose Writer aWriter) throws IOException;
 
   /**
    * Write everything to the passed writer and close it.
@@ -53,7 +53,7 @@ public interface IWriteToWriter
    * @throws IOException
    *         In case of IO error. Even than the writer is closed!
    */
-  default void writeToAndClose (@Nonnull @WillClose final Writer aWriter) throws IOException
+  default void writeToAndClose (@NonNull @WillClose final Writer aWriter) throws IOException
   {
     try
     {

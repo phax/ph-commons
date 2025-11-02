@@ -16,7 +16,7 @@
  */
 package com.helger.base.builder;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Marker interface for builders
@@ -33,6 +33,6 @@ public interface IBuilder <T>
    *
    * @return The built object. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   T build ();
 }

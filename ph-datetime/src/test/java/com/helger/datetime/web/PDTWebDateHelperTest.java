@@ -29,13 +29,12 @@ import java.time.OffsetTime;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.xml.XMLOffsetTime;
 import com.helger.datetime.zone.PDTConfig;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link PDTWebDateHelper}.
@@ -79,7 +78,7 @@ public final class PDTWebDateHelperTest
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((LocalDateTime) null));
   }
 
-  private static void _testW3C (@Nonnull final OffsetDateTime aSrc)
+  private static void _testW3C (@NonNull final OffsetDateTime aSrc)
   {
     // The default pattern has no milliseconds!
     final String s = PDTWebDateHelper.getAsStringW3C (aSrc);

@@ -16,9 +16,9 @@
  */
 package com.helger.typeconvert.collection;
 
-import com.helger.base.state.EChange;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.state.EChange;
 
 /**
  * Special mutable attribute container with a String key and a String value.
@@ -28,43 +28,43 @@ import jakarta.annotation.Nonnull;
  */
 public interface IStringMap extends IAttributeContainer <String, String>
 {
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final boolean bValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final boolean bValue)
   {
     return putIn (sName, Boolean.toString (bValue));
   }
 
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final int nValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final int nValue)
   {
     return putIn (sName, Integer.toString (nValue));
   }
 
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final long nValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final long nValue)
   {
     return putIn (sName, Long.toString (nValue));
   }
 
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final short nValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final short nValue)
   {
     return putIn (sName, Short.toString (nValue));
   }
 
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final double dValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final double dValue)
   {
     return putIn (sName, Double.toString (dValue));
   }
 
-  @Nonnull
-  default EChange putIn (@Nonnull final String sName, final float fValue)
+  @NonNull
+  default EChange putIn (@NonNull final String sName, final float fValue)
   {
     return putIn (sName, Float.toString (fValue));
   }
 
   // Change return type
-  @Nonnull
+  @NonNull
   IStringMap getClone ();
 }

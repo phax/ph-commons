@@ -21,12 +21,12 @@ import java.math.BigInteger;
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper class to safely print numbers in a formatted way.
@@ -53,8 +53,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (final double dValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormatted (final double dValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
 
@@ -72,8 +72,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (final int nValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormatted (final int nValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
 
@@ -91,8 +91,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (final long nValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormatted (final long nValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
 
@@ -110,8 +110,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (@Nonnull final BigInteger aValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormatted (@NonNull final BigInteger aValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
@@ -131,8 +131,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (@Nonnull final BigDecimal aValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormatted (@NonNull final BigDecimal aValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
@@ -152,10 +152,10 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormatted (@Nonnull final BigDecimal aValue,
+  @NonNull
+  public static String getFormatted (@NonNull final BigDecimal aValue,
                                      @Nonnegative final int nFractionDigits,
-                                     @Nonnull final Locale aDisplayLocale)
+                                     @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
@@ -176,8 +176,8 @@ public final class LocaleFormatter
    *        The locale to be used. May not be <code>null</code>.
    * @return The formatted string.
    */
-  @Nonnull
-  public static String getFormattedWithAllFractionDigits (@Nonnull final BigDecimal aValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormattedWithAllFractionDigits (@NonNull final BigDecimal aValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
@@ -199,8 +199,8 @@ public final class LocaleFormatter
    *        The locale to use.
    * @return The non-<code>null</code> formatted string.
    */
-  @Nonnull
-  public static String getFormattedPercent (final double dValue, @Nonnull final Locale aDisplayLocale)
+  @NonNull
+  public static String getFormattedPercent (final double dValue, @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
 
@@ -220,10 +220,10 @@ public final class LocaleFormatter
    *        The locale to use.
    * @return The non-<code>null</code> formatted string.
    */
-  @Nonnull
+  @NonNull
   public static String getFormattedPercent (final double dValue,
                                             @Nonnegative final int nFractionDigits,
-                                            @Nonnull final Locale aDisplayLocale)
+                                            @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
 

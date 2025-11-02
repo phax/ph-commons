@@ -18,14 +18,14 @@ package com.helger.http.header.specific;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.http.header.QValue;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handler for the request HTTP header field "Accept-Charset"
@@ -46,7 +46,7 @@ public final class AcceptCharsetHandler
   private AcceptCharsetHandler ()
   {}
 
-  @Nonnull
+  @NonNull
   public static AcceptCharsetList getAcceptCharsets (@Nullable final String sAcceptCharset)
   {
     final AcceptCharsetList ret = new AcceptCharsetList ();

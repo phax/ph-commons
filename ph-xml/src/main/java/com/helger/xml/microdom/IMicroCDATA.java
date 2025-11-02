@@ -16,7 +16,7 @@
  */
 package com.helger.xml.microdom;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a CDATA node.
@@ -28,6 +28,6 @@ public interface IMicroCDATA extends IMicroNode, IMicroDataAware
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroCDATA getClone ();
 }

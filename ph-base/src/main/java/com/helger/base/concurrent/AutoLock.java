@@ -18,9 +18,9 @@ package com.helger.base.concurrent;
 
 import java.util.concurrent.locks.Lock;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Small wrapper around {@link Lock} interface to be used in a
@@ -33,7 +33,7 @@ public class AutoLock implements AutoCloseable
 {
   private final Lock m_aLock;
 
-  public AutoLock (@Nonnull final Lock aLock)
+  public AutoLock (@NonNull final Lock aLock)
   {
     m_aLock = ValueEnforcer.notNull (aLock, "Lock");
     m_aLock.lock ();

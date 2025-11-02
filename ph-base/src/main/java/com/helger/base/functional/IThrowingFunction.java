@@ -18,7 +18,7 @@ package com.helger.base.functional;
 
 import java.util.Objects;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Represents a function that accepts one argument and produces a result and may
@@ -66,8 +66,8 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable>
    *         if before is null
    * @see #andThen(IThrowingFunction)
    */
-  @Nonnull
-  default <V> IThrowingFunction <V, R, EXTYPE> compose (@Nonnull final IThrowingFunction <? super V, ? extends T, ? extends EXTYPE> before)
+  @NonNull
+  default <V> IThrowingFunction <V, R, EXTYPE> compose (@NonNull final IThrowingFunction <? super V, ? extends T, ? extends EXTYPE> before)
   {
     Objects.requireNonNull (before);
     return x -> apply (before.apply (x));
@@ -90,8 +90,8 @@ public interface IThrowingFunction <T, R, EXTYPE extends Throwable>
    *         if after is null
    * @see #compose(IThrowingFunction)
    */
-  @Nonnull
-  default <V> IThrowingFunction <T, V, EXTYPE> andThen (@Nonnull final IThrowingFunction <? super R, ? extends V, ? extends EXTYPE> after)
+  @NonNull
+  default <V> IThrowingFunction <T, V, EXTYPE> andThen (@NonNull final IThrowingFunction <? super R, ? extends V, ? extends EXTYPE> after)
   {
     Objects.requireNonNull (after);
     return x -> after.apply (apply (x));

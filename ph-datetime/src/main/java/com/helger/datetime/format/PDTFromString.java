@@ -28,6 +28,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.datetime.rt.OffsetDate;
 import com.helger.datetime.xml.XMLOffsetDate;
 import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.datetime.xml.XMLOffsetTime;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Handles the conversion to date, time or date time objects from a {@link String}.
@@ -59,10 +58,10 @@ public final class PDTFromString
   private PDTFromString ()
   {}
 
-  private static void _onParseException (@Nonnull final String sDestType,
-                                         @Nonnull final String sValue,
+  private static void _onParseException (@NonNull final String sDestType,
+                                         @NonNull final String sValue,
                                          @Nullable final DateTimeFormatter aDF,
-                                         @Nonnull final DateTimeParseException ex)
+                                         @NonNull final DateTimeParseException ex)
   {
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Failed to parse " +
@@ -76,14 +75,14 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getZonedDateTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
   public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+                                                          @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -101,14 +100,14 @@ public final class PDTFromString
 
   @Nullable
   public static OffsetDateTime getOffsetDateTimeFromString (@Nullable final String sValue,
-                                                            @Nonnull final String sPattern)
+                                                            @NonNull final String sPattern)
   {
     return getOffsetDateTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
   public static OffsetDateTime getOffsetDateTimeFromString (@Nullable final String sValue,
-                                                            @Nonnull final DateTimeFormatter aDF)
+                                                            @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -126,14 +125,14 @@ public final class PDTFromString
 
   @Nullable
   public static XMLOffsetDateTime getXMLOffsetDateTimeFromString (@Nullable final String sValue,
-                                                                  @Nonnull final String sPattern)
+                                                                  @NonNull final String sPattern)
   {
     return getXMLOffsetDateTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
   public static XMLOffsetDateTime getXMLOffsetDateTimeFromString (@Nullable final String sValue,
-                                                                  @Nonnull final DateTimeFormatter aDF)
+                                                                  @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -159,7 +158,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  public static LocalDate getLocalDateFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -176,13 +175,13 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static LocalDate getLocalDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getLocalDateFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
-  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -199,14 +198,14 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getOffsetDateFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
   public static XMLOffsetDate getXMLOffsetDateFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+                                                          @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -223,7 +222,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static XMLOffsetDate getXMLOffsetDateFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static XMLOffsetDate getXMLOffsetDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getXMLOffsetDateFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
@@ -240,7 +239,7 @@ public final class PDTFromString
 
   @Nullable
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+                                                          @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -257,7 +256,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getLocalDateTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
@@ -272,13 +271,13 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getLocalTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
-  public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -304,7 +303,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nonnull final DateTimeFormatter aDF)
+  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -321,14 +320,14 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getOffsetTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }
 
   @Nullable
   public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue,
-                                                          @Nonnull final DateTimeFormatter aDF)
+                                                          @NonNull final DateTimeFormatter aDF)
   {
     ValueEnforcer.notNull (aDF, "DateTimeFormatter");
 
@@ -345,7 +344,7 @@ public final class PDTFromString
   }
 
   @Nullable
-  public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue, @Nonnull final String sPattern)
+  public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
   {
     return getXMLOffsetTimeFromString (sValue, PDTFormatter.getForPattern (sPattern, null));
   }

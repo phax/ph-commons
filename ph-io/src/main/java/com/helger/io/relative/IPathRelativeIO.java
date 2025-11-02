@@ -20,11 +20,11 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A read-only version of a path-relative IO component.
@@ -37,7 +37,7 @@ public interface IPathRelativeIO
    * @return The base path. May be a file path, a URL or whatever. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getBasePath ();
 
@@ -50,8 +50,8 @@ public interface IPathRelativeIO
    * @return The "absolute" {@link IReadableResource} and never
    *         <code>null</code>.
    */
-  @Nonnull
-  IReadableResource getResource (@Nonnull String sRelativePath);
+  @NonNull
+  IReadableResource getResource (@NonNull String sRelativePath);
 
   /**
    * Get the {@link InputStream} relative to the base path
@@ -61,7 +61,7 @@ public interface IPathRelativeIO
    * @return <code>null</code> if the path does not exist
    */
   @Nullable
-  default InputStream getInputStream (@Nonnull final String sRelativePath)
+  default InputStream getInputStream (@NonNull final String sRelativePath)
   {
     return getResource (sRelativePath).getInputStream ();
   }
@@ -76,7 +76,7 @@ public interface IPathRelativeIO
    * @return <code>null</code> if the path does not exist
    */
   @Nullable
-  default Reader getReader (@Nonnull final String sRelativePath, @Nonnull final Charset aCharset)
+  default Reader getReader (@NonNull final String sRelativePath, @NonNull final Charset aCharset)
   {
     return getResource (sRelativePath).getReader (aCharset);
   }

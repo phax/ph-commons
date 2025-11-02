@@ -16,6 +16,9 @@
  */
 package com.helger.settings;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -23,9 +26,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link ISettingsWithDefault} based on
@@ -38,12 +38,12 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
 {
   private final transient ISettings m_aDefaultSettings;
 
-  public SettingsWithDefault (@Nonnull final ISettings aDefaultSettings)
+  public SettingsWithDefault (@NonNull final ISettings aDefaultSettings)
   {
     this (aDefaultSettings.getName (), aDefaultSettings);
   }
 
-  public SettingsWithDefault (@Nonnull @Nonempty final String sName, @Nonnull final ISettings aDefaultSettings)
+  public SettingsWithDefault (@NonNull @Nonempty final String sName, @NonNull final ISettings aDefaultSettings)
   {
     super (sName);
     m_aDefaultSettings = ValueEnforcer.notNull (aDefaultSettings, "DefaultSettings");
@@ -81,13 +81,13 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return aValue;
   }
 
-  @Nonnull
+  @NonNull
   public final ISettings getDefaultSettings ()
   {
     return m_aDefaultSettings;
   }
 
-  @Nonnull
+  @NonNull
   public EChange setToDefault (@Nullable final String sFieldName)
   {
     final Object aDefaultValue = m_aDefaultSettings.getValue (sFieldName);
@@ -98,7 +98,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return putIn (sFieldName, aDefaultValue);
   }
 
-  @Nonnull
+  @NonNull
   public final EChange setAllToDefault ()
   {
     EChange eChange = EChange.UNCHANGED;

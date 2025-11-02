@@ -16,6 +16,9 @@
  */
 package com.helger.base.version;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
@@ -27,9 +30,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class represents a single version object. It supports 4 elements: major version (integer),
@@ -175,7 +175,7 @@ public class Version implements IComparable <Version>
    * @throws IllegalArgumentException
    *         if the parameter is null
    */
-  public int compareTo (@Nonnull final Version rhs)
+  public int compareTo (@NonNull final Version rhs)
   {
     ValueEnforcer.notNull (rhs, "Rhs");
 
@@ -225,7 +225,7 @@ public class Version implements IComparable <Version>
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     return getAsString (DEFAULT_PRINT_ZERO_ELEMENTS);
@@ -239,7 +239,7 @@ public class Version implements IComparable <Version>
    *        printed.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (final boolean bPrintZeroElements)
   {
     return getAsString (bPrintZeroElements, false);
@@ -256,7 +256,7 @@ public class Version implements IComparable <Version>
    *        value
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (final boolean bPrintZeroElements, final boolean bPrintAtLeastMajorAndMinor)
   {
     // Build from back to front
@@ -290,7 +290,7 @@ public class Version implements IComparable <Version>
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsStringMajorMinor ()
   {
@@ -303,7 +303,7 @@ public class Version implements IComparable <Version>
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getAsStringMajorMinorMicro ()
   {
@@ -344,9 +344,9 @@ public class Version implements IComparable <Version>
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static String [] _extSplit (@Nonnull final String s)
+  private static String [] _extSplit (@NonNull final String s)
   {
     final String [] aDotParts = StringHelper.getExplodedArray ('.', s, 2);
     if (aDotParts.length == 2)
@@ -387,7 +387,7 @@ public class Version implements IComparable <Version>
    * @throws IllegalArgumentException
    *         if any of the parameters is &lt; 0
    */
-  @Nonnull
+  @NonNull
   public static Version parse (@Nullable final String sVersionString)
   {
     final String s = sVersionString == null ? "" : sVersionString.trim ();
@@ -473,7 +473,7 @@ public class Version implements IComparable <Version>
    *         if any of the parameters is &lt; 0
    * @since v10.0.1
    */
-  @Nonnull
+  @NonNull
   public static Version parseDotOnly (@Nullable final String sVersionString)
   {
     final String s = sVersionString == null ? "" : sVersionString.trim ();

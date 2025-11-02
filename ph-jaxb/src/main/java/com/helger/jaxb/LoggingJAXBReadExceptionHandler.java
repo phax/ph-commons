@@ -16,6 +16,7 @@
  */
 package com.helger.jaxb;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.SAXParseException;
@@ -23,7 +24,6 @@ import org.xml.sax.SAXParseException;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.callback.exception.IExceptionCallback;
 
-import jakarta.annotation.Nonnull;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.UnmarshalException;
 
@@ -40,7 +40,7 @@ public class LoggingJAXBReadExceptionHandler implements IExceptionCallback <JAXB
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJAXBReadExceptionHandler.class);
 
-  public void onException (@Nonnull final JAXBException ex)
+  public void onException (@NonNull final JAXBException ex)
   {
     if (ex instanceof UnmarshalException)
     {

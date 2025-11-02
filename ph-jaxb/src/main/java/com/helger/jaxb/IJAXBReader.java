@@ -27,6 +27,8 @@ import javax.xml.stream.XMLStreamReader;
 import javax.xml.transform.Source;
 import javax.xml.transform.sax.SAXSource;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.XMLReader;
@@ -44,9 +46,6 @@ import com.helger.io.resource.IReadableResource;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.serialize.read.SAXReaderFactory;
 import com.helger.xml.serialize.read.SAXReaderSettings;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for reading JAXB documents from various sources.
@@ -73,7 +72,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final InputSource aInputSource)
+  default JAXBTYPE read (@NonNull final InputSource aInputSource)
   {
     // Initialize settings with defaults
     return read (new SAXReaderSettings (), aInputSource);
@@ -90,7 +89,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final SAXReaderSettings aSettings, @Nonnull final InputSource aInputSource)
+  default JAXBTYPE read (@NonNull final SAXReaderSettings aSettings, @NonNull final InputSource aInputSource)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aInputSource, "InputSource");
@@ -112,7 +111,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final InputStream aIS)
+  default JAXBTYPE read (@NonNull final InputStream aIS)
   {
     ValueEnforcer.notNull (aIS, "InputStream");
 
@@ -137,7 +136,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final Reader aReader)
+  default JAXBTYPE read (@NonNull final Reader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     return read (InputSourceFactory.create (aReader));
@@ -152,7 +151,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final File aFile)
+  default JAXBTYPE read (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -169,7 +168,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final Path aPath)
+  default JAXBTYPE read (@NonNull final Path aPath)
   {
     ValueEnforcer.notNull (aPath, "Path");
 
@@ -186,7 +185,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final IReadableResource aResource)
+  default JAXBTYPE read (@NonNull final IReadableResource aResource)
   {
     ValueEnforcer.notNull (aResource, "Resource");
 
@@ -203,7 +202,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final IHasInputStream aISP)
+  default JAXBTYPE read (@NonNull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "Resource");
 
@@ -220,7 +219,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final byte [] aXML)
+  default JAXBTYPE read (@NonNull final byte [] aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -242,7 +241,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @since 10.1.4
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default JAXBTYPE read (@NonNull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -259,7 +258,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final ByteBuffer aXML)
+  default JAXBTYPE read (@NonNull final ByteBuffer aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -276,7 +275,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final String sXML)
+  default JAXBTYPE read (@NonNull final String sXML)
   {
     ValueEnforcer.notNull (sXML, "XML");
     return read (new NonBlockingStringReader (sXML));
@@ -291,7 +290,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final char [] aXML)
+  default JAXBTYPE read (@NonNull final char [] aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
     return read (new NonBlockingStringReader (aXML));
@@ -305,7 +304,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  JAXBTYPE read (@Nonnull IJAXBUnmarshaller <JAXBTYPE> aHandler);
+  JAXBTYPE read (@NonNull IJAXBUnmarshaller <JAXBTYPE> aHandler);
 
   /**
    * Read a document from the specified source. The secure reading feature has <b>NO</b> affect when
@@ -316,7 +315,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final Source aSource)
+  default JAXBTYPE read (@NonNull final Source aSource)
   {
     ValueEnforcer.notNull (aSource, "Source");
 
@@ -333,7 +332,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final Node aNode)
+  default JAXBTYPE read (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aNode, aClass));
@@ -347,7 +346,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final XMLStreamReader aReader)
+  default JAXBTYPE read (@NonNull final XMLStreamReader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
@@ -361,7 +360,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@Nonnull final XMLEventReader aReader)
+  default JAXBTYPE read (@NonNull final XMLEventReader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
     return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));

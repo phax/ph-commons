@@ -16,7 +16,7 @@
  */
 package com.helger.base.state;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Small enum to identify whether we reached end of input or not.
@@ -39,7 +39,7 @@ public enum EEOI
     return this == NOT_EOI;
   }
 
-  @Nonnull
+  @NonNull
   public static EEOI valueOf (final boolean bEOI)
   {
     return bEOI ? EOI : NOT_EOI;

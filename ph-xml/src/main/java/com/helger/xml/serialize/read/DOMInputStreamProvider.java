@@ -18,14 +18,13 @@ package com.helger.xml.serialize.read;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
 import org.w3c.dom.Node;
 
 import com.helger.base.io.streamprovider.StringInputStreamProvider;
 import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriter;
 import com.helger.xml.serialize.write.XMLWriterSettings;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special input stream provider that takes an existing {@link Node} and
@@ -41,7 +40,7 @@ public class DOMInputStreamProvider extends StringInputStreamProvider
    * @param aNode
    *        The node to be streamed. May not be <code>null</code>.
    */
-  public DOMInputStreamProvider (@Nonnull final Node aNode)
+  public DOMInputStreamProvider (@NonNull final Node aNode)
   {
     this (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
@@ -54,7 +53,7 @@ public class DOMInputStreamProvider extends StringInputStreamProvider
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    */
-  public DOMInputStreamProvider (@Nonnull final Node aNode, @Nonnull final Charset aCharset)
+  public DOMInputStreamProvider (@NonNull final Node aNode, @NonNull final Charset aCharset)
   {
     this (aNode, new XMLWriterSettings ().setCharset (aCharset));
   }
@@ -67,7 +66,7 @@ public class DOMInputStreamProvider extends StringInputStreamProvider
    * @param aSettings
    *        The settings to use. May not be <code>null</code>.
    */
-  public DOMInputStreamProvider (@Nonnull final Node aNode, @Nonnull final IXMLWriterSettings aSettings)
+  public DOMInputStreamProvider (@NonNull final Node aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     super (XMLWriter.getNodeAsString (aNode, aSettings), aSettings.getCharset ());
   }

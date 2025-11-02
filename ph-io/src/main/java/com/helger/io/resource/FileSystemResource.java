@@ -26,6 +26,9 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -34,9 +37,6 @@ import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FilenameHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the
@@ -54,27 +54,27 @@ public class FileSystemResource implements IReadWriteResource
   // Status var
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public FileSystemResource (@Nonnull final URI aURI)
+  public FileSystemResource (@NonNull final URI aURI)
   {
     this (new File (aURI));
   }
 
-  public FileSystemResource (@Nonnull final String sParentPath, @Nonnull final String sChildPath)
+  public FileSystemResource (@NonNull final String sParentPath, @NonNull final String sChildPath)
   {
     this (new File (sParentPath, sChildPath));
   }
 
-  public FileSystemResource (@Nonnull final String sFilename)
+  public FileSystemResource (@NonNull final String sFilename)
   {
     this (new File (sFilename));
   }
 
-  public FileSystemResource (@Nonnull final File aParentFile, final String sChildPath)
+  public FileSystemResource (@NonNull final File aParentFile, final String sChildPath)
   {
     this (new File (aParentFile, sChildPath));
   }
 
-  public FileSystemResource (@Nonnull final File aFile)
+  public FileSystemResource (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -90,18 +90,18 @@ public class FileSystemResource implements IReadWriteResource
     m_sPath = m_aFile.getAbsolutePath ();
   }
 
-  public FileSystemResource (@Nonnull final Path aPath)
+  public FileSystemResource (@NonNull final Path aPath)
   {
     this (aPath.toFile ());
   }
 
-  @Nonnull
+  @NonNull
   public String getResourceID ()
   {
     return getPath ();
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_sPath;
@@ -115,7 +115,7 @@ public class FileSystemResource implements IReadWriteResource
 
   @Override
   @Nullable
-  public Reader getReader (@Nonnull final Charset aCharset)
+  public Reader getReader (@NonNull final Charset aCharset)
   {
     return FileHelper.getReader (m_aFile, aCharset);
   }
@@ -126,14 +126,14 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   @Nullable
-  public FileOutputStream getOutputStream (@Nonnull final EAppend eAppend)
+  public FileOutputStream getOutputStream (@NonNull final EAppend eAppend)
   {
     return FileHelper.getOutputStream (m_aFile, eAppend);
   }
 
   @Override
   @Nullable
-  public Writer getWriter (@Nonnull final Charset aCharset, @Nonnull final EAppend eAppend)
+  public Writer getWriter (@NonNull final Charset aCharset, @NonNull final EAppend eAppend)
   {
     return FileHelper.getWriter (m_aFile, eAppend, aCharset);
   }
@@ -154,20 +154,20 @@ public class FileSystemResource implements IReadWriteResource
     return FileHelper.getAsURL (m_aFile);
   }
 
-  @Nonnull
+  @NonNull
   public File getAsFile ()
   {
     return m_aFile;
   }
 
-  @Nonnull
-  public FileSystemResource getReadableCloneForPath (@Nonnull final String sPath)
+  @NonNull
+  public FileSystemResource getReadableCloneForPath (@NonNull final String sPath)
   {
     return new FileSystemResource (sPath);
   }
 
-  @Nonnull
-  public FileSystemResource getWritableCloneForPath (@Nonnull final String sPath)
+  @NonNull
+  public FileSystemResource getWritableCloneForPath (@NonNull final String sPath)
   {
     return new FileSystemResource (sPath);
   }

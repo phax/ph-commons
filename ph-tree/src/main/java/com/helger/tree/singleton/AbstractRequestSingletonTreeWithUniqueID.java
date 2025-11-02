@@ -16,10 +16,10 @@
  */
 package com.helger.tree.singleton;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.scope.singleton.AbstractRequestSingleton;
 import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Represents a global singleton tree with a unique ID. It basically is a
@@ -41,7 +41,7 @@ public abstract class AbstractRequestSingletonTreeWithUniqueID <KEYTYPE, VALUETY
   protected AbstractRequestSingletonTreeWithUniqueID ()
   {}
 
-  @Nonnull
+  @NonNull
   public final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ()
   {
     return m_aTree;

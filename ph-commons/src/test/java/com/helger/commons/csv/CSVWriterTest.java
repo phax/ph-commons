@@ -49,6 +49,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
@@ -56,8 +57,6 @@ import com.helger.base.io.stream.NonClosingWriter;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
 
 public final class CSVWriterTest
 {
@@ -72,7 +71,7 @@ public final class CSVWriterTest
    * @throws IOException
    *         if there are problems writing
    */
-  @Nonnull
+  @NonNull
   private static String _invokeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
@@ -84,7 +83,7 @@ public final class CSVWriterTest
     return aSW.getAsString ();
   }
 
-  @Nonnull
+  @NonNull
   private static String _invokeNoEscapeWriter (final String [] args) throws IOException
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();

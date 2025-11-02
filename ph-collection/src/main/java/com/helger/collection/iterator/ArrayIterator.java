@@ -19,6 +19,9 @@ package com.helger.collection.iterator;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -26,9 +29,6 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.base.IIterableIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is a small helper class for iterating over arrays.
@@ -43,7 +43,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
   private int m_nIndex = 0;
 
   @SafeVarargs
-  public ArrayIterator (@Nonnull final ELEMENTTYPE... aArray)
+  public ArrayIterator (@NonNull final ELEMENTTYPE... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -58,7 +58,7 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIterator (@Nonnull final ELEMENTTYPE [] aArray,
+  public ArrayIterator (@NonNull final ELEMENTTYPE [] aArray,
                         @Nonnegative final int nOfs,
                         @Nonnegative final int nLength)
   {

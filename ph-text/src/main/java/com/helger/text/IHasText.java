@@ -19,11 +19,11 @@ package com.helger.text;
 import java.util.Comparator;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.text.compare.ComparatorHelper;
 import com.helger.text.display.IHasDisplayText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Basic interface for object providing multilingual texts without arguments. See also
@@ -43,20 +43,20 @@ public interface IHasText
    * @return <code>null</code> if no text for the given locale was found.
    */
   @Nullable
-  String getText (@Nonnull Locale aContentLocale);
+  String getText (@NonNull Locale aContentLocale);
 
   /**
    * @return this as an instance of {@link IHasDisplayText}.
    * @since 8.5.2
    */
-  @Nonnull
+  @NonNull
   default IHasDisplayText getAsHasDisplayText ()
   {
     return this::getText;
   }
 
-  @Nonnull
-  static Comparator <IHasText> getComparatorCollating (@Nonnull final Locale aContentLocale,
+  @NonNull
+  static Comparator <IHasText> getComparatorCollating (@NonNull final Locale aContentLocale,
                                                        @Nullable final Locale aSortLocale)
   {
     return ComparatorHelper.getComparatorCollating (x -> x.getText (aContentLocale), aSortLocale);

@@ -18,14 +18,14 @@ package com.helger.url.data;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.url.param.URLParameter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only interface for accessing URL parts.
@@ -38,13 +38,13 @@ public interface IURLData
    * @return The path part of the URL (everything before the "?" and the "#", incl. the protocol).
    *         Never <code>null</code> but maybe empty (e.g. for "?x=y").
    */
-  @Nonnull
+  @NonNull
   String getPath ();
 
   /**
    * @return A copy of the list of all query string parameters. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <URLParameter> getAllParams ();
 

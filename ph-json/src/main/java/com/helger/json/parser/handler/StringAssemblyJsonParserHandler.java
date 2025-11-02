@@ -16,11 +16,11 @@
  */
 package com.helger.json.parser.handler;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.json.CJson;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This {@link IJsonParserHandler} builds the JSON string as a 1:1 copy of the
@@ -34,22 +34,22 @@ public class StringAssemblyJsonParserHandler implements IJsonParserHandler
 {
   private final StringBuilder m_aSB = new StringBuilder ();
 
-  public void onWhitespace (@Nonnull @Nonempty final String sWhitespace)
+  public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {
     m_aSB.append (sWhitespace);
   }
 
-  public void onComment (@Nonnull final String sComment)
+  public void onComment (@NonNull final String sComment)
   {
     m_aSB.append (CJson.COMMENT_START).append (sComment).append (CJson.COMMENT_END);
   }
 
-  public void onString (@Nonnull final String sString, @Nonnull final String sUnescaped)
+  public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {
     m_aSB.append (sString);
   }
 
-  public void onNumber (@Nonnull final String sNumber, @Nonnull final Number aNumber)
+  public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {
     m_aSB.append (sNumber);
   }
@@ -89,7 +89,7 @@ public class StringAssemblyJsonParserHandler implements IJsonParserHandler
     m_aSB.append (CJson.OBJECT_START);
   }
 
-  public void onObjectName (@Nonnull final String sString, @Nonnull final String sName)
+  public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {
     m_aSB.append (sString);
   }
@@ -109,7 +109,7 @@ public class StringAssemblyJsonParserHandler implements IJsonParserHandler
     m_aSB.append (CJson.OBJECT_END);
   }
 
-  @Nonnull
+  @NonNull
   public String getJsonString ()
   {
     return m_aSB.toString ();

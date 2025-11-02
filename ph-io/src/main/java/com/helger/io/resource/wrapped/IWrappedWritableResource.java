@@ -16,9 +16,9 @@
  */
 package com.helger.io.resource.wrapped;
 
-import com.helger.io.resource.IWritableResource;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.io.resource.IWritableResource;
 
 /**
  * Interface for writable resources that are "wrapped".
@@ -30,7 +30,7 @@ public interface IWrappedWritableResource extends IWritableResource
   /**
    * @return The wrapped resource. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IWritableResource getWrappedWritableResource ();
 
   default boolean isWriteMultiple ()

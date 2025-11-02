@@ -24,6 +24,9 @@ import java.util.PriorityQueue;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,33 +35,30 @@ import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @Immutable
 public final class QueueHelper
 {
   private QueueHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnegative final int nInitialCapacity)
   {
     return new PriorityQueue <> (nInitialCapacity);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue ()
   {
     return new PriorityQueue <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                           @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                           @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newQueue (0);
@@ -68,10 +68,10 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final SRCTYPE [] aArray,
-                                                                           @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                           @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
       return newQueue (0);
@@ -81,16 +81,16 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnull final ELEMENTTYPE aValue)
+  public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@NonNull final ELEMENTTYPE aValue)
   {
     final PriorityQueue <ELEMENTTYPE> ret = newQueue (1);
     ret.add (aValue);
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ELEMENTTYPE... aValues)
@@ -115,7 +115,7 @@ public final class QueueHelper
    * @return The non-<code>null</code> created {@link PriorityQueue}.
    * @see Collections#list(Enumeration)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
@@ -126,7 +126,7 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
   {
@@ -137,7 +137,7 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
   {
@@ -148,7 +148,7 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
@@ -157,10 +157,10 @@ public final class QueueHelper
     return new PriorityQueue <> (aCont);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                    @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+                                                                    @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newQueue (0);
@@ -169,7 +169,7 @@ public final class QueueHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {

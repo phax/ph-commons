@@ -18,11 +18,11 @@ package com.helger.xml.microdom;
 
 import javax.xml.namespace.QName;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Represents a single attribute within an element (=tag).
@@ -83,7 +83,7 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
    *
    * @return The name of the attribute and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   default String getAttributeName ()
   {
     return getAttributeQName ().getName ();
@@ -96,13 +96,13 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
    * @return The qualified name (namespace URI + local name) of the attribute
    *         and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IMicroQName getAttributeQName ();
 
   /**
    * @return The regular XML QName of this attribute using an empty prefix.
    */
-  @Nonnull
+  @NonNull
   default QName getAsXMLQName ()
   {
     return getAttributeQName ().getAsXMLQName ();
@@ -114,8 +114,8 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
    *        <code>null</code> but maybe empty.
    * @return The regular XML QName of this attribute using the provided prefix.
    */
-  @Nonnull
-  default QName getAsXMLQName (@Nonnull final String sPrefix)
+  @NonNull
+  default QName getAsXMLQName (@NonNull final String sPrefix)
   {
     return getAttributeQName ().getAsXMLQName (sPrefix);
   }
@@ -123,7 +123,7 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
   /**
    * @return The value associated with this attribute. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   String getAttributeValue ();
 
   /**
@@ -133,12 +133,12 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
    *        The new value to be set. May not be <code>null</code>.
    * @return {@link EChange}.
    */
-  @Nonnull
-  EChange setAttributeValue (@Nonnull String sAttributeValue);
+  @NonNull
+  EChange setAttributeValue (@NonNull String sAttributeValue);
 
   /**
    * {@inheritDoc}
    */
-  @Nonnull
+  @NonNull
   IMicroAttribute getClone ();
 }

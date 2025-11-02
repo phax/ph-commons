@@ -16,18 +16,18 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 public class MockNullableTestNonNull implements IMockNullableTest
 {
-  public void paramUndefined (@Nonnull final String s)
+  public void paramUndefined (@NonNull final String s)
   {}
 
-  public void paramNonnull (@Nonnull final String s)
+  public void paramNonnull (@NonNull final String s)
   {}
 
   // Eclipse complains here, because in the interface the parameter is declared
   // with @Nullable
-  public void paramNullable (@Nonnull final String s)
+  public void paramNullable (@NonNull final String s)
   {}
 }

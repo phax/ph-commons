@@ -42,6 +42,8 @@ import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.x509.BasicConstraints;
 import org.bouncycastle.asn1.x509.Extension;
 import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,9 +60,6 @@ import com.helger.base.string.StringHex;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some utility methods handling X.509 certificates.
@@ -92,7 +91,7 @@ public final class CertificateHelper
   private CertificateHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   public static CertificateFactory getX509CertificateFactory () throws CertificateException
   {
     return CertificateFactory.getInstance ("X.509");
@@ -107,8 +106,8 @@ public final class CertificateHelper
    * @return The String with the surrounding headers and footers
    * @since 11.1.1
    */
-  @Nonnull
-  public static String getCertificateWithPEMHeader (@Nonnull final String sCertString)
+  @NonNull
+  public static String getCertificateWithPEMHeader (@NonNull final String sCertString)
   {
     String sRealCertString = sCertString;
     // Check without newline in case there are blanks between the string the
@@ -188,7 +187,7 @@ public final class CertificateHelper
   @Nullable
   public static String getRFC1421CompliantString (@Nullable final String sCertificate,
                                                   final boolean bIncludePEMHeader,
-                                                  @Nonnull final String sLineSeparator)
+                                                  @NonNull final String sLineSeparator)
   {
     ValueEnforcer.notNull (sLineSeparator, "LineSeparator");
 
@@ -289,9 +288,9 @@ public final class CertificateHelper
     }
   }
 
-  @Nonnull
-  private static X509Certificate _str2cert (@Nonnull final String sCertString,
-                                            @Nonnull final CertificateFactory aCertificateFactory) throws CertificateException
+  @NonNull
+  private static X509Certificate _str2cert (@NonNull final String sCertString,
+                                            @NonNull final CertificateFactory aCertificateFactory) throws CertificateException
   {
     final String sRealCertString = getRFC1421CompliantString (sCertString, true);
 
@@ -432,9 +431,9 @@ public final class CertificateHelper
    *         {@link CertificateEncodingException}.
    * @since 10.0.0
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static byte [] getEncodedCertificate (@Nonnull final Certificate aCert)
+  public static byte [] getEncodedCertificate (@NonNull final Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     try
@@ -458,9 +457,9 @@ public final class CertificateHelper
    *         {@link CertificateEncodingException}.
    * @since 8.5.5
    */
-  @Nonnull
+  @NonNull
   @Nonempty
-  public static String getPEMEncodedCertificate (@Nonnull final Certificate aCert)
+  public static String getPEMEncodedCertificate (@NonNull final Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     try
@@ -483,7 +482,7 @@ public final class CertificateHelper
    * @return <code>true</code> if it is valid, <code>false</code> if not.
    * @since 9.3.8
    */
-  public static boolean isCertificateValidPerNow (@Nonnull final X509Certificate aCert)
+  public static boolean isCertificateValidPerNow (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     try
@@ -522,7 +521,7 @@ public final class CertificateHelper
    *        The certificate to check. May not be <code>null</code>.
    * @return <code>true</code> if it is a CA, <code>false</code> if not.
    */
-  public static boolean isCA (@Nonnull final X509Certificate aCert)
+  public static boolean isCA (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
@@ -569,10 +568,10 @@ public final class CertificateHelper
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    * @since 11.2.1
    */
-  @Nonnull
+  @NonNull
   public static ECertificateCheckResult checkCertificate (@Nullable final ICommonsSet <X500Principal> aIssuers,
                                                           @Nullable final RevocationCheckResultCache aRevocationCache,
-                                                          @Nonnull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
+                                                          @NonNull final AbstractRevocationCheckBuilder <?> aRevocationChecker)
   {
     ValueEnforcer.notNull (aRevocationChecker, "RevocationChecker");
 
@@ -674,7 +673,7 @@ public final class CertificateHelper
   }
 
   @Nullable
-  public static String getPrincipalTypeValue (@Nullable final String sPrincipal, @Nonnull final String sType)
+  public static String getPrincipalTypeValue (@Nullable final String sPrincipal, @NonNull final String sType)
                                                                                                               throws InvalidNameException
   {
     ValueEnforcer.notNull (sType, "Type");

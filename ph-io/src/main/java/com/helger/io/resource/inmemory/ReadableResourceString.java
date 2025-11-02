@@ -19,11 +19,11 @@ package com.helger.io.resource.inmemory;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.string.StringHelper;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * An in-memory {@link IReadableResource} based on a {@link String} which is converted to a byte
@@ -33,14 +33,14 @@ import jakarta.annotation.Nullable;
  */
 public class ReadableResourceString extends ReadableResourceByteArray
 {
-  public ReadableResourceString (@Nonnull final String sString, @Nonnull final Charset aCharset)
+  public ReadableResourceString (@NonNull final String sString, @NonNull final Charset aCharset)
   {
     this (null, sString, aCharset);
   }
 
   public ReadableResourceString (@Nullable final String sResourceID,
-                                 @Nonnull final String sString,
-                                 @Nonnull final Charset aCharset)
+                                 @NonNull final String sString,
+                                 @NonNull final Charset aCharset)
   {
     // No copy needed
     super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "string-" + sString.length () + "-" + sString.hashCode (),
@@ -48,14 +48,14 @@ public class ReadableResourceString extends ReadableResourceByteArray
            false);
   }
 
-  @Nonnull
-  public static ReadableResourceString utf8 (@Nonnull final String sString)
+  @NonNull
+  public static ReadableResourceString utf8 (@NonNull final String sString)
   {
     return new ReadableResourceString (sString, StandardCharsets.UTF_8);
   }
 
-  @Nonnull
-  public static ReadableResourceString utf8 (@Nullable final String sResourceID, @Nonnull final String sString)
+  @NonNull
+  public static ReadableResourceString utf8 (@Nullable final String sResourceID, @NonNull final String sString)
   {
     return new ReadableResourceString (sResourceID, sString, StandardCharsets.UTF_8);
   }

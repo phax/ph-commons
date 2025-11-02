@@ -18,11 +18,11 @@ package com.helger.base.codec;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single decoder of bytes.
@@ -97,7 +97,7 @@ public interface IByteArrayDecoder extends IDecoder <byte [], byte []>
    */
   @Nullable
   @ReturnsMutableCopy
-  default byte [] getDecoded (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  default byte [] getDecoded (@Nullable final String sEncoded, @NonNull final Charset aCharset)
   {
     if (sEncoded == null)
       return null;

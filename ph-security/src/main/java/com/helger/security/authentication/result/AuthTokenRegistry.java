@@ -18,6 +18,9 @@ package com.helger.security.authentication.result;
 
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.concurrent.SimpleReadWriteLock;
@@ -29,9 +32,6 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class manages all the currently available authentications tokens.
@@ -47,8 +47,8 @@ public final class AuthTokenRegistry
   private AuthTokenRegistry ()
   {}
 
-  @Nonnull
-  public static IAuthToken createToken (@Nonnull final IAuthIdentification aIdentification,
+  @NonNull
+  public static IAuthToken createToken (@NonNull final IAuthIdentification aIdentification,
                                         @Nonnegative final int nExpirationSeconds)
   {
     final AuthToken aToken = new AuthToken (aIdentification, nExpirationSeconds);
@@ -63,8 +63,8 @@ public final class AuthTokenRegistry
     return aToken;
   }
 
-  @Nonnull
-  public static ESuccess removeToken (@Nonnull final String sTokenID)
+  @NonNull
+  public static ESuccess removeToken (@NonNull final String sTokenID)
   {
     return RW_LOCK.writeLockedGet ( () -> {
       final AuthToken aToken = MAP.remove (sTokenID);
@@ -113,8 +113,8 @@ public final class AuthTokenRegistry
    *        The subject to query. May not be <code>null</code>.
    * @return The list and never <code>null</code>.
    */
-  @Nonnull
-  public static ICommonsList <IAuthToken> getAllTokensOfSubject (@Nonnull final IAuthSubject aSubject)
+  @NonNull
+  public static ICommonsList <IAuthToken> getAllTokensOfSubject (@NonNull final IAuthSubject aSubject)
   {
     ValueEnforcer.notNull (aSubject, "Subject");
 
@@ -131,7 +131,7 @@ public final class AuthTokenRegistry
    * @return The number of removed tokens. Always &ge; 0.
    */
   @Nonnegative
-  public static int removeAllTokensOfSubject (@Nonnull final IAuthSubject aSubject)
+  public static int removeAllTokensOfSubject (@NonNull final IAuthSubject aSubject)
   {
     ValueEnforcer.notNull (aSubject, "Subject");
 

@@ -16,7 +16,7 @@
  */
 package com.helger.base.compare;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * A special interface extension to the {@link Comparable} interface that adds some default
@@ -36,7 +36,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    *         if not.
    * @since 8.6.5
    */
-  default boolean isGT (@Nonnull final DATATYPE aOther)
+  default boolean isGT (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) > 0;
   }
@@ -48,7 +48,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    *         <code>false</code> if not.
    * @since 8.6.5
    */
-  default boolean isGE (@Nonnull final DATATYPE aOther)
+  default boolean isGE (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) >= 0;
   }
@@ -60,7 +60,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    *         if not.
    * @since 8.6.5
    */
-  default boolean isLT (@Nonnull final DATATYPE aOther)
+  default boolean isLT (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) < 0;
   }
@@ -72,7 +72,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    *         <code>false</code> if not.
    * @since 8.6.5
    */
-  default boolean isLE (@Nonnull final DATATYPE aOther)
+  default boolean isLE (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) <= 0;
   }
@@ -83,7 +83,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    * @return <code>true</code> if the values are equal, <code>false</code> otherwise.
    * @since 8.6.5
    */
-  default boolean isEQ (@Nonnull final DATATYPE aOther)
+  default boolean isEQ (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) == 0;
   }
@@ -94,7 +94,7 @@ public interface IComparable <DATATYPE> extends Comparable <DATATYPE>
    * @return <code>true</code> if the values are not equal, <code>false</code> otherwise.
    * @since 8.6.5
    */
-  default boolean isNE (@Nonnull final DATATYPE aOther)
+  default boolean isNE (@NonNull final DATATYPE aOther)
   {
     return compareTo (aOther) != 0;
   }

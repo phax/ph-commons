@@ -21,6 +21,8 @@ import java.time.format.DateTimeFormatterBuilder;
 import java.time.format.ResolverStyle;
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
@@ -28,8 +30,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class encapsulates a String pattern and a set of options to be used in
@@ -48,7 +48,7 @@ public final class DateTimeFormatterPattern
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
-  public DateTimeFormatterPattern (@Nonnull @Nonempty final String sPattern, @Nonnull final ResolverStyle eResolverStyle)
+  public DateTimeFormatterPattern (@NonNull @Nonempty final String sPattern, @NonNull final ResolverStyle eResolverStyle)
   {
     ValueEnforcer.notEmpty (sPattern, "RegEx");
     ValueEnforcer.notNull (eResolverStyle, "ResolverStyle");
@@ -62,7 +62,7 @@ public final class DateTimeFormatterPattern
   /**
    * @return The source pattern string. Neither <code>null</code> nor empty.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getPattern ()
   {
@@ -73,7 +73,7 @@ public final class DateTimeFormatterPattern
    * @return The resolver style as passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ResolverStyle getResolverStyle ()
   {
     return m_eResolverStyle;
@@ -82,7 +82,7 @@ public final class DateTimeFormatterPattern
   /**
    * @return The precompiled formatter. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public DateTimeFormatter getAsFormatter ()
   {
     return m_aFormatter;

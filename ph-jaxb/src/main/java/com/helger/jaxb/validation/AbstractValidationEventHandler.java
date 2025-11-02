@@ -18,6 +18,8 @@ package com.helger.jaxb.validation;
 
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Node;
@@ -34,8 +36,6 @@ import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.xml.serialize.write.XMLWriter;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 import jakarta.xml.bind.ValidationEvent;
 import jakarta.xml.bind.ValidationEventHandler;
 import jakarta.xml.bind.ValidationEventLocator;
@@ -64,7 +64,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
    *        The JAXB severity.
    * @return The matching {@link IErrorLevel}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @OverrideOnDemand
   protected IErrorLevel getErrorLevel (final int nSeverity)
   {
@@ -122,7 +122,7 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
    *        The occurred error.
    */
   @OverrideOnDemand
-  protected abstract void onEvent (@Nonnull final IError aError);
+  protected abstract void onEvent (@NonNull final IError aError);
 
   /**
    * Should the processing be continued? By default it is always continued, as
@@ -135,13 +135,13 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
    *         <code>false</code> if processing should stop.
    */
   @OverrideOnDemand
-  protected boolean continueProcessing (@Nonnull final IErrorLevel aErrorLevel)
+  protected boolean continueProcessing (@NonNull final IErrorLevel aErrorLevel)
   {
     // Continue as long as it is no fatal error. On Fatal error stop!
     return aErrorLevel.isLT (EErrorLevel.FATAL_ERROR);
   }
 
-  public final boolean handleEvent (@Nonnull final ValidationEvent aEvent)
+  public final boolean handleEvent (@NonNull final ValidationEvent aEvent)
   {
     final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());
     final SingleErrorBuilder aErrBuilder = SingleError.builder ().errorLevel (aErrorLevel);

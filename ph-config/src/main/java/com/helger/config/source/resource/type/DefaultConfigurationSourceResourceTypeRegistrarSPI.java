@@ -18,10 +18,10 @@ package com.helger.config.source.resource.type;
 
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * The default SPI implementation that registers the properties resource type
@@ -31,7 +31,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public class DefaultConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {
-  public void registerResourceType (@Nonnull final ConfigurationSourceResourceTypeRegistry aRegistry)
+  public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
     aRegistry.register (ConfigurationSourceProperties.FILE_EXT,
                         x -> new ConfigurationSourceProperties (x, StandardCharsets.UTF_8));

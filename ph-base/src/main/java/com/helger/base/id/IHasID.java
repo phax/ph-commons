@@ -18,7 +18,7 @@ package com.helger.base.id;
 
 import java.util.Comparator;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Base interface for all objects having an ID.
@@ -39,7 +39,7 @@ public interface IHasID <IDTYPE>
    */
   IDTYPE getID ();
 
-  @Nonnull
+  @NonNull
   static <T extends Comparable <? super T>> Comparator <IHasID <T>> getComparatorID ()
   {
     return Comparator.comparing (IHasID::getID);

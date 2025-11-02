@@ -19,10 +19,10 @@ package com.helger.base.io.iface;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-import com.helger.base.io.stream.StreamHelper;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.io.stream.StreamHelper;
 
 /**
  * A callback interface to retrieve {@link Reader} objects based on
@@ -41,7 +41,7 @@ public interface IHasInputStreamAndReader extends IHasInputStream
    * @return <code>null</code> if no input stream could be retrieved.
    */
   @Nullable
-  default Reader getReader (@Nonnull final Charset aCharset)
+  default Reader getReader (@NonNull final Charset aCharset)
   {
     return StreamHelper.createReader (getInputStream (), aCharset);
   }
@@ -56,7 +56,7 @@ public interface IHasInputStreamAndReader extends IHasInputStream
    * @since 9.1.8
    */
   @Nullable
-  default Reader getBufferedReader (@Nonnull final Charset aCharset)
+  default Reader getBufferedReader (@NonNull final Charset aCharset)
   {
     return StreamHelper.getBuffered (getReader (aCharset));
   }

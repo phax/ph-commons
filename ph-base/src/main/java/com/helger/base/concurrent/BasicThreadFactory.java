@@ -21,6 +21,8 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,9 +30,6 @@ import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ETriState;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * <p>
@@ -111,8 +110,8 @@ public class BasicThreadFactory implements ThreadFactory
       m_sNamePrefix = "factory-" + FACTORY_ID.getAndIncrement () + "-thread-";
     }
 
-    @Nonnull
-    public Thread newThread (@Nonnull final Runnable r)
+    @NonNull
+    public Thread newThread (@NonNull final Runnable r)
     {
       final Thread t = new Thread (m_aGroup, r, m_sNamePrefix + m_aThreadNumber.getAndIncrement (), 0);
       if (t.isDaemon ())
@@ -137,7 +136,7 @@ public class BasicThreadFactory implements ThreadFactory
    *        The handlers to be used. May not be <code>null</code>.
    * @since 9.0.0
    */
-  public static void setDefaultUncaughtExceptionHandler (@Nonnull final Thread.UncaughtExceptionHandler aHdl)
+  public static void setDefaultUncaughtExceptionHandler (final Thread.@NonNull UncaughtExceptionHandler aHdl)
   {
     ValueEnforcer.notNull (aHdl, "DefaultUncaughtExceptionHandler");
     s_aDefaultUncaughtExceptionHandler = aHdl;
@@ -146,8 +145,8 @@ public class BasicThreadFactory implements ThreadFactory
   /**
    * @return The default uncaught exception handler used. Never <code>null</code>.
    */
-  @Nonnull
-  public static Thread.UncaughtExceptionHandler getDefaultUncaughtExceptionHandler ()
+
+  public static Thread.@NonNull UncaughtExceptionHandler getDefaultUncaughtExceptionHandler ()
   {
     return s_aDefaultUncaughtExceptionHandler;
   }
@@ -177,7 +176,7 @@ public class BasicThreadFactory implements ThreadFactory
    * @param aBuilder
    *        the {@code Builder} object
    */
-  protected BasicThreadFactory (@Nonnull final BasicThreadFactoryBuilder aBuilder)
+  protected BasicThreadFactory (@NonNull final BasicThreadFactoryBuilder aBuilder)
   {
     m_aThreadCounter = new AtomicLong ();
 
@@ -199,7 +198,7 @@ public class BasicThreadFactory implements ThreadFactory
    *
    * @return the wrapped {@code ThreadFactory}
    */
-  @Nonnull
+  @NonNull
   public final ThreadFactory getWrappedFactory ()
   {
     return m_aWrappedFactory;
@@ -211,7 +210,7 @@ public class BasicThreadFactory implements ThreadFactory
    *
    * @return the naming pattern
    */
-  @Nonnull
+  @NonNull
   public final String getNamingPattern ()
   {
     return m_sNamingPattern;
@@ -224,7 +223,7 @@ public class BasicThreadFactory implements ThreadFactory
    *
    * @return the daemon flag
    */
-  @Nonnull
+  @NonNull
   public final ETriState getDaemon ()
   {
     return m_eDaemon;
@@ -274,7 +273,7 @@ public class BasicThreadFactory implements ThreadFactory
    *        the thread to be initialized
    */
   @OverrideOnDemand
-  protected void initializeThread (@Nonnull final Thread aThread)
+  protected void initializeThread (@NonNull final Thread aThread)
   {
     if (m_sNamingPattern != null)
     {
@@ -299,8 +298,8 @@ public class BasicThreadFactory implements ThreadFactory
    *        the {@code Runnable} to be executed by the new thread
    * @return the newly created thread
    */
-  @Nonnull
-  public Thread newThread (@Nonnull final Runnable aRunnable)
+  @NonNull
+  public Thread newThread (@NonNull final Runnable aRunnable)
   {
     ValueEnforcer.notNull (aRunnable, "Runnable");
     final Thread t = getWrappedFactory ().newThread (aRunnable);
@@ -320,7 +319,7 @@ public class BasicThreadFactory implements ThreadFactory
                                        .getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static BasicThreadFactoryBuilder builder ()
   {
     return new BasicThreadFactoryBuilder ();

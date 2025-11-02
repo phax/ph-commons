@@ -16,12 +16,12 @@
  */
 package com.helger.xml.microdom;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IMicroDocumentType} interface.
@@ -36,12 +36,12 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
   private final String m_sPublicID;
   private final String m_sSystemID;
 
-  public MicroDocumentType (@Nonnull final IMicroDocumentType rhs)
+  public MicroDocumentType (@NonNull final IMicroDocumentType rhs)
   {
     this (rhs.getQualifiedName (), rhs.getPublicID (), rhs.getSystemID ());
   }
 
-  public MicroDocumentType (@Nonnull final String sQualifiedName, @Nullable final String sPublicID, @Nullable final String sSystemID)
+  public MicroDocumentType (@NonNull final String sQualifiedName, @Nullable final String sPublicID, @Nullable final String sSystemID)
   {
     ValueEnforcer.notEmpty (sQualifiedName, "QualifiedName");
     // publicID is null if an inline DTD is contained
@@ -52,19 +52,19 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
     m_sSystemID = sSystemID;
   }
 
-  @Nonnull
+  @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.DOCUMENT_TYPE;
   }
 
-  @Nonnull
+  @NonNull
   public String getNodeName ()
   {
     return NODE_NAME;
   }
 
-  @Nonnull
+  @NonNull
   public String getQualifiedName ()
   {
     return m_sQualifiedName;
@@ -82,7 +82,7 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
     return m_sSystemID;
   }
 
-  @Nonnull
+  @NonNull
   public IMicroDocumentType getClone ()
   {
     return new MicroDocumentType (this);

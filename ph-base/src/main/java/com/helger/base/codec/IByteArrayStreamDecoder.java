@@ -19,13 +19,13 @@ package com.helger.base.codec;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Interface for a single decoder of bytes, based on streams.
@@ -47,7 +47,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *         in case something goes wrong
    * @since 9.0.0
    */
-  default void decode (@Nullable final byte [] aEncodedBuffer, @Nonnull @WillNotClose final OutputStream aOS)
+  default void decode (@Nullable final byte [] aEncodedBuffer, @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
       decode (null, 0, 0, aOS);
@@ -70,7 +70,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable byte [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @Nonnull @WillNotClose OutputStream aOS);
+  void decode (@Nullable byte [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
 
   /**
    * Decode a byte array.
@@ -101,7 +101,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final byte [] aEncodedBuffer, @Nonnull final Charset aCharset)
+  default String getDecodedAsString (@Nullable final byte [] aEncodedBuffer, @NonNull final Charset aCharset)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -113,7 +113,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
   default String getDecodedAsString (@Nullable final byte [] aEncodedBuffer,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
-                                     @Nonnull final Charset aCharset)
+                                     @NonNull final Charset aCharset)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -138,7 +138,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *         in case something goes wrong
    */
   @Nullable
-  default String getDecodedAsString (@Nullable final String sEncoded, @Nonnull final Charset aCharset)
+  default String getDecodedAsString (@Nullable final String sEncoded, @NonNull final Charset aCharset)
   {
     return getDecodedAsString (sEncoded, aCharset, aCharset);
   }
@@ -161,8 +161,8 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    */
   @Nullable
   default String getDecodedAsString (@Nullable final String sEncoded,
-                                     @Nonnull final Charset aEncodedCharset,
-                                     @Nonnull final Charset aDecodedCharset)
+                                     @NonNull final Charset aEncodedCharset,
+                                     @NonNull final Charset aDecodedCharset)
   {
     if (sEncoded == null)
       return null;

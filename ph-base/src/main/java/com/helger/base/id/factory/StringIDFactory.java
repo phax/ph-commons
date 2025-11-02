@@ -16,11 +16,11 @@
  */
 package com.helger.base.id.factory;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link IStringIDFactory} implementation that uses a constant prefix and an
@@ -33,24 +33,24 @@ public class StringIDFactory implements IStringIDFactory
   private final String m_sPrefix;
   private final IStringIDFactory m_aBaseFactory;
 
-  public StringIDFactory (@Nonnull final IStringIDFactory aBaseFactory)
+  public StringIDFactory (@NonNull final IStringIDFactory aBaseFactory)
   {
     this (GlobalIDFactory.DEFAULT_PREFIX, aBaseFactory);
   }
 
-  public StringIDFactory (@Nonnull final String sPrefix, @Nonnull final IStringIDFactory aBaseFactory)
+  public StringIDFactory (@NonNull final String sPrefix, @NonNull final IStringIDFactory aBaseFactory)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_aBaseFactory = ValueEnforcer.notNull (aBaseFactory, "BaseFactory");
   }
 
-  @Nonnull
+  @NonNull
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
-  @Nonnull
+  @NonNull
   public String getNewID ()
   {
     return m_sPrefix + m_aBaseFactory.getNewID ();

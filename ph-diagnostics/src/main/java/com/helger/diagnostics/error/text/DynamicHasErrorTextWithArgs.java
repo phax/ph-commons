@@ -18,6 +18,9 @@ package com.helger.diagnostics.error.text;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
@@ -28,9 +31,6 @@ import com.helger.base.text.TextFormatter;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.text.IHasText;
 import com.helger.text.display.IHasDisplayText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special implementation of {@link IHasErrorText} that encapsulates arguments to be put into the
@@ -46,19 +46,19 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
-  public DynamicHasErrorTextWithArgs (@Nonnull final IHasDisplayText aParentText,
-                                      @Nonnull @Nonempty final Object... aArgs)
+  public DynamicHasErrorTextWithArgs (@NonNull final IHasDisplayText aParentText,
+                                      @NonNull @Nonempty final Object... aArgs)
   {
     this (aParentText.getAsHasText (), aArgs);
   }
 
-  public DynamicHasErrorTextWithArgs (@Nonnull final IHasText aParentText, @Nonnull @Nonempty final Object... aArgs)
+  public DynamicHasErrorTextWithArgs (@NonNull final IHasText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
   }
 
-  @Nonnull
+  @NonNull
   public IHasText getParentText ()
   {
     return m_aParentText;
@@ -69,7 +69,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
    *
    * @return a copy of all arguments. Neither <code>null</code> nor empty-
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   @ReturnsMutableCopy
   public Object [] getAllArgs ()
@@ -78,7 +78,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   }
 
   @Nullable
-  public String getDisplayText (@Nonnull final Locale aContentLocale)
+  public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     final String sText = m_aParentText.getText (aContentLocale);
     return TextFormatter.getFormattedText (sText, m_aArgs);

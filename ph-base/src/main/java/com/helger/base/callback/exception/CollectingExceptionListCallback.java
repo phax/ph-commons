@@ -19,13 +19,13 @@ package com.helger.base.callback.exception;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A specific implementation of the {@link IExceptionCallback} interface, that stores all
@@ -57,7 +57,7 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
     return m_aExceptions.size ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public List <EXTYPE> getAllExceptions ()
   {

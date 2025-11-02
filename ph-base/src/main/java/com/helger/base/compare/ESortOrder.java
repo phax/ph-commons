@@ -16,10 +16,10 @@
  */
 package com.helger.base.compare;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * Defines possible sort orders. The default is {@link #ASCENDING} sorting.
@@ -52,7 +52,7 @@ public enum ESortOrder implements ISortOrderIndicator
     return m_nValue;
   }
 
-  @Nonnull
+  @NonNull
   public String getValueAsString ()
   {
     return Integer.toString (m_nValue);
@@ -69,13 +69,13 @@ public enum ESortOrder implements ISortOrderIndicator
    *
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public ESortOrder getAlternate ()
   {
     return isAscending () ? DESCENDING : ASCENDING;
   }
 
-  @Nonnull
+  @NonNull
   public static ESortOrder getFromValueOrDefault (final int nValue)
   {
     return getFromValue (nValue, DEFAULT);

@@ -18,11 +18,11 @@ package com.helger.security.keystore;
 
 import java.security.Provider;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.builder.IBuilder;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Builder class for class {@link KeyStoreAndKeyDescriptor}.
@@ -41,7 +41,7 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
   public KeyStoreAndKeyDescriptorBuilder ()
   {}
 
-  public KeyStoreAndKeyDescriptorBuilder (@Nonnull final KeyStoreAndKeyDescriptor aSrc)
+  public KeyStoreAndKeyDescriptorBuilder (@NonNull final KeyStoreAndKeyDescriptor aSrc)
   {
     type (aSrc.m_aType).path (aSrc.m_sPath)
                        .password (aSrc.m_aPassword)
@@ -50,61 +50,61 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
                        .keyPassword (aSrc.m_aKeyPassword);
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
     m_aType = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder path (@Nullable final String s)
   {
     m_sPath = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder password (@Nullable final char [] a)
   {
     m_aPassword = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder provider (@Nullable final Provider a)
   {
     m_aProvider = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyAlias (@Nullable final String s)
   {
     m_sKeyAlias = s;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyPassword (@Nullable final String s)
   {
     return keyPassword (s == null ? null : s.toCharArray ());
   }
 
-  @Nonnull
+  @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyPassword (@Nullable final char [] a)
   {
     m_aKeyPassword = a;
     return this;
   }
 
-  @Nonnull
+  @NonNull
   public KeyStoreAndKeyDescriptor build () throws IllegalStateException
   {
     if (m_aType == null)

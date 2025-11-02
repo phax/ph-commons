@@ -20,10 +20,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.GZIPInputStream;
 
-import com.helger.io.resource.IReadableResource;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.io.resource.IReadableResource;
 
 /**
  * A readable resource that is GZIP compressed.
@@ -32,7 +32,7 @@ import jakarta.annotation.Nullable;
  */
 public class GZIPReadableResource extends AbstractWrappedReadableResource
 {
-  public GZIPReadableResource (@Nonnull final IReadableResource aBaseResource)
+  public GZIPReadableResource (@NonNull final IReadableResource aBaseResource)
   {
     super (aBaseResource);
   }
@@ -53,8 +53,8 @@ public class GZIPReadableResource extends AbstractWrappedReadableResource
     }
   }
 
-  @Nonnull
-  public GZIPReadableResource getReadableCloneForPath (@Nonnull final String sPath)
+  @NonNull
+  public GZIPReadableResource getReadableCloneForPath (@NonNull final String sPath)
   {
     return new GZIPReadableResource (getWrappedReadableResource ().getReadableCloneForPath (sPath));
   }

@@ -21,11 +21,11 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.json.valueserializer.IJsonValueSerializer;
 import com.helger.typeconvert.trait.IGetterDirectTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single JSON value
@@ -65,7 +65,7 @@ public interface IJsonValue extends IJson, IGetterDirectTrait
   /**
    * @return The serializer to be used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   IJsonValueSerializer getValueSerializer ();
 
   /**
@@ -78,8 +78,8 @@ public interface IJsonValue extends IJson, IGetterDirectTrait
    * @throws IOException
    *         in case of a write error
    */
-  void appendAsJsonString (@Nonnull Writer aWriter) throws IOException;
+  void appendAsJsonString (@NonNull Writer aWriter) throws IOException;
 
-  @Nonnull
+  @NonNull
   IJsonValue getClone ();
 }

@@ -18,13 +18,13 @@ package com.helger.typeconvert.spi;
 
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.charset.CharsetHelper;
 import com.helger.typeconvert.ITypeConverterRegistrarSPI;
 import com.helger.typeconvert.ITypeConverterRegistry;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Register the locale specific type converter
@@ -35,7 +35,7 @@ import jakarta.annotation.Nonnull;
 @IsSPIImplementation
 public final class CharsetTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
-  public void registerTypeConverter (@Nonnull final ITypeConverterRegistry aRegistry)
+  public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Charset
     aRegistry.registerTypeConverter (Charset.class, String.class, Charset::name);

@@ -20,10 +20,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Interface for objects having a last modification date time.
@@ -70,7 +70,7 @@ public interface IHasLastModificationDateTime
    *         if not.
    * @since 9.1.6
    */
-  default boolean isLastModifiedAt (@Nonnull final LocalDateTime aDT)
+  default boolean isLastModifiedAt (@NonNull final LocalDateTime aDT)
   {
     ValueEnforcer.notNull (aDT, "LocalDateTime");
     return hasLastModificationDateTime () && getLastModificationDateTime ().compareTo (aDT) <= 0;

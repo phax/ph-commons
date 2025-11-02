@@ -19,12 +19,12 @@ package com.helger.base.io.nonblocking;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.StringReader}.<br>
@@ -42,12 +42,12 @@ public class NonBlockingStringReader extends Reader
   private int m_nNext;
   private int m_nMark;
 
-  public NonBlockingStringReader (@Nonnull final char [] aChars)
+  public NonBlockingStringReader (@NonNull final char [] aChars)
   {
     this (aChars, 0, aChars.length);
   }
 
-  public NonBlockingStringReader (@Nonnull final char [] aChars,
+  public NonBlockingStringReader (@NonNull final char [] aChars,
                                   @Nonnegative final int nOfs,
                                   @Nonnegative final int nLen)
   {
@@ -63,12 +63,12 @@ public class NonBlockingStringReader extends Reader
    * @param sStr
    *        String providing the character stream. May not be <code>null</code>.
    */
-  public NonBlockingStringReader (@Nonnull final String sStr)
+  public NonBlockingStringReader (@NonNull final String sStr)
   {
     this (sStr.toCharArray (), 0, sStr.length ());
   }
 
-  public NonBlockingStringReader (@Nonnull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public NonBlockingStringReader (@NonNull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (sStr.toCharArray (), nOfs, nLen);
   }
@@ -117,7 +117,7 @@ public class NonBlockingStringReader extends Reader
    */
   @Override
   @CheckForSigned
-  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public int read (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
                                                                                                           throws IOException
   {
     _ensureOpen ();

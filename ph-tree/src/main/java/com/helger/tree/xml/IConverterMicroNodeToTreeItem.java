@@ -16,10 +16,10 @@
  */
 package com.helger.tree.xml;
 
-import com.helger.xml.microdom.IMicroElement;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.xml.microdom.IMicroElement;
 
 /**
  * Interface used to convert a single micro element into a value used as tree
@@ -34,5 +34,5 @@ public interface IConverterMicroNodeToTreeItem <DATATYPE>
   @Nullable
   String getNamespaceURI ();
 
-  DATATYPE getAsDataValue (@Nonnull IMicroElement eDataElement);
+  DATATYPE getAsDataValue (@NonNull IMicroElement eDataElement);
 }

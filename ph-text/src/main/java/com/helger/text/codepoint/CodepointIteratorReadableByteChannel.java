@@ -23,18 +23,18 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.charset.Charset;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.WillClose;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * @author Apache Abdera
  */
 public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteBuffer
 {
-  @Nonnull
-  private static ByteBuffer _convert (@Nonnull @WillClose final ReadableByteChannel aChannel) throws IOException
+  @NonNull
+  private static ByteBuffer _convert (@NonNull @WillClose final ReadableByteChannel aChannel) throws IOException
   {
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
          final WritableByteChannel aOutChannel = Channels.newChannel (aBAOS))
@@ -49,8 +49,8 @@ public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteB
     }
   }
 
-  public CodepointIteratorReadableByteChannel (@Nonnull @WillClose final ReadableByteChannel aChannel,
-                                               @Nonnull final Charset aCharset) throws IOException
+  public CodepointIteratorReadableByteChannel (@NonNull @WillClose final ReadableByteChannel aChannel,
+                                               @NonNull final Charset aCharset) throws IOException
   {
     super (_convert (aChannel), aCharset);
   }

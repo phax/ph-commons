@@ -16,11 +16,11 @@
  */
 package com.helger.config.source.envvar;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Helper functions for environment variables
@@ -78,8 +78,8 @@ public final class EnvVarHelper
    *        {@link #REPLACEMENT_CHAR_TO_SKIP}.
    * @return The
    */
-  @Nonnull
-  public static String getUnifiedSysEnvName (@Nonnull @Nonempty final String sName, final char cReplacement)
+  @NonNull
+  public static String getUnifiedSysEnvName (@NonNull @Nonempty final String sName, final char cReplacement)
   {
     ValueEnforcer.notEmpty (sName, "Name");
 

@@ -21,16 +21,16 @@ import java.io.InputStream;
 import java.nio.channels.Channels;
 import java.nio.charset.Charset;
 
-import com.helger.annotation.WillClose;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.WillClose;
 
 /**
  * @author Apache Abdera
  */
 public class CodepointIteratorInputStream extends CodepointIteratorReadableByteChannel
 {
-  public CodepointIteratorInputStream (@Nonnull @WillClose final InputStream aIS, @Nonnull final Charset aCharset) throws IOException
+  public CodepointIteratorInputStream (@NonNull @WillClose final InputStream aIS, @NonNull final Charset aCharset) throws IOException
   {
     super (Channels.newChannel (aIS), aCharset);
   }

@@ -18,6 +18,9 @@ package com.helger.xml.microdom;
 
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,9 +35,6 @@ import com.helger.collection.hierarchy.IHasChildrenRecursive;
 import com.helger.collection.hierarchy.IHasChildrenSorted;
 import com.helger.collection.hierarchy.IHasParent;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is the base interface for all kind of nodes in the micro document object
@@ -52,7 +52,7 @@ public interface IMicroNode extends
    * @return Just an abstract name that depends on the implementing class. For
    *         {@link IMicroElement} nodes this is the same as the tag name.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   String getNodeName ();
 
@@ -83,7 +83,7 @@ public interface IMicroNode extends
    * @return <code>true</code> if any child matching the provided filter is
    *         contained, <code>false</code> otherwise.
    */
-  default boolean containsAnyChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  default boolean containsAnyChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
     if (hasNoChildren ())
@@ -160,11 +160,11 @@ public interface IMicroNode extends
    *
    * @return this
    */
-  @Nonnull
+  @NonNull
   IMicroNode detachFromParent ();
 
   @Nullable
-  IMicroElement findParentElement (@Nonnull Predicate <? super IMicroElement> aFilter);
+  IMicroElement findParentElement (@NonNull Predicate <? super IMicroElement> aFilter);
 
   @Nullable
   default IMicroElement getParentElementWithName (@Nullable final String sTagName)
@@ -295,7 +295,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aSuccessor);
+  <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable NODETYPE aChildNode, @NonNull IMicroNode aSuccessor);
 
   /**
    * Insert an existing node after a certain child node of this.
@@ -311,7 +311,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @Nullable
-  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode, @Nonnull IMicroNode aPredecessor);
+  <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable NODETYPE aChildNode, @NonNull IMicroNode aPredecessor);
 
   /**
    * Insert an existing node as a child at the specified index.
@@ -341,7 +341,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(boolean)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendText (final boolean bValue)
   {
     return addText (bValue);
@@ -357,7 +357,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    * @since 11.1.11
    */
-  @Nonnull
+  @NonNull
   default IMicroText addText (final boolean bValue)
   {
     return addText (Boolean.toString (bValue));
@@ -375,7 +375,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(int)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendText (final int nValue)
   {
     return addText (nValue);
@@ -391,7 +391,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    * @since 11.1.11
    */
-  @Nonnull
+  @NonNull
   default IMicroText addText (final int nValue)
   {
     return addText (Integer.toString (nValue));
@@ -409,7 +409,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(long)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendText (final long nValue)
   {
     return addText (nValue);
@@ -425,7 +425,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    * @since 11.1.11
    */
-  @Nonnull
+  @NonNull
   default IMicroText addText (final long nValue)
   {
     return addText (Long.toString (nValue));
@@ -442,7 +442,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(CharSequence)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendText (@Nullable final CharSequence sText)
   {
     return addText (sText);
@@ -457,7 +457,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroText addText (@Nullable final CharSequence sText)
   {
     return addChild (new MicroText (sText, false));
@@ -474,8 +474,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(char[])} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroText appendText (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroText appendText (@NonNull final char [] aChars)
   {
     return addText (aChars);
   }
@@ -489,8 +489,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroText addText (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroText addText (@NonNull final char [] aChars)
   {
     return addText (aChars, 0, aChars.length);
   }
@@ -511,8 +511,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addText(char[],int,int)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroText appendText (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroText appendText (@NonNull final char [] aChars,
                                  @Nonnegative final int nOfs,
                                  @Nonnegative final int nLen)
   {
@@ -533,8 +533,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroText addText (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  @NonNull
+  default IMicroText addText (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return addChild (new MicroText (aChars, nOfs, nLen, false));
   }
@@ -552,7 +552,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addTextWithConversion(Object)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendTextWithConversion (@Nullable final Object aValue)
   {
     return addTextWithConversion (aValue);
@@ -569,7 +569,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroText addTextWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
@@ -588,7 +588,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addIgnorableWhitespaceText(CharSequence)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroText appendIgnorableWhitespaceText (@Nullable final CharSequence sText)
   {
     return addIgnorableWhitespaceText (sText);
@@ -603,7 +603,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroText addIgnorableWhitespaceText (@Nullable final CharSequence sText)
   {
     return addChild (new MicroText (sText, true));
@@ -620,8 +620,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addIgnorableWhitespaceText(char[])} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroText appendIgnorableWhitespaceText (@NonNull final char [] aChars)
   {
     return addIgnorableWhitespaceText (aChars);
   }
@@ -635,8 +635,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroText addIgnorableWhitespaceText (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroText addIgnorableWhitespaceText (@NonNull final char [] aChars)
   {
     return addIgnorableWhitespaceText (aChars, 0, aChars.length);
   }
@@ -657,8 +657,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addIgnorableWhitespaceText(char[],int,int)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroText appendIgnorableWhitespaceText (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroText appendIgnorableWhitespaceText (@NonNull final char [] aChars,
                                                     @Nonnegative final int nOfs,
                                                     @Nonnegative final int nLen)
   {
@@ -679,8 +679,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroText addIgnorableWhitespaceText (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroText addIgnorableWhitespaceText (@NonNull final char [] aChars,
                                                  @Nonnegative final int nOfs,
                                                  @Nonnegative final int nLen)
   {
@@ -698,7 +698,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addCDATA(CharSequence)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroCDATA appendCDATA (@Nullable final CharSequence sText)
   {
     return addCDATA (sText);
@@ -713,7 +713,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroCDATA addCDATA (@Nullable final CharSequence sText)
   {
     return addChild (new MicroCDATA (sText));
@@ -730,8 +730,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addCDATA(char[])} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroCDATA appendCDATA (@NonNull final char [] aChars)
   {
     return addCDATA (aChars);
   }
@@ -745,8 +745,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroCDATA addCDATA (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroCDATA addCDATA (@NonNull final char [] aChars)
   {
     return addCDATA (aChars, 0, aChars.length);
   }
@@ -767,8 +767,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addCDATA(char[],int,int)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroCDATA appendCDATA (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroCDATA appendCDATA (@NonNull final char [] aChars,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
   {
@@ -789,8 +789,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroCDATA addCDATA (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  @NonNull
+  default IMicroCDATA addCDATA (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return addChild (new MicroCDATA (aChars, nOfs, nLen));
   }
@@ -808,7 +808,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addCDATAWithConversion(Object)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroCDATA appendCDATAWithConversion (@Nullable final Object aValue)
   {
     return addCDATAWithConversion (aValue);
@@ -825,7 +825,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroCDATA addCDATAWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
@@ -844,7 +844,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addComment(CharSequence)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroComment appendComment (@Nullable final CharSequence sText)
   {
     return addComment (sText);
@@ -859,7 +859,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroComment addComment (@Nullable final CharSequence sText)
   {
     return addChild (new MicroComment (sText));
@@ -876,8 +876,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addComment(char[])} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroComment appendComment (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroComment appendComment (@NonNull final char [] aChars)
   {
     return addComment (aChars);
   }
@@ -891,8 +891,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroComment addComment (@Nonnull final char [] aChars)
+  @NonNull
+  default IMicroComment addComment (@NonNull final char [] aChars)
   {
     return addComment (aChars, 0, aChars.length);
   }
@@ -913,8 +913,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addComment(char[],int,int)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroComment appendComment (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroComment appendComment (@NonNull final char [] aChars,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen)
   {
@@ -935,8 +935,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroComment addComment (@Nonnull final char [] aChars,
+  @NonNull
+  default IMicroComment addComment (@NonNull final char [] aChars,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -956,7 +956,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addCommentWithConversion(Object)} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroComment appendCommentWithConversion (@Nullable final Object aValue)
   {
     return addCommentWithConversion (aValue);
@@ -973,7 +973,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroComment addCommentWithConversion (@Nullable final Object aValue)
   {
     // Throws IlliegalArgumentException when no conversion is available
@@ -992,8 +992,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addEntityReference(String)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroEntityReference appendEntityReference (@Nonnull final String sName)
+  @NonNull
+  default IMicroEntityReference appendEntityReference (@NonNull final String sName)
   {
     return addEntityReference (sName);
   }
@@ -1007,8 +1007,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroEntityReference addEntityReference (@Nonnull final String sName)
+  @NonNull
+  default IMicroEntityReference addEntityReference (@NonNull final String sName)
   {
     return addChild (new MicroEntityReference (sName));
   }
@@ -1025,8 +1025,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addElement(String)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroElement appendElement (@Nonnull @Nonempty final String sTagName)
+  @NonNull
+  default IMicroElement appendElement (@NonNull @Nonempty final String sTagName)
   {
     return addElement (sTagName);
   }
@@ -1041,8 +1041,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroElement addElement (@Nonnull @Nonempty final String sTagName)
+  @NonNull
+  default IMicroElement addElement (@NonNull @Nonempty final String sTagName)
   {
     return addElementNS (null, sTagName);
   }
@@ -1061,8 +1061,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addElementNS(String,String)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroElement appendElement (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  @NonNull
+  default IMicroElement appendElement (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sTagName)
   {
     return addElementNS (sNamespaceURI, sTagName);
   }
@@ -1079,8 +1079,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroElement addElementNS (@Nullable final String sNamespaceURI, @Nonnull @Nonempty final String sTagName)
+  @NonNull
+  default IMicroElement addElementNS (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sTagName)
   {
     return addChild (new MicroElement (sNamespaceURI, sTagName));
   }
@@ -1098,8 +1098,8 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addProcessingInstruction(String,String)} instead
    */
   @Deprecated
-  @Nonnull
-  default IMicroProcessingInstruction appendProcessingInstruction (@Nonnull @Nonempty final String sTarget,
+  @NonNull
+  default IMicroProcessingInstruction appendProcessingInstruction (@NonNull @Nonempty final String sTarget,
                                                                    @Nullable final String sData)
   {
     return addProcessingInstruction (sTarget, sData);
@@ -1116,8 +1116,8 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
-  default IMicroProcessingInstruction addProcessingInstruction (@Nonnull @Nonempty final String sTarget,
+  @NonNull
+  default IMicroProcessingInstruction addProcessingInstruction (@NonNull @Nonempty final String sTarget,
                                                                 @Nullable final String sData)
   {
     return addChild (new MicroProcessingInstruction (sTarget, sData));
@@ -1132,7 +1132,7 @@ public interface IMicroNode extends
    * @deprecated Use {@link #addContainer()} instead
    */
   @Deprecated
-  @Nonnull
+  @NonNull
   default IMicroContainer appendContainer ()
   {
     return addContainer ();
@@ -1145,7 +1145,7 @@ public interface IMicroNode extends
    * @throws MicroException
    *         if this node cannot have children
    */
-  @Nonnull
+  @NonNull
   default IMicroContainer addContainer ()
   {
     return addChild (new MicroContainer ());
@@ -1159,8 +1159,8 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if the child was successfully removed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange removeChild (@Nonnull IMicroNode aChild);
+  @NonNull
+  EChange removeChild (@NonNull IMicroNode aChild);
 
   /**
    * Remove the child not at the specified index.
@@ -1170,7 +1170,7 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if the node was successfully removed,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange removeChildAtIndex (@Nonnegative int nIndex);
 
   /**
@@ -1179,7 +1179,7 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if at least one child was present, and was
    *         successfully removed, {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
+  @NonNull
   EChange removeAllChildren ();
 
   /**
@@ -1192,8 +1192,8 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if the child was successfully replaced,
    *         {@link EChange#UNCHANGED} if old child and new child are identical.
    */
-  @Nonnull
-  default EChange replaceChild (@Nonnull final IMicroNode aOldChild, @Nonnull final IMicroNode aNewChild)
+  @NonNull
+  default EChange replaceChild (@NonNull final IMicroNode aOldChild, @NonNull final IMicroNode aNewChild)
   {
     ValueEnforcer.notNull (aOldChild, "OldChild");
     ValueEnforcer.notNull (aNewChild, "NewChild");
@@ -1208,7 +1208,7 @@ public interface IMicroNode extends
   /**
    * @return The node type. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   EMicroNodeType getType ();
 
   /**
@@ -1276,8 +1276,8 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if the event listener was registered,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange registerEventTarget (@Nonnull EMicroEvent eEventType, @Nonnull IMicroEventTarget aTarget);
+  @NonNull
+  EChange registerEventTarget (@NonNull EMicroEvent eEventType, @NonNull IMicroEventTarget aTarget);
 
   /**
    * Unregister a specific MicroDOM event listener.
@@ -1289,13 +1289,13 @@ public interface IMicroNode extends
    * @return {@link EChange#CHANGED} if the event listener was unregistered,
    *         {@link EChange#UNCHANGED} otherwise.
    */
-  @Nonnull
-  EChange unregisterEventTarget (@Nonnull EMicroEvent eEventType, @Nonnull IMicroEventTarget aTarget);
+  @NonNull
+  EChange unregisterEventTarget (@NonNull EMicroEvent eEventType, @NonNull IMicroEventTarget aTarget);
 
   /**
    * @return A map of all registered event targets. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsMap <EMicroEvent, CallbackList <IMicroEventTarget>> getAllEventTargets ();
 
@@ -1306,7 +1306,7 @@ public interface IMicroNode extends
    *        The event to be queried. May be <code>null</code>.
    * @return A map of all registered event targets. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable EMicroEvent eEvent);
 

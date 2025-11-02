@@ -18,15 +18,15 @@ package com.helger.text.resourcebundle;
 
 import java.util.Locale;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The key of a resource bundle.
@@ -39,20 +39,20 @@ public class ResourceBundleKey
   private final String m_sBundleName;
   private final String m_sKey;
 
-  public ResourceBundleKey (@Nonnull @Nonempty final String sBundleName, @Nonnull @Nonempty @PropertyKey final String sKey)
+  public ResourceBundleKey (@NonNull @Nonempty final String sBundleName, @NonNull @Nonempty @PropertyKey final String sKey)
   {
     m_sBundleName = ValueEnforcer.notEmpty (sBundleName, "BundleName");
     m_sKey = ValueEnforcer.notEmpty (sKey, "Key");
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getBundleName ()
   {
     return m_sBundleName;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   @PropertyKey
   public String getKey ()
@@ -61,25 +61,25 @@ public class ResourceBundleKey
   }
 
   @Nullable
-  public String getString (@Nonnull final Locale aContentLocale)
+  public String getString (@NonNull final Locale aContentLocale)
   {
     return ResourceBundleHelper.getString (m_sBundleName, aContentLocale, m_sKey);
   }
 
   @Nullable
-  public String getString (@Nonnull final Locale aContentLocale, @Nonnull final ClassLoader aClassLoader)
+  public String getString (@NonNull final Locale aContentLocale, @NonNull final ClassLoader aClassLoader)
   {
     return ResourceBundleHelper.getString (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
   }
 
   @Nullable
-  public String getUtf8String (@Nonnull final Locale aContentLocale)
+  public String getUtf8String (@NonNull final Locale aContentLocale)
   {
     return ResourceBundleHelper.getUtf8String (m_sBundleName, aContentLocale, m_sKey);
   }
 
   @Nullable
-  public String getUtf8String (@Nonnull final Locale aContentLocale, @Nonnull final ClassLoader aClassLoader)
+  public String getUtf8String (@NonNull final Locale aContentLocale, @NonNull final ClassLoader aClassLoader)
   {
     return ResourceBundleHelper.getUtf8String (m_sBundleName, aContentLocale, m_sKey, aClassLoader);
   }

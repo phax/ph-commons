@@ -25,15 +25,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.WeakHashMap;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringReplace;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public class ClassHelper
@@ -54,8 +54,8 @@ public class ClassHelper
     _registerPrimitiveMapping (short.class, Short.class);
   }
 
-  private static void _registerPrimitiveMapping (@Nonnull final Class <?> aPrimitiveType,
-                                                 @Nonnull final Class <?> aPrimitiveWrapperType)
+  private static void _registerPrimitiveMapping (@NonNull final Class <?> aPrimitiveType,
+                                                 @NonNull final Class <?> aPrimitiveWrapperType)
   {
     PRIMITIVE_TO_WRAPPER.put (aPrimitiveType, aPrimitiveWrapperType);
     WRAPPER_TO_PRIMITIVE.put (aPrimitiveWrapperType, aPrimitiveType);
@@ -200,14 +200,14 @@ public class ClassHelper
     return WRAPPER_TO_PRIMITIVE.get (aClass);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Set <Class <?>> getAllPrimitiveClasses ()
   {
     return new HashSet <> (PRIMITIVE_TO_WRAPPER.keySet ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static Set <Class <?>> getAllPrimitiveWrapperClasses ()
   {
@@ -272,7 +272,7 @@ public class ClassHelper
    *        Second class. May not be <code>null</code>.
    * @return <code>true</code> if the classes are directly convertible.
    */
-  public static boolean areConvertibleClasses (@Nonnull final Class <?> aSrcClass, @Nonnull final Class <?> aDstClass)
+  public static boolean areConvertibleClasses (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     ValueEnforcer.notNull (aSrcClass, "SrcClass");
     ValueEnforcer.notNull (aDstClass, "DstClass");
@@ -415,7 +415,7 @@ public class ClassHelper
    *        The object who's class name is to be retrieved.
    * @return <code>&quot;null&quot;</code> for a <code>null</code> parameter
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getSafeClassName (@Nullable final Object aObject)
   {
@@ -497,8 +497,8 @@ public class ClassHelper
     return sPath == null ? null : StringReplace.replaceMultipleAsString (sPath, new char [] { '\\', '/' }, '.');
   }
 
-  @Nonnull
-  protected static String internalGetPathWithLeadingSlash (@Nonnull @Nonempty final String sPath)
+  @NonNull
+  protected static String internalGetPathWithLeadingSlash (@NonNull @Nonempty final String sPath)
   {
     return sPath.charAt (0) == '/' ? sPath : "/" + sPath;
   }
@@ -515,7 +515,7 @@ public class ClassHelper
    * @return <code>null</code> if the path could not be resolved using the specified class loader.
    */
   @Nullable
-  public static URL getResource (@Nonnull final Class <?> aClass, @Nonnull @Nonempty final String sPath)
+  public static URL getResource (@NonNull final Class <?> aClass, @NonNull @Nonempty final String sPath)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notEmpty (sPath, "Path");

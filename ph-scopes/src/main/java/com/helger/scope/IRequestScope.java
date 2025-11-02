@@ -16,10 +16,10 @@
  */
 package com.helger.scope;
 
-import com.helger.annotation.Nonempty;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonempty;
 
 /**
  * Interface for a single request scope object.
@@ -35,7 +35,7 @@ public interface IRequestScope extends IScope
    *         <code>null</code> if no session ID is present and no session should
    *         be created.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   default String getSessionID ()
   {

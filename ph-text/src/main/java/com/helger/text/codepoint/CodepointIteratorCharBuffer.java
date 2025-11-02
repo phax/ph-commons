@@ -18,7 +18,7 @@ package com.helger.text.codepoint;
 
 import java.nio.CharBuffer;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Apache Abdera
@@ -27,7 +27,7 @@ public class CodepointIteratorCharBuffer extends AbstractCodepointIterator
 {
   private final char [] m_aBuffer;
 
-  public CodepointIteratorCharBuffer (@Nonnull final CharBuffer aBuffer)
+  public CodepointIteratorCharBuffer (@NonNull final CharBuffer aBuffer)
   {
     super (aBuffer.position (), aBuffer.limit ());
     m_aBuffer = aBuffer.array ();

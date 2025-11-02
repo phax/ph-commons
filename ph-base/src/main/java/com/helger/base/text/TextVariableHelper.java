@@ -21,6 +21,8 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.UnaryOperator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,9 +33,6 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class provides an easy way to replace variables in a string with other values. The variables
@@ -56,11 +55,11 @@ public final class TextVariableHelper
   {}
 
   @CheckForSigned
-  private static int _nextCharConsiderMasking (@Nonnull final char [] aChars,
+  private static int _nextCharConsiderMasking (@NonNull final char [] aChars,
                                                @Nonnegative final int nOfs,
                                                @Nonnegative final int nLen,
                                                @Nonnegative final char cSearch,
-                                               @Nonnull final StringBuilder aTarget)
+                                               @NonNull final StringBuilder aTarget)
   {
     boolean bLastCharWasMask = false;
     for (int nIndex = nOfs; nIndex < nOfs + nLen; ++nIndex)
@@ -103,12 +102,12 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _nextCharConsiderMaskingBalancedBrackets (@Nonnull final char [] aChars,
+  private static int _nextCharConsiderMaskingBalancedBrackets (@NonNull final char [] aChars,
                                                                @Nonnegative final int nOfs,
                                                                @Nonnegative final int nLen,
                                                                @Nonnegative final char cClosingBracket,
                                                                @Nonnegative final char cLevelChar,
-                                                               @Nonnull final StringBuilder aTarget)
+                                                               @NonNull final StringBuilder aTarget)
   {
     boolean bLastCharWasMask = false;
     int nLevel = 0;
@@ -157,10 +156,10 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _findStartOfVarName (@Nonnull final char [] aChars,
+  private static int _findStartOfVarName (@NonNull final char [] aChars,
                                           @Nonnegative final int nOfs,
                                           @Nonnegative final int nLen,
-                                          @Nonnull final StringBuilder aSB)
+                                          @NonNull final StringBuilder aSB)
   {
     final int nStartOfs = nOfs;
     // Find start of variable with "$"
@@ -205,8 +204,8 @@ public final class TextVariableHelper
    *         variable names.
    */
   @VisibleForTesting
-  @Nonnull
-  static List <String> splitByVariables (@Nonnull @Nonempty final String sText)
+  @NonNull
+  static List <String> splitByVariables (@NonNull @Nonempty final String sText)
   {
     ValueEnforcer.notEmpty (sText, "Text");
 
@@ -296,8 +295,8 @@ public final class TextVariableHelper
    *        The callback to be invoked for each variable name. May not be <code>null</code>.
    */
   public static void forEachTextAndVariable (@Nullable final String sSourceString,
-                                             @Nonnull final Consumer <String> aTextFragmentHandler,
-                                             @Nonnull final Consumer <String> aVariableNameHandler)
+                                             @NonNull final Consumer <String> aTextFragmentHandler,
+                                             @NonNull final Consumer <String> aVariableNameHandler)
   {
     ValueEnforcer.notNull (aTextFragmentHandler, "TextFragmentHandler");
     ValueEnforcer.notNull (aVariableNameHandler, "VariableNameHandler");
@@ -335,7 +334,7 @@ public final class TextVariableHelper
 
   @Nullable
   public static String getWithReplacedVariables (@Nullable final String sSourceString,
-                                                 @Nonnull final UnaryOperator <String> aVariableProvider)
+                                                 @NonNull final UnaryOperator <String> aVariableProvider)
   {
     ValueEnforcer.notNull (aVariableProvider, "VariableProvider");
 

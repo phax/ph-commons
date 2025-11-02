@@ -16,6 +16,9 @@
  */
 package com.helger.config;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.ESuccess;
@@ -24,9 +27,6 @@ import com.helger.config.source.resource.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Read-only configuration
@@ -54,7 +54,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
    * @param aCallback
    *        The callback to invoked. May not be <code>null</code>.
    */
-  void forEachConfigurationValueProvider (@Nonnull IConfigurationValueProviderWithPriorityCallback aCallback);
+  void forEachConfigurationValueProvider (@NonNull IConfigurationValueProviderWithPriorityCallback aCallback);
 
   /**
    * Count all configuration sources that implement {@link IConfigurationSourceResource}
@@ -80,7 +80,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
    *         one failed.
    * @since 9.4.8
    */
-  @Nonnull
+  @NonNull
   default ESuccess reloadAllResourceBasedConfigurationValues ()
   {
     final Wrapper <ESuccess> ret = new Wrapper <> (ESuccess.SUCCESS);

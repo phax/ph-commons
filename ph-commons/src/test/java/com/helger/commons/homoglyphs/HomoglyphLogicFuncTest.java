@@ -18,14 +18,13 @@ package com.helger.commons.homoglyphs;
 
 import static org.junit.Assert.assertEquals;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.set.IntSet;
-
-import jakarta.annotation.Nonnull;
 
 public final class HomoglyphLogicFuncTest
 {
@@ -41,8 +40,8 @@ public final class HomoglyphLogicFuncTest
     assertEquals (expectedMatch, result.getMatch ());
   }
 
-  @Nonnull
-  private static IntSet _makeSet (@Nonnull final char... aChars)
+  @NonNull
+  private static IntSet _makeSet (@NonNull final char... aChars)
   {
     final IntSet s = new IntSet (aChars.length);
     for (final char c : aChars)

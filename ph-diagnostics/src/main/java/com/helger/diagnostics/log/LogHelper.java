@@ -18,6 +18,8 @@ package com.helger.diagnostics.log;
 
 import java.util.function.Supplier;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,9 +29,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Some utility functions to help integrating the {@link IErrorLevel} enum in
@@ -63,7 +62,7 @@ public final class LogHelper
   @FunctionalInterface
   public interface IFuncLogger
   {
-    void log (@Nonnull String sMsg, @Nullable Throwable t);
+    void log (@NonNull String sMsg, @Nullable Throwable t);
   }
 
   @PresentForCodeCoverage
@@ -72,8 +71,8 @@ public final class LogHelper
   private LogHelper ()
   {}
 
-  @Nonnull
-  public static IFuncIsLoggingEnabled getFuncIsEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
+  @NonNull
+  public static IFuncIsLoggingEnabled getFuncIsEnabled (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
@@ -87,8 +86,8 @@ public final class LogHelper
     return aLogger::isDebugEnabled;
   }
 
-  @Nonnull
-  public static IFuncLogger getFuncLogger (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
+  @NonNull
+  public static IFuncLogger getFuncLogger (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
@@ -114,7 +113,7 @@ public final class LogHelper
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IHasErrorLevel aErrorLevelProvider)
+  public static boolean isEnabled (@NonNull final Class <?> aLoggingClass, @NonNull final IHasErrorLevel aErrorLevelProvider)
   {
     return isEnabled (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel ());
   }
@@ -130,7 +129,7 @@ public final class LogHelper
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IHasErrorLevel aErrorLevelProvider)
+  public static boolean isEnabled (@NonNull final Logger aLogger, @NonNull final IHasErrorLevel aErrorLevelProvider)
   {
     return isEnabled (aLogger, aErrorLevelProvider.getErrorLevel ());
   }
@@ -147,7 +146,7 @@ public final class LogHelper
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel aErrorLevel)
+  public static boolean isEnabled (@NonNull final Class <?> aLoggingClass, @NonNull final IErrorLevel aErrorLevel)
   {
     return isEnabled (LoggerFactory.getLogger (aLoggingClass), aErrorLevel);
   }
@@ -163,7 +162,7 @@ public final class LogHelper
    * @return <code>true</code> if the respective log level is allowed,
    *         <code>false</code> if not
    */
-  public static boolean isEnabled (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel)
+  public static boolean isEnabled (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {
     return getFuncIsEnabled (aLogger, aErrorLevel).isEnabled ();
   }
@@ -178,9 +177,9 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final String sMsg)
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final String sMsg)
   {
     log (aLoggingClass, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
@@ -197,9 +196,9 @@ public final class LogHelper
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final String sMsg,
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final String sMsg,
                           @Nullable final Throwable t)
   {
     log (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel (), sMsg, t);
@@ -215,7 +214,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger, @Nonnull final IHasErrorLevel aErrorLevelProvider, @Nonnull final String sMsg)
+  public static void log (@NonNull final Logger aLogger, @NonNull final IHasErrorLevel aErrorLevelProvider, @NonNull final String sMsg)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
@@ -232,9 +231,9 @@ public final class LogHelper
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final String sMsg,
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final String sMsg,
                           @Nullable final Throwable t)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, t);
@@ -250,7 +249,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass, @Nonnull final IErrorLevel aErrorLevel, @Nonnull final String sMsg)
+  public static void log (@NonNull final Class <?> aLoggingClass, @NonNull final IErrorLevel aErrorLevel, @NonNull final String sMsg)
   {
     log (aLoggingClass, aErrorLevel, sMsg, null);
   }
@@ -267,9 +266,9 @@ public final class LogHelper
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final String sMsg,
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final String sMsg,
                           @Nullable final Throwable t)
   {
     log (LoggerFactory.getLogger (aLoggingClass), aErrorLevel, sMsg, t);
@@ -285,7 +284,7 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger, @Nonnull final IErrorLevel aErrorLevel, @Nonnull final String sMsg)
+  public static void log (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel, @NonNull final String sMsg)
   {
     log (aLogger, aErrorLevel, sMsg, null);
   }
@@ -302,9 +301,9 @@ public final class LogHelper
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final String sMsg,
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final String sMsg,
                           @Nullable final Throwable t)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
@@ -328,9 +327,9 @@ public final class LogHelper
    *        <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final Supplier <String> aMsgSupplier)
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final Supplier <String> aMsgSupplier)
   {
     log (aLoggingClass, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, null);
   }
@@ -350,9 +349,9 @@ public final class LogHelper
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final Supplier <String> aMsgSupplier,
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final Supplier <String> aMsgSupplier,
                           @Nullable final Throwable t)
   {
     log (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel (), aMsgSupplier, t);
@@ -371,9 +370,9 @@ public final class LogHelper
    *        <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final Supplier <String> aMsgSupplier)
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final Supplier <String> aMsgSupplier)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, null);
   }
@@ -393,9 +392,9 @@ public final class LogHelper
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IHasErrorLevel aErrorLevelProvider,
-                          @Nonnull final Supplier <String> aMsgSupplier,
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final Supplier <String> aMsgSupplier,
                           @Nullable final Throwable t)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), aMsgSupplier, t);
@@ -414,9 +413,9 @@ public final class LogHelper
    *        <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final Supplier <String> aMsgSupplier)
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final Supplier <String> aMsgSupplier)
   {
     log (aLoggingClass, aErrorLevel, aMsgSupplier, null);
   }
@@ -436,9 +435,9 @@ public final class LogHelper
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Class <?> aLoggingClass,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final Supplier <String> aMsgSupplier,
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final Supplier <String> aMsgSupplier,
                           @Nullable final Throwable t)
   {
     log (LoggerFactory.getLogger (aLoggingClass), aErrorLevel, aMsgSupplier, t);
@@ -457,9 +456,9 @@ public final class LogHelper
    *        <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final Supplier <String> aMsgSupplier)
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final Supplier <String> aMsgSupplier)
   {
     log (aLogger, aErrorLevel, aMsgSupplier, null);
   }
@@ -479,9 +478,9 @@ public final class LogHelper
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
    */
-  public static void log (@Nonnull final Logger aLogger,
-                          @Nonnull final IErrorLevel aErrorLevel,
-                          @Nonnull final Supplier <String> aMsgSupplier,
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final Supplier <String> aMsgSupplier,
                           @Nullable final Throwable t)
   {
     ValueEnforcer.notNull (aLogger, "Logger");

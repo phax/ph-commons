@@ -16,9 +16,9 @@
  */
 package com.helger.dao.wal;
 
-import com.helger.base.id.IHasID;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.base.id.IHasID;
 
 /**
  * Simple version of the DAO callback that calls {@link #onChange(IHasID)} for
@@ -36,7 +36,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * @param aItem
    *        The effected item. Never <code>null</code>.
    */
-  void onChange (@Nonnull final INTERFACETYPE aItem);
+  void onChange (@NonNull final INTERFACETYPE aItem);
 
   /**
    * Called after a new item was created.
@@ -45,7 +45,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        The newly created item. Never <code>null</code>.
    */
   @Override
-  default void onCreateItem (@Nonnull final INTERFACETYPE aNewItem)
+  default void onCreateItem (@NonNull final INTERFACETYPE aNewItem)
   {
     onChange (aNewItem);
   }
@@ -57,7 +57,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        The updated item. Never <code>null</code>.
    */
   @Override
-  default void onUpdateItem (@Nonnull final INTERFACETYPE aItem)
+  default void onUpdateItem (@NonNull final INTERFACETYPE aItem)
   {
     onChange (aItem);
   }
@@ -69,7 +69,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        The removed item. Never <code>null</code>.
    */
   @Override
-  default void onDeleteItem (@Nonnull final INTERFACETYPE aItem)
+  default void onDeleteItem (@NonNull final INTERFACETYPE aItem)
   {
     onChange (aItem);
   }
@@ -82,7 +82,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        The item that was marked as deleted. Never <code>null</code>.
    */
   @Override
-  default void onMarkItemDeleted (@Nonnull final INTERFACETYPE aItem)
+  default void onMarkItemDeleted (@NonNull final INTERFACETYPE aItem)
   {
     onChange (aItem);
   }
@@ -95,7 +95,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    *        <code>null</code>.
    */
   @Override
-  default void onMarkItemUndeleted (@Nonnull final INTERFACETYPE aItem)
+  default void onMarkItemUndeleted (@NonNull final INTERFACETYPE aItem)
   {
     onChange (aItem);
   }

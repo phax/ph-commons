@@ -16,11 +16,11 @@
  */
 package com.helger.base.system;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.base.CGlobal;
 import com.helger.base.string.StringParser;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Enum for representing the current processor architecture. Works only on Sun
@@ -88,7 +88,7 @@ public enum EProcessorArchitecture
    *        The number of bits to get the processor architecture from.
    * @return {@link #UNKNOWN} if no processor architecture could be determined.
    */
-  @Nonnull
+  @NonNull
   public static EProcessorArchitecture forBits (final int nBits)
   {
     for (final EProcessorArchitecture eArch : values ())
@@ -102,7 +102,7 @@ public enum EProcessorArchitecture
    *         no processor architecture could be determined, {@link #UNKNOWN} is
    *         returned and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EProcessorArchitecture getCurrentArchitecture ()
   {
     return INSTANCE;

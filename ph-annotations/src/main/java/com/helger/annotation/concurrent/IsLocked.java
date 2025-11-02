@@ -23,7 +23,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * For methods to be overridden, it indicates, that the method is locked. When using read-write
@@ -37,6 +37,6 @@ import jakarta.annotation.Nonnull;
 @Documented
 public @interface IsLocked
 {
-  @Nonnull
+  @NonNull
   ELockType value();
 }

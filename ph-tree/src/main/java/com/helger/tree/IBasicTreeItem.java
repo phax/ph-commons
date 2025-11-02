@@ -16,6 +16,9 @@
  */
 package com.helger.tree;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.state.ESuccess;
 import com.helger.base.trait.IGenericImplTrait;
@@ -23,9 +26,6 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.hierarchy.IHasChildrenRecursive;
 import com.helger.collection.hierarchy.IHasChildrenSorted;
 import com.helger.collection.hierarchy.IHasParent;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface both for normal tree items and tree items with ID.
@@ -99,7 +99,7 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
    * @return <code>true</code> if <code>this</code> is the same or a child of
    *         aParent.
    */
-  boolean isSameOrChildOf (@Nonnull ITEMTYPE aParent);
+  boolean isSameOrChildOf (@NonNull ITEMTYPE aParent);
 
   /**
    * Change the parent node of this node to another node (subordination).
@@ -109,6 +109,6 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
    *        root item, pass the owning tree's root item.
    * @return {@link ESuccess}
    */
-  @Nonnull
-  ESuccess changeParent (@Nonnull ITEMTYPE aNewParent);
+  @NonNull
+  ESuccess changeParent (@NonNull ITEMTYPE aNewParent);
 }

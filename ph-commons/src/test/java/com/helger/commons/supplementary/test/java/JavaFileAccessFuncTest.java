@@ -27,6 +27,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +44,6 @@ import com.helger.io.file.FileOperations;
 import com.helger.io.file.LoggingFileOperationCallback;
 import com.helger.io.file.SimpleFileIO;
 
-import jakarta.annotation.Nonnull;
-
 public final class JavaFileAccessFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaFileAccessFuncTest.class);
@@ -60,10 +59,10 @@ public final class JavaFileAccessFuncTest
     private final InputStream m_aIS;
     private final Charset m_aCharset;
 
-    private ProcessOutputListener (@Nonnull final String sWhat,
-                                   @Nonnull final String sCmd,
-                                   @Nonnull final InputStream aIS,
-                                   @Nonnull final Charset aCharset)
+    private ProcessOutputListener (@NonNull final String sWhat,
+                                   @NonNull final String sCmd,
+                                   @NonNull final InputStream aIS,
+                                   @NonNull final Charset aCharset)
     {
       super ("POL " + sWhat + " " + sCmd);
       m_sCmd = sCmd;
@@ -91,7 +90,7 @@ public final class JavaFileAccessFuncTest
     }
   }
 
-  private static void _exec (@Nonnull @Nonempty final String... aCmdArray) throws IOException, InterruptedException
+  private static void _exec (@NonNull @Nonempty final String... aCmdArray) throws IOException, InterruptedException
   {
     final Charset c = CharsetHelper.getCharsetFromName ("cp1252");
 

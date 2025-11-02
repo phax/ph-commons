@@ -20,11 +20,11 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in
@@ -99,7 +99,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     PRINTABLE_CHARS.set ('~');
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static BitSet getAllPrintableChars ()
   {
@@ -125,7 +125,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    * @param aCharset
    *        the default string charset to use.
    */
-  public RFC1522QCodec (@Nonnull final Charset aCharset)
+  public RFC1522QCodec (@NonNull final Charset aCharset)
   {
     super (aCharset);
   }

@@ -20,12 +20,12 @@ import java.io.File;
 import java.io.OutputStream;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.resource.IWritableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A wrapper around a writable resource for {@link OutputStream} manipulation .
@@ -36,24 +36,24 @@ public abstract class AbstractWrappedWritableResource implements IWrappedWritabl
 {
   private final IWritableResource m_aBaseResource;
 
-  protected AbstractWrappedWritableResource (@Nonnull final IWritableResource aBaseResource)
+  protected AbstractWrappedWritableResource (@NonNull final IWritableResource aBaseResource)
   {
     m_aBaseResource = ValueEnforcer.notNull (aBaseResource, "BaseResource");
   }
 
-  @Nonnull
+  @NonNull
   public IWritableResource getWrappedWritableResource ()
   {
     return m_aBaseResource;
   }
 
-  @Nonnull
+  @NonNull
   public String getResourceID ()
   {
     return m_aBaseResource.getResourceID ();
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_aBaseResource.getPath ();

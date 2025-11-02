@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,8 +35,6 @@ import com.helger.io.file.FileSystemIterator;
 import com.helger.json.IJson;
 import com.helger.json.parser.handler.StringAssemblyJsonParserHandler;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Test class for class {@link JsonReader}.
  *
@@ -45,7 +44,7 @@ public final class JsonReaderTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonReaderTest.class);
 
-  private static void _testReassemble (@Nonnull final String sJson)
+  private static void _testReassemble (@NonNull final String sJson)
   {
     final StringAssemblyJsonParserHandler aHandler = new StringAssemblyJsonParserHandler ();
     JsonReader.parseJson (new NonBlockingStringReader (sJson), aHandler);

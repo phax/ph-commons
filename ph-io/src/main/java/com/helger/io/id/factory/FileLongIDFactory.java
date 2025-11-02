@@ -20,6 +20,8 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
@@ -34,8 +36,6 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileIOError;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.SimpleFileIO;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * {@link File} based persisting {@link ILongIDFactory} implementation.
@@ -54,12 +54,12 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   private final File m_aPrevFile;
   private final File m_aNewFile;
 
-  public FileLongIDFactory (@Nonnull final File aFile)
+  public FileLongIDFactory (@NonNull final File aFile)
   {
     this (aFile, DEFAULT_RESERVE_COUNT);
   }
 
-  public FileLongIDFactory (@Nonnull final File aFile, @Nonnegative final int nReserveCount)
+  public FileLongIDFactory (@NonNull final File aFile, @Nonnegative final int nReserveCount)
   {
     super (nReserveCount);
     ValueEnforcer.notNull (aFile, "File");
@@ -91,7 +91,7 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
    * @return The {@link File} to write to, as provided in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final File getFile ()
   {
     return m_aFile;

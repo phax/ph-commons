@@ -20,10 +20,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.function.Function;
 
-import com.helger.annotation.style.ReturnsMutableCopy;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * A special {@link LinkedList} implementation based on {@link ICommonsList}.
@@ -49,7 +49,7 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
   }
 
   public <SRCTYPE> CommonsLinkedList (@Nullable final Iterable <? extends SRCTYPE> aValues,
-                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
@@ -66,20 +66,20 @@ public class CommonsLinkedList <ELEMENTTYPE> extends LinkedList <ELEMENTTYPE> im
   }
 
   public <SRCTYPE> CommonsLinkedList (@Nullable final SRCTYPE [] aValues,
-                                      @Nonnull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
+                                      @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <T> CommonsLinkedList <T> createInstance ()
   {
     return new CommonsLinkedList <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsLinkedList <ELEMENTTYPE> getClone ()
   {

@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UncheckedIOException;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,8 +32,6 @@ import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.FileOperationManager;
 import com.helger.io.file.FileSystemRecursiveIterator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Default implementation of {@link IFileRelativeIO}.
@@ -46,7 +45,7 @@ public class FileRelativeIO implements IFileRelativeIO
 
   private final File m_aBasePath;
 
-  public static void internalCheckAccessRights (@Nonnull final File aBasePath)
+  public static void internalCheckAccessRights (@NonNull final File aBasePath)
   {
     // Check read/write/execute
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -88,7 +87,7 @@ public class FileRelativeIO implements IFileRelativeIO
                  " milliseconds");
   }
 
-  public FileRelativeIO (@Nonnull final File aBasePath)
+  public FileRelativeIO (@NonNull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
     if (!aBasePath.isAbsolute ())
@@ -110,7 +109,7 @@ public class FileRelativeIO implements IFileRelativeIO
     }
   }
 
-  @Nonnull
+  @NonNull
   public File getBasePathFile ()
   {
     return m_aBasePath;
@@ -139,7 +138,7 @@ public class FileRelativeIO implements IFileRelativeIO
     return new ToStringGenerator (this).append ("BasePath", m_aBasePath).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static FileRelativeIO createForCurrentDir ()
   {
     return new FileRelativeIO (new File (".").getAbsoluteFile ());

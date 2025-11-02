@@ -25,6 +25,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,9 +40,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.url.CURL;
 import com.helger.base.url.URLHelper;
 import com.helger.base.wrapper.IMutableWrapper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Implementation of the {@link IReadableResource} interface for URL objects.
@@ -58,17 +57,17 @@ public class URLResource implements IReadableResource
 
   private final URL m_aURL;
 
-  public URLResource (@Nonnull final String sURL) throws MalformedURLException
+  public URLResource (@NonNull final String sURL) throws MalformedURLException
   {
     this (new URL (sURL));
   }
 
-  public URLResource (@Nonnull final URI aURI) throws MalformedURLException
+  public URLResource (@NonNull final URI aURI) throws MalformedURLException
   {
     this (aURI.toURL ());
   }
 
-  public URLResource (@Nonnull final URL aURL)
+  public URLResource (@NonNull final URL aURL)
   {
     m_aURL = ValueEnforcer.notNull (aURL, "URL");
   }
@@ -85,20 +84,20 @@ public class URLResource implements IReadableResource
     return URLHelper.getAsURL (sName, false) != null;
   }
 
-  @Nonnull
+  @NonNull
   public String getResourceID ()
   {
     return getPath ();
   }
 
-  @Nonnull
+  @NonNull
   public String getPath ()
   {
     return m_aURL.toExternalForm ();
   }
 
   @Nullable
-  public static InputStream getInputStream (@Nonnull final URL aURL)
+  public static InputStream getInputStream (@NonNull final URL aURL)
   {
     return URLHelper.getInputStream (aURL,
                                      DEFAULT_CONNECT_TIMEOUT,
@@ -179,7 +178,7 @@ public class URLResource implements IReadableResource
     }
   }
 
-  @Nonnull
+  @NonNull
   public URL getAsURL ()
   {
     return m_aURL;
@@ -197,14 +196,14 @@ public class URLResource implements IReadableResource
     return URLHelper.getAsFileOrNull (m_aURL);
   }
 
-  @Nonnull
-  public URLResource getReadableCloneForPath (@Nonnull final URL aURL)
+  @NonNull
+  public URLResource getReadableCloneForPath (@NonNull final URL aURL)
   {
     return new URLResource (aURL);
   }
 
-  @Nonnull
-  public URLResource getReadableCloneForPath (@Nonnull final String sPath)
+  @NonNull
+  public URLResource getReadableCloneForPath (@NonNull final String sPath)
   {
     try
     {

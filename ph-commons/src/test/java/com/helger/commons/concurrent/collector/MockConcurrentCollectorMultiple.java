@@ -18,7 +18,7 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.concurrent.BlockingQueue;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple <String>
 {
@@ -37,7 +37,7 @@ final class MockConcurrentCollectorMultiple extends ConcurrentCollectorMultiple 
     _init ();
   }
 
-  public MockConcurrentCollectorMultiple (@Nonnull final BlockingQueue <Object> aQueue)
+  public MockConcurrentCollectorMultiple (@NonNull final BlockingQueue <Object> aQueue)
   {
     super (aQueue);
     _init ();

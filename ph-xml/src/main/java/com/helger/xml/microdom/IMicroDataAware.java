@@ -16,10 +16,10 @@
  */
 package com.helger.xml.microdom;
 
-import com.helger.annotation.Nonnegative;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.annotation.Nonnegative;
 
 /**
  * This is a helper interface that allows for setting character data. This is
@@ -33,7 +33,7 @@ public interface IMicroDataAware
    * @return The currently assigned character data. May not be <code>null</code>
    *         .
    */
-  @Nonnull
+  @NonNull
   CharSequence getData ();
 
   /**
@@ -62,7 +62,7 @@ public interface IMicroDataAware
    * @param nLen
    *        Number of chars to take. Must be &ge; 0.
    */
-  void appendData (@Nonnull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
+  void appendData (@NonNull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Append a character to the string.
@@ -90,7 +90,7 @@ public interface IMicroDataAware
    * @param nLen
    *        Number of chars to take. Must be &ge; 0.
    */
-  void prependData (@Nonnull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
+  void prependData (@NonNull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Add a character to the beginning of the current data.

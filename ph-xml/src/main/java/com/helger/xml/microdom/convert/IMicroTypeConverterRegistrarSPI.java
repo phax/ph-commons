@@ -16,9 +16,9 @@
  */
 package com.helger.xml.microdom.convert;
 
-import com.helger.annotation.style.IsSPIInterface;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.style.IsSPIInterface;
 
 /**
  * SPI interface to be implemented by other modules wishing to register their
@@ -35,5 +35,5 @@ public interface IMicroTypeConverterRegistrarSPI
    * @param aRegistry
    *        The registry to register your converters. Never <code>null</code>.
    */
-  void registerMicroTypeConverter (@Nonnull IMicroTypeConverterRegistry aRegistry);
+  void registerMicroTypeConverter (@NonNull IMicroTypeConverterRegistry aRegistry);
 }

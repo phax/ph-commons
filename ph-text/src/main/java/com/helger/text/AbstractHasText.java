@@ -18,10 +18,10 @@ package com.helger.text;
 
 import java.util.Locale;
 
-import com.helger.base.enforce.ValueEnforcer;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * An abstract implementation of the {@link IHasText} that has default
@@ -42,7 +42,7 @@ public abstract class AbstractHasText implements IHasText
    * @return The locale to use. May be <code>null</code>.
    */
   @Nullable
-  protected Locale internalGetLocaleToUseWithFallback (@Nonnull final Locale aContentLocale)
+  protected Locale internalGetLocaleToUseWithFallback (@NonNull final Locale aContentLocale)
   {
     // No fallback handling vy default
     return aContentLocale;
@@ -57,10 +57,10 @@ public abstract class AbstractHasText implements IHasText
    * @return <code>null</code> if no such text present in the passed locale
    */
   @Nullable
-  protected abstract String internalGetText (@Nonnull Locale aContentLocale);
+  protected abstract String internalGetText (@NonNull Locale aContentLocale);
 
   @Nullable
-  public final String getText (@Nonnull final Locale aContentLocale)
+  public final String getText (@NonNull final Locale aContentLocale)
   {
     ValueEnforcer.notNull (aContentLocale, "ContentLocale");
 

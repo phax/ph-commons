@@ -17,7 +17,7 @@
  */
 package com.helger.cli;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Validates an Option string.
@@ -45,7 +45,7 @@ final class OptionValidator
    * @throws IllegalArgumentException
    *         if the Option is not valid.
    */
-  static void validateShortOption (@Nonnull final String sOpt)
+  static void validateShortOption (@NonNull final String sOpt)
   {
     // handle the single character opt
     if (sOpt.length () == 1)

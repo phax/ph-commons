@@ -19,13 +19,13 @@ package com.helger.collection.commons;
 import java.util.Arrays;
 import java.util.Iterator;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.base.EmptyIterator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class is used for simpler iteration over an Iterator via the new "for" syntax.
@@ -40,17 +40,17 @@ public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIt
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 
-  public CommonsIterableIterator (@Nonnull final ELEMENTTYPE [] aCont)
+  public CommonsIterableIterator (@NonNull final ELEMENTTYPE [] aCont)
   {
     this (Arrays.asList (aCont));
   }
 
-  public CommonsIterableIterator (@Nonnull final Iterable <ELEMENTTYPE> aCont)
+  public CommonsIterableIterator (@NonNull final Iterable <ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
-  public CommonsIterableIterator (@Nonnull final Iterator <ELEMENTTYPE> aIter)
+  public CommonsIterableIterator (@NonNull final Iterator <ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
@@ -73,7 +73,7 @@ public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIt
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public final Iterator <ELEMENTTYPE> iterator ()
   {
     return m_aIter;
@@ -85,7 +85,7 @@ public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIt
     return new ToStringGenerator (this).append ("Iter", m_aIter).getToString ();
   }
 
-  @Nonnull
+  @NonNull
   public static <ELEMENTTYPE> ICommonsIterableIterator <ELEMENTTYPE> createEmpty ()
   {
     return GenericReflection.uncheckedCast (EMPTY_ITERATOR);

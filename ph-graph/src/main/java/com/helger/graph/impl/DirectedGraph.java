@@ -18,6 +18,9 @@ package com.helger.graph.impl;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -39,9 +42,6 @@ import com.helger.graph.IMutableDirectedGraphRelation;
 import com.helger.graph.iterate.DirectedGraphIteratorForward;
 import com.helger.matrix.Matrix;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * A simple graph object that bidirectionally links graph nodes.
  *
@@ -55,7 +55,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   private final IMutableDirectedGraphObjectFactory m_aFactory;
   private ETriState m_eCacheHasCycles = ETriState.UNDEFINED;
 
-  public DirectedGraph (@Nullable final String sID, @Nonnull final IMutableDirectedGraphObjectFactory aFactory)
+  public DirectedGraph (@Nullable final String sID, @NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
     super (sID);
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -73,7 +73,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     m_eCacheHasCycles = ETriState.UNDEFINED;
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphNode createNode ()
   {
     // Create node with new ID
@@ -90,8 +90,8 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return addNode (aNode).isChanged () ? aNode : null;
   }
 
-  @Nonnull
-  public EChange addNode (@Nonnull final IMutableDirectedGraphNode aNode)
+  @NonNull
+  public EChange addNode (@NonNull final IMutableDirectedGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -107,8 +107,8 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange removeNode (@Nonnull final IMutableDirectedGraphNode aNode)
+  @NonNull
+  public EChange removeNode (@NonNull final IMutableDirectedGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -122,8 +122,8 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  public EChange removeNodeAndAllRelations (@Nonnull final IMutableDirectedGraphNode aNode)
+  @NonNull
+  public EChange removeNodeAndAllRelations (@NonNull final IMutableDirectedGraphNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
 
@@ -142,8 +142,8 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
-  @Nonnull
-  private IMutableDirectedGraphRelation _connect (@Nonnull final IMutableDirectedGraphRelation aRelation)
+  @NonNull
+  private IMutableDirectedGraphRelation _connect (@NonNull final IMutableDirectedGraphRelation aRelation)
   {
     aRelation.getFrom ().addOutgoingRelation (aRelation);
     aRelation.getTo ().addIncomingRelation (aRelation);
@@ -151,22 +151,22 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return aRelation;
   }
 
-  @Nonnull
-  public IMutableDirectedGraphRelation createRelation (@Nonnull final IMutableDirectedGraphNode aFrom,
-                                                       @Nonnull final IMutableDirectedGraphNode aTo)
+  @NonNull
+  public IMutableDirectedGraphRelation createRelation (@NonNull final IMutableDirectedGraphNode aFrom,
+                                                       @NonNull final IMutableDirectedGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphRelation createRelation (@Nullable final String sID,
-                                                       @Nonnull final IMutableDirectedGraphNode aFrom,
-                                                       @Nonnull final IMutableDirectedGraphNode aTo)
+                                                       @NonNull final IMutableDirectedGraphNode aFrom,
+                                                       @NonNull final IMutableDirectedGraphNode aTo)
   {
     return _connect (m_aFactory.createRelation (sID, aFrom, aTo));
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     EChange ret = EChange.UNCHANGED;
@@ -180,7 +180,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphNode getSingleStartNode ()
   {
     final ICommonsSet <IMutableDirectedGraphNode> aStartNodes = getAllStartNodes ();
@@ -191,14 +191,14 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionFind.getFirstElement (aStartNodes);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllStartNodes ()
   {
     return CollectionHelperExt.createSet (m_aNodes.values (), x -> !x.hasIncomingRelations ());
   }
 
-  @Nonnull
+  @NonNull
   public IMutableDirectedGraphNode getSingleEndNode ()
   {
     final ICommonsSet <IMutableDirectedGraphNode> aEndNodes = getAllEndNodes ();
@@ -209,14 +209,14 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionFind.getFirstElement (aEndNodes);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllEndNodes ()
   {
     return CollectionHelperExt.createSet (m_aNodes.values (), x -> !x.hasOutgoingRelations ());
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableDirectedGraphRelation> getAllRelations ()
   {
@@ -226,7 +226,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllRelationObjs ()
   {
@@ -236,7 +236,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
   {
@@ -246,7 +246,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
-  public void forEachRelation (@Nonnull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
+  public void forEachRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     for (final IMutableDirectedGraphNode aNode : m_aNodes.values ())
@@ -257,7 +257,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     }
   }
 
-  @Nonnull
+  @NonNull
   public EChange removeAll ()
   {
     if (m_aNodes.removeAll ().isUnchanged ())
@@ -307,7 +307,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return true;
   }
 
-  @Nonnull
+  @NonNull
   public Matrix createIncidenceMatrix ()
   {
     final int nNodeCount = getNodeCount ();

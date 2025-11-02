@@ -16,10 +16,10 @@
  */
 package com.helger.url.provider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.url.ISimpleURL;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Interface for a simple URL provider.<br>
@@ -34,6 +34,6 @@ public interface IHasSimpleURL
   /**
    * @return The simple URL to be used. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   ISimpleURL getSimpleURL ();
 }

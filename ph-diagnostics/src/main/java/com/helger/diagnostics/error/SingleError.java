@@ -18,6 +18,9 @@ package com.helger.diagnostics.error;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
@@ -30,9 +33,6 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.level.EErrorLevel;
 import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.text.IHasErrorText;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of {@link IError}.<br>
@@ -59,7 +59,7 @@ public class SingleError implements IError
    * @param aBuilder
    *        The builder to take the data from. May not be <code>null</code>.
    */
-  protected SingleError (@Nonnull final AbstractSingleErrorBuilder <?, ?> aBuilder)
+  protected SingleError (@NonNull final AbstractSingleErrorBuilder <?, ?> aBuilder)
   {
     this (aBuilder.m_aErrorDT,
           aBuilder.m_aErrorLevel,
@@ -90,7 +90,7 @@ public class SingleError implements IError
    * @since 10.1.7
    */
   public SingleError (@Nullable final LocalDateTime aErrorDT,
-                      @Nonnull final IErrorLevel aErrorLevel,
+                      @NonNull final IErrorLevel aErrorLevel,
                       @Nullable final String sErrorID,
                       @Nullable final String sErrorFieldName,
                       @Nullable final ILocation aErrorLocation,
@@ -112,7 +112,7 @@ public class SingleError implements IError
     return m_aErrorDT;
   }
 
-  @Nonnull
+  @NonNull
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
@@ -133,7 +133,7 @@ public class SingleError implements IError
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public ILocation getErrorLocation ()
   {
     return m_aErrorLocation;
@@ -204,7 +204,7 @@ public class SingleError implements IError
    *        The Throwable to append. May be <code>null</code>.
    */
   @OverrideOnDemand
-  protected void hashCodeLinkedException (@Nonnull final HashCodeGenerator aHCG, @Nullable final Throwable t)
+  protected void hashCodeLinkedException (@NonNull final HashCodeGenerator aHCG, @Nullable final Throwable t)
   {
     if (t == null)
       aHCG.append (HashCodeCalculator.HASHCODE_NULL);
@@ -243,7 +243,7 @@ public class SingleError implements IError
    *
    * @return A new Error builder. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builder ()
   {
     return new SingleErrorBuilder ();
@@ -257,8 +257,8 @@ public class SingleError implements IError
    * @return A new Error builder containing all the data from the provided error. Never
    *         <code>null</code>.
    */
-  @Nonnull
-  public static SingleErrorBuilder builder (@Nonnull final IError aError)
+  @NonNull
+  public static SingleErrorBuilder builder (@NonNull final IError aError)
   {
     return new SingleErrorBuilder (aError);
   }
@@ -269,7 +269,7 @@ public class SingleError implements IError
    * @return A new Error builder with default error level {@link EErrorLevel#SUCCESS}. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builderSuccess ()
   {
     return builder ().errorLevel (EErrorLevel.SUCCESS);
@@ -281,7 +281,7 @@ public class SingleError implements IError
    * @return A new Error builder with default error level {@link EErrorLevel#INFO}. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builderInfo ()
   {
     return builder ().errorLevel (EErrorLevel.INFO);
@@ -293,7 +293,7 @@ public class SingleError implements IError
    * @return A new Error builder with default error level {@link EErrorLevel#WARN}. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builderWarn ()
   {
     return builder ().errorLevel (EErrorLevel.WARN);
@@ -305,7 +305,7 @@ public class SingleError implements IError
    * @return A new Error builder with default error level {@link EErrorLevel#ERROR}. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builderError ()
   {
     return builder ().errorLevel (EErrorLevel.ERROR);
@@ -317,7 +317,7 @@ public class SingleError implements IError
    * @return A new Error builder with default error level {@link EErrorLevel#FATAL_ERROR}. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static SingleErrorBuilder builderFatalError ()
   {
     return builder ().errorLevel (EErrorLevel.FATAL_ERROR);

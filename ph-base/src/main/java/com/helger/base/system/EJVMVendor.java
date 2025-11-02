@@ -16,7 +16,7 @@
  */
 package com.helger.base.system;
 
-import jakarta.annotation.Nonnull;
+import org.jspecify.annotations.NonNull;
 
 /**
  * Determine the current JVM (Java Virtual Machine) vendor.
@@ -143,7 +143,7 @@ public enum EJVMVendor
    * @return The current JVM vendor. If the vendor could not be determined,
    *         {@link #UNKNOWN} is returned and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static EJVMVendor getCurrentVendor ()
   {
     return INSTANCE;

@@ -19,6 +19,9 @@ package com.helger.tree.xml;
 import java.util.Comparator;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.id.IHasID;
@@ -37,9 +40,6 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.util.ChildrenProviderElementWithName;
 import com.helger.xml.microdom.util.MicroVisitor;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Convert a tree to XML
@@ -74,18 +74,18 @@ public final class TreeXMLConverter
    *        The main data converter that converts the tree item values into XML
    * @return The created document.
    */
-  @Nonnull
-  public static <DATATYPE, ITEMTYPE extends ITreeItemWithID <String, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithStringIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                                  @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aConverter)
+  @NonNull
+  public static <DATATYPE, ITEMTYPE extends ITreeItemWithID <String, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithStringIDAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                                  @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aConverter)
   {
     return getTreeWithIDAsXML (aTree, IHasID.getComparatorID (), x -> x, aConverter);
   }
 
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillTreeWithIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                              @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
-                                                                                                                              @Nonnull final Function <? super KEYTYPE, ? extends String> aIDConverter,
-                                                                                                                              @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter,
-                                                                                                                              @Nonnull final IMicroElement aElement)
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillTreeWithIDAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                              @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
+                                                                                                                              @NonNull final Function <? super KEYTYPE, ? extends String> aIDConverter,
+                                                                                                                              @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter,
+                                                                                                                              @NonNull final IMicroElement aElement)
   {
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <> ();
@@ -95,7 +95,7 @@ public final class TreeXMLConverter
                            new DefaultHierarchyVisitorCallback <> ()
                            {
                              @Override
-                             @Nonnull
+                             @NonNull
                              public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
                              {
                                if (aItem != null)
@@ -115,7 +115,7 @@ public final class TreeXMLConverter
                              }
 
                              @Override
-                             @Nonnull
+                             @NonNull
                              public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
                              {
                                if (aItem != null)
@@ -125,11 +125,11 @@ public final class TreeXMLConverter
                            });
   }
 
-  @Nonnull
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithIDAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                                                      @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
-                                                                                                                                      @Nonnull final Function <? super KEYTYPE, ? extends String> aIDConverter,
-                                                                                                                                      @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
+  @NonNull
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithIDAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                                                      @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
+                                                                                                                                      @NonNull final Function <? super KEYTYPE, ? extends String> aIDConverter,
+                                                                                                                                      @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
   {
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, ELEMENT_ROOT);
@@ -137,10 +137,10 @@ public final class TreeXMLConverter
     return eRoot;
   }
 
-  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void fillTreeAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
-                                                                                                @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter,
-                                                                                                @Nonnull final IMicroElement aElement)
+  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void fillTreeAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
+                                                                                                @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter,
+                                                                                                @NonNull final IMicroElement aElement)
   {
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final NonBlockingStack <IMicroElement> aParents = new NonBlockingStack <> ();
@@ -150,7 +150,7 @@ public final class TreeXMLConverter
                            new DefaultHierarchyVisitorCallback <> ()
                            {
                              @Override
-                             @Nonnull
+                             @NonNull
                              public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final ITEMTYPE aItem)
                              {
                                if (aItem != null)
@@ -169,7 +169,7 @@ public final class TreeXMLConverter
                              }
 
                              @Override
-                             @Nonnull
+                             @NonNull
                              public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final ITEMTYPE aItem)
                              {
                                if (aItem != null)
@@ -179,10 +179,10 @@ public final class TreeXMLConverter
                            });
   }
 
-  @Nonnull
-  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> IMicroElement getTreeAsXML (@Nonnull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
-                                                                                                        @Nonnull final Comparator <? super ITEMTYPE> aItemComparator,
-                                                                                                        @Nonnull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
+  @NonNull
+  public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> IMicroElement getTreeAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
+                                                                                                        @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
+                                                                                                        @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter)
   {
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final IMicroElement eRoot = new MicroElement (sNamespaceURI, ELEMENT_ROOT);
@@ -190,10 +190,10 @@ public final class TreeXMLConverter
     return eRoot;
   }
 
-  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillXMLAsTreeWithID (@Nonnull final IMicroElement aElement,
-                                                                                                                              @Nonnull final Function <? super String, ? extends KEYTYPE> aIDConverter,
-                                                                                                                              @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter,
-                                                                                                                              @Nonnull final BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> aTree)
+  public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillXMLAsTreeWithID (@NonNull final IMicroElement aElement,
+                                                                                                                              @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,
+                                                                                                                              @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter,
+                                                                                                                              @NonNull final BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> aTree)
   {
     final String sNamespaceURI = aDataConverter.getNamespaceURI ();
     final NonBlockingStack <ITEMTYPE> aParents = new NonBlockingStack <> ();
@@ -203,7 +203,7 @@ public final class TreeXMLConverter
                         new DefaultHierarchyVisitorCallback <IMicroElement> ()
                         {
                           @Override
-                          @Nonnull
+                          @NonNull
                           public EHierarchyVisitorReturn onItemBeforeChildren (@Nullable final IMicroElement eItem)
                           {
                             if (eItem != null)
@@ -220,7 +220,7 @@ public final class TreeXMLConverter
                           }
 
                           @Override
-                          @Nonnull
+                          @NonNull
                           public EHierarchyVisitorReturn onItemAfterChildren (@Nullable final IMicroElement aItem)
                           {
                             if (aItem != null)
@@ -230,27 +230,27 @@ public final class TreeXMLConverter
                         });
   }
 
-  @Nonnull
-  public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@Nonnull final IMicroElement aElement,
-                                                                                                            @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
+  @NonNull
+  public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@NonNull final IMicroElement aElement,
+                                                                                                            @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     return getXMLAsTreeWithUniqueID (aElement, x -> x, aDataConverter);
   }
 
-  @Nonnull
-  public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@Nonnull final IMicroElement aElement,
-                                                                                                                @Nonnull final Function <? super String, ? extends KEYTYPE> aIDConverter,
-                                                                                                                @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
+  @NonNull
+  public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@NonNull final IMicroElement aElement,
+                                                                                                                @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,
+                                                                                                                @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     final DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithGlobalUniqueID <> ();
     fillXMLAsTreeWithID (aElement, aIDConverter, aDataConverter, aTree);
     return aTree;
   }
 
-  @Nonnull
-  public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@Nonnull final IMicroElement aElement,
-                                                                                              @Nonnull final Function <? super String, ? extends KEYTYPE> aIDConverter,
-                                                                                              @Nonnull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
+  @NonNull
+  public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@NonNull final IMicroElement aElement,
+                                                                                              @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,
+                                                                                              @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
   {
     final DefaultTreeWithID <KEYTYPE, DATATYPE> aTree = new DefaultTreeWithID <> ();
     fillXMLAsTreeWithID (aElement, aIDConverter, aDataConverter, aTree);

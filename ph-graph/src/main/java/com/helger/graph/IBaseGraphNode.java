@@ -18,13 +18,13 @@ package com.helger.graph;
 
 import java.util.function.Consumer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsOrderedSet;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for a single graph node.
@@ -82,7 +82,7 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
    * @return A container with all incoming and outgoing relations. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <RELATIONTYPE> getAllRelations ();
 
@@ -90,7 +90,7 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
    * @return A container with the IDs of all incoming and outgoing relations.
    *         Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllRelationIDs ();
 
@@ -102,13 +102,13 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
    *        The consumer to be invoked. May not be <code>null</code>. May only
    *        perform reading operations!
    */
-  void forEachRelation (@Nonnull Consumer <? super RELATIONTYPE> aConsumer);
+  void forEachRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
    * @return A container with all nodes directly connected to this node's
    *         relations. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <NODETYPE> getAllRelatedNodes ();
 
@@ -116,7 +116,7 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
    * @return A container with the IDs of all nodes directly connected to this
    *         node's relations. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllRelatedNodeIDs ();
 }

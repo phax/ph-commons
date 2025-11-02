@@ -26,14 +26,14 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionFind;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link Map} interface with extended functionality
@@ -57,7 +57,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param <V>
    *        Map value type
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <K, V> ICommonsMap <K, V> createInstance ()
   {
@@ -69,7 +69,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #keySet()
    * @see #copyOfKeySet(Predicate)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet ()
   {
@@ -85,7 +85,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #keySet()
    * @see #copyOfKeySet()
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSet <KEYTYPE> copyOfKeySet (@Nullable final Predicate <? super KEYTYPE> aFilter)
   {
@@ -101,7 +101,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #copyOfValuesMapped(Function)
    * @see #copyOfValuesMapped(Predicate, Function)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues ()
   {
@@ -120,7 +120,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #copyOfValuesMapped(Function)
    * @see #copyOfValuesMapped(Predicate, Function)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <VALUETYPE> copyOfValues (@Nullable final Predicate <? super VALUETYPE> aFilter)
   {
@@ -142,9 +142,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #copyOfValuesMapped(Function)
    * @see #copyOfValuesMapped(Predicate, Function)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nonnull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
+  default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@NonNull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
   {
     return new CommonsArrayList <> (values (), aMapper);
   }
@@ -166,10 +166,10 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #copyOfValues(Predicate)
    * @see #copyOfValuesMapped(Predicate, Function)
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default <DSTTYPE> ICommonsList <DSTTYPE> copyOfValuesMapped (@Nullable final Predicate <? super VALUETYPE> aFilter,
-                                                               @Nonnull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
+                                                               @NonNull final Function <? super VALUETYPE, ? extends DSTTYPE> aMapper)
   {
     if (aFilter == null)
       return copyOfValuesMapped (aMapper);
@@ -179,7 +179,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   /**
    * @return A new non-<code>null</code> copy of the entry set.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
@@ -204,8 +204,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @return <code>null</code> if the map is empty, the first element otherwise.
    * @see #getFirstEntry(java.util.Map.Entry)
    */
-  @Nullable
-  default Map.Entry <KEYTYPE, VALUETYPE> getFirstEntry ()
+  default Map.@Nullable Entry <KEYTYPE, VALUETYPE> getFirstEntry ()
   {
     return getFirstEntry (null);
   }
@@ -218,8 +217,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @return The provided default value if the map is empty, the first entry otherwise.
    * @see #getFirstEntry()
    */
-  @Nullable
-  default Map.Entry <KEYTYPE, VALUETYPE> getFirstEntry (@Nullable final Map.Entry <KEYTYPE, VALUETYPE> aDefault)
+  default Map.@Nullable Entry <KEYTYPE, VALUETYPE> getFirstEntry (final Map.@Nullable Entry <KEYTYPE, VALUETYPE> aDefault)
   {
     return isEmpty () ? aDefault : entrySet ().iterator ().next ();
   }
@@ -284,8 +282,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @return <code>null</code> if no matching element was found. I no filter was provided, the
    *         result is the same as {@link #getFirstEntry()}.
    */
-  @Nullable
-  default Map.Entry <KEYTYPE, VALUETYPE> findFirstEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
+  default Map.@Nullable Entry <KEYTYPE, VALUETYPE> findFirstEntry (@Nullable final Predicate <? super Map.Entry <KEYTYPE, VALUETYPE>> aFilter)
   {
     return CollectionFind.findFirst (entrySet (), aFilter);
   }
@@ -368,7 +365,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
    */
-  default void forEachKey (@Nonnull final Consumer <? super KEYTYPE> aConsumer)
+  default void forEachKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
   {
     forEach ( (k, v) -> aConsumer.accept (k));
   }
@@ -379,7 +376,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
    */
-  default void forEachValue (@Nonnull final Consumer <? super VALUETYPE> aConsumer)
+  default void forEachValue (@NonNull final Consumer <? super VALUETYPE> aConsumer)
   {
     forEach ( (k, v) -> aConsumer.accept (v));
   }
@@ -395,7 +392,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #forEach(BiConsumer)
    */
   default void forEach (@Nullable final BiPredicate <? super KEYTYPE, ? super VALUETYPE> aFilter,
-                        @Nonnull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+                        @NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
   {
     if (aFilter == null)
       forEach (aConsumer);
@@ -420,7 +417,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #forEach(BiPredicate, BiConsumer)
    */
   default void forEachKey (@Nullable final Predicate <? super KEYTYPE> aFilter,
-                           @Nonnull final Consumer <? super KEYTYPE> aConsumer)
+                           @NonNull final Consumer <? super KEYTYPE> aConsumer)
   {
     if (aFilter == null)
       forEachKey (aConsumer);
@@ -439,7 +436,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @see #forEach(BiPredicate, BiConsumer)
    */
   default void forEachValue (@Nullable final Predicate <? super VALUETYPE> aFilter,
-                             @Nonnull final Consumer <? super VALUETYPE> aConsumer)
+                             @NonNull final Consumer <? super VALUETYPE> aConsumer)
   {
     if (aFilter == null)
       forEachValue (aConsumer);
@@ -455,9 +452,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@Nonnull final Comparator <? super KEYTYPE> aKeyComparator)
+  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByKey (@NonNull final Comparator <? super KEYTYPE> aKeyComparator)
   {
     return CollectionCommonsHelper.getSortedByKey (this, aKeyComparator);
   }
@@ -470,9 +467,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The comparator to be used. May not be <code>null</code>.
    * @return the sorted map and never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@Nonnull final Comparator <? super VALUETYPE> aValueComparator)
+  default ICommonsOrderedMap <KEYTYPE, VALUETYPE> getSortedByValue (@NonNull final Comparator <? super VALUETYPE> aValueComparator)
   {
     return CollectionCommonsHelper.getSortedByValue (this, aValueComparator);
   }
@@ -501,7 +498,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @since 9.0.0
    */
   @Nullable
-  default VALUETYPE put (@Nonnull final Map.Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
+  default VALUETYPE put (final Map.@NonNull Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
   {
     return put (aEntry.getKey (), aEntry.getValue ());
   }
@@ -516,9 +513,9 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param aFilter
    *        The value predicate to be checked before insertion. May not be <code>null</code>.
    */
-  default void putIf (@Nonnull final KEYTYPE aKey,
+  default void putIf (@NonNull final KEYTYPE aKey,
                       @Nullable final VALUETYPE aValue,
-                      @Nonnull final Predicate <? super VALUETYPE> aFilter)
+                      @NonNull final Predicate <? super VALUETYPE> aFilter)
   {
     if (aFilter.test (aValue))
       put (aKey, aValue);
@@ -532,7 +529,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @param aValue
    *        The value to be added. May be <code>null</code> in which case nothing happens.
    */
-  default void putIfNotNull (@Nonnull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
+  default void putIfNotNull (@NonNull final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     if (aValue != null)
       put (aKey, aValue);
@@ -589,8 +586,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @since 8.5.5
    */
   default <ELEMENTTYPE> void putAllMapped (@Nullable final ELEMENTTYPE [] aElements,
-                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
-                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+                                           @NonNull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                           @NonNull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
     if (aElements != null)
       for (final ELEMENTTYPE aElement : aElements)
@@ -611,8 +608,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @since 8.5.5
    */
   default <ELEMENTTYPE> void putAllMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aElements,
-                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
-                                           @Nonnull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
+                                           @NonNull final Function <? super ELEMENTTYPE, ? extends KEYTYPE> aKeyMapper,
+                                           @NonNull final Function <? super ELEMENTTYPE, ? extends VALUETYPE> aValueMapper)
   {
     if (aElements != null)
       for (final ELEMENTTYPE aItem : aElements)
@@ -635,8 +632,8 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @since 8.5.5
    */
   default <SRCKEYTYPE, SRCVALUETYPE> void putAllMapped (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aMap,
-                                                        @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
-                                                        @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+                                                        @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                        @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
     if (aMap != null)
       for (final Map.Entry <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aEntry : aMap.entrySet ())
@@ -662,7 +659,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *        The values to be added. May be <code>null</code>.
    * @return {@link EChange}
    */
-  @Nonnull
+  @NonNull
   default EChange setAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aValues)
   {
     EChange ret = removeAll ();
@@ -684,7 +681,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *         {@link EChange#UNCHANGED} otherwise.
    * @see #clear()
    */
-  @Nonnull
+  @NonNull
   default EChange removeAll ()
   {
     if (isEmpty ())
@@ -704,14 +701,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    *         removal fails.
    * @see #remove(Object)
    */
-  @Nonnull
+  @NonNull
   default EChange removeObject (@Nullable final KEYTYPE aKey)
   {
     return EChange.valueOf (remove (aKey) != null);
   }
 
-  @Nonnull
-  default EChange removeIf (@Nonnull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  @NonNull
+  default EChange removeIf (@NonNull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
   {
     EChange ret = EChange.UNCHANGED;
     final Iterator <Map.Entry <KEYTYPE, VALUETYPE>> it = entrySet ().iterator ();
@@ -726,14 +723,14 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     return ret;
   }
 
-  @Nonnull
-  default EChange removeIfKey (@Nonnull final Predicate <? super KEYTYPE> aFilter)
+  @NonNull
+  default EChange removeIfKey (@NonNull final Predicate <? super KEYTYPE> aFilter)
   {
     return removeIf (e -> aFilter.test (e.getKey ()));
   }
 
-  @Nonnull
-  default EChange removeIfValue (@Nonnull final Predicate <? super VALUETYPE> aFilter)
+  @NonNull
+  default EChange removeIfValue (@NonNull final Predicate <? super VALUETYPE> aFilter)
   {
     return removeIf (e -> aFilter.test (e.getValue ()));
   }
@@ -742,7 +739,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    * @return An unmodifiable version of this map. Never <code>null</code>.
    * @see Collections
    */
-  @Nonnull
+  @NonNull
   @CodingStyleguideUnaware
   default Map <KEYTYPE, VALUETYPE> getAsUnmodifiable ()
   {

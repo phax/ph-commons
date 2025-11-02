@@ -21,13 +21,13 @@ import java.util.Map;
 import java.util.WeakHashMap;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionHelper;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A special {@link WeakHashMap} implementation based on {@link ICommonsMap}.
@@ -62,38 +62,38 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
   }
 
   public <COLLTYPE> CommonsWeakHashMap (@Nullable final COLLTYPE [] aValues,
-                                        @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                        @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                        @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                        @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (ArrayHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <COLLTYPE> CommonsWeakHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
-                                        @Nonnull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
-                                        @Nonnull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
+                                        @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
+                                        @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsWeakHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
-                                                        @Nonnull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
-                                                        @Nonnull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
+                                                        @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
+                                                        @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
     super (CollectionHelper.getSize (aValues));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public <K, V> CommonsWeakHashMap <K, V> createInstance ()
   {
     return new CommonsWeakHashMap <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CommonsWeakHashMap <KEYTYPE, VALUETYPE> getClone ()
   {

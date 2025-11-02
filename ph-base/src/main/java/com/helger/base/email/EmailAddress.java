@@ -16,15 +16,15 @@
  */
 package com.helger.base.email;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This class handles a single email address. It is split into an address part and an optional name.
@@ -38,17 +38,17 @@ public class EmailAddress implements IEmailAddress
   private final String m_sAddress;
   private final String m_sPersonal;
 
-  public EmailAddress (@Nonnull final IEmailAddress aAddress)
+  public EmailAddress (@NonNull final IEmailAddress aAddress)
   {
     this (aAddress.getAddress (), aAddress.getPersonal ());
   }
 
-  public EmailAddress (@Nonnull final String sAddress)
+  public EmailAddress (@NonNull final String sAddress)
   {
     this (sAddress, null);
   }
 
-  public EmailAddress (@Nonnull final String sAddress, @Nullable final String sPersonal)
+  public EmailAddress (@NonNull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
     ValueEnforcer.isTrue (EmailAddressHelper.isValid (sAddress),
@@ -57,7 +57,7 @@ public class EmailAddress implements IEmailAddress
     m_sPersonal = StringHelper.isEmpty (sPersonal) ? null : sPersonal;
   }
 
-  @Nonnull
+  @NonNull
   public String getAddress ()
   {
     return m_sAddress;

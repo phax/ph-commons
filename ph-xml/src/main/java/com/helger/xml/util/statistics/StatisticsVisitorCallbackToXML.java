@@ -16,6 +16,8 @@
  */
 package com.helger.xml.util.statistics;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.helper.CollectionSort;
 import com.helger.statistics.api.IStatisticsHandlerCache;
@@ -28,8 +30,6 @@ import com.helger.statistics.api.IStatisticsHandlerTimer;
 import com.helger.statistics.visit.IStatisticsVisitorCallback;
 import com.helger.xml.microdom.IMicroElement;
 
-import jakarta.annotation.Nonnull;
-
 /**
  * Special implementation of the {@link IStatisticsVisitorCallback} interface that fills a micro
  * element with all current values
@@ -40,7 +40,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
 {
   private final IMicroElement m_eRoot;
 
-  public StatisticsVisitorCallbackToXML (@Nonnull final IMicroElement eRoot)
+  public StatisticsVisitorCallbackToXML (@NonNull final IMicroElement eRoot)
   {
     m_eRoot = ValueEnforcer.notNull (eRoot, "Root");
   }
@@ -48,7 +48,7 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
   /**
    * @return The root element passed in the constructor. Never <code>null</code> .
    */
-  @Nonnull
+  @NonNull
   public IMicroElement getRoot ()
   {
     return m_eRoot;

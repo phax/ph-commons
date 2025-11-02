@@ -20,13 +20,13 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 @Immutable
 public final class URLCoder
@@ -50,8 +50,8 @@ public final class URLCoder
    *         if something goes wrong
    * @see #urlDecode(String, Charset)
    */
-  @Nonnull
-  public static String urlDecode (@Nonnull final String sValue)
+  @NonNull
+  public static String urlDecode (@NonNull final String sValue)
   {
     return urlDecode (sValue, CHARSET_URL_OBJ);
   }
@@ -69,8 +69,8 @@ public final class URLCoder
    *         if something goes wrong
    * @see URLDecoder#decode(String, String)
    */
-  @Nonnull
-  public static String urlDecode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
+  @NonNull
+  public static String urlDecode (@NonNull final String sValue, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -96,7 +96,7 @@ public final class URLCoder
    * @since 9.4.1
    */
   @Nullable
-  public static String urlDecodeOrNull (@Nonnull final String sValue)
+  public static String urlDecodeOrNull (@NonNull final String sValue)
   {
     return urlDecodeOrNull (sValue, CHARSET_URL_OBJ);
   }
@@ -114,7 +114,7 @@ public final class URLCoder
    * @since 9.4.1
    */
   @Nullable
-  public static String urlDecodeOrNull (@Nullable final String sValue, @Nonnull final Charset aCharset)
+  public static String urlDecodeOrNull (@Nullable final String sValue, @NonNull final Charset aCharset)
   {
     return urlDecodeOrDefault (sValue, aCharset, null);
   }
@@ -132,7 +132,7 @@ public final class URLCoder
    * @since 9.4.1
    */
   @Nullable
-  public static String urlDecodeOrDefault (@Nonnull final String sValue, @Nullable final String sDefault)
+  public static String urlDecodeOrDefault (@NonNull final String sValue, @Nullable final String sDefault)
   {
     return urlDecodeOrDefault (sValue, CHARSET_URL_OBJ, sDefault);
   }
@@ -153,7 +153,7 @@ public final class URLCoder
    */
   @Nullable
   public static String urlDecodeOrDefault (@Nullable final String sValue,
-                                           @Nonnull final Charset aCharset,
+                                           @NonNull final Charset aCharset,
                                            @Nullable final String sDefault)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -178,8 +178,8 @@ public final class URLCoder
    *        The value to be encoded. May not be <code>null</code>.
    * @return The encoded value.
    */
-  @Nonnull
-  public static String urlEncode (@Nonnull final String sValue)
+  @NonNull
+  public static String urlEncode (@NonNull final String sValue)
   {
     return urlEncode (sValue, CHARSET_URL_OBJ);
   }
@@ -194,8 +194,8 @@ public final class URLCoder
    *        The charset to use. May not be <code>null</code>.
    * @return The encoded value.
    */
-  @Nonnull
-  public static String urlEncode (@Nonnull final String sValue, @Nonnull final Charset aCharset)
+  @NonNull
+  public static String urlEncode (@NonNull final String sValue, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aCharset, "Charset");

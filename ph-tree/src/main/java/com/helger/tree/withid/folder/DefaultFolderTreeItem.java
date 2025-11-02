@@ -18,9 +18,9 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
-import com.helger.annotation.concurrent.NotThreadSafe;
+import org.jspecify.annotations.NonNull;
 
-import jakarta.annotation.Nonnull;
+import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Default implementation of the {@link IFolderTreeItem} interface.
@@ -43,7 +43,7 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
    * @param aFactory
    *        The item factory to use.
    */
-  public DefaultFolderTreeItem (@Nonnull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>> aFactory)
+  public DefaultFolderTreeItem (@NonNull final IFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>> aFactory)
   {
     super (aFactory);
   }
@@ -57,7 +57,7 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public DefaultFolderTreeItem (@Nonnull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent, @Nonnull final KEYTYPE aDataID)
+  public DefaultFolderTreeItem (@NonNull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent, @NonNull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
   }

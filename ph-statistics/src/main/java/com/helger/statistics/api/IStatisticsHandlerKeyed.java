@@ -18,11 +18,11 @@ package com.helger.statistics.api;
 
 import java.util.Set;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.style.ReturnsMutableCopy;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Base interface for keyed statistic handlers
@@ -34,7 +34,7 @@ public interface IStatisticsHandlerKeyed extends IStatisticsHandler
   /**
    * @return A collection of all keys that have a value assigned. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   Set <String> getAllKeys ();
 

@@ -24,6 +24,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Stack;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
@@ -41,8 +42,6 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.stack.NonBlockingStack;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link CollectionEqualsHelper}.
@@ -145,7 +144,7 @@ public final class CollectionEqualsHelperTest
       put (k, v);
     }
 
-    @Nonnull
+    @NonNull
     public StringMap add (final String k, final String v)
     {
       put (k, v);
@@ -312,7 +311,7 @@ public final class CollectionEqualsHelperTest
       m_aList = new CommonsArrayList <> (aValues);
     }
 
-    @Nonnull
+    @NonNull
     public Iterator <String> iterator ()
     {
       return m_aList.iterator ();

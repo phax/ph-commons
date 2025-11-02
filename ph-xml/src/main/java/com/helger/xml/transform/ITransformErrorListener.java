@@ -19,8 +19,8 @@ package com.helger.xml.transform;
 import javax.xml.transform.ErrorListener;
 import javax.xml.transform.TransformerException;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Extended {@link ErrorListener} interface with chaining method.
@@ -30,7 +30,7 @@ import jakarta.annotation.Nullable;
  */
 public interface ITransformErrorListener extends ErrorListener
 {
-  @Nonnull
+  @NonNull
   default ITransformErrorListener andThen (@Nullable final ErrorListener aOther)
   {
     final ITransformErrorListener aThis = this;
@@ -39,19 +39,19 @@ public interface ITransformErrorListener extends ErrorListener
 
     return new ITransformErrorListener ()
     {
-      public void warning (@Nonnull final TransformerException aEx) throws TransformerException
+      public void warning (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.warning (aEx);
         aOther.warning (aEx);
       }
 
-      public void error (@Nonnull final TransformerException aEx) throws TransformerException
+      public void error (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.error (aEx);
         aOther.error (aEx);
       }
 
-      public void fatalError (@Nonnull final TransformerException aEx) throws TransformerException
+      public void fatalError (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.fatalError (aEx);
         aOther.fatalError (aEx);

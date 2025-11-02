@@ -18,6 +18,8 @@ package com.helger.statistics.visit;
 
 import java.util.Comparator;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
@@ -30,8 +32,6 @@ import com.helger.statistics.api.IStatisticsHandlerKeyedTimer;
 import com.helger.statistics.api.IStatisticsHandlerSize;
 import com.helger.statistics.api.IStatisticsHandlerTimer;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Class for iterating all available statistics
@@ -53,7 +53,7 @@ public final class StatisticsVisitor
    * @param aCallback
    *        The visitor to use. May not be <code>null</code>.
    */
-  public static void visitStatistics (@Nonnull final IStatisticsVisitorCallback aCallback)
+  public static void visitStatistics (@NonNull final IStatisticsVisitorCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 

@@ -18,15 +18,15 @@ package com.helger.security.authentication.result;
 
 import java.time.LocalDateTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Default implementation of the {@link IAuthIdentification} interface.
@@ -56,7 +56,7 @@ public final class AuthIdentification implements IAuthIdentification
     return m_aAuthSubject;
   }
 
-  @Nonnull
+  @NonNull
   public LocalDateTime getIdentificationDateTime ()
   {
     return m_aIdentificationDT;

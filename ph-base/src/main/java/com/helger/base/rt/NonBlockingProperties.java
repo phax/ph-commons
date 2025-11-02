@@ -28,14 +28,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.WillNotClose;
 import com.helger.base.io.nonblocking.NonBlockingBufferedWriter;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHex;
 import com.helger.base.system.ENewLineMode;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The <code>NonBlockingProperties</code> class represents a persistent set of properties. The
@@ -489,11 +489,11 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    * Converts encoded &#92;uxxxx to unicode chars and changes special saved chars to their original
    * forms
    */
-  @Nonnull
-  private static String _loadConvert (@Nonnull final char [] aIn,
+  @NonNull
+  private static String _loadConvert (@NonNull final char [] aIn,
                                       final int nOfs,
                                       final int nLen,
-                                      @Nonnull final char [] aConvBuf)
+                                      @NonNull final char [] aConvBuf)
   {
     int nCurOfs = nOfs;
     char [] aOut;
@@ -586,7 +586,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
   /*
    * Converts unicodes to encoded &#92;uxxxx and escapes special characters with a preceding slash
    */
-  @Nonnull
+  @NonNull
   private static String _saveConvert (final String sStr, final boolean bEscapeSpace, final boolean bEscapeUnicode)
   {
     final int nLen = sStr.length ();
@@ -655,7 +655,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
     return aSB.toString ();
   }
 
-  private static void _writeComments (@Nonnull @WillNotClose final Writer aWriter, @Nonnull final String sComments)
+  private static void _writeComments (@NonNull @WillNotClose final Writer aWriter, @NonNull final String sComments)
                                                                                                                     throws IOException
   {
     aWriter.write ("#");
@@ -745,7 +745,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    *            if <code>writer</code> is null.
    * @since 1.6
    */
-  public void store (@Nonnull @WillNotClose final Writer aWriter, @Nullable final String sComments) throws IOException
+  public void store (@NonNull @WillNotClose final Writer aWriter, @Nullable final String sComments) throws IOException
   {
     _store (StreamHelper.getBuffered (aWriter), sComments, false);
   }
@@ -787,12 +787,12 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    *            if <code>out</code> is null.
    * @since 1.2
    */
-  public void store (@Nonnull @WillNotClose final OutputStream aOS, @Nullable final String sComments) throws IOException
+  public void store (@NonNull @WillNotClose final OutputStream aOS, @Nullable final String sComments) throws IOException
   {
     _store (new NonBlockingBufferedWriter (new OutputStreamWriter (aOS, StandardCharsets.ISO_8859_1)), sComments, true);
   }
 
-  private void _store (@Nonnull @WillNotClose final Writer aWriter,
+  private void _store (@NonNull @WillNotClose final Writer aWriter,
                        @Nullable final String sComments,
                        final boolean bEscapeUnicode) throws IOException
   {
@@ -880,7 +880,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    *        Source properties. May be <code>null</code>.
    * @return The newly created {@link NonBlockingProperties}. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public static NonBlockingProperties create (@Nullable final Map <?, ?> aProperties)
   {
     final NonBlockingProperties ret = new NonBlockingProperties ();

@@ -19,10 +19,10 @@ package com.helger.base.io.stream;
 import java.io.FilterWriter;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A wrapper around another {@link FilterWriter} to make the wrapped
@@ -36,7 +36,7 @@ public class WrappedWriter extends FilterWriter
    * @param aWrappedWriter
    *        The wrapped writer to use. May not be <code>null</code>.
    */
-  public WrappedWriter (@Nonnull final Writer aWrappedWriter)
+  public WrappedWriter (@NonNull final Writer aWrappedWriter)
   {
     super (ValueEnforcer.notNull (aWrappedWriter, "WrappedWriter"));
   }
@@ -45,7 +45,7 @@ public class WrappedWriter extends FilterWriter
    * @return The wrapped writer passed in the constructor. Never
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public final Writer getWrappedWriter ()
   {
     return out;

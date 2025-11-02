@@ -20,8 +20,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.validation.Schema;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Read-only interface for DOM reader settings.
@@ -104,7 +104,7 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
    *        The {@link DocumentBuilderFactory} to apply the settings onto. May
    *        not be <code>null</code>.
    */
-  void applyToDocumentBuilderFactory (@Nonnull DocumentBuilderFactory aDBF);
+  void applyToDocumentBuilderFactory (@NonNull DocumentBuilderFactory aDBF);
 
   /**
    * Apply settings of this object onto the specified {@link DocumentBuilder}
@@ -114,5 +114,5 @@ public interface IDOMReaderSettings extends IBaseXMLReaderSettings
    *        The {@link DocumentBuilder} to apply the settings onto. May not be
    *        <code>null</code>.
    */
-  void applyToDocumentBuilder (@Nonnull DocumentBuilder aDB);
+  void applyToDocumentBuilder (@NonNull DocumentBuilder aDB);
 }

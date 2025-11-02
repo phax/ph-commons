@@ -18,15 +18,15 @@ package com.helger.tree.withid.folder;
 
 import java.util.Collection;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.aggregate.IAggregator;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.tree.withid.unique.AbstractTreeItemWithUniqueIDFactory;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * The default folder tree item factory implementation.
@@ -56,8 +56,8 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   }
 
   @Override
-  @Nonnull
-  protected final KEYTYPE internalGetItemID (@Nonnull final ITEMTYPE aItem)
+  @NonNull
+  protected final KEYTYPE internalGetItemID (@NonNull final ITEMTYPE aItem)
   {
     return aItem.getGlobalUniqueDataID ();
   }
@@ -68,14 +68,14 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
     return m_aKeyCombinator;
   }
 
-  @Nonnull
+  @NonNull
   protected abstract ITEMTYPE internalCreateRoot ();
 
   /*
    * This implementation is different, because the root object is also put into
    * the item store.
    */
-  @Nonnull
+  @NonNull
   public final ITEMTYPE createRoot ()
   {
     final ITEMTYPE aItem = internalCreateRoot ();

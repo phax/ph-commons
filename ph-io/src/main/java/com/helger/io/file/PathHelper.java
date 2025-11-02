@@ -38,6 +38,8 @@ import java.util.EnumSet;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,9 +58,6 @@ import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 /**
  * Miscellaneous file utility methods.
  *
@@ -75,7 +74,7 @@ public final class PathHelper
   private PathHelper ()
   {}
 
-  public static boolean equalPaths (@Nonnull final Path aObj1, @Nonnull final Path aObj2)
+  public static boolean equalPaths (@NonNull final Path aObj1, @NonNull final Path aObj2)
   {
     try
     {
@@ -123,8 +122,8 @@ public final class PathHelper
     // return true;
   }
 
-  @Nonnull
-  public static EChange ensureParentDirectoryIsPresent (@Nonnull final Path aFile)
+  @NonNull
+  public static EChange ensureParentDirectoryIsPresent (@NonNull final Path aFile)
   {
     ValueEnforcer.notNull (aFile, "Path");
 
@@ -246,7 +245,7 @@ public final class PathHelper
    *         <code>false</code> otherwise.
    * @see #getCanonicalFile(Path)
    */
-  public static boolean isParentDirectory (@Nonnull final Path aSearchDirectory, @Nonnull final Path aStartDirectory)
+  public static boolean isParentDirectory (@NonNull final Path aSearchDirectory, @NonNull final Path aStartDirectory)
   {
     ValueEnforcer.notNull (aSearchDirectory, "SearchDirectory");
     ValueEnforcer.notNull (aStartDirectory, "StartDirectory");
@@ -276,7 +275,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static InputStream getInputStream (@Nonnull final Path aFile)
+  public static InputStream getInputStream (@NonNull final Path aFile)
   {
     ValueEnforcer.notNull (aFile, "Path");
     try
@@ -290,7 +289,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedInputStream getBufferedInputStream (@Nonnull final Path aFile)
+  public static NonBlockingBufferedInputStream getBufferedInputStream (@NonNull final Path aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
 
@@ -301,7 +300,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static Reader getReader (@Nonnull final Path aFile, @Nonnull final Charset aCharset)
+  public static Reader getReader (@NonNull final Path aFile, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -310,7 +309,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedReader getBufferedReader (@Nonnull final Path aFile, @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedReader getBufferedReader (@NonNull final Path aFile, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -329,7 +328,7 @@ public final class PathHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static OutputStream getOutputStream (@Nonnull final Path aFile)
+  public static OutputStream getOutputStream (@NonNull final Path aFile)
   {
     return getOutputStream (aFile, EAppend.DEFAULT);
   }
@@ -344,7 +343,7 @@ public final class PathHelper
    * @return <code>null</code> if the file could not be opened
    */
   @Nullable
-  public static OutputStream getOutputStream (@Nonnull final Path aFile, @Nonnull final EAppend eAppend)
+  public static OutputStream getOutputStream (@NonNull final Path aFile, @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -361,14 +360,14 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final Path aFile)
   {
     return getBufferedOutputStream (aFile, EAppend.DEFAULT);
   }
 
   @Nullable
-  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@Nonnull final Path aFile,
-                                                                         @Nonnull final EAppend eAppend)
+  public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final Path aFile,
+                                                                         @NonNull final EAppend eAppend)
   {
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eAppend, "Append");
@@ -380,9 +379,9 @@ public final class PathHelper
   }
 
   @Nullable
-  public static Writer getWriter (@Nonnull final Path aFile,
-                                  @Nonnull final EAppend eAppend,
-                                  @Nonnull final Charset aCharset)
+  public static Writer getWriter (@NonNull final Path aFile,
+                                  @NonNull final EAppend eAppend,
+                                  @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -391,9 +390,9 @@ public final class PathHelper
   }
 
   @Nullable
-  public static NonBlockingBufferedWriter getBufferedWriter (@Nonnull final Path aFile,
-                                                             @Nonnull final EAppend eAppend,
-                                                             @Nonnull final Charset aCharset)
+  public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final Path aFile,
+                                                             @NonNull final EAppend eAppend,
+                                                             @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aFile, "Path");
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -419,7 +418,7 @@ public final class PathHelper
    * @return <code>true</code> if the first file is newer than the second file, <code>false</code>
    *         otherwise.
    */
-  public static boolean isFileNewer (@Nonnull final Path aFile1, @Nonnull final Path aFile2)
+  public static boolean isFileNewer (@NonNull final Path aFile1, @NonNull final Path aFile2)
   {
     ValueEnforcer.notNull (aFile1, "File1");
     ValueEnforcer.notNull (aFile2, "aFile2");
@@ -461,7 +460,7 @@ public final class PathHelper
    * @see FilenameHelper#isSystemInternalDirectory(CharSequence)
    */
   @Nonnegative
-  public static int getDirectoryObjectCount (@Nonnull final Path aDirectory)
+  public static int getDirectoryObjectCount (@NonNull final Path aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
     ValueEnforcer.isTrue (aDirectory.toFile ().isDirectory (), "Passed object is not a directory: " + aDirectory);
@@ -473,10 +472,10 @@ public final class PathHelper
     return ret;
   }
 
-  @Nonnull
-  public static Path walkFileTree (@Nonnull final Path aStart,
+  @NonNull
+  public static Path walkFileTree (@NonNull final Path aStart,
                                    @Nonnegative final int nMaxDepth,
-                                   @Nonnull final FileVisitor <? super Path> aVisitor)
+                                   @NonNull final FileVisitor <? super Path> aVisitor)
   {
     return walkFileTree (aStart, EnumSet.noneOf (FileVisitOption.class), nMaxDepth, aVisitor);
   }
@@ -549,11 +548,11 @@ public final class PathHelper
    * @throws UncheckedIOException
    *         if an I/O error is thrown by a visitor method
    */
-  @Nonnull
-  public static Path walkFileTree (@Nonnull final Path aStart,
-                                   @Nonnull final Set <FileVisitOption> aOptions,
+  @NonNull
+  public static Path walkFileTree (@NonNull final Path aStart,
+                                   @NonNull final Set <FileVisitOption> aOptions,
                                    @Nonnegative final int nMaxDepth,
-                                   @Nonnull final FileVisitor <? super Path> aVisitor)
+                                   @NonNull final FileVisitor <? super Path> aVisitor)
   {
     try
     {
@@ -565,9 +564,9 @@ public final class PathHelper
     }
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  private static ICommonsList <Path> _getDirectoryContent (@Nonnull final Path aDirectory,
+  private static ICommonsList <Path> _getDirectoryContent (@NonNull final Path aDirectory,
                                                            @Nullable final Predicate <? super Path> aPathFilter)
   {
     final ICommonsList <Path> ret = new CommonsArrayList <> ();
@@ -631,9 +630,9 @@ public final class PathHelper
    *        The directory to be listed. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <Path> getDirectoryContent (@Nonnull final Path aDirectory)
+  public static ICommonsList <Path> getDirectoryContent (@NonNull final Path aDirectory)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
 
@@ -651,9 +650,9 @@ public final class PathHelper
    *        The path filter to be used. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public static ICommonsList <Path> getDirectoryContent (@Nonnull final Path aDirectory,
+  public static ICommonsList <Path> getDirectoryContent (@NonNull final Path aDirectory,
                                                          @Nullable final Predicate <? super Path> aPathFilter)
   {
     ValueEnforcer.notNull (aDirectory, "Directory");
@@ -662,7 +661,7 @@ public final class PathHelper
   }
 
   @Nullable
-  public static URL getAsURL (@Nonnull final Path aPath)
+  public static URL getAsURL (@NonNull final Path aPath)
   {
     ValueEnforcer.notNull (aPath, "Path");
     try

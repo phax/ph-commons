@@ -19,6 +19,8 @@ package com.helger.base.numeric.mutable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
@@ -27,8 +29,6 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.numeric.BigHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Object wrapper around a {@link BigInteger} so that it can be passed a final object but is
@@ -46,25 +46,25 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     this (BigInteger.valueOf (nValue));
   }
 
-  public MutableBigInteger (@Nonnull final MutableBigInteger aOther)
+  public MutableBigInteger (@NonNull final MutableBigInteger aOther)
   {
     this (aOther.m_aValue);
   }
 
-  public MutableBigInteger (@Nonnull final BigInteger aValue)
+  public MutableBigInteger (@NonNull final BigInteger aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public BigDecimal getAsBigDecimal ()
   {
     return new BigDecimal (m_aValue);
   }
 
   @Override
-  @Nonnull
+  @NonNull
   public BigInteger getAsBigInteger ()
   {
     return m_aValue;
@@ -99,27 +99,27 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
    *
    * @return The by 1 incremented value.
    */
-  @Nonnull
+  @NonNull
   public BigInteger inc ()
   {
     return inc (BigInteger.ONE);
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger inc (final long nDelta)
   {
     return inc (BigInteger.valueOf (nDelta));
   }
 
-  @Nonnull
-  public BigInteger inc (@Nonnull final MutableBigInteger aDelta)
+  @NonNull
+  public BigInteger inc (@NonNull final MutableBigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.m_aValue);
   }
 
-  @Nonnull
-  public BigInteger inc (@Nonnull final BigInteger aDelta)
+  @NonNull
+  public BigInteger inc (@NonNull final BigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     m_aValue = m_aValue.add (aDelta);
@@ -127,47 +127,47 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger dec ()
   {
     return inc (CGlobal.BIGINT_MINUS_ONE);
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger dec (final long nDelta)
   {
     return inc (BigInteger.valueOf (-nDelta));
   }
 
-  @Nonnull
-  public BigInteger dec (@Nonnull final MutableBigInteger aDelta)
+  @NonNull
+  public BigInteger dec (@NonNull final MutableBigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.m_aValue.negate ());
   }
 
-  @Nonnull
-  public BigInteger dec (@Nonnull final BigInteger aDelta)
+  @NonNull
+  public BigInteger dec (@NonNull final BigInteger aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.negate ());
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger divide (final long nDivisor)
   {
     return divide (BigHelper.toBigInteger (nDivisor));
   }
 
-  @Nonnull
-  public BigInteger divide (@Nonnull final MutableBigInteger aDivisor)
+  @NonNull
+  public BigInteger divide (@NonNull final MutableBigInteger aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.m_aValue);
   }
 
-  @Nonnull
-  public BigInteger divide (@Nonnull final BigInteger aDivisor)
+  @NonNull
+  public BigInteger divide (@NonNull final BigInteger aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     m_aValue = m_aValue.divide (aDivisor);
@@ -175,21 +175,21 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger multiply (final long nMultiplicand)
   {
     return multiply (BigHelper.toBigInteger (nMultiplicand));
   }
 
-  @Nonnull
-  public BigInteger multiply (@Nonnull final MutableBigInteger aMultiplicand)
+  @NonNull
+  public BigInteger multiply (@NonNull final MutableBigInteger aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.m_aValue);
   }
 
-  @Nonnull
-  public BigInteger multiply (@Nonnull final BigInteger aMultiplicand)
+  @NonNull
+  public BigInteger multiply (@NonNull final BigInteger aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     m_aValue = m_aValue.multiply (aMultiplicand);
@@ -197,21 +197,21 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
-  @Nonnull
+  @NonNull
   public EChange set (final long nDelta)
   {
     return set (BigInteger.valueOf (nDelta));
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final MutableBigInteger aValue)
+  @NonNull
+  public EChange set (@NonNull final MutableBigInteger aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     return set (aValue.m_aValue);
   }
 
-  @Nonnull
-  public EChange set (@Nonnull final BigInteger aValue)
+  @NonNull
+  public EChange set (@NonNull final BigInteger aValue)
   {
     ValueEnforcer.notNull (aValue, "Value");
     if (aValue.equals (m_aValue))
@@ -246,7 +246,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return BigHelper.isGE0 (m_aValue);
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger getAndInc ()
   {
     final BigInteger ret = getAsBigInteger ();
@@ -254,19 +254,19 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger incAndGet ()
   {
     inc ();
     return getAsBigInteger ();
   }
 
-  public int compareTo (@Nonnull final MutableBigInteger rhs)
+  public int compareTo (@NonNull final MutableBigInteger rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);
   }
 
-  @Nonnull
+  @NonNull
   public MutableBigInteger getClone ()
   {
     return new MutableBigInteger (this);

@@ -18,6 +18,8 @@ package com.helger.graph.algo;
 
 import java.util.function.ToIntFunction;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,9 +41,6 @@ import com.helger.graph.IMutableBaseGraphNode;
 import com.helger.graph.IMutableBaseGraphRelation;
 import com.helger.graph.IMutableDirectedGraphNode;
 import com.helger.graph.IMutableDirectedGraphRelation;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Find the shortest path between 2 graph nodes, using Dijsktra's algorithm
@@ -66,12 +65,12 @@ public final class Dijkstra
      * @param aToNode
      *        to-node to use
      */
-    public WorkElement (@Nonnegative final int nDistance, @Nonnull final N aToNode)
+    public WorkElement (@Nonnegative final int nDistance, @NonNull final N aToNode)
     {
       this (null, nDistance, aToNode);
     }
 
-    public WorkElement (@Nullable final N aFromNode, @Nonnegative final int nDistance, @Nonnull final N aToNode)
+    public WorkElement (@Nullable final N aFromNode, @Nonnegative final int nDistance, @NonNull final N aToNode)
     {
       ValueEnforcer.isGE0 (nDistance, "Distance");
       ValueEnforcer.notNull (aToNode, "ToNode");
@@ -98,19 +97,19 @@ public final class Dijkstra
       return m_nDistance;
     }
 
-    @Nonnull
+    @NonNull
     public N getToNode ()
     {
       return m_aToNode;
     }
 
-    @Nonnull
+    @NonNull
     public String getToNodeID ()
     {
       return m_aToNode.getID ();
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getAsString ()
     {
@@ -133,7 +132,7 @@ public final class Dijkstra
       m_aElements = new CommonsLinkedHashMap <> (nElements);
     }
 
-    public void add (@Nonnull final WorkElement <N> aElement)
+    public void add (@NonNull final WorkElement <N> aElement)
     {
       ValueEnforcer.notNull (aElement, "Element");
 
@@ -149,7 +148,7 @@ public final class Dijkstra
     /**
      * @return The element with the smallest distance!
      */
-    @Nonnull
+    @NonNull
     public WorkElement <N> getClosestElement ()
     {
       WorkElement <N> ret = null;
@@ -162,7 +161,7 @@ public final class Dijkstra
       return ret;
     }
 
-    @Nonnull
+    @NonNull
     @ReturnsMutableCopy
     public ICommonsList <WorkElement <N>> getAllElements ()
     {
@@ -176,7 +175,7 @@ public final class Dijkstra
     private final ICommonsList <N> m_aResultNodes;
     private final int m_nResultDistance;
 
-    public Result (@Nonnull @Nonempty final ICommonsList <N> aResultNodes, @Nonnegative final int nResultDistance)
+    public Result (@NonNull @Nonempty final ICommonsList <N> aResultNodes, @Nonnegative final int nResultDistance)
     {
       ValueEnforcer.notEmpty (aResultNodes, "EesultNodes");
       ValueEnforcer.isGE0 (nResultDistance, "Result Distance");
@@ -184,7 +183,7 @@ public final class Dijkstra
       m_nResultDistance = nResultDistance;
     }
 
-    @Nonnull
+    @NonNull
     @ReturnsMutableCopy
     public ICommonsList <N> getAllResultNodes ()
     {
@@ -203,7 +202,7 @@ public final class Dijkstra
       return m_nResultDistance;
     }
 
-    @Nonnull
+    @NonNull
     @Nonempty
     public String getAsString ()
     {
@@ -225,8 +224,8 @@ public final class Dijkstra
   {}
 
   @Nullable
-  private static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> R _getRelationFromLastMatch (@Nonnull final WorkElement <N> aLastMatch,
-                                                                                                                                   @Nonnull final N aNode)
+  private static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> R _getRelationFromLastMatch (@NonNull final WorkElement <N> aLastMatch,
+                                                                                                                                   @NonNull final N aNode)
   {
     if (aNode.isDirected ())
     {
@@ -243,11 +242,10 @@ public final class Dijkstra
     return aLastMatch.getToNode ().getRelation (aNode);
   }
 
-  @Nonnull
-  public static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> Dijkstra.Result <N> applyDijkstra (@Nonnull final IMutableBaseGraph <N, R> aGraph,
-                                                                                                                                        @Nonnull @Nonempty final String sFromID,
-                                                                                                                                        @Nonnull @Nonempty final String sToID,
-                                                                                                                                        @Nonnull final ToIntFunction <? super R> aRelationCostProvider)
+  public static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> Dijkstra.@NonNull Result <N> applyDijkstra (@NonNull final IMutableBaseGraph <N, R> aGraph,
+                                                                                                                                                 @NonNull @Nonempty final String sFromID,
+                                                                                                                                                 @NonNull @Nonempty final String sToID,
+                                                                                                                                                 @NonNull final ToIntFunction <? super R> aRelationCostProvider)
   {
     final N aStartNode = aGraph.getNodeOfID (sFromID);
     if (aStartNode == null)

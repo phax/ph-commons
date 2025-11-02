@@ -21,15 +21,15 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IWriteToWriter;
 import com.helger.base.string.StringEncoding;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A non-synchronized copy of the class {@link java.io.CharArrayWriter}.<br>
@@ -94,7 +94,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    * @since 9.4.3
    */
   @Override
-  public void write (@Nonnull final char [] aBuf)
+  public void write (@NonNull final char [] aBuf)
   {
     write (aBuf, 0, aBuf.length);
   }
@@ -110,7 +110,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        the number of chars that are written
    */
   @Override
-  public void write (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 
@@ -132,7 +132,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    * @since 9.4.3
    */
   @Override
-  public void write (@Nonnull final String sStr)
+  public void write (@NonNull final String sStr)
   {
     write (sStr, 0, sStr.length ());
   }
@@ -148,7 +148,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        Number of characters to be written
    */
   @Override
-  public void write (@Nonnull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (@NonNull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (nLen > 0)
     {
@@ -170,7 +170,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    * @throws IOException
    *         If an I/O error occurs.
    */
-  public void writeTo (@Nonnull final Writer aWriter) throws IOException
+  public void writeTo (@NonNull final Writer aWriter) throws IOException
   {
     aWriter.write (m_aBuf, 0, m_nCount);
   }
@@ -270,7 +270,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *
    * @return an array of chars copied from the input data.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public char [] toCharArray ()
   {
@@ -280,7 +280,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
   /**
    * @return The internally used char array. Never <code>null</code>. Handle with care!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableObject
   public char [] directGetBuffer ()
   {
@@ -294,9 +294,9 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        The charset to be used. May not be <code>null</code>.
    * @return an array of bytes. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public byte [] toByteArray (@Nonnull final Charset aCharset)
+  public byte [] toByteArray (@NonNull final Charset aCharset)
   {
     return StringEncoding.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
   }
@@ -331,12 +331,12 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
     return m_nCount > 0;
   }
 
-  public boolean startsWith (@Nonnull final char [] aChars)
+  public boolean startsWith (@NonNull final char [] aChars)
   {
     return startsWith (aChars, 0, aChars.length);
   }
 
-  public boolean startsWith (@Nonnull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public boolean startsWith (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_nCount < nLen || nLen < 0)
       return false;
@@ -351,7 +351,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *
    * @return the string.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public String getAsString ()
   {
@@ -365,7 +365,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        The number of characters to convert. Must be &le; than {@link #getSize()}.
    * @return the string.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (@Nonnegative final int nLength)
   {
     ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
@@ -381,7 +381,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        The number of characters to convert. Must be &le; than {@link #getSize()}.
    * @return the string.
    */
-  @Nonnull
+  @NonNull
   public String getAsString (@Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");

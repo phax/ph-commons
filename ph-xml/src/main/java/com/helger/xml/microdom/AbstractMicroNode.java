@@ -20,6 +20,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -32,9 +35,6 @@ import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * This is an abstract base class for the micro document object model. It implements a set of common
@@ -56,7 +56,7 @@ public abstract class AbstractMicroNode implements IMicroNode
    *        The appended child node.
    */
   @OverrideOnDemand
-  protected void onAddChild (@Nonnull final AbstractMicroNode aChildNode)
+  protected void onAddChild (@NonNull final AbstractMicroNode aChildNode)
   {
     throw new MicroException ("Cannot add children in class " + getClass ().getName ());
   }
@@ -70,7 +70,7 @@ public abstract class AbstractMicroNode implements IMicroNode
    *        The node before which the new node will be inserted.
    */
   @OverrideOnDemand
-  protected void onInsertBefore (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aSuccessor)
+  protected void onInsertBefore (@NonNull final AbstractMicroNode aChildNode, @NonNull final IMicroNode aSuccessor)
   {
     throw new MicroException ("Cannot insert children in class " + getClass ().getName ());
   }
@@ -84,7 +84,7 @@ public abstract class AbstractMicroNode implements IMicroNode
    *        The node after which the new node will be inserted.
    */
   @OverrideOnDemand
-  protected void onInsertAfter (@Nonnull final AbstractMicroNode aChildNode, @Nonnull final IMicroNode aPredecessor)
+  protected void onInsertAfter (@NonNull final AbstractMicroNode aChildNode, @NonNull final IMicroNode aPredecessor)
   {
     throw new MicroException ("Cannot insert children in class " + getClass ().getName ());
   }
@@ -98,7 +98,7 @@ public abstract class AbstractMicroNode implements IMicroNode
    *        The new child node to be inserted.
    */
   @OverrideOnDemand
-  protected void onInsertAtIndex (@Nonnegative final int nIndex, @Nonnull final AbstractMicroNode aChildNode)
+  protected void onInsertAtIndex (@Nonnegative final int nIndex, @NonNull final AbstractMicroNode aChildNode)
   {
     throw new MicroException ("Cannot insert children in class " + getClass ().getName ());
   }
@@ -113,7 +113,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable final NODETYPE aChildNode,
-                                                                    @Nonnull final IMicroNode aSuccessor)
+                                                                    @NonNull final IMicroNode aSuccessor)
   {
     if (aChildNode != null)
       onInsertBefore ((AbstractMicroNode) aChildNode, aSuccessor);
@@ -122,7 +122,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable final NODETYPE aChildNode,
-                                                                   @Nonnull final IMicroNode aPredecessor)
+                                                                   @NonNull final IMicroNode aPredecessor)
   {
     if (aChildNode != null)
       onInsertAfter ((AbstractMicroNode) aChildNode, aPredecessor);
@@ -146,14 +146,14 @@ public abstract class AbstractMicroNode implements IMicroNode
    * @return {@link EChange#CHANGED} if something changed
    */
   @OverrideOnDemand
-  @Nonnull
+  @NonNull
   protected EChange onRemoveChild (final IMicroNode aChild)
   {
     throw new MicroException ("Cannot remove child from this node: " + getClass ().getName ());
   }
 
-  @Nonnull
-  public final EChange removeChild (@Nonnull final IMicroNode aChild)
+  @NonNull
+  public final EChange removeChild (@NonNull final IMicroNode aChild)
   {
     ValueEnforcer.notNull (aChild, "Child");
     return onRemoveChild (aChild);
@@ -168,13 +168,13 @@ public abstract class AbstractMicroNode implements IMicroNode
    *         otherwise.
    */
   @OverrideOnDemand
-  @Nonnull
+  @NonNull
   protected EChange onRemoveChildAtIndex (final int nIndex)
   {
     throw new MicroException ("Cannot remove child from this node: " + getClass ().getName ());
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeChildAtIndex (@Nonnegative final int nIndex)
   {
     return onRemoveChildAtIndex (nIndex);
@@ -187,13 +187,13 @@ public abstract class AbstractMicroNode implements IMicroNode
    *         removed, {@link EChange#UNCHANGED} otherwise.
    */
   @OverrideOnDemand
-  @Nonnull
+  @NonNull
   protected EChange onRemoveAllChildren ()
   {
     throw new MicroException ("Cannot remove all children from this node: " + getClass ().getName ());
   }
 
-  @Nonnull
+  @NonNull
   public final EChange removeAllChildren ()
   {
     return onRemoveAllChildren ();
@@ -221,29 +221,29 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Override
-  public void forAllChildren (@Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public void forAllChildren (@NonNull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
 
   @Override
-  @Nonnull
-  public EContinue forAllChildrenBreakable (@Nonnull final Function <? super IMicroNode, EContinue> aConsumer)
+  @NonNull
+  public EContinue forAllChildrenBreakable (@NonNull final Function <? super IMicroNode, EContinue> aConsumer)
   {
     return EContinue.CONTINUE;
   }
 
   @Override
-  public void forAllChildren (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                              @Nonnull final Consumer <? super IMicroNode> aConsumer)
+  public void forAllChildren (@NonNull final Predicate <? super IMicroNode> aFilter,
+                              @NonNull final Consumer <? super IMicroNode> aConsumer)
   {
     // empty
   }
 
   @Override
-  public <DSTTYPE> void forAllChildrenMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                              @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
-                                              @Nonnull final Consumer <? super DSTTYPE> aConsumer)
+  public <DSTTYPE> void forAllChildrenMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
+                                              @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
+                                              @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
     // empty
   }
@@ -271,15 +271,15 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   @Override
   @Nullable
-  public IMicroNode findFirstChild (@Nonnull final Predicate <? super IMicroNode> aFilter)
+  public IMicroNode findFirstChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
     return null;
   }
 
   @Override
   @Nullable
-  public <DSTTYPE> DSTTYPE findFirstChildMapped (@Nonnull final Predicate <? super IMicroNode> aFilter,
-                                                 @Nonnull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
+  public <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
+                                                 @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
   {
     return null;
   }
@@ -335,7 +335,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     m_aParentNode = null;
   }
 
-  protected final void internalSetParentNode (@Nonnull final AbstractMicroNodeWithChildren aParentNode)
+  protected final void internalSetParentNode (@NonNull final AbstractMicroNodeWithChildren aParentNode)
   {
     if (aParentNode == null)
       throw new MicroException ("No parent node passed!");
@@ -346,7 +346,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     m_aParentNode = aParentNode;
   }
 
-  @Nonnull
+  @NonNull
   public final IMicroNode detachFromParent ()
   {
     if (m_aParentNode != null)
@@ -359,7 +359,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   }
 
   @Nullable
-  public IMicroElement findParentElement (@Nonnull final Predicate <? super IMicroElement> aFilter)
+  public IMicroElement findParentElement (@NonNull final Predicate <? super IMicroElement> aFilter)
   {
     IMicroNode aParent = m_aParentNode;
     while (aParent != null && aParent.isElement ())
@@ -423,7 +423,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return this instanceof IMicroContainer;
   }
 
-  protected final void internalTriggerEvent (@Nonnull final EMicroEvent eEventType, @Nonnull final IMicroEvent aEvent)
+  protected final void internalTriggerEvent (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEvent aEvent)
   {
     // Any event targets present?
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
@@ -439,16 +439,16 @@ public abstract class AbstractMicroNode implements IMicroNode
       m_aParentNode.internalTriggerEvent (eEventType, aEvent);
   }
 
-  protected final void onEvent (@Nonnull final EMicroEvent eEventType,
-                                @Nonnull final IMicroNode aSourceNode,
-                                @Nonnull final IMicroNode aTargetNode)
+  protected final void onEvent (@NonNull final EMicroEvent eEventType,
+                                @NonNull final IMicroNode aSourceNode,
+                                @NonNull final IMicroNode aTargetNode)
   {
     // Create the event only once
     internalTriggerEvent (eEventType, new MicroEvent (eEventType, aSourceNode, aTargetNode));
   }
 
-  @Nonnull
-  public EChange registerEventTarget (@Nonnull final EMicroEvent eEventType, @Nonnull final IMicroEventTarget aTarget)
+  @NonNull
+  public EChange registerEventTarget (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEventTarget aTarget)
   {
     ValueEnforcer.notNull (eEventType, "EventType");
     ValueEnforcer.notNull (aTarget, "EventTarget");
@@ -460,8 +460,8 @@ public abstract class AbstractMicroNode implements IMicroNode
     return EChange.valueOf (aSet.add (aTarget));
   }
 
-  @Nonnull
-  public EChange unregisterEventTarget (@Nonnull final EMicroEvent eEventType, @Nonnull final IMicroEventTarget aTarget)
+  @NonNull
+  public EChange unregisterEventTarget (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEventTarget aTarget)
   {
     ValueEnforcer.notNull (eEventType, "EventType");
     ValueEnforcer.notNull (aTarget, "EventTarget");
@@ -475,14 +475,14 @@ public abstract class AbstractMicroNode implements IMicroNode
     return EChange.UNCHANGED;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EMicroEvent, CallbackList <IMicroEventTarget>> getAllEventTargets ()
   {
     return new CommonsEnumMap <> (m_aEventTargets);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)
   {

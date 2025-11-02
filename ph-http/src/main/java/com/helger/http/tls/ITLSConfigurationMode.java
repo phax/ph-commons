@@ -16,11 +16,11 @@
  */
 package com.helger.http.tls;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * TLS Configuration mode read-only interface.
@@ -34,7 +34,7 @@ public interface ITLSConfigurationMode
    * @return A list of supported TLS versions in the correct order. May not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <ETLSVersion> getAllTLSVersions ();
 
@@ -42,7 +42,7 @@ public interface ITLSConfigurationMode
    * @return A list of the IDs of the supported TLS versions in the correct
    *         order. May not be <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsList <String> getAllTLSVersionIDs ()
   {
@@ -64,7 +64,7 @@ public interface ITLSConfigurationMode
    * @return All cipher suites in the correct order. May not be
    *         <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <String> getAllCipherSuites ();
 

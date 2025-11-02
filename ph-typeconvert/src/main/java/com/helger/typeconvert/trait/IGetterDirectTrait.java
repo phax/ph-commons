@@ -18,16 +18,23 @@ package com.helger.typeconvert.trait;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.sql.Blob;
+import java.sql.Clob;
+import java.sql.Date;
+import java.sql.NClob;
+import java.sql.RowId;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.reflection.GenericReflection;
 import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.impl.TypeConverter;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A generic convert Object to anything with convenience API.
@@ -119,7 +126,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nonnull final Class <T> aClass)
+  default <T> T getCastedValue (@NonNull final Class <T> aClass)
   {
     return aClass.cast (getValue ());
   }
@@ -139,7 +146,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getCastedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
+  default <T> T getCastedValue (@Nullable final T aDefault, @NonNull final Class <T> aClass)
   {
     final Object aValue = getValue ();
     return aValue == null ? aDefault : aClass.cast (aValue);
@@ -158,7 +165,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getConvertedValue (@Nonnull final Class <T> aClass)
+  default <T> T getConvertedValue (@NonNull final Class <T> aClass)
   {
     return TypeConverter.convert (getValue (), aClass);
   }
@@ -177,7 +184,7 @@ public interface IGetterDirectTrait
    *        Destination type
    */
   @Nullable
-  default <T> T getConvertedValue (@Nullable final T aDefault, @Nonnull final Class <T> aClass)
+  default <T> T getConvertedValue (@Nullable final T aDefault, @NonNull final Class <T> aClass)
   {
     final Object aValue = getValue ();
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
@@ -520,7 +527,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Blob getAsSqlBlob ()
+  default Blob getAsSqlBlob ()
   {
     return getConvertedValue (null, java.sql.Blob.class);
   }
@@ -530,7 +537,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Clob getAsSqlClob ()
+  default Clob getAsSqlClob ()
   {
     return getConvertedValue (null, java.sql.Clob.class);
   }
@@ -540,7 +547,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object, Class)
    */
   @Nullable
-  default java.sql.Date getAsSqlDate ()
+  default Date getAsSqlDate ()
   {
     return getConvertedValue (null, java.sql.Date.class);
   }
@@ -550,7 +557,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object, Class)
    */
   @Nullable
-  default java.sql.NClob getAsSqlNClob ()
+  default NClob getAsSqlNClob ()
   {
     return getConvertedValue (null, java.sql.NClob.class);
   }
@@ -560,7 +567,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.RowId getAsSqlRowId ()
+  default RowId getAsSqlRowId ()
   {
     return getConvertedValue (null, java.sql.RowId.class);
   }
@@ -570,7 +577,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object,Class)
    */
   @Nullable
-  default java.sql.Time getAsSqlTime ()
+  default Time getAsSqlTime ()
   {
     return getConvertedValue (null, java.sql.Time.class);
   }
@@ -580,7 +587,7 @@ public interface IGetterDirectTrait
    * @see #getConvertedValue(Object, Class)
    */
   @Nullable
-  default java.sql.Timestamp getAsSqlTimestamp ()
+  default Timestamp getAsSqlTimestamp ()
   {
     return getConvertedValue (null, java.sql.Timestamp.class);
   }

@@ -16,8 +16,8 @@
  */
 package com.helger.base.name;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Interface for a handler the provides the name of an object.
@@ -39,7 +39,7 @@ public interface INameProvider <DATATYPE>
   @Nullable
   String getName (@Nullable DATATYPE aObject);
 
-  @Nonnull
+  @NonNull
   static INameProvider <IHasName> createHasName ()
   {
     return aObject -> aObject == null ? null : aObject.getName ();

@@ -18,13 +18,13 @@ package com.helger.dao.container;
 
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IAutoSaveAware;
 import com.helger.dao.IDAO;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A marker interface for objects containing other DAOs.
@@ -37,7 +37,7 @@ public interface IDAOContainer extends IAutoSaveAware
    * @return A list of all contained DAOs. The returned list may not contain
    *         <code>null</code> elements!
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   ICommonsList <IDAO> getAllContainedDAOs ();
 

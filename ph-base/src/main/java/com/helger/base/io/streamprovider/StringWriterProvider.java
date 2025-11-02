@@ -16,12 +16,12 @@
  */
 package com.helger.base.io.streamprovider;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.iface.IHasWriter;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * An {@link java.io.Writer} provider based on a {@link String}.
@@ -33,7 +33,7 @@ public class StringWriterProvider implements IHasWriter
   public StringWriterProvider ()
   {}
 
-  @Nonnull
+  @NonNull
   public final NonBlockingStringWriter getWriter ()
   {
     return new NonBlockingStringWriter ();

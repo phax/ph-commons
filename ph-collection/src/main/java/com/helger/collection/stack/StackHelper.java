@@ -20,6 +20,9 @@ import java.util.Collection;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
@@ -27,33 +30,30 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
-
 @Immutable
 public final class StackHelper
 {
   private StackHelper ()
   {}
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nonnegative final int nInitialCapacity)
   {
     return new NonBlockingStack <> (nInitialCapacity);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack ()
   {
     return new NonBlockingStack <> ();
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
-                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                              @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newStack (0);
@@ -63,10 +63,10 @@ public final class StackHelper
     return ret;
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final SRCTYPE [] aArray,
-                                                                              @Nonnull final Function <? super SRCTYPE, DSTTYPE> aMapper)
+                                                                              @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
       return newStack (0);
@@ -85,7 +85,7 @@ public final class StackHelper
    *        The value to push. Maybe <code>null</code>.
    * @return A non-<code>null</code> stack.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE aValue)
   {
@@ -104,7 +104,7 @@ public final class StackHelper
    *        on the stack. May not be <code>null</code> .
    * @return A non-<code>null</code> stack object.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final ELEMENTTYPE... aValues)
@@ -112,10 +112,10 @@ public final class StackHelper
     return new NonBlockingStack <> (aValues);
   }
 
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
-                                                                       @Nonnull final Predicate <? super ELEMENTTYPE> aFilter)
+                                                                       @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (CollectionHelper.isEmpty (aCollection))
       return newStack (0);
@@ -134,7 +134,7 @@ public final class StackHelper
    *        on the stack. May not be <code>null</code> .
    * @return A non-<code>null</code> stack object.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final Collection <? extends ELEMENTTYPE> aValues)
   {

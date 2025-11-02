@@ -16,10 +16,10 @@
  */
 package com.helger.json.parser.handler;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This implementation of {@link IJsonParserHandler} does nothing. It can e.g.
@@ -31,16 +31,16 @@ import jakarta.annotation.Nonnull;
 @Immutable
 public class DoNothingJsonParserHandler implements IJsonParserHandler
 {
-  public void onWhitespace (@Nonnull @Nonempty final String sWhitespace)
+  public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {}
 
-  public void onComment (@Nonnull final String sComment)
+  public void onComment (@NonNull final String sComment)
   {}
 
-  public void onString (@Nonnull final String sString, @Nonnull final String sUnescaped)
+  public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {}
 
-  public void onNumber (@Nonnull final String sNumber, @Nonnull final Number aNumber)
+  public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {}
 
   public void onFalse ()
@@ -64,7 +64,7 @@ public class DoNothingJsonParserHandler implements IJsonParserHandler
   public void onObjectStart ()
   {}
 
-  public void onObjectName (@Nonnull final String sString, @Nonnull final String sName)
+  public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {}
 
   public void onObjectColon ()

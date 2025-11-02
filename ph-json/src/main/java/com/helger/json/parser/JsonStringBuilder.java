@@ -20,11 +20,11 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Arrays;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special StringBuilder implementation that supports conversion to numeric
@@ -89,7 +89,7 @@ public class JsonStringBuilder
     return m_aBuf[nIndex];
   }
 
-  @Nonnull
+  @NonNull
   public JsonStringBuilder reset ()
   {
     m_nLen = 0;
@@ -102,25 +102,25 @@ public class JsonStringBuilder
     m_nLen -= n;
   }
 
-  @Nonnull
+  @NonNull
   public BigDecimal getAsBigDecimal ()
   {
     return new BigDecimal (m_aBuf, 0, m_nLen);
   }
 
-  @Nonnull
+  @NonNull
   public BigInteger getAsBigInteger ()
   {
     return new BigInteger (getAsString (), 10);
   }
 
-  @Nonnull
+  @NonNull
   public Double getAsDouble ()
   {
     return Double.valueOf (Double.parseDouble (getAsString ()));
   }
 
-  @Nonnull
+  @NonNull
   public String getAsString ()
   {
     String ret = m_sCache;

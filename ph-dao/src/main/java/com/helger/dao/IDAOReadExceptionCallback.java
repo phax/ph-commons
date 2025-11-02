@@ -16,11 +16,11 @@
  */
 package com.helger.dao;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.base.callback.ICallback;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * Callback interface to handle thrown exception objects on DAO reading.
@@ -42,5 +42,5 @@ public interface IDAOReadExceptionCallback extends ICallback
    *        The resource that failed. May be <code>null</code> if no file is
    *        defined.
    */
-  void onDAOReadException (@Nonnull Throwable t, boolean bInit, @Nullable IReadableResource aResource);
+  void onDAOReadException (@NonNull Throwable t, boolean bInit, @Nullable IReadableResource aResource);
 }

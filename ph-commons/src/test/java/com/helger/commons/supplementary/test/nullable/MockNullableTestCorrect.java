@@ -16,15 +16,15 @@
  */
 package com.helger.commons.supplementary.test.nullable;
 
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 public class MockNullableTestCorrect implements IMockNullableTest
 {
   public void paramUndefined (final String s)
   {}
 
-  public void paramNonnull (@Nonnull final String s)
+  public void paramNonnull (@NonNull final String s)
   {}
 
   public void paramNullable (@Nullable final String s)

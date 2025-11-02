@@ -16,10 +16,10 @@
  */
 package com.helger.matrix;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.equals.EqualsHelper;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Cholesky Decomposition.
@@ -60,7 +60,7 @@ public class CholeskyDecomposition
    * @param aMatrix
    *        Square, symmetric matrix.
    */
-  public CholeskyDecomposition (@Nonnull final Matrix aMatrix)
+  public CholeskyDecomposition (@NonNull final Matrix aMatrix)
   {
     // Initialize.
     final double [] [] aArray = aMatrix.internalGetArray ();
@@ -130,7 +130,7 @@ public class CholeskyDecomposition
    *
    * @return L
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
   public Matrix getL ()
   {
@@ -148,9 +148,9 @@ public class CholeskyDecomposition
    * @exception RuntimeException
    *            Matrix is not symmetric positive definite.
    */
-  @Nonnull
+  @NonNull
   @ReturnsMutableCopy
-  public Matrix solve (@Nonnull final Matrix aMatrix)
+  public Matrix solve (@NonNull final Matrix aMatrix)
   {
     if (aMatrix.getRowDimension () != m_nDim)
       throw new IllegalArgumentException ("Matrix row dimensions must agree.");

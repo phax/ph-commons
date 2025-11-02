@@ -45,6 +45,7 @@ import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509v1CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,8 +56,6 @@ import com.helger.collection.CollectionHelper;
 import com.helger.io.file.FileHelper;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Test class for class {@link KeyStoreHelper}.
@@ -69,7 +68,7 @@ public final class KeyStoreHelperTest
   private static final String JKS = EKeyStoreType.JKS.getID ();
   private static final String PKCS11 = EKeyStoreType.PKCS11.getID ();
 
-  @Nonnull
+  @NonNull
   private static KeyPair _createKeyPair (final int nKeySizeInBits) throws Exception
   {
     final KeyPairGenerator aGenerator = KeyPairGenerator.getInstance ("RSA");
@@ -78,7 +77,7 @@ public final class KeyStoreHelperTest
     return keyPair;
   }
 
-  @Nonnull
+  @NonNull
   private static X509Certificate _createX509V1Certificate (final KeyPair aKeyPair) throws Exception
   {
     // generate the certificate

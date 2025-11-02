@@ -16,11 +16,11 @@
  */
 package com.helger.config.value;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This class represents a resolved configuration value. It contains the
@@ -34,7 +34,7 @@ public class ConfiguredValue
   private final IConfigurationSource m_aConfigSrc;
   private final String m_sValue;
 
-  public ConfiguredValue (@Nonnull final IConfigurationSource aConfigSrc, @Nonnull final String sValue)
+  public ConfiguredValue (@NonNull final IConfigurationSource aConfigSrc, @NonNull final String sValue)
   {
     ValueEnforcer.notNull (aConfigSrc, "ConfigurationSource");
     ValueEnforcer.notNull (sValue, "Value");
@@ -46,7 +46,7 @@ public class ConfiguredValue
   /**
    * @return The configuration source used. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public IConfigurationSource getConfigurationSource ()
   {
     return m_aConfigSrc;
@@ -55,13 +55,13 @@ public class ConfiguredValue
   /**
    * @return The resolved configuration value. Never <code>null</code>.
    */
-  @Nonnull
+  @NonNull
   public String getValue ()
   {
     return m_sValue;
   }
 
-  @Nonnull
+  @NonNull
   @Override
   public String toString ()
   {

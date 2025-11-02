@@ -19,6 +19,8 @@ package com.helger.xml.sax;
 import java.io.IOException;
 import java.net.URL;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -27,9 +29,6 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
 import com.helger.xml.ls.SimpleLSResourceResolver;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A simple version of {@link EntityResolver} using
@@ -48,7 +47,7 @@ public class DefaultEntityResolver implements EntityResolver
    * @param aBaseURL
    *        The base URL. May not be <code>null</code>.
    */
-  public DefaultEntityResolver (@Nonnull final URL aBaseURL)
+  public DefaultEntityResolver (@NonNull final URL aBaseURL)
   {
     this (aBaseURL.toExternalForm ());
   }
@@ -59,7 +58,7 @@ public class DefaultEntityResolver implements EntityResolver
    * @param sBaseURI
    *        The base URI. May not be <code>null</code>.
    */
-  public DefaultEntityResolver (@Nonnull final String sBaseURI)
+  public DefaultEntityResolver (@NonNull final String sBaseURI)
   {
     m_sBaseURI = ValueEnforcer.notNull (sBaseURI, "BaseURI");
   }
@@ -68,7 +67,7 @@ public class DefaultEntityResolver implements EntityResolver
    * @return The base URI from the constructor. Never <code>null</code>.
    * @since 9.2.0
    */
-  @Nonnull
+  @NonNull
   public final String getBaseURI ()
   {
     return m_sBaseURI;
@@ -89,7 +88,7 @@ public class DefaultEntityResolver implements EntityResolver
    * @return <code>null</code> if the resource does not exist
    */
   @Nullable
-  public static DefaultEntityResolver createOnDemand (@Nonnull final IReadableResource aBaseResource)
+  public static DefaultEntityResolver createOnDemand (@NonNull final IReadableResource aBaseResource)
   {
     final URL aURL = aBaseResource.getAsURL ();
     return aURL == null ? null : new DefaultEntityResolver (aURL);

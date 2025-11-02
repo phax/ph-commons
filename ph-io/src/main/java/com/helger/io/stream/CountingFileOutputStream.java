@@ -21,14 +21,14 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.io.EAppend;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.impl.StatisticsManager;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A special {@link FileOutputStream} sub class that keeps track of all written
@@ -46,23 +46,23 @@ public class CountingFileOutputStream extends FileOutputStream
                                                                                                                  "$write.files");
   private long m_nBytesWritten = 0;
 
-  public CountingFileOutputStream (@Nonnull final File aFile) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final File aFile) throws FileNotFoundException
   {
     this (aFile, DEFAULT_APPEND);
   }
 
-  public CountingFileOutputStream (@Nonnull final File aFile, @Nonnull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (aFile, eAppend.isAppend ());
     STATS_WRITE_FILES.increment ();
   }
 
-  public CountingFileOutputStream (@Nonnull final String sFilename) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final String sFilename) throws FileNotFoundException
   {
     this (sFilename, DEFAULT_APPEND);
   }
 
-  public CountingFileOutputStream (@Nonnull final String sFilename, @Nonnull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final String sFilename, @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (sFilename, eAppend.isAppend ());
     STATS_WRITE_FILES.increment ();

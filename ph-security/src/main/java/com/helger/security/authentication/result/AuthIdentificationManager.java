@@ -16,6 +16,7 @@
  */
 package com.helger.security.authentication.result;
 
+import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,8 +27,6 @@ import com.helger.security.authentication.credentials.AuthCredentialValidatorMan
 import com.helger.security.authentication.credentials.IAuthCredentials;
 import com.helger.security.authentication.credentials.ICredentialValidationResult;
 import com.helger.security.authentication.subject.IAuthSubject;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * This is the main class for creating an {@link IAuthToken} from
@@ -52,8 +51,8 @@ public final class AuthIdentificationManager
    *        error.
    * @return Never <code>null</code>.
    */
-  @Nonnull
-  public static AuthIdentificationResult validateLoginCredentialsAndCreateToken (@Nonnull final IAuthCredentials aCredentials)
+  @NonNull
+  public static AuthIdentificationResult validateLoginCredentialsAndCreateToken (@NonNull final IAuthCredentials aCredentials)
   {
     ValueEnforcer.notNull (aCredentials, "Credentials");
 

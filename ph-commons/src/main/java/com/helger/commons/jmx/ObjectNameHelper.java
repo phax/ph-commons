@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.management.JMException;
 import javax.management.ObjectName;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -30,8 +32,6 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.string.StringReplace;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * Utility class to create JMX {@link ObjectName} objects.
@@ -58,7 +58,7 @@ public final class ObjectNameHelper
    *        The new JMX domain. May neither be <code>null</code> nor empty nor may it contains ":"
    *        or " "
    */
-  public static void setDefaultJMXDomain (@Nonnull @Nonempty final String sDefaultJMXDomain)
+  public static void setDefaultJMXDomain (@NonNull @Nonempty final String sDefaultJMXDomain)
   {
     ValueEnforcer.notEmpty (sDefaultJMXDomain, "DefaultJMXDomain");
     ValueEnforcer.isFalse (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0,
@@ -71,15 +71,15 @@ public final class ObjectNameHelper
    * @return The default JMX domain to be used for {@link ObjectName} instances. The default value
    *         is {@link CJMX#PH_JMX_DOMAIN}.
    */
-  @Nonnull
+  @NonNull
   @Nonempty
   public static String getDefaultJMXDomain ()
   {
     return RW_LOCK.readLockedGet ( () -> s_sDefaultJMXDomain);
   }
 
-  @Nonnull
-  public static ObjectName create (@Nonnull @Nonempty final Hashtable <String, String> aParams)
+  @NonNull
+  public static ObjectName create (@NonNull @Nonempty final Hashtable <String, String> aParams)
   {
     ValueEnforcer.notEmpty (aParams, "Params");
 
@@ -93,8 +93,8 @@ public final class ObjectNameHelper
     }
   }
 
-  @Nonnull
-  public static ObjectName create (@Nonnull @Nonempty final Map <String, String> aParams)
+  @NonNull
+  public static ObjectName create (@NonNull @Nonempty final Map <String, String> aParams)
   {
     ValueEnforcer.notEmpty (aParams, "Params");
 
@@ -111,8 +111,8 @@ public final class ObjectNameHelper
    * @return The modified property value applicable for {@link ObjectName}.
    * @see ObjectName#quote(String)
    */
-  @Nonnull
-  public static String getCleanPropertyValue (@Nonnull final String sPropertyValue)
+  @NonNull
+  public static String getCleanPropertyValue (@NonNull final String sPropertyValue)
   {
     // If a blank is contained, simply quote it
     if (sPropertyValue.indexOf (' ') != -1)
@@ -136,8 +136,8 @@ public final class ObjectNameHelper
    *        The object from which the name is to be created.
    * @return The non-<code>null</code> {@link ObjectName}.
    */
-  @Nonnull
-  public static ObjectName createWithDefaultProperties (@Nonnull final Object aObj)
+  @NonNull
+  public static ObjectName createWithDefaultProperties (@NonNull final Object aObj)
   {
     ValueEnforcer.notNull (aObj, "Object");
 
@@ -156,8 +156,8 @@ public final class ObjectNameHelper
    *        The value of the "name" JMX property
    * @return The non-<code>null</code> {@link ObjectName}.
    */
-  @Nonnull
-  public static ObjectName createWithDefaultProperties (@Nonnull final Object aObj, @Nonnull final String sName)
+  @NonNull
+  public static ObjectName createWithDefaultProperties (@NonNull final Object aObj, @NonNull final String sName)
   {
     ValueEnforcer.notNull (aObj, "Object");
     ValueEnforcer.notNull (sName, "Name");

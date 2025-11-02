@@ -20,13 +20,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A reverse iterator for an existing list
@@ -42,7 +42,7 @@ public class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   private final List <? extends ELEMENTTYPE> m_aList;
   private int m_nIndex;
 
-  public ReverseListIterator (@Nonnull final List <? extends ELEMENTTYPE> aList)
+  public ReverseListIterator (@NonNull final List <? extends ELEMENTTYPE> aList)
   {
     m_aList = ValueEnforcer.notNull (aList, "List");
     m_nIndex = aList.size () - 1;

@@ -20,10 +20,10 @@ import java.io.FilterReader;
 import java.io.IOException;
 import java.io.Reader;
 
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
-
-import jakarta.annotation.Nonnull;
 
 /**
  * A non-synchronized copy of the class {@link java.io.PushbackReader}.
@@ -49,7 +49,7 @@ public class NonBlockingPushbackReader extends FilterReader
    * @exception IllegalArgumentException
    *            if size is &le; 0
    */
-  public NonBlockingPushbackReader (@Nonnull final Reader aReader, @Nonnegative final int nSize)
+  public NonBlockingPushbackReader (@NonNull final Reader aReader, @Nonnegative final int nSize)
   {
     super (aReader);
     ValueEnforcer.isGT0 (nSize, "Size");
@@ -63,7 +63,7 @@ public class NonBlockingPushbackReader extends FilterReader
    * @param aReader
    *        The reader from which characters will be read
    */
-  public NonBlockingPushbackReader (@Nonnull final Reader aReader)
+  public NonBlockingPushbackReader (@NonNull final Reader aReader)
   {
     this (aReader, 1);
   }
@@ -126,7 +126,7 @@ public class NonBlockingPushbackReader extends FilterReader
    *            If an I/O error occurs
    */
   @Override
-  public int read (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -198,7 +198,7 @@ public class NonBlockingPushbackReader extends FilterReader
    *            If there is insufficient room in the pushback buffer, or if some
    *            other I/O error occurs
    */
-  public void unread (@Nonnull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void unread (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -220,7 +220,7 @@ public class NonBlockingPushbackReader extends FilterReader
    *            If there is insufficient room in the pushback buffer, or if some
    *            other I/O error occurs
    */
-  public void unread (@Nonnull final char [] aBuf) throws IOException
+  public void unread (@NonNull final char [] aBuf) throws IOException
   {
     unread (aBuf, 0, aBuf.length);
   }

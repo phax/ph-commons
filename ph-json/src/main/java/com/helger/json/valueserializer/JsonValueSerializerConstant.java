@@ -19,15 +19,15 @@ package com.helger.json.valueserializer;
 import java.io.IOException;
 import java.io.Writer;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
+
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.json.CJson;
-
-import jakarta.annotation.Nonnull;
-import jakarta.annotation.Nullable;
 
 /**
  * A {@link IJsonValueSerializer} implementation that uses a constant value. Required for true,
@@ -46,20 +46,20 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
 
   private final String m_sValue;
 
-  public JsonValueSerializerConstant (@Nonnull @Nonempty final String sValue)
+  public JsonValueSerializerConstant (@NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
     m_sValue = sValue;
   }
 
-  @Nonnull
+  @NonNull
   @Nonempty
   public String getValue ()
   {
     return m_sValue;
   }
 
-  public void appendAsJsonString (@Nullable final Object aValue, @Nonnull @WillNotClose final Writer aWriter)
+  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter)
                                                                                                               throws IOException
   {
     aWriter.write (m_sValue);
