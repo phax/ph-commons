@@ -80,7 +80,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.scope</Automatic-Module-Name>
             <Export-Package>com.helger.scope.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.scope.spi.IGlobalScopeSPI)"; cardinality:=multiple; resolution:=optional,

@@ -81,7 +81,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.datetime</Automatic-Module-Name>
             <Export-Package>com.helger.datetime.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
             <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
           </instructions>

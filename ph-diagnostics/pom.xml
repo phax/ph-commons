@@ -76,7 +76,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.diagnostics</Automatic-Module-Name>
             <Export-Package>com.helger.diagnostics.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

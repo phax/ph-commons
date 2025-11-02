@@ -87,7 +87,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.tree</Automatic-Module-Name>
             <Export-Package>com.helger.tree.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
           </instructions>
         </configuration>
       </plugin>

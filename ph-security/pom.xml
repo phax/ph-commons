@@ -98,7 +98,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.security</Automatic-Module-Name>
             <Export-Package>com.helger.security.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialToSubjectResolverSPI)"; cardinality:=multiple; resolution:=optional,
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>

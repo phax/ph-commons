@@ -69,7 +69,7 @@
           <instructions>
             <Automatic-Module-Name>com.helger.base</Automatic-Module-Name>
             <Export-Package>com.helger.base.*</Export-Package>
-            <Import-Package>!jakarta.annotation.*,*</Import-Package>
+            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
             <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
 osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
 osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI)"; cardinality:=multiple; resolution:=optional,
