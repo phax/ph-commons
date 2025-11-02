@@ -14,23 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.csv;
-
-/**
- Copyright 2005 Bytecode Pty Ltd.
-
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
- http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+package com.helger.csv;
 
 import java.io.IOException;
 
@@ -39,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.string.StringHelper;
+import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
@@ -549,5 +534,19 @@ public class CSVParser
   protected boolean isAllWhiteSpace (@NonNull final CharSequence sb)
   {
     return StringHelper.isAllWhitespace (sb);
+  }
+
+  @Override
+  public String toString ()
+  {
+    return new ToStringGenerator (null).append ("m_cSeparatorChar", m_cSeparatorChar)
+                                       .append ("m_cQuoteChar", m_cQuoteChar)
+                                       .append ("m_cEscapeChar", m_cEscapeChar)
+                                       .append ("m_bStrictQuotes", m_bStrictQuotes)
+                                       .append ("m_bIgnoreLeadingWhiteSpace", m_bIgnoreLeadingWhiteSpace)
+                                       .append ("m_bIgnoreQuotations", m_bIgnoreQuotations)
+                                       .append ("m_sPending", m_sPending)
+                                       .append ("m_bInField", m_bInField)
+                                       .getToString ();
   }
 }

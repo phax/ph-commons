@@ -14,21 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.commons.csv;
+package com.helger.csv;
 
-import java.io.IOException;
-import java.io.Writer;
+import org.junit.Test;
 
-public class MockThrowingCSVWriter extends CSVWriter
+import com.helger.unittestext.SPITestHelper;
+
+/**
+ * Test SPI definitions
+ *
+ * @author Philip Helger
+ */
+public final class SPITest
 {
-  public MockThrowingCSVWriter (final Writer aWriter)
+  @Test
+  public void testBasic () throws Exception
   {
-    super (aWriter);
-  }
-
-  @Override
-  public void flush () throws IOException
-  {
-    throw new IOException ("Exception thrown from Mock test flush method");
+    // Special case: allow for invalid ones!
+    SPITestHelper.testIfAllSPIImplementationsAreValid (true);
   }
 }
