@@ -170,6 +170,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-csv</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-typeconvert</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -349,6 +354,7 @@
     <module>ph-base</module>
     <module>ph-unittest-support</module>
     <module>ph-collection</module>
+    <module>ph-csv</module>
     <module>ph-typeconvert</module>
     <module>ph-cli</module>
     <module>ph-statistics</module>
