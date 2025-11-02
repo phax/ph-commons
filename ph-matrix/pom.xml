@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>12.1.0-SNAPSHOT</version>
+    <version>12.1.0</version>
   </parent>
   <artifactId>ph-matrix</artifactId>
   <packaging>bundle</packaging>
