@@ -26,7 +26,7 @@ This document contains the coding styleguide rules extracted from analyzing the 
    - Implementation notes for performance considerations
    - Mathematical documentation for complex algorithms
 2. Method Documentation:
-   - Parameter documentation with constraints (@Nonnull, etc.)
+   - Parameter documentation with constraints (@NonNull, etc.)
    - Generic type parameter documentation with @param tags
    - Return value semantics (@ReturnsMutableCopy, etc.)
    - @serial tags for serializable fields
@@ -159,7 +159,7 @@ This document contains the coding styleguide rules extracted from analyzing the 
 ### 4.5 Additional Programming Patterns
 
 1. Exception Propagation:
-   - Use `@Nonnull` and `@Nullable` annotations consistently
+   - Use `@NonNull` and `@Nullable` annotations consistently
    - Exception wrapping in helper classes
    - `throws Exception` in AutoCloseable implementations
    - Clear documentation of exception hierarchies
