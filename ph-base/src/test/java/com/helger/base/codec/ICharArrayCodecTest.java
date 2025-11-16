@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.codec.impl;
+package com.helger.base.codec;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,7 +26,7 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.codec.ICharArrayCodec;
+import com.helger.base.codec.impl.RFC2616Codec;
 
 /**
  * Test class for class {@link ICharArrayCodec}

@@ -25,7 +25,7 @@ import org.junit.Test;
 import com.helger.base.numeric.mutable.MutableBoolean;
 import com.helger.typeconvert.impl.TypeConverter;
 
-public class MutableTypeConvertFuncTest
+public final class MutableTypeConvertFuncTest
 {
   @Test
   public void testTypeConversionBoolean ()
@@ -37,5 +37,4 @@ public class MutableTypeConvertFuncTest
     assertTrue (TypeConverter.convertToBoolean (x));
     assertEquals (x, TypeConverter.convert (true, MutableBoolean.class));
   }
-
 }

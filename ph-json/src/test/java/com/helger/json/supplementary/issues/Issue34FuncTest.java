@@ -32,7 +32,7 @@ import com.helger.json.parser.JsonParseException;
 import com.helger.json.parser.JsonParserSettings;
 import com.helger.json.serialize.JsonReader;
 
-public final class TestIssue35
+public final class Issue34FuncTest
 {
   @NonNull
   public static String _createNestedDoc (@Nonnegative final int nNesting,

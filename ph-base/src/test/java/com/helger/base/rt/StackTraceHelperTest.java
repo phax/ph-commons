@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.lang;
+package com.helger.base.rt;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,7 +25,6 @@ import static org.junit.Assert.fail;
 import org.junit.Test;
 
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.rt.StackTraceHelper;
 
 /**
  * Test class for class {@link StackTraceHelper}.
@@ -71,10 +70,14 @@ public final class StackTraceHelperTest
     assertEquals ("", StackTraceHelper.getStackAsString ((Throwable) null, false, "\r\n"));
 
     // AppServer stacktrace :)
-    final StackTraceElement [] ste = ArrayHelper.createArray (new StackTraceElement ("org.eclipse.jetty.Server", "start", "Server.java", 100));
+    final StackTraceElement [] ste = ArrayHelper.createArray (new StackTraceElement ("org.eclipse.jetty.Server",
+                                                                                     "start",
+                                                                                     "Server.java",
+                                                                                     100));
     assertEquals ("  [1 element omitted -- org.eclipse.jetty.Server.start(Server.java:100)]",
                   StackTraceHelper.getStackAsString (ste, true));
-    assertEquals ("1.: org.eclipse.jetty.Server.start(Server.java:100)", StackTraceHelper.getStackAsString (ste, false));
+    assertEquals ("1.: org.eclipse.jetty.Server.start(Server.java:100)",
+                  StackTraceHelper.getStackAsString (ste, false));
 
     try
     {

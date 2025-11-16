@@ -42,7 +42,7 @@ final class AutoClose implements AutoCloseable
   }
 }
 
-public class JavaAutoCloseFuncTest
+public final class JavaAutoCloseFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JavaAutoCloseFuncTest.class);
 

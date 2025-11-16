@@ -30,7 +30,7 @@ import com.helger.config.source.appl.ConfigurationSourceFunction;
  *
  * @author Philip Helger
  */
-public class MultiConfigurationValueProviderTest
+public final class MultiConfigurationValueProviderTest
 {
   @Test
   public void testBasic ()

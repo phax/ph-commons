@@ -30,7 +30,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-public class NonBlockingBufferedWriterTest
+public final class NonBlockingBufferedWriterTest
 {
   @Test
   public void testAll () throws IOException

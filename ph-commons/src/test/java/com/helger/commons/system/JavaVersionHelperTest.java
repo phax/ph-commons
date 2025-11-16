@@ -26,13 +26,12 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-public class JavaVersionHelperTest
+public final class JavaVersionHelperTest
 {
   @Test
   public void testGetVersion ()
   {
-    int [] aParts;
-    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0_144");
+    int [] aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0_144");
     assertNotNull (aParts);
     assertEquals (3, aParts.length);
     assertEquals (8, aParts[0]);

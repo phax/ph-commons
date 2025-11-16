@@ -26,7 +26,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-public class ObjectHelperTest
+public final class ObjectHelperTest
 {
   @Test
   public void testGetObjectAddress ()

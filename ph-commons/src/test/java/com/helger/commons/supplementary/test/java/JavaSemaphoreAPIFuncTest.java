@@ -22,7 +22,7 @@ import java.util.concurrent.Semaphore;
 
 import org.junit.Test;
 
-public class JavaSemaphoreAPITest
+public final class JavaSemaphoreAPIFuncTest
 {
   @Test
   public void testSimple () throws InterruptedException

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.base.codec.impl;
+package com.helger.base.codec;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertNotNull;
@@ -27,9 +27,14 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
-import com.helger.base.codec.IByteArrayCodec;
-import com.helger.base.codec.IdentityByteArrayCodec;
 import com.helger.base.codec.base64.Base64Codec;
+import com.helger.base.codec.impl.Base16Codec;
+import com.helger.base.codec.impl.Base32Codec;
+import com.helger.base.codec.impl.FlateCodec;
+import com.helger.base.codec.impl.GZIPCodec;
+import com.helger.base.codec.impl.LZWCodec;
+import com.helger.base.codec.impl.QuotedPrintableCodec;
+import com.helger.base.codec.impl.RFC3986Codec;
 
 /**
  * Test class for class {@link IByteArrayCodec}

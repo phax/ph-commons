@@ -33,7 +33,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.timing.StopWatch;
 
-public class PromiseFuncTest
+public final class PromiseFuncTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (PromiseFuncTest.class);
 

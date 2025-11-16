@@ -29,7 +29,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
-public class ExpiringObjectTest
+public final class ExpiringObjectTest
 {
   @Test
   public void testSimple ()

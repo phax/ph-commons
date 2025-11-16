@@ -48,7 +48,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   ThreadGroup m_aThreadGroup;
 
   /** The uncaught exception handler. */
-  Thread.UncaughtExceptionHandler m_aUncaughtExceptionHandler = BasicThreadFactory.s_aDefaultUncaughtExceptionHandler;
+  Thread.UncaughtExceptionHandler m_aUncaughtExceptionHandler = BasicThreadFactory.getDefaultUncaughtExceptionHandler ();
 
   /** The naming pattern. */
   String m_sNamingPattern;

@@ -36,8 +36,8 @@ import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 
 /**
- * {@link IMicroTypeConverterRegistrarSPI} implementation for
- * {@link ReadOnlyMultilingualText} and {@link MultilingualText}.
+ * {@link IMicroTypeConverterRegistrarSPI} implementation for {@link ReadOnlyMultilingualText} and
+ * {@link MultilingualText}.
  *
  * @author Philip Helger
  */
@@ -50,13 +50,18 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     private static final String ELEMENT_TEXT = "text";
     private static final IMicroQName ATTR_LOCALE = new MicroQName ("locale");
 
+    protected AbstractMLTConverter ()
+    {}
+
     @NonNull
     public final IMicroElement convertToMicroElement (@NonNull final T aSource,
                                                       @Nullable final String sNamespaceURI,
                                                       @NonNull @Nonempty final String sTagName)
     {
       final IMicroElement eMText = new MicroElement (sNamespaceURI, sTagName);
-      for (final Map.Entry <Locale, String> aEntry : aSource.texts ().getSortedByKey (Comparator.comparing (Locale::toString)).entrySet ())
+      for (final Map.Entry <Locale, String> aEntry : aSource.texts ()
+                                                            .getSortedByKey (Comparator.comparing (Locale::toString))
+                                                            .entrySet ())
       {
         final IMicroElement eText = eMText.addElementNS (sNamespaceURI, ELEMENT_TEXT);
         eText.setAttribute (ATTR_LOCALE, aEntry.getKey ().toString ());
@@ -100,7 +105,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!
-    aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class, new ReadOnlyMultilingualTextConverter ());
+    aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class,
+                                                 new ReadOnlyMultilingualTextConverter ());
 
     // Register the writable version afterwards!
     aRegistry.registerMicroElementTypeConverter (MultilingualText.class, new MultilingualTextConverter ());

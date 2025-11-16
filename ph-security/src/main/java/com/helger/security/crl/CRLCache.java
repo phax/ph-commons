@@ -53,7 +53,7 @@ public class CRLCache
       super (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
     }
 
-    private void insertManually (final String aKey, final ExpiringObject <CRL> aValue)
+    private void _insertManually (final String aKey, final ExpiringObject <CRL> aValue)
     {
       super.putInCache (aKey, aValue);
     }
@@ -144,7 +144,7 @@ public class CRLCache
   {
     ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
     ValueEnforcer.notNull (aCRL, "CRL");
-    m_aCache.insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
+    m_aCache._insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
   }
 
   @NonNull

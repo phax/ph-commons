@@ -14,8 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
@@ -23,20 +24,21 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.collection.base.EmptyIterator;
-
 /**
- * Test class for class {@link EmptyIterator}
+ * Test class for class {@link EmptyListIterator}
  *
  * @author Philip Helger
  */
-public final class EmptyIteratorTest
+public final class EmptyListIteratorTest
 {
   @Test
   public void testAll ()
   {
-    final EmptyIterator <String> eit = new EmptyIterator <> ();
+    final EmptyListIterator <String> eit = new EmptyListIterator <> ();
     assertFalse (eit.hasNext ());
+    assertFalse (eit.hasPrevious ());
+    assertEquals (-1, eit.previousIndex ());
+    assertEquals (0, eit.nextIndex ());
 
     try
     {
@@ -45,6 +47,31 @@ public final class EmptyIteratorTest
     }
     catch (final NoSuchElementException ex)
     {}
+
+    try
+    {
+      eit.previous ();
+      fail ();
+    }
+    catch (final NoSuchElementException ex)
+    {}
+
+    try
+    {
+      eit.add ("any");
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+
+    try
+    {
+      eit.set ("any");
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+
     try
     {
       eit.remove ();

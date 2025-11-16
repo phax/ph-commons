@@ -31,7 +31,7 @@ import com.helger.base.compare.CompareHelper;
  *
  * @author Philip Helger
  */
-public final class CompareHelperTest
+public final class CompareHelperFuncTest
 {
   private static final Locale L_DE = new Locale ("de");
   private static final Locale L_EN = new Locale ("en");

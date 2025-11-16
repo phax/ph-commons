@@ -124,7 +124,7 @@ public class BasicThreadFactory implements ThreadFactory
 
   private static final Logger LOGGER = LoggerFactory.getLogger (BasicThreadFactory.class);
 
-  static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
+  private static Thread.UncaughtExceptionHandler s_aDefaultUncaughtExceptionHandler = (t, e) -> {
     LOGGER.error ("Uncaught exception from Thread " + t.getName (), e);
   };
 

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -32,7 +32,6 @@ import java.util.function.Predicate;
 import org.junit.Test;
 
 import com.helger.base.functional.Predicates;
-import com.helger.collection.base.FilterIterator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;

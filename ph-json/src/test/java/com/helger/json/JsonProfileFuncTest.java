@@ -33,9 +33,9 @@ import com.helger.json.parser.JsonParser;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
 import com.helger.json.parser.handler.DoNothingJsonParserHandler;
 
-public class JsonProfileTest
+public final class JsonProfileFuncTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (JsonProfileTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JsonProfileFuncTest.class);
 
   public static void main (final String [] args) throws IOException
   {

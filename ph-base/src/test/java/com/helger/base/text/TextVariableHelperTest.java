@@ -35,7 +35,7 @@ import com.helger.base.string.StringHelper;
  *
  * @author Philip Helger
  */
-public class TextVariableHelperTest
+public final class TextVariableHelperTest
 {
   @Test
   public void testSplitByVariables ()
@@ -155,9 +155,9 @@ public class TextVariableHelperTest
     assertEquals ("unresolved(noidea)",
                   TextVariableHelper.getWithReplacedVariables ("${noidea}",
                                                                x -> StringHelper.getNotNull (aVars.get (x),
-                                                                                        () -> "unresolved(" +
-                                                                                              x +
-                                                                                              ")")));
+                                                                                             () -> "unresolved(" +
+                                                                                                   x +
+                                                                                                   ")")));
 
     // Unexpected cases
     assertEquals ("a${open", TextVariableHelper.getWithReplacedVariables ("a${open", aVars::get));

@@ -39,6 +39,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -58,7 +59,7 @@ public class JAXBContextCacheKey
   private final ICommonsList <Package> m_aPackages;
   private final WeakReference <ClassLoader> m_aClassLoader;
   private final ICommonsList <WeakReference <Class <?>>> m_aClasses;
-  private final Map <String, ?> m_aProperties;
+  private final ICommonsMap <String, ?> m_aProperties;
   private final String m_sEqualsHashCodeKey;
 
   /**

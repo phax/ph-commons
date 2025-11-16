@@ -27,7 +27,6 @@ import java.time.OffsetTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
-import java.util.WeakHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -47,7 +46,9 @@ import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.CommonsWeakHashMap;
 import com.helger.collection.commons.ICommonsList;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.datetime.helper.PDTFactory;
 import com.helger.datetime.rt.OffsetDate;
@@ -268,8 +269,8 @@ public final class CommonsMock
     }
   }
 
-  private static final Map <Class <?>, MockSupplier> STATIC_SUPPLIERS = new WeakHashMap <> ();
-  private final Map <Class <?>, MockSupplier> m_aPerInstanceSupplier = new WeakHashMap <> ();
+  private static final ICommonsMap <Class <?>, MockSupplier> STATIC_SUPPLIERS = new CommonsWeakHashMap <> ();
+  private final ICommonsMap <Class <?>, MockSupplier> m_aPerInstanceSupplier = new CommonsWeakHashMap <> ();
 
   static
   {

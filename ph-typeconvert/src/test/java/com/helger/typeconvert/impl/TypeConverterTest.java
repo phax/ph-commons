@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.typeconvert;
+package com.helger.typeconvert.impl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
@@ -62,9 +62,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.CommonsLinkedHashSet;
+import com.helger.typeconvert.TypeConverterException;
 import com.helger.typeconvert.TypeConverterException.EReason;
-import com.helger.typeconvert.impl.TypeConverter;
-import com.helger.typeconvert.impl.TypeConverterProviderRuleBased;
 import com.helger.typeconvert.mock.IMockInterface;
 import com.helger.typeconvert.mock.MockImplementation;
 import com.helger.typeconvert.mock.MockSubImplementation;

@@ -20,9 +20,9 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public final class JavaExecOrderTest
+public final class JavaExecOrderFuncTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (JavaExecOrderTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (JavaExecOrderFuncTest.class);
 
   @Test
   public void testV1 ()

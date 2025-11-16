@@ -435,7 +435,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
    *        the zone offset to create with, may be null
    */
   @NonNull
-  private XMLOffsetDate with (@NonNull final LocalDate date, @Nullable final ZoneOffset offset)
+  private XMLOffsetDate _with (@NonNull final LocalDate date, @Nullable final ZoneOffset offset)
   {
     if (this.m_aDate == date && EqualsHelper.equals (m_aOffset, offset))
       return this;
@@ -674,7 +674,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate withOffsetSameLocal (@Nullable final ZoneOffset offset)
   {
-    return with (m_aDate, offset);
+    return _with (m_aDate, offset);
   }
 
   /**
@@ -829,9 +829,9 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   {
     // optimizations
     if (adjuster instanceof final LocalDate aLD)
-      return with (aLD, m_aOffset);
+      return _with (aLD, m_aOffset);
     if (adjuster instanceof final ZoneOffset aZO)
-      return with (m_aDate, aZO);
+      return _with (m_aDate, aZO);
     if (adjuster instanceof final XMLOffsetDate aXOD)
       return aXOD;
     return (XMLOffsetDate) adjuster.adjustInto (this);
@@ -888,9 +888,9 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     {
       if (field == OFFSET_SECONDS)
       {
-        return with (m_aDate, ZoneOffset.ofTotalSeconds (f.checkValidIntValue (newValue)));
+        return _with (m_aDate, ZoneOffset.ofTotalSeconds (f.checkValidIntValue (newValue)));
       }
-      return with (m_aDate.with (field, newValue), m_aOffset);
+      return _with (m_aDate.with (field, newValue), m_aOffset);
     }
     return field.adjustInto (this, newValue);
   }
@@ -912,7 +912,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate withYear (final int year)
   {
-    return with (m_aDate.withYear (year), m_aOffset);
+    return _with (m_aDate.withYear (year), m_aOffset);
   }
 
   /**
@@ -932,7 +932,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate withMonth (final int month)
   {
-    return with (m_aDate.withMonth (month), m_aOffset);
+    return _with (m_aDate.withMonth (month), m_aOffset);
   }
 
   /**
@@ -953,7 +953,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate withDayOfMonth (final int dayOfMonth)
   {
-    return with (m_aDate.withDayOfMonth (dayOfMonth), m_aOffset);
+    return _with (m_aDate.withDayOfMonth (dayOfMonth), m_aOffset);
   }
 
   /**
@@ -972,7 +972,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate withDayOfYear (final int dayOfYear)
   {
-    return with (m_aDate.withDayOfYear (dayOfYear), m_aOffset);
+    return _with (m_aDate.withDayOfYear (dayOfYear), m_aOffset);
   }
 
   /**
@@ -1035,7 +1035,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   public XMLOffsetDate plus (final long amountToAdd, @NonNull final TemporalUnit unit)
   {
     if (unit instanceof ChronoUnit)
-      return with (m_aDate.plus (amountToAdd, unit), m_aOffset);
+      return _with (m_aDate.plus (amountToAdd, unit), m_aOffset);
     return unit.addTo (this, amountToAdd);
   }
 
@@ -1056,7 +1056,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate plusYears (final long years)
   {
-    return with (m_aDate.plusYears (years), m_aOffset);
+    return _with (m_aDate.plusYears (years), m_aOffset);
   }
 
   /**
@@ -1076,7 +1076,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate plusMonths (final long months)
   {
-    return with (m_aDate.plusMonths (months), m_aOffset);
+    return _with (m_aDate.plusMonths (months), m_aOffset);
   }
 
   /**
@@ -1096,7 +1096,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate plusWeeks (final long weeks)
   {
-    return with (m_aDate.plusWeeks (weeks), m_aOffset);
+    return _with (m_aDate.plusWeeks (weeks), m_aOffset);
   }
 
   /**
@@ -1116,7 +1116,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate plusDays (final long days)
   {
-    return with (m_aDate.plusDays (days), m_aOffset);
+    return _with (m_aDate.plusDays (days), m_aOffset);
   }
 
   /**
@@ -1195,7 +1195,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate minusYears (final long years)
   {
-    return with (m_aDate.minusYears (years), m_aOffset);
+    return _with (m_aDate.minusYears (years), m_aOffset);
   }
 
   /**
@@ -1215,7 +1215,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate minusMonths (final long months)
   {
-    return with (m_aDate.minusMonths (months), m_aOffset);
+    return _with (m_aDate.minusMonths (months), m_aOffset);
   }
 
   /**
@@ -1235,7 +1235,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate minusWeeks (final long weeks)
   {
-    return with (m_aDate.minusWeeks (weeks), m_aOffset);
+    return _with (m_aDate.minusWeeks (weeks), m_aOffset);
   }
 
   /**
@@ -1255,7 +1255,7 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate minusDays (final long days)
   {
-    return with (m_aDate.minusDays (days), m_aOffset);
+    return _with (m_aDate.minusDays (days), m_aOffset);
   }
 
   /**

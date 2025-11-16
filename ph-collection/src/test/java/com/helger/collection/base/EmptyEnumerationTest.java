@@ -14,49 +14,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.helger.collection.iterator;
+package com.helger.collection.base;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-import com.helger.collection.base.MapperIterator;
-import com.helger.collection.helper.CollectionHelperExt;
-
 /**
- * Test class for class {@link MapperIterator}
+ * Test class for class {@link EmptyEnumeration}.
  *
  * @author Philip Helger
  */
-public final class MapperIteratorTest
+public final class EmptyEnumerationTest
 {
   @Test
-  public void testGetIteratorWithConversion ()
+  public void testAll ()
   {
-    final Iterator <Integer> it = new MapperIterator <> (CollectionHelperExt.createList ("100", "-25"),
-                                                         Integer::valueOf);
-    assertNotNull (it);
-    assertTrue (it.hasNext ());
-    assertEquals (Integer.valueOf (100), it.next ());
-    assertTrue (it.hasNext ());
-    assertEquals (Integer.valueOf (-25), it.next ());
-    assertFalse (it.hasNext ());
-
+    final EmptyEnumeration <String> es = new EmptyEnumeration <> ();
+    assertFalse (es.hasMoreElements ());
     try
     {
-      it.next ();
+      es.nextElement ();
       fail ();
     }
     catch (final NoSuchElementException ex)
     {}
-
-    it.remove ();
+    assertNotEquals (es, null);
+    assertNotEquals (es, "any");
   }
 }

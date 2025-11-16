@@ -19,19 +19,17 @@ package com.helger.commons.supplementary.test.java;
 import java.io.EOFException;
 import java.io.IOException;
 
-public class JavaThrowingLambda
+public final class JavaThrowingLambda
 {
   @FunctionalInterface
-  public static interface IDummy
+  public interface IDummy
   {
     void foo () throws IOException;
   }
 
   public static void main (final String [] args) throws IOException
   {
-    final IDummy x = () -> {
-      throw new EOFException ();
-    };
+    final IDummy x = () -> { throw new EOFException (); };
     x.foo ();
   }
 }

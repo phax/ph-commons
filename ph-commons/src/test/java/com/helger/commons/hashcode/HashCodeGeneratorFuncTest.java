@@ -48,9 +48,9 @@ import com.helger.io.file.SimpleFileIO;
  *
  * @author Philip Helger
  */
-public final class HashCodeGeneratorTest
+public final class HashCodeGeneratorFuncTest
 {
-  private static final Logger LOGGER = LoggerFactory.getLogger (HashCodeGeneratorTest.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger (HashCodeGeneratorFuncTest.class);
 
   private static void _appendFields (final HashCodeGenerator aHC)
   {
