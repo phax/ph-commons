@@ -30,6 +30,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -39,7 +40,9 @@ import com.helger.base.string.StringReplace;
 public class ClassHelper
 {
   // WeakHashMap because class is used as a key
+  @CodingStyleguideUnaware
   private static final Map <Class <?>, Class <?>> PRIMITIVE_TO_WRAPPER = new WeakHashMap <> (8);
+  @CodingStyleguideUnaware
   private static final Map <Class <?>, Class <?>> WRAPPER_TO_PRIMITIVE = new WeakHashMap <> (8);
 
   static

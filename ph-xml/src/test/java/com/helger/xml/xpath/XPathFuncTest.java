@@ -31,7 +31,7 @@ import org.w3c.dom.NodeList;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
 import com.helger.xml.serialize.read.DOMReader;
 
-public class XPathFuncTest
+public final class XPathFuncTest
 {
   @Test
   public void testBasicUBL () throws XPathExpressionException

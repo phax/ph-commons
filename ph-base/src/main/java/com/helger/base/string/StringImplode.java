@@ -30,6 +30,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
@@ -50,6 +51,7 @@ public final class StringImplode
    */
   public static class ImploderBuilder implements IBuilder <String>
   {
+    @CodingStyleguideUnaware
     private List <String> m_aSource;
     private String m_sSeparator;
     private int m_nOffset = 0;
@@ -986,6 +988,7 @@ public final class StringImplode
    */
   public static class ImploderBuilderMap implements IBuilder <String>
   {
+    @CodingStyleguideUnaware
     private Map <String, String> m_aSource;
     private String m_sSeparatorOuter;
     private String m_sSeparatorInner;

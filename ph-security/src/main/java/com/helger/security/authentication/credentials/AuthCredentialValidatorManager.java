@@ -21,6 +21,7 @@ import java.util.List;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
@@ -31,6 +32,7 @@ import com.helger.collection.commons.ICommonsList;
 @Immutable
 public final class AuthCredentialValidatorManager
 {
+  @CodingStyleguideUnaware
   private static final List <IAuthCredentialValidatorSPI> HDL_LIST;
 
   static

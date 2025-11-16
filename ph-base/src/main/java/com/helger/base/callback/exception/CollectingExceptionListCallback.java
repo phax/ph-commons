@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.tostring.ToStringGenerator;
 
@@ -38,6 +39,7 @@ import com.helger.base.tostring.ToStringGenerator;
 @NotThreadSafe
 public class CollectingExceptionListCallback <EXTYPE extends Throwable> implements IExceptionCallback <EXTYPE>
 {
+  @CodingStyleguideUnaware
   private final List <EXTYPE> m_aExceptions = new ArrayList <> ();
 
   public void onException (@Nullable final EXTYPE aEx)

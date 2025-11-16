@@ -24,6 +24,8 @@ import java.util.Set;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.style.CodingStyleguideUnaware;
+
 /**
  * An enum that defines the revocation checking modes.
  *
@@ -55,6 +57,7 @@ public enum ERevocationCheckMode
 
   private final boolean m_bOCSP;
   private final boolean m_bCRL;
+  @CodingStyleguideUnaware
   private final Set <PKIXRevocationChecker.Option> m_aOptions;
 
   ERevocationCheckMode (final boolean bOCSP,

@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.concurrent.SimpleReadWriteLock;
@@ -57,6 +58,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   @GuardedBy ("m_aRWLock")
+  @CodingStyleguideUnaware
   private final Set <CALLBACKTYPE> m_aCallbacks = new LinkedHashSet <> ();
 
   public CallbackList ()

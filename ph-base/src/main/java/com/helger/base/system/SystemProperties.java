@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
@@ -52,6 +53,7 @@ public final class SystemProperties implements IHasConditionalLogger
 
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
+  @CodingStyleguideUnaware
   private static final Set <String> WARNED_PROP_NAMES = new CopyOnWriteArraySet <> ();
 
   @PresentForCodeCoverage

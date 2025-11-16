@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
@@ -40,7 +41,9 @@ public final class StackTraceHelper
   public static final String DEFAULT_LINE_SEPARATOR = "\n";
 
   /** elements to omit in stack traces */
+  @CodingStyleguideUnaware
   private static final List <String> STACKTRACE_OMIT_UNITTEST = new ArrayList <> ();
+  @CodingStyleguideUnaware
   private static final List <String> STACKTRACE_OMIT_APPSRV = new ArrayList <> ();
 
   static

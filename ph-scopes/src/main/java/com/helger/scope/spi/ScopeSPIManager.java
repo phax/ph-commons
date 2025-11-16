@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.mock.exception.IMockException;
@@ -57,10 +58,13 @@ public final class ScopeSPIManager
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
+  @CodingStyleguideUnaware
   private List <IGlobalScopeSPI> m_aGlobalSPIs;
   @GuardedBy ("m_aRWLock")
+  @CodingStyleguideUnaware
   private List <ISessionScopeSPI> m_aSessionSPIs;
   @GuardedBy ("m_aRWLock")
+  @CodingStyleguideUnaware
   private List <IRequestScopeSPI> m_aRequestSPIs;
 
   private ScopeSPIManager ()

@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
@@ -55,6 +56,7 @@ public final class EnumHelper
   private static final Object [] NOT_CACHABLE = CGlobal.EMPTY_OBJECT_ARRAY;
   private static final SimpleReadWriteLock RW_LOCK_INTCACHE = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK_INTCACHE")
+  @CodingStyleguideUnaware
   private static final Map <String, Object []> INT_CACHE = new HashMap <> ();
 
   @PresentForCodeCoverage

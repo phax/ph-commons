@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.spi.ServiceLoaderHelper;
 
@@ -71,6 +72,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
 
   // Use a weak hash map, because the key is a class
   @GuardedBy ("m_aRWLock")
+  @CodingStyleguideUnaware
   private final List <Item> m_aActions = new ArrayList <> ();
 
   private CleanUpRegistry ()

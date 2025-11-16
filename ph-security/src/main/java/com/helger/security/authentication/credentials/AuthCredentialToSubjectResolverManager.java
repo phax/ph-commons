@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsArrayList;
@@ -38,6 +39,7 @@ import com.helger.security.authentication.subject.IAuthSubject;
 @Immutable
 public final class AuthCredentialToSubjectResolverManager
 {
+  @CodingStyleguideUnaware
   private static final List <IAuthCredentialToSubjectResolverSPI> HDL_LIST;
 
   static
