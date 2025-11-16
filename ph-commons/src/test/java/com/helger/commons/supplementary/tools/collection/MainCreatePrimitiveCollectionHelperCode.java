@@ -35,7 +35,7 @@ public final class MainCreatePrimitiveCollectionHelperCode
 
   public static void main (final String [] args)
   {
-    final StringBuilder aSB = new StringBuilder ().append ("\n");
+    final StringBuilder aSB = new StringBuilder ().append ('\n');
     for (final ECollectionType eCollectionType : ECollectionType.values ())
       if (!eCollectionType.isMap ())
         for (final EPrimitiveType ePrim : EPrimitiveType.values ())

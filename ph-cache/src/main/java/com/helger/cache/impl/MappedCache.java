@@ -234,7 +234,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   @NonNull
-  private KEYSTORETYPE _getCacheKeyNonnull (final KEYTYPE aKey)
+  private KEYSTORETYPE _getCacheKeyNonNull (final KEYTYPE aKey)
   {
     final KEYSTORETYPE aCacheKey = m_aCacheKeyProvider.apply (aKey);
     if (aCacheKey == null)
@@ -269,7 +269,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   @IsLocked (ELockType.WRITE)
   protected final void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
   {
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonnull (aKey);
+    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
     final Wrapper <VALUETYPE> aCacheValue = _getCacheValue (aKey, aValue);
     m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aCacheKey, aCacheValue));
   }
@@ -310,7 +310,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   public VALUETYPE getFromCache (final KEYTYPE aKey)
   {
     // Determine the internal key
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonnull (aKey);
+    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
 
     Wrapper <VALUETYPE> aCacheValue = getFromCacheNoStats (aCacheKey);
     if (aCacheValue == null)
@@ -352,7 +352,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   @OverridingMethodsMustInvokeSuper
   public EChange removeFromCache (final KEYTYPE aKey)
   {
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonnull (aKey);
+    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
 
     m_aRWLock.writeLock ().lock ();
     try
