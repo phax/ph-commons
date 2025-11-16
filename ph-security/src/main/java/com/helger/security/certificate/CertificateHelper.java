@@ -685,9 +685,28 @@ public final class CertificateHelper
   }
 
   @Nullable
+  public static String getPrincipalTypeValueOrNull (@Nullable final String sPrincipal, @NonNull final String sType)
+  {
+    try
+    {
+      return getPrincipalTypeValue (sPrincipal, sType);
+    }
+    catch (final InvalidNameException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
   public static String getCN (@Nullable final String sPrincipal) throws InvalidNameException
   {
     return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_CN);
+  }
+
+  @Nullable
+  public static String getCNOrNull (@Nullable final String sPrincipal)
+  {
+    return getPrincipalTypeValueOrNull (sPrincipal, PRINCIPAL_TYPE_CN);
   }
 
   @Nullable
@@ -703,22 +722,15 @@ public final class CertificateHelper
   }
 
   @Nullable
-  public static String getCNOrNull (@Nullable final String sPrincipal)
-  {
-    try
-    {
-      return getCN (sPrincipal);
-    }
-    catch (final InvalidNameException ex)
-    {
-      return null;
-    }
-  }
-
-  @Nullable
   public static String getO (@Nullable final String sPrincipal) throws InvalidNameException
   {
     return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_O);
+  }
+
+  @Nullable
+  public static String getOOrNull (@Nullable final String sPrincipal)
+  {
+    return getPrincipalTypeValueOrNull (sPrincipal, PRINCIPAL_TYPE_O);
   }
 
   @Nullable
@@ -731,18 +743,5 @@ public final class CertificateHelper
   public static String getOOrNull (@Nullable final X500Principal aPrincipal)
   {
     return aPrincipal != null ? getOOrNull (aPrincipal.getName ()) : null;
-  }
-
-  @Nullable
-  public static String getOOrNull (@Nullable final String sPrincipal)
-  {
-    try
-    {
-      return getO (sPrincipal);
-    }
-    catch (final InvalidNameException ex)
-    {
-      return null;
-    }
   }
 }
