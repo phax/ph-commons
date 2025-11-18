@@ -39,7 +39,11 @@ import com.helger.annotation.meta.When;
  * @author Philip Helger
  */
 @Retention (RetentionPolicy.CLASS)
-@Target ({ ElementType.FIELD, ElementType.PARAMETER, ElementType.LOCAL_VARIABLE, ElementType.METHOD })
+@Target ({ ElementType.FIELD,
+           ElementType.PARAMETER,
+           ElementType.LOCAL_VARIABLE,
+           ElementType.METHOD,
+           ElementType.TYPE_USE })
 @Documented
 public @interface Nonempty
 {
