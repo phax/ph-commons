@@ -21,6 +21,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
 
 import org.junit.Test;
 
@@ -237,6 +239,25 @@ public final class StringHexTest
     assertArrayEquals (new byte [] { 0, 1 }, StringHex.getHexDecoded ("0001"));
     assertArrayEquals (new byte [] { 0 }, StringHex.getHexDecoded ("0001".toCharArray (), 0, 2));
     assertArrayEquals (new byte [] { 1 }, StringHex.getHexDecoded ("0001".toCharArray (), 2, 2));
+  }
+
+  @Test
+  public void testEncodeAndDecodeHex ()
+  {
+    final Supplier <byte []> aRandomCreator = () -> {
+      final var aRand = ThreadLocalRandom.current ();
+      final int nLen = aRand.nextInt (500, 10_000);
+      final byte [] ret = new byte [nLen];
+      aRand.nextBytes (ret);
+      return ret;
+    };
+    for (int i = 0; i < 100; ++i)
+    {
+      final byte [] aRandomIn = aRandomCreator.get ();
+      final byte [] aEncoded = StringHex.getHexEncodedByteArray (aRandomIn);
+      final byte [] aDecoded = StringHex.getHexDecoded (aEncoded);
+      assertArrayEquals ("Error in run " + i, aRandomIn, aDecoded);
+    }
   }
 
   @Test

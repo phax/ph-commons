@@ -224,6 +224,33 @@ public class StringHex
     return ret;
   }
 
+  @ReturnsMutableCopy
+  public static byte @NonNull [] getHexDecoded (final byte @NonNull [] aInput)
+  {
+    ValueEnforcer.notNull (aInput, "Input");
+
+    return getHexDecoded (aInput, 0, aInput.length);
+  }
+
+  @ReturnsMutableCopy
+  public static byte @NonNull [] getHexDecoded (final byte @NonNull [] aInput,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
+    ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
+
+    final byte [] ret = new byte [nLen / 2];
+    int nRetIdx = 0;
+    for (int i = 0; i < nLen; i += 2)
+    {
+      final byte c0 = (byte) getHexValue ((char) aInput[nOfs + i]);
+      final byte c1 = (byte) getHexValue ((char) aInput[nOfs + i + 1]);
+      ret[nRetIdx++] = (byte) ((c0 << 4) | (c1 & 0xff));
+    }
+    return ret;
+  }
+
   @NonNull
   public static String getHexString (final byte nValue)
   {
