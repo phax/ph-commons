@@ -58,9 +58,8 @@ public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  default byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -81,9 +80,8 @@ public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
 
   /**
    * Encode the passed string.
@@ -96,9 +94,8 @@ public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final String sDecoded, @NonNull final Charset aCharset)
+  default byte @Nullable [] getEncoded (@Nullable final String sDecoded, @NonNull final Charset aCharset)
   {
     if (sDecoded == null)
       return null;

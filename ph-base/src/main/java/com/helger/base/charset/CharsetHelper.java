@@ -186,7 +186,7 @@ public final class CharsetHelper
    * @return A non-negative value.
    */
   @Nonnegative
-  public static int getUTF8ByteCount (@Nullable final char [] aChars)
+  public static int getUTF8ByteCount (final char @Nullable [] aChars)
   {
     int nCount = 0;
     if (aChars != null)

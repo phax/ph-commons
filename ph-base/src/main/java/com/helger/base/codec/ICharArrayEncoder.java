@@ -55,9 +55,8 @@ public interface ICharArrayEncoder extends IEncoder <char [], char []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getEncoded (@Nullable final char [] aDecodedBuffer)
+  default char @Nullable [] getEncoded (final char @Nullable [] aDecodedBuffer)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -78,9 +77,8 @@ public interface ICharArrayEncoder extends IEncoder <char [], char []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  char [] getEncoded (@Nullable char [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen);
+  char @Nullable [] getEncoded (char @Nullable [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Encode the passed string.
@@ -91,9 +89,8 @@ public interface ICharArrayEncoder extends IEncoder <char [], char []>
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getEncoded (@Nullable final String sDecoded)
+  default char @Nullable [] getEncoded (@Nullable final String sDecoded)
   {
     if (sDecoded == null)
       return null;

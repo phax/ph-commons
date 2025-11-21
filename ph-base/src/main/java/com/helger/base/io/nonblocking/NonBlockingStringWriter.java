@@ -88,7 +88,7 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
    *        Number of characters to write
    */
   @Override
-  public void write (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     if (nLen > 0)
@@ -244,9 +244,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   /**
    * @return Return the buffer's current value as a string.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public char [] getAsCharArray ()
+  public char @NonNull [] getAsCharArray ()
   {
     final int nChars = m_aSB.length ();
     final char [] ret = new char [nChars];

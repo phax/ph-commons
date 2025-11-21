@@ -144,7 +144,7 @@ public class HasInputStream implements IHasInputStream
   {
     private final byte [] m_aBytes;
 
-    public HISByteArray (@NonNull final byte [] aBytes)
+    public HISByteArray (final byte @NonNull [] aBytes)
     {
       m_aBytes = aBytes;
     }
@@ -174,7 +174,7 @@ public class HasInputStream implements IHasInputStream
    */
   @NonNull
   @ReturnsMutableCopy
-  public static IHasInputStream create (@NonNull final byte [] aBytes)
+  public static IHasInputStream create (final byte @NonNull [] aBytes)
   {
     ValueEnforcer.notNull (aBytes, "Bytes");
     return new HISByteArray (aBytes);

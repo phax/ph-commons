@@ -713,7 +713,7 @@ public class StringHelper
    *        The character array
    * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
    */
-  public static char getFirstChar (@Nullable final char [] aChars)
+  public static char getFirstChar (final char @Nullable [] aChars)
   {
     return ArrayHelper.getFirst (aChars, CGlobal.ILLEGAL_CHAR);
   }
@@ -738,7 +738,7 @@ public class StringHelper
    *        The character array
    * @return {@link CGlobal#ILLEGAL_CHAR} if the passed array was empty
    */
-  public static char getLastChar (@Nullable final char [] aChars)
+  public static char getLastChar (final char @Nullable [] aChars)
   {
     return ArrayHelper.getLast (aChars, CGlobal.ILLEGAL_CHAR);
   }
@@ -1164,7 +1164,7 @@ public class StringHelper
    * @return <code>true</code> if at least any of the search char is contained in the input char
    *         array, <code>false</code> otherwise.
    */
-  public static boolean containsAny (@Nullable final char [] aInput, @NonNull final char [] aSearchChars)
+  public static boolean containsAny (final char @Nullable [] aInput, final char @NonNull [] aSearchChars)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
@@ -1185,7 +1185,7 @@ public class StringHelper
    * @return <code>true</code> if at least any of the search char is contained in the input char
    *         array, <code>false</code> otherwise.
    */
-  public static boolean containsAny (@Nullable final String sInput, @NonNull final char [] aSearchChars)
+  public static boolean containsAny (@Nullable final String sInput, final char @NonNull [] aSearchChars)
   {
     return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
   }
@@ -1384,7 +1384,7 @@ public class StringHelper
     return isNotEmpty (aCS) && aCS.charAt (0) == c;
   }
 
-  public static boolean startsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
+  public static boolean startsWithAny (@Nullable final CharSequence aCS, final char @Nullable [] aChars)
   {
     if (isNotEmpty (aCS) && aChars != null)
       if (ArrayHelper.contains (aChars, aCS.charAt (0)))
@@ -1445,7 +1445,7 @@ public class StringHelper
     return isNotEmpty (aCS) && StringHelper.getLastChar (aCS) == c;
   }
 
-  public static boolean endsWithAny (@Nullable final CharSequence aCS, @Nullable final char [] aChars)
+  public static boolean endsWithAny (@Nullable final CharSequence aCS, final char @Nullable [] aChars)
   {
     if (isNotEmpty (aCS) && aChars != null)
       if (ArrayHelper.contains (aChars, StringHelper.getLastChar (aCS)))

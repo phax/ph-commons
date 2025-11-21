@@ -36,12 +36,12 @@ public class StringSAXInputSource extends InputSource
 {
   private final String m_sText;
 
-  public StringSAXInputSource (@NonNull final char [] aInput)
+  public StringSAXInputSource (final char @NonNull [] aInput)
   {
     this (new String (aInput));
   }
 
-  public StringSAXInputSource (@NonNull final char [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public StringSAXInputSource (final char @NonNull [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (new String (aInput, nOfs, nLen));
   }

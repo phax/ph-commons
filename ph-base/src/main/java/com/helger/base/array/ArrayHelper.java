@@ -75,7 +75,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final boolean... aArray)
+  public static int getSize (final boolean... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -86,7 +86,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final byte... aArray)
+  public static int getSize (final byte... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -97,7 +97,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final char... aArray)
+  public static int getSize (final char... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -108,7 +108,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final double... aArray)
+  public static int getSize (final double... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -119,7 +119,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final float... aArray)
+  public static int getSize (final float... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -130,7 +130,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final int... aArray)
+  public static int getSize (final int... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -141,7 +141,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final long... aArray)
+  public static int getSize (final long... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -152,7 +152,7 @@ public final class ArrayHelper
    * @return 0 if the passed array is <code>null</code> - it's length otherwise.
    */
   @Nonnegative
-  public static int getSize (@Nullable final short... aArray)
+  public static int getSize (final short... aArray)
   {
     return aArray == null ? 0 : aArray.length;
   }
@@ -176,7 +176,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final boolean... aArray)
+  public static boolean isEmpty (final boolean... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -186,7 +186,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final byte... aArray)
+  public static boolean isEmpty (final byte... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -196,7 +196,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final char... aArray)
+  public static boolean isEmpty (final char... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -206,7 +206,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final double... aArray)
+  public static boolean isEmpty (final double... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -216,7 +216,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final float... aArray)
+  public static boolean isEmpty (final float... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -226,7 +226,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final int... aArray)
+  public static boolean isEmpty (final int... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -236,7 +236,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final long... aArray)
+  public static boolean isEmpty (final long... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -246,7 +246,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>true</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isEmpty (@Nullable final short... aArray)
+  public static boolean isEmpty (final short... aArray)
   {
     return getSize (aArray) == 0;
   }
@@ -269,7 +269,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final boolean... aArray)
+  public static boolean isNotEmpty (final boolean... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -279,7 +279,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final byte... aArray)
+  public static boolean isNotEmpty (final byte... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -289,7 +289,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final char... aArray)
+  public static boolean isNotEmpty (final char... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -299,7 +299,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final double... aArray)
+  public static boolean isNotEmpty (final double... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -309,7 +309,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final float... aArray)
+  public static boolean isNotEmpty (final float... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -319,7 +319,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final int... aArray)
+  public static boolean isNotEmpty (final int... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -329,7 +329,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final long... aArray)
+  public static boolean isNotEmpty (final long... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -339,7 +339,7 @@ public final class ArrayHelper
    *        The array to be queried if it is empty. May be <code>null</code>.
    * @return <code>false</code> if the passed array is <code>null</code> or empty.
    */
-  public static boolean isNotEmpty (@Nullable final short... aArray)
+  public static boolean isNotEmpty (final short... aArray)
   {
     return getSize (aArray) > 0;
   }
@@ -364,9 +364,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static boolean [] createBooleanArray (@Nullable final boolean... aArray)
+  public static boolean @Nullable [] createBooleanArray (final boolean... aArray)
   {
     return aArray;
   }
@@ -378,9 +377,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static byte [] createByteArray (@Nullable final byte... aArray)
+  public static byte @Nullable [] createByteArray (final byte... aArray)
   {
     return aArray;
   }
@@ -392,9 +390,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static char [] createCharArray (@Nullable final char... aArray)
+  public static char @Nullable [] createCharArray (final char... aArray)
   {
     return aArray;
   }
@@ -406,9 +403,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static double [] createDoubleArray (@Nullable final double... aArray)
+  public static double @Nullable [] createDoubleArray (final double... aArray)
   {
     return aArray;
   }
@@ -420,9 +416,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static float [] createFloatArray (@Nullable final float... aArray)
+  public static float @Nullable [] createFloatArray (final float... aArray)
   {
     return aArray;
   }
@@ -434,9 +429,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static int [] createIntArray (@Nullable final int... aArray)
+  public static int @Nullable [] createIntArray (final int... aArray)
   {
     return aArray;
   }
@@ -448,9 +442,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static long [] createLongArray (@Nullable final long... aArray)
+  public static long @Nullable [] createLongArray (final long... aArray)
   {
     return aArray;
   }
@@ -462,9 +455,8 @@ public final class ArrayHelper
    *        The list of values for the array. May be <code>null</code>.
    * @return The passed array. <code>null</code> if the passed array was <code>null</code>.
    */
-  @Nullable
   @ReturnsMutableObject ("use getCopy otherwise")
-  public static short [] createShortArray (@Nullable final short... aArray)
+  public static short @Nullable [] createShortArray (final short... aArray)
   {
     return aArray;
   }
@@ -646,9 +638,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getCopy (@Nullable final boolean... aArray)
+  public static boolean @Nullable [] getCopy (final boolean... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -666,9 +657,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getCopy (@Nullable final boolean [] aArray, @Nonnegative final int nLength)
+  public static boolean @Nullable [] getCopy (final boolean @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -688,9 +678,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getCopy (@Nullable final boolean [] aArray,
+  public static boolean @Nullable [] getCopy (final boolean @Nullable [] aArray,
                                     @Nonnegative final int nStartIndex,
                                     @Nonnegative final int nLength)
   {
@@ -710,9 +699,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getCopy (@Nullable final byte... aArray)
+  public static byte @Nullable [] getCopy (final byte... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -730,9 +718,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getCopy (@Nullable final byte [] aArray, @Nonnegative final int nLength)
+  public static byte @Nullable [] getCopy (final byte @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -752,9 +739,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getCopy (@Nullable final byte [] aArray,
+  public static byte @Nullable [] getCopy (final byte @Nullable [] aArray,
                                  @Nonnegative final int nStartIndex,
                                  @Nonnegative final int nLength)
   {
@@ -774,9 +760,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getCopy (@Nullable final char... aArray)
+  public static char @Nullable [] getCopy (final char... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -794,9 +779,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getCopy (@Nullable final char [] aArray, @Nonnegative final int nLength)
+  public static char @Nullable [] getCopy (final char @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -816,9 +800,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getCopy (@Nullable final char [] aArray,
+  public static char @Nullable [] getCopy (final char @Nullable [] aArray,
                                  @Nonnegative final int nStartIndex,
                                  @Nonnegative final int nLength)
   {
@@ -838,9 +821,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getCopy (@Nullable final double... aArray)
+  public static double @Nullable [] getCopy (final double... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -858,9 +840,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getCopy (@Nullable final double [] aArray, @Nonnegative final int nLength)
+  public static double @Nullable [] getCopy (final double @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -880,9 +861,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getCopy (@Nullable final double [] aArray,
+  public static double @Nullable [] getCopy (final double @Nullable [] aArray,
                                    @Nonnegative final int nStartIndex,
                                    @Nonnegative final int nLength)
   {
@@ -902,9 +882,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getCopy (@Nullable final float... aArray)
+  public static float @Nullable [] getCopy (final float... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -922,9 +901,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getCopy (@Nullable final float [] aArray, @Nonnegative final int nLength)
+  public static float @Nullable [] getCopy (final float @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -944,9 +922,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getCopy (@Nullable final float [] aArray,
+  public static float @Nullable [] getCopy (final float @Nullable [] aArray,
                                   @Nonnegative final int nStartIndex,
                                   @Nonnegative final int nLength)
   {
@@ -967,9 +944,8 @@ public final class ArrayHelper
    *         copy otherwise.
    */
 
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getCopy (@Nullable final int... aArray)
+  public static int @Nullable [] getCopy (final int... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -987,9 +963,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getCopy (@Nullable final int [] aArray, @Nonnegative final int nLength)
+  public static int @Nullable [] getCopy (final int @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -1023,9 +998,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getCopy (@Nullable final int [] aArray,
+  public static int @Nullable [] getCopy (final int @Nullable [] aArray,
                                 @Nonnegative final int nStartIndex,
                                 @Nonnegative final int nLength)
   {
@@ -1036,9 +1010,8 @@ public final class ArrayHelper
     return ret;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getCopy (@Nullable final long... aArray)
+  public static long @Nullable [] getCopy (final long... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -1056,9 +1029,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getCopy (@Nullable final long [] aArray, @Nonnegative final int nLength)
+  public static long @Nullable [] getCopy (final long @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -1078,9 +1050,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getCopy (@Nullable final long [] aArray,
+  public static long @Nullable [] getCopy (final long @Nullable [] aArray,
                                  @Nonnegative final int nStartIndex,
                                  @Nonnegative final int nLength)
   {
@@ -1100,9 +1071,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getCopy (@Nullable final short... aArray)
+  public static short @Nullable [] getCopy (final short... aArray)
   {
     return aArray == null ? null : getCopy (aArray, 0, aArray.length);
   }
@@ -1120,9 +1090,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> - a non- <code>null</code>
    *         copy otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getCopy (@Nullable final short [] aArray, @Nonnegative final int nLength)
+  public static short @Nullable [] getCopy (final short @Nullable [] aArray, @Nonnegative final int nLength)
   {
     return aArray == null ? null : getCopy (aArray, 0, Math.min (aArray.length, nLength));
   }
@@ -1142,9 +1111,8 @@ public final class ArrayHelper
    *         copy otherwise.
    * @see System#arraycopy(Object, int, Object, int, int)
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getCopy (@Nullable final short [] aArray,
+  public static short @Nullable [] getCopy (final short @Nullable [] aArray,
                                   @Nonnegative final int nStartIndex,
                                   @Nonnegative final int nLength)
   {
@@ -1227,43 +1195,43 @@ public final class ArrayHelper
     return ret;
   }
 
-  public static boolean startsWith (@NonNull final byte [] aArray, @Nullable final byte [] aSearch)
+  public static boolean startsWith (final byte @NonNull [] aArray, final byte @Nullable [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@NonNull final byte [] aArray,
+  public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final byte [] aSearch)
+                                    final byte @Nullable [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@NonNull final byte [] aArray,
-                                    @Nullable final byte [] aSearch,
+  public static boolean startsWith (final byte @NonNull [] aArray,
+                                    final byte @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@NonNull final byte [] aArray,
+  public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final byte [] aSearch,
+                                    final byte @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@NonNull final byte [] aArray,
+  public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final byte [] aSearch,
+                                    final byte @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
@@ -1276,43 +1244,43 @@ public final class ArrayHelper
     return true;
   }
 
-  public static boolean startsWith (@NonNull final char [] aArray, @Nullable final char [] aSearch)
+  public static boolean startsWith (final char @NonNull [] aArray, final char @Nullable [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@NonNull final char [] aArray,
+  public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final char [] aSearch)
+                                    final char @Nullable [] aSearch)
   {
     if (aSearch == null)
       return false;
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
-  public static boolean startsWith (@NonNull final char [] aArray,
-                                    @Nullable final char [] aSearch,
+  public static boolean startsWith (final char @NonNull [] aArray,
+                                    final char @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@NonNull final char [] aArray,
+  public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final char [] aSearch,
+                                    final char @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
-  public static boolean startsWith (@NonNull final char [] aArray,
+  public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
-                                    @Nullable final char [] aSearch,
+                                    final char @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
                                     @Nonnegative final int nSearchLen)
   {
@@ -1356,7 +1324,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final boolean [] aValues, final boolean aSearchValue)
+  public static int getFirstIndex (final boolean @Nullable [] aValues, final boolean aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1375,7 +1343,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final byte [] aValues, final byte aSearchValue)
+  public static int getFirstIndex (final byte @Nullable [] aValues, final byte aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1394,7 +1362,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final char [] aValues, final char aSearchValue)
+  public static int getFirstIndex (final char @Nullable [] aValues, final char aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1413,7 +1381,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final double [] aValues, final double aSearchValue)
+  public static int getFirstIndex (final double @Nullable [] aValues, final double aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1432,7 +1400,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final float [] aValues, final float aSearchValue)
+  public static int getFirstIndex (final float @Nullable [] aValues, final float aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1451,7 +1419,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final int [] aValues, final int aSearchValue)
+  public static int getFirstIndex (final int @Nullable [] aValues, final int aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1470,7 +1438,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final long [] aValues, final long aSearchValue)
+  public static int getFirstIndex (final long @Nullable [] aValues, final long aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1489,7 +1457,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (@Nullable final short [] aValues, final short aSearchValue)
+  public static int getFirstIndex (final short @Nullable [] aValues, final short aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1530,7 +1498,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final boolean [] aValues, final boolean aSearchValue)
+  public static int getLastIndex (final boolean @Nullable [] aValues, final boolean aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1549,7 +1517,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final byte [] aValues, final byte aSearchValue)
+  public static int getLastIndex (final byte @Nullable [] aValues, final byte aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1568,7 +1536,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final char [] aValues, final char aSearchValue)
+  public static int getLastIndex (final char @Nullable [] aValues, final char aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1587,7 +1555,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final double [] aValues, final double aSearchValue)
+  public static int getLastIndex (final double @Nullable [] aValues, final double aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1606,7 +1574,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final float [] aValues, final float aSearchValue)
+  public static int getLastIndex (final float @Nullable [] aValues, final float aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1625,7 +1593,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final int [] aValues, final int aSearchValue)
+  public static int getLastIndex (final int @Nullable [] aValues, final int aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1644,7 +1612,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final long [] aValues, final long aSearchValue)
+  public static int getLastIndex (final long @Nullable [] aValues, final long aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1663,7 +1631,7 @@ public final class ArrayHelper
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (@Nullable final short [] aValues, final short aSearchValue)
+  public static int getLastIndex (final short @Nullable [] aValues, final short aSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
@@ -1701,7 +1669,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final boolean [] aValues, final boolean aSearchValue)
+  public static boolean contains (final boolean @Nullable [] aValues, final boolean aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1716,7 +1684,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final byte [] aValues, final byte aSearchValue)
+  public static boolean contains (final byte @Nullable [] aValues, final byte aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1731,7 +1699,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final char [] aValues, final char aSearchValue)
+  public static boolean contains (final char @Nullable [] aValues, final char aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1746,7 +1714,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final double [] aValues, final double aSearchValue)
+  public static boolean contains (final double @Nullable [] aValues, final double aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1761,7 +1729,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final float [] aValues, final float aSearchValue)
+  public static boolean contains (final float @Nullable [] aValues, final float aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1777,7 +1745,7 @@ public final class ArrayHelper
    *         false otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean contains (@Nullable final int [] aValues, final int aSearchValue)
+  public static boolean contains (final int @Nullable [] aValues, final int aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1792,7 +1760,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final long [] aValues, final long aSearchValue)
+  public static boolean contains (final long @Nullable [] aValues, final long aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1807,7 +1775,7 @@ public final class ArrayHelper
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (@Nullable final short [] aValues, final short aSearchValue)
+  public static boolean contains (final short @Nullable [] aValues, final short aSearchValue)
   {
     return getFirstIndex (aValues, aSearchValue) >= 0;
   }
@@ -1822,7 +1790,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static boolean getFirst (@Nullable final boolean [] aArray, final boolean aDefaultValue)
+  public static boolean getFirst (final boolean @Nullable [] aArray, final boolean aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1837,7 +1805,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static byte getFirst (@Nullable final byte [] aArray, final byte aDefaultValue)
+  public static byte getFirst (final byte @Nullable [] aArray, final byte aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1852,7 +1820,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static char getFirst (@Nullable final char [] aArray, final char aDefaultValue)
+  public static char getFirst (final char @Nullable [] aArray, final char aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1867,7 +1835,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static double getFirst (@Nullable final double [] aArray, final double aDefaultValue)
+  public static double getFirst (final double @Nullable [] aArray, final double aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1882,7 +1850,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static float getFirst (@Nullable final float [] aArray, final float aDefaultValue)
+  public static float getFirst (final float @Nullable [] aArray, final float aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1897,7 +1865,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static int getFirst (@Nullable final int [] aArray, final int aDefaultValue)
+  public static int getFirst (final int @Nullable [] aArray, final int aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1912,7 +1880,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static long getFirst (@Nullable final long [] aArray, final long aDefaultValue)
+  public static long getFirst (final long @Nullable [] aArray, final long aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1927,7 +1895,7 @@ public final class ArrayHelper
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static short getFirst (@Nullable final short [] aArray, final short aDefaultValue)
+  public static short getFirst (final short @Nullable [] aArray, final short aDefaultValue)
   {
     return isEmpty (aArray) ? aDefaultValue : aArray[0];
   }
@@ -1978,7 +1946,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static boolean getLast (@Nullable final boolean [] aArray, final boolean aDefaultValue)
+  public static boolean getLast (final boolean @Nullable [] aArray, final boolean aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -1994,7 +1962,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static byte getLast (@Nullable final byte [] aArray, final byte aDefaultValue)
+  public static byte getLast (final byte @Nullable [] aArray, final byte aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2010,7 +1978,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static char getLast (@Nullable final char [] aArray, final char aDefaultValue)
+  public static char getLast (final char @Nullable [] aArray, final char aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2026,7 +1994,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static double getLast (@Nullable final double [] aArray, final double aDefaultValue)
+  public static double getLast (final double @Nullable [] aArray, final double aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2042,7 +2010,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static float getLast (@Nullable final float [] aArray, final float aDefaultValue)
+  public static float getLast (final float @Nullable [] aArray, final float aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2058,7 +2026,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static int getLast (@Nullable final int [] aArray, final int aDefaultValue)
+  public static int getLast (final int @Nullable [] aArray, final int aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2074,7 +2042,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static long getLast (@Nullable final long [] aArray, final long aDefaultValue)
+  public static long getLast (final long @Nullable [] aArray, final long aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2090,7 +2058,7 @@ public final class ArrayHelper
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static short getLast (@Nullable final short [] aArray, final short aDefaultValue)
+  public static short getLast (final short @Nullable [] aArray, final short aDefaultValue)
   {
     final int nSize = getSize (aArray);
     return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
@@ -2239,10 +2207,9 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getConcatenated (@Nullable final boolean [] aHeadArray,
-                                            @Nullable final boolean... aTailArray)
+  public static boolean @Nullable [] getConcatenated (final boolean @Nullable [] aHeadArray,
+                                            final boolean... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2267,9 +2234,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static boolean [] getConcatenated (final boolean aHead, @Nullable final boolean... aTailArray)
+  public static boolean @NonNull [] getConcatenated (final boolean aHead, final boolean... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new boolean [] { aHead };
@@ -2290,9 +2256,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static boolean [] getConcatenated (@Nullable final boolean [] aHeadArray, final boolean aTail)
+  public static boolean @NonNull [] getConcatenated (final boolean @Nullable [] aHeadArray, final boolean aTail)
   {
     if (isEmpty (aHeadArray))
       return new boolean [] { aTail };
@@ -2313,9 +2278,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getConcatenated (@Nullable final byte [] aHeadArray, @Nullable final byte... aTailArray)
+  public static byte @Nullable [] getConcatenated (final byte @Nullable [] aHeadArray, final byte... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2340,9 +2304,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getConcatenated (final byte aHead, @Nullable final byte... aTailArray)
+  public static byte @NonNull [] getConcatenated (final byte aHead, final byte... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new byte [] { aHead };
@@ -2363,9 +2326,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getConcatenated (@Nullable final byte [] aHeadArray, final byte aTail)
+  public static byte @NonNull [] getConcatenated (final byte @Nullable [] aHeadArray, final byte aTail)
   {
     if (isEmpty (aHeadArray))
       return new byte [] { aTail };
@@ -2386,9 +2348,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getConcatenated (@Nullable final char [] aHeadArray, @Nullable final char... aTailArray)
+  public static char @Nullable [] getConcatenated (final char @Nullable [] aHeadArray, final char... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2413,10 +2374,9 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] [] getConcatenated (@Nullable final char [] [] aHeadArray,
-                                            @Nullable final char []... aTailArray)
+  public static char @Nullable [] [] getConcatenated (final char @Nullable [] [] aHeadArray,
+                                            final char @Nullable []... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2441,9 +2401,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static char [] getConcatenated (final char aHead, @Nullable final char... aTailArray)
+  public static char @NonNull [] getConcatenated (final char aHead, final char... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new char [] { aHead };
@@ -2464,9 +2423,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static char [] getConcatenated (@Nullable final char [] aHeadArray, final char aTail)
+  public static char @NonNull [] getConcatenated (final char @Nullable [] aHeadArray, final char aTail)
   {
     if (isEmpty (aHeadArray))
       return new char [] { aTail };
@@ -2487,9 +2445,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getConcatenated (@Nullable final double [] aHeadArray, @Nullable final double... aTailArray)
+  public static double @Nullable [] getConcatenated (final double @Nullable [] aHeadArray, final double... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2514,9 +2471,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static double [] getConcatenated (final double aHead, @Nullable final double... aTailArray)
+  public static double @NonNull [] getConcatenated (final double aHead, final double... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new double [] { aHead };
@@ -2537,9 +2493,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static double [] getConcatenated (@Nullable final double [] aHeadArray, final double aTail)
+  public static double @NonNull [] getConcatenated (final double @Nullable [] aHeadArray, final double aTail)
   {
     if (isEmpty (aHeadArray))
       return new double [] { aTail };
@@ -2560,9 +2515,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getConcatenated (@Nullable final float [] aHeadArray, @Nullable final float... aTailArray)
+  public static float @Nullable [] getConcatenated (final float @Nullable [] aHeadArray, final float... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2587,9 +2541,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static float [] getConcatenated (final float aHead, @Nullable final float... aTailArray)
+  public static float @NonNull [] getConcatenated (final float aHead, final float... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new float [] { aHead };
@@ -2610,9 +2563,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static float [] getConcatenated (@Nullable final float [] aHeadArray, final float aTail)
+  public static float @NonNull [] getConcatenated (final float @Nullable [] aHeadArray, final float aTail)
   {
     if (isEmpty (aHeadArray))
       return new float [] { aTail };
@@ -2633,9 +2585,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getConcatenated (@Nullable final int [] aHeadArray, @Nullable final int... aTailArray)
+  public static int @Nullable [] getConcatenated (final int @Nullable [] aHeadArray, final int... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2660,9 +2611,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static int [] getConcatenated (final int aHead, @Nullable final int... aTailArray)
+  public static int @NonNull [] getConcatenated (final int aHead, final int... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new int [] { aHead };
@@ -2683,9 +2633,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static int [] getConcatenated (@Nullable final int [] aHeadArray, final int aTail)
+  public static int @NonNull [] getConcatenated (final int @Nullable [] aHeadArray, final int aTail)
   {
     if (isEmpty (aHeadArray))
       return new int [] { aTail };
@@ -2706,9 +2655,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getConcatenated (@Nullable final long [] aHeadArray, @Nullable final long... aTailArray)
+  public static long @Nullable [] getConcatenated (final long @Nullable [] aHeadArray, final long... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2733,9 +2681,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static long [] getConcatenated (final long aHead, @Nullable final long... aTailArray)
+  public static long @NonNull [] getConcatenated (final long aHead, final long... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new long [] { aHead };
@@ -2756,9 +2703,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static long [] getConcatenated (@Nullable final long [] aHeadArray, final long aTail)
+  public static long @NonNull [] getConcatenated (final long @Nullable [] aHeadArray, final long aTail)
   {
     if (isEmpty (aHeadArray))
       return new long [] { aTail };
@@ -2779,9 +2725,8 @@ public final class ArrayHelper
    * @return <code>null</code> if both array parameters are <code>null</code> - a
    *         non-<code>null</code> array with all elements in the correct order otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getConcatenated (@Nullable final short [] aHeadArray, @Nullable final short... aTailArray)
+  public static short @Nullable [] getConcatenated (final short @Nullable [] aHeadArray, final short... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2806,9 +2751,8 @@ public final class ArrayHelper
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static short [] getConcatenated (final short aHead, @Nullable final short... aTailArray)
+  public static short @NonNull [] getConcatenated (final short aHead, final short... aTailArray)
   {
     if (isEmpty (aTailArray))
       return new short [] { aHead };
@@ -2829,9 +2773,8 @@ public final class ArrayHelper
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static short [] getConcatenated (@Nullable final short [] aHeadArray, final short aTail)
+  public static short @NonNull [] getConcatenated (final short @Nullable [] aHeadArray, final short aTail)
   {
     if (isEmpty (aHeadArray))
       return new short [] { aTail };
@@ -3001,10 +2944,9 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExcept (@Nullable final boolean [] aArray,
-                                         @Nullable final boolean... aElementsToRemove)
+  public static boolean @Nullable [] getAllExcept (final boolean @Nullable [] aArray,
+                                         final boolean... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3028,9 +2970,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getAllExcept (@Nullable final byte [] aArray, @Nullable final byte... aElementsToRemove)
+  public static byte @Nullable [] getAllExcept (final byte @Nullable [] aArray, final byte... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3054,9 +2995,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getAllExcept (@Nullable final char [] aArray, @Nullable final char... aElementsToRemove)
+  public static char @Nullable [] getAllExcept (final char @Nullable [] aArray, final char... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3080,9 +3020,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getAllExcept (@Nullable final double [] aArray, @Nullable final double... aElementsToRemove)
+  public static double @Nullable [] getAllExcept (final double @Nullable [] aArray, final double... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3106,9 +3045,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getAllExcept (@Nullable final float [] aArray, @Nullable final float... aElementsToRemove)
+  public static float @Nullable [] getAllExcept (final float @Nullable [] aArray, final float... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3132,9 +3070,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getAllExcept (@Nullable final int [] aArray, @Nullable final int... aElementsToRemove)
+  public static int @Nullable [] getAllExcept (final int @Nullable [] aArray, final int... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3158,9 +3095,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getAllExcept (@Nullable final long [] aArray, @Nullable final long... aElementsToRemove)
+  public static long @Nullable [] getAllExcept (final long @Nullable [] aArray, final long... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3184,9 +3120,8 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getAllExcept (@Nullable final short [] aArray, @Nullable final short... aElementsToRemove)
+  public static short @Nullable [] getAllExcept (final short @Nullable [] aArray, final short... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3207,9 +3142,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExceptFirst (@Nullable final boolean... aArray)
+  public static boolean @Nullable [] getAllExceptFirst (final boolean... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3225,9 +3159,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExceptFirst (@Nullable final boolean [] aArray, @Nonnegative final int nElementsToSkip)
+  public static boolean @Nullable [] getAllExceptFirst (final boolean @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3246,9 +3179,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getAllExceptFirst (@Nullable final byte... aArray)
+  public static byte @Nullable [] getAllExceptFirst (final byte... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3264,9 +3196,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getAllExceptFirst (@Nullable final byte [] aArray, @Nonnegative final int nElementsToSkip)
+  public static byte @Nullable [] getAllExceptFirst (final byte @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3285,9 +3216,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getAllExceptFirst (@Nullable final char... aArray)
+  public static char @Nullable [] getAllExceptFirst (final char... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3303,9 +3233,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getAllExceptFirst (@Nullable final char [] aArray, @Nonnegative final int nElementsToSkip)
+  public static char @Nullable [] getAllExceptFirst (final char @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3324,9 +3253,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getAllExceptFirst (@Nullable final double... aArray)
+  public static double @Nullable [] getAllExceptFirst (final double... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3342,9 +3270,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getAllExceptFirst (@Nullable final double [] aArray, @Nonnegative final int nElementsToSkip)
+  public static double @Nullable [] getAllExceptFirst (final double @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3363,9 +3290,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getAllExceptFirst (@Nullable final float... aArray)
+  public static float @Nullable [] getAllExceptFirst (final float... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3381,9 +3307,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getAllExceptFirst (@Nullable final float [] aArray, @Nonnegative final int nElementsToSkip)
+  public static float @Nullable [] getAllExceptFirst (final float @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3402,9 +3327,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getAllExceptFirst (@Nullable final int... aArray)
+  public static int @Nullable [] getAllExceptFirst (final int... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3420,9 +3344,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getAllExceptFirst (@Nullable final int [] aArray, @Nonnegative final int nElementsToSkip)
+  public static int @Nullable [] getAllExceptFirst (final int @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3441,9 +3364,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getAllExceptFirst (@Nullable final long... aArray)
+  public static long @Nullable [] getAllExceptFirst (final long... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3459,9 +3381,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getAllExceptFirst (@Nullable final long [] aArray, @Nonnegative final int nElementsToSkip)
+  public static long @Nullable [] getAllExceptFirst (final long @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3480,9 +3401,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the first element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getAllExceptFirst (@Nullable final short... aArray)
+  public static short @Nullable [] getAllExceptFirst (final short... aArray)
   {
     return getAllExceptFirst (aArray, 1);
   }
@@ -3498,9 +3418,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getAllExceptFirst (@Nullable final short [] aArray, @Nonnegative final int nElementsToSkip)
+  public static short @Nullable [] getAllExceptFirst (final short @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3564,9 +3483,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExceptLast (@Nullable final boolean... aArray)
+  public static boolean @Nullable [] getAllExceptLast (final boolean... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3582,9 +3500,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static boolean [] getAllExceptLast (@Nullable final boolean [] aArray, @Nonnegative final int nElementsToSkip)
+  public static boolean @Nullable [] getAllExceptLast (final boolean @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3603,9 +3520,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getAllExceptLast (@Nullable final byte... aArray)
+  public static byte @Nullable [] getAllExceptLast (final byte... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3621,9 +3537,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getAllExceptLast (@Nullable final byte [] aArray, @Nonnegative final int nElementsToSkip)
+  public static byte @Nullable [] getAllExceptLast (final byte @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3642,9 +3557,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getAllExceptLast (@Nullable final char... aArray)
+  public static char @Nullable [] getAllExceptLast (final char... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3660,9 +3574,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static char [] getAllExceptLast (@Nullable final char [] aArray, @Nonnegative final int nElementsToSkip)
+  public static char @Nullable [] getAllExceptLast (final char @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3681,9 +3594,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getAllExceptLast (@Nullable final double... aArray)
+  public static double @Nullable [] getAllExceptLast (final double... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3699,9 +3611,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static double [] getAllExceptLast (@Nullable final double [] aArray, @Nonnegative final int nElementsToSkip)
+  public static double @Nullable [] getAllExceptLast (final double @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3720,9 +3631,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getAllExceptLast (@Nullable final float... aArray)
+  public static float @Nullable [] getAllExceptLast (final float... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3738,9 +3648,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static float [] getAllExceptLast (@Nullable final float [] aArray, @Nonnegative final int nElementsToSkip)
+  public static float @Nullable [] getAllExceptLast (final float @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3759,9 +3668,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getAllExceptLast (@Nullable final int... aArray)
+  public static int @Nullable [] getAllExceptLast (final int... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3777,9 +3685,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static int [] getAllExceptLast (@Nullable final int [] aArray, @Nonnegative final int nElementsToSkip)
+  public static int @Nullable [] getAllExceptLast (final int @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3798,9 +3705,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getAllExceptLast (@Nullable final long... aArray)
+  public static long @Nullable [] getAllExceptLast (final long... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3816,9 +3722,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static long [] getAllExceptLast (@Nullable final long [] aArray, @Nonnegative final int nElementsToSkip)
+  public static long @Nullable [] getAllExceptLast (final long @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3837,9 +3742,8 @@ public final class ArrayHelper
    * @return <code>null</code> if the passed array is <code>null</code> or has less than one
    *         element. A non-<code>null</code> copy of the array without the last element otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getAllExceptLast (@Nullable final short... aArray)
+  public static short @Nullable [] getAllExceptLast (final short... aArray)
   {
     return getAllExceptLast (aArray, 1);
   }
@@ -3855,9 +3759,8 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static short [] getAllExceptLast (@Nullable final short [] aArray, @Nonnegative final int nElementsToSkip)
+  public static short @Nullable [] getAllExceptLast (final short @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 

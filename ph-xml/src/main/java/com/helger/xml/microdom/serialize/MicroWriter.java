@@ -295,8 +295,7 @@ public final class MicroWriter
    * @return The byte array representation of the passed node.
    * @since 8.6.3
    */
-  @Nullable
-  public static byte [] getNodeAsBytes (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
+  public static byte @Nullable [] getNodeAsBytes (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -325,8 +324,7 @@ public final class MicroWriter
    * @return The byte array representation of the passed node.
    * @since 8.6.3
    */
-  @Nullable
-  public static byte [] getNodeAsBytes (@NonNull final IMicroNode aNode)
+  public static byte @Nullable [] getNodeAsBytes (@NonNull final IMicroNode aNode)
   {
     return getNodeAsBytes (aNode, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }

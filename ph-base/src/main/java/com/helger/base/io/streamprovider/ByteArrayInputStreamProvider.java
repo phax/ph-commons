@@ -36,22 +36,22 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
 
   private final ByteArrayWrapper m_aBytes;
 
-  public ByteArrayInputStreamProvider (@NonNull final byte [] aData)
+  public ByteArrayInputStreamProvider (final byte @NonNull [] aData)
   {
     this (aData, 0, aData.length, DEFAULT_COPY_NEEDED);
   }
 
-  public ByteArrayInputStreamProvider (@NonNull final byte [] aData, final boolean bCopyNeeded)
+  public ByteArrayInputStreamProvider (final byte @NonNull [] aData, final boolean bCopyNeeded)
   {
     this (aData, 0, aData.length, bCopyNeeded);
   }
 
-  public ByteArrayInputStreamProvider (@NonNull final byte [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public ByteArrayInputStreamProvider (final byte @NonNull [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ByteArrayInputStreamProvider (@NonNull final byte [] aData,
+  public ByteArrayInputStreamProvider (final byte @NonNull [] aData,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen,
                                        final boolean bCopyNeeded)
@@ -65,9 +65,8 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
     return m_aBytes.isCopy ();
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final byte [] bytes ()
+  public final byte @NonNull [] bytes ()
   {
     return m_aBytes.bytes ();
   }

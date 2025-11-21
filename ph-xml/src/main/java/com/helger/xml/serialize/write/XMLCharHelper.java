@@ -772,13 +772,13 @@ public final class XMLCharHelper
   }
 
   public static boolean containsInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                    @Nullable final char [] aChars)
+                                                    final char @Nullable [] aChars)
   {
     return aChars != null && aChars.length > 0 && containsInvalidXMLNameChar (eXMLVersion, aChars, 0, aChars.length);
   }
 
   public static boolean containsInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                    @Nullable final char [] aChars,
+                                                    final char @Nullable [] aChars,
                                                     @Nonnegative final int nOfs,
                                                     @Nonnegative final int nLen)
   {
@@ -810,7 +810,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                          @Nullable final char [] aChars)
+                                                                          final char @Nullable [] aChars)
   {
     return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLNameChars (eXMLVersion,
                                                                                     aChars,
@@ -821,7 +821,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                          @Nullable final char [] aChars,
+                                                                          final char @Nullable [] aChars,
                                                                           @Nonnegative final int nOfs,
                                                                           @Nonnegative final int nLen)
   {
@@ -870,13 +870,13 @@ public final class XMLCharHelper
   }
 
   public static boolean containsInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                    @Nullable final char [] aChars)
+                                                    final char @Nullable [] aChars)
   {
     return aChars != null && aChars.length > 0 && containsInvalidXMLTextChar (eXMLVersion, aChars, 0, aChars.length);
   }
 
   public static boolean containsInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                    @Nullable final char [] aChars,
+                                                    final char @Nullable [] aChars,
                                                     @Nonnegative final int nOfs,
                                                     @Nonnegative final int nLen)
   {
@@ -904,7 +904,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                          @Nullable final char [] aChars)
+                                                                          final char @Nullable [] aChars)
   {
     return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLTextChars (eXMLVersion,
                                                                                     aChars,
@@ -915,7 +915,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                          @Nullable final char [] aChars,
+                                                                          final char @Nullable [] aChars,
                                                                           @Nonnegative final int nOfs,
                                                                           @Nonnegative final int nLen)
   {
@@ -959,13 +959,13 @@ public final class XMLCharHelper
   }
 
   public static boolean containsInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                     @Nullable final char [] aChars)
+                                                     final char @Nullable [] aChars)
   {
     return aChars != null && aChars.length > 0 && containsInvalidXMLCDATAChar (eXMLVersion, aChars, 0, aChars.length);
   }
 
   public static boolean containsInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                     @Nullable final char [] aChars,
+                                                     final char @Nullable [] aChars,
                                                      @Nonnegative final int nOfs,
                                                      @Nonnegative final int nLen)
   {
@@ -993,7 +993,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                           @Nullable final char [] aChars)
+                                                                           final char @Nullable [] aChars)
   {
     return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLCDATAChars (eXMLVersion,
                                                                                      aChars,
@@ -1004,7 +1004,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                           @Nullable final char [] aChars,
+                                                                           final char @Nullable [] aChars,
                                                                            @Nonnegative final int nOfs,
                                                                            @Nonnegative final int nLen)
   {
@@ -1050,7 +1050,7 @@ public final class XMLCharHelper
   }
 
   public static boolean containsInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                              @Nullable final char [] aChars)
+                                                              final char @Nullable [] aChars)
   {
     return aChars != null &&
            aChars.length > 0 &&
@@ -1058,7 +1058,7 @@ public final class XMLCharHelper
   }
 
   public static boolean containsInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                              @Nullable final char [] aChars,
+                                                              final char @Nullable [] aChars,
                                                               @Nonnegative final int nOfs,
                                                               @Nonnegative final int nLen)
   {
@@ -1086,7 +1086,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                                    @Nullable final char [] aChars)
+                                                                                    final char @Nullable [] aChars)
   {
     return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion,
                                                                                               aChars,
@@ -1097,7 +1097,7 @@ public final class XMLCharHelper
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                                                                    @Nullable final char [] aChars,
+                                                                                    final char @Nullable [] aChars,
                                                                                     @Nonnegative final int nOfs,
                                                                                     @Nonnegative final int nLen)
   {
@@ -1125,7 +1125,7 @@ public final class XMLCharHelper
 
   public static boolean containsInvalidXMLChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                 @NonNull final EXMLCharMode eXMLCharMode,
-                                                @Nullable final char [] aChars)
+                                                final char @Nullable [] aChars)
   {
     return aChars != null &&
            aChars.length > 0 &&
@@ -1134,7 +1134,7 @@ public final class XMLCharHelper
 
   public static boolean containsInvalidXMLChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                 @NonNull final EXMLCharMode eXMLCharMode,
-                                                @Nullable final char [] aChars,
+                                                final char @Nullable [] aChars,
                                                 @Nonnegative final int nOfs,
                                                 @Nonnegative final int nLen)
   {
@@ -1168,7 +1168,7 @@ public final class XMLCharHelper
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                       @NonNull final EXMLCharMode eXMLCharMode,
-                                                                      @Nullable final char [] aChars)
+                                                                      final char @Nullable [] aChars)
   {
     return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLChars (eXMLVersion,
                                                                                 eXMLCharMode,
@@ -1181,7 +1181,7 @@ public final class XMLCharHelper
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                       @NonNull final EXMLCharMode eXMLCharMode,
-                                                                      @Nullable final char [] aChars,
+                                                                      final char @Nullable [] aChars,
                                                                       @Nonnegative final int nOfs,
                                                                       @Nonnegative final int nLen)
   {

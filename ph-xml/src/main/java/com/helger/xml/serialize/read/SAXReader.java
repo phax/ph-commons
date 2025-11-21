@@ -116,13 +116,13 @@ public final class SAXReader
   }
 
   @NonNull
-  public static ESuccess readXMLSAX (@NonNull final char [] aXML, @NonNull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (final char @NonNull [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
   @NonNull
-  public static ESuccess readXMLSAX (@NonNull final char [] aXML,
+  public static ESuccess readXMLSAX (final char @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final ISAXReaderSettings aSettings)
@@ -131,13 +131,13 @@ public final class SAXReader
   }
 
   @NonNull
-  public static ESuccess readXMLSAX (@NonNull final byte [] aXML, @NonNull final ISAXReaderSettings aSettings)
+  public static ESuccess readXMLSAX (final byte @NonNull [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
   @NonNull
-  public static ESuccess readXMLSAX (@NonNull final byte [] aXML,
+  public static ESuccess readXMLSAX (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final ISAXReaderSettings aSettings)

@@ -108,13 +108,13 @@ public final class TransformSourceFactory
   }
 
   @NonNull
-  public static StringStreamSource create (@NonNull final char [] aXML)
+  public static StringStreamSource create (final char @NonNull [] aXML)
   {
     return new StringStreamSource (aXML);
   }
 
   @NonNull
-  public static StringStreamSource create (@NonNull final char [] aXML,
+  public static StringStreamSource create (final char @NonNull [] aXML,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength)
   {
@@ -122,13 +122,13 @@ public final class TransformSourceFactory
   }
 
   @NonNull
-  public static StreamSource create (@NonNull final byte [] aXML)
+  public static StreamSource create (final byte @NonNull [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
   @NonNull
-  public static StreamSource create (@NonNull final byte [] aXML,
+  public static StreamSource create (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLength)
   {

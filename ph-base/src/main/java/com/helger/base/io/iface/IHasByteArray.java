@@ -60,9 +60,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @return A copy of all bytes contained, from {@link #getOffset()} for {@link #size()} bytes.
    *         Never <code>null</code>.
    */
-  @NonNull
   @ReturnsMutableCopy
-  default byte [] getAllBytes ()
+  default byte @NonNull [] getAllBytes ()
   {
     return ArrayHelper.getCopy (bytes (), getOffset (), size ());
   }
@@ -71,9 +70,8 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    * @return A reference to the contained byte array. Gives write access to the payload! Don't
    *         forget to apply {@link #getOffset()} and {@link #size()}. Never <code>null</code>.
    */
-  @NonNull
   @ReturnsMutableObject
-  byte [] bytes ();
+  byte @NonNull [] bytes ();
 
   /**
    * @return <code>true</code> if this object deals with a partial array that either has an offset
@@ -134,7 +132,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
    *        The bytes to compare to. May not be <code>null</code>.
    * @return <code>true</code> if the passed bytes start with the bytes in this object.
    */
-  default boolean startsWith (@NonNull final byte [] aCmpBytes)
+  default boolean startsWith (final byte @NonNull [] aCmpBytes)
   {
     return ArrayHelper.startsWith (bytes (), getOffset (), size (), aCmpBytes, 0, aCmpBytes.length);
   }

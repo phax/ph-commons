@@ -78,7 +78,7 @@ public class LoggingWriter extends WrappedWriter
   }
 
   @Override
-  public final void write (@NonNull final char [] aBuf, final int nOfs, final int nLen) throws IOException
+  public final void write (final char @NonNull [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nTotalBytesWritten += nLen;

@@ -51,8 +51,7 @@ public final class SerializationHelper
    * @throws IllegalStateException
    *         If serialization failed
    */
-  @NonNull
-  public static byte [] getSerializedByteArray (@NonNull final Serializable aData)
+  public static byte @NonNull [] getSerializedByteArray (@NonNull final Serializable aData)
   {
     ValueEnforcer.notNull (aData, "Data");
 
@@ -90,7 +89,7 @@ public final class SerializationHelper
    *        The type of the deserialized object
    */
   @NonNull
-  public static <T> T getDeserializedObject (@NonNull final byte [] aData)
+  public static <T> T getDeserializedObject (final byte @NonNull [] aData)
   {
     ValueEnforcer.notNull (aData, "Data");
 

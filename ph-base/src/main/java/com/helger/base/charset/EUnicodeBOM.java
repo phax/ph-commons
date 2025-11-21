@@ -99,7 +99,7 @@ public enum EUnicodeBOM
   private final String m_sCharsetName;
   private final Charset m_aCharset;
 
-  EUnicodeBOM (@NonNull @Nonempty final byte [] aBytes, @Nullable final String sCharset)
+  EUnicodeBOM (@Nonempty final byte @NonNull [] aBytes, @Nullable final String sCharset)
   {
     ValueEnforcer.isBetweenInclusive (aBytes.length, "Byte count", 1, MAXIMUM_BOM_BYTE_COUNT);
     m_aBOMBytes = new ByteArrayWrapper (aBytes, false);
@@ -110,10 +110,9 @@ public enum EUnicodeBOM
   /**
    * @return A copy of the byte array that identifies this BOM.
    */
-  @NonNull
   @Nonempty
   @ReturnsMutableCopy
-  public byte [] getAllBytes ()
+  public byte @NonNull [] getAllBytes ()
   {
     return m_aBOMBytes.getAllBytes ();
   }
@@ -135,7 +134,7 @@ public enum EUnicodeBOM
    * @return <code>true</code> if the passed byte array starts with this BOM, <code>false</code>
    *         otherwise.
    */
-  public boolean isPresent (@Nullable final byte [] aBytes)
+  public boolean isPresent (final byte @Nullable [] aBytes)
   {
     if (aBytes == null)
       return false;
@@ -219,7 +218,7 @@ public enum EUnicodeBOM
    * @return <code>null</code> if the passed bytes do not resemble a BOM.
    */
   @Nullable
-  public static EUnicodeBOM getFromBytesOrNull (@Nullable final byte [] aBytes)
+  public static EUnicodeBOM getFromBytesOrNull (final byte @Nullable [] aBytes)
   {
     if (ArrayHelper.isNotEmpty (aBytes))
       for (final EUnicodeBOM eBOM : values ())

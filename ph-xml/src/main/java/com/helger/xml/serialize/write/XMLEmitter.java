@@ -172,7 +172,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
 
   @NonNull
   private XMLEmitter _appendMasked (@NonNull final EXMLCharMode eXMLCharMode,
-                                    @NonNull final char [] aText,
+                                    final char @NonNull [] aText,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -448,7 +448,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * @param nLen
    *        Number of chars to use, starting from the provided offset.
    */
-  public void onText (@NonNull final char [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void onText (final char @NonNull [] aText, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     onText (aText, nOfs, nLen, true);
   }
@@ -485,7 +485,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
    *        not. The <code>false</code> case is especially interesting for HTML inline JS and CSS
    *        code.
    */
-  public void onText (@NonNull final char [] aText,
+  public void onText (final char @NonNull [] aText,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       final boolean bEscape)

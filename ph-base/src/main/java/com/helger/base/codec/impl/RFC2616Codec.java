@@ -78,7 +78,7 @@ public class RFC2616Codec implements ICharArrayCodec
     return isToken (s.toCharArray ());
   }
 
-  public static boolean isToken (@Nullable final char [] aChars)
+  public static boolean isToken (final char @Nullable [] aChars)
   {
     // May not be empty
     if (aChars == null || aChars.length == 0)
@@ -96,7 +96,7 @@ public class RFC2616Codec implements ICharArrayCodec
     return s != null && s.length () >= 2 && s.charAt (0) == QUOTE_CHAR && StringHelper.getLastChar (s) == QUOTE_CHAR;
   }
 
-  public static boolean isMaybeEncoded (@Nullable final char [] s)
+  public static boolean isMaybeEncoded (final char @Nullable [] s)
   {
     return s != null && s.length >= 2 && s[0] == QUOTE_CHAR && s[s.length - 1] == QUOTE_CHAR;
   }
@@ -112,7 +112,7 @@ public class RFC2616Codec implements ICharArrayCodec
     return 1 + 2 * nDecodedLen + 1;
   }
 
-  public void encode (@Nullable final char [] aDecodedBuffer,
+  public void encode (final char @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final Writer aWriter)
@@ -153,7 +153,7 @@ public class RFC2616Codec implements ICharArrayCodec
     return nEncodedLen - 2;
   }
 
-  public void decode (@Nullable final char [] aEncodedBuffer,
+  public void decode (final char @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final Writer aWriter)

@@ -123,13 +123,13 @@ public final class InputSourceFactory
   }
 
   @NonNull
-  public static InputSource create (@NonNull final char [] aXML)
+  public static InputSource create (final char @NonNull [] aXML)
   {
     return new StringSAXInputSource (aXML);
   }
 
   @NonNull
-  public static InputSource create (@NonNull final char [] aXML,
+  public static InputSource create (final char @NonNull [] aXML,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -137,13 +137,13 @@ public final class InputSourceFactory
   }
 
   @NonNull
-  public static InputSource create (@NonNull final byte [] aXML)
+  public static InputSource create (final byte @NonNull [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
   @NonNull
-  public static InputSource create (@NonNull final byte [] aXML,
+  public static InputSource create (final byte @NonNull [] aXML,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {

@@ -82,7 +82,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aArray
    *        The array to be backed by a {@link ByteBuffer}.
    */
-  public ByteBufferOutputStream (@NonNull final byte [] aArray)
+  public ByteBufferOutputStream (final byte @NonNull [] aArray)
   {
     this (ByteBuffer.wrap (aArray), false);
   }
@@ -97,7 +97,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param nLen
    *        Number of bytes to wrap. Must be &ge; 0.
    */
-  public ByteBufferOutputStream (@NonNull final byte [] aArray,
+  public ByteBufferOutputStream (final byte @NonNull [] aArray,
                                  @Nonnegative final int nOfs,
                                  @Nonnegative final int nLen)
   {
@@ -164,9 +164,8 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    *
    * @return The content of the buffer as a byte array. Never <code>null</code>.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public byte [] getAsByteArray ()
+  public byte @NonNull [] getAsByteArray ()
   {
     final byte [] aArray = m_aBuffer.array ();
     final int nOfs = m_aBuffer.arrayOffset ();
@@ -225,7 +224,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param aBuf
    *        The buffer to be filled. May not be <code>null</code>.
    */
-  public void writeTo (@NonNull final byte [] aBuf)
+  public void writeTo (final byte @NonNull [] aBuf)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
@@ -241,7 +240,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCompactBuffer
    *        <code>true</code> to compact the buffer afterwards, <code>false</code> otherwise.
    */
-  public void writeTo (@NonNull final byte [] aBuf, final boolean bCompactBuffer)
+  public void writeTo (final byte @NonNull [] aBuf, final boolean bCompactBuffer)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
@@ -259,7 +258,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param nLen
    *        Number of bytes to copy. Must be &ge; 0.
    */
-  public void writeTo (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void writeTo (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     writeTo (aBuf, nOfs, nLen, true);
   }
@@ -277,7 +276,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
    * @param bCompactBuffer
    *        <code>true</code> to compact the buffer afterwards, <code>false</code> otherwise.
    */
-  public void writeTo (@NonNull final byte [] aBuf,
+  public void writeTo (final byte @NonNull [] aBuf,
                        @Nonnegative final int nOfs,
                        @Nonnegative final int nLen,
                        final boolean bCompactBuffer)
@@ -359,7 +358,7 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
   }
 
   @Override
-  public void write (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_bCanGrow && nLen > m_aBuffer.remaining ())
       _growBy (nLen);

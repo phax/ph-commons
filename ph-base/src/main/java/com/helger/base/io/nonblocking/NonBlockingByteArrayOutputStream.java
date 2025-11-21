@@ -75,9 +75,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     m_aBuf = new byte [nSize];
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  private static byte [] _enlarge (@NonNull final byte [] aBuf, @Nonnegative final int nNewSize)
+  private static byte @NonNull [] _enlarge (final byte @NonNull [] aBuf, @Nonnegative final int nNewSize)
   {
     final byte [] ret = new byte [nNewSize];
     System.arraycopy (aBuf, 0, ret, 0, aBuf.length);
@@ -104,7 +103,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * Just overloaded to avoid the IOException in the generic OutputStream.write method.
    */
   @Override
-  public void write (@NonNull final byte [] aBuf)
+  public void write (final byte @NonNull [] aBuf)
   {
     write (aBuf, 0, aBuf.length);
   }
@@ -121,7 +120,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *        the number of bytes to write.
    */
   @Override
-  public void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen)
+  public void write (final byte @NonNull [] aBuf, final int nOfs, final int nLen)
   {
     // Disable because this can have a performance impact!
     if (false)
@@ -196,9 +195,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    *
    * @return the current contents of this output stream, as a byte array.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public byte [] toByteArray ()
+  public byte @NonNull [] toByteArray ()
   {
     return Arrays.copyOf (m_aBuf, m_nCount);
   }
@@ -248,12 +246,12 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     return m_nCount > 0;
   }
 
-  public boolean startsWith (@NonNull final byte [] aBytes)
+  public boolean startsWith (final byte @NonNull [] aBytes)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes);
   }
 
-  public boolean startsWith (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public boolean startsWith (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes, nOfs, nLen);
   }
@@ -329,9 +327,8 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
   /**
    * @return The internally used byte buffer. Never <code>null</code>. Handle with care!
    */
-  @NonNull
   @ReturnsMutableObject
-  public byte [] directGetBuffer ()
+  public byte @NonNull [] directGetBuffer ()
   {
     return m_aBuf;
   }
@@ -343,8 +340,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
    * @see #toByteArray()
    * @since 9.1.3
    */
-  @NonNull
-  public byte [] getBufferOrCopy ()
+  public byte @NonNull [] getBufferOrCopy ()
   {
     if (m_aBuf.length == m_nCount)
       return directGetBuffer ();

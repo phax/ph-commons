@@ -57,7 +57,7 @@ public class Base64Codec implements IByteArrayCodec
     return new Base64OutputStream (new NonClosingOutputStream (aOS));
   }
 
-  public void encode (@Nullable final byte [] aDecodedBuffer,
+  public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)
@@ -75,10 +75,9 @@ public class Base64Codec implements IByteArrayCodec
     }
   }
 
-  @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+  public byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
   {
@@ -98,7 +97,7 @@ public class Base64Codec implements IByteArrayCodec
     return new Base64InputStream (aBAIS);
   }
 
-  public void decode (@Nullable final byte [] aEncodedBuffer,
+  public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)
@@ -118,10 +117,9 @@ public class Base64Codec implements IByteArrayCodec
       }
   }
 
-  @Nullable
   @ReturnsMutableCopy
   @Override
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+  public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
                              @Nonnegative final int nOfs,
                              @Nonnegative final int nLen)
   {

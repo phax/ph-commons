@@ -107,7 +107,11 @@ target/                # Build output (exclude from searches)
 Reference `ExtractedCodingStyleguide.md` for comprehensive guidelines. Key points:
 
 #### Annotations (CRITICAL)
-- Use `@Nonnull` and `@Nullable` consistently
+- Use `@NonNull` and `@Nullable` consistently
+
+- Note about primitives and arrays:
+	- Do NOT annotate primitive types with `@Nullable` (for example, `boolean`, `int`). Primitive types cannot be null. If a value may be null, use the corresponding wrapper type (e.g. `Boolean`, `Integer`) and annotate that with `@Nullable`.
+	- It is OK to annotate arrays of primitives with `@Nullable` (for example, `boolean[]`). Arrays are reference types in Java, so `@Nullable boolean[]` is valid when the reference itself may be null.
 - `@ReturnsMutableCopy` / `@ReturnsImmutableObject` for return values
 - `@ThreadSafe` / `@NotThreadSafe` for class-level thread safety
 
@@ -134,7 +138,7 @@ Reference `ExtractedCodingStyleguide.md` for comprehensive guidelines. Key point
 
 ### GitHub Actions
 - **Trigger**: Push to any branch, PRs to master
-- **Java Versions**: 17, 21, 24 (matrix build)
+- **Java Versions**: 17, 21, 25 (matrix build)
 - **Commands**: `mvn --batch-mode --update-snapshots install`
 - **Deployment**: Snapshots deployed to Maven Central (Java 17 only)
 

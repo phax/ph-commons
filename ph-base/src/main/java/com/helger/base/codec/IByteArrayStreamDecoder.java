@@ -47,7 +47,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *         in case something goes wrong
    * @since 9.0.0
    */
-  default void decode (@Nullable final byte [] aEncodedBuffer, @NonNull @WillNotClose final OutputStream aOS)
+  default void decode (final byte @Nullable [] aEncodedBuffer, @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aEncodedBuffer == null)
       decode (null, 0, 0, aOS);
@@ -70,7 +70,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable byte [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
+  void decode (byte @Nullable [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
 
   /**
    * Decode a byte array.
@@ -86,9 +86,8 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -101,7 +100,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final byte [] aEncodedBuffer, @NonNull final Charset aCharset)
+  default String getDecodedAsString (final byte @Nullable [] aEncodedBuffer, @NonNull final Charset aCharset)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -110,7 +109,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final byte [] aEncodedBuffer,
+  default String getDecodedAsString (final byte @Nullable [] aEncodedBuffer,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final Charset aCharset)

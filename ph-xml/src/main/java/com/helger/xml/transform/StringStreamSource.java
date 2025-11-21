@@ -34,12 +34,12 @@ import com.helger.base.tostring.ToStringGenerator;
 @NotThreadSafe
 public class StringStreamSource extends StreamSource
 {
-  public StringStreamSource (@NonNull final char [] aInput)
+  public StringStreamSource (final char @NonNull [] aInput)
   {
     super (new NonBlockingStringReader (aInput));
   }
 
-  public StringStreamSource (@NonNull final char [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public StringStreamSource (final char @NonNull [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     super (new NonBlockingStringReader (aInput, nOfs, nLen));
   }

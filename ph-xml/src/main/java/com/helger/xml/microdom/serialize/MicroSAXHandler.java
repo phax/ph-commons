@@ -196,7 +196,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     m_aParent.addProcessingInstruction (sTarget, sData);
   }
 
-  public void characters (@NonNull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+  public void characters (final char @NonNull [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
   {
     _updatePosition ("characters");
     if (m_bCDATAMode)
@@ -243,7 +243,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void comment (@NonNull final char [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
+  public void comment (final char @NonNull [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
                                                                                                                      throws SAXException
   {
     _updatePosition ("comment");
@@ -257,7 +257,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     }
   }
 
-  public void ignorableWhitespace (@NonNull final char [] aChars,
+  public void ignorableWhitespace (final char @NonNull [] aChars,
                                    @Nonnegative final int nStart,
                                    @Nonnegative final int nLength)
   {

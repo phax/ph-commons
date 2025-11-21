@@ -55,7 +55,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param bCopyNeeded
    *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
-  public ByteArrayWrapper (@NonNull final byte [] aBytes, final boolean bCopyNeeded)
+  public ByteArrayWrapper (final byte @NonNull [] aBytes, final boolean bCopyNeeded)
   {
     this (aBytes, 0, aBytes.length, bCopyNeeded);
   }
@@ -72,7 +72,7 @@ public final class ByteArrayWrapper implements IHasByteArray
    * @param bCopyNeeded
    *        <code>true</code> to copy it, <code>false</code> to reuse the instance.
    */
-  public ByteArrayWrapper (@NonNull final byte [] aBytes,
+  public ByteArrayWrapper (final byte @NonNull [] aBytes,
                            @Nonnegative final int nOfs,
                            @Nonnegative final int nLength,
                            final boolean bCopyNeeded)
@@ -89,9 +89,8 @@ public final class ByteArrayWrapper implements IHasByteArray
     return m_bIsCopy;
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public byte [] bytes ()
+  public byte @NonNull [] bytes ()
   {
     return m_aBytes;
   }

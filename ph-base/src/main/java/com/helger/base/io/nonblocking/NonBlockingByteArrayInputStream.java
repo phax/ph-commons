@@ -77,7 +77,7 @@ public class NonBlockingByteArrayInputStream extends InputStream
    * @param aBuf
    *        the input buffer.
    */
-  public NonBlockingByteArrayInputStream (@NonNull final byte [] aBuf)
+  public NonBlockingByteArrayInputStream (final byte @NonNull [] aBuf)
   {
     this (aBuf, 0, aBuf.length, DEFAULT_COPY_NEEDED);
   }
@@ -92,7 +92,7 @@ public class NonBlockingByteArrayInputStream extends InputStream
    * @param bIsCopyNeeded
    *        <code>true</code> if the array should be copied, <code>false</code> if not.
    */
-  public NonBlockingByteArrayInputStream (@NonNull final byte [] aBuf, final boolean bIsCopyNeeded)
+  public NonBlockingByteArrayInputStream (final byte @NonNull [] aBuf, final boolean bIsCopyNeeded)
   {
     this (aBuf, 0, aBuf.length, bIsCopyNeeded);
   }
@@ -110,7 +110,7 @@ public class NonBlockingByteArrayInputStream extends InputStream
    * @param nLen
    *        the maximum number of bytes to read from the buffer.
    */
-  public NonBlockingByteArrayInputStream (@NonNull final byte [] aBuf,
+  public NonBlockingByteArrayInputStream (final byte @NonNull [] aBuf,
                                           @Nonnegative final int nOfs,
                                           @Nonnegative final int nLen)
   {
@@ -133,7 +133,7 @@ public class NonBlockingByteArrayInputStream extends InputStream
    *        <code>true</code> if the provided byte array needs to be copied, <code>false</code> if
    *        not.
    */
-  public NonBlockingByteArrayInputStream (@NonNull final byte [] aBuf,
+  public NonBlockingByteArrayInputStream (final byte @NonNull [] aBuf,
                                           @Nonnegative final int nOfs,
                                           @Nonnegative final int nLen,
                                           final boolean bIsCopyNeeded)

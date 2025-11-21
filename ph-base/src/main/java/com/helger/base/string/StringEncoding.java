@@ -50,9 +50,8 @@ public final class StringEncoding
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@NonNull final char [] aCharArray, @NonNull final Charset aCharset)
+  public static byte @NonNull [] encodeCharToBytes (final char @NonNull [] aCharArray, @NonNull final Charset aCharset)
   {
     return encodeCharToBytes (aCharArray, 0, aCharArray.length, aCharset);
   }
@@ -72,9 +71,8 @@ public final class StringEncoding
    * @return The created byte array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeCharToBytes (@NonNull final char [] aCharArray,
+  public static byte @NonNull [] encodeCharToBytes (final char @NonNull [] aCharArray,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLen,
                                            @NonNull final Charset aCharset)
@@ -123,8 +121,7 @@ public final class StringEncoding
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @NonNull
-  public static char [] decodeBytesToChars (@NonNull final byte [] aByteArray, @NonNull final Charset aCharset)
+  public static char @NonNull [] decodeBytesToChars (final byte @NonNull [] aByteArray, @NonNull final Charset aCharset)
   {
     return decodeBytesToChars (aByteArray, 0, aByteArray.length, aCharset);
   }
@@ -144,8 +141,7 @@ public final class StringEncoding
    * @return The created char array. Never <code>null</code>.
    * @since 8.6.4
    */
-  @NonNull
-  public static char [] decodeBytesToChars (@NonNull final byte [] aByteArray,
+  public static char @NonNull [] decodeBytesToChars (final byte @NonNull [] aByteArray,
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen,
                                             @NonNull final Charset aCharset)

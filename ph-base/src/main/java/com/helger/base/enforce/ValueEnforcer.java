@@ -428,7 +428,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static boolean [] notEmpty (@NonNull final boolean [] aValue, @NonNull final String sName)
+  public static boolean [] notEmpty (final boolean @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -446,7 +446,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static boolean [] notEmpty (@NonNull final boolean [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static boolean [] notEmpty (final boolean @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -466,7 +466,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static byte [] notEmpty (@NonNull final byte [] aValue, @NonNull final String sName)
+  public static byte [] notEmpty (final byte @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -484,7 +484,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static byte [] notEmpty (@NonNull final byte [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static byte [] notEmpty (final byte @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -504,7 +504,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static char [] notEmpty (@NonNull final char [] aValue, @NonNull final String sName)
+  public static char [] notEmpty (final char @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -522,7 +522,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static char [] notEmpty (@NonNull final char [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static char [] notEmpty (final char @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -542,7 +542,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static double [] notEmpty (@NonNull final double [] aValue, @NonNull final String sName)
+  public static double [] notEmpty (final double @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -560,7 +560,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static double [] notEmpty (@NonNull final double [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static double [] notEmpty (final double @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -580,7 +580,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static float [] notEmpty (@NonNull final float [] aValue, @NonNull final String sName)
+  public static float [] notEmpty (final float @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -598,7 +598,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static float [] notEmpty (@NonNull final float [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static float [] notEmpty (final float @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -618,7 +618,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static int [] notEmpty (@NonNull final int [] aValue, @NonNull final String sName)
+  public static int [] notEmpty (final int @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -636,7 +636,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static int [] notEmpty (@NonNull final int [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static int [] notEmpty (final int @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -656,7 +656,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static long [] notEmpty (@NonNull final long [] aValue, @NonNull final String sName)
+  public static long [] notEmpty (final long @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -674,7 +674,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static long [] notEmpty (@NonNull final long [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static long [] notEmpty (final long @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -694,7 +694,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static short [] notEmpty (@NonNull final short [] aValue, @NonNull final String sName)
+  public static short [] notEmpty (final short @NonNull [] aValue, @NonNull final String sName)
   {
     if (isEnabled ())
       return notEmpty (aValue, () -> sName);
@@ -712,7 +712,7 @@ public final class ValueEnforcer
    * @throws IllegalArgumentException
    *         if the passed value is empty
    */
-  public static short [] notEmpty (@NonNull final short [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static short [] notEmpty (final short @NonNull [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
     if (isEnabled ())
@@ -3065,7 +3065,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final boolean [] aArray,
+  public static void isArrayOfsLen (final boolean @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3073,7 +3073,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final byte [] aArray,
+  public static void isArrayOfsLen (final byte @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3081,7 +3081,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final char [] aArray,
+  public static void isArrayOfsLen (final char @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3089,7 +3089,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final double [] aArray,
+  public static void isArrayOfsLen (final double @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3097,7 +3097,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final float [] aArray,
+  public static void isArrayOfsLen (final float @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3105,7 +3105,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final int [] aArray,
+  public static void isArrayOfsLen (final int @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3113,7 +3113,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final long [] aArray,
+  public static void isArrayOfsLen (final long @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -3121,7 +3121,7 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
-  public static void isArrayOfsLen (@NonNull final short [] aArray,
+  public static void isArrayOfsLen (final short @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {

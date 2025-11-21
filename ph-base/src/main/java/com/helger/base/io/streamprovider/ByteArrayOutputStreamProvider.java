@@ -54,9 +54,8 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
   /**
    * @return All bytes already written
    */
-  @NonNull
   @ReturnsMutableCopy
-  public final byte [] getBytes ()
+  public final byte @NonNull [] getBytes ()
   {
     return m_aOS.toByteArray ();
   }

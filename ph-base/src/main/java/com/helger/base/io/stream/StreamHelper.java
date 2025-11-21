@@ -69,9 +69,8 @@ public class StreamHelper
    * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] createDefaultCopyBufferBytes ()
+  public static byte @NonNull [] createDefaultCopyBufferBytes ()
   {
     return new byte [DEFAULT_BUFSIZE];
   }
@@ -80,9 +79,8 @@ public class StreamHelper
    * @return A newly created copy buffer using {@link #DEFAULT_BUFSIZE}. Never <code>null</code>.
    * @since 9.3.6
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static char [] createDefaultCopyBufferChars ()
+  public static char @NonNull [] createDefaultCopyBufferChars ()
   {
     return new char [DEFAULT_BUFSIZE];
   }
@@ -94,7 +92,7 @@ public class StreamHelper
   }
 
   @NonNull
-  public static NonBlockingStringReader createReader (@NonNull final char [] aChars)
+  public static NonBlockingStringReader createReader (final char @NonNull [] aChars)
   {
     return new NonBlockingStringReader (aChars);
   }
@@ -431,7 +429,7 @@ public class StreamHelper
      * @return this for chaining
      */
     @NonNull
-    public CopyByteStreamBuilder buffer (@Nullable final byte [] a)
+    public CopyByteStreamBuilder buffer (final byte @Nullable [] a)
     {
       m_aBuffer = a;
       return this;
@@ -522,7 +520,7 @@ public class StreamHelper
     @Nonnegative
     private static long _copyInputStreamToOutputStream (@NonNull @WillNotClose final InputStream aIS,
                                                         @NonNull @WillNotClose final OutputStream aOS,
-                                                        @NonNull final byte [] aBuffer,
+                                                        final byte @NonNull [] aBuffer,
                                                         @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       final int nBufferLength = aBuffer.length;
@@ -546,7 +544,7 @@ public class StreamHelper
     @Nonnegative
     private static long _copyInputStreamToOutputStreamWithLimit (@NonNull @WillNotClose final InputStream aIS,
                                                                  @NonNull @WillNotClose final OutputStream aOS,
-                                                                 @NonNull final byte [] aBuffer,
+                                                                 final byte @NonNull [] aBuffer,
                                                                  @Nonnegative final long nLimit,
                                                                  @Nullable final LongConsumer aProgressCallback) throws IOException
     {
@@ -714,8 +712,7 @@ public class StreamHelper
    * @return The byte array or <code>null</code> if the parameter or the resolved input stream is
    *         <code>null</code>.
    */
-  @Nullable
-  public static byte [] getAllBytes (@Nullable final IHasInputStream aISP)
+  public static byte @Nullable [] getAllBytes (@Nullable final IHasInputStream aISP)
   {
     if (aISP == null)
       return null;
@@ -730,8 +727,7 @@ public class StreamHelper
    *        The input stream to read from. May be <code>null</code>.
    * @return The byte array or <code>null</code> if the input stream is <code>null</code>.
    */
-  @Nullable
-  public static byte [] getAllBytes (@Nullable @WillClose final InputStream aIS)
+  public static byte @Nullable [] getAllBytes (@Nullable @WillClose final InputStream aIS)
   {
     if (aIS == null)
       return null;
@@ -914,7 +910,7 @@ public class StreamHelper
      * @return this for chaining
      */
     @NonNull
-    public CopyCharStreamBuilder buffer (@Nullable final char [] a)
+    public CopyCharStreamBuilder buffer (final char @Nullable [] a)
     {
       m_aBuffer = a;
       return this;
@@ -1005,7 +1001,7 @@ public class StreamHelper
     @Nonnegative
     private static long _copyReaderToWriter (@NonNull @WillNotClose final Reader aReader,
                                              @NonNull @WillNotClose final Writer aWriter,
-                                             @NonNull final char [] aBuffer,
+                                             final char @NonNull [] aBuffer,
                                              @Nullable final LongConsumer aProgressCallback) throws IOException
     {
       long nTotalCharsWritten = 0;
@@ -1028,7 +1024,7 @@ public class StreamHelper
     @Nonnegative
     private static long _copyReaderToWriterWithLimit (@NonNull @WillNotClose final Reader aReader,
                                                       @NonNull @WillNotClose final Writer aWriter,
-                                                      @NonNull final char [] aBuffer,
+                                                      final char @NonNull [] aBuffer,
                                                       @Nonnegative final long nLimit,
                                                       @Nullable final LongConsumer aProgressCallback) throws IOException
     {
@@ -1156,8 +1152,7 @@ public class StreamHelper
    *        The reader to read from. May be <code>null</code>.
    * @return The character array or <code>null</code> if the reader is <code>null</code>.
    */
-  @Nullable
-  public static char [] getAllCharacters (@Nullable @WillClose final Reader aReader)
+  public static char @Nullable [] getAllCharacters (@Nullable @WillClose final Reader aReader)
   {
     if (aReader == null)
       return null;
@@ -1209,7 +1204,7 @@ public class StreamHelper
    */
   @NonNull
   public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS,
-                                      @NonNull final byte [] aBuf,
+                                      final byte @NonNull [] aBuf,
                                       @Nonnegative final int nOfs,
                                       @Nonnegative final int nLen)
   {
@@ -1244,7 +1239,7 @@ public class StreamHelper
    * @return {@link ESuccess}
    */
   @NonNull
-  public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS, @NonNull final byte [] aBuf)
+  public static ESuccess writeStream (@WillClose @NonNull final OutputStream aOS, final byte @NonNull [] aBuf)
   {
     return writeStream (aOS, aBuf, 0, aBuf.length);
   }
@@ -1327,7 +1322,7 @@ public class StreamHelper
    *         In case reading fails
    */
   @Nonnegative
-  public static int readFully (@NonNull final InputStream aIS, @NonNull final byte [] aBuffer) throws IOException
+  public static int readFully (@NonNull final InputStream aIS, final byte @NonNull [] aBuffer) throws IOException
   {
     return readFully (aIS, aBuffer, 0, aBuffer.length);
   }
@@ -1350,7 +1345,7 @@ public class StreamHelper
    */
   @Nonnegative
   public static int readFully (@NonNull @WillNotClose final InputStream aIS,
-                               @NonNull final byte [] aBuffer,
+                               final byte @NonNull [] aBuffer,
                                @Nonnegative final int nOfs,
                                @Nonnegative final int nLen) throws IOException
   {
@@ -1374,7 +1369,7 @@ public class StreamHelper
   }
 
   private static void _readUntilEOF (@NonNull @WillNotClose final InputStream aIS,
-                                     @NonNull final byte [] aBuffer,
+                                     final byte @NonNull [] aBuffer,
                                      @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aIS, "InputStream");
@@ -1394,7 +1389,7 @@ public class StreamHelper
   }
 
   public static void readUntilEOF (@NonNull @WillClose final InputStream aIS,
-                                   @NonNull final byte [] aBuffer,
+                                   final byte @NonNull [] aBuffer,
                                    @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     try
@@ -1412,7 +1407,7 @@ public class StreamHelper
   }
 
   private static void _readUntilEOF (@NonNull @WillNotClose final Reader aReader,
-                                     @NonNull final char [] aBuffer,
+                                     final char @NonNull [] aBuffer,
                                      @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     ValueEnforcer.notNull (aReader, "Reader");
@@ -1432,7 +1427,7 @@ public class StreamHelper
   }
 
   public static void readUntilEOF (@NonNull @WillClose final Reader aReader,
-                                   @NonNull final char [] aBuffer,
+                                   final char @NonNull [] aBuffer,
                                    @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     try

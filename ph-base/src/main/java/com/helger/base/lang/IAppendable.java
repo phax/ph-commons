@@ -108,7 +108,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable boolean [] x);
+  IMPLTYPE append (boolean @Nullable [] x);
 
   /**
    * @param x
@@ -120,7 +120,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable boolean [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (boolean @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -128,7 +128,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable byte [] x);
+  IMPLTYPE append (byte @Nullable [] x);
 
   /**
    * @param x
@@ -140,7 +140,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable byte [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (byte @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -148,7 +148,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable char [] x);
+  IMPLTYPE append (char @Nullable [] x);
 
   /**
    * @param x
@@ -160,7 +160,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable char [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (char @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -168,7 +168,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable double [] x);
+  IMPLTYPE append (double @Nullable [] x);
 
   /**
    * @param x
@@ -180,7 +180,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable double [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (double @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -188,7 +188,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable float [] x);
+  IMPLTYPE append (float @Nullable [] x);
 
   /**
    * @param x
@@ -200,7 +200,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable float [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (float @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -208,7 +208,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable int [] x);
+  IMPLTYPE append (int @Nullable [] x);
 
   /**
    * @param x
@@ -220,7 +220,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable int [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (int @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -228,7 +228,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable long [] x);
+  IMPLTYPE append (long @Nullable [] x);
 
   /**
    * @param x
@@ -240,7 +240,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable long [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (long @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x
@@ -248,7 +248,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable short [] x);
+  IMPLTYPE append (short @Nullable [] x);
 
   /**
    * @param x
@@ -260,7 +260,7 @@ public interface IAppendable <IMPLTYPE extends IAppendable <IMPLTYPE>>
    * @return this
    */
   @NonNull
-  IMPLTYPE append (@Nullable short [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
+  IMPLTYPE append (short @Nullable [] x, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * @param x

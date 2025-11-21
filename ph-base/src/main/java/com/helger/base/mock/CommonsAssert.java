@@ -232,7 +232,7 @@ public class CommonsAssert
 
   // array
 
-  public static void assertEquals (@Nullable final float [] x, @Nullable final float [] y)
+  public static void assertEquals (final float @Nullable [] x, final float @Nullable [] y)
   {
     // Same object - check first
     if (x == y)
@@ -251,7 +251,7 @@ public class CommonsAssert
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
   }
 
-  public static void assertEquals (@Nullable final double [] x, @Nullable final double [] y)
+  public static void assertEquals (final double @Nullable [] x, final double @Nullable [] y)
   {
     // Same object - check first
     if (x == y)

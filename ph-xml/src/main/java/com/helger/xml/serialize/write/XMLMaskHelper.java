@@ -450,9 +450,8 @@ public final class XMLMaskHelper
   private XMLMaskHelper ()
   {}
 
-  @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] _findSourceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
+  private static char @Nullable [] _findSourceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
                                          @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
@@ -501,9 +500,8 @@ public final class XMLMaskHelper
     return null;
   }
 
-  @Nullable
   @ReturnsMutableObject ("internal use only")
-  private static char [] [] _findReplaceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
+  private static char @Nullable [] [] _findReplaceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
                                              @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
@@ -559,9 +557,8 @@ public final class XMLMaskHelper
    *        Character set to use. May not be <code>null</code>.
    * @return A new array with the same length as the source set.
    */
-  @NonNull
   @ReturnsMutableCopy
-  private static char [] _getAsCharArray (@NonNull final Set <Character> aChars)
+  private static char @NonNull [] _getAsCharArray (@NonNull final Set <Character> aChars)
   {
     ValueEnforcer.notNull (aChars, "Chars");
 
@@ -572,9 +569,8 @@ public final class XMLMaskHelper
     return ret;
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  private static char [] [] _createEmptyReplacement (@NonNull final char [] aSrcMap)
+  private static char @NonNull [] [] _createEmptyReplacement (final char @NonNull [] aSrcMap)
   {
     final char [] [] ret = new char [aSrcMap.length] [];
     for (int i = 0; i < aSrcMap.length; ++i)
@@ -582,8 +578,7 @@ public final class XMLMaskHelper
     return ret;
   }
 
-  @NonNull
-  public static char [] getMaskedXMLText (@NonNull final EXMLSerializeVersion eXMLVersion,
+  public static char @NonNull [] getMaskedXMLText (@NonNull final EXMLSerializeVersion eXMLVersion,
                                           @NonNull final EXMLCharMode eXMLCharMode,
                                           @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                           @Nullable final String s)
@@ -692,7 +687,7 @@ public final class XMLMaskHelper
   public static void maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
                                     @NonNull final EXMLCharMode eXMLCharMode,
                                     @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                    @NonNull final char [] aSrcText,
+                                    final char @NonNull [] aSrcText,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     @NonNull final Writer aWriter) throws IOException

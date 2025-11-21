@@ -83,7 +83,7 @@ public class StringHex
    * @return The String representation of the byte array.
    */
   @NonNull
-  public static String getHexEncoded (@NonNull final byte [] aInput)
+  public static String getHexEncoded (final byte @NonNull [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 
@@ -102,7 +102,7 @@ public class StringHex
    * @return The String representation of the byte array.
    */
   @NonNull
-  public static String getHexEncoded (@NonNull final byte [] aInput, final int nOfs, final int nLen)
+  public static String getHexEncoded (final byte @NonNull [] aInput, final int nOfs, final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
 
@@ -115,6 +115,48 @@ public class StringHex
       aSB.append (c1).append (c2);
     }
     return aSB.toString ();
+  }
+
+  /**
+   * Convert a byte array to a hexadecimal encoded byte array.
+   *
+   * @param aInput
+   *        The byte array to be converted to a String. May not be <code>null</code>.
+   * @return The hex encoded byte array representation of the byte array.
+   * @since 12.1.1
+   */
+  public static byte @NonNull [] getHexEncodedByteArray (final byte @NonNull [] aInput)
+  {
+    ValueEnforcer.notNull (aInput, "Input");
+
+    return getHexEncodedByteArray (aInput, 0, aInput.length);
+  }
+
+  /**
+   * Convert a byte array to a hexadecimal encoded byte array.
+   *
+   * @param aInput
+   *        The byte array to be converted to a String. May not be <code>null</code>.
+   * @param nOfs
+   *        Byte array offset
+   * @param nLen
+   *        Number of bytes to encode
+   * @return The hex encoded byte array representation of the byte array.
+   * @since 12.1.1
+   */
+  public static byte @NonNull [] getHexEncodedByteArray (final byte @NonNull [] aInput, final int nOfs, final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
+
+    final byte [] ret = new byte [nLen * 2];
+    int nDst = 0;
+    for (int i = nOfs; i < (nOfs + nLen); ++i)
+    {
+      final byte b = aInput[i];
+      ret[nDst++] = (byte) getHexChar ((b & 0xf0) >> 4);
+      ret[nDst++] = (byte) getHexChar (b & 0x0f);
+    }
+    return ret;
   }
 
   /**
@@ -144,29 +186,26 @@ public class StringHex
     return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@NonNull final String sInput)
+  public static byte @NonNull [] getHexDecoded (@NonNull final String sInput)
   {
     ValueEnforcer.notNull (sInput, "Input");
 
     return getHexDecoded (sInput.toCharArray (), 0, sInput.length ());
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@NonNull final char [] aInput)
+  public static byte @NonNull [] getHexDecoded (final char @NonNull [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 
     return getHexDecoded (aInput, 0, aInput.length);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] getHexDecoded (@NonNull final char [] aInput,
-                                       @Nonnegative final int nOfs,
-                                       @Nonnegative final int nLen)
+  public static byte @NonNull [] getHexDecoded (final char @NonNull [] aInput,
+                                                @Nonnegative final int nOfs,
+                                                @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
     ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);

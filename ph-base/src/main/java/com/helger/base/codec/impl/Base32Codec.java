@@ -450,7 +450,7 @@ public class Base32Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
   }
 
-  public void encode (@Nullable final byte [] aDecodedBuffer,
+  public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)
@@ -597,7 +597,7 @@ public class Base32Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen, 8) * 5 / 8;
   }
 
-  public void decode (@Nullable final byte [] aEncodedBuffer,
+  public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)

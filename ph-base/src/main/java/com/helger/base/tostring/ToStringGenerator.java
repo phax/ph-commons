@@ -129,7 +129,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final boolean [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final boolean @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -145,7 +145,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final byte [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final byte @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -161,7 +161,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final char [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final char @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -177,7 +177,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final double [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final double @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -193,7 +193,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final float [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final float @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -209,7 +209,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final int [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final int @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -225,7 +225,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final long [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final long @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));
@@ -241,7 +241,7 @@ public final class ToStringGenerator
   }
 
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, @Nullable final short [] aValue)
+  public ToStringGenerator append (@NonNull final String sField, final short @Nullable [] aValue)
   {
     _beforeAddField ();
     m_aSB.append (sField).append ('=').append (Arrays.toString (aValue));

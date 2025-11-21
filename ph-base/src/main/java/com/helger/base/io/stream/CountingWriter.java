@@ -47,7 +47,7 @@ public class CountingWriter extends WrappedWriter
   }
 
   @Override
-  public void write (@NonNull final char [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (final char @NonNull [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nCharsWritten += nLen;

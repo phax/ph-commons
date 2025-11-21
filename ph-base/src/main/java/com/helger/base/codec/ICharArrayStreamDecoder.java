@@ -47,7 +47,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    *         in case something goes wrong
    * @since 9.0.0
    */
-  default void decode (@Nullable final char [] aEncodedBuffer, @NonNull @WillNotClose final Writer aWriter)
+  default void decode (final char @Nullable [] aEncodedBuffer, @NonNull @WillNotClose final Writer aWriter)
   {
     if (aEncodedBuffer == null)
       decode (null, 0, 0, aWriter);
@@ -70,7 +70,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (@Nullable char [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
+  void decode (char @Nullable [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
 
   /**
    * Decode a char array.
@@ -86,9 +86,8 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @throws DecodeException
    *         in case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getDecoded (@Nullable final char [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default char @Nullable [] getDecoded (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -101,7 +100,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final char [] aEncodedBuffer)
+  default String getDecodedAsString (final char @Nullable [] aEncodedBuffer)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -110,7 +109,7 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
   }
 
   @Nullable
-  default String getDecodedAsString (@Nullable final char [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default String getDecodedAsString (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

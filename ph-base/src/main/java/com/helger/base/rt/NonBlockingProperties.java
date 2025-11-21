@@ -490,10 +490,10 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    * forms
    */
   @NonNull
-  private static String _loadConvert (@NonNull final char [] aIn,
+  private static String _loadConvert (final char @NonNull [] aIn,
                                       final int nOfs,
                                       final int nLen,
-                                      @NonNull final char [] aConvBuf)
+                                      final char @NonNull [] aConvBuf)
   {
     int nCurOfs = nOfs;
     char [] aOut;

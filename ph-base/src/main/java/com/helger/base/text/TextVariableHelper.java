@@ -55,7 +55,7 @@ public final class TextVariableHelper
   {}
 
   @CheckForSigned
-  private static int _nextCharConsiderMasking (@NonNull final char [] aChars,
+  private static int _nextCharConsiderMasking (final char @NonNull [] aChars,
                                                @Nonnegative final int nOfs,
                                                @Nonnegative final int nLen,
                                                @Nonnegative final char cSearch,
@@ -102,7 +102,7 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _nextCharConsiderMaskingBalancedBrackets (@NonNull final char [] aChars,
+  private static int _nextCharConsiderMaskingBalancedBrackets (final char @NonNull [] aChars,
                                                                @Nonnegative final int nOfs,
                                                                @Nonnegative final int nLen,
                                                                @Nonnegative final char cClosingBracket,
@@ -156,7 +156,7 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _findStartOfVarName (@NonNull final char [] aChars,
+  private static int _findStartOfVarName (final char @NonNull [] aChars,
                                           @Nonnegative final int nOfs,
                                           @Nonnegative final int nLen,
                                           @NonNull final StringBuilder aSB)

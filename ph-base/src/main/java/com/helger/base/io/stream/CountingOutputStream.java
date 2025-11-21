@@ -47,7 +47,7 @@ public class CountingOutputStream extends WrappedOutputStream
   }
 
   @Override
-  public void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public void write (final byte @NonNull [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nBytesWritten += nLen;

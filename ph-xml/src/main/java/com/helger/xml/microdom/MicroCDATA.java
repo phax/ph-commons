@@ -32,7 +32,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
 {
   private final MicroDataAware m_aData;
 
-  public MicroCDATA (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public MicroCDATA (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData = new MicroDataAware (aChars, nOfs, nLen);
   }
@@ -78,7 +78,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData.appendData (sData);
   }
 
-  public void appendData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.appendData (aChars, nOfs, nLen);
   }
@@ -93,7 +93,7 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData.prependData (sData);
   }
 
-  public void prependData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.prependData (aChars, nOfs, nLen);
   }

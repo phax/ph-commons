@@ -61,9 +61,8 @@ public class StringStreamResult extends StreamResult
     return m_aSW.getAsString ();
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  public char [] getAsCharArray ()
+  public char @NonNull [] getAsCharArray ()
   {
     return m_aSW.getAsCharArray ();
   }

@@ -109,7 +109,7 @@ public final class XMLCharsetDeterminator
    *         if something goes wrong
    */
   @Nullable
-  private static Charset _parseXMLEncoding (@NonNull final byte [] aBytes,
+  private static Charset _parseXMLEncoding (final byte @NonNull [] aBytes,
                                             @Nonnegative final int nOfs,
                                             @NonNull final Charset aParseCharset)
   {
@@ -187,9 +187,9 @@ public final class XMLCharsetDeterminator
    *        The encoding specific bytes to check.
    * @return <code>true</code> if the bytes match, <code>false</code> otherwise.
    */
-  private static boolean _match (@NonNull final byte [] aSrcBytes,
+  private static boolean _match (final byte @NonNull [] aSrcBytes,
                                  @Nonnegative final int nSrcOffset,
-                                 @NonNull final byte [] aCmpBytes)
+                                 final byte @NonNull [] aCmpBytes)
   {
     final int nEnd = aCmpBytes.length;
     for (int i = 0; i < nEnd; ++i)
@@ -207,7 +207,7 @@ public final class XMLCharsetDeterminator
    *         wanna try UTF-8 as the fallback.
    */
   @Nullable
-  public static Charset determineXMLCharset (@NonNull final byte [] aBytes)
+  public static Charset determineXMLCharset (final byte @NonNull [] aBytes)
   {
     ValueEnforcer.notNull (aBytes, "Bytes");
 

@@ -40,7 +40,7 @@ public class ASCIIHexCodec implements IByteArrayStreamDecoder
   public ASCIIHexCodec ()
   {}
 
-  public void decode (@Nullable final byte [] aEncodedBuffer,
+  public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)

@@ -54,7 +54,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    *         In case something goes wrong
    * @since 9.0.0
    */
-  default void encode (@Nullable final byte [] aDecodedBuffer, @NonNull @WillNotClose final OutputStream aOS)
+  default void encode (final byte @Nullable [] aDecodedBuffer, @NonNull @WillNotClose final OutputStream aOS)
   {
     if (aDecodedBuffer == null)
       encode (null, 0, 0, aOS);
@@ -77,7 +77,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (@Nullable byte [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
+  void encode (byte @Nullable [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
 
   /**
    * Encode a byte array.
@@ -90,9 +90,8 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    *         In case something goes wrong
    */
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer)
+  default byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -113,9 +112,8 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -139,9 +137,8 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    *         In case something goes wrong
    */
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  default byte [] getEncoded (@Nullable final String sDecoded, @NonNull final Charset aCharset)
+  default byte @Nullable [] getEncoded (@Nullable final String sDecoded, @NonNull final Charset aCharset)
   {
     if (sDecoded == null)
       return null;
@@ -151,7 +148,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
   }
 
   @Nullable
-  default String getEncodedAsString (@Nullable final byte [] aDecodedBuf, @NonNull final Charset aCharset)
+  default String getEncodedAsString (final byte @Nullable [] aDecodedBuf, @NonNull final Charset aCharset)
   {
     if (aDecodedBuf == null)
       return null;
@@ -160,7 +157,7 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
   }
 
   @Nullable
-  default String getEncodedAsString (@Nullable final byte [] aDecodedBuf,
+  default String getEncodedAsString (final byte @Nullable [] aDecodedBuf,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final Charset aCharset)

@@ -160,9 +160,8 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  protected byte [] getEncoded (@Nullable final byte [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  protected byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -176,9 +175,8 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   }
 
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  protected byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  protected byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

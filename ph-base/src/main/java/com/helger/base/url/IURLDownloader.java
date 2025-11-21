@@ -43,8 +43,7 @@ public interface IURLDownloader
    * @throws Exception
    *         In case of error
    */
-  @Nullable
-  byte [] downloadURL (@NonNull @Nonempty String sURL) throws Exception;
+  byte @Nullable [] downloadURL (@NonNull @Nonempty String sURL) throws Exception;
 
   /**
    * @return The default URL downloader using {@link URL#openStream()}. Never <code>null</code>.

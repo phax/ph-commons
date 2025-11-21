@@ -35,7 +35,7 @@ import com.helger.base.codec.impl.RFC2616Codec;
  */
 public final class ICharArrayCodecTest
 {
-  private void _testCodec (@NonNull final ICharArrayCodec c, @NonNull final char [] aSrcChars)
+  private void _testCodec (@NonNull final ICharArrayCodec c, final char @NonNull [] aSrcChars)
   {
     // all
     {

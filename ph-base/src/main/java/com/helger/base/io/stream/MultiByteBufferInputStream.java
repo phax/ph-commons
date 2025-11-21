@@ -172,13 +172,13 @@ public final class MultiByteBufferInputStream extends InputStream
   }
 
   @Override
-  public int read (@NonNull final byte [] aBuf)
+  public int read (final byte @NonNull [] aBuf)
   {
     return read (aBuf, 0, aBuf.length);
   }
 
   @Override
-  public int read (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public int read (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 

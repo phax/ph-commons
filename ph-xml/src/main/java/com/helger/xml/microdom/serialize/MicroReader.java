@@ -246,13 +246,13 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML)
+  public static IMicroDocument readMicroXML (final byte @Nullable [] aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (final byte @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
   {
     if (aXML == null)
       return null;
@@ -261,7 +261,7 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML,
+  public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
                                              @Nonnegative final int nLen)
   {
@@ -269,7 +269,7 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final byte [] aXML,
+  public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
                                              @Nonnegative final int nLen,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -281,13 +281,13 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final char [] aXML)
+  public static IMicroDocument readMicroXML (final char @Nullable [] aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final char [] aXML, @Nullable final ISAXReaderSettings aSettings)
+  public static IMicroDocument readMicroXML (final char @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
   {
     if (aXML == null)
       return null;
@@ -296,7 +296,7 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final char [] aXML,
+  public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
                                              @Nonnegative final int nLen)
   {
@@ -304,7 +304,7 @@ public final class MicroReader
   }
 
   @Nullable
-  public static IMicroDocument readMicroXML (@Nullable final char [] aXML,
+  public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
                                              @Nonnegative final int nLen,
                                              @Nullable final ISAXReaderSettings aSettings)

@@ -94,7 +94,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    * @since 9.4.3
    */
   @Override
-  public void write (@NonNull final char [] aBuf)
+  public void write (final char @NonNull [] aBuf)
   {
     write (aBuf, 0, aBuf.length);
   }
@@ -110,7 +110,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        the number of chars that are written
    */
   @Override
-  public void write (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void write (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
 
@@ -270,9 +270,8 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *
    * @return an array of chars copied from the input data.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public char [] toCharArray ()
+  public char @NonNull [] toCharArray ()
   {
     return Arrays.copyOf (m_aBuf, m_nCount);
   }
@@ -280,9 +279,8 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
   /**
    * @return The internally used char array. Never <code>null</code>. Handle with care!
    */
-  @NonNull
   @ReturnsMutableObject
-  public char [] directGetBuffer ()
+  public char @NonNull [] directGetBuffer ()
   {
     return m_aBuf;
   }
@@ -294,9 +292,8 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
    *        The charset to be used. May not be <code>null</code>.
    * @return an array of bytes. Never <code>null</code>.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public byte [] toByteArray (@NonNull final Charset aCharset)
+  public byte @NonNull [] toByteArray (@NonNull final Charset aCharset)
   {
     return StringEncoding.encodeCharToBytes (m_aBuf, 0, m_nCount, aCharset);
   }
@@ -331,12 +328,12 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
     return m_nCount > 0;
   }
 
-  public boolean startsWith (@NonNull final char [] aChars)
+  public boolean startsWith (final char @NonNull [] aChars)
   {
     return startsWith (aChars, 0, aChars.length);
   }
 
-  public boolean startsWith (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public boolean startsWith (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_nCount < nLen || nLen < 0)
       return false;

@@ -24,6 +24,8 @@ import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
 
+import com.helger.base.CGlobal;
+
 /**
  * Test class for class {@link StringHex}
  *
@@ -31,9 +33,8 @@ import org.junit.Test;
  */
 public final class StringHexTest
 {
-
   @Test
-  public void testHexEncode ()
+  public void testHexEncoded ()
   {
     try
     {
@@ -86,6 +87,72 @@ public final class StringHexTest
     {
       // length is too large
       StringHex.getHexEncoded (new byte [] { 1, 10 }, 1, 2);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+  }
+
+  @Test
+  public void testHexEncodedByteArray ()
+  {
+    try
+    {
+      // null not allowed
+      StringHex.getHexEncodedByteArray (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      // null not allowed
+      StringHex.getHexEncodedByteArray (null, 0, 5);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {}
+    try
+    {
+      StringHex.getHexEncodedByteArray (new byte [0], -1, 5);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      StringHex.getHexEncodedByteArray (new byte [0], 0, -1);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+    try
+    {
+      StringHex.getHexEncodedByteArray (new byte [0], 0, 1);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+
+    assertArrayEquals (CGlobal.EMPTY_BYTE_ARRAY, StringHex.getHexEncodedByteArray (new byte [] {}));
+    assertArrayEquals ("01".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 1 }));
+    assertArrayEquals ("010a".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 1, 10 }));
+    assertArrayEquals ("00010aff".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 0, 1, 10, (byte) 255 }));
+
+    // Byte offset
+    assertArrayEquals ("010a".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 1, 10 }, 0, 2));
+    assertArrayEquals ("01".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 1, 10 }, 0, 1));
+    assertArrayEquals ("0a".getBytes (StandardCharsets.ISO_8859_1),
+                       StringHex.getHexEncodedByteArray (new byte [] { 1, 10 }, 1, 1));
+    try
+    {
+      // length is too large
+      StringHex.getHexEncodedByteArray (new byte [] { 1, 10 }, 1, 2);
       fail ();
     }
     catch (final IllegalArgumentException ex)

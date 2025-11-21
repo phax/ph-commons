@@ -131,7 +131,7 @@ public final class StringRemove
    *         string was <code>null</code>.
    */
   @NonNull
-  public static String removeMultiple (@Nullable final String sInputString, @NonNull final char [] aRemoveChars)
+  public static String removeMultiple (@Nullable final String sInputString, final char @NonNull [] aRemoveChars)
   {
     ValueEnforcer.notNull (aRemoveChars, "RemoveChars");
 

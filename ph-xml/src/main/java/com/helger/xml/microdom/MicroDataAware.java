@@ -35,7 +35,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 {
   private final StringBuilder m_aSB;
 
-  public MicroDataAware (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public MicroDataAware (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aSB = new StringBuilder (nLen + 16).append (aChars, nOfs, nLen);
@@ -66,7 +66,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     m_aSB.append (sData);
   }
 
-  public void appendData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.append (aChars, nOfs, nLen);
   }
@@ -81,7 +81,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
     m_aSB.insert (0, sData);
   }
 
-  public void prependData (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.insert (0, aChars, nOfs, nLen);
   }

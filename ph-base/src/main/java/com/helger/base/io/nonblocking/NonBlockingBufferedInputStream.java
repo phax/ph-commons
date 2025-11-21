@@ -117,8 +117,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
   /**
    * Check to make sure that buffer has not been nulled out due to close; if not return it;
    */
-  @NonNull
-  private byte [] _getBufIfOpen () throws IOException
+  private byte @NonNull [] _getBufIfOpen () throws IOException
   {
     final byte [] ret = m_aBuf;
     if (ret == null)
@@ -236,7 +235,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * Read characters into a portion of an array, reading from the underlying stream at most once if
    * necessary.
    */
-  private int _read1 (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  private int _read1 (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
                                                                                                              throws IOException
   {
     int nAvail = m_nCount - m_nPos;

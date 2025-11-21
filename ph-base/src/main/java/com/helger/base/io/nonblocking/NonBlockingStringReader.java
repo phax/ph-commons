@@ -42,12 +42,12 @@ public class NonBlockingStringReader extends Reader
   private int m_nNext;
   private int m_nMark;
 
-  public NonBlockingStringReader (@NonNull final char [] aChars)
+  public NonBlockingStringReader (final char @NonNull [] aChars)
   {
     this (aChars, 0, aChars.length);
   }
 
-  public NonBlockingStringReader (@NonNull final char [] aChars,
+  public NonBlockingStringReader (final char @NonNull [] aChars,
                                   @Nonnegative final int nOfs,
                                   @Nonnegative final int nLen)
   {
@@ -117,7 +117,7 @@ public class NonBlockingStringReader extends Reader
    */
   @Override
   @CheckForSigned
-  public int read (@NonNull final char [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public int read (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
                                                                                                           throws IOException
   {
     _ensureOpen ();

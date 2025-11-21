@@ -53,7 +53,7 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    *         In case something goes wrong
    * @since 9.0.0
    */
-  default void encode (@Nullable final char [] aDecodedBuffer, @NonNull @WillNotClose final Writer aWriter)
+  default void encode (final char @Nullable [] aDecodedBuffer, @NonNull @WillNotClose final Writer aWriter)
   {
     if (aDecodedBuffer == null)
       encode (null, 0, 0, aWriter);
@@ -76,7 +76,7 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (@Nullable char [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
+  void encode (char @Nullable [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
 
   /**
    * Encode a char array.
@@ -89,9 +89,8 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    *         In case something goes wrong
    */
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getEncoded (@Nullable final char [] aDecodedBuffer)
+  default char @Nullable [] getEncoded (final char @Nullable [] aDecodedBuffer)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -112,9 +111,8 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    * @throws EncodeException
    *         In case something goes wrong
    */
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getEncoded (@Nullable final char [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default char @Nullable [] getEncoded (final char @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -136,9 +134,8 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    *         In case something goes wrong
    */
   @Override
-  @Nullable
   @ReturnsMutableCopy
-  default char [] getEncoded (@Nullable final String sDecoded)
+  default char @Nullable [] getEncoded (@Nullable final String sDecoded)
   {
     if (sDecoded == null)
       return null;
@@ -148,7 +145,7 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
   }
 
   @Nullable
-  default String getEncodedAsString (@Nullable final char [] aDecodedBuf)
+  default String getEncodedAsString (final char @Nullable [] aDecodedBuf)
   {
     if (aDecodedBuf == null)
       return null;
@@ -157,7 +154,7 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
   }
 
   @Nullable
-  default String getEncodedAsString (@Nullable final char [] aDecodedBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default String getEncodedAsString (final char @Nullable [] aDecodedBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aDecodedBuf == null)
       return null;

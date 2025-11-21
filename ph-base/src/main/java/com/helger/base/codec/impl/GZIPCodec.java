@@ -43,7 +43,7 @@ public class GZIPCodec implements IByteArrayCodec
   public GZIPCodec ()
   {}
 
-  public void decode (@Nullable final byte [] aEncodedBuffer,
+  public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)
@@ -64,7 +64,7 @@ public class GZIPCodec implements IByteArrayCodec
     }
   }
 
-  public void encode (@Nullable final byte [] aDecodedBuffer,
+  public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)

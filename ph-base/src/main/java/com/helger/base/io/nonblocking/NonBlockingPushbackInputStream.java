@@ -169,7 +169,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    * @see java.io.InputStream#read(byte[], int, int)
    */
   @Override
-  public int read (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -239,7 +239,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void unread (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -264,7 +264,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (@NonNull final byte [] aBuf) throws IOException
+  public void unread (final byte @NonNull [] aBuf) throws IOException
   {
     unread (aBuf, 0, aBuf.length);
   }

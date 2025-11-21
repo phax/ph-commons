@@ -1307,9 +1307,8 @@ public final class Base64
    * possible, though silly, to specify ORDERED <b>and</b> URLSAFE in which case one of them will be
    * picked, though there is no guarantee as to which one will be picked.
    */
-  @NonNull
   @ReturnsMutableObject
-  private static byte [] _getAlphabet (final int nOptions)
+  private static byte @NonNull [] _getAlphabet (final int nOptions)
   {
     if ((nOptions & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_ALPHABET;
@@ -1323,9 +1322,8 @@ public final class Base64
    * possible, though silly, to specify ORDERED and URL_SAFE in which case one of them will be
    * picked, though there is no guarantee as to which one will be picked.
    */
-  @NonNull
   @ReturnsMutableObject
-  static byte [] _getDecodabet (final int nOptions)
+  static byte @NonNull [] _getDecodabet (final int nOptions)
   {
     if ((nOptions & URL_SAFE) == URL_SAFE)
       return _URL_SAFE_DECODABET;
@@ -1359,10 +1357,9 @@ public final class Base64
    * @return four byte array in Base64 notation.
    * @since 1.5.1
    */
-  @NonNull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@NonNull final byte [] b4,
-                              @NonNull final byte [] threeBytes,
+  static byte @NonNull [] _encode3to4 (final byte @NonNull [] b4,
+                              final byte @NonNull [] threeBytes,
                               @Nonnegative final int numSigBytes,
                               final int options)
   {
@@ -1396,12 +1393,11 @@ public final class Base64
    * @return the <var>destination</var> array
    * @since 1.3
    */
-  @NonNull
   @ReturnsMutableObject ("passed parameter")
-  static byte [] _encode3to4 (@NonNull final byte [] source,
+  static byte @NonNull [] _encode3to4 (final byte @NonNull [] source,
                               @Nonnegative final int srcOffset,
                               @Nonnegative final int numSigBytes,
-                              @NonNull final byte [] destination,
+                              final byte @NonNull [] destination,
                               @Nonnegative final int destOffset,
                               final int options)
   {
@@ -1511,7 +1507,7 @@ public final class Base64
    * @since 1.4
    */
   @NonNull
-  public static String encodeBytes (@NonNull final byte [] source)
+  public static String encodeBytes (final byte @NonNull [] source)
   {
     // Since we're not going to have the GZIP encoding turned on,
     // we're not going to have an IOException thrown, so
@@ -1563,7 +1559,7 @@ public final class Base64
    * @since 2.0
    */
   @NonNull
-  public static String encodeBytes (@NonNull final byte [] source, final int options) throws IOException
+  public static String encodeBytes (final byte @NonNull [] source, final int options) throws IOException
   {
     return encodeBytes (source, 0, source.length, options);
   }
@@ -1590,7 +1586,7 @@ public final class Base64
    * @since 1.4
    */
   @NonNull
-  public static String encodeBytes (@NonNull final byte [] source, final int off, final int len)
+  public static String encodeBytes (final byte @NonNull [] source, final int off, final int len)
   {
     // Since we're not going to have the GZIP encoding turned on,
     // we're not going to have an IOException thrown, so
@@ -1648,7 +1644,7 @@ public final class Base64
    * @since 2.0
    */
   @NonNull
-  public static String encodeBytes (@NonNull final byte [] source,
+  public static String encodeBytes (final byte @NonNull [] source,
                                     @Nonnegative final int off,
                                     @Nonnegative final int len,
                                     final int nOptions) throws IOException
@@ -1671,9 +1667,8 @@ public final class Base64
    *         if source array is null
    * @since 2.3.1
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeBytesToBytes (@NonNull final byte [] source)
+  public static byte @NonNull [] encodeBytesToBytes (final byte @NonNull [] source)
   {
     byte [] encoded;
     try
@@ -1711,9 +1706,8 @@ public final class Base64
    *         if source array, offset, or length are invalid
    * @since 2.3.1
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] encodeBytesToBytes (@NonNull final byte [] aSource,
+  public static byte @NonNull [] encodeBytesToBytes (final byte @NonNull [] aSource,
                                             @Nonnegative final int nOfs,
                                             @Nonnegative final int nLen,
                                             final int nOptions) throws IOException
@@ -1848,9 +1842,9 @@ public final class Base64
    * @since 1.3
    */
   @Nonnegative
-  static int _decode4to3 (@NonNull final byte [] source,
+  static int _decode4to3 (final byte @NonNull [] source,
                           final int srcOffset,
-                          @NonNull final byte [] destination,
+                          final byte @NonNull [] destination,
                           final int destOffset,
                           final int options)
   {
@@ -1939,9 +1933,8 @@ public final class Base64
    *         In case of error
    * @since 2.3.1
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@NonNull final byte [] source) throws IOException
+  public static byte @NonNull [] decode (final byte @NonNull [] source) throws IOException
   {
     return decode (source, NO_OPTIONS);
   }
@@ -1962,9 +1955,8 @@ public final class Base64
    *         In case of error
    * @since 2.3.1
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@NonNull final byte [] source, final int options) throws IOException
+  public static byte @NonNull [] decode (final byte @NonNull [] source, final int options) throws IOException
   {
     return decode (source, 0, source.length, options);
   }
@@ -1989,9 +1981,8 @@ public final class Base64
    *         If bogus characters exist in source data
    * @since 1.3
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@NonNull final byte [] aSource, final int nOfs, final int nLen, final int nOptions)
+  public static byte @NonNull [] decode (final byte @NonNull [] aSource, final int nOfs, final int nLen, final int nOptions)
                                                                                                                     throws IOException
   {
     // Lots of error checking and exception throwing
@@ -2069,9 +2060,8 @@ public final class Base64
    *         If there is a problem
    * @since 1.4
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@NonNull final String s) throws IOException
+  public static byte @NonNull [] decode (@NonNull final String s) throws IOException
   {
     return decode (s, NO_OPTIONS);
   }
@@ -2091,9 +2081,8 @@ public final class Base64
    *         if <code>s</code> is null
    * @since 1.4
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static byte [] decode (@NonNull final String s, final int options) throws IOException
+  public static byte @NonNull [] decode (@NonNull final String s, final int options) throws IOException
   {
     ValueEnforcer.notNull (s, "InputString");
 
@@ -2143,9 +2132,8 @@ public final class Base64
    *        The encoded string.
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final String sEncoded)
+  public static byte @Nullable [] safeDecode (@Nullable final String sEncoded)
   {
     return safeDecode (sEncoded, DONT_GUNZIP);
   }
@@ -2159,9 +2147,8 @@ public final class Base64
    *        Decoding options.
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final String sEncoded, final int nOptions)
+  public static byte @Nullable [] safeDecode (@Nullable final String sEncoded, final int nOptions)
   {
     if (sEncoded != null)
       try
@@ -2182,9 +2169,8 @@ public final class Base64
    *        The encoded byte array.
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes)
+  public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes)
   {
     return safeDecode (aEncodedBytes, DONT_GUNZIP);
   }
@@ -2198,9 +2184,8 @@ public final class Base64
    *        Decoding options.
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes, final int nOptions)
+  public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes, final int nOptions)
   {
     if (aEncodedBytes != null)
       return safeDecode (aEncodedBytes, 0, aEncodedBytes.length, nOptions);
@@ -2218,9 +2203,8 @@ public final class Base64
    *        The number of characters to decode
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
+  public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -2240,9 +2224,8 @@ public final class Base64
    *        Decoding options.
    * @return <code>null</code> if decoding failed.
    */
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeDecode (@Nullable final byte [] aEncodedBytes,
+  public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     final int nOptions)
@@ -2295,7 +2278,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes, @NonNull final Charset aCharset)
+  public static String safeDecodeAsString (final byte @Nullable [] aEncodedBytes, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
 
@@ -2316,7 +2299,7 @@ public final class Base64
    * @return <code>null</code> if decoding failed.
    */
   @Nullable
-  public static String safeDecodeAsString (@Nullable final byte [] aEncodedBytes,
+  public static String safeDecodeAsString (final byte @Nullable [] aEncodedBytes,
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength,
                                            @NonNull final Charset aCharset)
@@ -2335,34 +2318,30 @@ public final class Base64
     return null;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded)
+  public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded)
   {
     return safeEncodeBytesToBytes (aDecoded, NO_OPTIONS);
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded, final int nOptions)
+  public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded, final int nOptions)
   {
     if (aDecoded != null)
       return safeEncodeBytesToBytes (aDecoded, 0, aDecoded.length, nOptions);
     return null;
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
+  public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
                                                 @Nonnegative final int nOfs,
                                                 @Nonnegative final int nLen)
   {
     return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] safeEncodeBytesToBytes (@Nullable final byte [] aDecoded,
+  public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
                                                 @Nonnegative final int nOfs,
                                                 @Nonnegative final int nLen,
                                                 final int nOptions)
@@ -2381,14 +2360,14 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded)
+  public static String safeEncodeBytes (final byte @Nullable [] aDecoded)
   {
     return safeEncodeBytes (aDecoded, NO_OPTIONS);
   }
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded, final int nOptions)
+  public static String safeEncodeBytes (final byte @Nullable [] aDecoded, final int nOptions)
   {
     if (aDecoded != null)
       return safeEncodeBytes (aDecoded, 0, aDecoded.length, nOptions);
@@ -2397,7 +2376,7 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
+  public static String safeEncodeBytes (final byte @Nullable [] aDecoded,
                                         @Nonnegative final int nOfs,
                                         @Nonnegative final int nLen)
   {
@@ -2406,7 +2385,7 @@ public final class Base64
 
   @Nullable
   @ReturnsMutableCopy
-  public static String safeEncodeBytes (@Nullable final byte [] aDecoded,
+  public static String safeEncodeBytes (final byte @Nullable [] aDecoded,
                                         @Nonnegative final int nOfs,
                                         @Nonnegative final int nLen,
                                         final int nOptions)

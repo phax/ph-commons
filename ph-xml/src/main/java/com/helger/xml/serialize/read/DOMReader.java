@@ -225,19 +225,19 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final byte [] aXML)
+  public static Document readXMLDOM (final byte @NonNull [] aXML)
   {
     return readXMLDOM (aXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final byte [] aXML, @NonNull final IDOMReaderSettings aSettings)
+  public static Document readXMLDOM (final byte @NonNull [] aXML, @NonNull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final byte [] aXML,
+  public static Document readXMLDOM (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen)
   {
@@ -245,7 +245,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final byte [] aXML,
+  public static Document readXMLDOM (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final IDOMReaderSettings aSettings)
@@ -254,19 +254,19 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final char [] aXML)
+  public static Document readXMLDOM (final char @NonNull [] aXML)
   {
     return readXMLDOM (aXML, new DOMReaderSettings ());
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final char [] aXML, @NonNull final IDOMReaderSettings aSettings)
+  public static Document readXMLDOM (final char @NonNull [] aXML, @NonNull final IDOMReaderSettings aSettings)
   {
     return readXMLDOM (InputSourceFactory.create (aXML), aSettings);
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final char [] aXML,
+  public static Document readXMLDOM (final char @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen)
   {
@@ -274,7 +274,7 @@ public final class DOMReader
   }
 
   @Nullable
-  public static Document readXMLDOM (@NonNull final char [] aXML,
+  public static Document readXMLDOM (final char @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLen,
                                      @NonNull final IDOMReaderSettings aSettings)

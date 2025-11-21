@@ -34,12 +34,12 @@ public class StringReaderProvider implements IHasReader
 {
   private final String m_sData;
 
-  public StringReaderProvider (@NonNull final char [] aChars)
+  public StringReaderProvider (final char @NonNull [] aChars)
   {
     this (new String (aChars));
   }
 
-  public StringReaderProvider (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public StringReaderProvider (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (new String (aChars, nOfs, nLength));
   }

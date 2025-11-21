@@ -263,7 +263,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final boolean [] x)
+  public HashCodeGenerator append (final boolean @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -282,7 +282,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final boolean [] x,
+  public HashCodeGenerator append (final boolean @Nullable [] x,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
   {
@@ -299,7 +299,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final byte [] x)
+  public HashCodeGenerator append (final byte @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -318,7 +318,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final byte @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
@@ -333,7 +333,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final char [] x)
+  public HashCodeGenerator append (final char @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -352,7 +352,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final char @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
@@ -367,7 +367,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final double [] x)
+  public HashCodeGenerator append (final double @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -386,7 +386,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final double [] x,
+  public HashCodeGenerator append (final double @Nullable [] x,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
   {
@@ -403,7 +403,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final float [] x)
+  public HashCodeGenerator append (final float @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -422,7 +422,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final float @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
@@ -437,7 +437,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final int [] x)
+  public HashCodeGenerator append (final int @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -456,7 +456,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final int @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
@@ -471,7 +471,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final long [] x)
+  public HashCodeGenerator append (final long @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -490,7 +490,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final long @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);
@@ -505,7 +505,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final short [] x)
+  public HashCodeGenerator append (final short @Nullable [] x)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x);
@@ -524,7 +524,7 @@ public final class HashCodeGenerator implements IHashCodeGenerator
    * @return this
    */
   @NonNull
-  public HashCodeGenerator append (@Nullable final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public HashCodeGenerator append (final short @Nullable [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     _checkClosed ();
     m_nHC = HashCodeCalculator.append (m_nHC, x, nOfs, nLen);

@@ -220,7 +220,7 @@ public final class HashCodeCalculator
     return append (nPrevHashCode, hashCode (x));
   }
 
-  public static int hashCode (@NonNull final boolean [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final boolean @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -230,7 +230,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final byte [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final byte @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -240,7 +240,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final char [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final char @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -250,7 +250,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final double [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final double @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -260,7 +260,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final float [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final float @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -270,7 +270,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final int [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final int @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -280,7 +280,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final long [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final long @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -290,7 +290,7 @@ public final class HashCodeCalculator
     return ret;
   }
 
-  public static int hashCode (@NonNull final short [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static int hashCode (final short @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
     int ret = INITIAL_HASHCODE;
@@ -319,7 +319,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final boolean [] x)
+  public static int append (final int nPrevHashCode, final boolean @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -338,7 +338,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final boolean [] x,
+                            final boolean @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -354,7 +354,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final byte [] x)
+  public static int append (final int nPrevHashCode, final byte @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -373,7 +373,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final byte [] x,
+                            final byte @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -389,7 +389,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final char [] x)
+  public static int append (final int nPrevHashCode, final char @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -408,7 +408,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final char [] x,
+                            final char @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -424,7 +424,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final double [] x)
+  public static int append (final int nPrevHashCode, final double @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -443,7 +443,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final double [] x,
+                            final double @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -459,7 +459,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final float [] x)
+  public static int append (final int nPrevHashCode, final float @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -478,7 +478,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final float [] x,
+                            final float @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -494,7 +494,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final int [] x)
+  public static int append (final int nPrevHashCode, final int @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -513,7 +513,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final int [] x,
+                            final int @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -529,7 +529,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final long [] x)
+  public static int append (final int nPrevHashCode, final long @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -548,7 +548,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final long [] x,
+                            final long @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {
@@ -564,7 +564,7 @@ public final class HashCodeCalculator
    *        Array to add
    * @return The updated hash code
    */
-  public static int append (final int nPrevHashCode, @Nullable final short [] x)
+  public static int append (final int nPrevHashCode, final short @Nullable [] x)
   {
     return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
   }
@@ -583,7 +583,7 @@ public final class HashCodeCalculator
    * @return The updated hash code
    */
   public static int append (final int nPrevHashCode,
-                            @Nullable final short [] x,
+                            final short @Nullable [] x,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLen)
   {

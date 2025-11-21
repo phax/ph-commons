@@ -87,15 +87,13 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
   @Nonempty
   protected abstract String getRFC1522Encoding ();
 
-  @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getEncoded (@Nullable final byte [] aDecodedBuffer,
+  protected abstract byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
                                          @Nonnegative final int nOfs,
                                          @Nonnegative final int nLen);
 
-  @Nullable
   @ReturnsMutableCopy
-  protected abstract byte [] getDecoded (@Nullable final byte [] aEncodedBuffer,
+  protected abstract byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
                                          @Nonnegative final int nOfs,
                                          @Nonnegative final int nLen);
 

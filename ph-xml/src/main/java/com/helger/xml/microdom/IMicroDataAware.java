@@ -62,7 +62,7 @@ public interface IMicroDataAware
    * @param nLen
    *        Number of chars to take. Must be &ge; 0.
    */
-  void appendData (@NonNull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
+  void appendData (char @NonNull [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Append a character to the string.
@@ -90,7 +90,7 @@ public interface IMicroDataAware
    * @param nLen
    *        Number of chars to take. Must be &ge; 0.
    */
-  void prependData (@NonNull char [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
+  void prependData (char @NonNull [] aChars, @Nonnegative int nOfs, @Nonnegative int nLen);
 
   /**
    * Add a character to the beginning of the current data.

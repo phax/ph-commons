@@ -140,7 +140,7 @@ public final class MathHelper
     return canConvertLongToInt (nValue) ? (int) nValue : nFallback;
   }
 
-  public static int getMaxInt (final int nValue, @NonNull final int... aValues)
+  public static int getMaxInt (final int nValue, final int... aValues)
   {
     int ret = nValue;
     for (final int n : aValues)
@@ -148,7 +148,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static long getMaxLong (final long nValue, @NonNull final long... aValues)
+  public static long getMaxLong (final long nValue, final long... aValues)
   {
     long ret = nValue;
     for (final long n : aValues)
@@ -156,7 +156,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMaxFloat (final float fValue, @NonNull final float... aValues)
+  public static double getMaxFloat (final float fValue, final float... aValues)
   {
     float ret = fValue;
     for (final float f : aValues)
@@ -164,7 +164,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMaxDouble (final double dValue, @NonNull final double... aValues)
+  public static double getMaxDouble (final double dValue, final double... aValues)
   {
     double ret = dValue;
     for (final double d : aValues)
@@ -172,7 +172,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static int getMinInt (final int nValue, @NonNull final int... aValues)
+  public static int getMinInt (final int nValue, final int... aValues)
   {
     int ret = nValue;
     for (final int n : aValues)
@@ -180,7 +180,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static long getMinLong (final long nValue, @NonNull final long... aValues)
+  public static long getMinLong (final long nValue, final long... aValues)
   {
     long ret = nValue;
     for (final long n : aValues)
@@ -188,7 +188,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMinFloat (final float fValue, @NonNull final float... aValues)
+  public static double getMinFloat (final float fValue, final float... aValues)
   {
     float ret = fValue;
     for (final float f : aValues)
@@ -196,7 +196,7 @@ public final class MathHelper
     return ret;
   }
 
-  public static double getMinDouble (final double dValue, @NonNull final double... aValues)
+  public static double getMinDouble (final double dValue, final double... aValues)
   {
     double ret = dValue;
     for (final double d : aValues)

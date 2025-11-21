@@ -39,12 +39,12 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   private String m_sData;
   private Charset m_aCharset;
 
-  public StringInputStreamProvider (@NonNull final char [] aChars, @NonNull final Charset aCharset)
+  public StringInputStreamProvider (final char @NonNull [] aChars, @NonNull final Charset aCharset)
   {
     this (new String (aChars), aCharset);
   }
 
-  public StringInputStreamProvider (@NonNull final char [] aChars,
+  public StringInputStreamProvider (final char @NonNull [] aChars,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     @NonNull final Charset aCharset)

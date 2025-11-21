@@ -43,16 +43,14 @@ public class DCTCodec implements IByteArrayDecoder
   public DCTCodec ()
   {}
 
-  @Nullable
   @ReturnsMutableCopy
-  public byte [] getDecoded (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return getDecodedDCT (aEncodedBuffer, nOfs, nLen);
   }
 
-  @Nullable
   @ReturnsMutableCopy
-  public static byte [] getDecodedDCT (@Nullable final byte [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static byte @Nullable [] getDecodedDCT (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

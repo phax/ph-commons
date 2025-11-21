@@ -76,7 +76,7 @@ public class StringScanner
     return this;
   }
 
-  public int findFirstIndex (@NonNull final char... aChars)
+  public int findFirstIndex (final char... aChars)
   {
     int ret = -1;
     for (final char c : aChars)

@@ -78,7 +78,7 @@ public class LoggingOutputStream extends WrappedOutputStream
   }
 
   @Override
-  public final void write (@NonNull final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+  public final void write (final byte @NonNull [] aBuf, final int nOfs, final int nLen) throws IOException
   {
     super.write (aBuf, nOfs, nLen);
     m_nTotalBytesWritten += nLen;

@@ -77,7 +77,7 @@ public final class StringCount
   }
 
   @Nonnegative
-  public static int getCharCount (@Nullable final char [] aChars, final char cSearch)
+  public static int getCharCount (final char @Nullable [] aChars, final char cSearch)
   {
     int ret = 0;
     if (aChars != null)

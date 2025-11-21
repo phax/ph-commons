@@ -43,7 +43,7 @@ import com.helger.base.codec.impl.RFC3986Codec;
  */
 public final class IByteArrayCodecTest
 {
-  private void _testCodec (@NonNull final IByteArrayCodec c, @NonNull final byte [] aSrcBytes)
+  private void _testCodec (@NonNull final IByteArrayCodec c, final byte @NonNull [] aSrcBytes)
   {
     // all
     {

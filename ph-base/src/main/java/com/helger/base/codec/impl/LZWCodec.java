@@ -103,7 +103,7 @@ public class LZWCodec implements IByteArrayCodec
      * @return The node that resides at the data path.
      */
     @Nullable
-    public LZWNode getChildNode (@NonNull final byte [] aBuffer)
+    public LZWNode getChildNode (final byte @NonNull [] aBuffer)
     {
       LZWNode aCurNode = this;
       for (final byte aByte : aBuffer)
@@ -149,7 +149,7 @@ public class LZWCodec implements IByteArrayCodec
       m_nCodeBits = 9;
     }
 
-    public final void addEntry (@NonNull final byte [] aByteSeq, final boolean bForEncode)
+    public final void addEntry (final byte @NonNull [] aByteSeq, final boolean bForEncode)
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
@@ -196,9 +196,8 @@ public class LZWCodec implements IByteArrayCodec
       return aBIS.readBits (m_nCodeBits);
     }
 
-    @Nullable
     @ReturnsMutableObject ("speed")
-    public byte [] directGetAllBytes (@Nonnegative final int nCode)
+    public byte @Nullable [] directGetAllBytes (@Nonnegative final int nCode)
     {
       return m_aTab[nCode];
     }
@@ -253,7 +252,7 @@ public class LZWCodec implements IByteArrayCodec
     }
 
     @Nullable
-    public LZWNode getNode (@NonNull final byte [] aBytes)
+    public LZWNode getNode (final byte @NonNull [] aBytes)
     {
       return m_aRoot.getChildNode (aBytes);
     }
@@ -264,7 +263,7 @@ public class LZWCodec implements IByteArrayCodec
   public LZWCodec ()
   {}
 
-  public void encode (@Nullable final byte [] aBuffer,
+  public void encode (final byte @Nullable [] aBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)
@@ -423,7 +422,7 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
-  public void decode (@Nullable final byte [] aEncodedBuffer,
+  public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
                       @NonNull @WillNotClose final OutputStream aOS)

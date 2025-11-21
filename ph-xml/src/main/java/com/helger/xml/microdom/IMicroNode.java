@@ -475,7 +475,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroText appendText (@NonNull final char [] aChars)
+  default IMicroText appendText (final char @NonNull [] aChars)
   {
     return addText (aChars);
   }
@@ -490,7 +490,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroText addText (@NonNull final char [] aChars)
+  default IMicroText addText (final char @NonNull [] aChars)
   {
     return addText (aChars, 0, aChars.length);
   }
@@ -512,7 +512,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroText appendText (@NonNull final char [] aChars,
+  default IMicroText appendText (final char @NonNull [] aChars,
                                  @Nonnegative final int nOfs,
                                  @Nonnegative final int nLen)
   {
@@ -534,7 +534,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroText addText (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default IMicroText addText (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return addChild (new MicroText (aChars, nOfs, nLen, false));
   }
@@ -621,7 +621,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroText appendIgnorableWhitespaceText (@NonNull final char [] aChars)
+  default IMicroText appendIgnorableWhitespaceText (final char @NonNull [] aChars)
   {
     return addIgnorableWhitespaceText (aChars);
   }
@@ -636,7 +636,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroText addIgnorableWhitespaceText (@NonNull final char [] aChars)
+  default IMicroText addIgnorableWhitespaceText (final char @NonNull [] aChars)
   {
     return addIgnorableWhitespaceText (aChars, 0, aChars.length);
   }
@@ -658,7 +658,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroText appendIgnorableWhitespaceText (@NonNull final char [] aChars,
+  default IMicroText appendIgnorableWhitespaceText (final char @NonNull [] aChars,
                                                     @Nonnegative final int nOfs,
                                                     @Nonnegative final int nLen)
   {
@@ -680,7 +680,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroText addIgnorableWhitespaceText (@NonNull final char [] aChars,
+  default IMicroText addIgnorableWhitespaceText (final char @NonNull [] aChars,
                                                  @Nonnegative final int nOfs,
                                                  @Nonnegative final int nLen)
   {
@@ -731,7 +731,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroCDATA appendCDATA (@NonNull final char [] aChars)
+  default IMicroCDATA appendCDATA (final char @NonNull [] aChars)
   {
     return addCDATA (aChars);
   }
@@ -746,7 +746,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroCDATA addCDATA (@NonNull final char [] aChars)
+  default IMicroCDATA addCDATA (final char @NonNull [] aChars)
   {
     return addCDATA (aChars, 0, aChars.length);
   }
@@ -768,7 +768,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroCDATA appendCDATA (@NonNull final char [] aChars,
+  default IMicroCDATA appendCDATA (final char @NonNull [] aChars,
                                    @Nonnegative final int nOfs,
                                    @Nonnegative final int nLen)
   {
@@ -790,7 +790,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroCDATA addCDATA (@NonNull final char [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default IMicroCDATA addCDATA (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return addChild (new MicroCDATA (aChars, nOfs, nLen));
   }
@@ -877,7 +877,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroComment appendComment (@NonNull final char [] aChars)
+  default IMicroComment appendComment (final char @NonNull [] aChars)
   {
     return addComment (aChars);
   }
@@ -892,7 +892,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroComment addComment (@NonNull final char [] aChars)
+  default IMicroComment addComment (final char @NonNull [] aChars)
   {
     return addComment (aChars, 0, aChars.length);
   }
@@ -914,7 +914,7 @@ public interface IMicroNode extends
    */
   @Deprecated
   @NonNull
-  default IMicroComment appendComment (@NonNull final char [] aChars,
+  default IMicroComment appendComment (final char @NonNull [] aChars,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen)
   {
@@ -936,7 +936,7 @@ public interface IMicroNode extends
    *         if this node cannot have children
    */
   @NonNull
-  default IMicroComment addComment (@NonNull final char [] aChars,
+  default IMicroComment addComment (final char @NonNull [] aChars,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {

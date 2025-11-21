@@ -112,7 +112,7 @@ public class Base64OutputStream extends WrappedOutputStream
    *        empty.
    * @since 9.3.4
    */
-  public void setNewLineBytes (@NonNull @Nonempty final byte [] aNewLineBytes)
+  public void setNewLineBytes (@Nonempty final byte @NonNull [] aNewLineBytes)
   {
     ValueEnforcer.notEmpty (aNewLineBytes, "NewLineBytes");
     m_aNewLineBytes = ArrayHelper.getCopy (aNewLineBytes);
@@ -192,7 +192,7 @@ public class Base64OutputStream extends WrappedOutputStream
    * @since 1.3
    */
   @Override
-  public void write (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     // Encoding suspended?
     if (m_bSuspendEncoding)
