@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.string.StringHelper;
 
 /**
@@ -33,7 +34,9 @@ public enum EXMLVersion
   XML_10 ("1.0"),
 
   /** XML 1.1 */
-  XML_11 ("1.1");
+  @Deprecated (forRemoval = true, since = "12.1.1")
+  @DevelopersNote ("See https://github.com/w3ctag/obsoletion/issues/6 for details")
+  XML_11("1.1");
 
   private final String m_sVersion;
 
