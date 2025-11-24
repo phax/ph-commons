@@ -244,8 +244,10 @@ public class StringHex
     int nRetIdx = 0;
     for (int i = 0; i < nLen; i += 2)
     {
-      final byte c0 = (byte) getHexValue ((char) aInput[nOfs + i]);
-      final byte c1 = (byte) getHexValue ((char) aInput[nOfs + i + 1]);
+      final int c0 = (byte) getHexValue ((char) aInput[nOfs + i]);
+      final int c1 = (byte) getHexValue ((char) aInput[nOfs + i + 1]);
+      if (c0 < 0 || c1 < 0)
+        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' and '" + c1 + "' to a hex value!");
       ret[nRetIdx++] = (byte) ((c0 << 4) | (c1 & 0xff));
     }
     return ret;
