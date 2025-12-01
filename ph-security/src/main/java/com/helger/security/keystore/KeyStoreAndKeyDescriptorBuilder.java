@@ -22,6 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.builder.IBuilder;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 
 /**
@@ -43,6 +44,7 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
 
   public KeyStoreAndKeyDescriptorBuilder (@NonNull final KeyStoreAndKeyDescriptor aSrc)
   {
+    ValueEnforcer.notNull (aSrc, "SourceKeyStoreAndKeyDescriptor");
     type (aSrc.m_aType).path (aSrc.m_sPath)
                        .password (aSrc.m_aPassword)
                        .provider (aSrc.m_aProvider)
