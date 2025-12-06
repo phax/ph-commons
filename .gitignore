@@ -4,8 +4,9 @@
 ph-xml/felix-cache/
 target/
 
-.project 
 .classpath 
+.DS_Store
+.project 
 .pmd
 ph-json/citylots.json
 pom.xml.versionsBackup
