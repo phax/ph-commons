@@ -50,6 +50,7 @@ import com.helger.xml.transform.XMLTransformerFactory;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class XMLWriterTest
 {
   private static final String DOCTYPE_XHTML10_QNAME = "-//W3C//DTD XHTML 1.0 Strict//EN";
@@ -767,9 +768,9 @@ public final class XMLWriterTest
                                                                                           false)
                                                                         .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
                                                                                           true)
-                                                                        .setEntityResolver ( (x,
-                                                                                              y) -> ("world.txt".equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
-                                                                                                                                                  : new StringSAXInputSource (""))));
+                                                                        .setEntityResolver ( (x, y) -> ("world.txt"
+                                                                                                                   .equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
+                                                                                                                                                     : new StringSAXInputSource (""))));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();

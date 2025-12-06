@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.xml.EXMLVersion;
@@ -35,7 +36,9 @@ public enum EXMLSerializeVersion implements IHasID <String>
   XML_10 ("xml10", EXMLVersion.XML_10),
 
   /** XML 1.1 */
-  XML_11 ("xml11", EXMLVersion.XML_11),
+  @Deprecated (forRemoval = true, since = "12.1.1")
+  @DevelopersNote ("See https://github.com/w3ctag/obsoletion/issues/6 for details")
+  XML_11("xml11", EXMLVersion.XML_11),
 
   /** HTML4 and XHTML */
   HTML ("html", null);
@@ -80,8 +83,8 @@ public enum EXMLSerializeVersion implements IHasID <String>
   }
 
   /**
-   * @return <code>null</code> if no XML version is required, the respective
-   *         version string otherwise.
+   * @return <code>null</code> if no XML version is required, the respective version string
+   *         otherwise.
    */
   @Nullable
   public String getXMLVersionString ()
@@ -90,8 +93,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   }
 
   /**
-   * Get the {@link EXMLSerializeVersion} from the specified {@link EXMLVersion}
-   * .
+   * Get the {@link EXMLSerializeVersion} from the specified {@link EXMLVersion} .
    *
    * @param eXMLVersion
    *        XML version to query. May not be <code>null</code>.
@@ -100,15 +102,12 @@ public enum EXMLSerializeVersion implements IHasID <String>
   @NonNull
   public static EXMLSerializeVersion getFromXMLVersionOrThrow (@NonNull final EXMLVersion eXMLVersion)
   {
-    switch (eXMLVersion)
+    return switch (eXMLVersion)
     {
-      case XML_10:
-        return EXMLSerializeVersion.XML_10;
-      case XML_11:
-        return EXMLSerializeVersion.XML_11;
-      default:
-        throw new IllegalStateException ("Unsupported XML version " + eXMLVersion);
-    }
+      case XML_10 -> EXMLSerializeVersion.XML_10;
+      case XML_11 -> EXMLSerializeVersion.XML_11;
+      default -> throw new IllegalStateException ("Unsupported XML version " + eXMLVersion);
+    };
   }
 
   @Nullable
