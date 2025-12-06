@@ -29,6 +29,7 @@ import java.nio.charset.StandardCharsets;
 import javax.xml.XMLConstants;
 
 import org.junit.Test;
+import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 
 import com.helger.base.io.iface.IHasInputStream;
@@ -47,6 +48,7 @@ import com.helger.xml.sax.EmptyEntityResolver;
 import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.sax.LoggingSAXErrorHandler;
 import com.helger.xml.sax.StringSAXInputSource;
+import com.helger.xml.serialize.read.DOMReader;
 import com.helger.xml.serialize.read.ISAXReaderSettings;
 import com.helger.xml.serialize.read.SAXReader;
 import com.helger.xml.serialize.read.SAXReaderSettings;
@@ -234,8 +236,7 @@ public final class MicroReaderTest
   }
 
   /**
-   * Test: declare all namespaces in the root element and use them in nested
-   * elements
+   * Test: declare all namespaces in the root element and use them in nested elements
    */
   @Test
   public void testNamespaces3 ()
@@ -365,8 +366,7 @@ public final class MicroReaderTest
                                                                  .setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
                                                                                    false);
     assertTrue (SAXReader.readXMLSAX (InputSourceFactory.create (ClassPathResource.getInputStream ("xml/xml-entity-public.xml")),
-                                      aSettings)
-                         .isSuccess ());
+                                      aSettings).isSuccess ());
     assertNotNull (aHdl.getDocument ());
 
     // Write again
@@ -402,6 +402,8 @@ public final class MicroReaderTest
                      "</root>";
     final SAXReaderSettings aSRS = new SAXReaderSettings ().setFeatureValue (EXMLParserFeature.DISALLOW_DOCTYPE_DECL,
                                                                              false);
+    Document aDoc = DOMReader.readXMLDOM (s);
+    assertNull (aDoc);
     assertTrue (MicroReader.readMicroXML (s, aSRS).isEqualContent (MicroReader.readMicroXML (s, aSRS)));
   }
 
@@ -424,4 +426,6 @@ public final class MicroReaderTest
     // Ensure they are written as well
     assertEquals (s, MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)));
   }
+
+  // TODO test xinclude as well
 }
