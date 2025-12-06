@@ -76,6 +76,13 @@ public class LocaleCache implements IHasConditionalLogger
                             @NonNull String sLanguage,
                             @NonNull String sCountry,
                             @NonNull String sVariant);
+
+    /**
+     * Special instance that always returns <code>null</code>.
+     *
+     * @since 12.1.1
+     */
+    IMissingLocaleHandler NULL_INSTANCE = (sLocaleKey, sLanguage, sCountry, sVariant) -> null;
   }
 
   private static final class SingletonHolder
