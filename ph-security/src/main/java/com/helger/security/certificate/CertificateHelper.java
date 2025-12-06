@@ -270,6 +270,7 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed array is <code>null</code> or empty
    * @throws CertificateException
    *         In case the passed bytes[] cannot be converted to an X.509 certificate.
+   * @see #convertByteArrayToCertficateDirectOrNull(byte[])
    * @since 9.3.4
    */
   @Nullable
@@ -285,6 +286,28 @@ public final class CertificateHelper
     try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aCertBytes))
     {
       return (X509Certificate) aCertificateFactory.generateCertificate (aBAIS);
+    }
+  }
+
+  /**
+   * Convert the passed String to an X.509 certificate without converting it to a String first.
+   *
+   * @param aCertBytes
+   *        The certificate bytes. May be <code>null</code>.
+   * @return <code>null</code> if the passed array is <code>null</code> or empty
+   * @see #convertByteArrayToCertficateDirect(byte[])
+   * @since 12.1.1
+   */
+  @Nullable
+  public static X509Certificate convertByteArrayToCertficateDirectOrNull (@Nullable final byte [] aCertBytes)
+  {
+    try
+    {
+      return convertByteArrayToCertficateDirect (aCertBytes);
+    }
+    catch (CertificateException ex)
+    {
+      return null;
     }
   }
 
