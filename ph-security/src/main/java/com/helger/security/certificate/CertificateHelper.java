@@ -716,9 +716,35 @@ public final class CertificateHelper
   @Nullable
   public static String getPrincipalTypeValueOrNull (@Nullable final String sPrincipal, @NonNull final String sType)
   {
+    ValueEnforcer.notNull (sType, "Type");
     try
     {
       return getPrincipalTypeValue (sPrincipal, sType);
+    }
+    catch (final InvalidNameException ex)
+    {
+      return null;
+    }
+  }
+
+  @Nullable
+  public static String getPrincipalTypeValue (@Nullable final X500Principal aPrincipal, @NonNull final String sType)
+                                                                                                                     throws InvalidNameException
+  {
+    ValueEnforcer.notNull (sType, "Type");
+    if (aPrincipal == null)
+      return null;
+    return getPrincipalTypeValue (aPrincipal.getName (), sType);
+  }
+
+  @Nullable
+  public static String getPrincipalTypeValueOrNull (@Nullable final X500Principal aPrincipal,
+                                                    @NonNull final String sType)
+  {
+    ValueEnforcer.notNull (sType, "Type");
+    try
+    {
+      return getPrincipalTypeValue (aPrincipal, sType);
     }
     catch (final InvalidNameException ex)
     {
@@ -739,15 +765,15 @@ public final class CertificateHelper
   }
 
   @Nullable
-  public static String getSubjectCN (@Nullable final X509Certificate aCert)
+  public static String getCNOrNull (@Nullable final X500Principal aPrincipal)
   {
-    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ()) : null;
+    return getPrincipalTypeValueOrNull (aPrincipal, PRINCIPAL_TYPE_CN);
   }
 
   @Nullable
-  public static String getCNOrNull (@Nullable final X500Principal aPrincipal)
+  public static String getSubjectCN (@Nullable final X509Certificate aCert)
   {
-    return aPrincipal != null ? getCNOrNull (aPrincipal.getName ()) : null;
+    return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ()) : null;
   }
 
   @Nullable
@@ -763,14 +789,14 @@ public final class CertificateHelper
   }
 
   @Nullable
-  public static String getSubjectO (@Nullable final X509Certificate aCert)
+  public static String getOOrNull (@Nullable final X500Principal aPrincipal)
   {
-    return aCert != null ? getOOrNull (aCert.getSubjectX500Principal ()) : null;
+    return getPrincipalTypeValueOrNull (aPrincipal, PRINCIPAL_TYPE_O);
   }
 
   @Nullable
-  public static String getOOrNull (@Nullable final X500Principal aPrincipal)
+  public static String getSubjectO (@Nullable final X509Certificate aCert)
   {
-    return aPrincipal != null ? getOOrNull (aPrincipal.getName ()) : null;
+    return aCert != null ? getOOrNull (aCert.getSubjectX500Principal ()) : null;
   }
 }
