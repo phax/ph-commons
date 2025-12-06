@@ -80,8 +80,14 @@ public final class CertificateHelper
   /** Character set used for String-Certificate conversion */
   public static final Charset CERT_CHARSET = StandardCharsets.ISO_8859_1;
 
+  /** Country Code */
+  public static final String PRINCIPAL_TYPE_C = "C";
+  /** Common Name */
   public static final String PRINCIPAL_TYPE_CN = "CN";
+  /** Organisation */
   public static final String PRINCIPAL_TYPE_O = "O";
+  /** Organisational Unit */
+  public static final String PRINCIPAL_TYPE_OU = "OU";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CertificateHelper.class);
 
