@@ -86,7 +86,7 @@ public interface IMicroQName extends IComparable <IMicroQName>
   @Nonempty
   String getName ();
 
-  default int compareTo (@NonNull final IMicroQName o)
+  default int compareTo (final IMicroQName o)
   {
     int ret = CompareHelper.compare (getNamespaceURI (), o.getNamespaceURI ());
     if (ret == 0)
