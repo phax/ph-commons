@@ -452,8 +452,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>getConvertedValue (aKey,null,char [].class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray (@Nullable final KEYTYPE aKey)
+  default char @Nullable [] getAsCharArray (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, null, char [].class);
   }
@@ -466,8 +465,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>getConvertedValue (aKey, aDefault, char[].class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray (@Nullable final KEYTYPE aKey, @Nullable final char [] aDefault)
+  default char @Nullable [] getAsCharArray (@Nullable final KEYTYPE aKey, final char @Nullable [] aDefault)
   {
     return getConvertedValue (aKey, aDefault, char [].class);
   }
@@ -608,8 +606,7 @@ public interface IGetterByKeyTrait <KEYTYPE>
    * @return <code>getConvertedValue (aKey,null,byte[].class)</code>
    * @see #getConvertedValue(Object,Object,Class)
    */
-  @Nullable
-  default byte [] getAsByteArray (@Nullable final KEYTYPE aKey)
+  default byte @Nullable [] getAsByteArray (@Nullable final KEYTYPE aKey)
   {
     return getConvertedValue (aKey, null, byte [].class);
   }

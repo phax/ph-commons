@@ -42,24 +42,24 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 
   private final ByteArrayWrapper m_aBytes;
 
-  public ReadableResourceByteArray (@NonNull final byte [] aBytes)
+  public ReadableResourceByteArray (final byte @NonNull [] aBytes)
   {
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@NonNull final byte [] aBytes,
+  public ReadableResourceByteArray (final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
     this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
-  public ReadableResourceByteArray (@NonNull final byte [] aBytes, final boolean bCopyNeeded)
+  public ReadableResourceByteArray (final byte @NonNull [] aBytes, final boolean bCopyNeeded)
   {
     this ((String) null, aBytes, bCopyNeeded);
   }
 
-  public ReadableResourceByteArray (@NonNull final byte [] aBytes,
+  public ReadableResourceByteArray (final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
@@ -67,13 +67,13 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this ((String) null, aBytes, nOfs, nLen, bCopyNeeded);
   }
 
-  public ReadableResourceByteArray (@Nullable final String sResourceID, @NonNull final byte [] aBytes)
+  public ReadableResourceByteArray (@Nullable final String sResourceID, final byte @NonNull [] aBytes)
   {
     this (sResourceID, aBytes, DEFAULT_COPY_NEEDED);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @NonNull final byte [] aBytes,
+                                    final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
@@ -81,14 +81,14 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @NonNull final byte [] aBytes,
+                                    final byte @NonNull [] aBytes,
                                     final boolean bCopyNeeded)
   {
     this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
   }
 
   public ReadableResourceByteArray (@Nullable final String sResourceID,
-                                    @NonNull final byte [] aBytes,
+                                    final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
                                     final boolean bCopyNeeded)
@@ -105,9 +105,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     return m_aBytes.isCopy ();
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final byte [] bytes ()
+  public final byte @NonNull [] bytes ()
   {
     return m_aBytes.bytes ();
   }

@@ -26,8 +26,8 @@ import com.helger.config.IConfig;
 import com.helger.config.value.ConfiguredValue;
 
 /**
- * This is an extended configuration interface that supports the resolution of
- * configuration values from more then one key (e.g. for migration purposes).
+ * This is an extended configuration interface that supports the resolution of configuration values
+ * from more then one key (e.g. for migration purposes).
  *
  * @author Philip Helger
  * @since 10.2.0
@@ -35,102 +35,95 @@ import com.helger.config.value.ConfiguredValue;
 public interface IConfigWithFallback extends IConfig
 {
   /**
-   * Get the {@link ConfiguredValue} based on the primary or the alternative
-   * keys.
+   * Get the {@link ConfiguredValue} based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    * @see #getConfiguredValue(String)
    */
   @Nullable
   ConfiguredValue getConfiguredValueOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
-   * Get the configuration value as a String based on the primary or the
-   * alternative keys.
+   * Get the configuration value as a String based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    */
   @Nullable
   String getAsStringOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
-   * Get the configuration value as a char array based on the primary or the
-   * alternative keys.
+   * Get the configuration value as a char array based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    * @since 11.1.10
    */
-  @Nullable
-  char [] getAsCharArrayOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
+  char @Nullable [] getAsCharArrayOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
-   * Get the configuration value as a BigDecimal based on the primary or the
-   * alternative keys.
+   * Get the configuration value as a BigDecimal based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    */
   @Nullable
   BigDecimal getAsBigDecimalOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
 
   /**
-   * Get the configuration value as a int based on the primary or the
-   * alternative keys.
+   * Get the configuration value as a int based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param nBogus
-   *        A value that is considered invalid for all (primary and old ones) to
-   *        indicate that the other values need to be searched as well.
+   *        A value that is considered invalid for all (primary and old ones) to indicate that the
+   *        other values need to be searched as well.
    * @param nDefault
    *        The value to be returned if none of the keys could be resolved.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    */
   int getAsIntOrFallback (@NonNull String sPrimary, int nBogus, int nDefault, @NonNull @Nonempty String... aOldOnes);
 
   /**
-   * Get the configuration value as a long based on the primary or the
-   * alternative keys.
+   * Get the configuration value as a long based on the primary or the alternative keys.
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
    * @param nBogus
-   *        A value that is considered invalid for all (primary and old ones) to
-   *        indicate that the other values need to be searched as well.
+   *        A value that is considered invalid for all (primary and old ones) to indicate that the
+   *        other values need to be searched as well.
    * @param nDefault
    *        The value to be returned if none of the keys could be resolved.
    * @param aOldOnes
-   *        The alternative keys to be resolved in the provided order. May
-   *        neither be <code>null</code> nor empty.
-   * @return <code>null</code> if neither the primary nor the old configuration
-   *         property keys could be resolved.
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
    */
   long getAsLongOrFallback (@NonNull String sPrimary,
                             long nBogus,

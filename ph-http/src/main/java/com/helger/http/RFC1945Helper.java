@@ -289,7 +289,7 @@ public final class RFC1945Helper
     return isChar (n) && (MAPPINGS[n] & HEX) == HEX;
   }
 
-  public static boolean isHexNotEmpty (@Nullable final char [] aChars)
+  public static boolean isHexNotEmpty (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
@@ -311,7 +311,7 @@ public final class RFC1945Helper
     return isChar (n) && (MAPPINGS[n] & LHEX) == LHEX;
   }
 
-  public static boolean isLowerHexNotEmpty (@Nullable final char [] aChars)
+  public static boolean isLowerHexNotEmpty (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
@@ -338,7 +338,7 @@ public final class RFC1945Helper
     return isChar (n) && (MAPPINGS[n] & (CTL | NON_TOKEN)) == 0;
   }
 
-  public static boolean isToken (@Nullable final char [] aChars)
+  public static boolean isToken (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
@@ -375,7 +375,7 @@ public final class RFC1945Helper
     return (MAPPINGS[n] & (NON_TEXT | NON_COMMENT)) == 0;
   }
 
-  public static boolean isComment (@Nullable final char [] aChars)
+  public static boolean isComment (final char @Nullable [] aChars)
   {
     if (ArrayHelper.getSize (aChars) < 2 || aChars[0] != COMMENT_BEGIN || aChars[aChars.length - 1] != COMMENT_END)
       return false;
@@ -397,7 +397,7 @@ public final class RFC1945Helper
     return isChar (n) && (MAPPINGS[n] & (NON_TEXT | NON_QUOTEDTEXT)) == 0;
   }
 
-  public static boolean isQuotedText (@Nullable final char [] aChars)
+  public static boolean isQuotedText (final char @Nullable [] aChars)
   {
     if (ArrayHelper.getSize (aChars) < 2 ||
         aChars[0] != QUOTEDTEXT_BEGIN ||
@@ -424,7 +424,7 @@ public final class RFC1945Helper
     return QUOTEDTEXT_BEGIN + sStr + QUOTEDTEXT_END;
   }
 
-  public static boolean isQuotedTextContent (@Nullable final char [] aChars)
+  public static boolean isQuotedTextContent (final char @Nullable [] aChars)
   {
     if (aChars == null)
       return false;
@@ -441,7 +441,7 @@ public final class RFC1945Helper
     return isQuotedTextContent (sStr.toCharArray ());
   }
 
-  public static boolean isWord (@Nullable final char [] aChars)
+  public static boolean isWord (final char @Nullable [] aChars)
   {
     return isToken (aChars) || isQuotedText (aChars);
   }

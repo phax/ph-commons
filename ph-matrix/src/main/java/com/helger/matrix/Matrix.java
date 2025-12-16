@@ -151,7 +151,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *            All rows must have the same length
    * @see #constructWithCopy
    */
-  Matrix (@NonNull final double [] [] aOther)
+  Matrix (final double @NonNull [] [] aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
     ValueEnforcer.isGT0 (aOther.length, "rows");
@@ -175,7 +175,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @param nCols
    *        Number of columns.
    */
-  Matrix (@NonNull final double [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
+  Matrix (final double @NonNull [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
   {
     ValueEnforcer.notNull (aOther, "Other");
     ValueEnforcer.isGT0 (nRows, "rows");
@@ -199,7 +199,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception IllegalArgumentException
    *            Array length must be a multiple of nRows.
    */
-  public Matrix (@NonNull final double [] aVals, @Nonnegative final int nRows)
+  public Matrix (final double @NonNull [] aVals, @Nonnegative final int nRows)
   {
     m_nRows = nRows;
     m_nCols = (nRows != 0 ? aVals.length / nRows : 0);
@@ -225,7 +225,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *            All rows must have the same length
    */
   @NonNull
-  public static Matrix constructWithCopy (@NonNull final double [] [] aArray)
+  public static Matrix constructWithCopy (final double @NonNull [] [] aArray)
   {
     final int nRows = aArray.length;
     final int nCols = aArray[0].length;
@@ -265,8 +265,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Pointer to the two-dimensional array of matrix elements.
    */
-  @NonNull
-  public double [] [] internalGetArray ()
+  public double @NonNull [] @NonNull [] internalGetArray ()
   {
     return m_aData;
   }
@@ -276,9 +275,8 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Two-dimensional array copy of matrix elements.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public double [] [] getArrayCopy ()
+  public double @NonNull [] @NonNull [] getArrayCopy ()
   {
     final double [] [] aArray = new double [m_nRows] [m_nCols];
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -295,8 +293,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Matrix elements packed in a one-dimensional array by columns.
    */
-  @NonNull
-  public double [] getColumnPackedCopy ()
+  public double @NonNull [] getColumnPackedCopy ()
   {
     final double [] ret = new double [m_nRows * m_nCols];
     for (int nCol = 0; nCol < m_nCols; nCol++)
@@ -313,8 +310,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    *
    * @return Matrix elements packed in a one-dimensional array by rows.
    */
-  @NonNull
-  public double [] getRowPackedCopy ()
+  public double @NonNull [] getRowPackedCopy ()
   {
     final double [] ret = new double [m_nRows * m_nCols];
     for (int nRow = 0; nRow < m_nRows; nRow++)
@@ -418,7 +414,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   @NonNull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@NonNull final int [] aRows, @NonNull final int [] aCols)
+  public Matrix getMatrix (final int @NonNull [] aRows, final int @NonNull [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (aRows.length, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -450,7 +446,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
   @ReturnsMutableCopy
   public Matrix getMatrix (@Nonnegative final int nStartRowIndex,
                            @Nonnegative final int nEndRowIndex,
-                           @NonNull final int [] aCols)
+                           final int @NonNull [] aCols)
   {
     final Matrix aNewMatrix = new Matrix (nEndRowIndex - nStartRowIndex + 1, aCols.length);
     final double [] [] aNewArray = aNewMatrix.internalGetArray ();
@@ -478,7 +474,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   @NonNull
   @ReturnsMutableCopy
-  public Matrix getMatrix (@NonNull final int [] aRows,
+  public Matrix getMatrix (final int @NonNull [] aRows,
                            @Nonnegative final int nStartColumnIndex,
                            @Nonnegative final int nEndColumnIndex)
   {
@@ -552,7 +548,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  public void setMatrix (@NonNull final int [] aRows, @NonNull final int [] aCols, @NonNull final Matrix aMatrix)
+  public void setMatrix (final int @NonNull [] aRows, final int @NonNull [] aCols, @NonNull final Matrix aMatrix)
   {
     for (int nRow = 0; nRow < aRows.length; nRow++)
     {
@@ -577,7 +573,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    * @exception ArrayIndexOutOfBoundsException
    *            Submatrix indices
    */
-  public void setMatrix (@NonNull final int [] aRows,
+  public void setMatrix (final int @NonNull [] aRows,
                          @Nonnegative final int nStartColumnIndex,
                          @Nonnegative final int nEndColumnIndex,
                          @NonNull final Matrix aMatrix)
@@ -607,7 +603,7 @@ public class Matrix implements ICloneable <Matrix>, Serializable
    */
   public void setMatrix (@Nonnegative final int nStartRowIndex,
                          @Nonnegative final int nEndRowIndex,
-                         @NonNull final int [] aCols,
+                         final int @NonNull [] aCols,
                          @NonNull final Matrix aMatrix)
   {
     for (int nRow = nStartRowIndex; nRow <= nEndRowIndex; nRow++)

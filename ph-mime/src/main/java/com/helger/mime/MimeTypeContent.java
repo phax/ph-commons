@@ -55,7 +55,7 @@ public class MimeTypeContent
    * @param aMimeType
    *        The corresponding mime type. May not be <code>null</code>.
    */
-  public MimeTypeContent (@NonNull @Nonempty final byte [] aContentBytes, @NonNull final IMimeType aMimeType)
+  public MimeTypeContent (final byte @NonNull @Nonempty [] aContentBytes, @NonNull final IMimeType aMimeType)
   {
     this (aContentBytes, DEFAULT_COPY_BYTES, aMimeType);
   }
@@ -66,12 +66,13 @@ public class MimeTypeContent
    * @param aContentBytes
    *        The beginning bytes. May neither be <code>null</code> nor empty.
    * @param bCopyBytes
-   *        <code>true</code> to copy the bytes, <code>false</code> to reuse the
-   *        provided instance.
+   *        <code>true</code> to copy the bytes, <code>false</code> to reuse the provided instance.
    * @param aMimeType
    *        The corresponding mime type. May not be <code>null</code>.
    */
-  public MimeTypeContent (@NonNull @Nonempty final byte [] aContentBytes, final boolean bCopyBytes, @NonNull final IMimeType aMimeType)
+  public MimeTypeContent (final byte @NonNull @Nonempty [] aContentBytes,
+                          final boolean bCopyBytes,
+                          @NonNull final IMimeType aMimeType)
   {
     ValueEnforcer.notEmpty (aContentBytes, "ContentBytes");
     ValueEnforcer.notNull (aMimeType, "MimeType");
@@ -81,13 +82,10 @@ public class MimeTypeContent
   }
 
   /**
-   * @return A copy of the content bytes to use. Neither <code>null</code> nor
-   *         empty.
+   * @return A copy of the content bytes to use. Neither <code>null</code> nor empty.
    */
-  @NonNull
-  @Nonempty
   @ReturnsMutableCopy
-  public byte [] getAllContentBytes ()
+  public byte @NonNull @Nonempty [] getAllContentBytes ()
   {
     return m_aContentBytes.getAllBytes ();
   }
@@ -105,8 +103,7 @@ public class MimeTypeContent
    * Write the content bytes to the specified output stream.
    *
    * @param aOS
-   *        The output stream to write to. The stream is NOT closed. May not be
-   *        <code>null</code>.
+   *        The output stream to write to. The stream is NOT closed. May not be <code>null</code>.
    * @throws IOException
    *         In case of a write error
    */
@@ -129,10 +126,9 @@ public class MimeTypeContent
    *
    * @param aCmpBytes
    *        The bytes to compare to. May not be <code>null</code>.
-   * @return <code>true</code> if the passed bytes start with the bytes in this
-   *         object.
+   * @return <code>true</code> if the passed bytes start with the bytes in this object.
    */
-  public boolean matchesBeginning (@NonNull final byte [] aCmpBytes)
+  public boolean matchesBeginning (final byte @NonNull [] aCmpBytes)
   {
     return ArrayHelper.startsWith (aCmpBytes, m_aContentBytes.bytes ());
   }
@@ -157,6 +153,8 @@ public class MimeTypeContent
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ContentBytes", m_aContentBytes).append ("MimeType", m_aMimeType).getToString ();
+    return new ToStringGenerator (this).append ("ContentBytes", m_aContentBytes)
+                                       .append ("MimeType", m_aMimeType)
+                                       .getToString ();
   }
 }

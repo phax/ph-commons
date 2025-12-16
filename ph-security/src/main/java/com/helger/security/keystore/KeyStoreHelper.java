@@ -124,7 +124,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             @Nullable final char [] aKeyStorePassword) throws GeneralSecurityException,
+                                             final char @Nullable [] aKeyStorePassword) throws GeneralSecurityException,
                                                                                         IOException
   {
     return loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, aKeyStorePassword, null);
@@ -156,7 +156,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             @Nullable final char [] aKeyStorePassword,
+                                             final char @Nullable [] aKeyStorePassword,
                                              @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
                                                                                          IOException
   {
@@ -218,7 +218,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
                                                         @NonNull final String sAliasToCopy,
-                                                        @Nullable final char [] aAliasPassword) throws GeneralSecurityException,
+                                                        final char @Nullable [] aAliasPassword) throws GeneralSecurityException,
                                                                                                 IOException
   {
     return createKeyStoreWithOnlyOneItem (aBaseKeyStore, sAliasToCopy, aAliasPassword, null);
@@ -246,7 +246,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
                                                         @NonNull final String sAliasToCopy,
-                                                        @Nullable final char [] aAliasPassword,
+                                                        final char @Nullable [] aAliasPassword,
                                                         @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
                                                                                                     IOException
   {
@@ -293,7 +293,7 @@ public final class KeyStoreHelper
   @NonNull
   public static LoadedKeyStore loadKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             @Nullable final char [] aKeyStorePassword)
+                                             final char @Nullable [] aKeyStorePassword)
   {
     return loadKeyStore (aKeyStoreType, sKeyStorePath, aKeyStorePassword, null);
   }
@@ -316,7 +316,7 @@ public final class KeyStoreHelper
   @NonNull
   public static LoadedKeyStore loadKeyStore (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             @Nullable final char [] aKeyStorePassword,
+                                             final char @Nullable [] aKeyStorePassword,
                                              @Nullable final Provider aSecurityProvider)
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
@@ -367,7 +367,7 @@ public final class KeyStoreHelper
   private static <T extends KeyStore.Entry> LoadedKey <T> _loadKey (@NonNull final KeyStore aKeyStore,
                                                                     @NonNull final String sKeyStorePath,
                                                                     @Nullable final String sKeyStoreKeyAlias,
-                                                                    @Nullable final char [] aKeyStoreKeyPassword,
+                                                                    final char @Nullable [] aKeyStoreKeyPassword,
                                                                     @NonNull final Class <T> aTargetClass)
   {
     ValueEnforcer.notNull (aKeyStore, "KeyStore");
@@ -446,7 +446,7 @@ public final class KeyStoreHelper
   public static LoadedKey <KeyStore.PrivateKeyEntry> loadPrivateKey (@NonNull final KeyStore aKeyStore,
                                                                      @NonNull final String sKeyStorePath,
                                                                      @Nullable final String sKeyStoreKeyAlias,
-                                                                     @Nullable final char [] aKeyStoreKeyPassword)
+                                                                     final char @Nullable [] aKeyStoreKeyPassword)
   {
     return _loadKey (aKeyStore, sKeyStorePath, sKeyStoreKeyAlias, aKeyStoreKeyPassword, KeyStore.PrivateKeyEntry.class);
   }
@@ -468,7 +468,7 @@ public final class KeyStoreHelper
   public static LoadedKey <KeyStore.SecretKeyEntry> loadSecretKey (@NonNull final KeyStore aKeyStore,
                                                                    @NonNull final String sKeyStorePath,
                                                                    @Nullable final String sKeyStoreKeyAlias,
-                                                                   @Nullable final char [] aKeyStoreKeyPassword)
+                                                                   final char @Nullable [] aKeyStoreKeyPassword)
   {
     return _loadKey (aKeyStore, sKeyStorePath, sKeyStoreKeyAlias, aKeyStoreKeyPassword, KeyStore.SecretKeyEntry.class);
   }
@@ -490,7 +490,7 @@ public final class KeyStoreHelper
   public static LoadedKey <KeyStore.TrustedCertificateEntry> loadTrustedCertificateKey (@NonNull final KeyStore aKeyStore,
                                                                                         @NonNull final String sKeyStorePath,
                                                                                         @Nullable final String sKeyStoreKeyAlias,
-                                                                                        @Nullable final char [] aKeyStoreKeyPassword)
+                                                                                        final char @Nullable [] aKeyStoreKeyPassword)
   {
     return _loadKey (aKeyStore,
                      sKeyStorePath,

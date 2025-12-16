@@ -1278,7 +1278,7 @@ public final class MatrixTest
 
   /** Check norm of difference of arrays. **/
 
-  private static void _check (@NonNull final double [] [] x, @NonNull final double [] [] y)
+  private static void _check (final double @NonNull [] [] x, final double @NonNull [] [] y)
   {
     final Matrix a = new Matrix (x);
     final Matrix b = new Matrix (y);

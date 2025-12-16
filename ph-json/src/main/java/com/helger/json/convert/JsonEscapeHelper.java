@@ -60,7 +60,7 @@ public final class JsonEscapeHelper
   private JsonEscapeHelper ()
   {}
 
-  public static void jsonEscapeToStringBuilder (@NonNull final char [] aInput, @NonNull final StringBuilder aSB)
+  public static void jsonEscapeToStringBuilder (final char @NonNull [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aSB, "StringBuilder");
@@ -85,7 +85,7 @@ public final class JsonEscapeHelper
   }
 
   @Nullable
-  public static String jsonEscape (@Nullable final char [] aInput)
+  public static String jsonEscape (final char @Nullable [] aInput)
   {
     if (aInput == null)
       return null;
@@ -112,7 +112,7 @@ public final class JsonEscapeHelper
     }
   }
 
-  public static void jsonEscapeToWriter (@NonNull final char [] aInput, @NonNull @WillNotClose final Writer aWriter)
+  public static void jsonEscapeToWriter (final char @NonNull [] aInput, @NonNull @WillNotClose final Writer aWriter)
                                                                                                                      throws IOException
   {
     ValueEnforcer.notNull (aInput, "Input");
@@ -151,7 +151,7 @@ public final class JsonEscapeHelper
     return ret;
   }
 
-  public static void jsonUnescapeToStringBuilder (@NonNull final char [] aInput, @NonNull final StringBuilder aSB)
+  public static void jsonUnescapeToStringBuilder (final char @NonNull [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aSB, "StringBuilder");
@@ -237,7 +237,7 @@ public final class JsonEscapeHelper
   }
 
   @NonNull
-  public static String jsonUnescape (@NonNull final char [] aInput)
+  public static String jsonUnescape (final char @NonNull [] aInput)
   {
     ValueEnforcer.notNull (aInput, "Input");
 

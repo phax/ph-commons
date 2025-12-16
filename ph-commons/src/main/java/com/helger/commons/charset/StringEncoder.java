@@ -32,9 +32,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EContinue;
 
 /**
- * A special string encoder that can be used to convert a set of
- * characters/string to a byte sequence in a certain charset. This class is not
- * thread-safe!
+ * A special string encoder that can be used to convert a set of characters/string to a byte
+ * sequence in a certain charset. This class is not thread-safe!
  *
  * @author Philip Helger
  */
@@ -95,13 +94,11 @@ public final class StringEncoder
   }
 
   /**
-   * Encodes string into destination. This must be called multiple times with
-   * the same string until it returns true. When this returns false, it must be
-   * called again with larger destination buffer space. It is possible that
-   * there are a few bytes of space remaining in the destination buffer, even
-   * though it must be refreshed. For example, if a UTF-8 3 byte sequence needs
-   * to be written, but there is only 1 or 2 bytes of space, this will leave the
-   * last couple bytes unused.
+   * Encodes string into destination. This must be called multiple times with the same string until
+   * it returns true. When this returns false, it must be called again with larger destination
+   * buffer space. It is possible that there are a few bytes of space remaining in the destination
+   * buffer, even though it must be refreshed. For example, if a UTF-8 3 byte sequence needs to be
+   * written, but there is only 1 or 2 bytes of space, this will leave the last couple bytes unused.
    *
    * @param sSource
    *        Source string
@@ -185,9 +182,9 @@ public final class StringEncoder
   }
 
   /**
-   * Returns a ByteBuffer containing the encoded version of source. The position
-   * of the ByteBuffer will be 0, the limit is the length of the string. The
-   * capacity of the ByteBuffer may be larger than the string.
+   * Returns a ByteBuffer containing the encoded version of source. The position of the ByteBuffer
+   * will be 0, the limit is the length of the string. The capacity of the ByteBuffer may be larger
+   * than the string.
    *
    * @param sSource
    *        Source string
@@ -234,16 +231,16 @@ public final class StringEncoder
   }
 
   /**
-   * Returns a new byte array containing the UTF-8 version of source. The array
-   * will be exactly the correct size for the string.
+   * Returns a new byte array containing the UTF-8 version of source. The array will be exactly the
+   * correct size for the string.
    *
    * @param sSource
    *        Source string
    * @return as encoded array
    */
-  @NonNull
+
   @ReturnsMutableCopy
-  public byte [] getAsNewArray (@NonNull final String sSource)
+  public byte @NonNull [] getAsNewArray (@NonNull final String sSource)
   {
     // Optimized for short strings
     assert m_aArrayBuffer.remaining () == m_aArrayBuffer.capacity ();

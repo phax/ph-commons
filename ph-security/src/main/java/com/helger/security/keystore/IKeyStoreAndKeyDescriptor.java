@@ -23,8 +23,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonempty;
 
 /**
- * Interface describing the parameters needed to reference a key store with a
- * private key.
+ * Interface describing the parameters needed to reference a key store with a private key.
  *
  * @author Philip Helger
  * @since 11.1.10
@@ -34,23 +33,20 @@ public interface IKeyStoreAndKeyDescriptor extends IKeyStoreDescriptor
   /**
    * Note: the case sensitivity of the key alias depends on the key store type.
    *
-   * @return The alias of the key inside a key store. May neither be
-   *         <code>null</code> nor empty.
+   * @return The alias of the key inside a key store. May neither be <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
   String getKeyAlias ();
 
   /**
-   * @return The password required to access the key inside the key store. May
-   *         not be <code>null</code> but may be empty.
+   * @return The password required to access the key inside the key store. May not be
+   *         <code>null</code> but may be empty.
    */
-  @NonNull
-  char [] getKeyPassword ();
+  char @NonNull [] getKeyPassword ();
 
   /**
-   * @return The loaded key based on the loaded key store and the parameters in
-   *         this descriptor.
+   * @return The loaded key based on the loaded key store and the parameters in this descriptor.
    */
   @NonNull
   LoadedKey <PrivateKeyEntry> loadKey ();

@@ -269,7 +269,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
   @NonNull
   default ESuccess writeFile (@NonNull final String sRelativePath,
                               @NonNull final EAppend eAppend,
-                              @NonNull final byte [] aBytes)
+                              final byte @NonNull [] aBytes)
   {
     // save to file
     final OutputStream aOS = getOutputStream (sRelativePath, eAppend);
@@ -343,7 +343,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @return {@link ESuccess}
    */
   @NonNull
-  default ESuccess appendFile (@NonNull final String sRelativePath, @NonNull final byte [] aBytes)
+  default ESuccess appendFile (@NonNull final String sRelativePath, final byte @NonNull [] aBytes)
   {
     return writeFile (sRelativePath, EAppend.APPEND, aBytes);
   }

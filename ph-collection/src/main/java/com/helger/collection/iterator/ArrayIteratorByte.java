@@ -38,12 +38,12 @@ public final class ArrayIteratorByte
   private final ByteArrayWrapper m_aBytes;
   private int m_nIndex = 0;
 
-  public ArrayIteratorByte (@NonNull final byte... aArray)
+  public ArrayIteratorByte (final byte @NonNull ... aArray)
   {
     this (aArray, 0, aArray.length, DEFAULT_COPY_NEEDED);
   }
 
-  public ArrayIteratorByte (@NonNull final byte [] aArray, final boolean bCopyNeeded)
+  public ArrayIteratorByte (final byte @NonNull [] aArray, final boolean bCopyNeeded)
   {
     this (aArray, 0, aArray.length, bCopyNeeded);
   }
@@ -58,12 +58,12 @@ public final class ArrayIteratorByte
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorByte (@NonNull final byte [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorByte (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (aBytes, nOfs, nLength, DEFAULT_COPY_NEEDED);
   }
 
-  public ArrayIteratorByte (@NonNull final byte [] aBytes,
+  public ArrayIteratorByte (final byte @NonNull [] aBytes,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLength,
                             final boolean bCopyNeeded)

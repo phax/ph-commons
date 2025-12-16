@@ -38,7 +38,7 @@ public final class ArrayIteratorFloat
   private final float [] m_aArray;
   private int m_nIndex = 0;
 
-  public ArrayIteratorFloat (@NonNull final float... aArray)
+  public ArrayIteratorFloat (final float @NonNull... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -53,7 +53,9 @@ public final class ArrayIteratorFloat
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorFloat (@NonNull final float [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorFloat (final float @NonNull [] aArray,
+                             @Nonnegative final int nOfs,
+                             @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
@@ -91,11 +93,13 @@ public final class ArrayIteratorFloat
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
+                                       .append ("index", m_nIndex)
+                                       .getToString ();
   }
 
   @NonNull
-  public static ArrayIteratorFloat createOfsLen (@NonNull final float [] aArray,
+  public static ArrayIteratorFloat createOfsLen (final float @NonNull [] aArray,
                                                  @Nonnegative final int nOfs,
                                                  @Nonnegative final int nLength)
   {
@@ -103,7 +107,7 @@ public final class ArrayIteratorFloat
   }
 
   @NonNull
-  public static ArrayIteratorFloat createBeginEnd (@NonNull final float [] aArray,
+  public static ArrayIteratorFloat createBeginEnd (final float @NonNull [] aArray,
                                                    @Nonnegative final int nBegin,
                                                    @Nonnegative final int nEnd)
   {

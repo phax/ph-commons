@@ -54,7 +54,7 @@ public final class PasswordSalt implements IPasswordSalt
    * @param aBytes
    *        Salt bytes to use. May not be <code>null</code> or empty.
    */
-  public PasswordSalt (@NonNull @Nonempty final byte [] aBytes)
+  public PasswordSalt (final byte @NonNull @Nonempty [] aBytes)
   {
     ValueEnforcer.notEmpty (aBytes, "Bytes");
     m_aSaltBytes = aBytes;
@@ -67,10 +67,8 @@ public final class PasswordSalt implements IPasswordSalt
     return m_aSaltBytes.length;
   }
 
-  @NonNull
-  @Nonempty
   @ReturnsMutableCopy
-  public byte [] getSaltBytes ()
+  public byte @NonNull @Nonempty [] getSaltBytes ()
   {
     return ArrayHelper.getCopy (m_aSaltBytes);
   }

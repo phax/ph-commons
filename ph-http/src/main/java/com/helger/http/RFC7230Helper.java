@@ -94,7 +94,7 @@ public final class RFC7230Helper
    *        Character array to check
    * @return <code>true</code> if it is a valid token, <code>false</code> if not.
    */
-  public static boolean isValidToken (@Nullable final char [] a)
+  public static boolean isValidToken (final char @Nullable [] a)
   {
     if (a == null || a.length == 0)
       return false;

@@ -47,22 +47,18 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   int lastPosition ();
 
   /**
-   * @return the next chars. If the codepoint is not supplemental, the char
-   *         array will have a single member. If the codepoint is supplemental,
-   *         the char array will have two members, representing the high and low
-   *         surrogate chars
-   */
-  @Nullable
-  char [] nextChars ();
-
-  /**
-   * @return Peek the next chars in the iterator. If the codepoint is not
-   *         supplemental, the char array will have a single member. If the
-   *         codepoint is supplemental, the char array will have two members,
+   * @return the next chars. If the codepoint is not supplemental, the char array will have a single
+   *         member. If the codepoint is supplemental, the char array will have two members,
    *         representing the high and low surrogate chars
    */
-  @Nullable
-  char [] peekChars ();
+  char @Nullable [] nextChars ();
+
+  /**
+   * @return Peek the next chars in the iterator. If the codepoint is not supplemental, the char
+   *         array will have a single member. If the codepoint is supplemental, the char array will
+   *         have two members, representing the high and low surrogate chars
+   */
+  char @Nullable [] peekChars ();
 
   /**
    * @return the next codepoint
@@ -113,16 +109,14 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   /**
    * @param nIndex
    *        index
-   * @return <code>true</code> if the char at the specified index is a high
-   *         surrogate
+   * @return <code>true</code> if the char at the specified index is a high surrogate
    */
   boolean isHigh (@Nonnegative int nIndex);
 
   /**
    * @param nIndex
    *        index
-   * @return <code>true</code> if the char at the specified index is a low
-   *         surrogate
+   * @return <code>true</code> if the char at the specified index is a low surrogate
    */
   boolean isLow (@Nonnegative int nIndex);
 

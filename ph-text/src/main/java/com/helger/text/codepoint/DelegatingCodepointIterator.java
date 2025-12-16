@@ -86,8 +86,7 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     return m_aInternal.next ();
   }
 
-  @Nullable
-  public char [] nextChars ()
+  public char @Nullable [] nextChars ()
   {
     return m_aInternal.nextChars ();
   }
@@ -104,8 +103,7 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     return m_aInternal.peek (index);
   }
 
-  @Nullable
-  public char [] peekChars ()
+  public char @Nullable [] peekChars ()
   {
     return m_aInternal.peekChars ();
   }
@@ -146,7 +144,9 @@ public class DelegatingCodepointIterator implements ICodepointIterator
   }
 
   @NonNull
-  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter, final boolean bScanning, final boolean bInvert)
+  public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter,
+                                               final boolean bScanning,
+                                               final boolean bInvert)
   {
     return m_aInternal.restrict (aFilter, bScanning, bInvert);
   }

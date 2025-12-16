@@ -56,8 +56,8 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
    * Constructor to create a new BCrypt password salt with the provided rounds.
    *
    * @param nRounds
-   *        the log2 of the number of rounds of hashing to apply - the work
-   *        factor therefore increases as 2**log_rounds.
+   *        the log2 of the number of rounds of hashing to apply - the work factor therefore
+   *        increases as 2**log_rounds.
    */
   public PasswordSaltBCrypt (@Nonnegative final int nRounds)
   {
@@ -72,10 +72,8 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
     return m_aBytes.length;
   }
 
-  @NonNull
-  @Nonempty
   @ReturnsMutableCopy
-  public byte [] getSaltBytes ()
+  public byte @NonNull @Nonempty [] getSaltBytes ()
   {
     return ArrayHelper.getCopy (m_aBytes);
   }

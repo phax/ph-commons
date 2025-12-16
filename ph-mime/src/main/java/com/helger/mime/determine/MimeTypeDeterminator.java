@@ -59,15 +59,15 @@ public final class MimeTypeDeterminator
   public static final IMimeType DEFAULT_MIME_TYPE = CMimeType.APPLICATION_OCTET_STREAM;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (MimeTypeDeterminator.class);
-  private static final byte [] MIME_ID_GIF87A = new byte [] { 'G', 'I', 'F', '8', '7', 'a' };
-  private static final byte [] MIME_ID_GIF89A = new byte [] { 'G', 'I', 'F', '8', '9', 'a' };
-  private static final byte [] MIME_ID_JPG = new byte [] { (byte) 0xff, (byte) 0xd8 };
-  private static final byte [] MIME_ID_PNG = new byte [] { (byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
-  private static final byte [] MIME_ID_TIFF_MOTOROLLA = new byte [] { 'M', 'M' };
-  private static final byte [] MIME_ID_TIFF_INTEL = new byte [] { 'I', 'I' };
-  private static final byte [] MIME_ID_PSD = new byte [] { '8', 'B', 'P', 'S' };
-  private static final byte [] MIME_ID_PDF = new byte [] { '%', 'P', 'D', 'F' };
-  private static final byte [] MIME_ID_XLS = new byte [] { (byte) 0xD0, (byte) 0xcd, 0x11, (byte) 0xe0 };
+  private static final byte [] MIME_ID_GIF87A = { 'G', 'I', 'F', '8', '7', 'a' };
+  private static final byte [] MIME_ID_GIF89A = { 'G', 'I', 'F', '8', '9', 'a' };
+  private static final byte [] MIME_ID_JPG = { (byte) 0xff, (byte) 0xd8 };
+  private static final byte [] MIME_ID_PNG = { (byte) 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a };
+  private static final byte [] MIME_ID_TIFF_MOTOROLLA = { 'M', 'M' };
+  private static final byte [] MIME_ID_TIFF_INTEL = { 'I', 'I' };
+  private static final byte [] MIME_ID_PSD = { '8', 'B', 'P', 'S' };
+  private static final byte [] MIME_ID_PDF = { '%', 'P', 'D', 'F' };
+  private static final byte [] MIME_ID_XLS = { (byte) 0xD0, (byte) 0xcd, 0x11, (byte) 0xe0 };
 
   private static boolean s_bDefaultInstantiated = false;
 
@@ -156,8 +156,7 @@ public final class MimeTypeDeterminator
    *
    * @param aMimeTypeContent
    *        The content type to unregister. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the object was successfully
-   *         unregistered.
+   * @return {@link EChange#CHANGED} if the object was successfully unregistered.
    */
   @NonNull
   public EChange unregisterMimeTypeContent (@Nullable final MimeTypeContent aMimeTypeContent)
@@ -174,10 +173,8 @@ public final class MimeTypeDeterminator
    * @param s
    *        The content string to check. May be <code>null</code>.
    * @param aCharset
-   *        The charset used to convert the string to a byte array. May not be
-   *        <code>null</code>.
-   * @return {@link #DEFAULT_MIME_TYPE} if no matching MIME type was found.
-   *         Never <code>null</code>.
+   *        The charset used to convert the string to a byte array. May not be <code>null</code>.
+   * @return {@link #DEFAULT_MIME_TYPE} if no matching MIME type was found. Never <code>null</code>.
    */
   @NonNull
   public IMimeType getMimeTypeFromString (@Nullable final String s, @NonNull final Charset aCharset)
@@ -191,16 +188,16 @@ public final class MimeTypeDeterminator
    * @param s
    *        The content string to check. May be <code>null</code>.
    * @param aCharset
-   *        The charset used to convert the string to a byte array. May not be
-   *        <code>null</code>.
+   *        The charset used to convert the string to a byte array. May not be <code>null</code>.
    * @param aDefault
-   *        The default MIME type to be returned, if no MIME type could be
-   *        found. May be <code>null</code>.
-   * @return <code>aDefault</code> if no matching MIME type was found. May be
-   *         <code>null</code>.
+   *        The default MIME type to be returned, if no MIME type could be found. May be
+   *        <code>null</code>.
+   * @return <code>aDefault</code> if no matching MIME type was found. May be <code>null</code>.
    */
   @Nullable
-  public IMimeType getMimeTypeFromString (@Nullable final String s, @NonNull final Charset aCharset, @Nullable final IMimeType aDefault)
+  public IMimeType getMimeTypeFromString (@Nullable final String s,
+                                          @NonNull final Charset aCharset,
+                                          @Nullable final IMimeType aDefault)
   {
     return getMimeTypeFromBytes (s == null ? null : s.getBytes (aCharset), aDefault);
   }
@@ -210,11 +207,10 @@ public final class MimeTypeDeterminator
    *
    * @param b
    *        The byte array to parse. May be <code>null</code> or empty.
-   * @return {@link #DEFAULT_MIME_TYPE} if no specific MIME type was found.
-   *         Never <code>null</code>.
+   * @return {@link #DEFAULT_MIME_TYPE} if no specific MIME type was found. Never <code>null</code>.
    */
   @NonNull
-  public IMimeType getMimeTypeFromBytes (@Nullable final byte [] b)
+  public IMimeType getMimeTypeFromBytes (final byte @Nullable [] b)
   {
     return getMimeTypeFromBytes (b, DEFAULT_MIME_TYPE);
   }
@@ -225,13 +221,13 @@ public final class MimeTypeDeterminator
    * @param aBytes
    *        The byte array to parse. May be <code>null</code> or empty.
    * @param aDefault
-   *        The default MIME type to be returned, if no matching MIME type was
-   *        found. May be <code>null</code>.
-   * @return The supplied default value, if no matching MIME type was found. May
-   *         be <code>null</code>.
+   *        The default MIME type to be returned, if no matching MIME type was found. May be
+   *        <code>null</code>.
+   * @return The supplied default value, if no matching MIME type was found. May be
+   *         <code>null</code>.
    */
   @Nullable
-  public IMimeType getMimeTypeFromBytes (@Nullable final byte [] aBytes, @Nullable final IMimeType aDefault)
+  public IMimeType getMimeTypeFromBytes (final byte @Nullable [] aBytes, @Nullable final IMimeType aDefault)
   {
     if (aBytes == null || aBytes.length == 0)
       return aDefault;
@@ -247,8 +243,8 @@ public final class MimeTypeDeterminator
   }
 
   /**
-   * @return A copy of all registered {@link MimeTypeContent} objects. Never
-   *         <code>null</code> but maybe empty.
+   * @return A copy of all registered {@link MimeTypeContent} objects. Never <code>null</code> but
+   *         maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy

@@ -52,9 +52,9 @@ public final class LevenshteinDistance
    *        &gt; 0
    * @return non negative distance
    */
-  private static int _getDistance111 (@NonNull final char [] aStr1,
+  private static int _getDistance111 (final char @NonNull [] aStr1,
                                       @Nonnegative final int nLen1,
-                                      @NonNull final char [] aStr2,
+                                      final char @NonNull [] aStr2,
                                       @Nonnegative final int nLen2)
   {
     // previous cost array, horizontally
@@ -108,9 +108,9 @@ public final class LevenshteinDistance
    *        &ge; 0
    * @return non negative distance
    */
-  private static int _getDistance (@NonNull final char [] aStr1,
+  private static int _getDistance (final char @NonNull [] aStr1,
                                    @Nonnegative final int nLen1,
-                                   @NonNull final char [] aStr2,
+                                   final char @NonNull [] aStr2,
                                    @Nonnegative final int nLen2,
                                    @Nonnegative final int nCostInsert,
                                    @Nonnegative final int nCostDelete,
@@ -158,7 +158,7 @@ public final class LevenshteinDistance
    *        Second string.
    * @return The Levenshtein distance.
    */
-  public static int getDistance (@Nullable final char [] aStr1, @Nullable final char [] aStr2)
+  public static int getDistance (final char @Nullable [] aStr1, final char @Nullable [] aStr2)
   {
     final int nLen1 = aStr1 == null ? 0 : aStr1.length;
     final int nLen2 = aStr2 == null ? 0 : aStr2.length;
@@ -171,8 +171,8 @@ public final class LevenshteinDistance
     return _getDistance111 (aStr1, nLen1, aStr2, nLen2);
   }
 
-  public static int getDistance (@Nullable final char [] aStr1,
-                                 @Nullable final char [] aStr2,
+  public static int getDistance (final char @Nullable [] aStr1,
+                                 final char @Nullable [] aStr2,
                                  @Nonnegative final int nCostInsert,
                                  @Nonnegative final int nCostDelete,
                                  @Nonnegative final int nCostSubstitution)

@@ -25,12 +25,12 @@ public class CodepointIteratorCharArray extends AbstractCodepointIterator
 {
   private final char [] m_aBuffer;
 
-  public CodepointIteratorCharArray (@NonNull final char [] aBuffer)
+  public CodepointIteratorCharArray (final char @NonNull [] aBuffer)
   {
     this (aBuffer, 0, aBuffer.length);
   }
 
-  public CodepointIteratorCharArray (@NonNull final char [] aBuffer, final int nOfs, final int nLen)
+  public CodepointIteratorCharArray (final char @NonNull [] aBuffer, final int nOfs, final int nLen)
   {
     super (nOfs, Math.min (aBuffer.length - nOfs, nLen));
     m_aBuffer = aBuffer;

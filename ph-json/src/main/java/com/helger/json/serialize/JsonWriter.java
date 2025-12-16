@@ -292,8 +292,7 @@ public class JsonWriter
    * @return The created byte array and never <code>null</code>.
    * @since 9.4.0
    */
-  @NonNull
-  public byte [] writeAsByteArray (@NonNull final IJson aJson, @NonNull final Charset aCharset)
+  public byte @NonNull [] writeAsByteArray (@NonNull final IJson aJson, @NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aJson, "Json");
 

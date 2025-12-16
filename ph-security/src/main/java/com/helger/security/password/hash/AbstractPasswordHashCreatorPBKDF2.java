@@ -72,12 +72,12 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
    *        The SecretKeyFactory parameter to use. May neither be <code>null</code> nor empty.
    * @return the PBDKF2 hash of the password
    */
-  @NonNull
-  protected static final byte [] pbkdf2 (@NonNull final char [] aPassword,
-                                         @NonNull final byte [] aSalt,
-                                         @Nonnegative final int nIterations,
-                                         @Nonnegative final int nBytes,
-                                         @NonNull @Nonempty final String sPBKDF2AlgorithmName)
+
+  protected static final byte @NonNull [] pbkdf2 (final char @NonNull [] aPassword,
+                                                  final byte @NonNull [] aSalt,
+                                                  @Nonnegative final int nIterations,
+                                                  @Nonnegative final int nBytes,
+                                                  @NonNull @Nonempty final String sPBKDF2AlgorithmName)
   {
     try
     {

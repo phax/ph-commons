@@ -28,8 +28,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 
 /**
- * Special int-float-primitive map. Based on:
- * https://github.com/mikvor/hashmapTest
+ * Special int-float-primitive map. Based on: https://github.com/mikvor/hashmapTest
  *
  * @author Mikhail Vorontsov
  * @author Philip Helger
@@ -38,11 +37,9 @@ import com.helger.base.iface.IHasSize;
 public class IntDoubleMap implements IHasSize
 {
   /**
-   * Represents a function that accepts an key-type argument and produces a
-   * value-typed result.
+   * Represents a function that accepts an key-type argument and produces a value-typed result.
    * <p>
-   * This is a functional interface whose functional method is
-   * {@link #apply(int)}.
+   * This is a functional interface whose functional method is {@link #apply(int)}.
    */
   @FunctionalInterface
   public interface IKeyToValueFunction
@@ -103,9 +100,8 @@ public class IntDoubleMap implements IHasSize
     m_nThreshold = (int) (nCapacity * fFillFactor);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  private static double [] _createValueArray (@Nonnegative final int nSize)
+  private static double @NonNull [] _createValueArray (@Nonnegative final int nSize)
   {
     final double [] ret = new double [nSize];
     Arrays.fill (ret, NO_VALUE);
@@ -298,8 +294,8 @@ public class IntDoubleMap implements IHasSize
   }
 
   /**
-   * Find an index of a cell which should be updated by 'put' operation. It can
-   * be: 1) a cell with a given key 2) first free cell in the chain
+   * Find an index of a cell which should be updated by 'put' operation. It can be: 1) a cell with a
+   * given key 2) first free cell in the chain
    *
    * @param key
    *        Key to look for

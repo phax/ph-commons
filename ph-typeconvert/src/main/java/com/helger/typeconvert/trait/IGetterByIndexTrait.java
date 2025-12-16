@@ -451,8 +451,7 @@ public interface IGetterByIndexTrait
    * @return <code>getConvertedValue (nIndex,null,char[].class)</code>
    * @see #getConvertedValue(int,Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray (@Nonnegative final int nIndex)
+  default char @Nullable [] getAsCharArray (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, char [].class);
   }
@@ -465,8 +464,7 @@ public interface IGetterByIndexTrait
    * @return <code>getConvertedValue (nIndex,aDefault, char[].class)</code>
    * @see #getConvertedValue(int,Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray (@Nonnegative final int nIndex, @Nullable final char [] aDefault)
+  default char @Nullable [] getAsCharArray (@Nonnegative final int nIndex, final char @Nullable [] aDefault)
   {
     return getConvertedValue (nIndex, aDefault, char [].class);
   }
@@ -607,8 +605,7 @@ public interface IGetterByIndexTrait
    * @return <code>getConvertedValue (nIndex,null,byte[].class)</code>
    * @see #getConvertedValue(int,Object,Class)
    */
-  @Nullable
-  default byte [] getAsByteArray (@Nonnegative final int nIndex)
+  default byte @Nullable [] getAsByteArray (@Nonnegative final int nIndex)
   {
     return getConvertedValue (nIndex, null, byte [].class);
   }

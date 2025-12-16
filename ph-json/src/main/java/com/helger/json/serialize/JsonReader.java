@@ -389,7 +389,7 @@ public final class JsonReader
      * @since 9.3.4
      */
     @NonNull
-    public JsonBuilder source (@NonNull final byte [] aBytes)
+    public JsonBuilder source (final byte @NonNull [] aBytes)
     {
       return source (aBytes, JsonReader.DEFAULT_CHARSET);
     }
@@ -405,7 +405,7 @@ public final class JsonReader
      * @since 9.3.4
      */
     @NonNull
-    public JsonBuilder source (@NonNull final byte [] aBytes, @NonNull final Charset aFallbackCharset)
+    public JsonBuilder source (final byte @NonNull [] aBytes, @NonNull final Charset aFallbackCharset)
     {
       ValueEnforcer.notNull (aBytes, "Bytes");
       ValueEnforcer.notNull (aFallbackCharset, "FallbackCharset");

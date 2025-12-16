@@ -66,8 +66,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return nPos >= limit () ? nPos : nPos - 1;
   }
 
-  @Nullable
-  public char [] nextChars ()
+  public char @Nullable [] nextChars ()
   {
     if (hasNext ())
     {
@@ -95,20 +94,17 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return null;
   }
 
-  @Nullable
-  public char [] peekChars ()
+  public char @Nullable [] peekChars ()
   {
     return _peekChars (position ());
   }
 
   /**
-   * Peek the specified chars in the iterator. If the codepoint is not
-   * supplemental, the char array will have a single member. If the codepoint is
-   * supplemental, the char array will have two members, representing the high
-   * and low surrogate chars
+   * Peek the specified chars in the iterator. If the codepoint is not supplemental, the char array
+   * will have a single member. If the codepoint is supplemental, the char array will have two
+   * members, representing the high and low surrogate chars
    */
-  @Nullable
-  private char [] _peekChars (@Nonnegative final int nPos)
+  private char @Nullable [] _peekChars (@Nonnegative final int nPos)
   {
     if (nPos < 0 || nPos >= limit ())
       return null;
@@ -155,7 +151,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
   }
 
   @Nullable
-  private static Codepoint _toCodepoint (@Nullable final char [] aChars)
+  private static Codepoint _toCodepoint (final char @Nullable [] aChars)
   {
     if (aChars == null || aChars.length == 0)
       return null;

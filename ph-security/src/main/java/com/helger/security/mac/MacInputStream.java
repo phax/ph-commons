@@ -170,7 +170,7 @@ public class MacInputStream extends WrappedInputStream
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public int read (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     final int result = in.read (aBuf, nOfs, nLen);
     if (m_bOn && result != -1)

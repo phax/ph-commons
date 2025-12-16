@@ -1120,7 +1120,7 @@ public final class MatrixIntTest
 
   /** Check norm of difference of arrays. **/
 
-  private static void _check (@NonNull final int [] [] x, @NonNull final int [] [] y)
+  private static void _check (final int @NonNull [] [] x, final int @NonNull [] [] y)
   {
     final MatrixInt a = new MatrixInt (x);
     final MatrixInt b = new MatrixInt (y);

@@ -52,7 +52,7 @@ public final class CodepointHelper
    * @return <code>true</code> if all the characters in chars are within the set
    *         [low,high]
    */
-  public static boolean inRange (@NonNull final char [] aChars, final char cLow, final char cHigh)
+  public static boolean inRange (final char @NonNull [] aChars, final char cLow, final char cHigh)
   {
     for (final char c : aChars)
       if (c < cLow || c > cHigh)
@@ -290,7 +290,7 @@ public final class CodepointHelper
    *         counts as a single codepoint
    */
   @Nonnegative
-  public static int length (@NonNull final char [] aArray)
+  public static int length (final char @NonNull [] aArray)
   {
     return length (new CodepointIteratorCharArray (aArray));
   }
@@ -436,7 +436,7 @@ public final class CodepointHelper
   }
 
   @CheckForSigned
-  public static int getIndex (@NonNull final int [] aCodepointSet, final int nValue)
+  public static int getIndex (final int @NonNull [] aCodepointSet, final int nValue)
   {
     int nStart = 0;
     int nEnd = aCodepointSet.length;
@@ -466,7 +466,7 @@ public final class CodepointHelper
    *        Value to check
    * @return <code>true</code> if the value is located within the set
    */
-  public static boolean inverseSetContains (@NonNull final int [] aCodepointSet, final int value)
+  public static boolean inverseSetContains (final int @NonNull [] aCodepointSet, final int value)
   {
     int nStart = 0;
     int nEnd = aCodepointSet.length;
@@ -763,7 +763,7 @@ public final class CodepointHelper
    * @param eProfile
    *        profile to use
    */
-  public static void verify (@Nullable final char [] aArray, @NonNull final ECodepointProfile eProfile)
+  public static void verify (final char @Nullable [] aArray, @NonNull final ECodepointProfile eProfile)
   {
     if (aArray != null)
       verify (new CodepointIteratorCharArray (aArray), eProfile);

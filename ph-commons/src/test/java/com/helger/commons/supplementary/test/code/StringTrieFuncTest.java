@@ -96,7 +96,7 @@ public final class StringTrieFuncTest <DATATYPE>
   // return subtrie corresponding to given key
   @Nullable
   private Node <DATATYPE> _get (@Nullable final Node <DATATYPE> aNode,
-                                @NonNull @Nonempty final char [] aKey,
+                                final char @NonNull @Nonempty [] aKey,
                                 @Nonnegative final int nIndex)
   {
     if (aNode != null)

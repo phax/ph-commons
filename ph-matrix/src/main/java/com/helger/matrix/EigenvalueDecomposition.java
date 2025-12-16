@@ -1103,9 +1103,8 @@ public class EigenvalueDecomposition
    *
    * @return real(diag(D))
    */
-  @NonNull
   @ReturnsMutableObject ("took code as is")
-  public double [] directGetRealEigenvalues ()
+  public double @NonNull [] directGetRealEigenvalues ()
   {
     return m_aEVd;
   }
@@ -1115,9 +1114,8 @@ public class EigenvalueDecomposition
    *
    * @return imag(diag(D))
    */
-  @NonNull
   @ReturnsMutableObject ("took code as is")
-  public double [] directGetImagEigenvalues ()
+  public double @NonNull [] directGetImagEigenvalues ()
   {
     return m_aEVe;
   }

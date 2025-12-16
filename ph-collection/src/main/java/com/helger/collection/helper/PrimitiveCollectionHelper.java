@@ -41,7 +41,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Boolean> createPrimitiveList (@Nullable final boolean... aValues)
+  public static CommonsArrayList <Boolean> createPrimitiveList (final boolean @Nullable... aValues)
   {
     final CommonsArrayList <Boolean> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -52,7 +52,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Byte> createPrimitiveList (@Nullable final byte... aValues)
+  public static CommonsArrayList <Byte> createPrimitiveList (final byte @Nullable... aValues)
   {
     final CommonsArrayList <Byte> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -63,7 +63,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Character> createPrimitiveList (@Nullable final char... aValues)
+  public static CommonsArrayList <Character> createPrimitiveList (final char @Nullable... aValues)
   {
     final CommonsArrayList <Character> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -74,7 +74,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Double> createPrimitiveList (@Nullable final double... aValues)
+  public static CommonsArrayList <Double> createPrimitiveList (final double @Nullable... aValues)
   {
     final CommonsArrayList <Double> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -85,7 +85,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Float> createPrimitiveList (@Nullable final float... aValues)
+  public static CommonsArrayList <Float> createPrimitiveList (final float @Nullable... aValues)
   {
     final CommonsArrayList <Float> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -96,7 +96,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Integer> createPrimitiveList (@Nullable final int... aValues)
+  public static CommonsArrayList <Integer> createPrimitiveList (final int @Nullable... aValues)
   {
     final CommonsArrayList <Integer> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -107,7 +107,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Long> createPrimitiveList (@Nullable final long... aValues)
+  public static CommonsArrayList <Long> createPrimitiveList (final long @Nullable... aValues)
   {
     final CommonsArrayList <Long> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -118,7 +118,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsArrayList <Short> createPrimitiveList (@Nullable final short... aValues)
+  public static CommonsArrayList <Short> createPrimitiveList (final short @Nullable... aValues)
   {
     final CommonsArrayList <Short> ret = new CommonsArrayList <> ();
     if (aValues != null)
@@ -129,7 +129,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Boolean> createPrimitiveSet (@Nullable final boolean... aValues)
+  public static CommonsHashSet <Boolean> createPrimitiveSet (final boolean @Nullable... aValues)
   {
     final CommonsHashSet <Boolean> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -140,7 +140,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Byte> createPrimitiveSet (@Nullable final byte... aValues)
+  public static CommonsHashSet <Byte> createPrimitiveSet (final byte @Nullable... aValues)
   {
     final CommonsHashSet <Byte> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -151,7 +151,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Character> createPrimitiveSet (@Nullable final char... aValues)
+  public static CommonsHashSet <Character> createPrimitiveSet (final char @Nullable... aValues)
   {
     final CommonsHashSet <Character> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -162,7 +162,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Double> createPrimitiveSet (@Nullable final double... aValues)
+  public static CommonsHashSet <Double> createPrimitiveSet (final double @Nullable... aValues)
   {
     final CommonsHashSet <Double> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -173,7 +173,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Float> createPrimitiveSet (@Nullable final float... aValues)
+  public static CommonsHashSet <Float> createPrimitiveSet (final float @Nullable... aValues)
   {
     final CommonsHashSet <Float> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -184,7 +184,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Integer> createPrimitiveSet (@Nullable final int... aValues)
+  public static CommonsHashSet <Integer> createPrimitiveSet (final int @Nullable... aValues)
   {
     final CommonsHashSet <Integer> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -195,7 +195,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Long> createPrimitiveSet (@Nullable final long... aValues)
+  public static CommonsHashSet <Long> createPrimitiveSet (final long @Nullable... aValues)
   {
     final CommonsHashSet <Long> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -206,7 +206,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsHashSet <Short> createPrimitiveSet (@Nullable final short... aValues)
+  public static CommonsHashSet <Short> createPrimitiveSet (final short @Nullable... aValues)
   {
     final CommonsHashSet <Short> ret = new CommonsHashSet <> ();
     if (aValues != null)
@@ -217,7 +217,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Boolean> createPrimitiveOrderedSet (@Nullable final boolean... aValues)
+  public static CommonsLinkedHashSet <Boolean> createPrimitiveOrderedSet (final boolean @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Boolean> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -228,7 +228,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Byte> createPrimitiveOrderedSet (@Nullable final byte... aValues)
+  public static CommonsLinkedHashSet <Byte> createPrimitiveOrderedSet (final byte @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Byte> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -239,7 +239,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Character> createPrimitiveOrderedSet (@Nullable final char... aValues)
+  public static CommonsLinkedHashSet <Character> createPrimitiveOrderedSet (final char @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Character> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -250,7 +250,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Double> createPrimitiveOrderedSet (@Nullable final double... aValues)
+  public static CommonsLinkedHashSet <Double> createPrimitiveOrderedSet (final double @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Double> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -261,7 +261,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Float> createPrimitiveOrderedSet (@Nullable final float... aValues)
+  public static CommonsLinkedHashSet <Float> createPrimitiveOrderedSet (final float @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Float> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -272,7 +272,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Integer> createPrimitiveOrderedSet (@Nullable final int... aValues)
+  public static CommonsLinkedHashSet <Integer> createPrimitiveOrderedSet (final int @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Integer> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -283,7 +283,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Long> createPrimitiveOrderedSet (@Nullable final long... aValues)
+  public static CommonsLinkedHashSet <Long> createPrimitiveOrderedSet (final long @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Long> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -294,7 +294,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsLinkedHashSet <Short> createPrimitiveOrderedSet (@Nullable final short... aValues)
+  public static CommonsLinkedHashSet <Short> createPrimitiveOrderedSet (final short @Nullable... aValues)
   {
     final CommonsLinkedHashSet <Short> ret = new CommonsLinkedHashSet <> ();
     if (aValues != null)
@@ -305,7 +305,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Boolean> createPrimitiveSortedSet (@Nullable final boolean... aValues)
+  public static CommonsTreeSet <Boolean> createPrimitiveSortedSet (final boolean @Nullable... aValues)
   {
     final CommonsTreeSet <Boolean> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -316,7 +316,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Byte> createPrimitiveSortedSet (@Nullable final byte... aValues)
+  public static CommonsTreeSet <Byte> createPrimitiveSortedSet (final byte @Nullable... aValues)
   {
     final CommonsTreeSet <Byte> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -327,7 +327,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Character> createPrimitiveSortedSet (@Nullable final char... aValues)
+  public static CommonsTreeSet <Character> createPrimitiveSortedSet (final char @Nullable... aValues)
   {
     final CommonsTreeSet <Character> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -338,7 +338,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Double> createPrimitiveSortedSet (@Nullable final double... aValues)
+  public static CommonsTreeSet <Double> createPrimitiveSortedSet (final double @Nullable... aValues)
   {
     final CommonsTreeSet <Double> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -349,7 +349,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Float> createPrimitiveSortedSet (@Nullable final float... aValues)
+  public static CommonsTreeSet <Float> createPrimitiveSortedSet (final float @Nullable... aValues)
   {
     final CommonsTreeSet <Float> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -360,7 +360,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Integer> createPrimitiveSortedSet (@Nullable final int... aValues)
+  public static CommonsTreeSet <Integer> createPrimitiveSortedSet (final int @Nullable... aValues)
   {
     final CommonsTreeSet <Integer> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -371,7 +371,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Long> createPrimitiveSortedSet (@Nullable final long... aValues)
+  public static CommonsTreeSet <Long> createPrimitiveSortedSet (final long @Nullable... aValues)
   {
     final CommonsTreeSet <Long> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -382,7 +382,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static CommonsTreeSet <Short> createPrimitiveSortedSet (@Nullable final short... aValues)
+  public static CommonsTreeSet <Short> createPrimitiveSortedSet (final short @Nullable... aValues)
   {
     final CommonsTreeSet <Short> ret = new CommonsTreeSet <> ();
     if (aValues != null)
@@ -393,7 +393,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Boolean> createPrimitiveStack (@Nullable final boolean... aValues)
+  public static NonBlockingStack <Boolean> createPrimitiveStack (final boolean @Nullable... aValues)
   {
     final NonBlockingStack <Boolean> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -404,7 +404,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Byte> createPrimitiveStack (@Nullable final byte... aValues)
+  public static NonBlockingStack <Byte> createPrimitiveStack (final byte @Nullable... aValues)
   {
     final NonBlockingStack <Byte> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -415,7 +415,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Character> createPrimitiveStack (@Nullable final char... aValues)
+  public static NonBlockingStack <Character> createPrimitiveStack (final char @Nullable... aValues)
   {
     final NonBlockingStack <Character> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -426,7 +426,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Double> createPrimitiveStack (@Nullable final double... aValues)
+  public static NonBlockingStack <Double> createPrimitiveStack (final double @Nullable... aValues)
   {
     final NonBlockingStack <Double> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -437,7 +437,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Float> createPrimitiveStack (@Nullable final float... aValues)
+  public static NonBlockingStack <Float> createPrimitiveStack (final float @Nullable... aValues)
   {
     final NonBlockingStack <Float> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -448,7 +448,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Integer> createPrimitiveStack (@Nullable final int... aValues)
+  public static NonBlockingStack <Integer> createPrimitiveStack (final int @Nullable... aValues)
   {
     final NonBlockingStack <Integer> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -459,7 +459,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Long> createPrimitiveStack (@Nullable final long... aValues)
+  public static NonBlockingStack <Long> createPrimitiveStack (final long @Nullable... aValues)
   {
     final NonBlockingStack <Long> ret = new NonBlockingStack <> ();
     if (aValues != null)
@@ -470,7 +470,7 @@ public final class PrimitiveCollectionHelper
 
   @NonNull
   @ReturnsMutableCopy
-  public static NonBlockingStack <Short> createPrimitiveStack (@Nullable final short... aValues)
+  public static NonBlockingStack <Short> createPrimitiveStack (final short @Nullable... aValues)
   {
     final NonBlockingStack <Short> ret = new NonBlockingStack <> ();
     if (aValues != null)

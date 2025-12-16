@@ -24,8 +24,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 
 /**
- * Interface describing the parameters needed to reference a key store (without
- * a private key).
+ * Interface describing the parameters needed to reference a key store (without a private key).
  *
  * @author Philip Helger
  * @since 11.1.10
@@ -39,30 +38,28 @@ public interface IKeyStoreDescriptor
   IKeyStoreType getKeyStoreType ();
 
   /**
-   * @return The path to the key store. May neither be <code>null</code> nor
-   *         empty. The interpretation of the path is implementation dependent.
+   * @return The path to the key store. May neither be <code>null</code> nor empty. The
+   *         interpretation of the path is implementation dependent.
    */
   @NonNull
   @Nonempty
   String getKeyStorePath ();
 
   /**
-   * @return The password required to open the key store. May not be
-   *         <code>null</code> but may be empty.
+   * @return The password required to open the key store. May not be <code>null</code> but may be
+   *         empty.
    */
-  @NonNull
-  char [] getKeyStorePassword ();
+  char @NonNull [] getKeyStorePassword ();
 
   /**
-   * @return The Java security provider for loading the key store. May be
-   *         <code>null</code>.
+   * @return The Java security provider for loading the key store. May be <code>null</code>.
    */
   @Nullable
   Provider getProvider ();
 
   /**
-   * @return The loaded key store based on the parameters in this descriptor.
-   *         Never <code>null</code>.
+   * @return The loaded key store based on the parameters in this descriptor. Never
+   *         <code>null</code>.
    */
   @NonNull
   LoadedKeyStore loadKeyStore ();

@@ -539,8 +539,7 @@ public class SingularValueDecomposition
    *
    * @return diagonal of S.
    */
-  @NonNull
-  public double [] getSingularValues ()
+  public double @NonNull [] getSingularValues ()
   {
     return m_aData;
   }

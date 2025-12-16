@@ -65,7 +65,7 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
   }
 
   @NonNull
-  public final KeyStoreDescriptorBuilder password (@Nullable final char [] a)
+  public final KeyStoreDescriptorBuilder password (final char @Nullable [] a)
   {
     m_aPassword = a;
     return this;

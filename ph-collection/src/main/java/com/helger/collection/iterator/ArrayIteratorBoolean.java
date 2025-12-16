@@ -38,7 +38,7 @@ public final class ArrayIteratorBoolean
   private final boolean [] m_aArray;
   private int m_nIndex = 0;
 
-  public ArrayIteratorBoolean (@NonNull final boolean... aArray)
+  public ArrayIteratorBoolean (final boolean @NonNull... aArray)
   {
     this (aArray, 0, aArray.length);
   }
@@ -53,7 +53,9 @@ public final class ArrayIteratorBoolean
    * @param nLength
    *        Length. Must be &ge; 0.
    */
-  public ArrayIteratorBoolean (@NonNull final boolean [] aArray, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public ArrayIteratorBoolean (final boolean @NonNull [] aArray,
+                               @Nonnegative final int nOfs,
+                               @Nonnegative final int nLength)
   {
     ValueEnforcer.isArrayOfsLen (aArray, nOfs, nLength);
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
@@ -91,6 +93,8 @@ public final class ArrayIteratorBoolean
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray)).append ("index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
+                                       .append ("index", m_nIndex)
+                                       .getToString ();
   }
 }

@@ -491,8 +491,7 @@ public interface IJAXBWriter <JAXBTYPE>
    * @return <code>null</code> if the passed domain object could not be converted because of
    *         validation errors.
    */
-  @Nullable
-  default byte [] getAsBytes (@NonNull final JAXBTYPE aObject)
+  default byte @Nullable [] getAsBytes (@NonNull final JAXBTYPE aObject)
   {
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {

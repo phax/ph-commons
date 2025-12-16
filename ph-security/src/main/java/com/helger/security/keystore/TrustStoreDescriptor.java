@@ -43,7 +43,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
 
   public TrustStoreDescriptor (@NonNull final IKeyStoreType aType,
                                @NonNull @Nonempty final String sPath,
-                               @NonNull final char [] aPassword,
+                               final char @NonNull [] aPassword,
                                @Nullable final Provider aProvider)
   {
     ValueEnforcer.notNull (aType, "Type");
@@ -68,9 +68,8 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
     return m_sPath;
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final char [] getTrustStorePassword ()
+  public final char @NonNull [] getTrustStorePassword ()
   {
     return m_aPassword;
   }
@@ -101,8 +100,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
   }
 
   /**
-   * @return A new builder for {@link TrustStoreDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link TrustStoreDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static TrustStoreDescriptorBuilder builder ()
@@ -115,8 +113,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
    *
    * @param a
    *        The existing descriptor. May not be <code>null</code>.
-   * @return A new builder for {@link TrustStoreDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link TrustStoreDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static TrustStoreDescriptorBuilder builder (@NonNull final TrustStoreDescriptor a)

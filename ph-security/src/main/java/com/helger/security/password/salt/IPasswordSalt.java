@@ -38,14 +38,12 @@ public interface IPasswordSalt
   /**
    * @return A copy of the pure salt bytes. Never <code>null</code> nor empty.
    */
-  @NonNull
-  @Nonempty
   @ReturnsMutableCopy
-  byte [] getSaltBytes ();
+  byte @NonNull @Nonempty [] getSaltBytes ();
 
   /**
-   * @return The salt bytes in a string representation for easy serialization.
-   *         Never <code>null</code> nor empty.
+   * @return The salt bytes in a string representation for easy serialization. Never
+   *         <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

@@ -32,7 +32,8 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
   private final boolean m_bScanningOnly;
   private final boolean m_bInvert;
 
-  public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal, @NonNull final IntPredicate aFilter)
+  public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
+                                      @NonNull final IntPredicate aFilter)
   {
     this (aInternal, aFilter, false);
   }
@@ -100,8 +101,7 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
   }
 
   @Override
-  @Nullable
-  public char [] nextChars ()
+  public char @Nullable [] nextChars ()
   {
     final char [] chars = super.nextChars ();
     if (chars != null && chars.length > 0)

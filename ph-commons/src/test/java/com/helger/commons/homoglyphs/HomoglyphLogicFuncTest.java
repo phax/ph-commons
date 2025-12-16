@@ -41,7 +41,7 @@ public final class HomoglyphLogicFuncTest
   }
 
   @NonNull
-  private static IntSet _makeSet (@NonNull final char... aChars)
+  private static IntSet _makeSet (final char @NonNull... aChars)
   {
     final IntSet s = new IntSet (aChars.length);
     for (final char c : aChars)
@@ -52,7 +52,9 @@ public final class HomoglyphLogicFuncTest
   @Before
   public void beforeTest ()
   {
-    final ICommonsList <IntSet> s = new CommonsArrayList <> (_makeSet ('1', 'I', 'l', '|'), _makeSet ('0', 'O'), _makeSet ('5', 'S'));
+    final ICommonsList <@NonNull IntSet> s = new CommonsArrayList <> (_makeSet ('1', 'I', 'l', '|'),
+                                                                      _makeSet ('0', 'O'),
+                                                                      _makeSet ('5', 'S'));
 
     m_aHomoglyph = new Homoglyph (s);
   }
@@ -83,7 +85,10 @@ public final class HomoglyphLogicFuncTest
   @Test
   public void testWhenTextContainsOneOfTheTargetWords_thenMatchFound ()
   {
-    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden", "CHEESE", "SOIL", "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have SOIL in my garden",
+                                                                        "CHEESE",
+                                                                        "SOIL",
+                                                                        "FALCONS");
     assertEquals (1, r.size ());
     _checkResult (r.get (0), 7, "SOIL", "SOIL");
   }
@@ -91,7 +96,10 @@ public final class HomoglyphLogicFuncTest
   @Test
   public void testWhenTargetWordContainsHomoglyphs_thenMatchFound ()
   {
-    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L in my garden", "CHEESE", "SOIL", "FALCONS");
+    final ICommonsList <HomoglyphSearchResult> r = m_aHomoglyph.search ("I have 501L in my garden",
+                                                                        "CHEESE",
+                                                                        "SOIL",
+                                                                        "FALCONS");
     assertEquals (1, r.size ());
     _checkResult (r.get (0), 7, "SOIL", "501L");
   }

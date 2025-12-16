@@ -55,7 +55,7 @@ public class Homoglyph
    *        a List of Sets, with each Set containing a group of Unicode codepoints that are
    *        homoglyphs
    */
-  public Homoglyph (@NonNull final ICommonsList <IntSet> aHomoglyphs)
+  public Homoglyph (@NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
   {
     ValueEnforcer.notNull (aHomoglyphs, "Homoglyphs");
     for (final IntSet aSet : aHomoglyphs)

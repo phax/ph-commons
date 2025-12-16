@@ -62,14 +62,12 @@ public final class SimpleFileIO
    * @return <code>null</code> if the passed file is <code>null</code> or if the passed file does
    *         not exist.
    */
-  @Nullable
-  public static byte [] getAllFileBytes (@Nullable final File aFile)
+  public static byte @Nullable [] getAllFileBytes (@Nullable final File aFile)
   {
     return aFile == null ? null : StreamHelper.getAllBytes (FileHelper.getInputStream (aFile));
   }
 
-  @Nullable
-  public static byte [] getAllFileBytes (@Nullable final Path aPath)
+  public static byte @Nullable [] getAllFileBytes (@Nullable final Path aPath)
   {
     try
     {
@@ -197,7 +195,7 @@ public final class SimpleFileIO
   }
 
   @NonNull
-  public static ESuccess writeFile (@NonNull final File aFile, @NonNull final byte [] aContent)
+  public static ESuccess writeFile (@NonNull final File aFile, final byte @NonNull [] aContent)
   {
     final OutputStream aFOS = FileHelper.getOutputStream (aFile);
     return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent);
@@ -205,7 +203,7 @@ public final class SimpleFileIO
 
   @NonNull
   public static ESuccess writeFile (@NonNull final File aFile,
-                                    @NonNull final byte [] aContent,
+                                    final byte @NonNull [] aContent,
                                     @Nonnegative final int nOffset,
                                     @Nonnegative final int nLength)
   {

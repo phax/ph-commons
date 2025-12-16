@@ -63,18 +63,16 @@ public final class JavaVersionHelper
                                                                                               59,
                                                                                               0);
 
-  @NonNull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion)
+  static int @NonNull [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion)
   {
     return getAsUnifiedVersion (sOriginalJavaVersion, SystemProperties.getJavaRuntimeVersion (), true);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  static int [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion,
-                                     @Nullable final String sJavaRuntimeVersion,
-                                     final boolean bThrowExceptionOnError)
+  static int @NonNull [] getAsUnifiedVersion (@NonNull final String sOriginalJavaVersion,
+                                              @Nullable final String sJavaRuntimeVersion,
+                                              final boolean bThrowExceptionOnError)
   {
     int nMajor = 0;
     int nMinor = 0;

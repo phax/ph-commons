@@ -65,7 +65,7 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
   }
 
   @NonNull
-  public final TrustStoreDescriptorBuilder password (@Nullable final char [] a)
+  public final TrustStoreDescriptorBuilder password (final char @Nullable [] a)
   {
     m_aPassword = a;
     return this;

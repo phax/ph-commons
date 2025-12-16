@@ -47,10 +47,10 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
 
   public KeyStoreAndKeyDescriptor (@NonNull final IKeyStoreType aType,
                                    @NonNull @Nonempty final String sPath,
-                                   @NonNull final char [] aPassword,
+                                   final char @NonNull [] aPassword,
                                    @Nullable final Provider aProvider,
                                    @NonNull @Nonempty final String sKeyAlias,
-                                   @NonNull final char [] aKeyPassword)
+                                   final char @NonNull [] aKeyPassword)
   {
     ValueEnforcer.notNull (aType, "Type");
     ValueEnforcer.notEmpty (sPath, "Path");
@@ -78,9 +78,8 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return m_sPath;
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final char [] getKeyStorePassword ()
+  public final char @NonNull [] getKeyStorePassword ()
   {
     return m_aPassword;
   }
@@ -107,9 +106,8 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return m_sKeyAlias;
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final char [] getKeyPassword ()
+  public final char @NonNull [] getKeyPassword ()
   {
     return m_aKeyPassword;
   }
@@ -141,8 +139,7 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
   }
 
   /**
-   * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static KeyStoreAndKeyDescriptorBuilder builder ()
@@ -155,8 +152,7 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
    *
    * @param a
    *        The existing descriptor. May not be <code>null</code>.
-   * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link KeyStoreAndKeyDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static KeyStoreAndKeyDescriptorBuilder builder (@NonNull final KeyStoreAndKeyDescriptor a)

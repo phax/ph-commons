@@ -125,8 +125,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
-  @Nullable
-  public char [] getAsCharArrayOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
+  public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
     char [] ret = getAsCharArray (sPrimary);
     if (ret == null)

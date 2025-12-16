@@ -107,7 +107,7 @@ public final class Punycode
     return getEncoded (s.toCharArray (), null);
   }
 
-  public static String getEncoded (@NonNull final char [] aChars, @Nullable final boolean [] aCaseFlags)
+  public static String getEncoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
     final CodepointIteratorCharArray aIter = new CodepointIteratorCharArray (aChars);
@@ -190,7 +190,7 @@ public final class Punycode
   }
 
   @NonNull
-  public static String getDecoded (@NonNull final char [] aChars, @Nullable final boolean [] aCaseFlags)
+  public static String getDecoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
     int n = INITIAL_N;

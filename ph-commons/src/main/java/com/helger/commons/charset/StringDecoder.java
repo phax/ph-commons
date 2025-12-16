@@ -118,14 +118,14 @@ public final class StringDecoder
     assert !aByteBuffer.hasRemaining ();
   }
 
-  public void decode (@NonNull final byte [] aBuf)
+  public void decode (final byte @NonNull [] aBuf)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
 
     _decode (ByteBuffer.wrap (aBuf, 0, aBuf.length), false);
   }
 
-  public void decode (@NonNull final byte [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public void decode (final byte @NonNull [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLen);
 
@@ -140,7 +140,7 @@ public final class StringDecoder
   }
 
   @NonNull
-  public String finish (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public String finish (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return finish (ByteBuffer.wrap (aBuf, nOfs, nLen));
   }

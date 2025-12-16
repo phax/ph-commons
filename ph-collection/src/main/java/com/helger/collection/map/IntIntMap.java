@@ -83,9 +83,8 @@ public class IntIntMap implements IHasSize
     m_nThreshold = (int) (nCapacity * fFillFactor);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  private static int [] _createValueArray (@Nonnegative final int nSize)
+  private static int @NonNull [] _createValueArray (@Nonnegative final int nSize)
   {
     final int [] ret = new int [nSize];
     Arrays.fill (ret, NO_VALUE);
@@ -278,8 +277,8 @@ public class IntIntMap implements IHasSize
   }
 
   /**
-   * Find an index of a cell which should be updated by 'put' operation. It can
-   * be: 1) a cell with a given key 2) first free cell in the chain
+   * Find an index of a cell which should be updated by 'put' operation. It can be: 1) a cell with a
+   * given key 2) first free cell in the chain
    *
    * @param key
    *        Key to look for

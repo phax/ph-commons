@@ -71,7 +71,7 @@ public final class CRLHelper
    *         In case of conversion errors
    */
   @NonNull
-  public static X509CRL convertToCRL (@NonNull @Nonempty final byte [] aCRLBytes)
+  public static X509CRL convertToCRL (final byte @NonNull @Nonempty [] aCRLBytes)
   {
     ValueEnforcer.notEmpty (aCRLBytes, "CRLBytes");
 

@@ -43,7 +43,7 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
 
   public KeyStoreDescriptor (@NonNull final IKeyStoreType aType,
                              @NonNull @Nonempty final String sPath,
-                             @NonNull final char [] aPassword,
+                             final char @NonNull [] aPassword,
                              @Nullable final Provider aProvider)
   {
     ValueEnforcer.notNull (aType, "Type");
@@ -68,9 +68,8 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
     return m_sPath;
   }
 
-  @NonNull
   @ReturnsMutableObject
-  public final char [] getKeyStorePassword ()
+  public final char @NonNull [] getKeyStorePassword ()
   {
     return m_aPassword;
   }
@@ -101,8 +100,7 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
   }
 
   /**
-   * @return A new builder for {@link KeyStoreDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link KeyStoreDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static KeyStoreDescriptorBuilder builder ()
@@ -115,8 +113,7 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
    *
    * @param a
    *        The existing descriptor. May not be <code>null</code>.
-   * @return A new builder for {@link KeyStoreDescriptor} objects. Never
-   *         <code>null</code>.
+   * @return A new builder for {@link KeyStoreDescriptor} objects. Never <code>null</code>.
    */
   @NonNull
   public static KeyStoreDescriptorBuilder builder (@NonNull final KeyStoreDescriptor a)

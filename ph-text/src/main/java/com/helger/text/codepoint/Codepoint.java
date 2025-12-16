@@ -51,7 +51,7 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aEncoding
    *        Charset
    */
-  public Codepoint (@NonNull final byte [] aBytes, @NonNull final Charset aEncoding)
+  public Codepoint (final byte @NonNull [] aBytes, @NonNull final Charset aEncoding)
   {
     this (StringEncoding.decodeBytesToChars (aBytes, aEncoding));
   }
@@ -89,7 +89,7 @@ public class Codepoint implements IComparable <Codepoint>
     this (sValue.toCharArray ());
   }
 
-  private static int _getValueFromCharArray (@NonNull final char [] aChars)
+  private static int _getValueFromCharArray (final char @NonNull [] aChars)
   {
     ValueEnforcer.notEmpty (aChars, "CharArray");
     final int nLength = aChars.length;
@@ -106,7 +106,7 @@ public class Codepoint implements IComparable <Codepoint>
    * @param aChars
    *        char array
    */
-  public Codepoint (@NonNull final char [] aChars)
+  public Codepoint (final char @NonNull [] aChars)
   {
     this (_getValueFromCharArray (aChars));
   }
@@ -251,9 +251,8 @@ public class Codepoint implements IComparable <Codepoint>
     return CodepointHelper.getAsString (m_nValue);
   }
 
-  @NonNull
   @ReturnsMutableCopy
-  public char [] getAsChars ()
+  public char @NonNull [] getAsChars ()
   {
     return Character.toChars (m_nValue);
   }
@@ -268,8 +267,7 @@ public class Codepoint implements IComparable <Codepoint>
     return Character.charCount (m_nValue);
   }
 
-  @NonNull
-  public byte [] getAsBytes (@NonNull final Charset aCharset)
+  public byte @NonNull [] getAsBytes (@NonNull final Charset aCharset)
   {
     return getAsString ().getBytes (aCharset);
   }

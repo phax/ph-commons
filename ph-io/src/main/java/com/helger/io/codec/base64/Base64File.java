@@ -63,7 +63,7 @@ public final class Base64File
    * @since 2.1
    */
   @NonNull
-  public static ESuccess encodeToFile (@NonNull final byte [] aDataToEncode, @NonNull final File aFile)
+  public static ESuccess encodeToFile (final byte @NonNull [] aDataToEncode, @NonNull final File aFile)
                                                                                                         throws IOException
   {
     ValueEnforcer.notNull (aDataToEncode, "DataToEncode");
@@ -132,9 +132,9 @@ public final class Base64File
    *         if there is an error
    * @since 2.1
    */
-  @NonNull
+
   @ReturnsMutableCopy
-  public static byte [] decodeFromFile (@NonNull final String sFilename) throws IOException
+  public static byte @NonNull [] decodeFromFile (@NonNull final String sFilename) throws IOException
   {
     // Setup some useful variables
     final File aFile = new File (sFilename);

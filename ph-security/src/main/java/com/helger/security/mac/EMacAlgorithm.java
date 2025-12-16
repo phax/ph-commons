@@ -102,7 +102,7 @@ public enum EMacAlgorithm
    * @return The new {@link SecretKeySpec}.
    */
   @NonNull
-  public SecretKeySpec createSecretKey (@NonNull final byte [] aKey)
+  public SecretKeySpec createSecretKey (final byte @NonNull [] aKey)
   {
     return new SecretKeySpec (aKey, m_sAlgorithm);
   }

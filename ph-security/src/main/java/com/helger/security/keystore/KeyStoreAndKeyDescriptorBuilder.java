@@ -73,7 +73,7 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
   }
 
   @NonNull
-  public final KeyStoreAndKeyDescriptorBuilder password (@Nullable final char [] a)
+  public final KeyStoreAndKeyDescriptorBuilder password (final char @Nullable [] a)
   {
     m_aPassword = a;
     return this;
@@ -100,7 +100,7 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
   }
 
   @NonNull
-  public final KeyStoreAndKeyDescriptorBuilder keyPassword (@Nullable final char [] a)
+  public final KeyStoreAndKeyDescriptorBuilder keyPassword (final char @Nullable [] a)
   {
     m_aKeyPassword = a;
     return this;

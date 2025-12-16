@@ -141,7 +141,7 @@ public class MacOutputStream extends WrappedOutputStream
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public void write (@NonNull final byte [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
   {
     out.write (aBuf, nOfs, nLen);
     if (m_bOn)

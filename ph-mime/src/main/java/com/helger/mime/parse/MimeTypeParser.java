@@ -69,9 +69,8 @@ public final class MimeTypeParser
   /**
    * @return A copy of the array with all TSpecial chars. Never <code>null</code>.
    */
-  @NonNull
   @ReturnsMutableCopy
-  public static char [] getAllTSpecialChars ()
+  public static char @NonNull [] getAllTSpecialChars ()
   {
     return ArrayHelper.getCopy (TSPECIAL);
   }

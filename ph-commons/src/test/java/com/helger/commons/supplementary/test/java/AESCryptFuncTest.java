@@ -42,9 +42,8 @@ public final class AESCryptFuncTest
     private final byte [] m_aBytes;
 
     /**
-     * Create a new AES key from the given byte array. Please note that for more
-     * than 16 bytes, you need the "unlimited strength jurisdiction policy
-     * files".
+     * Create a new AES key from the given byte array. Please note that for more than 16 bytes, you
+     * need the "unlimited strength jurisdiction policy files".
      *
      * @param aBytes
      *        Byte array with 16, 24 or 32 bytes. May not be <code>null</code>.
@@ -69,8 +68,7 @@ public final class AESCryptFuncTest
       return "RAW";
     }
 
-    @NonNull
-    public byte [] getEncoded ()
+    public byte @NonNull [] getEncoded ()
     {
       return ArrayHelper.getCopy (m_aBytes);
     }

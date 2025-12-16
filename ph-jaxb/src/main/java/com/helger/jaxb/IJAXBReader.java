@@ -219,7 +219,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@NonNull final byte [] aXML)
+  default JAXBTYPE read (final byte @NonNull [] aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -241,7 +241,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @since 10.1.4
    */
   @Nullable
-  default JAXBTYPE read (@NonNull final byte [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default JAXBTYPE read (final byte @NonNull [] aXML, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -290,7 +290,7 @@ public interface IJAXBReader <JAXBTYPE>
    * @return <code>null</code> in case reading fails.
    */
   @Nullable
-  default JAXBTYPE read (@NonNull final char [] aXML)
+  default JAXBTYPE read (final char @NonNull [] aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
     return read (new NonBlockingStringReader (aXML));

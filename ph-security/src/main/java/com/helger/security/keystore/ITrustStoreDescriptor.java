@@ -38,30 +38,28 @@ public interface ITrustStoreDescriptor
   IKeyStoreType getTrustStoreType ();
 
   /**
-   * @return The path to the trust store. May neither be <code>null</code> nor
-   *         empty. The interpretation of the path is implementation dependent.
+   * @return The path to the trust store. May neither be <code>null</code> nor empty. The
+   *         interpretation of the path is implementation dependent.
    */
   @NonNull
   @Nonempty
   String getTrustStorePath ();
 
   /**
-   * @return The password required to open the trust store. May not be
-   *         <code>null</code> but may be empty.
+   * @return The password required to open the trust store. May not be <code>null</code> but may be
+   *         empty.
    */
-  @NonNull
-  char [] getTrustStorePassword ();
+  char @NonNull [] getTrustStorePassword ();
 
   /**
-   * @return The Java security provider for loading the trust store. May be
-   *         <code>null</code>.
+   * @return The Java security provider for loading the trust store. May be <code>null</code>.
    */
   @Nullable
   Provider getProvider ();
 
   /**
-   * @return The loaded trust store based on the parameters in this descriptor.
-   *         Never <code>null</code>.
+   * @return The loaded trust store based on the parameters in this descriptor. Never
+   *         <code>null</code>.
    */
   @NonNull
   LoadedKeyStore loadTrustStore ();

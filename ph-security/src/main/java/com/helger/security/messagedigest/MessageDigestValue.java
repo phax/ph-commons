@@ -49,13 +49,13 @@ public class MessageDigestValue implements IHasByteArray
   private final ByteArrayWrapper m_aBytes;
 
   public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
-                             @NonNull @Nonempty final byte [] aDigestBytes)
+                             final byte @NonNull @Nonempty [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
 
   public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
-                             @NonNull @Nonempty final byte [] aDigestBytes,
+                             final byte @NonNull @Nonempty [] aDigestBytes,
                              final boolean bIsCopyNeeded)
   {
     ValueEnforcer.notNull (eAlgorithm, "Algorithm");
@@ -83,10 +83,8 @@ public class MessageDigestValue implements IHasByteArray
    *         <code>null</code>.
    * @since 9.1.3
    */
-  @NonNull
-  @Nonempty
   @ReturnsMutableObject
-  public byte [] bytes ()
+  public byte @NonNull @Nonempty [] bytes ()
   {
     return m_aBytes.bytes ();
   }
@@ -146,7 +144,7 @@ public class MessageDigestValue implements IHasByteArray
    * @return Never <code>null</code>.
    */
   @NonNull
-  public static MessageDigestValue create (@NonNull final byte [] aBytes,
+  public static MessageDigestValue create (final byte @NonNull [] aBytes,
                                            @NonNull final EMessageDigestAlgorithm eAlgorithm)
   {
     final MessageDigest aMD = eAlgorithm.createMessageDigest ();

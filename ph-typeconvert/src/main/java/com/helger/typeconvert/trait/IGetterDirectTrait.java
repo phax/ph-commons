@@ -304,8 +304,7 @@ public interface IGetterDirectTrait
    * @return <code>getConvertedValue (null, char[].class)</code>
    * @see #getConvertedValue(Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray ()
+  default char @Nullable [] getAsCharArray ()
   {
     return getConvertedValue (null, char [].class);
   }
@@ -316,8 +315,7 @@ public interface IGetterDirectTrait
    * @return <code>getConvertedValue (aDefault, char[].class)</code>
    * @see #getConvertedValue(Object,Class)
    */
-  @Nullable
-  default char [] getAsCharArray (@Nullable final char [] aDefault)
+  default char @Nullable [] getAsCharArray (final char @Nullable [] aDefault)
   {
     return getConvertedValue (aDefault, char [].class);
   }
@@ -436,8 +434,7 @@ public interface IGetterDirectTrait
    * @return <code>getConvertedValue (null, byte[].class)</code>
    * @see #getConvertedValue(Object,Class)
    */
-  @Nullable
-  default byte [] getAsByteArray ()
+  default byte @Nullable [] getAsByteArray ()
   {
     return getConvertedValue (null, byte [].class);
   }

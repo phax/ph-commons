@@ -218,7 +218,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    * @return this for chaining
    */
   @NonNull
-  public IMPLTYPE addNonce (@NonNull @Nonempty final byte [] aNonceValue)
+  public IMPLTYPE addNonce (final byte @NonNull @Nonempty [] aNonceValue)
   {
     ValueEnforcer.notEmpty (aNonceValue, "NonceValue");
     return addNonce (Base64.safeEncodeBytes (aNonceValue));
@@ -254,7 +254,7 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
    * @return this for chaining
    */
   @NonNull
-  public IMPLTYPE addHash (@NonNull final EMessageDigestAlgorithm eMDAlgo, @NonNull @Nonempty final byte [] aHashValue)
+  public IMPLTYPE addHash (@NonNull final EMessageDigestAlgorithm eMDAlgo, final byte @NonNull @Nonempty [] aHashValue)
   {
     ValueEnforcer.notEmpty (aHashValue, "HashValue");
     return addHash (eMDAlgo, Base64.safeEncodeBytes (aHashValue));
@@ -278,22 +278,13 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
     ValueEnforcer.notNull (eMDAlgo, "MDAlgo");
     ValueEnforcer.notEmpty (sHashBase64Value, "HashBase64Value");
 
-    String sAlgorithmName;
-    switch (eMDAlgo)
+    final String sAlgorithmName = switch (eMDAlgo)
     {
-      case SHA_256:
-        sAlgorithmName = "sha256";
-        break;
-      case SHA_384:
-        sAlgorithmName = "sha384";
-        break;
-      case SHA_512:
-        sAlgorithmName = "sha512";
-        break;
-      default:
-        throw new IllegalArgumentException ("Only SHA256, SHA384 and SHA512 are supported algorithms");
-    }
-
+      case SHA_256 -> "sha256";
+      case SHA_384 -> "sha384";
+      case SHA_512 -> "sha512";
+      default -> throw new IllegalArgumentException ("Only SHA256, SHA384 and SHA512 are supported algorithms");
+    };
     m_aList.add (HASH_PREFIX + sAlgorithmName + "-" + sHashBase64Value + HASH_SUFFIX);
     return thisAsT ();
   }
