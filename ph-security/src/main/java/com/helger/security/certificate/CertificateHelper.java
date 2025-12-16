@@ -50,13 +50,9 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.base64.Base64;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
-import com.helger.base.io.stream.StringInputStream;
 import com.helger.base.string.StringHelper;
-import com.helger.base.string.StringHex;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
@@ -235,15 +231,13 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed byte array is <code>null</code> or empty
    * @throws CertificateException
    *         In case the passed string cannot be converted to an X.509 certificate.
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
-  public static X509Certificate convertByteArrayToCertficate (@Nullable final byte [] aCertBytes) throws CertificateException
+  public static X509Certificate convertByteArrayToCertficate (final byte @Nullable [] aCertBytes) throws CertificateException
   {
-    if (ArrayHelper.isEmpty (aCertBytes))
-      return null;
-
-    // Certificate is always ISO-8859-1 encoded
-    return convertStringToCertficate (new String (aCertBytes, CERT_CHARSET), false);
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (true).getDecodedOrThrow ();
   }
 
   /**
@@ -254,18 +248,13 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed byte array is <code>null</code>, empty or not a valid
    *         certificate.
    * @since 9.4.0
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
-  public static X509Certificate convertByteArrayToCertficateOrNull (@Nullable final byte [] aCertBytes)
+  public static X509Certificate convertByteArrayToCertficateOrNull (final byte @Nullable [] aCertBytes)
   {
-    try
-    {
-      return convertByteArrayToCertficate (aCertBytes);
-    }
-    catch (final CertificateException ex)
-    {
-      return null;
-    }
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (true).getDecodedOrNull ();
   }
 
   /**
@@ -278,21 +267,13 @@ public final class CertificateHelper
    *         In case the passed bytes[] cannot be converted to an X.509 certificate.
    * @see #convertByteArrayToCertficateDirectOrNull(byte[])
    * @since 9.3.4
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
-  public static X509Certificate convertByteArrayToCertficateDirect (@Nullable final byte [] aCertBytes) throws CertificateException
+  public static X509Certificate convertByteArrayToCertficateDirect (final byte @Nullable [] aCertBytes) throws CertificateException
   {
-    if (ArrayHelper.isEmpty (aCertBytes))
-    {
-      // No string -> no certificate
-      return null;
-    }
-
-    final CertificateFactory aCertificateFactory = getX509CertificateFactory ();
-    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aCertBytes))
-    {
-      return (X509Certificate) aCertificateFactory.generateCertificate (aBAIS);
-    }
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrThrow ();
   }
 
   /**
@@ -303,34 +284,17 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed array is <code>null</code> or empty
    * @see #convertByteArrayToCertficateDirect(byte[])
    * @since 12.1.1
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
-  public static X509Certificate convertByteArrayToCertficateDirectOrNull (@Nullable final byte [] aCertBytes)
+  public static X509Certificate convertByteArrayToCertficateDirectOrNull (final byte @Nullable [] aCertBytes)
   {
-    try
-    {
-      return convertByteArrayToCertficateDirect (aCertBytes);
-    }
-    catch (CertificateException ex)
-    {
-      return null;
-    }
-  }
-
-  @NonNull
-  private static X509Certificate _str2cert (@NonNull final String sCertString,
-                                            @NonNull final CertificateFactory aCertificateFactory) throws CertificateException
-  {
-    final String sRealCertString = getRFC1421CompliantString (sCertString, true);
-
-    try (final StringInputStream aIS = new StringInputStream (sRealCertString, CERT_CHARSET))
-    {
-      return (X509Certificate) aCertificateFactory.generateCertificate (aIS);
-    }
+    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrNull ();
   }
 
   /**
-   * Convert the passed String to an X.509 certificate.
+   * Convert the passed PEM encoded String to an X.509 certificate.
    *
    * @param sCertString
    *        The original text string. May be <code>null</code> or empty. The String must be
@@ -341,92 +305,30 @@ public final class CertificateHelper
    * @throws IllegalArgumentException
    *         If the input string is e.g. invalid Base64 encoded.
    * @since 2.1.1
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
   public static X509Certificate convertStringToCertficate (@Nullable final String sCertString) throws CertificateException
   {
-    return convertStringToCertficate (sCertString, false);
+    return new CertificateDecodeHelper ().source (sCertString).pemEncoded (true).getDecodedOrThrow ();
   }
 
   /**
-   * Convert the passed String to an X.509 certificate.
-   *
-   * @param sCertString
-   *        The original text string. May be <code>null</code> or empty. The String must be
-   *        ISO-8859-1 encoded for the binary certificate to be read!
-   * @param bWithFallback
-   *        <code>true</code> to enable legacy fallback parsing
-   * @return <code>null</code> if the passed string is <code>null</code> or empty
-   * @throws CertificateException
-   *         In case the passed string cannot be converted to an X.509 certificate.
-   * @throws IllegalArgumentException
-   *         If the input string is e.g. invalid Base64 encoded.
-   * @since 2.1.1
-   */
-  @Nullable
-  public static X509Certificate convertStringToCertficate (@Nullable final String sCertString,
-                                                           final boolean bWithFallback) throws CertificateException
-  {
-    if (StringHelper.isEmpty (sCertString))
-    {
-      // No string -> no certificate
-      return null;
-    }
-
-    final CertificateFactory aCertificateFactory = getX509CertificateFactory ();
-
-    // Convert certificate string to an object
-    try
-    {
-      return _str2cert (sCertString, aCertificateFactory);
-    }
-    catch (final IllegalArgumentException | CertificateException ex)
-    {
-      // In some weird configurations, the result string is a hex encoded
-      // certificate instead of the string
-      // -> Try to work around it
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug ("Failed to decode provided X.509 certificate string: " + sCertString);
-
-      if (!bWithFallback)
-        throw ex;
-
-      String sHexDecodedString;
-      try
-      {
-        sHexDecodedString = new String (StringHex.getHexDecoded (sCertString), CERT_CHARSET);
-      }
-      catch (final IllegalArgumentException ex2)
-      {
-        // Can happen, when the source string has an odd length (like 3 or 117).
-        // In this case the original exception is re-thrown
-        throw ex;
-      }
-
-      return _str2cert (sHexDecodedString, aCertificateFactory);
-    }
-  }
-
-  /**
-   * Convert the passed String to an X.509 certificate, swallowing all errors.
+   * Convert the passed PEM encoded String to an X.509 certificate, swallowing all errors.
    *
    * @param sCertString
    *        The certificate string to be parsed.
    * @return <code>null</code> in case the certificate cannot be converted.
    * @see #convertStringToCertficate(String)
    * @since 9.3.4
+   * @deprecated Use {@link CertificateDecodeHelper} instead
    */
+  @Deprecated (forRemoval = true, since = "12.1.1")
   @Nullable
   public static X509Certificate convertStringToCertficateOrNull (@Nullable final String sCertString)
   {
-    try
-    {
-      return convertStringToCertficate (sCertString, false);
-    }
-    catch (final CertificateException | IllegalArgumentException ex)
-    {
-      return null;
-    }
+    return new CertificateDecodeHelper ().source (sCertString).pemEncoded (true).getDecodedOrNull ();
   }
 
   /**
@@ -437,8 +339,7 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed string is <code>null</code> or empty or an invalid
    *         Base64 string
    */
-  @Nullable
-  public static byte [] convertCertificateStringToByteArray (@Nullable final String sCertificate)
+  public static byte @Nullable [] convertCertificateStringToByteArray (@Nullable final String sCertificate)
   {
     // Remove prefix/suffix
     final String sPlainCert = getWithoutPEMHeader (sCertificate);
@@ -450,7 +351,7 @@ public final class CertificateHelper
   }
 
   /**
-   * Get the provided certificate as a byte array.
+   * Get the provided certificate as a binary encoded byte array.
    *
    * @param aCert
    *        The certificate to encode. May not be <code>null</code>.
@@ -460,9 +361,7 @@ public final class CertificateHelper
    *         {@link CertificateEncodingException}.
    * @since 10.0.0
    */
-  @NonNull
-  @Nonempty
-  public static byte [] getEncodedCertificate (@NonNull final Certificate aCert)
+  public static byte @Nonempty @NonNull [] getEncodedCertificate (@NonNull final Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
     try
@@ -484,6 +383,7 @@ public final class CertificateHelper
    * @throws IllegalArgumentException
    *         If the certificate could not be encoded. Cause is a
    *         {@link CertificateEncodingException}.
+   * @see #getRFC1421CompliantString(String, boolean)
    * @since 8.5.5
    */
   @NonNull
