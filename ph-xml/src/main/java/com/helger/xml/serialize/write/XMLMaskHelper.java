@@ -450,9 +450,10 @@ public final class XMLMaskHelper
   private XMLMaskHelper ()
   {}
 
+  @SuppressWarnings ("removal")
   @ReturnsMutableObject ("internal use only")
   private static char @Nullable [] _findSourceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                         @NonNull final EXMLCharMode eXMLCharMode)
+                                                   @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -500,9 +501,10 @@ public final class XMLMaskHelper
     return null;
   }
 
+  @SuppressWarnings ("removal")
   @ReturnsMutableObject ("internal use only")
   private static char @Nullable [] [] _findReplaceMap (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                             @NonNull final EXMLCharMode eXMLCharMode)
+                                                       @NonNull final EXMLCharMode eXMLCharMode)
   {
     switch (eXMLVersion)
     {
@@ -579,9 +581,9 @@ public final class XMLMaskHelper
   }
 
   public static char @NonNull [] getMaskedXMLText (@NonNull final EXMLSerializeVersion eXMLVersion,
-                                          @NonNull final EXMLCharMode eXMLCharMode,
-                                          @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
-                                          @Nullable final String s)
+                                                   @NonNull final EXMLCharMode eXMLCharMode,
+                                                   @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
+                                                   @Nullable final String s)
   {
     if (StringHelper.isEmpty (s))
       return CGlobal.EMPTY_CHAR_ARRAY;

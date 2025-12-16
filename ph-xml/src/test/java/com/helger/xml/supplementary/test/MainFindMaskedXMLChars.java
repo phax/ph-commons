@@ -72,7 +72,11 @@ public final class MainFindMaskedXMLChars
           if (nFirst == nLast)
             ret.append ("(c == 0x" + Integer.toString (nFirst, nRadix) + ")");
           else
-            ret.append ("(c >= 0x" + Integer.toString (nFirst, nRadix) + " && c <= 0x" + Integer.toString (nLast, nRadix) + ")");
+            ret.append ("(c >= 0x" +
+                        Integer.toString (nFirst, nRadix) +
+                        " && c <= 0x" +
+                        Integer.toString (nLast, nRadix) +
+                        ")");
           nFirst = nLast = nValue;
         }
       ++nIndex;
@@ -81,7 +85,11 @@ public final class MainFindMaskedXMLChars
     {
       if (ret.length () > 0)
         ret.append (" || ");
-      ret.append ("(c >= 0x" + Integer.toString (nFirst, nRadix) + " && c <= 0x" + Integer.toString (nLast, nRadix) + ")");
+      ret.append ("(c >= 0x" +
+                  Integer.toString (nFirst, nRadix) +
+                  " && c <= 0x" +
+                  Integer.toString (nLast, nRadix) +
+                  ")");
     }
     return ret.toString ();
   }
@@ -127,7 +135,7 @@ public final class MainFindMaskedXMLChars
    */
   public static void main (final String [] args) throws Exception
   {
-    final EXMLVersion eXMLVersion = EXMLVersion.XML_11;
+    final EXMLVersion eXMLVersion = EXMLVersion.XML_10;
     final EXMLSerializeVersion eXMLSerializeVersion = EXMLSerializeVersion.getFromXMLVersionOrThrow (eXMLVersion);
     final int nMax = Character.MAX_VALUE + 1;
 

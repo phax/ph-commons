@@ -26,6 +26,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class XMLCharHelperTest
 {
   @Test

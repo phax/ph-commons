@@ -32,6 +32,7 @@ import com.helger.base.string.StringHelper;
  * @author Philip Helger
  */
 @Deprecated (forRemoval = true, since = "10.5.0")
+@SuppressWarnings ("removal")
 public final class ETLSConfigurationMode_2018_10Test
 {
   @Deprecated

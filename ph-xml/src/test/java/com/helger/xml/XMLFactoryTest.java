@@ -86,6 +86,7 @@ public final class XMLFactoryTest
   }
 
   @Test
+  @SuppressWarnings ("removal")
   public void testNewDocument ()
   {
     Document doc = XMLFactory.newDocument ();

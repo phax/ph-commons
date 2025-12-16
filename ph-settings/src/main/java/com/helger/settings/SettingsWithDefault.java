@@ -28,8 +28,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Default implementation of {@link ISettingsWithDefault} based on
- * {@link Settings}.
+ * Default implementation of {@link ISettingsWithDefault} based on {@link Settings}.
  *
  * @author Philip Helger
  */
@@ -90,6 +89,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
   @NonNull
   public EChange setToDefault (@Nullable final String sFieldName)
   {
+    // This also filters out null field names
     final Object aDefaultValue = m_aDefaultSettings.getValue (sFieldName);
     if (aDefaultValue == null)
       return EChange.UNCHANGED;
@@ -109,7 +109,8 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
 
   public final boolean isSetToDefault (@Nullable final String sFieldName)
   {
-    return containsKeyDirect (sFieldName) && EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
+    return containsKeyDirect (sFieldName) &&
+           EqualsHelper.equals (getValueDirect (sFieldName), m_aDefaultSettings.getValue (sFieldName));
   }
 
   @Override
@@ -132,6 +133,8 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("DefaultSettings", m_aDefaultSettings).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("DefaultSettings", m_aDefaultSettings)
+                            .getToString ();
   }
 }

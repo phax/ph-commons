@@ -32,6 +32,7 @@ import com.helger.xml.microdom.MicroDocumentType;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class XMLEmitterTest
 {
   @Test
@@ -46,7 +47,7 @@ public final class XMLEmitterTest
                                                            EXMLIncorrectCharacterHandling.DEFAULT,
                                                            new MicroDocumentType ("qname", "pubid", "sysid")));
     TestHelper.testToStringImplementation (new XMLEmitter (new ByteArrayOutputStreamProvider ().getWriter (StandardCharsets.ISO_8859_1,
-                                                                                                                  EAppend.DEFAULT),
-                                                                  XMLWriterSettings.DEFAULT_XML_SETTINGS));
+                                                                                                           EAppend.DEFAULT),
+                                                           XMLWriterSettings.DEFAULT_XML_SETTINGS));
   }
 }

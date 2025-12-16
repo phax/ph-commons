@@ -36,6 +36,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   XML_10 ("xml10", EXMLVersion.XML_10),
 
   /** XML 1.1 */
+  @SuppressWarnings ("removal")
   @Deprecated (forRemoval = true, since = "12.1.1")
   @DevelopersNote ("See https://github.com/w3ctag/obsoletion/issues/6 for details")
   XML_11("xml11", EXMLVersion.XML_11),
@@ -99,6 +100,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
    *        XML version to query. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
+  @SuppressWarnings ("removal")
   @NonNull
   public static EXMLSerializeVersion getFromXMLVersionOrThrow (@NonNull final EXMLVersion eXMLVersion)
   {

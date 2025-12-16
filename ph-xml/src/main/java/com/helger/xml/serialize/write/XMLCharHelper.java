@@ -733,6 +733,7 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
+  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLNameStartChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
     return switch (eXMLVersion)
@@ -754,6 +755,7 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
+  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
     return switch (eXMLVersion)
@@ -852,6 +854,7 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
+  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
     return switch (eXMLVersion)
@@ -941,6 +944,7 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
+  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
     return switch (eXMLVersion)
@@ -1030,6 +1034,7 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
+  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
     return switch (eXMLVersion)

@@ -43,6 +43,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
    * level of security. This configuration is compatible with Firefox 27, Chrome 30, IE 11 on
    * Windows 7, Edge, Opera 17, Safari 9, Android 5.0, and Java 8.
    */
+  @Deprecated
   MODERN ("modern",
           new ETLSVersion [] { ETLSVersion.TLS_12 },
           new String [] { "TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384",
@@ -60,6 +61,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
    * to support a wide range of clients, this configuration is recommended. It is is compatible with
    * Firefox 1, Chrome 1, IE 7, Opera 5 and Safari 1.
    */
+  @Deprecated
   INTERMEDIATE ("intermediate",
                 new ETLSVersion [] { ETLSVersion.TLS_12, ETLSVersion.TLS_11, ETLSVersion.TLS_10 },
                 new String [] { "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
@@ -95,6 +97,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
    * This is the old ciphersuite that works with all clients back to Windows XP/IE6. It should be
    * used as a last resort only.
    */
+  @Deprecated
   OLD ("old",
        new ETLSVersion [] { ETLSVersion.TLS_12, ETLSVersion.TLS_11, ETLSVersion.TLS_10, ETLSVersion.SSL_V3 },
        new String [] { "TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305",
@@ -134,6 +137,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);
   }
 
+  @Deprecated
   @NonNull
   @Nonempty
   public String getID ()
@@ -141,6 +145,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_sID;
   }
 
+  @Deprecated
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
@@ -148,6 +153,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuites ();
   }
 
+  @Deprecated
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -156,6 +162,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuitesAsArray ();
   }
 
+  @Deprecated
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
@@ -163,6 +170,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersions ();
   }
 
+  @Deprecated
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -171,6 +179,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDs ();
   }
 
+  @Deprecated
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -179,6 +188,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDsAsArray ();
   }
 
+  @Deprecated
   @Nullable
   public static ETLSConfigurationMode_2018_10 getFromIDOrNull (@Nullable final String sID)
   {

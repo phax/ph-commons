@@ -45,6 +45,7 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class ReadWriteXML11FuncTest
 {
   private static final XMLWriterSettings XWS_11 = new XMLWriterSettings ().setSerializeVersion (EXMLSerializeVersion.XML_11);
