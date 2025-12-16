@@ -265,7 +265,6 @@ public final class CertificateHelper
    * @return <code>null</code> if the passed array is <code>null</code> or empty
    * @throws CertificateException
    *         In case the passed bytes[] cannot be converted to an X.509 certificate.
-   * @see #convertByteArrayToCertficateDirectOrNull(byte[])
    * @since 9.3.4
    * @deprecated Use {@link CertificateDecodeHelper} instead
    */
@@ -274,23 +273,6 @@ public final class CertificateHelper
   public static X509Certificate convertByteArrayToCertficateDirect (final byte @Nullable [] aCertBytes) throws CertificateException
   {
     return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrThrow ();
-  }
-
-  /**
-   * Convert the passed String to an X.509 certificate without converting it to a String first.
-   *
-   * @param aCertBytes
-   *        The certificate bytes. May be <code>null</code>.
-   * @return <code>null</code> if the passed array is <code>null</code> or empty
-   * @see #convertByteArrayToCertficateDirect(byte[])
-   * @since 12.1.1
-   * @deprecated Use {@link CertificateDecodeHelper} instead
-   */
-  @Deprecated (forRemoval = true, since = "12.1.1")
-  @Nullable
-  public static X509Certificate convertByteArrayToCertficateDirectOrNull (final byte @Nullable [] aCertBytes)
-  {
-    return new CertificateDecodeHelper ().source (aCertBytes).pemEncoded (false).getDecodedOrNull ();
   }
 
   /**
