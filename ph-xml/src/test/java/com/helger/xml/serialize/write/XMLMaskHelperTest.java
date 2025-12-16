@@ -31,6 +31,7 @@ import com.helger.base.CGlobal;
  */
 public final class XMLMaskHelperTest
 {
+  @SuppressWarnings ("removal")
   @Test
   public void testGetMaskedXMLText ()
   {
@@ -252,6 +253,7 @@ public final class XMLMaskHelperTest
                                                        "ab\u0000cd\u0000ef"));
   }
 
+  @SuppressWarnings ("removal")
   @Test
   public void testGetMaskedXMLTextLength ()
   {

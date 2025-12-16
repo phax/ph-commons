@@ -34,6 +34,7 @@ import com.helger.base.string.StringHelper;
 @Deprecated (forRemoval = true, since = "10.5.0")
 public final class ETLSConfigurationMode_2018_10Test
 {
+  @Deprecated
   @Test
   public void testBasic ()
   {
