@@ -159,14 +159,14 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     // Change data type
     final ICommonsList <DATATYPE> ret = new CommonsArrayList <> ();
     for (final Object aObj : aDrainedToList)
-      if (EqualsHelper.identityDifferent (aObj, STOP_QUEUE_OBJECT))
-        ret.add (GenericReflection.uncheckedCast (aObj));
-      else
+      if (EqualsHelper.identityEqual (aObj, STOP_QUEUE_OBJECT))
       {
         // Re-add the stop object, because loops in derived classes rely on this
         // object
         m_aQueue.add (aObj);
       }
+      else
+        ret.add (GenericReflection.uncheckedCast (aObj));
     return ret;
   }
 }

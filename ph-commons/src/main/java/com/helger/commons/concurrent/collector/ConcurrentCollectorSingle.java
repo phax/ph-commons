@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
 
 /**
@@ -41,8 +42,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   private IConcurrentPerformer <DATATYPE> m_aPerformer;
 
   /**
-   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the
-   * maximum queue length.
+   * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the maximum queue length.
    */
   public ConcurrentCollectorSingle ()
   {
@@ -53,8 +53,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    * Constructor.
    *
    * @param nMaxQueueSize
-   *        The maximum number of items that can be in the queue. Must be &gt;
-   *        0.
+   *        The maximum number of items that can be in the queue. Must be &gt; 0.
    */
   public ConcurrentCollectorSingle (@Nonnegative final int nMaxQueueSize)
   {
@@ -73,8 +72,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   }
 
   /**
-   * @return The current performer set. <code>null</code> if none was explicitly
-   *         set.
+   * @return The current performer set. <code>null</code> if none was explicitly set.
    */
   @Nullable
   public final IConcurrentPerformer <DATATYPE> getPerformer ()
@@ -83,10 +81,9 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   }
 
   /**
-   * Set the performer to be used. This method must be invoked before the
-   * collector can be run. The passed implementation must be rock-solid as this
-   * class will not make any retries. If the passed performer throws and
-   * exception without handling the objects correct the objects will be lost!
+   * Set the performer to be used. This method must be invoked before the collector can be run. The
+   * passed implementation must be rock-solid as this class will not make any retries. If the passed
+   * performer throws and exception without handling the objects correct the objects will be lost!
    *
    * @param aPerformer
    *        The performer to be used. May not be <code>null</code>.
@@ -119,14 +116,12 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   }
 
   /**
-   * This method starts the collector by taking objects from the internal
-   * {@link BlockingQueue}. So this method blocks and must be invoked from a
-   * separate thread. This method runs until {@link #stopQueuingNewObjects()} is
-   * new called and the queue is empty.
+   * This method starts the collector by taking objects from the internal {@link BlockingQueue}. So
+   * this method blocks and must be invoked from a separate thread. This method runs until
+   * {@link #stopQueuingNewObjects()} is new called and the queue is empty.
    *
    * @throws IllegalStateException
-   *         if no performer is set - see
-   *         {@link #setPerformer(IConcurrentPerformer)}
+   *         if no performer is set - see {@link #setPerformer(IConcurrentPerformer)}
    */
   public final void collect ()
   {
@@ -140,7 +135,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
       {
         // Block until the first object is in the queue
         final Object aCurrentObject = m_aQueue.take ();
-        if (aCurrentObject == STOP_QUEUE_OBJECT)
+        if (EqualsHelper.identityEqual (aCurrentObject, STOP_QUEUE_OBJECT))
           break;
 
         _perform (GenericReflection.uncheckedCast (aCurrentObject));
