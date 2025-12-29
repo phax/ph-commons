@@ -75,7 +75,7 @@ public final class Issue35FuncTest
     for (int nNesting = 1; nNesting < nMax; ++nNesting)
     {
       final String sNestedDoc = _createNestedDoc (nNesting, "", "[", "0", "]", "");
-      final Wrapper <JsonParseException> aWrapper = new Wrapper <> ();
+      final Wrapper <JsonParseException> aWrapper = Wrapper.empty ();
       final IJson aJson = JsonReader.builder ().source (sNestedDoc).customExceptionCallback (aWrapper::set).read ();
       if (aWrapper.isSet ())
       {
@@ -113,7 +113,7 @@ public final class Issue35FuncTest
     for (int nNesting = 2; nNesting < nMax; ++nNesting)
     {
       final String sNestedDoc = _createNestedDoc (nNesting - 1, "{", "'a':{ ", "'b':0", "} ", "}");
-      final Wrapper <JsonParseException> aWrapper = new Wrapper <> ();
+      final Wrapper <JsonParseException> aWrapper = Wrapper.empty ();
       final IJson aJson = JsonReader.builder ().source (sNestedDoc).customExceptionCallback (aWrapper::set).read ();
       if (aWrapper.isSet ())
       {

@@ -331,7 +331,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   private static IMicroElement _findFirstChildElement (@NonNull final IMicroNode aStartNode,
                                                        @Nullable final Predicate <? super IMicroElement> aFilter)
   {
-    final Wrapper <IMicroElement> ret = new Wrapper <> ();
+    final Wrapper <IMicroElement> ret = Wrapper.empty ();
     _forAllChildElementsBreakable (aStartNode, aFilter, x -> {
       assert ret.isNotSet ();
       ret.set (x);

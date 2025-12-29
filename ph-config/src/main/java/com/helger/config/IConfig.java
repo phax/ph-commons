@@ -83,7 +83,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
   @NonNull
   default ESuccess reloadAllResourceBasedConfigurationValues ()
   {
-    final Wrapper <ESuccess> ret = new Wrapper <> (ESuccess.SUCCESS);
+    final Wrapper <ESuccess> ret = Wrapper.of (ESuccess.SUCCESS);
     forEachConfigurationValueProvider ( (cvp, prio) -> {
       if (cvp instanceof final IConfigurationSourceResource aSrcRes)
         ret.set (ret.get ().or (aSrcRes.reload ()));

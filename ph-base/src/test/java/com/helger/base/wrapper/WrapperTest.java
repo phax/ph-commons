@@ -36,7 +36,7 @@ public final class WrapperTest
   public void testWrapper ()
   {
     // Default ctor
-    final Wrapper <String> w = new Wrapper <> ();
+    final Wrapper <String> w = Wrapper.empty ();
     assertNull (w.get ());
     w.set ("Hi");
     assertNotNull (w.get ());
@@ -44,12 +44,12 @@ public final class WrapperTest
     assertNotNull (w.toString ());
 
     // ctor with value
-    final Wrapper <String> w2 = new Wrapper <> ("Ha");
+    final Wrapper <String> w2 = Wrapper.of ("Ha");
     assertEquals ("Ha", w2.get ());
     assertNotNull (w2.toString ());
 
     // copy ctor
-    final Wrapper <String> w3 = new Wrapper <> (w);
+    final Wrapper <String> w3 = Wrapper.of (w);
     assertEquals (w.get (), w3.get ());
     assertEquals ("Hi", w3.get ());
     assertTrue (w.set ("Ho").isChanged ());
@@ -62,13 +62,15 @@ public final class WrapperTest
     // illegal ctor
     try
     {
-      new Wrapper <> ((IWrapper <String>) null);
+      Wrapper.of ((IWrapper <String>) null);
       fail ();
     }
     catch (final NullPointerException ex)
-    {}
+    {
+      // expected
+    }
 
-    assertEquals (new Wrapper <> ("any"), new Wrapper <> ("any"));
-    assertNotEquals (new Wrapper <> ("any"), new Wrapper <> ("other"));
+    assertEquals (Wrapper.of ("any"), Wrapper.of ("any"));
+    assertNotEquals (Wrapper.of ("any"), Wrapper.of ("other"));
   }
 }

@@ -128,7 +128,7 @@ public final class StringParserTest
     assertEquals (0, StringParser.parseByte ((Object) "", (byte) 0));
     assertEquals (0, StringParser.parseByte ((Object) null, (byte) 0));
 
-    assertEquals (0, StringParser.parseByte (new Wrapper <> ("any"), (byte) 0));
+    assertEquals (0, StringParser.parseByte (Wrapper.of ("any"), (byte) 0));
 
     assertEquals (1, StringParser.parseByte (Byte.valueOf ((byte) 1), (byte) 0));
     assertEquals (1, StringParser.parseByte (Double.valueOf (1), (byte) 0));
@@ -186,7 +186,7 @@ public final class StringParserTest
     assertEquals (b0, StringParser.parseByteObj ((Object) "", b0));
     assertEquals (b0, StringParser.parseByteObj ((Object) null, b0));
 
-    assertEquals (b0, StringParser.parseByteObj (new Wrapper <> ("any"), b0));
+    assertEquals (b0, StringParser.parseByteObj (Wrapper.of ("any"), b0));
 
     assertEquals (b1, StringParser.parseByteObj (Byte.valueOf ((byte) 1), b0));
     assertEquals (b1, StringParser.parseByteObj (Double.valueOf (1), b0));
@@ -234,7 +234,7 @@ public final class StringParserTest
     assertEquals (0, StringParser.parseInt ((Object) "", 0));
     assertEquals (0, StringParser.parseInt ((Object) null, 0));
 
-    assertEquals (0, StringParser.parseInt (new Wrapper <> ("any"), 0));
+    assertEquals (0, StringParser.parseInt (Wrapper.of ("any"), 0));
 
     assertEquals (1, StringParser.parseInt (Integer.valueOf (1), 0));
     assertEquals (1, StringParser.parseInt (Double.valueOf (1), 0));
@@ -282,7 +282,7 @@ public final class StringParserTest
     assertEquals (I0, StringParser.parseIntObj ((Object) "", I0));
     assertEquals (I0, StringParser.parseIntObj ((Object) null, I0));
 
-    assertEquals (I0, StringParser.parseIntObj (new Wrapper <> ("any"), I0));
+    assertEquals (I0, StringParser.parseIntObj (Wrapper.of ("any"), I0));
 
     assertEquals (I1, StringParser.parseIntObj (Integer.valueOf (1), I0));
     assertEquals (I1, StringParser.parseIntObj (Double.valueOf (1), I0));
@@ -330,7 +330,7 @@ public final class StringParserTest
     assertEquals (0L, StringParser.parseLong ((Object) "", 0));
     assertEquals (0L, StringParser.parseLong ((Object) null, 0));
 
-    assertEquals (0L, StringParser.parseLong (new Wrapper <> ("any"), 0));
+    assertEquals (0L, StringParser.parseLong (Wrapper.of ("any"), 0));
 
     assertEquals (1L, StringParser.parseLong (Integer.valueOf (1), 0));
     assertEquals (1L, StringParser.parseLong (Double.valueOf (1), 0));
@@ -382,7 +382,7 @@ public final class StringParserTest
     assertEquals (L0, StringParser.parseLongObj ((Object) "", L0));
     assertEquals (L0, StringParser.parseLongObj ((Object) null, L0));
 
-    assertEquals (L0, StringParser.parseLongObj (new Wrapper <> ("any"), L0));
+    assertEquals (L0, StringParser.parseLongObj (Wrapper.of ("any"), L0));
 
     assertEquals (L1, StringParser.parseLongObj (Integer.valueOf (1), L0));
     assertEquals (L1, StringParser.parseLongObj (Double.valueOf (1), L0));
@@ -423,7 +423,7 @@ public final class StringParserTest
     // Object
     CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ((Object) null, dDefault));
     CommonsAssert.assertEquals (1, StringParser.parseDouble (BigDecimal.ONE, dDefault));
-    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble (new Wrapper <> ("any"), dDefault));
+    CommonsAssert.assertEquals (dDefault, StringParser.parseDouble (Wrapper.of ("any"), dDefault));
 
     // String
     CommonsAssert.assertEquals (dDefault, StringParser.parseDouble ((String) null, dDefault));
@@ -442,7 +442,7 @@ public final class StringParserTest
     assertNull (StringParser.parseDoubleObj ((Object) null));
     assertEquals (aDefault, StringParser.parseDoubleObj ((Object) null, aDefault));
     CommonsAssert.assertEquals (1, StringParser.parseDoubleObj (BigDecimal.ONE, aDefault));
-    assertEquals (aDefault, StringParser.parseDoubleObj (new Wrapper <> ("any"), aDefault));
+    assertEquals (aDefault, StringParser.parseDoubleObj (Wrapper.of ("any"), aDefault));
 
     // String
     assertNull (StringParser.parseDoubleObj ("foo"));
@@ -461,7 +461,7 @@ public final class StringParserTest
     // Object
     CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ((Object) null, fDefault));
     CommonsAssert.assertEquals (1, StringParser.parseFloat (BigDecimal.ONE, fDefault));
-    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat (new Wrapper <> ("any"), fDefault));
+    CommonsAssert.assertEquals (fDefault, StringParser.parseFloat (Wrapper.of ("any"), fDefault));
 
     // String
     CommonsAssert.assertEquals (fDefault, StringParser.parseFloat ((String) null, fDefault));
@@ -480,7 +480,7 @@ public final class StringParserTest
     assertNull (StringParser.parseFloatObj ((Object) null));
     assertEquals (aDefault, StringParser.parseFloatObj ((Object) null, aDefault));
     CommonsAssert.assertEquals (1, StringParser.parseFloatObj (BigDecimal.ONE, aDefault));
-    assertEquals (aDefault, StringParser.parseFloatObj (new Wrapper <> ("any"), aDefault));
+    assertEquals (aDefault, StringParser.parseFloatObj (Wrapper.of ("any"), aDefault));
 
     // String
     assertNull (StringParser.parseFloatObj ("foo"));

@@ -201,7 +201,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   @Nonempty
   private String _getCacheLogText ()
   {
-    StringBuilder ret = new StringBuilder ("Cache '").append (m_sName).append ("'");
+    final StringBuilder ret = new StringBuilder ("Cache '").append (m_sName).append ("'");
     if (hasMaxSize ())
       ret.append (" with max size of ").append (m_nMaxSize);
     return ret.append (": ").toString ();
@@ -252,9 +252,9 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
                                          "The created cache value of key '" +
                                          aKey +
                                          "' is null. null values are not allowed in this cache.");
-      return new Wrapper <> ();
+      return Wrapper.empty ();
     }
-    return new Wrapper <> (aValue);
+    return Wrapper.of (aValue);
   }
 
   /**

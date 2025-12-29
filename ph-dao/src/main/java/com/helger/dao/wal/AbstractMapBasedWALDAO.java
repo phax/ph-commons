@@ -182,7 +182,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   {
     // Read all child elements independent of the name - soft migration
     final Class <IMPLTYPE> aDataTypeClass = getDataTypeClass ();
-    final Wrapper <EChange> aChange = new Wrapper <> (EChange.UNCHANGED);
+    final Wrapper <EChange> aChange = Wrapper.of (EChange.UNCHANGED);
 
     aDoc.getDocumentElement ().forAllChildElements (m_aReadElementFilter, eItem -> {
       final IMPLTYPE aItem = MicroTypeConverter.convertToNative (eItem, aDataTypeClass);

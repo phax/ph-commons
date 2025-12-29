@@ -66,7 +66,8 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
    */
   public Wrapper (@NonNull final IWrapper <DATATYPE> aRhs)
   {
-    m_aObj = ValueEnforcer.notNull (aRhs, "Wrapper").get ();
+    ValueEnforcer.notNull (aRhs, "Wrapper");
+    m_aObj = aRhs.get ();
   }
 
   @Nullable
@@ -112,5 +113,51 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   public String toString ()
   {
     return new ToStringGenerator (this).append ("Obj", m_aObj).getToString ();
+  }
+
+  /**
+   * Create a new Wrapper object that contains a <code>null</code> value.
+   *
+   * @param <T>
+   *        The type to be wrapped.
+   * @return A non-<code>null</code> {@link Wrapper} instance.
+   * @since 12.1.2
+   */
+  @NonNull
+  public static <T> Wrapper <T> empty ()
+  {
+    return new Wrapper <> ();
+  }
+
+  /**
+   * Create a new Wrapper object that contains the provided value.
+   *
+   * @param aValue
+   *        The value to be wrapped. May be <code>null</code>.
+   * @param <T>
+   *        The type to be wrapped.
+   * @return A non-<code>null</code> {@link Wrapper} instance.
+   * @since 12.1.2
+   */
+  @NonNull
+  public static <T> Wrapper <T> of (@Nullable final T aValue)
+  {
+    return new Wrapper <> (aValue);
+  }
+
+  /**
+   * Create a new Wrapper object that contains the value of the provided {@link Wrapper}.
+   *
+   * @param aValue
+   *        The wrapped value to be wrapped again. May not be <code>null</code>.
+   * @param <T>
+   *        The type to be wrapped.
+   * @return A non-<code>null</code> {@link Wrapper} instance.
+   * @since 12.1.2
+   */
+  @NonNull
+  public static <T> Wrapper <T> of (@NonNull final IWrapper <T> aValue)
+  {
+    return new Wrapper <> (aValue);
   }
 }

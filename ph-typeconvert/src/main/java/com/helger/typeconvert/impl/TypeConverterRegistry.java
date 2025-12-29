@@ -310,7 +310,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                        aAllConverters);
       }
       // Iterate and find the first matching type converter
-      final Wrapper <ITypeConverter <?, ?>> ret = new Wrapper <> ();
+      final Wrapper <ITypeConverter <?, ?>> ret = Wrapper.empty ();
       _iterateFuzzyConverters (aSrcClass, aDstClass, (aCurSrcClass, aCurDstClass, aConverter) -> {
         ret.set (aConverter);
         return EContinue.BREAK;
