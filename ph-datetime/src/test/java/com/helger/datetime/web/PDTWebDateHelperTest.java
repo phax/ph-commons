@@ -73,6 +73,11 @@ public final class PDTWebDateHelperTest
     assertNotNull (PDTWebDateHelper.getDateTimeFromRFC822 ("Sun, 03 Jan 2016 23:15:42 +0000"));
     assertNotNull (PDTWebDateHelper.getDateTimeFromRFC822 ("Sun, 03 Jan 2016 23:15:42 -0100"));
 
+    // No fraction digits supported
+    assertNull (PDTWebDateHelper.getDateTimeFromRFC822 ("Sun, 03 Jan 2016 23:15:42.1"));
+    assertNull (PDTWebDateHelper.getDateTimeFromRFC822 ("Sun, 03 Jan 2016 23:15:42.12"));
+    assertNull (PDTWebDateHelper.getDateTimeFromRFC822 ("Sun, 03 Jan 2016 23:15:42.123"));
+
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((ZonedDateTime) null));
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((OffsetDateTime) null));
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((LocalDateTime) null));
@@ -147,6 +152,15 @@ public final class PDTWebDateHelperTest
     assertEquals (aDT, PDTWebDateHelper.getLocalTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((LocalTime) null));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("11:30:00.0Z"));
+    // 10 fraction digits are too much
+    assertNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.1234567891-05:00"));
+    // 9 fraction digits are okay
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.123456789-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.12345678-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.1234567-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.123456-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.12345-05:00"));
+    assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.1234-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.123-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.12-05:00"));
     assertNotNull (PDTWebDateHelper.getLocalTimeFromXSD ("09:15:23.1-05:00"));
@@ -166,6 +180,7 @@ public final class PDTWebDateHelperTest
     assertEquals (aDT, PDTWebDateHelper.getOffsetTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((OffsetTime) null));
     assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.123456789-05:00"));
     assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.123-05:00"));
     assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.12-05:00"));
     assertNotNull (PDTWebDateHelper.getOffsetTimeFromXSD ("09:15:23.1-05:00"));
@@ -185,6 +200,7 @@ public final class PDTWebDateHelperTest
     assertEquals (aDT, PDTWebDateHelper.getXMLOffsetTimeFromXSD (s));
     assertNull (PDTWebDateHelper.getAsStringXSD ((XMLOffsetTime) null));
     assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("11:30:00.0Z"));
+    assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.123456789-05:00"));
     assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.123-05:00"));
     assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.12-05:00"));
     assertNotNull (PDTWebDateHelper.getXMLOffsetTimeFromXSD ("09:15:23.1-05:00"));
@@ -210,13 +226,20 @@ public final class PDTWebDateHelperTest
     assertEquals (z, z2);
 
     // Current time last
-    // Millis only for Java 11+
+    d = PDTFactory.getCurrentLocalDateTime ();
+    s = PDTWebDateHelper.getAsStringXSD (d);
+    assertNotNull (s);
+    d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
+    assertEquals (d, d2);
+
+    // Check with a maximum of 3 decimals as well
     d = PDTFactory.getCurrentLocalDateTimeMillisOnly ();
     s = PDTWebDateHelper.getAsStringXSD (d);
     assertNotNull (s);
     d2 = PDTWebDateHelper.getLocalDateTimeFromXSD (s);
     assertEquals (d, d2);
 
+    assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.123456789"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.078"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.07"));
     assertNotNull (PDTWebDateHelper.getLocalDateTimeFromXSD ("2020-09-18T16:40:34.0"));

@@ -18,9 +18,9 @@ package com.helger.datetime.web;
 
 import static java.time.temporal.ChronoField.DAY_OF_MONTH;
 import static java.time.temporal.ChronoField.HOUR_OF_DAY;
-import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
 import static java.time.temporal.ChronoField.MINUTE_OF_HOUR;
 import static java.time.temporal.ChronoField.MONTH_OF_YEAR;
+import static java.time.temporal.ChronoField.NANO_OF_SECOND;
 import static java.time.temporal.ChronoField.SECOND_OF_MINUTE;
 import static java.time.temporal.ChronoField.YEAR;
 
@@ -490,9 +490,11 @@ public final class PDTWebDateHelper
                                               .optionalStart ()
                                               /*
                                                * This is different compared to ISO_LOCAL_TIME. The
-                                               * maximum is unbounded, but we are limited to 9 here
+                                               * maximum is unbounded, but we are limited to 9 here.
+                                               * Also we take nanoseconds, so that up to 9 fraction
+                                               * digits can be rendered.
                                                */
-                                              .appendFraction (MILLI_OF_SECOND, 0, 9, true)
+                                              .appendFraction (NANO_OF_SECOND, 0, 9, true)
                                               .optionalEnd ()
                                               // Timezone can occur without
                                               // milliseconds
