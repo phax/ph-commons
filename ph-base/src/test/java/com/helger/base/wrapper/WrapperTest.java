@@ -38,15 +38,22 @@ public final class WrapperTest
     // Default ctor
     final Wrapper <String> w = Wrapper.empty ();
     assertNull (w.get ());
+    assertNull (w.get (x -> x.concat ("Hi")));
+    assertEquals (-1, w.get (String::length, -1));
+
     w.set ("Hi");
     assertNotNull (w.get ());
     assertEquals ("Hi", w.get ());
     assertNotNull (w.toString ());
+    assertEquals (2, w.get (String::length, -1));
+    assertEquals ("HiHi", w.get (x -> x.concat ("Hi")));
 
     // ctor with value
     final Wrapper <String> w2 = Wrapper.of ("Ha");
     assertEquals ("Ha", w2.get ());
     assertNotNull (w2.toString ());
+    assertEquals (2, w2.get (String::length, -1));
+    assertEquals ("HaHi", w2.get (x -> x.concat ("Hi")));
 
     // copy ctor
     final Wrapper <String> w3 = Wrapper.of (w);

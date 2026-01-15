@@ -16,6 +16,11 @@
  */
 package com.helger.base.wrapper;
 
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
+import java.util.function.ToIntFunction;
+import java.util.function.ToLongFunction;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -24,6 +29,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
+import com.helger.base.functional.IToBooleanFunction;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
@@ -74,6 +80,88 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
   public DATATYPE get ()
   {
     return m_aObj;
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param <T>
+   *        The data type to be returned.
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @return <code>null</code> if the wrapped value is <code>null</code> or if the function returned
+   *         <code>null</code>.
+   * @since 12.1.2
+   */
+  @Nullable
+  public <T> T get (@NonNull final Function <DATATYPE, T> aProvider)
+  {
+    return m_aObj == null ? null : aProvider.apply (m_aObj);
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @param nDefault
+   *        the value to be returned if the wrapped value is <code>null</code>.
+   * @return The extracted value.
+   * @since 12.1.2
+   */
+  public int get (@NonNull final ToIntFunction <DATATYPE> aProvider, final int nDefault)
+  {
+    return m_aObj == null ? nDefault : aProvider.applyAsInt (m_aObj);
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @param nDefault
+   *        the value to be returned if the wrapped value is <code>null</code>.
+   * @return The extracted value.
+   * @since 12.1.2
+   */
+  public long get (@NonNull final ToLongFunction <DATATYPE> aProvider, final long nDefault)
+  {
+    return m_aObj == null ? nDefault : aProvider.applyAsLong (m_aObj);
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @param dDefault
+   *        the value to be returned if the wrapped value is <code>null</code>.
+   * @return The extracted value.
+   * @since 12.1.2
+   */
+  public double get (@NonNull final ToDoubleFunction <DATATYPE> aProvider, final double dDefault)
+  {
+    return m_aObj == null ? dDefault : aProvider.applyAsDouble (m_aObj);
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @param bDefault
+   *        the value to be returned if the wrapped value is <code>null</code>.
+   * @return The extracted value.
+   * @since 12.1.2
+   */
+  public boolean get (@NonNull final IToBooleanFunction <DATATYPE> aProvider, final boolean bDefault)
+  {
+    return m_aObj == null ? bDefault : aProvider.applyAsBoolean (m_aObj);
   }
 
   @NonNull
