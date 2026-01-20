@@ -37,7 +37,7 @@ import com.helger.url.param.URLParameter;
  * Read-only implementation of {@link ISimpleURL} which is immutable
  *
  * @author Philip Helger
- * @since 12.0.0 RC2
+ * @since 12.0.0
  */
 @Immutable
 public class ReadOnlyURL implements ISimpleURL

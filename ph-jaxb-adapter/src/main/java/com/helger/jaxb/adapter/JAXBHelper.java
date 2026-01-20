@@ -58,11 +58,11 @@ public final class JAXBHelper
     if (!aObj1.getClass ().equals (aObj2.getClass ()))
       return false;
 
-    if (aObj1 instanceof byte [] aBytes1)
+    if (aObj1 instanceof final byte [] aBytes1)
       return Arrays.equals (aBytes1, (byte []) aObj2);
-    if (aObj1 instanceof Node aNode1)
+    if (aObj1 instanceof final Node aNode1)
       return equalDOMNodes (aNode1, (Node) aObj2);
-    if (aObj1 instanceof JAXBElement <?> aJaxb1)
+    if (aObj1 instanceof final JAXBElement <?> aJaxb1)
       return equalJAXBElements (aJaxb1, (JAXBElement <?>) aObj2);
     if (aObj1 instanceof List <?>)
       return equalListAnys (GenericReflection.uncheckedCast (aObj1), GenericReflection.uncheckedCast (aObj2));
@@ -147,7 +147,7 @@ public final class JAXBHelper
 
   private static <T> boolean _listEquals (@Nullable final List <T> aObj1,
                                           @Nullable final List <T> aObj2,
-                                          @NonNull BiPredicate <T, T> aEquals)
+                                          @NonNull final BiPredicate <T, T> aEquals)
   {
     if (EqualsHelper.identityEqual (aObj1, aObj2))
       return true;
@@ -173,7 +173,7 @@ public final class JAXBHelper
    * @param aObj2
    *        Second list. May be <code>null</code>.
    * @return <code>true</code> if they are equal.
-   * @since v12.0.0 RC2
+   * @since v12.0.0
    */
   public static boolean equalListJAXBElements (@Nullable final List <JAXBElement <?>> aObj1,
                                                @Nullable final List <JAXBElement <?>> aObj2)
@@ -190,23 +190,23 @@ public final class JAXBHelper
    * @param aObj2
    *        Second list. May be <code>null</code>.
    * @return <code>true</code> if they are equal.
-   * @since v12.0.0 RC2
+   * @since v12.0.0
    */
   public static boolean equalListAnys (@Nullable final List <Object> aObj1, @Nullable final List <Object> aObj2)
   {
     return _listEquals (aObj1, aObj2, JAXBHelper::_anyEquals);
   }
 
-  private static int _getAnyHashCode (@Nullable Object x)
+  private static int _getAnyHashCode (@Nullable final Object x)
   {
     if (x == null)
       return HashCodeCalculator.HASHCODE_NULL;
 
-    if (x instanceof byte [] aBytes)
+    if (x instanceof final byte [] aBytes)
       return Arrays.hashCode (aBytes);
-    if (x instanceof Node aNode)
+    if (x instanceof final Node aNode)
       return getHashCode (aNode);
-    if (x instanceof JAXBElement <?> aJaxbEl)
+    if (x instanceof final JAXBElement <?> aJaxbEl)
       return getHashCode (aJaxbEl);
     if (x instanceof List <?>)
       return getListAnyHashCode (GenericReflection.uncheckedCast (x));
@@ -285,7 +285,7 @@ public final class JAXBHelper
    * @param aList
    *        List of JAXBElements to get the hashcode from. May be <code>null</code>.
    * @return the hashcode
-   * @since v12.0.0 RC2
+   * @since v12.0.0
    */
   public static int getListJAXBElementHashCode (@Nullable final List <JAXBElement <?>> aList)
   {

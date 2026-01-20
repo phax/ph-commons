@@ -28,7 +28,7 @@ import com.helger.base.trait.ITypeConverterTo;
  * @author Philip Helger
  * @param <DST>
  *        Target type
- * @since 12.0.0 RC2
+ * @since 12.0.0
  */
 public class TypeConverterToAny <DST> implements ITypeConverterTo <DST>
 {

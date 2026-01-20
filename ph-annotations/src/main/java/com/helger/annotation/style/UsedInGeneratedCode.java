@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * safe guard, that such methods are not touched, moved or renamed.
  *
  * @author Philip Helger
- * @since 12.0.0 RC2
+ * @since 12.0.0
  */
 @Retention (RetentionPolicy.SOURCE)
 @Target ({ ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.TYPE })

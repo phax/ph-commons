@@ -38,7 +38,7 @@ import com.helger.base.string.StringHelper;
  *        would be a problem with type erasure.
  * @param <IMPLTYPE>
  *        The implementation type for chaining API
- * @since v12.0.0 RC2
+ * @since v12.0.0
  */
 public interface IGenericMapAdderTrait <KEYTYPE, VALUETYPE extends IAddableByTrait, IMPLTYPE extends IGenericMapAdderTrait <KEYTYPE, VALUETYPE, IMPLTYPE>>
                                        extends

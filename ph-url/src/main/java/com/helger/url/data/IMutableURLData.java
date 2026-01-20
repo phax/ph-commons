@@ -32,7 +32,7 @@ import com.helger.url.param.URLParameter;
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        The real implementation type
- * @since 12.0.0 RC2
+ * @since 12.0.0
  */
 public interface IMutableURLData <IMPLTYPE extends IMutableURLData <IMPLTYPE>> extends IURLData
 {

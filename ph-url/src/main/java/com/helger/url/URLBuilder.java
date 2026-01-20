@@ -37,7 +37,7 @@ import com.helger.url.param.URLParameter;
  * Builder class for {@link ISimpleURL} objects
  *
  * @author Philip Helger
- * @since 12.0.0 RC2
+ * @since 12.0.0
  */
 public class URLBuilder implements IBuilder <ISimpleURL>
 {
