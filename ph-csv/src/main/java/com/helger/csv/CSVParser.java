@@ -1,4 +1,5 @@
 /*
+ * Copyright 2005 Bytecode Pty Ltd.
  * Copyright (C) 2014-2025 Philip Helger (www.helger.com)
  * philip[at]helger[dot]com
  *
