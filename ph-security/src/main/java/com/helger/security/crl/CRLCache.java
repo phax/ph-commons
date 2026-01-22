@@ -46,11 +46,9 @@ public class CRLCache
   private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
     public CRLInternalCache (@NonNull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
-                             final int nMaxSize,
-                             @NonNull @Nonempty final String sCacheName,
-                             final boolean bAllowNullValues)
+                             final int nMaxSize)
     {
-      super (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
+      super (aCacheValueProvider, nMaxSize, "CRLCache", true);
     }
 
     private void _insertManually (final String aKey, final ExpiringObject <CRL> aValue)
@@ -83,7 +81,7 @@ public class CRLCache
     m_aCache = new CRLInternalCache (url -> {
       final CRL aCRL = aDownloader.downloadCRL (url);
       return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
-    }, 200, "CRLCache", true);
+    }, 200);
     m_aDownloader = aDownloader;
     m_aCachingDuration = aCachingDuration;
   }
