@@ -112,7 +112,7 @@ public class CRLCache
   {
     if (StringHelper.isNotEmpty (sCRLURL))
     {
-      ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
+      final ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
       if (aObject != null)
       {
         // maximum life time check
@@ -122,10 +122,23 @@ public class CRLCache
 
           // Object expired - re-fetch
           m_aCache.removeFromCache (sCRLURL);
-          aObject = m_aCache.getFromCache (sCRLURL);
+          final ExpiringObject <CRL> aObjectNew = m_aCache.getFromCache (sCRLURL);
+          if (aObjectNew != null)
+          {
+            // We got something new from the fetch
+            return aObjectNew.getObject ();
+          }
+
+          // The re-fetch was not successful - keep the old one and start a new cycle, but only half
+          // the time
+          LOGGER.warn ("The re-fetch for CRL URL '" +
+                       sCRLURL +
+                       "' was unsuccessful, so keeping the previous CRL version.");
+          m_aCache._insertManually (sCRLURL,
+                                    ExpiringObject.ofDuration (aObject.getObject (), m_aCachingDuration.dividedBy (2)));
         }
-        if (aObject != null)
-          return aObject.getObject ();
+
+        return aObject.getObject ();
       }
     }
     return null;
