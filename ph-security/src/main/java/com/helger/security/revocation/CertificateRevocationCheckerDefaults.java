@@ -47,7 +47,8 @@ public final class CertificateRevocationCheckerDefaults
   // https://github.com/phax/phase4/issues/124
   // b) OCSP is not ideal from a privacy perspective
   // https://letsencrypt.org/2024/07/23/replacing-ocsp-with-crls/
-  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.CRL;
+  // 2026-01-27 Changed from CRL to CRL_BEFORE_OCSP to be more resilient
+  public static final ERevocationCheckMode DEFAULT_REVOCATION_CHECK_MODE = ERevocationCheckMode.CRL_BEFORE_OCSP;
   public static final boolean DEFAULT_ALLOW_SOFT_FAIL = false;
   public static final boolean DEFAULT_ALLOW_EXEC_SYNC = true;
   public static final boolean DEFAULT_CACHE_REVOCATION_CHECK_RESULTS = true;
@@ -75,8 +76,8 @@ public final class CertificateRevocationCheckerDefaults
   {}
 
   /**
-   * @return The global revocation check mode. Never <code>null</code>. The
-   *         default is {@link ERevocationCheckMode#OCSP}.
+   * @return The global revocation check mode. Never <code>null</code>. The default is
+   *         {@link ERevocationCheckMode#OCSP}.
    */
   @NonNull
   public static ERevocationCheckMode getRevocationCheckMode ()
@@ -85,12 +86,10 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * Set the global revocation check mode to use, if no specific mode was
-   * provided.
+   * Set the global revocation check mode to use, if no specific mode was provided.
    *
    * @param eRevocationCheckMode
-   *        The global revocation check mode to use. May not be
-   *        <code>null</code>.
+   *        The global revocation check mode to use. May not be <code>null</code>.
    */
   public static void setRevocationCheckMode (@NonNull final ERevocationCheckMode eRevocationCheckMode)
   {
@@ -100,8 +99,7 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * @return The exception handler to be invoked in case of an exception in
-   *         certificate checking.
+   * @return The exception handler to be invoked in case of an exception in certificate checking.
    */
   @NonNull
   public static Consumer <? super GeneralSecurityException> getExceptionHdl ()
@@ -110,8 +108,7 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * Set the exception handler to be invoked, if certificate checking throws an
-   * exception.
+   * Set the exception handler to be invoked, if certificate checking throws an exception.
    *
    * @param aExceptionHdl
    *        The exception handler to be used. May not be <code>null</code>.
@@ -123,22 +120,20 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * Allow revocation check to succeed if the revocation status cannot be
-   * determined for one of the following reasons:
+   * Allow revocation check to succeed if the revocation status cannot be determined for one of the
+   * following reasons:
    * <ul>
-   * <li>The CRL or OCSP response cannot be obtained because of a network
-   * error.</li>
-   * <li>The OCSP responder returns one of the following errors specified in
-   * section 2.3 of RFC 2560: internalError or tryLater.</li>
+   * <li>The CRL or OCSP response cannot be obtained because of a network error.</li>
+   * <li>The OCSP responder returns one of the following errors specified in section 2.3 of RFC
+   * 2560: internalError or tryLater.</li>
    * </ul>
-   * Note that these conditions apply to both OCSP and CRLs, and unless the
-   * NO_FALLBACK option is set, the revocation check is allowed to succeed only
-   * if both mechanisms fail under one of the conditions as stated
-   * above.Exceptions that cause the network errors are ignored but can be later
-   * retrieved by calling the getSoftFailExceptions method.
+   * Note that these conditions apply to both OCSP and CRLs, and unless the NO_FALLBACK option is
+   * set, the revocation check is allowed to succeed only if both mechanisms fail under one of the
+   * conditions as stated above.Exceptions that cause the network errors are ignored but can be
+   * later retrieved by calling the getSoftFailExceptions method.
    *
-   * @return <code>true</code> if soft fail is enabled, <code>false</code> if
-   *         not. Default is defined by {@link #DEFAULT_ALLOW_SOFT_FAIL}.
+   * @return <code>true</code> if soft fail is enabled, <code>false</code> if not. Default is
+   *         defined by {@link #DEFAULT_ALLOW_SOFT_FAIL}.
    */
   public static boolean isAllowSoftFail ()
   {
@@ -158,8 +153,7 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * @return The handler to be invoked in case of failures in certificate
-   *         checking.
+   * @return The handler to be invoked in case of failures in certificate checking.
    * @see #isAllowSoftFail()
    */
   @NonNull
@@ -183,8 +177,8 @@ public final class CertificateRevocationCheckerDefaults
 
   /**
    * @return <code>true</code> if the revocation check should be performed in a
-   *         <code>synchronized</code> block, <code>false</code> if not. Default
-   *         is defined by {@link #DEFAULT_ALLOW_EXEC_SYNC}.
+   *         <code>synchronized</code> block, <code>false</code> if not. Default is defined by
+   *         {@link #DEFAULT_ALLOW_EXEC_SYNC}.
    */
   public static boolean isExecuteInSynchronizedBlock ()
   {
@@ -192,12 +186,11 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * Enable or disable the execution of the revocation check in a
-   * <code>synchronized</code> block.
+   * Enable or disable the execution of the revocation check in a <code>synchronized</code> block.
    *
    * @param bExecSync
-   *        <code>true</code> to use the synchronized block, <code>false</code>
-   *        to run it unsynchronized.
+   *        <code>true</code> to use the synchronized block, <code>false</code> to run it
+   *        unsynchronized.
    */
   public static void setExecuteInSynchronizedBlock (final boolean bExecSync)
   {
@@ -228,9 +221,8 @@ public final class CertificateRevocationCheckerDefaults
   }
 
   /**
-   * @return <code>true</code> if OSCP results may be cached, <code>false</code>
-   *         if not. The default is
-   *         {@value #DEFAULT_CACHE_REVOCATION_CHECK_RESULTS}.
+   * @return <code>true</code> if OSCP results may be cached, <code>false</code> if not. The default
+   *         is {@value #DEFAULT_CACHE_REVOCATION_CHECK_RESULTS}.
    */
   public static boolean isCacheRevocationCheckResults ()
   {
@@ -241,8 +233,7 @@ public final class CertificateRevocationCheckerDefaults
    * Enable or disable caching of OSCP results.
    *
    * @param bCache
-   *        <code>true</code> to enable caching, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable caching, <code>false</code> to disable it.
    */
   public static void setCacheRevocationCheckResults (final boolean bCache)
   {
