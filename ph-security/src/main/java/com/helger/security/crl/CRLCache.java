@@ -42,6 +42,11 @@ import com.helger.datetime.expiration.ExpiringObject;
  */
 public class CRLCache
 {
+  /**
+   * This is the main cache object that performs a download if it is not in the cache
+   *
+   * @author Philip Helger
+   */
   @ThreadSafe
   private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
@@ -57,7 +62,9 @@ public class CRLCache
     }
   }
 
+  /** Default caching duration is set to 24 hours */
   public static final Duration DEFAULT_CACHING_DURATION = Duration.ofHours (24);
+
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLCache.class);
 
   private final CRLInternalCache m_aCache;
@@ -86,12 +93,18 @@ public class CRLCache
     m_aCachingDuration = aCachingDuration;
   }
 
+  /**
+   * @return The downloader to use. May not be <code>null</code>.
+   */
   @NonNull
   public final CRLDownloader getDownloader ()
   {
     return m_aDownloader;
   }
 
+  /**
+   * @return The caching duration to use by default. May not be <code>null</code>.
+   */
   @NonNull
   public final Duration getCachingDuration ()
   {
@@ -158,6 +171,11 @@ public class CRLCache
     m_aCache._insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
   }
 
+  /**
+   * Remove all cache items.
+   *
+   * @return {@link EChange} and never <code>null</code>.
+   */
   @NonNull
   public EChange clearCache ()
   {
@@ -173,6 +191,10 @@ public class CRLCache
                                        .getToString ();
   }
 
+  /**
+   * @return A new {@link CRLCache} using the {@link CRLDownloader} and the
+   *         {@link #DEFAULT_CACHING_DURATION} of 24h.
+   */
   @NonNull
   public static CRLCache createDefault ()
   {
