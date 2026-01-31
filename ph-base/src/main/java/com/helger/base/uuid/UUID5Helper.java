@@ -54,6 +54,7 @@ import com.helger.base.enforce.ValueEnforcer;
  * @author Luther Tychonievich. Released into the public domain. I would consider it a courtesy if
  *         you cite me if you benefit from this code.
  * @author Philip Helger
+ * @since v12.1.3
  */
 @Immutable
 public final class UUID5Helper
