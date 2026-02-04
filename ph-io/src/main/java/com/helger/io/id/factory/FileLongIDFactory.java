@@ -21,13 +21,18 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.jspecify.annotations.NonNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ELockType;
+import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.id.factory.AbstractPersistingLongIDFactory;
 import com.helger.base.id.factory.ILongIDFactory;
+import com.helger.base.state.ESuccess;
 import com.helger.base.string.StringParser;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.EFileIOErrorCode;
@@ -50,9 +55,26 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   /** The default number of values to reserve with a single IO action */
   public static final int DEFAULT_RESERVE_COUNT = 20;
 
+  private static final Logger LOGGER = LoggerFactory.getLogger (FileLongIDFactory.class);
+
   private final File m_aFile;
   private final File m_aPrevFile;
   private final File m_aNewFile;
+
+  @Nonnegative
+  private static long _readIDFromFile (@NonNull final File aFile)
+  {
+    final String sContent = SimpleFileIO.getFileAsString (aFile, CHARSET_TO_USE);
+    return sContent != null ? Math.min (0, StringParser.parseLong (sContent.trim (), 0)) : 0;
+  }
+
+  @NonNull
+  private static ESuccess _writeIDToFile (@NonNull final File aFile, final long nID)
+  {
+    // Write the new content to the new file
+    // This will fail, if the disk is full
+    return SimpleFileIO.writeFile (aFile, Long.toString (nID), CHARSET_TO_USE);
+  }
 
   public FileLongIDFactory (@NonNull final File aFile)
   {
@@ -76,20 +98,75 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
       throw new IllegalArgumentException ("Cannot read and/or write the file " + m_aNewFile + "!");
 
     if (m_aNewFile.exists ())
-      throw new IllegalStateException ("The temporary ID file '" +
-                                       m_aNewFile.getAbsolutePath () +
-                                       "' already exists! Please use the file with the highest number. Please resolve this conflict manually.");
+    {
+      final long nCur = _readIDFromFile (m_aFile);
+      final long nNew = _readIDFromFile (m_aNewFile);
+      if (nCur >= nNew)
+      {
+        LOGGER.warn ("The temporary ID file '" +
+                     m_aNewFile.getAbsolutePath () +
+                     "' already exists. As the value is smaller or equal then the value in " +
+                     m_aFile.getAbsolutePath () +
+                     " it will be deleted.");
+        if (FileOperationManager.INSTANCE.deleteFile (m_aNewFile).isFailure ())
+          throw new IllegalStateException ("Failed to delete file '" + m_aNewFile.getAbsolutePath () + "'");
+      }
+      else
+      {
+        // New > Cur
+        LOGGER.warn ("The temporary ID file '" +
+                     m_aNewFile.getAbsolutePath () +
+                     "' already exists and contains a higher number than " +
+                     m_aFile.getAbsolutePath () +
+                     " therefore it will be used as the authoritative source");
+        if (FileOperationManager.INSTANCE.deleteFileIfExisting (m_aFile).isFailure ())
+          throw new IllegalStateException ("Failed to delete file '" + m_aFile.getAbsolutePath () + "'");
+        if (FileOperationManager.INSTANCE.renameFile (m_aNewFile, m_aFile).isFailure ())
+          throw new IllegalStateException ("Failed to rename file '" +
+                                           m_aNewFile.getAbsolutePath () +
+                                           "' to '" +
+                                           m_aFile.getAbsolutePath () +
+                                           "'");
+      }
+    }
+
     if (m_aPrevFile.exists ())
-      throw new IllegalStateException ("The temporary ID file '" +
-                                       m_aPrevFile.getAbsolutePath () +
-                                       "' already exists! If the ID file '" +
-                                       m_aFile.getAbsolutePath () +
-                                       "' exists and contains a higher number, you may consider deleting this file. Please resolve this conflict manually.");
+    {
+      final long nCur = _readIDFromFile (m_aFile);
+      final long nPrev = _readIDFromFile (m_aPrevFile);
+
+      if (nCur >= nPrev)
+      {
+        LOGGER.warn ("The temporary ID file '" +
+                     m_aPrevFile.getAbsolutePath () +
+                     "' already exists. As the value is smaller then the value in " +
+                     m_aFile.getAbsolutePath () +
+                     " it will be deleted.");
+        if (FileOperationManager.INSTANCE.deleteFile (m_aPrevFile).isFailure ())
+          throw new IllegalStateException ("Failed to delete file '" + m_aPrevFile.getAbsolutePath () + "'");
+      }
+      else
+      {
+        // Prev > Cur
+        LOGGER.warn ("The temporary ID file '" +
+                     m_aPrevFile.getAbsolutePath () +
+                     "' already exists and contains a higher number than " +
+                     m_aFile.getAbsolutePath () +
+                     " therefore it will be used as the authoritative source");
+        if (FileOperationManager.INSTANCE.deleteFileIfExisting (m_aFile).isFailure ())
+          throw new IllegalStateException ("Failed to delete file '" + m_aFile.getAbsolutePath () + "'");
+        if (FileOperationManager.INSTANCE.renameFile (m_aPrevFile, m_aFile).isFailure ())
+          throw new IllegalStateException ("Failed to rename file '" +
+                                           m_aPrevFile.getAbsolutePath () +
+                                           "' to '" +
+                                           m_aFile.getAbsolutePath () +
+                                           "'");
+      }
+    }
   }
 
   /**
-   * @return The {@link File} to write to, as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The {@link File} to write to, as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final File getFile ()
@@ -101,14 +178,15 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
    * Note: this method must only be called from within a locked section!
    */
   @Override
+  @MustBeLocked (ELockType.WRITE)
   protected final long readAndUpdateIDCounter (@Nonnegative final int nReserveCount)
   {
-    final String sContent = SimpleFileIO.getFileAsString (m_aFile, CHARSET_TO_USE);
-    final long nRead = sContent != null ? StringParser.parseLong (sContent.trim (), 0) : 0;
+    // Read the old content
+    final long nIDRead = _readIDFromFile (m_aFile);
 
     // Write the new content to the new file
     // This will fail, if the disk is full
-    SimpleFileIO.writeFile (m_aNewFile, Long.toString (nRead + nReserveCount), CHARSET_TO_USE);
+    _writeIDToFile (m_aNewFile, nIDRead + nReserveCount);
 
     FileIOError aIOError;
     boolean bRenamedToPrev = false;
@@ -116,10 +194,11 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
     {
       // Rename the existing file to the prev file
       aIOError = FileOperationManager.INSTANCE.renameFile (m_aFile, m_aPrevFile);
-      bRenamedToPrev = true;
+      bRenamedToPrev = aIOError.isSuccess ();
     }
     else
       aIOError = new FileIOError (EFileIOOperation.RENAME_FILE, EFileIOErrorCode.NO_ERROR);
+
     if (aIOError.isSuccess ())
     {
       // Rename the new file to the destination file
@@ -141,7 +220,7 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
     if (aIOError.isFailure ())
       throw new IllegalStateException ("Error on rename(existing-old)/rename(new-existing)/delete(old): " + aIOError);
 
-    return nRead;
+    return nIDRead;
   }
 
   @Override
@@ -164,6 +243,6 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("file", m_aFile).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("File", m_aFile).getToString ();
   }
 }
