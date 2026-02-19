@@ -30,6 +30,9 @@ public final class CMimeType
   /** Atom XML feed. */
   public static final IMimeType APPLICATION_ATOM_XML = EMimeContentType.APPLICATION.buildMimeType ("atom+xml");
 
+  /** For DoH usage (RFC 8484) */
+  public static final IMimeType APPLICATION_DNS_MESSAGE = EMimeContentType.APPLICATION.buildMimeType ("dns-message");
+
   /** EDIFACT document. */
   public static final IMimeType APPLICATION_EDIFACT = EMimeContentType.APPLICATION.buildMimeType ("edifact");
 
