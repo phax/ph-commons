@@ -36,23 +36,10 @@ import com.helger.base.enforce.ValueEnforcer;
  * lacks methods for creating version 5 (SHA-1 based) UUIDs. Its implementation of version 3 (MD5
  * based) UUIDs also lacks build-in namespace support.
  * <p>
- * This class was informed by <a href="http://www.ietf.org/rfc/rfc4122.txt">RFC 4122</a>. Since RFC
- * 4122 is vague on how a 160-bit hash is turned into the 122 free bits of a UUID (6 bits being used
- * for version and variant information), this class was modelled after java.util.UUID's type-3
- * implementation and validated against the D language's phobos library
- * <a href="http://dlang.org/phobos/std_uuid.html">std.uuid</a>, which in turn was modelled after
- * the Boost project's
- * <a href="http://www.boost.org/doc/libs/1_42_0/libs/uuid/uuid.html" >boost.uuid</a>; and also
- * validated against the Python language's
- * <a href="http://docs.python.org/2/library/uuid.html">uuid</a> library.<br>
- * <br>
- * Source:
- * https://github.com/rootsdev/polygenea/blob/master/java/src/org/rootsdev/polygenea/UUID5.java
+ * This class was inspired by
+ * https://github.com/rootsdev/polygenea/blob/master/java/src/org/rootsdev/polygenea/UUID5.java from
+ * Luther Tychonievich
  *
- * @see java.util.UUID
- * @see java.security.MessageDigest
- * @author Luther Tychonievich. Released into the public domain. I would consider it a courtesy if
- *         you cite me if you benefit from this code.
  * @author Philip Helger
  * @since v12.1.3
  */
@@ -63,14 +50,14 @@ public final class UUID5Helper
   {}
 
   /**
-   * A private method from UUID pulled out here so we have access to it.
+   * Helper method to prepare values for being a UUID v5
    *
    * @param aHashBytes
    *        A 20 byte array to be the basis of the UUID bits
    * @return A UUID object
    */
   @NonNull
-  private static UUID _makeUUID (final byte @NonNull [] aHashBytes)
+  private static UUID _makeUUID5 (final byte @NonNull [] aHashBytes)
   {
     ValueEnforcer.notNull (aHashBytes, "HashBytes");
     ValueEnforcer.isEqual (aHashBytes.length, 20, "Expected 20 bytes from SHA-1");
@@ -105,7 +92,7 @@ public final class UUID5Helper
     try
     {
       final MessageDigest aMD = MessageDigest.getInstance ("SHA-1");
-      return _makeUUID (aMD.digest (aNameBytes));
+      return _makeUUID5 (aMD.digest (aNameBytes));
     }
     catch (final NoSuchAlgorithmException ex)
     {
@@ -144,7 +131,7 @@ public final class UUID5Helper
         aBB.putLong (aNamespace.getLeastSignificantBits ());
         aMD.update (aBB.array ());
       }
-      return _makeUUID (aMD.digest (aNameBytes));
+      return _makeUUID5 (aMD.digest (aNameBytes));
     }
     catch (final NoSuchAlgorithmException e)
     {
