@@ -66,7 +66,7 @@ public class FileIntIDFactory extends AbstractPersistingIntIDFactory
   private static int _readIDFromFile (@NonNull final File aFile)
   {
     final String sContent = SimpleFileIO.getFileAsString (aFile, CHARSET_TO_USE);
-    return sContent != null ? Math.min (0, StringParser.parseInt (sContent.trim (), 0)) : 0;
+    return sContent != null ? Math.max (0, StringParser.parseInt (sContent.trim (), 0)) : 0;
   }
 
   @NonNull
