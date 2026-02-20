@@ -19,22 +19,49 @@ package com.helger.cli;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.concurrent.Immutable;
+
 /**
  * Validates an Option string.
  *
  * @since 1.1
  */
+@Immutable
 final class OptionValidator
 {
   private OptionValidator ()
   {}
 
   /**
-   * Validates whether <code>opt</code> is a permissible Option shortOpt. The
-   * rules that specify if the <code>opt</code> is valid are:
+   * Returns whether the specified character is a valid Option.
+   *
+   * @param c
+   *        the option to validate
+   * @return true if <code>c</code> is a letter, '?' or '@', otherwise false.
+   */
+  private static boolean _isValidShortOpt (final char c)
+  {
+    return _isValidChar (c) || c == '?' || c == '@';
+  }
+
+  /**
+   * Returns whether the specified character is a valid character.
+   *
+   * @param c
+   *        the character to validate
+   * @return true if <code>c</code> is a letter.
+   */
+  private static boolean _isValidChar (final char c)
+  {
+    return Character.isJavaIdentifierPart (c);
+  }
+
+  /**
+   * Validates whether <code>opt</code> is a permissible Option shortOpt. The rules that specify if
+   * the <code>opt</code> is valid are:
    * <ul>
-   * <li>a single character <code>opt</code> that is either ' '(special case),
-   * '?', '@' or a letter</li>
+   * <li>a single character <code>opt</code> that is either ' '(special case), '?', '@' or a
+   * letter</li>
    * <li>a multi character <code>opt</code> that only contains letters.</li>
    * </ul>
    * <p>
@@ -60,33 +87,7 @@ final class OptionValidator
       // handle the multi character opt
       for (final char ch : sOpt.toCharArray ())
         if (!_isValidChar (ch))
-        {
           throw new IllegalArgumentException ("The option '" + sOpt + "' contains the illegal character '" + ch + "'");
-        }
     }
-  }
-
-  /**
-   * Returns whether the specified character is a valid Option.
-   *
-   * @param c
-   *        the option to validate
-   * @return true if <code>c</code> is a letter, '?' or '@', otherwise false.
-   */
-  private static boolean _isValidShortOpt (final char c)
-  {
-    return _isValidChar (c) || c == '?' || c == '@';
-  }
-
-  /**
-   * Returns whether the specified character is a valid character.
-   *
-   * @param c
-   *        the character to validate
-   * @return true if <code>c</code> is a letter.
-   */
-  private static boolean _isValidChar (final char c)
-  {
-    return Character.isJavaIdentifierPart (c);
   }
 }
