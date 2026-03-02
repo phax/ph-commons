@@ -138,9 +138,12 @@ public final class CHttpHeader
 
   // CSP
   public static final String CONTENT_SECURITY_POLICY = "Content-Security-Policy";
+  @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_CONTENT_SECURITY_POLICY = "X-Content-Security-Policy";
+  @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_WEBKIT_CSP = "X-WebKit-CSP";
   public static final String CONTENT_SECURITY_POLICY_REPORT_ONLY = "Content-Security-Policy-Report-Only";
+  @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_CONTENT_SECURITY_POLICY_REPORT_ONLY = "X-Content-Security-Policy-Report-Only";
 
   // WAP-248-UAPROF-20011020-a
