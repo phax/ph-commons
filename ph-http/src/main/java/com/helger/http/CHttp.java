@@ -242,9 +242,17 @@ public final class CHttp
   public static final int HTTP_IM_A_TEAPOT = 418;
 
   /**
-   * HTTP Status-Code 422: Unprocessable Entity.
+   * HTTP Status-Code 422: Unprocessable Content.
+   *
+   * @since 12.1.4
    */
-  public static final int HTTP_UNPROCESSABLE_ENTITY = 422;
+  public static final int HTTP_UNPROCESSABLE_CONTENT = 422;
+
+  /**
+   * This is the old name of HTTP 422. Use {@link #HTTP_UNPROCESSABLE_CONTENT} instead
+   */
+  @Deprecated (forRemoval = true, since = "12.1.3")
+  public static final int HTTP_UNPROCESSABLE_ENTITY = HTTP_UNPROCESSABLE_CONTENT;
 
   /**
    * HTTP Status-Code 426: Upgrade Required.
@@ -334,180 +342,64 @@ public final class CHttp
   public static String getHttpResponseMessage (final int nResponseCode)
   {
     // All codes from HttpServletReponse in servlet Spec 3.1.0 are contained!
-    final String sMsg;
-    switch (nResponseCode)
+    final String sMsg = switch (nResponseCode)
     {
-      // 1XX
-      case HTTP_CONTINUE:
-        sMsg = "Continue";
-        break;
-      case HTTP_SWITCHING_PROTOCOLS:
-        sMsg = "Switching Protocols";
-        break;
-      case HTTP_EARLY_HINTS:
-        sMsg = "Early Hints";
-        break;
-      // 2XX
-      case HTTP_OK:
-        sMsg = "OK";
-        break;
-      case HTTP_CREATED:
-        sMsg = "Created";
-        break;
-      case HTTP_ACCEPTED:
-        sMsg = "Accepted";
-        break;
-      case HTTP_NON_AUTHORITATIVE_INFORMATION:
-        sMsg = "Non-Authoritative Information";
-        break;
-      case HTTP_NO_CONTENT:
-        sMsg = "No Content";
-        break;
-      case HTTP_RESET_CONTENT:
-        sMsg = "Reset Content";
-        break;
-      case HTTP_PARTIAL_CONTENT:
-        sMsg = "Partial Content";
-        break;
-      // 3XX
-      case HTTP_MULTIPLE_CHOICES:
-        sMsg = "Multiple Choices";
-        break;
-      case HTTP_MOVED_PERMANENTLY:
-        sMsg = "Moved Permanently";
-        break;
-      case HTTP_MOVED_TEMPORARY:
-        sMsg = "Moved Temporary";
-        break;
-      case HTTP_SEE_OTHER:
-        sMsg = "See Other";
-        break;
-      case HTTP_NOT_MODIFIED:
-        sMsg = "Not Modified";
-        break;
-      case HTTP_USE_PROXY:
-        sMsg = "Use Proxy";
-        break;
-      case HTTP_SWITCH_PROXY:
-        sMsg = "Switch Proxy";
-        break;
-      case HTTP_TEMPORARY_REDIRECT:
-        sMsg = "Temporary Redirect";
-        break;
-      case HTTP_PERMANENT_REDIRECT:
-        sMsg = "Permanent Redirect";
-        break;
-      // 4xx
-      case HTTP_BAD_REQUEST:
-        sMsg = "Bad Request";
-        break;
-      case HTTP_UNAUTHORIZED:
-        sMsg = "Unauthorized";
-        break;
-      case HTTP_PAYMENT_REQUIRED:
-        sMsg = "Payment Required";
-        break;
-      case HTTP_FORBIDDEN:
-        sMsg = "Forbidden";
-        break;
-      case HTTP_NOT_FOUND:
-        sMsg = "Not Found";
-        break;
-      case HTTP_METHOD_NOT_ALLOWED:
-        sMsg = "Method Not Allowed";
-        break;
-      case HTTP_NOT_ACCEPTABLE:
-        sMsg = "Not Acceptable";
-        break;
-      case HTTP_PROXY_AUTH_REQUIRED:
-        sMsg = "Proxy Authentication Required";
-        break;
-      case HTTP_REQUEST_TIMEOUT:
-        sMsg = "Request Time-out";
-        break;
-      case HTTP_CONFLICT:
-        sMsg = "Conflict";
-        break;
-      case HTTP_GONE:
-        sMsg = "Gone";
-        break;
-      case HTTP_LENGTH_REQUIRED:
-        sMsg = "Length Required";
-        break;
-      case HTTP_PRECONDITION_FAILED:
-        sMsg = "Precondition Failed";
-        break;
-      case HTTP_ENTITY_TOO_LARGE:
-        sMsg = "Request Entity Too Large";
-        break;
-      case HTTP_REQUEST_URI_TOO_LONG:
-        sMsg = "Request-URI Too Large";
-        break;
-      case HTTP_UNSUPPORTED_MEDIA_TYPE:
-        sMsg = "Unsupported Media Type";
-        break;
-      case HTTP_REQUESTED_RANGE_NOT_SATISFIABLE:
-        sMsg = "Requested Range not satisfiable";
-        break;
-      case HTTP_EXPECTATION_FAILED:
-        sMsg = "Expectation Failed";
-        break;
-      case HTTP_IM_A_TEAPOT:
-        sMsg = "I'm a teapot";
-        break;
-      case HTTP_UNPROCESSABLE_ENTITY:
-        sMsg = "Unprocessable Entity";
-        break;
-      case HTTP_UPGRADE_REQUIRED:
-        sMsg = "Upgrade Required";
-        break;
-      case HTTP_PRECONDITION_REQUIRED:
-        sMsg = "Precondition Required";
-        break;
-      case HTTP_TOO_MANY_REQUESTS:
-        sMsg = "Too Many Requests";
-        break;
-      case HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE:
-        sMsg = "Request Header Fields Too Large";
-        break;
-      case HTTP_UNAVAILABLE_FOR_LEGAL_REASONS:
-        sMsg = "Unavailable For Legal Reasons";
-        break;
-      // 5xx
-      case HTTP_INTERNAL_SERVER_ERROR:
-        sMsg = "Internal Server Error";
-        break;
-      case HTTP_NOT_IMPLEMENTED:
-        sMsg = "Not Implemented";
-        break;
-      case HTTP_BAD_GATEWAY:
-        sMsg = "Bad Gateway";
-        break;
-      case HTTP_SERVICE_UNAVAILABLE:
-        sMsg = "Service Unavailable";
-        break;
-      case HTTP_GATEWAY_TIMEOUT:
-        sMsg = "Gateway Time-out";
-        break;
-      case HTTP_VERSION_NOT_SUPPORTED:
-        sMsg = "HTTP Version not supported";
-        break;
-      case HTTP_VARIANT_ALSO_NEGOTIATES:
-        sMsg = "Variant Also Negotiates";
-        break;
-      case HTTP_INSUFFICIENT_STORAGE:
-        sMsg = "Insufficient Storage";
-        break;
-      case HTTP_LOOP_DETECTED:
-        sMsg = "Loop Detected";
-        break;
-      case HTTP_NETWORK_AUTHENTICATION_REQUIRED:
-        sMsg = "Network Authentication Required";
-        break;
-      default:
-        sMsg = "Unknown (" + nResponseCode + ")";
-        break;
-    }
+      case HTTP_CONTINUE -> "Continue";
+      case HTTP_SWITCHING_PROTOCOLS -> "Switching Protocols";
+      case HTTP_EARLY_HINTS -> "Early Hints";
+      case HTTP_OK -> "OK";
+      case HTTP_CREATED -> "Created";
+      case HTTP_ACCEPTED -> "Accepted";
+      case HTTP_NON_AUTHORITATIVE_INFORMATION -> "Non-Authoritative Information";
+      case HTTP_NO_CONTENT -> "No Content";
+      case HTTP_RESET_CONTENT -> "Reset Content";
+      case HTTP_PARTIAL_CONTENT -> "Partial Content";
+      case HTTP_MULTIPLE_CHOICES -> "Multiple Choices";
+      case HTTP_MOVED_PERMANENTLY -> "Moved Permanently";
+      case HTTP_MOVED_TEMPORARY -> "Moved Temporary";
+      case HTTP_SEE_OTHER -> "See Other";
+      case HTTP_NOT_MODIFIED -> "Not Modified";
+      case HTTP_USE_PROXY -> "Use Proxy";
+      case HTTP_SWITCH_PROXY -> "Switch Proxy";
+      case HTTP_TEMPORARY_REDIRECT -> "Temporary Redirect";
+      case HTTP_PERMANENT_REDIRECT -> "Permanent Redirect";
+      case HTTP_BAD_REQUEST -> "Bad Request";
+      case HTTP_UNAUTHORIZED -> "Unauthorized";
+      case HTTP_PAYMENT_REQUIRED -> "Payment Required";
+      case HTTP_FORBIDDEN -> "Forbidden";
+      case HTTP_NOT_FOUND -> "Not Found";
+      case HTTP_METHOD_NOT_ALLOWED -> "Method Not Allowed";
+      case HTTP_NOT_ACCEPTABLE -> "Not Acceptable";
+      case HTTP_PROXY_AUTH_REQUIRED -> "Proxy Authentication Required";
+      case HTTP_REQUEST_TIMEOUT -> "Request Time-out";
+      case HTTP_CONFLICT -> "Conflict";
+      case HTTP_GONE -> "Gone";
+      case HTTP_LENGTH_REQUIRED -> "Length Required";
+      case HTTP_PRECONDITION_FAILED -> "Precondition Failed";
+      case HTTP_ENTITY_TOO_LARGE -> "Request Entity Too Large";
+      case HTTP_REQUEST_URI_TOO_LONG -> "Request-URI Too Large";
+      case HTTP_UNSUPPORTED_MEDIA_TYPE -> "Unsupported Media Type";
+      case HTTP_REQUESTED_RANGE_NOT_SATISFIABLE -> "Requested Range not satisfiable";
+      case HTTP_EXPECTATION_FAILED -> "Expectation Failed";
+      case HTTP_IM_A_TEAPOT -> "I'm a teapot";
+      case HTTP_UNPROCESSABLE_ENTITY -> "Unprocessable Entity";
+      case HTTP_UPGRADE_REQUIRED -> "Upgrade Required";
+      case HTTP_PRECONDITION_REQUIRED -> "Precondition Required";
+      case HTTP_TOO_MANY_REQUESTS -> "Too Many Requests";
+      case HTTP_REQUEST_HEADER_FIELDS_TOO_LARGE -> "Request Header Fields Too Large";
+      case HTTP_UNAVAILABLE_FOR_LEGAL_REASONS -> "Unavailable For Legal Reasons";
+      case HTTP_INTERNAL_SERVER_ERROR -> "Internal Server Error";
+      case HTTP_NOT_IMPLEMENTED -> "Not Implemented";
+      case HTTP_BAD_GATEWAY -> "Bad Gateway";
+      case HTTP_SERVICE_UNAVAILABLE -> "Service Unavailable";
+      case HTTP_GATEWAY_TIMEOUT -> "Gateway Time-out";
+      case HTTP_VERSION_NOT_SUPPORTED -> "HTTP Version not supported";
+      case HTTP_VARIANT_ALSO_NEGOTIATES -> "Variant Also Negotiates";
+      case HTTP_INSUFFICIENT_STORAGE -> "Insufficient Storage";
+      case HTTP_LOOP_DETECTED -> "Loop Detected";
+      case HTTP_NETWORK_AUTHENTICATION_REQUIRED -> "Network Authentication Required";
+      default -> "Unknown (" + nResponseCode + ")";
+    };
     return sMsg;
   }
 
