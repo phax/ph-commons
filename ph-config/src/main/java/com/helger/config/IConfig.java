@@ -25,6 +25,7 @@ import com.helger.base.state.ESuccess;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.config.source.resource.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
+import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
@@ -35,6 +36,13 @@ import com.helger.typeconvert.trait.IGetterByKeyTrait;
  */
 public interface IConfig extends IGetterByKeyTrait <String>
 {
+  /**
+   * @return The underlying configuration value provider. Never <code>null</code>.
+   * @since 12.1.4 in this interface
+   */
+  @NonNull
+  IConfigurationValueProvider getConfigurationValueProvider ();
+
   /**
    * Get the configured value, which is the combination of the matching configuration source and the
    * value, for the provided key.
