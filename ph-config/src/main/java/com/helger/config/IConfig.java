@@ -23,6 +23,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.ESuccess;
 import com.helger.base.wrapper.Wrapper;
+import com.helger.config.source.MultiConfigurationValueProvider;
 import com.helger.config.source.resource.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
@@ -57,7 +58,9 @@ public interface IConfig extends IGetterByKeyTrait <String>
 
   /**
    * Enumerate all contained configuration value provider. All items will be enumerated in the order
-   * they are checked, so the ones with highest priority first.
+   * they are checked, so the ones with highest priority first. This iteration is recursive and also
+   * automatically dives into nested {@link MultiConfigurationValueProvider} instances
+   * automatically.
    *
    * @param aCallback
    *        The callback to invoked. May not be <code>null</code>.
