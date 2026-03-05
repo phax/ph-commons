@@ -115,6 +115,42 @@ public final class LocalDatePeriodTest
   }
 
   @Test
+  public void testIsNowInPeriod ()
+  {
+    final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
+    final LocalDate aPast = aNow.minusDays (10);
+    final LocalDate aFuture = aNow.plusDays (10);
+
+    // Period encompassing now
+    assertTrue (new LocalDatePeriod (aPast, aFuture).isNowInPeriodIncl ());
+    assertTrue (new LocalDatePeriod (aPast, aFuture).isNowInPeriodExcl ());
+
+    // Open-ended periods encompassing now
+    assertTrue (new LocalDatePeriod (null, aFuture).isNowInPeriodIncl ());
+    assertTrue (new LocalDatePeriod (null, aFuture).isNowInPeriodExcl ());
+    assertTrue (new LocalDatePeriod (aPast, null).isNowInPeriodIncl ());
+    assertTrue (new LocalDatePeriod (aPast, null).isNowInPeriodExcl ());
+
+    // Period entirely in the past
+    final LocalDate aPast2 = aNow.minusDays (5);
+    assertFalse (new LocalDatePeriod (aPast, aPast2).isNowInPeriodIncl ());
+    assertFalse (new LocalDatePeriod (aPast, aPast2).isNowInPeriodExcl ());
+
+    // Period entirely in the future
+    final LocalDate aFuture2 = aNow.plusDays (5);
+    assertFalse (new LocalDatePeriod (aFuture2, aFuture).isNowInPeriodIncl ());
+    assertFalse (new LocalDatePeriod (aFuture2, aFuture).isNowInPeriodExcl ());
+
+    // Boundary: period ending today
+    assertTrue (new LocalDatePeriod (aPast, aNow).isNowInPeriodIncl ());
+    assertFalse (new LocalDatePeriod (aPast, aNow).isNowInPeriodExcl ());
+
+    // Boundary: period starting today
+    assertTrue (new LocalDatePeriod (aNow, aFuture).isNowInPeriodIncl ());
+    assertFalse (new LocalDatePeriod (aNow, aFuture).isNowInPeriodExcl ());
+  }
+
+  @Test
   public void testIsInside ()
   {
     final LocalDate aNow = PDTFactory.getCurrentLocalDate ();
