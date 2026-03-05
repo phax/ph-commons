@@ -16,6 +16,8 @@
  */
 package com.helger.config.source;
 
+import java.util.Locale;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -23,39 +25,43 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
+import com.helger.text.display.IHasDisplayText;
 
 /**
- * Defines the type of configuration sources and the respective default
- * priority.
+ * Defines the type of configuration sources and the respective default priority.
  *
  * @author Philip Helger
  */
-public enum EConfigSourceType implements IHasID <String>
+public enum EConfigSourceType implements IHasID <String>, IHasDisplayText
 {
   /**
    * A configuration values from a system property.
    */
-  SYSTEM_PROPERTY ("sysprop", 400),
+  SYSTEM_PROPERTY ("sysprop", 400, EConfigSourceTypeName.SYSTEM_PROPERTY),
   /**
    * A configuration value from an environment variable.
    */
-  ENVIRONMENT_VARIABLE ("envvar", 300),
+  ENVIRONMENT_VARIABLE ("envvar", 300, EConfigSourceTypeName.ENVIRONMENT_VARIABLE),
   /**
    * A configuration value from a file.
    */
-  RESOURCE ("resource", 200),
+  RESOURCE ("resource", 200, EConfigSourceTypeName.RESOURCE),
   /**
    * A configuration value from any other source inside the application.
    */
-  APPLICATION ("appl", 100);
+  APPLICATION ("appl", 100, EConfigSourceTypeName.APPLICATION);
 
   private final String m_sID;
   private final int m_nDefaultPriority;
+  private final EConfigSourceTypeName m_eName;
 
-  EConfigSourceType (@NonNull @Nonempty final String sID, @Nonnegative final int nDefaultPriority)
+  EConfigSourceType (@NonNull @Nonempty final String sID,
+                     @Nonnegative final int nDefaultPriority,
+                     @NonNull final EConfigSourceTypeName eName)
   {
     m_sID = sID;
     m_nDefaultPriority = nDefaultPriority;
+    m_eName = eName;
   }
 
   @NonNull
@@ -66,13 +72,18 @@ public enum EConfigSourceType implements IHasID <String>
   }
 
   /**
-   * @return The default priority for a configuration source of this type.
-   *         Always &gt; 0.
+   * @return The default priority for a configuration source of this type. Always &gt; 0.
    */
   @Nonnegative
   public int getDefaultPriority ()
   {
     return m_nDefaultPriority;
+  }
+
+  @Nullable
+  public String getDisplayText (@NonNull final Locale aContentLocale)
+  {
+    return m_eName.getDisplayText (aContentLocale);
   }
 
   @Nullable
