@@ -24,6 +24,7 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
@@ -32,8 +33,8 @@ import com.helger.cache.impl.MappedCache;
 import com.helger.datetime.expiration.ExpiringObject;
 
 /**
- * An revocation cache that checks the revocation status of each certificate and keeps the status
- * for a provided duration.
+ * An revocation cache that checks the revocation status of each certificate and
+ * keeps the status for a provided duration.
  *
  * @author Philip Helger
  * @since 11.2.0
@@ -67,7 +68,7 @@ public class RevocationCheckResultCache
 
   public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                      @NonNull final Duration aCachingDuration,
-                                     final int nMaxSize)
+                                     @CheckForSigned final int nMaxSize)
   {
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
