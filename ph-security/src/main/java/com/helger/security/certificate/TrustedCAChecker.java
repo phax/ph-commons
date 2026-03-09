@@ -17,11 +17,13 @@
 package com.helger.security.certificate;
 
 import java.security.cert.X509Certificate;
+import java.time.Duration;
 import java.time.OffsetDateTime;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -33,9 +35,9 @@ import com.helger.security.revocation.RevocationCheckBuilder;
 import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
- * This is a specific helper class to check the validity of certificates based on specific trusted
- * CAs. This class assumes the trust model with explicit, non-shared CAs (like in the Peppol
- * Network).
+ * This is a specific helper class to check the validity of certificates based
+ * on specific trusted CAs. This class assumes the trust model with explicit,
+ * non-shared CAs (like in the Peppol Network).
  *
  * @author Philip Helger
  * @since 11.2.1
@@ -50,23 +52,55 @@ public class TrustedCAChecker
    * Constructor
    *
    * @param aCACerts
-   *        The trusted CA certificates to be used. May neither be <code>null</code> nor empty.
+   *        The trusted CA certificates to be used. May neither be
+   *        <code>null</code> nor empty.
    */
   public TrustedCAChecker (@NonNull final X509Certificate... aCACerts)
   {
+    this (CertificateRevocationCheckerDefaults.getRevocationCheckMode (),
+          CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION,
+          RevocationCheckResultCache.DEFAULT_MAX_SIZE,
+          aCACerts);
+  }
+
+  /**
+   * @param eCheckMode
+   *        The revocation check mode to use. May not be <code>null</code>.
+   * @param aCachingDuration
+   *        The caching duration until the next revocation check needs to be
+   *        performed. May not be <code>null</code>.
+   * @param nCacheMaxSize
+   *        The maximum cache size for the revocation check. Values &le; 0 means
+   *        no maximum size.
+   * @param aCACerts
+   *        The trusted CA certificates to be used. May neither be
+   *        <code>null</code> nor empty.
+   * @since 12.1.4
+   */
+  public TrustedCAChecker (@NonNull final ERevocationCheckMode eCheckMode,
+                           @NonNull final Duration aCachingDuration,
+                           @CheckForSigned final int nCacheMaxSize,
+                           @NonNull final X509Certificate... aCACerts)
+  {
+    ValueEnforcer.notNull (eCheckMode, "CheckMode");
+    ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
+    ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
     ValueEnforcer.notNullNoNullValue (aCACerts, "CACerts");
+
     for (final X509Certificate aCACert : aCACerts)
       m_aTrustedCAs.addTrustedCACertificate (aCACert);
     // The cache always uses "now" as the checking date and time
     m_aRevocationCache = new RevocationCheckResultCache (aCert -> new RevocationCheckBuilder ().certificate (aCert)
                                                                                                .validCAs (aCACerts)
-                                                                                               .checkMode (CertificateRevocationCheckerDefaults.getRevocationCheckMode ())
+                                                                                               .checkMode (eCheckMode)
                                                                                                .build (),
-                                                         CertificateRevocationCheckerDefaults.DEFAULT_REVOCATION_CHECK_CACHING_DURATION);
+                                                         aCachingDuration,
+                                                         nCacheMaxSize);
   }
 
   /**
-   * @return A copy of the trusted CA certificates object used internally. Never <code>null</code>.
+   * @return A copy of the trusted CA certificates object used internally. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -76,7 +110,8 @@ public class TrustedCAChecker
   }
 
   /**
-   * @return The internal revocation cache that is used. Never <code>null</code>.
+   * @return The internal revocation cache that is used. Never
+   *         <code>null</code>.
    */
   @NonNull
   public RevocationCheckResultCache getRevocationCache ()
@@ -85,7 +120,8 @@ public class TrustedCAChecker
   }
 
   /**
-   * Check if the provided certificate is a valid Peppol certificate according to the configured CA.
+   * Check if the provided certificate is a valid Peppol certificate according
+   * to the configured CA.
    *
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
@@ -98,12 +134,14 @@ public class TrustedCAChecker
   }
 
   /**
-   * Check if the provided certificate is a valid Peppol certificate according to the configured CA.
+   * Check if the provided certificate is a valid Peppol certificate according
+   * to the configured CA.
    *
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
-   *        The check date and time to use. May be <code>null</code> which means "now".
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    */
   @NonNull
@@ -114,18 +152,20 @@ public class TrustedCAChecker
   }
 
   /**
-   * Check if the provided certificate is a valid Peppol certificate according to the configured CA.
+   * Check if the provided certificate is a valid Peppol certificate according
+   * to the configured CA.
    *
    * @param aCert
    *        The certificate to be checked. May be <code>null</code>.
    * @param aCheckDT
-   *        The check date and time to use. May be <code>null</code> which means "now".
+   *        The check date and time to use. May be <code>null</code> which means
+   *        "now".
    * @param eCacheRevocationCheckResult
    *        Define whether to cache the revocation check results or not. Use
    *        {@link ETriState#UNDEFINED} to solely use the default.
    * @param eCheckMode
-   *        Possibility to override the revocation checking mode for each check. May be
-   *        <code>null</code> to use the global state from
+   *        Possibility to override the revocation checking mode for each check.
+   *        May be <code>null</code> to use the global state from
    *        {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}.
    * @return {@link ECertificateCheckResult} and never <code>null</code>.
    */
@@ -139,7 +179,7 @@ public class TrustedCAChecker
                                                                                    : eCacheRevocationCheckResult.isTrue ();
 
     return CertificateHelper.checkCertificate (m_aTrustedCAs.getAllTrustedCAIssuers (),
-                                               bUseRevocationCache && aCheckDT == null ? m_aRevocationCache : null,
+                                               bUseRevocationCache ? m_aRevocationCache : null,
                                                new RevocationCheckBuilder ().certificate (aCert)
                                                                             .checkDate (aCheckDT)
                                                                             .validCAs (m_aTrustedCAs.getAllTrustedCACertificates ())
