@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
@@ -91,23 +92,26 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * Constructor
    *
    * @param aCacheKeyProvider
-   *        The cache key provider, that takes any KEYTYPE and creates a non-<code>null</code>
-   *        KEYSTORETYPE instance. May not be <code>null</code>.
+   *        The cache key provider, that takes any KEYTYPE and creates a
+   *        non-<code>null</code> KEYSTORETYPE instance. May not be
+   *        <code>null</code>.
    * @param aValueProvider
-   *        The cache value provider. The value to be cached may be <code>null</code> depending on
-   *        the parameter {@code bAllowNullValues}. May not be <code>null</code>.
+   *        The cache value provider. The value to be cached may be
+   *        <code>null</code> depending on the parameter
+   *        {@code bAllowNullValues}. May not be <code>null</code>.
    * @param nMaxSize
-   *        The maximum size of the cache. All values &le; 0 indicate an unlimited size.
+   *        The maximum size of the cache. All values &le; 0 indicate an
+   *        unlimited size.
    * @param sCacheName
-   *        The internal name of the cache. May neither be <code>null</code> nor empty. This name is
-   *        NOT checked for uniqueness.
+   *        The internal name of the cache. May neither be <code>null</code> nor
+   *        empty. This name is NOT checked for uniqueness.
    * @param bAllowNullValues
-   *        <code>true</code> if <code>null</code> values are allowed to be in the cache,
-   *        <code>false</code> if not.
+   *        <code>true</code> if <code>null</code> values are allowed to be in
+   *        the cache, <code>false</code> if not.
    */
   public MappedCache (@NonNull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
                       @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider,
-                      final int nMaxSize,
+                      @CheckForSigned final int nMaxSize,
                       @NonNull @Nonempty final String sCacheName,
                       final boolean bAllowNullValues)
   {
@@ -127,7 +131,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return The cache key provider from the constructor. Never <code>null</code>.
+   * @return The cache key provider from the constructor. Never
+   *         <code>null</code>.
    * @since 9.3.8
    */
   @NonNull
@@ -137,7 +142,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return The cache value provider from the constructor. Never <code>null</code>.
+   * @return The cache value provider from the constructor. Never
+   *         <code>null</code>.
    * @since 9.3.8
    */
   @NonNull
@@ -147,8 +153,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return The maximum number of entries allowed in this cache. Values &le; 0 indicate that the
-   *         cache size is not limited at all.
+   * @return The maximum number of entries allowed in this cache. Values &le; 0
+   *         indicate that the cache size is not limited at all.
    * @see #hasMaxSize()
    */
   public final int getMaxSize ()
@@ -158,7 +164,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return <code>true</code> if this cache has a size limit, <code>false</code> if not.
+   * @return <code>true</code> if this cache has a size limit,
+   *         <code>false</code> if not.
    * @see #getMaxSize()
    */
   public final boolean hasMaxSize ()
@@ -175,7 +182,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return <code>true</code> if <code>null</code> can be in the cache, <code>false</code> if not.
+   * @return <code>true</code> if <code>null</code> can be in the cache,
+   *         <code>false</code> if not.
    * @since 9.3.8
    */
   public final boolean isAllowNullValues ()
@@ -184,7 +192,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * Create a new cache map. This is the internal map that is used to store the items.
+   * Create a new cache map. This is the internal map that is used to store the
+   * items.
    *
    * @return Never <code>null</code>.
    */
@@ -258,11 +267,12 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * Put a new value into the cache. Use this in derived classes to e.g. prefill the cache with
-   * existing values.
+   * Put a new value into the cache. Use this in derived classes to e.g. prefill
+   * the cache with existing values.
    *
    * @param aKey
-   *        The cache key. May be <code>null</code> depending on the cache key provider.
+   *        The cache key. May be <code>null</code> depending on the cache key
+   *        provider.
    * @param aValue
    *        The cache value. May be <code>null</code> depending on the settings.
    */
@@ -296,7 +306,8 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *
    * @param aKey
    *        The key to check. May be <code>null</code>.
-   * @return <code>true</code> if the value is already in the cache, <code>false</code> if not.
+   * @return <code>true</code> if the value is already in the cache,
+   *         <code>false</code> if not.
    * @since 9.3.8
    */
   public final boolean isInCache (final KEYTYPE aKey)
