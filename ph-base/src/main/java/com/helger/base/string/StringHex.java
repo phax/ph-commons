@@ -27,6 +27,12 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for hexadecimal string encoding and decoding of byte arrays and
+ * individual values.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class StringHex
 {

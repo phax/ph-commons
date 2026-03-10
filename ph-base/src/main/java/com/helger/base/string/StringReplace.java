@@ -31,6 +31,12 @@ import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for replacing characters and substrings within strings, with
+ * support for multiple replacements and streaming output.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class StringReplace
 {

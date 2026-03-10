@@ -25,6 +25,12 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
+/**
+ * A group of mutually related {@link Option} instances, optionally marked as
+ * required.
+ *
+ * @author Philip Helger
+ */
 @NotThreadSafe
 public class OptionGroup extends CommonsArrayList <Option> implements IOptionBase
 {

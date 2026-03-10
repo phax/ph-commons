@@ -24,6 +24,11 @@ import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for removing characters or substrings from strings.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class StringRemove
 {

@@ -22,6 +22,12 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.base.string.StringHex;
 
+/**
+ * Helper class providing the hex representation of an object's identity hash
+ * code address.
+ *
+ * @author Philip Helger
+ */
 public final class ObjectHelper
 {
   private ObjectHelper ()

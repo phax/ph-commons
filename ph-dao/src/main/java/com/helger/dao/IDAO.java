@@ -36,6 +36,11 @@ import com.helger.annotation.Nonnegative;
  */
 public interface IDAO extends IAutoSaveAware
 {
+  /**
+   * The mode of operation for the DAO: read or write.
+   *
+   * @author Philip Helger
+   */
   public enum EMode
   {
     READ,

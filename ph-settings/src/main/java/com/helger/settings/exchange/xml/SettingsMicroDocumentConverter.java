@@ -33,6 +33,14 @@ import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroQName;
 import com.helger.xml.microdom.convert.IMicroTypeConverter;
 
+/**
+ * Micro type converter for serializing and deserializing {@link ISettings}
+ * objects to and from micro DOM elements.
+ *
+ * @author Philip Helger
+ * @param <T>
+ *        The concrete settings type.
+ */
 public class SettingsMicroDocumentConverter <T extends ISettings> implements IMicroTypeConverter <T>
 {
   private static final String ELEMENT_SETTING = "setting";

@@ -35,6 +35,12 @@ import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
+/**
+ * Helper class for creating and populating {@link java.util.PriorityQueue}
+ * instances from various sources.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class QueueHelper
 {

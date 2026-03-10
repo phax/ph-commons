@@ -28,6 +28,11 @@ import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for URL encoding and decoding of strings using RFC 3986.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class URLCoder
 {

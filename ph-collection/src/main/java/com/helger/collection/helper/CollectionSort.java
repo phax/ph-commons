@@ -39,6 +39,12 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsOrderedMap;
 
+/**
+ * Helper class for sorting lists, iterators, and maps, both inline and by
+ * creating sorted copies.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class CollectionSort
 {

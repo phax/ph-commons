@@ -60,12 +60,35 @@ public class RevocationCheckResultCache
            aCert.getSerialNumber ().toString ();
   }
 
+  /**
+   * Constructor using the {@link #DEFAULT_MAX_SIZE} as the maximum cache size.
+   *
+   * @param aRevocationChecker
+   *        The function that checks revocation status for a given certificate.
+   *        May not be <code>null</code>.
+   * @param aCachingDuration
+   *        The duration to cache each revocation check result. May not be
+   *        <code>null</code> and must not be negative.
+   */
   public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                      @NonNull final Duration aCachingDuration)
   {
     this (aRevocationChecker, aCachingDuration, DEFAULT_MAX_SIZE);
   }
 
+  /**
+   * Constructor with explicit maximum cache size.
+   *
+   * @param aRevocationChecker
+   *        The function that checks revocation status for a given certificate.
+   *        May not be <code>null</code>.
+   * @param aCachingDuration
+   *        The duration to cache each revocation check result. May not be
+   *        <code>null</code> and must not be negative.
+   * @param nMaxSize
+   *        The maximum number of entries in the cache. Values &le; 0 mean no
+   *        maximum size.
+   */
   public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                      @NonNull final Duration aCachingDuration,
                                      @CheckForSigned final int nMaxSize)
@@ -82,18 +105,36 @@ public class RevocationCheckResultCache
     m_aCachingDuration = aCachingDuration;
   }
 
+  /**
+   * @return The revocation checker function as provided in the constructor.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public final Function <X509Certificate, ERevoked> getRevocationChecker ()
   {
     return m_aRevocationChecker;
   }
 
+  /**
+   * @return The caching duration as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public final Duration getCachingDuration ()
   {
     return m_aCachingDuration;
   }
 
+  /**
+   * Check whether the provided certificate is revoked. The result is cached for
+   * the configured caching duration. If the cached entry is expired, it is
+   * automatically re-fetched.
+   *
+   * @param aCert
+   *        The certificate to check. May not be <code>null</code>.
+   * @return <code>true</code> if the certificate is revoked,
+   *         <code>false</code> if not.
+   */
   public boolean isRevoked (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
@@ -112,6 +153,12 @@ public class RevocationCheckResultCache
     return aObject.getObject ().isRevoked ();
   }
 
+  /**
+   * Remove all entries from the cache.
+   *
+   * @return {@link EChange#CHANGED} if the cache was not empty and was cleared,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
   @NonNull
   public EChange clearCache ()
   {

@@ -31,6 +31,11 @@ import com.helger.base.text.TextFormatter;
  */
 public final class TypeConverterException extends RuntimeException
 {
+  /**
+   * Defines the reason why a type conversion failed.
+   *
+   * @author Philip Helger
+   */
   @NoTranslationRequired (value = "because whenever an exception is thrown, no locale is present!")
   public enum EReason
   {

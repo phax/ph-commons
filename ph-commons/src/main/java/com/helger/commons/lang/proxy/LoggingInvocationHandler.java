@@ -31,6 +31,13 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.string.StringHex;
 
+/**
+ * An {@link InvocationHandler} that logs all method invocations on a proxied
+ * object, including parameters and return values. Can optionally wrap return
+ * values in logging proxies as well.
+ *
+ * @author Philip Helger
+ */
 public class LoggingInvocationHandler implements InvocationHandler
 {
   public static final boolean DEFAULT_PROXY_RETURN_VALUES = true;

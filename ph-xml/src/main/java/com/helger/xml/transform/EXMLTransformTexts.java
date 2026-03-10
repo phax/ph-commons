@@ -27,6 +27,11 @@ import com.helger.text.display.IHasDisplayText;
 import com.helger.text.resolve.DefaultTextResolver;
 import com.helger.text.util.TextHelper;
 
+/**
+ * Translatable texts for XML/XSLT transformation warning and error messages.
+ *
+ * @author Philip Helger
+ */
 @Translatable
 public enum EXMLTransformTexts implements IHasDisplayText
 {

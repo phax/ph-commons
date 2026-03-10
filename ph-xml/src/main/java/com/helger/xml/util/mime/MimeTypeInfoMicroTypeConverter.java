@@ -49,6 +49,12 @@ import com.helger.xml.microdom.util.MicroHelper;
 import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
 
+/**
+ * Micro type converter for serializing and deserializing {@link MimeTypeInfo}
+ * objects to and from micro DOM elements.
+ *
+ * @author Philip Helger
+ */
 public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter <MimeTypeInfo>
 {
   private static final String ELEMENT_MIMETYPE = "mime-type";

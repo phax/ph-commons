@@ -39,6 +39,11 @@ import com.helger.base.string.StringHelper;
 @Immutable
 public final class RoundHelper
 {
+  /**
+   * Defines the decimal number representation type: fixed or exponential.
+   *
+   * @author Philip Helger
+   */
   public enum EDecimalType
   {
     /** Fixed number representation */

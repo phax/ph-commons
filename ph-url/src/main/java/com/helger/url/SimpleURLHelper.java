@@ -47,6 +47,12 @@ import com.helger.url.param.URLParameter;
 import com.helger.url.protocol.IURLProtocol;
 import com.helger.url.protocol.URLProtocolRegistry;
 
+/**
+ * Helper class for URL parsing, query string handling, and URL encoding/decoding
+ * operations.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class SimpleURLHelper
 {

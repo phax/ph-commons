@@ -39,6 +39,13 @@ import com.helger.collection.commons.ICommonsSortedSet;
 import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileSystemIterator;
 
+/**
+ * Helper class for testing SPI (Service Provider Interface) configurations,
+ * verifying that all declared service files reference valid and correctly
+ * annotated implementation classes.
+ *
+ * @author Philip Helger
+ */
 public final class SPITestHelper
 {
   /** Project relative path to test SPI directory */
@@ -51,6 +58,11 @@ public final class SPITestHelper
   private SPITestHelper ()
   {}
 
+  /**
+   * Defines the strictness mode for SPI testing.
+   *
+   * @author Philip Helger
+   */
   public enum EMode
   {
     STRICT,

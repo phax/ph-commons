@@ -45,6 +45,13 @@ import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
+/**
+ * Helper class providing factory methods and utility operations for JDK
+ * collections, including null-safe size checks, safe access, unmodifiable
+ * wrappers, and type conversions.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class CollectionHelper
 {

@@ -30,6 +30,13 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.base.EmptyEnumeration;
 
+/**
+ * Helper class for working with {@link java.util.Enumeration} instances,
+ * providing null-safe emptiness checks, size calculations, and conversions to
+ * lists.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class EnumerationHelper
 {

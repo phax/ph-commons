@@ -36,6 +36,13 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringReplace;
 
+/**
+ * Helper class for common reflection and class-related operations such as
+ * primitive/wrapper type mapping, class name handling, and class hierarchy
+ * inspection.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class ClassHelper
 {

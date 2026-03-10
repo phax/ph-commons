@@ -31,9 +31,20 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
+/**
+ * Represents a single command line option with short/long names, a description,
+ * and multiplicity.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class Option implements IOptionBase
 {
+  /**
+   * Defines how often a command line option may or must appear.
+   *
+   * @author Philip Helger
+   */
   public enum EOptionMultiplicity
   {
     /** 0..1, <code>{0,1} or ?</code> */

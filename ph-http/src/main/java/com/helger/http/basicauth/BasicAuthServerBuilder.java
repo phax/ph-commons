@@ -25,6 +25,12 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.RFC1945Helper;
 
+/**
+ * Builder for creating HTTP Basic Authentication server challenge header
+ * values.
+ *
+ * @author Philip Helger
+ */
 @NotThreadSafe
 public class BasicAuthServerBuilder
 {

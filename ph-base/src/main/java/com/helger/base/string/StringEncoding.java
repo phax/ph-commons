@@ -33,6 +33,13 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for encoding char arrays to byte arrays and decoding byte arrays
+ * to char arrays using NIO charset codecs, avoiding intermediate String
+ * objects.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class StringEncoding
 {

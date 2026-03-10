@@ -26,6 +26,12 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
+/**
+ * Helper class for formatting text using {@link java.text.MessageFormat}
+ * patterns with locale-aware formatting.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class TextFormatter
 {

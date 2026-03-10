@@ -76,11 +76,28 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
     return SimpleFileIO.writeFile (aFile, Long.toString (nID), CHARSET_TO_USE);
   }
 
+  /**
+   * Constructor using the {@link #DEFAULT_RESERVE_COUNT}.
+   *
+   * @param aFile
+   *        The file to persist the ID counter to. May not be
+   *        <code>null</code>. Must be readable and writable.
+   */
   public FileLongIDFactory (@NonNull final File aFile)
   {
     this (aFile, DEFAULT_RESERVE_COUNT);
   }
 
+  /**
+   * Constructor with explicit reserve count.
+   *
+   * @param aFile
+   *        The file to persist the ID counter to. May not be
+   *        <code>null</code>. Must be readable and writable.
+   * @param nReserveCount
+   *        The number of IDs to reserve with a single IO action. Must be &gt;
+   *        0.
+   */
   public FileLongIDFactory (@NonNull final File aFile, @Nonnegative final int nReserveCount)
   {
     super (nReserveCount);

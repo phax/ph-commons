@@ -51,6 +51,12 @@ import com.helger.base.mock.exception.IMockException;
 import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.state.ESuccess;
 
+/**
+ * Helper class for safe stream operations such as copying, closing, flushing,
+ * and converting between byte/char streams.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class StreamHelper
 {

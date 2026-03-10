@@ -64,6 +64,10 @@ public enum EConfigSourceType implements IHasID <String>, IHasDisplayText
     m_eName = eName;
   }
 
+  /**
+   * @return The unique ID of this configuration source type. Neither
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -80,12 +84,22 @@ public enum EConfigSourceType implements IHasID <String>, IHasDisplayText
     return m_nDefaultPriority;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_eName.getDisplayText (aContentLocale);
   }
 
+  /**
+   * Find the enum constant matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum constant was found.
+   */
   @Nullable
   public static EConfigSourceType getFromIDOrNull (@Nullable final String sID)
   {

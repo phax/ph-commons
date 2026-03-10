@@ -24,6 +24,12 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.compare.CompareHelper;
 
+/**
+ * Extended comparison helper that adds locale-aware string comparison using
+ * {@link java.text.Collator}.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public final class CompareHelperExt extends CompareHelper
 {

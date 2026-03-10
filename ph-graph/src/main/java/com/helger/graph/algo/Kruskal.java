@@ -42,6 +42,12 @@ import com.helger.graph.simple.SimpleGraphObjectFastFactory;
  */
 public final class Kruskal
 {
+  /**
+   * The result of a Kruskal minimum spanning tree computation, containing the
+   * resulting graph and total weight.
+   *
+   * @author Philip Helger
+   */
   public static final class Result
   {
     private final SimpleGraph m_aGraph;

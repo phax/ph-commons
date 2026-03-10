@@ -326,6 +326,11 @@ public class IntFloatMap implements IHasSize
     return (currentIndex + 1) & m_nMask;
   }
 
+  /**
+   * A consumer for int-float key/value pairs.
+   *
+   * @author Philip Helger
+   */
   @FunctionalInterface
   public interface IConsumer
   {

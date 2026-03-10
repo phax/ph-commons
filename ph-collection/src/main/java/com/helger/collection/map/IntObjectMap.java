@@ -329,6 +329,13 @@ public class IntObjectMap <T> implements IHasSize
     return idx;
   }
 
+  /**
+   * A consumer for int-object key/value pairs.
+   *
+   * @author Philip Helger
+   * @param <T>
+   *        The value type.
+   */
   @FunctionalInterface
   public interface IConsumer <T>
   {

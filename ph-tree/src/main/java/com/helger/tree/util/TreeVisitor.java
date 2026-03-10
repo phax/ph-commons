@@ -43,6 +43,16 @@ import com.helger.tree.IBasicTreeItem;
 @Immutable
 public final class TreeVisitor
 {
+  /**
+   * A hierarchy visitor callback that converts each visited item before
+   * delegating to another callback.
+   *
+   * @author Philip Helger
+   * @param <ITEMTYPE>
+   *        The source item type in the hierarchy.
+   * @param <DATATYPE>
+   *        The target data type after conversion.
+   */
   public static class HierarchyVisitorCallbackWithConversion <ITEMTYPE, DATATYPE> extends
                                                              DefaultHierarchyVisitorCallback <ITEMTYPE>
   {

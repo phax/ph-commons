@@ -318,6 +318,16 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return getFromCacheNoStats (aCacheKey) != null;
   }
 
+  /**
+   * Get a value from the cache. If the value is not yet in the cache, it is
+   * resolved via the value provider and stored before being returned.
+   *
+   * @param aKey
+   *        The key to look up. May be <code>null</code> depending on the cache
+   *        key provider.
+   * @return The cached value. May be <code>null</code> if null values are
+   *         allowed.
+   */
   public VALUETYPE getFromCache (final KEYTYPE aKey)
   {
     // Determine the internal key
@@ -405,12 +415,19 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return EChange.CHANGED;
   }
 
+  /**
+   * @return The number of entries currently in the cache. Always &ge; 0.
+   */
   @Nonnegative
   public int size ()
   {
     return m_aRWLock.readLockedInt ( () -> CollectionHelper.getSize (m_aCache));
   }
 
+  /**
+   * @return <code>true</code> if the cache contains no entries,
+   *         <code>false</code> if it contains at least one entry.
+   */
   public boolean isEmpty ()
   {
     return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aCache));

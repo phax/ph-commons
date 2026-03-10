@@ -31,6 +31,12 @@ import com.helger.collection.base.EmptyIterator;
 import com.helger.collection.base.IIterableIterator;
 import com.helger.collection.commons.CommonsIterableEnumeration;
 
+/**
+ * Helper class for working with {@link java.util.Iterator} instances,
+ * providing null-safe emptiness checks, size calculations, and factory methods.
+ *
+ * @author Philip Helger
+ */
 @Immutable
 public class IteratorHelper
 {

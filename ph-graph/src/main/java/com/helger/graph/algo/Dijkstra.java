@@ -169,6 +169,14 @@ public final class Dijkstra
     }
   }
 
+  /**
+   * The result of a Dijkstra shortest path computation, containing the ordered
+   * list of nodes and the total distance.
+   *
+   * @author Philip Helger
+   * @param <N>
+   *        The graph node type.
+   */
   @Immutable
   public static final class Result <N extends IMutableBaseGraphNode <N, ?>>
   {

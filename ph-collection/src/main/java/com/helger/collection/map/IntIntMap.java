@@ -309,6 +309,11 @@ public class IntIntMap implements IHasSize
     return (currentIndex + 1) & m_nMask;
   }
 
+  /**
+   * A consumer for int-int key/value pairs.
+   *
+   * @author Philip Helger
+   */
   @FunctionalInterface
   public interface IConsumer
   {

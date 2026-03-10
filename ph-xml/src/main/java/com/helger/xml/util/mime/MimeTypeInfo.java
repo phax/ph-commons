@@ -46,6 +46,11 @@ import com.helger.mime.parse.MimeTypeParserException;
 @Immutable
 public final class MimeTypeInfo
 {
+  /**
+   * A MIME type together with its optional source information.
+   *
+   * @author Philip Helger
+   */
   @Immutable
   public static final class MimeTypeWithSource
   {
@@ -118,6 +123,11 @@ public final class MimeTypeInfo
     }
   }
 
+  /**
+   * A file extension together with its optional source information.
+   *
+   * @author Philip Helger
+   */
   @Immutable
   public static final class ExtensionWithSource
   {

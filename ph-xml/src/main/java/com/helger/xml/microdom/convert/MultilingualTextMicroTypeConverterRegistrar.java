@@ -84,6 +84,11 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
+  /**
+   * Micro type converter for {@link ReadOnlyMultilingualText}.
+   *
+   * @author Philip Helger
+   */
   public static final class ReadOnlyMultilingualTextConverter extends AbstractMLTConverter <ReadOnlyMultilingualText>
   {
     @NonNull
@@ -93,6 +98,11 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
+  /**
+   * Micro type converter for {@link MultilingualText}.
+   *
+   * @author Philip Helger
+   */
   public static final class MultilingualTextConverter extends AbstractMLTConverter <MultilingualText>
   {
     @NonNull

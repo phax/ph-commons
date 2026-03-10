@@ -27,6 +27,11 @@ import com.helger.text.display.IHasDisplayTextWithArgs;
 import com.helger.text.resolve.DefaultTextResolver;
 import com.helger.text.util.TextHelper;
 
+/**
+ * Translatable error texts for key store and key entry loading operations.
+ *
+ * @author Philip Helger
+ */
 @Translatable
 public enum EKeyStoreLoadErrorText implements IHasDisplayTextWithArgs
 {
