@@ -21,7 +21,9 @@ import java.util.Locale;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.lang.EnumHelper;
 import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
 import com.helger.statistics.api.IMutableStatisticsHandlerKeyedCounter;
@@ -29,8 +31,8 @@ import com.helger.statistics.impl.StatisticsManager;
 import com.helger.text.IHasText;
 
 /**
- * Resolves texts either from an override, a text provider or otherwise uses a
- * fallback, based on the given enum constant.
+ * Resolves texts either from an override, a text provider or otherwise uses a fallback, based on
+ * the given enum constant.
  *
  * @author Philip Helger
  */
@@ -47,7 +49,10 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   private static final IMutableStatisticsHandlerCounter STATS_FALLBACK = StatisticsManager.getCounterHandler (AbstractEnumTextResolverWithOverrideAndFallback.class.getName () +
                                                                                                               "$FALLBACK");
 
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+  @GuardedBy ("m_aRWLock")
   private boolean m_bCheckForOverride = DEFAULT_CHECK_FOR_OVERRIDE;
+  @GuardedBy ("m_aRWLock")
   private boolean m_bCheckForFallback = DEFAULT_CHECK_FOR_FALLBACK;
 
   protected AbstractEnumTextResolverWithOverrideAndFallback ()
@@ -55,28 +60,43 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
 
   public final boolean isCheckForOverride ()
   {
-    return m_bCheckForOverride;
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_bCheckForOverride;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   public final void setCheckForOverride (final boolean bCheckForOverride)
   {
-    m_bCheckForOverride = bCheckForOverride;
+    m_aRWLock.writeLocked ( () -> m_bCheckForOverride = bCheckForOverride);
   }
 
   public final boolean isCheckForFallback ()
   {
-    return m_bCheckForFallback;
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_bCheckForFallback;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   public final void setCheckForFallback (final boolean bCheckForFallback)
   {
-    m_bCheckForFallback = bCheckForFallback;
+    m_aRWLock.writeLocked ( () -> m_bCheckForFallback = bCheckForFallback);
   }
 
   /**
-   * This method must return the override string for the passed parameters. This
-   * method is only called if {@link #isCheckForOverride()} is <code>true</code>
-   * .
+   * This method must return the override string for the passed parameters. This method is only
+   * called if {@link #isCheckForOverride()} is <code>true</code> .
    *
    * @param sID
    *        Unique string ID
@@ -88,9 +108,8 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetOverrideString (@NonNull String sID, @NonNull Locale aContentLocale);
 
   /**
-   * This method must return the fallback string for the passed parameters. This
-   * method is only called if {@link #isCheckForFallback()} is <code>true</code>
-   * .
+   * This method must return the fallback string for the passed parameters. This method is only
+   * called if {@link #isCheckForFallback()} is <code>true</code> .
    *
    * @param sID
    *        Unique string ID
@@ -112,7 +131,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     // Increment the statistics first
     STATS_GET_TEXT.increment (sID);
 
-    if (m_bCheckForOverride)
+    if (isCheckForOverride ())
     {
       // Is there an override available?
       final String ret = internalGetOverrideString (sID, aContentLocale);
@@ -130,7 +149,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     if (ret != null)
       return ret;
 
-    if (m_bCheckForFallback)
+    if (isCheckForFallback ())
     {
       // The text was not found -> try the fallback (e.g. for different
       // locale)

@@ -29,7 +29,6 @@ import com.helger.annotation.PropertyKey;
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
@@ -60,7 +59,6 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   private static final IMutableStatisticsHandlerKeyedCounter STATS_FAILED = StatisticsManager.getKeyedCounterHandler (EnumTextResolverWithPropertiesOverrideAndFallback.class.getName () +
                                                                                                                       "$failed");
 
-  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
   private final ICommonsSet <String> m_aUsedOverrideBundles = new CommonsHashSet <> ();
   @GuardedBy ("m_aRWLock")
@@ -74,6 +72,15 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   {}
 
   /**
+   * @return <code>true</code> if the internal {@link ResourceBundle} cache should be used. The
+   *         default value is {@link #DEFAULT_USE_RESOURCE_BUNDLE_CACHE}.
+   */
+  public boolean isUseResourceBundleCache ()
+  {
+    return m_aRWLock.readLockedBoolean ( () -> m_bUseResourceBundleCache);
+  }
+
+  /**
    * Change whether the internal resource bundle cache should be used.
    *
    * @param bUseResourceBundleCache
@@ -82,15 +89,6 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   public void setUseResourceBundleCache (final boolean bUseResourceBundleCache)
   {
     m_aRWLock.writeLocked ( () -> m_bUseResourceBundleCache = bUseResourceBundleCache);
-  }
-
-  /**
-   * @return <code>true</code> if the internal {@link ResourceBundle} cache should be used. The
-   *         default value is {@link #DEFAULT_USE_RESOURCE_BUNDLE_CACHE}.
-   */
-  public boolean isUseResourceBundleCache ()
-  {
-    return m_aRWLock.readLockedBoolean ( () -> m_bUseResourceBundleCache);
   }
 
   /**
@@ -117,6 +115,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
         return m_aResourceBundleCache.get (sBundleName);
       return null;
     });
+
     if (ret == null)
     {
       ret = m_aRWLock.writeLockedGet ( () -> {
