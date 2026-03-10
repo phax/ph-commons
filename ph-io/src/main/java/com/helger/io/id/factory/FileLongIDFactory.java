@@ -186,7 +186,8 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
 
     // Write the new content to the new file
     // This will fail, if the disk is full
-    _writeIDToFile (m_aNewFile, nIDRead + nReserveCount);
+    if (_writeIDToFile (m_aNewFile, nIDRead + nReserveCount).isFailure ())
+      throw new IllegalStateException ("Error writing ID file '" + m_aNewFile.getAbsolutePath () + "'");
 
     FileIOError aIOError;
     boolean bRenamedToPrev = false;
