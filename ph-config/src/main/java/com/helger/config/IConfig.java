@@ -97,7 +97,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
     final Wrapper <ESuccess> ret = Wrapper.of (ESuccess.SUCCESS);
     forEachConfigurationValueProvider ( (cvp, prio) -> {
       if (cvp instanceof final IConfigurationSourceResource aSrcRes)
-        ret.set (ret.get ().or (aSrcRes.reload ()));
+        ret.set (ret.get ().and (aSrcRes.reload ()));
     });
     return ret.get ();
   }
