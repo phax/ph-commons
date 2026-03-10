@@ -70,6 +70,14 @@ public class CRLDownloader
     return m_aURLDownloader;
   }
 
+  /**
+   * Download a CRL from the provided URL. Only HTTP and HTTPS URLs are supported.
+   *
+   * @param sCRLURL
+   *        The URL to download the CRL from. May not be <code>null</code>.
+   * @return The downloaded and parsed CRL, or <code>null</code> if the download or parsing failed
+   *         or if the URL protocol is not HTTP/HTTPS.
+   */
   @Nullable
   public CRL downloadCRL (@NonNull final String sCRLURL)
   {

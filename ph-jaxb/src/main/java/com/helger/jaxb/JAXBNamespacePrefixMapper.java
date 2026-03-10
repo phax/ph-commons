@@ -40,6 +40,12 @@ public class JAXBNamespacePrefixMapper extends NamespacePrefixMapper
 {
   private final NamespaceContext m_aNC;
 
+  /**
+   * Constructor.
+   *
+   * @param aNC
+   *        The namespace context to use for prefix mapping. May not be <code>null</code>.
+   */
   public JAXBNamespacePrefixMapper (@NonNull final NamespaceContext aNC)
   {
     m_aNC = ValueEnforcer.notNull (aNC, "NamespaceContext");

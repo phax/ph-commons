@@ -295,6 +295,12 @@ public final class CodepointHelper
     return length (new CodepointIteratorCharArray (aArray));
   }
 
+  /**
+   * @param aIter
+   *        The codepoint iterator to count. May not be <code>null</code>.
+   * @return the total number of codepoints in the iterator. Each surrogate pair counts as a single
+   *         codepoint.
+   */
   @Nonnegative
   public static int length (@NonNull final AbstractCodepointIterator aIter)
   {
@@ -414,6 +420,13 @@ public final class CodepointHelper
     }
   }
 
+  /**
+   * Check if the provided codepoint is a hexadecimal digit (0-9, a-f, A-F).
+   *
+   * @param nCodepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a hexadecimal digit.
+   */
   public static boolean isHex (final int nCodepoint)
   {
     return Character.isDigit (nCodepoint) || inRange (nCodepoint, 'a', 'f') || inRange (nCodepoint, 'A', 'F');
@@ -435,6 +448,15 @@ public final class CodepointHelper
            nCodepoint == PDF;
   }
 
+  /**
+   * Perform a binary search on the provided codepoint set for the given value.
+   *
+   * @param aCodepointSet
+   *        The sorted array of codepoints to search in. May not be <code>null</code>.
+   * @param nValue
+   *        The value to search for.
+   * @return The index of the value in the set, or -1 if not found.
+   */
   @CheckForSigned
   public static int getIndex (final int @NonNull [] aCodepointSet, final int nValue)
   {
@@ -485,11 +507,25 @@ public final class CodepointHelper
     return ((nStart - 1) & 1) == 0;
   }
 
+  /**
+   * Check if the provided codepoint is a percent-encoding character (%, 0-9, A-F, a-f).
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid percent-encoding character.
+   */
   public static boolean isPctEnc (final int codepoint)
   {
     return codepoint == '%' || Character.isDigit (codepoint) || inRange (codepoint, 'A', 'F') || inRange (codepoint, 'a', 'f');
   }
 
+  /**
+   * Check if the provided codepoint is a mark character (-, _, ., !, ~, *, \, ', (, )).
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a mark character.
+   */
   public static boolean isMark (final int codepoint)
   {
     return codepoint == '-' ||
@@ -504,11 +540,25 @@ public final class CodepointHelper
            codepoint == ')';
   }
 
+  /**
+   * Check if the provided codepoint is an unreserved URI character as defined by RFC 3986.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is an unreserved character.
+   */
   public static boolean isUnreserved (final int codepoint)
   {
     return Character.isLetterOrDigit (codepoint) || codepoint == '-' || codepoint == '.' || codepoint == '_' || codepoint == '~';
   }
 
+  /**
+   * Check if the provided codepoint is a reserved URI character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a reserved character.
+   */
   public static boolean isReserved (final int codepoint)
   {
     return codepoint == '$' ||
@@ -525,6 +575,13 @@ public final class CodepointHelper
            codepoint == ']';
   }
 
+  /**
+   * Check if the provided codepoint is a generic delimiter as defined by RFC 3986.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a generic delimiter.
+   */
   public static boolean isGenDelim (final int codepoint)
   {
     return codepoint == '#' ||
@@ -536,6 +593,13 @@ public final class CodepointHelper
            codepoint == ']';
   }
 
+  /**
+   * Check if the provided codepoint is a sub-delimiter as defined by RFC 3986.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a sub-delimiter.
+   */
   public static boolean isSubDelim (final int codepoint)
   {
     return codepoint == '!' ||
@@ -552,6 +616,13 @@ public final class CodepointHelper
            codepoint == '\\';
   }
 
+  /**
+   * Check if the provided codepoint is a valid path character (pchar) as defined by RFC 3986.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid pchar.
+   */
   public static boolean isPchar (final int codepoint)
   {
     return isUnreserved (codepoint) ||
@@ -564,36 +635,85 @@ public final class CodepointHelper
            codepoint == ',';
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI path character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid path character.
+   */
   public static boolean isPath (final int codepoint)
   {
     return isPchar (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '%' || codepoint == ',';
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI path character excluding generic delimiters.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid path character without delimiters.
+   */
   public static boolean isPathNoDelims (final int codepoint)
   {
     return isPath (codepoint) && !isGenDelim (codepoint);
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI scheme character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid scheme character.
+   */
   public static boolean isScheme (final int codepoint)
   {
     return Character.isLetterOrDigit (codepoint) || codepoint == '+' || codepoint == '-' || codepoint == '.';
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI userinfo character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid userinfo character.
+   */
   public static boolean isUserInfo (final int codepoint)
   {
     return isUnreserved (codepoint) || isSubDelim (codepoint) || isPctEnc (codepoint);
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI query character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid query character.
+   */
   public static boolean isQuery (final int codepoint)
   {
     return isPchar (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '?' || codepoint == '%';
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI fragment character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid fragment character.
+   */
   public static boolean isFragment (final int codepoint)
   {
     return isPchar (codepoint) || codepoint == '/' || codepoint == '?' || codepoint == '%';
   }
 
+  /**
+   * Check if the provided codepoint is a UCS character as defined by RFC 3987.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a UCS character.
+   */
   public static boolean is_ucschar (final int codepoint)
   {
     return inRange (codepoint, '\u00A0', '\uD7FF') ||
@@ -615,16 +735,37 @@ public final class CodepointHelper
            inRange (codepoint, 0xE1000, 0xEFFFD);
   }
 
+  /**
+   * Check if the provided codepoint is in the Unicode private use area.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a private use character.
+   */
   public static boolean is_iprivate (final int codepoint)
   {
     return inRange (codepoint, '\uE000', '\uF8FF') || inRange (codepoint, 0xF0000, 0xFFFFD) || inRange (codepoint, 0x100000, 0x10FFFD);
   }
 
+  /**
+   * Check if the provided codepoint is an IRI unreserved character as defined by RFC 3987.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is an IRI unreserved character.
+   */
   public static boolean is_iunreserved (final int codepoint)
   {
     return Character.isLetterOrDigit (codepoint) || isMark (codepoint) || is_ucschar (codepoint);
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI path character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI pchar.
+   */
   public static boolean is_ipchar (final int codepoint)
   {
     return is_iunreserved (codepoint) ||
@@ -637,26 +778,61 @@ public final class CodepointHelper
            codepoint == '$';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI path character including delimiters.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI path character.
+   */
   public static boolean is_ipath (final int codepoint)
   {
     return is_ipchar (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '%' || codepoint == ',';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI path character excluding generic delimiters.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI path character without delimiters.
+   */
   public static boolean is_ipathnodelims (final int codepoint)
   {
     return is_ipath (codepoint) && !isGenDelim (codepoint);
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI query character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI query character.
+   */
   public static boolean is_iquery (final int codepoint)
   {
     return is_ipchar (codepoint) || is_iprivate (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '?' || codepoint == '%';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI fragment character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI fragment character.
+   */
   public static boolean is_ifragment (final int codepoint)
   {
     return is_ipchar (codepoint) || is_iprivate (codepoint) || codepoint == '/' || codepoint == '?' || codepoint == '%';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI registered name character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI registered name character.
+   */
   public static boolean is_iregname (final int codepoint)
   {
     return is_iunreserved (codepoint) ||
@@ -674,16 +850,37 @@ public final class CodepointHelper
            codepoint == '"';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI IP-literal character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI IP-literal character.
+   */
   public static boolean is_ipliteral (final int codepoint)
   {
     return isHex (codepoint) || codepoint == ':' || codepoint == '[' || codepoint == ']';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI host character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI host character.
+   */
   public static boolean is_ihost (final int codepoint)
   {
     return is_iregname (codepoint) || is_ipliteral (codepoint);
   }
 
+  /**
+   * Check if the provided codepoint is a valid URI registered name character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid registered name character.
+   */
   public static boolean is_regname (final int codepoint)
   {
     return isUnreserved (codepoint) ||
@@ -701,6 +898,13 @@ public final class CodepointHelper
            codepoint == '"';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI userinfo character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI userinfo character.
+   */
   public static boolean is_iuserinfo (final int codepoint)
   {
     return is_iunreserved (codepoint) ||
@@ -713,6 +917,13 @@ public final class CodepointHelper
            codepoint == ',';
   }
 
+  /**
+   * Check if the provided codepoint is a valid IRI server character.
+   *
+   * @param codepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint is a valid IRI server character.
+   */
   public static boolean is_iserver (final int codepoint)
   {
     return is_iuserinfo (codepoint) ||

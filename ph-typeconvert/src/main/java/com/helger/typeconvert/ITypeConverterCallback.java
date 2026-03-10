@@ -29,6 +29,18 @@ import com.helger.base.state.EContinue;
 @FunctionalInterface
 public interface ITypeConverterCallback
 {
+  /**
+   * Callback method invoked for each type converter registration.
+   *
+   * @param aSrcClass
+   *        The source class of the converter. Never <code>null</code>.
+   * @param aDstClass
+   *        The destination class of the converter. Never <code>null</code>.
+   * @param aConverter
+   *        The type converter itself. Never <code>null</code>.
+   * @return {@link EContinue#CONTINUE} to continue iteration,
+   *         {@link EContinue#BREAK} to stop.
+   */
   @NonNull
   EContinue call (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass, @NonNull ITypeConverter <?, ?> aConverter);
 }

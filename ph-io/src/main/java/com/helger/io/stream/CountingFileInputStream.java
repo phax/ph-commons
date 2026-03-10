@@ -40,12 +40,28 @@ public class CountingFileInputStream extends FileInputStream
   private static final IMutableStatisticsHandlerCounter STATS_READ_FILES = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
                                                                                                                "$read.files");
 
+  /**
+   * Create a counting file input stream for the passed file.
+   *
+   * @param aFile
+   *        The file to read from. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file does not exist.
+   */
   public CountingFileInputStream (@NonNull final File aFile) throws FileNotFoundException
   {
     super (aFile);
     STATS_READ_FILES.increment ();
   }
 
+  /**
+   * Create a counting file input stream for the passed filename.
+   *
+   * @param sFilename
+   *        The name of the file to read from. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file does not exist.
+   */
   public CountingFileInputStream (@NonNull final String sFilename) throws FileNotFoundException
   {
     super (sFilename);

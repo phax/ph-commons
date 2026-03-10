@@ -44,6 +44,13 @@ public class CertificateDecodeHelper
   public CertificateDecodeHelper ()
   {}
 
+  /**
+   * Set the certificate source as a byte array. This resets any previously set String source.
+   *
+   * @param aBytes
+   *        The certificate bytes. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public CertificateDecodeHelper source (final byte @Nullable [] aBytes)
   {
@@ -52,6 +59,13 @@ public class CertificateDecodeHelper
     return this;
   }
 
+  /**
+   * Set the certificate source as a String. This resets any previously set byte array source.
+   *
+   * @param s
+   *        The certificate string. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public CertificateDecodeHelper source (@Nullable final String s)
   {
@@ -60,6 +74,14 @@ public class CertificateDecodeHelper
     return this;
   }
 
+  /**
+   * Set whether the certificate source is PEM encoded or not.
+   *
+   * @param b
+   *        <code>true</code> if the source is PEM (Base64) encoded, <code>false</code> if it is
+   *        in binary (DER) format.
+   * @return this for chaining
+   */
   @NonNull
   public CertificateDecodeHelper pemEncoded (final boolean b)
   {
@@ -67,6 +89,14 @@ public class CertificateDecodeHelper
     return this;
   }
 
+  /**
+   * Decode the configured certificate source into an {@link X509Certificate}.
+   *
+   * @return The decoded certificate, or <code>null</code> if no source was set or the source is
+   *         empty.
+   * @throws CertificateException
+   *         If the source data cannot be converted to a valid X.509 certificate.
+   */
   @Nullable
   public X509Certificate getDecodedOrThrow () throws CertificateException
   {
@@ -108,6 +138,12 @@ public class CertificateDecodeHelper
     return null;
   }
 
+  /**
+   * Decode the configured certificate source into an {@link X509Certificate}, swallowing all
+   * errors.
+   *
+   * @return The decoded certificate, or <code>null</code> if decoding fails for any reason.
+   */
   @Nullable
   public X509Certificate getDecodedOrNull ()
   {

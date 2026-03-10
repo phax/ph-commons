@@ -51,11 +51,24 @@ public final class PathOperations
   private PathOperations ()
   {}
 
+  /**
+   * Check if an exception should be thrown when trying to delete the root directory.
+   *
+   * @return <code>true</code> if an exception will be thrown on root deletion attempts,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isExceptionOnDeleteRoot ()
   {
     return s_bExceptionOnDeleteRoot;
   }
 
+  /**
+   * Enable or disable the exception that is thrown when trying to delete the root directory.
+   *
+   * @param bExceptionOnDeleteRoot
+   *        <code>true</code> to throw an exception on root deletion attempts, <code>false</code>
+   *        to disable it.
+   */
   public static void setExceptionOnDeleteRoot (final boolean bExceptionOnDeleteRoot)
   {
     s_bExceptionOnDeleteRoot = bExceptionOnDeleteRoot;

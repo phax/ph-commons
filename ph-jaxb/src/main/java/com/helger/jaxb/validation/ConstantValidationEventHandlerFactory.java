@@ -30,17 +30,34 @@ public class ConstantValidationEventHandlerFactory implements IValidationEventHa
 {
   private final ValidationEventHandler m_aEventHandler;
 
+  /**
+   * Constructor.
+   *
+   * @param aEventHandler
+   *        The constant validation event handler to use. May be <code>null</code>.
+   */
   public ConstantValidationEventHandlerFactory (@Nullable final ValidationEventHandler aEventHandler)
   {
     m_aEventHandler = aEventHandler;
   }
 
+  /**
+   * @return The constant validation event handler as provided in the constructor. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public ValidationEventHandler getEventHandler ()
   {
     return m_aEventHandler;
   }
 
+  /**
+   * Always returns the constant event handler, ignoring the old event handler.
+   *
+   * @param aOldEventHandler
+   *        The previous event handler. Ignored. May be <code>null</code>.
+   * @return The constant validation event handler. May be <code>null</code>.
+   */
   @Nullable
   public ValidationEventHandler apply (@Nullable final ValidationEventHandler aOldEventHandler)
   {

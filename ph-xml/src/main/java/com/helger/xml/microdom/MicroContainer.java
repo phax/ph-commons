@@ -26,9 +26,18 @@ import org.jspecify.annotations.Nullable;
  */
 public final class MicroContainer extends AbstractMicroNodeWithChildren implements IMicroContainer
 {
+  /**
+   * Default constructor creating an empty container.
+   */
   public MicroContainer ()
   {}
 
+  /**
+   * Constructor with an array of child nodes to add.
+   *
+   * @param aChildNodes
+   *        The child nodes to add initially. May be <code>null</code>.
+   */
   public MicroContainer (@Nullable final IMicroNode... aChildNodes)
   {
     if (aChildNodes != null)
@@ -36,6 +45,12 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
         addChild (aChildNode);
   }
 
+  /**
+   * Constructor with an iterable of child nodes to add.
+   *
+   * @param aChildNodes
+   *        The child nodes to add initially. May be <code>null</code>.
+   */
   public MicroContainer (@Nullable final Iterable <? extends IMicroNode> aChildNodes)
   {
     if (aChildNodes != null)
@@ -43,18 +58,21 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
         addChild (aChildNode);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.CONTAINER;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getNodeName ()
   {
     return "#container";
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroContainer getClone ()
   {

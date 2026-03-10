@@ -93,6 +93,9 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   Charset getCharset ();
 
+  /**
+   * @return <code>true</code> if a charset is configured, <code>false</code> if not.
+   */
   default boolean hasCharset ()
   {
     return getCharset () != null;
@@ -106,6 +109,9 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getIndentString ();
 
+  /**
+   * @return <code>true</code> if an indent string is configured, <code>false</code> if not.
+   */
   default boolean hasIndentString ()
   {
     return StringHelper.isNotEmpty (getIndentString ());
@@ -125,6 +131,9 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getSchemaLocation ();
 
+  /**
+   * @return <code>true</code> if a schema location is configured, <code>false</code> if not.
+   */
   default boolean hasSchemaLocation ()
   {
     return StringHelper.isNotEmpty (getSchemaLocation ());
@@ -137,6 +146,10 @@ public interface IJAXBWriter <JAXBTYPE>
   @Nullable
   String getNoNamespaceSchemaLocation ();
 
+  /**
+   * @return <code>true</code> if a no-namespace schema location is configured, <code>false</code>
+   *         if not.
+   */
   default boolean hasNoNamespaceSchemaLocation ()
   {
     return StringHelper.isNotEmpty (getNoNamespaceSchemaLocation ());

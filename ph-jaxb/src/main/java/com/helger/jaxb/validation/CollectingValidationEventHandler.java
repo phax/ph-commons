@@ -44,6 +44,9 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @GuardedBy ("m_aRWLock")
   private final ErrorList m_aErrors = new ErrorList ();
 
+  /**
+   * Default constructor.
+   */
   public CollectingValidationEventHandler ()
   {}
 
@@ -53,6 +56,9 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aEvent));
   }
 
+  /**
+   * @return A copy of the list of all collected errors. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public IErrorList getErrorList ()

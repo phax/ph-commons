@@ -174,6 +174,9 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return m_nMaxSize > 0;
   }
 
+  /**
+   * @return The internal name of this cache. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public final String getName ()
@@ -369,6 +372,15 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return aCacheValue.get ();
   }
 
+  /**
+   * Remove the entry with the specified key from the cache.
+   *
+   * @param aKey
+   *        The key of the entry to remove. May be <code>null</code> depending on the cache key
+   *        provider.
+   * @return {@link EChange#CHANGED} if the entry was successfully removed,
+   *         {@link EChange#UNCHANGED} if the key was not found in the cache.
+   */
   @NonNull
   @OverridingMethodsMustInvokeSuper
   public EChange removeFromCache (final KEYTYPE aKey)
@@ -392,6 +404,12 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return EChange.CHANGED;
   }
 
+  /**
+   * Remove all entries from the cache.
+   *
+   * @return {@link EChange#CHANGED} if at least one entry was removed, {@link EChange#UNCHANGED}
+   *         if the cache was already empty.
+   */
   @NonNull
   @OverridingMethodsMustInvokeSuper
   public EChange clearCache ()
@@ -433,6 +451,10 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aCache));
   }
 
+  /**
+   * @return <code>true</code> if the cache contains at least one entry, <code>false</code> if it
+   *         is empty.
+   */
   @Override
   public boolean isNotEmpty ()
   {

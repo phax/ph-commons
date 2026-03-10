@@ -40,6 +40,16 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
   private final Class <DST> m_aDstClass;
   private final Function <? super SRC, ? extends DST> m_aConverter;
 
+  /**
+   * Constructor.
+   *
+   * @param aSrcClass
+   *        The source class (including subclasses). May not be <code>null</code>.
+   * @param aDstClass
+   *        The fixed destination class. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter function. May not be <code>null</code>.
+   */
   public TypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
                                                             @NonNull final Class <DST> aDstClass,
                                                             @NonNull final Function <? super SRC, ? extends DST> aConverter)
@@ -55,12 +65,18 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
     return m_aDstClass.equals (aDstClass) && m_aSrcClass.isAssignableFrom (aSrcClass);
   }
 
+  /**
+   * @return The source class. Never <code>null</code>.
+   */
   @NonNull
   public final Class <SRC> getSourceClass ()
   {
     return m_aSrcClass;
   }
 
+  /**
+   * @return The fixed destination class. Never <code>null</code>.
+   */
   @NonNull
   public final Class <DST> getDestinationClass ()
   {

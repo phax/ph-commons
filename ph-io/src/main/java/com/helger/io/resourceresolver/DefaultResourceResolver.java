@@ -53,16 +53,36 @@ public class DefaultResourceResolver implements IHasConditionalLogger
   protected DefaultResourceResolver ()
   {}
 
+  /**
+   * Check if debug logging for resource resolving is enabled.
+   *
+   * @return <code>true</code> if debug resolving is enabled, <code>false</code> otherwise.
+   */
   public static boolean isDebugResolve ()
   {
     return CONDLOG.isEnabled ();
   }
 
+  /**
+   * Enable or disable debug logging for resource resolving.
+   *
+   * @param bDebugResolve
+   *        <code>true</code> to enable debug resolving, <code>false</code> to disable it.
+   */
   public static void setDebugResolve (final boolean bDebugResolve)
   {
     CONDLOG.setEnabled (bDebugResolve);
   }
 
+  /**
+   * Check if the passed resource name is an explicit JAR file resource. This includes resources
+   * starting with "jar:file:", "wsjar:file:" or "zip:file:".
+   *
+   * @param sName
+   *        The name to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed name is an explicit JAR file resource,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isExplicitJarFileResource (@Nullable final String sName)
   {
     // jar:file - regular JDK

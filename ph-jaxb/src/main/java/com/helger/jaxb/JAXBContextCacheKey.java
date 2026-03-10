@@ -224,6 +224,15 @@ public class JAXBContextCacheKey
     }
   }
 
+  /**
+   * Create the {@link JAXBContext} based on the data provided in the constructor.
+   *
+   * @param aCondLog
+   *        The conditional logger to use for logging. May not be <code>null</code>.
+   * @return The created {@link JAXBContext}. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         In case creation fails.
+   */
   @NonNull
   public JAXBContext createJAXBContext (@NonNull final IConditionalLogger aCondLog)
   {

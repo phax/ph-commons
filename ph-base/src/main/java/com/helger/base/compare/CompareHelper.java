@@ -276,6 +276,19 @@ public class CompareHelper
     return aComp.compare (aObj1, aObj2);
   }
 
+  /**
+   * Compare the passed strings using the specified {@link Collator} and handle <code>null</code>
+   * values correctly. A <code>null</code> value is always smaller than a non-<code>null</code>
+   * value.
+   *
+   * @param sStr1
+   *        First string to compare. May be <code>null</code>.
+   * @param sStr2
+   *        Second string to compare. May be <code>null</code>.
+   * @param aCollator
+   *        The collator to use for comparison. May not be <code>null</code>.
+   * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
+   */
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
                              @NonNull final Collator aCollator)
@@ -284,6 +297,21 @@ public class CompareHelper
     return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Compare the passed strings using the specified {@link Collator} and handle <code>null</code>
+   * values correctly.
+   *
+   * @param sStr1
+   *        First string to compare. May be <code>null</code>.
+   * @param sStr2
+   *        Second string to compare. May be <code>null</code>.
+   * @param aCollator
+   *        The collator to use for comparison. May not be <code>null</code>.
+   * @param bNullValuesComeFirst
+   *        if <code>true</code> <code>null</code> values are ordered before non-<code>null</code>
+   *        values
+   * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
+   */
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
                              @NonNull final Collator aCollator,
@@ -298,12 +326,34 @@ public class CompareHelper
     return aCollator.compare (sStr1, sStr2);
   }
 
+  /**
+   * Compare the passed strings case insensitive and handle <code>null</code> values correctly. A
+   * <code>null</code> value is always smaller than a non-<code>null</code> value.
+   *
+   * @param sStr1
+   *        First string to compare. May be <code>null</code>.
+   * @param sStr2
+   *        Second string to compare. May be <code>null</code>.
+   * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
+   */
   public static int compareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
   {
     // Legacy behavior: null values come first
     return compareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Compare the passed strings case insensitive and handle <code>null</code> values correctly.
+   *
+   * @param sStr1
+   *        First string to compare. May be <code>null</code>.
+   * @param sStr2
+   *        Second string to compare. May be <code>null</code>.
+   * @param bNullValuesComeFirst
+   *        if <code>true</code> <code>null</code> values are ordered before non-<code>null</code>
+   *        values
+   * @return 0 if they are equal (or both <code>null</code>), -1 or +1.
+   */
   public static int compareIgnoreCase (@Nullable final String sStr1,
                                        @Nullable final String sStr2,
                                        final boolean bNullValuesComeFirst)

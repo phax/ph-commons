@@ -50,6 +50,10 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
     m_aErrorParams = aErrorParams;
   }
 
+  /**
+   * @return <code>true</code> if the key was loaded successfully, <code>false</code> if an error
+   *         occurred.
+   */
   public boolean isSuccess ()
   {
     return m_aKeyEntry != null;
@@ -98,6 +102,13 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
     return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
   }
 
+  /**
+   * Get the error text from the provided {@link LoadedKey} in English.
+   *
+   * @param aLK
+   *        The loaded key to get the error from. May be <code>null</code>.
+   * @return <code>null</code> if no error occurred or if the parameter is <code>null</code>.
+   */
   @Nullable
   public static String getLoadError (@NonNull final LoadedKey <?> aLK)
   {

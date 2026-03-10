@@ -55,12 +55,14 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
     m_aProvider = aProvider;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final IKeyStoreType getKeyStoreType ()
   {
     return m_aType;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public final String getKeyStorePath ()
@@ -68,18 +70,21 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
     return m_sPath;
   }
 
+  /** {@inheritDoc} */
   @ReturnsMutableObject
   public final char @NonNull [] getKeyStorePassword ()
   {
     return m_aPassword;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final Provider getProvider ()
   {
     return m_aProvider;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public LoadedKeyStore loadKeyStore ()
   {

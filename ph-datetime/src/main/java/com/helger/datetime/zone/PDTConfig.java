@@ -94,6 +94,9 @@ public final class PDTConfig
     return s_aDefaultZoneId;
   }
 
+  /**
+   * @return The UTC {@link ZoneId}. Never <code>null</code>.
+   */
   @NonNull
   public static ZoneId getUTCZoneId ()
   {

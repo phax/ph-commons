@@ -109,6 +109,10 @@ public final class HashCodeGenerator implements IHashCodeGenerator
     m_nHC = nSuperHashCode;
   }
 
+  /**
+   * @return <code>true</code> if the hash code has already been calculated and no further
+   *         modifications are allowed, <code>false</code> if appending is still possible.
+   */
   public boolean isClosed ()
   {
     return m_bClosed;

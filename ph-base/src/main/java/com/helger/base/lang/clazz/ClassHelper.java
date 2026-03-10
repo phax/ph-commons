@@ -77,6 +77,14 @@ public class ClassHelper
   protected ClassHelper ()
   {}
 
+  /**
+   * Check if the passed class is a public, non-abstract, non-interface, non-annotation class.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is public, non-abstract, non-interface and
+   *         non-annotation, <code>false</code> if not or if the parameter is <code>null</code>.
+   */
   public static boolean isPublicClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)
@@ -122,6 +130,14 @@ public class ClassHelper
     return true;
   }
 
+  /**
+   * Check if the passed class has the public modifier.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is public, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
+   */
   public static boolean isPublic (@Nullable final Class <?> aClass)
   {
     return aClass != null && Modifier.isPublic (aClass.getModifiers ());
@@ -140,11 +156,27 @@ public class ClassHelper
     return aClass != null && Modifier.isInterface (aClass.getModifiers ());
   }
 
+  /**
+   * Check if the passed class is an annotation type.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is an annotation type, <code>false</code> if not or if
+   *         the parameter is <code>null</code>.
+   */
   public static boolean isAnnotationClass (@Nullable final Class <?> aClass)
   {
     return aClass != null && aClass.isAnnotation ();
   }
 
+  /**
+   * Check if the passed class is an enum type.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is an enum type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
+   */
   public static boolean isEnumClass (@Nullable final Class <?> aClass)
   {
     return aClass != null && aClass.isEnum ();
@@ -165,16 +197,42 @@ public class ClassHelper
     return aClass != null && !aClass.isArray () && Modifier.isAbstract (aClass.getModifiers ());
   }
 
+  /**
+   * Check if the passed class is an array type.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is an array type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
+   */
   public static boolean isArrayClass (@Nullable final Class <?> aClass)
   {
     return aClass != null && aClass.isArray ();
   }
 
+  /**
+   * Check if the passed class is a primitive type (boolean, byte, char, double, float, int, long or
+   * short).
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is a primitive type, <code>false</code> if not or if
+   *         the parameter is <code>null</code>.
+   */
   public static boolean isPrimitiveType (@Nullable final Class <?> aClass)
   {
     return aClass != null && PRIMITIVE_TO_WRAPPER.containsKey (aClass);
   }
 
+  /**
+   * Check if the passed class is a primitive wrapper type (Boolean, Byte, Character, Double, Float,
+   * Integer, Long or Short).
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is a primitive wrapper type, <code>false</code> if not
+   *         or if the parameter is <code>null</code>.
+   */
   public static boolean isPrimitiveWrapperType (@Nullable final Class <?> aClass)
   {
     return aClass != null && WRAPPER_TO_PRIMITIVE.containsKey (aClass);
@@ -224,6 +282,15 @@ public class ClassHelper
     return new HashSet <> (WRAPPER_TO_PRIMITIVE.keySet ());
   }
 
+  /**
+   * Check if the passed class is a string-like class, meaning it is assignable to
+   * {@link CharSequence} (includes String, StringBuffer and StringBuilder).
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is assignable to {@link CharSequence},
+   *         <code>false</code> if not or if the parameter is <code>null</code>.
+   */
   public static boolean isStringClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)
@@ -232,6 +299,15 @@ public class ClassHelper
     return CharSequence.class.isAssignableFrom (aClass);
   }
 
+  /**
+   * Check if the passed class is a character class, either the primitive <code>char</code> or the
+   * wrapper type {@link Character}.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is a character type, <code>false</code> if not or if
+   *         the parameter is <code>null</code>.
+   */
   public static boolean isCharacterClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)
@@ -239,6 +315,15 @@ public class ClassHelper
     return Character.class.isAssignableFrom (aClass) || char.class.isAssignableFrom (aClass);
   }
 
+  /**
+   * Check if the passed class is a boolean class, either the primitive <code>boolean</code> or the
+   * wrapper type {@link Boolean}.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is a boolean type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
+   */
   public static boolean isBooleanClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)
@@ -246,6 +331,16 @@ public class ClassHelper
     return Boolean.class.isAssignableFrom (aClass) || boolean.class.isAssignableFrom (aClass);
   }
 
+  /**
+   * Check if the passed class is a floating point class, including the primitive types
+   * <code>double</code> and <code>float</code>, their wrapper types {@link Double} and
+   * {@link Float}, as well as {@link BigDecimal}.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is a floating point type, <code>false</code> if not or
+   *         if the parameter is <code>null</code>.
+   */
   public static boolean isFloatingPointClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)
@@ -257,6 +352,17 @@ public class ClassHelper
            BigDecimal.class.isAssignableFrom (aClass);
   }
 
+  /**
+   * Check if the passed class is an integer (whole number) class, including the primitive types
+   * <code>byte</code>, <code>int</code>, <code>long</code> and <code>short</code>, their wrapper
+   * types {@link Byte}, {@link Integer}, {@link Long} and {@link Short}, as well as
+   * {@link BigInteger}.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the class is an integer type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
+   */
   public static boolean isIntegerClass (@Nullable final Class <?> aClass)
   {
     if (aClass == null)

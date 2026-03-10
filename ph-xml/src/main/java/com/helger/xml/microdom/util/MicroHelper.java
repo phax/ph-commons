@@ -59,6 +59,19 @@ public final class MicroHelper
   private MicroHelper ()
   {}
 
+  /**
+   * Append a child object to a micro node. The child can be an {@link IMicroNode}, a
+   * {@link String}, an {@link Iterable} or an array of objects. Nested collections are
+   * handled recursively.
+   *
+   * @param aSrcNode
+   *        The node to append the child to. May not be <code>null</code>.
+   * @param aChild
+   *        The child to append. May be <code>null</code> in which case nothing happens.
+   * @return The passed source node for chaining. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the child type is not supported.
+   */
   @NonNull
   public static IMicroNode append (@NonNull final IMicroNode aSrcNode, @Nullable final Object aChild)
   {

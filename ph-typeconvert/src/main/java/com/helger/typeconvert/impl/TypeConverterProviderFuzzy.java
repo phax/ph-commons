@@ -35,6 +35,9 @@ public final class TypeConverterProviderFuzzy implements ITypeConverterProvider
   private TypeConverterProviderFuzzy ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static TypeConverterProviderFuzzy getInstance ()
   {

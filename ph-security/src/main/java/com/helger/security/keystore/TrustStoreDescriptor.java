@@ -55,12 +55,14 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
     m_aProvider = aProvider;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final IKeyStoreType getTrustStoreType ()
   {
     return m_aType;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public final String getTrustStorePath ()
@@ -68,18 +70,21 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
     return m_sPath;
   }
 
+  /** {@inheritDoc} */
   @ReturnsMutableObject
   public final char @NonNull [] getTrustStorePassword ()
   {
     return m_aPassword;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final Provider getProvider ()
   {
     return m_aProvider;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public LoadedKeyStore loadTrustStore ()
   {

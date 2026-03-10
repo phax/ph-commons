@@ -163,12 +163,23 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setOrderAttributesAndNamespaces (aOther.isOrderAttributesAndNamespaces ());
   }
 
+  /**
+   * Get the XML version to use for serialization.
+   *
+   * @return The XML version. Defaults to {@link EXMLVersion#XML_10}. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public EXMLVersion getXMLVersion ()
   {
     return m_eSerializeVersion.getXMLVersionOrDefault (EXMLVersion.XML_10);
   }
 
+  /**
+   * Get the serialize version to use.
+   *
+   * @return The serialize version. Never <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeVersion getSerializeVersion ()
   {
@@ -189,6 +200,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the way how the XML declaration is handled.
+   *
+   * @return The XML declaration handling. Never <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ()
   {
@@ -209,6 +225,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether a newline should be printed after the XML declaration.
+   *
+   * @return <code>true</code> if a newline is printed after the XML
+   *         declaration, <code>false</code> otherwise.
+   */
   public boolean isNewLineAfterXMLDeclaration ()
   {
     return m_bNewLineAfterXMLDeclaration;
@@ -228,6 +250,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the way how the document type is handled.
+   *
+   * @return The document type handling. Never <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeDocType getSerializeDocType ()
   {
@@ -248,6 +275,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the way how comments are handled during serialization.
+   *
+   * @return The comment handling. Never <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeComments getSerializeComments ()
   {
@@ -268,6 +300,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the indentation and alignment mode to use.
+   *
+   * @return The indent mode. Never <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeIndent getIndent ()
   {
@@ -288,6 +325,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the dynamic (per-element) indent determinator.
+   *
+   * @return The indent determinator. Never <code>null</code>.
+   */
   @NonNull
   public IXMLIndentDeterminator getIndentDeterminator ()
   {
@@ -308,6 +350,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the way how incorrect characters are handled.
+   *
+   * @return The incorrect character handling mode. Never <code>null</code>.
+   */
   @NonNull
   public EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ()
   {
@@ -328,6 +375,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the charset to be used for serialization.
+   *
+   * @return The charset. Never <code>null</code>.
+   */
   @NonNull
   public Charset getCharset ()
   {
@@ -348,6 +400,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the namespace context to be used during serialization.
+   *
+   * @return The namespace context. Never <code>null</code>.
+   */
   @NonNull
   public NamespaceContext getNamespaceContext ()
   {
@@ -369,11 +426,25 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether double quotes are used to wrap attribute values.
+   *
+   * @return <code>true</code> if double quotes are used, <code>false</code> if
+   *         single quotes are used.
+   */
   public boolean isUseDoubleQuotesForAttributes ()
   {
     return m_bUseDoubleQuotesForAttributes;
   }
 
+  /**
+   * Set whether double quotes should be used to wrap attribute values.
+   *
+   * @param bUseDoubleQuotesForAttributes
+   *        <code>true</code> to use double quotes, <code>false</code> to use
+   *        single quotes.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setUseDoubleQuotesForAttributes (final boolean bUseDoubleQuotesForAttributes)
   {
@@ -381,12 +452,24 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the bracket mode determinator to be used.
+   *
+   * @return The bracket mode determinator. Never <code>null</code>.
+   */
   @NonNull
   public IXMLBracketModeDeterminator getBracketModeDeterminator ()
   {
     return m_aBracketModeDeterminator;
   }
 
+  /**
+   * Set the bracket mode determinator to be used.
+   *
+   * @param aBracketModeDeterminator
+   *        The bracket mode determinator. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setBracketModeDeterminator (@NonNull final IXMLBracketModeDeterminator aBracketModeDeterminator)
   {
@@ -395,11 +478,27 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether a leading space is inserted before a self-closed element
+   * (e.g. <code>&lt;b /&gt;</code> vs. <code>&lt;b/&gt;</code>).
+   *
+   * @return <code>true</code> if a space is inserted, <code>false</code>
+   *         otherwise.
+   */
   public boolean isSpaceOnSelfClosedElement ()
   {
     return m_bSpaceOnSelfClosedElement;
   }
 
+  /**
+   * Set whether a leading space should be inserted before a self-closed
+   * element.
+   *
+   * @param bSpaceOnSelfClosedElement
+   *        <code>true</code> to insert a space, <code>false</code> to not
+   *        insert a space.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setSpaceOnSelfClosedElement (final boolean bSpaceOnSelfClosedElement)
   {
@@ -407,12 +506,24 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the newline mode to be used.
+   *
+   * @return The newline mode. Never <code>null</code>.
+   */
   @NonNull
   public ENewLineMode getNewLineMode ()
   {
     return m_eNewLineMode;
   }
 
+  /**
+   * Set the newline mode to be used.
+   *
+   * @param eNewLineMode
+   *        The newline mode. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setNewLineMode (@NonNull final ENewLineMode eNewLineMode)
   {
@@ -420,6 +531,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Get the indentation string to be used.
+   *
+   * @return The indentation string. Never <code>null</code> and never empty.
+   */
   @NonNull
   @Nonempty
   public String getIndentationString ()
@@ -427,6 +543,13 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return m_sIndentationString;
   }
 
+  /**
+   * Set the indentation string to be used.
+   *
+   * @param sIndentationString
+   *        The indentation string. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setIndentationString (@NonNull @Nonempty final String sIndentationString)
   {
@@ -435,11 +558,25 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether namespaces are emitted during serialization.
+   *
+   * @return <code>true</code> if namespaces are emitted, <code>false</code>
+   *         otherwise.
+   */
   public boolean isEmitNamespaces ()
   {
     return m_bEmitNamespaces;
   }
 
+  /**
+   * Set whether namespaces should be emitted during serialization.
+   *
+   * @param bEmitNamespaces
+   *        <code>true</code> to emit namespaces, <code>false</code> to not
+   *        emit them.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setEmitNamespaces (final boolean bEmitNamespaces)
   {
@@ -447,11 +584,26 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether namespace context prefixes are placed in the root element.
+   *
+   * @return <code>true</code> if namespace context prefixes are placed in the
+   *         root element, <code>false</code> otherwise.
+   */
   public boolean isPutNamespaceContextPrefixesInRoot ()
   {
     return m_bPutNamespaceContextPrefixesInRoot;
   }
 
+  /**
+   * Set whether namespace context prefixes should be placed in the root
+   * element.
+   *
+   * @param bPutNamespaceContextPrefixesInRoot
+   *        <code>true</code> to place them in the root element,
+   *        <code>false</code> otherwise.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setPutNamespaceContextPrefixesInRoot (final boolean bPutNamespaceContextPrefixesInRoot)
   {
@@ -459,11 +611,25 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether CDATA sections are written as plain text.
+   *
+   * @return <code>true</code> if CDATA sections are written as text,
+   *         <code>false</code> if they are written as CDATA.
+   */
   public boolean isWriteCDATAAsText ()
   {
     return m_bWriteCDATAAsText;
   }
 
+  /**
+   * Set whether CDATA sections should be written as plain text.
+   *
+   * @param bWriteCDATAAsText
+   *        <code>true</code> to write CDATA as text, <code>false</code> to
+   *        write as CDATA.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setWriteCDATAAsText (final boolean bWriteCDATAAsText)
   {
@@ -471,11 +637,26 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Check whether attributes and namespaces are ordered lexicographically.
+   *
+   * @return <code>true</code> if ordering is enabled, <code>false</code> if
+   *         the insertion order is maintained.
+   */
   public boolean isOrderAttributesAndNamespaces ()
   {
     return m_bOrderAttributesAndNamespaces;
   }
 
+  /**
+   * Set whether attributes and namespaces should be ordered
+   * lexicographically.
+   *
+   * @param bOrderAttributesAndNamespaces
+   *        <code>true</code> to order them, <code>false</code> to maintain
+   *        insertion order.
+   * @return this for chaining
+   */
   @NonNull
   public final XMLWriterSettings setOrderAttributesAndNamespaces (final boolean bOrderAttributesAndNamespaces)
   {
@@ -483,6 +664,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     return this;
   }
 
+  /**
+   * Create a clone of this settings object.
+   *
+   * @return A new {@link XMLWriterSettings} object with the same settings.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public XMLWriterSettings getClone ()
   {
@@ -574,6 +761,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .getToString ();
   }
 
+  /**
+   * Create {@link XMLWriterSettings} suitable for HTML 4.0 serialization.
+   *
+   * @return A new {@link XMLWriterSettings} object configured for HTML 4.0.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForHTML4 ()
@@ -586,6 +779,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
 
+  /**
+   * Create {@link XMLWriterSettings} suitable for XHTML serialization.
+   *
+   * @return A new {@link XMLWriterSettings} object configured for XHTML.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForXHTML ()
@@ -598,6 +797,12 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                    .setPutNamespaceContextPrefixesInRoot (true);
   }
 
+  /**
+   * Create {@link XMLWriterSettings} suitable for HTML5 serialization.
+   *
+   * @return A new {@link XMLWriterSettings} object configured for HTML5.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static XMLWriterSettings createForHTML5 ()

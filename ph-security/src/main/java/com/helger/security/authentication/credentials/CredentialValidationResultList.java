@@ -53,6 +53,9 @@ public class CredentialValidationResultList implements ICredentialValidationResu
     m_bFailure = m_aResults.containsAny (ICredentialValidationResult::isFailure);
   }
 
+  /**
+   * @return A copy of all contained validation results. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <ICredentialValidationResult> getResults ()
@@ -60,17 +63,28 @@ public class CredentialValidationResultList implements ICredentialValidationResu
     return m_aResults.getClone ();
   }
 
+  /**
+   * @return <code>true</code> if none of the contained results indicate a failure,
+   *         <code>false</code> if at least one result is a failure.
+   */
   public boolean isSuccess ()
   {
     return !m_bFailure;
   }
 
+  /**
+   * @return <code>true</code> if at least one contained result indicates a failure,
+   *         <code>false</code> if all results are successful.
+   */
   @Override
   public boolean isFailure ()
   {
     return m_bFailure;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aDisplayLocale)
   {

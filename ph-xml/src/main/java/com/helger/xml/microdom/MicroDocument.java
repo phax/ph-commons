@@ -35,21 +35,32 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
 
   private ETriState m_eStandalone = DEFAULT_STANDALONE;
 
+  /**
+   * Default constructor creating an empty document.
+   */
   public MicroDocument ()
   {}
 
+  /**
+   * Constructor with a document type.
+   *
+   * @param aDocType
+   *        The document type to use. May be <code>null</code>.
+   */
   public MicroDocument (@Nullable final IMicroDocumentType aDocType)
   {
     if (aDocType != null)
       addChild (aDocType);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.DOCUMENT;
   }
 
+  /** {@inheritDoc} */
   public String getNodeName ()
   {
     return "#document";
@@ -81,18 +92,21 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     super.onAddChild (aChildNode);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ETriState getStandalone ()
   {
     return m_eStandalone;
   }
 
+  /** {@inheritDoc} */
   public void setStandalone (@NonNull final ETriState eStandalone)
   {
     ValueEnforcer.notNull (eStandalone, "Standalone");
     m_eStandalone = eStandalone;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroDocumentType getDocType ()
   {
@@ -103,6 +117,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     return null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroElement getDocumentElement ()
   {
@@ -113,6 +128,7 @@ public final class MicroDocument extends AbstractMicroNodeWithChildren implement
     return null;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroDocument getClone ()
   {

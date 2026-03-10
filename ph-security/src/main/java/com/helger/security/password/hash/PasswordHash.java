@@ -59,6 +59,9 @@ public final class PasswordHash
     m_sPasswordHashValue = sPasswordHashValue;
   }
 
+  /**
+   * @return The name of the algorithm used to create this hash. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getAlgorithmName ()
@@ -66,23 +69,35 @@ public final class PasswordHash
     return m_sAlgorithmName;
   }
 
+  /**
+   * @return <code>true</code> if a salt was used for hashing, <code>false</code> if not.
+   */
   public boolean hasSalt ()
   {
     return m_aSalt != null;
   }
 
+  /**
+   * @return The password salt used for hashing. May be <code>null</code> if no salt was used.
+   */
   @Nullable
   public IPasswordSalt getSalt ()
   {
     return m_aSalt;
   }
 
+  /**
+   * @return The password salt as a String. May be <code>null</code> if no salt was used.
+   */
   @Nullable
   public String getSaltAsString ()
   {
     return m_aSalt == null ? null : m_aSalt.getSaltString ();
   }
 
+  /**
+   * @return The computed password hash value. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getPasswordHashValue ()

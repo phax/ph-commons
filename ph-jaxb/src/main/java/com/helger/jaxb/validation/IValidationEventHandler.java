@@ -31,6 +31,14 @@ import jakarta.xml.bind.ValidationEventHandler;
 @FunctionalInterface
 public interface IValidationEventHandler extends ValidationEventHandler
 {
+  /**
+   * Create a combined {@link IValidationEventHandler} that first invokes this handler and then the
+   * provided other handler.
+   *
+   * @param aOther
+   *        The other event handler to be invoked after this one. May be <code>null</code>.
+   * @return A new combined {@link IValidationEventHandler}. Never <code>null</code>.
+   */
   @NonNull
   default IValidationEventHandler andThen (@Nullable final ValidationEventHandler aOther)
   {

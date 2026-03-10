@@ -67,6 +67,15 @@ public final class SimpleFileIO
     return aFile == null ? null : StreamHelper.getAllBytes (FileHelper.getInputStream (aFile));
   }
 
+  /**
+   * Get the content of the file as a byte array.
+   *
+   * @param aPath
+   *        The path to read. May be <code>null</code>.
+   * @return <code>null</code> if the passed path is <code>null</code>.
+   * @throws UncheckedIOException
+   *         if an I/O error occurs reading from the path
+   */
   public static byte @Nullable [] getAllFileBytes (@Nullable final Path aPath)
   {
     try
@@ -194,6 +203,16 @@ public final class SimpleFileIO
       StreamHelperExt.readStreamLines (FileHelper.getInputStream (aFile), aCharset, aConsumer);
   }
 
+  /**
+   * Write the passed byte array to the specified file.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param aContent
+   *        The content to write. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the file was written successfully, {@link ESuccess#FAILURE}
+   *         otherwise.
+   */
   @NonNull
   public static ESuccess writeFile (@NonNull final File aFile, final byte @NonNull [] aContent)
   {
@@ -201,6 +220,20 @@ public final class SimpleFileIO
     return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent);
   }
 
+  /**
+   * Write a portion of the passed byte array to the specified file.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param aContent
+   *        The content to write. May not be <code>null</code>.
+   * @param nOffset
+   *        The offset in the byte array to start writing from. Must be &ge; 0.
+   * @param nLength
+   *        The number of bytes to write. Must be &ge; 0.
+   * @return {@link ESuccess#SUCCESS} if the file was written successfully, {@link ESuccess#FAILURE}
+   *         otherwise.
+   */
   @NonNull
   public static ESuccess writeFile (@NonNull final File aFile,
                                     final byte @NonNull [] aContent,
@@ -211,6 +244,18 @@ public final class SimpleFileIO
     return aFOS == null ? ESuccess.FAILURE : StreamHelper.writeStream (aFOS, aContent, nOffset, nLength);
   }
 
+  /**
+   * Write the passed string to the specified file using the given charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param sContent
+   *        The string content to write. May not be <code>null</code>.
+   * @param aCharset
+   *        The character set to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the file was written successfully, {@link ESuccess#FAILURE}
+   *         otherwise.
+   */
   @NonNull
   public static ESuccess writeFile (@NonNull final File aFile,
                                     @NonNull final String sContent,

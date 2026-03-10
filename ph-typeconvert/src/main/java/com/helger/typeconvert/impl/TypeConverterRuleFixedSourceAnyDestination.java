@@ -38,6 +38,15 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
   // Status vars
   private Class <?> m_aEffectiveDstClass;
 
+  /**
+   * Constructor.
+   *
+   * @param aSrcClass
+   *        The fixed source class. May not be <code>null</code>.
+   * @param aInBetweenConverter
+   *        The converter function for the intermediate conversion step. May not
+   *        be <code>null</code>.
+   */
   public TypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
                                                      @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
@@ -68,6 +77,9 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
     return TypeConverter.convert (aInBetweenValue, m_aEffectiveDstClass);
   }
 
+  /**
+   * @return The fixed source class. Never <code>null</code>.
+   */
   @NonNull
   public final Class <?> getSourceClass ()
   {

@@ -57,6 +57,15 @@ public final class MicroReader
   private MicroReader ()
   {}
 
+  /**
+   * Read the passed input source as MicroXML using the default settings.
+   *
+   * @param aInputSource
+   *        The input source to use. May be <code>null</code> in which case <code>null</code> is
+   *        directly returned.
+   * @return <code>null</code> if either the input source is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputSource aInputSource)
   {
@@ -106,12 +115,30 @@ public final class MicroReader
     return aMicroHandler.getDocument ();
   }
 
+  /**
+   * Read the passed input stream as MicroXML using the default settings.
+   *
+   * @param aIS
+   *        The input stream to read from. Will be closed. May be <code>null</code>.
+   * @return <code>null</code> if the input stream is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS)
   {
     return readMicroXML (aIS, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed input stream as MicroXML.
+   *
+   * @param aIS
+   *        The input stream to read from. Will be closed. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the input stream is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -129,12 +156,28 @@ public final class MicroReader
     }
   }
 
+  /**
+   * Read the passed file as MicroXML using the default settings.
+   *
+   * @param aFile
+   *        The file to read from. May be <code>null</code>.
+   * @return <code>null</code> if the file is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final File aFile)
   {
     return readMicroXML (aFile, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed file as MicroXML.
+   *
+   * @param aFile
+   *        The file to read from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the file is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final File aFile, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -144,12 +187,28 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aFile), aSettings);
   }
 
+  /**
+   * Read the passed path as MicroXML using the default settings.
+   *
+   * @param aPath
+   *        The path to read from. May be <code>null</code>.
+   * @return <code>null</code> if the path is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final Path aPath)
   {
     return readMicroXML (aPath, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed path as MicroXML.
+   *
+   * @param aPath
+   *        The path to read from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the path is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final Path aPath, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -159,12 +218,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aPath), aSettings);
   }
 
+  /**
+   * Read the passed readable resource as MicroXML using the default settings.
+   *
+   * @param aRes
+   *        The readable resource to read from. May be <code>null</code>.
+   * @return <code>null</code> if the resource is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes)
   {
     return readMicroXML (aRes, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed readable resource as MicroXML.
+   *
+   * @param aRes
+   *        The readable resource to read from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the resource is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -175,12 +252,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aRes), aSettings);
   }
 
+  /**
+   * Read the passed input stream provider as MicroXML using the default settings.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May be <code>null</code>.
+   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input
+   *         was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP)
   {
     return readMicroXML (aISP, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed input stream provider as MicroXML.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input
+   *         was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -191,12 +286,28 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aISP), aSettings);
   }
 
+  /**
+   * Read the passed reader as MicroXML using the default settings.
+   *
+   * @param aReader
+   *        The reader to read from. Will be closed. May be <code>null</code>.
+   * @return <code>null</code> if the reader is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final Reader aReader)
   {
     return readMicroXML (aReader, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed reader as MicroXML.
+   *
+   * @param aReader
+   *        The reader to read from. Will be closed. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the reader is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final Reader aReader,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -214,12 +325,28 @@ public final class MicroReader
     }
   }
 
+  /**
+   * Read the passed XML string as MicroXML using the default settings.
+   *
+   * @param sXML
+   *        The XML string to parse. May be <code>null</code>.
+   * @return <code>null</code> if the string is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final String sXML)
   {
     return readMicroXML (sXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed XML string as MicroXML.
+   *
+   * @param sXML
+   *        The XML string to parse. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the string is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final String sXML, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -229,12 +356,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (sXML), aSettings);
   }
 
+  /**
+   * Read the passed char sequence as MicroXML using the default settings.
+   *
+   * @param sXML
+   *        The char sequence containing XML to parse. May be <code>null</code>.
+   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML)
   {
     return readMicroXML (sXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed char sequence as MicroXML.
+   *
+   * @param sXML
+   *        The char sequence containing XML to parse. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -245,12 +390,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (sXML), aSettings);
   }
 
+  /**
+   * Read the passed byte array as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The byte array containing XML to parse. May be <code>null</code>.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed byte array as MicroXML.
+   *
+   * @param aXML
+   *        The byte array containing XML to parse. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -260,6 +423,18 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read a portion of the passed byte array as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The byte array containing XML to parse. May be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array to start reading from.
+   * @param nLen
+   *        The number of bytes to read.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
@@ -268,6 +443,20 @@ public final class MicroReader
     return readMicroXML (aXML, nOfs, nLen, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read a portion of the passed byte array as MicroXML.
+   *
+   * @param aXML
+   *        The byte array containing XML to parse. May be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array to start reading from.
+   * @param nLen
+   *        The number of bytes to read.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
@@ -280,12 +469,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
+  /**
+   * Read the passed char array as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The char array containing XML to parse. May be <code>null</code>.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed char array as MicroXML.
+   *
+   * @param aXML
+   *        The char array containing XML to parse. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -295,6 +502,18 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read a portion of the passed char array as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The char array containing XML to parse. May be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array to start reading from.
+   * @param nLen
+   *        The number of chars to read.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
@@ -303,6 +522,20 @@ public final class MicroReader
     return readMicroXML (aXML, nOfs, nLen, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read a portion of the passed char array as MicroXML.
+   *
+   * @param aXML
+   *        The char array containing XML to parse. May be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array to start reading from.
+   * @param nLen
+   *        The number of chars to read.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
                                              @Nonnegative final int nOfs,
@@ -315,12 +548,30 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
+  /**
+   * Read the passed byte buffer as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The byte buffer containing XML to parse. May be <code>null</code>.
+   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the passed byte buffer as MicroXML.
+   *
+   * @param aXML
+   *        The byte buffer containing XML to parse. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was
+   *         invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML,
                                              @Nullable final ISAXReaderSettings aSettings)
@@ -331,12 +582,28 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read the XML at the passed URI as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The URI to read XML from. May be <code>null</code>.
+   * @return <code>null</code> if the URI is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final URI aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the XML at the passed URI as MicroXML.
+   *
+   * @param aXML
+   *        The URI to read XML from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the URI is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final URI aXML, @Nullable final ISAXReaderSettings aSettings)
   {
@@ -346,12 +613,28 @@ public final class MicroReader
     return readMicroXML (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read the XML at the passed URL as MicroXML using the default settings.
+   *
+   * @param aXML
+   *        The URL to read XML from. May be <code>null</code>.
+   * @return <code>null</code> if the URL is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final URL aXML)
   {
     return readMicroXML (aXML, (ISAXReaderSettings) null);
   }
 
+  /**
+   * Read the XML at the passed URL as MicroXML.
+   *
+   * @param aXML
+   *        The URL to read XML from. May be <code>null</code>.
+   * @param aSettings
+   *        The settings to use. If <code>null</code> the default settings will be used.
+   * @return <code>null</code> if the URL is <code>null</code> or if the input was invalid XML.
+   */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final URL aXML, @Nullable final ISAXReaderSettings aSettings)
   {

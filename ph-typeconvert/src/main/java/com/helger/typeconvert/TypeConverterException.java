@@ -53,6 +53,13 @@ public final class TypeConverterException extends RuntimeException
       m_sMsg = sMsg;
     }
 
+    /**
+     * Get the formatted error message with a single class parameter.
+     *
+     * @param aDstClass
+     *        The destination class. May not be <code>null</code>.
+     * @return The formatted message string. Never <code>null</code>.
+     */
     @NonNull
     @Nonempty
     public String getMessage (@NonNull final Class <?> aDstClass)
@@ -62,6 +69,16 @@ public final class TypeConverterException extends RuntimeException
       return TextFormatter.getFormattedText (m_sMsg, aDstClass.getName ());
     }
 
+    /**
+     * Get the formatted error message with source and destination class
+     * parameters.
+     *
+     * @param aSrcClass
+     *        The source class. May not be <code>null</code>.
+     * @param aDstClass
+     *        The destination class. May not be <code>null</code>.
+     * @return The formatted message string. Never <code>null</code>.
+     */
     @NonNull
     @Nonempty
     public String getMessage (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)

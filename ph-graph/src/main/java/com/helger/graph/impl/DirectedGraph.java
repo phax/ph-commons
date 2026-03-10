@@ -55,6 +55,16 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   private final IMutableDirectedGraphObjectFactory m_aFactory;
   private ETriState m_eCacheHasCycles = ETriState.UNDEFINED;
 
+  /**
+   * Constructor.
+   *
+   * @param sID
+   *        The unique graph ID. May be <code>null</code> to have one
+   *        generated automatically.
+   * @param aFactory
+   *        The factory to create graph nodes and relations. May not be
+   *        <code>null</code>.
+   */
   public DirectedGraph (@Nullable final String sID, @NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
     super (sID);
@@ -62,6 +72,7 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     m_aFactory = aFactory;
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return true;
@@ -73,6 +84,12 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     m_eCacheHasCycles = ETriState.UNDEFINED;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalStateException
+   *         if the generated ID is already in use
+   */
   @NonNull
   public IMutableDirectedGraphNode createNode ()
   {
@@ -83,6 +100,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return aNode;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IMutableDirectedGraphNode createNode (@Nullable final String sID)
   {
@@ -90,6 +110,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return addNode (aNode).isChanged () ? aNode : null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange addNode (@NonNull final IMutableDirectedGraphNode aNode)
   {
@@ -107,6 +130,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeNode (@NonNull final IMutableDirectedGraphNode aNode)
   {
@@ -122,6 +148,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeNodeAndAllRelations (@NonNull final IMutableDirectedGraphNode aNode)
   {
@@ -151,6 +180,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return aRelation;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@NonNull final IMutableDirectedGraphNode aFrom,
                                                        @NonNull final IMutableDirectedGraphNode aTo)
@@ -158,6 +190,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@Nullable final String sID,
                                                        @NonNull final IMutableDirectedGraphNode aFrom,
@@ -166,6 +201,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return _connect (m_aFactory.createRelation (sID, aFrom, aTo));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
@@ -180,6 +218,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IMutableDirectedGraphNode getSingleStartNode ()
   {
@@ -191,6 +232,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionFind.getFirstElement (aStartNodes);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllStartNodes ()
@@ -198,6 +242,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionHelperExt.createSet (m_aNodes.values (), x -> !x.hasIncomingRelations ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IMutableDirectedGraphNode getSingleEndNode ()
   {
@@ -209,6 +256,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionFind.getFirstElement (aEndNodes);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllEndNodes ()
@@ -216,6 +266,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return CollectionHelperExt.createSet (m_aNodes.values (), x -> !x.hasOutgoingRelations ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableDirectedGraphRelation> getAllRelations ()
@@ -226,6 +279,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllRelationObjs ()
@@ -236,6 +292,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
@@ -246,6 +305,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void forEachRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -257,6 +319,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeAll ()
   {
@@ -267,6 +332,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean containsCycles ()
   {
     // Use cached result?
@@ -307,6 +375,14 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
     return true;
   }
 
+  /**
+   * Create the incidence matrix for this directed graph. The matrix has
+   * dimensions [nodeCount x nodeCount]. For each relation from row to column,
+   * the value is 1 and the reverse is -1.
+   *
+   * @return A new {@link Matrix} representing the incidence structure. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public Matrix createIncidenceMatrix ()
   {

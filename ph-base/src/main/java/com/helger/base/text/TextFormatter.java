@@ -38,6 +38,18 @@ public final class TextFormatter
   private TextFormatter ()
   {}
 
+  /**
+   * Format the given text using {@link MessageFormat} with the default format
+   * locale. If no arguments are provided, the text is returned unchanged.
+   *
+   * @param sText
+   *        The message pattern to format. May be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be substituted into the pattern. May be
+   *        <code>null</code>.
+   * @return The formatted text, or <code>null</code> if the input text is
+   *         <code>null</code>.
+   */
   @Nullable
   public static String getFormattedText (@Nullable final String sText, @Nullable final Object... aArgs)
   {
@@ -57,6 +69,20 @@ public final class TextFormatter
     return aMF.format (aArgs);
   }
 
+  /**
+   * Format the given text using {@link MessageFormat} with the specified locale.
+   * If no arguments are provided, the text is returned unchanged.
+   *
+   * @param aDisplayLocale
+   *        The locale to use for formatting. May not be <code>null</code>.
+   * @param sText
+   *        The message pattern to format. May be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be substituted into the pattern. May be
+   *        <code>null</code>.
+   * @return The formatted text, or <code>null</code> if the input text is
+   *         <code>null</code>.
+   */
   @Nullable
   public static String getFormattedText (@NonNull final Locale aDisplayLocale,
                                          @Nullable final String sText,

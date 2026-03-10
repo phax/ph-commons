@@ -122,6 +122,15 @@ public final class LocaleHelper
   private LocaleHelper ()
   {}
 
+  /**
+   * Check if two locales are equal by comparing their string representations.
+   *
+   * @param aObj1
+   *        The first locale to compare. May not be <code>null</code>.
+   * @param aObj2
+   *        The second locale to compare. May not be <code>null</code>.
+   * @return <code>true</code> if the two locales are considered equal.
+   */
   public static boolean equalLocales (@NonNull final Locale aObj1, @NonNull final Locale aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1, aObj2, (x, y) -> x.toString ().equals (y.toString ()));
@@ -288,6 +297,16 @@ public final class LocaleHelper
     return LocaleCache.getInstance ().getLocale (sLanguage, sCountry, sVariant);
   }
 
+  /**
+   * Get the locale to use from the available locales, or <code>null</code> if no matching locale is
+   * found.
+   *
+   * @param aRequestLocale
+   *        The requested locale. May not be <code>null</code>.
+   * @param aAvailableLocales
+   *        The available locales to choose from. May not be <code>null</code>.
+   * @return The matching locale or <code>null</code> if no match was found.
+   */
   @Nullable
   public static Locale getLocaleToUseOrNull (@NonNull final Locale aRequestLocale,
                                              @NonNull final Collection <Locale> aAvailableLocales)
@@ -295,6 +314,19 @@ public final class LocaleHelper
     return getLocaleToUseOrFallback (aRequestLocale, aAvailableLocales, null);
   }
 
+  /**
+   * Get the locale to use from the available locales, or a fallback locale if no matching locale is
+   * found. The matching order is: direct match, more general locale, more specific locale (language
+   * only), "all" locale, "independent" locale, then the provided fallback.
+   *
+   * @param aRequestLocale
+   *        The requested locale. May not be <code>null</code>.
+   * @param aAvailableLocales
+   *        The available locales to choose from. May not be <code>null</code>.
+   * @param aFallback
+   *        The fallback locale to return if no match is found. May be <code>null</code>.
+   * @return The matching locale or the fallback locale.
+   */
   @Nullable
   public static Locale getLocaleToUseOrFallback (@NonNull final Locale aRequestLocale,
                                                  @NonNull final Collection <Locale> aAvailableLocales,
@@ -360,6 +392,15 @@ public final class LocaleHelper
     return LOCALE_ALL_STR.equalsIgnoreCase (sLocale) || LOCALE_INDEPENDENT_STR.equalsIgnoreCase (sLocale);
   }
 
+  /**
+   * Validate and normalize a language code. Valid language codes consist of 2 to 8 ASCII letters, or
+   * are special locale codes.
+   *
+   * @param sCode
+   *        The language code to validate. May be <code>null</code>.
+   * @return The lowercase validated language code, or <code>null</code> if the input is not a valid
+   *         language code.
+   */
   @Nullable
   public static String getValidLanguageCode (@Nullable final String sCode)
   {

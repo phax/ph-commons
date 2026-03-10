@@ -38,19 +38,45 @@ import com.helger.collection.CollectionHelper;
 public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTYPE> implements
                                   ICommonsOrderedSet <ELEMENTTYPE>
 {
+  /**
+   * Create a new empty linked hash set. The default initial capacity is used.
+   */
   public CommonsLinkedHashSet ()
   {}
 
+  /**
+   * Create a new empty linked hash set with the specified initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity for which memory is reserved. Must be &gt; 0.
+   */
   public CommonsLinkedHashSet (final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
+  /**
+   * Create a new empty linked hash set with the specified initial capacity and
+   * load factor.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity for which memory is reserved. Must be &gt; 0.
+   * @param fLoadFactor
+   *        The load factor for the hash set.
+   */
   public CommonsLinkedHashSet (final int nInitialCapacity, final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
 
+  /**
+   * Create a new linked hash set that contains the same elements as the
+   * provided collection.
+   *
+   * @param aCont
+   *        The collection to copy the elements from. May be
+   *        <code>null</code>.
+   */
   public CommonsLinkedHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (CollectionHelper.getSize (aCont));
@@ -58,11 +84,32 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
       addAll (aCont);
   }
 
+  /**
+   * Create a new linked hash set with the default initial capacity and add all
+   * provided elements.
+   *
+   * @param aIterable
+   *        The iterable from which the elements are copied from. May be
+   *        <code>null</code>.
+   */
   public CommonsLinkedHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
   }
 
+  /**
+   * Create a new linked hash set that contains the mapped elements of the
+   * provided collection.
+   *
+   * @param aValues
+   *        The collection to copy the elements from. May be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        source data type
+   */
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
@@ -70,18 +117,45 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * Create a new linked hash set with the default initial capacity and add all
+   * mapped items of the provided iterable.
+   *
+   * @param aValues
+   *        The iterable from which the elements are copied from. May be
+   *        <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        source data type
+   */
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * Create a new linked hash set with an initial capacity of 1 and exactly the
+   * provided value, even if it is <code>null</code>.
+   *
+   * @param aValue
+   *        The value to be added. May be <code>null</code>.
+   */
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE aValue)
   {
     super (1);
     add (aValue);
   }
 
+  /**
+   * Create a new linked hash set that contains the same elements as the
+   * provided array.
+   *
+   * @param aValues
+   *        The array to copy the elements from. May be <code>null</code>.
+   */
   @SafeVarargs
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE... aValues)
   {
@@ -89,6 +163,18 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAll (aValues);
   }
 
+  /**
+   * Create a new linked hash set that contains mapped elements of the provided
+   * array.
+   *
+   * @param aValues
+   *        The array to copy the elements from. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to be executed for all provided elements. May
+   *        not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        source data type
+   */
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final SRCTYPE [] aValues,
                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
@@ -96,6 +182,9 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @NonNull
   @ReturnsMutableCopy
@@ -104,6 +193,9 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
     return new CommonsLinkedHashSet <> ();
   }
 
+  /**
+   * @return A mutable copy of this set. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsLinkedHashSet <ELEMENTTYPE> getClone ()

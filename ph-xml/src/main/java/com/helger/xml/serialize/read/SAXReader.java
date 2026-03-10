@@ -72,30 +72,81 @@ public final class SAXReader
   private SAXReader ()
   {}
 
+  /**
+   * Read an XML document from a {@link File} via SAX.
+   *
+   * @param aFile
+   *        The file to read from. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final File aFile, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aFile), aSettings);
   }
 
+  /**
+   * Read an XML document from a {@link URI} via SAX.
+   *
+   * @param aURI
+   *        The URI to read from. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final URI aURI, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aURI), aSettings);
   }
 
+  /**
+   * Read an XML document from a {@link URL} via SAX.
+   *
+   * @param aURL
+   *        The URL to read from. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final URL aURL, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aURL), aSettings);
   }
 
+  /**
+   * Read an XML document from an {@link IHasInputStream} via SAX.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be
+   *        <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final IHasInputStream aISP, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aISP), aSettings);
   }
 
+  /**
+   * Read an XML document from an {@link IReadableResource} via SAX.
+   *
+   * @param aResource
+   *        The resource to read from. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final IReadableResource aResource,
                                      @NonNull final ISAXReaderSettings aSettings)
@@ -103,24 +154,68 @@ public final class SAXReader
     return readXMLSAX (InputSourceFactory.create (aResource), aSettings);
   }
 
+  /**
+   * Read an XML document from a {@link CharSequence} via SAX.
+   *
+   * @param aXML
+   *        The XML content as a CharSequence. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final CharSequence aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read an XML document from a {@link String} via SAX.
+   *
+   * @param sXML
+   *        The XML content as a String. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final String sXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (sXML), aSettings);
   }
 
+  /**
+   * Read an XML document from a char array via SAX.
+   *
+   * @param aXML
+   *        The XML content as a char array. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (final char @NonNull [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read an XML document from a char array with offset and length via SAX.
+   *
+   * @param aXML
+   *        The XML content as a char array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset in the char array to start reading from.
+   * @param nLen
+   *        The number of characters to read.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (final char @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
@@ -130,12 +225,36 @@ public final class SAXReader
     return readXMLSAX (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
+  /**
+   * Read an XML document from a byte array via SAX.
+   *
+   * @param aXML
+   *        The XML content as a byte array. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (final byte @NonNull [] aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read an XML document from a byte array with offset and length via SAX.
+   *
+   * @param aXML
+   *        The XML content as a byte array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset in the byte array to start reading from.
+   * @param nLen
+   *        The number of bytes to read.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
@@ -145,12 +264,34 @@ public final class SAXReader
     return readXMLSAX (InputSourceFactory.create (aXML, nOfs, nLen), aSettings);
   }
 
+  /**
+   * Read an XML document from a {@link ByteBuffer} via SAX.
+   *
+   * @param aXML
+   *        The XML content as a ByteBuffer. May not be <code>null</code>.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull final ByteBuffer aXML, @NonNull final ISAXReaderSettings aSettings)
   {
     return readXMLSAX (InputSourceFactory.create (aXML), aSettings);
   }
 
+  /**
+   * Read an XML document from an {@link InputStream} via SAX. The
+   * {@link InputStream} is closed after reading.
+   *
+   * @param aIS
+   *        The InputStream to read from. May not be <code>null</code>. Will
+   *        be closed after reading.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull @WillClose final InputStream aIS,
                                      @NonNull final ISAXReaderSettings aSettings)
@@ -167,6 +308,18 @@ public final class SAXReader
     }
   }
 
+  /**
+   * Read an XML document from a {@link Reader} via SAX. The {@link Reader}
+   * is closed after reading.
+   *
+   * @param aReader
+   *        The Reader to read from. May not be <code>null</code>. Will be
+   *        closed after reading.
+   * @param aSettings
+   *        The SAX reader settings to use. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise
+   */
   @NonNull
   public static ESuccess readXMLSAX (@NonNull @WillClose final Reader aReader,
                                      @NonNull final ISAXReaderSettings aSettings)

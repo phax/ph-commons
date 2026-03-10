@@ -93,6 +93,13 @@ public final class CertificateHelper
   private CertificateHelper ()
   {}
 
+  /**
+   * Get a new X.509 {@link CertificateFactory} instance.
+   *
+   * @return A new {@link CertificateFactory} for X.509 certificates. Never <code>null</code>.
+   * @throws CertificateException
+   *         If the X.509 certificate type is not available in the environment.
+   */
   @NonNull
   public static CertificateFactory getX509CertificateFactory () throws CertificateException
   {
@@ -407,6 +414,16 @@ public final class CertificateHelper
     }
   }
 
+  /**
+   * Convert the passed PEM encoded private key string to a {@link PrivateKey} object.
+   *
+   * @param sPrivateKey
+   *        The private key string. May be <code>null</code>.
+   * @return <code>null</code> if the passed string is <code>null</code>, empty or contains invalid
+   *         Base64 data.
+   * @throws GeneralSecurityException
+   *         In case the conversion to a private key fails.
+   */
   @Nullable
   public static PrivateKey convertStringToPrivateKey (@Nullable final String sPrivateKey) throws GeneralSecurityException
   {
@@ -583,6 +600,19 @@ public final class CertificateHelper
     return ECertificateCheckResult.VALID;
   }
 
+  /**
+   * Extract a specific type value from an X.500 principal string (e.g. CN, O, OU).
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @param sType
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
+   *        <code>null</code>.
+   * @return The value of the requested type, or <code>null</code> if not found or if the principal
+   *         is <code>null</code>.
+   * @throws InvalidNameException
+   *         If the principal string cannot be parsed as an LDAP name.
+   */
   @Nullable
   public static String getPrincipalTypeValue (@Nullable final String sPrincipal, @NonNull final String sType)
                                                                                                               throws InvalidNameException
@@ -595,6 +625,17 @@ public final class CertificateHelper
     return null;
   }
 
+  /**
+   * Extract a specific type value from an X.500 principal string, returning <code>null</code> on
+   * any error.
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @param sType
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
+   *        <code>null</code>.
+   * @return The value of the requested type, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getPrincipalTypeValueOrNull (@Nullable final String sPrincipal, @NonNull final String sType)
   {
@@ -609,6 +650,19 @@ public final class CertificateHelper
     }
   }
 
+  /**
+   * Extract a specific type value from an {@link X500Principal} object.
+   *
+   * @param aPrincipal
+   *        The principal to extract the value from. May be <code>null</code>.
+   * @param sType
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
+   *        <code>null</code>.
+   * @return The value of the requested type, or <code>null</code> if not found or if the principal
+   *         is <code>null</code>.
+   * @throws InvalidNameException
+   *         If the principal name cannot be parsed as an LDAP name.
+   */
   @Nullable
   public static String getPrincipalTypeValue (@Nullable final X500Principal aPrincipal, @NonNull final String sType)
                                                                                                                      throws InvalidNameException
@@ -619,6 +673,17 @@ public final class CertificateHelper
     return getPrincipalTypeValue (aPrincipal.getName (), sType);
   }
 
+  /**
+   * Extract a specific type value from an {@link X500Principal} object, returning <code>null</code>
+   * on any error.
+   *
+   * @param aPrincipal
+   *        The principal to extract the value from. May be <code>null</code>.
+   * @param sType
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
+   *        <code>null</code>.
+   * @return The value of the requested type, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getPrincipalTypeValueOrNull (@Nullable final X500Principal aPrincipal,
                                                     @NonNull final String sType)
@@ -634,48 +699,112 @@ public final class CertificateHelper
     }
   }
 
+  /**
+   * Extract the Common Name (CN) from a principal string.
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @return The CN value, or <code>null</code> if not found.
+   * @throws InvalidNameException
+   *         If the principal string cannot be parsed as an LDAP name.
+   */
   @Nullable
   public static String getCN (@Nullable final String sPrincipal) throws InvalidNameException
   {
     return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_CN);
   }
 
+  /**
+   * Extract the Common Name (CN) from a principal string, returning <code>null</code> on any error.
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @return The CN value, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getCNOrNull (@Nullable final String sPrincipal)
   {
     return getPrincipalTypeValueOrNull (sPrincipal, PRINCIPAL_TYPE_CN);
   }
 
+  /**
+   * Extract the Common Name (CN) from an {@link X500Principal}, returning <code>null</code> on any
+   * error.
+   *
+   * @param aPrincipal
+   *        The principal to extract the CN from. May be <code>null</code>.
+   * @return The CN value, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getCNOrNull (@Nullable final X500Principal aPrincipal)
   {
     return getPrincipalTypeValueOrNull (aPrincipal, PRINCIPAL_TYPE_CN);
   }
 
+  /**
+   * Extract the Subject Common Name (CN) from an X.509 certificate.
+   *
+   * @param aCert
+   *        The certificate to extract the subject CN from. May be <code>null</code>.
+   * @return The subject CN value, or <code>null</code> if the certificate is <code>null</code> or
+   *         the CN is not found.
+   */
   @Nullable
   public static String getSubjectCN (@Nullable final X509Certificate aCert)
   {
     return aCert != null ? getCNOrNull (aCert.getSubjectX500Principal ()) : null;
   }
 
+  /**
+   * Extract the Organisation (O) from a principal string.
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @return The O value, or <code>null</code> if not found.
+   * @throws InvalidNameException
+   *         If the principal string cannot be parsed as an LDAP name.
+   */
   @Nullable
   public static String getO (@Nullable final String sPrincipal) throws InvalidNameException
   {
     return getPrincipalTypeValue (sPrincipal, PRINCIPAL_TYPE_O);
   }
 
+  /**
+   * Extract the Organisation (O) from a principal string, returning <code>null</code> on any error.
+   *
+   * @param sPrincipal
+   *        The principal string to parse. May be <code>null</code>.
+   * @return The O value, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getOOrNull (@Nullable final String sPrincipal)
   {
     return getPrincipalTypeValueOrNull (sPrincipal, PRINCIPAL_TYPE_O);
   }
 
+  /**
+   * Extract the Organisation (O) from an {@link X500Principal}, returning <code>null</code> on any
+   * error.
+   *
+   * @param aPrincipal
+   *        The principal to extract the O from. May be <code>null</code>.
+   * @return The O value, or <code>null</code> if not found or on error.
+   */
   @Nullable
   public static String getOOrNull (@Nullable final X500Principal aPrincipal)
   {
     return getPrincipalTypeValueOrNull (aPrincipal, PRINCIPAL_TYPE_O);
   }
 
+  /**
+   * Extract the Subject Organisation (O) from an X.509 certificate.
+   *
+   * @param aCert
+   *        The certificate to extract the subject O from. May be <code>null</code>.
+   * @return The subject O value, or <code>null</code> if the certificate is <code>null</code> or
+   *         the O is not found.
+   */
   @Nullable
   public static String getSubjectO (@Nullable final X509Certificate aCert)
   {

@@ -71,18 +71,36 @@ public final class KeyStoreHelper
   private KeyStoreHelper ()
   {}
 
+  /**
+   * @return The current resource provider used to resolve key store paths. Never <code>null</code>.
+   */
   @NonNull
   public static IReadableResourceProvider getResourceProvider ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aResourceProvider);
   }
 
+  /**
+   * Set the resource provider to be used for resolving key store paths.
+   *
+   * @param aResourceProvider
+   *        The resource provider to use. May not be <code>null</code>.
+   */
   public static void setResourceProvider (@NonNull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
     RW_LOCK.writeLocked ( () -> s_aResourceProvider = aResourceProvider);
   }
 
+  /**
+   * Get a new {@link KeyStore} instance of the same type as the provided key store.
+   *
+   * @param aOther
+   *        The key store to use as a template. May not be <code>null</code>.
+   * @return A new empty {@link KeyStore} of the same type. Never <code>null</code>.
+   * @throws KeyStoreException
+   *         In case of a key store error.
+   */
   @NonNull
   public static KeyStore getSimiliarKeyStore (@NonNull final KeyStore aOther) throws KeyStoreException
   {
@@ -91,6 +109,19 @@ public final class KeyStoreHelper
     return getSimiliarKeyStore (aOther, null);
   }
 
+  /**
+   * Get a new {@link KeyStore} instance of the same type as the provided key store, optionally
+   * using a specific security provider.
+   *
+   * @param aOther
+   *        The key store to use as a template. May not be <code>null</code>.
+   * @param aSecurityProvider
+   *        The security provider to use. May be <code>null</code> to use the provider from the
+   *        source key store.
+   * @return A new empty {@link KeyStore} of the same type. Never <code>null</code>.
+   * @throws KeyStoreException
+   *         In case of a key store error.
+   */
   @NonNull
   public static KeyStore getSimiliarKeyStore (@NonNull final KeyStore aOther,
                                               @Nullable final Provider aSecurityProvider) throws KeyStoreException

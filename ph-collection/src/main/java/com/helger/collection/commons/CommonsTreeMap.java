@@ -40,20 +40,49 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUETYPE> implements
                             ICommonsNavigableMap <KEYTYPE, VALUETYPE>
 {
+  /**
+   * Create a new empty tree map with natural ordering.
+   */
   public CommonsTreeMap ()
   {}
 
+  /**
+   * Create a new empty tree map with the specified comparator.
+   *
+   * @param aComparator
+   *        The comparator to use for key ordering. May be <code>null</code>
+   *        to use natural ordering.
+   */
   public CommonsTreeMap (@Nullable final Comparator <? super KEYTYPE> aComparator)
   {
     super (aComparator);
   }
 
+  /**
+   * Create a new tree map that contains the same entries as the provided map.
+   *
+   * @param aMap
+   *        The map to copy the entries from. May be <code>null</code>.
+   */
   public CommonsTreeMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (aMap != null)
       putAll (aMap);
   }
 
+  /**
+   * Create a new tree map that contains mapped entries from the provided array.
+   *
+   * @param aValues
+   *        The array to copy the elements from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The mapping function to extract keys. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The mapping function to extract values. May not be
+   *        <code>null</code>.
+   * @param <COLLTYPE>
+   *        source element type
+   */
   public <COLLTYPE> CommonsTreeMap (@Nullable final COLLTYPE [] aValues,
                                     @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                     @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
@@ -61,6 +90,21 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * Create a new tree map that contains mapped entries from the provided
+   * collection.
+   *
+   * @param aValues
+   *        The collection to copy the elements from. May be
+   *        <code>null</code>.
+   * @param aKeyMapper
+   *        The mapping function to extract keys. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The mapping function to extract values. May not be
+   *        <code>null</code>.
+   * @param <COLLTYPE>
+   *        source element type
+   */
   public <COLLTYPE> CommonsTreeMap (@Nullable final Collection <? extends COLLTYPE> aValues,
                                     @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                     @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
@@ -68,6 +112,22 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * Create a new tree map that contains mapped entries from the provided map.
+   *
+   * @param aValues
+   *        The map to copy the entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The mapping function to transform keys. May not be
+   *        <code>null</code>.
+   * @param aValueMapper
+   *        The mapping function to transform values. May not be
+   *        <code>null</code>.
+   * @param <SRCKEYTYPE>
+   *        source key type
+   * @param <SRCVALUETYPE>
+   *        source value type
+   */
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsTreeMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
                                                     @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
                                                     @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
@@ -75,6 +135,9 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @NonNull
   @ReturnsMutableCopy
@@ -83,6 +146,10 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
     return new CommonsTreeMap <> ();
   }
 
+  /**
+   * @return A mutable copy of this map, preserving the comparator. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsTreeMap <KEYTYPE, VALUETYPE> getClone ()

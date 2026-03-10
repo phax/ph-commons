@@ -51,6 +51,19 @@ public class CollectionSort
   private CollectionSort ()
   {}
 
+  /**
+   * Sort the provided list inline using the natural ordering of its elements.
+   *
+   * @param aList
+   *        The list to be sorted inline. May be <code>null</code>.
+   * @return The same list instance, sorted. May be <code>null</code> if the
+   *         input list was <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the list. Must implement
+   *        {@link Comparable}.
+   * @param <LISTTYPE>
+   *        The type of the list.
+   */
   @Nullable
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
@@ -61,6 +74,20 @@ public class CollectionSort
     return aList;
   }
 
+  /**
+   * Sort the provided list inline using the specified comparator.
+   *
+   * @param aList
+   *        The list to be sorted inline. May be <code>null</code>.
+   * @param aComparator
+   *        The comparator to use for sorting. May not be <code>null</code>.
+   * @return The same list instance, sorted. May be <code>null</code> if the
+   *         input list was <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the list.
+   * @param <LISTTYPE>
+   *        The type of the list.
+   */
   @Nullable
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware

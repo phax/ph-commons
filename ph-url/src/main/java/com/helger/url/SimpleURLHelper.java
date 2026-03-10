@@ -61,6 +61,20 @@ public final class SimpleURLHelper
   private SimpleURLHelper ()
   {}
 
+  /**
+   * Parse a URL query string into individual {@link URLParameter} instances and pass each one to
+   * the provided handler. Key-value pairs are separated by '&amp;' and keys are separated from
+   * values by '='.
+   *
+   * @param sQueryString
+   *        The query string to parse. May be <code>null</code> or empty.
+   * @param aParameterDecoder
+   *        An optional decoder for parameter names and values (e.g. URL decoding). May be
+   *        <code>null</code>.
+   * @param aParameterHandler
+   *        The consumer that receives each parsed {@link URLParameter}. May not be
+   *        <code>null</code>.
+   */
   public static void parseQueryParameters (@Nullable final String sQueryString,
                                            @Nullable final IDecoder <String, String> aParameterDecoder,
                                            @NonNull final Consumer <URLParameter> aParameterHandler)
@@ -100,6 +114,17 @@ public final class SimpleURLHelper
     return ret;
   }
 
+  /**
+   * Parse the given URL string into a structured {@link URLData} representation, using the
+   * specified charset for parameter decoding.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for decoding URL parameters. May be <code>null</code>, in which case
+   *        no parameter decoding is applied.
+   * @return The parsed URL data. Never <code>null</code>.
+   */
   @NonNull
   public static URLData getAsURLData (@NonNull final String sHref, @Nullable final Charset aCharset)
   {
@@ -202,6 +227,14 @@ public final class SimpleURLHelper
     return aSB.toString ();
   }
 
+  /**
+   * Get the full URL string representation from the given {@link IURLData}, including path, query
+   * parameters, and anchor.
+   *
+   * @param aURL
+   *        The URL data to convert. May not be <code>null</code>.
+   * @return The full URL string. Never <code>null</code>.
+   */
   @NonNull
   public static String getURLString (@NonNull final IURLData aURL)
   {

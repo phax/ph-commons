@@ -34,6 +34,12 @@ public class TypeConverterToAny <DST> implements ITypeConverterTo <DST>
 {
   private final Class <DST> m_aDestClass;
 
+  /**
+   * Constructor.
+   *
+   * @param aClass
+   *        The destination class. May not be <code>null</code>.
+   */
   public TypeConverterToAny (@NonNull final Class <DST> aClass)
   {
     m_aDestClass = aClass;
@@ -93,6 +99,15 @@ public class TypeConverterToAny <DST> implements ITypeConverterTo <DST>
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /**
+   * Factory method to create a new {@link TypeConverterToAny} instance.
+   *
+   * @param aClass
+   *        The destination class. May not be <code>null</code>.
+   * @param <T>
+   *        The destination type.
+   * @return A new {@link TypeConverterToAny} instance. Never <code>null</code>.
+   */
   @NonNull
   public static <T> TypeConverterToAny <T> of (@NonNull final Class <T> aClass)
   {

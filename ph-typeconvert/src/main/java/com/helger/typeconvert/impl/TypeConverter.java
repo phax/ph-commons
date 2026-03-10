@@ -76,48 +76,136 @@ public final class TypeConverter implements IHasConditionalLogger
     return !CONDLOG.setEnabled (!bSilentMode);
   }
 
+  /**
+   * Convert a boolean value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source boolean value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final boolean aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Boolean.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a byte value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source byte value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final byte aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Byte.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a char value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source char value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final char aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Character.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a double value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source double value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final double aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Double.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a float value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source float value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final float aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Float.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert an int value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source int value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final int aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Integer.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a long value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source long value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final long aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convert (Long.valueOf (aSrcValue), aDstClass);
   }
 
+  /**
+   * Convert a short value to the destination type.
+   *
+   * @param aSrcValue
+   *        The source short value.
+   * @param aDstClass
+   *        The destination class to convert to. May not be <code>null</code>.
+   * @param <DSTTYPE>
+   *        The destination type.
+   * @return The converted value. May be <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convert (final short aSrcValue, @NonNull final Class <DSTTYPE> aDstClass)
   {

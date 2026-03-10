@@ -195,6 +195,9 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @NonNull
   @ReturnsMutableCopy
@@ -203,6 +206,9 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
     return new CommonsArrayList <> ();
   }
 
+  /**
+   * @return A mutable copy of this list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsArrayList <ELEMENTTYPE> getClone ()

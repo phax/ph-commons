@@ -42,16 +42,46 @@ public class FileIOError implements ISuccessIndicator
   private final File m_aFile2;
   private final Exception m_aException;
 
+  /**
+   * Constructor with operation and error code only.
+   *
+   * @param eOperation
+   *        The file I/O operation. May not be <code>null</code>.
+   * @param eCode
+   *        The error code. May not be <code>null</code>.
+   */
   public FileIOError (@NonNull final EFileIOOperation eOperation, @NonNull final EFileIOErrorCode eCode)
   {
     this (eOperation, eCode, null, null, null);
   }
 
+  /**
+   * Constructor with operation, error code and one file.
+   *
+   * @param eOperation
+   *        The file I/O operation. May not be <code>null</code>.
+   * @param eCode
+   *        The error code. May not be <code>null</code>.
+   * @param aFile1
+   *        The first file relevant to this error. May not be <code>null</code>.
+   */
   public FileIOError (@NonNull final EFileIOOperation eOperation, @NonNull final EFileIOErrorCode eCode, @NonNull final File aFile1)
   {
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), null, null);
   }
 
+  /**
+   * Constructor with operation, error code and two files.
+   *
+   * @param eOperation
+   *        The file I/O operation. May not be <code>null</code>.
+   * @param eCode
+   *        The error code. May not be <code>null</code>.
+   * @param aFile1
+   *        The first file relevant to this error. May not be <code>null</code>.
+   * @param aFile2
+   *        The second file relevant to this error. May not be <code>null</code>.
+   */
   public FileIOError (@NonNull final EFileIOOperation eOperation,
                       @NonNull final EFileIOErrorCode eCode,
                       @NonNull final File aFile1,
@@ -60,6 +90,16 @@ public class FileIOError implements ISuccessIndicator
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), ValueEnforcer.notNull (aFile2, "File2"), null);
   }
 
+  /**
+   * Constructor with operation, error code and an exception.
+   *
+   * @param eOperation
+   *        The file I/O operation. May not be <code>null</code>.
+   * @param eCode
+   *        The error code. May not be <code>null</code>.
+   * @param aException
+   *        The exception that occurred. May not be <code>null</code>.
+   */
   public FileIOError (@NonNull final EFileIOOperation eOperation,
                       @NonNull final EFileIOErrorCode eCode,
                       @NonNull final Exception aException)
@@ -67,6 +107,20 @@ public class FileIOError implements ISuccessIndicator
     this (eOperation, eCode, null, null, ValueEnforcer.notNull (aException, "Exception"));
   }
 
+  /**
+   * Full constructor with all parameters.
+   *
+   * @param eOperation
+   *        The file I/O operation. May not be <code>null</code>.
+   * @param eCode
+   *        The error code. May not be <code>null</code>.
+   * @param aFile1
+   *        The first file relevant to this error. May be <code>null</code>.
+   * @param aFile2
+   *        The second file relevant to this error. May be <code>null</code>.
+   * @param aException
+   *        The exception that occurred. May be <code>null</code>.
+   */
   public FileIOError (@NonNull final EFileIOOperation eOperation,
                       @NonNull final EFileIOErrorCode eCode,
                       @Nullable final File aFile1,
@@ -98,6 +152,11 @@ public class FileIOError implements ISuccessIndicator
     return m_eCode;
   }
 
+  /**
+   * Check if this error represents a successful operation.
+   *
+   * @return <code>true</code> if the operation was successful, <code>false</code> otherwise.
+   */
   public boolean isSuccess ()
   {
     return m_eCode.isSuccess ();
@@ -158,6 +217,12 @@ public class FileIOError implements ISuccessIndicator
     return m_aException != null;
   }
 
+  /**
+   * Create a copy of this error with the error code reset to {@link EFileIOErrorCode#NO_ERROR}. If
+   * the current error code already indicates success, <code>this</code> is returned.
+   *
+   * @return A non-<code>null</code> {@link FileIOError} with no error code.
+   */
   @NonNull
   public FileIOError withoutErrorCode ()
   {

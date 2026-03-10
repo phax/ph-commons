@@ -51,11 +51,17 @@ public final class RoundHelper
     /** Exponential number representation */
     EXP;
 
+    /**
+     * @return <code>true</code> if this is the fixed decimal type, <code>false</code> if not.
+     */
     public boolean isFixed ()
     {
       return this == FIX;
     }
 
+    /**
+     * @return <code>true</code> if this is the exponential decimal type, <code>false</code> if not.
+     */
     public boolean isExponential ()
     {
       return this == EXP;
@@ -211,24 +217,64 @@ public final class RoundHelper
     return aDF.format (dValue);
   }
 
+  /**
+   * Format a double value using fixed decimal representation.
+   *
+   * @param dValue
+   *        The value to be formatted.
+   * @param nScale
+   *        The number of decimal places. Should be &ge; 0.
+   * @param aLocale
+   *        The locale to use for decimal symbols. May not be <code>null</code>.
+   * @return The formatted string representation. Never <code>null</code>.
+   */
   @NonNull
   public static String getFormattedFix (final double dValue, @Nonnegative final int nScale, final Locale aLocale)
   {
     return getFormatted (dValue, nScale, EDecimalType.FIX, aLocale);
   }
 
+  /**
+   * Format a double value using fixed decimal representation with a scale of 2.
+   *
+   * @param dValue
+   *        The value to be formatted.
+   * @param aLocale
+   *        The locale to use for decimal symbols. May not be <code>null</code>.
+   * @return The formatted string representation. Never <code>null</code>.
+   */
   @NonNull
   public static String getFormattedFix2 (final double dValue, final Locale aLocale)
   {
     return getFormattedFix (dValue, 2, aLocale);
   }
 
+  /**
+   * Format a double value using exponential (scientific) representation.
+   *
+   * @param dValue
+   *        The value to be formatted.
+   * @param nScale
+   *        The number of decimal places. Should be &ge; 0.
+   * @param aLocale
+   *        The locale to use for decimal symbols. May not be <code>null</code>.
+   * @return The formatted string representation. Never <code>null</code>.
+   */
   @NonNull
   public static String getFormattedExp (final double dValue, @Nonnegative final int nScale, final Locale aLocale)
   {
     return getFormatted (dValue, nScale, EDecimalType.EXP, aLocale);
   }
 
+  /**
+   * Format a double value using exponential (scientific) representation with a scale of 2.
+   *
+   * @param dValue
+   *        The value to be formatted.
+   * @param aLocale
+   *        The locale to use for decimal symbols. May not be <code>null</code>.
+   * @return The formatted string representation. Never <code>null</code>.
+   */
   @NonNull
   public static String getFormattedExp2 (final double dValue, final Locale aLocale)
   {

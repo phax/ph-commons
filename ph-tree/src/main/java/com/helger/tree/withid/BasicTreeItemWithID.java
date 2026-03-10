@@ -121,6 +121,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     m_aDataID = aDataID;
   }
 
+  /**
+   * @return The tree item factory used for creating new tree items.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ()
   {
@@ -155,6 +159,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return true;
   }
 
+  /**
+   * @return <code>true</code> if this is the root item (i.e. has no parent),
+   *         <code>false</code> otherwise.
+   */
   public final boolean isRootItem ()
   {
     return m_aParent == null;
@@ -166,24 +174,39 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return GenericReflection.uncheckedCast (aItem);
   }
 
+  /**
+   * @return The parent tree item or <code>null</code> if this is the root item.
+   */
   @Nullable
   public final ITEMTYPE getParent ()
   {
     return m_aParent;
   }
 
+  /**
+   * @return The ID of the parent tree item or <code>null</code> if this is the
+   *         root item.
+   */
   @Nullable
   public final KEYTYPE getParentID ()
   {
     return m_aParent == null ? null : m_aParent.getID ();
   }
 
+  /**
+   * @return The data of the parent tree item or <code>null</code> if this is
+   *         the root item.
+   */
   @Nullable
   public final DATATYPE getParentData ()
   {
     return m_aParent == null ? null : m_aParent.getData ();
   }
 
+  /**
+   * @return The nesting level of this item. The root item has level 0, its
+   *         children have level 1 etc.
+   */
   @Nonnegative
   public final int getLevel ()
   {
@@ -197,12 +220,18 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return ret;
   }
 
+  /**
+   * @return The ID of this tree item. May be <code>null</code> for root items.
+   */
   @Nullable
   public final KEYTYPE getID ()
   {
     return m_aDataID;
   }
 
+  /**
+   * @return The data associated with this tree item. May be <code>null</code>.
+   */
   @Nullable
   public final DATATYPE getData ()
   {
@@ -215,12 +244,19 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildMap != null && m_aChildMap.isNotEmpty ();
   }
 
+  /**
+   * @return The number of direct children of this item. Always &ge; 0.
+   */
   @Nonnegative
   public final int getChildCount ()
   {
     return m_aChildMap == null ? 0 : m_aChildMap.size ();
   }
 
+  /**
+   * @return A mutable copy of all children of this item, or <code>null</code>
+   *         if this item has no children.
+   */
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllChildren ()
@@ -228,6 +264,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
+  /**
+   * @return An iterable over the direct children of this item, or
+   *         <code>null</code> if this item has no children.
+   */
   @Nullable
   public final ICommonsIterable <ITEMTYPE> getChildren ()
   {
@@ -258,6 +298,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
+  /**
+   * @return A mutable copy of the IDs of all direct children, or
+   *         <code>null</code> if this item has no children.
+   */
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsSet <KEYTYPE> getAllChildDataIDs ()
@@ -267,6 +311,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildMap.copyOfKeySet ();
   }
 
+  /**
+   * @return A mutable copy of the data of all direct children, or
+   *         <code>null</code> if this item has no children.
+   */
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllChildDatas ()
@@ -276,6 +324,15 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren.getAllMapped (ITEMTYPE::getData);
   }
 
+  /**
+   * Get the child at the specified index.
+   *
+   * @param nIndex
+   *        The index of the child to retrieve. Must be &ge; 0.
+   * @return The child item at the given index. May be <code>null</code>.
+   * @throws IndexOutOfBoundsException
+   *         if the tree item has no children or the index is out of bounds.
+   */
   @Nullable
   public final ITEMTYPE getChildAtIndex (@Nonnegative final int nIndex)
   {
@@ -313,6 +370,14 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
+  /**
+   * Set the data associated with this tree item.
+   *
+   * @param aData
+   *        The data to be set. May be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the data is invalid according to {@link #isValidData(Object)}.
+   */
   public final void setData (@Nullable final DATATYPE aData)
   {
     if (!isValidData (aData))
@@ -320,12 +385,37 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     m_aData = aData;
   }
 
+  /**
+   * Create a child item with the specified data ID and data. If a child with
+   * the same data ID already exists, its data is overwritten.
+   *
+   * @param aDataID
+   *        The data ID of the new child. May be <code>null</code>.
+   * @param aData
+   *        The data of the new child. May be <code>null</code>.
+   * @return The created or existing child item. May be <code>null</code> if
+   *         overwrite is not allowed and the ID already exists.
+   */
   @Nullable
   public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID, @Nullable final DATATYPE aData)
   {
     return createChildItem (aDataID, aData, true);
   }
 
+  /**
+   * Create a child item with the specified data ID and data.
+   *
+   * @param aDataID
+   *        The data ID of the new child. May be <code>null</code>.
+   * @param aData
+   *        The data of the new child. May be <code>null</code>.
+   * @param bAllowOverwrite
+   *        <code>true</code> to allow overwriting existing children with the
+   *        same ID, <code>false</code> to return <code>null</code> if a child
+   *        with the same ID already exists.
+   * @return The created or existing child item, or <code>null</code> if
+   *         overwrite is not allowed and the ID already exists.
+   */
   @Nullable
   public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID,
                                          @Nullable final DATATYPE aData,
@@ -362,17 +452,41 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return aItem;
   }
 
+  /**
+   * Check if a direct child item with the given data ID exists.
+   *
+   * @param aDataID
+   *        The data ID to check. May be <code>null</code>.
+   * @return <code>true</code> if a child with the given data ID exists,
+   *         <code>false</code> otherwise.
+   */
   public final boolean containsChildItemWithDataID (@Nullable final KEYTYPE aDataID)
   {
     return m_aChildMap != null && m_aChildMap.containsKey (aDataID);
   }
 
+  /**
+   * Get the direct child item with the given data ID.
+   *
+   * @param aDataID
+   *        The data ID to search. May be <code>null</code>.
+   * @return The child item with the given data ID, or <code>null</code> if no
+   *         such child exists.
+   */
   @Nullable
   public final ITEMTYPE getChildItemOfDataID (@Nullable final KEYTYPE aDataID)
   {
     return m_aChildMap == null ? null : m_aChildMap.get (aDataID);
   }
 
+  /**
+   * Check if this item is the same as or a child of the passed parent item.
+   *
+   * @param aParent
+   *        The parent item to check against. May not be <code>null</code>.
+   * @return <code>true</code> if this item is the same as or a descendant of
+   *         the passed parent item, <code>false</code> otherwise.
+   */
   public final boolean isSameOrChildOf (@NonNull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
@@ -388,6 +502,15 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return false;
   }
 
+  /**
+   * Change the parent of this item to the specified new parent.
+   *
+   * @param aNewParent
+   *        The new parent item. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the parent was changed successfully,
+   *         {@link ESuccess#FAILURE} if the new parent is the same as or a
+   *         child of this item.
+   */
   @NonNull
   public final ESuccess changeParent (@NonNull final ITEMTYPE aNewParent)
   {
@@ -411,6 +534,21 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return ESuccess.valueOfChange (aNewParent.internalAddChild (getID (), aThis, false));
   }
 
+  /**
+   * Internal method to add a child item with the specified data ID.
+   *
+   * @param aDataID
+   *        The data ID of the child. May not be <code>null</code>.
+   * @param aChild
+   *        The child item to be added. May not be <code>null</code>.
+   * @param bAllowOverwrite
+   *        <code>true</code> to allow overwriting existing children,
+   *        <code>false</code> to return {@link EChange#UNCHANGED} if a child
+   *        with the same ID already exists.
+   * @return {@link EChange#CHANGED} if the child was added successfully,
+   *         {@link EChange#UNCHANGED} if overwrite is not allowed and the ID
+   *         already exists.
+   */
   @NonNull
   public final EChange internalAddChild (@NonNull final KEYTYPE aDataID,
                                          @NonNull final ITEMTYPE aChild,

@@ -52,16 +52,31 @@ public class JsonObject implements IJsonObject
 
   private ICommonsOrderedMap <String, IJson> m_aValues;
 
+  /**
+   * Constructor with the default initial capacity.
+   */
   public JsonObject ()
   {
     this (DEFAULT_INITIAL_CAPACITY);
   }
 
+  /**
+   * Constructor with a custom initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity of the backing map. Must be &ge; 0.
+   */
   public JsonObject (@Nonnegative final int nInitialCapacity)
   {
     m_aValues = new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
+  /**
+   * Constructor copying all entries from the provided map.
+   *
+   * @param aJsons
+   *        The JSON entries to add. May not be <code>null</code>.
+   */
   public JsonObject (@NonNull final Map <String, ? extends IJson> aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
@@ -86,38 +101,65 @@ public class JsonObject implements IJsonObject
     m_aValues.putAll (aJson.m_aValues);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON objects.
+   */
   public final boolean isArray ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>true</code> for JSON objects.
+   */
   public final boolean isObject ()
   {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON objects.
+   */
   public final boolean isValue ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int size ()
   {
     return m_aValues.size ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isEmpty ()
   {
     return m_aValues.isEmpty ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public Iterator <Map.Entry <String, IJson>> iterator ()
   {
     return m_aValues.entrySet ().iterator ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public JsonObject add (@NonNull final String sName, @NonNull final IJson aValue)
   {
@@ -128,23 +170,35 @@ public class JsonObject implements IJsonObject
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IJson removeKeyAndReturnValue (@Nullable final String sName)
   {
     return m_aValues.remove (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeKey (@Nullable final String sName)
   {
     return m_aValues.removeObject (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean containsKey (@Nullable final String sName)
   {
     return m_aValues.containsKey (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> keySet ()
@@ -152,6 +206,9 @@ public class JsonObject implements IJsonObject
     return m_aValues.copyOfKeySet ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> values ()
@@ -159,12 +216,18 @@ public class JsonObject implements IJsonObject
     return m_aValues.copyOfValues ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IJson get (@Nullable final String sName)
   {
     return m_aValues.get (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IJson> getAll ()
@@ -172,16 +235,25 @@ public class JsonObject implements IJsonObject
     return m_aValues.getClone ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void forEach (@NonNull final BiConsumer <? super String, ? super IJson> aConsumer)
   {
     m_aValues.forEach (aConsumer);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean containsValue (@Nullable final IJson aValue)
   {
     return aValue != null && m_aValues.containsValue (aValue);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IJson> getClonedValues ()
@@ -192,6 +264,9 @@ public class JsonObject implements IJsonObject
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public JsonObject getClone ()
   {

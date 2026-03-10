@@ -59,12 +59,24 @@ public final class SizeHelper
   private DecimalFormat m_aDF1;
   private DecimalFormat m_aDF2;
 
+  /**
+   * Constructor using a display locale to determine the decimal format symbols.
+   *
+   * @param aDisplayLocale
+   *        The locale to use for formatting. May not be <code>null</code>.
+   */
   public SizeHelper (@NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
     m_aDFS = DecimalFormatSymbols.getInstance (aDisplayLocale);
   }
 
+  /**
+   * Constructor using explicit decimal format symbols.
+   *
+   * @param aDFS
+   *        The decimal format symbols to use. May not be <code>null</code>.
+   */
   public SizeHelper (@NonNull final DecimalFormatSymbols aDFS)
   {
     m_aDFS = ValueEnforcer.notNull (aDFS, "DecimalFormatSymbols");
@@ -108,60 +120,140 @@ public final class SizeHelper
     return new DecimalFormat (aFormat.toString (), m_aDFS).format (dSize);
   }
 
+  /**
+   * Get the passed size formatted as Kilobytes without fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The formatted string with the KB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsKB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_KILOBYTE) + KB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Kilobytes with the specified number of fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The formatted string with the KB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsKB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_KILOBYTE, nDecimals) + KB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Megabytes without fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The formatted string with the MB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsMB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_MEGABYTE) + MB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Megabytes with the specified number of fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The formatted string with the MB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsMB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_MEGABYTE, nDecimals) + MB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Gigabytes without fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The formatted string with the GB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsGB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_GIGABYTE) + GB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Gigabytes with the specified number of fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The formatted string with the GB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsGB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_GIGABYTE, nDecimals) + GB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Terabytes without fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The formatted string with the TB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsTB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_TERABYTE) + TB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Terabytes with the specified number of fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The formatted string with the TB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsTB (final long nSize, @Nonnegative final int nDecimals)
   {
     return _format ((double) nSize / CGlobal.BYTES_PER_TERABYTE, nDecimals) + TB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Petabytes without fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The formatted string with the PB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsPB (final long nSize)
   {
     return _format (nSize / CGlobal.BYTES_PER_PETABYTE) + PB_SUFFIX;
   }
 
+  /**
+   * Get the passed size formatted as Petabytes with the specified number of fraction digits.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The formatted string with the PB suffix. Never <code>null</code>.
+   */
   @NonNull
   public String getAsPB (final long nSize, @Nonnegative final int nDecimals)
   {
@@ -258,6 +350,13 @@ public final class SizeHelper
     return getAsMatching (aSize.longValue (), nDecimals);
   }
 
+  /**
+   * Get the best matching formatting of the passed value. No fraction digits will be emitted.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @return The string representation using the best matching unit. Never <code>null</code>.
+   */
   @NonNull
   public String getAsMatching (final long nSize)
   {
@@ -274,6 +373,15 @@ public final class SizeHelper
     return _format (nSize) + B_SUFFIX;
   }
 
+  /**
+   * Get the best matching formatting of the passed value.
+   *
+   * @param nSize
+   *        The size in bytes.
+   * @param nDecimals
+   *        The number of fraction digits to use. Must be &ge; 0.
+   * @return The string representation using the best matching unit. Never <code>null</code>.
+   */
   @NonNull
   public String getAsMatching (final long nSize, @Nonnegative final int nDecimals)
   {

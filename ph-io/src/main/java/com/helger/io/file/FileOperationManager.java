@@ -50,6 +50,11 @@ public class FileOperationManager implements IFileOperationManager
   public FileOperationManager ()
   {}
 
+  /**
+   * Get the mutable callback list for file operation events.
+   *
+   * @return The callback list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public CallbackList <IFileOperationCallback> callbacks ()
@@ -57,12 +62,18 @@ public class FileOperationManager implements IFileOperationManager
     return m_aCallbacks;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public FileIOError getLastError ()
   {
     return m_aLastError;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public EFileIOOperation getLastOperation ()
   {
@@ -91,6 +102,7 @@ public class FileOperationManager implements IFileOperationManager
     }
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError createDir (@NonNull final File aDir)
   {
@@ -99,6 +111,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError createDirIfNotExisting (@NonNull final File aDir)
   {
@@ -107,6 +120,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError createDirRecursive (@NonNull final File aDir)
   {
@@ -115,6 +129,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError createDirRecursiveIfNotExisting (@NonNull final File aDir)
   {
@@ -123,6 +138,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteDir (@NonNull final File aDir)
   {
@@ -131,6 +147,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteDirIfExisting (@NonNull final File aDir)
   {
@@ -139,6 +156,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteDirRecursive (@NonNull final File aDir)
   {
@@ -147,6 +165,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteDirRecursiveIfExisting (@NonNull final File aDir)
   {
@@ -155,6 +174,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteFile (@NonNull final File aFile)
   {
@@ -163,6 +183,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError deleteFileIfExisting (@NonNull final File aFile)
   {
@@ -171,6 +192,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError renameDir (@NonNull final File aSourceDir, @NonNull final File aTargetDir)
   {
@@ -179,6 +201,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError renameFile (@NonNull final File aSourceFile, @NonNull final File aTargetFile)
   {
@@ -187,6 +210,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError copyDirRecursive (@NonNull final File aSourceDir, @NonNull final File aTargetDir)
   {
@@ -195,6 +219,7 @@ public class FileOperationManager implements IFileOperationManager
     return m_aLastError;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public FileIOError copyFile (@NonNull final File aSourceFile, @NonNull final File aTargetFile)
   {

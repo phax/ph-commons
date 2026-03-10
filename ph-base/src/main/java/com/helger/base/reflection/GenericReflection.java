@@ -50,6 +50,18 @@ public final class GenericReflection
   private GenericReflection ()
   {}
 
+  /**
+   * Perform an unchecked cast from one type to another. This avoids unchecked cast warnings in
+   * calling code.
+   *
+   * @param <SRCTYPE>
+   *        The source type
+   * @param <DSTTYPE>
+   *        The destination type
+   * @param aObject
+   *        The object to be cast. May be <code>null</code>.
+   * @return The casted object. May be <code>null</code>.
+   */
   @SuppressWarnings ("unchecked")
   @UsedInGeneratedCode
   public static <SRCTYPE, DSTTYPE> DSTTYPE uncheckedCast (@Nullable final SRCTYPE aObject)
@@ -57,6 +69,19 @@ public final class GenericReflection
     return (DSTTYPE) aObject;
   }
 
+  /**
+   * Get the class of the given name using the specified class loader.
+   *
+   * @param <DATATYPE>
+   *        The return type
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @param sName
+   *        The fully qualified class name to be resolved. May not be <code>null</code>.
+   * @return The resolved class. Never <code>null</code>.
+   * @throws ClassNotFoundException
+   *         If the class could not be found.
+   */
   @NonNull
   public static <DATATYPE> Class <DATATYPE> getClassFromName (@NonNull final ClassLoader aClassLoader,
                                                               @NonNull final String sName) throws ClassNotFoundException
@@ -65,6 +90,17 @@ public final class GenericReflection
     return uncheckedCast (aClassLoader.loadClass (sName));
   }
 
+  /**
+   * Get the class of the given name using {@link Class#forName(String)}.
+   *
+   * @param <DATATYPE>
+   *        The return type
+   * @param sName
+   *        The fully qualified class name to be resolved. May not be <code>null</code>.
+   * @return The resolved class. Never <code>null</code>.
+   * @throws ClassNotFoundException
+   *         If the class could not be found.
+   */
   @NonNull
   public static <DATATYPE> Class <DATATYPE> getClassFromName (@NonNull final String sName) throws ClassNotFoundException
   {
@@ -170,6 +206,27 @@ public final class GenericReflection
     return GenericReflection.<RETURNTYPE> invokeMethod (aSrcObj, sMethodName, getClassArray (aArgs), aArgs);
   }
 
+  /**
+   * Dynamically invoke a method on the given object, with explicit argument class types.
+   *
+   * @param <RETURNTYPE>
+   *        The method return type
+   * @param aSrcObj
+   *        The source object on which the method is to be invoked. May not be <code>null</code>.
+   * @param sMethodName
+   *        The method to be invoked. May not be <code>null</code>.
+   * @param aArgClasses
+   *        The classes of the arguments. May be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be passed into the method. May be <code>null</code>.
+   * @return The return value of the invoked method or <code>null</code> for void methods.
+   * @throws NoSuchMethodException
+   *         Thrown by reflection
+   * @throws IllegalAccessException
+   *         Thrown by reflection
+   * @throws InvocationTargetException
+   *         Thrown by reflection
+   */
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeMethod (@NonNull final Object aSrcObj,
                                                       @NonNull final String sMethodName,
@@ -183,6 +240,27 @@ public final class GenericReflection
     return GenericReflection.uncheckedCast (aReturn);
   }
 
+  /**
+   * Dynamically invoke a static method identified by the class name and method name.
+   *
+   * @param <RETURNTYPE>
+   *        The method return type
+   * @param sClassName
+   *        The fully qualified class name. May not be <code>null</code>.
+   * @param sMethodName
+   *        The method to be invoked. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be passed into the method. May be <code>null</code>.
+   * @return The return value of the invoked method or <code>null</code> for void methods.
+   * @throws NoSuchMethodException
+   *         Thrown by reflection
+   * @throws IllegalAccessException
+   *         Thrown by reflection
+   * @throws InvocationTargetException
+   *         Thrown by reflection
+   * @throws ClassNotFoundException
+   *         If the class could not be found
+   */
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final String sClassName,
                                                             @NonNull final String sMethodName,
@@ -194,6 +272,25 @@ public final class GenericReflection
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName), sMethodName, aArgs);
   }
 
+  /**
+   * Dynamically invoke a static method on the given class.
+   *
+   * @param <RETURNTYPE>
+   *        The method return type
+   * @param aClass
+   *        The class on which the static method is to be invoked. May not be <code>null</code>.
+   * @param sMethodName
+   *        The method to be invoked. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be passed into the method. May be <code>null</code>.
+   * @return The return value of the invoked method or <code>null</code> for void methods.
+   * @throws NoSuchMethodException
+   *         Thrown by reflection
+   * @throws IllegalAccessException
+   *         Thrown by reflection
+   * @throws InvocationTargetException
+   *         Thrown by reflection
+   */
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final Class <?> aClass,
                                                             @NonNull final String sMethodName,
@@ -204,6 +301,30 @@ public final class GenericReflection
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (aClass, sMethodName, getClassArray (aArgs), aArgs);
   }
 
+  /**
+   * Dynamically invoke a static method identified by the class name and method name, with explicit
+   * argument class types.
+   *
+   * @param <RETURNTYPE>
+   *        The method return type
+   * @param sClassName
+   *        The fully qualified class name. May not be <code>null</code>.
+   * @param sMethodName
+   *        The method to be invoked. May not be <code>null</code>.
+   * @param aArgClasses
+   *        The classes of the arguments. May be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be passed into the method. May be <code>null</code>.
+   * @return The return value of the invoked method or <code>null</code> for void methods.
+   * @throws NoSuchMethodException
+   *         Thrown by reflection
+   * @throws IllegalAccessException
+   *         Thrown by reflection
+   * @throws InvocationTargetException
+   *         Thrown by reflection
+   * @throws ClassNotFoundException
+   *         If the class could not be found
+   */
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final String sClassName,
                                                             @NonNull final String sMethodName,
@@ -219,6 +340,27 @@ public final class GenericReflection
                                                               aArgs);
   }
 
+  /**
+   * Dynamically invoke a static method on the given class, with explicit argument class types.
+   *
+   * @param <RETURNTYPE>
+   *        The method return type
+   * @param aClass
+   *        The class on which the static method is to be invoked. May not be <code>null</code>.
+   * @param sMethodName
+   *        The method to be invoked. May not be <code>null</code>.
+   * @param aArgClasses
+   *        The classes of the arguments. May be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be passed into the method. May be <code>null</code>.
+   * @return The return value of the invoked method or <code>null</code> for void methods.
+   * @throws NoSuchMethodException
+   *         Thrown by reflection
+   * @throws IllegalAccessException
+   *         Thrown by reflection
+   * @throws InvocationTargetException
+   *         Thrown by reflection
+   */
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final Class <?> aClass,
                                                             @NonNull final String sMethodName,
@@ -232,6 +374,20 @@ public final class GenericReflection
     return GenericReflection.uncheckedCast (aReturn);
   }
 
+  /**
+   * Find the constructor of the class of the given object matching the specified parameter types.
+   *
+   * @param <DATATYPE>
+   *        The object type
+   * @param aObj
+   *        The object whose class is used to find the constructor. May not be <code>null</code>.
+   * @param aCtorArgs
+   *        The constructor parameter types. May be <code>null</code> or empty for the default
+   *        constructor.
+   * @return The matching constructor. Never <code>null</code>.
+   * @throws NoSuchMethodException
+   *         If no matching constructor is found.
+   */
   @NonNull
   public static <DATATYPE> Constructor <DATATYPE> findConstructor (@NonNull final DATATYPE aObj,
                                                                    final Class <?>... aCtorArgs) throws NoSuchMethodException
@@ -266,6 +422,17 @@ public final class GenericReflection
     return findConstructor (aObj).newInstance ();
   }
 
+  /**
+   * Create a new instance of the given class using its default constructor. Errors are logged but
+   * not thrown.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param aClass
+   *        The class to instantiate. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed or the class
+   *         is <code>null</code>.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final Class <? extends DATATYPE> aClass)
   {
@@ -285,6 +452,20 @@ public final class GenericReflection
     return null;
   }
 
+  /**
+   * Create a new instance of the class identified by the given name, using the specified class
+   * loader and casting to the desired type. Errors are logged but not thrown.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @param sClassName
+   *        The fully qualified class name. May be <code>null</code>.
+   * @param aDesiredType
+   *        The desired type to cast to. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@NonNull final ClassLoader aClassLoader,
                                                  @Nullable final String sClassName,
@@ -306,6 +487,18 @@ public final class GenericReflection
     return null;
   }
 
+  /**
+   * Create a new instance of the class identified by the given name, casting to the desired type.
+   * Errors are logged but not thrown.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param sClassName
+   *        The fully qualified class name. May be <code>null</code>.
+   * @param aDesiredType
+   *        The desired type to cast to. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType)
@@ -315,6 +508,20 @@ public final class GenericReflection
                         ex -> LOGGER.error ("Failed to instantiate '" + sClassName + "'", ex));
   }
 
+  /**
+   * Create a new instance of the class identified by the given name, casting to the desired type,
+   * with a custom exception handler.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param sClassName
+   *        The fully qualified class name. May be <code>null</code>.
+   * @param aDesiredType
+   *        The desired type to cast to. May be <code>null</code>.
+   * @param aExHdl
+   *        The exception handler to use. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType,
@@ -337,6 +544,20 @@ public final class GenericReflection
     return null;
   }
 
+  /**
+   * Create a new instance of the class identified by the given name, using the specified class
+   * loader and casting to the desired type. Errors are logged but not thrown.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param sClassName
+   *        The fully qualified class name. May be <code>null</code>.
+   * @param aDesiredType
+   *        The desired type to cast to. May be <code>null</code>.
+   * @param aClassLoaderToUse
+   *        The class loader to use. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType,
@@ -349,6 +570,22 @@ public final class GenericReflection
                                             ex));
   }
 
+  /**
+   * Create a new instance of the class identified by the given name, using the specified class
+   * loader and casting to the desired type, with a custom exception handler.
+   *
+   * @param <DATATYPE>
+   *        The type of object to be created
+   * @param sClassName
+   *        The fully qualified class name. May be <code>null</code>.
+   * @param aDesiredType
+   *        The desired type to cast to. May be <code>null</code>.
+   * @param aClassLoaderToUse
+   *        The class loader to use. May be <code>null</code>.
+   * @param aExHdl
+   *        The exception handler to use. May be <code>null</code>.
+   * @return A new instance of the class or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public static <DATATYPE> DATATYPE newInstance (@Nullable final String sClassName,
                                                  @Nullable final Class <? extends DATATYPE> aDesiredType,

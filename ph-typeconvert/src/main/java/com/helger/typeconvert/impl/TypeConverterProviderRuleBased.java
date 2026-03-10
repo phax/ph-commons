@@ -35,6 +35,9 @@ public final class TypeConverterProviderRuleBased implements ITypeConverterProvi
   private TypeConverterProviderRuleBased ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static TypeConverterProviderRuleBased getInstance ()
   {

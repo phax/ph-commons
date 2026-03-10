@@ -37,6 +37,14 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
   private final Class <DST> m_aDstClass;
   private final Function <? super Object, ? extends DST> m_aConverter;
 
+  /**
+   * Constructor.
+   *
+   * @param aDstClass
+   *        The fixed destination class. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter function. May not be <code>null</code>.
+   */
   public TypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
                                                      @NonNull final Function <? super Object, ? extends DST> aConverter)
   {
@@ -51,6 +59,9 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
     return m_aDstClass.equals (aDstClass);
   }
 
+  /**
+   * @return The fixed destination class. Never <code>null</code>.
+   */
   @NonNull
   public final Class <?> getDestinationClass ()
   {

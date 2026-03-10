@@ -39,6 +39,9 @@ public class BasicAuthServerBuilder
   public BasicAuthServerBuilder ()
   {}
 
+  /**
+   * @return The currently set realm. May be <code>null</code> if not yet set.
+   */
   @Nullable
   public String getRealm ()
   {
@@ -62,11 +65,22 @@ public class BasicAuthServerBuilder
     return this;
   }
 
+  /**
+   * @return <code>true</code> if this builder has all required fields set (i.e. the realm is not
+   *         <code>null</code>), <code>false</code> otherwise.
+   */
   public boolean isValid ()
   {
     return m_sRealm != null;
   }
 
+  /**
+   * Build the HTTP Basic Authentication server challenge header value string.
+   *
+   * @return The formatted Basic auth header value. Neither <code>null</code> nor empty.
+   * @throws IllegalStateException
+   *         if this builder is not valid (i.e. the realm has not been set).
+   */
   @NonNull
   @Nonempty
   public String build ()

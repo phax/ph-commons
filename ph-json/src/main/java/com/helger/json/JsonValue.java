@@ -89,42 +89,72 @@ public class JsonValue implements IJsonValue
     m_aValue = aJson.m_aValue;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON values.
+   */
   public final boolean isArray ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON values.
+   */
   public final boolean isObject ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>true</code> for JSON values.
+   */
   public final boolean isValue ()
   {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Object getValue ()
   {
     return m_aValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isBooleanValue ()
   {
     return this == TRUE || this == FALSE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isIntValue ()
   {
     return m_aValue instanceof BigInteger || m_aValue instanceof Integer || m_aValue instanceof Long;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isDecimalValue ()
   {
     return m_aValue instanceof BigDecimal || m_aValue instanceof Double;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isStringValue ()
   {
     return m_aValue instanceof String;
@@ -140,6 +170,9 @@ public class JsonValue implements IJsonValue
     return JsonValueSerializerEscaped.getInstance ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IJsonValueSerializer getValueSerializer ()
   {
@@ -158,11 +191,18 @@ public class JsonValue implements IJsonValue
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void appendAsJsonString (@NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     getValueSerializer ().appendAsJsonString (m_aValue, aWriter);
   }
 
+  /**
+   * {@inheritDoc}
+   * Since {@link JsonValue} is immutable, this returns <code>this</code>.
+   */
   @NonNull
   public JsonValue getClone ()
   {
@@ -197,24 +237,52 @@ public class JsonValue implements IJsonValue
                                        .getToString ();
   }
 
+  /**
+   * Create a JSON value from a boolean.
+   *
+   * @param bValue
+   *        The boolean value.
+   * @return {@link #TRUE} or {@link #FALSE}
+   */
   @NonNull
   public static JsonValue create (final boolean bValue)
   {
     return bValue ? TRUE : FALSE;
   }
 
+  /**
+   * Create a JSON value from a char. The char is converted to a String internally.
+   *
+   * @param cValue
+   *        The char value.
+   * @return The created {@link JsonValue}. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValue create (final char cValue)
   {
     return create (Character.toString (cValue));
   }
 
+  /**
+   * Create a JSON value from a double.
+   *
+   * @param dValue
+   *        The double value.
+   * @return The created {@link JsonValue}. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValue create (final double dValue)
   {
     return create (Double.valueOf (dValue));
   }
 
+  /**
+   * Create a JSON value from an int. Values in the range [-128, 127] are cached.
+   *
+   * @param nValue
+   *        The int value.
+   * @return The created {@link JsonValue}. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValue create (final int nValue)
   {
@@ -225,6 +293,13 @@ public class JsonValue implements IJsonValue
     return create (Integer.valueOf (nValue));
   }
 
+  /**
+   * Create a JSON value from a long. If the value fits in an int, the int version is used.
+   *
+   * @param nValue
+   *        The long value.
+   * @return The created {@link JsonValue}. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValue create (final long nValue)
   {

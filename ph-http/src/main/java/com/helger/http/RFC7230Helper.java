@@ -105,6 +105,13 @@ public final class RFC7230Helper
     return true;
   }
 
+  /**
+   * Check if the provided char is a backslash character.
+   *
+   * @param c
+   *        The character to check.
+   * @return <code>true</code> if the character is a backslash, <code>false</code> if not.
+   */
   public static boolean isBackslash (final char c)
   {
     return c == '\\';

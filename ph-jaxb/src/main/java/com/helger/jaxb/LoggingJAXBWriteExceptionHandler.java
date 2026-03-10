@@ -39,6 +39,12 @@ public class LoggingJAXBWriteExceptionHandler implements IExceptionCallback <JAX
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJAXBWriteExceptionHandler.class);
 
+  /**
+   * Handle a JAXB write exception by logging it.
+   *
+   * @param ex
+   *        The JAXB exception that occurred. May not be <code>null</code>.
+   */
   public void onException (@NonNull final JAXBException ex)
   {
     if (ex instanceof MarshalException)

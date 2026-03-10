@@ -72,16 +72,69 @@ public interface ITypeConverterRegistry
    */
   void registerTypeConverterRule (@NonNull ITypeConverterRule <?, ?> aTypeConverterRule);
 
+  /**
+   * Register a type converter rule that converts from any source type to a
+   * fixed destination type.
+   *
+   * @param aDstClass
+   *        The fixed destination class. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter function. May not be <code>null</code>.
+   * @param <DST>
+   *        Destination type
+   */
   <DST> void registerTypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
                                                                  @NonNull final Function <? super Object, ? extends DST> aConverter);
 
+  /**
+   * Register a type converter rule that converts from any class assignable to
+   * the source class to a fixed destination type.
+   *
+   * @param aSrcClass
+   *        The source class (including subclasses). May not be <code>null</code>.
+   * @param aDstClass
+   *        The fixed destination class. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter function. May not be <code>null</code>.
+   * @param <SRC>
+   *        Source type
+   * @param <DST>
+   *        Destination type
+   */
   <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
                                                                              @NonNull final Class <DST> aDstClass,
                                                                              @NonNull final Function <? super SRC, ? extends DST> aConverter);
 
+  /**
+   * Register a type converter rule that converts from a fixed source type to
+   * any destination type via an intermediate conversion step.
+   *
+   * @param aSrcClass
+   *        The fixed source class. May not be <code>null</code>.
+   * @param aInBetweenConverter
+   *        The converter function that converts the source to an intermediate
+   *        object. May not be <code>null</code>.
+   * @param <SRC>
+   *        Source type
+   */
   <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
                                                                  @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter);
 
+  /**
+   * Register a type converter rule that converts from a fixed source type to
+   * any class assignable to the destination class.
+   *
+   * @param aSrcClass
+   *        The fixed source class. May not be <code>null</code>.
+   * @param aDstClass
+   *        The destination class (including subclasses). May not be <code>null</code>.
+   * @param aConverter
+   *        The converter function. May not be <code>null</code>.
+   * @param <SRC>
+   *        Source type
+   * @param <DST>
+   *        Destination type
+   */
   <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@NonNull final Class <SRC> aSrcClass,
                                                                              @NonNull final Class <DST> aDstClass,
                                                                              @NonNull final Function <? super SRC, ? extends DST> aConverter);

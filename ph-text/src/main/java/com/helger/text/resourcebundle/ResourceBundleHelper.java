@@ -49,6 +49,15 @@ public final class ResourceBundleHelper
   private ResourceBundleHelper ()
   {}
 
+  /**
+   * Get the resource bundle with the given name in the given locale using the default class loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if no such resource bundle exists.
+   */
   @Nullable
   public static ResourceBundle getResourceBundle (@NonNull final String sBundleName,
                                                   @NonNull final Locale aContentLocale)
@@ -56,6 +65,18 @@ public final class ResourceBundleHelper
     return getResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
+  /**
+   * Get the resource bundle with the given name in the given locale using the specified class
+   * loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return <code>null</code> if no such resource bundle exists.
+   */
   @Nullable
   public static ResourceBundle getResourceBundle (@NonNull final String sBundleName,
                                                   @NonNull final Locale aContentLocale,
@@ -71,6 +92,16 @@ public final class ResourceBundleHelper
     }
   }
 
+  /**
+   * Get the UTF-8 resource bundle with the given name in the given locale using the default class
+   * loader. Since Java 9, all resource bundles are UTF-8 by default.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return <code>null</code> if no such resource bundle exists.
+   */
   @Nullable
   public static ResourceBundle getUtf8ResourceBundle (@NonNull final String sBundleName,
                                                       @NonNull final Locale aContentLocale)
@@ -78,6 +109,18 @@ public final class ResourceBundleHelper
     return getUtf8ResourceBundle (sBundleName, aContentLocale, ClassLoaderHelper.getDefaultClassLoader ());
   }
 
+  /**
+   * Get the UTF-8 resource bundle with the given name in the given locale using the specified class
+   * loader. Since Java 9, all resource bundles are UTF-8 by default.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return <code>null</code> if no such resource bundle exists.
+   */
   @Nullable
   public static ResourceBundle getUtf8ResourceBundle (@NonNull final String sBundleName,
                                                       @NonNull final Locale aContentLocale,
@@ -98,6 +141,16 @@ public final class ResourceBundleHelper
     }
   }
 
+  /**
+   * Get a string from the provided resource bundle by key.
+   *
+   * @param aResourceBundle
+   *        The resource bundle to get the string from. May be <code>null</code>.
+   * @param sKey
+   *        The key to look up. May not be <code>null</code>.
+   * @return <code>null</code> if the resource bundle is <code>null</code> or if the key is not
+   *         found.
+   */
   @Nullable
   public static String getString (@Nullable final ResourceBundle aResourceBundle,
                                   @NonNull @PropertyKey final String sKey)
@@ -114,6 +167,17 @@ public final class ResourceBundleHelper
     return null;
   }
 
+  /**
+   * Get a string from the named resource bundle by key using the default class loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sKey
+   *        The key to look up. May not be <code>null</code>.
+   * @return <code>null</code> if the resource bundle does not exist or the key is not found.
+   */
   @Nullable
   public static String getString (@NonNull final String sBundleName,
                                   @NonNull final Locale aContentLocale,
@@ -122,6 +186,19 @@ public final class ResourceBundleHelper
     return getString (getResourceBundle (sBundleName, aContentLocale), sKey);
   }
 
+  /**
+   * Get a string from the named resource bundle by key using the specified class loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sKey
+   *        The key to look up. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return <code>null</code> if the resource bundle does not exist or the key is not found.
+   */
   @Nullable
   public static String getString (@NonNull final String sBundleName,
                                   @NonNull final Locale aContentLocale,
@@ -131,6 +208,17 @@ public final class ResourceBundleHelper
     return getString (getResourceBundle (sBundleName, aContentLocale, aClassLoader), sKey);
   }
 
+  /**
+   * Get a UTF-8 string from the named resource bundle by key using the default class loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sKey
+   *        The key to look up. May not be <code>null</code>.
+   * @return <code>null</code> if the resource bundle does not exist or the key is not found.
+   */
   @Nullable
   public static String getUtf8String (@NonNull final String sBundleName,
                                       @NonNull final Locale aContentLocale,
@@ -139,6 +227,19 @@ public final class ResourceBundleHelper
     return getString (getUtf8ResourceBundle (sBundleName, aContentLocale), sKey);
   }
 
+  /**
+   * Get a UTF-8 string from the named resource bundle by key using the specified class loader.
+   *
+   * @param sBundleName
+   *        The name of the resource bundle. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sKey
+   *        The key to look up. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return <code>null</code> if the resource bundle does not exist or the key is not found.
+   */
   @Nullable
   public static String getUtf8String (@NonNull final String sBundleName,
                                       @NonNull final Locale aContentLocale,

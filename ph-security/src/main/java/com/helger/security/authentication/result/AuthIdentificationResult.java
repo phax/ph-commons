@@ -55,11 +55,19 @@ public class AuthIdentificationResult implements ISuccessIndicator
     m_aCredentialValidationFailure = aCredentialValidationFailure;
   }
 
+  /**
+   * @return <code>true</code> if authentication was successful and an auth token is available,
+   *         <code>false</code> otherwise.
+   */
   public boolean isSuccess ()
   {
     return m_aAuthToken != null;
   }
 
+  /**
+   * @return <code>true</code> if authentication failed and a credential validation failure is
+   *         available, <code>false</code> otherwise.
+   */
   @Override
   public boolean isFailure ()
   {

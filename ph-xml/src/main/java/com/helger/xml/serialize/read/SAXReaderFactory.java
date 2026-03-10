@@ -36,12 +36,24 @@ import com.helger.xml.XMLFactory;
  */
 public final class SAXReaderFactory implements Supplier <XMLReader>
 {
+  /**
+   * {@inheritDoc} Creates a new {@link XMLReader} using the default {@link SAXParserFactory}.
+   *
+   * @return A new {@link XMLReader} instance. Never <code>null</code>.
+   */
   @NonNull
   public XMLReader get ()
   {
     return createXMLReader ();
   }
 
+  /**
+   * Create a new {@link XMLReader} using the default {@link SAXParserFactory}.
+   *
+   * @return A new {@link XMLReader} instance. Never <code>null</code>.
+   * @throws com.helger.base.exception.InitializationException
+   *         if the SAX parser cannot be created.
+   */
   @NonNull
   public static XMLReader createXMLReader ()
   {
@@ -49,6 +61,15 @@ public final class SAXReaderFactory implements Supplier <XMLReader>
     return createXMLReader (aFactory);
   }
 
+  /**
+   * Create a new {@link XMLReader} from the provided {@link SAXParserFactory}.
+   *
+   * @param aFactory
+   *        The SAX parser factory to use. May not be <code>null</code>.
+   * @return A new {@link XMLReader} instance. Never <code>null</code>.
+   * @throws com.helger.base.exception.InitializationException
+   *         if the SAX parser cannot be created.
+   */
   @NonNull
   public static XMLReader createXMLReader (@NonNull final SAXParserFactory aFactory)
   {

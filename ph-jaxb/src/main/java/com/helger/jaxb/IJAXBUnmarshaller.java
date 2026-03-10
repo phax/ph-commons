@@ -32,6 +32,17 @@ import jakarta.xml.bind.Unmarshaller;
 @FunctionalInterface
 public interface IJAXBUnmarshaller <JAXBTYPE>
 {
+  /**
+   * Perform the unmarshalling of a JAXB element.
+   *
+   * @param aUnmarshaller
+   *        The {@link Unmarshaller} to use. May not be <code>null</code>.
+   * @param aClass
+   *        The class of the JAXB type to be read. May not be <code>null</code>.
+   * @return The unmarshalled {@link JAXBElement}. Never <code>null</code>.
+   * @throws JAXBException
+   *         In case reading from XML fails.
+   */
   @NonNull
   JAXBElement <JAXBTYPE> doUnmarshal (@NonNull Unmarshaller aUnmarshaller,
                                       @NonNull Class <JAXBTYPE> aClass) throws JAXBException;

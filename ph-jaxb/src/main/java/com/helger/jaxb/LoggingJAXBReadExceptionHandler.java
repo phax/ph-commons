@@ -40,6 +40,12 @@ public class LoggingJAXBReadExceptionHandler implements IExceptionCallback <JAXB
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJAXBReadExceptionHandler.class);
 
+  /**
+   * Handle a JAXB read exception by logging it.
+   *
+   * @param ex
+   *        The JAXB exception that occurred. May not be <code>null</code>.
+   */
   public void onException (@NonNull final JAXBException ex)
   {
     if (ex instanceof UnmarshalException)

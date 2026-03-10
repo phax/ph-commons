@@ -43,11 +43,29 @@ public class IteratorHelper
   protected IteratorHelper ()
   {}
 
+  /**
+   * Check if the passed {@link Iterator} is empty. An iterator is considered
+   * empty if it is <code>null</code> or has no more elements.
+   *
+   * @param aIter
+   *        The iterator to check. May be <code>null</code>.
+   * @return <code>true</code> if the iterator is <code>null</code> or has no
+   *         more elements, <code>false</code> otherwise.
+   */
   public static boolean isEmpty (@Nullable final Iterator <?> aIter)
   {
     return aIter == null || !aIter.hasNext ();
   }
 
+  /**
+   * Check if the passed {@link Iterator} is not empty. An iterator is
+   * considered not empty if it is not <code>null</code> and has more elements.
+   *
+   * @param aIter
+   *        The iterator to check. May be <code>null</code>.
+   * @return <code>true</code> if the iterator is not <code>null</code> and has
+   *         more elements, <code>false</code> otherwise.
+   */
   public static boolean isNotEmpty (@Nullable final Iterator <?> aIter)
   {
     return aIter != null && aIter.hasNext ();

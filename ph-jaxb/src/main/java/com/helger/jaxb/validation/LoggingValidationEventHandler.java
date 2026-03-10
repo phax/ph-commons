@@ -39,6 +39,9 @@ public class LoggingValidationEventHandler extends AbstractValidationEventHandle
   public static final LoggingValidationEventHandler DEFAULT_INSTANCE = new LoggingValidationEventHandler ();
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingValidationEventHandler.class);
 
+  /**
+   * Default constructor.
+   */
   public LoggingValidationEventHandler ()
   {}
 

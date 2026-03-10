@@ -65,6 +65,17 @@ public final class EnumHelper
   private EnumHelper ()
   {}
 
+  /**
+   * Find the first enum constant matching the provided filter.
+   *
+   * @param <ENUMTYPE>
+   *        The enum type
+   * @param aClass
+   *        The enum class. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to match any element.
+   * @return <code>null</code> if no matching enum constant is found.
+   */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@NonNull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter)
@@ -72,6 +83,21 @@ public final class EnumHelper
     return findFirst (aClass, aFilter, null);
   }
 
+  /**
+   * Find the first enum constant matching the provided filter, returning a default value if none
+   * matches.
+   *
+   * @param <ENUMTYPE>
+   *        The enum type
+   * @param aClass
+   *        The enum class. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to match any element.
+   * @param eDefault
+   *        The default value to return if no matching enum constant is found. May be
+   *        <code>null</code>.
+   * @return The first matching enum constant or the default value.
+   */
   @Nullable
   public static <ENUMTYPE extends Enum <ENUMTYPE>> ENUMTYPE findFirst (@NonNull final Class <ENUMTYPE> aClass,
                                                                        @Nullable final Predicate <? super ENUMTYPE> aFilter,
@@ -80,6 +106,17 @@ public final class EnumHelper
     return ArrayHelper.findFirst (aClass.getEnumConstants (), aFilter, eDefault);
   }
 
+  /**
+   * Get all enum constants matching the provided filter.
+   *
+   * @param <ENUMTYPE>
+   *        The enum type
+   * @param aClass
+   *        The enum class. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to return all enum constants.
+   * @return A mutable copy of the matching enum constants. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ENUMTYPE extends Enum <ENUMTYPE>> List <ENUMTYPE> getAll (@NonNull final Class <ENUMTYPE> aClass,
@@ -496,6 +533,12 @@ public final class EnumHelper
     return aEnum.getClass ().getName () + '.' + aEnum.name ();
   }
 
+  /**
+   * Clear the internal int ID enum cache.
+   *
+   * @return {@link EChange#CHANGED} if the cache was not empty and was cleared,
+   *         {@link EChange#UNCHANGED} if the cache was already empty.
+   */
   @NonNull
   public static EChange clearCache ()
   {

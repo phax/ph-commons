@@ -90,6 +90,13 @@ public final class JAXBMarshallerHelper
     return (String) _getProperty (aMarshaller, sPropertyName);
   }
 
+  /**
+   * Get the standard encoding property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The encoding value. May be <code>null</code>.
+   */
   @Nullable
   public static String getEncoding (@NonNull final Marshaller aMarshaller)
   {
@@ -122,6 +129,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_ENCODING, sEncoding);
   }
 
+  /**
+   * Get the standard formatted output property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return <code>true</code> if formatted output is enabled, <code>false</code> otherwise.
+   */
   public static boolean isFormattedOutput (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT);
@@ -140,6 +154,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.valueOf (bFormattedOutput));
   }
 
+  /**
+   * Get the standard schema location property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The schema location value. May be <code>null</code>.
+   */
   @Nullable
   public static String getSchemaLocation (@NonNull final Marshaller aMarshaller)
   {
@@ -159,6 +180,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_SCHEMA_LOCATION, sSchemaLocation);
   }
 
+  /**
+   * Get the standard no-namespace schema location property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The no-namespace schema location value. May be <code>null</code>.
+   */
   @Nullable
   public static String getNoNamespaceSchemaLocation (@NonNull final Marshaller aMarshaller)
   {
@@ -178,6 +206,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, sSchemaLocation);
   }
 
+  /**
+   * Get the standard fragment property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return <code>true</code> if fragment mode is enabled, <code>false</code> otherwise.
+   */
   public static boolean isFragment (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, Marshaller.JAXB_FRAGMENT);
@@ -196,6 +231,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, Marshaller.JAXB_FRAGMENT, Boolean.valueOf (bFragment));
   }
 
+  /**
+   * Get the Jakarta specific indent string property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The indent string value. May be <code>null</code>.
+   */
   @Nullable
   public static String getJakartaIndentString (@NonNull final Marshaller aMarshaller)
   {
@@ -215,6 +257,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, JAKARTA_INDENT_STRING, sIndentString);
   }
 
+  /**
+   * Get the Jakarta specific character escape handler from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The character escape handler. May be <code>null</code>.
+   */
   @Nullable
   public static Object getJakartaCharacterEscapeHandler (@NonNull final Marshaller aMarshaller)
   {
@@ -235,6 +284,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2, aCharacterEscapeHandler);
   }
 
+  /**
+   * Get the Jakarta specific namespace prefix mapper from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The namespace prefix mapper. May be <code>null</code>.
+   */
   @Nullable
   public static JAXBNamespacePrefixMapper getJakartaNamespacePrefixMapper (@NonNull final Marshaller aMarshaller)
   {
@@ -277,6 +333,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, JAKARTA_PREFIX_MAPPER, aNamespacePrefixMapper);
   }
 
+  /**
+   * Get the Jakarta specific XML headers property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return The XML headers value. May be <code>null</code>.
+   */
   @Nullable
   public static String getJakartaXMLHeaders (@NonNull final Marshaller aMarshaller)
   {
@@ -296,6 +359,13 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, JAKARTA_XML_HEADERS, sXMLHeaders);
   }
 
+  /**
+   * Get the Jakarta specific canonicalization property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return <code>true</code> if canonicalization is enabled, <code>false</code> otherwise.
+   */
   public static boolean isJakartaCanonicalization (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, JAKARTA_C14N);
@@ -314,6 +384,14 @@ public final class JAXBMarshallerHelper
     _setProperty (aMarshaller, JAKARTA_C14N, Boolean.valueOf (bCanonicalize));
   }
 
+  /**
+   * Get the Jakarta specific object identity cycle detection property from the passed marshaller.
+   *
+   * @param aMarshaller
+   *        The marshaller to query. May not be <code>null</code>.
+   * @return <code>true</code> if object identity cycle detection is enabled, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isJakartaObjectIdentityCycleDetection (@NonNull final Marshaller aMarshaller)
   {
     return _getBooleanProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION);

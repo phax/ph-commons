@@ -174,6 +174,14 @@ public interface IAttributeContainer <KEYTYPE, VALUETYPE> extends
     return EChange.CHANGED;
   }
 
+  /**
+   * Set/overwrite all attribute values from the passed map.
+   *
+   * @param aAttrs
+   *        The attributes to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if at least one attribute was changed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
   @NonNull
   default EChange putAllIn (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aAttrs)
   {

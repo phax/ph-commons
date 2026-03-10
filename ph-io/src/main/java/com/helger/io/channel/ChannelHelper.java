@@ -160,6 +160,14 @@ public final class ChannelHelper
     return nBytesWritten;
   }
 
+  /**
+   * Close the passed channel if it is not <code>null</code> and still open.
+   *
+   * @param aChannel
+   *        The channel to be closed. May be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the channel was successfully closed,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess close (@Nullable final Channel aChannel)
   {
@@ -168,6 +176,14 @@ public final class ChannelHelper
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Release the passed file lock if it is not <code>null</code>.
+   *
+   * @param aFileLock
+   *        The file lock to be released. May be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the lock was successfully released,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess release (@Nullable final FileLock aFileLock)
   {

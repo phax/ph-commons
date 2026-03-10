@@ -100,6 +100,11 @@ public class LoggingInvocationHandler implements InvocationHandler
     return aSB.toString ();
   }
 
+  /**
+   * {@inheritDoc} Logs the method invocation including parameters, invokes the actual target
+   * method, and logs the return value. If {@link #isProxyReturnValues()} is <code>true</code> and
+   * the return type is an interface, the return value is wrapped in a logging proxy as well.
+   */
   @Nullable
   public Object invoke (@NonNull final Object aProxy, @NonNull final Method aMethod, @NonNull final Object [] aArgs)
                                                                                                                      throws Throwable
@@ -136,12 +141,40 @@ public class LoggingInvocationHandler implements InvocationHandler
     return ret;
   }
 
+  /**
+   * Create a logging proxy for the given interface and target object, using the default
+   * {@link LoggingInvocationHandler}.
+   *
+   * @param <T>
+   *        The interface type.
+   * @param aInterfaceClass
+   *        The interface class to proxy. May not be <code>null</code>.
+   * @param aActualTarget
+   *        The actual target object to delegate method calls to. May not be <code>null</code>.
+   * @return A proxy instance that logs all method invocations. Never <code>null</code>.
+   */
   @NonNull
   public static <T> T proxying (@NonNull final Class <? extends T> aInterfaceClass, @NonNull final T aActualTarget)
   {
     return proxying (aInterfaceClass, aActualTarget, LoggingInvocationHandler::new);
   }
 
+  /**
+   * Create a logging proxy for the given interface and target object, using a custom
+   * {@link InvocationHandler} factory.
+   *
+   * @param <T>
+   *        The interface type.
+   * @param aInterfaceClass
+   *        The interface class to proxy. Must be an interface. May not be <code>null</code>.
+   * @param aActualTarget
+   *        The actual target object to delegate method calls to. May not be <code>null</code>.
+   * @param aFactory
+   *        The factory function that creates an {@link InvocationHandler} from the target object.
+   *        May not be <code>null</code>.
+   * @return A proxy instance that delegates to the provided invocation handler. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static <T> T proxying (@NonNull final Class <? extends T> aInterfaceClass,
                                 @NonNull final T aActualTarget,

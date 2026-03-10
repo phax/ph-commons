@@ -30,6 +30,9 @@ import com.helger.diagnostics.error.IError;
 @NotThreadSafe
 public class DoNothingValidationEventHandler extends AbstractValidationEventHandler
 {
+  /**
+   * Default constructor.
+   */
   public DoNothingValidationEventHandler ()
   {
     super ();

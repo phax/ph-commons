@@ -131,12 +131,32 @@ public final class StackTraceHelper
     }
   }
 
+  /**
+   * Append the stack trace of the given elements to the provided {@link StringBuilder}, using the
+   * default line separator.
+   *
+   * @param aSB
+   *        The StringBuilder to append to. May not be <code>null</code>.
+   * @param aStackTraceElements
+   *        The stack trace elements to append. May not be <code>null</code>.
+   */
   public static void appendStackToString (@NonNull final StringBuilder aSB,
                                           @NonNull final StackTraceElement [] aStackTraceElements)
   {
     appendStackToString (aSB, aStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
+  /**
+   * Append the stack trace of the given elements to the provided {@link StringBuilder}, using the
+   * specified line separator.
+   *
+   * @param aSB
+   *        The StringBuilder to append to. May not be <code>null</code>.
+   * @param aStackTraceElements
+   *        The stack trace elements to append. May not be <code>null</code>.
+   * @param sLineSeparator
+   *        The line separator to use. May not be <code>null</code>.
+   */
   public static void appendStackToString (@NonNull final StringBuilder aSB,
                                           @NonNull final StackTraceElement [] aStackTraceElements,
                                           @NonNull final String sLineSeparator)
@@ -148,6 +168,16 @@ public final class StackTraceHelper
     _appendSingleStackTraceToString (aSB, aStackTraceElements, null, true, sLineSeparator);
   }
 
+  /**
+   * Get the stack trace elements as a single string.
+   *
+   * @param aStackTraceElements
+   *        The stack trace elements to convert. May not be <code>null</code>.
+   * @param bOmitCommonStackTraceElements
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements,
                                          final boolean bOmitCommonStackTraceElements)
@@ -155,6 +185,18 @@ public final class StackTraceHelper
     return getStackAsString (aStackTraceElements, bOmitCommonStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
+  /**
+   * Get the stack trace elements as a single string, using a custom line separator.
+   *
+   * @param aStackTraceElements
+   *        The stack trace elements to convert. May not be <code>null</code>.
+   * @param bOmitCommonStackTraceElements
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
+   * @param sLineSeparator
+   *        The line separator to use. May not be <code>null</code>.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements,
                                          final boolean bOmitCommonStackTraceElements,
@@ -174,24 +216,62 @@ public final class StackTraceHelper
     return aSB.toString ();
   }
 
+  /**
+   * Get the stack trace elements as a single string, omitting common stack trace elements and using
+   * the default line separator.
+   *
+   * @param aStackTraceElements
+   *        The stack trace elements to convert. May not be <code>null</code>.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final StackTraceElement [] aStackTraceElements)
   {
     return getStackAsString (aStackTraceElements, true, DEFAULT_LINE_SEPARATOR);
   }
 
+  /**
+   * Get the stack trace of the passed thread as a single string, omitting common stack trace
+   * elements and using the default line separator.
+   *
+   * @param aThread
+   *        The thread whose stack trace is to be converted. May not be <code>null</code>.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final Thread aThread)
   {
     return getStackAsString (aThread.getStackTrace (), true, DEFAULT_LINE_SEPARATOR);
   }
 
+  /**
+   * Get the stack trace of the passed thread as a single string, using the default line separator.
+   *
+   * @param aThread
+   *        The thread whose stack trace is to be converted. May not be <code>null</code>.
+   * @param bOmitCommonStackTraceElements
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final Thread aThread, final boolean bOmitCommonStackTraceElements)
   {
     return getStackAsString (aThread.getStackTrace (), bOmitCommonStackTraceElements, DEFAULT_LINE_SEPARATOR);
   }
 
+  /**
+   * Get the stack trace of the passed thread as a single string, using a custom line separator.
+   *
+   * @param aThread
+   *        The thread whose stack trace is to be converted. May not be <code>null</code>.
+   * @param bOmitCommonStackTraceElements
+   *        If <code>true</code> the stack trace is cut after certain class names occurring. If
+   *        <code>false</code> the complete stack trace is returned.
+   * @param sLineSeparator
+   *        The line separator to use. May not be <code>null</code>.
+   * @return The stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getStackAsString (@NonNull final Thread aThread,
                                          final boolean bOmitCommonStackTraceElements,
@@ -200,6 +280,12 @@ public final class StackTraceHelper
     return getStackAsString (aThread.getStackTrace (), bOmitCommonStackTraceElements, sLineSeparator);
   }
 
+  /**
+   * Get the stack trace of the current thread as a single string, omitting common stack trace
+   * elements and using the default line separator.
+   *
+   * @return The current thread's stack trace as a string. Never <code>null</code>.
+   */
   @NonNull
   public static String getCurrentThreadStackAsString ()
   {

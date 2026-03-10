@@ -35,16 +35,33 @@ import com.helger.typeconvert.impl.TypeConverter;
 @NotThreadSafe
 public class StringMap extends AttributeContainer <String, String> implements IStringMap
 {
+  /**
+   * Default constructor creating an empty map.
+   */
   public StringMap ()
   {
     super ();
   }
 
+  /**
+   * Constructor copying all entries from the passed map.
+   *
+   * @param aMap
+   *        The map to copy from. May not be <code>null</code>.
+   */
   public StringMap (@NonNull final Map <String, String> aMap)
   {
     super (aMap);
   }
 
+  /**
+   * Constructor with a single name-value pair.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param sValue
+   *        The attribute value. May not be <code>null</code>.
+   */
   public StringMap (@NonNull final String sName, @NonNull final String sValue)
   {
     put (sName, sValue);

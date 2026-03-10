@@ -52,6 +52,10 @@ public final class AuthCredentialValidatorManager
   private AuthCredentialValidatorManager ()
   {}
 
+  /**
+   * @return A mutable copy of all registered credential validator SPI implementations. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <IAuthCredentialValidatorSPI> getAllAuthCredentialValidators ()
@@ -59,6 +63,14 @@ public final class AuthCredentialValidatorManager
     return new CommonsArrayList <> (HDL_LIST);
   }
 
+  /**
+   * Validate the provided credentials against all registered credential validators.
+   *
+   * @param aCredentials
+   *        The credentials to validate. May not be <code>null</code>.
+   * @return The validation result. Never <code>null</code>. In case of success, the first
+   *         successful result is returned. In case of failure, a combined result list is returned.
+   */
   @NonNull
   public static ICredentialValidationResult validateCredentials (@NonNull final IAuthCredentials aCredentials)
   {

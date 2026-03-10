@@ -94,6 +94,10 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     m_aData = null;
   }
 
+  /**
+   * @return The tree item factory used for creating new tree items.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public final ITreeItemFactory <DATATYPE, ITEMTYPE> getFactory ()
   {
@@ -114,35 +118,61 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return true;
   }
 
+  /**
+   * @return The data associated with this tree item. May be <code>null</code>.
+   */
   @Nullable
   public final DATATYPE getData ()
   {
     return m_aData;
   }
 
+  /**
+   * Set the data associated with this tree item.
+   *
+   * @param aData
+   *        The data to be set. May be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the data is invalid according to {@link #isValidData(Object)}.
+   */
   public final void setData (@Nullable final DATATYPE aData)
   {
     ValueEnforcer.isTrue (isValidData (aData), "The passed data object is invalid!");
     m_aData = aData;
   }
 
+  /**
+   * @return <code>true</code> if this is the root item (i.e. has no parent),
+   *         <code>false</code> otherwise.
+   */
   public final boolean isRootItem ()
   {
     return m_aParent == null;
   }
 
+  /**
+   * @return The parent tree item or <code>null</code> if this is the root item.
+   */
   @Nullable
   public final ITEMTYPE getParent ()
   {
     return m_aParent;
   }
 
+  /**
+   * @return The data of the parent tree item or <code>null</code> if this is
+   *         the root item.
+   */
   @Nullable
   public final DATATYPE getParentData ()
   {
     return m_aParent == null ? null : m_aParent.getData ();
   }
 
+  /**
+   * @return The nesting level of this item. The root item has level 0, its
+   *         children have level 1 etc.
+   */
   @Nonnegative
   public final int getLevel ()
   {
@@ -182,6 +212,10 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren != null && m_aChildren.isNotEmpty ();
   }
 
+  /**
+   * @return A mutable copy of all children of this item, or <code>null</code>
+   *         if this item has no children.
+   */
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllChildren ()
@@ -189,6 +223,10 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren == null ? null : m_aChildren.getClone ();
   }
 
+  /**
+   * @return An iterable over the direct children of this item, or
+   *         <code>null</code> if this item has no children.
+   */
   @Nullable
   public final ICommonsIterable <ITEMTYPE> getChildren ()
   {
@@ -228,6 +266,10 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
 
+  /**
+   * @return A mutable copy of the data of all direct children, or
+   *         <code>null</code> if this item has no children.
+   */
   @Nullable
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllChildDatas ()
@@ -237,6 +279,15 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren.getAllMapped (ITEMTYPE::getData);
   }
 
+  /**
+   * Get the child at the specified index.
+   *
+   * @param nIndex
+   *        The index of the child to retrieve. Must be &ge; 0.
+   * @return The child item at the given index. May be <code>null</code>.
+   * @throws IndexOutOfBoundsException
+   *         if the tree item has no children or the index is out of bounds.
+   */
   @Nullable
   public final ITEMTYPE getChildAtIndex (@Nonnegative final int nIndex)
   {
@@ -245,6 +296,9 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren.get (nIndex);
   }
 
+  /**
+   * @return The number of direct children of this item. Always &ge; 0.
+   */
   @Nonnegative
   public final int getChildCount ()
   {
@@ -280,6 +334,14 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
+  /**
+   * Check if this item is the same as or a child of the passed parent item.
+   *
+   * @param aParent
+   *        The parent item to check against. May not be <code>null</code>.
+   * @return <code>true</code> if this item is the same as or a descendant of
+   *         the passed parent item, <code>false</code> otherwise.
+   */
   public final boolean isSameOrChildOf (@NonNull final ITEMTYPE aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
@@ -295,6 +357,15 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return false;
   }
 
+  /**
+   * Change the parent of this item to the specified new parent.
+   *
+   * @param aNewParent
+   *        The new parent item. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the parent was changed successfully,
+   *         {@link ESuccess#FAILURE} if the new parent is the same as or a
+   *         child of this item.
+   */
   @NonNull
   public final ESuccess changeParent (@NonNull final ITEMTYPE aNewParent)
   {
@@ -318,6 +389,13 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return ESuccess.valueOfChange (aNewParent.internalAddChild (aThis));
   }
 
+  /**
+   * Internal method to add a child item to this item.
+   *
+   * @param aChild
+   *        The child item to be added. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the child was added successfully.
+   */
   @NonNull
   public final EChange internalAddChild (@NonNull final ITEMTYPE aChild)
   {
@@ -330,6 +408,14 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren.addObject (aChild);
   }
 
+  /**
+   * Remove the specified child item from this item.
+   *
+   * @param aChild
+   *        The child item to be removed. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the child was removed successfully,
+   *         {@link EChange#UNCHANGED} if the child was not found.
+   */
   @NonNull
   public final EChange removeChild (@NonNull final ITEMTYPE aChild)
   {
@@ -340,6 +426,12 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
     return m_aChildren.removeObject (aChild);
   }
 
+  /**
+   * Reorder the child items of this item using the specified comparator.
+   *
+   * @param aComparator
+   *        The comparator to use for sorting. May not be <code>null</code>.
+   */
   public final void reorderChildItems (@NonNull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)

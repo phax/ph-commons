@@ -83,11 +83,18 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     _reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static TypeConverterRegistry getInstance ()
   {
@@ -340,6 +347,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     }
   }
 
+  /**
+   * @return The total number of registered type converters. Always &ge; 0.
+   */
   @Nonnegative
   public int getRegisteredTypeConverterCount ()
   {
@@ -396,6 +406,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                                                                                          aConverter));
   }
 
+  /**
+   * @return The total number of registered type converter rules. Always &ge; 0.
+   */
   @Nonnegative
   public long getRegisteredTypeConverterRuleCount ()
   {
@@ -430,6 +443,10 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                     " rules registered");
   }
 
+  /**
+   * Reinitialize all type converters by clearing existing registrations and
+   * reloading all SPI implementations.
+   */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())

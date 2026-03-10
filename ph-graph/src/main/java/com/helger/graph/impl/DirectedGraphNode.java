@@ -50,21 +50,33 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
   private ICommonsOrderedMap <String, IMutableDirectedGraphRelation> m_aIncoming;
   private ICommonsOrderedMap <String, IMutableDirectedGraphRelation> m_aOutgoing;
 
+  /**
+   * Default constructor with an automatically generated ID.
+   */
   public DirectedGraphNode ()
   {
     this (null);
   }
 
+  /**
+   * Constructor with an explicit ID.
+   *
+   * @param sID
+   *        The ID of the node. May be <code>null</code> to have one generated
+   *        automatically.
+   */
   public DirectedGraphNode (@Nullable final String sID)
   {
     super (sID);
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return true;
   }
 
+  /** {@inheritDoc} */
   public void addIncomingRelation (@NonNull final IMutableDirectedGraphRelation aNewRelation)
   {
     ValueEnforcer.notNull (aNewRelation, "NewRelation");
@@ -92,22 +104,26 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     m_aIncoming.put (aNewRelation.getID (), aNewRelation);
   }
 
+  /** {@inheritDoc} */
   public boolean hasIncomingRelations ()
   {
     return m_aIncoming != null && m_aIncoming.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getIncomingRelationCount ()
   {
     return m_aIncoming == null ? 0 : m_aIncoming.size ();
   }
 
+  /** {@inheritDoc} */
   public boolean isIncomingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return m_aIncoming != null && aRelation != null && aRelation.equals (m_aIncoming.get (aRelation.getID ()));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllIncomingRelations ()
@@ -115,6 +131,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return m_aIncoming == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aIncoming.values ());
   }
 
+  /** {@inheritDoc} */
   public void forEachIncomingRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -122,12 +139,14 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
       m_aIncoming.forEachValue (aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeIncomingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return aRelation == null || m_aIncoming == null ? EChange.UNCHANGED : m_aIncoming.removeObject (aRelation.getID ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAllIncomingRelations ()
   {
@@ -137,11 +156,13 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean isFromNode (@Nullable final IMutableDirectedGraphNode aNode)
   {
     return getIncomingRelationFrom (aNode) != null;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllFromNodes ()
@@ -152,6 +173,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableDirectedGraphRelation getIncomingRelationFrom (@Nullable final IMutableDirectedGraphNode aFromNode)
   {
@@ -162,6 +184,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return null;
   }
 
+  /** {@inheritDoc} */
   public void addOutgoingRelation (@NonNull final IMutableDirectedGraphRelation aNewRelation)
   {
     ValueEnforcer.notNull (aNewRelation, "NewRelation");
@@ -188,22 +211,26 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     m_aOutgoing.put (aNewRelation.getID (), aNewRelation);
   }
 
+  /** {@inheritDoc} */
   public boolean hasOutgoingRelations ()
   {
     return m_aOutgoing != null && m_aOutgoing.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getOutgoingRelationCount ()
   {
     return m_aOutgoing == null ? 0 : m_aOutgoing.size ();
   }
 
+  /** {@inheritDoc} */
   public boolean isOutgoingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return m_aOutgoing != null && aRelation != null && aRelation.equals (m_aOutgoing.get (aRelation.getID ()));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableDirectedGraphRelation> getAllOutgoingRelations ()
@@ -211,6 +238,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return m_aOutgoing == null ? new CommonsArrayList <> () : new CommonsArrayList <> (m_aOutgoing.values ());
   }
 
+  /** {@inheritDoc} */
   public void forEachOutgoingRelation (@NonNull final Consumer <? super IMutableDirectedGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -218,6 +246,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
       m_aOutgoing.values ().forEach (aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IMutableDirectedGraphNode> getAllToNodes ()
@@ -228,12 +257,14 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeOutgoingRelation (@Nullable final IMutableDirectedGraphRelation aRelation)
   {
     return aRelation == null || m_aOutgoing == null ? EChange.UNCHANGED : m_aOutgoing.removeObject (aRelation.getID ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAllOutgoingRelations ()
   {
@@ -243,11 +274,13 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean isToNode (@Nullable final IMutableDirectedGraphNode aNode)
   {
     return getOutgoingRelationTo (aNode) != null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableDirectedGraphRelation getOutgoingRelationTo (@Nullable final IMutableDirectedGraphNode aToNode)
   {
@@ -258,6 +291,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return null;
   }
 
+  /** {@inheritDoc} */
   public boolean isConnectedWith (@Nullable final IMutableDirectedGraphNode aNode)
   {
     if (aNode == null)
@@ -265,6 +299,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return getIncomingRelationFrom (aNode) != null || getOutgoingRelationTo (aNode) != null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableDirectedGraphRelation getRelation (@Nullable final IMutableDirectedGraphNode aNode)
   {
@@ -281,6 +316,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return aIncoming != null ? aIncoming : aOutgoing;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphRelation> getAllRelations ()
@@ -293,6 +329,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
@@ -305,6 +342,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllRelatedNodes ()
@@ -319,6 +357,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()

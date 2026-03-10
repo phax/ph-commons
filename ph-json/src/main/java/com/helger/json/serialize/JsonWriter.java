@@ -54,11 +54,20 @@ public class JsonWriter
 {
   private final IJsonWriterSettings m_aSettings;
 
+  /**
+   * Constructor using the default {@link JsonWriterSettings}.
+   */
   public JsonWriter ()
   {
     this (JsonWriterSettings.DEFAULT_SETTINGS);
   }
 
+  /**
+   * Constructor with custom writer settings.
+   *
+   * @param aSettings
+   *        The writer settings to use. A clone is created internally. May not be <code>null</code>.
+   */
   public JsonWriter (@NonNull final IJsonWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aSettings, "Settings");
@@ -180,6 +189,16 @@ public class JsonWriter
     }
   }
 
+  /**
+   * Write the passed JSON to the provided {@link Writer} without closing it.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>. Will not be closed.
+   * @throws IOException
+   *         On IO error
+   */
   public void writeToWriter (@NonNull final IJson aJson, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
@@ -193,6 +212,16 @@ public class JsonWriter
     aWriter.flush ();
   }
 
+  /**
+   * Write the passed JSON to the provided {@link Writer} and close it afterwards.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>. Will be closed after writing.
+   * @throws IOException
+   *         On IO error
+   */
   public void writeToWriterAndClose (@NonNull final IJson aJson, @NonNull @WillClose final Writer aWriter)
                                                                                                            throws IOException
   {
@@ -209,6 +238,13 @@ public class JsonWriter
     }
   }
 
+  /**
+   * Write the passed JSON to a {@link String}.
+   *
+   * @param aJson
+   *        The JSON to be written. May not be <code>null</code>.
+   * @return The JSON string representation. Never <code>null</code>.
+   */
   @NonNull
   public String writeAsString (@NonNull final IJson aJson)
   {

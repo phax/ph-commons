@@ -35,6 +35,9 @@ public final class TypeConverterProviderExact implements ITypeConverterProvider
   private TypeConverterProviderExact ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static TypeConverterProviderExact getInstance ()
   {

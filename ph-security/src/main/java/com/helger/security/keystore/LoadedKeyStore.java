@@ -47,6 +47,10 @@ public class LoadedKeyStore implements ISuccessIndicator
     m_aErrorParams = aErrorParams;
   }
 
+  /**
+   * @return <code>true</code> if the key store was loaded successfully, <code>false</code> if an
+   *         error occurred.
+   */
   public boolean isSuccess ()
   {
     return m_aKeyStore != null;
@@ -95,6 +99,13 @@ public class LoadedKeyStore implements ISuccessIndicator
     return m_eError == null ? null : m_eError.getDisplayTextWithArgs (aContentLocale, (Object []) m_aErrorParams);
   }
 
+  /**
+   * Get the error text from the provided {@link LoadedKeyStore} in English.
+   *
+   * @param aLKS
+   *        The loaded key store to get the error from. May be <code>null</code>.
+   * @return <code>null</code> if no error occurred or if the parameter is <code>null</code>.
+   */
   @Nullable
   public static String getLoadError (@NonNull final LoadedKeyStore aLKS)
   {

@@ -39,12 +39,26 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
   public OptionGroup ()
   {}
 
+  /**
+   * Add an option to this group by building it from the provided builder.
+   *
+   * @param aBuilder
+   *        The option builder to build and add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public OptionGroup addOption (@NonNull final OptionBuilder aBuilder)
   {
     return addOption (aBuilder.build ());
   }
 
+  /**
+   * Add an option to this group.
+   *
+   * @param aOption
+   *        The option to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public OptionGroup addOption (@NonNull final Option aOption)
   {
@@ -53,11 +67,23 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
     return this;
   }
 
+  /**
+   * @return <code>true</code> if this option group is required (i.e. at least one of the contained
+   *         options must be present), <code>false</code> otherwise.
+   */
   public final boolean isRequired ()
   {
     return m_bRequired;
   }
 
+  /**
+   * Set whether this option group is required.
+   *
+   * @param bRequired
+   *        <code>true</code> if at least one option in this group must be present,
+   *        <code>false</code> otherwise.
+   * @return this for chaining
+   */
   @NonNull
   public final OptionGroup setRequired (final boolean bRequired)
   {

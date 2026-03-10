@@ -73,6 +73,10 @@ public class MessageDigestValue implements IHasByteArray
     return m_eAlgorithm;
   }
 
+  /**
+   * @return <code>true</code> if the internal byte array is a copy of the original data,
+   *         <code>false</code> if it references the original array directly.
+   */
   public boolean isCopy ()
   {
     return m_aBytes.isCopy ();
@@ -89,12 +93,18 @@ public class MessageDigestValue implements IHasByteArray
     return m_aBytes.bytes ();
   }
 
+  /**
+   * @return The number of bytes in the message digest value. Always &gt; 0.
+   */
   @Nonnegative
   public int size ()
   {
     return m_aBytes.size ();
   }
 
+  /**
+   * @return The byte offset in the internal array. Always 0.
+   */
   @Nonnegative
   public int getOffset ()
   {

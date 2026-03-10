@@ -28,36 +28,90 @@ import com.helger.base.state.EChange;
  */
 public interface IStringMap extends IAttributeContainer <String, String>
 {
+  /**
+   * Set/overwrite an attribute value converting the boolean to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param bValue
+   *        The boolean value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final boolean bValue)
   {
     return putIn (sName, Boolean.toString (bValue));
   }
 
+  /**
+   * Set/overwrite an attribute value converting the int to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param nValue
+   *        The int value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final int nValue)
   {
     return putIn (sName, Integer.toString (nValue));
   }
 
+  /**
+   * Set/overwrite an attribute value converting the long to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param nValue
+   *        The long value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final long nValue)
   {
     return putIn (sName, Long.toString (nValue));
   }
 
+  /**
+   * Set/overwrite an attribute value converting the short to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param nValue
+   *        The short value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final short nValue)
   {
     return putIn (sName, Short.toString (nValue));
   }
 
+  /**
+   * Set/overwrite an attribute value converting the double to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param dValue
+   *        The double value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final double dValue)
   {
     return putIn (sName, Double.toString (dValue));
   }
 
+  /**
+   * Set/overwrite an attribute value converting the float to a String.
+   *
+   * @param sName
+   *        The name of the attribute. May not be <code>null</code>.
+   * @param fValue
+   *        The float value.
+   * @return {@link EChange#CHANGED} if something changed.
+   */
   @NonNull
   default EChange putIn (@NonNull final String sName, final float fValue)
   {

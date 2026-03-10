@@ -1640,6 +1640,17 @@ public final class ValueEnforcer
                                             dExpectedValue);
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static int isGE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1647,6 +1658,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static int isGE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1658,6 +1680,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static long isGE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1665,6 +1698,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static long isGE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1676,6 +1720,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static short isGE0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1683,6 +1738,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static short isGE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1694,6 +1760,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static double isGE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1701,6 +1778,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static double isGE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1712,6 +1800,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static float isGE0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1719,6 +1818,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static float isGE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1730,6 +1840,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static BigDecimal isGE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1737,6 +1858,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static BigDecimal isGE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1749,6 +1881,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static BigInteger isGE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1756,6 +1899,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &ge; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &lt; 0.
+   */
   public static BigInteger isGE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1768,6 +1922,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static int isGT0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1775,6 +1940,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static int isGT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1786,6 +1962,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static long isGT0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1793,6 +1980,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static long isGT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1804,6 +2002,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static short isGT0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1811,6 +2020,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static short isGT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1822,6 +2042,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static double isGT0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1829,6 +2060,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static double isGT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1840,6 +2082,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static float isGT0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1847,6 +2100,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static float isGT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1858,6 +2122,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static BigDecimal isGT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1865,6 +2140,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static BigDecimal isGT0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1877,6 +2163,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static BigInteger isGT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1884,6 +2181,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &gt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &le; 0.
+   */
   public static BigInteger isGT0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1896,6 +2204,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static int isNE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1903,6 +2222,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static int isNE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1914,6 +2244,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static long isNE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1921,6 +2262,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static long isNE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1932,6 +2284,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static double isNE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1939,6 +2302,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static double isNE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -1950,6 +2324,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static BigDecimal isNE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1957,6 +2342,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static BigDecimal isNE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1969,6 +2365,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static BigInteger isNE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1976,6 +2383,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is not equal to 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is 0.
+   */
   public static BigInteger isNE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -1988,6 +2406,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static int isLE0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -1995,6 +2424,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static int isLE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2006,6 +2446,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static long isLE0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2013,6 +2464,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static long isLE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2024,6 +2486,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static short isLE0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2031,6 +2504,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static short isLE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2042,6 +2526,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static double isLE0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2049,6 +2544,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static double isLE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2060,6 +2566,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static float isLE0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2067,6 +2584,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static float isLE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2078,6 +2606,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static BigDecimal isLE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2085,6 +2624,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static BigDecimal isLE0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -2097,6 +2647,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static BigInteger isLE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2104,6 +2665,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &le; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &gt; 0.
+   */
   public static BigInteger isLE0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -2116,6 +2688,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static int isLT0 (final int nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2123,6 +2706,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static int isLT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2134,6 +2728,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static long isLT0 (final long nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2141,6 +2746,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static long isLT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2152,6 +2768,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static short isLT0 (final short nValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2159,6 +2786,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param nValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static short isLT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2170,6 +2808,17 @@ public final class ValueEnforcer
     return nValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static double isLT0 (final double dValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2177,6 +2826,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param dValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static double isLT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2188,6 +2848,17 @@ public final class ValueEnforcer
     return dValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static float isLT0 (final float fValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2195,6 +2866,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param fValue
+   *        The value to check.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static float isLT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
     if (isEnabled ())
@@ -2206,6 +2888,17 @@ public final class ValueEnforcer
     return fValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static BigDecimal isLT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2213,6 +2906,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static BigDecimal isLT0 (@NonNull final BigDecimal aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -2225,6 +2929,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param sName
+   *        The name of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static BigInteger isLT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
     if (isEnabled ())
@@ -2232,6 +2947,17 @@ public final class ValueEnforcer
     return aValue;
   }
 
+  /**
+   * Check that the passed value is &lt; 0.
+   *
+   * @param aValue
+   *        The value to check. May not be <code>null</code>.
+   * @param aName
+   *        The name supplier of the value (e.g. the parameter name)
+   * @return The passed value.
+   * @throws IllegalArgumentException
+   *         if the passed value is &ge; 0.
+   */
   public static BigInteger isLT0 (@NonNull final BigInteger aValue, @NonNull final Supplier <? extends String> aName)
   {
     notNull (aValue, aName);
@@ -3057,6 +3783,18 @@ public final class ValueEnforcer
                                             ")");
   }
 
+  /**
+   * Check that the offset and length are valid for the passed array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (@NonNull final Object [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3065,6 +3803,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed boolean array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final boolean @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3073,6 +3823,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed byte array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final byte @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3081,6 +3843,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed char array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final char @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3089,6 +3863,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed double array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final double @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3097,6 +3883,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed float array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final float @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3105,6 +3903,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed int array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final int @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3113,6 +3923,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed long array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final long @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -3121,6 +3943,18 @@ public final class ValueEnforcer
     _isArrayOfsLen (aArray.length, nOfs, nLen);
   }
 
+  /**
+   * Check that the offset and length are valid for the passed short array.
+   *
+   * @param aArray
+   *        The array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to check. Must be &ge; 0.
+   * @param nLen
+   *        The length to check. Must be &ge; 0.
+   * @throws IllegalArgumentException
+   *         if offset + length exceeds the array length.
+   */
   public static void isArrayOfsLen (final short @NonNull [] aArray,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)

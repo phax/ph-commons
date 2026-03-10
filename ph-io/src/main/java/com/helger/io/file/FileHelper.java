@@ -78,16 +78,37 @@ public final class FileHelper
   private FileHelper ()
   {}
 
+  /**
+   * Check if warnings on file operation issues are enabled.
+   *
+   * @return <code>true</code> if warnings are enabled, <code>false</code> otherwise.
+   */
   public static boolean isWarnOnIssues ()
   {
     return CONDLOG.isEnabled ();
   }
 
+  /**
+   * Enable or disable warnings on file operation issues.
+   *
+   * @param bWarnOnIssues
+   *        <code>true</code> to enable warnings, <code>false</code> to disable them.
+   */
   public static void setWarnOnIssues (final boolean bWarnOnIssues)
   {
     CONDLOG.setEnabled (bWarnOnIssues);
   }
 
+  /**
+   * Compare two files by their clean absolute paths for equality.
+   *
+   * @param aObj1
+   *        The first file. May not be <code>null</code>.
+   * @param aObj2
+   *        The second file. May not be <code>null</code>.
+   * @return <code>true</code> if the two files point to the same path, <code>false</code>
+   *         otherwise.
+   */
   public static boolean equalFiles (@NonNull final File aObj1, @NonNull final File aObj2)
   {
     return EqualsHelper.equalsCustom (aObj1,
@@ -153,6 +174,17 @@ public final class FileHelper
     return true;
   }
 
+  /**
+   * Ensure that the parent directory of the passed file is present. If it is not present, it will
+   * be created.
+   *
+   * @param aFile
+   *        The file whose parent directory should be present. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the parent directory was created, {@link EChange#UNCHANGED}
+   *         if it already existed.
+   * @throws IllegalStateException
+   *         If the parent directory could not be created.
+   */
   @NonNull
   public static EChange ensureParentDirectoryIsPresent (@NonNull final File aFile)
   {
@@ -298,6 +330,13 @@ public final class FileHelper
     return false;
   }
 
+  /**
+   * Get a {@link FileInputStream} for the passed file.
+   *
+   * @param aFile
+   *        The file to open for reading. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist or cannot be opened.
+   */
   @Nullable
   public static FileInputStream getInputStream (@NonNull final File aFile)
   {
@@ -312,6 +351,13 @@ public final class FileHelper
     }
   }
 
+  /**
+   * Get a buffered input stream for the passed file.
+   *
+   * @param aFile
+   *        The file to open for reading. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist or cannot be opened.
+   */
   @Nullable
   public static NonBlockingBufferedInputStream getBufferedInputStream (@NonNull final File aFile)
   {
@@ -323,6 +369,15 @@ public final class FileHelper
     return new NonBlockingBufferedInputStream (aIS);
   }
 
+  /**
+   * Get a {@link Reader} for the passed file using the specified charset.
+   *
+   * @param aFile
+   *        The file to open for reading. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist or cannot be opened.
+   */
   @Nullable
   public static InputStreamReader getReader (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
@@ -332,6 +387,15 @@ public final class FileHelper
     return StreamHelper.createReader (getInputStream (aFile), aCharset);
   }
 
+  /**
+   * Get a buffered {@link Reader} for the passed file using the specified charset.
+   *
+   * @param aFile
+   *        The file to open for reading. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist or cannot be opened.
+   */
   @Nullable
   public static NonBlockingBufferedReader getBufferedReader (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
@@ -394,12 +458,28 @@ public final class FileHelper
     }
   }
 
+  /**
+   * Get a buffered output stream for the passed file using the default append mode.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final File aFile)
   {
     return getBufferedOutputStream (aFile, EAppend.DEFAULT);
   }
 
+  /**
+   * Get a buffered output stream for the passed file.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final File aFile,
                                                                          @NonNull final EAppend eAppend)
@@ -413,12 +493,33 @@ public final class FileHelper
     return new NonBlockingBufferedOutputStream (aFOS);
   }
 
+  /**
+   * Get a {@link Writer} for the passed file using the default append mode and the specified
+   * charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static OutputStreamWriter getWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
+  /**
+   * Get a {@link Writer} for the passed file using the specified append mode and charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static OutputStreamWriter getWriter (@NonNull final File aFile,
                                               @NonNull final EAppend eAppend,
@@ -430,12 +531,33 @@ public final class FileHelper
     return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
   }
 
+  /**
+   * Get a buffered {@link Writer} for the passed file using the default append mode and the
+   * specified charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getBufferedWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
+  /**
+   * Get a buffered {@link Writer} for the passed file using the specified append mode and charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final File aFile,
                                                              @NonNull final EAppend eAppend,
@@ -451,12 +573,33 @@ public final class FileHelper
     return new NonBlockingBufferedWriter (aWriter);
   }
 
+  /**
+   * Get a {@link PrintWriter} for the passed file using the default append mode and the specified
+   * charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static PrintWriter getPrintWriter (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
     return getPrintWriter (aFile, EAppend.DEFAULT, aCharset);
   }
 
+  /**
+   * Get a {@link PrintWriter} for the passed file using the specified append mode and charset.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static PrintWriter getPrintWriter (@NonNull final File aFile,
                                             @NonNull final EAppend eAppend,
@@ -495,6 +638,15 @@ public final class FileHelper
     return EValidity.VALID;
   }
 
+  /**
+   * Get a {@link RandomAccessFile} for the passed filename and mode.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @param eMode
+   *        The access mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static RandomAccessFile getRandomAccessFile (@NonNull final String sFilename,
                                                       @NonNull final ERandomAccessFileMode eMode)
@@ -502,6 +654,15 @@ public final class FileHelper
     return getRandomAccessFile (new File (sFilename), eMode);
   }
 
+  /**
+   * Get a {@link RandomAccessFile} for the passed file and mode.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @param eMode
+   *        The access mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static RandomAccessFile getRandomAccessFile (@NonNull final File aFile,
                                                       @NonNull final ERandomAccessFileMode eMode)
@@ -553,12 +714,30 @@ public final class FileHelper
     return aFile1.lastModified () > aFile2.lastModified ();
   }
 
+  /**
+   * Get a human-readable file size display string for the passed file using no decimal places.
+   *
+   * @param aFile
+   *        The file to get the size display for. May be <code>null</code>.
+   * @return An empty string if the file is <code>null</code> or does not exist; otherwise a
+   *         human-readable size string.
+   */
   @NonNull
   public static String getFileSizeDisplay (@Nullable final File aFile)
   {
     return getFileSizeDisplay (aFile, 0);
   }
 
+  /**
+   * Get a human-readable file size display string for the passed file.
+   *
+   * @param aFile
+   *        The file to get the size display for. May be <code>null</code>.
+   * @param nDecimals
+   *        The number of decimal places to use. Must be &ge; 0.
+   * @return An empty string if the file is <code>null</code> or does not exist; otherwise a
+   *         human-readable size string.
+   */
   @NonNull
   public static String getFileSizeDisplay (@Nullable final File aFile, @Nonnegative final int nDecimals)
   {
@@ -567,12 +746,28 @@ public final class FileHelper
     return "";
   }
 
+  /**
+   * Get a human-readable file size display string for the passed file size using no decimal places.
+   *
+   * @param nFileSize
+   *        The file size in bytes. Must be &ge; 0.
+   * @return A human-readable size string. Never <code>null</code>.
+   */
   @NonNull
   public static String getFileSizeDisplay (final long nFileSize)
   {
     return getFileSizeDisplay (nFileSize, 0);
   }
 
+  /**
+   * Get a human-readable file size display string for the passed file size.
+   *
+   * @param nFileSize
+   *        The file size in bytes. Must be &ge; 0.
+   * @param nDecimals
+   *        The number of decimal places to use. Must be &ge; 0.
+   * @return A human-readable size string. Never <code>null</code>.
+   */
   @NonNull
   public static String getFileSizeDisplay (@Nonnegative final long nFileSize, @Nonnegative final int nDecimals)
   {
@@ -738,6 +933,13 @@ public final class FileHelper
     return _getDirectoryContent (aDirectory, aDirectory.listFiles (aFileFilter));
   }
 
+  /**
+   * Convert the passed file to a {@link URL}.
+   *
+   * @param aFile
+   *        The file to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if the conversion to URL failed.
+   */
   @Nullable
   public static URL getAsURL (@NonNull final File aFile)
   {
@@ -753,6 +955,13 @@ public final class FileHelper
     }
   }
 
+  /**
+   * Convert the passed file to a URL string representation.
+   *
+   * @param aFile
+   *        The file to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if the conversion to URL failed.
+   */
   @Nullable
   public static String getAsURLString (@NonNull final File aFile)
   {

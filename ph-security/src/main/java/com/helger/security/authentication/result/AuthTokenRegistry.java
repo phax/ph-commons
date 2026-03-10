@@ -47,6 +47,18 @@ public final class AuthTokenRegistry
   private AuthTokenRegistry ()
   {}
 
+  /**
+   * Create a new authentication token for the provided identification.
+   *
+   * @param aIdentification
+   *        The identification for which the token should be created. May not be <code>null</code>.
+   * @param nExpirationSeconds
+   *        The number of seconds after which the token expires. Use
+   *        {@link IAuthToken#EXPIRATION_SECONDS_INFINITE} for no expiration.
+   * @return The newly created auth token. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If a token with the same ID already exists.
+   */
   @NonNull
   public static IAuthToken createToken (@NonNull final IAuthIdentification aIdentification,
                                         @Nonnegative final int nExpirationSeconds)
@@ -63,6 +75,14 @@ public final class AuthTokenRegistry
     return aToken;
   }
 
+  /**
+   * Remove the token with the specified ID. If the token is found, it is also marked as expired.
+   *
+   * @param sTokenID
+   *        The ID of the token to remove. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if the token was found and removed, {@link ESuccess#FAILURE}
+   *         otherwise.
+   */
   @NonNull
   public static ESuccess removeToken (@NonNull final String sTokenID)
   {
@@ -88,12 +108,29 @@ public final class AuthTokenRegistry
     return aToken != null && !aToken.isExpired () ? aToken : null;
   }
 
+  /**
+   * Get the valid (non-expired) token with the specified ID.
+   *
+   * @param sTokenID
+   *        The token ID to look up. May be <code>null</code>.
+   * @return The valid token, or <code>null</code> if the token was not found, is expired, or if the
+   *         ID is <code>null</code>.
+   */
   @Nullable
   public static IAuthToken getValidToken (@Nullable final String sTokenID)
   {
     return _getValidNotExpiredToken (sTokenID);
   }
 
+  /**
+   * Validate that the token with the specified ID exists and is not expired, and update its last
+   * access timestamp.
+   *
+   * @param sTokenID
+   *        The token ID to validate. May be <code>null</code>.
+   * @return The valid token with updated last access time, or <code>null</code> if the token was
+   *         not found or is expired.
+   */
   @Nullable
   public static IAuthToken validateTokenAndUpdateLastAccess (@Nullable final String sTokenID)
   {

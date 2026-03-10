@@ -61,11 +61,26 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   private final String m_sTagName;
   private ICommonsOrderedMap <IMicroQName, MicroAttribute> m_aAttrs;
 
+  /**
+   * Constructor for an element without a namespace URI.
+   *
+   * @param sTagName
+   *        The tag name of the element. May neither be <code>null</code> nor empty.
+   */
   public MicroElement (@NonNull @Nonempty final String sTagName)
   {
     this (null, sTagName);
   }
 
+  /**
+   * Constructor with a namespace URI and a tag name.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to use. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name of the element. May neither be <code>null</code> nor empty. If a
+   *        namespace prefix is contained, it will be stripped.
+   */
   public MicroElement (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sTagName)
   {
     ValueEnforcer.notEmpty (sTagName, "TagName");
@@ -94,12 +109,14 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                               "' is not a valid element name!");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.ELEMENT;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getNodeName ()
@@ -107,22 +124,26 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return getTagName ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasAttributes ()
   {
     return m_aAttrs != null && m_aAttrs.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasNoAttributes ()
   {
     return m_aAttrs == null || m_aAttrs.isEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getAttributeCount ()
   {
     return m_aAttrs == null ? 0 : m_aAttrs.size ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsImmutableObject
   public Iterable <MicroAttribute> getAttributeObjs ()
@@ -132,6 +153,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.values ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsMutableCopy
   public ICommonsList <MicroAttribute> getAllAttributeObjs ()
@@ -141,6 +163,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.copyOfValues ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsMutableCopy
   public ICommonsOrderedMap <IMicroQName, String> getAllQAttributes ()
@@ -152,6 +175,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                         IMicroAttribute::getAttributeValue);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMicroQName> getAllAttributeQNames ()
@@ -161,18 +185,21 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.copyOfKeySet ();
   }
 
+  /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final Consumer <? super IMicroAttribute> aConsumer)
   {
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (aConsumer);
   }
 
+  /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final BiConsumer <? super IMicroQName, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (a -> aConsumer.accept (a.getAttributeQName (), a.getAttributeValue ()));
   }
 
+  /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
   {
     if (m_aAttrs != null)
@@ -181,6 +208,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
                                                     x.getAttributeValue ()));
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public MicroAttribute getAttributeObj (@Nullable final IMicroQName aQName)
   {
@@ -198,6 +226,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return TypeConverter.convert (sAttrValue, aDstClass);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName,
                                                             @NonNull final Class <DSTTYPE> aDstClass)
@@ -206,11 +235,13 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return _getConvertedToType (sAttrValue, aDstClass);
   }
 
+  /** {@inheritDoc} */
   public boolean hasAttribute (@Nullable final IMicroQName aAttrName)
   {
     return m_aAttrs != null && aAttrName != null && m_aAttrs.containsKey (aAttrName);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAttribute (@Nullable final IMicroQName aAttrName)
   {
@@ -219,6 +250,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.removeObject (aAttrName);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MicroElement setAttribute (@NonNull final IMicroQName aAttrName, @Nullable final String sAttrValue)
   {
@@ -234,6 +266,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAllAttributes ()
   {
@@ -242,12 +275,14 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return m_aAttrs.removeAll ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getNamespaceURI ()
   {
     return m_sNamespaceURI;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange setNamespaceURI (@Nullable final String sNamespaceURI)
   {
@@ -258,18 +293,21 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getLocalName ()
   {
     return m_sNamespaceURI == null ? null : m_sTagName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getTagName ()
   {
     return m_sTagName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMicroElement> getAllChildElementsRecursive ()
@@ -302,6 +340,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
+  /** {@inheritDoc} */
   public boolean containsAnyChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
     return _containsChildElementRecursive (this, aFilter);
@@ -340,6 +379,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return ret.get ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroElement getFirstChildElement (@Nullable final Predicate <? super IMicroElement> aFilter)
   {
@@ -363,12 +403,14 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     });
   }
 
+  /** {@inheritDoc} */
   public void forAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter,
                                    @NonNull final Consumer <? super IMicroElement> aConsumer)
   {
     _forAllChildElements (this, aFilter, aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EContinue forAllChildElementsBreakable (@Nullable final Predicate <? super IMicroElement> aFilter,
                                                  @NonNull final Function <? super IMicroElement, EContinue> aConsumer)
@@ -376,6 +418,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
     return _forAllChildElementsBreakable (this, aFilter, aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement getClone ()
   {

@@ -37,6 +37,12 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
 {
   private final ErrorList m_aErrorList;
 
+  /**
+   * Constructor.
+   *
+   * @param aErrorList
+   *        The error list to be filled with validation events. May not be <code>null</code>.
+   */
   public WrappedCollectingValidationEventHandler (@NonNull final ErrorList aErrorList)
   {
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");

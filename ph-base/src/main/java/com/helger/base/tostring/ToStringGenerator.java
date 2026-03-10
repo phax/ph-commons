@@ -85,6 +85,13 @@ public final class ToStringGenerator
   private final Object m_aSrc;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor.
+   *
+   * @param aSrc
+   *        The source object for which the toString representation is to be generated. May be
+   *        <code>null</code>.
+   */
   public ToStringGenerator (@Nullable final Object aSrc)
   {
     if (aSrc != null)
@@ -120,6 +127,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a boolean field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The boolean value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final boolean aValue)
   {
@@ -128,6 +144,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a boolean array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The boolean array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final boolean @Nullable [] aValue)
   {
@@ -136,6 +161,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a byte field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The byte value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final byte aValue)
   {
@@ -144,6 +178,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a byte array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The byte array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final byte @Nullable [] aValue)
   {
@@ -152,6 +195,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a char field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The char value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final char aValue)
   {
@@ -160,6 +212,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a char array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The char array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final char @Nullable [] aValue)
   {
@@ -168,6 +229,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a double field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The double value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final double aValue)
   {
@@ -176,6 +246,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a double array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The double array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final double @Nullable [] aValue)
   {
@@ -184,6 +263,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a float field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The float value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final float aValue)
   {
@@ -192,6 +280,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a float array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The float array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final float @Nullable [] aValue)
   {
@@ -200,6 +297,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append an int field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The int value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final int aValue)
   {
@@ -208,6 +314,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append an int array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The int array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final int @Nullable [] aValue)
   {
@@ -216,6 +331,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a long field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The long value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final long aValue)
   {
@@ -224,6 +348,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a long array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The long array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final long @Nullable [] aValue)
   {
@@ -232,6 +365,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a short field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The short value.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final short aValue)
   {
@@ -240,6 +382,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a short array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The short array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, final short @Nullable [] aValue)
   {
@@ -248,12 +399,28 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append a password field. The actual value is masked with {@link #CONSTANT_PASSWORD}.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendPassword (@NonNull final String sField)
   {
     return append (sField, CONSTANT_PASSWORD);
   }
 
+  /**
+   * Append an enum field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The enum value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, @Nullable final Enum <?> aValue)
   {
@@ -296,6 +463,15 @@ public final class ToStringGenerator
     return EqualsHelper.identityEqual (aValue, m_aSrc) ? CONSTANT_THIS : aValue.toString ();
   }
 
+  /**
+   * Append an object field. If the value is an array, it is handled specially.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The object value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, @Nullable final Object aValue)
   {
@@ -308,6 +484,15 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Append an object array field.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The object array value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator append (@NonNull final String sField, @Nullable final Object [] aValue)
   {
@@ -338,6 +523,17 @@ public final class ToStringGenerator
     return this;
   }
 
+  /**
+   * Conditionally append a boolean field if the filter matches the value.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param bValue
+   *        The boolean value.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final boolean bValue,
@@ -346,6 +542,17 @@ public final class ToStringGenerator
     return aFilter.test (bValue) ? append (sField, bValue) : this;
   }
 
+  /**
+   * Conditionally append a boolean field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param bValue
+   *        The boolean value.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final boolean bValue,
@@ -354,6 +561,17 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, bValue) : this;
   }
 
+  /**
+   * Conditionally append a char field if the filter matches the value.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param cValue
+   *        The char value.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final char cValue,
@@ -362,6 +580,17 @@ public final class ToStringGenerator
     return aFilter.test (cValue) ? append (sField, cValue) : this;
   }
 
+  /**
+   * Conditionally append a char field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param cValue
+   *        The char value.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final char cValue,
@@ -370,6 +599,17 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, cValue) : this;
   }
 
+  /**
+   * Conditionally append an int field if the filter matches the value.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param nValue
+   *        The int value.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final int nValue,
@@ -378,6 +618,17 @@ public final class ToStringGenerator
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
+  /**
+   * Conditionally append an int field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param nValue
+   *        The int value.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final int nValue,
@@ -386,6 +637,17 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
+  /**
+   * Conditionally append a long field if the filter matches the value.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param nValue
+   *        The long value.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final long nValue,
@@ -394,6 +656,17 @@ public final class ToStringGenerator
     return aFilter.test (nValue) ? append (sField, nValue) : this;
   }
 
+  /**
+   * Conditionally append a long field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param nValue
+   *        The long value.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final long nValue,
@@ -402,6 +675,17 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, nValue) : this;
   }
 
+  /**
+   * Conditionally append a double field if the filter matches the value.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param dValue
+   *        The double value.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final double dValue,
@@ -410,6 +694,17 @@ public final class ToStringGenerator
     return aFilter.test (dValue) ? append (sField, dValue) : this;
   }
 
+  /**
+   * Conditionally append a double field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param dValue
+   *        The double value.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIf (@NonNull final String sField,
                                      final double dValue,
@@ -418,6 +713,19 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, dValue) : this;
   }
 
+  /**
+   * Conditionally append an object field if the filter matches the value.
+   *
+   * @param <T>
+   *        The value type.
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The value. May be <code>null</code>.
+   * @param aFilter
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public <T> ToStringGenerator appendIf (@NonNull final String sField,
                                          @Nullable final T aValue,
@@ -426,6 +734,19 @@ public final class ToStringGenerator
     return aFilter.test (aValue) ? append (sField, aValue) : this;
   }
 
+  /**
+   * Conditionally append an object field if the supplier returns <code>true</code>.
+   *
+   * @param <T>
+   *        The value type.
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The value. May be <code>null</code>.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public <T> ToStringGenerator appendIf (@NonNull final String sField,
                                          @Nullable final T aValue,
@@ -434,18 +755,42 @@ public final class ToStringGenerator
     return aFilter.getAsBoolean () ? append (sField, aValue) : this;
   }
 
+  /**
+   * Append an object field only if the value is not <code>null</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aValue
+   *        The value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendIfNotNull (@NonNull final String sField, @Nullable final Object aValue)
   {
     return aValue == null ? this : append (sField, aValue);
   }
 
+  /**
+   * Conditionally append a password field if the supplier returns <code>true</code>.
+   *
+   * @param sField
+   *        The name of the field. May not be <code>null</code>.
+   * @param aFilter
+   *        The boolean supplier to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ToStringGenerator appendPasswordIf (@NonNull final String sField, final BooleanSupplier aFilter)
   {
     return aFilter.getAsBoolean () ? appendPassword (sField) : this;
   }
 
+  /**
+   * Retrieve the final string representation. Once this method has been called, the closing bracket
+   * is appended and subsequent calls return the same result.
+   *
+   * @return The generated toString value. Never <code>null</code>.
+   */
   @NonNull
   public String getToString ()
   {

@@ -259,6 +259,13 @@ public class StringHex
     return ret;
   }
 
+  /**
+   * Convert a byte value to a hex string. The byte is handled as unsigned.
+   *
+   * @param nValue
+   *        The byte value to convert.
+   * @return The hex string representation of the unsigned byte value.
+   */
   @NonNull
   public static String getHexString (final byte nValue)
   {
@@ -266,12 +273,31 @@ public class StringHex
     return Integer.toString (nValue & 0xff, CGlobal.HEX_RADIX);
   }
 
+  /**
+   * Convert a byte value to a hex string with leading zeros up to the specified
+   * number of digits.
+   *
+   * @param nValue
+   *        The byte value to convert.
+   * @param nDigits
+   *        The minimum number of digits in the output string.
+   * @return The hex string representation with leading zeros.
+   */
   @NonNull
   public static String getHexStringLeadingZero (final byte nValue, final int nDigits)
   {
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
+  /**
+   * Convert a byte value to a hex string with a leading zero to ensure at least
+   * 2 digits. This is a optimized shortcut for
+   * <code>getHexStringLeadingZero(nValue, 2)</code>.
+   *
+   * @param nValue
+   *        The byte value to convert.
+   * @return The hex string representation with at least 2 digits.
+   */
   @NonNull
   public static String getHexStringLeadingZero2 (final byte nValue)
   {
@@ -279,12 +305,29 @@ public class StringHex
     return ret.length () >= 2 ? ret : '0' + ret;
   }
 
+  /**
+   * Convert an int value to a hex string.
+   *
+   * @param nValue
+   *        The int value to convert.
+   * @return The hex string representation of the int value.
+   */
   @NonNull
   public static String getHexString (final int nValue)
   {
     return Integer.toString (nValue, CGlobal.HEX_RADIX);
   }
 
+  /**
+   * Convert an int value to a hex string with leading zeros up to the specified
+   * number of digits. Negative values are prefixed with a minus sign.
+   *
+   * @param nValue
+   *        The int value to convert.
+   * @param nDigits
+   *        The minimum number of digits in the output string.
+   * @return The hex string representation with leading zeros.
+   */
   @NonNull
   public static String getHexStringLeadingZero (final int nValue, final int nDigits)
   {
@@ -293,12 +336,29 @@ public class StringHex
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
+  /**
+   * Convert a long value to a hex string.
+   *
+   * @param nValue
+   *        The long value to convert.
+   * @return The hex string representation of the long value.
+   */
   @NonNull
   public static String getHexString (final long nValue)
   {
     return Long.toString (nValue, CGlobal.HEX_RADIX);
   }
 
+  /**
+   * Convert a long value to a hex string with leading zeros up to the specified
+   * number of digits. Negative values are prefixed with a minus sign.
+   *
+   * @param nValue
+   *        The long value to convert.
+   * @param nDigits
+   *        The minimum number of digits in the output string.
+   * @return The hex string representation with leading zeros.
+   */
   @NonNull
   public static String getHexStringLeadingZero (final long nValue, final int nDigits)
   {
@@ -307,12 +367,29 @@ public class StringHex
     return StringHelper.getLeadingZero (getHexString (nValue), nDigits);
   }
 
+  /**
+   * Convert a short value to a hex string. The short is handled as unsigned.
+   *
+   * @param nValue
+   *        The short value to convert.
+   * @return The hex string representation of the unsigned short value.
+   */
   @NonNull
   public static String getHexString (final short nValue)
   {
     return Integer.toString (nValue & 0xffff, CGlobal.HEX_RADIX);
   }
 
+  /**
+   * Convert a short value to a hex string with leading zeros up to the specified
+   * number of digits. The short is handled as unsigned.
+   *
+   * @param nValue
+   *        The short value to convert.
+   * @param nDigits
+   *        The minimum number of digits in the output string.
+   * @return The hex string representation with leading zeros.
+   */
   @NonNull
   public static String getHexStringLeadingZero (final short nValue, final int nDigits)
   {

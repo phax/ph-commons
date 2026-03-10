@@ -50,6 +50,16 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
   private final IMutableGraphObjectFactory m_aFactory;
   private ETriState m_eCacheHasCycles = ETriState.UNDEFINED;
 
+  /**
+   * Constructor.
+   *
+   * @param sID
+   *        The unique graph ID. May be <code>null</code> to have one
+   *        generated automatically.
+   * @param aFactory
+   *        The factory to create graph nodes and relations. May not be
+   *        <code>null</code>.
+   */
   public Graph (@Nullable final String sID, @NonNull final IMutableGraphObjectFactory aFactory)
   {
     super (sID);
@@ -57,6 +67,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     m_aFactory = aFactory;
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return false;
@@ -68,6 +79,12 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     m_eCacheHasCycles = ETriState.UNDEFINED;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @throws IllegalStateException
+   *         if the generated ID is already in use
+   */
   @NonNull
   public IMutableGraphNode createNode ()
   {
@@ -78,6 +95,9 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return aNode;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IMutableGraphNode createNode (@Nullable final String sID)
   {

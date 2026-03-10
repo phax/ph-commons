@@ -48,12 +48,25 @@ public class ClassLoaderHelper
   protected ClassLoaderHelper ()
   {}
 
+  /**
+   * Get the system class loader.
+   *
+   * @return The system class loader. Never <code>null</code>.
+   * @see ClassLoader#getSystemClassLoader()
+   */
   @NonNull
   public static ClassLoader getSystemClassLoader ()
   {
     return ClassLoader.getSystemClassLoader ();
   }
 
+  /**
+   * Get the context class loader of the current thread.
+   *
+   * @return The context class loader, or <code>null</code> if the context class loader indicates
+   *         the system class loader.
+   * @see Thread#getContextClassLoader()
+   */
   @Nullable
   public static ClassLoader getContextClassLoader ()
   {
@@ -62,11 +75,27 @@ public class ClassLoaderHelper
     return Thread.currentThread ().getContextClassLoader ();
   }
 
+  /**
+   * Set the context class loader of the current thread.
+   *
+   * @param aClassLoader
+   *        The class loader to set as context class loader. May not be <code>null</code>.
+   * @see Thread#setContextClassLoader(ClassLoader)
+   */
   public static void setContextClassLoader (@NonNull final ClassLoader aClassLoader)
   {
     Thread.currentThread ().setContextClassLoader (aClassLoader);
   }
 
+  /**
+   * Get the class loader that loaded the given class.
+   *
+   * @param aClass
+   *        The class whose class loader is to be retrieved. May not be <code>null</code>.
+   * @return The class loader of the given class, or <code>null</code> if the class was loaded by
+   *         the bootstrap class loader.
+   * @see Class#getClassLoader()
+   */
   @Nullable
   public static ClassLoader getClassClassLoader (@NonNull final Class <?> aClass)
   {
@@ -74,6 +103,15 @@ public class ClassLoaderHelper
     return aClass.getClassLoader ();
   }
 
+  /**
+   * Get the parent class loader of the given class loader.
+   *
+   * @param aClassLoader
+   *        The class loader whose parent is to be retrieved. May not be <code>null</code>.
+   * @return The parent class loader, or <code>null</code> if the parent is the bootstrap class
+   *         loader.
+   * @see ClassLoader#getParent()
+   */
   @Nullable
   public static ClassLoader getParentClassLoader (@NonNull final ClassLoader aClassLoader)
   {
@@ -81,6 +119,13 @@ public class ClassLoaderHelper
     return aClassLoader.getParent ();
   }
 
+  /**
+   * Get the default class loader to use. This first tries to get the context class loader of the
+   * current thread, and falls back to the class loader of the {@link ClassLoaderHelper} class
+   * itself.
+   *
+   * @return The default class loader. Never <code>null</code>.
+   */
   @NonNull
   public static ClassLoader getDefaultClassLoader ()
   {

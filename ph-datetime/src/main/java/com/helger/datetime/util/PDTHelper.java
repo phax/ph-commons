@@ -54,81 +54,210 @@ public final class PDTHelper
   private PDTHelper ()
   {}
 
+  /**
+   * Check if the provided {@link LocalDate} is <code>null</code> or represents
+   * the predefined null date constant.
+   *
+   * @param aDate
+   *        The date to check. May be <code>null</code>.
+   * @return <code>true</code> if the date is <code>null</code> or equals the
+   *         null date constant.
+   */
   public static boolean isNullValue (@Nullable final LocalDate aDate)
   {
     return aDate == null || aDate == CPDT.NULL_LOCAL_DATE;
   }
 
+  /**
+   * Check if the provided {@link LocalTime} is <code>null</code> or represents
+   * the predefined null time constant.
+   *
+   * @param aTime
+   *        The time to check. May be <code>null</code>.
+   * @return <code>true</code> if the time is <code>null</code> or equals the
+   *         null time constant.
+   */
   public static boolean isNullValue (@Nullable final LocalTime aTime)
   {
     return aTime == null || aTime == CPDT.NULL_LOCAL_TIME;
   }
 
+  /**
+   * Check if the provided {@link LocalDateTime} is <code>null</code> or
+   * represents the predefined null date time constant.
+   *
+   * @param aDateTime
+   *        The date time to check. May be <code>null</code>.
+   * @return <code>true</code> if the date time is <code>null</code> or equals
+   *         the null date time constant.
+   */
   public static boolean isNullValue (@Nullable final LocalDateTime aDateTime)
   {
     return aDateTime == null || aDateTime == CPDT.NULL_LOCAL_DATETIME;
   }
 
+  /**
+   * Check if the provided {@link ZonedDateTime} is <code>null</code> or
+   * represents the predefined null date time constant.
+   *
+   * @param aDateTime
+   *        The zoned date time to check. May be <code>null</code>.
+   * @return <code>true</code> if the zoned date time is <code>null</code> or
+   *         equals the null date time constant.
+   */
   public static boolean isNullValue (@Nullable final ZonedDateTime aDateTime)
   {
     return aDateTime == null || aDateTime.equals (CPDT.NULL_DATETIME);
   }
 
+  /**
+   * Check if the provided day of week is a weekend day (Saturday or Sunday).
+   *
+   * @param nDayOfWeek
+   *        The day of week to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day is Saturday or Sunday.
+   */
   public static boolean isWeekendDay (final DayOfWeek nDayOfWeek)
   {
     return nDayOfWeek == DayOfWeek.SATURDAY || nDayOfWeek == DayOfWeek.SUNDAY;
   }
 
+  /**
+   * Check if the provided date time falls on a weekend day.
+   *
+   * @param aDT
+   *        The date time to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day is Saturday or Sunday.
+   */
   public static boolean isWeekend (@NonNull final LocalDateTime aDT)
   {
     return isWeekendDay (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date falls on a weekend day.
+   *
+   * @param aDT
+   *        The date to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day is Saturday or Sunday.
+   */
   public static boolean isWeekend (@NonNull final LocalDate aDT)
   {
     return isWeekendDay (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided day of week is the first day of the week.
+   *
+   * @param nDayOfWeek
+   *        The day of week to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured start of week
+   *         day.
+   */
   public static boolean isFirstDayOfWeek (final DayOfWeek nDayOfWeek)
   {
     return nDayOfWeek == CPDT.START_OF_WEEK_DAY;
   }
 
+  /**
+   * Check if the provided zoned date time falls on the first day of the week.
+   *
+   * @param aDT
+   *        The zoned date time to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured start of week
+   *         day.
+   */
   public static boolean isFirstDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date time falls on the first day of the week.
+   *
+   * @param aDT
+   *        The date time to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured start of week
+   *         day.
+   */
   public static boolean isFirstDayOfWeek (@NonNull final LocalDateTime aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date falls on the first day of the week.
+   *
+   * @param aDT
+   *        The date to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured start of week
+   *         day.
+   */
   public static boolean isFirstDayOfWeek (@NonNull final LocalDate aDT)
   {
     return isFirstDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided day of week is the last day of the week.
+   *
+   * @param nDayOfWeek
+   *        The day of week to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured end of week
+   *         day.
+   */
   public static boolean isLastDayOfWeek (final DayOfWeek nDayOfWeek)
   {
     return nDayOfWeek == CPDT.END_OF_WEEK_DAY;
   }
 
+  /**
+   * Check if the provided zoned date time falls on the last day of the week.
+   *
+   * @param aDT
+   *        The zoned date time to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured end of week
+   *         day.
+   */
   public static boolean isLastDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date time falls on the last day of the week.
+   *
+   * @param aDT
+   *        The date time to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured end of week
+   *         day.
+   */
   public static boolean isLastDayOfWeek (@NonNull final LocalDateTime aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date falls on the last day of the week.
+   *
+   * @param aDT
+   *        The date to check. May not be <code>null</code>.
+   * @return <code>true</code> if the day matches the configured end of week
+   *         day.
+   */
   public static boolean isLastDayOfWeek (@NonNull final LocalDate aDT)
   {
     return isLastDayOfWeek (aDT.getDayOfWeek ());
   }
 
+  /**
+   * Check if the provided date is a work day (not a weekend day). Does not
+   * consider holidays.
+   *
+   * @param aDate
+   *        The date to check. May not be <code>null</code>.
+   * @return <code>true</code> if the date is not a Saturday and not a Sunday.
+   */
   public static boolean isWorkDay (@NonNull final LocalDate aDate)
   {
     return !isWeekend (aDate);
@@ -164,11 +293,32 @@ public final class PDTHelper
     return bFlip ? -1 * ret : ret;
   }
 
+  /**
+   * Check if the two dates have the same year and day of year.
+   *
+   * @param x
+   *        First date. May not be <code>null</code>.
+   * @param y
+   *        Second date. May not be <code>null</code>.
+   * @return <code>true</code> if year and day of year are equal.
+   */
   public static boolean isSameYearAndDay (@NonNull final LocalDate x, @NonNull final LocalDate y)
   {
     return x.getYear () == y.getYear () && x.getDayOfYear () == y.getDayOfYear ();
   }
 
+  /**
+   * Check if the two dates have the same year and week of week-based year.
+   *
+   * @param x
+   *        First date. May not be <code>null</code>.
+   * @param y
+   *        Second date. May not be <code>null</code>.
+   * @param aLocale
+   *        Locale to use for determining the week fields. May not be
+   *        <code>null</code>.
+   * @return <code>true</code> if year and week of week-based year are equal.
+   */
   public static boolean isSameYearAndWeek (@NonNull final LocalDate x,
                                            @NonNull final LocalDate y,
                                            @NonNull final Locale aLocale)
@@ -176,11 +326,33 @@ public final class PDTHelper
     return x.getYear () == y.getYear () && getWeekOfWeekBasedYear (x, aLocale) == getWeekOfWeekBasedYear (y, aLocale);
   }
 
+  /**
+   * Check if the two dates have the same month and day of month.
+   *
+   * @param x
+   *        First date. May not be <code>null</code>.
+   * @param y
+   *        Second date. May not be <code>null</code>.
+   * @return <code>true</code> if month and day of month are equal.
+   */
   public static boolean isSameMonthAndDay (@NonNull final LocalDate x, @NonNull final LocalDate y)
   {
     return x.getMonth () == y.getMonth () && x.getDayOfMonth () == y.getDayOfMonth ();
   }
 
+  /**
+   * Check if the provided date is between the lower and upper bound
+   * (inclusive).
+   *
+   * @param aDate
+   *        The date to check. May be <code>null</code>.
+   * @param aLowerBound
+   *        The lower bound (inclusive). May be <code>null</code>.
+   * @param aUpperBound
+   *        The upper bound (inclusive). May be <code>null</code>.
+   * @return <code>true</code> if all parameters are non-<code>null</code> and
+   *         the date is between the bounds (inclusive).
+   */
   public static boolean isBetweenIncl (@Nullable final LocalDate aDate,
                                        @Nullable final LocalDate aLowerBound,
                                        @Nullable final LocalDate aUpperBound)
@@ -190,6 +362,18 @@ public final class PDTHelper
     return !aLowerBound.isAfter (aDate) && !aDate.isAfter (aUpperBound);
   }
 
+  /**
+   * Get the week of week-based year for the provided temporal accessor and
+   * locale.
+   *
+   * @param aDT
+   *        The temporal accessor to get the week from. May not be
+   *        <code>null</code>.
+   * @param aLocale
+   *        Locale to use for determining the week fields. May not be
+   *        <code>null</code>.
+   * @return The week of week-based year.
+   */
   public static int getWeekOfWeekBasedYear (@NonNull final TemporalAccessor aDT, @NonNull final Locale aLocale)
   {
     return aDT.get (WeekFields.of (aLocale).weekOfWeekBasedYear ());
@@ -209,11 +393,29 @@ public final class PDTHelper
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
   }
 
+  /**
+   * Get the start-week number for the passed year and month.
+   *
+   * @param aDT
+   *        The object to use year and month from.
+   * @param aLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return the start week number.
+   */
   public static int getStartWeekOfMonth (@NonNull final LocalDate aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
   }
 
+  /**
+   * Get the start-week number for the passed year and month.
+   *
+   * @param aDT
+   *        The object to use year and month from.
+   * @param aLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return the start week number.
+   */
   public static int getStartWeekOfMonth (@NonNull final ZonedDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.withDayOfMonth (1), aLocale);
@@ -233,11 +435,29 @@ public final class PDTHelper
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
 
+  /**
+   * Get the end-week number for the passed year and month.
+   *
+   * @param aDT
+   *        The object to use year and month from.
+   * @param aLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return The end week number.
+   */
   public static int getEndWeekOfMonth (@NonNull final LocalDate aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
   }
 
+  /**
+   * Get the end-week number for the passed year and month.
+   *
+   * @param aDT
+   *        The object to use year and month from.
+   * @param aLocale
+   *        Locale to use. May not be <code>null</code>.
+   * @return The end week number.
+   */
   public static int getEndWeekOfMonth (@NonNull final ZonedDateTime aDT, @NonNull final Locale aLocale)
   {
     return getWeekOfWeekBasedYear (aDT.plusMonths (1).withDayOfMonth (1).minusDays (1), aLocale);
@@ -261,6 +481,12 @@ public final class PDTHelper
     return aDT;
   }
 
+  /**
+   * Get the current or next weekday based on today's date. If today is a week
+   * day, today is returned.
+   *
+   * @return The current or next matching weekday. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDate getCurrentOrNextWeekday ()
   {
@@ -340,36 +566,88 @@ public final class PDTHelper
     return birthdayCompare (aDate1, aDate2) == 0;
   }
 
+  /**
+   * Check if the provided date is New Year's Eve (December 31st).
+   *
+   * @param aDate
+   *        The date to check. May not be <code>null</code>.
+   * @return <code>true</code> if the date is December 31st.
+   */
   public static boolean isNewYearsEve (@NonNull final LocalDate aDate)
   {
     ValueEnforcer.notNull (aDate, "Date");
     return aDate.getMonth () == Month.DECEMBER && aDate.getDayOfMonth () == 31;
   }
 
+  /**
+   * Get the later of two dates.
+   *
+   * @param aDate1
+   *        First date. May not be <code>null</code>.
+   * @param aDate2
+   *        Second date. May not be <code>null</code>.
+   * @return The later of the two dates. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDate getMax (@NonNull final LocalDate aDate1, @NonNull final LocalDate aDate2)
   {
     return aDate1.isAfter (aDate2) ? aDate1 : aDate2;
   }
 
+  /**
+   * Get the later of two times.
+   *
+   * @param aTime1
+   *        First time. May not be <code>null</code>.
+   * @param aTime2
+   *        Second time. May not be <code>null</code>.
+   * @return The later of the two times. Never <code>null</code>.
+   */
   @NonNull
   public static LocalTime getMax (@NonNull final LocalTime aTime1, @NonNull final LocalTime aTime2)
   {
     return aTime1.isAfter (aTime2) ? aTime1 : aTime2;
   }
 
+  /**
+   * Get the later of two date times.
+   *
+   * @param aDateTime1
+   *        First date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second date time. May not be <code>null</code>.
+   * @return The later of the two date times. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime getMax (@NonNull final LocalDateTime aDateTime1, @NonNull final LocalDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the later of two zoned date times.
+   *
+   * @param aDateTime1
+   *        First zoned date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second zoned date time. May not be <code>null</code>.
+   * @return The later of the two zoned date times. Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime getMax (@NonNull final ZonedDateTime aDateTime1, @NonNull final ZonedDateTime aDateTime2)
   {
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the later of two offset date times.
+   *
+   * @param aDateTime1
+   *        First offset date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second offset date time. May not be <code>null</code>.
+   * @return The later of the two offset date times. Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime getMax (@NonNull final OffsetDateTime aDateTime1,
                                        @NonNull final OffsetDateTime aDateTime2)
@@ -377,30 +655,75 @@ public final class PDTHelper
     return aDateTime1.isAfter (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the earlier of two dates.
+   *
+   * @param aDate1
+   *        First date. May not be <code>null</code>.
+   * @param aDate2
+   *        Second date. May not be <code>null</code>.
+   * @return The earlier of the two dates. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDate getMin (@NonNull final LocalDate aDate1, @NonNull final LocalDate aDate2)
   {
     return aDate1.isBefore (aDate2) ? aDate1 : aDate2;
   }
 
+  /**
+   * Get the earlier of two times.
+   *
+   * @param aTime1
+   *        First time. May not be <code>null</code>.
+   * @param aTime2
+   *        Second time. May not be <code>null</code>.
+   * @return The earlier of the two times. Never <code>null</code>.
+   */
   @NonNull
   public static LocalTime getMin (@NonNull final LocalTime aTime1, @NonNull final LocalTime aTime2)
   {
     return aTime1.isBefore (aTime2) ? aTime1 : aTime2;
   }
 
+  /**
+   * Get the earlier of two date times.
+   *
+   * @param aDateTime1
+   *        First date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second date time. May not be <code>null</code>.
+   * @return The earlier of the two date times. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime getMin (@NonNull final LocalDateTime aDateTime1, @NonNull final LocalDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the earlier of two zoned date times.
+   *
+   * @param aDateTime1
+   *        First zoned date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second zoned date time. May not be <code>null</code>.
+   * @return The earlier of the two zoned date times. Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime getMin (@NonNull final ZonedDateTime aDateTime1, @NonNull final ZonedDateTime aDateTime2)
   {
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the earlier of two offset date times.
+   *
+   * @param aDateTime1
+   *        First offset date time. May not be <code>null</code>.
+   * @param aDateTime2
+   *        Second offset date time. May not be <code>null</code>.
+   * @return The earlier of the two offset date times. Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime getMin (@NonNull final OffsetDateTime aDateTime1,
                                        @NonNull final OffsetDateTime aDateTime2)
@@ -408,6 +731,15 @@ public final class PDTHelper
     return aDateTime1.isBefore (aDateTime2) ? aDateTime1 : aDateTime2;
   }
 
+  /**
+   * Get the number of days between two temporal objects.
+   *
+   * @param aStartIncl
+   *        The start (inclusive). May not be <code>null</code>.
+   * @param aEndExcl
+   *        The end (exclusive). May not be <code>null</code>.
+   * @return The number of days between the two temporal objects.
+   */
   public static long getDaysBetween (@NonNull final Temporal aStartIncl, @NonNull final Temporal aEndExcl)
   {
     return ChronoUnit.DAYS.between (aStartIncl, aEndExcl);

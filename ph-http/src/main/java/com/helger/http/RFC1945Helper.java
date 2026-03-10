@@ -219,76 +219,183 @@ public final class RFC1945Helper
   private RFC1945Helper ()
   {}
 
+  /**
+   * Check if the passed value is a valid CHAR as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is in the range {@link #MIN_INDEX} to
+   *         {@link #MAX_INDEX}.
+   */
   public static boolean isChar (final int n)
   {
     return n >= MIN_INDEX && n <= MAX_INDEX;
   }
 
+  /**
+   * Check if the passed value is a valid OCTET as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is in the range 0 to 255.
+   */
   public static boolean isOctet (final int n)
   {
     return n >= MIN_INDEX && n < 256;
   }
 
+  /**
+   * Check if the passed value is an upper-case alpha character (A-Z).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is an upper-case alpha character.
+   */
   public static boolean isUpperAlphaChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & UALPHA) == UALPHA;
   }
 
+  /**
+   * Check if the passed value is a lower-case alpha character (a-z).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a lower-case alpha character.
+   */
   public static boolean isLowerAlphaChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & LALPHA) == LALPHA;
   }
 
+  /**
+   * Check if the passed value is an alpha character (A-Z or a-z).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is an alpha character.
+   */
   public static boolean isAlphaChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & ALPHA) == ALPHA;
   }
 
+  /**
+   * Check if the passed value is a digit character (0-9).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a digit character.
+   */
   public static boolean isDigitChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & DIGIT) == DIGIT;
   }
 
+  /**
+   * Check if the passed value is a control character (CTL).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a control character.
+   */
   public static boolean isControlChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & CTL) == CTL;
   }
 
+  /**
+   * Check if the passed value is a carriage return character (CR).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a CR character.
+   */
   public static boolean isCRChar (final int n)
   {
     return n == CHAR_CR;
   }
 
+  /**
+   * Check if the passed value is a line feed character (LF).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a LF character.
+   */
   public static boolean isLFChar (final int n)
   {
     return n == CHAR_LF;
   }
 
+  /**
+   * Check if the passed value is a space character (SP).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a space character.
+   */
   public static boolean isSpaceChar (final int n)
   {
     return n == CHAR_SPACE;
   }
 
+  /**
+   * Check if the passed value is a horizontal tab character (HT).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a tab character.
+   */
   public static boolean isTabChar (final int n)
   {
     return n == CHAR_TAB;
   }
 
+  /**
+   * Check if the passed value is a linear whitespace character (LWS), which includes CR, LF, SP and
+   * HT.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a linear whitespace character.
+   */
   public static boolean isLinearWhitespaceChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & LWS) == LWS;
   }
 
+  /**
+   * Check if the passed value is a double-quote character.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a double-quote character.
+   */
   public static boolean isQuoteChar (final int n)
   {
     return n == 34;
   }
 
+  /**
+   * Check if the passed value is a hexadecimal character (0-9, A-F, a-f).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a hex character.
+   */
   public static boolean isHexChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & HEX) == HEX;
   }
 
+  /**
+   * Check if the passed character array is non-empty and consists only of hex characters.
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array is non-empty and all characters are hex characters.
+   */
   public static boolean isHexNotEmpty (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
@@ -299,6 +406,13 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string is non-empty and consists only of hex characters.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is non-empty and all characters are hex characters.
+   */
   public static boolean isHexNotEmpty (@Nullable final String sStr)
   {
     if (StringHelper.isEmpty (sStr))
@@ -306,11 +420,26 @@ public final class RFC1945Helper
     return isHexNotEmpty (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed value is a lower-case hexadecimal character (0-9, a-f).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a lower-case hex character.
+   */
   public static boolean isLowerHexChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & LHEX) == LHEX;
   }
 
+  /**
+   * Check if the passed character array is non-empty and consists only of lower-case hex characters.
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array is non-empty and all characters are lower-case hex
+   *         characters.
+   */
   public static boolean isLowerHexNotEmpty (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
@@ -321,6 +450,14 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string is non-empty and consists only of lower-case hex characters.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is non-empty and all characters are lower-case hex
+   *         characters.
+   */
   public static boolean isLowerHexNotEmpty (@Nullable final String sStr)
   {
     if (StringHelper.isEmpty (sStr))
@@ -328,16 +465,38 @@ public final class RFC1945Helper
     return isLowerHexNotEmpty (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed value is a non-token character (separator).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a non-token character.
+   */
   public static boolean isNonTokenChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & NON_TOKEN) == NON_TOKEN;
   }
 
+  /**
+   * Check if the passed value is a valid token character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a valid token character.
+   */
   public static boolean isTokenChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & (CTL | NON_TOKEN)) == 0;
   }
 
+  /**
+   * Check if the passed character array represents a valid token as defined in RFC 1945.
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array is non-empty and all characters are valid token
+   *         characters.
+   */
   public static boolean isToken (final char @Nullable [] aChars)
   {
     if (ArrayHelper.isEmpty (aChars))
@@ -348,6 +507,14 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string represents a valid token as defined in RFC 1945.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is non-empty and all characters are valid token
+   *         characters.
+   */
   public static boolean isToken (@Nullable final String sStr)
   {
     if (StringHelper.isEmpty (sStr))
@@ -355,6 +522,13 @@ public final class RFC1945Helper
     return isToken (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed value is a valid TEXT character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a valid TEXT character.
+   */
   public static boolean isTextChar (final int n)
   {
     if (n < MIN_INDEX)
@@ -365,6 +539,13 @@ public final class RFC1945Helper
     return (MAPPINGS[n] & NON_TEXT) == 0;
   }
 
+  /**
+   * Check if the passed value is a valid comment character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a valid comment character.
+   */
   public static boolean isCommentChar (final int n)
   {
     if (n < MIN_INDEX)
@@ -375,6 +556,14 @@ public final class RFC1945Helper
     return (MAPPINGS[n] & (NON_TEXT | NON_COMMENT)) == 0;
   }
 
+  /**
+   * Check if the passed character array represents a valid comment as defined in RFC 1945. A
+   * comment is enclosed in parentheses.
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array represents a valid comment.
+   */
   public static boolean isComment (final char @Nullable [] aChars)
   {
     if (ArrayHelper.getSize (aChars) < 2 || aChars[0] != COMMENT_BEGIN || aChars[aChars.length - 1] != COMMENT_END)
@@ -385,6 +574,14 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string represents a valid comment as defined in RFC 1945. A comment is
+   * enclosed in parentheses.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string represents a valid comment.
+   */
   public static boolean isComment (@Nullable final String sStr)
   {
     if (StringHelper.getLength (sStr) < 2)
@@ -392,11 +589,26 @@ public final class RFC1945Helper
     return isComment (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed value is a valid quoted-text character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a valid quoted-text character.
+   */
   public static boolean isQuotedTextChar (final int n)
   {
     return isChar (n) && (MAPPINGS[n] & (NON_TEXT | NON_QUOTEDTEXT)) == 0;
   }
 
+  /**
+   * Check if the passed character array represents a valid quoted-text as defined in RFC 1945.
+   * Quoted text is enclosed in double-quote characters.
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array represents a valid quoted-text.
+   */
   public static boolean isQuotedText (final char @Nullable [] aChars)
   {
     if (ArrayHelper.getSize (aChars) < 2 ||
@@ -409,6 +621,14 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string represents a valid quoted-text as defined in RFC 1945. Quoted text
+   * is enclosed in double-quote characters.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string represents a valid quoted-text.
+   */
   public static boolean isQuotedText (@Nullable final String sStr)
   {
     if (StringHelper.getLength (sStr) < 2)
@@ -416,6 +636,13 @@ public final class RFC1945Helper
     return isQuotedText (sStr.toCharArray ());
   }
 
+  /**
+   * Wrap the passed string in double-quote characters to form a quoted-text value.
+   *
+   * @param sStr
+   *        The string to quote. May be <code>null</code>.
+   * @return The quoted string or <code>null</code> if the input was <code>null</code>.
+   */
   @Nullable
   public static String getQuotedTextString (@Nullable final String sStr)
   {
@@ -424,6 +651,14 @@ public final class RFC1945Helper
     return QUOTEDTEXT_BEGIN + sStr + QUOTEDTEXT_END;
   }
 
+  /**
+   * Check if the passed character array consists only of valid quoted-text content characters
+   * (without the enclosing double-quotes).
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if all characters are valid quoted-text content characters.
+   */
   public static boolean isQuotedTextContent (final char @Nullable [] aChars)
   {
     if (aChars == null)
@@ -434,6 +669,14 @@ public final class RFC1945Helper
     return true;
   }
 
+  /**
+   * Check if the passed string consists only of valid quoted-text content characters (without the
+   * enclosing double-quotes).
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if all characters are valid quoted-text content characters.
+   */
   public static boolean isQuotedTextContent (@Nullable final String sStr)
   {
     if (sStr == null)
@@ -441,11 +684,25 @@ public final class RFC1945Helper
     return isQuotedTextContent (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed character array is a valid word (either a token or a quoted-text).
+   *
+   * @param aChars
+   *        The character array to check. May be <code>null</code>.
+   * @return <code>true</code> if the array is a valid word.
+   */
   public static boolean isWord (final char @Nullable [] aChars)
   {
     return isToken (aChars) || isQuotedText (aChars);
   }
 
+  /**
+   * Check if the passed string is a valid word (either a token or a quoted-text).
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is a valid word.
+   */
   public static boolean isWord (@Nullable final String sStr)
   {
     if (StringHelper.isEmpty (sStr))
@@ -453,30 +710,66 @@ public final class RFC1945Helper
     return isWord (sStr.toCharArray ());
   }
 
+  /**
+   * Check if the passed value is a reserved character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a reserved character.
+   */
   public static boolean isReservedChar (final int n)
   {
     // ";" | "/" | "?" | ":" | "@" | "&" | "=" | "+"
     return isChar (n) && (MAPPINGS[n] & RESERVED) == RESERVED;
   }
 
+  /**
+   * Check if the passed value is an extra character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is an extra character.
+   */
   public static boolean isExtraChar (final int n)
   {
     // "!" | "*" | "'" | "(" | ")" | ","
     return isChar (n) && (MAPPINGS[n] & EXTRA) == EXTRA;
   }
 
+  /**
+   * Check if the passed value is a safe character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a safe character.
+   */
   public static boolean isSafeChar (final int n)
   {
     // "$" | "-" | "_" | "."
     return isChar (n) && (MAPPINGS[n] & SAFE) == SAFE;
   }
 
+  /**
+   * Check if the passed value is an unsafe character as defined in RFC 1945.
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is an unsafe character.
+   */
   public static boolean isUnsafeChar (final int n)
   {
     // CTL | SP | <"> | "#" | "%" | "<" | ">"
     return isChar (n) && (MAPPINGS[n] & UNSAFE) == UNSAFE;
   }
 
+  /**
+   * Check if the passed value is a national character as defined in RFC 1945 (any OCTET excluding
+   * ALPHA, DIGIT, reserved, extra, safe, and unsafe).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is a national character.
+   */
   public static boolean isNationalChar (final int n)
   {
     // <any OCTET excluding ALPHA, DIGIT, reserved, extra, safe, and unsafe>
@@ -488,6 +781,14 @@ public final class RFC1945Helper
     return (MAPPINGS[n] & (ALPHA | DIGIT | RESERVED | EXTRA | SAFE | UNSAFE)) == 0;
   }
 
+  /**
+   * Check if the passed value is an unreserved character as defined in RFC 1945 (ALPHA, DIGIT,
+   * safe, extra, or national).
+   *
+   * @param n
+   *        The value to check.
+   * @return <code>true</code> if the value is an unreserved character.
+   */
   public static boolean isUnreservedChar (final int n)
   {
     // ALPHA | DIGIT | safe | extra | national

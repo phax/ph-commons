@@ -178,6 +178,18 @@ public final class PDTFormatter
   private PDTFormatter ()
   {}
 
+  /**
+   * Convert a {@link DateFormat} style constant to a {@link FormatStyle} enum
+   * value.
+   *
+   * @param nStyle
+   *        The {@link DateFormat} style constant ({@link DateFormat#FULL},
+   *        {@link DateFormat#LONG}, {@link DateFormat#MEDIUM} or
+   *        {@link DateFormat#SHORT}).
+   * @return The corresponding {@link FormatStyle}. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If an invalid style is passed.
+   */
   @NonNull
   public static FormatStyle toFormatStyle (final int nStyle)
   {
@@ -196,6 +208,16 @@ public final class PDTFormatter
     }
   }
 
+  /**
+   * Convert a {@link FormatStyle} enum value to a {@link DateFormat} style
+   * constant.
+   *
+   * @param eStyle
+   *        The format style to convert. May not be <code>null</code>.
+   * @return The corresponding {@link DateFormat} style constant.
+   * @throws IllegalArgumentException
+   *         If an unsupported style is passed.
+   */
   public static int toDateStyle (@NonNull final FormatStyle eStyle)
   {
     switch (eStyle)

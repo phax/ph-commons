@@ -73,12 +73,33 @@ public final class StringImplode
       return o == null ? null : o.toString ();
     }
 
+    /**
+     * Set the source elements from a collection, converting each element to a string via
+     * {@link Object#toString()}.
+     *
+     * @param a
+     *        The source collection. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder source (@Nullable final Collection <?> a)
     {
       return source (a, ImploderBuilder::_toString);
     }
 
+    /**
+     * Set the source elements from a collection, converting each element using the provided mapper
+     * function.
+     *
+     * @param a
+     *        The source collection. May be <code>null</code>.
+     * @param aMapper
+     *        The mapping function to convert each element to a string. May not be
+     *        <code>null</code>.
+     * @return this for chaining
+     * @param <T>
+     *        The element type of the source collection
+     */
     @NonNull
     public <T> ImploderBuilder source (@Nullable final Collection <T> a,
                                        @NonNull final Function <? super T, String> aMapper)
@@ -95,6 +116,13 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the source elements from a string array.
+     *
+     * @param a
+     *        The source string array. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder source (@Nullable final String... a)
     {
@@ -102,6 +130,16 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the source elements from a generic array, converting each element to a string via
+     * {@link Object#toString()}.
+     *
+     * @param a
+     *        The source array. May be <code>null</code>.
+     * @return this for chaining
+     * @param <T>
+     *        The element type of the source array
+     */
     @NonNull
     @SafeVarargs
     public final <T> ImploderBuilder source (@Nullable final T... a)
@@ -109,6 +147,19 @@ public final class StringImplode
       return source (a, ImploderBuilder::_toString);
     }
 
+    /**
+     * Set the source elements from a generic array, converting each element using the provided
+     * mapper function.
+     *
+     * @param a
+     *        The source array. May be <code>null</code>.
+     * @param aMapper
+     *        The mapping function to convert each element to a string. May not be
+     *        <code>null</code>.
+     * @return this for chaining
+     * @param <T>
+     *        The element type of the source array
+     */
     @NonNull
     public <T> ImploderBuilder source (@Nullable final T [] a, @NonNull final Function <? super T, String> aMapper)
     {
@@ -124,12 +175,26 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the separator character to use between elements.
+     *
+     * @param c
+     *        The separator character.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder separator (final char c)
     {
       return separator (Character.toString (c));
     }
 
+    /**
+     * Set the separator string to use between elements.
+     *
+     * @param s
+     *        The separator string. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder separator (@Nullable final String s)
     {
@@ -166,12 +231,25 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the filter to only include non-<code>null</code> and non-empty source elements.
+     *
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder filterNonEmpty ()
     {
       return filter (StringHelper::isNotEmpty);
     }
 
+    /**
+     * Set a custom filter predicate for source elements. Only elements matching the filter will be
+     * included in the result.
+     *
+     * @param a
+     *        The filter predicate. May be <code>null</code> to include all elements.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilder filter (@Nullable final Predicate <String> a)
     {
@@ -179,6 +257,11 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Build the imploded string from the configured source, separator, offset, length, and filter.
+     *
+     * @return The imploded string. Never <code>null</code>.
+     */
     @NonNull
     public String build ()
     {
@@ -1010,12 +1093,34 @@ public final class StringImplode
       return o == null ? null : o.toString ();
     }
 
+    /**
+     * Set the source map, converting keys and values to strings via {@link Object#toString()}.
+     *
+     * @param a
+     *        The source map. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap source (@Nullable final Map <?, ?> a)
     {
       return source (a, ImploderBuilderMap::_toString, ImploderBuilderMap::_toString);
     }
 
+    /**
+     * Set the source map, converting keys and values using the provided mapper functions.
+     *
+     * @param a
+     *        The source map. May be <code>null</code>.
+     * @param aKeyMapper
+     *        The mapping function for keys. May not be <code>null</code>.
+     * @param aValueMapper
+     *        The mapping function for values. May not be <code>null</code>.
+     * @return this for chaining
+     * @param <K>
+     *        The key type of the source map
+     * @param <V>
+     *        The value type of the source map
+     */
     @NonNull
     public <K, V> ImploderBuilderMap source (@Nullable final Map <K, V> a,
                                              @NonNull final Function <? super K, String> aKeyMapper,
@@ -1034,12 +1139,26 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the outer separator character used between map entries.
+     *
+     * @param c
+     *        The outer separator character.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap separatorOuter (final char c)
     {
       return separatorOuter (Character.toString (c));
     }
 
+    /**
+     * Set the outer separator string used between map entries.
+     *
+     * @param s
+     *        The outer separator string. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap separatorOuter (@Nullable final String s)
     {
@@ -1047,12 +1166,26 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the inner separator character used between key and value within each entry.
+     *
+     * @param c
+     *        The inner separator character.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap separatorInner (final char c)
     {
       return separatorInner (Character.toString (c));
     }
 
+    /**
+     * Set the inner separator string used between key and value within each entry.
+     *
+     * @param s
+     *        The inner separator string. May be <code>null</code>.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap separatorInner (@Nullable final String s)
     {
@@ -1060,12 +1193,25 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the key filter to only include entries with non-<code>null</code> and non-empty keys.
+     *
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap filterKeyNonEmpty ()
     {
       return filterKey (StringHelper::isNotEmpty);
     }
 
+    /**
+     * Set a custom filter predicate for map keys. Only entries whose key matches the filter will be
+     * included.
+     *
+     * @param a
+     *        The key filter predicate. May be <code>null</code> to include all keys.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap filterKey (@Nullable final Predicate <String> a)
     {
@@ -1073,12 +1219,25 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Set the value filter to only include entries with non-<code>null</code> and non-empty values.
+     *
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap filterValueNonEmpty ()
     {
       return filterValue (StringHelper::isNotEmpty);
     }
 
+    /**
+     * Set a custom filter predicate for map values. Only entries whose value matches the filter
+     * will be included.
+     *
+     * @param a
+     *        The value filter predicate. May be <code>null</code> to include all values.
+     * @return this for chaining
+     */
     @NonNull
     public ImploderBuilderMap filterValue (@Nullable final Predicate <String> a)
     {
@@ -1086,6 +1245,11 @@ public final class StringImplode
       return this;
     }
 
+    /**
+     * Build the imploded string from the configured source map, separators, and filters.
+     *
+     * @return The imploded string. Never <code>null</code>.
+     */
     @NonNull
     public String build ()
     {

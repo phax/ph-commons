@@ -176,6 +176,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return m_aType;
   }
 
+  /**
+   * @return The class loader to be used for JAXB operations. May be <code>null</code>.
+   */
   @Nullable
   public final ClassLoader getClassLoader ()
   {
@@ -223,6 +226,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return setValidationEventHandler (new WrappedCollectingValidationEventHandler (aErrorList));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final NamespaceContext getNamespaceContext ()
   {
@@ -244,6 +250,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isFormattedOutput ()
   {
     return m_bFormattedOutput;
@@ -264,6 +273,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final Charset getCharset ()
   {
@@ -285,6 +297,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getIndentString ()
   {
@@ -306,6 +321,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isUseSchema ()
   {
     return m_bUseSchema;
@@ -326,6 +344,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getSchemaLocation ()
   {
@@ -347,6 +368,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getNoNamespaceSchemaLocation ()
   {
@@ -374,6 +398,13 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return ret;
   }
 
+  /**
+   * Modify the XML writer settings using the provided consumer.
+   *
+   * @param aConsumer
+   *        The consumer to modify the XML writer settings. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final GenericJAXBMarshaller <JAXBTYPE> withXMLWriterSettings (@NonNull final Consumer <? super XMLWriterSettings> aConsumer)
   {
@@ -405,6 +436,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * @return <code>true</code> if the JAXB context cache should be used, <code>false</code> if not.
+   */
   public final boolean isUseContextCache ()
   {
     return m_bUseContextCache;

@@ -74,6 +74,16 @@ public final class PathHelper
   private PathHelper ()
   {}
 
+  /**
+   * Compare two paths for equality by resolving their real paths.
+   *
+   * @param aObj1
+   *        The first path. May not be <code>null</code>.
+   * @param aObj2
+   *        The second path. May not be <code>null</code>.
+   * @return <code>true</code> if the two paths point to the same location, <code>false</code>
+   *         otherwise.
+   */
   public static boolean equalPaths (@NonNull final Path aObj1, @NonNull final Path aObj2)
   {
     try
@@ -122,6 +132,17 @@ public final class PathHelper
     // return true;
   }
 
+  /**
+   * Ensure that the parent directory of the passed path is present. If it is not present, it will
+   * be created.
+   *
+   * @param aFile
+   *        The path whose parent directory should be present. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the parent directory was created, {@link EChange#UNCHANGED}
+   *         if it already existed.
+   * @throws IllegalStateException
+   *         If the parent directory could not be created.
+   */
   @NonNull
   public static EChange ensureParentDirectoryIsPresent (@NonNull final Path aFile)
   {
@@ -274,6 +295,13 @@ public final class PathHelper
     return false;
   }
 
+  /**
+   * Get an {@link InputStream} for the passed path.
+   *
+   * @param aFile
+   *        The path to open for reading. May not be <code>null</code>.
+   * @return <code>null</code> if the path does not exist or cannot be opened.
+   */
   @Nullable
   public static InputStream getInputStream (@NonNull final Path aFile)
   {
@@ -288,6 +316,13 @@ public final class PathHelper
     }
   }
 
+  /**
+   * Get a buffered input stream for the passed path.
+   *
+   * @param aFile
+   *        The path to open for reading. May not be <code>null</code>.
+   * @return <code>null</code> if the path does not exist or cannot be opened.
+   */
   @Nullable
   public static NonBlockingBufferedInputStream getBufferedInputStream (@NonNull final Path aFile)
   {
@@ -299,6 +334,15 @@ public final class PathHelper
     return new NonBlockingBufferedInputStream (aIS);
   }
 
+  /**
+   * Get a {@link Reader} for the passed path using the specified charset.
+   *
+   * @param aFile
+   *        The path to open for reading. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the path does not exist or cannot be opened.
+   */
   @Nullable
   public static Reader getReader (@NonNull final Path aFile, @NonNull final Charset aCharset)
   {
@@ -308,6 +352,15 @@ public final class PathHelper
     return StreamHelper.createReader (getInputStream (aFile), aCharset);
   }
 
+  /**
+   * Get a buffered {@link Reader} for the passed path using the specified charset.
+   *
+   * @param aFile
+   *        The path to open for reading. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the path does not exist or cannot be opened.
+   */
   @Nullable
   public static NonBlockingBufferedReader getBufferedReader (@NonNull final Path aFile, @NonNull final Charset aCharset)
   {
@@ -359,12 +412,28 @@ public final class PathHelper
     }
   }
 
+  /**
+   * Get a buffered output stream for the passed path using the default append mode.
+   *
+   * @param aFile
+   *        The path to write to. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final Path aFile)
   {
     return getBufferedOutputStream (aFile, EAppend.DEFAULT);
   }
 
+  /**
+   * Get a buffered output stream for the passed path.
+   *
+   * @param aFile
+   *        The path to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedOutputStream getBufferedOutputStream (@NonNull final Path aFile,
                                                                          @NonNull final EAppend eAppend)
@@ -378,6 +447,17 @@ public final class PathHelper
     return new NonBlockingBufferedOutputStream (aOS);
   }
 
+  /**
+   * Get a {@link Writer} for the passed path using the specified append mode and charset.
+   *
+   * @param aFile
+   *        The path to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be opened.
+   */
   @Nullable
   public static Writer getWriter (@NonNull final Path aFile,
                                   @NonNull final EAppend eAppend,
@@ -389,6 +469,17 @@ public final class PathHelper
     return StreamHelper.createWriter (getOutputStream (aFile, eAppend), aCharset);
   }
 
+  /**
+   * Get a buffered {@link Writer} for the passed path using the specified append mode and charset.
+   *
+   * @param aFile
+   *        The path to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be opened.
+   */
   @Nullable
   public static NonBlockingBufferedWriter getBufferedWriter (@NonNull final Path aFile,
                                                              @NonNull final EAppend eAppend,
@@ -472,6 +563,19 @@ public final class PathHelper
     return ret;
   }
 
+  /**
+   * Walk a file tree with no {@link FileVisitOption}s.
+   *
+   * @param aStart
+   *        The starting path. May not be <code>null</code>.
+   * @param nMaxDepth
+   *        The maximum number of directory levels to visit. Must be &ge; 0.
+   * @param aVisitor
+   *        The file visitor to invoke for each file. May not be <code>null</code>.
+   * @return The starting path. Never <code>null</code>.
+   * @throws UncheckedIOException
+   *         if an I/O error is thrown by a visitor method
+   */
   @NonNull
   public static Path walkFileTree (@NonNull final Path aStart,
                                    @Nonnegative final int nMaxDepth,
@@ -660,6 +764,13 @@ public final class PathHelper
     return _getDirectoryContent (aDirectory, aPathFilter);
   }
 
+  /**
+   * Convert the passed path to a {@link URL}.
+   *
+   * @param aPath
+   *        The path to be converted. May not be <code>null</code>.
+   * @return <code>null</code> if the conversion to URL failed.
+   */
   @Nullable
   public static URL getAsURL (@NonNull final Path aPath)
   {

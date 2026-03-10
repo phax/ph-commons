@@ -167,12 +167,24 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
            StringHelper.startsWith (sName, CLASSPATH_PREFIX_SHORT);
   }
 
+  /**
+   * Get the class loader associated with this resource.
+   *
+   * @return <code>null</code> if no specific class loader was provided or if it has been garbage
+   *         collected.
+   */
   @Nullable
   public ClassLoader getClassLoader ()
   {
     return m_aClassLoader == null ? null : m_aClassLoader.get ();
   }
 
+  /**
+   * Get the unique resource ID of this classpath resource. If the URL could be resolved, the URL
+   * external form is returned; otherwise the path is returned.
+   *
+   * @return The resource ID. Never <code>null</code>.
+   */
   @NonNull
   public String getResourceID ()
   {
@@ -180,6 +192,11 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return aURL == null ? m_sPath : aURL.toExternalForm ();
   }
 
+  /**
+   * Get the classpath-relative path of this resource.
+   *
+   * @return The path. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getPath ()
@@ -264,6 +281,12 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return _getInputStream (m_sPath, aURL, getClassLoader ());
   }
 
+  /**
+   * Check if this resource can be read multiple times. Classpath resources always return
+   * <code>true</code>.
+   *
+   * @return Always <code>true</code>.
+   */
   public final boolean isReadMultiple ()
   {
     return true;
@@ -298,6 +321,11 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return StreamHelper.createReader (getInputStreamNoCache (aClassLoader), aCharset);
   }
 
+  /**
+   * Check if this classpath resource exists by trying to resolve its URL.
+   *
+   * @return <code>true</code> if the resource exists, <code>false</code> otherwise.
+   */
   public boolean exists ()
   {
     // Uses a cached already resolved URL
@@ -314,12 +342,22 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return ClassLoaderHelper.getResource (aClassLoader, sPath);
   }
 
+  /**
+   * Check if this classpath resource exists by resolving the URL without using cached results.
+   *
+   * @return <code>true</code> if the resource exists, <code>false</code> otherwise.
+   */
   public boolean existsNoCacheUsage ()
   {
     // Resolve the URL again
     return _getAsURL () != null;
   }
 
+  /**
+   * Get this classpath resource as a URL. The result is cached after the first resolution.
+   *
+   * @return <code>null</code> if the resource could not be resolved.
+   */
   @Nullable
   public URL getAsURL ()
   {
@@ -369,6 +407,15 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return URLHelper.getAsFileOrNull (aURL);
   }
 
+  /**
+   * Get the file for the specified classpath resource using the provided class loader.
+   *
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @return <code>null</code> if the path could not be resolved.
+   */
   @Nullable
   public static File getAsFile (@NonNull @Nonempty final String sPath, @NonNull final ClassLoader aClassLoader)
   {
@@ -376,6 +423,11 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return URLHelper.getAsFileOrNull (aURL);
   }
 
+  /**
+   * Get this classpath resource as a {@link File}. Uses the cached URL if available.
+   *
+   * @return <code>null</code> if the resource could not be resolved to a file.
+   */
   @Nullable
   public File getAsFile ()
   {
@@ -384,6 +436,13 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return URLHelper.getAsFileOrNull (aURL);
   }
 
+  /**
+   * Get this classpath resource as a {@link File} without using cached URLs.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @return <code>null</code> if the resource could not be resolved to a file.
+   */
   @Nullable
   public File getAsFileNoCache (@NonNull final ClassLoader aClassLoader)
   {
@@ -391,16 +450,36 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
     return URLHelper.getAsFileOrNull (aURL);
   }
 
+  /**
+   * Check if this classpath resource can be read.
+   *
+   * @return <code>true</code> if the resource URL can be resolved, <code>false</code> otherwise.
+   */
   public boolean canRead ()
   {
     return getAsURL () != null;
   }
 
+  /**
+   * Check if this classpath resource can be read using the specified class loader without caching.
+   *
+   * @param aClassLoader
+   *        The class loader to be used. May not be <code>null</code>.
+   * @return <code>true</code> if the resource URL can be resolved, <code>false</code> otherwise.
+   */
   public boolean canReadNoCache (@NonNull final ClassLoader aClassLoader)
   {
     return getAsURLNoCache (aClassLoader) != null;
   }
 
+  /**
+   * Create a new {@link ClassPathResource} for a different path using the same class loader as this
+   * resource.
+   *
+   * @param sPath
+   *        The new path to use. May not be <code>null</code>.
+   * @return A new {@link ClassPathResource} instance. Never <code>null</code>.
+   */
   @NonNull
   public ClassPathResource getReadableCloneForPath (@NonNull final String sPath)
   {

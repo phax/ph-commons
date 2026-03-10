@@ -58,6 +58,15 @@ public class CollectionHelper
   protected CollectionHelper ()
   {}
 
+  /**
+   * Determine the {@link ECollectionBaseType} of the passed class. Set is checked before
+   * Collection, because Set is derived from Collection.
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return The matching {@link ECollectionBaseType} or <code>null</code> if the passed class is
+   *         <code>null</code> or does not represent a collection type.
+   */
   @Nullable
   public static ECollectionBaseType getCollectionBaseTypeOfClass (@Nullable final Class <?> aClass)
   {
@@ -82,47 +91,122 @@ public class CollectionHelper
     return null;
   }
 
+  /**
+   * Determine the {@link ECollectionBaseType} of the passed object. This is a convenience method
+   * that delegates to {@link #getCollectionBaseTypeOfClass(Class)}.
+   *
+   * @param aObj
+   *        The object to check. May be <code>null</code>.
+   * @return The matching {@link ECollectionBaseType} or <code>null</code> if the passed object is
+   *         <code>null</code> or does not represent a collection type.
+   */
   @Nullable
   public static ECollectionBaseType getCollectionBaseTypeOfObject (@Nullable final Object aObj)
   {
     return aObj == null ? null : getCollectionBaseTypeOfClass (aObj.getClass ());
   }
 
+  /**
+   * Check if the passed class is a collection class (Set, Collection, Map, array, Iterator,
+   * Iterable, or Enumeration).
+   *
+   * @param aClass
+   *        The class to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed class is a collection class, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isCollectionClass (@Nullable final Class <?> aClass)
   {
     return getCollectionBaseTypeOfClass (aClass) != null;
   }
 
+  /**
+   * Check if the passed object is a collection object (Set, Collection, Map, array, Iterator,
+   * Iterable, or Enumeration).
+   *
+   * @param aObj
+   *        The object to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed object is a collection object, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isCollectionObject (@Nullable final Object aObj)
   {
     return getCollectionBaseTypeOfObject (aObj) != null;
   }
 
+  /**
+   * Check if the passed {@link Iterable} is <code>null</code> or empty.
+   *
+   * @param aCont
+   *        The iterable to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed iterable is <code>null</code> or has no elements,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isEmpty (@Nullable final Iterable <?> aCont)
   {
     return aCont == null || !aCont.iterator ().hasNext ();
   }
 
+  /**
+   * Check if the passed {@link Collection} is <code>null</code> or empty.
+   *
+   * @param aCont
+   *        The collection to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed collection is <code>null</code> or empty,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isEmpty (@Nullable final Collection <?> aCont)
   {
     return aCont == null || aCont.isEmpty ();
   }
 
+  /**
+   * Check if the passed {@link Map} is <code>null</code> or empty.
+   *
+   * @param aCont
+   *        The map to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed map is <code>null</code> or empty, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isEmpty (@Nullable final Map <?, ?> aCont)
   {
     return aCont == null || aCont.isEmpty ();
   }
 
+  /**
+   * Check if the passed {@link Iterable} is not <code>null</code> and not empty.
+   *
+   * @param aCont
+   *        The iterable to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed iterable is not <code>null</code> and has at least one
+   *         element, <code>false</code> otherwise.
+   */
   public static boolean isNotEmpty (@Nullable final Iterable <?> aCont)
   {
     return aCont != null && aCont.iterator ().hasNext ();
   }
 
+  /**
+   * Check if the passed {@link Collection} is not <code>null</code> and not empty.
+   *
+   * @param aCont
+   *        The collection to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed collection is not <code>null</code> and not empty,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isNotEmpty (@Nullable final Collection <?> aCont)
   {
     return aCont != null && !aCont.isEmpty ();
   }
 
+  /**
+   * Check if the passed {@link Map} is not <code>null</code> and not empty.
+   *
+   * @param aCont
+   *        The map to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed map is not <code>null</code> and not empty,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isNotEmpty (@Nullable final Map <?, ?> aCont)
   {
     return aCont != null && !aCont.isEmpty ();
@@ -301,6 +385,17 @@ public class CollectionHelper
     return aList != null && nIndex >= 0 && nIndex < aList.size () ? aList.get (nIndex) : aDefault;
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the iterable.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @return <code>null</code> if the element cannot be accessed.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                       @Nonnegative final int nIndex)
@@ -308,6 +403,19 @@ public class CollectionHelper
     return getAtIndex (aCollection, nIndex, (ELEMENTTYPE) null);
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the iterable.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned, if the index is out of bounds.
+   * @return The default parameter if the element cannot be accessed.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                       @Nonnegative final int nIndex,
@@ -326,6 +434,20 @@ public class CollectionHelper
     return aDefault;
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index, considering only
+   * elements matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the iterable.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> to indicate no filtering.
+   * @param nIndex
+   *        The index to access (among matching elements). Should be &ge; 0.
+   * @return <code>null</code> if the element cannot be accessed.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -334,6 +456,22 @@ public class CollectionHelper
     return getAtIndex (aCollection, aFilter, nIndex, (ELEMENTTYPE) null);
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index, considering only
+   * elements matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the iterable.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> to indicate no filtering.
+   * @param nIndex
+   *        The index to access (among matching elements). Should be &ge; 0.
+   * @param aDefault
+   *        The value to be returned, if the index is out of bounds.
+   * @return The default parameter if the element cannot be accessed.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getAtIndex (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -357,6 +495,22 @@ public class CollectionHelper
     return aDefault;
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index and applies a
+   * mapping function to the found element.
+   *
+   * @param <SRCTYPE>
+   *        The source element type of the iterable.
+   * @param <DSTTYPE>
+   *        The destination type after mapping.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @return <code>null</code> if the element cannot be accessed.
+   */
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nonnegative final int nIndex,
@@ -365,6 +519,24 @@ public class CollectionHelper
     return getAtIndexMapped (aCollection, nIndex, aMapper, (DSTTYPE) null);
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index and applies a
+   * mapping function to the found element.
+   *
+   * @param <SRCTYPE>
+   *        The source element type of the iterable.
+   * @param <DSTTYPE>
+   *        The destination type after mapping.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned, if the index is out of bounds.
+   * @return The default parameter if the element cannot be accessed, otherwise the mapped value.
+   */
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nonnegative final int nIndex,
@@ -384,6 +556,24 @@ public class CollectionHelper
     return aDefault;
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index among elements
+   * matching the provided filter, and applies a mapping function to the found element.
+   *
+   * @param <SRCTYPE>
+   *        The source element type of the iterable.
+   * @param <DSTTYPE>
+   *        The destination type after mapping.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> to indicate no filtering.
+   * @param nIndex
+   *        The index to access (among matching elements). Should be &ge; 0.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @return <code>null</code> if the element cannot be accessed.
+   */
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nullable final Predicate <? super SRCTYPE> aFilter,
@@ -393,6 +583,26 @@ public class CollectionHelper
     return getAtIndexMapped (aCollection, aFilter, nIndex, aMapper, (DSTTYPE) null);
   }
 
+  /**
+   * Safe iterable element accessor method that iterates to the specified index among elements
+   * matching the provided filter, and applies a mapping function to the found element.
+   *
+   * @param <SRCTYPE>
+   *        The source element type of the iterable.
+   * @param <DSTTYPE>
+   *        The destination type after mapping.
+   * @param aCollection
+   *        The iterable to extract from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> to indicate no filtering.
+   * @param nIndex
+   *        The index to access (among matching elements). Should be &ge; 0.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @param aDefault
+   *        The value to be returned, if the index is out of bounds.
+   * @return The default parameter if the element cannot be accessed, otherwise the mapped value.
+   */
   @Nullable
   public static <SRCTYPE, DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Iterable <? extends SRCTYPE> aCollection,
                                                              @Nullable final Predicate <? super SRCTYPE> aFilter,
@@ -564,6 +774,16 @@ public class CollectionHelper
                                                                                                             aNavigableMap);
   }
 
+  /**
+   * Remove and return the first element of the passed list.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the list.
+   * @param aList
+   *        The list to remove the first element from. May be <code>null</code>.
+   * @return <code>null</code> if the list is <code>null</code> or empty, the removed first element
+   *         otherwise.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE removeFirstElement (@Nullable final List <ELEMENTTYPE> aList)
   {
@@ -614,6 +834,16 @@ public class CollectionHelper
     return aList.remove (nIndex);
   }
 
+  /**
+   * Remove and return the last element of the passed list.
+   *
+   * @param <ELEMENTTYPE>
+   *        The type of elements in the list.
+   * @param aList
+   *        The list to remove the last element from. May be <code>null</code>.
+   * @return <code>null</code> if the list is <code>null</code> or empty, the removed last element
+   *         otherwise.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE removeLastElement (@Nullable final List <ELEMENTTYPE> aList)
   {

@@ -57,13 +57,25 @@ public class GlobalDebug
   public GlobalDebug ()
   {}
 
-  // to set it per dependency injection
+  /**
+   * Set the debug mode via dependency injection. Delegates to
+   * {@link #setDebugModeDirect(boolean)}.
+   *
+   * @param bDebugMode
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable it
+   */
   public void setDebugMode (final boolean bDebugMode)
   {
     setDebugModeDirect (bDebugMode);
   }
 
-  // to set it per dependency injection
+  /**
+   * Set the production mode via dependency injection. Delegates to
+   * {@link #setProductionModeDirect(boolean)}.
+   *
+   * @param bProductionMode
+   *        <code>true</code> to enable production mode, <code>false</code> to disable it
+   */
   public void setProductionMode (final boolean bProductionMode)
   {
     setProductionModeDirect (bProductionMode);

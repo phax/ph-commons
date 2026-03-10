@@ -48,22 +48,43 @@ public class JsonArray implements IJsonArray
 {
   private ICommonsList <IJson> m_aValues;
 
+  /**
+   * Constructor with a default initial capacity of 16.
+   */
   public JsonArray ()
   {
     this (16);
   }
 
+  /**
+   * Constructor with a custom initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity of the backing list. Must be &ge; 0.
+   */
   public JsonArray (@Nonnegative final int nInitialCapacity)
   {
     m_aValues = new CommonsArrayList <> (nInitialCapacity);
   }
 
+  /**
+   * Constructor copying all elements from the provided iterable.
+   *
+   * @param aJsons
+   *        The JSON elements to add. May not be <code>null</code>.
+   */
   public JsonArray (@NonNull final Iterable <? extends IJson> aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
     m_aValues = new CommonsArrayList <> (aJsons);
   }
 
+  /**
+   * Constructor copying all elements from the provided array.
+   *
+   * @param aJsons
+   *        The JSON elements to add. May not be <code>null</code>.
+   */
   public JsonArray (@NonNull final IJson... aJsons)
   {
     ValueEnforcer.notNull (aJsons, "Jsons");
@@ -88,32 +109,56 @@ public class JsonArray implements IJsonArray
     m_aValues.addAll (aJson.m_aValues);
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>true</code> for JSON arrays.
+   */
   public final boolean isArray ()
   {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON arrays.
+   */
   public final boolean isObject ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>false</code> for JSON arrays.
+   */
   public final boolean isValue ()
   {
     return false;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int size ()
   {
     return m_aValues.size ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isEmpty ()
   {
     return m_aValues.isEmpty ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public Iterator <IJson> iterator ()
   {
@@ -130,6 +175,15 @@ public class JsonArray implements IJsonArray
     return this;
   }
 
+  /**
+   * Add a JSON value at the specified index.
+   *
+   * @param nIndex
+   *        The index to insert at. Must be &ge; 0.
+   * @param aValue
+   *        The value to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public JsonArray addAt (@Nonnegative final int nIndex, @NonNull final IJson aValue)
   {
@@ -139,24 +193,36 @@ public class JsonArray implements IJsonArray
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IJson removeAndReturnAtIndex (@Nonnegative final int nIndex)
   {
     return m_aValues.removeAndReturnElementAtIndex (nIndex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange removeAtIndex (@Nonnegative final int nIndex)
   {
     return m_aValues.removeAtIndex (nIndex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IJson get (@Nonnegative final int nIndex)
   {
     return m_aValues.getAtIndex (nIndex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public JsonArray getSubArray (@Nonnegative final int nStartIndex, @Nonnegative final int nEndIndex)
@@ -170,6 +236,9 @@ public class JsonArray implements IJsonArray
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> getAll ()
@@ -183,16 +252,25 @@ public class JsonArray implements IJsonArray
     m_aValues.forEach (aConsumer);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void forEachByIndex (@NonNull final ObjIntConsumer <? super IJson> aConsumer)
   {
     m_aValues.forEachByIndex (aConsumer);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean contains (@Nullable final IJson aValue)
   {
     return aValue != null && m_aValues.contains (aValue);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IJson> getClonedValues ()
@@ -200,6 +278,9 @@ public class JsonArray implements IJsonArray
     return m_aValues.getAllMapped (IJson::getClone);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public JsonArray getClone ()
   {

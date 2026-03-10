@@ -91,18 +91,42 @@ public class StreamHelper
     return new char [DEFAULT_BUFSIZE];
   }
 
+  /**
+   * Create a {@link NonBlockingStringReader} for the given text.
+   *
+   * @param sText
+   *        The text to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static NonBlockingStringReader createReader (@NonNull final String sText)
   {
     return new NonBlockingStringReader (sText);
   }
 
+  /**
+   * Create a {@link NonBlockingStringReader} for the given char array.
+   *
+   * @param aChars
+   *        The char array to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static NonBlockingStringReader createReader (final char @NonNull [] aChars)
   {
     return new NonBlockingStringReader (aChars);
   }
 
+  /**
+   * Create an {@link InputStreamReader} wrapping the given input stream with
+   * the specified charset.
+   *
+   * @param aIS
+   *        The input stream to wrap. May be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the input stream is <code>null</code>.
+   */
   @Nullable
   public static InputStreamReader createReader (@Nullable final InputStream aIS, @NonNull final Charset aCharset)
   {
@@ -110,6 +134,16 @@ public class StreamHelper
     return aIS == null ? null : new InputStreamReader (aIS, aCharset);
   }
 
+  /**
+   * Create an {@link OutputStreamWriter} wrapping the given output stream with
+   * the specified charset.
+   *
+   * @param aOS
+   *        The output stream to wrap. May be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the output stream is <code>null</code>.
+   */
   @Nullable
   public static OutputStreamWriter createWriter (@Nullable final OutputStream aOS, @NonNull final Charset aCharset)
   {
@@ -250,6 +284,13 @@ public class StreamHelper
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Check if the passed input stream is already buffered.
+   *
+   * @param aIS
+   *        The input stream to check. May be <code>null</code>.
+   * @return <code>true</code> if the stream is already buffered.
+   */
   public static boolean isBuffered (@Nullable final InputStream aIS)
   {
     return aIS instanceof BufferedInputStream ||
@@ -260,12 +301,27 @@ public class StreamHelper
            (aIS instanceof final WrappedInputStream aWrappedIS && isBuffered (aWrappedIS.getWrappedInputStream ()));
   }
 
+  /**
+   * Get a buffered version of the passed input stream. If the stream is already
+   * buffered, it is returned as-is.
+   *
+   * @param aIS
+   *        The input stream to buffer. May be <code>null</code>.
+   * @return <code>null</code> if the input stream is <code>null</code>.
+   */
   @Nullable
   public static InputStream getBuffered (@Nullable final InputStream aIS)
   {
     return aIS == null || isBuffered (aIS) ? aIS : new NonBlockingBufferedInputStream (aIS);
   }
 
+  /**
+   * Check if the passed output stream is already buffered.
+   *
+   * @param aOS
+   *        The output stream to check. May be <code>null</code>.
+   * @return <code>true</code> if the stream is already buffered.
+   */
   public static boolean isBuffered (@Nullable final OutputStream aOS)
   {
     return aOS instanceof BufferedOutputStream ||
@@ -276,12 +332,27 @@ public class StreamHelper
            (aOS instanceof final WrappedOutputStream aWrappedOS && isBuffered (aWrappedOS.getWrappedOutputStream ()));
   }
 
+  /**
+   * Get a buffered version of the passed output stream. If the stream is
+   * already buffered, it is returned as-is.
+   *
+   * @param aOS
+   *        The output stream to buffer. May be <code>null</code>.
+   * @return <code>null</code> if the output stream is <code>null</code>.
+   */
   @Nullable
   public static OutputStream getBuffered (@Nullable final OutputStream aOS)
   {
     return aOS == null || isBuffered (aOS) ? aOS : new NonBlockingBufferedOutputStream (aOS);
   }
 
+  /**
+   * Check if the passed reader is already buffered.
+   *
+   * @param aReader
+   *        The reader to check. May be <code>null</code>.
+   * @return <code>true</code> if the reader is already buffered.
+   */
   public static boolean isBuffered (@Nullable final Reader aReader)
   {
     return aReader instanceof BufferedReader ||
@@ -291,12 +362,27 @@ public class StreamHelper
            (aReader instanceof final WrappedReader aWrappedReader && isBuffered (aWrappedReader.getWrappedReader ()));
   }
 
+  /**
+   * Get a buffered version of the passed reader. If the reader is already
+   * buffered, it is returned as-is.
+   *
+   * @param aReader
+   *        The reader to buffer. May be <code>null</code>.
+   * @return <code>null</code> if the reader is <code>null</code>.
+   */
   @Nullable
   public static Reader getBuffered (@Nullable final Reader aReader)
   {
     return aReader == null || isBuffered (aReader) ? aReader : new NonBlockingBufferedReader (aReader);
   }
 
+  /**
+   * Check if the passed writer is already buffered.
+   *
+   * @param aWriter
+   *        The writer to check. May be <code>null</code>.
+   * @return <code>true</code> if the writer is already buffered.
+   */
   public static boolean isBuffered (@Nullable final Writer aWriter)
   {
     return aWriter instanceof BufferedWriter ||
@@ -306,6 +392,14 @@ public class StreamHelper
            (aWriter instanceof final WrappedWriter aWrappedWriter && isBuffered (aWrappedWriter.getWrappedWriter ()));
   }
 
+  /**
+   * Get a buffered version of the passed writer. If the writer is already
+   * buffered, it is returned as-is.
+   *
+   * @param aWriter
+   *        The writer to buffer. May be <code>null</code>.
+   * @return <code>null</code> if the writer is <code>null</code>.
+   */
   @Nullable
   public static Writer getBuffered (@Nullable final Writer aWriter)
   {
@@ -1126,6 +1220,15 @@ public class StreamHelper
     }
   }
 
+  /**
+   * Copy the content of the given reader into a new
+   * {@link NonBlockingStringWriter}. The reader is closed after the operation.
+   *
+   * @param aReader
+   *        The reader to copy from. May not be <code>null</code>. Will be
+   *        closed.
+   * @return <code>null</code> if copying failed.
+   */
   @Nullable
   public static NonBlockingStringWriter getCopy (@NonNull @WillClose final Reader aReader)
   {
@@ -1135,6 +1238,18 @@ public class StreamHelper
     return aWriter;
   }
 
+  /**
+   * Copy at most the specified number of characters from the given reader into
+   * a new {@link NonBlockingStringWriter}. The reader is closed after the
+   * operation.
+   *
+   * @param aReader
+   *        The reader to copy from. May not be <code>null</code>. Will be
+   *        closed.
+   * @param nLimit
+   *        The maximum number of characters to copy. Must be &ge; 0.
+   * @return <code>null</code> if copying failed.
+   */
   @Nullable
   public static NonBlockingStringWriter getCopyWithLimit (@NonNull @WillClose final Reader aReader,
                                                           @Nonnegative final long nLimit)
@@ -1388,12 +1503,40 @@ public class StreamHelper
       aConsumer.accept (aBuffer, nBytesRead);
   }
 
+  /**
+   * Read the input stream until EOF, passing each chunk to the consumer. The
+   * stream is closed after the operation. Uses the default buffer size.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>. Will
+   *        be closed.
+   * @param aConsumer
+   *        The consumer receiving each read chunk and the number of bytes read.
+   *        May not be <code>null</code>.
+   * @throws IOException
+   *         In case of an I/O error.
+   */
   public static void readUntilEOF (@NonNull @WillClose final InputStream aIS,
                                    @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
   {
     readUntilEOF (aIS, createDefaultCopyBufferBytes (), aConsumer);
   }
 
+  /**
+   * Read the input stream until EOF, passing each chunk to the consumer. The
+   * stream is closed after the operation.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>. Will
+   *        be closed.
+   * @param aBuffer
+   *        The buffer to use for reading. May not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer receiving each read chunk and the number of bytes read.
+   *        May not be <code>null</code>.
+   * @throws IOException
+   *         In case of an I/O error.
+   */
   public static void readUntilEOF (@NonNull @WillClose final InputStream aIS,
                                    final byte @NonNull [] aBuffer,
                                    @NonNull final ObjIntConsumer <? super byte []> aConsumer) throws IOException
@@ -1426,12 +1569,40 @@ public class StreamHelper
       aConsumer.accept (aBuffer, nCharsRead);
   }
 
+  /**
+   * Read the reader until EOF, passing each chunk to the consumer. The reader
+   * is closed after the operation. Uses the default buffer size.
+   *
+   * @param aReader
+   *        The reader to read from. May not be <code>null</code>. Will be
+   *        closed.
+   * @param aConsumer
+   *        The consumer receiving each read chunk and the number of chars read.
+   *        May not be <code>null</code>.
+   * @throws IOException
+   *         In case of an I/O error.
+   */
   public static void readUntilEOF (@NonNull @WillClose final Reader aReader,
                                    @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
   {
     readUntilEOF (aReader, new char [DEFAULT_BUFSIZE], aConsumer);
   }
 
+  /**
+   * Read the reader until EOF, passing each chunk to the consumer. The reader
+   * is closed after the operation.
+   *
+   * @param aReader
+   *        The reader to read from. May not be <code>null</code>. Will be
+   *        closed.
+   * @param aBuffer
+   *        The buffer to use for reading. May not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer receiving each read chunk and the number of chars read.
+   *        May not be <code>null</code>.
+   * @throws IOException
+   *         In case of an I/O error.
+   */
   public static void readUntilEOF (@NonNull @WillClose final Reader aReader,
                                    final char @NonNull [] aBuffer,
                                    @NonNull final ObjIntConsumer <? super char []> aConsumer) throws IOException
@@ -1450,6 +1621,16 @@ public class StreamHelper
     }
   }
 
+  /**
+   * Check if the passed input stream is a {@link FilterInputStream} with a
+   * <code>null</code> contained input stream. This can happen when a JAR URL
+   * with a directory path that does not end with a slash is resolved.
+   *
+   * @param aIS
+   *        The input stream to check. May be <code>null</code>.
+   * @return <code>null</code> if the input stream is invalid or
+   *         <code>null</code>, the passed stream otherwise.
+   */
   @Nullable
   public static InputStream checkForInvalidFilterInputStream (@Nullable final InputStream aIS)
   {

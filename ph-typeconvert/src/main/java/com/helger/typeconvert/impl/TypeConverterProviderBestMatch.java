@@ -37,6 +37,9 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
   private TypeConverterProviderBestMatch ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static TypeConverterProviderBestMatch getInstance ()
   {

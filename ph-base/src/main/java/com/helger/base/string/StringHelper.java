@@ -608,30 +608,81 @@ public class StringHelper
     return _getWithLeadingOrTrailing (sSrc, nMinLen, cEnd, false);
   }
 
+  /**
+   * Get a string representation of the passed {@link Byte} value with leading zeros.
+   *
+   * @param aValue
+   *        The value to be formatted. May be <code>null</code>.
+   * @param nChars
+   *        The minimum number of characters to return.
+   * @return <code>null</code> if the passed value is <code>null</code>, the formatted string
+   *         otherwise.
+   */
   @Nullable
   public static String getLeadingZero (@Nullable final Byte aValue, final int nChars)
   {
     return aValue == null ? null : getLeadingZero (aValue.byteValue (), nChars);
   }
 
+  /**
+   * Get a string representation of the passed {@link Integer} value with leading zeros.
+   *
+   * @param aValue
+   *        The value to be formatted. May be <code>null</code>.
+   * @param nChars
+   *        The minimum number of characters to return.
+   * @return <code>null</code> if the passed value is <code>null</code>, the formatted string
+   *         otherwise.
+   */
   @Nullable
   public static String getLeadingZero (@Nullable final Integer aValue, final int nChars)
   {
     return aValue == null ? null : getLeadingZero (aValue.longValue (), nChars);
   }
 
+  /**
+   * Get a string representation of the passed {@link Long} value with leading zeros.
+   *
+   * @param aValue
+   *        The value to be formatted. May be <code>null</code>.
+   * @param nChars
+   *        The minimum number of characters to return.
+   * @return <code>null</code> if the passed value is <code>null</code>, the formatted string
+   *         otherwise.
+   */
   @Nullable
   public static String getLeadingZero (@Nullable final Long aValue, final int nChars)
   {
     return aValue == null ? null : getLeadingZero (aValue.longValue (), nChars);
   }
 
+  /**
+   * Get a string representation of the passed {@link Short} value with leading zeros.
+   *
+   * @param aValue
+   *        The value to be formatted. May be <code>null</code>.
+   * @param nChars
+   *        The minimum number of characters to return.
+   * @return <code>null</code> if the passed value is <code>null</code>, the formatted string
+   *         otherwise.
+   */
   @Nullable
   public static String getLeadingZero (@Nullable final Short aValue, final int nChars)
   {
     return aValue == null ? null : getLeadingZero (aValue.shortValue (), nChars);
   }
 
+  /**
+   * Get a string representation of the passed <code>int</code> value with leading zeros. Negative
+   * values are prefixed with a minus sign.
+   *
+   * @param nValue
+   *        The value to be formatted.
+   * @param nChars
+   *        The minimum number of characters to return (excluding the minus sign for negative
+   *        values).
+   * @return A non-<code>null</code> string with at least <code>nChars</code> characters.
+   */
   @NonNull
   public static String getLeadingZero (final int nValue, final int nChars)
   {
@@ -649,6 +700,17 @@ public class StringHelper
     return aSB.append (sValue).toString ();
   }
 
+  /**
+   * Get a string representation of the passed <code>long</code> value with leading zeros. Negative
+   * values are prefixed with a minus sign.
+   *
+   * @param nValue
+   *        The value to be formatted.
+   * @param nChars
+   *        The minimum number of characters to return (excluding the minus sign for negative
+   *        values).
+   * @return A non-<code>null</code> string with at least <code>nChars</code> characters.
+   */
   @NonNull
   public static String getLeadingZero (final long nValue, final int nChars)
   {
@@ -666,12 +728,31 @@ public class StringHelper
     return aSB.append (sValue).toString ();
   }
 
+  /**
+   * Get the passed string padded with leading zeros until the minimum number of characters is
+   * reached.
+   *
+   * @param sValue
+   *        The value to be padded. May not be <code>null</code>.
+   * @param nChars
+   *        The minimum number of characters to return.
+   * @return A non-<code>null</code> string with at least <code>nChars</code> characters.
+   * @see #getWithLeading(String, int, char)
+   */
   @NonNull
   public static String getLeadingZero (@NonNull final String sValue, final int nChars)
   {
     return getWithLeading (sValue, nChars, '0');
   }
 
+  /**
+   * Get the reversed version of the passed string.
+   *
+   * @param sStr
+   *        The source string. May be <code>null</code>.
+   * @return <code>null</code> if the input string is <code>null</code>, the reversed string
+   *         otherwise.
+   */
   @Nullable
   public static String getReverse (@Nullable final String sStr)
   {
@@ -1379,11 +1460,31 @@ public class StringHelper
     return containsOnly (s, Character::isWhitespace);
   }
 
+  /**
+   * Check if the passed character sequence starts with the passed character.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param c
+   *        The character to search for.
+   * @return <code>true</code> if the character sequence starts with the passed character,
+   *         <code>false</code> otherwise.
+   */
   public static boolean startsWith (@Nullable final CharSequence aCS, final char c)
   {
     return isNotEmpty (aCS) && aCS.charAt (0) == c;
   }
 
+  /**
+   * Check if the passed character sequence starts with any of the passed characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param aChars
+   *        The characters to search for. May be <code>null</code>.
+   * @return <code>true</code> if the character sequence starts with any of the passed characters,
+   *         <code>false</code> otherwise.
+   */
   public static boolean startsWithAny (@Nullable final CharSequence aCS, final char @Nullable [] aChars)
   {
     if (isNotEmpty (aCS) && aChars != null)
@@ -1392,11 +1493,31 @@ public class StringHelper
     return false;
   }
 
+  /**
+   * Check if the passed character sequence starts with the passed character, ignoring case.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param c
+   *        The character to search for.
+   * @return <code>true</code> if the character sequence starts with the passed character (ignoring
+   *         case), <code>false</code> otherwise.
+   */
   public static boolean startsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
   {
     return isNotEmpty (aCS) && Character.toLowerCase (aCS.charAt (0)) == Character.toLowerCase (c);
   }
 
+  /**
+   * Check if the passed character sequence starts with the passed search sequence.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param aSearch
+   *        The character sequence to search for. May be <code>null</code>.
+   * @return <code>true</code> if the character sequence starts with the search sequence,
+   *         <code>false</code> otherwise.
+   */
   public static boolean startsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
   {
     if (aCS == null || aSearch == null)
@@ -1410,6 +1531,16 @@ public class StringHelper
     return aCS.subSequence (0, nSearchLength).equals (aSearch);
   }
 
+  /**
+   * Check if the passed string starts with the passed search string.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @param sSearch
+   *        The string to search for. May be <code>null</code>.
+   * @return <code>true</code> if the string starts with the search string, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (@Nullable final String sStr, @Nullable final String sSearch)
   {
     if (sStr == null || sSearch == null)
@@ -1427,6 +1558,16 @@ public class StringHelper
     return sStr.subSequence (0, nSearchLength).equals (sSearch);
   }
 
+  /**
+   * Check if the passed string starts with the passed search string, ignoring case.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @param sSearch
+   *        The string to search for. May be <code>null</code>.
+   * @return <code>true</code> if the string starts with the search string (ignoring case),
+   *         <code>false</code> otherwise.
+   */
   public static boolean startsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
   {
     if (sStr == null || sSearch == null)
@@ -1440,11 +1581,31 @@ public class StringHelper
     return sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
   }
 
+  /**
+   * Check if the passed character sequence ends with the passed character.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param c
+   *        The character to search for.
+   * @return <code>true</code> if the character sequence ends with the passed character,
+   *         <code>false</code> otherwise.
+   */
   public static boolean endsWith (@Nullable final CharSequence aCS, final char c)
   {
     return isNotEmpty (aCS) && StringHelper.getLastChar (aCS) == c;
   }
 
+  /**
+   * Check if the passed character sequence ends with any of the passed characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param aChars
+   *        The characters to search for. May be <code>null</code>.
+   * @return <code>true</code> if the character sequence ends with any of the passed characters,
+   *         <code>false</code> otherwise.
+   */
   public static boolean endsWithAny (@Nullable final CharSequence aCS, final char @Nullable [] aChars)
   {
     if (isNotEmpty (aCS) && aChars != null)
@@ -1453,6 +1614,16 @@ public class StringHelper
     return false;
   }
 
+  /**
+   * Check if the passed character sequence ends with the passed search sequence.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param aSearch
+   *        The character sequence to search for. May be <code>null</code>.
+   * @return <code>true</code> if the character sequence ends with the search sequence,
+   *         <code>false</code> otherwise.
+   */
   public static boolean endsWith (@Nullable final CharSequence aCS, @Nullable final CharSequence aSearch)
   {
     if (aCS == null || aSearch == null)
@@ -1470,6 +1641,16 @@ public class StringHelper
     return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
   }
 
+  /**
+   * Check if the passed string ends with the passed search string.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @param sSearch
+   *        The string to search for. May be <code>null</code>.
+   * @return <code>true</code> if the string ends with the search string, <code>false</code>
+   *         otherwise.
+   */
   public static boolean endsWith (@Nullable final String sStr, @Nullable final String sSearch)
   {
     if (sStr == null || sSearch == null)
@@ -1487,11 +1668,31 @@ public class StringHelper
     return sStr.startsWith (sSearch, nStrLength - nSearchLength);
   }
 
+  /**
+   * Check if the passed character sequence ends with the passed character, ignoring case.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @param c
+   *        The character to search for.
+   * @return <code>true</code> if the character sequence ends with the passed character (ignoring
+   *         case), <code>false</code> otherwise.
+   */
   public static boolean endsWithIgnoreCase (@Nullable final CharSequence aCS, final char c)
   {
     return isNotEmpty (aCS) && Character.toLowerCase (StringHelper.getLastChar (aCS)) == Character.toLowerCase (c);
   }
 
+  /**
+   * Check if the passed string ends with the passed search string, ignoring case.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @param sSearch
+   *        The string to search for. May be <code>null</code>.
+   * @return <code>true</code> if the string ends with the search string (ignoring case),
+   *         <code>false</code> otherwise.
+   */
   public static boolean endsWithIgnoreCase (@Nullable final String sStr, @Nullable final String sSearch)
   {
     if (sStr == null || sSearch == null)
@@ -2141,6 +2342,17 @@ public class StringHelper
     return startsWith (sSrc, sLead) ? sSrc.substring (sLead.length ()) : sSrc;
   }
 
+  /**
+   * Trim the passed lead from the source value repeatedly until the source no longer starts with
+   * the lead. If the source value does not start with the passed lead, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string. May be <code>null</code>.
+   * @param sLead
+   *        The string to be trimmed of the beginning repeatedly. May be <code>null</code>.
+   * @return The trimmed string, or the original input string, if the lead was not found.
+   * @see #trimStart(String, String)
+   */
   @Nullable
   @CheckReturnValue
   public static String trimStartRepeatedly (@Nullable final String sSrc, @Nullable final String sLead)
@@ -2178,6 +2390,17 @@ public class StringHelper
     return startsWith (sSrc, cLead) ? sSrc.substring (1) : sSrc;
   }
 
+  /**
+   * Trim the passed lead character from the source value repeatedly until the source no longer
+   * starts with the lead. If the source value does not start with the passed lead, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string. May be <code>null</code>.
+   * @param cLead
+   *        The character to be trimmed of the beginning repeatedly.
+   * @return The trimmed string, or the original input string, if the lead was not found.
+   * @see #trimStart(String, char)
+   */
   @Nullable
   @CheckReturnValue
   public static String trimStartRepeatedly (@Nullable final String sSrc, final char cLead)
@@ -2231,6 +2454,17 @@ public class StringHelper
     return endsWith (sSrc, sTail) ? sSrc.substring (0, sSrc.length () - sTail.length ()) : sSrc;
   }
 
+  /**
+   * Trim the passed tail from the source value repeatedly until the source no longer ends with the
+   * tail. If the source value does not end with the passed tail, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string. May be <code>null</code>.
+   * @param sTail
+   *        The string to be trimmed of the end repeatedly. May be <code>null</code>.
+   * @return The trimmed string, or the original input string, if the tail was not found.
+   * @see #trimEnd(String, String)
+   */
   @Nullable
   @CheckReturnValue
   public static String trimEndRepeatedly (@Nullable final String sSrc, @Nullable final String sTail)
@@ -2268,6 +2502,17 @@ public class StringHelper
     return endsWith (sSrc, cTail) ? sSrc.substring (0, sSrc.length () - 1) : sSrc;
   }
 
+  /**
+   * Trim the passed tail character from the source value repeatedly until the source no longer ends
+   * with the tail. If the source value does not end with the passed tail, nothing happens.
+   *
+   * @param sSrc
+   *        The input source string. May be <code>null</code>.
+   * @param cTail
+   *        The character to be trimmed of the end repeatedly.
+   * @return The trimmed string, or the original input string, if the tail was not found.
+   * @see #trimEnd(String, char)
+   */
   @Nullable
   @CheckReturnValue
   public static String trimEndRepeatedly (@Nullable final String sSrc, final char cTail)
@@ -2407,12 +2652,37 @@ public class StringHelper
     return isEmpty (s) ? s : s.trim ();
   }
 
+  /**
+   * Cut the passed string after the specified length.
+   *
+   * @param sValue
+   *        The value to be cut. May not be <code>null</code>.
+   * @param nMaxLength
+   *        The maximum number of characters to keep. Must be &ge; 0.
+   * @return The original string if it is shorter than or equal to the max length, otherwise the
+   *         string cut after the specified length. Never <code>null</code>.
+   * @see #getCutAfterLength(String, int, String)
+   */
   @NonNull
   public static String getCutAfterLength (@NonNull final String sValue, @Nonnegative final int nMaxLength)
   {
     return getCutAfterLength (sValue, nMaxLength, null);
   }
 
+  /**
+   * Cut the passed string after the specified length, optionally appending a suffix (e.g.
+   * "...").
+   *
+   * @param sValue
+   *        The value to be cut. May not be <code>null</code>.
+   * @param nMaxLength
+   *        The maximum number of characters to keep. Must be &ge; 0.
+   * @param sNewSuffix
+   *        An optional suffix to append if the string was cut. May be <code>null</code>.
+   * @return The original string if it is shorter than or equal to the max length, otherwise the
+   *         string cut after the specified length with the optional suffix appended. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static String getCutAfterLength (@NonNull final String sValue,
                                           @Nonnegative final int nMaxLength,

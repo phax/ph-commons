@@ -263,9 +263,15 @@ public final class JsonReader
     private final JsonParserSettings m_aParserSettings = new JsonParserSettings ();
     private IJsonParseExceptionCallback m_aCustomExceptionCallback;
 
+    /**
+     * Create a new JSON builder with default settings.
+     */
     public JsonBuilder ()
     {}
 
+    /**
+     * Close the underlying reader if present.
+     */
     public void close ()
     {
       StreamHelper.close (m_aReader);

@@ -290,6 +290,14 @@ public class HttpHeaderMap implements
       _addHeader (sName, sValue);
   }
 
+  /**
+   * Convert a {@link ZonedDateTime} to a string suitable for use in HTTP date headers according to
+   * RFC 822.
+   *
+   * @param aDT
+   *        The date time to convert. May not be <code>null</code>.
+   * @return The formatted date string. Never <code>null</code>.
+   */
   @NonNull
   public static String getDateTimeAsString (@NonNull final ZonedDateTime aDT)
   {
@@ -299,6 +307,14 @@ public class HttpHeaderMap implements
     return PDTWebDateHelper.getAsStringRFC822 (aDT);
   }
 
+  /**
+   * Convert a {@link LocalDateTime} to a string suitable for use in HTTP date headers according to
+   * RFC 822.
+   *
+   * @param aLDT
+   *        The local date time to convert. May not be <code>null</code>.
+   * @return The formatted date string. Never <code>null</code>.
+   */
   @NonNull
   public static String getDateTimeAsString (@NonNull final LocalDateTime aLDT)
   {
@@ -503,6 +519,9 @@ public class HttpHeaderMap implements
     }
   }
 
+  /**
+   * @return A copy of all contained headers as an ordered map. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, ICommonsList <String>> getAllHeaders ()
@@ -582,6 +601,13 @@ public class HttpHeaderMap implements
     return null;
   }
 
+  /**
+   * Check if headers with the specified name exist. The matching happens case insensitive.
+   *
+   * @param sName
+   *        The header name to check. May be <code>null</code>.
+   * @return <code>true</code> if at least one header with the specified name exists.
+   */
   public boolean containsHeaders (@Nullable final String sName)
   {
     if (StringHelper.isEmpty (sName))
@@ -622,6 +648,16 @@ public class HttpHeaderMap implements
     return EChange.UNCHANGED;
   }
 
+  /**
+   * Remove a specific header value from the header with the specified name. If the last value of a
+   * header is removed, the entire header entry is removed.
+   *
+   * @param sName
+   *        The header name. May be <code>null</code>.
+   * @param sValue
+   *        The header value to remove. May be <code>null</code>.
+   * @return {@link EChange}
+   */
   @NonNull
   public EChange removeHeader (@Nullable final String sName, @Nullable final String sValue)
   {
@@ -636,18 +672,27 @@ public class HttpHeaderMap implements
     return EChange.valueOf (bRemoved);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public Iterator <Map.Entry <String, ICommonsList <String>>> iterator ()
   {
     return m_aHeaders.entrySet ().iterator ();
   }
 
+  /**
+   * @return The number of contained header names.
+   */
   @Nonnegative
   public int size ()
   {
     return m_aHeaders.size ();
   }
 
+  /**
+   * @return <code>true</code> if no headers are contained, <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     return m_aHeaders.isEmpty ();
@@ -776,6 +821,12 @@ public class HttpHeaderMap implements
     return ret;
   }
 
+  /**
+   * Set the "Content-Length" HTTP header.
+   *
+   * @param nLength
+   *        The content length to set.
+   */
   public void setContentLength (final long nLength)
   {
     _setHeader (CHttpHeader.CONTENT_LENGTH, Long.toString (nLength));

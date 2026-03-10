@@ -62,36 +62,56 @@ public final class AuthToken implements IAuthToken
     m_bExpired = false;
   }
 
+  /**
+   * @return The unique ID of this token. Never <code>null</code>.
+   */
   @NonNull
   public String getID ()
   {
     return m_sID;
   }
 
+  /**
+   * @return The identification associated with this token. Never <code>null</code>.
+   */
   @NonNull
   public IAuthIdentification getIdentification ()
   {
     return m_aIdentification;
   }
 
+  /**
+   * @return The date and time when this token was created. Never <code>null</code>.
+   */
   @NonNull
   public LocalDateTime getCreationDate ()
   {
     return m_aCreationDT;
   }
 
+  /**
+   * @return The date and time of the last access to this token. Never <code>null</code>.
+   */
   @NonNull
   public LocalDateTime getLastAccessDate ()
   {
     return m_aLastAccessDT;
   }
 
+  /**
+   * @return The number of seconds after which this token expires, relative to the last access time.
+   *         A value of {@link IAuthToken#EXPIRATION_SECONDS_INFINITE} means no expiration.
+   */
   @Nonnegative
   public int getExpirationSeconds ()
   {
     return m_nExpirationSeconds;
   }
 
+  /**
+   * @return <code>true</code> if this token can expire, <code>false</code> if it has infinite
+   *         lifetime.
+   */
   public boolean isExpirationPossible ()
   {
     return m_nExpirationSeconds > EXPIRATION_SECONDS_INFINITE;
@@ -110,6 +130,10 @@ public final class AuthToken implements IAuthToken
     return isExpirationPossible () ? m_aLastAccessDT.plusSeconds (m_nExpirationSeconds) : null;
   }
 
+  /**
+   * @return <code>true</code> if this token has expired (either explicitly or by exceeding the
+   *         expiration time since last access), <code>false</code> if it is still valid.
+   */
   public boolean isExpired ()
   {
     if (!m_bExpired && isExpirationPossible ())

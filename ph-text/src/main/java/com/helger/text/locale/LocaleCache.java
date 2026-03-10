@@ -135,11 +135,18 @@ public class LocaleCache implements IHasConditionalLogger
     return !CONDLOG.setEnabled (!bSilentMode);
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The global singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static LocaleCache getInstance ()
   {

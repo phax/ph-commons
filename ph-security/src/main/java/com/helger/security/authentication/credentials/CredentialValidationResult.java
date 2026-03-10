@@ -55,6 +55,9 @@ public class CredentialValidationResult implements ICredentialValidationResult
     m_sErrorMsg = ValueEnforcer.notEmpty (sErrorMsg, "ErrorMessage");
   }
 
+  /**
+   * @return The error message. Never <code>null</code> in case of failure.
+   */
   @NonNull
   @Nonempty
   public final String getErrorMessage ()
@@ -62,17 +65,28 @@ public class CredentialValidationResult implements ICredentialValidationResult
     return m_sErrorMsg;
   }
 
+  /**
+   * @return <code>true</code> if credential validation was successful, <code>false</code> if an
+   *         error occurred.
+   */
   public boolean isSuccess ()
   {
     return m_sErrorMsg == null;
   }
 
+  /**
+   * @return <code>true</code> if credential validation failed, <code>false</code> if it was
+   *         successful.
+   */
   @Override
   public boolean isFailure ()
   {
     return m_sErrorMsg != null;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aDisplayLocale)
   {

@@ -36,6 +36,19 @@ public final class CompareHelperExt extends CompareHelper
   private CompareHelperExt ()
   {}
 
+  /**
+   * Compare two strings using a locale-aware {@link java.text.Collator}. <code>null</code> values
+   * are sorted first by default.
+   *
+   * @param sStr1
+   *        The first string. May be <code>null</code>.
+   * @param sStr2
+   *        The second string. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to use for collation. May not be <code>null</code>.
+   * @return a negative integer, zero, or a positive integer as the first string is less than, equal
+   *         to, or greater than the second.
+   */
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
                              @NonNull final Locale aSortLocale)
@@ -44,6 +57,22 @@ public final class CompareHelperExt extends CompareHelper
     return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Compare two strings using a locale-aware {@link java.text.Collator}, with control over
+   * <code>null</code> value ordering.
+   *
+   * @param sStr1
+   *        The first string. May be <code>null</code>.
+   * @param sStr2
+   *        The second string. May be <code>null</code>.
+   * @param aSortLocale
+   *        The locale to use for collation. May not be <code>null</code>.
+   * @param bNullValuesComeFirst
+   *        <code>true</code> if <code>null</code> values should be sorted before non-null values,
+   *        <code>false</code> if they should be sorted after.
+   * @return a negative integer, zero, or a positive integer as the first string is less than, equal
+   *         to, or greater than the second.
+   */
   public static int compare (@Nullable final String sStr1,
                              @Nullable final String sStr2,
                              @NonNull final Locale aSortLocale,

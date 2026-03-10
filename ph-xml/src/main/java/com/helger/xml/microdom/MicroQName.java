@@ -50,11 +50,26 @@ public final class MicroQName implements IMicroQName
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor without a namespace URI.
+   *
+   * @param sName
+   *        The local name of the qualified name. May neither be <code>null</code> nor empty.
+   */
   public MicroQName (@NonNull @Nonempty final String sName)
   {
     this (XMLConstants.NULL_NS_URI, sName);
   }
 
+  /**
+   * Constructor with a namespace URI and a local name.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to use. May be <code>null</code> or empty.
+   * @param sName
+   *        The local name. May neither be <code>null</code> nor empty. If a namespace prefix
+   *        is contained, it will be stripped.
+   */
   public MicroQName (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sName)
   {
     ValueEnforcer.notEmpty (sName, sName);
@@ -82,12 +97,14 @@ public final class MicroQName implements IMicroQName
           throw new IllegalArgumentException ("The micro XML name '" + m_sName + "' is not a valid XML name!");
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getNamespaceURI ()
   {
     return m_sNamespaceURI;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()

@@ -59,6 +59,14 @@ public final class FileChannelHelper
   private FileChannelHelper ()
   {}
 
+  /**
+   * Get the size of the file represented by the passed channel.
+   *
+   * @param aChannel
+   *        The file channel to get the size of. May be <code>null</code>.
+   * @return The file size in bytes, or -1 if the channel is <code>null</code> or an I/O error
+   *         occurred.
+   */
   @CheckForSigned
   public static long getFileSize (@Nullable final FileChannel aChannel)
   {
@@ -91,6 +99,14 @@ public final class FileChannelHelper
     }
   }
 
+  /**
+   * Get an input stream for the passed file. If the file is larger than 1 MB, a memory-mapped input
+   * stream is used; otherwise a regular {@link FileInputStream} is returned.
+   *
+   * @param aFile
+   *        The file to read. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist or cannot be opened.
+   */
   @Nullable
   public static InputStream getInputStream (@NonNull final File aFile)
   {
@@ -114,12 +130,26 @@ public final class FileChannelHelper
     return aFIS;
   }
 
+  /**
+   * Get a read-only {@link FileChannel} for the passed filename.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileReadChannel (@NonNull final String sFilename)
   {
     return getFileReadChannel (new File (sFilename));
   }
 
+  /**
+   * Get a read-only {@link FileChannel} for the passed file.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileReadChannel (@NonNull final File aFile)
   {
@@ -175,24 +205,56 @@ public final class FileChannelHelper
     }
   }
 
+  /**
+   * Get a writable {@link FileChannel} for the passed filename using the default append mode.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileWriteChannel (@NonNull final String sFilename)
   {
     return getFileWriteChannel (sFilename, EAppend.DEFAULT);
   }
 
+  /**
+   * Get a writable {@link FileChannel} for the passed filename.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileWriteChannel (@NonNull final String sFilename, @NonNull final EAppend eAppend)
   {
     return getFileWriteChannel (new File (sFilename), eAppend);
   }
 
+  /**
+   * Get a writable {@link FileChannel} for the passed file using the default append mode.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileWriteChannel (@NonNull final File aFile)
   {
     return getFileWriteChannel (aFile, EAppend.DEFAULT);
   }
 
+  /**
+   * Get a writable {@link FileChannel} for the passed file.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static FileChannel getFileWriteChannel (@NonNull final File aFile, @NonNull final EAppend eAppend)
   {
@@ -203,24 +265,57 @@ public final class FileChannelHelper
     return aFOS == null ? null : aFOS.getChannel ();
   }
 
+  /**
+   * Get a memory-mapped output stream for the passed filename using the default append mode.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened or mapped.
+   */
   @Nullable
   public static OutputStream getMappedOutputStream (@NonNull final String sFilename)
   {
     return getMappedOutputStream (new File (sFilename));
   }
 
+  /**
+   * Get a memory-mapped output stream for the passed filename.
+   *
+   * @param sFilename
+   *        The name of the file to open. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened or mapped.
+   */
   @Nullable
   public static OutputStream getMappedOutputStream (@NonNull final String sFilename, @NonNull final EAppend eAppend)
   {
     return getMappedOutputStream (new File (sFilename), eAppend);
   }
 
+  /**
+   * Get a memory-mapped output stream for the passed file using the default append mode.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened or mapped.
+   */
   @Nullable
   public static OutputStream getMappedOutputStream (@NonNull final File aFile)
   {
     return getMappedOutputStream (aFile, EAppend.DEFAULT);
   }
 
+  /**
+   * Get a memory-mapped output stream for the passed file. If memory mapping fails, a regular
+   * {@link FileOutputStream} is returned as a fallback.
+   *
+   * @param aFile
+   *        The file to open. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be opened.
+   */
   @Nullable
   public static OutputStream getMappedOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend)
   {

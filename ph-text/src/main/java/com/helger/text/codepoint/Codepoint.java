@@ -229,21 +229,34 @@ public class Codepoint implements IComparable <Codepoint>
     return CodepointHelper.isBidi (m_nValue);
   }
 
+  /**
+   * @return <code>true</code> if this codepoint represents a digit character.
+   */
   public boolean isDigit ()
   {
     return Character.isDigit (m_nValue);
   }
 
+  /**
+   * @return <code>true</code> if this codepoint represents an alphabetic character.
+   */
   public boolean isAlpha ()
   {
     return Character.isLetter (m_nValue);
   }
 
+  /**
+   * @return <code>true</code> if this codepoint represents an alphanumeric character.
+   */
   public boolean isAlphaDigit ()
   {
     return Character.isLetterOrDigit (m_nValue);
   }
 
+  /**
+   * @return The String representation of this codepoint, automatically dealing with surrogate
+   *         pairs.
+   */
   @NonNull
   @Nonempty
   public String getAsString ()
@@ -251,6 +264,10 @@ public class Codepoint implements IComparable <Codepoint>
     return CodepointHelper.getAsString (m_nValue);
   }
 
+  /**
+   * @return The char array representation of this codepoint. Returns a 2-element array for
+   *         supplementary codepoints, a 1-element array otherwise.
+   */
   @ReturnsMutableCopy
   public char @NonNull [] getAsChars ()
   {
@@ -267,6 +284,13 @@ public class Codepoint implements IComparable <Codepoint>
     return Character.charCount (m_nValue);
   }
 
+  /**
+   * Get the byte representation of this codepoint in the specified charset.
+   *
+   * @param aCharset
+   *        The charset to encode with. May not be <code>null</code>.
+   * @return The byte array representation. Never <code>null</code>.
+   */
   public byte @NonNull [] getAsBytes (@NonNull final Charset aCharset)
   {
     return getAsString ().getBytes (aCharset);
@@ -312,11 +336,25 @@ public class Codepoint implements IComparable <Codepoint>
     return new Codepoint (m_nValue - 1);
   }
 
+  /**
+   * Append this codepoint to the provided {@link StringBuilder}.
+   *
+   * @param aSB
+   *        The StringBuilder to append to. May not be <code>null</code>.
+   */
   public void appendTo (@NonNull final StringBuilder aSB)
   {
     aSB.append (getAsChars ());
   }
 
+  /**
+   * Compare this codepoint to another by their integer value.
+   *
+   * @param o
+   *        The codepoint to compare to. May not be <code>null</code>.
+   * @return A negative integer, zero, or a positive integer as this codepoint is less than, equal
+   *         to, or greater than the specified codepoint.
+   */
   public int compareTo (@NonNull final Codepoint o)
   {
     return CompareHelper.compare (m_nValue, o.m_nValue);

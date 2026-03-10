@@ -56,26 +56,48 @@ public class Option implements IOptionBase
     /** 1..n, <code>{1,} or +</code> */
     REQUIRED_MANY;
 
+    /**
+     * @return <code>true</code> if this multiplicity is optional (i.e. the option need not appear),
+     *         <code>false</code> if it is required.
+     */
     public boolean isOptional ()
     {
       return this == OPTIONAL_ONCE || this == OPTIONAL_MANY;
     }
 
+    /**
+     * @return <code>true</code> if this multiplicity is required (i.e. the option must appear at
+     *         least once), <code>false</code> if it is optional.
+     */
     public boolean isRequired ()
     {
       return this == REQUIRED_ONCE || this == REQUIRED_MANY;
     }
 
+    /**
+     * @return <code>true</code> if this multiplicity allows the option to appear at most once,
+     *         <code>false</code> if it may appear multiple times.
+     */
     public boolean isOnce ()
     {
       return this == OPTIONAL_ONCE || this == REQUIRED_ONCE;
     }
 
+    /**
+     * @return <code>true</code> if this multiplicity allows the option to appear more than once,
+     *         <code>false</code> if it may appear at most once.
+     */
     public boolean isRepeatable ()
     {
       return this == OPTIONAL_MANY || this == REQUIRED_MANY;
     }
 
+    /**
+     * Get the equivalent required multiplicity, keeping the once/many aspect unchanged. If this
+     * multiplicity is already required, it is returned as-is.
+     *
+     * @return The required variant of this multiplicity. Never <code>null</code>.
+     */
     @NonNull
     public EOptionMultiplicity getAsRequired ()
     {
@@ -86,6 +108,12 @@ public class Option implements IOptionBase
       return this;
     }
 
+    /**
+     * Get the equivalent optional multiplicity, keeping the once/many aspect unchanged. If this
+     * multiplicity is already optional, it is returned as-is.
+     *
+     * @return The optional variant of this multiplicity. Never <code>null</code>.
+     */
     @NonNull
     public EOptionMultiplicity getAsOptional ()
     {
@@ -96,6 +124,12 @@ public class Option implements IOptionBase
       return this;
     }
 
+    /**
+     * Get the equivalent repeatable (many) multiplicity, keeping the required/optional aspect
+     * unchanged. If this multiplicity is already repeatable, it is returned as-is.
+     *
+     * @return The repeatable variant of this multiplicity. Never <code>null</code>.
+     */
     @NonNull
     public EOptionMultiplicity getAsRepeatable ()
     {
@@ -106,6 +140,12 @@ public class Option implements IOptionBase
       return this;
     }
 
+    /**
+     * Get the equivalent once multiplicity, keeping the required/optional aspect unchanged. If this
+     * multiplicity is already once, it is returned as-is.
+     *
+     * @return The once variant of this multiplicity. Never <code>null</code>.
+     */
     @NonNull
     public EOptionMultiplicity getAsOnce ()
     {
@@ -200,11 +240,23 @@ public class Option implements IOptionBase
     return m_sShortOpt;
   }
 
+  /**
+   * @return <code>true</code> if this option has a short name, <code>false</code> if not.
+   * @see #getShortOpt()
+   */
   public boolean hasShortOpt ()
   {
     return StringHelper.isNotEmpty (m_sShortOpt);
   }
 
+  /**
+   * Check if this option has the specified short name.
+   *
+   * @param sShortOpt
+   *        The short name to check against. May be <code>null</code>.
+   * @return <code>true</code> if this option has the specified short name, <code>false</code>
+   *         otherwise.
+   */
   public boolean hasShortOpt (@Nullable final String sShortOpt)
   {
     return sShortOpt != null && sShortOpt.equals (m_sShortOpt);
@@ -233,11 +285,28 @@ public class Option implements IOptionBase
     return m_sLongOpt != null;
   }
 
+  /**
+   * Check if this option has the specified long name.
+   *
+   * @param sLongOpt
+   *        The long name to check against. May be <code>null</code>.
+   * @return <code>true</code> if this option has the specified long name, <code>false</code>
+   *         otherwise.
+   */
   public boolean hasLongOpt (@Nullable final String sLongOpt)
   {
     return sLongOpt != null && sLongOpt.equals (m_sLongOpt);
   }
 
+  /**
+   * Check if this option matches the given option name, comparing against both the short and the
+   * long name.
+   *
+   * @param sOptName
+   *        The option name to check. May be <code>null</code>.
+   * @return <code>true</code> if the passed name equals either the short or the long name of this
+   *         option, <code>false</code> otherwise.
+   */
   public boolean matches (@Nullable final String sOptName)
   {
     return sOptName != null && (sOptName.equals (m_sShortOpt) || sOptName.equals (m_sLongOpt));
@@ -271,6 +340,10 @@ public class Option implements IOptionBase
     return m_nMinArgs;
   }
 
+  /**
+   * @return <code>true</code> if this option requires at least one argument, <code>false</code> if
+   *         no minimum argument count is set.
+   */
   public boolean hasMinArgs ()
   {
     return m_nMinArgs != 0;
@@ -286,16 +359,32 @@ public class Option implements IOptionBase
     return m_nMaxArgs;
   }
 
+  /**
+   * @return <code>true</code> if this option accepts an unlimited number of arguments,
+   *         <code>false</code> if the argument count is bounded.
+   */
   public boolean hasInfiniteArgs ()
   {
     return m_nMaxArgs == INFINITE_VALUES;
   }
 
+  /**
+   * Check if this option can accept more argument values given the current count.
+   *
+   * @param nSize
+   *        The number of argument values already collected.
+   * @return <code>true</code> if more values can be added, <code>false</code> if the maximum has
+   *         been reached.
+   */
   public boolean canHaveMoreValues (final int nSize)
   {
     return hasInfiniteArgs () || nSize < m_nMaxArgs;
   }
 
+  /**
+   * @return <code>true</code> if this option can accept at least one argument value,
+   *         <code>false</code> if it takes no arguments at all.
+   */
   public boolean canHaveArgs ()
   {
     return hasInfiniteArgs () || m_nMaxArgs > 0;
