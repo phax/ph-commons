@@ -25,6 +25,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.callback.exception.IExceptionCallback;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.mock.exception.IMockException;
 import com.helger.base.tostring.ToStringGenerator;
@@ -34,8 +35,8 @@ import com.helger.diagnostics.error.level.IHasErrorLevel;
 import com.helger.diagnostics.log.LogHelper;
 
 /**
- * A specific implementation of the {@link IExceptionCallback} interface, that
- * logs all exceptions to a standard logger.
+ * A specific implementation of the {@link IExceptionCallback} interface, that logs all exceptions
+ * to a standard logger.
  *
  * @author Philip Helger
  */
@@ -44,6 +45,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingExceptionCallback.class);
 
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
 
   public LoggingExceptionCallback ()
@@ -55,7 +57,15 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   @NonNull
   public IErrorLevel getErrorLevel ()
   {
-    return m_aErrorLevel;
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      return m_aErrorLevel;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -68,7 +78,8 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   @NonNull
   public final LoggingExceptionCallback setErrorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
-    m_aErrorLevel = ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    m_aRWLock.writeLocked ( () -> m_aErrorLevel = aErrorLevel);
     return this;
   }
 
@@ -94,8 +105,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
    *
    * @param t
    *        The exception to check. May theoretically be <code>null</code>.
-   * @return <code>true</code> to log the exception, <code>false</code> to not
-   *         log it
+   * @return <code>true</code> to log the exception, <code>false</code> to not log it
    */
   @OverrideOnDemand
   protected boolean isLogException (@Nullable final Throwable t)
@@ -107,12 +117,12 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   {
     final String sLogMessage = getLogMessage (t);
     final boolean bLogException = isLogException (t);
-    LogHelper.log (LOGGER, m_aErrorLevel, sLogMessage, bLogException ? t : null);
+    LogHelper.log (LOGGER, getErrorLevel (), sLogMessage, bLogException ? t : null);
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).getToString ();
+    return new ToStringGenerator (this).append ("ErrorLevel", m_aErrorLevel).getToString ();
   }
 }
