@@ -36,6 +36,9 @@ import com.helger.text.util.TextHelper;
 @Translatable
 public enum EConfigSourceTypeName implements IHasDisplayText
 {
+  /**
+   * A configuration value from a Java system property.
+   */
   SYSTEM_PROPERTY ("System Property", "System Property"),
   /**
    * A configuration value from an environment variable.
