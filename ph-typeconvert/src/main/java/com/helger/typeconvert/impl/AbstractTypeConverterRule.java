@@ -40,6 +40,9 @@ public abstract class AbstractTypeConverterRule <SRC, DST> implements ITypeConve
     m_eSubType = ValueEnforcer.notNull (eSubType, "SubType");
   }
 
+  /**
+   * @return The sub type of this converter rule. Never <code>null</code>.
+   */
   @NonNull
   public final ESubType getSubType ()
   {

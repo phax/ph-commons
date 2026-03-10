@@ -59,6 +59,16 @@ public final class TreeVisitor
     private final IHierarchyVisitorCallback <? super DATATYPE> m_aDataCallback;
     private final Function <? super ITEMTYPE, ? extends DATATYPE> m_aConverter;
 
+    /**
+     * Constructor.
+     *
+     * @param aDataCallback
+     *        The callback to delegate to after conversion. May not be
+     *        <code>null</code>.
+     * @param aConverter
+     *        The converter function from source to target type. May not be
+     *        <code>null</code>.
+     */
     public HierarchyVisitorCallbackWithConversion (@NonNull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback,
                                                    @NonNull final Function <? super ITEMTYPE, ? extends DATATYPE> aConverter)
     {
@@ -117,12 +127,40 @@ public final class TreeVisitor
   private TreeVisitor ()
   {}
 
+  /**
+   * Visit all items of the passed tree using the default children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTree
+   *        The tree to visit. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited item. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                  @NonNull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
     visitTree (aTree, new ChildrenProviderHasChildren <> (), aCallback);
   }
 
+  /**
+   * Visit all items of the passed tree using a custom children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTree
+   *        The tree to visit. May not be <code>null</code>.
+   * @param aChildrenResolver
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited item. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTree (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                  @NonNull final IChildrenProvider <ITEMTYPE> aChildrenResolver,
                                                                                                  @NonNull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
@@ -131,12 +169,41 @@ public final class TreeVisitor
     visitTreeItem (aTree.getRootItem (), aChildrenResolver, aCallback);
   }
 
+  /**
+   * Visit all data values of the passed tree using the default children
+   * provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTree
+   *        The tree to visit. May not be <code>null</code>.
+   * @param aDataCallback
+   *        The callback to invoke for each visited data value. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                      @NonNull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
     visitTreeData (aTree, new ChildrenProviderHasChildren <> (), aDataCallback);
   }
 
+  /**
+   * Visit all data values of the passed tree using a custom children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTree
+   *        The tree to visit. May not be <code>null</code>.
+   * @param aChildrenProvider
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aDataCallback
+   *        The callback to invoke for each visited data value. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeData (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                      @NonNull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
                                                                                                      @NonNull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
@@ -146,6 +213,20 @@ public final class TreeVisitor
     visitTreeItemData (aTree.getRootItem (), aChildrenProvider, aDataCallback);
   }
 
+  /**
+   * Visit a single tree item and all its descendants using the default
+   * children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTreeItem
+   *        The tree item to start visiting from. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited item. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItem (@NonNull final ITEMTYPE aTreeItem,
                                                                                                      @NonNull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
   {
@@ -153,6 +234,22 @@ public final class TreeVisitor
     ChildrenProviderHierarchyVisitor.visitFrom (aTreeItem, aCallback, false);
   }
 
+  /**
+   * Visit a single tree item and all its descendants using a custom children
+   * provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTreeItem
+   *        The tree item to start visiting from. May not be <code>null</code>.
+   * @param aChildrenProvider
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited item. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItem (@NonNull final ITEMTYPE aTreeItem,
                                                                                                      @NonNull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
                                                                                                      @NonNull final IHierarchyVisitorCallback <? super ITEMTYPE> aCallback)
@@ -161,12 +258,42 @@ public final class TreeVisitor
     ChildrenProviderHierarchyVisitor.visitFrom (aTreeItem, aChildrenProvider, aCallback, false);
   }
 
+  /**
+   * Visit the data values of a single tree item and all its descendants using
+   * the default children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTreeItem
+   *        The tree item to start visiting from. May not be <code>null</code>.
+   * @param aDataCallback
+   *        The callback to invoke for each visited data value. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@NonNull final ITEMTYPE aTreeItem,
                                                                                                          @NonNull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)
   {
     visitTreeItemData (aTreeItem, new ChildrenProviderHasChildren <> (), aDataCallback);
   }
 
+  /**
+   * Visit the data values of a single tree item and all its descendants using
+   * a custom children provider.
+   *
+   * @param <DATATYPE>
+   *        The tree item data type
+   * @param <ITEMTYPE>
+   *        The tree item type
+   * @param aTreeItem
+   *        The tree item to start visiting from. May not be <code>null</code>.
+   * @param aChildrenProvider
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aDataCallback
+   *        The callback to invoke for each visited data value. May not be
+   *        <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> void visitTreeItemData (@NonNull final ITEMTYPE aTreeItem,
                                                                                                          @NonNull final IChildrenProvider <ITEMTYPE> aChildrenProvider,
                                                                                                          @NonNull final IHierarchyVisitorCallback <? super DATATYPE> aDataCallback)

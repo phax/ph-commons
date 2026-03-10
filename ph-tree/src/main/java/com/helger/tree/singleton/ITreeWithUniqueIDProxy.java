@@ -44,6 +44,9 @@ import com.helger.tree.withid.unique.ITreeWithGlobalUniqueID;
 public interface ITreeWithUniqueIDProxy <KEYTYPE, VALUETYPE> extends
                                         ITreeWithGlobalUniqueID <KEYTYPE, VALUETYPE, DefaultTreeItemWithID <KEYTYPE, VALUETYPE>>
 {
+  /**
+   * @return The underlying tree that is proxied. Never <code>null</code>.
+   */
   @NonNull
   DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ();
 

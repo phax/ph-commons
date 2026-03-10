@@ -41,6 +41,7 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   private long m_nMax = CGlobal.ILLEGAL_ULONG;
   private BigInteger m_aSum = BigInteger.ZERO;
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int getInvocationCount ()
   {
@@ -66,18 +67,21 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
     }
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final BigInteger getSum ()
   {
     return m_aRWLock.readLockedGet ( () -> m_aSum);
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public final long getMin ()
   {
     return m_aRWLock.readLockedLong ( () -> m_nMin);
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public final long getAverage ()
   {
@@ -88,6 +92,7 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
     });
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public long getMax ()
   {

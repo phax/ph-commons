@@ -49,6 +49,7 @@ public enum EHttpMethod implements IHasName
     m_sName = sName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()
@@ -56,27 +57,57 @@ public enum EHttpMethod implements IHasName
     return m_sName;
   }
 
+  /**
+   * @return <code>true</code> if this HTTP method is idempotent (GET, HEAD,
+   *         PUT, DELETE, OPTIONS, TRACE), <code>false</code> otherwise.
+   */
   public boolean isIdempodent ()
   {
     return this == GET || this == HEAD || this == PUT || this == DELETE || this == OPTIONS || this == TRACE;
   }
 
+  /**
+   * @return <code>true</code> if the response to this HTTP method may contain
+   *         a body. This is <code>false</code> only for HEAD.
+   */
   public boolean isContentAllowed ()
   {
     return this != HEAD;
   }
 
+  /**
+   * @return <code>true</code> if this HTTP method typically carries a payload
+   *         in the request body (POST, PUT, PATCH), <code>false</code>
+   *         otherwise.
+   */
   public boolean isPayloadInBody ()
   {
     return this == POST || this == PUT || this == PATCH;
   }
 
+  /**
+   * Get the enum value matching the provided name.
+   *
+   * @param sName
+   *        The name to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static EHttpMethod getFromNameOrNull (@Nullable final String sName)
   {
     return EnumHelper.getFromNameOrNull (EHttpMethod.class, sName);
   }
 
+  /**
+   * Get the enum value matching the provided name, or a default value.
+   *
+   * @param sName
+   *        The name to search. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return if no match is found. May be
+   *        <code>null</code>.
+   * @return The matching enum value or the provided default.
+   */
   @Nullable
   public static EHttpMethod getFromNameOrDefault (@Nullable final String sName, @Nullable final EHttpMethod eDefault)
   {

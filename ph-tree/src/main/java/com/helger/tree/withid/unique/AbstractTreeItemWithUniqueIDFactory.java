@@ -87,6 +87,9 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return aItem.getID ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ITEMTYPE create (@NonNull final ITEMTYPE aParent, @NonNull final KEYTYPE aDataID)
   {
@@ -97,35 +100,53 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return addToItemStore (internalGetItemID (aTreeItem), aTreeItem);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final void onRemoveItem (@NonNull final ITEMTYPE aTreeItem)
   {
     // Remove item from item store
     m_aItemStore.remove (internalGetItemID (aTreeItem));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final void onAddItem (@NonNull final ITEMTYPE aTreeItem)
   {
     // Add item to item store
     addToItemStore (internalGetItemID (aTreeItem), aTreeItem);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean containsItemWithDataID (@Nullable final KEYTYPE aDataID)
   {
     return m_aItemStore.containsKey (aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final ITEMTYPE getItemOfDataID (@Nullable final KEYTYPE aDataID)
   {
     return m_aItemStore.get (aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public final int getItemCount ()
   {
     return m_aItemStore.size ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <ITEMTYPE> getAllItems ()
@@ -133,6 +154,9 @@ public abstract class AbstractTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, IT
     return m_aItemStore.copyOfValues ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> getAllItemDatas ()

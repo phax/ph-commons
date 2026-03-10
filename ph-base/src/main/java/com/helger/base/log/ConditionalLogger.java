@@ -43,11 +43,25 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   private final Logger m_aLogger;
   private final AtomicBoolean m_aEnabled;
 
+  /**
+   * Constructor with default enabled state.
+   *
+   * @param aLogger
+   *        The SLF4J logger to use. May not be <code>null</code>.
+   */
   public ConditionalLogger (@NonNull final Logger aLogger)
   {
     this (aLogger, DEFAULT_ENABLED);
   }
 
+  /**
+   * Constructor with explicit enabled state.
+   *
+   * @param aLogger
+   *        The SLF4J logger to use. May not be <code>null</code>.
+   * @param bEnabled
+   *        <code>true</code> to enable logging, <code>false</code> to disable it.
+   */
   public ConditionalLogger (@NonNull final Logger aLogger, final boolean bEnabled)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
@@ -55,107 +69,165 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
     m_aEnabled = new AtomicBoolean (bEnabled);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isEnabled ()
   {
     return m_aEnabled.get ();
   }
 
+  /**
+   * Enable or disable this conditional logger.
+   *
+   * @param bEnabled
+   *        <code>true</code> to enable, <code>false</code> to disable.
+   * @return The previous enabled state.
+   */
   public boolean setEnabled (final boolean bEnabled)
   {
     // Return the old value
     return m_aEnabled.getAndSet (bEnabled);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void trace (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
       m_aLogger.trace (aMsgSupplier.get ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void trace (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
       m_aLogger.trace (aMsgSupplier.get (), ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void debug (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
       m_aLogger.debug (aMsgSupplier.get ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void debug (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
       m_aLogger.debug (aMsgSupplier.get (), ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void info (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.info (sMsg);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void info (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.info (aMsgSupplier.get ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void info (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.info (sMsg, ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.info (aMsgSupplier.get (), ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void warn (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.warn (sMsg);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void warn (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.warn (aMsgSupplier.get ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void warn (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.warn (sMsg, ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.warn (aMsgSupplier.get (), ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void error (@NonNull final String sMsg)
   {
     if (isEnabled ())
       m_aLogger.error (sMsg);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void error (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled ())
       m_aLogger.error (aMsgSupplier.get ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void error (@NonNull final String sMsg, @Nullable final Exception ex)
   {
     if (isEnabled ())
       m_aLogger.error (sMsg, ex);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
   {
     if (isEnabled ())

@@ -36,6 +36,9 @@ import com.helger.text.resolve.DefaultTextResolver;
 @IsSPIImplementation
 public final class TextCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 300, () -> {

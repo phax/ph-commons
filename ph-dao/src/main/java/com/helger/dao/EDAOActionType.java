@@ -42,6 +42,7 @@ public enum EDAOActionType implements IHasID <String>
     m_sID = sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -49,12 +50,28 @@ public enum EDAOActionType implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * Get the enum value matching the given ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such action type exists.
+   */
   @Nullable
   public static EDAOActionType getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (EDAOActionType.class, sID);
   }
 
+  /**
+   * Get the enum value matching the given ID or throw an exception.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If no matching action type is found.
+   */
   @Nullable
   public static EDAOActionType getFromIDOrThrow (@Nullable final String sID)
   {

@@ -51,11 +51,18 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
     super (DateTimeFormatterPattern::getAsFormatter, MAX_CACHE_SIZE, DateTimeFormatterCache.class.getName ());
   }
 
+  /**
+   * @return <code>true</code> if the singleton has been instantiated,
+   *         <code>false</code> if not.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static DateTimeFormatterCache getInstance ()
   {

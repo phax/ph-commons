@@ -33,6 +33,9 @@ public interface IWrappedReadableResource extends IReadableResource
   @NonNull
   IReadableResource getWrappedReadableResource ();
 
+  /**
+   * {@inheritDoc}
+   */
   default boolean isReadMultiple ()
   {
     return getWrappedReadableResource ().isReadMultiple ();

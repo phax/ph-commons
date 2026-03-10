@@ -33,24 +33,28 @@ import com.helger.graph.impl.GraphRelation;
  */
 public class SimpleGraphObjectFactory implements IMutableGraphObjectFactory
 {
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode createNode ()
   {
     return new GraphNode ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode createNode (@Nullable final String sID)
   {
     return new GraphNode (sID);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     return new GraphRelation (aFrom, aTo);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@Nullable final String sID,
                                                @NonNull final IMutableGraphNode aFrom,

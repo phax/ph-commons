@@ -36,14 +36,30 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
   private char [] m_aPassword;
   private Provider m_aProvider;
 
+  /**
+   * Default constructor.
+   */
   public TrustStoreDescriptorBuilder ()
   {}
 
+  /**
+   * Copy constructor from an existing descriptor.
+   *
+   * @param aSrc
+   *        The source descriptor to copy from. May not be <code>null</code>.
+   */
   public TrustStoreDescriptorBuilder (@NonNull final TrustStoreDescriptor aSrc)
   {
     type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
   }
 
+  /**
+   * Set the trust store type.
+   *
+   * @param a
+   *        The trust store type to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final TrustStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
@@ -51,6 +67,13 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
     return this;
   }
 
+  /**
+   * Set the trust store path.
+   *
+   * @param s
+   *        The path to the trust store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final TrustStoreDescriptorBuilder path (@Nullable final String s)
   {
@@ -58,12 +81,26 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
     return this;
   }
 
+  /**
+   * Set the trust store password as a String.
+   *
+   * @param s
+   *        The password for the trust store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final TrustStoreDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
+  /**
+   * Set the trust store password as a char array.
+   *
+   * @param a
+   *        The password for the trust store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final TrustStoreDescriptorBuilder password (final char @Nullable [] a)
   {
@@ -71,6 +108,13 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
     return this;
   }
 
+  /**
+   * Set the security provider to use.
+   *
+   * @param a
+   *        The security provider. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final TrustStoreDescriptorBuilder provider (@Nullable final Provider a)
   {
@@ -78,6 +122,13 @@ public class TrustStoreDescriptorBuilder implements IBuilder <TrustStoreDescript
     return this;
   }
 
+  /**
+   * Build the {@link TrustStoreDescriptor} from the provided parameters.
+   *
+   * @return A new {@link TrustStoreDescriptor} instance. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if any required parameter is missing.
+   */
   @NonNull
   public TrustStoreDescriptor build () throws IllegalStateException
   {

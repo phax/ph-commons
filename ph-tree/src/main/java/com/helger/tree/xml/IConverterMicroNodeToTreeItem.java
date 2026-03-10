@@ -31,8 +31,18 @@ import com.helger.xml.microdom.IMicroElement;
  */
 public interface IConverterMicroNodeToTreeItem <DATATYPE>
 {
+  /**
+   * @return The namespace URI to use. May be <code>null</code>.
+   */
   @Nullable
   String getNamespaceURI ();
 
+  /**
+   * Convert the passed micro element to a data value.
+   *
+   * @param eDataElement
+   *        The micro element to convert. May not be <code>null</code>.
+   * @return The converted data value. May be <code>null</code>.
+   */
   DATATYPE getAsDataValue (@NonNull IMicroElement eDataElement);
 }

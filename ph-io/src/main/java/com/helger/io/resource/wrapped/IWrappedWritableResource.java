@@ -33,6 +33,9 @@ public interface IWrappedWritableResource extends IWritableResource
   @NonNull
   IWritableResource getWrappedWritableResource ();
 
+  /**
+   * {@inheritDoc}
+   */
   default boolean isWriteMultiple ()
   {
     return getWrappedWritableResource ().isWriteMultiple ();

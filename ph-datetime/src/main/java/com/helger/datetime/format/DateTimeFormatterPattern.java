@@ -48,6 +48,14 @@ public final class DateTimeFormatterPattern
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @param eResolverStyle
+   *        The resolver style to use. May not be <code>null</code>.
+   */
   public DateTimeFormatterPattern (@NonNull @Nonempty final String sPattern, @NonNull final ResolverStyle eResolverStyle)
   {
     ValueEnforcer.notEmpty (sPattern, "RegEx");

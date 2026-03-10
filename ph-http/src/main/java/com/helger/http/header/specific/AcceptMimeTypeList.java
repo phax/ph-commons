@@ -38,9 +38,24 @@ import com.helger.mime.parse.MimeTypeParserException;
 @NotThreadSafe
 public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
 {
+  /**
+   * Constructor creating an empty accept MIME type list.
+   */
   public AcceptMimeTypeList ()
   {}
 
+  /**
+   * Add a MIME type with the given quality by parsing the provided string.
+   *
+   * @param sMimeType
+   *        The MIME type string to parse and add. May neither be
+   *        <code>null</code> nor empty.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   * @throws MimeTypeParserException
+   *         If the MIME type string cannot be parsed.
+   */
   @NonNull
   public AcceptMimeTypeList addMimeType (@NonNull @Nonempty final String sMimeType, @Nonnegative final double dQuality)
                                                                                                                         throws MimeTypeParserException
@@ -49,6 +64,17 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
     return addMimeType (MimeTypeParser.parseMimeType (sMimeType), dQuality);
   }
 
+  /**
+   * Add a MIME type with the given quality. The MIME type must not contain any
+   * parameters.
+   *
+   * @param aMimeType
+   *        The MIME type to add. May not be <code>null</code> and must not
+   *        have any parameters.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   */
   @NonNull
   public AcceptMimeTypeList addMimeType (@NonNull final IMimeType aMimeType, @Nonnegative final double dQuality)
   {

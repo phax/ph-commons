@@ -40,11 +40,21 @@ public interface IAuthIdentification extends ISuccessIndicator
   @Nullable
   IAuthSubject getAuthSubject ();
 
+  /**
+   * {@inheritDoc}
+   */
   default boolean isSuccess ()
   {
     return getAuthSubject () != null;
   }
 
+  /**
+   * Check if this identification has the specified auth subject.
+   *
+   * @param aSubject
+   *        The auth subject to check for. May be <code>null</code>.
+   * @return <code>true</code> if the auth subjects are equal, <code>false</code> otherwise.
+   */
   default boolean hasAuthSubject (@Nullable final IAuthSubject aSubject)
   {
     return EqualsHelper.equals (getAuthSubject (), aSubject);

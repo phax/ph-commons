@@ -45,6 +45,13 @@ public class FileRelativeIO implements IFileRelativeIO
 
   private final File m_aBasePath;
 
+  /**
+   * Check read/write/execute access rights for the given base path and all
+   * contained files and directories.
+   *
+   * @param aBasePath
+   *        The base path to check. May not be <code>null</code>.
+   */
   public static void internalCheckAccessRights (@NonNull final File aBasePath)
   {
     // Check read/write/execute
@@ -87,6 +94,13 @@ public class FileRelativeIO implements IFileRelativeIO
                  " milliseconds");
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aBasePath
+   *        The absolute base path to use. May not be <code>null</code>. Must be
+   *        an absolute path.
+   */
   public FileRelativeIO (@NonNull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
@@ -109,6 +123,9 @@ public class FileRelativeIO implements IFileRelativeIO
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public File getBasePathFile ()
   {
@@ -138,6 +155,11 @@ public class FileRelativeIO implements IFileRelativeIO
     return new ToStringGenerator (this).append ("BasePath", m_aBasePath).getToString ();
   }
 
+  /**
+   * Create a new {@link FileRelativeIO} for the current working directory.
+   *
+   * @return A new {@link FileRelativeIO} instance. Never <code>null</code>.
+   */
   @NonNull
   public static FileRelativeIO createForCurrentDir ()
   {

@@ -90,6 +90,15 @@ public class XMLEmitter implements AutoCloseable, Flushable
     return s_bThrowExceptionOnNestedComments;
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aWriter
+   *        The writer to emit XML to. May not be <code>null</code>. Will not
+   *        be closed by this class.
+   * @param aSettings
+   *        The XML writer settings to use. May not be <code>null</code>.
+   */
   public XMLEmitter (@NonNull @WillNotClose final Writer aWriter, @NonNull final IXMLWriterSettings aSettings)
   {
     m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
@@ -199,6 +208,11 @@ public class XMLEmitter implements AutoCloseable, Flushable
     return _append (m_cAttrValueBoundary)._appendMasked (m_eAttrValueCharMode, sValue)._append (m_cAttrValueBoundary);
   }
 
+  /**
+   * Emit a new line if indentation alignment is enabled.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public XMLEmitter newLine ()
   {
@@ -530,6 +544,15 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
+  /**
+   * Emit the opening part of an element start tag (the '&lt;' and element
+   * name).
+   *
+   * @param sNamespacePrefix
+   *        Optional namespace prefix. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name. May not be <code>null</code>.
+   */
   public void elementStartOpen (@Nullable final String sNamespacePrefix, @NonNull final String sTagName)
   {
     _append ('<');
@@ -541,6 +564,16 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ELEMENT_NAME, sTagName);
   }
 
+  /**
+   * Emit a single element attribute.
+   *
+   * @param sAttrNamespacePrefix
+   *        Optional attribute namespace prefix. May be <code>null</code>.
+   * @param sAttrName
+   *        The attribute name. May not be <code>null</code>.
+   * @param sAttrValue
+   *        The attribute value. May not be <code>null</code>.
+   */
   public void elementAttr (@Nullable final String sAttrNamespacePrefix,
                            @NonNull final String sAttrName,
                            @NonNull final String sAttrValue)
@@ -554,6 +587,12 @@ public class XMLEmitter implements AutoCloseable, Flushable
     _appendMasked (EXMLCharMode.ATTRIBUTE_NAME, sAttrName)._append ('=')._appendAttrValue (sAttrValue);
   }
 
+  /**
+   * Emit the closing part of an element start tag ('&gt;' or '/&gt;').
+   *
+   * @param eBracketMode
+   *        The bracket mode to use. May not be <code>null</code>.
+   */
   public void elementStartClose (@NonNull final EXMLSerializeBracketMode eBracketMode)
   {
     if (eBracketMode.isSelfClosed ())
@@ -655,11 +694,13 @@ public class XMLEmitter implements AutoCloseable, Flushable
     }
   }
 
+  /** {@inheritDoc} */
   public void flush () throws IOException
   {
     m_aWriter.flush ();
   }
 
+  /** {@inheritDoc} */
   public void close () throws IOException
   {
     m_aWriter.close ();

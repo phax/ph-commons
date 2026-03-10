@@ -44,16 +44,29 @@ public enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
     m_nValue = nValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int getID ()
   {
     return m_nValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isSuccess ()
   {
     return this == SUCCESSFUL;
   }
 
+  /**
+   * Find the OCSP response status with the passed integer value.
+   *
+   * @param nID
+   *        The integer ID to search for.
+   * @return <code>null</code> if no matching status was found.
+   */
   @Nullable
   public static EOCSPResponseStatus getFromValueOrNull (final int nID)
   {

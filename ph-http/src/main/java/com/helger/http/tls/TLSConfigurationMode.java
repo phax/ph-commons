@@ -75,6 +75,18 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
       LOGGER.debug ("Initialized TLS ContextMap with " + TLS_CONTEXT_MAP.keySet () + " keys");
   }
 
+  /**
+   * Check if the provided cipher suite is supported in the SSL context for any
+   * of the provided TLS versions.
+   *
+   * @param aTLSVersions
+   *        The TLS versions to check against. May not be <code>null</code>.
+   * @param sCipherSuite
+   *        The cipher suite name to check. May neither be <code>null</code>
+   *        nor empty.
+   * @return <code>true</code> if the cipher suite is supported in at least one
+   *         of the provided TLS versions, <code>false</code> otherwise.
+   */
   public static boolean isSupportedCipherSuiteInSSLContext (@NonNull final ETLSVersion [] aTLSVersions,
                                                             @NonNull @Nonempty final String sCipherSuite)
   {
@@ -126,6 +138,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
                                                        x -> isSupportedCipherSuiteInSSLContext (aTLSVersions, x));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
@@ -133,6 +146,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
     return m_aTLSVersions.getClone ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -141,6 +155,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
     return m_aTLSVersions.getAllMapped (ETLSVersion::getID);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsMutableCopy
   @Override
@@ -151,6 +166,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
     return getAllTLSVersionIDs ().toArray (new String [m_aTLSVersions.size ()]);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
@@ -158,6 +174,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
     return m_aCipherSuites.getClone ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   @ReturnsMutableCopy
   @Override

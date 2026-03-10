@@ -61,6 +61,9 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
   public AbstractCSPSourceList ()
   {}
 
+  /**
+   * @return The number of source expressions in this list. Always &ge; 0.
+   */
   @Nonnegative
   public int getExpressionCount ()
   {

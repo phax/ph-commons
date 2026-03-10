@@ -44,6 +44,10 @@ public class NaturalNumericOrderComparator implements Comparator <String>
     m_aOtherComp = aOtherComp;
   }
 
+  /**
+   * @return The fallback comparator used when no numeric comparison is needed.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public final Comparator <? super String> getOtherComparator ()
   {
@@ -106,6 +110,9 @@ public class NaturalNumericOrderComparator implements Comparator <String>
     return a.length () - b.length ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int compare (@NonNull final String a, @NonNull final String b)
   {
     int ia = 0;

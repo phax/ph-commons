@@ -28,6 +28,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class CSPPolicy extends AbstractCSPPolicy <CSPDirective>
 {
+  /**
+   * Constructor creating an empty CSP policy.
+   */
   public CSPPolicy ()
   {}
 }

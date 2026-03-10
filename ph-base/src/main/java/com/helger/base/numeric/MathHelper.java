@@ -97,31 +97,89 @@ public final class MathHelper
     return dDividend / dDivisor;
   }
 
+  /**
+   * Divide two integers and round up (ceiling).
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @return the result of the division rounded towards positive infinity.
+   */
   public static int getIntDividedCeil (final int nDividend, final int nDivisor)
   {
     return getIntDivided (nDividend, nDivisor, RoundingMode.CEILING);
   }
 
+  /**
+   * Divide two integers and round down (floor).
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @return the result of the division rounded towards negative infinity.
+   */
   public static int getIntDividedFloor (final int nDividend, final int nDivisor)
   {
     return getIntDivided (nDividend, nDivisor, RoundingMode.FLOOR);
   }
 
+  /**
+   * Divide two integers using the specified rounding mode.
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return the result of the division with the specified rounding applied.
+   */
   public static int getIntDivided (final int nDividend, final int nDivisor, @NonNull final RoundingMode eRoundingMode)
   {
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).intValue ();
   }
 
+  /**
+   * Divide two longs and round up (ceiling).
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @return the result of the division rounded towards positive infinity.
+   */
   public static long getLongDividedCeil (final long nDividend, final long nDivisor)
   {
     return getLongDivided (nDividend, nDivisor, RoundingMode.CEILING);
   }
 
+  /**
+   * Divide two longs and round down (floor).
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @return the result of the division rounded towards negative infinity.
+   */
   public static long getLongDividedFloor (final long nDividend, final long nDivisor)
   {
     return getLongDivided (nDividend, nDivisor, RoundingMode.FLOOR);
   }
 
+  /**
+   * Divide two longs using the specified rounding mode.
+   *
+   * @param nDividend
+   *        the dividend
+   * @param nDivisor
+   *        the divisor
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return the result of the division with the specified rounding applied.
+   */
   public static long getLongDivided (final long nDividend,
                                      final long nDivisor,
                                      @NonNull final RoundingMode eRoundingMode)
@@ -129,17 +187,42 @@ public final class MathHelper
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
 
+  /**
+   * Check if the passed long value can be safely converted to an int without losing information.
+   *
+   * @param nValue
+   *        The long value to check.
+   * @return <code>true</code> if the value fits in an int, <code>false</code> otherwise.
+   */
   public static boolean canConvertLongToInt (final long nValue)
   {
     return (nValue & LONG_HIGH_BITS) == 0 || (nValue & LONG_HIGH_BITS) == LONG_HIGH_BITS;
   }
 
+  /**
+   * Convert a long to an int, returning a fallback value if the conversion would lose information.
+   *
+   * @param nValue
+   *        The long value to convert.
+   * @param nFallback
+   *        The fallback value to return if the long cannot be safely converted to an int.
+   * @return The int value, or the fallback if the value does not fit in an int.
+   */
   @CheckReturnValue
   public static int getLongAsInt (final long nValue, final int nFallback)
   {
     return canConvertLongToInt (nValue) ? (int) nValue : nFallback;
   }
 
+  /**
+   * Get the maximum of the passed int values.
+   *
+   * @param nValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The maximum of all passed values.
+   */
   public static int getMaxInt (final int nValue, final int... aValues)
   {
     int ret = nValue;
@@ -148,6 +231,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the maximum of the passed long values.
+   *
+   * @param nValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The maximum of all passed values.
+   */
   public static long getMaxLong (final long nValue, final long... aValues)
   {
     long ret = nValue;
@@ -156,6 +248,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the maximum of the passed float values.
+   *
+   * @param fValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The maximum of all passed values.
+   */
   public static double getMaxFloat (final float fValue, final float... aValues)
   {
     float ret = fValue;
@@ -164,6 +265,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the maximum of the passed double values.
+   *
+   * @param dValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The maximum of all passed values.
+   */
   public static double getMaxDouble (final double dValue, final double... aValues)
   {
     double ret = dValue;
@@ -172,6 +282,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed int values.
+   *
+   * @param nValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The minimum of all passed values.
+   */
   public static int getMinInt (final int nValue, final int... aValues)
   {
     int ret = nValue;
@@ -180,6 +299,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed long values.
+   *
+   * @param nValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The minimum of all passed values.
+   */
   public static long getMinLong (final long nValue, final long... aValues)
   {
     long ret = nValue;
@@ -188,6 +316,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed float values.
+   *
+   * @param fValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The minimum of all passed values.
+   */
   public static double getMinFloat (final float fValue, final float... aValues)
   {
     float ret = fValue;
@@ -196,6 +333,15 @@ public final class MathHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed double values.
+   *
+   * @param dValue
+   *        The first value.
+   * @param aValues
+   *        The remaining values.
+   * @return The minimum of all passed values.
+   */
   public static double getMinDouble (final double dValue, final double... aValues)
   {
     double ret = dValue;

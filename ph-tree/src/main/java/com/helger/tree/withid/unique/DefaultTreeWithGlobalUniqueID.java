@@ -36,11 +36,20 @@ import com.helger.tree.withid.DefaultTreeItemWithID;
 public class DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> extends
                                            BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
+  /**
+   * Constructor using the default {@link DefaultTreeItemWithUniqueIDFactory}.
+   */
   public DefaultTreeWithGlobalUniqueID ()
   {
     this (new DefaultTreeItemWithUniqueIDFactory <> ());
   }
 
+  /**
+   * Constructor with a custom tree item factory.
+   *
+   * @param aFactory
+   *        The tree item factory to use. May not be <code>null</code>.
+   */
   public DefaultTreeWithGlobalUniqueID (@NonNull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
   {
     super (aFactory);

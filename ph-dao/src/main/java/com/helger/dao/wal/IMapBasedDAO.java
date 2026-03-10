@@ -127,6 +127,17 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
   @Nullable
   INTERFACETYPE findFirst (@Nullable Predicate <? super INTERFACETYPE> aFilter);
 
+  /**
+   * Find the first element matching the filter and map it.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @param aMapper
+   *        The mapper to be invoked. May not be <code>null</code>.
+   * @return The mapped first matching element or <code>null</code>.
+   * @param <RETTYPE>
+   *        Return type to which is mapped
+   */
   @Nullable
   <RETTYPE> RETTYPE findFirstMapped (@Nullable Predicate <? super INTERFACETYPE> aFilter,
                                      @NonNull Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper);

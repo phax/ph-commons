@@ -35,6 +35,12 @@ public class SessionScope extends AbstractScope implements ISessionScope
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (SessionScope.class);
 
+  /**
+   * Constructor.
+   *
+   * @param sScopeID
+   *        The scope ID. May neither be <code>null</code> nor empty.
+   */
   public SessionScope (@NonNull @Nonempty final String sScopeID)
   {
     super (sScopeID);
@@ -44,6 +50,9 @@ public class SessionScope extends AbstractScope implements ISessionScope
       LOGGER.info ("Created session scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void initScope ()
   {}
 
@@ -63,6 +72,9 @@ public class SessionScope extends AbstractScope implements ISessionScope
                    ScopeHelper.getDebugException ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EContinue selfDestruct ()
   {

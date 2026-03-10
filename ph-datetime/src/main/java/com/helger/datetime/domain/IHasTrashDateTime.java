@@ -40,11 +40,20 @@ public interface IHasTrashDateTime
   @Nullable
   LocalDateTime getTrashDateTime ();
 
+  /**
+   * @return <code>true</code> if a trash date time is present,
+   *         <code>false</code> if not.
+   * @see #getTrashDateTime()
+   */
   default boolean hasTrashDateTime ()
   {
     return getTrashDateTime () != null;
   }
 
+  /**
+   * @return The extracted date from the trash date and time or
+   *         <code>null</code> if no trash date time is present.
+   */
   @Nullable
   default LocalDate getTrashDate ()
   {
@@ -52,6 +61,10 @@ public interface IHasTrashDateTime
     return aLDT == null ? null : aLDT.toLocalDate ();
   }
 
+  /**
+   * @return The extracted time from the trash date and time or
+   *         <code>null</code> if no trash date time is present.
+   */
   @Nullable
   default LocalTime getTrashTime ()
   {

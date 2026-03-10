@@ -33,6 +33,12 @@ public class SettingsCache extends Cache <String, ISettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
 
+  /**
+   * Constructor.
+   *
+   * @param aSettingsFactory
+   *        The settings factory to use. May not be <code>null</code>.
+   */
   public SettingsCache (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     super (aSettingsFactory::apply, 500, SettingsCache.class.getName ());

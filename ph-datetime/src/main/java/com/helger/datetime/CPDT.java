@@ -43,6 +43,7 @@ public final class CPDT
   /** Default end of week: Sunday */
   public static final DayOfWeek END_OF_WEEK_DAY = DayOfWeek.SUNDAY;
 
+  /** Minimum year representable as an int32, derived from epoch day 0 */
   public static final int MIN_YEAR_INT32 = LocalDate.ofEpochDay (0).getYear ();
 
   /** Default null local date: 1.1.1970 */

@@ -107,18 +107,28 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
     m_aFilesLeft = FileHelper.getDirectoryContent (aBaseDir);
   }
 
+  /**
+   * @return The start level as determined by the base directory. Always &ge; 0.
+   */
   @Nonnegative
   public int getStartLevel ()
   {
     return m_nStartLevel;
   }
 
+  /**
+   * @return The recursion filter as provided in the constructor. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public Predicate <File> getRecursionFilter ()
   {
     return m_aRecursionFilter;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean hasNext ()
   {
     return m_aFilesLeft.isNotEmpty ();
@@ -137,6 +147,9 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
     return m_aRecursionFilter == null || m_aRecursionFilter.test (aDirectory);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final File next ()
   {

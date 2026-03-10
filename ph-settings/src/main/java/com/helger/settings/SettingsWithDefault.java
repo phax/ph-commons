@@ -37,17 +37,33 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
 {
   private final transient ISettings m_aDefaultSettings;
 
+  /**
+   * Constructor using the name from the default settings.
+   *
+   * @param aDefaultSettings
+   *        The default settings to use. May not be <code>null</code>.
+   */
   public SettingsWithDefault (@NonNull final ISettings aDefaultSettings)
   {
     this (aDefaultSettings.getName (), aDefaultSettings);
   }
 
+  /**
+   * Constructor with explicit name and default settings.
+   *
+   * @param sName
+   *        The name of the settings. May neither be <code>null</code> nor
+   *        empty.
+   * @param aDefaultSettings
+   *        The default settings to use. May not be <code>null</code>.
+   */
   public SettingsWithDefault (@NonNull @Nonempty final String sName, @NonNull final ISettings aDefaultSettings)
   {
     super (sName);
     m_aDefaultSettings = ValueEnforcer.notNull (aDefaultSettings, "DefaultSettings");
   }
 
+  /** {@inheritDoc} */
   public boolean containsKeyDirect (@Nullable final String sFieldName)
   {
     return super.containsKey (sFieldName);
@@ -61,6 +77,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return m_aDefaultSettings.containsKey (sFieldName);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Object getValueDirect (@Nullable final String sFieldName)
   {
@@ -80,12 +97,14 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return aValue;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final ISettings getDefaultSettings ()
   {
     return m_aDefaultSettings;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange setToDefault (@Nullable final String sFieldName)
   {
@@ -98,6 +117,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return putIn (sFieldName, aDefaultValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange setAllToDefault ()
   {
@@ -107,6 +127,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return eChange;
   }
 
+  /** {@inheritDoc} */
   public final boolean isSetToDefault (@Nullable final String sFieldName)
   {
     return containsKeyDirect (sFieldName) &&

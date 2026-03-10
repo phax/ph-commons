@@ -40,11 +40,30 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   private final IMutableGraphNode m_aNode1;
   private final IMutableGraphNode m_aNode2;
 
+  /**
+   * Constructor with an auto-generated ID.
+   *
+   * @param aNode1
+   *        The first node. May not be <code>null</code>.
+   * @param aNode2
+   *        The second node. May not be <code>null</code>.
+   */
   public GraphRelation (@NonNull final IMutableGraphNode aNode1, @NonNull final IMutableGraphNode aNode2)
   {
     this (null, aNode1, aNode2);
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this relation. If <code>null</code> or empty a new ID is
+   *        generated.
+   * @param aNode1
+   *        The first node. May not be <code>null</code>.
+   * @param aNode2
+   *        The second node. May not be <code>null</code>.
+   */
   public GraphRelation (@Nullable final String sID, @NonNull final IMutableGraphNode aNode1, @NonNull final IMutableGraphNode aNode2)
   {
     super (sID);
@@ -54,16 +73,19 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
     m_aNode2 = aNode2;
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   public boolean isRelatedTo (@Nullable final IMutableGraphNode aNode)
   {
     return aNode != null && (m_aNode1.equals (aNode) || m_aNode2.equals (aNode));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllConnectedNodes ()
@@ -71,6 +93,7 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
     return new CommonsLinkedHashSet <> (m_aNode1, m_aNode2);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
@@ -78,12 +101,14 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
     return new CommonsLinkedHashSet <> (m_aNode1.getID (), m_aNode2.getID ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode getNode1 ()
   {
     return m_aNode1;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode getNode2 ()
   {

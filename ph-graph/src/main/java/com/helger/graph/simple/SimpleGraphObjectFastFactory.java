@@ -33,24 +33,28 @@ import com.helger.graph.impl.GraphRelationFast;
  */
 public class SimpleGraphObjectFastFactory implements IMutableGraphObjectFactory
 {
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode createNode ()
   {
     return new GraphNodeFast ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphNode createNode (@Nullable final String sID)
   {
     return new GraphNodeFast (sID);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     return new GraphRelationFast (aFrom, aTo);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@Nullable final String sID,
                                                @NonNull final IMutableGraphNode aFrom,

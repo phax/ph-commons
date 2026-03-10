@@ -50,6 +50,12 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 {
   private final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> m_aFactory;
 
+  /**
+   * Constructor.
+   *
+   * @param aFactory
+   *        The tree item factory to use. May not be <code>null</code>.
+   */
   public BasicTreeWithGlobalUniqueID (@NonNull final ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> aFactory)
   {
     super (aFactory);
@@ -65,17 +71,26 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return m_aFactory;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean containsItemWithID (@Nullable final KEYTYPE aDataID)
   {
     return m_aFactory.containsItemWithDataID (aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final ITEMTYPE getItemWithID (@Nullable final KEYTYPE aDataID)
   {
     return m_aFactory.getItemOfDataID (aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final DATATYPE getItemDataWithID (@Nullable final KEYTYPE aDataID)
   {
@@ -83,6 +98,9 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return aItem == null ? null : aItem.getData ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final ITEMTYPE getChildWithID (@Nullable final ITEMTYPE aCurrentItem, @Nullable final KEYTYPE aDataID)
   {
@@ -90,12 +108,18 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return aItem.getChildItemOfDataID (aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public final int getItemCount ()
   {
     return m_aFactory.getItemCount ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <ITEMTYPE> getAllItems ()
@@ -103,6 +127,9 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return m_aFactory.getAllItems ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <DATATYPE> getAllItemDatas ()
@@ -110,6 +137,9 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return m_aFactory.getAllItemDatas ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final EChange removeItemWithID (@Nullable final KEYTYPE aDataID)
   {
@@ -124,6 +154,9 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID, @Nullable final KEYTYPE aChildItemID)
   {
     final ITEMTYPE aSearchParent = getItemWithID (aParentItemID);
@@ -141,12 +174,18 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
     return aItem == null ? getRootItem ().hasChildren () : aItem.hasChildren ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int getChildCount (@Nullable final ITEMTYPE aItem)
   {
     return aItem == null ? getRootItem ().getChildCount () : aItem.getChildCount ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ICommonsList <? extends ITEMTYPE> getAllChildren (@Nullable final ITEMTYPE aItem)
   {

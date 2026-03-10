@@ -183,6 +183,15 @@ public final class Dijkstra
     private final ICommonsList <N> m_aResultNodes;
     private final int m_nResultDistance;
 
+    /**
+     * Constructor.
+     *
+     * @param aResultNodes
+     *        The ordered list of nodes forming the shortest path. May not be
+     *        <code>null</code> or empty.
+     * @param nResultDistance
+     *        The total distance of the shortest path. Must be &ge; 0.
+     */
     public Result (@NonNull @Nonempty final ICommonsList <N> aResultNodes, @Nonnegative final int nResultDistance)
     {
       ValueEnforcer.notEmpty (aResultNodes, "EesultNodes");
@@ -191,6 +200,10 @@ public final class Dijkstra
       m_nResultDistance = nResultDistance;
     }
 
+    /**
+     * @return A mutable copy of the ordered list of nodes forming the shortest
+     *         path. Never <code>null</code>.
+     */
     @NonNull
     @ReturnsMutableCopy
     public ICommonsList <N> getAllResultNodes ()
@@ -198,18 +211,28 @@ public final class Dijkstra
       return m_aResultNodes.getClone ();
     }
 
+    /**
+     * @return The number of nodes in the shortest path. Always &ge; 0.
+     */
     @Nonnegative
     public int getResultNodeCount ()
     {
       return m_aResultNodes.size ();
     }
 
+    /**
+     * @return The total distance of the shortest path. Always &ge; 0.
+     */
     @Nonnegative
     public int getResultDistance ()
     {
       return m_nResultDistance;
     }
 
+    /**
+     * @return A human-readable string representation of this result containing
+     *         the distance and the route. Never <code>null</code>.
+     */
     @NonNull
     @Nonempty
     public String getAsString ()
@@ -250,6 +273,28 @@ public final class Dijkstra
     return aLastMatch.getToNode ().getRelation (aNode);
   }
 
+  /**
+   * Apply Dijkstra's shortest path algorithm to find the shortest path between
+   * two nodes in the provided graph.
+   *
+   * @param <N>
+   *        The graph node type.
+   * @param <R>
+   *        The graph relation type.
+   * @param aGraph
+   *        The graph to search. May not be <code>null</code>.
+   * @param sFromID
+   *        The ID of the start node. May not be <code>null</code>.
+   * @param sToID
+   *        The ID of the end node. May not be <code>null</code>.
+   * @param aRelationCostProvider
+   *        A function that provides the cost for each relation. May not be
+   *        <code>null</code>.
+   * @return The result containing the shortest path and its total distance.
+   *         Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the from or to node ID cannot be resolved.
+   */
   public static <N extends IMutableBaseGraphNode <N, R>, R extends IMutableBaseGraphRelation <N, R>> Dijkstra.@NonNull Result <N> applyDijkstra (@NonNull final IMutableBaseGraph <N, R> aGraph,
                                                                                                                                                  @NonNull @Nonempty final String sFromID,
                                                                                                                                                  @NonNull @Nonempty final String sToID,

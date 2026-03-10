@@ -212,6 +212,7 @@ public class Config implements IConfig
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {

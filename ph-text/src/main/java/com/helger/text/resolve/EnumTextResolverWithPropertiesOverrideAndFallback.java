@@ -204,6 +204,10 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
     return m_aRWLock.readLockedGet (m_aUsedFallbackBundles::getClone);
   }
 
+  /**
+   * Clear all internal caches including the resource bundle cache and the used
+   * override/fallback bundle name caches.
+   */
   public void clearCache ()
   {
     m_aRWLock.writeLocked ( () -> {

@@ -35,6 +35,9 @@ import com.helger.http.header.QValue;
  */
 public class AcceptCharsetList extends AbstractQValueList <String>
 {
+  /**
+   * Constructor creating an empty accept charset list.
+   */
   public AcceptCharsetList ()
   {}
 
@@ -44,6 +47,15 @@ public class AcceptCharsetList extends AbstractQValueList <String>
     return sCharset.toLowerCase (Locale.US);
   }
 
+  /**
+   * Add a charset with the given quality.
+   *
+   * @param aCharset
+   *        The charset to add. May not be <code>null</code>.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   */
   @NonNull
   public AcceptCharsetList addCharset (@NonNull final Charset aCharset, @Nonnegative final double dQuality)
   {
@@ -51,6 +63,16 @@ public class AcceptCharsetList extends AbstractQValueList <String>
     return addCharset (aCharset.name (), dQuality);
   }
 
+  /**
+   * Add a charset by name with the given quality.
+   *
+   * @param sCharset
+   *        The charset name to add. May neither be <code>null</code> nor
+   *        empty.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   */
   @NonNull
   public AcceptCharsetList addCharset (@NonNull @Nonempty final String sCharset, @Nonnegative final double dQuality)
   {
@@ -98,11 +120,29 @@ public class AcceptCharsetList extends AbstractQValueList <String>
     return getQValueOfCharset (sCharset).getQuality ();
   }
 
+  /**
+   * Check if the passed charset is supported. Supported means the quality is
+   * &gt; 0.
+   *
+   * @param sCharset
+   *        The charset name to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the charset is supported, <code>false</code>
+   *         if not.
+   */
   public boolean supportsCharset (@NonNull final String sCharset)
   {
     return getQValueOfCharset (sCharset).isAboveMinimumQuality ();
   }
 
+  /**
+   * Check if the passed charset is explicitly supported (without wildcard
+   * fallback). Supported means the quality is &gt; 0.
+   *
+   * @param sCharset
+   *        The charset name to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the charset is explicitly supported,
+   *         <code>false</code> if not.
+   */
   public boolean explicitlySupportsCharset (@NonNull final String sCharset)
   {
     ValueEnforcer.notNull (sCharset, "Charset");

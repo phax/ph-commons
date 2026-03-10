@@ -34,6 +34,12 @@ public class URLParameterDecoder implements IDecoder <String, String>
 {
   private final Charset m_aCharset;
 
+  /**
+   * Constructor with a specific charset.
+   *
+   * @param aCharset
+   *        The charset to use for decoding. May not be <code>null</code>.
+   */
   public URLParameterDecoder (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
@@ -49,6 +55,9 @@ public class URLParameterDecoder implements IDecoder <String, String>
     return m_aCharset;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDecoded (@Nullable final String sInput)
   {

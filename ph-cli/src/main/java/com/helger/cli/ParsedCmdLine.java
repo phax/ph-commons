@@ -45,6 +45,9 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   private final ICommonsOrderedMap <IOptionBase, ICommonsList <String>> m_aParams = new CommonsLinkedHashMap <> ();
   private final ICommonsList <String> m_aUnknownTokens = new CommonsArrayList <> ();
 
+  /**
+   * Default constructor creating an empty parsed command line.
+   */
   public ParsedCmdLine ()
   {}
 
@@ -91,16 +94,40 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     return null;
   }
 
+  /**
+   * Check if the specified option was present on the command line.
+   *
+   * @param aOption
+   *        The option to check. May be <code>null</code>.
+   * @return <code>true</code> if the option was present, <code>false</code>
+   *         otherwise.
+   */
   public boolean hasOption (@Nullable final IOptionBase aOption)
   {
     return _find (aOption) != null;
   }
 
+  /**
+   * Check if the specified option (by name) was present on the command line.
+   *
+   * @param sOption
+   *        The short or long option name to check. May be <code>null</code>.
+   * @return <code>true</code> if the option was present, <code>false</code>
+   *         otherwise.
+   */
   public boolean hasOption (@Nullable final String sOption)
   {
     return _find (sOption) != null;
   }
 
+  /**
+   * Get the first value of the specified option.
+   *
+   * @param aOption
+   *        The option to get the value for. May not be <code>null</code>.
+   * @return The first value of the option, or <code>null</code> if the option
+   *         was not present or has no values.
+   */
   @Nullable
   public String getValue (@NonNull final IOptionBase aOption)
   {
@@ -108,6 +135,15 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     return aValues == null ? null : aValues.getFirstOrNull ();
   }
 
+  /**
+   * Get the first value of the specified option (by name).
+   *
+   * @param sOption
+   *        The short or long option name to get the value for. May be
+   *        <code>null</code>.
+   * @return The first value of the option, or <code>null</code> if the option
+   *         was not present or has no values.
+   */
   @Nullable
   public String getValue (@Nullable final String sOption)
   {
@@ -115,6 +151,14 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     return aValues == null ? null : aValues.getFirstOrNull ();
   }
 
+  /**
+   * Get all values of the specified option.
+   *
+   * @param aOption
+   *        The option to get the values for. May not be <code>null</code>.
+   * @return A mutable copy of the values list, or <code>null</code> if the
+   *         option was not present.
+   */
   @Nullable
   @ReturnsMutableObject
   public ICommonsList <String> values (@NonNull final IOptionBase aOption)
@@ -123,6 +167,15 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     return aValues == null ? null : aValues.getClone ();
   }
 
+  /**
+   * Get all values of the specified option (by name).
+   *
+   * @param sOption
+   *        The short or long option name to get the values for. May not be
+   *        <code>null</code>.
+   * @return A mutable copy of the values list, or <code>null</code> if the
+   *         option was not present.
+   */
   @Nullable
   @ReturnsMutableObject
   public ICommonsList <String> values (@NonNull final String sOption)
@@ -131,6 +184,10 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
     return aValues == null ? null : aValues.getClone ();
   }
 
+  /**
+   * @return A mutable list of all tokens that could not be matched to any
+   *         known option. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public ICommonsList <String> unknownTokens ()

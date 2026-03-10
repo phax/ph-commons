@@ -36,11 +36,30 @@ public class GraphRelationFast extends GraphRelation
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor with an auto-generated ID.
+   *
+   * @param aFrom
+   *        The first node. May not be <code>null</code>.
+   * @param aTo
+   *        The second node. May not be <code>null</code>.
+   */
   public GraphRelationFast (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     super (aFrom, aTo);
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this relation. If <code>null</code> or empty a new ID is
+   *        generated.
+   * @param aFrom
+   *        The first node. May not be <code>null</code>.
+   * @param aTo
+   *        The second node. May not be <code>null</code>.
+   */
   public GraphRelationFast (@Nullable final String sID, @NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
   {
     super (sID, aFrom, aTo);

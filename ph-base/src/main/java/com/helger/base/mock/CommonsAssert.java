@@ -44,11 +44,20 @@ public class CommonsAssert
   protected CommonsAssert ()
   {}
 
+  /**
+   * Unconditionally fail with a default message.
+   */
   public static void fail ()
   {
     fail ("Forced fail");
   }
 
+  /**
+   * Unconditionally fail with the provided message.
+   *
+   * @param sMsg
+   *        The failure message. May not be <code>null</code>.
+   */
   public static void fail (@NonNull final String sMsg)
   {
     throw new IllegalArgumentException (sMsg);
@@ -56,28 +65,70 @@ public class CommonsAssert
 
   // boolean
 
+  /**
+   * Assert that two boolean values are equal.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (final boolean x, final boolean y)
   {
     assertEquals ((String) null, x, y);
   }
 
+  /**
+   * Assert that a boolean primitive and a Boolean object are equal.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value. May not be <code>null</code>.
+   */
   public static void assertEquals (final boolean x, @NonNull final Boolean y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.booleanValue ());
   }
 
+  /**
+   * Assert that two boolean values are not equal.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertNotEquals (final boolean x, final boolean y)
   {
     assertNotEquals ((String) null, x, y);
   }
 
+  /**
+   * Assert that a boolean primitive and a Boolean object are not equal.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value. May not be <code>null</code>.
+   */
   public static void assertNotEquals (final boolean x, @NonNull final Boolean y)
   {
     ValueEnforcer.notNull (y, "y");
     assertNotEquals ((String) null, x, y.booleanValue ());
   }
 
+  /**
+   * Assert that two boolean values are not equal, with a custom message.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertNotEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
   {
     if (x == y)
@@ -89,6 +140,16 @@ public class CommonsAssert
             (sUserMsg != null && sUserMsg.length () > 0 ? ": " + sUserMsg : ""));
   }
 
+  /**
+   * Assert that two boolean values are equal, with a custom message.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (@Nullable final String sUserMsg, final boolean x, final boolean y)
   {
     if (x != y)
@@ -102,17 +163,45 @@ public class CommonsAssert
 
   // double
 
+  /**
+   * Assert that two double values are equal within the allowed rounding difference.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (final double x, final double y)
   {
     assertEquals ((String) null, x, y);
   }
 
+  /**
+   * Assert that a double primitive and a Double object are equal within the allowed rounding
+   * difference.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value. May not be <code>null</code>.
+   */
   public static void assertEquals (final double x, @NonNull final Double y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.doubleValue ());
   }
 
+  /**
+   * Assert that two double values are equal within the allowed rounding difference, with a custom
+   * message.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (@Nullable final String sUserMsg, final double x, final double y)
   {
     // Do not call MathHelper.abs in here, because this class should be as close
@@ -128,17 +217,45 @@ public class CommonsAssert
 
   // float
 
+  /**
+   * Assert that two float values are equal within the allowed rounding difference.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (final float x, final float y)
   {
     assertEquals ((String) null, x, y);
   }
 
+  /**
+   * Assert that a float primitive and a Float object are equal within the allowed rounding
+   * difference.
+   *
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value. May not be <code>null</code>.
+   */
   public static void assertEquals (final float x, @NonNull final Float y)
   {
     ValueEnforcer.notNull (y, "y");
     assertEquals ((String) null, x, y.floatValue ());
   }
 
+  /**
+   * Assert that two float values are equal within the allowed rounding difference, with a custom
+   * message.
+   *
+   * @param sUserMsg
+   *        Optional user message. May be <code>null</code>.
+   * @param x
+   *        First value.
+   * @param y
+   *        Second value.
+   */
   public static void assertEquals (@Nullable final String sUserMsg, final float x, final float y)
   {
     // Do not call MathHelper.abs in here, because this class should be as close
@@ -232,6 +349,14 @@ public class CommonsAssert
 
   // array
 
+  /**
+   * Assert that two float arrays are element-wise equal within the allowed rounding difference.
+   *
+   * @param x
+   *        First array. May be <code>null</code>.
+   * @param y
+   *        Second array. May be <code>null</code>.
+   */
   public static void assertEquals (final float @Nullable [] x, final float @Nullable [] y)
   {
     // Same object - check first
@@ -251,6 +376,14 @@ public class CommonsAssert
       assertEquals ("Element [" + i + "] mismatch", x[i], y[i]);
   }
 
+  /**
+   * Assert that two double arrays are element-wise equal within the allowed rounding difference.
+   *
+   * @param x
+   *        First array. May be <code>null</code>.
+   * @param y
+   *        Second array. May be <code>null</code>.
+   */
   public static void assertEquals (final double @Nullable [] x, final double @Nullable [] y)
   {
     // Same object - check first

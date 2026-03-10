@@ -32,12 +32,18 @@ import com.helger.base.enforce.ValueEnforcer;
 @NotThreadSafe
 public class DefaultTreeItemFactory <DATATYPE> implements ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>>
 {
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public DefaultTreeItem <DATATYPE> createRoot ()
   {
     return new DefaultTreeItem <> (this);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public DefaultTreeItem <DATATYPE> create (@NonNull final DefaultTreeItem <DATATYPE> aParent)
   {

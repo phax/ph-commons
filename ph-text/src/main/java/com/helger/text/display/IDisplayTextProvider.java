@@ -46,6 +46,17 @@ public interface IDisplayTextProvider <DATATYPE>
   @Nullable
   String getDisplayText (@Nullable DATATYPE aObject, @NonNull Locale aContentLocale);
 
+  /**
+   * Get a collating comparator that compares display texts using the given
+   * locales.
+   *
+   * @param aContentLocale
+   *        The locale to retrieve the display text in. May not be
+   *        <code>null</code>.
+   * @param aSortLocale
+   *        The locale to use for sorting/collation. May be <code>null</code>.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   default Comparator <DATATYPE> getComparatorCollating (@NonNull final Locale aContentLocale,
                                                         @Nullable final Locale aSortLocale)
@@ -53,6 +64,13 @@ public interface IDisplayTextProvider <DATATYPE>
     return ComparatorHelper.getComparatorCollating (x -> getDisplayText (x, aContentLocale), aSortLocale);
   }
 
+  /**
+   * Create an {@link IDisplayTextProvider} that works on {@link IHasDisplayText}
+   * instances by delegating to their
+   * {@link IHasDisplayText#getDisplayText(Locale)} method.
+   *
+   * @return A non-<code>null</code> display text provider.
+   */
   @NonNull
   static IDisplayTextProvider <IHasDisplayText> createHasDisplayText ()
   {

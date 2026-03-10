@@ -33,6 +33,10 @@ import com.helger.annotation.concurrent.Immutable;
 @Immutable
 public class DefaultResourceProvider extends WritableResourceProviderChain
 {
+  /**
+   * Constructor initializing the chain with URL, file system and classpath
+   * resource providers.
+   */
   public DefaultResourceProvider ()
   {
     super (new URLResourceProvider (), new FileSystemResourceProvider (), new ClassPathResourceProvider ());

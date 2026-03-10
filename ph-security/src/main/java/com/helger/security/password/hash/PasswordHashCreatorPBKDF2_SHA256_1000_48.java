@@ -29,6 +29,9 @@ public final class PasswordHashCreatorPBKDF2_SHA256_1000_48 extends AbstractPass
   public static final int PBKDF2_ITERATIONS = 1_000;
   public static final int HASH_BYTE_SIZE = 48;
 
+  /**
+   * Constructor using the predefined algorithm name, iterations and hash byte size.
+   */
   public PasswordHashCreatorPBKDF2_SHA256_1000_48 ()
   {
     super (ALGORITHM, "PBKDF2WithHmacSHA256", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);

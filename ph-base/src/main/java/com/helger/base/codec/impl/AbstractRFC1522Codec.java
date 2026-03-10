@@ -72,6 +72,9 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
+  /**
+   * @return The charset used for string decoding and encoding. Never <code>null</code>.
+   */
   @NonNull
   public Charset getCharset ()
   {

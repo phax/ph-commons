@@ -33,11 +33,31 @@ import com.helger.io.resource.IReadableResource;
  */
 public class ReadableResourceString extends ReadableResourceByteArray
 {
+  /**
+   * Constructor with automatic resource ID.
+   *
+   * @param sString
+   *        The string content. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for converting the string to bytes. May not be
+   *        <code>null</code>.
+   */
   public ReadableResourceString (@NonNull final String sString, @NonNull final Charset aCharset)
   {
     this (null, sString, aCharset);
   }
 
+  /**
+   * Constructor with explicit resource ID.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param sString
+   *        The string content. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for converting the string to bytes. May not be
+   *        <code>null</code>.
+   */
   public ReadableResourceString (@Nullable final String sResourceID,
                                  @NonNull final String sString,
                                  @NonNull final Charset aCharset)
@@ -48,12 +68,31 @@ public class ReadableResourceString extends ReadableResourceByteArray
            false);
   }
 
+  /**
+   * Factory method to create a UTF-8 encoded readable resource string.
+   *
+   * @param sString
+   *        The string content. May not be <code>null</code>.
+   * @return A new {@link ReadableResourceString} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static ReadableResourceString utf8 (@NonNull final String sString)
   {
     return new ReadableResourceString (sString, StandardCharsets.UTF_8);
   }
 
+  /**
+   * Factory method to create a UTF-8 encoded readable resource string with a
+   * custom resource ID.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param sString
+   *        The string content. May not be <code>null</code>.
+   * @return A new {@link ReadableResourceString} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static ReadableResourceString utf8 (@Nullable final String sResourceID, @NonNull final String sString)
   {

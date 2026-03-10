@@ -43,11 +43,25 @@ public class URLParameter
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor with a name and no value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   */
   public URLParameter (@NonNull @Nonempty final String sName)
   {
     this (sName, "");
   }
 
+  /**
+   * Constructor with a name and value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        The parameter value. May not be <code>null</code>.
+   */
   public URLParameter (@NonNull @Nonempty final String sName, @NonNull final String sValue)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");

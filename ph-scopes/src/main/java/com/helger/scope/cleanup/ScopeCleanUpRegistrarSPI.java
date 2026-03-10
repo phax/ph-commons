@@ -31,6 +31,9 @@ import com.helger.scope.spi.ScopeSPIManager;
 @Immutable
 public final class ScopeCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 600, () -> {

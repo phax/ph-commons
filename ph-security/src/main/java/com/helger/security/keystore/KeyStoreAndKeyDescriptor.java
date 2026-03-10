@@ -45,6 +45,22 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
   private LoadedKeyStore m_aLKS;
   private LoadedKey <PrivateKeyEntry> m_aLK;
 
+  /**
+   * Constructor with all required parameters.
+   *
+   * @param aType
+   *        The key store type. May not be <code>null</code>.
+   * @param sPath
+   *        The path to the key store. May neither be <code>null</code> nor empty.
+   * @param aPassword
+   *        The password for the key store. May not be <code>null</code>.
+   * @param aProvider
+   *        The optional security provider. May be <code>null</code>.
+   * @param sKeyAlias
+   *        The alias of the key inside the key store. May neither be <code>null</code> nor empty.
+   * @param aKeyPassword
+   *        The password for the key entry. May not be <code>null</code>.
+   */
   public KeyStoreAndKeyDescriptor (@NonNull final IKeyStoreType aType,
                                    @NonNull @Nonempty final String sPath,
                                    final char @NonNull [] aPassword,
@@ -65,12 +81,18 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     m_aKeyPassword = aKeyPassword;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final IKeyStoreType getKeyStoreType ()
   {
     return m_aType;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getKeyStorePath ()
@@ -78,18 +100,27 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return m_sPath;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @ReturnsMutableObject
   public final char @NonNull [] getKeyStorePassword ()
   {
     return m_aPassword;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final Provider getProvider ()
   {
     return m_aProvider;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public LoadedKeyStore loadKeyStore ()
   {
@@ -99,6 +130,9 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getKeyAlias ()
@@ -106,12 +140,18 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
     return m_sKeyAlias;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @ReturnsMutableObject
   public final char @NonNull [] getKeyPassword ()
   {
     return m_aKeyPassword;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public LoadedKey <PrivateKeyEntry> loadKey ()
   {

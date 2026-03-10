@@ -34,12 +34,24 @@ public class URLProtocol implements IURLProtocol
   private final String m_sProtocol;
   private final boolean m_bAllowsForQueryParameters;
 
+  /**
+   * Constructor.
+   *
+   * @param sProtocol
+   *        The protocol string (e.g. "http://"). May neither be <code>null</code> nor empty.
+   * @param bAllowsForQueryParameters
+   *        <code>true</code> if this protocol supports query parameters,
+   *        <code>false</code> otherwise.
+   */
   public URLProtocol (@NonNull @Nonempty final String sProtocol, final boolean bAllowsForQueryParameters)
   {
     m_sProtocol = ValueEnforcer.notEmpty (sProtocol, "Protocol");
     m_bAllowsForQueryParameters = bAllowsForQueryParameters;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getProtocol ()
@@ -47,11 +59,17 @@ public class URLProtocol implements IURLProtocol
     return m_sProtocol;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isUsedInURL (@Nullable final String sURL)
   {
     return sURL != null && sURL.startsWith (m_sProtocol);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getWithProtocol (@Nullable final String sURL)
   {
@@ -60,6 +78,16 @@ public class URLProtocol implements IURLProtocol
     return m_sProtocol + sURL;
   }
 
+  /**
+   * Get the URL with this protocol prepended, but only if no known protocol is
+   * already present.
+   *
+   * @param sURL
+   *        The URL to check. May be <code>null</code>.
+   * @return <code>null</code> if the input URL is <code>null</code>, the
+   *         original URL if it already has a known protocol, or the URL
+   *         prefixed with this protocol.
+   */
   @Nullable
   public String getWithProtocolIfNone (@Nullable final String sURL)
   {
@@ -68,6 +96,9 @@ public class URLProtocol implements IURLProtocol
     return m_sProtocol + sURL;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean allowsForQueryParameters ()
   {
     return m_bAllowsForQueryParameters;

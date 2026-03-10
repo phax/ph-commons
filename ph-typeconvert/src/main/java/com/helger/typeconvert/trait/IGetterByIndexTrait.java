@@ -294,89 +294,201 @@ public interface IGetterByIndexTrait
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>boolean</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default boolean getAsBoolean (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToBoolean (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param bDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>boolean</code>, or the default value.
+   */
   default boolean getAsBoolean (@Nonnegative final int nIndex, final boolean bDefault)
   {
     return TypeConverter.convertToBoolean (getValue (nIndex), bDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>byte</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default byte getAsByte (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>byte</code>, or the default value.
+   */
   default byte getAsByte (@Nonnegative final int nIndex, final byte nDefault)
   {
     return TypeConverter.convertToByte (getValue (nIndex), nDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>char</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default char getAsChar (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param cDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>char</code>, or the default value.
+   */
   default char getAsChar (@Nonnegative final int nIndex, final char cDefault)
   {
     return TypeConverter.convertToChar (getValue (nIndex), cDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>double</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default double getAsDouble (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param dDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>double</code>, or the default value.
+   */
   default double getAsDouble (@Nonnegative final int nIndex, final double dDefault)
   {
     return TypeConverter.convertToDouble (getValue (nIndex), dDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>float</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default float getAsFloat (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param fDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>float</code>, or the default value.
+   */
   default float getAsFloat (@Nonnegative final int nIndex, final float fDefault)
   {
     return TypeConverter.convertToFloat (getValue (nIndex), fDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to an <code>int</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default int getAsInt (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to an <code>int</code>, or the default value.
+   */
   default int getAsInt (@Nonnegative final int nIndex, final int nDefault)
   {
     return TypeConverter.convertToInt (getValue (nIndex), nDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>long</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default long getAsLong (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>long</code>, or the default value.
+   */
   default long getAsLong (@Nonnegative final int nIndex, final long nDefault)
   {
     return TypeConverter.convertToLong (getValue (nIndex), nDefault);
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @return The value converted to a <code>short</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default short getAsShort (@Nonnegative final int nIndex)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue (nIndex));
   }
 
+  /**
+   * @param nIndex
+   *        The index to be accessed. Should be &ge; 0.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>short</code>, or the default value.
+   */
   default short getAsShort (@Nonnegative final int nIndex, final short nDefault)
   {
     return TypeConverter.convertToShort (getValue (nIndex), nDefault);

@@ -76,12 +76,18 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     m_aNativeClass = ValueEnforcer.notNull (aNativeClass, "NativeClass");
   }
 
+  /**
+   * @return The namespace URI. May be <code>null</code>.
+   */
   @Nullable
   public String getNamespaceURI ()
   {
     return m_sNamespaceURI;
   }
 
+  /**
+   * @return The element name. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getElementName ()
@@ -89,12 +95,18 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     return m_sElementName;
   }
 
+  /**
+   * @return The native class used for converting. Never <code>null</code>.
+   */
   @NonNull
   public Class <? extends DATATYPE> getNativeClass ()
   {
     return m_aNativeClass;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void appendDataValue (@NonNull final IMicroElement eDataElement, @Nullable final DATATYPE aObject)
   {
     // Append created element - or null if the passed object is null
@@ -102,6 +114,9 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
     eDataElement.addChild (eElement);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE getAsDataValue (@NonNull final IMicroElement eDataElement)
   {

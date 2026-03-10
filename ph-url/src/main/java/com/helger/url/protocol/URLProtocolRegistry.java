@@ -64,11 +64,18 @@ public final class URLProtocolRegistry
     reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this registry. Never <code>null</code>.
+   */
   @NonNull
   public static URLProtocolRegistry getInstance ()
   {
@@ -110,6 +117,9 @@ public final class URLProtocolRegistry
     return m_aRWLock.readLockedGet (m_aProtocols::copyOfValues);
   }
 
+  /**
+   * @return The number of currently registered protocols.
+   */
   @Nonnegative
   public int getRegisteredProtocolCount ()
   {
@@ -195,6 +205,18 @@ public final class URLProtocolRegistry
     return aProtocol == null ? sURL : sURL.substring (aProtocol.getProtocol ().length ());
   }
 
+  /**
+   * Get the URL with the passed protocol prepended, but only if no known
+   * protocol is already present.
+   *
+   * @param aProtocol
+   *        The protocol to use. May not be <code>null</code>.
+   * @param sURL
+   *        The URL to check. May be <code>null</code>.
+   * @return <code>null</code> if the input URL is <code>null</code>, the
+   *         original URL if it already has a known protocol, or the URL
+   *         prefixed with the passed protocol.
+   */
   @Nullable
   public String getWithProtocolIfNone (@NonNull final IURLProtocol aProtocol, @Nullable final String sURL)
   {

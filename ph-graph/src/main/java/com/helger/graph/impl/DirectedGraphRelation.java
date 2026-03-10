@@ -40,11 +40,30 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   private final IMutableDirectedGraphNode m_aFrom;
   private final IMutableDirectedGraphNode m_aTo;
 
+  /**
+   * Constructor with an auto-generated ID.
+   *
+   * @param aFrom
+   *        The from-node. May not be <code>null</code>.
+   * @param aTo
+   *        The to-node. May not be <code>null</code>.
+   */
   public DirectedGraphRelation (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
   {
     this (null, aFrom, aTo);
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this relation. If <code>null</code> or empty a new ID is
+   *        generated.
+   * @param aFrom
+   *        The from-node. May not be <code>null</code>.
+   * @param aTo
+   *        The to-node. May not be <code>null</code>.
+   */
   public DirectedGraphRelation (@Nullable final String sID,
                                 @NonNull final IMutableDirectedGraphNode aFrom,
                                 @NonNull final IMutableDirectedGraphNode aTo)
@@ -56,16 +75,19 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
     m_aTo = aTo;
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return true;
   }
 
+  /** {@inheritDoc} */
   public boolean isRelatedTo (@Nullable final IMutableDirectedGraphNode aNode)
   {
     return m_aFrom.equals (aNode) || m_aTo.equals (aNode);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableDirectedGraphNode> getAllConnectedNodes ()
@@ -73,6 +95,7 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
     return new CommonsLinkedHashSet <> (m_aFrom, m_aTo);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllConnectedNodeIDs ()
@@ -80,24 +103,28 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
     return new CommonsLinkedHashSet <> (m_aFrom.getID (), m_aTo.getID ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphNode getFrom ()
   {
     return m_aFrom;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getFromID ()
   {
     return m_aFrom.getID ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphNode getTo ()
   {
     return m_aTo;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getToID ()
   {

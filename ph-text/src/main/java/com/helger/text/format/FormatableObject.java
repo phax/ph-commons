@@ -55,12 +55,18 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
     m_aFormatter = aFormatter;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE getValue ()
   {
     return m_aValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Function <? super DATATYPE, ? extends String> getFormatter ()
   {

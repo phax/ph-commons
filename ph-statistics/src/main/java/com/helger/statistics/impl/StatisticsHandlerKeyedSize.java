@@ -35,6 +35,7 @@ public class StatisticsHandlerKeyedSize extends AbstractStatisticsHandlerKeyedNu
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerKeyedSize.class);
 
+  /** {@inheritDoc} */
   public void addSize (@Nullable final String sKey, @Nonnegative final long nSize)
   {
     if (nSize < 0)

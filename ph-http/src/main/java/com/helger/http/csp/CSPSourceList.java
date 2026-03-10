@@ -27,6 +27,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class CSPSourceList extends AbstractCSPSourceList <CSPSourceList>
 {
+  /**
+   * Constructor creating an empty CSP source list.
+   */
   public CSPSourceList ()
   {}
 }

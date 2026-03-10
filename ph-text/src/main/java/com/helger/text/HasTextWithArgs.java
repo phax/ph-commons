@@ -42,12 +42,26 @@ public class HasTextWithArgs implements IHasText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
+  /**
+   * Constructor.
+   *
+   * @param aParentText
+   *        The parent text provider to resolve the base text. May not be
+   *        <code>null</code>.
+   * @param aArgs
+   *        The arguments to be used for formatting. May neither be
+   *        <code>null</code> nor empty.
+   */
   public HasTextWithArgs (@NonNull final IHasText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
   }
 
+  /**
+   * @return The parent text provider as passed in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public IHasText getParentText ()
   {
@@ -67,6 +81,9 @@ public class HasTextWithArgs implements IHasText
     return ArrayHelper.getCopy (m_aArgs);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getText (@NonNull final Locale aContentLocale)
   {

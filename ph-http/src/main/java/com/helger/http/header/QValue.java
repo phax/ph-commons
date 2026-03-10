@@ -50,6 +50,13 @@ public class QValue implements Comparable <QValue>
 
   private final double m_dQuality;
 
+  /**
+   * Constructor with quality value. The value will be clamped to the range
+   * [{@link #MIN_QUALITY}, {@link #MAX_QUALITY}].
+   *
+   * @param dQuality
+   *        The quality value. Should be between 0 and 1.
+   */
   public QValue (@Nonnegative final double dQuality)
   {
     if (dQuality < MIN_QUALITY)
@@ -78,6 +85,10 @@ public class QValue implements Comparable <QValue>
     return dQuality;
   }
 
+  /**
+   * @return The quality value in the range [{@link #MIN_QUALITY},
+   *         {@link #MAX_QUALITY}].
+   */
   @Nonnegative
   public double getQuality ()
   {
@@ -145,6 +156,9 @@ public class QValue implements Comparable <QValue>
     return isAboveMinimumQuality () && isBelowMaximumQuality ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int compareTo (@NonNull final QValue rhs)
   {
     return Double.compare (m_dQuality, rhs.m_dQuality);

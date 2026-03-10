@@ -41,6 +41,13 @@ public class ConstantHasDisplayText implements IHasDisplayText
 {
   private final String m_sFixedText;
 
+  /**
+   * Constructor.
+   *
+   * @param sFixedText
+   *        The fixed text to return for any locale. May not be
+   *        <code>null</code>.
+   */
   public ConstantHasDisplayText (@NonNull final String sFixedText)
   {
     m_sFixedText = ValueEnforcer.notNull (sFixedText, "FixedText");

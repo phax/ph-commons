@@ -45,6 +45,9 @@ public class DigestAuthServerBuilder
   private String m_sAlgorithm;
   private final ICommonsOrderedSet <String> m_aQOPs = new CommonsLinkedHashSet <> ();
 
+  /**
+   * Constructor creating an empty Digest authentication server builder.
+   */
   public DigestAuthServerBuilder ()
   {}
 
@@ -228,11 +231,23 @@ public class DigestAuthServerBuilder
     return this;
   }
 
+  /**
+   * @return <code>true</code> if both realm and nonce are set, making this
+   *         builder valid for building.
+   */
   public boolean isValid ()
   {
     return m_sRealm != null && m_sNonce != null;
   }
 
+  /**
+   * Build the WWW-Authenticate header value for Digest authentication.
+   *
+   * @return The complete header value string. Neither <code>null</code> nor
+   *         empty.
+   * @throws IllegalStateException
+   *         If the builder is not valid (realm or nonce missing).
+   */
   @NonNull
   @Nonempty
   public String build ()

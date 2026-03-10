@@ -167,6 +167,14 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return _addMapping (sPrefix, sNamespaceURI, true);
   }
 
+  /**
+   * Add all mappings from the given namespace context without overwriting
+   * existing mappings.
+   *
+   * @param aOther
+   *        The namespace context to copy from. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final MapBasedNamespaceContext addMappings (@Nullable final IIterableNamespaceContext aOther)
   {
@@ -175,6 +183,14 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
+  /**
+   * Set all mappings from the given namespace context, overwriting existing
+   * mappings if present.
+   *
+   * @param aOther
+   *        The namespace context to copy from. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final MapBasedNamespaceContext setMappings (@Nullable final IIterableNamespaceContext aOther)
   {
@@ -183,6 +199,13 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
+  /**
+   * Add all mappings from the given map without overwriting existing mappings.
+   *
+   * @param aOther
+   *        Map from prefix to namespace URI. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final MapBasedNamespaceContext addMappings (@Nullable final Map <String, String> aOther)
   {
@@ -192,6 +215,14 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
+  /**
+   * Set all mappings from the given map, overwriting existing mappings if
+   * present.
+   *
+   * @param aOther
+   *        Map from prefix to namespace URI. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final MapBasedNamespaceContext setMappings (@Nullable final Map <String, String> aOther)
   {
@@ -231,6 +262,13 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return setMapping (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
+  /**
+   * Remove the mapping for the given prefix.
+   *
+   * @param sPrefix
+   *        The prefix to remove. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public MapBasedNamespaceContext removeMapping (@Nullable final String sPrefix)
   {
@@ -249,16 +287,35 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return this;
   }
 
+  /**
+   * Check if the given prefix is mapped to a namespace URI.
+   *
+   * @param sPrefix
+   *        The prefix to check. May be <code>null</code>.
+   * @return <code>true</code> if the prefix is mapped.
+   */
   public boolean isPrefixMapped (@Nullable final String sPrefix)
   {
     return m_aPrefix2NS.containsKey (sPrefix);
   }
 
+  /**
+   * Check if the given namespace URI is mapped to any prefix.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to check. May be <code>null</code>.
+   * @return <code>true</code> if the namespace URI is mapped.
+   */
   public boolean isNamespaceURIMapped (@Nullable final String sNamespaceURI)
   {
     return m_aNS2Prefix.containsKey (sNamespaceURI);
   }
 
+  /**
+   * Remove all namespace mappings.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public MapBasedNamespaceContext clear ()
   {
@@ -294,6 +351,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_aPrefix2NS.get (sPrefix);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getPrefixToNamespaceURIMap ()
@@ -301,11 +359,18 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_aPrefix2NS.getClone ();
   }
 
+  /**
+   * @return <code>true</code> if at least one mapping exists.
+   */
   public boolean hasAnyMapping ()
   {
     return m_aPrefix2NS.isNotEmpty ();
   }
 
+  /**
+   * @return The number of currently registered prefix-namespace mappings.
+   *         Always &ge; 0.
+   */
   @Nonnegative
   public int getMappingCount ()
   {

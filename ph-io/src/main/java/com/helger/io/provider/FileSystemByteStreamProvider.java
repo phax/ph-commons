@@ -41,11 +41,25 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
 {
   private final File m_aBasePath;
 
+  /**
+   * Constructor using a base path string.
+   *
+   * @param sBasePath
+   *        The base path to use. May not be <code>null</code>. Must be an
+   *        existing directory.
+   */
   public FileSystemByteStreamProvider (@NonNull final String sBasePath)
   {
     this (new File (sBasePath));
   }
 
+  /**
+   * Constructor using a base path file.
+   *
+   * @param aBasePath
+   *        The base path to use. May not be <code>null</code>. Must be an
+   *        existing directory.
+   */
   public FileSystemByteStreamProvider (@NonNull final File aBasePath)
   {
     ValueEnforcer.notNull (aBasePath, "BasePath");
@@ -54,18 +68,28 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
     m_aBasePath = aBasePath;
   }
 
+  /**
+   * @return The base path as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public File getBasePath ()
   {
     return m_aBasePath;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public InputStream getInputStream (@NonNull final String sName)
   {
     return FileHelper.getInputStream (new File (m_aBasePath, sName));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {

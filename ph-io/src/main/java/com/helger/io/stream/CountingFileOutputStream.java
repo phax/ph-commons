@@ -46,22 +46,58 @@ public class CountingFileOutputStream extends FileOutputStream
                                                                                                                  "$write.files");
   private long m_nBytesWritten = 0;
 
+  /**
+   * Constructor using the default append mode.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file cannot be opened for writing.
+   */
   public CountingFileOutputStream (@NonNull final File aFile) throws FileNotFoundException
   {
     this (aFile, DEFAULT_APPEND);
   }
 
+  /**
+   * Constructor with explicit append mode.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file cannot be opened for writing.
+   */
   public CountingFileOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (aFile, eAppend.isAppend ());
     STATS_WRITE_FILES.increment ();
   }
 
+  /**
+   * Constructor using the default append mode.
+   *
+   * @param sFilename
+   *        The filename to write to. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file cannot be opened for writing.
+   */
   public CountingFileOutputStream (@NonNull final String sFilename) throws FileNotFoundException
   {
     this (sFilename, DEFAULT_APPEND);
   }
 
+  /**
+   * Constructor with explicit append mode.
+   *
+   * @param sFilename
+   *        The filename to write to. May not be <code>null</code>.
+   * @param eAppend
+   *        Appending mode. May not be <code>null</code>.
+   * @throws FileNotFoundException
+   *         If the file cannot be opened for writing.
+   */
   public CountingFileOutputStream (@NonNull final String sFilename, @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (sFilename, eAppend.isAppend ());
@@ -92,6 +128,9 @@ public class CountingFileOutputStream extends FileOutputStream
     m_nBytesWritten += nLength;
   }
 
+  /**
+   * @return The number of bytes written so far. Always &ge; 0.
+   */
   @Nonnegative
   public long getBytesWritten ()
   {

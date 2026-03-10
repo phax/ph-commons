@@ -41,5 +41,13 @@ public interface IDAOContainer extends IAutoSaveAware
   @ReturnsMutableCopy
   ICommonsList <IDAO> getAllContainedDAOs ();
 
+  /**
+   * Check if any contained DAO matches the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return <code>true</code> if at least one DAO matches, <code>false</code>
+   *         otherwise.
+   */
   boolean containsAny (@Nullable Predicate <? super IDAO> aFilter);
 }

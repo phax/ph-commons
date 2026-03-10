@@ -50,6 +50,10 @@ public abstract class AbstractQValueList <KEYTYPE>
     return m_aMap;
   }
 
+  /**
+   * @return A mutable copy of all key-quality value pairs. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValues ()
@@ -57,6 +61,14 @@ public abstract class AbstractQValueList <KEYTYPE>
     return m_aMap.getClone ();
   }
 
+  /**
+   * Get all entries with a quality value strictly lower than the specified
+   * threshold.
+   *
+   * @param dQuality
+   *        The quality threshold.
+   * @return A mutable copy of all matching entries. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesLowerThan (final double dQuality)
@@ -71,6 +83,14 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
+  /**
+   * Get all entries with a quality value lower than or equal to the specified
+   * threshold.
+   *
+   * @param dQuality
+   *        The quality threshold.
+   * @return A mutable copy of all matching entries. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesLowerOrEqual (final double dQuality)
@@ -85,6 +105,14 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
+  /**
+   * Get all entries with a quality value strictly greater than the specified
+   * threshold.
+   *
+   * @param dQuality
+   *        The quality threshold.
+   * @return A mutable copy of all matching entries. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesGreaterThan (final double dQuality)
@@ -99,6 +127,14 @@ public abstract class AbstractQValueList <KEYTYPE>
     return ret;
   }
 
+  /**
+   * Get all entries with a quality value greater than or equal to the
+   * specified threshold.
+   *
+   * @param dQuality
+   *        The quality threshold.
+   * @return A mutable copy of all matching entries. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsOrderedMap <KEYTYPE, QValue> getAllQValuesGreaterOrEqual (final double dQuality)

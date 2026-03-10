@@ -270,6 +270,14 @@ public final class HttpDigestAuth
                                             sNonceCount);
   }
 
+  /**
+   * Get the nonce count as a zero-padded 8-character hex string.
+   *
+   * @param nNonceCount
+   *        The nonce count value. If &le; 0, <code>null</code> is returned.
+   * @return The formatted nonce count string, or <code>null</code> if the
+   *         nonce count is not positive.
+   */
   @Nullable
   public static String getNonceCountString (@CheckForSigned final int nNonceCount)
   {

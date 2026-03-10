@@ -49,6 +49,12 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
   // Root item.
   private final ITEMTYPE m_aRootItem;
 
+  /**
+   * Constructor.
+   *
+   * @param aFactory
+   *        The tree item factory to use. May not be <code>null</code>.
+   */
   public BasicTree (@NonNull final ITreeItemFactory <DATATYPE, ITEMTYPE> aFactory)
   {
     ValueEnforcer.notNull (aFactory, "Factory");
@@ -64,6 +70,9 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public final int getChildCount ()
   {
@@ -71,6 +80,9 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return 1;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsCollection <ITEMTYPE> getAllChildren ()
@@ -78,6 +90,9 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
     return new CommonsArrayList <> (m_aRootItem);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ICommonsIterable <ITEMTYPE> getChildren ()
   {
@@ -114,6 +129,9 @@ public class BasicTree <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE
       aConsumer.accept (aMapper.apply (m_aRootItem));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ITEMTYPE getRootItem ()
   {

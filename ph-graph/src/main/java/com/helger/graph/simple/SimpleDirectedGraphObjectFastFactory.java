@@ -33,18 +33,21 @@ import com.helger.graph.impl.DirectedGraphRelationFast;
  */
 public class SimpleDirectedGraphObjectFastFactory implements IMutableDirectedGraphObjectFactory
 {
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphNode createNode ()
   {
     return new DirectedGraphNodeFast ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphNode createNode (@Nullable final String sID)
   {
     return new DirectedGraphNodeFast (sID);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@NonNull final IMutableDirectedGraphNode aFrom,
                                                        @NonNull final IMutableDirectedGraphNode aTo)
@@ -52,6 +55,7 @@ public class SimpleDirectedGraphObjectFastFactory implements IMutableDirectedGra
     return new DirectedGraphRelationFast (aFrom, aTo);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@Nullable final String sID,
                                                        @NonNull final IMutableDirectedGraphNode aFrom,

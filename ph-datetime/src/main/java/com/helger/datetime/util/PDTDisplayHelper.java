@@ -171,6 +171,25 @@ public final class PDTDisplayHelper
   private PDTDisplayHelper ()
   {}
 
+  /**
+   * Get the period as a human-readable text using the provided text provider.
+   *
+   * @param nYears
+   *        Number of years.
+   * @param nMonths
+   *        Number of months.
+   * @param nDays
+   *        Number of days.
+   * @param nHours
+   *        Number of hours.
+   * @param nMinutes
+   *        Number of minutes.
+   * @param nSeconds
+   *        Number of seconds.
+   * @param aTextProvider
+   *        The text provider for localization. May not be <code>null</code>.
+   * @return The formatted period text. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public static String getPeriodText (final int nYears,
@@ -218,6 +237,17 @@ public final class PDTDisplayHelper
     return aSB.append (aTextProvider.getAnd ()).append (aParts.getLastOrNull ()).toString ();
   }
 
+  /**
+   * Get the period between two local date times as a human-readable text.
+   *
+   * @param aStartLDT
+   *        The start date time. May not be <code>null</code>.
+   * @param aEndLDT
+   *        The end date time. May not be <code>null</code>.
+   * @param aTextProvider
+   *        The text provider for localization. May not be <code>null</code>.
+   * @return The formatted period text. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public static String getPeriodText (@NonNull final LocalDateTime aStartLDT,
@@ -253,6 +283,17 @@ public final class PDTDisplayHelper
     return getPeriodText (nYears, nMonth, nDays, nHours, nMinutes, nTotalSecs, aTextProvider);
   }
 
+  /**
+   * Get the period between two local date times as a German human-readable
+   * text.
+   *
+   * @param aNowLDT
+   *        The start date time. May not be <code>null</code>.
+   * @param aNotAfter
+   *        The end date time. May not be <code>null</code>.
+   * @return The formatted period text in German. Neither <code>null</code> nor
+   *         empty.
+   */
   @NonNull
   @Nonempty
   public static String getPeriodTextDE (@NonNull final LocalDateTime aNowLDT, @NonNull final LocalDateTime aNotAfter)
@@ -260,6 +301,17 @@ public final class PDTDisplayHelper
     return getPeriodText (aNowLDT, aNotAfter, IPeriodTextProvider.DE);
   }
 
+  /**
+   * Get the period between two local date times as an English human-readable
+   * text.
+   *
+   * @param aNowLDT
+   *        The start date time. May not be <code>null</code>.
+   * @param aNotAfter
+   *        The end date time. May not be <code>null</code>.
+   * @return The formatted period text in English. Neither <code>null</code> nor
+   *         empty.
+   */
   @NonNull
   @Nonempty
   public static String getPeriodTextEN (@NonNull final LocalDateTime aNowLDT, @NonNull final LocalDateTime aNotAfter)

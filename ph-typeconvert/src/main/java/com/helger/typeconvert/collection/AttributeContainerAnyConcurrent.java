@@ -36,11 +36,20 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public class AttributeContainerAnyConcurrent <KEYTYPE> extends AttributeContainerConcurrent <KEYTYPE, Object> implements
                                              IAttributeContainerAny <KEYTYPE>
 {
+  /**
+   * Default constructor creating an empty container.
+   */
   public AttributeContainerAnyConcurrent ()
   {
     super ();
   }
 
+  /**
+   * Constructor copying all entries from the provided map.
+   *
+   * @param aMap
+   *        The map to copy from. May be <code>null</code>.
+   */
   public AttributeContainerAnyConcurrent (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);

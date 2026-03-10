@@ -37,12 +37,18 @@ public abstract class AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE
                                                     implements
                                                     ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
+  /**
+   * {@inheritDoc}
+   */
   @OverrideOnDemand
   public void onRemoveItem (@NonNull final ITEMTYPE aItem)
   {
     // it doesn't matter to us
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @OverrideOnDemand
   public void onAddItem (@NonNull final ITEMTYPE aItem)
   {

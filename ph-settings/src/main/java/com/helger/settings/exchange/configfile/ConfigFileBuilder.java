@@ -61,6 +61,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   public ConfigFileBuilder ()
   {}
 
+  /**
+   * Set the settings persistence to use.
+   *
+   * @param aSPP
+   *        The settings persistence provider. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder settingsPersistence (@NonNull final ISettingsPersistence aSPP)
   {
@@ -69,12 +76,22 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * @return The current settings persistence provider. Never <code>null</code>.
+   */
   @NonNull
   public ISettingsPersistence settingsPersistence ()
   {
     return m_aSPP;
   }
 
+  /**
+   * Set the resource provider to use for resolving config file paths.
+   *
+   * @param aResProvider
+   *        The resource provider. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder resourceProvider (@NonNull final IReadableResourceProvider aResProvider)
   {
@@ -83,12 +100,23 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * @return The current resource provider. Never <code>null</code>.
+   */
   @NonNull
   public IReadableResourceProvider resourceProvider ()
   {
     return m_aResProvider;
   }
 
+  /**
+   * Add a configuration file path from a system property value.
+   *
+   * @param sSystemPropertyName
+   *        The system property name to read the path from. May neither be
+   *        <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPathFromSystemProperty (@NonNull @Nonempty final String sSystemPropertyName)
   {
@@ -96,6 +124,14 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return addPath ( () -> SystemProperties.getPropertyValueOrNull (sSystemPropertyName));
   }
 
+  /**
+   * Add a configuration file path from an environment variable value.
+   *
+   * @param sEnvVarName
+   *        The environment variable name to read the path from. May neither be
+   *        <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPathFromEnvVar (@NonNull @Nonempty final String sEnvVarName)
   {
@@ -103,6 +139,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return addPath ( () -> System.getenv ().get (sEnvVarName));
   }
 
+  /**
+   * Add a configuration file path from a supplier.
+   *
+   * @param aSupplier
+   *        The supplier providing the path. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPath (@NonNull final Supplier <? extends String> aSupplier)
   {
@@ -110,6 +153,14 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return addPath (aSupplier.get ());
   }
 
+  /**
+   * Add a configuration file path.
+   *
+   * @param sConfigPath
+   *        The path to add. May be <code>null</code> or empty in which case it
+   *        is ignored.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPath (@Nullable final String sConfigPath)
   {
@@ -118,6 +169,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * Add multiple configuration file paths.
+   *
+   * @param aConfigPaths
+   *        The paths to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPaths (@NonNull final String... aConfigPaths)
   {
@@ -127,6 +185,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * Add multiple configuration file paths.
+   *
+   * @param aConfigPaths
+   *        The paths to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder addPaths (@NonNull final Iterable <String> aConfigPaths)
   {
@@ -136,6 +201,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * Set a single configuration file path, replacing any previously set paths.
+   *
+   * @param sConfigPath
+   *        The path to set. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder path (@NonNull @Nonempty final String sConfigPath)
   {
@@ -144,6 +216,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * Set multiple configuration file paths, replacing any previously set paths.
+   *
+   * @param aConfigPaths
+   *        The paths to set. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder paths (@NonNull @Nonempty final String... aConfigPaths)
   {
@@ -152,6 +231,13 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * Set multiple configuration file paths, replacing any previously set paths.
+   *
+   * @param aConfigPaths
+   *        The paths to set. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public ConfigFileBuilder paths (@NonNull @Nonempty final Iterable <String> aConfigPaths)
   {
@@ -160,6 +246,10 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return this;
   }
 
+  /**
+   * @return A mutable copy of all currently configured paths. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllPaths ()
@@ -167,6 +257,10 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return m_aPaths.getClone ();
   }
 
+  /**
+   * @return An immutable iterable over all currently configured paths. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   public ICommonsIterable <String> paths ()
@@ -174,6 +268,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
     return m_aPaths;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ConfigFile build ()
   {

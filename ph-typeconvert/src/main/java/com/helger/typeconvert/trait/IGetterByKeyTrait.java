@@ -295,89 +295,201 @@ public interface IGetterByKeyTrait <KEYTYPE>
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>boolean</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToBoolean (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param bDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>boolean</code>, or the default value.
+   */
   default boolean getAsBoolean (@Nullable final KEYTYPE aKey, final boolean bDefault)
   {
     return TypeConverter.convertToBoolean (getValue (aKey), bDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>byte</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default byte getAsByte (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>byte</code>, or the default value.
+   */
   default byte getAsByte (@Nullable final KEYTYPE aKey, final byte nDefault)
   {
     return TypeConverter.convertToByte (getValue (aKey), nDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>char</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default char getAsChar (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param cDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>char</code>, or the default value.
+   */
   default char getAsChar (@Nullable final KEYTYPE aKey, final char cDefault)
   {
     return TypeConverter.convertToChar (getValue (aKey), cDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>double</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default double getAsDouble (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param dDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>double</code>, or the default value.
+   */
   default double getAsDouble (@Nullable final KEYTYPE aKey, final double dDefault)
   {
     return TypeConverter.convertToDouble (getValue (aKey), dDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>float</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default float getAsFloat (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param fDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>float</code>, or the default value.
+   */
   default float getAsFloat (@Nullable final KEYTYPE aKey, final float fDefault)
   {
     return TypeConverter.convertToFloat (getValue (aKey), fDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to an <code>int</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default int getAsInt (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to an <code>int</code>, or the default value.
+   */
   default int getAsInt (@Nullable final KEYTYPE aKey, final int nDefault)
   {
     return TypeConverter.convertToInt (getValue (aKey), nDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>long</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default long getAsLong (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>long</code>, or the default value.
+   */
   default long getAsLong (@Nullable final KEYTYPE aKey, final long nDefault)
   {
     return TypeConverter.convertToLong (getValue (aKey), nDefault);
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @return The value converted to a <code>short</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default short getAsShort (@Nullable final KEYTYPE aKey)
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue (aKey));
   }
 
+  /**
+   * @param aKey
+   *        The key to be accessed. May be <code>null</code>.
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>short</code>, or the default value.
+   */
   default short getAsShort (@Nullable final KEYTYPE aKey, final short nDefault)
   {
     return TypeConverter.convertToShort (getValue (aKey), nDefault);

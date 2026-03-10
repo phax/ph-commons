@@ -89,6 +89,10 @@ public final class WALListener extends AbstractGlobalSingleton
   public WALListener ()
   {}
 
+  /**
+   * @return The global singleton instance of this class. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static WALListener getInstance ()
   {

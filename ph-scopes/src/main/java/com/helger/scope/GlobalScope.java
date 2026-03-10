@@ -35,6 +35,12 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (GlobalScope.class);
 
+  /**
+   * Constructor.
+   *
+   * @param sScopeID
+   *        The scope ID. May neither be <code>null</code> nor empty.
+   */
   public GlobalScope (@NonNull @Nonempty final String sScopeID)
   {
     super (sScopeID);
@@ -43,6 +49,9 @@ public class GlobalScope extends AbstractScope implements IGlobalScope
       LOGGER.info ("Created global scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void initScope ()
   {}
 

@@ -67,11 +67,17 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
     m_aObj = aObj;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isSuccess ()
   {
     return m_eSuccess.isSuccess ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE get ()
   {

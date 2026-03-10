@@ -80,6 +80,9 @@ public enum EKeyStoreType implements IKeyStoreType
     m_bKeyStorePathRequired = bKeyStorePathRequired;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -87,23 +90,49 @@ public enum EKeyStoreType implements IKeyStoreType
     return m_sID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isKeyStorePathRequired ()
   {
     return m_bKeyStorePathRequired;
   }
 
+  /**
+   * Find the key store type with the passed ID.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @return <code>null</code> if no such key store type was found.
+   */
   @Nullable
   public static EKeyStoreType getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (EKeyStoreType.class, sID);
   }
 
+  /**
+   * Find the key store type with the passed ID using case-insensitive comparison.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @return <code>null</code> if no such key store type was found.
+   */
   @Nullable
   public static EKeyStoreType getFromIDCaseInsensitiveOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrNull (EKeyStoreType.class, sID);
   }
 
+  /**
+   * Find the key store type with the passed ID using case-insensitive comparison.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return if no such ID is found. May be <code>null</code>.
+   * @return <code>eDefault</code> if no such key store type was found.
+   */
   @Nullable
   public static EKeyStoreType getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
                                                                  @Nullable final EKeyStoreType eDefault)

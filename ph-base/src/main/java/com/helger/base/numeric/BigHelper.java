@@ -88,6 +88,15 @@ public final class BigHelper
     return toBigDecimal (nDividend).divide (toBigDecimal (nDivisor), nScale, eRoundingMode);
   }
 
+  /**
+   * Get the maximum of the passed {@link BigDecimal} values.
+   *
+   * @param aValue
+   *        The first value. May not be <code>null</code>.
+   * @param aValues
+   *        The remaining values. May not be <code>null</code>.
+   * @return The maximum of all passed values. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal getMaxBigDecimal (@NonNull final BigDecimal aValue, @NonNull final BigDecimal... aValues)
   {
@@ -98,6 +107,15 @@ public final class BigHelper
     return ret;
   }
 
+  /**
+   * Get the maximum of the passed {@link BigInteger} values.
+   *
+   * @param aValue
+   *        The first value. May not be <code>null</code>.
+   * @param aValues
+   *        The remaining values. May not be <code>null</code>.
+   * @return The maximum of all passed values. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger getMaxBigInteger (@NonNull final BigInteger aValue, @NonNull final BigInteger... aValues)
   {
@@ -108,6 +126,15 @@ public final class BigHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed {@link BigDecimal} values.
+   *
+   * @param aValue
+   *        The first value. May not be <code>null</code>.
+   * @param aValues
+   *        The remaining values. May not be <code>null</code>.
+   * @return The minimum of all passed values. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal getMinBigDecimal (@NonNull final BigDecimal aValue, @NonNull final BigDecimal... aValues)
   {
@@ -118,6 +145,15 @@ public final class BigHelper
     return ret;
   }
 
+  /**
+   * Get the minimum of the passed {@link BigInteger} values.
+   *
+   * @param aValue
+   *        The first value. May not be <code>null</code>.
+   * @param aValues
+   *        The remaining values. May not be <code>null</code>.
+   * @return The minimum of all passed values. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger getMinBigInteger (@NonNull final BigInteger aValue, @NonNull final BigInteger... aValues)
   {
@@ -843,6 +879,13 @@ public final class BigHelper
     return aBase.multiply (aPercentage).divide (CGlobal.BIGDEC_100, nScale, eRoundingMode);
   }
 
+  /**
+   * Convert an int to a {@link BigDecimal}.
+   *
+   * @param n
+   *        The int value.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (final int n)
   {
@@ -850,6 +893,13 @@ public final class BigHelper
     return BigDecimal.valueOf (n);
   }
 
+  /**
+   * Convert a long to a {@link BigDecimal}.
+   *
+   * @param n
+   *        The long value.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (final long n)
   {
@@ -857,18 +907,39 @@ public final class BigHelper
     return BigDecimal.valueOf (n);
   }
 
+  /**
+   * Convert a float to a {@link BigDecimal}.
+   *
+   * @param f
+   *        The float value.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (final float f)
   {
     return BigDecimal.valueOf (f);
   }
 
+  /**
+   * Convert a double to a {@link BigDecimal}.
+   *
+   * @param d
+   *        The double value.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (final double d)
   {
     return BigDecimal.valueOf (d);
   }
 
+  /**
+   * Convert a {@link Number} to a {@link BigDecimal}.
+   *
+   * @param aNumber
+   *        The number to convert. May not be <code>null</code>.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (@NonNull final Number aNumber)
   {
@@ -876,6 +947,13 @@ public final class BigHelper
     return new BigDecimal (aNumber.toString ());
   }
 
+  /**
+   * Convert a String to a {@link BigDecimal}.
+   *
+   * @param sNumber
+   *        The string representation of the number. May not be <code>null</code>.
+   * @return The corresponding {@link BigDecimal}. Never <code>null</code>.
+   */
   @NonNull
   public static BigDecimal toBigDecimal (@NonNull final String sNumber)
   {
@@ -883,18 +961,39 @@ public final class BigHelper
     return new BigDecimal (sNumber);
   }
 
+  /**
+   * Convert an int to a {@link BigInteger}.
+   *
+   * @param n
+   *        The int value.
+   * @return The corresponding {@link BigInteger}. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger toBigInteger (final int n)
   {
     return BigInteger.valueOf (n);
   }
 
+  /**
+   * Convert a long to a {@link BigInteger}.
+   *
+   * @param n
+   *        The long value.
+   * @return The corresponding {@link BigInteger}. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger toBigInteger (final long n)
   {
     return BigInteger.valueOf (n);
   }
 
+  /**
+   * Convert a {@link Number} to a {@link BigInteger}.
+   *
+   * @param aNumber
+   *        The number to convert. May not be <code>null</code>.
+   * @return The corresponding {@link BigInteger}. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger toBigInteger (@NonNull final Number aNumber)
   {
@@ -902,6 +1001,13 @@ public final class BigHelper
     return new BigInteger (aNumber.toString (), 10);
   }
 
+  /**
+   * Convert a String to a {@link BigInteger}.
+   *
+   * @param sNumber
+   *        The string representation of the number. May not be <code>null</code>.
+   * @return The corresponding {@link BigInteger}. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger toBigInteger (@NonNull final String sNumber)
   {

@@ -41,12 +41,26 @@ public interface IRevokedIndicator
     return !isRevoked ();
   }
 
+  /**
+   * Combine this indicator with the provided one using logical OR.
+   *
+   * @param aEnabled
+   *        The other indicator to combine with. May not be <code>null</code>.
+   * @return {@link ERevoked#REVOKED} if either this or the provided indicator is revoked.
+   */
   @NonNull
   default ERevoked or (@NonNull final IRevokedIndicator aEnabled)
   {
     return ERevoked.valueOf (isRevoked () || aEnabled.isRevoked ());
   }
 
+  /**
+   * Combine this indicator with the provided one using logical AND.
+   *
+   * @param aEnabled
+   *        The other indicator to combine with. May not be <code>null</code>.
+   * @return {@link ERevoked#REVOKED} if both this and the provided indicator are revoked.
+   */
   @NonNull
   default ERevoked and (@NonNull final IRevokedIndicator aEnabled)
   {

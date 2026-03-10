@@ -70,6 +70,7 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
     return super.putIn (sName, aNewValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public final String getName ()

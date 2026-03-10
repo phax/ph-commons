@@ -76,6 +76,9 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     m_aObj = aRhs.get ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE get ()
   {
@@ -164,6 +167,9 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     return m_aObj == null ? bDefault : aProvider.applyAsBoolean (m_aObj);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange set (@Nullable final DATATYPE aObj)
   {
@@ -173,6 +179,9 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
     return EChange.CHANGED;
   }
 
+  /**
+   * @return A clone of this wrapper containing the same wrapped object. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public Wrapper <DATATYPE> getClone ()

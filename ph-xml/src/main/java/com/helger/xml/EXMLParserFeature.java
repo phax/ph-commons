@@ -512,12 +512,19 @@ public enum EXMLParserFeature implements IHasName
     m_sName = sName;
   }
 
+  /**
+   * @return The feature type of this parser feature. Never <code>null</code>.
+   */
   @NonNull
   public EXMLParserFeatureType getFeatureType ()
   {
     return m_eType;
   }
 
+  /**
+   * @return The name (URI) of this parser feature. Neither <code>null</code>
+   *         nor empty.
+   */
   @NonNull
   @Nonempty
   public String getName ()
@@ -525,6 +532,16 @@ public enum EXMLParserFeature implements IHasName
     return m_sName;
   }
 
+  /**
+   * Apply this feature with the specified value to the given
+   * {@link XMLReader}.
+   *
+   * @param aParser
+   *        The XML reader to apply the feature to. May not be
+   *        <code>null</code>.
+   * @param bValue
+   *        The value to set for this feature.
+   */
   public void applyTo (@NonNull final XMLReader aParser, final boolean bValue)
   {
     ValueEnforcer.notNull (aParser, "Parser");
@@ -553,6 +570,16 @@ public enum EXMLParserFeature implements IHasName
     }
   }
 
+  /**
+   * Apply this feature with the specified value to the given
+   * {@link DocumentBuilderFactory}.
+   *
+   * @param aDocumentBuilderFactory
+   *        The document builder factory to apply the feature to. May not be
+   *        <code>null</code>.
+   * @param bValue
+   *        The value to set for this feature.
+   */
   public void applyTo (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory, final boolean bValue)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
@@ -570,6 +597,16 @@ public enum EXMLParserFeature implements IHasName
     }
   }
 
+  /**
+   * Apply this feature with the specified value to the given
+   * {@link XPathFactory}.
+   *
+   * @param aXPathFactory
+   *        The XPath factory to apply the feature to. May not be
+   *        <code>null</code>.
+   * @param bValue
+   *        The value to set for this feature.
+   */
   public void applyTo (@NonNull final XPathFactory aXPathFactory, final boolean bValue)
   {
     ValueEnforcer.notNull (aXPathFactory, "XPathFactory");
@@ -587,12 +624,26 @@ public enum EXMLParserFeature implements IHasName
     }
   }
 
+  /**
+   * Find the {@link EXMLParserFeature} enum constant with the given name.
+   *
+   * @param sName
+   *        The name (URI) of the feature to find. May be <code>null</code>.
+   * @return <code>null</code> if no matching feature was found.
+   */
   @Nullable
   public static EXMLParserFeature getFromNameOrNull (@Nullable final String sName)
   {
     return EnumHelper.getFromNameOrNull (EXMLParserFeature.class, sName);
   }
 
+  /**
+   * Get all features of the specified type.
+   *
+   * @param eFeatureType
+   *        The feature type to filter by. May not be <code>null</code>.
+   * @return A non-<code>null</code> mutable copy of all matching features.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static List <EXMLParserFeature> getAllFeaturesOfType (@NonNull final EXMLParserFeatureType eFeatureType)

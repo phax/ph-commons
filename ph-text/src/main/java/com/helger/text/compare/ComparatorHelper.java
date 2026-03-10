@@ -39,18 +39,45 @@ public final class ComparatorHelper
   private ComparatorHelper ()
   {}
 
+  /**
+   * Get a collating string comparator for the given locale.
+   *
+   * @param aSortLocale
+   *        The locale to use for collation. May be <code>null</code>.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static Comparator <String> getComparatorCollating (@Nullable final Locale aSortLocale)
   {
     return getComparatorCollating (CollatorHelper.getCollatorSpaceBeforeDot (aSortLocale));
   }
 
+  /**
+   * Get a collating string comparator using the given collator.
+   *
+   * @param aCollator
+   *        The collator to use. May not be <code>null</code>.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static Comparator <String> getComparatorCollating (@NonNull final Collator aCollator)
   {
     return Comparator.nullsFirst (aCollator::compare);
   }
 
+  /**
+   * Get a collating comparator that extracts a string via the given mapper
+   * function and sorts using the provided locale.
+   *
+   * @param aMapper
+   *        The function to extract the string to compare. May not be
+   *        <code>null</code>.
+   * @param aSortLocale
+   *        The locale to use for collation. May be <code>null</code>.
+   * @param <T>
+   *        The type of elements to compare.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static <T> Comparator <T> getComparatorCollating (@NonNull final Function <? super T, String> aMapper,
                                                            @Nullable final Locale aSortLocale)
@@ -58,6 +85,19 @@ public final class ComparatorHelper
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aSortLocale));
   }
 
+  /**
+   * Get a collating comparator that extracts a string via the given mapper
+   * function and sorts using the provided collator.
+   *
+   * @param aMapper
+   *        The function to extract the string to compare. May not be
+   *        <code>null</code>.
+   * @param aCollator
+   *        The collator to use. May not be <code>null</code>.
+   * @param <T>
+   *        The type of elements to compare.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static <T> Comparator <T> getComparatorCollating (@NonNull final Function <? super T, String> aMapper,
                                                            @NonNull final Collator aCollator)
@@ -65,12 +105,26 @@ public final class ComparatorHelper
     return Comparator.<T, String> comparing (aMapper, getComparatorCollating (aCollator));
   }
 
+  /**
+   * Get a comparator that sorts strings with the longest first. Uses the
+   * default null value handling.
+   *
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringLongestFirst ()
   {
     return getComparatorStringLongestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Get a comparator that sorts strings with the longest first.
+   *
+   * @param bNullValuesComeFirst
+   *        <code>true</code> if <code>null</code> values should come first,
+   *        <code>false</code> if they should come last.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringLongestFirst (final boolean bNullValuesComeFirst)
   {
@@ -80,12 +134,26 @@ public final class ComparatorHelper
     }, bNullValuesComeFirst);
   }
 
+  /**
+   * Get a comparator that sorts strings with the shortest first. Uses the
+   * default null value handling.
+   *
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringShortestFirst ()
   {
     return getComparatorStringShortestFirst (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Get a comparator that sorts strings with the shortest first.
+   *
+   * @param bNullValuesComeFirst
+   *        <code>true</code> if <code>null</code> values should come first,
+   *        <code>false</code> if they should come last.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringShortestFirst (final boolean bNullValuesComeFirst)
   {
@@ -95,12 +163,26 @@ public final class ComparatorHelper
     }, bNullValuesComeFirst);
   }
 
+  /**
+   * Get a case-insensitive string comparator. Uses the default null value
+   * handling.
+   *
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringIgnoreCase ()
   {
     return getComparatorStringIgnoreCase (CompareHelper.DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
+  /**
+   * Get a case-insensitive string comparator.
+   *
+   * @param bNullValuesComeFirst
+   *        <code>true</code> if <code>null</code> values should come first,
+   *        <code>false</code> if they should come last.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   public static IComparator <String> getComparatorStringIgnoreCase (final boolean bNullValuesComeFirst)
   {

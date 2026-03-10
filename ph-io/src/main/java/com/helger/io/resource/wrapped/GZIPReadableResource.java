@@ -32,11 +32,20 @@ import com.helger.io.resource.IReadableResource;
  */
 public class GZIPReadableResource extends AbstractWrappedReadableResource
 {
+  /**
+   * Constructor.
+   *
+   * @param aBaseResource
+   *        The base readable resource to wrap. May not be <code>null</code>.
+   */
   public GZIPReadableResource (@NonNull final IReadableResource aBaseResource)
   {
     super (aBaseResource);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public InputStream getInputStream ()
   {
@@ -53,6 +62,9 @@ public class GZIPReadableResource extends AbstractWrappedReadableResource
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public GZIPReadableResource getReadableCloneForPath (@NonNull final String sPath)
   {

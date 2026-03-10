@@ -202,17 +202,20 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
     return hasIncomingRelations () && hasOutgoingRelations ();
   }
 
+  /** {@inheritDoc} */
   default boolean hasRelations ()
   {
     return hasIncomingOrOutgoingRelations ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   default int getRelationCount ()
   {
     return getIncomingRelationCount () + getOutgoingRelationCount ();
   }
 
+  /** {@inheritDoc} */
   default void forEachRelation (@NonNull final Consumer <? super RELATIONTYPE> aConsumer)
   {
     forEachIncomingRelation (aConsumer);

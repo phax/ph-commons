@@ -115,12 +115,14 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int getInvocationCount ()
   {
     return m_aInvocationCount.get ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
@@ -148,6 +150,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     }
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public final int getInvocationCount (@Nullable final String sKey)
   {
@@ -157,6 +160,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     });
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final BigInteger getSum (@Nullable final String sKey)
   {
@@ -166,6 +170,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     });
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public final long getMin (@Nullable final String sKey)
   {
@@ -175,6 +180,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     });
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public final long getAverage (@Nullable final String sKey)
   {
@@ -184,6 +190,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     });
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public long getMax (@Nullable final String sKey)
   {

@@ -33,6 +33,7 @@ public class StatisticsHandlerTimer extends AbstractStatisticsHandlerNumeric imp
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerTimer.class);
 
+  /** {@inheritDoc} */
   public void addTime (@Nonnegative final long nMillis)
   {
     if (nMillis < 0)

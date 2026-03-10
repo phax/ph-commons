@@ -36,11 +36,21 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
 
   private final boolean m_bDebug;
 
+  /**
+   * Constructor using the current debug mode from {@link GlobalDebug}.
+   */
   public HostnameVerifierVerifyAll ()
   {
     this (GlobalDebug.isDebugMode ());
   }
 
+  /**
+   * Constructor with explicit debug flag.
+   *
+   * @param bDebug
+   *        <code>true</code> to enable debug logging, <code>false</code> to
+   *        disable it.
+   */
   public HostnameVerifierVerifyAll (final boolean bDebug)
   {
     m_bDebug = bDebug;
@@ -54,6 +64,16 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
     return m_bDebug;
   }
 
+  /**
+   * {@inheritDoc} This implementation accepts all hostnames.
+   *
+   * @param sURLHostname
+   *        The hostname to verify. May not be <code>null</code>.
+   * @param aSession
+   *        The SSL session used on the connection. May not be
+   *        <code>null</code>.
+   * @return Always <code>true</code>.
+   */
   public boolean verify (final String sURLHostname, final SSLSession aSession)
   {
     if (m_bDebug)

@@ -36,18 +36,32 @@ public class LocalDatePeriod implements ILocalDatePeriod
   private final LocalDate m_aStart;
   private final LocalDate m_aEnd;
 
+  /**
+   * Constructor.
+   *
+   * @param aStart
+   *        The start date. May be <code>null</code>.
+   * @param aEnd
+   *        The end date. May be <code>null</code>.
+   */
   public LocalDatePeriod (@Nullable final LocalDate aStart, @Nullable final LocalDate aEnd)
   {
     m_aStart = aStart;
     m_aEnd = aEnd;
   }
 
+  /**
+   * @return The start date. May be <code>null</code>.
+   */
   @Nullable
   public LocalDate getStart ()
   {
     return m_aStart;
   }
 
+  /**
+   * @return The end date. May be <code>null</code>.
+   */
   @Nullable
   public LocalDate getEnd ()
   {

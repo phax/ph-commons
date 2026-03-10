@@ -48,6 +48,12 @@ import com.helger.xml.XMLHelper;
  */
 public class XMLSerializer extends AbstractXMLSerializer <Node>
 {
+  /**
+   * Constructor.
+   *
+   * @param aSettings
+   *        The XML writer settings to use. May not be <code>null</code>.
+   */
   public XMLSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
     super (aSettings);

@@ -39,18 +39,33 @@ public class DefaultDAOContainer extends AbstractDAOContainer
 {
   private final ICommonsList <IDAO> m_aDAOs;
 
+  /**
+   * Constructor with a varargs array of DAOs.
+   *
+   * @param aDAOs
+   *        The DAOs to manage. May neither be <code>null</code> nor empty and
+   *        may not contain <code>null</code> elements.
+   */
   public DefaultDAOContainer (@NonNull @Nonempty final IDAO... aDAOs)
   {
     ValueEnforcer.notEmptyNoNullValue (aDAOs, "DAOs");
     m_aDAOs = new CommonsArrayList <> (aDAOs);
   }
 
+  /**
+   * Constructor with an iterable of DAOs.
+   *
+   * @param aDAOs
+   *        The DAOs to manage. May neither be <code>null</code> nor empty and
+   *        may not contain <code>null</code> elements.
+   */
   public DefaultDAOContainer (@NonNull @Nonempty final Iterable <? extends IDAO> aDAOs)
   {
     ValueEnforcer.notEmptyNoNullValue (aDAOs, "DAOs");
     m_aDAOs = new CommonsArrayList <> (aDAOs);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IDAO> getAllContainedDAOs ()
@@ -58,6 +73,7 @@ public class DefaultDAOContainer extends AbstractDAOContainer
     return m_aRWLock.readLockedGet (m_aDAOs::getClone);
   }
 
+  /** {@inheritDoc} */
   public boolean containsAny (@Nullable final Predicate <? super IDAO> aFilter)
   {
     return m_aRWLock.readLockedBoolean ( () -> m_aDAOs.containsAny (aFilter));

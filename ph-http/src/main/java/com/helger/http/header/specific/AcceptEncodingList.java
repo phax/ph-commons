@@ -36,6 +36,9 @@ import com.helger.http.header.QValue;
 @NotThreadSafe
 public class AcceptEncodingList extends AbstractQValueList <String>
 {
+  /**
+   * Constructor creating an empty accept encoding list.
+   */
   public AcceptEncodingList ()
   {}
 
@@ -45,6 +48,16 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return sEncoding.toLowerCase (Locale.US);
   }
 
+  /**
+   * Add an encoding with the given quality.
+   *
+   * @param sEncoding
+   *        The encoding name to add. May neither be <code>null</code> nor
+   *        empty.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   */
   @NonNull
   public AcceptEncodingList addEncoding (@NonNull final String sEncoding, @Nonnegative final double dQuality)
   {
@@ -105,6 +118,15 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return getQValueOfEncoding (sEncoding).isAboveMinimumQuality ();
   }
 
+  /**
+   * Check if the passed encoding is explicitly supported (without wildcard
+   * fallback). Supported means the quality is &gt; 0.
+   *
+   * @param sEncoding
+   *        The encoding to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the encoding is explicitly supported,
+   *         <code>false</code> if not.
+   */
   public boolean explicitlySupportsEncoding (@NonNull final String sEncoding)
   {
     ValueEnforcer.notNull (sEncoding, "Encoding");
@@ -113,6 +135,10 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return aQuality != null && aQuality.isAboveMinimumQuality ();
   }
 
+  /**
+   * @return <code>true</code> if GZIP encoding (gzip or x-gzip) is supported,
+   *         <code>false</code> otherwise.
+   */
   public boolean supportsGZIP ()
   {
     return supportsEncoding (AcceptEncodingHandler.GZIP_ENCODING) ||
@@ -133,6 +159,10 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return null;
   }
 
+  /**
+   * @return <code>true</code> if deflate encoding is supported,
+   *         <code>false</code> otherwise.
+   */
   public boolean supportsDeflate ()
   {
     return supportsEncoding (AcceptEncodingHandler.DEFLATE_ENCODING);
@@ -150,6 +180,10 @@ public class AcceptEncodingList extends AbstractQValueList <String>
     return null;
   }
 
+  /**
+   * @return <code>true</code> if compress encoding (compress or x-compress) is
+   *         supported, <code>false</code> otherwise.
+   */
   public boolean supportsCompress ()
   {
     return supportsEncoding (AcceptEncodingHandler.COMPRESS_ENCODING) ||

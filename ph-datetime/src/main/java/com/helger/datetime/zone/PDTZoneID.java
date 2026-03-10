@@ -88,6 +88,9 @@ public class PDTZoneID
     m_aZoneID = ValueEnforcer.notNull (aZoneId, "ZoneID");
   }
 
+  /**
+   * @return The zone ID as a string. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getZoneIDString ()
@@ -95,30 +98,56 @@ public class PDTZoneID
     return m_sZoneID;
   }
 
+  /**
+   * @return The zone ID. Never <code>null</code>.
+   */
   @NonNull
   public ZoneId getZoneID ()
   {
     return m_aZoneID;
   }
 
+  /**
+   * Create a new {@link PDTZoneID} from the given zone ID string.
+   *
+   * @param sZoneID
+   *        The zone ID string. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTZoneID of (@NonNull final String sZoneID)
   {
     return new PDTZoneID (sZoneID, ZoneId.of (sZoneID));
   }
 
+  /**
+   * Create a new {@link PDTZoneID} from the given zone ID string and an hour
+   * offset.
+   *
+   * @param sZoneID
+   *        The zone ID string. May not be <code>null</code>.
+   * @param nHours
+   *        The hour offset from UTC.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTZoneID ofHours (@NonNull final String sZoneID, final int nHours)
   {
     return new PDTZoneID (sZoneID, ZoneOffset.ofHours (nHours));
   }
 
+  /**
+   * @return An iterable of all default zone IDs. Never <code>null</code>.
+   */
   @NonNull
   public static ICommonsIterable <PDTZoneID> getDefaultZoneIDs ()
   {
     return ZONES;
   }
 
+  /**
+   * @return A mutable copy of all default zone IDs. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <PDTZoneID> getAllDefaultZoneIDs ()

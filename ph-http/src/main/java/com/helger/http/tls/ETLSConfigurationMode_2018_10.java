@@ -137,6 +137,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @Nonempty
@@ -145,6 +146,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @ReturnsMutableCopy
@@ -153,6 +155,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuites ();
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @ReturnsMutableCopy
@@ -162,6 +165,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuitesAsArray ();
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @ReturnsMutableCopy
@@ -170,6 +174,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersions ();
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @ReturnsMutableCopy
@@ -179,6 +184,7 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDs ();
   }
 
+  /** {@inheritDoc} */
   @Deprecated
   @NonNull
   @ReturnsMutableCopy
@@ -188,6 +194,13 @@ public enum ETLSConfigurationMode_2018_10 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDsAsArray ();
   }
 
+  /**
+   * Get the enum value matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Deprecated
   @Nullable
   public static ETLSConfigurationMode_2018_10 getFromIDOrNull (@Nullable final String sID)

@@ -43,6 +43,9 @@ public class URLBuilder implements IBuilder <ISimpleURL>
 {
   private final URLData m_aData;
 
+  /**
+   * Default constructor creating an empty URL builder.
+   */
   public URLBuilder ()
   {
     m_aData = URLData.createEmpty ();
@@ -53,12 +56,22 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     m_aData = aData;
   }
 
+  /**
+   * @return The underlying URL data. Never <code>null</code>.
+   */
   @NonNull
   public IURLData urlData ()
   {
     return m_aData;
   }
 
+  /**
+   * Set the URL path.
+   *
+   * @param s
+   *        The path to set. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder path (@NonNull final String s)
   {
@@ -66,6 +79,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Set the URL parameters from a map, replacing all existing parameters.
+   *
+   * @param a
+   *        The parameters to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder params (@Nullable final Map <String, String> a)
   {
@@ -76,6 +96,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Set the URL parameters from a list, replacing all existing parameters.
+   *
+   * @param a
+   *        The parameters to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder params (@Nullable final ICommonsList <URLParameter> a)
   {
@@ -83,30 +110,73 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Add a parameter with a boolean value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param b
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder addParam (@NonNull @Nonempty final String sName, final boolean b)
   {
     return addParam (sName, Boolean.toString (b));
   }
 
+  /**
+   * Add a parameter with an int value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param n
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder addParam (@NonNull @Nonempty final String sName, final int n)
   {
     return addParam (sName, Integer.toString (n));
   }
 
+  /**
+   * Add a parameter with a long value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param n
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder addParam (@NonNull @Nonempty final String sName, final long n)
   {
     return addParam (sName, Long.toString (n));
   }
 
+  /**
+   * Add a parameter with a String value.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        The parameter value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder addParam (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     return addParam (new URLParameter (sName, sValue));
   }
 
+  /**
+   * Add a URL parameter.
+   *
+   * @param aParam
+   *        The parameter to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder addParam (@NonNull final URLParameter aParam)
   {
@@ -115,6 +185,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Remove all parameters with the specified name.
+   *
+   * @param sName
+   *        The parameter name to remove. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder removeParam (@NonNull @Nonempty final String sName)
   {
@@ -122,6 +199,15 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Set a parameter value, replacing any existing parameter with the same name.
+   *
+   * @param sName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        The parameter value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder param (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
@@ -129,6 +215,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return addParam (sName, sValue);
   }
 
+  /**
+   * Set a URL parameter, replacing any existing parameter with the same name.
+   *
+   * @param aParam
+   *        The parameter to set. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder param (@NonNull final URLParameter aParam)
   {
@@ -137,6 +230,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return addParam (aParam);
   }
 
+  /**
+   * Set the URL anchor.
+   *
+   * @param s
+   *        The anchor to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder anchor (@Nullable final String s)
   {
@@ -144,6 +244,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * Set the charset for parameter encoding.
+   *
+   * @param a
+   *        The charset to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public URLBuilder charset (@Nullable final Charset a)
   {
@@ -151,12 +258,22 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public ISimpleURL build ()
   {
     return new ReadOnlyURL (m_aData);
   }
 
+  /**
+   * Create a new {@link URLBuilder} from existing URL data.
+   *
+   * @param aURLData
+   *        The URL data to copy. May be <code>null</code>.
+   * @return A new builder instance. Never <code>null</code>.
+   */
   @NonNull
   public static URLBuilder of (@Nullable final IURLData aURLData)
   {
@@ -164,6 +281,13 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return aURLData == null ? new URLBuilder () : new URLBuilder (new URLData (aURLData));
   }
 
+  /**
+   * Create a new {@link URLBuilder} by parsing a URL string.
+   *
+   * @param sURL
+   *        The URL string to parse. May be <code>null</code> or empty.
+   * @return A new builder instance. Never <code>null</code>.
+   */
   @NonNull
   public static URLBuilder of (@Nullable final String sURL)
   {
@@ -172,12 +296,26 @@ public class URLBuilder implements IBuilder <ISimpleURL>
     return new URLBuilder (SimpleURLHelper.getAsURLData (sURL, URLData.DEFAULT_CHARSET));
   }
 
+  /**
+   * Create a new {@link URLBuilder} from a {@link URL}.
+   *
+   * @param aURL
+   *        The URL to use. May be <code>null</code>.
+   * @return A new builder instance. Never <code>null</code>.
+   */
   @NonNull
   public static URLBuilder of (@Nullable final URL aURL)
   {
     return of (aURL == null ? null : aURL.toExternalForm ());
   }
 
+  /**
+   * Create a new {@link URLBuilder} from a {@link URI}.
+   *
+   * @param aURI
+   *        The URI to use. May be <code>null</code>.
+   * @return A new builder instance. Never <code>null</code>.
+   */
   @NonNull
   public static URLBuilder of (@Nullable final URI aURI)
   {

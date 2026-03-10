@@ -36,11 +36,30 @@ public class DirectedGraphRelationFast extends DirectedGraphRelation
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor with an auto-generated ID.
+   *
+   * @param aFrom
+   *        The from-node. May not be <code>null</code>.
+   * @param aTo
+   *        The to-node. May not be <code>null</code>.
+   */
   public DirectedGraphRelationFast (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
   {
     super (aFrom, aTo);
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this relation. If <code>null</code> or empty a new ID is
+   *        generated.
+   * @param aFrom
+   *        The from-node. May not be <code>null</code>.
+   * @param aTo
+   *        The to-node. May not be <code>null</code>.
+   */
   public DirectedGraphRelationFast (@Nullable final String sID,
                                     @NonNull final IMutableDirectedGraphNode aFrom,
                                     @NonNull final IMutableDirectedGraphNode aTo)

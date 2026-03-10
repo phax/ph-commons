@@ -37,12 +37,25 @@ public final class AuthTokenIDGenerator
   private AuthTokenIDGenerator ()
   {}
 
+  /**
+   * Generate a new random token ID using the default number of bytes
+   * ({@value #DEFAULT_TOKEN_BYTES}).
+   *
+   * @return A new hex-encoded token ID string. Never <code>null</code>.
+   */
   @NonNull
   public static String generateNewTokenID ()
   {
     return generateNewTokenID (DEFAULT_TOKEN_BYTES);
   }
 
+  /**
+   * Generate a new random token ID using the specified number of bytes.
+   *
+   * @param nBytes
+   *        The number of random bytes to use. Must be &gt; 0.
+   * @return A new hex-encoded token ID string. Never <code>null</code>.
+   */
   @NonNull
   public static String generateNewTokenID (@Nonnegative final int nBytes)
   {

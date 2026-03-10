@@ -57,16 +57,26 @@ public class SettingsPersistenceJson implements ISettingsPersistence
   private final ISettingsFactory <?> m_aSettingsFactory;
   private Charset m_aCharset = JsonReader.DEFAULT_CHARSET;
 
+  /**
+   * Default constructor using the default settings factory.
+   */
   public SettingsPersistenceJson ()
   {
     this (ISettingsFactory.newInstance ());
   }
 
+  /**
+   * Constructor with a custom settings factory.
+   *
+   * @param aSettingsFactory
+   *        The settings factory to use. May not be <code>null</code>.
+   */
   public SettingsPersistenceJson (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final Charset getCharset ()
   {
@@ -120,6 +130,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
         throw new IllegalArgumentException ("JSON arrays are not supported in settings");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ISettings readSettings (@NonNull @WillClose final InputStream aIS)
   {
@@ -140,6 +151,7 @@ public class SettingsPersistenceJson implements ISettingsPersistence
     return aSettings;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {

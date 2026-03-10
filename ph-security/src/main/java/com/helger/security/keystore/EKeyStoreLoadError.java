@@ -120,6 +120,9 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
     m_aDisplayText = aDisplayText;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -127,6 +130,9 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
     return m_sID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {

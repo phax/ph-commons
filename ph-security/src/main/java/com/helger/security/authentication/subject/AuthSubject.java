@@ -36,12 +36,23 @@ public class AuthSubject implements IAuthSubject
   private final String m_sID;
   private final String m_sDisplayName;
 
+  /**
+   * Constructor with ID and display name.
+   *
+   * @param sID
+   *        The unique ID of this subject. May neither be <code>null</code> nor empty.
+   * @param sDisplayName
+   *        The display name of this subject. May neither be <code>null</code> nor empty.
+   */
   public AuthSubject (@NonNull @Nonempty final String sID, @NonNull @Nonempty final String sDisplayName)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");
     m_sDisplayName = ValueEnforcer.notEmpty (sDisplayName, "DisplayName");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getID ()
@@ -49,6 +60,9 @@ public class AuthSubject implements IAuthSubject
     return m_sID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getDisplayName ()

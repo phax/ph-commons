@@ -99,92 +99,178 @@ public final class DOMReaderDefaultSettings
   private DOMReaderDefaultSettings ()
   {}
 
+  /**
+   * @return <code>true</code> if the default DOM parser is namespace aware.
+   */
   public static boolean isNamespaceAware ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultNamespaceAware);
   }
 
+  /**
+   * Set the default namespace awareness of the DOM parser.
+   *
+   * @param bNamespaceAware
+   *        <code>true</code> if the parser should be namespace aware.
+   */
   public static void setNamespaceAware (final boolean bNamespaceAware)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultNamespaceAware = bNamespaceAware);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is validating.
+   */
   public static boolean isValidating ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultValidating);
   }
 
+  /**
+   * Set the default validation mode of the DOM parser.
+   *
+   * @param bValidating
+   *        <code>true</code> if the parser should validate the document.
+   */
   public static void setValidating (final boolean bValidating)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultValidating = bValidating);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is ignoring element
+   *         content whitespace.
+   */
   public static boolean isIgnoringElementContentWhitespace ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultIgnoringElementContentWhitespace);
   }
 
+  /**
+   * Set the default behavior for ignoring element content whitespace.
+   *
+   * @param bIgnoringElementContentWhitespace
+   *        <code>true</code> if the parser should ignore element content
+   *        whitespace.
+   */
   public static void setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is expanding entity
+   *         references.
+   */
   public static boolean isExpandEntityReferences ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultExpandEntityReferences);
   }
 
+  /**
+   * Set the default behavior for expanding entity references.
+   *
+   * @param bExpandEntityReferences
+   *        <code>true</code> if the parser should expand entity references.
+   */
   public static void setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is ignoring comments.
+   */
   public static boolean isIgnoringComments ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultIgnoringComments);
   }
 
+  /**
+   * Set the default behavior for ignoring comments.
+   *
+   * @param bIgnoringComments
+   *        <code>true</code> if the parser should ignore comments.
+   */
   public static void setIgnoringComments (final boolean bIgnoringComments)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultIgnoringComments = bIgnoringComments);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is coalescing.
+   */
   public static boolean isCoalescing ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultCoalescing);
   }
 
+  /**
+   * Set the default coalescing behavior (convert CDATA nodes to text nodes).
+   *
+   * @param bCoalescing
+   *        <code>true</code> if the parser should be coalescing.
+   */
   public static void setCoalescing (final boolean bCoalescing)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultCoalescing = bCoalescing);
   }
 
+  /**
+   * @return The default XML schema to use. May be <code>null</code>.
+   */
   @Nullable
   public static Schema getSchema ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultSchema);
   }
 
+  /**
+   * Set the default XML schema to use for validation.
+   *
+   * @param aSchema
+   *        The schema to use. May be <code>null</code>.
+   */
   public static void setSchema (@Nullable final Schema aSchema)
   {
     RW_LOCK.writeLocked ( () -> s_aDefaultSchema = aSchema);
   }
 
+  /**
+   * @return <code>true</code> if the default DOM parser is XInclude aware.
+   */
   public static boolean isXIncludeAware ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultXIncludeAware);
   }
 
+  /**
+   * Set the default XInclude awareness.
+   *
+   * @param bXIncludeAware
+   *        <code>true</code> if the parser should be XInclude aware.
+   */
   public static void setXIncludeAware (final boolean bXIncludeAware)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultXIncludeAware = bXIncludeAware);
   }
 
+  /**
+   * @return <code>true</code> if any default parser properties are set.
+   */
   public static boolean hasAnyProperties ()
   {
     return RW_LOCK.readLockedBoolean (DEFAULT_PROPS::isNotEmpty);
   }
 
+  /**
+   * Get the default value of the specified parser property.
+   *
+   * @param eProperty
+   *        The property to query. May be <code>null</code>.
+   * @return <code>null</code> if the property is not set or the parameter is
+   *         <code>null</code>.
+   */
   @Nullable
   public static Object getPropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
@@ -194,6 +280,10 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet ( () -> DEFAULT_PROPS.get (eProperty));
   }
 
+  /**
+   * @return A mutable copy of all default parser property values. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
@@ -201,6 +291,15 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet (DEFAULT_PROPS::getClone);
   }
 
+  /**
+   * Set a default parser property value.
+   *
+   * @param eProperty
+   *        The property to set. May not be <code>null</code>.
+   * @param aPropertyValue
+   *        The value to set. May be <code>null</code> to remove the
+   *        property.
+   */
   public static void setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                        @Nullable final Object aPropertyValue)
   {
@@ -214,6 +313,12 @@ public final class DOMReaderDefaultSettings
     });
   }
 
+  /**
+   * Set multiple default parser property values at once.
+   *
+   * @param aProperties
+   *        The properties to set. May be <code>null</code>.
+   */
   public static void setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
     if (aProperties != null)
@@ -222,6 +327,13 @@ public final class DOMReaderDefaultSettings
     }
   }
 
+  /**
+   * Remove a default parser property value.
+   *
+   * @param eProperty
+   *        The property to remove. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the property was removed.
+   */
   @NonNull
   public static EChange removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
@@ -231,17 +343,33 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.writeLockedGet ( () -> DEFAULT_PROPS.removeObject (eProperty));
   }
 
+  /**
+   * Remove all default parser property values.
+   *
+   * @return {@link EChange#CHANGED} if any property was removed.
+   */
   @NonNull
   public static EChange removeAllPropertyValues ()
   {
     return RW_LOCK.writeLockedGet (DEFAULT_PROPS::removeAll);
   }
 
+  /**
+   * @return <code>true</code> if any default parser features are set.
+   */
   public static boolean hasAnyFeature ()
   {
     return RW_LOCK.readLockedBoolean (DEFAULT_FEATURES::isNotEmpty);
   }
 
+  /**
+   * Get the default value of the specified parser feature.
+   *
+   * @param eFeature
+   *        The feature to query. May be <code>null</code>.
+   * @return <code>null</code> if the feature is not set or the parameter is
+   *         <code>null</code>.
+   */
   @Nullable
   public static Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
   {
@@ -251,6 +379,10 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet ((Supplier <Boolean>) () -> DEFAULT_FEATURES.get (eFeature));
   }
 
+  /**
+   * @return A mutable copy of all default parser feature values. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
@@ -258,6 +390,14 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.readLockedGet (DEFAULT_FEATURES::getClone);
   }
 
+  /**
+   * Set a default parser feature value.
+   *
+   * @param eFeature
+   *        The feature to set. May not be <code>null</code>.
+   * @param bValue
+   *        The feature value to set.
+   */
   public static void setFeatureValue (@NonNull final EXMLParserFeature eFeature, final boolean bValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
@@ -265,6 +405,16 @@ public final class DOMReaderDefaultSettings
     RW_LOCK.writeLocked ((Runnable) () -> DEFAULT_FEATURES.put (eFeature, Boolean.valueOf (bValue)));
   }
 
+  /**
+   * Set a default parser feature value with an optional {@link Boolean}
+   * wrapper.
+   *
+   * @param eFeature
+   *        The feature to set. May not be <code>null</code>.
+   * @param aValue
+   *        The feature value to set. May be <code>null</code> to remove the
+   *        feature.
+   */
   public static void setFeatureValue (@NonNull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
@@ -277,6 +427,12 @@ public final class DOMReaderDefaultSettings
     });
   }
 
+  /**
+   * Set multiple default parser feature values at once.
+   *
+   * @param aValues
+   *        The feature values to set. May be <code>null</code>.
+   */
   public static void setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
     if (aValues != null)
@@ -285,6 +441,13 @@ public final class DOMReaderDefaultSettings
     }
   }
 
+  /**
+   * Remove a default parser feature setting.
+   *
+   * @param eFeature
+   *        The feature to remove. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the feature was removed.
+   */
   @NonNull
   public static EChange removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
@@ -294,12 +457,21 @@ public final class DOMReaderDefaultSettings
     return RW_LOCK.writeLockedGet ( () -> DEFAULT_FEATURES.removeObject (eFeature));
   }
 
+  /**
+   * Remove all default parser feature settings.
+   *
+   * @return {@link EChange#CHANGED} if any feature was removed.
+   */
   @NonNull
   public static EChange removeAllFeatures ()
   {
     return RW_LOCK.writeLockedGet (DEFAULT_FEATURES::removeAll);
   }
 
+  /**
+   * @return <code>true</code> if the default settings require a new XML
+   *         parser to be created (i.e., a pooled parser cannot be used).
+   */
   public static boolean requiresNewXMLParser ()
   {
     return RW_LOCK.readLockedBoolean ( () -> {
@@ -325,28 +497,49 @@ public final class DOMReaderDefaultSettings
     });
   }
 
+  /**
+   * @return The default entity resolver. May be <code>null</code>.
+   */
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultEntityResolver);
   }
 
+  /**
+   * Set the default entity resolver.
+   *
+   * @param aEntityResolver
+   *        The entity resolver to use by default. May be <code>null</code>.
+   */
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
     RW_LOCK.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
+  /**
+   * @return The default error handler. May be <code>null</code>.
+   */
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
     return RW_LOCK.readLockedGet ( () -> s_aDefaultErrorHandler);
   }
 
+  /**
+   * Set the default error handler.
+   *
+   * @param aErrorHandler
+   *        The error handler to use by default. May be <code>null</code>.
+   */
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
     RW_LOCK.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
+  /**
+   * @return The default exception callback list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public static CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
@@ -354,11 +547,21 @@ public final class DOMReaderDefaultSettings
     return DEFAULT_EXCEPTION_CALLBACKS;
   }
 
+  /**
+   * @return <code>true</code> if a new XML parser is explicitly required by
+   *         default.
+   */
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
+  /**
+   * Set whether a new XML parser is explicitly required by default.
+   *
+   * @param bDefaultRequiresNewXMLParserExplicitly
+   *        <code>true</code> to always create a new XML parser by default.
+   */
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
     RW_LOCK.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);

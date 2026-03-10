@@ -36,6 +36,14 @@ public class RequestScope extends AbstractScope implements IRequestScope
 
   private final String m_sSessionID;
 
+  /**
+   * Constructor.
+   *
+   * @param sScopeID
+   *        The scope ID. May neither be <code>null</code> nor empty.
+   * @param sSessionID
+   *        The session ID. May neither be <code>null</code> nor empty.
+   */
   public RequestScope (@NonNull @Nonempty final String sScopeID, @NonNull @Nonempty final String sSessionID)
   {
     super (sScopeID);
@@ -46,6 +54,9 @@ public class RequestScope extends AbstractScope implements IRequestScope
       LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getSessionID (final boolean bCreateIfNotExisting)
@@ -53,6 +64,9 @@ public class RequestScope extends AbstractScope implements IRequestScope
     return m_sSessionID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void initScope ()
   {}
 

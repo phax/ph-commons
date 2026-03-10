@@ -36,6 +36,9 @@ public abstract class AbstractPasswordHashCreator implements IPasswordHashCreato
     m_sAlgorithmName = ValueEnforcer.notEmpty (sAlgorithmName, "Algorithm");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getAlgorithmName ()

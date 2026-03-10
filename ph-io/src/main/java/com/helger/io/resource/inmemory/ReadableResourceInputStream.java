@@ -52,12 +52,19 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
     m_aIS = ValueEnforcer.notNull (aIS, "InputStream");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final InputStream getInputStream ()
   {
     return m_aIS;
   }
 
+  /**
+   * @return Always <code>false</code> since an input stream can only be read
+   *         once.
+   */
   public final boolean isReadMultiple ()
   {
     return false;

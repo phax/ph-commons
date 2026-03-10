@@ -467,6 +467,10 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
   }
 
+  /**
+   * @return The XML writer settings as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public final IXMLWriterSettings getSettings ()
   {
@@ -510,6 +514,14 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     return new XMLEmitter (aWriter, aSettings);
   }
 
+  /**
+   * Write the specified node using the given {@link XMLEmitter}.
+   *
+   * @param aNode
+   *        The node to write. May not be <code>null</code>.
+   * @param aXMLEmitter
+   *        The XML emitter to write to. May not be <code>null</code>.
+   */
   public final void write (@NonNull final NODETYPE aNode, @NonNull final XMLEmitter aXMLEmitter)
   {
     // No parent node

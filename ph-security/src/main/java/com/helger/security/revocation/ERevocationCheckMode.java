@@ -69,26 +69,46 @@ public enum ERevocationCheckMode
     m_aOptions = aOptions;
   }
 
+  /**
+   * @return <code>true</code> if this mode uses OCSP checking, <code>false</code> otherwise.
+   */
   public boolean isOCSP ()
   {
     return m_bOCSP;
   }
 
+  /**
+   * @return <code>true</code> if this mode uses CRL checking, <code>false</code> otherwise.
+   */
   public boolean isCRL ()
   {
     return m_bCRL;
   }
 
+  /**
+   * @return <code>true</code> if this mode uses exactly one of OCSP or CRL but not both,
+   *         <code>false</code> otherwise.
+   */
   public boolean isOnlyOne ()
   {
     return (m_bOCSP && !m_bCRL) || (m_bCRL && !m_bOCSP);
   }
 
+  /**
+   * @return <code>true</code> if this mode uses neither OCSP nor CRL, <code>false</code> otherwise.
+   */
   public boolean isNone ()
   {
     return !m_bOCSP && !m_bCRL;
   }
 
+  /**
+   * Add all {@link PKIXRevocationChecker.Option} values of this mode to the provided target
+   * collection.
+   *
+   * @param aTarget
+   *        The target collection to add the options to. May not be <code>null</code>.
+   */
   public void addAllOptionsTo (@NonNull final Collection <? super PKIXRevocationChecker.Option> aTarget)
   {
     aTarget.addAll (m_aOptions);

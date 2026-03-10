@@ -71,18 +71,32 @@ public class CmdLineParseException extends Exception
     m_aOptionGroup = aOptionGroup;
   }
 
+  /**
+   * @return The error code describing the type of parse error that occurred.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public ECmdLineParseError getError ()
   {
     return m_eError;
   }
 
+  /**
+   * @return The affected option that caused the parse error, or
+   *         <code>null</code> if the error is related to an option group
+   *         instead.
+   */
   @Nullable
   public Option getOption ()
   {
     return m_aOption;
   }
 
+  /**
+   * @return The affected option group that caused the parse error, or
+   *         <code>null</code> if the error is related to a single option
+   *         instead.
+   */
   @Nullable
   public OptionGroup getOptionGroup ()
   {

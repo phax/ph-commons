@@ -41,6 +41,12 @@ public class PathRelativeIO implements IPathRelativeIO
   private final String m_sBasePath;
   private final String m_sBaseURL;
 
+  /**
+   * Constructor.
+   *
+   * @param sBasePath
+   *        The base path to use. May neither be <code>null</code> nor empty.
+   */
   public PathRelativeIO (@NonNull @Nonempty final String sBasePath)
   {
     ValueEnforcer.notEmpty (sBasePath, "BasePath");
@@ -54,6 +60,9 @@ public class PathRelativeIO implements IPathRelativeIO
     m_sBaseURL = sBaseURL != null ? sBaseURL : sBasePath;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getBasePath ()
@@ -61,6 +70,10 @@ public class PathRelativeIO implements IPathRelativeIO
     return m_sBasePath;
   }
 
+  /**
+   * @return The base URL derived from the base path. Neither <code>null</code>
+   *         nor empty.
+   */
   @NonNull
   @Nonempty
   public String getBaseURL ()
@@ -68,6 +81,9 @@ public class PathRelativeIO implements IPathRelativeIO
     return m_sBaseURL;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IReadableResource getResource (@NonNull @Nonempty final String sRelativePath)
   {

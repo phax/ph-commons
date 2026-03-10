@@ -60,28 +60,33 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     super (sID);
   }
 
+  /** {@inheritDoc} */
   public void setChangingConnectedObjectsAllowed (final boolean bIsChangingConnectedObjectsAllowed)
   {
     m_bIsChangingConnectedObjectsAllowed = bIsChangingConnectedObjectsAllowed;
   }
 
+  /** {@inheritDoc} */
   public boolean isChangingConnectedObjectsAllowed ()
   {
     return m_bIsChangingConnectedObjectsAllowed;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public NODETYPE getNodeOfID (@Nullable final String sID)
   {
     return m_aNodes.get (sID);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getNodeCount ()
   {
     return m_aNodes.size ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, NODETYPE> getAllNodes ()
@@ -89,6 +94,7 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     return m_aNodes.getClone ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllNodeIDs ()
@@ -96,6 +102,7 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
     return m_aNodes.copyOfKeySet ();
   }
 
+  /** {@inheritDoc} */
   public void forEachNode (@NonNull final Consumer <? super NODETYPE> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");

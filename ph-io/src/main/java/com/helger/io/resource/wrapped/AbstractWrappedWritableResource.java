@@ -41,35 +41,53 @@ public abstract class AbstractWrappedWritableResource implements IWrappedWritabl
     m_aBaseResource = ValueEnforcer.notNull (aBaseResource, "BaseResource");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IWritableResource getWrappedWritableResource ()
   {
     return m_aBaseResource;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public String getResourceID ()
   {
     return m_aBaseResource.getResourceID ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public String getPath ()
   {
     return m_aBaseResource.getPath ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean exists ()
   {
     return m_aBaseResource.exists ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public URL getAsURL ()
   {
     return m_aBaseResource.getAsURL ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public File getAsFile ()
   {

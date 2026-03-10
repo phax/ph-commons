@@ -54,6 +54,11 @@ public enum ERandomAccessFileMode
     m_sMode = sMode;
   }
 
+  /**
+   * @return The string mode identifier for use with
+   *         {@link java.io.RandomAccessFile}. Neither <code>null</code> nor
+   *         empty.
+   */
   @NonNull
   @Nonempty
   public String getMode ()
@@ -61,6 +66,13 @@ public enum ERandomAccessFileMode
     return m_sMode;
   }
 
+  /**
+   * Get the {@link ERandomAccessFileMode} from the given mode string.
+   *
+   * @param sMode
+   *        The mode string to resolve. May be <code>null</code>.
+   * @return <code>null</code> if the mode string could not be resolved.
+   */
   @Nullable
   public static ERandomAccessFileMode getFromModeOrNull (@Nullable final String sMode)
   {

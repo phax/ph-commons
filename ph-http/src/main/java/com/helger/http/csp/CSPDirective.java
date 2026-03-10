@@ -38,6 +38,15 @@ public class CSPDirective implements ICSPDirective
   private final String m_sName;
   private final String m_sValue;
 
+  /**
+   * Check if the provided string is a valid CSP directive name. Valid names
+   * consist of alpha, digit and hyphen characters only.
+   *
+   * @param sName
+   *        The name to check. May be <code>null</code>.
+   * @return <code>true</code> if the name is valid, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isValidName (@Nullable final String sName)
   {
     if (StringHelper.isEmpty (sName))
@@ -54,6 +63,15 @@ public class CSPDirective implements ICSPDirective
     return true;
   }
 
+  /**
+   * Check if the provided string is a valid CSP directive value. Empty values
+   * are allowed. The value must not contain semicolons or commas.
+   *
+   * @param sValue
+   *        The value to check. May be <code>null</code>.
+   * @return <code>true</code> if the value is valid, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isValidValue (@Nullable final String sValue)
   {
     if (StringHelper.isEmpty (sValue))
@@ -70,11 +88,29 @@ public class CSPDirective implements ICSPDirective
     return true;
   }
 
+  /**
+   * Constructor using a source list as the value.
+   *
+   * @param sName
+   *        The directive name. May neither be <code>null</code> nor empty and
+   *        must be a valid name.
+   * @param aValue
+   *        The source list value. May be <code>null</code>.
+   */
   public CSPDirective (@NonNull @Nonempty final String sName, @Nullable final AbstractCSPSourceList <?> aValue)
   {
     this (sName, aValue == null ? null : aValue.getAsString ());
   }
 
+  /**
+   * Constructor using a string as the value.
+   *
+   * @param sName
+   *        The directive name. May neither be <code>null</code> nor empty and
+   *        must be a valid name.
+   * @param sValue
+   *        The directive value. May be <code>null</code>.
+   */
   public CSPDirective (@NonNull @Nonempty final String sName, @Nullable final String sValue)
   {
     ValueEnforcer.isTrue (isValidName (sName), () -> "The CSP directive name '" + sName + "' is invalid!");
@@ -83,6 +119,7 @@ public class CSPDirective implements ICSPDirective
     m_sValue = sValue;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public final String getName ()
@@ -90,6 +127,7 @@ public class CSPDirective implements ICSPDirective
     return m_sName;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final String getValue ()
   {

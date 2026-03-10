@@ -34,6 +34,13 @@ import com.helger.settings.Settings;
 @NotThreadSafe
 public class TrimmedValueSettings extends Settings
 {
+  /**
+   * Constructor.
+   *
+   * @param sName
+   *        The name of the settings. May neither be <code>null</code> nor
+   *        empty.
+   */
   public TrimmedValueSettings (@NonNull @Nonempty final String sName)
   {
     super (sName);

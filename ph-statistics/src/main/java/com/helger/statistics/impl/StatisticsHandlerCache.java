@@ -33,28 +33,33 @@ public class StatisticsHandlerCache implements IMutableStatisticsHandlerCache
   private final AtomicInteger m_aHits = new AtomicInteger ();
   private final AtomicInteger m_aMisses = new AtomicInteger ();
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getInvocationCount ()
   {
     return getHits () + getMisses ();
   }
 
+  /** {@inheritDoc} */
   public void cacheHit ()
   {
     m_aHits.incrementAndGet ();
   }
 
+  /** {@inheritDoc} */
   public void cacheMiss ()
   {
     m_aMisses.incrementAndGet ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getHits ()
   {
     return m_aHits.intValue ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getMisses ()
   {

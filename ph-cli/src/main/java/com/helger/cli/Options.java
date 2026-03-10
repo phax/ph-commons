@@ -37,6 +37,9 @@ public class Options implements ICommonsIterable <IOptionBase>
 {
   private final ICommonsList <IOptionBase> m_aOptions = new CommonsArrayList <> ();
 
+  /**
+   * Default constructor creating an empty set of options.
+   */
   public Options ()
   {}
 
@@ -60,6 +63,13 @@ public class Options implements ICommonsIterable <IOptionBase>
     return null;
   }
 
+  /**
+   * Add an option by building it from the provided builder.
+   *
+   * @param aBuilder
+   *        The option builder to build and add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public Options addOption (@NonNull final OptionBuilder aBuilder)
   {
@@ -81,6 +91,14 @@ public class Options implements ICommonsIterable <IOptionBase>
                                   "' is already contained!");
   }
 
+  /**
+   * Add a single option.
+   *
+   * @param aOption
+   *        The option to add. May not be <code>null</code>. Must not have a
+   *        short or long name that conflicts with an already added option.
+   * @return this for chaining
+   */
   @NonNull
   public Options addOption (@NonNull final Option aOption)
   {
@@ -89,6 +107,14 @@ public class Options implements ICommonsIterable <IOptionBase>
     return this;
   }
 
+  /**
+   * Add a group of mutually exclusive options.
+   *
+   * @param aOptionGroup
+   *        The option group to add. May not be <code>null</code>. The options
+   *        in the group must not conflict with already added options.
+   * @return this for chaining
+   */
   @NonNull
   public Options addOptionGroup (@NonNull final OptionGroup aOptionGroup)
   {
@@ -99,6 +125,10 @@ public class Options implements ICommonsIterable <IOptionBase>
     return this;
   }
 
+  /**
+   * @return A mutable copy of all top-level options (excluding options inside
+   *         option groups). Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllOptions ()
@@ -106,12 +136,20 @@ public class Options implements ICommonsIterable <IOptionBase>
     return m_aOptions.getAllInstanceOf (Option.class);
   }
 
+  /**
+   * @return An iterator over all contained {@link IOptionBase} elements
+   *         (options and option groups). Never <code>null</code>.
+   */
   @NonNull
   public Iterator <IOptionBase> iterator ()
   {
     return m_aOptions.iterator ();
   }
 
+  /**
+   * @return A mutable copy of all options, resolving option groups to their
+   *         contained individual options. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllResolvedOptions ()
@@ -125,6 +163,15 @@ public class Options implements ICommonsIterable <IOptionBase>
     return ret;
   }
 
+  /**
+   * Get the option group that contains the specified option.
+   *
+   * @param aOption
+   *        The option to search for. May be <code>null</code>.
+   * @return The containing {@link OptionGroup}, or <code>null</code> if the
+   *         option is not part of any group or if the parameter is
+   *         <code>null</code>.
+   */
   @Nullable
   public OptionGroup getOptionGroup (@Nullable final Option aOption)
   {

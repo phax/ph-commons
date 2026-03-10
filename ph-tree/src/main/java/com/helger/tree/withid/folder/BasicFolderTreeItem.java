@@ -95,6 +95,9 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
     m_aKeyCombinator = ((BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE, ITEMTYPE>) aParent).m_aKeyCombinator;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final KEYTYPE getGlobalUniqueDataID ()
   {

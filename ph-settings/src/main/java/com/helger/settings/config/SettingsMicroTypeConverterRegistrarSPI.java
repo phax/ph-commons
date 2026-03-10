@@ -36,6 +36,7 @@ import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 @IsSPIImplementation
 public final class SettingsMicroTypeConverterRegistrarSPI implements IMicroTypeConverterRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register all available converters here!

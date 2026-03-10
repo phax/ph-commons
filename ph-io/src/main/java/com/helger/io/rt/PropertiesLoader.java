@@ -45,6 +45,13 @@ public final class PropertiesLoader
   private PropertiesLoader ()
   {}
 
+  /**
+   * Load properties from the given file using the default charset.
+   *
+   * @param aFile
+   *        The file to load from. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be loaded.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull final File aFile)
   {
@@ -53,6 +60,15 @@ public final class PropertiesLoader
     return loadProperties (new FileSystemResource (aFile));
   }
 
+  /**
+   * Load properties from the given file using the specified charset.
+   *
+   * @param aFile
+   *        The file to load from. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the file could not be loaded.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull final File aFile, @NonNull final Charset aCharset)
   {
@@ -61,6 +77,13 @@ public final class PropertiesLoader
     return loadProperties (new FileSystemResource (aFile), aCharset);
   }
 
+  /**
+   * Load properties from the given readable resource using the default charset.
+   *
+   * @param aRes
+   *        The resource to load from. May not be <code>null</code>.
+   * @return <code>null</code> if the resource could not be loaded.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull final IReadableResource aRes)
   {
@@ -72,6 +95,16 @@ public final class PropertiesLoader
     return PropertiesHelper.loadProperties (aIS);
   }
 
+  /**
+   * Load properties from the given readable resource using the specified
+   * charset.
+   *
+   * @param aRes
+   *        The resource to load from. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   * @return <code>null</code> if the resource could not be loaded.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull final IReadableResource aRes,
                                                       @NonNull final Charset aCharset)

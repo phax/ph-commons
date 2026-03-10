@@ -25,9 +25,15 @@ import com.helger.annotation.Nonnegative;
  */
 public interface IStatisticsHandlerCache extends IStatisticsHandler
 {
+  /**
+   * @return The number of cache hits. Always &ge; 0.
+   */
   @Nonnegative
   int getHits ();
 
+  /**
+   * @return The number of cache misses. Always &ge; 0.
+   */
   @Nonnegative
   int getMisses ();
 }

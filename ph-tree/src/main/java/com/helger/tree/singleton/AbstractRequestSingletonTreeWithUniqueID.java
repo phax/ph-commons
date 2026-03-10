@@ -41,6 +41,9 @@ public abstract class AbstractRequestSingletonTreeWithUniqueID <KEYTYPE, VALUETY
   protected AbstractRequestSingletonTreeWithUniqueID ()
   {}
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final DefaultTreeWithGlobalUniqueID <KEYTYPE, VALUETYPE> getProxyTree ()
   {

@@ -29,17 +29,34 @@ public enum ERevoked implements IRevokedIndicator
   REVOKED,
   NOT_REVOKED;
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isRevoked ()
   {
     return this == REVOKED;
   }
 
+  /**
+   * Convert a boolean value to an {@link ERevoked} instance.
+   *
+   * @param bEnabled
+   *        <code>true</code> for {@link #REVOKED}, <code>false</code> for {@link #NOT_REVOKED}.
+   * @return The matching enum value. Never <code>null</code>.
+   */
   @NonNull
   public static ERevoked valueOf (final boolean bEnabled)
   {
     return bEnabled ? REVOKED : NOT_REVOKED;
   }
 
+  /**
+   * Convert a {@link IRevokedIndicator} to an {@link ERevoked} instance.
+   *
+   * @param aEnabledIndicator
+   *        The indicator to convert. May not be <code>null</code>.
+   * @return The matching enum value. Never <code>null</code>.
+   */
   @NonNull
   public static ERevoked valueOf (@NonNull final IRevokedIndicator aEnabledIndicator)
   {

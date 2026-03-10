@@ -82,12 +82,28 @@ public final class SystemProperties implements IHasConditionalLogger
     return !CONDLOG.setEnabled (!bSilentMode);
   }
 
+  /**
+   * Get the value of the system property with the given key without issuing a warning if the
+   * property is not set.
+   *
+   * @param sKey
+   *        The key of the system property. May be <code>null</code>.
+   * @return <code>null</code> if the key is <code>null</code> or if the property is not set.
+   */
   @Nullable
   public static String getPropertyValueOrNull (@Nullable final String sKey)
   {
     return sKey == null ? null : System.getProperty (sKey);
   }
 
+  /**
+   * Get the value of the system property with the given key. If the property is not set, a warning
+   * is logged once per property name.
+   *
+   * @param sKey
+   *        The key of the system property. May be <code>null</code>.
+   * @return <code>null</code> if the key is <code>null</code> or if the property is not set.
+   */
   @Nullable
   public static String getPropertyValue (@Nullable final String sKey)
   {

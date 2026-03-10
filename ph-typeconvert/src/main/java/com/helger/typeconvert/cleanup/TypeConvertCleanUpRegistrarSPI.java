@@ -32,6 +32,9 @@ import com.helger.typeconvert.util.ClassHierarchyCache;
 @IsSPIImplementation
 public final class TypeConvertCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 100, () -> {

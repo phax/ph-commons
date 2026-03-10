@@ -35,11 +35,20 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 @NotThreadSafe
 public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements IAttributeContainerAny <KEYTYPE>
 {
+  /**
+   * Default constructor creating an empty container.
+   */
   public AttributeContainerAny ()
   {
     super ();
   }
 
+  /**
+   * Constructor copying all entries from the provided map.
+   *
+   * @param aMap
+   *        The map to copy from. May be <code>null</code>.
+   */
   public AttributeContainerAny (@Nullable final Map <? extends KEYTYPE, ? extends Object> aMap)
   {
     super (aMap);

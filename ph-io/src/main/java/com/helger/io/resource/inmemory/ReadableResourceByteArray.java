@@ -42,11 +42,27 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
 
   private final ByteArrayWrapper m_aBytes;
 
+  /**
+   * Constructor using the full byte array with default copy behavior.
+   *
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes)
   {
     this (null, aBytes, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor using a sub-range of the byte array with default copy behavior.
+   *
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to use. Must be &ge; 0.
+   */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -54,11 +70,34 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (null, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor using the full byte array with explicit copy behavior.
+   *
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param bCopyNeeded
+   *        <code>true</code> if a copy of the byte array should be made,
+   *        <code>false</code> to use it directly.
+   */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes, final boolean bCopyNeeded)
   {
     this ((String) null, aBytes, bCopyNeeded);
   }
 
+  /**
+   * Constructor using a sub-range of the byte array with explicit copy
+   * behavior.
+   *
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to use. Must be &ge; 0.
+   * @param bCopyNeeded
+   *        <code>true</code> if a copy of the byte array should be made,
+   *        <code>false</code> to use it directly.
+   */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen,
@@ -67,11 +106,32 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this ((String) null, aBytes, nOfs, nLen, bCopyNeeded);
   }
 
+  /**
+   * Constructor with resource ID using the full byte array with default copy
+   * behavior.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   */
   public ReadableResourceByteArray (@Nullable final String sResourceID, final byte @NonNull [] aBytes)
   {
     this (sResourceID, aBytes, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor with resource ID using a sub-range with default copy behavior.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to use. Must be &ge; 0.
+   */
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
@@ -80,6 +140,18 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (sResourceID, aBytes, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor with resource ID using the full byte array with explicit copy
+   * behavior.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param bCopyNeeded
+   *        <code>true</code> if a copy of the byte array should be made,
+   *        <code>false</code> to use it directly.
+   */
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     final byte @NonNull [] aBytes,
                                     final boolean bCopyNeeded)
@@ -87,6 +159,21 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     this (sResourceID, aBytes, 0, aBytes.length, bCopyNeeded);
   }
 
+  /**
+   * Full constructor with resource ID, sub-range and explicit copy behavior.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param aBytes
+   *        The byte array to use. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to use. Must be &ge; 0.
+   * @param bCopyNeeded
+   *        <code>true</code> if a copy of the byte array should be made,
+   *        <code>false</code> to use it directly.
+   */
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
@@ -100,23 +187,36 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
     m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLen, bCopyNeeded);
   }
 
+  /**
+   * @return <code>true</code> if the internal byte array is a copy,
+   *         <code>false</code> if the original reference is used.
+   */
   public final boolean isCopy ()
   {
     return m_aBytes.isCopy ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @ReturnsMutableObject
   public final byte @NonNull [] bytes ()
   {
     return m_aBytes.bytes ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int getOffset ()
   {
     return m_aBytes.getOffset ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public final int size ()
   {

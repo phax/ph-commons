@@ -49,47 +49,85 @@ public final class FileSystemCharStreamProvider implements
   private final FileSystemByteStreamProvider m_aByteStreamResolver;
   private final Charset m_aCharset;
 
+  /**
+   * Constructor using a base path string and a charset.
+   *
+   * @param sBasePath
+   *        The base path to use. May not be <code>null</code>. Must be an
+   *        existing directory.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   */
   public FileSystemCharStreamProvider (@NonNull final String sBasePath, @NonNull final Charset aCharset)
   {
     this (new File (sBasePath), aCharset);
   }
 
+  /**
+   * Constructor using a base path file and a charset.
+   *
+   * @param aBasePath
+   *        The base path to use. May not be <code>null</code>. Must be an
+   *        existing directory.
+   * @param aCharset
+   *        The charset to use. May not be <code>null</code>.
+   */
   public FileSystemCharStreamProvider (@NonNull final File aBasePath, @NonNull final Charset aCharset)
   {
     m_aByteStreamResolver = new FileSystemByteStreamProvider (aBasePath);
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
+  /**
+   * @return The base path as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public File getBasePath ()
   {
     return m_aByteStreamResolver.getBasePath ();
   }
 
+  /**
+   * @return The charset as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public Charset getCharset ()
   {
     return m_aCharset;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public InputStream getInputStream (@NonNull final String sName)
   {
     return m_aByteStreamResolver.getInputStream (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)
   {
     return m_aByteStreamResolver.getOutputStream (sName, eAppend);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Reader getReader (@NonNull final String sName)
   {
     return StreamHelper.createReader (getInputStream (sName), m_aCharset);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Writer getWriter (@NonNull final String sName, @NonNull final EAppend eAppend)
   {

@@ -36,12 +36,23 @@ public enum EScope
   /** The request scope. */
   REQUEST;
 
+  /**
+   * @return The scope matching this enum value. Never <code>null</code>.
+   */
   @NonNull
   public IScope getScope ()
   {
     return getScope (true);
   }
 
+  /**
+   * Get the scope matching this enum value.
+   *
+   * @param bCreateIfNotExisting
+   *        if <code>false</code> and the scope is not existing,
+   *        <code>null</code> will be returned.
+   * @return The matching {@link IScope} or <code>null</code>.
+   */
   @Nullable
   public IScope getScope (final boolean bCreateIfNotExisting)
   {

@@ -34,11 +34,21 @@ public class GraphNodeFast extends GraphNode
   // Status vars
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor with an auto-generated ID.
+   */
   public GraphNodeFast ()
   {
     super ();
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this graph node. If <code>null</code> or empty a new ID is
+   *        generated.
+   */
   public GraphNodeFast (@Nullable final String sID)
   {
     super (sID);

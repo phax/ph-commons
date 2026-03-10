@@ -48,6 +48,9 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
     m_sReason = sReason;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -55,6 +58,9 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
     return m_sID;
   }
 
+  /**
+   * @return The human-readable reason for this check result. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getReason ()
@@ -62,6 +68,9 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
     return m_sReason;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isValid ()
   {
     return this == VALID;

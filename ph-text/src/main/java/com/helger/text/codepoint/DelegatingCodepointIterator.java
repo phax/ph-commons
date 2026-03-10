@@ -38,6 +38,9 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     m_aInternal = ValueEnforcer.notNull (aInternal, "Internal");
   }
 
+  /**
+   * @return The internal iterator being delegated to. Never <code>null</code>.
+   */
   @NonNull
   public AbstractCodepointIterator getInternalIterator ()
   {
@@ -60,64 +63,100 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     return m_aInternal.hasNext ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int lastPosition ()
   {
     return m_aInternal.lastPosition ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isHigh (final int index)
   {
     return m_aInternal.isHigh (index);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isLow (final int index)
   {
     return m_aInternal.isLow (index);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int limit ()
   {
     return m_aInternal.limit ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Codepoint next ()
   {
     return m_aInternal.next ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public char @Nullable [] nextChars ()
   {
     return m_aInternal.nextChars ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Codepoint peek ()
   {
     return m_aInternal.peek ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Codepoint peek (final int index)
   {
     return m_aInternal.peek (index);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public char @Nullable [] peekChars ()
   {
     return m_aInternal.peekChars ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int position ()
   {
     return m_aInternal.position ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int remaining ()
   {
     return m_aInternal.remaining ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void position (final int position)
   {
     m_aInternal.position (position);
@@ -143,6 +182,9 @@ public class DelegatingCodepointIterator implements ICodepointIterator
     return m_aInternal.restrict (aFilter, bScanning);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter,
                                                final boolean bScanning,

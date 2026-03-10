@@ -120,18 +120,48 @@ public interface ICodepointIterator extends Iterator <Codepoint>
    */
   boolean isLow (@Nonnegative int nIndex);
 
+  /**
+   * Create a restricted iterator using the provided filter with default
+   * scanning and invert settings.
+   *
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   * @return A new restricted codepoint iterator. Never <code>null</code>.
+   */
   @NonNull
   default CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter)
   {
     return restrict (aFilter, false);
   }
 
+  /**
+   * Create a restricted iterator using the provided filter and scanning mode
+   * with default invert setting.
+   *
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   * @param bScanning
+   *        <code>true</code> to scan only without throwing exceptions.
+   * @return A new restricted codepoint iterator. Never <code>null</code>.
+   */
   @NonNull
   default CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter, final boolean bScanning)
   {
     return restrict (aFilter, bScanning, false);
   }
 
+  /**
+   * Create a restricted iterator using the provided filter, scanning mode and
+   * invert flag.
+   *
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   * @param bScanning
+   *        <code>true</code> to scan only without throwing exceptions.
+   * @param bInvert
+   *        <code>true</code> to invert the filter logic.
+   * @return A new restricted codepoint iterator. Never <code>null</code>.
+   */
   @NonNull
   CodepointIteratorRestricted restrict (@NonNull IntPredicate aFilter, boolean bScanning, boolean bInvert);
 }

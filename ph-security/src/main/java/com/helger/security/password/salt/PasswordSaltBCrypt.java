@@ -66,18 +66,27 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
     m_aBytes = m_sSalt.getBytes (StandardCharsets.UTF_8);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int getSaltByteCount ()
   {
     return m_aBytes.length;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @ReturnsMutableCopy
   public byte @NonNull @Nonempty [] getSaltBytes ()
   {
     return ArrayHelper.getCopy (m_aBytes);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getSaltString ()

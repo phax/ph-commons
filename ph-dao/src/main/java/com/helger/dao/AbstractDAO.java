@@ -136,6 +136,14 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
     return m_aRWLock.readLockedBoolean ( () -> m_bAutoSaveEnabled);
   }
 
+  /**
+   * Set the pending changes flag. This method must only be called within a
+   * write lock.
+   *
+   * @param bPendingChanges
+   *        <code>true</code> if there are pending changes, <code>false</code>
+   *        if not.
+   */
   @MustBeLocked (ELockType.WRITE)
   public final void internalSetPendingChanges (final boolean bPendingChanges)
   {
@@ -160,6 +168,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
     return m_aRWLock.readLockedBoolean ( () -> m_bPendingChanges);
   }
 
+  /** {@inheritDoc} */
   public final void beginWithoutAutoSave ()
   {
     m_aRWLock.writeLocked ( () -> {
@@ -170,6 +179,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
     });
   }
 
+  /** {@inheritDoc} */
   public final void endWithoutAutoSave ()
   {
     // Restore previous auto save state

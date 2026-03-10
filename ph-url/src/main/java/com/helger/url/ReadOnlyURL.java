@@ -49,12 +49,18 @@ public class ReadOnlyURL implements ISimpleURL
     m_aData = aURLData;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final String getPath ()
   {
     return m_aData.getPath ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <URLParameter> getAllParams ()
@@ -62,24 +68,36 @@ public class ReadOnlyURL implements ISimpleURL
     return m_aData.params ().getClone ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getFirstParamValue (@Nullable final String sParamName)
   {
     return m_aData.getFirstParamValue (sParamName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getAnchor ()
   {
     return m_aData.getAnchor ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final Charset getCharset ()
   {
     return m_aData.getCharset ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ReadOnlyURL getWithPath (@NonNull final String sPath)
   {
@@ -88,6 +106,9 @@ public class ReadOnlyURL implements ISimpleURL
     return new ReadOnlyURL (m_aData.getClone ().setPath (sPath));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ReadOnlyURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
@@ -96,6 +117,9 @@ public class ReadOnlyURL implements ISimpleURL
     return new ReadOnlyURL (m_aData.getClone ().setParams (aParams));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ReadOnlyURL getWithAnchor (@Nullable final String sAnchor)
   {
@@ -104,6 +128,9 @@ public class ReadOnlyURL implements ISimpleURL
     return new ReadOnlyURL (m_aData.getClone ().setAnchor (sAnchor));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ReadOnlyURL getWithCharset (@Nullable final Charset aCharset)
   {
@@ -135,42 +162,98 @@ public class ReadOnlyURL implements ISimpleURL
     return new ToStringGenerator (null).append ("Data", m_aData).getToString ();
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} from the provided URL data.
+   *
+   * @param aURLData
+   *        The URL data to use. May not be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final IURLData aURLData)
   {
     return new ReadOnlyURL (new URLData (aURLData));
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} from the provided {@link URL}.
+   *
+   * @param aURL
+   *        The URL to use. May not be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final URL aURL)
   {
     return of (aURL, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} from the provided {@link URL} and charset.
+   *
+   * @param aURL
+   *        The URL to use. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final URL aURL, @Nullable final Charset aCharset)
   {
     return of (aURL.toExternalForm (), aCharset);
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} from the provided {@link URI}.
+   *
+   * @param aURI
+   *        The URI to use. May not be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final URI aURI)
   {
     return of (aURI, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} from the provided {@link URI} and charset.
+   *
+   * @param aURI
+   *        The URI to use. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final URI aURI, @Nullable final Charset aCharset)
   {
     return of (aURI.toString (), aCharset);
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} by parsing the provided URL string.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final String sHref)
   {
     return of (sHref, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Create a new {@link ReadOnlyURL} by parsing the provided URL string with a
+   * specific charset.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May be <code>null</code>.
+   * @return A new {@link ReadOnlyURL} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ReadOnlyURL of (@NonNull final String sHref, @Nullable final Charset aCharset)
   {

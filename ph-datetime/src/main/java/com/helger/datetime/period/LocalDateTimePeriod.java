@@ -36,18 +36,32 @@ public class LocalDateTimePeriod implements ILocalDateTimePeriod
   private final LocalDateTime m_aStart;
   private final LocalDateTime m_aEnd;
 
+  /**
+   * Constructor.
+   *
+   * @param aStart
+   *        The start date time. May be <code>null</code>.
+   * @param aEnd
+   *        The end date time. May be <code>null</code>.
+   */
   public LocalDateTimePeriod (@Nullable final LocalDateTime aStart, @Nullable final LocalDateTime aEnd)
   {
     m_aStart = aStart;
     m_aEnd = aEnd;
   }
 
+  /**
+   * @return The start date time. May be <code>null</code>.
+   */
   @Nullable
   public LocalDateTime getStart ()
   {
     return m_aStart;
   }
 
+  /**
+   * @return The end date time. May be <code>null</code>.
+   */
   @Nullable
   public LocalDateTime getEnd ()
   {

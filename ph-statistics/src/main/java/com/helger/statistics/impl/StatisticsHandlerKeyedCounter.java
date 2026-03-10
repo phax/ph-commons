@@ -83,12 +83,14 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final ICommonsMap <String, Value> m_aMap = new CommonsHashMap <> ();
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getInvocationCount ()
   {
     return m_aInvocationCount.intValue ();
   }
 
+  /** {@inheritDoc} */
   public void increment (@Nullable final String sKey, final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();
@@ -101,6 +103,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     });
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <String> getAllKeys ()
@@ -108,6 +111,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     return m_aRWLock.readLockedGet (m_aMap::copyOfKeySet);
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public long getCount (@Nullable final String sKey)
   {
@@ -117,6 +121,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     });
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public int getInvocationCount (@Nullable final String sKey)
   {

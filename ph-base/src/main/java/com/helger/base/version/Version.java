@@ -136,30 +136,45 @@ public class Version implements IComparable <Version>
     m_sQualifier = StringHelper.isEmpty (sQualifier) ? null : sQualifier;
   }
 
+  /**
+   * @return The major version number. Always &ge; 0.
+   */
   @Nonnegative
   public final int getMajor ()
   {
     return m_nMajor;
   }
 
+  /**
+   * @return The minor version number. Always &ge; 0.
+   */
   @Nonnegative
   public final int getMinor ()
   {
     return m_nMinor;
   }
 
+  /**
+   * @return The micro version number. Always &ge; 0.
+   */
   @Nonnegative
   public final int getMicro ()
   {
     return m_nMicro;
   }
 
+  /**
+   * @return The version qualifier string. May be <code>null</code>.
+   */
   @Nullable
   public final String getQualifier ()
   {
     return m_sQualifier;
   }
 
+  /**
+   * @return <code>true</code> if a qualifier is present, <code>false</code> otherwise.
+   */
   public final boolean hasQualifier ()
   {
     return StringHelper.isNotEmpty (m_sQualifier);
@@ -225,6 +240,12 @@ public class Version implements IComparable <Version>
     return ret;
   }
 
+  /**
+   * Get the string representation of the version number using the default setting for printing zero
+   * elements.
+   *
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public String getAsString ()
   {

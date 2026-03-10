@@ -25,11 +25,20 @@ public class InvalidCharacterException extends RuntimeException
 {
   private final int m_nInput;
 
+  /**
+   * Constructor.
+   *
+   * @param nInput
+   *        The invalid character codepoint value.
+   */
   public InvalidCharacterException (final int nInput)
   {
     m_nInput = nInput;
   }
 
+  /**
+   * @return The invalid character codepoint value.
+   */
   public int getInput ()
   {
     return m_nInput;

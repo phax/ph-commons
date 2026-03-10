@@ -72,11 +72,18 @@ public final class ScopeSPIManager
     reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton instance has been created,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static ScopeSPIManager getInstance ()
   {
@@ -85,6 +92,9 @@ public final class ScopeSPIManager
     return ret;
   }
 
+  /**
+   * Reinitialize all SPI listeners by reloading them from the service loader.
+   */
   public void reinitialize ()
   {
     // Register all listeners
@@ -143,6 +153,12 @@ public final class ScopeSPIManager
     return ex instanceof IMockException ? null : ex;
   }
 
+  /**
+   * Invoke all registered global scope SPI listeners for scope begin.
+   *
+   * @param aGlobalScope
+   *        The global scope that just began. May not be <code>null</code>.
+   */
   public void onGlobalScopeBegin (@NonNull final IGlobalScope aGlobalScope)
   {
     for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
@@ -157,6 +173,13 @@ public final class ScopeSPIManager
       }
   }
 
+  /**
+   * Invoke all registered global scope SPI listeners for scope end.
+   *
+   * @param aGlobalScope
+   *        The global scope that is about to end. May not be
+   *        <code>null</code>.
+   */
   public void onGlobalScopeEnd (@NonNull final IGlobalScope aGlobalScope)
   {
     for (final IGlobalScopeSPI aSPI : getAllGlobalScopeSPIs ())
@@ -171,6 +194,12 @@ public final class ScopeSPIManager
       }
   }
 
+  /**
+   * Invoke all registered session scope SPI listeners for scope begin.
+   *
+   * @param aSessionScope
+   *        The session scope that just began. May not be <code>null</code>.
+   */
   public void onSessionScopeBegin (@NonNull final ISessionScope aSessionScope)
   {
     for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
@@ -185,6 +214,13 @@ public final class ScopeSPIManager
       }
   }
 
+  /**
+   * Invoke all registered session scope SPI listeners for scope end.
+   *
+   * @param aSessionScope
+   *        The session scope that is about to end. May not be
+   *        <code>null</code>.
+   */
   public void onSessionScopeEnd (@NonNull final ISessionScope aSessionScope)
   {
     for (final ISessionScopeSPI aSPI : getAllSessionScopeSPIs ())
@@ -199,6 +235,12 @@ public final class ScopeSPIManager
       }
   }
 
+  /**
+   * Invoke all registered request scope SPI listeners for scope begin.
+   *
+   * @param aRequestScope
+   *        The request scope that just began. May not be <code>null</code>.
+   */
   public void onRequestScopeBegin (@NonNull final IRequestScope aRequestScope)
   {
     for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())
@@ -213,6 +255,13 @@ public final class ScopeSPIManager
       }
   }
 
+  /**
+   * Invoke all registered request scope SPI listeners for scope end.
+   *
+   * @param aRequestScope
+   *        The request scope that is about to end. May not be
+   *        <code>null</code>.
+   */
   public void onRequestScopeEnd (@NonNull final IRequestScope aRequestScope)
   {
     for (final IRequestScopeSPI aSPI : getAllRequestScopeSPIs ())

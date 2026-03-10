@@ -201,16 +201,45 @@ public interface ILocalDatePeriod extends IHasStartAndEnd <LocalDate>
     return false;
   }
 
+  /**
+   * Check if this period has an overlap with the provided period.
+   *
+   * @param aPeriod
+   *        The period to check against. May not be <code>null</code>.
+   * @param bInclBoundaries
+   *        <code>true</code> if boundary matches should count as overlap,
+   *        <code>false</code> if not.
+   * @return <code>true</code> if the periods overlap, <code>false</code>
+   *         otherwise.
+   */
   default boolean isOverlappingWith (@NonNull final ILocalDatePeriod aPeriod, final boolean bInclBoundaries)
   {
     return hasOverlap (getStart (), getEnd (), aPeriod.getStart (), aPeriod.getEnd (), bInclBoundaries);
   }
 
+  /**
+   * Check if this period has an overlap with the provided period, including
+   * boundaries.
+   *
+   * @param aPeriod
+   *        The period to check against. May not be <code>null</code>.
+   * @return <code>true</code> if the periods overlap, <code>false</code>
+   *         otherwise.
+   */
   default boolean isOverlappingWithIncl (@NonNull final ILocalDatePeriod aPeriod)
   {
     return isOverlappingWith (aPeriod, true);
   }
 
+  /**
+   * Check if this period has an overlap with the provided period, excluding
+   * boundaries.
+   *
+   * @param aPeriod
+   *        The period to check against. May not be <code>null</code>.
+   * @return <code>true</code> if the periods overlap, <code>false</code>
+   *         otherwise.
+   */
   default boolean isOverlappingWithExcl (@NonNull final ILocalDatePeriod aPeriod)
   {
     return isOverlappingWith (aPeriod, false);

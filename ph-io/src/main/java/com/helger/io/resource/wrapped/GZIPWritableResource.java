@@ -33,11 +33,20 @@ import com.helger.io.resource.IWritableResource;
  */
 public class GZIPWritableResource extends AbstractWrappedWritableResource
 {
+  /**
+   * Constructor.
+   *
+   * @param aBaseResource
+   *        The base writable resource to wrap. May not be <code>null</code>.
+   */
   public GZIPWritableResource (@NonNull final IWritableResource aBaseResource)
   {
     super (aBaseResource);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public OutputStream getOutputStream (@NonNull final EAppend eAppend)
   {
@@ -54,6 +63,9 @@ public class GZIPWritableResource extends AbstractWrappedWritableResource
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public GZIPWritableResource getWritableCloneForPath (@NonNull final String sPath)
   {

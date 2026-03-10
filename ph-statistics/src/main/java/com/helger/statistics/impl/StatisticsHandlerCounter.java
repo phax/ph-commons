@@ -35,18 +35,21 @@ public class StatisticsHandlerCounter implements IMutableStatisticsHandlerCounte
   private final AtomicInteger m_aInvocationCount = new AtomicInteger ();
   private final AtomicLong m_aCount = new AtomicLong ();
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getInvocationCount ()
   {
     return m_aInvocationCount.intValue ();
   }
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public long getCount ()
   {
     return m_aCount.longValue ();
   }
 
+  /** {@inheritDoc} */
   public void increment (final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();

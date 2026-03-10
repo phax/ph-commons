@@ -117,6 +117,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     m_aMode = new TLSConfigurationMode (aTLSVersions, aCipherSuites);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -124,6 +125,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <String> getAllCipherSuites ()
@@ -131,6 +133,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuites ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -139,6 +142,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllCipherSuitesAsArray ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ETLSVersion> getAllTLSVersions ()
@@ -146,6 +150,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersions ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -154,6 +159,7 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDs ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   @Override
@@ -162,6 +168,13 @@ public enum ETLSConfigurationMode_2020_02 implements IHasID <String>, ITLSConfig
     return m_aMode.getAllTLSVersionIDsAsArray ();
   }
 
+  /**
+   * Get the enum value matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static ETLSConfigurationMode_2020_02 getFromIDOrNull (@Nullable final String sID)
   {

@@ -272,6 +272,14 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
     return new XMLOffsetDateTime (dateTime, offset);
   }
 
+  /**
+   * Obtains an instance of {@code XMLOffsetDateTime} from an
+   * {@link OffsetDateTime}.
+   *
+   * @param ofsDateTime
+   *        The offset date-time to convert, not null
+   * @return the offset date-time, not null
+   */
   @NonNull
   public static XMLOffsetDateTime of (@NonNull final OffsetDateTime ofsDateTime)
   {

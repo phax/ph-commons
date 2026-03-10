@@ -40,11 +40,20 @@ public interface IHasDeletionDateTime
   @Nullable
   LocalDateTime getDeletionDateTime ();
 
+  /**
+   * @return <code>true</code> if a deletion date time is present,
+   *         <code>false</code> if not.
+   * @see #getDeletionDateTime()
+   */
   default boolean hasDeletionDateTime ()
   {
     return getDeletionDateTime () != null;
   }
 
+  /**
+   * @return The extracted date from the deletion date and time or
+   *         <code>null</code> if no deletion date time is present.
+   */
   @Nullable
   default LocalDate getDeletionDate ()
   {
@@ -52,6 +61,10 @@ public interface IHasDeletionDateTime
     return aLDT == null ? null : aLDT.toLocalDate ();
   }
 
+  /**
+   * @return The extracted time from the deletion date and time or
+   *         <code>null</code> if no deletion date time is present.
+   */
   @Nullable
   default LocalTime getDeletionTime ()
   {

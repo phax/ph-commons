@@ -492,22 +492,39 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
     return m_sISOCountryCode;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_aName.getDisplayText (aContentLocale);
   }
 
+  /**
+   * @return <code>true</code> if this is a country sub-element (e.g. a state or
+   *         province), <code>false</code> if it is a top-level country.
+   */
   public boolean isCountrySub ()
   {
     return m_bIsCountrySub;
   }
 
+  /**
+   * @return The country as a {@link Locale} object. Never <code>null</code>.
+   */
   public Locale getAsLocale ()
   {
     return m_aCountry;
   }
 
+  /**
+   * Find the country enum entry by its ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such country was found.
+   */
   @Nullable
   public static ECountry getFromIDOrNull (@Nullable final String sID)
   {

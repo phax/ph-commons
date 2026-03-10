@@ -66,12 +66,18 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
     return m_sPrefix;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean supportsReading (@Nullable final String sName)
   {
     // Class path resource supports all paths
     return StringHelper.isNotEmpty (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IReadableResource getReadableResource (@NonNull final String sName)
   {

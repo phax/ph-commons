@@ -35,11 +35,20 @@ public class ConstantHasSimpleURL implements IHasSimpleURL
 {
   private final ISimpleURL m_aURL;
 
+  /**
+   * Constructor with a constant URL.
+   *
+   * @param aURL
+   *        The URL to wrap. May not be <code>null</code>.
+   */
   public ConstantHasSimpleURL (@NonNull final ISimpleURL aURL)
   {
     m_aURL = ValueEnforcer.notNull (aURL, "URL");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ISimpleURL getSimpleURL ()
   {

@@ -31,6 +31,9 @@ public class ScopeTestRule extends ExternalResource
 {
   public static final File STORAGE_PATH = ScopeAwareTestSetup.STORAGE_PATH;
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @OverrideOnDemand
   public void before ()
@@ -38,6 +41,9 @@ public class ScopeTestRule extends ExternalResource
     ScopeAwareTestSetup.setupScopeTests ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Override
   @OverrideOnDemand
   public void after ()

@@ -320,6 +320,14 @@ public final class XMLMaskHelper
 
   private static final char [] INT_HEX_UC = "0123456789ABCDEF".toCharArray ();
 
+  /**
+   * Get the XML numeric character reference for the specified character (e.g.
+   * <code>&amp;#xA;</code>).
+   *
+   * @param n
+   *        The character to convert.
+   * @return The XML numeric reference string. Never <code>null</code>.
+   */
   @NonNull
   public static String getXMLNumericReference (final char n)
   {
@@ -580,6 +588,20 @@ public final class XMLMaskHelper
     return ret;
   }
 
+  /**
+   * Get the masked (escaped) XML text as a char array.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode (text, attribute value, etc.). May not be
+   *        <code>null</code>.
+   * @param eIncorrectCharHandling
+   *        How to handle incorrect characters. May not be <code>null</code>.
+   * @param s
+   *        The string to mask. May be <code>null</code> or empty.
+   * @return The masked text as a char array. Never <code>null</code>.
+   */
   public static char @NonNull [] getMaskedXMLText (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                    @NonNull final EXMLCharMode eXMLCharMode,
                                                    @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
@@ -619,6 +641,19 @@ public final class XMLMaskHelper
     return StringReplace.replaceMultiple (aChars, aSrcMap, aDstMap);
   }
 
+  /**
+   * Get the length of the masked (escaped) XML text.
+   *
+   * @param eXMLVersion
+   *        The XML version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param eIncorrectCharHandling
+   *        How to handle incorrect characters. May not be <code>null</code>.
+   * @param s
+   *        The string to check. May be <code>null</code> or empty.
+   * @return The length of the masked text. Always &ge; 0.
+   */
   @Nonnegative
   public static int getMaskedXMLTextLength (@NonNull final EXMLVersion eXMLVersion,
                                             @NonNull final EXMLCharMode eXMLCharMode,
@@ -631,6 +666,19 @@ public final class XMLMaskHelper
                                    s);
   }
 
+  /**
+   * Get the length of the masked (escaped) XML text.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param eIncorrectCharHandling
+   *        How to handle incorrect characters. May not be <code>null</code>.
+   * @param s
+   *        The string to check. May be <code>null</code> or empty.
+   * @return The length of the masked text. Always &ge; 0.
+   */
   @Nonnegative
   public static int getMaskedXMLTextLength (@NonNull final EXMLSerializeVersion eXMLVersion,
                                             @NonNull final EXMLCharMode eXMLCharMode,
@@ -676,6 +724,23 @@ public final class XMLMaskHelper
     return ret;
   }
 
+  /**
+   * Mask (escape) the specified XML text and write it to the given
+   * {@link Writer}.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param eIncorrectCharHandling
+   *        How to handle incorrect characters. May not be <code>null</code>.
+   * @param s
+   *        The string to mask. May be <code>null</code> or empty.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>.
+   * @throws IOException
+   *         In case of a write error
+   */
   public static void maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
                                     @NonNull final EXMLCharMode eXMLCharMode,
                                     @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
@@ -686,6 +751,27 @@ public final class XMLMaskHelper
       maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
   }
 
+  /**
+   * Mask (escape) the specified XML text from a char array and write it to
+   * the given {@link Writer}.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param eIncorrectCharHandling
+   *        How to handle incorrect characters. May not be <code>null</code>.
+   * @param aSrcText
+   *        The source text as a char array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array to start reading.
+   * @param nLen
+   *        The number of chars to read from the char array.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>.
+   * @throws IOException
+   *         In case of a write error
+   */
   public static void maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
                                     @NonNull final EXMLCharMode eXMLCharMode,
                                     @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,

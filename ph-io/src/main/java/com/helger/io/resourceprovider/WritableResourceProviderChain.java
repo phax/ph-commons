@@ -43,6 +43,13 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
 {
   protected final ICommonsList <IWritableResourceProvider> m_aWritableResourceProviders = new CommonsArrayList <> ();
 
+  /**
+   * Constructor with a varargs array of resource providers.
+   *
+   * @param aResProviders
+   *        The resource providers to use. May neither be <code>null</code> nor
+   *        empty. At least one must implement {@link IWritableResourceProvider}.
+   */
   public WritableResourceProviderChain (@NonNull final IReadableResourceProvider... aResProviders)
   {
     super (aResProviders);
@@ -55,6 +62,13 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
 
+  /**
+   * Constructor with an iterable of resource providers.
+   *
+   * @param aResProviders
+   *        The resource providers to use. May neither be <code>null</code> nor
+   *        empty. At least one must implement {@link IWritableResourceProvider}.
+   */
   public WritableResourceProviderChain (@NonNull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     super (aResProviders);
@@ -67,6 +81,10 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
       throw new IllegalArgumentException ("No writable resource provider passed - use a ReadableResourceProviderChain");
   }
 
+  /**
+   * @return A copy of all contained writable resource providers. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @Nonempty
   @ReturnsMutableCopy
@@ -75,12 +93,18 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
     return m_aWritableResourceProviders.getClone ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean supportsWriting (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
     return m_aWritableResourceProviders.containsAny (x -> x.supportsWriting (sName));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @OverrideOnDemand
   public IWritableResource getWritableResource (@NonNull final String sName)
@@ -95,6 +119,16 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
                                         m_aWritableResourceProviders);
   }
 
+  /**
+   * Get a writable resource matching the name and filter.
+   *
+   * @param sName
+   *        The name of the resource to resolve. May not be <code>null</code>.
+   * @param aReturnFilter
+   *        The filter to apply on found resources. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no matching resource was found.
+   */
   @Nullable
   public IWritableResource getWritableResourceIf (@NonNull final String sName,
                                                   @NonNull final Predicate <? super IWritableResource> aReturnFilter)

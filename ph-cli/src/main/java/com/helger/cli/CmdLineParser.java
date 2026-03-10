@@ -61,6 +61,12 @@ public class CmdLineParser
 
   private final Options m_aOptions;
 
+  /**
+   * Constructor.
+   *
+   * @param aOptions
+   *        The options to use for parsing. May not be <code>null</code>.
+   */
   public CmdLineParser (@NonNull final Options aOptions)
   {
     ValueEnforcer.notNull (aOptions, "Options");
@@ -134,6 +140,18 @@ public class CmdLineParser
     return "[" + StringImplode.getImplodedMapped (" | ", aOptionGroup, CmdLineParser::_getDisplayName) + "]";
   }
 
+  /**
+   * Parse the given command line arguments using the specified options.
+   *
+   * @param aOptions
+   *        The options to use for parsing. May not be <code>null</code>.
+   * @param aArgs
+   *        The command line arguments to parse. May be <code>null</code>.
+   * @return The parsed command line result. Never <code>null</code>.
+   * @throws CmdLineParseException
+   *         If a parsing error occurs, e.g. a required option is missing or
+   *         an option has too few values.
+   */
   @NonNull
   public static ParsedCmdLine parseStatic (@NonNull final Options aOptions, @Nullable final String [] aArgs)
                                                                                                              throws CmdLineParseException
@@ -295,12 +313,32 @@ public class CmdLineParser
     return ret;
   }
 
+  /**
+   * Parse the given command line arguments using the options provided in the
+   * constructor.
+   *
+   * @param aArgs
+   *        The command line arguments to parse. May be <code>null</code>.
+   * @return The parsed command line result. Never <code>null</code>.
+   * @throws CmdLineParseException
+   *         If a parsing error occurs.
+   */
   @NonNull
   public ParsedCmdLine parse (@Nullable final String [] aArgs) throws CmdLineParseException
   {
     return parseStatic (m_aOptions, aArgs);
   }
 
+  /**
+   * Parse the given command line arguments using the options provided in the
+   * constructor, returning <code>null</code> on error instead of throwing an
+   * exception.
+   *
+   * @param aArgs
+   *        The command line arguments to parse. May be <code>null</code>.
+   * @return The parsed command line result, or <code>null</code> if parsing
+   *         failed.
+   */
   @Nullable
   public ParsedCmdLine parseOrNull (@Nullable final String [] aArgs)
   {

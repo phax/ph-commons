@@ -99,6 +99,14 @@ public final class Punycode
     return k + (BASE - TMIN + 1) * delta / (delta + SKEW);
   }
 
+  /**
+   * Encode the provided string using the Punycode algorithm.
+   *
+   * @param s
+   *        The string to encode. May be <code>null</code>.
+   * @return The encoded string, or <code>null</code> if the input was
+   *         <code>null</code>.
+   */
   @Nullable
   public static String getEncoded (@Nullable final String s)
   {
@@ -107,6 +115,15 @@ public final class Punycode
     return getEncoded (s.toCharArray (), null);
   }
 
+  /**
+   * Encode the provided char array using the Punycode algorithm.
+   *
+   * @param aChars
+   *        The characters to encode. May not be <code>null</code>.
+   * @param aCaseFlags
+   *        Optional case flags for the encoding. May be <code>null</code>.
+   * @return The encoded string. Never <code>null</code>.
+   */
   public static String getEncoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
   {
     final StringBuilder aSB = new StringBuilder ();
@@ -181,6 +198,14 @@ public final class Punycode
     return aSB.toString ();
   }
 
+  /**
+   * Decode the provided Punycode encoded string.
+   *
+   * @param s
+   *        The string to decode. May be <code>null</code>.
+   * @return The decoded string, or <code>null</code> if the input was
+   *         <code>null</code>.
+   */
   @Nullable
   public static String getDecoded (@Nullable final String s)
   {
@@ -189,6 +214,15 @@ public final class Punycode
     return getDecoded (s.toCharArray (), null);
   }
 
+  /**
+   * Decode the provided Punycode encoded char array.
+   *
+   * @param aChars
+   *        The characters to decode. May not be <code>null</code>.
+   * @param aCaseFlags
+   *        Optional case flags for the decoding. May be <code>null</code>.
+   * @return The decoded string. Never <code>null</code>.
+   */
   @NonNull
   public static String getDecoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
   {

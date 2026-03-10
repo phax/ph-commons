@@ -190,89 +190,169 @@ public interface IGetterDirectTrait
     return aValue == null ? aDefault : TypeConverter.convert (aValue, aClass, aDefault);
   }
 
+  /**
+   * @return The value converted to a <code>boolean</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default boolean getAsBoolean ()
   {
     // throws TypeConverterException if key is null
     return TypeConverter.convertToBoolean (getValue ());
   }
 
+  /**
+   * @param bDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>boolean</code>, or the default value.
+   */
   default boolean getAsBoolean (final boolean bDefault)
   {
     return TypeConverter.convertToBoolean (getValue (), bDefault);
   }
 
+  /**
+   * @return The value converted to a <code>byte</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default byte getAsByte ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToByte (getValue ());
   }
 
+  /**
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>byte</code>, or the default value.
+   */
   default byte getAsByte (final byte nDefault)
   {
     return TypeConverter.convertToByte (getValue (), nDefault);
   }
 
+  /**
+   * @return The value converted to a <code>char</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default char getAsChar ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToChar (getValue ());
   }
 
+  /**
+   * @param cDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>char</code>, or the default value.
+   */
   default char getAsChar (final char cDefault)
   {
     return TypeConverter.convertToChar (getValue (), cDefault);
   }
 
+  /**
+   * @return The value converted to a <code>double</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default double getAsDouble ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToDouble (getValue ());
   }
 
+  /**
+   * @param dDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>double</code>, or the default value.
+   */
   default double getAsDouble (final double dDefault)
   {
     return TypeConverter.convertToDouble (getValue (), dDefault);
   }
 
+  /**
+   * @return The value converted to a <code>float</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default float getAsFloat ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToFloat (getValue ());
   }
 
+  /**
+   * @param fDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>float</code>, or the default value.
+   */
   default float getAsFloat (final float fDefault)
   {
     return TypeConverter.convertToFloat (getValue (), fDefault);
   }
 
+  /**
+   * @return The value converted to an <code>int</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default int getAsInt ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToInt (getValue ());
   }
 
+  /**
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to an <code>int</code>, or the default value.
+   */
   default int getAsInt (final int nDefault)
   {
     return TypeConverter.convertToInt (getValue (), nDefault);
   }
 
+  /**
+   * @return The value converted to a <code>long</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default long getAsLong ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToLong (getValue ());
   }
 
+  /**
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>long</code>, or the default value.
+   */
   default long getAsLong (final long nDefault)
   {
     return TypeConverter.convertToLong (getValue (), nDefault);
   }
 
+  /**
+   * @return The value converted to a <code>short</code>.
+   * @throws TypeConverterException
+   *         if the value is <code>null</code> or conversion fails
+   */
   default short getAsShort ()
   {
     // throws TypeConverterException if value is null
     return TypeConverter.convertToShort (getValue ());
   }
 
+  /**
+   * @param nDefault
+   *        The default value to use if conversion fails.
+   * @return The value converted to a <code>short</code>, or the default value.
+   */
   default short getAsShort (final short nDefault)
   {
     return TypeConverter.convertToShort (getValue (), nDefault);

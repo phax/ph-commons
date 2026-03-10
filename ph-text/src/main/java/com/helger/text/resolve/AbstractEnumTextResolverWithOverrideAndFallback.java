@@ -58,6 +58,11 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected AbstractEnumTextResolverWithOverrideAndFallback ()
   {}
 
+  /**
+   * @return <code>true</code> if override texts are checked,
+   *         <code>false</code> if not. The default value is
+   *         {@link #DEFAULT_CHECK_FOR_OVERRIDE}.
+   */
   public final boolean isCheckForOverride ()
   {
     m_aRWLock.readLock ().lock ();
@@ -71,11 +76,22 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     }
   }
 
+  /**
+   * Enable or disable checking for override texts.
+   *
+   * @param bCheckForOverride
+   *        <code>true</code> to enable, <code>false</code> to disable.
+   */
   public final void setCheckForOverride (final boolean bCheckForOverride)
   {
     m_aRWLock.writeLocked ( () -> m_bCheckForOverride = bCheckForOverride);
   }
 
+  /**
+   * @return <code>true</code> if fallback texts are checked,
+   *         <code>false</code> if not. The default value is
+   *         {@link #DEFAULT_CHECK_FOR_FALLBACK}.
+   */
   public final boolean isCheckForFallback ()
   {
     m_aRWLock.readLock ().lock ();
@@ -89,6 +105,12 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
     }
   }
 
+  /**
+   * Enable or disable checking for fallback texts.
+   *
+   * @param bCheckForFallback
+   *        <code>true</code> to enable, <code>false</code> to disable.
+   */
   public final void setCheckForFallback (final boolean bCheckForFallback)
   {
     m_aRWLock.writeLocked ( () -> m_bCheckForFallback = bCheckForFallback);

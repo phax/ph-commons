@@ -39,6 +39,13 @@ import com.helger.base.aggregate.IAggregator;
 public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends Collection <DATATYPE>> extends
                                           AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
+  /**
+   * Constructor.
+   *
+   * @param aKeyCombinator
+   *        The key combinator to be used to create global unique IDs. May be
+   *        <code>null</code>.
+   */
   public DefaultFolderTreeItemFactory (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {
     super (aKeyCombinator);

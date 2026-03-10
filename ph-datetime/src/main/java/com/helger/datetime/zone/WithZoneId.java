@@ -35,24 +35,42 @@ public class WithZoneId
   private final String m_sStr;
   private final ZoneId m_aZoneID;
 
+  /**
+   * Constructor.
+   *
+   * @param sStr
+   *        The date/time string. May not be <code>null</code>.
+   * @param aZoneID
+   *        The optional zone ID. May be <code>null</code>.
+   */
   public WithZoneId (@NonNull final String sStr, @Nullable final ZoneId aZoneID)
   {
     m_sStr = ValueEnforcer.notNull (sStr, "Str");
     m_aZoneID = aZoneID;
   }
 
+  /**
+   * @return The date/time string. Never <code>null</code>.
+   */
   @NonNull
   public String getString ()
   {
     return m_sStr;
   }
 
+  /**
+   * @return The zone ID. May be <code>null</code>.
+   */
   @Nullable
   public ZoneId getZoneID ()
   {
     return m_aZoneID;
   }
 
+  /**
+   * @return <code>true</code> if a zone ID is present, <code>false</code> if
+   *         not.
+   */
   public boolean hasZoneID ()
   {
     return m_aZoneID != null;

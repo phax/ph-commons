@@ -41,12 +41,25 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
   private final IHasDisplayText m_aParentText;
   private final Object [] m_aArgs;
 
+  /**
+   * Constructor.
+   *
+   * @param aParentText
+   *        The parent display text provider. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to be used for formatting. May neither be
+   *        <code>null</code> nor empty.
+   */
   public HasDisplayTextWithArgs (@NonNull final IHasDisplayText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
   }
 
+  /**
+   * @return The parent display text provider as passed in the constructor.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public IHasDisplayText getParentText ()
   {
@@ -66,6 +79,9 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
     return ArrayHelper.getCopy (m_aArgs);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {

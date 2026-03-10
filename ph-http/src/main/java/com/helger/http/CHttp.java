@@ -337,6 +337,13 @@ public final class CHttp
   private CHttp ()
   {}
 
+  /**
+   * Get the human-readable response message for the given HTTP status code.
+   *
+   * @param nResponseCode
+   *        The HTTP response code.
+   * @return The corresponding response message. Never <code>null</code>.
+   */
   @NonNull
   @Nonempty
   public static String getHttpResponseMessage (final int nResponseCode)
@@ -416,6 +423,14 @@ public final class CHttp
     return nMillis / CGlobal.MILLISECONDS_PER_SECOND * CGlobal.MILLISECONDS_PER_SECOND;
   }
 
+  /**
+   * Convert the given milliseconds to a {@link LocalDateTime}, rounded down
+   * to the nearest second.
+   *
+   * @param nMillis
+   *        The milliseconds to convert.
+   * @return The corresponding {@link LocalDateTime}. Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime convertMillisToLocalDateTime (final long nMillis)
   {

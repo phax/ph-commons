@@ -46,6 +46,10 @@ public enum EHttpReferrerPolicy
     m_sValue = sValue;
   }
 
+  /**
+   * @return The HTTP header value for this referrer policy. Never
+   *         <code>null</code> but may be empty for {@link #NONE}.
+   */
   @NonNull
   public String getValue ()
   {

@@ -32,12 +32,14 @@ public abstract class AbstractDAOContainer implements IDAOContainer
 {
   protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
+  /** {@inheritDoc} */
   @OverridingMethodsMustInvokeSuper
   public boolean isAutoSaveEnabled ()
   {
     return m_aRWLock.readLockedBoolean ( () -> containsAny (x -> x != null && x.isAutoSaveEnabled ()));
   }
 
+  /** {@inheritDoc} */
   public final void beginWithoutAutoSave ()
   {
     final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();
@@ -48,6 +50,7 @@ public abstract class AbstractDAOContainer implements IDAOContainer
     });
   }
 
+  /** {@inheritDoc} */
   public final void endWithoutAutoSave ()
   {
     final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();

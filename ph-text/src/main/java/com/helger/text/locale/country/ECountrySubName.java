@@ -215,6 +215,9 @@ public enum ECountrySubName implements IHasDisplayText
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {

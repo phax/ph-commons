@@ -61,6 +61,9 @@ public class HttpForwardedHeaderHop
 
   private final ICommonsOrderedMap <String, String> m_aPairs = new CommonsLinkedHashMap <> ();
 
+  /**
+   * Constructor creating an empty forwarded header hop.
+   */
   public HttpForwardedHeaderHop ()
   {}
 
@@ -70,6 +73,17 @@ public class HttpForwardedHeaderHop
     return s.toLowerCase (Locale.ROOT);
   }
 
+  /**
+   * Add a token-value pair to this forwarded hop. If the token already exists,
+   * its value will be overwritten with a warning.
+   *
+   * @param sToken
+   *        The token name. May neither be <code>null</code> nor empty. Must
+   *        be a valid RFC 7230 token.
+   * @param sValue
+   *        The value for the token. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public HttpForwardedHeaderHop addPair (@NonNull @Nonempty final String sToken, @NonNull final String sValue)
   {

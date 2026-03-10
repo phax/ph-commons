@@ -40,11 +40,20 @@ public interface IHasLastModificationDateTime
   @Nullable
   LocalDateTime getLastModificationDateTime ();
 
+  /**
+   * @return <code>true</code> if a last modification date time is present,
+   *         <code>false</code> if not.
+   * @see #getLastModificationDateTime()
+   */
   default boolean hasLastModificationDateTime ()
   {
     return getLastModificationDateTime () != null;
   }
 
+  /**
+   * @return The extracted date from the last modification date and time or
+   *         <code>null</code> if no last modification date time is present.
+   */
   @Nullable
   default LocalDate getLastModificationDate ()
   {
@@ -52,6 +61,10 @@ public interface IHasLastModificationDateTime
     return aLDT == null ? null : aLDT.toLocalDate ();
   }
 
+  /**
+   * @return The extracted time from the last modification date and time or
+   *         <code>null</code> if no last modification date time is present.
+   */
   @Nullable
   default LocalTime getLastModificationTime ()
   {

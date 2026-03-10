@@ -53,51 +53,120 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
 {
   private final URLData m_aData;
 
+  /**
+   * Default constructor creating an empty URL.
+   */
   public SimpleURL ()
   {
     m_aData = URLData.createEmpty ();
   }
 
+  /**
+   * Constructor from a {@link URL} using the default charset.
+   *
+   * @param aURL
+   *        The URL to use. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final URL aURL)
   {
     this (aURL, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Constructor from a {@link URL} with a specific charset.
+   *
+   * @param aURL
+   *        The URL to use. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final URL aURL, @NonNull final Charset aCharset)
   {
     this (aURL.toExternalForm (), aCharset);
   }
 
+  /**
+   * Constructor from a {@link URI} using the default charset.
+   *
+   * @param aURI
+   *        The URI to use. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final URI aURI)
   {
     this (aURI, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Constructor from a {@link URI} with a specific charset.
+   *
+   * @param aURI
+   *        The URI to use. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final URI aURI, @NonNull final Charset aCharset)
   {
     this (aURI.toString (), aCharset);
   }
 
+  /**
+   * Constructor from existing URL data.
+   *
+   * @param aURLData
+   *        The URL data to copy. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final IURLData aURLData)
   {
     m_aData = new URLData (aURLData);
   }
 
+  /**
+   * Constructor parsing the provided URL string using the default charset.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref)
   {
     this (sHref, URLData.DEFAULT_CHARSET);
   }
 
+  /**
+   * Constructor parsing the provided URL string with a specific charset.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for parameter encoding. May be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref, @Nullable final Charset aCharset)
   {
     this (SimpleURLHelper.getAsURLData (sHref, aCharset, aCharset == null ? null : new URLParameterDecoder (aCharset)));
   }
 
+  /**
+   * Constructor from a URL string with additional parameters.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aParams
+   *        Additional parameters to add. May be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref, @Nullable final Map <String, String> aParams)
   {
     this (sHref, aParams, null);
   }
 
+  /**
+   * Constructor from a URL string with additional parameters and an anchor.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aParams
+   *        Additional parameters to add. May be <code>null</code>.
+   * @param sAnchor
+   *        The anchor to set. May be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref,
                     @Nullable final Map <String, String> aParams,
                     @Nullable final String sAnchor)
@@ -110,11 +179,29 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
       m_aData.setAnchor (sAnchor);
   }
 
+  /**
+   * Constructor from a URL string with additional URL parameters.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aParams
+   *        Additional URL parameters to add. May be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref, @Nullable final Iterable <URLParameter> aParams)
   {
     this (sHref, aParams, null);
   }
 
+  /**
+   * Constructor from a URL string with additional URL parameters and an anchor.
+   *
+   * @param sHref
+   *        The URL string to parse. May not be <code>null</code>.
+   * @param aParams
+   *        Additional URL parameters to add. May be <code>null</code>.
+   * @param sAnchor
+   *        The anchor to set. May be <code>null</code>.
+   */
   public SimpleURL (@NonNull final String sHref,
                     @Nullable final Iterable <URLParameter> aParams,
                     @Nullable final String sAnchor)
@@ -125,12 +212,18 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
       m_aData.setAnchor (sAnchor);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final String getPath ()
   {
     return m_aData.getPath ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public SimpleURL setPath (@NonNull final String sPath)
   {
@@ -138,6 +231,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableObject
   public final ICommonsList <URLParameter> params ()
@@ -145,12 +241,18 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return m_aData.params ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getFirstParamValue (@Nullable final String sParamName)
   {
     return m_aData.getFirstParamValue (sParamName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public SimpleURL setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
@@ -158,6 +260,13 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Apply a consumer to the mutable parameter list.
+   *
+   * @param aParamConsumer
+   *        The consumer to apply. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL withParams (@NonNull final Consumer <? super ICommonsList <URLParameter>> aParamConsumer)
   {
@@ -166,6 +275,13 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter with only a name and no value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL add (@NonNull @Nonempty final String sParamName)
   {
@@ -173,6 +289,15 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter with a boolean value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param bParamValue
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL add (@NonNull @Nonempty final String sParamName, final boolean bParamValue)
   {
@@ -180,6 +305,15 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter with an int value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param nParamValue
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL add (@NonNull @Nonempty final String sParamName, final int nParamValue)
   {
@@ -187,6 +321,15 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter with a long value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param nParamValue
+   *        The parameter value.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL add (@NonNull @Nonempty final String sParamName, final long nParamValue)
   {
@@ -194,6 +337,15 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter with a String value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sParamValue
+   *        The parameter value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL add (@NonNull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
@@ -201,6 +353,15 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter only if the value is not <code>null</code>.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sParamValue
+   *        The parameter value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL addIfNotNull (@NonNull @Nonempty final String sParamName, @Nullable final String sParamValue)
   {
@@ -209,6 +370,17 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add a parameter only if the predicate matches the value.
+   *
+   * @param sParamName
+   *        The parameter name. May neither be <code>null</code> nor empty.
+   * @param sParamValue
+   *        The parameter value. May be <code>null</code>.
+   * @param aPredicate
+   *        The predicate to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL addIf (@NonNull @Nonempty final String sParamName,
                           @Nullable final String sParamValue,
@@ -219,6 +391,13 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * Add all parameters from the provided map.
+   *
+   * @param aParams
+   *        The parameters to add. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public SimpleURL addAll (@Nullable final Map <String, String> aParams)
   {
@@ -228,12 +407,18 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getAnchor ()
   {
     return m_aData.getAnchor ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public SimpleURL setAnchor (@Nullable final String sAnchor)
   {
@@ -241,12 +426,18 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final Charset getCharset ()
   {
     return m_aData.getCharset ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public SimpleURL setCharset (@Nullable final Charset aCharset)
   {
@@ -254,6 +445,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final SimpleURL getWithPath (@NonNull final String sPath)
   {
@@ -262,6 +456,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setPath (sPath));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final SimpleURL getWithParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
@@ -270,6 +467,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setParams (aParams));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final SimpleURL getWithAnchor (@Nullable final String sAnchor)
   {
@@ -278,6 +478,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setAnchor (sAnchor));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final SimpleURL getWithCharset (@Nullable final Charset aCharset)
   {
@@ -286,6 +489,9 @@ public class SimpleURL implements ISimpleURL, IMutableURLData <SimpleURL>, IClon
     return new SimpleURL (m_aData.getClone ().setCharset (aCharset));
   }
 
+  /**
+   * @return A deep clone of this URL. Never <code>null</code>.
+   */
   @NonNull
   public SimpleURL getClone ()
   {

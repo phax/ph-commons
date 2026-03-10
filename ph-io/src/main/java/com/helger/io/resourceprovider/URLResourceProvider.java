@@ -36,11 +36,17 @@ import com.helger.io.resource.URLResource;
 @Immutable
 public final class URLResourceProvider implements IReadableResourceProvider
 {
+  /**
+   * {@inheritDoc}
+   */
   public boolean supportsReading (@Nullable final String sName)
   {
     return URLResource.isExplicitURLResource (sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public IReadableResource getReadableResource (@NonNull final String sURL)
   {
     ValueEnforcer.notNull (sURL, "URL");

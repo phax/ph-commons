@@ -127,11 +127,19 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     setRequiresNewXMLParserExplicitly (aOther.isRequiresNewXMLParserExplicitly ());
   }
 
+  /** {@inheritDoc} */
   public boolean isNamespaceAware ()
   {
     return m_bNamespaceAware;
   }
 
+  /**
+   * Set whether the parser should be namespace aware.
+   *
+   * @param bNamespaceAware
+   *        <code>true</code> if the parser should be namespace aware.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setNamespaceAware (final boolean bNamespaceAware)
   {
@@ -139,11 +147,19 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isValidating ()
   {
     return m_bValidating;
   }
 
+  /**
+   * Set whether the parser should validate the document.
+   *
+   * @param bValidating
+   *        <code>true</code> if the parser should validate the document.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setValidating (final boolean bValidating)
   {
@@ -151,11 +167,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isIgnoringElementContentWhitespace ()
   {
     return m_bIgnoringElementContentWhitespace;
   }
 
+  /**
+   * Set whether the parser should ignore element content whitespace.
+   *
+   * @param bIgnoringElementContentWhitespace
+   *        <code>true</code> if the parser should ignore element content
+   *        whitespace.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
@@ -163,11 +188,19 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isExpandEntityReferences ()
   {
     return m_bExpandEntityReferences;
   }
 
+  /**
+   * Set whether the parser should expand entity references.
+   *
+   * @param bExpandEntityReferences
+   *        <code>true</code> if the parser should expand entity references.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
@@ -175,11 +208,19 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isIgnoringComments ()
   {
     return m_bIgnoringComments;
   }
 
+  /**
+   * Set whether the parser should ignore comments.
+   *
+   * @param bIgnoringComments
+   *        <code>true</code> if the parser should ignore comments.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setIgnoringComments (final boolean bIgnoringComments)
   {
@@ -187,11 +228,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isCoalescing ()
   {
     return m_bCoalescing;
   }
 
+  /**
+   * Set whether the parser should be coalescing (convert CDATA nodes to text
+   * nodes and append to an adjacent text node if any).
+   *
+   * @param bCoalescing
+   *        <code>true</code> if the parser should be coalescing.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setCoalescing (final boolean bCoalescing)
   {
@@ -199,12 +249,21 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Schema getSchema ()
   {
     return m_aSchema;
   }
 
+  /**
+   * Set the XML {@link Schema} to use for validation.
+   *
+   * @param aSchema
+   *        The schema to use. May be <code>null</code> to disable schema
+   *        validation.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setSchema (@Nullable final Schema aSchema)
   {
@@ -212,11 +271,19 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean isXIncludeAware ()
   {
     return m_bXIncludeAware;
   }
 
+  /**
+   * Set whether the parser should be XInclude aware.
+   *
+   * @param bXIncludeAware
+   *        <code>true</code> if the parser should be XInclude aware.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setXIncludeAware (final boolean bXIncludeAware)
   {
@@ -224,17 +291,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean hasAnyProperties ()
   {
     return m_aProperties.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Object getPropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
     return eProperty == null ? null : m_aProperties.get (eProperty);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ()
@@ -242,6 +312,16 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aProperties.getClone ();
   }
 
+  /**
+   * Set a parser property value.
+   *
+   * @param eProperty
+   *        The property to set. May not be <code>null</code>.
+   * @param aPropertyValue
+   *        The property value to set. May be <code>null</code> to remove
+   *        the property.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                                    @Nullable final Object aPropertyValue)
@@ -264,6 +344,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Set multiple parser property values at once.
+   *
+   * @param aProperties
+   *        The properties to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setPropertyValues (@Nullable final Map <EXMLParserProperty, ?> aProperties)
   {
@@ -272,6 +359,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Remove a specific parser property value.
+   *
+   * @param eProperty
+   *        The property to remove. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings removePropertyValue (@Nullable final EXMLParserProperty eProperty)
   {
@@ -280,6 +374,11 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Remove all parser property values.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings removeAllPropertyValues ()
   {
@@ -287,29 +386,40 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Locale getLocale ()
   {
     return (Locale) getPropertyValue (EXMLParserProperty.GENERAL_LOCALE);
   }
 
+  /**
+   * Set the locale to use for error messages.
+   *
+   * @param aLocale
+   *        The locale to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public DOMReaderSettings setLocale (@Nullable final Locale aLocale)
   {
     return setPropertyValue (EXMLParserProperty.GENERAL_LOCALE, aLocale);
   }
 
+  /** {@inheritDoc} */
   public boolean hasAnyFeature ()
   {
     return m_aFeatures.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
   {
     return eFeature == null ? null : m_aFeatures.get (eFeature);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ()
@@ -317,6 +427,15 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aFeatures.getClone ();
   }
 
+  /**
+   * Set a parser feature value.
+   *
+   * @param eFeature
+   *        The feature to set. May not be <code>null</code>.
+   * @param bValue
+   *        The feature value to set.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature, final boolean bValue)
   {
@@ -326,6 +445,16 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Set a parser feature value with an optional {@link Boolean} wrapper.
+   *
+   * @param eFeature
+   *        The feature to set. May not be <code>null</code>.
+   * @param aValue
+   *        The feature value to set. May be <code>null</code> to remove the
+   *        feature.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setFeatureValue (@NonNull final EXMLParserFeature eFeature,
                                                   @Nullable final Boolean aValue)
@@ -339,6 +468,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Set multiple parser feature values at once.
+   *
+   * @param aValues
+   *        The feature values to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setFeatureValues (@Nullable final Map <EXMLParserFeature, Boolean> aValues)
   {
@@ -347,6 +483,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Remove a specific parser feature setting.
+   *
+   * @param eFeature
+   *        The feature to remove. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings removeFeature (@Nullable final EXMLParserFeature eFeature)
   {
@@ -355,6 +498,13 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Remove multiple parser feature settings at once.
+   *
+   * @param aFeatures
+   *        The features to remove. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings removeFeatures (@Nullable final EXMLParserFeature... aFeatures)
   {
@@ -364,6 +514,11 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /**
+   * Remove all parser feature settings.
+   *
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings removeAllFeatures ()
   {
@@ -371,6 +526,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   public boolean requiresNewXMLParser ()
   {
     // Force a new XML parser?
@@ -394,12 +550,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return m_aEntityResolver != null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public EntityResolver getEntityResolver ()
   {
     return m_aEntityResolver;
   }
 
+  /**
+   * Set the entity resolver to use.
+   *
+   * @param aEntityResolver
+   *        The entity resolver to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
@@ -407,12 +571,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ErrorHandler getErrorHandler ()
   {
     return m_aErrorHandler;
   }
 
+  /**
+   * Set the error handler to use for parsing.
+   *
+   * @param aErrorHandler
+   *        The error handler to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
@@ -420,17 +592,27 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public CallbackList <IExceptionCallback <Throwable>> exceptionCallbacks ()
   {
     return m_aExceptionCallbacks;
   }
 
+  /** {@inheritDoc} */
   public boolean isRequiresNewXMLParserExplicitly ()
   {
     return m_bRequiresNewXMLParserExplicitly;
   }
 
+  /**
+   * Set whether a new XML parser is explicitly required (instead of using a
+   * pooled one).
+   *
+   * @param bRequiresNewXMLParserExplicitly
+   *        <code>true</code> to always create a new XML parser.
+   * @return this for chaining
+   */
   @NonNull
   public final DOMReaderSettings setRequiresNewXMLParserExplicitly (final boolean bRequiresNewXMLParserExplicitly)
   {
@@ -438,12 +620,14 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DOMReaderSettings getClone ()
   {
     return new DOMReaderSettings (this);
   }
 
+  /** {@inheritDoc} */
   public void applyToDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
@@ -481,6 +665,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
         aEntry.getKey ().applyTo (aDocumentBuilderFactory, aEntry.getValue ().booleanValue ());
   }
 
+  /** {@inheritDoc} */
   public void applyToDocumentBuilder (@NonNull final DocumentBuilder aDocumentBuilder)
   {
     ValueEnforcer.notNull (aDocumentBuilder, "DocumentBuilder");

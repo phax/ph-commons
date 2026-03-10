@@ -35,20 +35,35 @@ public class Expirable implements IMutableExpirable
 {
   private LocalDateTime m_aExpirationDateTime;
 
+  /**
+   * Default constructor without expiration.
+   */
   public Expirable ()
   {}
 
+  /**
+   * Constructor with an optional expiration date time.
+   *
+   * @param aExpirationDateTime
+   *        The expiration date time. May be <code>null</code>.
+   */
   public Expirable (@Nullable final LocalDateTime aExpirationDateTime)
   {
     m_aExpirationDateTime = aExpirationDateTime;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public LocalDateTime getExpirationDateTime ()
   {
     return m_aExpirationDateTime;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {

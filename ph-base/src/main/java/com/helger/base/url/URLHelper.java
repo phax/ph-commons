@@ -440,6 +440,16 @@ public final class URLHelper
     return null;
   }
 
+  /**
+   * Convert a URL to a {@link File}. The URL must use the "file" protocol.
+   *
+   * @param aURL
+   *        The URL to convert. May not be <code>null</code>. Must use the "file" protocol.
+   * @return The corresponding {@link File} object. The file may be non-existing. Never
+   *         <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the URL does not use the "file" protocol.
+   */
   @NonNull
   public static File getAsFile (@NonNull final URL aURL)
   {
@@ -467,6 +477,14 @@ public final class URLHelper
     return aFile;
   }
 
+  /**
+   * Try to convert a URL to a {@link File}. If the URL is <code>null</code> or does not use the
+   * "file" protocol, <code>null</code> is returned.
+   *
+   * @param aURL
+   *        The URL to convert. May be <code>null</code>.
+   * @return <code>null</code> if the URL is <code>null</code> or does not use the "file" protocol.
+   */
   @Nullable
   public static File getAsFileOrNull (@Nullable final URL aURL)
   {
@@ -516,11 +534,27 @@ public final class URLHelper
     return ret;
   }
 
+  /**
+   * Check if a classpath URL exists for the given path.
+   *
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   * @return <code>true</code> if the classpath URL exists, <code>false</code> otherwise.
+   */
   public static boolean isClassPathURLExisting (@NonNull @Nonempty final String sPath)
   {
     return getClassPathURL (sPath) != null;
   }
 
+  /**
+   * Check if a classpath URL exists for the given path using the specified class loader.
+   *
+   * @param sPath
+   *        The path to be resolved. May neither be <code>null</code> nor empty.
+   * @param aClassLoader
+   *        The class loader to use for resolving. May not be <code>null</code>.
+   * @return <code>true</code> if the classpath URL exists, <code>false</code> otherwise.
+   */
   public static boolean isClassPathURLExisting (@NonNull @Nonempty final String sPath,
                                                 @NonNull final ClassLoader aClassLoader)
   {

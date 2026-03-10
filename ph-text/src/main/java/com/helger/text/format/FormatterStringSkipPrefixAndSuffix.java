@@ -34,18 +34,32 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
   private final String m_sPrefix;
   private final String m_sSuffix;
 
+  /**
+   * Constructor.
+   *
+   * @param sPrefix
+   *        The prefix to skip. May not be <code>null</code>.
+   * @param sSuffix
+   *        The suffix to skip. May not be <code>null</code>.
+   */
   public FormatterStringSkipPrefixAndSuffix (@NonNull final String sPrefix, @NonNull final String sSuffix)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
 
+  /**
+   * @return The prefix to skip. Never <code>null</code>.
+   */
   @NonNull
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
+  /**
+   * @return The suffix to skip. Never <code>null</code>.
+   */
   @NonNull
   public String getSuffix ()
   {
@@ -87,12 +101,28 @@ public class FormatterStringSkipPrefixAndSuffix extends AbstractFormatterString
     return ToStringGenerator.getDerived (super.toString ()).append ("Prefix", m_sPrefix).append ("Suffix", m_sSuffix).getToString ();
   }
 
+  /**
+   * Create a formatter that only skips a prefix.
+   *
+   * @param sPrefix
+   *        The prefix to skip. May not be <code>null</code>.
+   * @return A new {@link FormatterStringSkipPrefixAndSuffix} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static FormatterStringSkipPrefixAndSuffix createPrefixOnly (@NonNull final String sPrefix)
   {
     return new FormatterStringSkipPrefixAndSuffix (sPrefix, "");
   }
 
+  /**
+   * Create a formatter that only skips a suffix.
+   *
+   * @param sSuffix
+   *        The suffix to skip. May not be <code>null</code>.
+   * @return A new {@link FormatterStringSkipPrefixAndSuffix} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static FormatterStringSkipPrefixAndSuffix createSuffixOnly (@NonNull final String sSuffix)
   {

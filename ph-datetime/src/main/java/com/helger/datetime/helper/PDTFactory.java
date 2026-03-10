@@ -88,23 +88,55 @@ public final class PDTFactory
     return -a.getTimezoneOffset ();
   }
 
+  /**
+   * Get the raw timezone offset in minutes of the passed calendar.
+   *
+   * @param aCal
+   *        The calendar to use. May not be <code>null</code>.
+   * @return The timezone offset in minutes.
+   */
   public static int getTimezoneOffsetInMinutes (@NonNull final GregorianCalendar aCal)
   {
     final long nOffsetMillis = aCal.getTimeZone ().getRawOffset ();
     return Math.toIntExact (nOffsetMillis / CGlobal.MILLISECONDS_PER_MINUTE);
   }
 
+  /**
+   * Get the standard timezone offset in minutes of the passed zone at the
+   * given instant.
+   *
+   * @param aZID
+   *        The zone ID to use. May not be <code>null</code>.
+   * @param aAt
+   *        The instant at which to determine the offset. May not be
+   *        <code>null</code>.
+   * @return The timezone offset in minutes.
+   */
   public static int getTimezoneOffsetInMinutes (@NonNull final ZoneId aZID, @NonNull final Instant aAt)
   {
     final ZoneOffset aZO = aZID.getRules ().getStandardOffset (aAt);
     return getTimezoneOffsetInMinutes (aZO);
   }
 
+  /**
+   * Get the timezone offset in minutes of the passed zone offset.
+   *
+   * @param aZO
+   *        The zone offset to use. May not be <code>null</code>.
+   * @return The timezone offset in minutes.
+   */
   public static int getTimezoneOffsetInMinutes (@NonNull final ZoneOffset aZO)
   {
     return aZO.getTotalSeconds () / CGlobal.SECONDS_PER_MINUTE;
   }
 
+  /**
+   * Get a {@link ZoneOffset} from a timezone offset in minutes.
+   *
+   * @param nOffsetInMinutes
+   *        The offset in minutes.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZoneOffset getZoneOffsetFromOffsetInMinutes (final int nOffsetInMinutes)
   {
@@ -112,6 +144,13 @@ public final class PDTFactory
                                       nOffsetInMinutes % CGlobal.MINUTES_PER_HOUR);
   }
 
+  /**
+   * Get the {@link ZoneOffset} of the passed {@link Date}.
+   *
+   * @param a
+   *        The date to use. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZoneOffset getZoneOffset (@NonNull final Date a)
   {
@@ -119,6 +158,13 @@ public final class PDTFactory
     return getZoneOffsetFromOffsetInMinutes (nOffsetMin);
   }
 
+  /**
+   * Get a {@link ZoneId} from a timezone offset in minutes.
+   *
+   * @param nOffsetInMinutes
+   *        The offset in minutes.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZoneId getZoneIdFromOffsetInMinutes (final int nOffsetInMinutes)
   {
@@ -127,6 +173,13 @@ public final class PDTFactory
     return ZoneId.ofOffset ("", aZO);
   }
 
+  /**
+   * Get the {@link ZoneId} of the passed {@link Date}.
+   *
+   * @param a
+   *        The date to use. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZoneId getZoneId (@NonNull final Date a)
   {
@@ -134,6 +187,13 @@ public final class PDTFactory
     return getZoneIdFromOffsetInMinutes (nOffsetMin);
   }
 
+  /**
+   * Get the {@link TimeZone} of the passed {@link Date}.
+   *
+   * @param a
+   *        The date to use. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static TimeZone getTimeZone (@NonNull final Date a)
   {
@@ -143,12 +203,19 @@ public final class PDTFactory
 
   // To ZonedDateTime
 
+  /**
+   * @return The current {@link ZonedDateTime} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime getCurrentZonedDateTime ()
   {
     return ZonedDateTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link ZonedDateTime} in UTC. Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime getCurrentZonedDateTimeUTC ()
   {
@@ -384,12 +451,19 @@ public final class PDTFactory
 
   // To OffsetDateTime
 
+  /**
+   * @return The current {@link OffsetDateTime} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static OffsetDateTime getCurrentOffsetDateTime ()
   {
     return OffsetDateTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link OffsetDateTime} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static OffsetDateTime getCurrentOffsetDateTimeUTC ()
   {
@@ -642,12 +716,20 @@ public final class PDTFactory
 
   // To XMLOffsetDateTime
 
+  /**
+   * @return The current {@link XMLOffsetDateTime} in the default time zone.
+   *         Never <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTime ()
   {
     return XMLOffsetDateTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link XMLOffsetDateTime} in UTC. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeUTC ()
   {
@@ -892,12 +974,19 @@ public final class PDTFactory
 
   // To LocalDateTime
 
+  /**
+   * @return The current {@link LocalDateTime} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static LocalDateTime getCurrentLocalDateTime ()
   {
     return LocalDateTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link LocalDateTime} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static LocalDateTime getCurrentLocalDateTimeUTC ()
   {
@@ -1089,12 +1178,19 @@ public final class PDTFactory
 
   // To LocalDate
 
+  /**
+   * @return The current {@link LocalDate} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static LocalDate getCurrentLocalDate ()
   {
     return LocalDate.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link LocalDate} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static LocalDate getCurrentLocalDateUTC ()
   {
@@ -1181,12 +1277,19 @@ public final class PDTFactory
 
   // To OffsetDate
 
+  /**
+   * @return The current {@link OffsetDate} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static OffsetDate getCurrentOffsetDate ()
   {
     return OffsetDate.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link OffsetDate} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static OffsetDate getCurrentOffsetDateUTC ()
   {
@@ -1319,12 +1422,19 @@ public final class PDTFactory
 
   // To XMLOffsetDate
 
+  /**
+   * @return The current {@link XMLOffsetDate} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetDate getCurrentXMLOffsetDate ()
   {
     return XMLOffsetDate.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link XMLOffsetDate} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetDate getCurrentXMLOffsetDateUTC ()
   {
@@ -1438,6 +1548,10 @@ public final class PDTFactory
 
   // LocalTime
 
+  /**
+   * @return The current {@link LocalTime} in the default time zone. Never
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static LocalTime getCurrentLocalTime ()
   {

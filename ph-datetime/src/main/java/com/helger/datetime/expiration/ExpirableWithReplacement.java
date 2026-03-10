@@ -38,21 +38,39 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   private LocalDateTime m_aExpirationDateTime;
   private DATATYPE m_aReplacement;
 
+  /**
+   * Default constructor without expiration and without replacement.
+   */
   public ExpirableWithReplacement ()
   {}
 
+  /**
+   * Constructor with an optional expiration date time and an optional
+   * replacement.
+   *
+   * @param aExpirationDateTime
+   *        The expiration date time. May be <code>null</code>.
+   * @param aReplacement
+   *        The replacement object. May be <code>null</code>.
+   */
   public ExpirableWithReplacement (@Nullable final LocalDateTime aExpirationDateTime, @Nullable final DATATYPE aReplacement)
   {
     m_aExpirationDateTime = aExpirationDateTime;
     m_aReplacement = aReplacement;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public LocalDateTime getExpirationDateTime ()
   {
     return m_aExpirationDateTime;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange setExpirationDateTime (@Nullable final LocalDateTime aExpirationDateTime)
   {
@@ -63,12 +81,18 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE getReplacement ()
   {
     return m_aReplacement;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange setReplacement (@Nullable final DATATYPE aReplacement)
   {

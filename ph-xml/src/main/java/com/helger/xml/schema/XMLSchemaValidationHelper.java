@@ -50,12 +50,30 @@ public final class XMLSchemaValidationHelper
   private XMLSchemaValidationHelper ()
   {}
 
+  /**
+   * Validate the passed XML resource against the passed XSD resource.
+   *
+   * @param aSchema
+   *        The XSD resource. May not be <code>null</code>.
+   * @param aXML
+   *        The XML resource to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull final IReadableResource aSchema, @NonNull final IReadableResource aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
+  /**
+   * Validate the passed XML resource against the passed XSD resources.
+   *
+   * @param aSchemas
+   *        The XSD resources. May not be <code>null</code> or empty.
+   * @param aXML
+   *        The XML resource to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas, @NonNull final IReadableResource aXML)
   {
@@ -64,6 +82,16 @@ public final class XMLSchemaValidationHelper
     return validate (aSchemas, TransformSourceFactory.create (aXML));
   }
 
+  /**
+   * Validate the passed XML resource against the passed compiled
+   * {@link Schema}.
+   *
+   * @param aSchema
+   *        The compiled schema. May not be <code>null</code>.
+   * @param aXML
+   *        The XML resource to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull final Schema aSchema, @NonNull final IReadableResource aXML)
   {
@@ -72,12 +100,30 @@ public final class XMLSchemaValidationHelper
     return validate (aSchema, TransformSourceFactory.create (aXML));
   }
 
+  /**
+   * Validate the passed XML source against the passed XSD resource.
+   *
+   * @param aSchema
+   *        The XSD resource. May not be <code>null</code>.
+   * @param aXML
+   *        The XML source to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull @Nonempty final IReadableResource aSchema, @NonNull final Source aXML)
   {
     return validate (new IReadableResource [] { aSchema }, aXML);
   }
 
+  /**
+   * Validate the passed XML source against the passed XSD resources.
+   *
+   * @param aSchemas
+   *        The XSD resources. May not be <code>null</code> or empty.
+   * @param aXML
+   *        The XML source to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas, @NonNull final Source aXML)
   {
@@ -85,6 +131,16 @@ public final class XMLSchemaValidationHelper
     return validate (XMLSchemaCache.getInstance ().getSchema (aSchemas), aXML);
   }
 
+  /**
+   * Validate the passed XML source against the passed compiled
+   * {@link Schema}.
+   *
+   * @param aSchema
+   *        The compiled schema. May not be <code>null</code>.
+   * @param aXML
+   *        The XML source to validate. May not be <code>null</code>.
+   * @return A non-<code>null</code> error list with all validation errors.
+   */
   @NonNull
   public static IErrorList validate (@NonNull final Schema aSchema, @NonNull final Source aXML)
   {

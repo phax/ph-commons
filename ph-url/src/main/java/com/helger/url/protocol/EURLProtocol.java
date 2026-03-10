@@ -170,6 +170,9 @@ public enum EURLProtocol implements IURLProtocol
     return sURL != null && sURL.startsWith (m_sProtocol, 0);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getWithProtocol (@Nullable final String sURL)
   {
@@ -178,6 +181,9 @@ public enum EURLProtocol implements IURLProtocol
     return m_sProtocol + sURL;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean allowsForQueryParameters ()
   {
     return this == HTTP || this == HTTPS || this == MAILTO || this == SHTTP;

@@ -124,6 +124,19 @@ public final class ScopeManager
     return onGlobalBegin (sScopeID, GlobalScope::new);
   }
 
+  /**
+   * This method is used to set the initial global scope using a custom
+   * factory.
+   *
+   * @param <T>
+   *        The global scope implementation type
+   * @param sScopeID
+   *        The scope ID to use. May neither be <code>null</code> nor empty.
+   * @param aFactory
+   *        The factory to create the global scope. May not be
+   *        <code>null</code>.
+   * @return The created global scope object. Never <code>null</code>.
+   */
   @NonNull
   public static <T extends IGlobalScope> T onGlobalBegin (@NonNull @Nonempty final String sScopeID,
                                                           @NonNull final Function <? super String, T> aFactory)
@@ -133,6 +146,10 @@ public final class ScopeManager
     return aGlobalScope;
   }
 
+  /**
+   * @return The global scope or <code>null</code> if no valid global scope is
+   *         present.
+   */
   @Nullable
   public static IGlobalScope getGlobalScopeOrNull ()
   {
@@ -143,11 +160,20 @@ public final class ScopeManager
     return null;
   }
 
+  /**
+   * @return <code>true</code> if a valid global scope is present,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isGlobalScopePresent ()
   {
     return getGlobalScopeOrNull () != null;
   }
 
+  /**
+   * @return The global scope and never <code>null</code>.
+   * @throws IllegalStateException
+   *         If no global scope is present
+   */
   @NonNull
   public static IGlobalScope getGlobalScope ()
   {
@@ -226,6 +252,21 @@ public final class ScopeManager
     return getSessionScope (bCreateIfNotExisting, SessionScope::new);
   }
 
+  /**
+   * Get the current session scope, based on the current request scope, using a
+   * custom session scope factory.
+   *
+   * @param bCreateIfNotExisting
+   *        <code>true</code> to create a new scope, if none is present yet,
+   *        <code>false</code> to return <code>null</code> if either no
+   *        request scope or no session scope is present.
+   * @param aFactory
+   *        The factory to create a new session scope. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code>
+   *         and either no request scope or no session scope is present, the
+   *         {@link ISessionScope} otherwise.
+   */
   @Nullable
   public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting,
                                                @NonNull final Function <? super String, ? extends ISessionScope> aFactory)
@@ -313,6 +354,15 @@ public final class ScopeManager
     ScopeSPIManager.getInstance ().onRequestScopeBegin (aRequestScope);
   }
 
+  /**
+   * To be called when a new request begins.
+   *
+   * @param sScopeID
+   *        The request scope ID. May neither be <code>null</code> nor empty.
+   * @param sSessionID
+   *        The session ID to use. May neither be <code>null</code> nor empty.
+   * @return The created request scope. Never <code>null</code>.
+   */
   @NonNull
   public static IRequestScope onRequestBegin (@NonNull @Nonempty final String sScopeID,
                                               @NonNull @Nonempty final String sSessionID)
@@ -320,6 +370,21 @@ public final class ScopeManager
     return onRequestBegin (sScopeID, sSessionID, RequestScope::new);
   }
 
+  /**
+   * To be called when a new request begins, using a custom request scope
+   * factory.
+   *
+   * @param <T>
+   *        The request scope implementation type
+   * @param sScopeID
+   *        The request scope ID. May neither be <code>null</code> nor empty.
+   * @param sSessionID
+   *        The session ID to use. May neither be <code>null</code> nor empty.
+   * @param aFactory
+   *        The factory to create the request scope. May not be
+   *        <code>null</code>.
+   * @return The created request scope. Never <code>null</code>.
+   */
   @NonNull
   public static <T extends IRequestScope> T onRequestBegin (@NonNull @Nonempty final String sScopeID,
                                                             @NonNull @Nonempty final String sSessionID,

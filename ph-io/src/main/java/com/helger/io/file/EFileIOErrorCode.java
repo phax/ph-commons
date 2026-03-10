@@ -210,6 +210,13 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
     return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }
 
+  /**
+   * Get the {@link EFileIOErrorCode} from the given numeric ID.
+   *
+   * @param nID
+   *        The ID to resolve.
+   * @return <code>null</code> if the ID could not be resolved.
+   */
   @Nullable
   public static EFileIOErrorCode getFromIDOrNull (final int nID)
   {

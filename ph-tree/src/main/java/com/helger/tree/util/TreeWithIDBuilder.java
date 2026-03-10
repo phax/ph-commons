@@ -188,6 +188,18 @@ public final class TreeWithIDBuilder
     }
   }
 
+  /**
+   * A generic method to build a tree of objects using a children provider.
+   *
+   * @param <KEYTYPE>
+   *        The tree key type.
+   * @param <DATATYPE>
+   *        The tree item value type.
+   * @param aChildrenResolver
+   *        The callback method to determine the children of a given object.
+   *        May not be <code>null</code>.
+   * @return A tree with all the objects. Never <code>null</code>.
+   */
   @NonNull
   public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final IChildrenProvider <DATATYPE> aChildrenResolver)
   {

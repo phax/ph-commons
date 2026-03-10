@@ -26,6 +26,14 @@ import org.jspecify.annotations.NonNull;
  */
 public class CodepointIteratorByteBuffer extends CodepointIteratorCharBuffer
 {
+  /**
+   * Constructor.
+   *
+   * @param aBytes
+   *        The byte buffer to iterate. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to decode the bytes. May not be <code>null</code>.
+   */
   public CodepointIteratorByteBuffer (@NonNull final ByteBuffer aBytes, @NonNull final Charset aCharset)
   {
     super (aCharset.decode (aBytes));

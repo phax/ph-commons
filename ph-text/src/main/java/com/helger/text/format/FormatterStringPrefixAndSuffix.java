@@ -33,18 +33,32 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
   private final String m_sPrefix;
   private final String m_sSuffix;
 
+  /**
+   * Constructor.
+   *
+   * @param sPrefix
+   *        The prefix to add. May not be <code>null</code>.
+   * @param sSuffix
+   *        The suffix to add. May not be <code>null</code>.
+   */
   public FormatterStringPrefixAndSuffix (@NonNull final String sPrefix, @NonNull final String sSuffix)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_sSuffix = ValueEnforcer.notNull (sSuffix, "Suffix");
   }
 
+  /**
+   * @return The prefix to add. Never <code>null</code>.
+   */
   @NonNull
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
+  /**
+   * @return The suffix to add. Never <code>null</code>.
+   */
   @NonNull
   public String getSuffix ()
   {
@@ -80,18 +94,40 @@ public class FormatterStringPrefixAndSuffix extends AbstractFormatterString
     return ToStringGenerator.getDerived (super.toString ()).append ("Prefix", m_sPrefix).append ("Suffix", m_sSuffix).getToString ();
   }
 
+  /**
+   * Create a formatter that only adds a prefix.
+   *
+   * @param sPrefix
+   *        The prefix to add. May not be <code>null</code>.
+   * @return A new {@link FormatterStringPrefixAndSuffix} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static FormatterStringPrefixAndSuffix createPrefixOnly (@NonNull final String sPrefix)
   {
     return new FormatterStringPrefixAndSuffix (sPrefix, "");
   }
 
+  /**
+   * Create a formatter that only adds a suffix.
+   *
+   * @param sSuffix
+   *        The suffix to add. May not be <code>null</code>.
+   * @return A new {@link FormatterStringPrefixAndSuffix} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static FormatterStringPrefixAndSuffix createSuffixOnly (@NonNull final String sSuffix)
   {
     return new FormatterStringPrefixAndSuffix ("", sSuffix);
   }
 
+  /**
+   * Create a formatter that wraps values in square brackets ("[" and "]").
+   *
+   * @return A new {@link FormatterStringPrefixAndSuffix} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static FormatterStringPrefixAndSuffix createWithBrackets ()
   {

@@ -34,14 +34,31 @@ import com.helger.base.enforce.ValueEnforcer;
 @NotThreadSafe
 public class MultilingualText extends AbstractMapBasedMultilingualText
 {
+  /**
+   * Create an empty multilingual text.
+   */
   public MultilingualText ()
   {}
 
+  /**
+   * Constructor with a single locale/text pair.
+   *
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sValue
+   *        The text value. May not be <code>null</code>.
+   */
   public MultilingualText (@NonNull final Locale aContentLocale, @NonNull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
+  /**
+   * Constructor from a map of locale to text entries.
+   *
+   * @param aContent
+   *        The map with all texts. May not be <code>null</code>.
+   */
   public MultilingualText (@NonNull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
@@ -50,6 +67,12 @@ public class MultilingualText extends AbstractMapBasedMultilingualText
       internalAddText (aEntry);
   }
 
+  /**
+   * Copy constructor from an existing multilingual text.
+   *
+   * @param aMLT
+   *        The multilingual text to copy from. May not be <code>null</code>.
+   */
   public MultilingualText (@NonNull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");

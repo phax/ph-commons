@@ -211,6 +211,17 @@ public interface IFileRelativeIO extends IPathRelativeIO
                       : FileOperationManager.INSTANCE.createDirIfNotExisting (aDir);
   }
 
+  /**
+   * Delete a directory relative to the base path.
+   *
+   * @param sRelativePath
+   *        The relative path of the directory. May not be <code>null</code>.
+   * @param bDeleteRecursively
+   *        <code>true</code> to delete recursively, <code>false</code> to
+   *        delete only if empty.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError deleteDirectory (@NonNull final String sRelativePath, final boolean bDeleteRecursively)
   {
@@ -219,6 +230,17 @@ public interface IFileRelativeIO extends IPathRelativeIO
                                                                                                                        .deleteDir (aDir);
   }
 
+  /**
+   * Delete a directory relative to the base path if it exists.
+   *
+   * @param sRelativePath
+   *        The relative path of the directory. May not be <code>null</code>.
+   * @param bDeleteRecursively
+   *        <code>true</code> to delete recursively, <code>false</code> to
+   *        delete only if empty.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError deleteDirectoryIfExisting (@NonNull final String sRelativePath, final boolean bDeleteRecursively)
   {
@@ -227,18 +249,44 @@ public interface IFileRelativeIO extends IPathRelativeIO
                               : FileOperationManager.INSTANCE.deleteDirIfExisting (aDir);
   }
 
+  /**
+   * Delete a file relative to the base path.
+   *
+   * @param sRelativePath
+   *        The relative path of the file. May not be <code>null</code>.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError deleteFile (@NonNull final String sRelativePath)
   {
     return FileOperationManager.INSTANCE.deleteFile (getFile (sRelativePath));
   }
 
+  /**
+   * Delete a file relative to the base path if it exists.
+   *
+   * @param sRelativePath
+   *        The relative path of the file. May not be <code>null</code>.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError deleteFileIfExisting (@NonNull final String sRelativePath)
   {
     return FileOperationManager.INSTANCE.deleteFileIfExisting (getFile (sRelativePath));
   }
 
+  /**
+   * Rename a directory relative to the base path.
+   *
+   * @param sOldDirName
+   *        The old directory name. May not be <code>null</code>.
+   * @param sNewDirName
+   *        The new directory name. May not be <code>null</code>.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError renameDir (@NonNull final String sOldDirName, @NonNull final String sNewDirName)
   {
@@ -247,6 +295,16 @@ public interface IFileRelativeIO extends IPathRelativeIO
     return FileOperationManager.INSTANCE.renameDir (fOld, fNew);
   }
 
+  /**
+   * Rename a file relative to the base path.
+   *
+   * @param sOldFilename
+   *        The old filename. May not be <code>null</code>.
+   * @param sNewFilename
+   *        The new filename. May not be <code>null</code>.
+   * @return The operation result. Never <code>null</code>.
+   * @see #getBasePathFile()
+   */
   @NonNull
   default FileIOError renameFile (@NonNull final String sOldFilename, @NonNull final String sNewFilename)
   {

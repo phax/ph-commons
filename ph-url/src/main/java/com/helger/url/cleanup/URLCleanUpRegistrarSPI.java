@@ -31,6 +31,9 @@ import com.helger.url.protocol.URLProtocolRegistry;
 @IsSPIImplementation
 public final class URLCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 500, () -> {

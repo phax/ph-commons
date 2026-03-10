@@ -94,6 +94,14 @@ public enum EMessageDigestAlgorithm
     }
   }
 
+  /**
+   * Find the message digest algorithm matching the provided algorithm string using case-insensitive
+   * comparison.
+   *
+   * @param sAlgorithm
+   *        The algorithm name to search for. May be <code>null</code>.
+   * @return <code>null</code> if no matching algorithm was found.
+   */
   @Nullable
   public static EMessageDigestAlgorithm getFromStringIgnoreCase (@Nullable final String sAlgorithm)
   {

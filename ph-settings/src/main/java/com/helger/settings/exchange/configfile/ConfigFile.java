@@ -88,12 +88,17 @@ public class ConfigFile implements IGetterByKeyTrait <String>
     return m_aSettings;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Object getValue (@Nullable final String sFieldName)
   {
     return m_aSettings == null ? null : m_aSettings.getValue (sFieldName);
   }
 
+  /**
+   * @return A mutable copy of all entries contained in the configuration. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, Object> getAllEntries ()

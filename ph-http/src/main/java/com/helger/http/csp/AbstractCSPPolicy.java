@@ -44,22 +44,40 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   public AbstractCSPPolicy ()
   {}
 
+  /**
+   * @return <code>true</code> if no directives have been added,
+   *         <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     return m_aList.isEmpty ();
   }
 
+  /**
+   * @return <code>true</code> if at least one directive has been added,
+   *         <code>false</code> otherwise.
+   */
   public boolean isNotEmpty ()
   {
     return m_aList.isNotEmpty ();
   }
 
+  /**
+   * @return The number of directives in this policy. Always &ge; 0.
+   */
   @Nonnegative
   public int getDirectiveCount ()
   {
     return m_aList.size ();
   }
 
+  /**
+   * Add a directive to this policy.
+   *
+   * @param aDirective
+   *        The directive to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public AbstractCSPPolicy <T> addDirective (@NonNull final T aDirective)
   {
@@ -68,24 +86,51 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
     return this;
   }
 
+  /**
+   * Remove the specified directive from this policy.
+   *
+   * @param aDirective
+   *        The directive to remove. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the directive was removed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
   @NonNull
   public EChange removeDirective (@Nullable final T aDirective)
   {
     return m_aList.removeObject (aDirective);
   }
 
+  /**
+   * Remove the directive at the specified index.
+   *
+   * @param nIndex
+   *        The index of the directive to remove.
+   * @return {@link EChange#CHANGED} if the directive was removed,
+   *         {@link EChange#UNCHANGED} otherwise.
+   */
   @NonNull
   public EChange removeDirectiveAtIndex (final int nIndex)
   {
     return m_aList.removeAtIndex (nIndex);
   }
 
+  /**
+   * Remove all directives from this policy.
+   *
+   * @return {@link EChange#CHANGED} if any directives were removed,
+   *         {@link EChange#UNCHANGED} if the policy was already empty.
+   */
   @NonNull
   public EChange removeAllDirectives ()
   {
     return m_aList.removeAll ();
   }
 
+  /**
+   * @return The string representation of this policy suitable for use in an
+   *         HTTP header. Directives are separated by semicolons. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public String getAsString ()
   {

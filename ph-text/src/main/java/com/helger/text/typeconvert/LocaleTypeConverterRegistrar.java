@@ -35,6 +35,9 @@ import com.helger.typeconvert.ITypeConverterRegistry;
 @IsSPIImplementation
 public final class LocaleTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Locale

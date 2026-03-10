@@ -581,36 +581,42 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     }
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getInitCount ()
   {
     return m_nInitCount;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final LocalDateTime getLastInitDateTime ()
   {
     return m_aLastInitDT;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getReadCount ()
   {
     return m_nReadCount;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final LocalDateTime getLastReadDateTime ()
   {
     return m_aLastReadDT;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getWriteCount ()
   {
     return m_nWriteCount;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final LocalDateTime getLastWriteDateTime ()
   {

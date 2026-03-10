@@ -68,6 +68,9 @@ public abstract class AbstractScope implements IScope
     m_sScopeID = ValueEnforcer.notEmpty (sScopeID, "ScopeID");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public final String getID ()
@@ -75,21 +78,34 @@ public abstract class AbstractScope implements IScope
     return m_sScopeID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isValid ()
   {
     return m_aRWLock.readLockedBoolean ( () -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
   }
 
+  /**
+   * @return <code>true</code> if this scope is currently in the pre
+   *         destruction phase.
+   */
   public final boolean isInPreDestruction ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bInPreDestruction);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isInDestruction ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bInDestruction);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isDestroyed ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bDestroyed);
@@ -111,6 +127,9 @@ public abstract class AbstractScope implements IScope
   protected void postDestroy ()
   {}
 
+  /**
+   * {@inheritDoc}
+   */
   public final void destroyScope ()
   {
     m_aRWLock.writeLocked ( () -> {
@@ -168,6 +187,9 @@ public abstract class AbstractScope implements IScope
     postDestroy ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final <T> T runAtomic (@NonNull final Function <? super IScope, ? extends T> aFunction)
   {
@@ -175,12 +197,18 @@ public abstract class AbstractScope implements IScope
     return m_aRWLock.writeLockedGet ( () -> aFunction.apply (this));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final void runAtomic (@NonNull final Consumer <? super IScope> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableObject
   public final IAttributeContainerAny <String> attrs ()

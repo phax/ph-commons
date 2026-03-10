@@ -55,11 +55,25 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   private final ISettingsFactory <T> m_aSettingsFactory;
   private final IXMLWriterSettings m_aXWS;
 
+  /**
+   * Constructor with default XML writer settings.
+   *
+   * @param aSettingsFactory
+   *        The settings factory to use. May not be <code>null</code>.
+   */
   public SettingsPersistenceXML (@NonNull final ISettingsFactory <T> aSettingsFactory)
   {
     this (aSettingsFactory, XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
+  /**
+   * Constructor with custom XML writer settings.
+   *
+   * @param aSettingsFactory
+   *        The settings factory to use. May not be <code>null</code>.
+   * @param aXWS
+   *        The XML writer settings. May not be <code>null</code>.
+   */
   public SettingsPersistenceXML (@NonNull final ISettingsFactory <T> aSettingsFactory,
                                  @NonNull final IXMLWriterSettings aXWS)
   {
@@ -67,6 +81,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     m_aXWS = aXWS;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final Charset getCharset ()
   {
@@ -91,6 +106,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     return m_aXWS;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public T readSettings (@NonNull @WillClose final InputStream aIS)
   {
@@ -126,6 +142,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     return "settings";
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {
@@ -153,6 +170,10 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
     }
   }
 
+  /**
+   * @return A new default instance with the default settings factory. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static SettingsPersistenceXML <Settings> createDefault ()
   {

@@ -34,6 +34,12 @@ public class URLParameterEncoder implements IEncoder <String, String>
 {
   private final Charset m_aCharset;
 
+  /**
+   * Constructor with a specific charset.
+   *
+   * @param aCharset
+   *        The charset to use for encoding. May not be <code>null</code>.
+   */
   public URLParameterEncoder (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
@@ -49,6 +55,9 @@ public class URLParameterEncoder implements IEncoder <String, String>
     return m_aCharset;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getEncoded (@Nullable final String sInput)
   {

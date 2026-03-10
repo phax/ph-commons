@@ -52,6 +52,9 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     m_nHashBytes = ValueEnforcer.isGT0 (nBytes, "Bytes");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean requiresSalt ()
   {
     return true;

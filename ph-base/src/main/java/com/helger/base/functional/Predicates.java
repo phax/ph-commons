@@ -39,156 +39,253 @@ public final class Predicates
   private Predicates ()
   {}
 
+  /**
+   * @param <DATATYPE>
+   *        The data type to be checked.
+   * @return A predicate that always returns <code>true</code>. Never <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE> Predicate <DATATYPE> all ()
   {
     return x -> true;
   }
 
+  /**
+   * @param <DATATYPE>
+   *        The data type to be checked.
+   * @return A predicate that always returns <code>false</code>. Never <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE> Predicate <DATATYPE> none ()
   {
     return x -> false;
   }
 
+  /**
+   * @param <DATATYPE>
+   *        The data type to be checked.
+   * @return A predicate that returns <code>true</code> if the value is not <code>null</code>.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE> Predicate <DATATYPE> notNull ()
   {
     return Objects::nonNull;
   }
 
+  /**
+   * @param <DATATYPE>
+   *        The data type to be checked.
+   * @return A predicate that returns <code>true</code> if the value is <code>null</code>. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE> Predicate <DATATYPE> isNull ()
   {
     return Objects::isNull;
   }
 
+  /**
+   * @return A char predicate that checks for equality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static ICharPredicate charIsEQ0 ()
   {
     return x -> x == 0;
   }
 
+  /**
+   * @return A char predicate that checks for inequality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static ICharPredicate charIsNE0 ()
   {
     return x -> x != 0;
   }
 
+  /**
+   * @return A char predicate that checks for values &gt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static ICharPredicate charIsGT0 ()
   {
     return x -> x > 0;
   }
 
+  /**
+   * @return A double predicate that checks for values &lt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsLT0 ()
   {
     return x -> x < 0;
   }
 
+  /**
+   * @return A double predicate that checks for values &le; 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsLE0 ()
   {
     return x -> x <= 0;
   }
 
+  /**
+   * @return A double predicate that checks for equality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsEQ0 ()
   {
     return x -> x == 0;
   }
 
+  /**
+   * @return A double predicate that checks for inequality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsNE0 ()
   {
     return x -> x != 0;
   }
 
+  /**
+   * @return A double predicate that checks for values &ge; 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsGE0 ()
   {
     return x -> x >= 0;
   }
 
+  /**
+   * @return A double predicate that checks for values &gt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static DoublePredicate doubleIsGT0 ()
   {
     return x -> x > 0;
   }
 
+  /**
+   * @return An int predicate that checks for values &lt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsLT0 ()
   {
     return x -> x < 0;
   }
 
+  /**
+   * @return An int predicate that checks for values &le; 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsLE0 ()
   {
     return x -> x <= 0;
   }
 
+  /**
+   * @return An int predicate that checks for equality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsEQ0 ()
   {
     return x -> x == 0;
   }
 
+  /**
+   * @return An int predicate that checks for inequality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsNE0 ()
   {
     return x -> x != 0;
   }
 
+  /**
+   * @return An int predicate that checks for values &ge; 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsGE0 ()
   {
     return x -> x >= 0;
   }
 
+  /**
+   * @return An int predicate that checks for values &gt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static IntPredicate intIsGT0 ()
   {
     return x -> x > 0;
   }
 
+  /**
+   * @return A long predicate that checks for values &lt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsLT0 ()
   {
     return x -> x < 0;
   }
 
+  /**
+   * @return A long predicate that checks for values &le; 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsLE0 ()
   {
     return x -> x <= 0;
   }
 
+  /**
+   * @return A long predicate that checks for equality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsEQ0 ()
   {
     return x -> x == 0;
   }
 
+  /**
+   * @return A long predicate that checks for inequality with 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsNE0 ()
   {
     return x -> x != 0;
   }
 
+  /**
+   * @return A long predicate that checks for values &ge; 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsGE0 ()
   {
     return x -> x >= 0;
   }
 
+  /**
+   * @return A long predicate that checks for values &gt; 0. Never <code>null</code>.
+   */
   @NonNull
   public static LongPredicate longIsGT0 ()
   {
     return x -> x > 0;
   }
 
+  /**
+   * Combine two predicates with a logical AND. If both are <code>null</code>, <code>null</code> is
+   * returned.
+   *
+   * @param <T>
+   *        The data type to be checked.
+   * @param aFirst
+   *        The first predicate. May be <code>null</code>.
+   * @param aSecond
+   *        The second predicate. May be <code>null</code>.
+   * @return The combined predicate, or <code>null</code> if both are <code>null</code>.
+   */
   @Nullable
   public static <T> Predicate <T> and (@Nullable final Predicate <? super T> aFirst,
                                        @Nullable final Predicate <? super T> aSecond)
@@ -204,6 +301,18 @@ public final class Predicates
     return null;
   }
 
+  /**
+   * Combine two predicates with a logical OR. If both are <code>null</code>, <code>null</code> is
+   * returned.
+   *
+   * @param <T>
+   *        The data type to be checked.
+   * @param aFirst
+   *        The first predicate. May be <code>null</code>.
+   * @param aSecond
+   *        The second predicate. May be <code>null</code>.
+   * @return The combined predicate, or <code>null</code> if both are <code>null</code>.
+   */
   @Nullable
   public static <T> Predicate <T> or (@Nullable final Predicate <? super T> aFirst,
                                       @Nullable final Predicate <? super T> aSecond)

@@ -33,11 +33,17 @@ public final class PasswordHashCreatorBCrypt extends AbstractPasswordHashCreator
 {
   public static final String ALGORITHM = "BCrypt";
 
+  /**
+   * Constructor using the {@link #ALGORITHM} name.
+   */
   public PasswordHashCreatorBCrypt ()
   {
     super (ALGORITHM);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean requiresSalt ()
   {
     return true;

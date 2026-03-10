@@ -34,18 +34,32 @@ public class UserNamePasswordCredentials implements IUserNamePasswordCredentials
   private final String m_sUserName;
   private final String m_sPassword;
 
+  /**
+   * Constructor with user name and password.
+   *
+   * @param sUserName
+   *        The user name. May be <code>null</code>.
+   * @param sPassword
+   *        The password. May be <code>null</code>.
+   */
   public UserNamePasswordCredentials (@Nullable final String sUserName, @Nullable final String sPassword)
   {
     m_sUserName = sUserName;
     m_sPassword = sPassword;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getUserName ()
   {
     return m_sUserName;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final String getPassword ()
   {

@@ -53,16 +53,26 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
   private final ISettingsFactory <?> m_aSettingsFactory;
   private Charset m_aCharset = DEFAULT_CHARSET;
 
+  /**
+   * Default constructor using the default settings factory.
+   */
   public SettingsPersistenceProperties ()
   {
     this (ISettingsFactory.newInstance ());
   }
 
+  /**
+   * Constructor with a custom settings factory.
+   *
+   * @param aSettingsFactory
+   *        The settings factory to use. May not be <code>null</code>.
+   */
   public SettingsPersistenceProperties (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final Charset getCharset ()
   {
@@ -101,6 +111,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     return "anonymous";
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ISettings readSettings (@NonNull @WillClose final InputStream aIS)
   {
@@ -118,6 +129,7 @@ public class SettingsPersistenceProperties implements ISettingsPersistence
     return aSettings;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess writeSettings (@NonNull final ISettings aSettings, @NonNull @WillClose final OutputStream aOS)
   {

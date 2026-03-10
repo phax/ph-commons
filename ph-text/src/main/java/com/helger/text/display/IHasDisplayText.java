@@ -52,6 +52,16 @@ public interface IHasDisplayText
     return this::getDisplayText;
   }
 
+  /**
+   * Get a {@link Comparator} that compares display text values using collation.
+   *
+   * @param aContentLocale
+   *        The locale to retrieve the display text in. May not be
+   *        <code>null</code>.
+   * @param aSortLocale
+   *        The locale to use for sorting/collation. May be <code>null</code>.
+   * @return A non-<code>null</code> comparator.
+   */
   @NonNull
   static Comparator <IHasDisplayText> getComparatorCollating (@NonNull final Locale aContentLocale,
                                                               @Nullable final Locale aSortLocale)

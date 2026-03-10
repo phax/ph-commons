@@ -56,11 +56,17 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
     m_aObj = aObj;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isChanged ()
   {
     return m_eChange.isChanged ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATATYPE get ()
   {

@@ -52,16 +52,33 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
   @GuardedBy ("m_aRWLock")
   private boolean m_bCanReadRelativePaths = false;
 
+  /**
+   * Constructor without a base path.
+   */
   public FileSystemResourceProvider ()
   {
     this ((File) null);
   }
 
+  /**
+   * Constructor with a base path string.
+   *
+   * @param sBasePath
+   *        The base path to use. May not be <code>null</code>. Must be an
+   *        existing directory.
+   */
   public FileSystemResourceProvider (@NonNull final String sBasePath)
   {
     this (new File (sBasePath));
   }
 
+  /**
+   * Constructor with a base path file.
+   *
+   * @param aBasePath
+   *        The base path to use. May be <code>null</code>. If provided, must be
+   *        an existing directory.
+   */
   public FileSystemResourceProvider (@Nullable final File aBasePath)
   {
     if (aBasePath != null)
@@ -78,17 +95,33 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     m_aBasePath = aBasePath;
   }
 
+  /**
+   * @return The base path as provided in the constructor. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public final File getBasePath ()
   {
     return m_aBasePath;
   }
 
+  /**
+   * @return <code>true</code> if relative paths can be read,
+   *         <code>false</code> if only absolute paths are supported.
+   */
   public final boolean isCanReadRelativePaths ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bCanReadRelativePaths);
   }
 
+  /**
+   * Enable or disable reading of relative paths.
+   *
+   * @param bCanReadRelativePaths
+   *        <code>true</code> to enable relative path reading,
+   *        <code>false</code> to restrict to absolute paths.
+   * @return this for chaining
+   */
   @NonNull
   public final FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
   {
@@ -106,6 +139,9 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     return m_aBasePath == null ? new File (sName) : new File (m_aBasePath, sName);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean supportsReading (@Nullable final String sName)
   {
     if (StringHelper.isEmpty (sName))
@@ -121,6 +157,9 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     return _getFile (sName).isAbsolute ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean supportsWriting (@Nullable final String sName)
   {
     if (StringHelper.isEmpty (sName))
@@ -133,12 +172,18 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IReadableResource getReadableResource (@NonNull final String sName)
   {
     return new FileSystemResource (_getFile (sName));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public IWritableResource getWritableResource (@NonNull final String sName)
   {

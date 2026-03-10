@@ -40,11 +40,25 @@ public class ResourceBundleTextProvider extends AbstractHasText implements IHasT
 {
   private final ResourceBundleKey m_aResBundleKey;
 
+  /**
+   * Constructor using bundle name and key strings.
+   *
+   * @param sBundleName
+   *        The resource bundle name. May not be <code>null</code>.
+   * @param sKey
+   *        The property key. May not be <code>null</code>.
+   */
   public ResourceBundleTextProvider (@NonNull final String sBundleName, @NonNull final String sKey)
   {
     this (new ResourceBundleKey (sBundleName, sKey));
   }
 
+  /**
+   * Constructor using an existing resource bundle key.
+   *
+   * @param aResBundleKey
+   *        The resource bundle key to use. May not be <code>null</code>.
+   */
   public ResourceBundleTextProvider (@NonNull final ResourceBundleKey aResBundleKey)
   {
     m_aResBundleKey = ValueEnforcer.notNull (aResBundleKey, "ResBundleKey");

@@ -69,6 +69,13 @@ public class RFC2616Codec implements ICharArrayCodec
     NON_TOKEN_RFC2616.set ('}');
   }
 
+  /**
+   * Check if the passed string is a valid RFC 2616 token (i.e. contains no non-token characters).
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is a valid token, <code>false</code> otherwise.
+   */
   public static boolean isToken (@Nullable final String s)
   {
     // May not be empty
@@ -78,6 +85,13 @@ public class RFC2616Codec implements ICharArrayCodec
     return isToken (s.toCharArray ());
   }
 
+  /**
+   * Check if the passed char array is a valid RFC 2616 token.
+   *
+   * @param aChars
+   *        The char array to check. May be <code>null</code>.
+   * @return <code>true</code> if the char array is a valid token, <code>false</code> otherwise.
+   */
   public static boolean isToken (final char @Nullable [] aChars)
   {
     // May not be empty
@@ -91,11 +105,27 @@ public class RFC2616Codec implements ICharArrayCodec
     return true;
   }
 
+  /**
+   * Check if the passed string looks like it might be RFC 2616 encoded (starts and ends with a
+   * double quote character).
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string might be encoded, <code>false</code> otherwise.
+   */
   public static boolean isMaybeEncoded (@Nullable final String s)
   {
     return s != null && s.length () >= 2 && s.charAt (0) == QUOTE_CHAR && StringHelper.getLastChar (s) == QUOTE_CHAR;
   }
 
+  /**
+   * Check if the passed char array looks like it might be RFC 2616 encoded (starts and ends with a
+   * double quote character).
+   *
+   * @param s
+   *        The char array to check. May be <code>null</code>.
+   * @return <code>true</code> if the char array might be encoded, <code>false</code> otherwise.
+   */
   public static boolean isMaybeEncoded (final char @Nullable [] s)
   {
     return s != null && s.length >= 2 && s[0] == QUOTE_CHAR && s[s.length - 1] == QUOTE_CHAR;
@@ -112,6 +142,9 @@ public class RFC2616Codec implements ICharArrayCodec
     return 1 + 2 * nDecodedLen + 1;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void encode (final char @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -153,6 +186,9 @@ public class RFC2616Codec implements ICharArrayCodec
     return nEncodedLen - 2;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void decode (final char @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

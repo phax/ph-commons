@@ -61,18 +61,27 @@ public final class PasswordSalt implements IPasswordSalt
     m_sSaltString = StringHex.getHexEncoded (aBytes);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public int getSaltByteCount ()
   {
     return m_aSaltBytes.length;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @ReturnsMutableCopy
   public byte @NonNull @Nonempty [] getSaltBytes ()
   {
     return ArrayHelper.getCopy (m_aSaltBytes);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @Nonempty
   public String getSaltString ()

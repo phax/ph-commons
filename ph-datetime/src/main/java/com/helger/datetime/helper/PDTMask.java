@@ -55,6 +55,9 @@ public class PDTMask <T extends Temporal>
     m_aQuery = aQuery;
   }
 
+  /**
+   * @return The date time pattern string. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getPattern ()
@@ -62,6 +65,9 @@ public class PDTMask <T extends Temporal>
     return m_sPattern;
   }
 
+  /**
+   * @return The temporal query used for parsing. Never <code>null</code>.
+   */
   @NonNull
   public TemporalQuery <T> getQuery ()
   {
@@ -74,54 +80,117 @@ public class PDTMask <T extends Temporal>
     return new ToStringGenerator (this).append ("Pattern", m_sPattern).append ("Query", m_aQuery).getToString ();
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link ZonedDateTime} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <ZonedDateTime> zonedDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, ZonedDateTime::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link OffsetDateTime} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <OffsetDateTime> offsetDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, OffsetDateTime::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link XMLOffsetDateTime} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <XMLOffsetDateTime> xmlOffsetDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, XMLOffsetDateTime::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link LocalDateTime} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <LocalDateTime> localDateTime (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, LocalDateTime::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link OffsetDate} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <OffsetDate> offsetDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, OffsetDate::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link XMLOffsetDate} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <XMLOffsetDate> xmlOffsetDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, XMLOffsetDate::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link LocalDate} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <LocalDate> localDate (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, LocalDate::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link YearMonth} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <YearMonth> yearMonth (@NonNull @Nonempty final String sPattern)
   {
     return new PDTMask <> (sPattern, YearMonth::from);
   }
 
+  /**
+   * Create a {@link PDTMask} for {@link Year} parsing.
+   *
+   * @param sPattern
+   *        The pattern to use. May neither be <code>null</code> nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static PDTMask <Year> year (@NonNull @Nonempty final String sPattern)
   {

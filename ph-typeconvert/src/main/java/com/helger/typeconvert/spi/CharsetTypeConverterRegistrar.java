@@ -35,6 +35,9 @@ import com.helger.typeconvert.ITypeConverterRegistry;
 @IsSPIImplementation
 public final class CharsetTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Charset

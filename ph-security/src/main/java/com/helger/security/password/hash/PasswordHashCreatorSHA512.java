@@ -39,11 +39,17 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
   /** Algorithm name. Prior to v12 this was "default" */
   public static final String ALGORITHM = MESSAGE_DIGEST_ALGO.getAlgorithm ();
 
+  /**
+   * Constructor using the {@link #ALGORITHM} name.
+   */
   public PasswordHashCreatorSHA512 ()
   {
     super (ALGORITHM);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean requiresSalt ()
   {
     return false;

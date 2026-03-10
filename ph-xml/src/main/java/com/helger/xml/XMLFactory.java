@@ -115,6 +115,18 @@ public final class XMLFactory
   private XMLFactory ()
   {}
 
+  /**
+   * Set a feature on a {@link DocumentBuilderFactory}, logging a warning if
+   * the feature is not supported.
+   *
+   * @param aFactory
+   *        The document builder factory to set the feature on. May not be
+   *        <code>null</code>.
+   * @param eFeature
+   *        The parser feature to set. May not be <code>null</code>.
+   * @param bValue
+   *        The value to set for the feature.
+   */
   public static void setFeature (@NonNull final DocumentBuilderFactory aFactory,
                                  @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
@@ -134,6 +146,16 @@ public final class XMLFactory
     }
   }
 
+  /**
+   * Apply the default customization to the passed
+   * {@link DocumentBuilderFactory}. This includes setting secure processing,
+   * disallowing DOCTYPE declarations, and configuring namespace awareness,
+   * validation, and other standard settings.
+   *
+   * @param aFactory
+   *        The document builder factory to customize. May not be
+   *        <code>null</code>.
+   */
   public static void defaultCustomizeDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aFactory)
   {
     /*
@@ -432,6 +454,18 @@ public final class XMLFactory
     return aDoc;
   }
 
+  /**
+   * Set a feature on a {@link SAXParserFactory}, logging a warning if the
+   * feature is not supported.
+   *
+   * @param aFactory
+   *        The SAX parser factory to set the feature on. May not be
+   *        <code>null</code>.
+   * @param eFeature
+   *        The parser feature to set. May not be <code>null</code>.
+   * @param bValue
+   *        The value to set for the feature.
+   */
   public static void setFeature (@NonNull final SAXParserFactory aFactory,
                                  @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
@@ -451,6 +485,16 @@ public final class XMLFactory
     }
   }
 
+  /**
+   * Apply the default customization to the passed {@link SAXParserFactory}.
+   * This includes setting secure processing, disallowing DOCTYPE
+   * declarations, and configuring namespace awareness, validation, and
+   * XInclude awareness.
+   *
+   * @param aFactory
+   *        The SAX parser factory to customize. May not be
+   *        <code>null</code>.
+   */
   public static void defaultCustomizeSAXParserFactory (@NonNull final SAXParserFactory aFactory)
   {
     setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
@@ -463,6 +507,13 @@ public final class XMLFactory
     aFactory.setXIncludeAware (DEFAULT_SAX_XINCLUDE_AWARE);
   }
 
+  /**
+   * Create a new {@link SAXParserFactory} with the default customization
+   * applied.
+   *
+   * @return A new, customized {@link SAXParserFactory}. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static SAXParserFactory createDefaultSAXParserFactory ()
   {
@@ -481,6 +532,21 @@ public final class XMLFactory
     return aFactory;
   }
 
+  /**
+   * Set a feature on a {@link TransformerFactory}, optionally logging a
+   * warning if the feature is not supported.
+   *
+   * @param aFactory
+   *        The transformer factory to set the feature on. May not be
+   *        <code>null</code>.
+   * @param eFeature
+   *        The parser feature to set. May not be <code>null</code>.
+   * @param bValue
+   *        The value to set for the feature.
+   * @param bLogOnError
+   *        <code>true</code> to log a warning if the feature is not
+   *        supported, <code>false</code> to silently ignore the error.
+   */
   public static void setFeature (@NonNull final TransformerFactory aFactory,
                                  @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue,
@@ -502,6 +568,15 @@ public final class XMLFactory
     }
   }
 
+  /**
+   * Apply the default customization to the passed
+   * {@link TransformerFactory}. This includes disallowing DOCTYPE
+   * declarations and disabling external entities.
+   *
+   * @param aFactory
+   *        The transformer factory to customize. May not be
+   *        <code>null</code>.
+   */
   public static void defaultCustomizeTransformerFactory (@NonNull final TransformerFactory aFactory)
   {
     if (false)
@@ -519,6 +594,15 @@ public final class XMLFactory
     setFeature (aFactory, EXMLParserFeature.LOAD_EXTERNAL_DTD, false, false);
   }
 
+  /**
+   * Create a new {@link TransformerFactory} with the default customization
+   * applied.
+   *
+   * @return A new, customized {@link TransformerFactory}. Never
+   *         <code>null</code>.
+   * @throws InitializationException
+   *         In case the factory cannot be created
+   */
   @NonNull
   public static TransformerFactory createDefaultTransformerFactory ()
   {

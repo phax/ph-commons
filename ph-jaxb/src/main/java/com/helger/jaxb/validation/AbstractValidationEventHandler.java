@@ -141,6 +141,16 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
     return aErrorLevel.isLT (EErrorLevel.FATAL_ERROR);
   }
 
+  /**
+   * Handle a validation event. This method determines the error level, extracts
+   * location information and the error message, calls {@link #onEvent(IError)}
+   * and then decides whether processing should continue.
+   *
+   * @param aEvent
+   *        The validation event to handle. May not be <code>null</code>.
+   * @return <code>true</code> if processing should continue, <code>false</code>
+   *         if it should stop.
+   */
   public final boolean handleEvent (@NonNull final ValidationEvent aEvent)
   {
     final IErrorLevel aErrorLevel = getErrorLevel (aEvent.getSeverity ());

@@ -34,11 +34,20 @@ public final class ConstantKeySelectorResult implements KeySelectorResult
 {
   private final Key m_aKey;
 
+  /**
+   * Constructor with a constant key.
+   *
+   * @param aKey
+   *        The key to use. May be <code>null</code>.
+   */
   public ConstantKeySelectorResult (@Nullable final Key aKey)
   {
     m_aKey = aKey;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Key getKey ()
   {

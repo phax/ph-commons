@@ -39,9 +39,18 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
   private String m_sKeyAlias;
   private char [] m_aKeyPassword;
 
+  /**
+   * Default constructor.
+   */
   public KeyStoreAndKeyDescriptorBuilder ()
   {}
 
+  /**
+   * Copy constructor from an existing descriptor.
+   *
+   * @param aSrc
+   *        The source descriptor to copy from. May not be <code>null</code>.
+   */
   public KeyStoreAndKeyDescriptorBuilder (@NonNull final KeyStoreAndKeyDescriptor aSrc)
   {
     ValueEnforcer.notNull (aSrc, "SourceKeyStoreAndKeyDescriptor");
@@ -52,6 +61,13 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
                        .keyPassword (aSrc.m_aKeyPassword);
   }
 
+  /**
+   * Set the key store type.
+   *
+   * @param a
+   *        The key store type to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
@@ -59,6 +75,13 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Set the key store path.
+   *
+   * @param s
+   *        The path to the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder path (@Nullable final String s)
   {
@@ -66,12 +89,26 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Set the key store password as a String.
+   *
+   * @param s
+   *        The password for the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
+  /**
+   * Set the key store password as a char array.
+   *
+   * @param a
+   *        The password for the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder password (final char @Nullable [] a)
   {
@@ -79,6 +116,13 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Set the security provider to use.
+   *
+   * @param a
+   *        The security provider. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder provider (@Nullable final Provider a)
   {
@@ -86,6 +130,13 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Set the alias of the key inside the key store.
+   *
+   * @param s
+   *        The key alias. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyAlias (@Nullable final String s)
   {
@@ -93,12 +144,26 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Set the key password as a String.
+   *
+   * @param s
+   *        The password for the key entry. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyPassword (@Nullable final String s)
   {
     return keyPassword (s == null ? null : s.toCharArray ());
   }
 
+  /**
+   * Set the key password as a char array.
+   *
+   * @param a
+   *        The password for the key entry. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreAndKeyDescriptorBuilder keyPassword (final char @Nullable [] a)
   {
@@ -106,6 +171,13 @@ public class KeyStoreAndKeyDescriptorBuilder implements IBuilder <KeyStoreAndKey
     return this;
   }
 
+  /**
+   * Build the {@link KeyStoreAndKeyDescriptor} from the provided parameters.
+   *
+   * @return A new {@link KeyStoreAndKeyDescriptor} instance. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if any required parameter is missing.
+   */
   @NonNull
   public KeyStoreAndKeyDescriptor build () throws IllegalStateException
   {

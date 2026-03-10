@@ -25,11 +25,27 @@ public class CodepointIteratorCharArray extends AbstractCodepointIterator
 {
   private final char [] m_aBuffer;
 
+  /**
+   * Constructor iterating over the entire char array.
+   *
+   * @param aBuffer
+   *        The char array to iterate. May not be <code>null</code>.
+   */
   public CodepointIteratorCharArray (final char @NonNull [] aBuffer)
   {
     this (aBuffer, 0, aBuffer.length);
   }
 
+  /**
+   * Constructor iterating over a portion of the char array.
+   *
+   * @param aBuffer
+   *        The char array to iterate. May not be <code>null</code>.
+   * @param nOfs
+   *        The start offset.
+   * @param nLen
+   *        The number of characters to iterate.
+   */
   public CodepointIteratorCharArray (final char @NonNull [] aBuffer, final int nOfs, final int nLen)
   {
     super (nOfs, Math.min (aBuffer.length - nOfs, nLen));

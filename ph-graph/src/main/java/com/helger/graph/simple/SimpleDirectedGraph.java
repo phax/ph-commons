@@ -33,16 +33,27 @@ import com.helger.graph.impl.DirectedGraph;
 @NotThreadSafe
 public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirectedGraph
 {
+  /**
+   * Constructor using the default {@link SimpleDirectedGraphObjectFactory}.
+   */
   public SimpleDirectedGraph ()
   {
     this (new SimpleDirectedGraphObjectFactory ());
   }
 
+  /**
+   * Constructor using a custom directed graph object factory.
+   *
+   * @param aFactory
+   *        The factory to use for creating nodes and relations. May not be
+   *        <code>null</code>.
+   */
   public SimpleDirectedGraph (@NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
     super (null, aFactory);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@NonNull final String sFromNodeID, @NonNull final String sToNodeID)
   {
@@ -55,6 +66,7 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
     return createRelation (aFromNode, aToNode);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableDirectedGraphRelation createRelation (@NonNull @Nonempty final String sRelationID,
                                                        @NonNull final String sFromNodeID,

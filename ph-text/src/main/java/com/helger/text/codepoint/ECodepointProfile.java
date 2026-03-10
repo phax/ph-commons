@@ -70,12 +70,24 @@ public enum ECodepointProfile
     m_aFilter = aFilter;
   }
 
+  /**
+   * @return The filter predicate associated with this profile. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public IntPredicate getFilter ()
   {
     return m_aFilter;
   }
 
+  /**
+   * Check if the provided codepoint matches this profile's filter.
+   *
+   * @param nCodepoint
+   *        The codepoint to check.
+   * @return <code>true</code> if the codepoint matches, <code>false</code>
+   *         otherwise.
+   */
   public boolean check (final int nCodepoint)
   {
     return m_aFilter.test (nCodepoint);

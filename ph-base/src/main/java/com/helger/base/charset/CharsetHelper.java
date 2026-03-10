@@ -151,6 +151,18 @@ public final class CharsetHelper
     return new LinkedHashMap <> (ALL_CHARSETS);
   }
 
+  /**
+   * Convert the passed string from one charset to another.
+   *
+   * @param sText
+   *        The text to convert. May be <code>null</code>.
+   * @param aCurrentCharset
+   *        The current charset of the text. May not be <code>null</code>.
+   * @param aNewCharset
+   *        The target charset. May not be <code>null</code>.
+   * @return <code>null</code> if the input text is <code>null</code>, the converted string
+   *         otherwise.
+   */
   @Nullable
   public static String getAsStringInOtherCharset (@Nullable final String sText,
                                                   @NonNull final Charset aCurrentCharset,
@@ -195,6 +207,13 @@ public final class CharsetHelper
     return nCount;
   }
 
+  /**
+   * Get the number of bytes necessary to represent the passed character as UTF-8.
+   *
+   * @param c
+   *        The character to be evaluated.
+   * @return A non-negative value.
+   */
   @Nonnegative
   public static int getUTF8ByteCount (final char c)
   {
@@ -243,6 +262,16 @@ public final class CharsetHelper
     private final EUnicodeBOM m_eBOM;
     private final Charset m_aCharset;
 
+    /**
+     * Constructor.
+     *
+     * @param aIS
+     *        The input stream. May not be <code>null</code>.
+     * @param eBOM
+     *        The detected Unicode BOM. May be <code>null</code>.
+     * @param aCharset
+     *        The detected charset. May be <code>null</code>.
+     */
     public InputStreamAndCharset (@NonNull final InputStream aIS,
                                   @Nullable final EUnicodeBOM eBOM,
                                   @Nullable final Charset aCharset)
@@ -252,39 +281,65 @@ public final class CharsetHelper
       m_aCharset = aCharset;
     }
 
+    /**
+     * @return The input stream. Never <code>null</code>.
+     */
     @NonNull
     public InputStream getInputStream ()
     {
       return m_aIS;
     }
 
+    /**
+     * @return <code>false</code> because the input stream can only be read once.
+     */
     public boolean isReadMultiple ()
     {
       return false;
     }
 
+    /**
+     * @return The detected Unicode BOM. May be <code>null</code> if none was found.
+     */
     @Nullable
     public EUnicodeBOM getBOM ()
     {
       return m_eBOM;
     }
 
+    /**
+     * @return <code>true</code> if a Unicode BOM was detected, <code>false</code> otherwise.
+     */
     public boolean hasBOM ()
     {
       return m_eBOM != null;
     }
 
+    /**
+     * @return The detected charset from the BOM. May be <code>null</code>.
+     */
     @Nullable
     public Charset getCharset ()
     {
       return m_aCharset;
     }
 
+    /**
+     * @return <code>true</code> if a charset was detected from the BOM, <code>false</code>
+     *         otherwise.
+     */
     public boolean hasCharset ()
     {
       return m_aCharset != null;
     }
 
+    /**
+     * Get the detected charset or the provided fallback.
+     *
+     * @param aFallbackCharset
+     *        The fallback charset to use. May be <code>null</code>.
+     * @return The detected charset or the fallback charset.
+     */
     @Nullable
     public Charset getCharset (@Nullable final Charset aFallbackCharset)
     {
@@ -354,6 +409,17 @@ public final class CharsetHelper
     }
   }
 
+  /**
+   * Create an {@link InputStreamReader} that detects the charset from a potential Unicode BOM in the
+   * input stream.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>.
+   * @param aFallbackCharset
+   *        The charset to use if no BOM is detected. May not be <code>null</code>.
+   * @return A non-<code>null</code> {@link InputStreamReader} using the detected or fallback
+   *         charset.
+   */
   @NonNull
   public static InputStreamReader getReaderByBOM (@NonNull final InputStream aIS,
                                                   @NonNull final Charset aFallbackCharset)

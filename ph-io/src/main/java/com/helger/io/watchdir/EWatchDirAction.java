@@ -42,6 +42,9 @@ public enum EWatchDirAction implements IHasID <String>
     m_sID = sID;
   }
 
+  /**
+   * @return The string ID of this action. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -49,6 +52,13 @@ public enum EWatchDirAction implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * Get the {@link EWatchDirAction} from the given string ID.
+   *
+   * @param sID
+   *        The ID to resolve. May be <code>null</code>.
+   * @return <code>null</code> if the ID could not be resolved.
+   */
   @Nullable
   public static EWatchDirAction getFromIDOrNull (@Nullable final String sID)
   {

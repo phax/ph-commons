@@ -35,6 +35,7 @@ public class StatisticsHandlerKeyedTimer extends AbstractStatisticsHandlerKeyedN
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerKeyedTimer.class);
 
+  /** {@inheritDoc} */
   public void addTime (@Nullable final String sKey, @Nonnegative final long nMillis)
   {
     if (nMillis < 0)

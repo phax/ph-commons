@@ -48,18 +48,47 @@ public final class Utf8ResourceBundle
     return aBundle;
   }
 
+  /**
+   * Get a UTF-8 resource bundle for the given base name using the default
+   * locale.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @return The resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static ResourceBundle getBundle (@NonNull final String sBaseName)
   {
     return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, Locale.getDefault ()));
   }
 
+  /**
+   * Get a UTF-8 resource bundle for the given base name and locale.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return The resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static ResourceBundle getBundle (@NonNull final String sBaseName, @NonNull final Locale aLocale)
   {
     return _createUtf8PropertyResourceBundle (ResourceBundle.getBundle (sBaseName, aLocale));
   }
 
+  /**
+   * Get a UTF-8 resource bundle for the given base name, locale and class
+   * loader.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return The resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static ResourceBundle getBundle (@NonNull final String sBaseName,
                                           @NonNull final Locale aLocale,

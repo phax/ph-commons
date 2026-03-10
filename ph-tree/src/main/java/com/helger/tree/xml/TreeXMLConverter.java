@@ -81,6 +81,28 @@ public final class TreeXMLConverter
     return getTreeWithIDAsXML (aTree, IHasID.getComparatorID (), x -> x, aConverter);
   }
 
+  /**
+   * Fill the passed XML element with the tree contents using IDs.
+   *
+   * @param <KEYTYPE>
+   *        Tree item key type
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param <ITEMTYPE>
+   *        Tree item type
+   * @param aTree
+   *        The tree to be converted. May not be <code>null</code>.
+   * @param aItemComparator
+   *        The comparator for sorting items on each level. May not be
+   *        <code>null</code>.
+   * @param aIDConverter
+   *        The converter from key type to String. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @param aElement
+   *        The XML element to fill. May not be <code>null</code>.
+   */
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillTreeWithIDAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                               @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
                                                                                                                               @NonNull final Function <? super KEYTYPE, ? extends String> aIDConverter,
@@ -125,6 +147,27 @@ public final class TreeXMLConverter
                            });
   }
 
+  /**
+   * Convert a tree with ID to a standardized XML tree.
+   *
+   * @param <KEYTYPE>
+   *        Tree item key type
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param <ITEMTYPE>
+   *        Tree item type
+   * @param aTree
+   *        The tree to be converted. May not be <code>null</code>.
+   * @param aItemComparator
+   *        The comparator for sorting items on each level. May not be
+   *        <code>null</code>.
+   * @param aIDConverter
+   *        The converter from key type to String. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @return The created document. Never <code>null</code>.
+   */
   @NonNull
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> IMicroElement getTreeWithIDAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                                       @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
@@ -137,6 +180,23 @@ public final class TreeXMLConverter
     return eRoot;
   }
 
+  /**
+   * Fill the passed XML element with the tree contents (without IDs).
+   *
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param <ITEMTYPE>
+   *        Tree item type
+   * @param aTree
+   *        The tree to be converted. May not be <code>null</code>.
+   * @param aItemComparator
+   *        The comparator for sorting items on each level. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @param aElement
+   *        The XML element to fill. May not be <code>null</code>.
+   */
   public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> void fillTreeAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                 @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
                                                                                                 @NonNull final IConverterTreeItemToMicroNode <? super DATATYPE> aDataConverter,
@@ -179,6 +239,22 @@ public final class TreeXMLConverter
                            });
   }
 
+  /**
+   * Convert a tree (without IDs) to a standardized XML tree.
+   *
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param <ITEMTYPE>
+   *        Tree item type
+   * @param aTree
+   *        The tree to be converted. May not be <code>null</code>.
+   * @param aItemComparator
+   *        The comparator for sorting items on each level. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @return The created document. Never <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> IMicroElement getTreeAsXML (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                         @NonNull final Comparator <? super ITEMTYPE> aItemComparator,
@@ -190,6 +266,25 @@ public final class TreeXMLConverter
     return eRoot;
   }
 
+  /**
+   * Fill an existing tree with ID from the passed XML element.
+   *
+   * @param <KEYTYPE>
+   *        Tree item key type
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param <ITEMTYPE>
+   *        Tree item type
+   * @param aElement
+   *        The source XML element. May not be <code>null</code>.
+   * @param aIDConverter
+   *        The converter from String to key type. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @param aTree
+   *        The tree to be filled. May not be <code>null</code>.
+   */
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void fillXMLAsTreeWithID (@NonNull final IMicroElement aElement,
                                                                                                                               @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,
                                                                                                                               @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter,
@@ -230,6 +325,17 @@ public final class TreeXMLConverter
                         });
   }
 
+  /**
+   * Read an XML element and convert it to a tree with unique String IDs.
+   *
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param aElement
+   *        The source XML element. May not be <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @return The created tree. Never <code>null</code>.
+   */
   @NonNull
   public static <DATATYPE> DefaultTreeWithGlobalUniqueID <String, DATATYPE> getXMLAsTreeWithUniqueStringID (@NonNull final IMicroElement aElement,
                                                                                                             @NonNull final IConverterMicroNodeToTreeItem <? extends DATATYPE> aDataConverter)
@@ -237,6 +343,22 @@ public final class TreeXMLConverter
     return getXMLAsTreeWithUniqueID (aElement, x -> x, aDataConverter);
   }
 
+  /**
+   * Read an XML element and convert it to a tree with globally unique IDs.
+   *
+   * @param <KEYTYPE>
+   *        Tree item key type
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param aElement
+   *        The source XML element. May not be <code>null</code>.
+   * @param aIDConverter
+   *        The converter from String to key type. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @return The created tree. Never <code>null</code>.
+   */
   @NonNull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithGlobalUniqueID <KEYTYPE, DATATYPE> getXMLAsTreeWithUniqueID (@NonNull final IMicroElement aElement,
                                                                                                                 @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,
@@ -247,6 +369,22 @@ public final class TreeXMLConverter
     return aTree;
   }
 
+  /**
+   * Read an XML element and convert it to a tree with IDs (non-unique).
+   *
+   * @param <KEYTYPE>
+   *        Tree item key type
+   * @param <DATATYPE>
+   *        Tree item value type
+   * @param aElement
+   *        The source XML element. May not be <code>null</code>.
+   * @param aIDConverter
+   *        The converter from String to key type. May not be
+   *        <code>null</code>.
+   * @param aDataConverter
+   *        The data converter. May not be <code>null</code>.
+   * @return The created tree. Never <code>null</code>.
+   */
   @NonNull
   public static <KEYTYPE, DATATYPE> DefaultTreeWithID <KEYTYPE, DATATYPE> getXMLAsTreeWithID (@NonNull final IMicroElement aElement,
                                                                                               @NonNull final Function <? super String, ? extends KEYTYPE> aIDConverter,

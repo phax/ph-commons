@@ -32,12 +32,30 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
   private final boolean m_bScanningOnly;
   private final boolean m_bInvert;
 
+  /**
+   * Constructor with default scanning and invert settings.
+   *
+   * @param aInternal
+   *        The internal iterator to delegate to. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   */
   public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
                                       @NonNull final IntPredicate aFilter)
   {
     this (aInternal, aFilter, false);
   }
 
+  /**
+   * Constructor with default invert setting.
+   *
+   * @param aInternal
+   *        The internal iterator to delegate to. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   * @param bScanningOnly
+   *        <code>true</code> to scan only without throwing exceptions.
+   */
   public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
                                       @NonNull final IntPredicate aFilter,
                                       final boolean bScanningOnly)
@@ -45,6 +63,18 @@ public class CodepointIteratorRestricted extends DelegatingCodepointIterator
     this (aInternal, aFilter, bScanningOnly, false);
   }
 
+  /**
+   * Full constructor.
+   *
+   * @param aInternal
+   *        The internal iterator to delegate to. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter predicate. May not be <code>null</code>.
+   * @param bScanningOnly
+   *        <code>true</code> to scan only without throwing exceptions.
+   * @param bInvert
+   *        <code>true</code> to invert the filter logic.
+   */
   public CodepointIteratorRestricted (@NonNull final AbstractCodepointIterator aInternal,
                                       @NonNull final IntPredicate aFilter,
                                       final boolean bScanningOnly,

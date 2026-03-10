@@ -27,6 +27,12 @@ public class CodepointIteratorCharBuffer extends AbstractCodepointIterator
 {
   private final char [] m_aBuffer;
 
+  /**
+   * Constructor.
+   *
+   * @param aBuffer
+   *        The char buffer to iterate. May not be <code>null</code>.
+   */
   public CodepointIteratorCharBuffer (@NonNull final CharBuffer aBuffer)
   {
     super (aBuffer.position (), aBuffer.limit ());

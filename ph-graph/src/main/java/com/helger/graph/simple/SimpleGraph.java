@@ -33,16 +33,27 @@ import com.helger.graph.impl.Graph;
 @NotThreadSafe
 public class SimpleGraph extends Graph implements ISimpleGraph
 {
+  /**
+   * Constructor using the default {@link SimpleGraphObjectFactory}.
+   */
   public SimpleGraph ()
   {
     this (new SimpleGraphObjectFactory ());
   }
 
+  /**
+   * Constructor using a custom graph object factory.
+   *
+   * @param aFactory
+   *        The factory to use for creating nodes and relations. May not be
+   *        <code>null</code>.
+   */
   public SimpleGraph (@NonNull final IMutableGraphObjectFactory aFactory)
   {
     super (null, aFactory);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@NonNull final String sFromNodeID, @NonNull final String sToNodeID)
   {
@@ -55,6 +66,7 @@ public class SimpleGraph extends Graph implements ISimpleGraph
     return createRelation (aFromNode, aToNode);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@NonNull @Nonempty final String sRelationID,
                                                @NonNull final String sFromNodeID,

@@ -55,18 +55,42 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
   private String m_sAnchor;
   private Charset m_aCharset;
 
+  /**
+   * Copy constructor from any {@link IURLData}.
+   *
+   * @param aOther
+   *        The URL data to copy. May not be <code>null</code>.
+   */
   public URLData (@NonNull final IURLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.getPath (), aOther.getAllParams (), aOther.getAnchor (), aOther.getCharset ());
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The URL data to copy. May not be <code>null</code>.
+   */
   public URLData (@NonNull final URLData aOther)
   {
     // Create a copy of the parameters
     this (aOther.m_sPath, aOther.m_aParams.getClone (), aOther.m_sAnchor, aOther.m_aCharset);
   }
 
+  /**
+   * Constructor with all URL parts.
+   *
+   * @param sPath
+   *        The URL path. May not be <code>null</code>.
+   * @param aParams
+   *        The URL parameters. May be <code>null</code>.
+   * @param sAnchor
+   *        The anchor. May be <code>null</code>.
+   * @param aCharset
+   *        The charset. May be <code>null</code>.
+   */
   public URLData (@NonNull final String sPath,
                   @Nullable final ICommonsList <URLParameter> aParams,
                   @Nullable final String sAnchor,
@@ -80,12 +104,18 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     m_aCharset = aCharset;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public String getPath ()
   {
     return m_sPath;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public URLData setPath (@NonNull final String sPath)
   {
@@ -94,6 +124,9 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableObject
   public ICommonsList <URLParameter> params ()
@@ -101,6 +134,9 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return m_aParams;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <URLParameter> getAllParams ()
@@ -108,12 +144,18 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return m_aParams.getClone ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getFirstParamValue (@Nullable final String sParamName)
   {
     return m_aParams.findFirstMapped (x -> x.hasName (sParamName), URLParameter::getValue);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public URLData setParams (@Nullable final ICommonsList <URLParameter> aParams)
   {
@@ -121,12 +163,18 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getAnchor ()
   {
     return m_sAnchor;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public URLData setAnchor (@Nullable final String sAnchor)
   {
@@ -134,12 +182,18 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return this;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public Charset getCharset ()
   {
     return m_aCharset;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public URLData setCharset (@Nullable final Charset aCharset)
   {
@@ -147,6 +201,9 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
     return this;
   }
 
+  /**
+   * @return A deep clone of this URL data. Never <code>null</code>.
+   */
   @NonNull
   public URLData getClone ()
   {
@@ -187,6 +244,9 @@ public final class URLData implements IMutableURLData <URLData>, ICloneable <URL
                                        .getToString ();
   }
 
+  /**
+   * @return A new empty {@link URLData} instance. Never <code>null</code>.
+   */
   @NonNull
   public static URLData createEmpty ()
   {

@@ -69,6 +69,15 @@ public final class StringCount
   private StringCount ()
   {}
 
+  /**
+   * Count the number of occurrences of a character in a String.
+   *
+   * @param s
+   *        The string to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The character to search for.
+   * @return The number of occurrences. Always &ge; 0.
+   */
   @Nonnegative
   @UsedInGeneratedCode
   public static int getCharCount (@Nullable final String s, final char cSearch)
@@ -76,6 +85,15 @@ public final class StringCount
     return s == null ? 0 : getCharCount (s.toCharArray (), cSearch);
   }
 
+  /**
+   * Count the number of occurrences of a character in a char array.
+   *
+   * @param aChars
+   *        The char array to search in. May be <code>null</code>.
+   * @param cSearch
+   *        The character to search for.
+   * @return The number of occurrences. Always &ge; 0.
+   */
   @Nonnegative
   public static int getCharCount (final char @Nullable [] aChars, final char cSearch)
   {
@@ -87,12 +105,28 @@ public final class StringCount
     return ret;
   }
 
+  /**
+   * Get the number of lines in the passed string, using '\n' as the line separator.
+   *
+   * @param s
+   *        The string to count lines in. May be <code>null</code>.
+   * @return The number of lines. Always &ge; 1.
+   */
   @Nonnegative
   public static int getLineCount (@Nullable final String s)
   {
     return getLineCount (s, '\n');
   }
 
+  /**
+   * Get the number of lines in the passed string, using the specified line separator character.
+   *
+   * @param s
+   *        The string to count lines in. May be <code>null</code>.
+   * @param cLineSep
+   *        The line separator character.
+   * @return The number of lines. Always &ge; 1.
+   */
   @Nonnegative
   public static int getLineCount (@Nullable final String s, final char cLineSep)
   {

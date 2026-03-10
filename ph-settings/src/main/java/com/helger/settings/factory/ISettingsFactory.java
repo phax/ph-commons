@@ -48,12 +48,24 @@ public interface ISettingsFactory <T extends ISettings> extends Function <String
   @NonNull
   T apply (@NonNull @Nonempty String sName);
 
+  /**
+   * @return A new default settings factory creating {@link Settings} objects.
+   *         Never <code>null</code>.
+   */
   @NonNull
   static ISettingsFactory <Settings> newInstance ()
   {
     return Settings::new;
   }
 
+  /**
+   * Create a new settings factory that creates {@link SettingsWithDefault}
+   * objects backed by the provided default settings.
+   *
+   * @param aDefaultSettings
+   *        The default settings. May not be <code>null</code>.
+   * @return A new settings factory. Never <code>null</code>.
+   */
   @NonNull
   static ISettingsFactory <SettingsWithDefault> newInstance (@NonNull final ISettings aDefaultSettings)
   {

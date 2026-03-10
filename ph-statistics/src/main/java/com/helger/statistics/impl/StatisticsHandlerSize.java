@@ -33,6 +33,7 @@ public class StatisticsHandlerSize extends AbstractStatisticsHandlerNumeric impl
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (StatisticsHandlerSize.class);
 
+  /** {@inheritDoc} */
   public void addSize (@Nonnegative final long nSize)
   {
     if (nSize < 0)

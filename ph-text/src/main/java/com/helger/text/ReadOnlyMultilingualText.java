@@ -40,11 +40,25 @@ public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingu
   public ReadOnlyMultilingualText ()
   {}
 
+  /**
+   * Constructor with a single locale/text pair.
+   *
+   * @param aContentLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param sValue
+   *        The text value. May not be <code>null</code>.
+   */
   public ReadOnlyMultilingualText (@NonNull final Locale aContentLocale, @NonNull final String sValue)
   {
     internalAddText (aContentLocale, sValue);
   }
 
+  /**
+   * Constructor from a map of locale to text entries.
+   *
+   * @param aContent
+   *        The map with all texts. May not be <code>null</code>.
+   */
   public ReadOnlyMultilingualText (@NonNull final Map <Locale, String> aContent)
   {
     ValueEnforcer.notNull (aContent, "Content");
@@ -53,6 +67,12 @@ public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingu
       internalAddText (aEntry);
   }
 
+  /**
+   * Constructor from an existing multilingual text.
+   *
+   * @param aMLT
+   *        The multilingual text to copy from. May not be <code>null</code>.
+   */
   public ReadOnlyMultilingualText (@NonNull final IMultilingualText aMLT)
   {
     ValueEnforcer.notNull (aMLT, "MLT");

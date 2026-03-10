@@ -86,6 +86,10 @@ public final class XMLDebug
   private XMLDebug ()
   {}
 
+  /**
+   * @return A mutable copy of all supported DOM features grouped by version.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsMap <EXMLDOMFeatureVersion, ICommonsList <String>> getAllSupportedFeatures ()
@@ -93,6 +97,14 @@ public final class XMLDebug
     return SUPPORTED_FEATURES.getClone ();
   }
 
+  /**
+   * Get all supported DOM features for the specified version.
+   *
+   * @param eFeatureVersion
+   *        The DOM feature version to query. May not be <code>null</code>.
+   * @return A mutable copy of the supported features for the given version,
+   *         or <code>null</code> if the version is unknown.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> getAllSupportedFeatures (@NonNull final EXMLDOMFeatureVersion eFeatureVersion)
@@ -111,6 +123,14 @@ public final class XMLDebug
         LOGGER.info ("DOM " + aEntry.getKey ().getID () + " feature '" + sFeature + "' is present");
   }
 
+  /**
+   * Get a human-readable string representation of the given DOM node type.
+   *
+   * @param nNodeType
+   *        The DOM node type ID (e.g. {@link org.w3c.dom.Node#ELEMENT_NODE}).
+   * @return The name of the node type or the numeric value as a string if
+   *         the type is unknown. Never <code>null</code>.
+   */
   @NonNull
   public static String getNodeTypeAsString (final int nNodeType)
   {

@@ -43,17 +43,35 @@ public enum EAmPm implements IHasIntID
     m_nID = nID;
   }
 
+  /**
+   * @return The numeric ID of this AM/PM value (0 for AM, 1 for PM).
+   */
   public int getID ()
   {
     return m_nID;
   }
 
+  /**
+   * Get the locale-specific display name of this AM/PM value.
+   *
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return The display name or <code>null</code> if the locale does not
+   *         provide AM/PM strings.
+   */
   @Nullable
   public String getDisplayName (@NonNull final Locale aLocale)
   {
     return ArrayHelper.getSafeElement (DateFormatSymbols.getInstance (aLocale).getAmPmStrings (), m_nID);
   }
 
+  /**
+   * Get the {@link EAmPm} value matching the given ID.
+   *
+   * @param nID
+   *        The ID to search for.
+   * @return <code>null</code> if no matching value was found.
+   */
   @Nullable
   public static EAmPm getFromIDOrNull (final int nID)
   {

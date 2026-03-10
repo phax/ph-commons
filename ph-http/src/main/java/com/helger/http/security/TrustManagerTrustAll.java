@@ -39,11 +39,21 @@ public class TrustManagerTrustAll implements X509TrustManager
 
   private final boolean m_bDebug;
 
+  /**
+   * Constructor using the current debug mode from {@link GlobalDebug}.
+   */
   public TrustManagerTrustAll ()
   {
     this (GlobalDebug.isDebugMode ());
   }
 
+  /**
+   * Constructor with explicit debug flag.
+   *
+   * @param bDebug
+   *        <code>true</code> to enable debug logging, <code>false</code> to
+   *        disable it.
+   */
   public TrustManagerTrustAll (final boolean bDebug)
   {
     m_bDebug = bDebug;
@@ -57,18 +67,40 @@ public class TrustManagerTrustAll implements X509TrustManager
     return m_bDebug;
   }
 
+  /**
+   * {@inheritDoc}
+   *
+   * @return Always <code>null</code> since all issuers are accepted.
+   */
   @Nullable
   public X509Certificate [] getAcceptedIssuers ()
   {
     return null;
   }
 
+  /**
+   * {@inheritDoc} This implementation trusts all server certificates.
+   *
+   * @param aChain
+   *        The peer certificate chain. May not be <code>null</code>.
+   * @param sAuthType
+   *        The authentication type based on the server certificate. May not
+   *        be <code>null</code>.
+   */
   public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)
       LOGGER.info ("checkServerTrusted (" + Arrays.toString (aChain) + ", " + sAuthType + ")");
   }
 
+  /**
+   * {@inheritDoc} This implementation trusts all client certificates.
+   *
+   * @param aChain
+   *        The peer certificate chain. May not be <code>null</code>.
+   * @param sAuthType
+   *        The key exchange algorithm used. May not be <code>null</code>.
+   */
   public void checkClientTrusted (final X509Certificate [] aChain, final String sAuthType)
   {
     if (m_bDebug)

@@ -42,6 +42,9 @@ public class DefaultTreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE> extends
     return new DefaultTreeItemWithID <> (aParent, aDataID);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {

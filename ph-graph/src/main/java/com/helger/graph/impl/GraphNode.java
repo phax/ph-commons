@@ -44,21 +44,33 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
 {
   private ICommonsOrderedMap <String, IMutableGraphRelation> m_aRelations;
 
+  /**
+   * Constructor with an auto-generated ID.
+   */
   public GraphNode ()
   {
     this (null);
   }
 
+  /**
+   * Constructor with an existing ID.
+   *
+   * @param sID
+   *        The ID of this graph node. If <code>null</code> or empty a new ID is
+   *        generated.
+   */
   public GraphNode (@Nullable final String sID)
   {
     super (sID);
   }
 
+  /** {@inheritDoc} */
   public final boolean isDirected ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange addRelation (@Nullable final IMutableGraphRelation aRelation)
   {
@@ -78,6 +90,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeRelation (@Nullable final IMutableGraphRelation aRelation)
   {
@@ -86,6 +99,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return EChange.valueOf (m_aRelations.remove (aRelation.getID ()) != null);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAllRelations ()
   {
@@ -95,11 +109,13 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean isConnectedWith (@Nullable final IMutableGraphNode aNode)
   {
     return getRelation (aNode) != null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableGraphRelation getRelation (@Nullable final IMutableGraphNode aNode)
   {
@@ -112,17 +128,20 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return null;
   }
 
+  /** {@inheritDoc} */
   public boolean hasRelations ()
   {
     return m_aRelations != null && m_aRelations.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getRelationCount ()
   {
     return m_aRelations == null ? 0 : m_aRelations.size ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphRelation> getAllRelations ()
@@ -133,6 +152,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
@@ -143,6 +163,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
+  /** {@inheritDoc} */
   public void forEachRelation (@NonNull final Consumer <? super IMutableGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -150,6 +171,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
       m_aRelations.forEachValue (aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <IMutableGraphNode> getAllRelatedNodes ()
@@ -164,6 +186,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelatedNodeIDs ()

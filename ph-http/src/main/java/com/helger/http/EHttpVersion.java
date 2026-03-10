@@ -41,6 +41,7 @@ public enum EHttpVersion implements IHasName
     m_sName = sName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()
@@ -48,16 +49,31 @@ public enum EHttpVersion implements IHasName
     return m_sName;
   }
 
+  /**
+   * @return <code>true</code> if this is HTTP/1.0, <code>false</code>
+   *         otherwise.
+   */
   public boolean is10 ()
   {
     return this == HTTP_10;
   }
 
+  /**
+   * @return <code>true</code> if this is HTTP/1.1 or later, <code>false</code>
+   *         otherwise.
+   */
   public boolean isAtLeast11 ()
   {
     return ordinal () >= HTTP_11.ordinal ();
   }
 
+  /**
+   * Get the enum value matching the provided name.
+   *
+   * @param sName
+   *        The name to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static EHttpVersion getFromNameOrNull (@Nullable final String sName)
   {

@@ -53,6 +53,32 @@ public class DigestAuthClientCredentials
   private final String m_sMessageQOP;
   private final int m_nNonceCount;
 
+  /**
+   * Constructor with all digest authentication parameters.
+   *
+   * @param sUserName
+   *        The user name. May neither be <code>null</code> nor empty.
+   * @param sRealm
+   *        The realm. May neither be <code>null</code> nor empty.
+   * @param sServerNonce
+   *        The server nonce. May neither be <code>null</code> nor empty.
+   * @param sDigestURI
+   *        The digest URI. May neither be <code>null</code> nor empty.
+   * @param sResponse
+   *        The response hash. May neither be <code>null</code> nor empty.
+   *        Must be a 32-character lowercase hex string.
+   * @param sAlgorithm
+   *        The algorithm used. May be <code>null</code>.
+   * @param sClientNonce
+   *        The client nonce. May be <code>null</code>.
+   * @param sOpaque
+   *        The opaque value. May be <code>null</code>.
+   * @param sMessageQOP
+   *        The quality of protection. May be <code>null</code>.
+   * @param sNonceCount
+   *        The nonce count as an 8-character hex string. May be
+   *        <code>null</code>.
+   */
   public DigestAuthClientCredentials (@NonNull @Nonempty final String sUserName,
                                       @NonNull @Nonempty final String sRealm,
                                       @NonNull @Nonempty final String sServerNonce,
@@ -139,42 +165,64 @@ public class DigestAuthClientCredentials
     return m_sDigestURI;
   }
 
+  /**
+   * @return The response hash value. May be <code>null</code>.
+   */
   @Nullable
   public String getResponse ()
   {
     return m_sResponse;
   }
 
+  /**
+   * @return The algorithm used. May be <code>null</code>.
+   */
   @Nullable
   public String getAlgorithm ()
   {
     return m_sAlgorithm;
   }
 
+  /**
+   * @return The client nonce. May be <code>null</code>.
+   */
   @Nullable
   public String getClientNonce ()
   {
     return m_sClientNonce;
   }
 
+  /**
+   * @return The opaque value. May be <code>null</code>.
+   */
   @Nullable
   public String getOpaque ()
   {
     return m_sOpaque;
   }
 
+  /**
+   * @return The message quality of protection. May be <code>null</code>.
+   */
   @Nullable
   public String getMessageQOP ()
   {
     return m_sMessageQOP;
   }
 
+  /**
+   * @return The nonce count value. Returns -1 if not set.
+   */
   @CheckForSigned
   public int getNonceCount ()
   {
     return m_nNonceCount;
   }
 
+  /**
+   * @return The complete Digest authentication request header value. Neither
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getRequestValue ()

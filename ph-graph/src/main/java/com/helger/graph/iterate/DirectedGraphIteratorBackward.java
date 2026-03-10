@@ -94,11 +94,27 @@ public final class DirectedGraphIteratorBackward implements ICommonsIterableIter
    */
   private boolean m_bHasCycles = false;
 
+  /**
+   * Constructor iterating all incoming relations from the start node.
+   *
+   * @param aStartNode
+   *        The node to start iterating from. May not be <code>null</code>.
+   */
   public DirectedGraphIteratorBackward (@NonNull final IMutableDirectedGraphNode aStartNode)
   {
     this (aStartNode, null);
   }
 
+  /**
+   * Constructor iterating incoming relations from the start node, optionally
+   * filtering relations.
+   *
+   * @param aStartNode
+   *        The node to start iterating from. May not be <code>null</code>.
+   * @param aRelationFilter
+   *        An optional filter to decide which relations to follow. May be
+   *        <code>null</code> to follow all relations.
+   */
   public DirectedGraphIteratorBackward (@NonNull final IMutableDirectedGraphNode aStartNode,
                                         @Nullable final Predicate <? super IMutableDirectedGraphRelation> aRelationFilter)
   {
@@ -110,11 +126,13 @@ public final class DirectedGraphIteratorBackward implements ICommonsIterableIter
     m_aNodeStack.push (new IterationNode (aStartNode));
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return !m_aNodeStack.isEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableDirectedGraphNode next ()
   {

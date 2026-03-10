@@ -33,16 +33,32 @@ public class Scoped implements AutoCloseable
 {
   private IRequestScope m_aRequestScope;
 
+  /**
+   * Constructor using default scope and session IDs.
+   */
   public Scoped ()
   {
     this ("scope-id", "session-id");
   }
 
+  /**
+   * Constructor with custom scope and session IDs.
+   *
+   * @param sScopeID
+   *        The scope ID. May neither be <code>null</code> nor empty.
+   * @param sSessionID
+   *        The session ID. May neither be <code>null</code> nor empty.
+   */
   public Scoped (@NonNull @Nonempty final String sScopeID, @NonNull @Nonempty final String sSessionID)
   {
     m_aRequestScope = ScopeManager.onRequestBegin (sScopeID, sSessionID);
   }
 
+  /**
+   * @return The request scope. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         If the scope was already closed.
+   */
   @NonNull
   public IRequestScope getRequestScope ()
   {
@@ -51,6 +67,9 @@ public class Scoped implements AutoCloseable
     return m_aRequestScope;
   }
 
+  /**
+   * End the request scope. Implements {@link AutoCloseable}.
+   */
   public void close ()
   {
     m_aRequestScope = null;

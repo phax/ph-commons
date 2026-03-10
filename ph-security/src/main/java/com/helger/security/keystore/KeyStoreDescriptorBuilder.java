@@ -36,14 +36,30 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
   private char [] m_aPassword;
   private Provider m_aProvider;
 
+  /**
+   * Default constructor.
+   */
   public KeyStoreDescriptorBuilder ()
   {}
 
+  /**
+   * Copy constructor from an existing descriptor.
+   *
+   * @param aSrc
+   *        The source descriptor to copy from. May not be <code>null</code>.
+   */
   public KeyStoreDescriptorBuilder (@NonNull final KeyStoreDescriptor aSrc)
   {
     type (aSrc.m_aType).path (aSrc.m_sPath).password (aSrc.m_aPassword).provider (aSrc.m_aProvider);
   }
 
+  /**
+   * Set the key store type.
+   *
+   * @param a
+   *        The key store type to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreDescriptorBuilder type (@Nullable final IKeyStoreType a)
   {
@@ -51,6 +67,13 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
     return this;
   }
 
+  /**
+   * Set the key store path.
+   *
+   * @param s
+   *        The path to the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreDescriptorBuilder path (@Nullable final String s)
   {
@@ -58,12 +81,26 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
     return this;
   }
 
+  /**
+   * Set the key store password as a String.
+   *
+   * @param s
+   *        The password for the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreDescriptorBuilder password (@Nullable final String s)
   {
     return password (s == null ? null : s.toCharArray ());
   }
 
+  /**
+   * Set the key store password as a char array.
+   *
+   * @param a
+   *        The password for the key store. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreDescriptorBuilder password (final char @Nullable [] a)
   {
@@ -71,6 +108,13 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
     return this;
   }
 
+  /**
+   * Set the security provider to use.
+   *
+   * @param a
+   *        The security provider. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final KeyStoreDescriptorBuilder provider (@Nullable final Provider a)
   {
@@ -78,6 +122,13 @@ public class KeyStoreDescriptorBuilder implements IBuilder <KeyStoreDescriptor>
     return this;
   }
 
+  /**
+   * Build the {@link KeyStoreDescriptor} from the provided parameters.
+   *
+   * @return A new {@link KeyStoreDescriptor} instance. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if any required parameter is missing.
+   */
   @NonNull
   public KeyStoreDescriptor build () throws IllegalStateException
   {

@@ -61,9 +61,18 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @CodingStyleguideUnaware
   private final Set <CALLBACKTYPE> m_aCallbacks = new LinkedHashSet <> ();
 
+  /**
+   * Default constructor with an empty callback list.
+   */
   public CallbackList ()
   {}
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The callback list to copy from. May be <code>null</code>.
+   */
   public CallbackList (@Nullable final CallbackList <CALLBACKTYPE> aOther)
   {
     if (aOther != null)
@@ -180,6 +189,9 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     });
   }
 
+  /**
+   * @return A mutable copy of all registered callbacks. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public List <CALLBACKTYPE> getAllCallbacks ()
@@ -196,6 +208,13 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     }
   }
 
+  /**
+   * Get the callback at the specified index.
+   *
+   * @param nIndex
+   *        The index to retrieve. Must be &ge; 0.
+   * @return <code>null</code> if the index is out of bounds.
+   */
   @Nullable
   public CALLBACKTYPE getCallbackAtIndex (@Nonnegative final int nIndex)
   {
@@ -213,12 +232,18 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     });
   }
 
+  /**
+   * @return The number of registered callbacks. Always &ge; 0.
+   */
   @Nonnegative
   public int size ()
   {
     return m_aRWLock.readLockedInt (m_aCallbacks::size);
   }
 
+  /**
+   * @return <code>true</code> if no callbacks are registered, <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     // Called very often - performance improvement
@@ -233,12 +258,18 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     }
   }
 
+  /**
+   * @return A clone of this callback list. Never <code>null</code>.
+   */
   @NonNull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
     return m_aRWLock.readLockedGet ( () -> new CallbackList <> (this));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public Iterator <CALLBACKTYPE> iterator ()
   {
@@ -260,6 +291,14 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
       }
   }
 
+  /**
+   * Iterate all callbacks and invoke the provided function. Iteration can be stopped by returning
+   * {@link EContinue#BREAK}.
+   *
+   * @param aFunction
+   *        The function to be invoked on each callback. May not be <code>null</code>.
+   * @return {@link EContinue#BREAK} if iteration was stopped, {@link EContinue#CONTINUE} otherwise.
+   */
   @NonNull
   public EContinue forEachBreakable (@NonNull final Function <? super CALLBACKTYPE, EContinue> aFunction)
   {

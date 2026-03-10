@@ -28,6 +28,13 @@ import com.helger.base.io.stream.StreamHelper;
  */
 public class CodepointIteratorReader extends CodepointIteratorCharArray
 {
+  /**
+   * Constructor.
+   *
+   * @param aReader
+   *        The reader to iterate. Will be closed. May not be
+   *        <code>null</code>.
+   */
   public CodepointIteratorReader (@NonNull @WillClose final Reader aReader)
   {
     super (StreamHelper.getAllCharacters (aReader));

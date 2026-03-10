@@ -68,6 +68,13 @@ public final class StatisticsManager
   private StatisticsManager ()
   {}
 
+  /**
+   * Get or create a cache statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerCache getCacheHandler (@NonNull final Class <?> aClass)
   {
@@ -76,6 +83,14 @@ public final class StatisticsManager
     return getCacheHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a cache statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerCache getCacheHandler (@NonNull @Nonempty final String sName)
   {
@@ -93,6 +108,10 @@ public final class StatisticsManager
 
   }
 
+  /**
+   * @return A copy of all registered cache handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCacheHandler ()
@@ -100,6 +119,13 @@ public final class StatisticsManager
     return RWL_CACHE.readLockedGet (HDL_CACHE::copyOfKeySet);
   }
 
+  /**
+   * Get or create a timer statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerTimer getTimerHandler (@NonNull final Class <?> aClass)
   {
@@ -108,6 +134,14 @@ public final class StatisticsManager
     return getTimerHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a timer statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerTimer getTimerHandler (@NonNull @Nonempty final String sName)
   {
@@ -122,6 +156,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered timer handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllTimerHandler ()
@@ -129,6 +167,13 @@ public final class StatisticsManager
     return RWL_TIMER.readLockedGet (HDL_TIMER::copyOfKeySet);
   }
 
+  /**
+   * Get or create a keyed timer statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@NonNull final Class <?> aClass)
   {
@@ -137,6 +182,14 @@ public final class StatisticsManager
     return getKeyedTimerHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a keyed timer statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedTimer getKeyedTimerHandler (@NonNull @Nonempty final String sName)
   {
@@ -151,6 +204,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered keyed timer handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedTimerHandler ()
@@ -158,6 +215,13 @@ public final class StatisticsManager
     return RWL_KEYED_TIMER.readLockedGet (HDL_KEYED_TIMER::copyOfKeySet);
   }
 
+  /**
+   * Get or create a size statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerSize getSizeHandler (@NonNull final Class <?> aClass)
   {
@@ -166,6 +230,14 @@ public final class StatisticsManager
     return getSizeHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a size statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerSize getSizeHandler (@NonNull @Nonempty final String sName)
   {
@@ -180,6 +252,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered size handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllSizeHandler ()
@@ -187,6 +263,13 @@ public final class StatisticsManager
     return RWL_SIZE.readLockedGet (HDL_SIZE::copyOfKeySet);
   }
 
+  /**
+   * Get or create a keyed size statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@NonNull final Class <?> aClass)
   {
@@ -195,6 +278,14 @@ public final class StatisticsManager
     return getKeyedSizeHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a keyed size statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedSize getKeyedSizeHandler (@NonNull @Nonempty final String sName)
   {
@@ -209,6 +300,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered keyed size handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedSizeHandler ()
@@ -216,6 +311,13 @@ public final class StatisticsManager
     return RWL_KEYED_SIZE.readLockedGet (HDL_KEYED_SIZE::copyOfKeySet);
   }
 
+  /**
+   * Get or create a counter statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerCounter getCounterHandler (@NonNull final Class <?> aClass)
   {
@@ -224,6 +326,14 @@ public final class StatisticsManager
     return getCounterHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a counter statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerCounter getCounterHandler (@NonNull @Nonempty final String sName)
   {
@@ -238,6 +348,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered counter handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllCounterHandler ()
@@ -245,6 +359,13 @@ public final class StatisticsManager
     return RWL_COUNTER.readLockedGet (HDL_COUNTER::copyOfKeySet);
   }
 
+  /**
+   * Get or create a keyed counter statistics handler for the given class.
+   *
+   * @param aClass
+   *        The class to get the handler for. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@NonNull final Class <?> aClass)
   {
@@ -253,6 +374,14 @@ public final class StatisticsManager
     return getKeyedCounterHandler (aClass.getName ());
   }
 
+  /**
+   * Get or create a keyed counter statistics handler for the given name.
+   *
+   * @param sName
+   *        The name to get the handler for. May neither be <code>null</code>
+   *        nor empty.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static IMutableStatisticsHandlerKeyedCounter getKeyedCounterHandler (@NonNull @Nonempty final String sName)
   {
@@ -268,6 +397,10 @@ public final class StatisticsManager
     return aHdl;
   }
 
+  /**
+   * @return A copy of all registered keyed counter handler names. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSet <String> getAllKeyedCounterHandler ()
@@ -275,6 +408,9 @@ public final class StatisticsManager
     return RWL_KEYED_COUNTER.readLockedGet (HDL_KEYED_COUNTER::copyOfKeySet);
   }
 
+  /**
+   * Clear all internal statistics data.
+   */
   public static void clearCache ()
   {
     RWL_CACHE.writeLocked (HDL_CACHE::clear);

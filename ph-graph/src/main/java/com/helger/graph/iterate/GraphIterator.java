@@ -52,6 +52,13 @@ public final class GraphIterator implements ICommonsIterableIterator <IMutableGr
    */
   private boolean m_bHasCycles = false;
 
+  /**
+   * Constructor performing a depth-first traversal starting from the given
+   * node.
+   *
+   * @param aStartNode
+   *        The node to start iterating from. May not be <code>null</code>.
+   */
   public GraphIterator (@NonNull final IMutableGraphNode aStartNode)
   {
     ValueEnforcer.notNull (aStartNode, "startNode");
@@ -86,11 +93,13 @@ public final class GraphIterator implements ICommonsIterableIterator <IMutableGr
     }
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_aIter.hasNext ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMutableGraphNode next ()
   {

@@ -33,11 +33,20 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends BasicTreeWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
+  /**
+   * Constructor using the default {@link DefaultTreeItemWithIDFactory}.
+   */
   public DefaultTreeWithID ()
   {
     this (new DefaultTreeItemWithIDFactory <> ());
   }
 
+  /**
+   * Constructor with a custom tree item factory.
+   *
+   * @param aFactory
+   *        The tree item factory to use. May not be <code>null</code>.
+   */
   public DefaultTreeWithID (@NonNull final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>> aFactory)
   {
     super (aFactory);

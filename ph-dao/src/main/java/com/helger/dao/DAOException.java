@@ -23,11 +23,25 @@ package com.helger.dao;
  */
 public class DAOException extends Exception
 {
+  /**
+   * Constructor with message only.
+   *
+   * @param sMsg
+   *        The error message. May be <code>null</code>.
+   */
   public DAOException (final String sMsg)
   {
     super (sMsg);
   }
 
+  /**
+   * Constructor with message and cause.
+   *
+   * @param sMsg
+   *        The error message. May be <code>null</code>.
+   * @param t
+   *        The causing exception. May be <code>null</code>.
+   */
   public DAOException (final String sMsg, final Throwable t)
   {
     super (sMsg, t);

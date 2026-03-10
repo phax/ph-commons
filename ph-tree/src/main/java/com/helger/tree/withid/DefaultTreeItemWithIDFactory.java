@@ -35,12 +35,18 @@ import com.helger.base.enforce.ValueEnforcer;
 public class DefaultTreeItemWithIDFactory <KEYTYPE, DATATYPE> extends
                                           AbstractTreeItemWithIDFactory <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> createRoot ()
   {
     return new DefaultTreeItemWithID <> (this);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public DefaultTreeItemWithID <KEYTYPE, DATATYPE> create (@NonNull final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aParent,
                                                            @NonNull final KEYTYPE aDataID)

@@ -61,35 +61,58 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
     return m_sResourceID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public String getPath ()
   {
     return m_sPath;
   }
 
+  /**
+   * Set the path of this in-memory resource.
+   *
+   * @param sPath
+   *        The path to set. May not be <code>null</code>.
+   */
   public void setPath (@NonNull final String sPath)
   {
     ValueEnforcer.notNull (sPath, "Path");
     m_sPath = sPath;
   }
 
+  /**
+   * @return Always <code>null</code> since in-memory resources cannot be
+   *         represented as a URL.
+   */
   @Nullable
   public URL getAsURL ()
   {
     return null;
   }
 
+  /**
+   * @return Always <code>null</code> since in-memory resources cannot be
+   *         represented as a file.
+   */
   @Nullable
   public File getAsFile ()
   {
     return null;
   }
 
+  /**
+   * @return Always <code>true</code> since in-memory resources always exist.
+   */
   public boolean exists ()
   {
     return true;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @UnsupportedOperation
   public IReadableResource getReadableCloneForPath (@NonNull final String sPath)

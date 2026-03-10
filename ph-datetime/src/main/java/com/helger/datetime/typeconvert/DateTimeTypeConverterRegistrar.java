@@ -60,6 +60,9 @@ import com.helger.typeconvert.impl.TypeConverter;
 @IsSPIImplementation
 public final class DateTimeTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // Source: Calendar

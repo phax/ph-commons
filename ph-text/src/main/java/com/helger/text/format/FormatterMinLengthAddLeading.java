@@ -35,6 +35,14 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
   private final int m_nMinLength;
   private final char m_cFill;
 
+  /**
+   * Constructor.
+   *
+   * @param nMinLength
+   *        The minimum length of the resulting string. Must be &gt; 0.
+   * @param cFill
+   *        The character to use for filling at the front.
+   */
   public FormatterMinLengthAddLeading (@Nonnegative final int nMinLength, final char cFill)
   {
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
@@ -42,12 +50,18 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
     m_cFill = cFill;
   }
 
+  /**
+   * @return The minimum length as specified in the constructor.
+   */
   @Nonnegative
   public int getMinLength ()
   {
     return m_nMinLength;
   }
 
+  /**
+   * @return The fill character as specified in the constructor.
+   */
   public char getFillChar ()
   {
     return m_cFill;

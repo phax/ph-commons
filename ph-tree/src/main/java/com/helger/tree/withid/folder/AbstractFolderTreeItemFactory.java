@@ -62,6 +62,9 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
     return aItem.getGlobalUniqueDataID ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final IAggregator <KEYTYPE, KEYTYPE> getKeyCombinator ()
   {
@@ -74,6 +77,9 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   /*
    * This implementation is different, because the root object is also put into
    * the item store.
+   */
+  /**
+   * {@inheritDoc}
    */
   @NonNull
   public final ITEMTYPE createRoot ()

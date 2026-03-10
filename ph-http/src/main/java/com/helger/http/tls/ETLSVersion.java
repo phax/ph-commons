@@ -45,6 +45,7 @@ public enum ETLSVersion implements IHasID <String>
     m_sID = sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -52,6 +53,13 @@ public enum ETLSVersion implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * Get the enum value matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static ETLSVersion getFromIDOrNull (@Nullable final String sID)
   {

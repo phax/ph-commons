@@ -50,12 +50,18 @@ public final class AuthIdentification implements IAuthIdentification
     m_aIdentificationDT = PDTFactory.getCurrentLocalDateTime ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public IAuthSubject getAuthSubject ()
   {
     return m_aAuthSubject;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public LocalDateTime getIdentificationDateTime ()
   {

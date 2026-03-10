@@ -44,6 +44,13 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
 {
   private final ICommonsList <IReadableResourceProvider> m_aReadingResourceProviders;
 
+  /**
+   * Constructor with a varargs array of resource providers.
+   *
+   * @param aResProviders
+   *        The resource providers to use. May neither be <code>null</code> nor
+   *        empty and may not contain <code>null</code> elements.
+   */
   public ReadableResourceProviderChain (@NonNull final IReadableResourceProvider... aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
@@ -51,6 +58,13 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     m_aReadingResourceProviders = new CommonsArrayList <> (aResProviders);
   }
 
+  /**
+   * Constructor with an iterable of resource providers.
+   *
+   * @param aResProviders
+   *        The resource providers to use. May neither be <code>null</code> nor
+   *        empty and may not contain <code>null</code> elements.
+   */
   public ReadableResourceProviderChain (@NonNull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
     ValueEnforcer.notEmptyNoNullValue (aResProviders, "ResourceProviders");
@@ -65,6 +79,10 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     return m_aReadingResourceProviders;
   }
 
+  /**
+   * @return A copy of all contained reading resource providers. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <IReadableResourceProvider> getAllContainedReadingResourceProviders ()
@@ -72,12 +90,18 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     return m_aReadingResourceProviders.getClone ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean supportsReading (@Nullable final String sName)
   {
     // Check if any provider can handle this resource
     return m_aReadingResourceProviders.containsAny (x -> x.supportsReading (sName));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   @OverrideOnDemand
   public IReadableResource getReadableResource (@NonNull final String sName)
@@ -89,6 +113,16 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     throw new IllegalArgumentException ("Cannot handle reading '" + sName + "' by any of " + m_aReadingResourceProviders);
   }
 
+  /**
+   * Get a readable resource matching the name and filter.
+   *
+   * @param sName
+   *        The name of the resource to resolve. May not be <code>null</code>.
+   * @param aReturnFilter
+   *        The filter to apply on found resources. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if no matching resource was found.
+   */
   @Nullable
   public IReadableResource getReadableResourceIf (@NonNull final String sName,
                                                   @NonNull final Predicate <? super IReadableResource> aReturnFilter)

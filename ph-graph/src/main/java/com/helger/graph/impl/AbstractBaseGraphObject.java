@@ -53,6 +53,7 @@ public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
       m_sID = sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public final String getID ()
@@ -60,6 +61,7 @@ public abstract class AbstractBaseGraphObject implements IMutableBaseGraphObject
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableObject
   public final AttributeContainerAny <String> attrs ()

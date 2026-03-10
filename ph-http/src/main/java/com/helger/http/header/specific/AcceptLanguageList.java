@@ -33,6 +33,9 @@ import com.helger.http.header.QValue;
  */
 public class AcceptLanguageList extends AbstractQValueList <String>
 {
+  /**
+   * Constructor creating an empty accept language list.
+   */
   public AcceptLanguageList ()
   {}
 
@@ -42,6 +45,15 @@ public class AcceptLanguageList extends AbstractQValueList <String>
     return sLanguage.toLowerCase (Locale.US);
   }
 
+  /**
+   * Add a language with the given quality.
+   *
+   * @param sLanguage
+   *        The language to add. May neither be <code>null</code> nor empty.
+   * @param dQuality
+   *        The quality value between 0 and 1.
+   * @return this for chaining
+   */
   @NonNull
   public AcceptLanguageList addLanguage (@NonNull final String sLanguage, @Nonnegative final double dQuality)
   {
@@ -90,11 +102,29 @@ public class AcceptLanguageList extends AbstractQValueList <String>
     return getQValueOfLanguage (sLanguage).getQuality ();
   }
 
+  /**
+   * Check if the passed language is supported. Supported means the quality is
+   * &gt; 0.
+   *
+   * @param sLanguage
+   *        The language to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the language is supported, <code>false</code>
+   *         if not.
+   */
   public boolean supportsLanguage (@NonNull final String sLanguage)
   {
     return getQValueOfLanguage (sLanguage).isAboveMinimumQuality ();
   }
 
+  /**
+   * Check if the passed language is explicitly supported (without wildcard
+   * fallback). Supported means the quality is &gt; 0.
+   *
+   * @param sLanguage
+   *        The language to be checked. May not be <code>null</code>.
+   * @return <code>true</code> if the language is explicitly supported,
+   *         <code>false</code> if not.
+   */
   public boolean explicitlySupportsLanguage (@NonNull final String sLanguage)
   {
     ValueEnforcer.notNull (sLanguage, "Language");

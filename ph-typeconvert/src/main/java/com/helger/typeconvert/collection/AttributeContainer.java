@@ -46,14 +46,27 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   private final transient CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
   private final transient CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> m_aAfterCallbacks = new CallbackList <> ();
 
+  /**
+   * Default constructor creating an empty container.
+   */
   public AttributeContainer ()
   {}
 
+  /**
+   * Constructor copying all entries from the provided map.
+   *
+   * @param aMap
+   *        The map to copy from. May be <code>null</code>.
+   */
   public AttributeContainer (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (aMap);
   }
 
+  /**
+   * @return The mutable list of callbacks to be invoked before a value is set.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public final CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> beforeSetValueCallbacks ()
@@ -61,6 +74,10 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
     return m_aBeforeCallbacks;
   }
 
+  /**
+   * @return The mutable list of callbacks to be invoked after a value was set.
+   *         Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public final CallbackList <IAfterSetValueCallback <KEYTYPE, VALUETYPE>> afterSetValueCallbacks ()

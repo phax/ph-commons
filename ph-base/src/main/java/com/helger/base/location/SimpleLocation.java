@@ -46,11 +46,27 @@ public class SimpleLocation implements ILocation
   private final int m_nColumnNumber;
   private final int m_nLineNumber;
 
+  /**
+   * Constructor with resource ID only.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   */
   public SimpleLocation (@Nullable final String sResourceID)
   {
     this (sResourceID, ILLEGAL_NUMBER, ILLEGAL_NUMBER);
   }
 
+  /**
+   * Constructor with resource ID, line number and column number.
+   *
+   * @param sResourceID
+   *        The resource ID. May be <code>null</code>.
+   * @param nLineNumber
+   *        The line number. Use {@link ILocation#ILLEGAL_NUMBER} if not available.
+   * @param nColumnNumber
+   *        The column number. Use {@link ILocation#ILLEGAL_NUMBER} if not available.
+   */
   public SimpleLocation (@Nullable final String sResourceID, final int nLineNumber, final int nColumnNumber)
   {
     m_sResourceID = sResourceID;
@@ -58,17 +74,26 @@ public class SimpleLocation implements ILocation
     m_nColumnNumber = nColumnNumber;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public String getResourceID ()
   {
     return m_sResourceID;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int getLineNumber ()
   {
     return m_nLineNumber;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public int getColumnNumber ()
   {
     return m_nColumnNumber;
@@ -102,6 +127,13 @@ public class SimpleLocation implements ILocation
                                        .getToString ();
   }
 
+  /**
+   * Create a {@link SimpleLocation} from a SAX {@link Locator}.
+   *
+   * @param aLocator
+   *        The SAX locator. May be <code>null</code>.
+   * @return <code>null</code> if the passed locator is <code>null</code>.
+   */
   @Nullable
   public static SimpleLocation create (@Nullable final Locator aLocator)
   {
@@ -113,6 +145,13 @@ public class SimpleLocation implements ILocation
                                aLocator.getColumnNumber ());
   }
 
+  /**
+   * Create a {@link SimpleLocation} from a JAXP {@link SourceLocator}.
+   *
+   * @param aLocator
+   *        The source locator. May be <code>null</code>.
+   * @return <code>null</code> if the passed locator is <code>null</code>.
+   */
   @Nullable
   public static SimpleLocation create (@Nullable final SourceLocator aLocator)
   {
@@ -124,6 +163,13 @@ public class SimpleLocation implements ILocation
                                aLocator.getColumnNumber ());
   }
 
+  /**
+   * Create a {@link SimpleLocation} from a {@link SAXParseException}.
+   *
+   * @param aLocator
+   *        The SAX parse exception. May be <code>null</code>.
+   * @return <code>null</code> if the passed exception is <code>null</code>.
+   */
   @Nullable
   public static SimpleLocation create (@Nullable final SAXParseException aLocator)
   {
@@ -135,6 +181,13 @@ public class SimpleLocation implements ILocation
                                aLocator.getColumnNumber ());
   }
 
+  /**
+   * Create a {@link SimpleLocation} from a StAX {@link Location}.
+   *
+   * @param aLocator
+   *        The StAX location. May be <code>null</code>.
+   * @return <code>null</code> if the passed location is <code>null</code>.
+   */
   @Nullable
   public static SimpleLocation create (@Nullable final Location aLocator)
   {

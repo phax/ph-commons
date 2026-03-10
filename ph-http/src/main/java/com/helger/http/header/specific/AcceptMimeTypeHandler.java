@@ -50,6 +50,15 @@ public final class AcceptMimeTypeHandler
   private AcceptMimeTypeHandler ()
   {}
 
+  /**
+   * Parse the Accept HTTP header value and return a structured list.
+   *
+   * @param sAcceptMimeTypes
+   *        The Accept header value. May be <code>null</code> or empty.
+   * @return A non-<code>null</code> {@link AcceptMimeTypeList} containing the
+   *         parsed MIME types. If the input is empty, all MIME types are
+   *         accepted.
+   */
   @NonNull
   public static AcceptMimeTypeList getAcceptMimeTypes (@Nullable final String sAcceptMimeTypes)
   {

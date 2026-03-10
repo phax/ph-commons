@@ -28,11 +28,27 @@ public class CodepointIteratorCharSequence extends AbstractCodepointIterator
 {
   private final CharSequence m_aBuffer;
 
+  /**
+   * Constructor iterating over the entire char sequence.
+   *
+   * @param aBuffer
+   *        The char sequence to iterate. May not be <code>null</code>.
+   */
   public CodepointIteratorCharSequence (@NonNull final CharSequence aBuffer)
   {
     this (aBuffer, 0, aBuffer.length ());
   }
 
+  /**
+   * Constructor iterating over a portion of the char sequence.
+   *
+   * @param aBuffer
+   *        The char sequence to iterate. May not be <code>null</code>.
+   * @param nOfs
+   *        The start offset. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to iterate. Must be &ge; 0.
+   */
   public CodepointIteratorCharSequence (@NonNull final CharSequence aBuffer,
                                         @Nonnegative final int nOfs,
                                         @Nonnegative final int nLen)

@@ -152,6 +152,9 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return LocaleHelper.getLocaleToUseOrNull (aContentLocale, m_aTexts.keySet ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean containsLocaleWithFallback (@Nullable final Locale aContentLocale)
   {
     if (aContentLocale != null)

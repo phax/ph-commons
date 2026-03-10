@@ -81,6 +81,9 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   public ScopeSessionManager ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static ScopeSessionManager getInstance ()
   {
@@ -274,11 +277,23 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     _checkIfAnySessionsExist ();
   }
 
+  /**
+   * @return <code>true</code> if all sessions should be destroyed when the
+   *         global scope ends, <code>false</code> otherwise.
+   */
   public final boolean isDestroyAllSessionsOnScopeEnd ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
+  /**
+   * Set whether all sessions should be destroyed when the global scope ends.
+   *
+   * @param bDestroyAllSessionsOnScopeEnd
+   *        <code>true</code> to destroy all sessions on scope end,
+   *        <code>false</code> otherwise.
+   * @return {@link EChange}
+   */
   @NonNull
   public final EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
@@ -290,11 +305,23 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     });
   }
 
+  /**
+   * @return <code>true</code> if all sessions should be ended when the global
+   *         scope ends, <code>false</code> otherwise.
+   */
   public final boolean isEndAllSessionsOnScopeEnd ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_bEndAllSessionsOnScopeEnd);
   }
 
+  /**
+   * Set whether all sessions should be ended when the global scope ends.
+   *
+   * @param bEndAllSessionsOnScopeEnd
+   *        <code>true</code> to end all sessions on scope end,
+   *        <code>false</code> otherwise.
+   * @return {@link EChange}
+   */
   @NonNull
   public final EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {

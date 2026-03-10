@@ -70,16 +70,38 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
     }
   }
 
+  /**
+   * Constructor using a start directory path without any filters.
+   *
+   * @param sStartDir
+   *        The start directory path. May not be <code>null</code>.
+   */
   public FileSystemFolderTree (@NonNull final String sStartDir)
   {
     this (new File (sStartDir));
   }
 
+  /**
+   * Constructor using a start directory without any filters.
+   *
+   * @param aStartDir
+   *        The start directory. May not be <code>null</code>.
+   */
   public FileSystemFolderTree (@NonNull final File aStartDir)
   {
     this (aStartDir, (Predicate <? super File>) null, (Predicate <? super File>) null);
   }
 
+  /**
+   * Constructor using a start directory path with optional filters.
+   *
+   * @param sStartDir
+   *        The start directory path. May not be <code>null</code>.
+   * @param aDirFilter
+   *        An optional filter for directories. May be <code>null</code>.
+   * @param aFileFilter
+   *        An optional filter for files. May be <code>null</code>.
+   */
   public FileSystemFolderTree (@NonNull final String sStartDir,
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)
@@ -87,6 +109,16 @@ public class FileSystemFolderTree extends DefaultFolderTree <String, File, IComm
     this (new File (sStartDir), aDirFilter, aFileFilter);
   }
 
+  /**
+   * Constructor using a start directory with optional filters.
+   *
+   * @param aStartDir
+   *        The start directory. May not be <code>null</code>.
+   * @param aDirFilter
+   *        An optional filter for directories. May be <code>null</code>.
+   * @param aFileFilter
+   *        An optional filter for files. May be <code>null</code>.
+   */
   public FileSystemFolderTree (@NonNull final File aStartDir,
                                @Nullable final Predicate <? super File> aDirFilter,
                                @Nullable final Predicate <? super File> aFileFilter)

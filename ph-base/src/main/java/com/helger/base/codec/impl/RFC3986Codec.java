@@ -130,6 +130,9 @@ public class RFC3986Codec implements IByteArrayCodec
     aOS.write (cLow);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -162,6 +165,9 @@ public class RFC3986Codec implements IByteArrayCodec
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

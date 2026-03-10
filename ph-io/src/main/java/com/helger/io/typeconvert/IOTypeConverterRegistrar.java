@@ -52,6 +52,9 @@ import com.helger.typeconvert.ITypeConverterRegistry;
 @IsSPIImplementation
 public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerTypeConverter (@NonNull final ITypeConverterRegistry aRegistry)
   {
     // File
