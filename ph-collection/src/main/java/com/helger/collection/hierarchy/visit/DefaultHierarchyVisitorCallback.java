@@ -33,16 +33,28 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
 {
   private int m_nLevel;
 
+  /**
+   * Constructor using an initial level of 0.
+   */
   public DefaultHierarchyVisitorCallback ()
   {
     this (0);
   }
 
+  /**
+   * Constructor with a custom initial level.
+   *
+   * @param nInitialLevel
+   *        The initial hierarchy level to start counting from.
+   */
   public DefaultHierarchyVisitorCallback (final int nInitialLevel)
   {
     m_nLevel = nInitialLevel;
   }
 
+  /**
+   * @return The current hierarchy level. Always &ge; 0.
+   */
   @Nonnegative
   public int getLevel ()
   {
@@ -63,6 +75,7 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     --m_nLevel;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EHierarchyVisitorReturn onItemBeforeChildren (final DATATYPE aItem)
   {
@@ -70,6 +83,7 @@ public class DefaultHierarchyVisitorCallback <DATATYPE> implements IHierarchyVis
     return EHierarchyVisitorReturn.CONTINUE;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EHierarchyVisitorReturn onItemAfterChildren (final DATATYPE aItem)
   {

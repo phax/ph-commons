@@ -38,11 +38,25 @@ public final class ArrayIteratorByte
   private final ByteArrayWrapper m_aBytes;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor iterating over the whole array, copying the data.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   */
   public ArrayIteratorByte (final byte @NonNull ... aArray)
   {
     this (aArray, 0, aArray.length, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor iterating over the whole array.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   * @param bCopyNeeded
+   *        <code>true</code> if the array should be copied, <code>false</code> to use it directly.
+   */
   public ArrayIteratorByte (final byte @NonNull [] aArray, final boolean bCopyNeeded)
   {
     this (aArray, 0, aArray.length, bCopyNeeded);
@@ -63,6 +77,18 @@ public final class ArrayIteratorByte
     this (aBytes, nOfs, nLength, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor with offset, length and copy flag.
+   *
+   * @param aBytes
+   *        Source array. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset. Must be &ge; 0.
+   * @param nLength
+   *        Length. Must be &ge; 0.
+   * @param bCopyNeeded
+   *        <code>true</code> if the array should be copied, <code>false</code> to use it directly.
+   */
   public ArrayIteratorByte (final byte @NonNull [] aBytes,
                             @Nonnegative final int nOfs,
                             @Nonnegative final int nLength,
@@ -72,11 +98,19 @@ public final class ArrayIteratorByte
     m_aBytes = new ByteArrayWrapper (aBytes, nOfs, nLength, bCopyNeeded);
   }
 
+  /**
+   * @return <code>true</code> if there are more elements to iterate.
+   */
   public boolean hasNext ()
   {
     return m_nIndex < m_aBytes.size ();
   }
 
+  /**
+   * @return The next byte value in the iteration.
+   * @throws NoSuchElementException
+   *         if there are no more elements.
+   */
   public byte next ()
   {
     if (!hasNext ())

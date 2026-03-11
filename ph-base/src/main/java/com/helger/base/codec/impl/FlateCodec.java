@@ -44,9 +44,24 @@ public class FlateCodec implements IByteArrayCodec
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (FlateCodec.class);
 
+  /**
+   * Constructor.
+   */
   public FlateCodec ()
   {}
 
+  /**
+   * Check if the passed byte buffer starts with a valid zlib header.
+   *
+   * @param buf
+   *        The byte buffer to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset to start checking from.
+   * @param nLen
+   *        The number of available bytes.
+   * @return <code>true</code> if the buffer starts with a valid zlib header, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isZlibHead (final byte @NonNull [] buf,
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
@@ -64,6 +79,18 @@ public class FlateCodec implements IByteArrayCodec
     return false;
   }
 
+  /**
+   * Decode the passed flate compressed buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The flate compressed buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -88,6 +115,18 @@ public class FlateCodec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Encode the passed buffer using flate compression and write it to the output stream.
+   *
+   * @param aDecodedBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

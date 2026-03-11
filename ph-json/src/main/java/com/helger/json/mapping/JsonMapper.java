@@ -138,6 +138,15 @@ public final class JsonMapper
                             .add (JSON_STACK_TRACE, StackTraceHelper.getStackAsString (t));
   }
 
+  /**
+   * Read a {@link JsonUnmappedException} from a JSON object that was previously created with
+   * {@link #getJsonException(Throwable)}.
+   *
+   * @param aObj
+   *        The JSON object to read from. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code> or does not contain the
+   *         required fields, the {@link JsonUnmappedException} otherwise.
+   */
   @Nullable
   public static JsonUnmappedException getAsUnmappedException (@Nullable final IJsonObject aObj)
   {
@@ -154,6 +163,14 @@ public final class JsonMapper
     return new JsonUnmappedException (sClassName, sMessage, aStackTraceLines);
   }
 
+  /**
+   * Get the JSON representation of a simple location (resource, line, column).
+   *
+   * @param aLocation
+   *        The location to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code> or contains no information, the
+   *         JSON object otherwise.
+   */
   @Nullable
   public static IJsonObject getJsonSimpleLocation (@Nullable final ILocation aLocation)
   {
@@ -169,6 +186,15 @@ public final class JsonMapper
     return ret;
   }
 
+  /**
+   * Read a simple {@link ILocation} from a JSON object that was previously created with
+   * {@link #getJsonSimpleLocation(ILocation)}.
+   *
+   * @param aObj
+   *        The JSON object to read from. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code> or contains no location
+   *         information, the {@link ILocation} otherwise.
+   */
   @Nullable
   public static ILocation getAsSimpleLocation (@Nullable final IJsonObject aObj)
   {

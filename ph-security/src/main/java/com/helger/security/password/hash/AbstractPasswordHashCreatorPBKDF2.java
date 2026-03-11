@@ -41,6 +41,19 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
   protected final int m_nIterations;
   protected final int m_nHashBytes;
 
+  /**
+   * Constructor.
+   *
+   * @param sAlgorithmName
+   *        The algorithm name for identification. May neither be <code>null</code> nor empty.
+   * @param sPBKDF2AlgorithmName
+   *        The PBKDF2 algorithm name to use with {@link javax.crypto.SecretKeyFactory}. May neither
+   *        be <code>null</code> nor empty.
+   * @param nIterations
+   *        The number of iterations (slowness factor). Must be &gt; 0.
+   * @param nBytes
+   *        The length of the hash to compute in bytes. Must be &gt; 0.
+   */
   protected AbstractPasswordHashCreatorPBKDF2 (@NonNull @Nonempty final String sAlgorithmName,
                                                @NonNull @Nonempty final String sPBKDF2AlgorithmName,
                                                @Nonnegative final int nIterations,
@@ -101,6 +114,7 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
     }
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String createPasswordHash (@NonNull final IPasswordSalt aSalt, @NonNull final String sPlainTextPassword)
   {

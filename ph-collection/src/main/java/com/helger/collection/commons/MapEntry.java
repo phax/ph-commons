@@ -44,29 +44,52 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
   private final KEYTYPE m_aKey;
   private VALUETYPE m_aValue;
 
+  /**
+   * Constructor copying key and value from an existing map entry.
+   *
+   * @param aEntry
+   *        The map entry to copy from. May not be <code>null</code>.
+   */
   public MapEntry (final Map.@NonNull Entry <? extends KEYTYPE, ? extends VALUETYPE> aEntry)
   {
     this (aEntry.getKey (), aEntry.getValue ());
   }
 
+  /**
+   * Constructor with explicit key and value.
+   *
+   * @param aKey
+   *        The key. May be <code>null</code>.
+   * @param aValue
+   *        The value. May be <code>null</code>.
+   */
   public MapEntry (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     m_aKey = aKey;
     m_aValue = aValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public KEYTYPE getKey ()
   {
     return m_aKey;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public VALUETYPE getValue ()
   {
     return m_aValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public VALUETYPE setValue (@Nullable final VALUETYPE aValue)
   {

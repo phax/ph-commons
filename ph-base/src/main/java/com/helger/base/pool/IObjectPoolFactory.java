@@ -75,12 +75,14 @@ public interface IObjectPoolFactory <DATATYPE>
   {
     return new IObjectPoolFactory <> ()
     {
+      /** {@inheritDoc} */
       @NonNull
       public T create ()
       {
         return aSupplier.get ();
       }
 
+      /** {@inheritDoc} */
       @NonNull
       public ESuccess activate (@NonNull final T aItem)
       {
@@ -88,6 +90,7 @@ public interface IObjectPoolFactory <DATATYPE>
         return ESuccess.SUCCESS;
       }
 
+      /** {@inheritDoc} */
       public void passivate (@NonNull final T aItem)
       {
         // empty

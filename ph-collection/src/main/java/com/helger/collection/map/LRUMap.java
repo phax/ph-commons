@@ -61,6 +61,12 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
     m_nMaxSize = nMaxSize;
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The LRU map to copy from. May not be <code>null</code>.
+   */
   public LRUMap (@NonNull final LRUMap <KEYTYPE, VALUETYPE> rhs)
   {
     this (rhs.m_nMaxSize);

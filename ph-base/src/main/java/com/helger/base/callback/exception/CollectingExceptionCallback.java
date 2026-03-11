@@ -34,16 +34,28 @@ public class CollectingExceptionCallback <EXTYPE extends Throwable> implements I
 {
   private EXTYPE m_aException;
 
+  /**
+   * Store the passed exception.
+   *
+   * @param aEx
+   *        The exception to store. May be <code>null</code>.
+   */
   public void onException (@Nullable final EXTYPE aEx)
   {
     m_aException = aEx;
   }
 
+  /**
+   * @return <code>true</code> if an exception was stored, <code>false</code> otherwise.
+   */
   public boolean hasException ()
   {
     return m_aException != null;
   }
 
+  /**
+   * @return The stored exception. May be <code>null</code> if no exception was stored.
+   */
   @Nullable
   public EXTYPE getException ()
   {

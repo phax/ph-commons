@@ -38,6 +38,14 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
   private final Iterator <? extends ELEMENTTYPE> m_aIter2;
   private boolean m_bFirstIter;
 
+  /**
+   * Constructor.
+   *
+   * @param aIter1
+   *        First iterator. May be <code>null</code>.
+   * @param aIter2
+   *        Second iterator. May be <code>null</code>.
+   */
   public CombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1, @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {
     m_aIter1 = aIter1;
@@ -45,6 +53,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     m_bFirstIter = aIter1 != null;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     boolean ret = false;
@@ -59,6 +68,9 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {
@@ -87,6 +99,17 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
     return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).getToString ();
   }
 
+  /**
+   * Factory method to create a combined iterator, handling <code>null</code> iterators gracefully.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aIter1
+   *        First iterator. May be <code>null</code>.
+   * @param aIter2
+   *        Second iterator. May be <code>null</code>.
+   * @return A non-<code>null</code> iterator combining both inputs.
+   */
   @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> create (@Nullable final Iterator <ELEMENTTYPE> aIter1,
                                                              @Nullable final Iterator <ELEMENTTYPE> aIter2)

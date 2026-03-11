@@ -44,6 +44,12 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @CodingStyleguideUnaware
   private final Collection <ELEMENTTYPE> m_aSrc;
 
+  /**
+   * Constructor.
+   *
+   * @param aSet
+   *        The collection to wrap. May not be <code>null</code>.
+   */
   public WrappedCollection (@NonNull final Collection <ELEMENTTYPE> aSet)
   {
     m_aSrc = ValueEnforcer.notNull (aSet, "Set");
@@ -57,67 +63,80 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
     return m_aSrc;
   }
 
+  /** {@inheritDoc} */
   public boolean add (@Nullable final ELEMENTTYPE aElement)
   {
     return m_aSrc.add (aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public void clear ()
   {
     m_aSrc.clear ();
   }
 
+  /** {@inheritDoc} */
   public boolean contains (final Object aElement)
   {
     return m_aSrc.contains (aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean containsAll (final Collection <?> aElements)
   {
     return m_aSrc.containsAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_aSrc.isEmpty ();
   }
 
+  /** {@inheritDoc} */
   public Iterator <ELEMENTTYPE> iterator ()
   {
     return m_aSrc.iterator ();
   }
 
+  /** {@inheritDoc} */
   public boolean remove (final Object aElement)
   {
     return m_aSrc.remove (aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean removeAll (final Collection <?> aElements)
   {
     return m_aSrc.removeAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public boolean retainAll (final Collection <?> aElements)
   {
     return m_aSrc.retainAll (aElements);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_aSrc.size ();
   }
 
+  /** {@inheritDoc} */
   public Object [] toArray ()
   {
     return m_aSrc.toArray ();
   }
 
+  /** {@inheritDoc} */
   public <ARRAYELEMENTTYPE> ARRAYELEMENTTYPE [] toArray (final ARRAYELEMENTTYPE [] a)
   {
     return m_aSrc.toArray (a);

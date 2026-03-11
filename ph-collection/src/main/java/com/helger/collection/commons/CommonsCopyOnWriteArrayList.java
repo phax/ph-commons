@@ -142,6 +142,9 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
     return new CommonsCopyOnWriteArrayList <> ();
   }
 
+  /**
+   * @return A mutable copy of this list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsCopyOnWriteArrayList <ELEMENTTYPE> getClone ()

@@ -67,16 +67,31 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
 
   private final LRUCacheMap m_aMap;
 
+  /**
+   * Constructor.
+   *
+   * @param nMaxSize
+   *        The maximum number of elements to keep in this set. Must be &gt; 0.
+   */
   public LRUSet (@Nonnegative final int nMaxSize)
   {
     m_aMap = new LRUCacheMap (nMaxSize);
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The set to copy from. May not be <code>null</code>.
+   */
   public LRUSet (@Nonnegative final LRUSet <ELEMENTTYPE> rhs)
   {
     m_aMap = new LRUCacheMap (rhs.m_aMap);
   }
 
+  /**
+   * @return A mutable copy of this set. Never <code>null</code>.
+   */
   @NonNull
   public LRUSet <ELEMENTTYPE> getClone ()
   {

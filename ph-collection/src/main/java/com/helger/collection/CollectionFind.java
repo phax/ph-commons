@@ -45,6 +45,18 @@ public final class CollectionFind
   private CollectionFind ()
   {}
 
+  /**
+   * Check if the passed collection contains the specified element.
+   *
+   * @param aCollection
+   *        The collection to search in. May be <code>null</code>.
+   * @param aSearch
+   *        The element to search for. May be <code>null</code>.
+   * @return <code>true</code> if the collection is not empty and contains the specified element,
+   *         <code>false</code> otherwise.
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   */
   public static <ELEMENTTYPE> boolean contains (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
                                                 @Nullable final ELEMENTTYPE aSearch)
   {
@@ -54,6 +66,19 @@ public final class CollectionFind
     return aCollection.contains (aSearch);
   }
 
+  /**
+   * Check if the passed collection contains at least one element matching the provided filter. If
+   * no filter is provided, this checks whether the collection is not empty.
+   *
+   * @param aCollection
+   *        The collection to search in. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to check for non-emptiness.
+   * @return <code>true</code> if at least one element matches the filter, <code>false</code>
+   *         otherwise.
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   */
   public static <ELEMENTTYPE> boolean containsAny (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -67,6 +92,18 @@ public final class CollectionFind
     return false;
   }
 
+  /**
+   * Check if the passed collection contains no element matching the provided filter. If no filter
+   * is provided, this checks whether the collection is empty.
+   *
+   * @param aCollection
+   *        The collection to search in. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to check for emptiness.
+   * @return <code>true</code> if no element matches the filter, <code>false</code> otherwise.
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   */
   public static <ELEMENTTYPE> boolean containsNone (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -209,6 +246,16 @@ public final class CollectionFind
     return aDefault;
   }
 
+  /**
+   * Get the last element of the passed list.
+   *
+   * @param <ELEMENTTYPE>
+   *        List element type
+   * @param aList
+   *        The list. May be <code>null</code>.
+   * @return <code>null</code> if the list is <code>null</code> or empty, the last element
+   *         otherwise.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getLastElement (@Nullable final List <ELEMENTTYPE> aList)
   {
@@ -216,6 +263,16 @@ public final class CollectionFind
     return nSize == 0 ? null : aList.get (nSize - 1);
   }
 
+  /**
+   * Get the last element of the passed collection.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection. May be <code>null</code>.
+   * @return <code>null</code> if the collection is <code>null</code> or empty, the last element
+   *         otherwise.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getLastElement (@Nullable final Collection <ELEMENTTYPE> aCollection)
   {
@@ -229,6 +286,16 @@ public final class CollectionFind
     return aLast;
   }
 
+  /**
+   * Get the last element of the passed iterable.
+   *
+   * @param <ELEMENTTYPE>
+   *        Iterable element type
+   * @param aIterable
+   *        The iterable. May be <code>null</code>.
+   * @return <code>null</code> if the iterable is <code>null</code> or empty, the last element
+   *         otherwise.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getLastElement (@Nullable final Iterable <ELEMENTTYPE> aIterable)
   {
@@ -242,6 +309,17 @@ public final class CollectionFind
     return aLast;
   }
 
+  /**
+   * Find the first element in the passed collection matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to return the first element.
+   * @return <code>null</code> if no matching element was found.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -250,6 +328,19 @@ public final class CollectionFind
     return findFirst (aCollection, aFilter, (ELEMENTTYPE) null);
   }
 
+  /**
+   * Find the first element in the passed collection matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to return the first element.
+   * @param aDefault
+   *        The default value to return if no matching element is found. May be <code>null</code>.
+   * @return The first matching element or the default value.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -266,6 +357,22 @@ public final class CollectionFind
     return aDefault;
   }
 
+  /**
+   * Find the first element in the passed collection matching the provided filter and apply a
+   * mapping function to it.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param <DSTTYPE>
+   *        Destination type after mapping
+   * @param aCollection
+   *        The collection to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to use the first element.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return <code>null</code> if no matching element was found.
+   */
   @Nullable
   public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -274,6 +381,24 @@ public final class CollectionFind
     return findFirstMapped (aCollection, aFilter, aMapper, (DSTTYPE) null);
   }
 
+  /**
+   * Find the first element in the passed collection matching the provided filter, apply a mapping
+   * function to it, and return the mapped result.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param <DSTTYPE>
+   *        Destination type after mapping
+   * @param aCollection
+   *        The collection to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to use the first element.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @param aDefault
+   *        The default value to return if no matching element is found. May be <code>null</code>.
+   * @return The mapped result of the first matching element or the default value.
+   */
   @Nullable
   public static <ELEMENTTYPE, DSTTYPE> DSTTYPE findFirstMapped (@Nullable final Iterable <? extends ELEMENTTYPE> aCollection,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -295,6 +420,19 @@ public final class CollectionFind
     return aDefault;
   }
 
+  /**
+   * Find all elements in the passed iterable matching the provided filter and pass them to the
+   * consumer.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aSrc
+   *        Source iterable. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May be <code>null</code> to accept all elements.
+   * @param aConsumer
+   *        The consumer to accept matching elements. May not be <code>null</code>.
+   */
   public static <ELEMENTTYPE> void findAll (@Nullable final Iterable <? extends ELEMENTTYPE> aSrc,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                             @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
@@ -314,6 +452,20 @@ public final class CollectionFind
     }
   }
 
+  /**
+   * Iterate all elements, apply a mapping function to each, and pass the result to the consumer.
+   *
+   * @param <SRCTYPE>
+   *        Source element type
+   * @param <DSTTYPE>
+   *        Destination element type
+   * @param aSrc
+   *        Source iterable. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to accept mapped elements. May not be <code>null</code>.
+   */
   public static <SRCTYPE, DSTTYPE> void findAllMapped (@Nullable final Iterable <? extends SRCTYPE> aSrc,
                                                        @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                        @NonNull final Consumer <? super DSTTYPE> aConsumer)

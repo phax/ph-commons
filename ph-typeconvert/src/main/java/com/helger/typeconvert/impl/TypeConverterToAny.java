@@ -45,54 +45,63 @@ public class TypeConverterToAny <DST> implements ITypeConverterTo <DST>
     m_aDestClass = aClass;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final boolean value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final byte value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final char value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final double value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final float value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final int value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final long value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (final short value)
   {
     return TypeConverter.convert (value, m_aDestClass);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public DST convert (@Nullable final Object value)
   {

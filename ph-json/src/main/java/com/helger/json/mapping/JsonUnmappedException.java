@@ -43,6 +43,16 @@ public class JsonUnmappedException extends Exception
   private final String m_sMessage;
   private final ICommonsList <String> m_aStackTraceLines;
 
+  /**
+   * Constructor.
+   *
+   * @param sClassName
+   *        The fully qualified exception class name. May not be <code>null</code>.
+   * @param sMessage
+   *        The exception message. May be <code>null</code>.
+   * @param aStackTraceLines
+   *        The stack trace lines. May not be <code>null</code>.
+   */
   public JsonUnmappedException (@NonNull final String sClassName,
                                 @Nullable final String sMessage,
                                 @NonNull final List <String> aStackTraceLines)
@@ -86,6 +96,11 @@ public class JsonUnmappedException extends Exception
     return m_aStackTraceLines.getClone ();
   }
 
+  /**
+   * Convert this unmapped exception to a JSON object representation.
+   *
+   * @return The JSON object. May be <code>null</code>.
+   */
   @Nullable
   public IJsonObject getAsJson ()
   {

@@ -46,11 +46,18 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
   @CodingStyleguideUnaware
   private final List <ELEMENTTYPE> m_aSrc;
 
+  /**
+   * Constructor.
+   *
+   * @param aList
+   *        The list to wrap. May not be <code>null</code>.
+   */
   public WrappedList (@NonNull final List <ELEMENTTYPE> aList)
   {
     m_aSrc = ValueEnforcer.notNull (aList, "List");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public WrappedList <ELEMENTTYPE> getClone ()
@@ -66,119 +73,142 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
     return m_aSrc;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ELEMENTTYPE get (@Nonnegative final int nIndex)
   {
     return m_aSrc.get (nIndex);
   }
 
+  /** {@inheritDoc} */
   public boolean add (@Nullable final ELEMENTTYPE aElement)
   {
     return m_aSrc.add (aElement);
   }
 
+  /** {@inheritDoc} */
   public void add (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aElement)
   {
     m_aSrc.add (nIndex, aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public boolean addAll (@Nonnegative final int nIndex, @NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     return m_aSrc.addAll (nIndex, aElements);
   }
 
+  /** {@inheritDoc} */
   public void clear ()
   {
     m_aSrc.clear ();
   }
 
+  /** {@inheritDoc} */
   public boolean contains (final Object aElement)
   {
     return m_aSrc.contains (aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean containsAll (final Collection <?> aElements)
   {
     return m_aSrc.containsAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public int indexOf (final Object aElement)
   {
     return m_aSrc.indexOf (aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_aSrc.isEmpty ();
   }
 
+  /** {@inheritDoc} */
   public Iterator <ELEMENTTYPE> iterator ()
   {
     return m_aSrc.iterator ();
   }
 
+  /** {@inheritDoc} */
   public int lastIndexOf (final Object aElement)
   {
     return m_aSrc.lastIndexOf (aElement);
   }
 
+  /** {@inheritDoc} */
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
     return m_aSrc.listIterator ();
   }
 
+  /** {@inheritDoc} */
   public ListIterator <ELEMENTTYPE> listIterator (final int nIndex)
   {
     return m_aSrc.listIterator (nIndex);
   }
 
+  /** {@inheritDoc} */
   public boolean remove (final Object aElement)
   {
     return m_aSrc.remove (aElement);
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE remove (final int nIndex)
   {
     return m_aSrc.remove (nIndex);
   }
 
+  /** {@inheritDoc} */
   public boolean removeAll (final Collection <?> aElements)
   {
     return m_aSrc.removeAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public boolean retainAll (final Collection <?> aElements)
   {
     return m_aSrc.retainAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE set (@Nonnegative final int nIndex, final ELEMENTTYPE aElement)
   {
     return m_aSrc.set (nIndex, aElement);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_aSrc.size ();
   }
 
+  /** {@inheritDoc} */
   @ReturnsMutableObject ("as defined by List")
   public List <ELEMENTTYPE> subList (final int nFromIndex, final int nToIndex)
   {
     return m_aSrc.subList (nFromIndex, nToIndex);
   }
 
+  /** {@inheritDoc} */
   public Object [] toArray ()
   {
     return m_aSrc.toArray ();
   }
 
+  /** {@inheritDoc} */
   public <ARRAYELEMENTTYPE> ARRAYELEMENTTYPE [] toArray (final ARRAYELEMENTTYPE [] a)
   {
     return m_aSrc.toArray (a);

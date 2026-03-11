@@ -48,24 +48,42 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     private int m_nInvocationCount;
     private long m_nCount;
 
+    /**
+     * Constructor with an initial counter value.
+     *
+     * @param nInitialValue
+     *        The initial counter value.
+     */
     public Value (final long nInitialValue)
     {
       m_nInvocationCount = 1;
       m_nCount = nInitialValue;
     }
 
+    /**
+     * Increment the counter by the specified amount.
+     *
+     * @param nByHowMany
+     *        The amount to increment by.
+     */
     public void increment (final long nByHowMany)
     {
       m_nInvocationCount++;
       m_nCount += nByHowMany;
     }
 
+    /**
+     * @return The number of times the counter was incremented. Always &ge; 0.
+     */
     @Nonnegative
     public int getInvocationCount ()
     {
       return m_nInvocationCount;
     }
 
+    /**
+     * @return The current counter value.
+     */
     public long getCount ()
     {
       return m_nCount;

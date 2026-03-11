@@ -142,6 +142,18 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   @Nullable
   protected abstract String internalGetFallbackString (@NonNull String sID, @NonNull Locale aContentLocale);
 
+  /**
+   * Resolve the text for the given enum value, checking for overrides first, then
+   * the text provider, and finally the fallback.
+   *
+   * @param aEnum
+   *        The enum value to resolve text for. May not be <code>null</code>.
+   * @param aTP
+   *        The text provider to use. May not be <code>null</code>.
+   * @param aContentLocale
+   *        The locale to get the text for. May not be <code>null</code>.
+   * @return The resolved text, or <code>null</code> if no text was found.
+   */
   @Nullable
   public final String getText (@NonNull final Enum <?> aEnum,
                                @NonNull final IHasText aTP,

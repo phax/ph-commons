@@ -140,6 +140,12 @@ public class Homoglyph
     private final String m_sText;
     private final int [] m_aCodepoints;
 
+    /**
+     * Constructor extracting the code points from the provided text.
+     *
+     * @param sText
+     *        The text to extract code points from. May not be <code>null</code>.
+     */
     public CodePoints (@NonNull final String sText)
     {
       m_sText = sText;
@@ -151,23 +157,46 @@ public class Homoglyph
       aBuf.get (m_aCodepoints);
     }
 
+    /**
+     * Get the code point value at the specified index.
+     *
+     * @param i
+     *        The index of the code point to retrieve.
+     * @return The code point value at the given index.
+     */
     public int getValue (final int i)
     {
       return m_aCodepoints[i];
     }
 
+    /**
+     * @return The number of code points in this text.
+     */
     @Nonnegative
     public int getLength ()
     {
       return m_aCodepoints.length;
     }
 
+    /**
+     * @return The original text string. Never <code>null</code>.
+     */
     @NonNull
     public String getText ()
     {
       return m_sText;
     }
 
+    /**
+     * Extract a substring from the code points starting at the given offset with the
+     * specified length.
+     *
+     * @param nOfs
+     *        The zero-based offset to start at.
+     * @param nLen
+     *        The number of code points to include.
+     * @return The extracted substring. Never <code>null</code>.
+     */
     @NonNull
     public String subStringAt (@Nonnegative final int nOfs, @Nonnegative final int nLen)
     {

@@ -92,6 +92,15 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
     return super.get (nIndex);
   }
 
+  /**
+   * Get the element at the specified index, creating it if it is <code>null</code>.
+   *
+   * @param nIndex
+   *        The index to access. If larger than the current size, the list is expanded.
+   * @param aFactory
+   *        The factory to create the element if absent. May not be <code>null</code>.
+   * @return The existing or newly created element. May be <code>null</code>.
+   */
   @Nullable
   public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
   {

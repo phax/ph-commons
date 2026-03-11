@@ -40,15 +40,40 @@ public class DCTCodec implements IByteArrayDecoder
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (DCTCodec.class);
 
+  /**
+   * Constructor.
+   */
   public DCTCodec ()
   {}
 
+  /**
+   * Decode the passed DCT encoded buffer.
+   *
+   * @param aEncodedBuffer
+   *        The DCT encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @return The decoded byte array or <code>null</code> if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return getDecodedDCT (aEncodedBuffer, nOfs, nLen);
   }
 
+  /**
+   * Decode the passed DCT encoded buffer using static method.
+   *
+   * @param aEncodedBuffer
+   *        The DCT encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @return The decoded byte array or <code>null</code> if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @Nullable [] getDecodedDCT (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {

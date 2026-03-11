@@ -461,6 +461,18 @@ public final class ArrayHelper
     return aArray;
   }
 
+  /**
+   * Create a new array of the given class with the given size.
+   *
+   * @param aClass
+   *        The class of the array elements. May not be <code>null</code> and may not be a primitive
+   *        type.
+   * @param nSize
+   *        The number of elements. Must be &ge; 0.
+   * @return A new array of the given type and size. Never <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Type of element
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@NonNull final Class <? extends ELEMENTTYPE> aClass,
@@ -593,6 +605,21 @@ public final class ArrayHelper
     return ret;
   }
 
+  /**
+   * Create a new array by mapping the elements of a collection using the provided function.
+   *
+   * @param aCollection
+   *        The source collection. May not be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @param aDstClass
+   *        The destination array element class. May not be <code>null</code>.
+   * @return A new array with mapped elements. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source element type
+   * @param <DSTTYPE>
+   *        Destination element type
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@NonNull final Collection <? extends SRCTYPE> aCollection,
@@ -610,6 +637,21 @@ public final class ArrayHelper
     return ret;
   }
 
+  /**
+   * Create a new array by mapping the elements of a source array using the provided function.
+   *
+   * @param aArray
+   *        The source array. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @param aDstClass
+   *        The destination array element class. May not be <code>null</code>.
+   * @return A new array with mapped elements. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source element type
+   * @param <DSTTYPE>
+   *        Destination element type
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> DSTTYPE [] createArrayMapped (@Nullable final SRCTYPE [] aArray,
@@ -1010,6 +1052,14 @@ public final class ArrayHelper
     return ret;
   }
 
+  /**
+   * Get a 1:1 copy of the passed array.
+   *
+   * @param aArray
+   *        The array to be copied. May be <code>null</code>.
+   * @return <code>null</code> if the passed array is <code>null</code> - a non-<code>null</code>
+   *         copy otherwise.
+   */
   @ReturnsMutableCopy
   public static long @Nullable [] getCopy (final long... aArray)
   {
@@ -1195,6 +1245,16 @@ public final class ArrayHelper
     return ret;
   }
 
+  /**
+   * Check if the byte array starts with the given search bytes.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param aSearch
+   *        The bytes to search for. May be <code>null</code>.
+   * @return <code>true</code> if the array starts with the search bytes, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final byte @NonNull [] aArray, final byte @Nullable [] aSearch)
   {
     if (aSearch == null)
@@ -1202,6 +1262,18 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
+  /**
+   * Check if the byte array starts with the given search bytes.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayLen
+   *        The number of bytes to consider in the array.
+   * @param aSearch
+   *        The bytes to search for. May be <code>null</code>.
+   * @return <code>true</code> if the array starts with the search bytes, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     final byte @Nullable [] aSearch)
@@ -1211,6 +1283,20 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
+  /**
+   * Check if the byte array starts with the given search bytes.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param aSearch
+   *        The bytes to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of bytes to search for.
+   * @return <code>true</code> if the array starts with the search bytes, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final byte @NonNull [] aArray,
                                     final byte @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
@@ -1219,6 +1305,22 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
+  /**
+   * Check if the byte array starts with the given search bytes.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayLen
+   *        The number of bytes to consider in the array.
+   * @param aSearch
+   *        The bytes to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of bytes to search for.
+   * @return <code>true</code> if the array starts with the search bytes, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     final byte @Nullable [] aSearch,
@@ -1228,6 +1330,24 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
+  /**
+   * Check if the byte array starts with the given search bytes.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayOfs
+   *        The offset in the array to start comparing from.
+   * @param nArrayLen
+   *        The number of bytes to consider in the array.
+   * @param aSearch
+   *        The bytes to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of bytes to search for.
+   * @return <code>true</code> if the array starts with the search bytes, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final byte @NonNull [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
@@ -1244,6 +1364,16 @@ public final class ArrayHelper
     return true;
   }
 
+  /**
+   * Check if the char array starts with the given search chars.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param aSearch
+   *        The chars to search for. May be <code>null</code>.
+   * @return <code>true</code> if the array starts with the search chars, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final char @NonNull [] aArray, final char @Nullable [] aSearch)
   {
     if (aSearch == null)
@@ -1251,6 +1381,18 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, 0, aSearch.length);
   }
 
+  /**
+   * Check if the char array starts with the given search chars.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayLen
+   *        The number of chars to consider in the array.
+   * @param aSearch
+   *        The chars to search for. May be <code>null</code>.
+   * @return <code>true</code> if the array starts with the search chars, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     final char @Nullable [] aSearch)
@@ -1260,6 +1402,20 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, 0, aSearch.length);
   }
 
+  /**
+   * Check if the char array starts with the given search chars.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param aSearch
+   *        The chars to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of chars to search for.
+   * @return <code>true</code> if the array starts with the search chars, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final char @NonNull [] aArray,
                                     final char @Nullable [] aSearch,
                                     @Nonnegative final int nSearchOfs,
@@ -1268,6 +1424,22 @@ public final class ArrayHelper
     return startsWith (aArray, 0, aArray.length, aSearch, nSearchOfs, nSearchLen);
   }
 
+  /**
+   * Check if the char array starts with the given search chars.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayLen
+   *        The number of chars to consider in the array.
+   * @param aSearch
+   *        The chars to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of chars to search for.
+   * @return <code>true</code> if the array starts with the search chars, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayLen,
                                     final char @Nullable [] aSearch,
@@ -1277,6 +1449,24 @@ public final class ArrayHelper
     return startsWith (aArray, 0, nArrayLen, aSearch, nSearchOfs, nSearchLen);
   }
 
+  /**
+   * Check if the char array starts with the given search chars.
+   *
+   * @param aArray
+   *        The array to search in. May not be <code>null</code>.
+   * @param nArrayOfs
+   *        The offset in the array to start comparing from.
+   * @param nArrayLen
+   *        The number of chars to consider in the array.
+   * @param aSearch
+   *        The chars to search for. May be <code>null</code>.
+   * @param nSearchOfs
+   *        The offset in the search array.
+   * @param nSearchLen
+   *        The number of chars to search for.
+   * @return <code>true</code> if the array starts with the search chars, <code>false</code>
+   *         otherwise.
+   */
   public static boolean startsWith (final char @NonNull [] aArray,
                                     @Nonnegative final int nArrayOfs,
                                     @Nonnegative final int nArrayLen,
@@ -3790,12 +3980,37 @@ public final class ArrayHelper
     return aCollection.toArray (ret);
   }
 
+  /**
+   * Get an element from the passed array without throwing an {@link ArrayIndexOutOfBoundsException}.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aItems
+   *        The array to get the element from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to retrieve.
+   * @return <code>null</code> if the array is <code>null</code> or if the index is out of bounds.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getSafeElement (@Nullable final ELEMENTTYPE [] aItems, final int nIndex)
   {
     return getSafeElement (aItems, nIndex, null);
   }
 
+  /**
+   * Get an element from the passed array without throwing an {@link ArrayIndexOutOfBoundsException}.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aItems
+   *        The array to get the element from. May be <code>null</code>.
+   * @param nIndex
+   *        The index to retrieve.
+   * @param aDefault
+   *        The default value to return if the index is out of bounds. May be <code>null</code>.
+   * @return The element at the specified index or the default value if the array is
+   *         <code>null</code> or the index is out of bounds.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE getSafeElement (@Nullable final ELEMENTTYPE [] aItems,
                                                           final int nIndex,
@@ -3913,6 +4128,19 @@ public final class ArrayHelper
     return true;
   }
 
+  /**
+   * Find the first element in the array matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case the first element is
+   *        returned.
+   * @return <code>null</code> if no matching element was found or if the array is
+   *         <code>null</code> or empty.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -3920,6 +4148,21 @@ public final class ArrayHelper
     return findFirst (aArray, aFilter, (ELEMENTTYPE) null);
   }
 
+  /**
+   * Find the first element in the array matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case the first element is
+   *        returned.
+   * @param aDefault
+   *        The default value to return if no matching element was found. May be <code>null</code>.
+   * @return The default value if no matching element was found or if the array is <code>null</code>
+   *         or empty.
+   */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                      @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -3936,6 +4179,24 @@ public final class ArrayHelper
     return aDefault;
   }
 
+  /**
+   * Find the first element in the array matching the provided filter and apply a mapping function to
+   * it.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param <RETTYPE>
+   *        Return type after mapping
+   * @param aArray
+   *        The array to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case the first element is
+   *        used.
+   * @param aMapper
+   *        The mapping function to apply to the matching element. May not be <code>null</code>.
+   * @return <code>null</code> if no matching element was found or if the array is
+   *         <code>null</code> or empty.
+   */
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -3944,6 +4205,26 @@ public final class ArrayHelper
     return findFirstMapped (aArray, aFilter, aMapper, (RETTYPE) null);
   }
 
+  /**
+   * Find the first element in the array matching the provided filter and apply a mapping function to
+   * it.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param <RETTYPE>
+   *        Return type after mapping
+   * @param aArray
+   *        The array to search. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case the first element is
+   *        used.
+   * @param aMapper
+   *        The mapping function to apply to the matching element. May not be <code>null</code>.
+   * @param aDefault
+   *        The default value to return if no matching element was found. May be <code>null</code>.
+   * @return The default value if no matching element was found or if the array is <code>null</code>
+   *         or empty.
+   */
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
@@ -3965,6 +4246,18 @@ public final class ArrayHelper
     return aDefault;
   }
 
+  /**
+   * Count the number of elements in the array matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to count in. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case the array length is
+   *        returned.
+   * @return The number of matching elements. Always &ge; 0.
+   */
   @Nonnegative
   public static <ELEMENTTYPE> int getCount (@Nullable final ELEMENTTYPE [] aArray,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
@@ -3980,6 +4273,19 @@ public final class ArrayHelper
     return ret;
   }
 
+  /**
+   * Check if the passed array contains at least one element matching the provided filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to check. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case this method checks if
+   *        the array is non-empty.
+   * @return <code>true</code> if at least one element matches the filter, <code>false</code>
+   *         otherwise.
+   */
   public static <ELEMENTTYPE> boolean containsAny (@Nullable final ELEMENTTYPE [] aArray,
                                                    @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
@@ -3993,6 +4299,16 @@ public final class ArrayHelper
     return false;
   }
 
+  /**
+   * Invoke the provided consumer for each element of the passed array.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to iterate. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to invoke for each element. May not be <code>null</code>.
+   */
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
                                             @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)
   {
@@ -4001,6 +4317,18 @@ public final class ArrayHelper
         aConsumer.accept (aElement);
   }
 
+  /**
+   * Invoke the provided consumer for each element of the passed array, providing both the element
+   * and its index.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to iterate. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to invoke for each element with the element and its 0-based index. May not
+   *        be <code>null</code>.
+   */
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
                                             @NonNull final ObjIntConsumer <? super ELEMENTTYPE> aConsumer)
   {
@@ -4015,6 +4343,19 @@ public final class ArrayHelper
     }
   }
 
+  /**
+   * Invoke the provided consumer for each element of the passed array that matches the filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to iterate. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case all elements are
+   *        consumed.
+   * @param aConsumer
+   *        The consumer to invoke for each matching element. May not be <code>null</code>.
+   */
   public static <ELEMENTTYPE> void forEach (@Nullable final ELEMENTTYPE [] aArray,
                                             @Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                             @NonNull final Consumer <? super ELEMENTTYPE> aConsumer)

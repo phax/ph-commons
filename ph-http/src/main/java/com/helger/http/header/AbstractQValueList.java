@@ -40,6 +40,9 @@ public abstract class AbstractQValueList <KEYTYPE>
   // Maps something to quality
   private final ICommonsOrderedMap <KEYTYPE, QValue> m_aMap = new CommonsLinkedHashMap <> ();
 
+  /**
+   * Default constructor creating an empty quality value list.
+   */
   public AbstractQValueList ()
   {}
 

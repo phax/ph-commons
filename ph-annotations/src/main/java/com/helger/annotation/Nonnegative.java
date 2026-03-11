@@ -40,6 +40,15 @@ public @interface Nonnegative
 
   class Checker implements TypeQualifierValidator <Nonnegative>
   {
+    /**
+     * Validate whether the provided constant value is nonnegative.
+     *
+     * @param annotation
+     *        The {@link Nonnegative} annotation instance. Must not be <code>null</code>.
+     * @param v
+     *        The constant value to validate.
+     * @return {@link When#ALWAYS} if the value is nonnegative, {@link When#NEVER} otherwise.
+     */
     public When forConstantValue (final Nonnegative annotation, final Object v)
     {
       if (!(v instanceof Number))

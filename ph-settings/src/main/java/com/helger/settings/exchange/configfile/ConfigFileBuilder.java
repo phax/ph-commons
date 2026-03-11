@@ -58,6 +58,10 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   private IReadableResourceProvider m_aResProvider = new DefaultResourceProvider ();
   private final ICommonsList <String> m_aPaths = new CommonsArrayList <> ();
 
+  /**
+   * Default constructor using {@link SettingsPersistenceProperties} and
+   * {@link DefaultResourceProvider}.
+   */
   public ConfigFileBuilder ()
   {}
 

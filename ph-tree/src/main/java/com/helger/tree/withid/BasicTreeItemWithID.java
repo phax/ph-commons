@@ -583,6 +583,13 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     m_aFactory.onRemoveItem (aItem);
   }
 
+  /**
+   * Remove the child item with the specified data ID.
+   *
+   * @param aDataID
+   *        The ID of the child to remove. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the child was removed, {@link EChange#UNCHANGED} otherwise.
+   */
   @NonNull
   public final EChange removeChild (@Nullable final KEYTYPE aDataID)
   {
@@ -605,6 +612,12 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return EChange.CHANGED;
   }
 
+  /**
+   * Remove all children from this tree item.
+   *
+   * @return {@link EChange#CHANGED} if at least one child was removed, {@link EChange#UNCHANGED} if
+   *         there were no children.
+   */
   @NonNull
   public final EChange removeAllChildren ()
   {
@@ -624,6 +637,12 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
     return EChange.CHANGED;
   }
 
+  /**
+   * Reorder the children of this tree item using the provided comparator.
+   *
+   * @param aComparator
+   *        The comparator to use for sorting. May not be <code>null</code>.
+   */
   public final void reorderChildrenByItems (@NonNull final Comparator <? super ITEMTYPE> aComparator)
   {
     if (m_aChildren != null)

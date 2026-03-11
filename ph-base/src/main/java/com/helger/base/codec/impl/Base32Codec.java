@@ -386,11 +386,18 @@ public class Base32Codec implements IByteArrayCodec
     }
   }
 
+  /**
+   * @return <code>true</code> if hex encoding is used, <code>false</code> if regular encoding is
+   *         used.
+   */
   public boolean isHexEncoding ()
   {
     return m_aEncodeTable == HEX_ENCODE_TABLE;
   }
 
+  /**
+   * @return The byte used for padding. Defaults to <code>'='</code>.
+   */
   public byte getPad ()
   {
     return m_nPad;
@@ -423,6 +430,13 @@ public class Base32Codec implements IByteArrayCodec
     return nByte == ' ' || nByte == '\n' || nByte == '\r' || nByte == '\t';
   }
 
+  /**
+   * Set the byte to use for padding.
+   *
+   * @param nPad
+   *        The padding byte to use. Must not be in the alphabet or whitespace.
+   * @return this for chaining
+   */
   @NonNull
   public Base32Codec setPad (final byte nPad)
   {
@@ -432,11 +446,21 @@ public class Base32Codec implements IByteArrayCodec
     return this;
   }
 
+  /**
+   * @return <code>true</code> if padding is added during encoding, <code>false</code> otherwise.
+   */
   public boolean isAddPadding ()
   {
     return m_bAddPadding;
   }
 
+  /**
+   * Set whether to add padding during encoding.
+   *
+   * @param bAddPadding
+   *        <code>true</code> to add padding, <code>false</code> to omit it.
+   * @return this for chaining
+   */
   @NonNull
   public Base32Codec setAddPaddding (final boolean bAddPadding)
   {
@@ -450,6 +474,18 @@ public class Base32Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen * 8 / 5, 8);
   }
 
+  /**
+   * Encode the passed decoded buffer to Base32 and write it to the output stream.
+   *
+   * @param aDecodedBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -597,6 +633,18 @@ public class Base32Codec implements IByteArrayCodec
     return MathHelper.getRoundedUp (nLen, 8) * 5 / 8;
   }
 
+  /**
+   * Decode the passed Base32 encoded buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The Base32 encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

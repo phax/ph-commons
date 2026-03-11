@@ -55,6 +55,12 @@ public final class ClassHierarchyCache
     // Store it in the correct order, but without duplicates
     private final ICommonsList <WeakReference <Class <?>>> m_aList = new CommonsArrayList <> ();
 
+    /**
+     * Constructor that builds the full class hierarchy for the given class.
+     *
+     * @param aClass
+     *        The class to build the hierarchy for. May not be <code>null</code>.
+     */
     public ClassList (@NonNull final Class <?> aClass)
     {
       ValueEnforcer.notNull (aClass, "Class");
@@ -81,6 +87,9 @@ public final class ClassHierarchyCache
         m_aList.add (new WeakReference <> (aCurClass));
     }
 
+    /**
+     * @return A mutable copy of the class hierarchy as an ordered set. Never <code>null</code>.
+     */
     @NonNull
     @ReturnsMutableCopy
     public ICommonsOrderedSet <Class <?>> getAsSet ()
@@ -96,6 +105,9 @@ public final class ClassHierarchyCache
       return ret;
     }
 
+    /**
+     * @return A mutable copy of the class hierarchy as a list. Never <code>null</code>.
+     */
     @NonNull
     @ReturnsMutableCopy
     public ICommonsList <Class <?>> getAsList ()
@@ -111,6 +123,9 @@ public final class ClassHierarchyCache
       return ret;
     }
 
+    /**
+     * @return An iterator over the weak references of the class hierarchy. Never <code>null</code>.
+     */
     @NonNull
     public ICommonsIterableIterator <WeakReference <Class <?>>> iterator ()
     {

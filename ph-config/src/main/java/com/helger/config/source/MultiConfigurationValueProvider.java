@@ -59,6 +59,14 @@ public class MultiConfigurationValueProvider implements
     private final IConfigurationValueProvider m_aCVP;
     private final int m_nPriority;
 
+    /**
+     * Constructor.
+     *
+     * @param aCVP
+     *        The configuration value provider. May not be <code>null</code>.
+     * @param nPrio
+     *        The priority of this provider.
+     */
     public ConfigValueProviderWithPrio (@NonNull final IConfigurationValueProvider aCVP, final int nPrio)
     {
       m_aCVP = aCVP;

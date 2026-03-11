@@ -46,6 +46,7 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
     return INSTANCE;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ITypeConverter <Object, Object> getTypeConverter (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {

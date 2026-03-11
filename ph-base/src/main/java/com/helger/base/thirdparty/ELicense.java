@@ -106,6 +106,9 @@ public enum ELicense implements ILicense
     m_sURL = sURL;
   }
 
+  /**
+   * @return The unique ID of this license. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -113,6 +116,9 @@ public enum ELicense implements ILicense
     return m_sID;
   }
 
+  /**
+   * @return The display name of this license. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getDisplayName ()
@@ -120,18 +126,31 @@ public enum ELicense implements ILicense
     return m_sName;
   }
 
+  /**
+   * @return The version of this license. May be <code>null</code>.
+   */
   @Nullable
   public Version getVersion ()
   {
     return m_aVersion;
   }
 
+  /**
+   * @return The URL of this license. May be <code>null</code>.
+   */
   @Nullable
   public String getURL ()
   {
     return m_sURL;
   }
 
+  /**
+   * Find the license with the given ID.
+   *
+   * @param sID
+   *        The ID to search for. May be <code>null</code>.
+   * @return <code>null</code> if no such license exists.
+   */
   @Nullable
   public static ELicense getFromIDOrNull (@Nullable final String sID)
   {

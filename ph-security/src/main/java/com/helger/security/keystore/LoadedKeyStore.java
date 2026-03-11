@@ -38,6 +38,16 @@ public class LoadedKeyStore implements ISuccessIndicator
   private final EKeyStoreLoadError m_eError;
   private final String [] m_aErrorParams;
 
+  /**
+   * Constructor.
+   *
+   * @param aKeyStore
+   *        The loaded key store. May be <code>null</code> in case of error.
+   * @param eError
+   *        The error code. May be <code>null</code> in case of success.
+   * @param aErrorParams
+   *        The error parameters for formatting the error text. May be <code>null</code>.
+   */
   public LoadedKeyStore (@Nullable final KeyStore aKeyStore,
                          @Nullable final EKeyStoreLoadError eError,
                          @Nullable final String... aErrorParams)

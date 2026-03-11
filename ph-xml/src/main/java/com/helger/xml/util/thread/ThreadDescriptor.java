@@ -74,11 +74,22 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     RW_LOCK.writeLocked ( () -> s_bEnableThreadInfo = bEnableThreadInfo);
   }
 
+  /**
+   * @return <code>true</code> if the retrieval of {@link ThreadInfo} objects is enabled.
+   */
   public static boolean isEnableThreadInfo ()
   {
     return RW_LOCK.readLockedBoolean ( () -> s_bEnableThreadInfo);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aThread
+   *        The thread to describe. May not be <code>null</code>.
+   * @param sStackTrace
+   *        The stack trace of the thread. May be <code>null</code>.
+   */
   public ThreadDescriptor (@NonNull final Thread aThread, @Nullable final String sStackTrace)
   {
     ValueEnforcer.notNull (aThread, "Thread");
@@ -104,16 +115,26 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     m_aThreadInfo = aThreadInfo;
   }
 
+  /**
+   * @return The thread ID.
+   */
   public long getThreadID ()
   {
     return m_nID;
   }
 
+  /**
+   * @return The thread state at the time of creation. May be <code>null</code>.
+   */
   public State getThreadState ()
   {
     return m_eState;
   }
 
+  /**
+   * @return A descriptive string with thread ID, name, state, priority and thread group. Never
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getDescriptor ()
@@ -121,12 +142,19 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return "Thread[" + m_nID + "][" + m_sName + "][" + m_eState + "][" + m_nPriority + "][" + m_sThreadGroup + "]";
   }
 
+  /**
+   * @return The stack trace of the thread. May be <code>null</code>.
+   */
   @Nullable
   public String getStackTrace ()
   {
     return m_sStackTrace;
   }
 
+  /**
+   * @return The stack trace of the thread, or a fallback text if no stack trace is available. Never
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getStackTraceNotNull ()
@@ -134,6 +162,10 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return StringHelper.isNotEmpty (m_sStackTrace) ? m_sStackTrace : "No stack trace available\n";
   }
 
+  /**
+   * @return A string containing monitor and synchronizer lock information. Never <code>null</code>
+   *         but may be empty if no thread info is available.
+   */
   @NonNull
   public String getLockInfo ()
   {
@@ -179,6 +211,10 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return aSB.toString ();
   }
 
+  /**
+   * @return The complete thread descriptor, stack trace and lock info as a single string. Never
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getAsString ()
@@ -189,6 +225,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return sDescriptor + "\n" + sStackTrace + sLockInfo;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement getAsMicroNode ()
   {
@@ -242,6 +279,13 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
     return eRet;
   }
 
+  /**
+   * Create a {@link ThreadDescriptor} for the current thread.
+   *
+   * @param t
+   *        An optional throwable whose stack trace will be used. May be <code>null</code>.
+   * @return A new {@link ThreadDescriptor}. Never <code>null</code>.
+   */
   @NonNull
   public static ThreadDescriptor createForCurrentThread (@Nullable final Throwable t)
   {

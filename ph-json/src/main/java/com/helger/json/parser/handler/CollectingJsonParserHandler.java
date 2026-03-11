@@ -79,71 +79,89 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
     m_aStack.push (aValue);
   }
 
+  /** {@inheritDoc} */
   public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {}
 
+  /** {@inheritDoc} */
   public void onComment (@NonNull final String sComment)
   {}
 
+  /** {@inheritDoc} */
   public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {
     _addSimple (JsonValue.create (sUnescaped));
   }
 
+  /** {@inheritDoc} */
   public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {
     _addSimple (JsonValue.create (aNumber));
   }
 
+  /** {@inheritDoc} */
   public void onFalse ()
   {
     _addSimple (JsonValue.FALSE);
   }
 
+  /** {@inheritDoc} */
   public void onTrue ()
   {
     _addSimple (JsonValue.TRUE);
   }
 
+  /** {@inheritDoc} */
   public void onNull ()
   {
     _addSimple (JsonValue.NULL);
   }
 
+  /** {@inheritDoc} */
   public void onArrayStart ()
   {
     _addCollection (new JsonArray ());
   }
 
+  /** {@inheritDoc} */
   public void onArrayNextElement ()
   {}
 
+  /** {@inheritDoc} */
   public void onArrayEnd ()
   {
     m_aStack.pop ();
   }
 
+  /** {@inheritDoc} */
   public void onObjectStart ()
   {
     _addCollection (new JsonObject ());
   }
 
+  /** {@inheritDoc} */
   public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {
     m_aObjectName.push (sName);
   }
 
+  /** {@inheritDoc} */
   public void onObjectColon ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectNextElement ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectEnd ()
   {
     m_aStack.pop ();
   }
 
+  /**
+   * @return The parsed JSON object. May be <code>null</code> if nothing was parsed yet.
+   */
   @Nullable
   public IJson getJson ()
   {

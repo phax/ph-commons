@@ -51,6 +51,7 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
     m_aReader = ValueEnforcer.notNull (aReader, "Reader");
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String readLine () throws IOException
   {

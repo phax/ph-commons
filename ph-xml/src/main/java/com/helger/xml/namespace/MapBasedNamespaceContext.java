@@ -377,6 +377,9 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
     return m_aPrefix2NS.size ();
   }
 
+  /**
+   * @return A mutable deep clone of this namespace context. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public MapBasedNamespaceContext getClone ()

@@ -70,6 +70,16 @@ public final class Dijkstra
       this (null, nDistance, aToNode);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param aFromNode
+     *        The source node. May be <code>null</code> for the initial state.
+     * @param nDistance
+     *        The distance from the source node. Must be &ge; 0.
+     * @param aToNode
+     *        The target node. May not be <code>null</code>.
+     */
     public WorkElement (@Nullable final N aFromNode, @Nonnegative final int nDistance, @NonNull final N aToNode)
     {
       ValueEnforcer.isGE0 (nDistance, "Distance");
@@ -79,36 +89,54 @@ public final class Dijkstra
       m_aToNode = aToNode;
     }
 
+    /**
+     * @return The source node. May be <code>null</code> for the initial state.
+     */
     @Nullable
     public N getFromNode ()
     {
       return m_aFromNode;
     }
 
+    /**
+     * @return The ID of the source node, or <code>null</code> if no source node is present.
+     */
     @Nullable
     public String getFromNodeID ()
     {
       return m_aFromNode == null ? null : m_aFromNode.getID ();
     }
 
+    /**
+     * @return The distance value. Always &ge; 0.
+     */
     @Nonnegative
     public int getDistance ()
     {
       return m_nDistance;
     }
 
+    /**
+     * @return The target node. Never <code>null</code>.
+     */
     @NonNull
     public N getToNode ()
     {
       return m_aToNode;
     }
 
+    /**
+     * @return The ID of the target node. Never <code>null</code>.
+     */
     @NonNull
     public String getToNodeID ()
     {
       return m_aToNode.getID ();
     }
 
+    /**
+     * @return A string representation of this work element. Never <code>null</code> nor empty.
+     */
     @NonNull
     @Nonempty
     public String getAsString ()
@@ -126,12 +154,24 @@ public final class Dijkstra
   {
     private final ICommonsOrderedMap <String, WorkElement <N>> m_aElements;
 
+    /**
+     * Constructor.
+     *
+     * @param nElements
+     *        The expected number of elements. Must be &gt; 0.
+     */
     public WorkRow (@Nonnegative final int nElements)
     {
       ValueEnforcer.isGT0 (nElements, "Elements");
       m_aElements = new CommonsLinkedHashMap <> (nElements);
     }
 
+    /**
+     * Add a work element to this row.
+     *
+     * @param aElement
+     *        The element to add. May not be <code>null</code>.
+     */
     public void add (@NonNull final WorkElement <N> aElement)
     {
       ValueEnforcer.notNull (aElement, "Element");
@@ -139,6 +179,13 @@ public final class Dijkstra
       m_aElements.put (aElement.getToNodeID (), aElement);
     }
 
+    /**
+     * Get the work element for the specified node ID.
+     *
+     * @param sNodeID
+     *        The node ID to search for. May be <code>null</code>.
+     * @return The matching work element, or <code>null</code> if not found.
+     */
     @Nullable
     public WorkElement <N> getElement (@Nullable final String sNodeID)
     {
@@ -161,6 +208,9 @@ public final class Dijkstra
       return ret;
     }
 
+    /**
+     * @return A mutable copy of all work elements in this row. Never <code>null</code>.
+     */
     @NonNull
     @ReturnsMutableCopy
     public ICommonsList <WorkElement <N>> getAllElements ()

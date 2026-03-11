@@ -33,11 +33,20 @@ public final class DebugModeTestRule extends ExternalResource
   private final boolean m_bDebug;
   private boolean m_bOldDebug;
 
+  /**
+   * Default constructor enabling global debug mode.
+   */
   public DebugModeTestRule ()
   {
     this (ENABLE_GLOBAL_DEBUG);
   }
 
+  /**
+   * Constructor with a specific debug mode flag.
+   *
+   * @param bDebug
+   *        <code>true</code> to enable debug mode, <code>false</code> to disable it.
+   */
   public DebugModeTestRule (final boolean bDebug)
   {
     m_bDebug = bDebug;

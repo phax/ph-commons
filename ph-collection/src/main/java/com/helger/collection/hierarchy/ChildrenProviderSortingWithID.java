@@ -36,6 +36,14 @@ import com.helger.base.reflection.GenericReflection;
 public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends ChildrenProviderSorting <CHILDTYPE> implements
                                            IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
+  /**
+   * Constructor.
+   *
+   * @param aCP
+   *        The children provider with ID to be wrapped. May not be <code>null</code>.
+   * @param aComparator
+   *        The comparator to be used for sorting children. May not be <code>null</code>.
+   */
   public ChildrenProviderSortingWithID (@NonNull final IChildrenProviderWithID <KEYTYPE, CHILDTYPE> aCP,
                                         @NonNull final Comparator <? super CHILDTYPE> aComparator)
   {
@@ -49,6 +57,7 @@ public class ChildrenProviderSortingWithID <KEYTYPE, CHILDTYPE> extends Children
     return GenericReflection.uncheckedCast (super.getChildrenProvider ());
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public CHILDTYPE getChildWithID (@Nullable final CHILDTYPE aCurrent, @Nullable final KEYTYPE aID)
   {

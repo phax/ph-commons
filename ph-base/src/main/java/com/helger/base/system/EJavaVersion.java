@@ -190,6 +190,14 @@ public enum EJavaVersion
     return getFromVersionNumber (dVersion);
   }
 
+  /**
+   * Find the Java version matching the given version number.
+   *
+   * @param dVersion
+   *        The version number to search for.
+   * @return The matching Java version or {@link #UNKNOWN} if no match was found. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static EJavaVersion getFromVersionNumber (final double dVersion)
   {

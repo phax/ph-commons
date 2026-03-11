@@ -43,9 +43,19 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   private String m_sName;
   private boolean m_bAllowNullValues = Cache.DEFAULT_ALLOW_NULL_VALUES;
 
+  /**
+   * Default constructor.
+   */
   public CacheBuilder ()
   {}
 
+  /**
+   * Set the function to compute cache values.
+   *
+   * @param a
+   *        The value provider function. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> valueProvider (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {
@@ -53,6 +63,13 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
     return this;
   }
 
+  /**
+   * Set the maximum number of entries in the cache.
+   *
+   * @param n
+   *        The maximum cache size. Values &le; 0 mean no limit.
+   * @return this for chaining
+   */
   @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> maxSize (final int n)
   {
@@ -60,6 +77,13 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
     return this;
   }
 
+  /**
+   * Set the name of the cache.
+   *
+   * @param s
+   *        The cache name. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> name (@Nullable final String s)
   {
@@ -67,6 +91,13 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
     return this;
   }
 
+  /**
+   * Set whether <code>null</code> values are allowed in the cache.
+   *
+   * @param b
+   *        <code>true</code> to allow <code>null</code> values, <code>false</code> to disallow.
+   * @return this for chaining
+   */
   @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> allowNullValues (final boolean b)
   {
@@ -74,6 +105,13 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
     return this;
   }
 
+  /**
+   * Build the {@link Cache} instance from the configured parameters.
+   *
+   * @return A new {@link Cache} instance. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the value provider or cache name is missing.
+   */
   @NonNull
   public Cache <KEYTYPE, VALUETYPE> build ()
   {

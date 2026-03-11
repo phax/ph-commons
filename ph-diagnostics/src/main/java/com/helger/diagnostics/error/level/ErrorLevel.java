@@ -36,6 +36,14 @@ public class ErrorLevel implements IErrorLevel
   private final String m_sID;
   private final int m_nNumericLevel;
 
+  /**
+   * Constructor.
+   *
+   * @param sID
+   *        The unique ID of this error level. May neither be <code>null</code> nor empty.
+   * @param nNumericLevel
+   *        The numeric severity level. Must be &ge; 0.
+   */
   public ErrorLevel (@NonNull @Nonempty final String sID, @Nonnegative final int nNumericLevel)
   {
     m_sID = ValueEnforcer.notEmpty (sID, "ID");

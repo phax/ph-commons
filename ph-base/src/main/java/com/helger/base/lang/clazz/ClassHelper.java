@@ -268,6 +268,9 @@ public class ClassHelper
     return WRAPPER_TO_PRIMITIVE.get (aClass);
   }
 
+  /**
+   * @return A mutable copy of all known primitive classes. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static Set <Class <?>> getAllPrimitiveClasses ()
@@ -275,6 +278,9 @@ public class ClassHelper
     return new HashSet <> (PRIMITIVE_TO_WRAPPER.keySet ());
   }
 
+  /**
+   * @return A mutable copy of all known primitive wrapper classes. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static Set <Class <?>> getAllPrimitiveWrapperClasses ()

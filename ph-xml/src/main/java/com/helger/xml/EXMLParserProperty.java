@@ -507,6 +507,13 @@ public enum EXMLParserProperty implements IHasName
     return EnumHelper.getFromNameOrNull (EXMLParserProperty.class, sName);
   }
 
+  /**
+   * Get all properties of the specified type.
+   *
+   * @param ePropertyType
+   *        The property type to filter by. May not be <code>null</code>.
+   * @return A non-<code>null</code> mutable copy of all matching properties.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <EXMLParserProperty> getAllPropertiesOfType (@NonNull final EXMLParserPropertyType ePropertyType)

@@ -60,18 +60,33 @@ public class LZWCodec implements IByteArrayCodec
     private final int m_nTableIndex;
     private LZWNode [] m_aChildren;
 
+    /**
+     * Default constructor for the root node (table index is -1).
+     */
     public LZWNode ()
     {
       // only for the root node
       m_nTableIndex = -1;
     }
 
+    /**
+     * Constructor with a specific table index.
+     *
+     * @param nTableIndex
+     *        The table index for this node. Must be between 0 and
+     *        {@link AbstractLZWDictionary#MAX_CODE} (inclusive).
+     */
     public LZWNode (@Nonnegative final int nTableIndex)
     {
       ValueEnforcer.isBetweenInclusive (nTableIndex, "TableIndex", 0, AbstractLZWDictionary.MAX_CODE);
       m_nTableIndex = nTableIndex;
     }
 
+    /**
+     * @return The table index of this node. Must be &ge; 0.
+     * @throws IllegalStateException
+     *         if this is the root node (no table index assigned).
+     */
     @Nonnegative
     public int getTableIndex ()
     {
@@ -80,6 +95,14 @@ public class LZWCodec implements IByteArrayCodec
       return m_nTableIndex;
     }
 
+    /**
+     * Set a child node at the specified byte index.
+     *
+     * @param nIndex
+     *        The byte index (0-255) at which the child node is set.
+     * @param aNode
+     *        The child node to set. May not be <code>null</code>.
+     */
     public void setChildNode (@Nonnegative final byte nIndex, @NonNull final LZWNode aNode)
     {
       ValueEnforcer.notNull (aNode, "Node");
@@ -88,6 +111,14 @@ public class LZWCodec implements IByteArrayCodec
       m_aChildren[nIndex & 0xff] = aNode;
     }
 
+    /**
+     * Get the child node at the specified byte index.
+     *
+     * @param nIndex
+     *        The byte index (0-255) of the child node to retrieve.
+     * @return The child node at the given index, or <code>null</code> if no
+     *         child exists at that index.
+     */
     @Nullable
     public LZWNode getChildNode (final byte nIndex)
     {
@@ -140,6 +171,10 @@ public class LZWCodec implements IByteArrayCodec
     protected AbstractLZWDictionary ()
     {}
 
+    /**
+     * Reset this dictionary to its initial state, clearing all entries and
+     * re-initializing with the 256 single-byte entries.
+     */
     public void reset ()
     {
       m_aTab = new byte [MAX_CODE] [];
@@ -149,6 +184,19 @@ public class LZWCodec implements IByteArrayCodec
       m_nCodeBits = 9;
     }
 
+    /**
+     * Add a new byte sequence entry to the dictionary.
+     *
+     * @param aByteSeq
+     *        The byte sequence to add. May not be <code>null</code>.
+     * @param bForEncode
+     *        <code>true</code> if this is used for encoding, <code>false</code>
+     *        for decoding. This affects code length thresholds.
+     * @throws EncodeException
+     *         if the table overflows during encoding.
+     * @throws DecodeException
+     *         if the table overflows during decoding.
+     */
     public final void addEntry (final byte @NonNull [] aByteSeq, final boolean bForEncode)
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
@@ -170,6 +218,9 @@ public class LZWCodec implements IByteArrayCodec
             m_nCodeBits = 12;
     }
 
+    /**
+     * @return The next free code in the dictionary. Always &ge; 0.
+     */
     @Nonnegative
     public final int getNextFreeCode ()
     {
@@ -179,6 +230,9 @@ public class LZWCodec implements IByteArrayCodec
 
   protected static class LZWDecodeDictionary extends AbstractLZWDictionary
   {
+    /**
+     * Constructor.
+     */
     public LZWDecodeDictionary ()
     {}
 
@@ -196,6 +250,14 @@ public class LZWCodec implements IByteArrayCodec
       return aBIS.readBits (m_nCodeBits);
     }
 
+    /**
+     * Directly get all bytes for a given code without copying.
+     *
+     * @param nCode
+     *        The code to look up. Must be &ge; 0.
+     * @return The byte array for the given code, or <code>null</code> if the
+     *         code is not in the dictionary.
+     */
     @ReturnsMutableObject ("speed")
     public byte @Nullable [] directGetAllBytes (@Nonnegative final int nCode)
     {
@@ -208,6 +270,9 @@ public class LZWCodec implements IByteArrayCodec
     private final LZWNode m_aRoot = new LZWNode ();
     private final NonBlockingByteArrayOutputStream m_aByteBuf = new NonBlockingByteArrayOutputStream ();
 
+    /**
+     * Constructor.
+     */
     public LZWEncodeDictionary ()
     {}
 
@@ -220,11 +285,23 @@ public class LZWCodec implements IByteArrayCodec
       m_aByteBuf.reset ();
     }
 
+    /**
+     * @return The current code length in bits used for encoding.
+     */
     public int getCodeLength ()
     {
       return m_nCodeBits;
     }
 
+    /**
+     * Visit a single byte during the encoding process. If a new byte sequence
+     * is found that is not yet in the dictionary, it is added.
+     *
+     * @param nByteToVisit
+     *        The byte to process.
+     * @return <code>true</code> if a new entry was added to the dictionary,
+     *         <code>false</code> otherwise.
+     */
     public boolean visit (final byte nByteToVisit)
     {
       m_aByteBuf.write (nByteToVisit);
@@ -251,6 +328,15 @@ public class LZWCodec implements IByteArrayCodec
       return false;
     }
 
+    /**
+     * Get the node in the encoding tree corresponding to the provided byte
+     * sequence.
+     *
+     * @param aBytes
+     *        The byte sequence to look up. May not be <code>null</code>.
+     * @return The corresponding node, or <code>null</code> if no such node
+     *         exists.
+     */
     @Nullable
     public LZWNode getNode (final byte @NonNull [] aBytes)
     {
@@ -260,9 +346,24 @@ public class LZWCodec implements IByteArrayCodec
 
   private static final Logger LOGGER = LoggerFactory.getLogger (LZWCodec.class);
 
+  /**
+   * Constructor.
+   */
   public LZWCodec ()
   {}
 
+  /**
+   * Encode the passed buffer using LZW compression and write it to the output stream.
+   *
+   * @param aBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -349,6 +450,15 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Decode LZW compressed data from the input stream and write the decoded bytes to the output
+   * stream.
+   *
+   * @param aEncodedIS
+   *        The LZW encoded input stream to read from. May not be <code>null</code>.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (@NonNull @WillNotClose final InputStream aEncodedIS,
                       @NonNull @WillNotClose final OutputStream aOS)
   {
@@ -422,6 +532,18 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Decode the passed LZW compressed buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The LZW compressed buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

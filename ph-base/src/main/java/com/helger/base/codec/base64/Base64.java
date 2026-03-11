@@ -2318,12 +2318,28 @@ public final class Base64
     return null;
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded byte array. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded)
   {
     return safeEncodeBytesToBytes (aDecoded, NO_OPTIONS);
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded byte array. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOptions
+   *        Encoding options.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded, final int nOptions)
   {
@@ -2332,6 +2348,17 @@ public final class Base64
     return null;
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded byte array. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOfs
+   *        Offset in array where conversion should begin.
+   * @param nLen
+   *        Length of data to convert.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
                                                 @Nonnegative final int nOfs,
@@ -2340,6 +2367,19 @@ public final class Base64
     return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded byte array. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOfs
+   *        Offset in array where conversion should begin.
+   * @param nLen
+   *        Length of data to convert.
+   * @param nOptions
+   *        Encoding options.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
                                                 @Nonnegative final int nOfs,
@@ -2358,6 +2398,13 @@ public final class Base64
     return null;
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded String. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static String safeEncodeBytes (final byte @Nullable [] aDecoded)
@@ -2365,6 +2412,15 @@ public final class Base64
     return safeEncodeBytes (aDecoded, NO_OPTIONS);
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded String. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOptions
+   *        Encoding options.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static String safeEncodeBytes (final byte @Nullable [] aDecoded, final int nOptions)
@@ -2374,6 +2430,17 @@ public final class Base64
     return null;
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded String. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOfs
+   *        Offset in array where conversion should begin.
+   * @param nLen
+   *        Length of data to convert.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static String safeEncodeBytes (final byte @Nullable [] aDecoded,
@@ -2383,6 +2450,19 @@ public final class Base64
     return safeEncodeBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
 
+  /**
+   * Safely encode the byte array to a Base64-encoded String. No exceptions are thrown.
+   *
+   * @param aDecoded
+   *        The byte array to encode. May be <code>null</code>.
+   * @param nOfs
+   *        Offset in array where conversion should begin.
+   * @param nLen
+   *        Length of data to convert.
+   * @param nOptions
+   *        Encoding options.
+   * @return <code>null</code> if encoding failed or if the input was <code>null</code>.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static String safeEncodeBytes (final byte @Nullable [] aDecoded,

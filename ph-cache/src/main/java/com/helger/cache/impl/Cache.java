@@ -41,12 +41,30 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
 {
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
 
+  /**
+   * Constructor with no maximum size.
+   *
+   * @param aCacheValueProvider
+   *        The function to compute cache values. May not be <code>null</code>.
+   * @param sCacheName
+   *        The name of the cache. May neither be <code>null</code> nor empty.
+   */
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 @NonNull @Nonempty final String sCacheName)
   {
     this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
   }
 
+  /**
+   * Constructor with a maximum size.
+   *
+   * @param aCacheValueProvider
+   *        The function to compute cache values. May not be <code>null</code>.
+   * @param nMaxSize
+   *        The maximum number of entries in the cache. Values &le; 0 mean no limit.
+   * @param sCacheName
+   *        The name of the cache. May neither be <code>null</code> nor empty.
+   */
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @NonNull @Nonempty final String sCacheName)
@@ -54,6 +72,19 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
     this (aCacheValueProvider, nMaxSize, sCacheName, DEFAULT_ALLOW_NULL_VALUES);
   }
 
+  /**
+   * Constructor with all parameters.
+   *
+   * @param aCacheValueProvider
+   *        The function to compute cache values. May not be <code>null</code>.
+   * @param nMaxSize
+   *        The maximum number of entries in the cache. Values &le; 0 mean no limit.
+   * @param sCacheName
+   *        The name of the cache. May neither be <code>null</code> nor empty.
+   * @param bAllowNullValues
+   *        <code>true</code> if <code>null</code> values are allowed in the cache,
+   *        <code>false</code> if not.
+   */
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @NonNull @Nonempty final String sCacheName,
@@ -62,12 +93,30 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
     super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
   }
 
+  /**
+   * @return A new builder for {@link Cache} objects. Never <code>null</code>.
+   * @param <KEYTYPE>
+   *        The cache key type
+   * @param <VALUETYPE>
+   *        The cache value type
+   */
   @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder ()
   {
     return new CacheBuilder <> ();
   }
 
+  /**
+   * Create a new builder pre-configured with the provided value provider.
+   *
+   * @param a
+   *        The function to compute cache values. May be <code>null</code>.
+   * @param <KEYTYPE>
+   *        The cache key type
+   * @param <VALUETYPE>
+   *        The cache value type
+   * @return A new builder for {@link Cache} objects. Never <code>null</code>.
+   */
   @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {

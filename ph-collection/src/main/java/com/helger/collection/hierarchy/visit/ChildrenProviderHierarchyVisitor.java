@@ -39,6 +39,14 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
   private final IChildrenProvider <CHILDTYPE> m_aChildrenProvider;
   private final IHierarchyVisitorCallback <? super CHILDTYPE> m_aCallback;
 
+  /**
+   * Constructor.
+   *
+   * @param aChildrenProvider
+   *        The children provider to use for iteration. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited element. May not be <code>null</code>.
+   */
   public ChildrenProviderHierarchyVisitor (@NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                            @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback)
   {
@@ -131,6 +139,15 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     return EHierarchyVisitorReturn.CONTINUE;
   }
 
+  /**
+   * Visit the hierarchy starting from the provided object.
+   *
+   * @param aStartObject
+   *        The object to start visiting from. May be <code>null</code>.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to also invoke the callback on the start object itself,
+   *        <code>false</code> to only visit its children.
+   */
   public void visit (@Nullable final CHILDTYPE aStartObject, final boolean bInvokeOnStartObject)
   {
     m_aCallback.begin ();
@@ -159,12 +176,34 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     }
   }
 
+  /**
+   * Visit the complete hierarchy using a default {@link ChildrenProviderHasChildren}.
+   *
+   * @param <CHILDTYPE>
+   *        The type of children to visit
+   * @param aCallback
+   *        The callback to invoke for each visited element. May not be <code>null</code>.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to also invoke the callback on the start object itself.
+   */
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitAll (@NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                             final boolean bInvokeOnStartObject)
   {
     visitAll (new ChildrenProviderHasChildren <CHILDTYPE> (), aCallback, bInvokeOnStartObject);
   }
 
+  /**
+   * Visit the complete hierarchy using a custom children provider.
+   *
+   * @param <CHILDTYPE>
+   *        The type of children to visit
+   * @param aChildrenProvider
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited element. May not be <code>null</code>.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to also invoke the callback on the start object itself.
+   */
   public static <CHILDTYPE> void visitAll (@NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                            @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                            final boolean bInvokeOnStartObject)
@@ -172,6 +211,19 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     new ChildrenProviderHierarchyVisitor <> (aChildrenProvider, aCallback).visit (null, bInvokeOnStartObject);
   }
 
+  /**
+   * Visit the hierarchy starting from a specific object using a default
+   * {@link ChildrenProviderHasChildren}.
+   *
+   * @param <CHILDTYPE>
+   *        The type of children to visit
+   * @param aStartObject
+   *        The object to start visiting from. May be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited element. May not be <code>null</code>.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to also invoke the callback on the start object itself.
+   */
   public static <CHILDTYPE extends IHasChildren <CHILDTYPE>> void visitFrom (@Nullable final CHILDTYPE aStartObject,
                                                                              @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,
                                                                              final boolean bInvokeOnStartObject)
@@ -179,6 +231,20 @@ public class ChildrenProviderHierarchyVisitor <CHILDTYPE> implements IHierarchyV
     visitFrom (aStartObject, new ChildrenProviderHasChildren <> (), aCallback, bInvokeOnStartObject);
   }
 
+  /**
+   * Visit the hierarchy starting from a specific object using a custom children provider.
+   *
+   * @param <CHILDTYPE>
+   *        The type of children to visit
+   * @param aStartObject
+   *        The object to start visiting from. May be <code>null</code>.
+   * @param aChildrenProvider
+   *        The children provider to use. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each visited element. May not be <code>null</code>.
+   * @param bInvokeOnStartObject
+   *        <code>true</code> to also invoke the callback on the start object itself.
+   */
   public static <CHILDTYPE> void visitFrom (@Nullable final CHILDTYPE aStartObject,
                                             @NonNull final IChildrenProvider <CHILDTYPE> aChildrenProvider,
                                             @NonNull final IHierarchyVisitorCallback <? super CHILDTYPE> aCallback,

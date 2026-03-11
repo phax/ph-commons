@@ -192,6 +192,13 @@ public class StringHex
     return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
   }
 
+  /**
+   * Decode a hex encoded string to a byte array.
+   *
+   * @param sInput
+   *        The hex encoded string. May not be <code>null</code>.
+   * @return The decoded byte array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @NonNull [] getHexDecoded (@NonNull final String sInput)
   {
@@ -200,6 +207,13 @@ public class StringHex
     return getHexDecoded (sInput.toCharArray (), 0, sInput.length ());
   }
 
+  /**
+   * Decode a hex encoded char array to a byte array.
+   *
+   * @param aInput
+   *        The hex encoded char array. May not be <code>null</code>.
+   * @return The decoded byte array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @NonNull [] getHexDecoded (final char @NonNull [] aInput)
   {
@@ -208,6 +222,17 @@ public class StringHex
     return getHexDecoded (aInput, 0, aInput.length);
   }
 
+  /**
+   * Decode a hex encoded char array to a byte array.
+   *
+   * @param aInput
+   *        The hex encoded char array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset in the char array to start decoding from.
+   * @param nLen
+   *        The number of chars to decode. Must be an even number.
+   * @return The decoded byte array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @NonNull [] getHexDecoded (final char @NonNull [] aInput,
                                                 @Nonnegative final int nOfs,
@@ -230,6 +255,13 @@ public class StringHex
     return ret;
   }
 
+  /**
+   * Decode a hex encoded byte array to a byte array.
+   *
+   * @param aInput
+   *        The hex encoded byte array. May not be <code>null</code>.
+   * @return The decoded byte array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @NonNull [] getHexDecoded (final byte @NonNull [] aInput)
   {
@@ -238,6 +270,17 @@ public class StringHex
     return getHexDecoded (aInput, 0, aInput.length);
   }
 
+  /**
+   * Decode a hex encoded byte array to a byte array.
+   *
+   * @param aInput
+   *        The hex encoded byte array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset in the byte array to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode. Must be an even number.
+   * @return The decoded byte array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public static byte @NonNull [] getHexDecoded (final byte @NonNull [] aInput,
                                                 @Nonnegative final int nOfs,

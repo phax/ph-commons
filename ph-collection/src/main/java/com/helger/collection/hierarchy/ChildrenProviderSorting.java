@@ -57,12 +57,18 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
 
+  /**
+   * @return The children provider as passed in the constructor. Never <code>null</code>.
+   */
   @NonNull
   public IChildrenProvider <CHILDTYPE> getChildrenProvider ()
   {
     return m_aChildrenProvider;
   }
 
+  /**
+   * @return The comparator as passed in the constructor. Never <code>null</code>.
+   */
   @NonNull
   public Comparator <? super CHILDTYPE> getComparator ()
   {
@@ -76,12 +82,14 @@ public class ChildrenProviderSorting <CHILDTYPE> implements IChildrenProvider <C
     return m_aChildrenProvider.hasChildren (aCurrent);
   }
 
+  /** {@inheritDoc} */
   public final int getChildCount (@Nullable final CHILDTYPE aCurrent)
   {
     // Just pass on to the original children resolver
     return m_aChildrenProvider.getChildCount (aCurrent);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ICommonsList <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {

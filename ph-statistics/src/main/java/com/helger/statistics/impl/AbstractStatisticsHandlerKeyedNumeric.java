@@ -50,6 +50,12 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     private long m_nMax;
     private BigInteger m_aSum;
 
+    /**
+     * Constructor with an initial value.
+     *
+     * @param nValue
+     *        The initial value.
+     */
     public Value (final long nValue)
     {
       m_nInvocationCount = 1;
@@ -58,6 +64,12 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
       m_aSum = BigInteger.valueOf (nValue);
     }
 
+    /**
+     * Add a new value to the statistics.
+     *
+     * @param nValue
+     *        The value to add.
+     */
     public void add (final long nValue)
     {
       m_nInvocationCount++;
@@ -68,30 +80,45 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
       m_aSum = m_aSum.add (BigInteger.valueOf (nValue));
     }
 
+    /**
+     * @return The number of times a value was recorded. Always &ge; 0.
+     */
     @Nonnegative
     public int getInvocationCount ()
     {
       return m_nInvocationCount;
     }
 
+    /**
+     * @return The minimum value recorded.
+     */
     @CheckForSigned
     public long getMin ()
     {
       return m_nMin;
     }
 
+    /**
+     * @return The maximum value recorded.
+     */
     @CheckForSigned
     public long getMax ()
     {
       return m_nMax;
     }
 
+    /**
+     * @return The sum of all recorded values. Never <code>null</code>.
+     */
     @NonNull
     public BigInteger getSum ()
     {
       return m_aSum;
     }
 
+    /**
+     * @return The average of all recorded values (sum / invocation count).
+     */
     @CheckForSigned
     public long getAverage ()
     {

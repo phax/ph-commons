@@ -39,17 +39,27 @@ public class SingleElementIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYP
   private boolean m_bHasNext;
   private final ELEMENTTYPE m_aElement;
 
+  /**
+   * Constructor.
+   *
+   * @param aElement
+   *        The single element to iterate. May be <code>null</code>.
+   */
   public SingleElementIterator (@Nullable final ELEMENTTYPE aElement)
   {
     m_bHasNext = true;
     m_aElement = aElement;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_bHasNext;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

@@ -52,6 +52,12 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
 
     private transient Predicate <? super Map.Entry <K, V>> m_aFilter;
 
+    /**
+     * Constructor.
+     *
+     * @param nMaxSize
+     *        The maximum number of elements. Must be &gt; 0.
+     */
     public InternalLinkedHashMap (@Nonnegative final int nMaxSize)
     {
       super (nMaxSize, DEFAULT_LOAD_FACTOR, true);
@@ -81,6 +87,12 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     }
   }
 
+  /**
+   * Constructor.
+   *
+   * @param nMaxSize
+   *        The maximum number of elements to keep. Must be &gt; 0.
+   */
   public SoftLinkedHashMap (@Nonnegative final int nMaxSize)
   {
     super (new InternalLinkedHashMap <> (nMaxSize));
@@ -121,6 +133,7 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   protected void onRemoveEldestEntry (@Nonnegative final int nSize, final Map.@NonNull Entry <K, V> aEldest)
   {}
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public SoftLinkedHashMap <K, V> getClone ()

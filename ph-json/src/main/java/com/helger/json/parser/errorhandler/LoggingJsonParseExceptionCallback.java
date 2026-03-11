@@ -35,9 +35,19 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingJsonParseExceptionCallback.class);
 
+  /**
+   * Default constructor.
+   */
   public LoggingJsonParseExceptionCallback ()
   {}
 
+  /**
+   * Create a logging string from the passed parse exception.
+   *
+   * @param ex
+   *        The parse exception to convert. May not be <code>null</code>.
+   * @return The logging string. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public static String createLoggingStringParseError (@NonNull final JsonParseException ex)
@@ -46,6 +56,7 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
     return ex.getMessage ();
   }
 
+  /** {@inheritDoc} */
   public void onException (@NonNull final JsonParseException ex)
   {
     LOGGER.error (createLoggingStringParseError (ex));

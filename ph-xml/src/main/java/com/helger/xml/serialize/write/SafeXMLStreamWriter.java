@@ -71,6 +71,18 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     private int m_nElementBasedContentCount = 0;
     private boolean m_bOnAfterEndNewLine = false;
 
+    /**
+     * Constructor.
+     *
+     * @param sPrefix
+     *        The namespace prefix. May be <code>null</code>.
+     * @param sLocalName
+     *        The local element name. May not be <code>null</code>.
+     * @param eBracketMode
+     *        The bracket mode to use. May not be <code>null</code>.
+     * @param aNamespaceContext
+     *        The namespace context. May not be <code>null</code>.
+     */
     public ElementState (@Nullable final String sPrefix,
                          @NonNull final String sLocalName,
                          @NonNull final EXMLSerializeBracketMode eBracketMode,
@@ -82,6 +94,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
       m_aNamespaceContext = aNamespaceContext;
     }
 
+    /**
+     * @return The total content count (text-based plus element-based). Always &ge; 0.
+     */
     @Nonnegative
     public int getContentCount ()
     {
@@ -107,6 +122,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     private MapBasedNamespaceContext m_aInternalContext = new MapBasedNamespaceContext ();
     private NamespaceContext m_aUserContext;
 
+    /**
+     * Default constructor creating an empty multi namespace context.
+     */
     public MultiNamespaceContext ()
     {}
 

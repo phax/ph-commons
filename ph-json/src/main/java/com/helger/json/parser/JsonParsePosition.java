@@ -38,12 +38,21 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
   private boolean m_bPrevCharIsCR = false;
   private boolean m_bPrevCharIsLF = false;
 
+  /**
+   * Default constructor initializing line and column to 1.
+   */
   public JsonParsePosition ()
   {
     m_nLine = 1;
     m_nColumn = 1;
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The position to copy from. May not be <code>null</code>.
+   */
   public JsonParsePosition (@NonNull final JsonParsePosition aOther)
   {
     m_nLine = aOther.m_nLine;
@@ -111,12 +120,19 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
     return m_nColumn;
   }
 
+  /**
+   * @return The position as a human readable string in the format <code>[line:column]</code>. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public String getAsString ()
   {
     return "[" + m_nLine + ":" + m_nColumn + "]";
   }
 
+  /**
+   * @return A clone of this parse position. Never <code>null</code>.
+   */
   @NonNull
   public JsonParsePosition getClone ()
   {

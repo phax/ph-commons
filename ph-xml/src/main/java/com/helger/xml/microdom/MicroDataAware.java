@@ -35,12 +35,28 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
 {
   private final StringBuilder m_aSB;
 
+  /**
+   * Constructor with a character array subset.
+   *
+   * @param aChars
+   *        The source character array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to use. Must be &ge; 0.
+   */
   public MicroDataAware (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aSB = new StringBuilder (nLen + 16).append (aChars, nOfs, nLen);
   }
 
+  /**
+   * Constructor with a character sequence.
+   *
+   * @param aText
+   *        The text to use. May be <code>null</code> or empty.
+   */
   public MicroDataAware (@Nullable final CharSequence aText)
   {
     if (StringHelper.isEmpty (aText))
@@ -49,48 +65,105 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
       m_aSB = new StringBuilder (aText);
   }
 
+  /**
+   * @return The mutable {@link StringBuilder} containing the data. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public StringBuilder getData ()
   {
     return m_aSB;
   }
 
+  /**
+   * Set the data to the passed character sequence, replacing any existing data.
+   *
+   * @param aData
+   *        The data to set. May be <code>null</code>.
+   */
   public void setData (@Nullable final CharSequence aData)
   {
     m_aSB.setLength (0);
     m_aSB.append (aData);
   }
 
+  /**
+   * Append data to the end of the existing data.
+   *
+   * @param sData
+   *        The data to append. May be <code>null</code>.
+   */
   public void appendData (@Nullable final CharSequence sData)
   {
     m_aSB.append (sData);
   }
 
+  /**
+   * Append data from a character array subset to the end of the existing data.
+   *
+   * @param aChars
+   *        The source character array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to append. Must be &ge; 0.
+   */
   public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.append (aChars, nOfs, nLen);
   }
 
+  /**
+   * Append a single character to the end of the existing data.
+   *
+   * @param cChar
+   *        The character to append.
+   */
   public void appendData (final char cChar)
   {
     m_aSB.append (cChar);
   }
 
+  /**
+   * Prepend data to the beginning of the existing data.
+   *
+   * @param sData
+   *        The data to prepend. May be <code>null</code>.
+   */
   public void prependData (@Nullable final CharSequence sData)
   {
     m_aSB.insert (0, sData);
   }
 
+  /**
+   * Prepend data from a character array subset to the beginning of the existing data.
+   *
+   * @param aChars
+   *        The source character array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to prepend. Must be &ge; 0.
+   */
   public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aSB.insert (0, aChars, nOfs, nLen);
   }
 
+  /**
+   * Prepend a single character to the beginning of the existing data.
+   *
+   * @param cChar
+   *        The character to prepend.
+   */
   public void prependData (final char cChar)
   {
     m_aSB.insert (0, cChar);
   }
 
+  /**
+   * @return A deep clone of this object. Never <code>null</code>.
+   */
   @NonNull
   public MicroDataAware getClone ()
   {

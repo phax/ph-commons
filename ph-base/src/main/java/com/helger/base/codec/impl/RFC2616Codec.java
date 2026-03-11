@@ -131,6 +131,9 @@ public class RFC2616Codec implements ICharArrayCodec
     return s != null && s.length >= 2 && s[0] == QUOTE_CHAR && s[s.length - 1] == QUOTE_CHAR;
   }
 
+  /**
+   * Constructor.
+   */
   public RFC2616Codec ()
   {}
 

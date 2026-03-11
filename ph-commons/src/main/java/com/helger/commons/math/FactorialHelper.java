@@ -113,6 +113,13 @@ public final class FactorialHelper
       return _getProduct (n - m).multiply (_getProduct (m));
     }
 
+    /**
+     * Compute the factorial of the given number using the split algorithm.
+     *
+     * @param n
+     *        The non-negative number whose factorial is to be computed.
+     * @return The factorial as a {@link BigInteger}. Never <code>null</code>.
+     */
     @NonNull
     public BigInteger getFactorial (@Nonnegative final int n)
     {

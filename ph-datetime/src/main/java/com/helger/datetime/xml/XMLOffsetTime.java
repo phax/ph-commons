@@ -180,6 +180,13 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new XMLOffsetTime (time, offset);
   }
 
+  /**
+   * Obtains an instance of {@code XMLOffsetTime} from an {@link OffsetTime}.
+   *
+   * @param ofsTime
+   *        The offset time to convert. May not be <code>null</code>.
+   * @return the offset time, not <code>null</code>
+   */
   @NonNull
   public static XMLOffsetTime of (@NonNull final OffsetTime ofsTime)
   {
@@ -1505,6 +1512,12 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return toEpochNano () == other.toEpochNano ();
   }
 
+  /**
+   * Converts this time to an {@link OffsetTime}. If no offset is present, the default offset is
+   * used.
+   *
+   * @return The converted {@link OffsetTime}. May be <code>null</code>.
+   */
   @Nullable
   public OffsetTime toOffsetTime ()
   {
@@ -1549,7 +1562,10 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aTime).append (m_aOffset).getHashCode ();
   }
 
-  // Don't use "getAsString" for compatibility with the rest of the Java DT API
+  /**
+   * @return This time as a string representation. Never <code>null</code>.
+   * @deprecated Use {@link #toString()} instead.
+   */
   @NonNull
   @Nonempty
   @Deprecated (forRemoval = false)

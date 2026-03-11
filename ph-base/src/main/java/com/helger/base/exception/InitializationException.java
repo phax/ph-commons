@@ -26,21 +26,44 @@ import org.jspecify.annotations.Nullable;
  */
 public class InitializationException extends RuntimeException
 {
+  /**
+   * Default constructor.
+   */
   public InitializationException ()
   {
     super ();
   }
 
+  /**
+   * Constructor with a message.
+   *
+   * @param sMsg
+   *        The error message. May be <code>null</code>.
+   */
   public InitializationException (@Nullable final String sMsg)
   {
     super (sMsg);
   }
 
+  /**
+   * Constructor with a cause.
+   *
+   * @param t
+   *        The causing exception. May be <code>null</code>.
+   */
   public InitializationException (@Nullable final Throwable t)
   {
     super (t);
   }
 
+  /**
+   * Constructor with a message and a cause.
+   *
+   * @param sMsg
+   *        The error message. May be <code>null</code>.
+   * @param t
+   *        The causing exception. May be <code>null</code>.
+   */
   public InitializationException (@Nullable final String sMsg, @Nullable final Throwable t)
   {
     super (sMsg, t);

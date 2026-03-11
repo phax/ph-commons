@@ -358,12 +358,24 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
     private InputStream m_aIS;
     private Reader m_aReader;
 
+    /**
+     * Constructor using an {@link InputStream} with ISO 8859-1 encoding.
+     *
+     * @param aIS
+     *        The input stream to read from. May not be <code>null</code>.
+     */
     public LineReader (final InputStream aIS)
     {
       m_aIS = aIS;
       m_aInByteBuf = new byte [8192];
     }
 
+    /**
+     * Constructor using a {@link Reader} for character-based reading.
+     *
+     * @param aReader
+     *        The reader to read from. May not be <code>null</code>.
+     */
     public LineReader (final Reader aReader)
     {
       m_aReader = aReader;

@@ -113,6 +113,14 @@ public final class WSHelper
     SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
   }
 
+  /**
+   * Determine whether the provided message context represents an outbound (request) message.
+   *
+   * @param aContext
+   *        The message context to check. May not be <code>null</code>.
+   * @return <code>true</code> if this is an outbound message, <code>false</code> if it is an
+   *         inbound (response) message.
+   */
   public static boolean isOutboundMessage (@NonNull final MessageContext aContext)
   {
     return ((Boolean) aContext.get (MessageContext.MESSAGE_OUTBOUND_PROPERTY)).booleanValue ();

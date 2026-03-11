@@ -39,17 +39,27 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
   private boolean m_bHasMoreElements;
   private final ELEMENTTYPE m_aElement;
 
+  /**
+   * Constructor.
+   *
+   * @param aElement
+   *        The single element to enumerate. May be <code>null</code>.
+   */
   public SingleElementEnumeration (@Nullable final ELEMENTTYPE aElement)
   {
     m_bHasMoreElements = true;
     m_aElement = aElement;
   }
 
+  /** {@inheritDoc} */
   public boolean hasMoreElements ()
   {
     return m_bHasMoreElements;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE nextElement ()
   {

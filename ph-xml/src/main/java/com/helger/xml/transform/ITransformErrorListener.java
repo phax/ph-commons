@@ -46,18 +46,21 @@ public interface ITransformErrorListener extends ErrorListener
 
     return new ITransformErrorListener ()
     {
+      /** {@inheritDoc} */
       public void warning (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.warning (aEx);
         aOther.warning (aEx);
       }
 
+      /** {@inheritDoc} */
       public void error (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.error (aEx);
         aOther.error (aEx);
       }
 
+      /** {@inheritDoc} */
       public void fatalError (@NonNull final TransformerException aEx) throws TransformerException
       {
         aThis.fatalError (aEx);

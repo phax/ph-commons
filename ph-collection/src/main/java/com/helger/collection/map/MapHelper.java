@@ -78,6 +78,13 @@ final class MapHelper
   // taken from FastUtil
   private static final int INT_PHI = 0x9E3779B9;
 
+  /**
+   * Mix the hash of the given integer using the golden ratio.
+   *
+   * @param n
+   *        The integer to mix.
+   * @return The mixed hash value.
+   */
   public static int phiMix (final int n)
   {
     final int h = n * INT_PHI;

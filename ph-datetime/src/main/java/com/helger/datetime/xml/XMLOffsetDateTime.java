@@ -2035,18 +2035,36 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
     return XMLOffsetTime.of (m_aDateTime.toLocalTime (), m_aOffset);
   }
 
+  /**
+   * Converts this date-time to an {@link OffsetDate}. If no offset is present, the default offset
+   * is used.
+   *
+   * @return The converted {@link OffsetDate}. May be <code>null</code>.
+   */
   @Nullable
   public OffsetDate toOffsetDate ()
   {
     return OffsetDate.of (m_aDateTime.toLocalDate (), getOffsetOrDefault ());
   }
 
+  /**
+   * Converts this date-time to an {@link XMLOffsetDate}, preserving the original offset (which may
+   * be <code>null</code>).
+   *
+   * @return The converted {@link XMLOffsetDate}. May be <code>null</code>.
+   */
   @Nullable
   public XMLOffsetDate toXMLOffsetDate ()
   {
     return XMLOffsetDate.of (m_aDateTime.toLocalDate (), m_aOffset);
   }
 
+  /**
+   * Converts this date-time to an {@link OffsetDateTime}. If no offset is present, the default
+   * offset is used.
+   *
+   * @return The converted {@link OffsetDateTime}. May be <code>null</code>.
+   */
   @Nullable
   public OffsetDateTime toOffsetDateTime ()
   {
@@ -2217,7 +2235,10 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
     return new HashCodeGenerator (this).append (m_aDateTime).append (m_aOffset).getHashCode ();
   }
 
-  // Don't use "getAsString" for compatibility with the rest of the Java DT API
+  /**
+   * @return This date-time as a string representation. Never <code>null</code>.
+   * @deprecated Use {@link #toString()} instead.
+   */
   @NonNull
   @Nonempty
   @Deprecated (forRemoval = false)

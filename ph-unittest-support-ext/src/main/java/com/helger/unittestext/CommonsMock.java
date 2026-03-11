@@ -103,6 +103,9 @@ public final class CommonsMock
       m_aDefaultValueSupplier = ValueEnforcer.notNull (aDefaultValueSupplier, "DefaultValueSupplier");
     }
 
+    /**
+     * @return The parameter name. Neither <code>null</code> nor empty.
+     */
     @NonNull
     @Nonempty
     public String getParamName ()
@@ -110,12 +113,18 @@ public final class CommonsMock
       return m_sParamName;
     }
 
+    /**
+     * @return The parameter class. Never <code>null</code>.
+     */
     @NonNull
     public Class <?> getParamClass ()
     {
       return m_aParamClass;
     }
 
+    /**
+     * @return The default value wrapped in an {@link IGetterDirectTrait}. Never <code>null</code>.
+     */
     @NonNull
     public IGetterDirectTrait getDefaultValue ()
     {
@@ -129,6 +138,15 @@ public final class CommonsMock
       return ClassHelper.getClassLocalName (m_aParamClass) + ":" + m_sParamName;
     }
 
+    /**
+     * Create a {@link Param} with a constant boolean default value.
+     *
+     * @param sParamName
+     *        Parameter name. May neither be <code>null</code> nor empty.
+     * @param bDefault
+     *        The constant boolean default value to be used.
+     * @return The {@link Param} object and never <code>null</code>.
+     */
     @NonNull
     public static Param createConstant (@NonNull @Nonempty final String sParamName, final boolean bDefault)
     {
@@ -298,6 +316,9 @@ public final class CommonsMock
       {
         private final AtomicInteger m_aCount = new AtomicInteger (0);
 
+        /**
+         * @return A unique string value in the form "strN". Never <code>null</code> nor empty.
+         */
         @NonNull
         @Nonempty
         public String get ()
@@ -324,6 +345,9 @@ public final class CommonsMock
     registerStaticConstant (BigInteger.ZERO);
   }
 
+  /**
+   * Default constructor without any per-instance mock suppliers.
+   */
   public CommonsMock ()
   {}
 

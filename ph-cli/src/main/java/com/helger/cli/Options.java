@@ -43,6 +43,13 @@ public class Options implements ICommonsIterable <IOptionBase>
   public Options ()
   {}
 
+  /**
+   * Find an option by its name (short or long).
+   *
+   * @param s
+   *        The option name to search for.
+   * @return The matching {@link Option}, or <code>null</code> if no match was found.
+   */
   @Nullable
   public Option _getFromName (final String s)
   {

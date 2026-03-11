@@ -34,16 +34,26 @@ public class CommonsIterableEnumeration <ELEMENTTYPE> implements ICommonsIterabl
 {
   private final Enumeration <? extends ELEMENTTYPE> m_aEnum;
 
+  /**
+   * Constructor.
+   *
+   * @param aEnum
+   *        The enumeration to wrap. May be <code>null</code>.
+   */
   public CommonsIterableEnumeration (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     m_aEnum = aEnum;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_aEnum != null && m_aEnum.hasMoreElements ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

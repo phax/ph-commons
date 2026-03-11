@@ -41,19 +41,42 @@ import com.helger.collection.CollectionHelper;
 public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHashMap <KEYTYPE, VALUETYPE> implements
                                       ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  /**
+   * Create a new empty concurrent hash map.
+   */
   public CommonsConcurrentHashMap ()
   {}
 
+  /**
+   * Create a new concurrent hash map with the specified initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity of the map.
+   */
   public CommonsConcurrentHashMap (final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
+  /**
+   * Create a new concurrent hash map with the specified initial capacity and load factor.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity of the map.
+   * @param fLoadFactor
+   *        The load factor of the map.
+   */
   public CommonsConcurrentHashMap (final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
 
+  /**
+   * Create a new concurrent hash map that contains the same entries as the provided map.
+   *
+   * @param aMap
+   *        The map to copy the entries from. May be <code>null</code>.
+   */
   public CommonsConcurrentHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (CollectionHelper.getSize (aMap));
@@ -61,6 +84,18 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
       putAll (aMap);
   }
 
+  /**
+   * Create a new concurrent hash map with mapped entries from the provided collection.
+   *
+   * @param aValues
+   *        The collection to extract entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The function to derive the map key. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The function to derive the map value. May not be <code>null</code>.
+   * @param <COLLTYPE>
+   *        Collection element type
+   */
   public <COLLTYPE> CommonsConcurrentHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
                                               @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                               @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
@@ -69,6 +104,20 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * Create a new concurrent hash map with mapped entries from the provided map.
+   *
+   * @param aValues
+   *        The map to extract and transform entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The function to transform the source key. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The function to transform the source value. May not be <code>null</code>.
+   * @param <SRCKEYTYPE>
+   *        Source key type
+   * @param <SRCVALUETYPE>
+   *        Source value type
+   */
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsConcurrentHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
                                                               @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
                                                               @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
@@ -85,6 +134,9 @@ public class CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> extends ConcurrentHas
     return new CommonsConcurrentHashMap <> ();
   }
 
+  /**
+   * @return A mutable copy of this map. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> getClone ()

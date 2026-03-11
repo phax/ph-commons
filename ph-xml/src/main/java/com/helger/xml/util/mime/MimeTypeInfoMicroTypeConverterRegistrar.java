@@ -50,6 +50,7 @@ import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 @IsSPIImplementation
 public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     aRegistry.registerMicroElementTypeConverter (MimeTypeInfo.class, new MimeTypeInfoMicroTypeConverter ());

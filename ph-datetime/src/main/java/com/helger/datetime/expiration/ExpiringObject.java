@@ -63,6 +63,9 @@ public class ExpiringObject <DATATYPE> implements IExpirable
     return m_aObj;
   }
 
+  /**
+   * @return The expiration date time of this object. Never <code>null</code>.
+   */
   @NonNull
   public final LocalDateTime getExpirationDateTime ()
   {

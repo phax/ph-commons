@@ -53,6 +53,9 @@ public enum EXMLDOMFeature implements IHasID <String>
     m_sID = sID;
   }
 
+  /**
+   * @return The feature ID string. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()

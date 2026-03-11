@@ -32,6 +32,12 @@ public class JsonParseException extends Exception
   private final transient IJsonParsePosition m_aErrorPos;
   private final String m_sMessage;
 
+  /**
+   * Constructor for a parse exception without position information.
+   *
+   * @param sMessage
+   *        The error message. May not be <code>null</code>.
+   */
   public JsonParseException (@NonNull final String sMessage)
   {
     super ("Json parse error: " + sMessage);
@@ -40,6 +46,16 @@ public class JsonParseException extends Exception
     m_sMessage = sMessage;
   }
 
+  /**
+   * Constructor for a parse exception with position information.
+   *
+   * @param aTokenStart
+   *        The position where the token started. May not be <code>null</code>.
+   * @param aErrorPos
+   *        The position where the error occurred. May not be <code>null</code>.
+   * @param sMessage
+   *        The error message. May not be <code>null</code>.
+   */
   public JsonParseException (@NonNull final IJsonParsePosition aTokenStart,
                              @NonNull final IJsonParsePosition aErrorPos,
                              @NonNull final String sMessage)

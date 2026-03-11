@@ -62,6 +62,9 @@ public class XMLBracketModeDeterminatorHTML5 implements IXMLBracketModeDetermina
     return VOID_ELEMENTS.contains (sTagName.toUpperCase (Locale.US));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EXMLSerializeBracketMode getBracketMode (@Nullable final String sNamespaceURI,
                                                   @NonNull final String sTagName,

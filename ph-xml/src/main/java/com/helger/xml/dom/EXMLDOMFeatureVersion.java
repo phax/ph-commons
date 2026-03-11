@@ -42,6 +42,9 @@ public enum EXMLDOMFeatureVersion implements IHasID <String>
     m_sID = sID;
   }
 
+  /**
+   * @return The version ID string. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()

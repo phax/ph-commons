@@ -50,6 +50,14 @@ public class CRLCache
   @ThreadSafe
   private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
   {
+    /**
+     * Constructor.
+     *
+     * @param aCacheValueProvider
+     *        The function that provides cache values for a given key. May not be <code>null</code>.
+     * @param nMaxSize
+     *        The maximum number of entries in the cache.
+     */
     public CRLInternalCache (@NonNull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
                              final int nMaxSize)
     {

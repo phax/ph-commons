@@ -235,6 +235,13 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new XMLOffsetDate (date, offset);
   }
 
+  /**
+   * Obtains an instance of {@code XMLOffsetDate} from an {@link OffsetDate}.
+   *
+   * @param ofsDate
+   *        The offset date to convert. May not be <code>null</code>.
+   * @return the offset date, not <code>null</code>
+   */
   @NonNull
   public static XMLOffsetDate of (@NonNull final OffsetDate ofsDate)
   {
@@ -1575,6 +1582,12 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return toEpochSecond () == other.toEpochSecond ();
   }
 
+  /**
+   * Converts this date to an {@link OffsetDate}. If no offset is present, the default offset is
+   * used.
+   *
+   * @return The converted {@link OffsetDate}. May be <code>null</code>.
+   */
   @Nullable
   public OffsetDate toOffsetDate ()
   {
@@ -1619,7 +1632,10 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
     return new HashCodeGenerator (this).append (m_aDate).append (m_aOffset).getHashCode ();
   }
 
-  // Don't use "getAsString" for compatibility with the rest of the Java DT API
+  /**
+   * @return This date as a string representation. Never <code>null</code>.
+   * @deprecated Use {@link #toString()} instead.
+   */
   @NonNull
   @Nonempty
   @Deprecated (forRemoval = false)

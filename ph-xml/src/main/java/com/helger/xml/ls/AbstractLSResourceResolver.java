@@ -116,6 +116,22 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
                                                @Nullable final String sSystemId,
                                                @Nullable final String sBaseURI);
 
+  /**
+   * Resolve a resource by first delegating to {@link #mainResolveResource(String, String, String, String, String)}
+   * and then falling back to the wrapped resource resolver if available.
+   *
+   * @param sType
+   *        The type of the resource being resolved. May not be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace of the resource. May be <code>null</code>.
+   * @param sPublicId
+   *        The public identifier of the resource. May be <code>null</code>.
+   * @param sSystemId
+   *        The system identifier of the resource. May be <code>null</code>.
+   * @param sBaseURI
+   *        The base URI against which the system ID is resolved. May be <code>null</code>.
+   * @return The resolved {@link LSInput} or <code>null</code> if the resource could not be resolved.
+   */
   @Nullable
   public final LSInput resolveResource (@NonNull @Nonempty final String sType,
                                         @Nullable final String sNamespaceURI,

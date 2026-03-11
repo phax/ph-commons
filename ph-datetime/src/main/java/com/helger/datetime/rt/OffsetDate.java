@@ -1378,6 +1378,18 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return OffsetDateTime.of (m_aDate, aTime, m_aOffset);
   }
 
+  /**
+   * Returns an XML offset date-time formed from this date at the specified time.
+   * <p>
+   * This combines this date with the specified time to form an {@code XMLOffsetDateTime}. All
+   * possible combinations of date and time are valid.
+   * <p>
+   * This instance is immutable and unaffected by this method call.
+   *
+   * @param aTime
+   *        the time to combine with, not null
+   * @return the XML offset date-time formed from this date and the specified time, not null
+   */
   @NonNull
   public XMLOffsetDateTime atTimeXML (@NonNull final LocalTime aTime)
   {
@@ -1503,6 +1515,11 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return _toEpochSecond () == other._toEpochSecond ();
   }
 
+  /**
+   * Converts this date to an {@link XMLOffsetDate}.
+   *
+   * @return The converted {@link XMLOffsetDate}. Never <code>null</code>.
+   */
   @NonNull
   public XMLOffsetDate toXMLOffsetDate ()
   {
@@ -1547,7 +1564,10 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
     return new HashCodeGenerator (this).append (m_aDate).append (m_aOffset).getHashCode ();
   }
 
-  // Don't use "getAsString" for compatibility with the rest of the Java DT API
+  /**
+   * @return This date as a string representation. Never <code>null</code>.
+   * @deprecated Use {@link #toString()} instead.
+   */
   @NonNull
   @Nonempty
   @Deprecated (forRemoval = false)

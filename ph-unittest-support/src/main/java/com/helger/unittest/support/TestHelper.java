@@ -68,6 +68,17 @@ public final class TestHelper
     assertNotNull ("Object may no be equal to null", aObject);
   }
 
+  /**
+   * Test the equals implementation with two objects that have equal content but are not the same
+   * instance.
+   *
+   * @param aObject
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with equal content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testEqualsImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
                                                                                 @NonNull final DATATYPE aObject2)
   {
@@ -78,6 +89,16 @@ public final class TestHelper
     assertEquals ("Passed objects are not identical!", aObject2, aObject);
   }
 
+  /**
+   * Test the equals implementation with two objects that have different content.
+   *
+   * @param aObject
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with different content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testEqualsImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject,
                                                                                     @NonNull final DATATYPE aObject2)
   {
@@ -95,6 +116,16 @@ public final class TestHelper
     assertNotEquals ("hashCode() may not be 0", aObject.hashCode (), 0);
   }
 
+  /**
+   * Test the hashCode implementation with two objects that have equal content.
+   *
+   * @param aObject
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with equal content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testHashCodeImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
                                                                                   @NonNull final DATATYPE aObject2)
   {
@@ -106,6 +137,16 @@ public final class TestHelper
     assertEquals ("hashCode() invocations must be consistent", aObject2.hashCode (), aObject.hashCode ());
   }
 
+  /**
+   * Test the hashCode implementation with two objects that have different content.
+   *
+   * @param aObject1
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with different content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testHashCodeImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject1,
                                                                                       @NonNull final DATATYPE aObject2)
   {
@@ -132,6 +173,16 @@ public final class TestHelper
     assertEquals ("toString() invocations must be consistent", aObject.toString (), aObject.toString ());
   }
 
+  /**
+   * Test the toString implementation with two objects that have equal content.
+   *
+   * @param aObject
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with equal content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testToStringImplementationWithEqualContentObject (@NonNull final DATATYPE aObject,
                                                                                   @NonNull final DATATYPE aObject2)
   {
@@ -141,6 +192,16 @@ public final class TestHelper
     assertFalse ("This test may not be used with the same object!", EqualsHelper.identityEqual (aObject, aObject2));
   }
 
+  /**
+   * Test the toString implementation with two objects that have different content.
+   *
+   * @param aObject
+   *        First object. May not be <code>null</code>.
+   * @param aObject2
+   *        Second object with different content. May not be <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be tested.
+   */
   public static <DATATYPE> void testToStringImplementationWithDifferentContentObject (@NonNull final DATATYPE aObject,
                                                                                       @NonNull final DATATYPE aObject2)
   {

@@ -59,28 +59,56 @@ public final class MimeTypeInfo
     // status vars
     private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+    /**
+     * Constructor.
+     *
+     * @param sMimeType
+     *        The MIME type string to parse. May not be <code>null</code>.
+     * @throws MimeTypeParserException
+     *         If the MIME type string cannot be parsed.
+     */
     public MimeTypeWithSource (@NonNull final String sMimeType) throws MimeTypeParserException
     {
       this (MimeTypeParser.parseMimeType (sMimeType), (String) null);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param aMimeType
+     *        The MIME type. May not be <code>null</code>.
+     */
     public MimeTypeWithSource (@NonNull final IMimeType aMimeType)
     {
       this (aMimeType, (String) null);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param aMimeType
+     *        The MIME type. May not be <code>null</code>.
+     * @param sSource
+     *        The optional source information. May be <code>null</code>.
+     */
     public MimeTypeWithSource (@NonNull final IMimeType aMimeType, @Nullable final String sSource)
     {
       m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
       m_sSource = sSource;
     }
 
+    /**
+     * @return The contained MIME type. Never <code>null</code>.
+     */
     @NonNull
     public IMimeType getMimeType ()
     {
       return m_aMimeType;
     }
 
+    /**
+     * @return The MIME type as a string. Never <code>null</code> nor empty.
+     */
     @NonNull
     @Nonempty
     public String getMimeTypeAsString ()
@@ -88,6 +116,9 @@ public final class MimeTypeInfo
       return m_aMimeType.getAsString ();
     }
 
+    /**
+     * @return The optional source information. May be <code>null</code>.
+     */
     @Nullable
     public String getSource ()
     {
@@ -136,29 +167,56 @@ public final class MimeTypeInfo
     // status vars
     private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+    /**
+     * Constructor.
+     *
+     * @param sExt
+     *        The file extension. May not be <code>null</code>.
+     */
     public ExtensionWithSource (@NonNull final String sExt)
     {
       this (sExt, (String) null);
     }
 
+    /**
+     * Constructor.
+     *
+     * @param sExt
+     *        The file extension. May not be <code>null</code>.
+     * @param sSource
+     *        The optional source information. May be <code>null</code>.
+     */
     public ExtensionWithSource (@NonNull final String sExt, @Nullable final String sSource)
     {
       m_sExt = ValueEnforcer.notNull (sExt, "Extension");
       m_sSource = sSource;
     }
 
+    /**
+     * @return The file extension. Never <code>null</code>.
+     */
     @NonNull
     public String getExtension ()
     {
       return m_sExt;
     }
 
+    /**
+     * @return The optional source information. May be <code>null</code>.
+     */
     @Nullable
     public String getSource ()
     {
       return m_sSource;
     }
 
+    /**
+     * Check if this extension matches the passed extension string.
+     *
+     * @param sExtension
+     *        The extension to check. May neither be <code>null</code> nor empty.
+     * @return <code>true</code> if the extension matches, <code>false</code> otherwise.
+     */
     public boolean matches (@NonNull @Nonempty final String sExtension)
     {
       if (m_sExt.contains (sExtension))
@@ -208,6 +266,22 @@ public final class MimeTypeInfo
   private final ICommonsOrderedSet <ExtensionWithSource> m_aExtensions;
   private final String m_sSource;
 
+  /**
+   * Constructor.
+   *
+   * @param aMimeTypes
+   *        The set of MIME types. May neither be <code>null</code> nor empty.
+   * @param sComment
+   *        An optional comment. May be <code>null</code>.
+   * @param aParentTypes
+   *        The set of parent types. May not be <code>null</code>.
+   * @param aGlobs
+   *        The set of globs. May not be <code>null</code>.
+   * @param aExtensions
+   *        The set of file extensions. May not be <code>null</code>.
+   * @param sSource
+   *        An optional source. May be <code>null</code>.
+   */
   public MimeTypeInfo (@NonNull @Nonempty final ICommonsOrderedSet <MimeTypeWithSource> aMimeTypes,
                        @Nullable final String sComment,
                        @NonNull final ICommonsOrderedSet <String> aParentTypes,
@@ -227,6 +301,10 @@ public final class MimeTypeInfo
     m_sSource = sSource;
   }
 
+  /**
+   * @return A mutable copy of all MIME types with source information. Never <code>null</code> nor
+   *         empty.
+   */
   @NonNull
   @Nonempty
   @ReturnsMutableCopy
@@ -235,6 +313,9 @@ public final class MimeTypeInfo
     return m_aMimeTypes.getClone ();
   }
 
+  /**
+   * @return A mutable copy of all MIME types. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   @ReturnsMutableCopy
@@ -243,6 +324,9 @@ public final class MimeTypeInfo
     return m_aMimeTypes.getAllMapped (MimeTypeWithSource::getMimeType);
   }
 
+  /**
+   * @return A mutable copy of all MIME type strings. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   @ReturnsMutableCopy
@@ -251,6 +335,13 @@ public final class MimeTypeInfo
     return m_aMimeTypes.getAllMapped (MimeTypeWithSource::getMimeTypeAsString);
   }
 
+  /**
+   * Check if this info contains the specified MIME type.
+   *
+   * @param aMimeType
+   *        The MIME type to check. May be <code>null</code>.
+   * @return <code>true</code> if the MIME type is contained.
+   */
   public boolean containsMimeType (@Nullable final IMimeType aMimeType)
   {
     if (aMimeType != null)
@@ -260,6 +351,13 @@ public final class MimeTypeInfo
     return false;
   }
 
+  /**
+   * Check if this info contains the specified MIME type string.
+   *
+   * @param sMimeType
+   *        The MIME type string to check. May be <code>null</code>.
+   * @return <code>true</code> if the MIME type string is contained.
+   */
   public boolean containsMimeType (@Nullable final String sMimeType)
   {
     if (StringHelper.isNotEmpty (sMimeType))
@@ -269,35 +367,53 @@ public final class MimeTypeInfo
     return false;
   }
 
+  /**
+   * @return The primary (first) MIME type with source information. Never <code>null</code>.
+   */
   @NonNull
   public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
     return m_aMimeTypes.getFirst ();
   }
 
+  /**
+   * @return The primary (first) MIME type. Never <code>null</code>.
+   */
   @NonNull
   public IMimeType getPrimaryMimeType ()
   {
     return getPrimaryMimeTypeWithSource ().getMimeType ();
   }
 
+  /**
+   * @return The primary (first) MIME type as a string. Never <code>null</code>.
+   */
   @NonNull
   public String getPrimaryMimeTypeString ()
   {
     return getPrimaryMimeTypeWithSource ().getMimeTypeAsString ();
   }
 
+  /**
+   * @return The optional comment. May be <code>null</code>.
+   */
   @Nullable
   public String getComment ()
   {
     return m_sComment;
   }
 
+  /**
+   * @return <code>true</code> if a comment is present.
+   */
   public boolean hasComment ()
   {
     return StringHelper.isNotEmpty (m_sComment);
   }
 
+  /**
+   * @return A mutable copy of all parent types. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllParentTypes ()
@@ -305,11 +421,17 @@ public final class MimeTypeInfo
     return m_aParentTypes.getClone ();
   }
 
+  /**
+   * @return <code>true</code> if at least one parent type is present.
+   */
   public boolean hasAnyParentType ()
   {
     return !m_aParentTypes.isEmpty ();
   }
 
+  /**
+   * @return A mutable copy of all glob patterns. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllGlobs ()
@@ -317,17 +439,26 @@ public final class MimeTypeInfo
     return m_aGlobs.getClone ();
   }
 
+  /**
+   * @return The primary (first) glob pattern. May be <code>null</code> if no globs are present.
+   */
   @Nullable
   public String getPrimaryGlob ()
   {
     return m_aGlobs.getFirst ();
   }
 
+  /**
+   * @return <code>true</code> if at least one glob pattern is present.
+   */
   public boolean hasAnyGlob ()
   {
     return m_aGlobs.isNotEmpty ();
   }
 
+  /**
+   * @return A mutable copy of all extensions with source information. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <ExtensionWithSource> getAllExtensionsWithSource ()
@@ -335,6 +466,9 @@ public final class MimeTypeInfo
     return m_aExtensions.getClone ();
   }
 
+  /**
+   * @return A mutable copy of all extension strings. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllExtensions ()
@@ -344,12 +478,20 @@ public final class MimeTypeInfo
     return ret;
   }
 
+  /**
+   * @return The primary (first) extension with source information. May be <code>null</code> if no
+   *         extensions are present.
+   */
   @Nullable
   public ExtensionWithSource getPrimaryExtensionWithSource ()
   {
     return m_aExtensions.getFirst ();
   }
 
+  /**
+   * @return The primary (first) extension string. May be <code>null</code> if no extensions are
+   *         present.
+   */
   @Nullable
   public String getPrimaryExtension ()
   {
@@ -357,11 +499,21 @@ public final class MimeTypeInfo
     return aExtension == null ? null : aExtension.getExtension ();
   }
 
+  /**
+   * @return <code>true</code> if at least one extension is present.
+   */
   public boolean hasAnyExtension ()
   {
     return m_aExtensions.isNotEmpty ();
   }
 
+  /**
+   * Check if the specified extension is contained.
+   *
+   * @param sExtension
+   *        The extension to check. May be <code>null</code>.
+   * @return <code>true</code> if the extension is contained.
+   */
   public boolean containsExtension (@Nullable final String sExtension)
   {
     if (StringHelper.isNotEmpty (sExtension))
@@ -385,12 +537,18 @@ public final class MimeTypeInfo
     m_aMimeTypes.add (aMimeType);
   }
 
+  /**
+   * @return The optional source information. May be <code>null</code>.
+   */
   @Nullable
   public String getSource ()
   {
     return m_sSource;
   }
 
+  /**
+   * @return <code>true</code> if source information is present.
+   */
   public boolean hasSource ()
   {
     return StringHelper.isNotEmpty (m_sSource);

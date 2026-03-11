@@ -57,6 +57,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
    */
   protected abstract char get (int nIndex);
 
+  /** {@inheritDoc} */
   @CheckForSigned
   public int lastPosition ()
   {
@@ -66,6 +67,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return nPos >= limit () ? nPos : nPos - 1;
   }
 
+  /** {@inheritDoc} */
   public char @Nullable [] nextChars ()
   {
     if (hasNext ())
@@ -94,6 +96,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return null;
   }
 
+  /** {@inheritDoc} */
   public char @Nullable [] peekChars ()
   {
     return _peekChars (position ());
@@ -129,6 +132,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return new char [] { c1 };
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Codepoint next ()
   {
@@ -138,12 +142,14 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return ret;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Codepoint peek ()
   {
     return _toCodepoint (peekChars ());
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Codepoint peek (final int nIndex)
   {
@@ -164,24 +170,28 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
       throw new ArrayIndexOutOfBoundsException (n);
   }
 
+  /** {@inheritDoc} */
   public void position (@Nonnegative final int n)
   {
     _checkLimit (n);
     m_nPosition = n;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int position ()
   {
     return m_nPosition;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int limit ()
   {
     return m_nLimit;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int remaining ()
   {
@@ -214,6 +224,7 @@ public abstract class AbstractCodepointIterator implements ICodepointIterator
     return Character.isLowSurrogate (get (index));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public CodepointIteratorRestricted restrict (@NonNull final IntPredicate aFilter,
                                                final boolean bScanning,

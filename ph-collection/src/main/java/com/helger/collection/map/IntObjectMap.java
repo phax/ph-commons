@@ -67,16 +67,33 @@ public class IntObjectMap <T> implements IHasSize
   /** Mask to calculate the original position */
   private int m_nMask;
 
+  /**
+   * Constructor with default initial capacity and fill factor.
+   */
   public IntObjectMap ()
   {
     this (16);
   }
 
+  /**
+   * Constructor with a custom initial capacity.
+   *
+   * @param nSize
+   *        The initial capacity. Must be &gt; 0.
+   */
   public IntObjectMap (final int nSize)
   {
     this (nSize, 0.75f);
   }
 
+  /**
+   * Constructor with a custom initial capacity and fill factor.
+   *
+   * @param nSize
+   *        The initial capacity. Must be &gt; 0.
+   * @param fFillFactor
+   *        The fill factor. Must be between 0 and 1 (inclusive).
+   */
   public IntObjectMap (final int nSize, final float fFillFactor)
   {
     ValueEnforcer.isBetweenInclusive (fFillFactor, "FillFactor", 0f, 1f);
@@ -99,12 +116,28 @@ public class IntObjectMap <T> implements IHasSize
     return GenericReflection.uncheckedCast (ret);
   }
 
+  /**
+   * Get the value associated with the given key.
+   *
+   * @param key
+   *        The key to look for.
+   * @return The associated value or <code>null</code> if not found.
+   */
   @Nullable
   public T get (final int key)
   {
     return get (key, null);
   }
 
+  /**
+   * Get the value associated with the given key or a default value.
+   *
+   * @param key
+   *        The key to look for.
+   * @param aDefault
+   *        The default value to return if the key is not found. May be <code>null</code>.
+   * @return The associated value or the default value if not found.
+   */
   @Nullable
   public T get (final int key, final T aDefault)
   {
@@ -115,6 +148,15 @@ public class IntObjectMap <T> implements IHasSize
     return idx != -1 ? m_aValues[idx] : aDefault;
   }
 
+  /**
+   * Get the value for the given key, computing it if absent.
+   *
+   * @param key
+   *        The key to look for.
+   * @param aProvider
+   *        The function to compute the value if absent. May not be <code>null</code>.
+   * @return The existing or computed value. May be <code>null</code>.
+   */
   @Nullable
   public T computeIfAbsent (final int key, @NonNull final IntFunction <? extends T> aProvider)
   {
@@ -134,6 +176,15 @@ public class IntObjectMap <T> implements IHasSize
     return EqualsHelper.identityEqual (aValue, m_aNoValue) ? null : aValue;
   }
 
+  /**
+   * Put a key-value pair into the map.
+   *
+   * @param key
+   *        The key.
+   * @param value
+   *        The value. May be <code>null</code>.
+   * @return The previous value associated with the key, or <code>null</code> if there was none.
+   */
   @Nullable
   public T put (final int key, final T value)
   {
@@ -175,6 +226,13 @@ public class IntObjectMap <T> implements IHasSize
     return _getOld (prev);
   }
 
+  /**
+   * Remove the entry with the given key.
+   *
+   * @param key
+   *        The key to remove.
+   * @return The previous value associated with the key, or <code>null</code> if not found.
+   */
   @Nullable
   public T remove (final int key)
   {
@@ -201,12 +259,14 @@ public class IntObjectMap <T> implements IHasSize
     return _getOld (res);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_nSize;
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_nSize == 0;
@@ -342,6 +402,12 @@ public class IntObjectMap <T> implements IHasSize
     void accept (int nKey, T aValue);
   }
 
+  /**
+   * Iterate over all key-value pairs in this map.
+   *
+   * @param aConsumer
+   *        The consumer to invoke for each entry. May not be <code>null</code>.
+   */
   public void forEach (@NonNull final IConsumer <T> aConsumer)
   {
     if (m_bHasFreeKey)

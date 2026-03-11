@@ -55,12 +55,21 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   private boolean m_bHasElement;
   private ELEMENTTYPE m_aElement;
 
+  /**
+   * Create an empty single element list.
+   */
   public SingleElementList ()
   {
     m_bHasElement = false;
     m_aElement = null;
   }
 
+  /**
+   * Create a single element list with the provided element.
+   *
+   * @param aElement
+   *        The element to contain. May be <code>null</code>.
+   */
   public SingleElementList (@Nullable final ELEMENTTYPE aElement)
   {
     m_bHasElement = true;
@@ -75,6 +84,9 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return new SingleElementList <> ();
   }
 
+  /**
+   * @return A mutable copy of this list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public SingleElementList <ELEMENTTYPE> getClone ()
@@ -82,6 +94,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return m_bHasElement ? new SingleElementList <> (m_aElement) : new SingleElementList <> ();
   }
 
+  /** {@inheritDoc} */
   public boolean add (@Nullable final ELEMENTTYPE aElement)
   {
     if (m_bHasElement)
@@ -91,6 +104,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return true;
   }
 
+  /** {@inheritDoc} */
   public void add (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aElement)
   {
     ValueEnforcer.isTrue (nIndex == 0, () -> "Only 1 elements is allowed: " + nIndex);
@@ -100,6 +114,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     m_bHasElement = true;
   }
 
+  /** {@inheritDoc} */
   public boolean addAll (@NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
@@ -110,6 +125,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return i.hasNext () && add (i.next ());
   }
 
+  /** {@inheritDoc} */
   public boolean addAll (@Nonnegative final int nIndex, @NonNull final Collection <? extends ELEMENTTYPE> aElements)
   {
     if (nIndex != 0)
@@ -117,18 +133,21 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return addAll (aElements);
   }
 
+  /** {@inheritDoc} */
   public void clear ()
   {
     m_aElement = null;
     m_bHasElement = false;
   }
 
+  /** {@inheritDoc} */
   public boolean contains (@Nullable final Object aElement)
   {
     final Object aObj1 = m_aElement;
     return m_bHasElement && EqualsHelper.equals (aObj1, aElement);
   }
 
+  /** {@inheritDoc} */
   public boolean containsAll (@NonNull final Collection <?> aElements)
   {
     for (final Object aElement : aElements)
@@ -137,6 +156,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return true;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE get (@Nonnegative final int nIndex)
   {
     if (!m_bHasElement || nIndex != 0)
@@ -144,33 +164,39 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return m_aElement;
   }
 
+  /** {@inheritDoc} */
   public int indexOf (final Object aElement)
   {
     return contains (aElement) ? 0 : -1;
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return !m_bHasElement;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Iterator <ELEMENTTYPE> iterator ()
   {
     return m_bHasElement ? new SingleElementIterator <> (m_aElement) : new EmptyIterator <> ();
   }
 
+  /** {@inheritDoc} */
   public int lastIndexOf (@Nullable final Object aElement)
   {
     return contains (aElement) ? 0 : -1;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ListIterator <ELEMENTTYPE> listIterator ()
   {
     return m_bHasElement ? new SingleElementListIterator <> (m_aElement) : new EmptyListIterator <> ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ListIterator <ELEMENTTYPE> listIterator (final int nIndex)
   {
@@ -179,6 +205,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return listIterator ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ELEMENTTYPE remove (final int nIndex)
   {
@@ -190,6 +217,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return aElement;
   }
 
+  /** {@inheritDoc} */
   public boolean remove (@Nullable final Object aElement)
   {
     if (!contains (aElement))
@@ -199,6 +227,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return true;
   }
 
+  /** {@inheritDoc} */
   public boolean removeAll (@Nullable final Collection <?> aElements)
   {
     boolean bRemovedAll = true;
@@ -209,6 +238,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return bRemovedAll;
   }
 
+  /** {@inheritDoc} */
   @UnsupportedOperation
   public boolean retainAll (@NonNull final Collection <?> aElements)
   {
@@ -222,6 +252,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return false;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ELEMENTTYPE set (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aNewElement)
   {
@@ -233,12 +264,14 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return aOldElement;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_bHasElement ? 1 : 0;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @CodingStyleguideUnaware
   public ICommonsList <ELEMENTTYPE> subList (@Nonnegative final int nFromIndex, @Nonnegative final int nToIndex)
@@ -255,6 +288,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Object [] toArray ()
   {
@@ -267,6 +301,7 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
     return CGlobal.EMPTY_OBJECT_ARRAY;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public <ARRAYELEMENTTYPE> ARRAYELEMENTTYPE [] toArray (@NonNull final ARRAYELEMENTTYPE [] aDest)
   {

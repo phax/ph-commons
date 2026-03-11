@@ -55,6 +55,7 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
     m_aInBetweenConverter = ValueEnforcer.notNull (aInBetweenConverter, "InBetweenConverter");
   }
 
+  /** {@inheritDoc} */
   public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     // destination class can be anything
@@ -71,6 +72,7 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
     return m_aInBetweenConverter.apply (aSource);
   }
 
+  /** {@inheritDoc} */
   public final Object apply (@NonNull final SRC aSource)
   {
     final Object aInBetweenValue = getInBetweenValue (aSource);

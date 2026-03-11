@@ -902,6 +902,9 @@ public final class XMLHelper
     private boolean m_bCompareIncludingNamespaceURI;
     private NamespaceContext m_aNamespaceCtx;
 
+    /**
+     * Default constructor with sensible default values.
+     */
     public PathToNodeBuilder ()
     {
       separator ("/");

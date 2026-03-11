@@ -48,11 +48,23 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
 
   private String m_sMapName;
 
+  /**
+   * Constructor.
+   *
+   * @param nMaxSize
+   *        The maximum number of elements to keep. Must be &gt; 0.
+   */
   public LoggingLRUMap (@Nonnegative final int nMaxSize)
   {
     super (nMaxSize);
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The map to copy from. May not be <code>null</code>.
+   */
   public LoggingLRUMap (@NonNull final LoggingLRUMap <KEYTYPE, VALUETYPE> rhs)
   {
     super (rhs);
@@ -66,12 +78,22 @@ public class LoggingLRUMap <KEYTYPE, VALUETYPE> extends LRUMap <KEYTYPE, VALUETY
     return new LoggingLRUMap <> (this);
   }
 
+  /**
+   * @return The optional name of this map. May be <code>null</code>.
+   */
   @Nullable
   public String getMapName ()
   {
     return m_sMapName;
   }
 
+  /**
+   * Set the name of this map for logging purposes.
+   *
+   * @param sMapName
+   *        The map name to set. May be <code>null</code>.
+   * @return this for chaining.
+   */
   @NonNull
   public final LoggingLRUMap <KEYTYPE, VALUETYPE> setMapName (@Nullable final String sMapName)
   {

@@ -36,21 +36,35 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
 {
   private final Iterator <? extends ELEMENTTYPE> m_aIter;
 
+  /**
+   * Constructor.
+   *
+   * @param aCont
+   *        The iterable to enumerate. May not be <code>null</code>.
+   */
   public EnumerationFromIterator (@NonNull final Iterable <? extends ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aIter
+   *        The iterator to enumerate. May not be <code>null</code>.
+   */
   public EnumerationFromIterator (@NonNull final Iterator <? extends ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
 
+  /** {@inheritDoc} */
   public boolean hasMoreElements ()
   {
     return m_aIter.hasNext ();
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE nextElement ()
   {
     return m_aIter.next ();
@@ -62,12 +76,30 @@ public final class EnumerationFromIterator <ELEMENTTYPE> implements Enumeration 
     return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
   }
 
+  /**
+   * Factory method to create an enumeration from an iterator.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aIter
+   *        The iterator. May not be <code>null</code>.
+   * @return A new {@link EnumerationFromIterator}. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@NonNull final Iterator <? extends ELEMENTTYPE> aIter)
   {
     return new EnumerationFromIterator <> (aIter);
   }
 
+  /**
+   * Factory method to create an enumeration from an iterable.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aCont
+   *        The iterable. May not be <code>null</code>.
+   * @return A new {@link EnumerationFromIterator}. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> EnumerationFromIterator <ELEMENTTYPE> create (@NonNull final Iterable <? extends ELEMENTTYPE> aCont)
   {

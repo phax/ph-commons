@@ -51,9 +51,18 @@ public final class JsonParserSettings implements IJsonParserSettings
   private boolean m_bCheckForEOI = DEFAULT_CHECK_FOR_EOI;
   private int m_nMaxNestingDepth = DEFAULT_MAX_NESTING_DEPTH;
 
+  /**
+   * Default constructor with default settings.
+   */
   public JsonParserSettings ()
   {}
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The settings to copy from. May not be <code>null</code>.
+   */
   public JsonParserSettings (@NonNull final IJsonParserSettings rhs)
   {
     assignFrom (rhs);
@@ -80,6 +89,10 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
+  /**
+   * @return The tab size used for position tracking. Always &gt; 0. Default is
+   *         {@link #DEFAULT_TAB_SIZE}.
+   */
   @Nonnegative
   public int getTabSize ()
   {
@@ -99,6 +112,11 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
+  /**
+   * @return <code>true</code> if <code>BigDecimal</code> / <code>BigInteger</code> should always be
+   *         used for numeric values, <code>false</code> if not. Default is
+   *         {@link #DEFAULT_ALWAYS_USE_BIG_NUMBER}.
+   */
   public boolean isAlwaysUseBigNumber ()
   {
     return m_bAlwaysUseBigNumber;
@@ -117,6 +135,11 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
+  /**
+   * @return <code>true</code> if string values always need to be quoted, <code>false</code> if
+   *         certain non-quoted values are also supported. Default is
+   *         {@link #DEFAULT_REQUIRE_STRING_QUOTES}.
+   */
   public boolean isRequireStringQuotes ()
   {
     return m_bRequireStringQuotes;
@@ -135,6 +158,10 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
+  /**
+   * @return <code>true</code> if special characters are allowed in JSON strings,
+   *         <code>false</code> if not. Default is {@link #DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING}.
+   */
   public boolean isAllowSpecialCharsInStrings ()
   {
     return m_bAllowSpecialCharsInStrings;
@@ -200,6 +227,12 @@ public final class JsonParserSettings implements IJsonParserSettings
     return this;
   }
 
+  /**
+   * Assign all settings from the provided source.
+   *
+   * @param rhs
+   *        The settings to copy from. May not be <code>null</code>.
+   */
   public void assignFrom (@NonNull final IJsonParserSettings rhs)
   {
     ValueEnforcer.notNull (rhs, "rhs");

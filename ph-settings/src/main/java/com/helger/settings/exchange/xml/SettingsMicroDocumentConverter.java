@@ -60,12 +60,16 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
     m_aSettingFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 
+  /**
+   * @return The settings factory used by this converter. Never <code>null</code>.
+   */
   @NonNull
   public ISettingsFactory <T> getSettingsFactory ()
   {
     return m_aSettingFactory;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement convertToMicroElement (@NonNull final T aObject,
                                               @Nullable final String sNamespaceURI,
@@ -93,6 +97,7 @@ public class SettingsMicroDocumentConverter <T extends ISettings> implements IMi
     return eRoot;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public T convertToNative (final IMicroElement aElement)
   {

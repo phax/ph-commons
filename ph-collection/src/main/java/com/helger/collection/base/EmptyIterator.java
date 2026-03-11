@@ -32,11 +32,13 @@ import com.helger.base.tostring.ToStringGenerator;
 @Immutable
 public class EmptyIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
 {
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE next ()
   {
     throw new NoSuchElementException ();

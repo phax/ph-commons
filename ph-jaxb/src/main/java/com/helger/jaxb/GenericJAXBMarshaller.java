@@ -413,6 +413,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     return this;
   }
 
+  /**
+   * @return The current XML writer settings as a read-only object. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   public IXMLWriterSettings getXMLWriterSettings ()
@@ -572,6 +575,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     // empty
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final JAXBTYPE read (@NonNull final IJAXBUnmarshaller <JAXBTYPE> aHandler)
   {
@@ -657,6 +661,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     // empty
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final ESuccess write (@NonNull final JAXBTYPE aObject,
                                @NonNull final IJAXBMarshaller <JAXBTYPE> aMarshallerFunc)
@@ -694,6 +699,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
     // empty
   }
 
+  /** {@inheritDoc} */
   public void validate (@NonNull final JAXBTYPE aObject, @NonNull final ErrorList aErrorList)
   {
     ValueEnforcer.notNull (aObject, "Object");

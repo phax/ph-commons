@@ -36,6 +36,9 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
 {
   private boolean m_bRequired = false;
 
+  /**
+   * Default constructor creating an empty, non-required option group.
+   */
   public OptionGroup ()
   {}
 
@@ -91,6 +94,9 @@ public class OptionGroup extends CommonsArrayList <Option> implements IOptionBas
     return this;
   }
 
+  /**
+   * @return A mutable copy of all options contained in this group. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <Option> getAllOptions ()

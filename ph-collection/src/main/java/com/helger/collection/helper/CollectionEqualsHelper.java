@@ -64,6 +64,18 @@ public final class CollectionEqualsHelper
     return EqualsHelper.equals (aObj1, aObj2);
   }
 
+  /**
+   * Check if the contents of two collections are equal, considering element order.
+   *
+   * @param <T>
+   *        Collection element type
+   * @param aCont1
+   *        The first collection. May not be <code>null</code>.
+   * @param aCont2
+   *        The second collection. May not be <code>null</code>.
+   * @return <code>true</code> if both collections have the same size and equal elements in the same
+   *         order.
+   */
   public static <T> boolean equalsCollectionOnly (@NonNull final Collection <T> aCont1,
                                                   @NonNull final Collection <?> aCont2)
   {
@@ -81,6 +93,19 @@ public final class CollectionEqualsHelper
     return true;
   }
 
+  /**
+   * Check if the contents of two maps are equal, including nested collections.
+   *
+   * @param <K>
+   *        Map key type
+   * @param <V>
+   *        Map value type
+   * @param aCont1
+   *        The first map. May not be <code>null</code>.
+   * @param aCont2
+   *        The second map. May not be <code>null</code>.
+   * @return <code>true</code> if both maps have the same size and equal entries.
+   */
   public static <K, V> boolean equalsMap (@NonNull final Map <K, V> aCont1, @NonNull final Map <?, ?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
@@ -108,6 +133,17 @@ public final class CollectionEqualsHelper
     return true;
   }
 
+  /**
+   * Check if the contents of two sets are equal.
+   *
+   * @param <T>
+   *        Set element type
+   * @param aCont1
+   *        The first set. May not be <code>null</code>.
+   * @param aCont2
+   *        The second set. May not be <code>null</code>.
+   * @return <code>true</code> if both sets have the same size and contain the same elements.
+   */
   public static <T> boolean equalsSet (@NonNull final Set <T> aCont1, @NonNull final Set <?> aCont2)
   {
     if (aCont1.size () != aCont2.size ())
@@ -118,6 +154,18 @@ public final class CollectionEqualsHelper
     return true;
   }
 
+  /**
+   * Check if the contents of two iterators are equal in order.
+   *
+   * @param <T>
+   *        Iterator element type
+   * @param aIter1
+   *        The first iterator. May not be <code>null</code>.
+   * @param aIter2
+   *        The second iterator. May not be <code>null</code>.
+   * @return <code>true</code> if both iterators have the same number of elements and all elements
+   *         are equal in order.
+   */
   public static <T> boolean equalsIterator (@NonNull final Iterator <T> aIter1, final Iterator <?> aIter2)
   {
     while (aIter1.hasNext ())
@@ -136,6 +184,18 @@ public final class CollectionEqualsHelper
     return !aIter2.hasNext ();
   }
 
+  /**
+   * Check if the contents of two enumerations are equal in order.
+   *
+   * @param <T>
+   *        Enumeration element type
+   * @param aEnum1
+   *        The first enumeration. May not be <code>null</code>.
+   * @param aEnum2
+   *        The second enumeration. May not be <code>null</code>.
+   * @return <code>true</code> if both enumerations have the same number of elements and all
+   *         elements are equal in order.
+   */
   public static <T> boolean equalsEumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
   {
     while (aEnum1.hasMoreElements ())

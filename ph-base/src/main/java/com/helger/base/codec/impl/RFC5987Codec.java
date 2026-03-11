@@ -113,16 +113,34 @@ public class RFC5987Codec implements IEncoder <String, String>
                                                  '~' };
   private final Charset m_aCharset;
 
+  /**
+   * Default constructor using UTF-8 charset.
+   */
   public RFC5987Codec ()
   {
     this (StandardCharsets.UTF_8);
   }
 
+  /**
+   * Constructor using a specific charset.
+   *
+   * @param aCharset
+   *        The charset to use for encoding. May not be <code>null</code>.
+   */
   public RFC5987Codec (@NonNull final Charset aCharset)
   {
     m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
   }
 
+  /**
+   * Encode the passed string using RFC 5987 encoding with the specified charset.
+   *
+   * @param sSrc
+   *        The source string to encode. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for encoding. May not be <code>null</code>.
+   * @return The encoded string. Never <code>null</code>.
+   */
   @NonNull
   public static String getRFC5987Encoded (@NonNull final String sSrc, @NonNull final Charset aCharset)
   {
@@ -142,12 +160,26 @@ public class RFC5987Codec implements IEncoder <String, String>
     return aSB.toString ();
   }
 
+  /**
+   * Encode the passed string using RFC 5987 encoding with UTF-8 charset.
+   *
+   * @param sSrc
+   *        The source string to encode. May not be <code>null</code>.
+   * @return The encoded string. Never <code>null</code>.
+   */
   @NonNull
   public static String getRFC5987EncodedUTF8 (@NonNull final String sSrc)
   {
     return getRFC5987Encoded (sSrc, StandardCharsets.UTF_8);
   }
 
+  /**
+   * Encode the passed string using RFC 5987 encoding with the charset specified in the constructor.
+   *
+   * @param sSrc
+   *        The source string to encode. May be <code>null</code>.
+   * @return The encoded string or <code>null</code> if the input was <code>null</code>.
+   */
   @Nullable
   public String getEncoded (@Nullable final String sSrc)
   {

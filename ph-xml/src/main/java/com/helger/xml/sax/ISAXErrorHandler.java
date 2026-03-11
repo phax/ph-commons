@@ -47,18 +47,21 @@ public interface ISAXErrorHandler extends ErrorHandler
 
     return new ISAXErrorHandler ()
     {
+      /** {@inheritDoc} */
       public void warning (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.warning (aEx);
         aOther.warning (aEx);
       }
 
+      /** {@inheritDoc} */
       public void error (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.error (aEx);
         aOther.error (aEx);
       }
 
+      /** {@inheritDoc} */
       public void fatalError (@NonNull final SAXParseException aEx) throws SAXException
       {
         aThis.fatalError (aEx);

@@ -41,6 +41,9 @@ import com.helger.base.numeric.MathHelper;
  */
 public class Base64Codec implements IByteArrayCodec
 {
+  /**
+   * Constructor.
+   */
   public Base64Codec ()
   {}
 
@@ -57,6 +60,18 @@ public class Base64Codec implements IByteArrayCodec
     return new Base64OutputStream (new NonClosingOutputStream (aOS));
   }
 
+  /**
+   * Encode the passed decoded buffer to Base64 and write it to the output stream.
+   *
+   * @param aDecodedBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -97,6 +112,18 @@ public class Base64Codec implements IByteArrayCodec
     return new Base64InputStream (aBAIS);
   }
 
+  /**
+   * Decode the passed Base64 encoded buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The Base64 encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

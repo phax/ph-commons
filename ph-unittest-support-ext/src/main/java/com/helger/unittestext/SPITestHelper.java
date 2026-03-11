@@ -69,11 +69,18 @@ public final class SPITestHelper
     IGNORE_ERRORS,
     NO_RESOLVE;
 
+    /**
+     * @return <code>true</code> if this mode is {@link #STRICT}, <code>false</code> otherwise.
+     */
     public boolean isStrict ()
     {
       return this == STRICT;
     }
 
+    /**
+     * @return <code>true</code> if this mode resolves SPI implementations, <code>false</code>
+     *         otherwise.
+     */
     public boolean isResolve ()
     {
       return this != NO_RESOLVE;
@@ -187,6 +194,15 @@ public final class SPITestHelper
     return aAllImplementations;
   }
 
+  /**
+   * Test if all main SPI implementations (in {@value #MAIN_SERVICES}) are valid.
+   *
+   * @param bContinueOnError
+   *        <code>true</code> to continue on error, <code>false</code> to fail strictly.
+   * @return A map from interface to all found implementations. Never <code>null</code>.
+   * @throws IOException
+   *         In case of read error
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllMainSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
@@ -194,6 +210,15 @@ public final class SPITestHelper
     return testIfAllSPIImplementationsAreValid (MAIN_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
+  /**
+   * Test if all test SPI implementations (in {@value #TEST_SERVICES}) are valid.
+   *
+   * @param bContinueOnError
+   *        <code>true</code> to continue on error, <code>false</code> to fail strictly.
+   * @return A map from interface to all found implementations. Never <code>null</code>.
+   * @throws IOException
+   *         In case of read error
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllTestSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
@@ -201,6 +226,15 @@ public final class SPITestHelper
     return testIfAllSPIImplementationsAreValid (TEST_SERVICES, bContinueOnError ? EMode.IGNORE_ERRORS : EMode.STRICT);
   }
 
+  /**
+   * Test if all main and test SPI implementations are valid.
+   *
+   * @param bContinueOnError
+   *        <code>true</code> to continue on error, <code>false</code> to fail strictly.
+   * @return A map from interface to all found implementations. Never <code>null</code>.
+   * @throws IOException
+   *         In case of read error
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid (final boolean bContinueOnError) throws IOException
@@ -210,6 +244,13 @@ public final class SPITestHelper
     return aAllImplementations;
   }
 
+  /**
+   * Test if all main and test SPI implementations are valid, using strict mode.
+   *
+   * @return A map from interface to all found implementations. Never <code>null</code>.
+   * @throws IOException
+   *         In case of read error
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsSortedMap <String, ICommonsSortedSet <String>> testIfAllSPIImplementationsAreValid () throws IOException

@@ -42,23 +42,38 @@ public class CollectingExceptionListCallback <EXTYPE extends Throwable> implemen
   @CodingStyleguideUnaware
   private final List <EXTYPE> m_aExceptions = new ArrayList <> ();
 
+  /**
+   * Store the passed exception. <code>null</code> values are ignored.
+   *
+   * @param aEx
+   *        The exception to store. May be <code>null</code>.
+   */
   public void onException (@Nullable final EXTYPE aEx)
   {
     if (aEx != null)
       m_aExceptions.add (aEx);
   }
 
+  /**
+   * @return <code>true</code> if at least one exception was stored, <code>false</code> otherwise.
+   */
   public boolean hasException ()
   {
     return !m_aExceptions.isEmpty ();
   }
 
+  /**
+   * @return The number of stored exceptions. Always &ge; 0.
+   */
   @Nonnegative
   public int getExceptionCount ()
   {
     return m_aExceptions.size ();
   }
 
+  /**
+   * @return A mutable copy of all stored exceptions. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public List <EXTYPE> getAllExceptions ()

@@ -42,11 +42,20 @@ public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren 
 {
   private final Comparator <? super CHILDTYPE> m_aComparator;
 
+  /**
+   * Constructor.
+   *
+   * @param aComparator
+   *        The comparator to use for sorting children. May not be <code>null</code>.
+   */
   public ChildrenProviderHasChildrenSorting (@NonNull final Comparator <? super CHILDTYPE> aComparator)
   {
     m_aComparator = ValueEnforcer.notNull (aComparator, "Comparator");
   }
 
+  /**
+   * @return The comparator as provided in the constructor. Never <code>null</code>.
+   */
   @NonNull
   public Comparator <? super CHILDTYPE> getComparator ()
   {

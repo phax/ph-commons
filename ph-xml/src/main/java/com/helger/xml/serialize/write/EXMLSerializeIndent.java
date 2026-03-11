@@ -50,6 +50,7 @@ public enum EXMLSerializeIndent implements IHasID <String>
     m_bIndent = bIndent;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()

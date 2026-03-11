@@ -34,18 +34,42 @@ import com.helger.collection.base.IIterableIterator;
 public class CommonsFilterIterator <ELEMENTTYPE> extends FilterIterator <ELEMENTTYPE> implements
                                    ICommonsIterableIterator <ELEMENTTYPE>
 {
+  /**
+   * Constructor.
+   *
+   * @param aBaseIter
+   *        The base iterable iterator to use. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May not be <code>null</code>.
+   */
   public CommonsFilterIterator (final IIterableIterator <? extends ELEMENTTYPE> aBaseIter,
                                 final Predicate <? super ELEMENTTYPE> aFilter)
   {
     super (aBaseIter, aFilter);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aBaseCont
+   *        The collection to iterate. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May not be <code>null</code>.
+   */
   public CommonsFilterIterator (@NonNull final Iterable <? extends ELEMENTTYPE> aBaseCont,
                                 @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     super (aBaseCont, aFilter);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aBaseIter
+   *        The base iterator to use. May not be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May not be <code>null</code>.
+   */
   public CommonsFilterIterator (@NonNull final Iterator <? extends ELEMENTTYPE> aBaseIter,
                                 @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {

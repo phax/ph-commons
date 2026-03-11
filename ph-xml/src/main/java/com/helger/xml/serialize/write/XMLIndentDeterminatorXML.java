@@ -34,6 +34,9 @@ import com.helger.base.tostring.ToStringGenerator;
  */
 public class XMLIndentDeterminatorXML implements IXMLIndentDeterminator
 {
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
@@ -47,6 +50,9 @@ public class XMLIndentDeterminatorXML implements IXMLIndentDeterminator
     return eDefaultIndent;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,

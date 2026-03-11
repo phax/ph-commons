@@ -52,11 +52,18 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
     super (RegExPattern::getAsPattern, MAX_CACHE_SIZE, RegExCache.class.getName ());
   }
 
+  /**
+   * @return <code>true</code> if the singleton instance has been instantiated, <code>false</code>
+   *         if not.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static RegExCache getInstance ()
   {

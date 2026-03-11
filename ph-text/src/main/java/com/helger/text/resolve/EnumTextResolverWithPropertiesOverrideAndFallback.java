@@ -68,6 +68,9 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <String, ResourceBundle> m_aResourceBundleCache = new CommonsHashMap <> ();
 
+  /**
+   * Default constructor with resource bundle cache enabled.
+   */
   public EnumTextResolverWithPropertiesOverrideAndFallback ()
   {}
 

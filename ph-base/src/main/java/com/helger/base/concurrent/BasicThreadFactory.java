@@ -110,6 +110,14 @@ public class BasicThreadFactory implements ThreadFactory
       m_sNamePrefix = "factory-" + FACTORY_ID.getAndIncrement () + "-thread-";
     }
 
+    /**
+     * Create a new thread with the configured thread group and naming pattern.
+     *
+     * @param r
+     *        The {@link Runnable} to be executed by the new thread. May not be
+     *        <code>null</code>.
+     * @return The newly created thread. Never <code>null</code>.
+     */
     @NonNull
     public Thread newThread (@NonNull final Runnable r)
     {

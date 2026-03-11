@@ -45,6 +45,15 @@ public final class AuthToken implements IAuthToken
   private final int m_nExpirationSeconds;
   private boolean m_bExpired;
 
+  /**
+   * Constructor creating a new token with a generated unique ID.
+   *
+   * @param aIdentification
+   *        The identification associated with this token. May not be <code>null</code>.
+   * @param nExpirationSeconds
+   *        The number of seconds after which this token expires relative to the last access time.
+   *        Use {@link IAuthToken#EXPIRATION_SECONDS_INFINITE} for no expiration.
+   */
   public AuthToken (@NonNull final IAuthIdentification aIdentification, @Nonnegative final int nExpirationSeconds)
   {
     ValueEnforcer.notNull (aIdentification, "Identification");

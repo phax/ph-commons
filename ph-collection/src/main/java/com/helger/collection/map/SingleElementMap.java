@@ -53,14 +53,26 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   private KEYTYPE m_aKey;
   private VALUETYPE m_aValue;
 
+  /**
+   * Create an empty single element map.
+   */
   public SingleElementMap ()
   {}
 
+  /**
+   * Create a single element map with the provided key and value.
+   *
+   * @param aKey
+   *        The key. May be <code>null</code>.
+   * @param aValue
+   *        The value. May be <code>null</code>.
+   */
   public SingleElementMap (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aValue)
   {
     put (aKey, aValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public SingleElementMap <KEYTYPE, VALUETYPE> getClone ()
@@ -68,6 +80,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return m_bHasElement ? new SingleElementMap <> (m_aKey, m_aValue) : new SingleElementMap <> ();
   }
 
+  /** {@inheritDoc} */
   public void clear ()
   {
     m_bHasElement = false;
@@ -75,29 +88,34 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     m_aValue = null;
   }
 
+  /** {@inheritDoc} */
   public boolean containsKey (@Nullable final Object aKey)
   {
     final Object aObj1 = m_aKey;
     return m_bHasElement && EqualsHelper.equals (aObj1, aKey);
   }
 
+  /** {@inheritDoc} */
   public boolean containsValue (@Nullable final Object aValue)
   {
     final Object aObj1 = m_aValue;
     return m_bHasElement && EqualsHelper.equals (aObj1, aValue);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public VALUETYPE get (@Nullable final Object aKey)
   {
     return containsKey (aKey) ? m_aValue : null;
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return !m_bHasElement;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final VALUETYPE put (@Nullable final KEYTYPE aKey, @Nullable final VALUETYPE aElement)
   {
@@ -118,6 +136,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return aOldElement;
   }
 
+  /** {@inheritDoc} */
   public void putAll (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     if (aMap != null && !aMap.isEmpty ())
@@ -130,6 +149,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     }
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public VALUETYPE remove (@Nullable final Object aKey)
   {
@@ -142,12 +162,14 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return aOldElement;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_bHasElement ? 1 : 0;
   }
 
+  /** {@inheritDoc} */
   @ReturnsImmutableObject
   @NonNull
   @CodingStyleguideUnaware
@@ -156,6 +178,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return m_bHasElement ? new CommonsHashSet <> (m_aKey) : new CommonsHashSet <> ();
   }
 
+  /** {@inheritDoc} */
   @ReturnsImmutableObject
   @NonNull
   public Collection <VALUETYPE> values ()
@@ -163,6 +186,7 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
     return m_bHasElement ? new CommonsArrayList <> (m_aValue) : new CommonsArrayList <> ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   @CodingStyleguideUnaware

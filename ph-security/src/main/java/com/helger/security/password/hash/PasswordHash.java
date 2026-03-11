@@ -46,6 +46,17 @@ public final class PasswordHash
   private final IPasswordSalt m_aSalt;
   private final String m_sPasswordHashValue;
 
+  /**
+   * Constructor.
+   *
+   * @param sAlgorithmName
+   *        The algorithm name used for hashing. May neither be <code>null</code> nor empty and must
+   *        not exceed {@link #ALGORITHM_NAME_MAX_LENGTH} characters.
+   * @param aSalt
+   *        The password salt used. May be <code>null</code>.
+   * @param sPasswordHashValue
+   *        The computed hash value. May neither be <code>null</code> nor empty.
+   */
   public PasswordHash (@NonNull @Nonempty final String sAlgorithmName,
                        @Nullable final IPasswordSalt aSalt,
                        @NonNull @Nonempty final String sPasswordHashValue)

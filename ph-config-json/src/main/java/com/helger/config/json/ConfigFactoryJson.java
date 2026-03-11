@@ -44,6 +44,14 @@ public final class ConfigFactoryJson
   private ConfigFactoryJson ()
   {}
 
+  /**
+   * Add the default JSON configuration sources (private-application.json and application.json) to
+   * the provided multi configuration value provider.
+   *
+   * @param aMVP
+   *        The multi configuration value provider to add the JSON sources to. May not be
+   *        <code>null</code>.
+   */
   public static void addDefaultJsonConfiguration (@NonNull final MultiConfigurationValueProvider aMVP)
   {
     final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
@@ -67,6 +75,12 @@ public final class ConfigFactoryJson
                                  APPLICATION_JSON_PRIORITY);
   }
 
+  /**
+   * Create the default value provider including JSON configuration sources.
+   *
+   * @return A new {@link MultiConfigurationValueProvider} with all default configuration sources
+   *         including JSON. Never <code>null</code>.
+   */
   @NonNull
   public static MultiConfigurationValueProvider createDefaultValueProvider ()
   {

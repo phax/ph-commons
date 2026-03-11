@@ -78,6 +78,12 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     this (PRINTABLE_CHARS);
   }
 
+  /**
+   * Constructor using a custom set of printable characters.
+   *
+   * @param aPrintableChars
+   *        The set of printable characters. May not be <code>null</code>.
+   */
   public QuotedPrintableCodec (@NonNull final BitSet aPrintableChars)
   {
     m_aPrintableChars = (BitSet) aPrintableChars.clone ();
@@ -113,6 +119,19 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     aOS.write (cLow);
   }
 
+  /**
+   * Encode the passed decoded buffer using quoted-printable encoding and write it to the output
+   * stream.
+   *
+   * @param aDecodedBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -138,6 +157,19 @@ public class QuotedPrintableCodec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Decode the passed quoted-printable encoded buffer and write the decoded bytes to the output
+   * stream.
+   *
+   * @param aEncodedBuffer
+   *        The quoted-printable encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

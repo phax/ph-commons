@@ -119,6 +119,16 @@ public class URLParameter
     return m_sValue.equals (sValue);
   }
 
+  /**
+   * Append this parameter (name and optional value) to the provided {@link StringBuilder}, using
+   * the optional encoder for encoding name and value.
+   *
+   * @param aSB
+   *        The StringBuilder to append to. May not be <code>null</code>.
+   * @param aQueryParameterEncoder
+   *        An optional encoder for encoding the parameter name and value. May be
+   *        <code>null</code>.
+   */
   public void appendTo (@NonNull final StringBuilder aSB,
                         @Nullable final IEncoder <String, String> aQueryParameterEncoder)
   {

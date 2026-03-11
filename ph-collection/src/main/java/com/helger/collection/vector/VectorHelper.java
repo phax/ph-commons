@@ -47,6 +47,15 @@ public final class VectorHelper
   private VectorHelper ()
   {}
 
+  /**
+   * Create a new empty vector with the given initial capacity.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param nInitialCapacity
+   *        The initial capacity. Must be &ge; 0.
+   * @return A new empty {@link CommonsVector}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nonnegative final int nInitialCapacity)
@@ -54,6 +63,7 @@ public final class VectorHelper
     return new CommonsVector <> (nInitialCapacity);
   }
 
+  /** @see #newVector(int) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector ()
@@ -61,6 +71,19 @@ public final class VectorHelper
     return new CommonsVector <> ();
   }
 
+  /**
+   * Create a new vector by mapping elements from the given collection.
+   *
+   * @param <SRCTYPE>
+   *        The source element type.
+   * @param <DSTTYPE>
+   *        The destination element type.
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return A new {@link CommonsVector}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
@@ -73,6 +96,7 @@ public final class VectorHelper
     return ret;
   }
 
+  /** @see #newVectorMapped(Collection, Function) */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> CommonsVector <DSTTYPE> newVectorMapped (@Nullable final SRCTYPE [] aArray,
@@ -85,6 +109,17 @@ public final class VectorHelper
     return ret;
   }
 
+  /**
+   * Create a new vector from the given collection, applying a filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May not be <code>null</code>.
+   * @return A new {@link CommonsVector}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
@@ -97,6 +132,17 @@ public final class VectorHelper
     return ret;
   }
 
+  /**
+   * Create a new vector prefilled with the given value.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aValue
+   *        The value to fill the vector with. May be <code>null</code>.
+   * @param nElements
+   *        The number of elements. Must be &ge; 0.
+   * @return A new {@link CommonsVector}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVectorPrefilled (@Nullable final ELEMENTTYPE aValue,
@@ -110,6 +156,15 @@ public final class VectorHelper
     return ret;
   }
 
+  /**
+   * Create a new vector with a single element.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aValue
+   *        The value to add. May be <code>null</code>.
+   * @return A new {@link CommonsVector} with one element. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ELEMENTTYPE aValue)
@@ -117,6 +172,15 @@ public final class VectorHelper
     return new CommonsVector <> (aValue);
   }
 
+  /**
+   * Create a new vector from the given varargs array.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aValues
+   *        The values to add. May be <code>null</code>.
+   * @return A new {@link CommonsVector}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
@@ -149,6 +213,7 @@ public final class VectorHelper
     return ret;
   }
 
+  /** @see #newVector(Object[]) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
@@ -158,6 +223,7 @@ public final class VectorHelper
     return ret;
   }
 
+  /** @see #newVector(Object[]) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
@@ -167,6 +233,7 @@ public final class VectorHelper
     return ret;
   }
 
+  /** @see #newVector(Object[]) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
@@ -177,6 +244,7 @@ public final class VectorHelper
     return new CommonsVector <> (aCont);
   }
 
+  /** @see #newVector(Object[]) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> newVector (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)

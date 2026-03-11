@@ -41,6 +41,18 @@ public class KeyStoreDescriptor implements IKeyStoreDescriptor
   // Lazily initialized
   private LoadedKeyStore m_aLKS;
 
+  /**
+   * Constructor.
+   *
+   * @param aType
+   *        The key store type. May not be <code>null</code>.
+   * @param sPath
+   *        The path to the key store. May neither be <code>null</code> nor empty.
+   * @param aPassword
+   *        The password to access the key store. May not be <code>null</code>.
+   * @param aProvider
+   *        The security provider to use. May be <code>null</code>.
+   */
   public KeyStoreDescriptor (@NonNull final IKeyStoreType aType,
                              @NonNull @Nonempty final String sPath,
                              final char @NonNull [] aPassword,

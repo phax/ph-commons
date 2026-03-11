@@ -42,9 +42,24 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
   private static final int ENCODED_MIN = 33;
   private static final int EIGHTY_FIVE = 85;
 
+  /**
+   * Constructor.
+   */
   public ASCII85Codec ()
   {}
 
+  /**
+   * Decode the passed ASCII85 encoded buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The ASCII85 encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode. Must be at least 4.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

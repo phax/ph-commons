@@ -67,6 +67,9 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
     return INSTANCE;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void registerJsonValueSerializer (@NonNull final Class <?> aClass,
                                            @NonNull final IJsonValueSerializer aValueSerializer)
   {
@@ -83,18 +86,35 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
     });
   }
 
+  /**
+   * Get the JSON value serializer registered for the specified class.
+   *
+   * @param aSrcClass
+   *        The class to look up. May be <code>null</code>.
+   * @return <code>null</code> if no serializer is registered for the specified class.
+   */
   @Nullable
   public IJsonValueSerializer getJsonValueSerializer (@Nullable final Class <?> aSrcClass)
   {
     return m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass));
   }
 
+  /**
+   * @return The number of registered JSON value serializers. Always &ge; 0.
+   */
   @Nonnegative
   public int getRegisteredJsonValueSerializerCount ()
   {
     return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
+  /**
+   * Reinitialize the registry by clearing all existing registrations and re-reading all SPI
+   * implementations.
+   *
+   * @param aClassLoader
+   *        The class loader to use. May be <code>null</code> to use the default class loader.
+   */
   public void reinitialize (@Nullable final ClassLoader aClassLoader)
   {
     m_aRWLock.writeLocked (m_aMap::clear);

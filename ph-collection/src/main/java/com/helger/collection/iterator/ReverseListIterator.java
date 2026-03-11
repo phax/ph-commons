@@ -42,17 +42,27 @@ public class ReverseListIterator <ELEMENTTYPE> implements Iterator <ELEMENTTYPE>
   private final List <? extends ELEMENTTYPE> m_aList;
   private int m_nIndex;
 
+  /**
+   * Constructor.
+   *
+   * @param aList
+   *        The list to iterate in reverse order. May not be <code>null</code>.
+   */
   public ReverseListIterator (@NonNull final List <? extends ELEMENTTYPE> aList)
   {
     m_aList = ValueEnforcer.notNull (aList, "List");
     m_nIndex = aList.size () - 1;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_nIndex >= 0;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

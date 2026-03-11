@@ -185,11 +185,13 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     return m_aCharset;
   }
 
+  /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess reload ()
   {
@@ -200,6 +202,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     return ESuccess.valueOf (aProps != null);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
@@ -207,6 +210,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()

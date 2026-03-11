@@ -109,6 +109,9 @@ public final class PDTFormatter
   @ThreadSafe
   public static final class LocalizedDateFormatCache extends Cache <CacheKey, DateTimeFormatter>
   {
+    /**
+     * Default constructor initializing the cache with the pattern creation logic.
+     */
     public LocalizedDateFormatCache ()
     {
       super (aCacheKey -> {
@@ -143,6 +146,14 @@ public final class PDTFormatter
       }, 1_000, LocalizedDateFormatCache.class.getName ());
     }
 
+    /**
+     * Get the source pattern for the given cache key.
+     *
+     * @param aKey
+     *        The cache key containing date/time type, locale, style and mode. May not be
+     *        <code>null</code>.
+     * @return The source pattern string. Never <code>null</code>.
+     */
     @NonNull
     public static String getSourcePattern (@NonNull final CacheKey aKey)
     {
@@ -235,6 +246,19 @@ public final class PDTFormatter
     }
   }
 
+  /**
+   * Get the formatting/parsing pattern for the given date/time type, locale, style and mode.
+   *
+   * @param eDTType
+   *        The date/time type. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May be <code>null</code>.
+   * @param eStyle
+   *        The format style. May not be <code>null</code>.
+   * @param eMode
+   *        The formatter mode (print or parse). May not be <code>null</code>.
+   * @return The pattern string. Never <code>null</code>.
+   */
   @NonNull
   public static String getPattern (@NonNull final EDTType eDTType,
                                    @Nullable final Locale aLocale,

@@ -40,6 +40,15 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
 {
   private final Class <? extends DATATYPE> m_aClass;
 
+  /**
+   * Constructor.
+   *
+   * @param aClass
+   *        The class to instantiate. May be <code>null</code>.
+   * @param bCheckInstancable
+   *        <code>true</code> to check that the class can be instantiated, <code>false</code> to
+   *        skip the check.
+   */
   public FactoryNewInstance (@Nullable final Class <? extends DATATYPE> aClass, final boolean bCheckInstancable)
   {
     if (bCheckInstancable)
@@ -50,12 +59,20 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
     m_aClass = aClass;
   }
 
+  /**
+   * @return The class to be instantiated. May be <code>null</code>.
+   */
   @Nullable
   public Class <? extends DATATYPE> getFactoryClass ()
   {
     return m_aClass;
   }
 
+  /**
+   * Create a new instance of the factory class via reflection.
+   *
+   * @return The newly created instance or <code>null</code> if instantiation failed.
+   */
   @Nullable
   public DATATYPE get ()
   {
@@ -85,12 +102,33 @@ public class FactoryNewInstance <DATATYPE> implements Supplier <DATATYPE>
     return new ToStringGenerator (this).append ("Class", m_aClass).getToString ();
   }
 
+  /**
+   * Create a new factory without an instancability check.
+   *
+   * @param aClass
+   *        The class to instantiate. May be <code>null</code>.
+   * @return The new factory instance. Never <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be created
+   */
   @NonNull
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass)
   {
     return create (aClass, false);
   }
 
+  /**
+   * Create a new factory.
+   *
+   * @param aClass
+   *        The class to instantiate. May be <code>null</code>.
+   * @param bCheckInstancable
+   *        <code>true</code> to check that the class can be instantiated, <code>false</code> to
+   *        skip the check.
+   * @return The new factory instance. Never <code>null</code>.
+   * @param <DATATYPE>
+   *        The data type to be created
+   */
   @NonNull
   public static <DATATYPE> FactoryNewInstance <DATATYPE> create (@Nullable final Class <DATATYPE> aClass,
                                                                  final boolean bCheckInstancable)

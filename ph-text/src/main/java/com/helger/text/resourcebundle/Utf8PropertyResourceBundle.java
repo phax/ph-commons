@@ -40,6 +40,9 @@ final class Utf8PropertyResourceBundle extends ResourceBundle
     m_aBundle = ValueEnforcer.notNull (aBundle, "Bundle");
   }
 
+  /**
+   * @return The wrapped {@link PropertyResourceBundle}. Never <code>null</code>.
+   */
   @NonNull
   public PropertyResourceBundle getBundle ()
   {

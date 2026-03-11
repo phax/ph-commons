@@ -38,12 +38,26 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
   private JsonValueSerializerEscaped ()
   {}
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValueSerializerEscaped getInstance ()
   {
     return INSTANCE;
   }
 
+  /**
+   * Write a JSON string value enclosed in double quotes with proper escaping to the provided
+   * writer.
+   *
+   * @param sValue
+   *        The string value to escape and write. May not be <code>null</code>.
+   * @param aWriter
+   *        The Writer to write to. May not be <code>null</code>. Will not be closed.
+   * @throws IOException
+   *         On IO error
+   */
   public static void appendEscapedJsonString (@NonNull final String sValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write ('"');
@@ -51,6 +65,9 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
     aWriter.write ('"');
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     appendEscapedJsonString (String.valueOf (aValue), aWriter);

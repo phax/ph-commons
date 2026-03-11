@@ -64,6 +64,9 @@ public final class StringImplode
     private int m_nLength = -1;
     private Predicate <String> m_aFilter;
 
+    /**
+     * Constructor.
+     */
     public ImploderBuilder ()
     {}
 
@@ -1084,6 +1087,9 @@ public final class StringImplode
     private Predicate <String> m_aFilterKey;
     private Predicate <String> m_aFilterValue;
 
+    /**
+     * Constructor.
+     */
     public ImploderBuilderMap ()
     {}
 

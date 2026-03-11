@@ -58,6 +58,9 @@ public abstract class AbstractCSPSourceList <IMPLTYPE extends AbstractCSPSourceL
 
   private final ICommonsOrderedSet <String> m_aList = new CommonsLinkedHashSet <> ();
 
+  /**
+   * Default constructor creating an empty CSP source list.
+   */
   public AbstractCSPSourceList ()
   {}
 

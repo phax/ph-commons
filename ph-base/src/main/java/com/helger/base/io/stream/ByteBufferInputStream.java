@@ -73,6 +73,10 @@ public final class ByteBufferInputStream extends InputStream
     return m_aBuffer;
   }
 
+  /**
+   * @return <code>true</code> if there is at least one byte remaining to be
+   *         read, <code>false</code> otherwise.
+   */
   public boolean isAnythingAvailable ()
   {
     _checkClosed ();

@@ -40,26 +40,53 @@ import com.helger.collection.commons.CommonsArrayList;
 @NotThreadSafe
 public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
 {
+  /**
+   * Create a new empty stack.
+   */
   public NonBlockingStack ()
   {}
 
+  /**
+   * Create a new empty stack with the specified initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity.
+   */
   public NonBlockingStack (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
+  /**
+   * Create a new stack with the provided elements.
+   *
+   * @param aElements
+   *        The elements to push. May be <code>null</code>.
+   */
   @SafeVarargs
   public NonBlockingStack (@Nullable final ELEMENTTYPE... aElements)
   {
     addAll (aElements);
   }
 
+  /**
+   * Create a new stack with the elements of the provided collection.
+   *
+   * @param aCollection
+   *        The collection to copy elements from. May be <code>null</code>.
+   */
   public NonBlockingStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {
     if (aCollection != null)
       addAll (aCollection);
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aStack
+   *        The stack to copy elements from. May be <code>null</code>.
+   */
   public NonBlockingStack (@Nullable final NonBlockingStack <? extends ELEMENTTYPE> aStack)
   {
     if (aStack != null)

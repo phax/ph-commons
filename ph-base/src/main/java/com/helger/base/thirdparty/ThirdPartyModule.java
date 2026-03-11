@@ -45,6 +45,14 @@ public final class ThirdPartyModule implements IThirdPartyModule
   private final String m_sWebSiteURL;
   private final boolean m_bOptional;
 
+  /**
+   * Constructor copying from another third party module with a different optional flag.
+   *
+   * @param aOther
+   *        The third party module to copy from. May not be <code>null</code>.
+   * @param bOptional
+   *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+   */
   public ThirdPartyModule (@NonNull final IThirdPartyModule aOther, final boolean bOptional)
   {
     this (aOther.getDisplayName (),
@@ -55,6 +63,16 @@ public final class ThirdPartyModule implements IThirdPartyModule
           bOptional);
   }
 
+  /**
+   * Constructor with required fields and default optional flag.
+   *
+   * @param sDisplayName
+   *        The display name. Neither <code>null</code> nor empty.
+   * @param sCopyrightOwner
+   *        The copyright owner. Neither <code>null</code> nor empty.
+   * @param aLicense
+   *        The license. May not be <code>null</code>.
+   */
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense)
@@ -62,6 +80,18 @@ public final class ThirdPartyModule implements IThirdPartyModule
     this (sDisplayName, sCopyrightOwner, aLicense, DEFAULT_OPTIONAL);
   }
 
+  /**
+   * Constructor with required fields and optional flag.
+   *
+   * @param sDisplayName
+   *        The display name. Neither <code>null</code> nor empty.
+   * @param sCopyrightOwner
+   *        The copyright owner. Neither <code>null</code> nor empty.
+   * @param aLicense
+   *        The license. May not be <code>null</code>.
+   * @param bOptional
+   *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+   */
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense,
@@ -70,6 +100,20 @@ public final class ThirdPartyModule implements IThirdPartyModule
     this (sDisplayName, sCopyrightOwner, aLicense, (Version) null, (String) null, bOptional);
   }
 
+  /**
+   * Constructor with all fields except optional flag.
+   *
+   * @param sDisplayName
+   *        The display name. Neither <code>null</code> nor empty.
+   * @param sCopyrightOwner
+   *        The copyright owner. Neither <code>null</code> nor empty.
+   * @param aLicense
+   *        The license. May not be <code>null</code>.
+   * @param aVersion
+   *        The version. May be <code>null</code>.
+   * @param sWebsiteURL
+   *        The website URL. May be <code>null</code>.
+   */
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense,
@@ -79,6 +123,22 @@ public final class ThirdPartyModule implements IThirdPartyModule
     this (sDisplayName, sCopyrightOwner, aLicense, aVersion, sWebsiteURL, DEFAULT_OPTIONAL);
   }
 
+  /**
+   * Full constructor with all fields.
+   *
+   * @param sDisplayName
+   *        The display name. Neither <code>null</code> nor empty.
+   * @param sCopyrightOwner
+   *        The copyright owner. Neither <code>null</code> nor empty.
+   * @param aLicense
+   *        The license. May not be <code>null</code>.
+   * @param aVersion
+   *        The version. May be <code>null</code>.
+   * @param sWebsiteURL
+   *        The website URL. May be <code>null</code>.
+   * @param bOptional
+   *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+   */
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense,
@@ -94,6 +154,9 @@ public final class ThirdPartyModule implements IThirdPartyModule
     m_bOptional = bOptional;
   }
 
+  /**
+   * @return The display name of this module. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getDisplayName ()
@@ -101,6 +164,9 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return m_sDisplayName;
   }
 
+  /**
+   * @return The copyright owner of this module. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getCopyrightOwner ()
@@ -108,29 +174,45 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return m_sCopyrightOwner;
   }
 
+  /**
+   * @return The license of this module. Never <code>null</code>.
+   */
   @NonNull
   public ILicense getLicense ()
   {
     return m_aLicense;
   }
 
+  /**
+   * @return The version of this module. May be <code>null</code>.
+   */
   @Nullable
   public Version getVersion ()
   {
     return m_aVersion;
   }
 
+  /**
+   * @return The website URL of this module. May be <code>null</code>.
+   */
   @Nullable
   public String getWebSiteURL ()
   {
     return m_sWebSiteURL;
   }
 
+  /**
+   * @return <code>true</code> if this module is optional, <code>false</code> otherwise.
+   */
   public boolean isOptional ()
   {
     return m_bOptional;
   }
 
+  /**
+   * @return A copy of this module with the optional flag set to <code>true</code>. If already
+   *         optional, <code>this</code> is returned. Never <code>null</code>.
+   */
   @NonNull
   public ThirdPartyModule getAsOptionalCopy ()
   {
@@ -139,6 +221,10 @@ public final class ThirdPartyModule implements IThirdPartyModule
     return new ThirdPartyModule (this, true);
   }
 
+  /**
+   * @return A copy of this module with the optional flag set to <code>false</code>. If already
+   *         non-optional, <code>this</code> is returned. Never <code>null</code>.
+   */
   @NonNull
   public ThirdPartyModule getAsNonOptionalCopy ()
   {

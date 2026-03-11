@@ -48,6 +48,9 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private IErrorLevel m_aErrorLevel = EErrorLevel.ERROR;
 
+  /**
+   * Default constructor using {@link EErrorLevel#ERROR} as the default error level.
+   */
   public LoggingExceptionCallback ()
   {}
 

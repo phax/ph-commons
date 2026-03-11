@@ -313,6 +313,7 @@ public class Config implements IConfig
     return TextVariableHelper.getWithReplacedVariables (sConfiguredValue, aVarProvider);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getValue (@Nullable final String sKey)
   {
@@ -367,12 +368,29 @@ public class Config implements IConfig
     }
   }
 
+  /**
+   * Iterate over all configuration value providers recursively, expanding any
+   * {@link MultiConfigurationValueProvider} instances.
+   *
+   * @param aValueProvider
+   *        The value provider to iterate. May not be <code>null</code>.
+   * @param aCallback
+   *        The callback to invoke for each leaf configuration value provider. May not be
+   *        <code>null</code>.
+   */
   public static void forEachConfigurationValueProviderRecursive (@NonNull final IConfigurationValueProvider aValueProvider,
                                                                  @NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     _forEachConfigurationValueProviderRecursive (aValueProvider, -1, aCallback);
   }
 
+  /**
+   * Iterate over all configuration value providers of this config instance recursively.
+   *
+   * @param aCallback
+   *        The callback to invoke for each leaf configuration value provider. May not be
+   *        <code>null</code>.
+   */
   public void forEachConfigurationValueProvider (@NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
@@ -391,6 +409,13 @@ public class Config implements IConfig
                                        .getToString ();
   }
 
+  /**
+   * Factory method to create a new {@link Config} instance.
+   *
+   * @param aCVP
+   *        The configuration value provider to use. May not be <code>null</code>.
+   * @return A new {@link Config} instance. Never <code>null</code>.
+   */
   @NonNull
   public static Config create (@NonNull final IConfigurationValueProvider aCVP)
   {

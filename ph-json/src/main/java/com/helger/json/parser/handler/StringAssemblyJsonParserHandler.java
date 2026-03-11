@@ -34,81 +34,99 @@ public class StringAssemblyJsonParserHandler implements IJsonParserHandler
 {
   private final StringBuilder m_aSB = new StringBuilder ();
 
+  /** {@inheritDoc} */
   public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {
     m_aSB.append (sWhitespace);
   }
 
+  /** {@inheritDoc} */
   public void onComment (@NonNull final String sComment)
   {
     m_aSB.append (CJson.COMMENT_START).append (sComment).append (CJson.COMMENT_END);
   }
 
+  /** {@inheritDoc} */
   public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {
     m_aSB.append (sString);
   }
 
+  /** {@inheritDoc} */
   public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {
     m_aSB.append (sNumber);
   }
 
+  /** {@inheritDoc} */
   public void onFalse ()
   {
     m_aSB.append (CJson.KEYWORD_FALSE);
   }
 
+  /** {@inheritDoc} */
   public void onTrue ()
   {
     m_aSB.append (CJson.KEYWORD_TRUE);
   }
 
+  /** {@inheritDoc} */
   public void onNull ()
   {
     m_aSB.append (CJson.KEYWORD_NULL);
   }
 
+  /** {@inheritDoc} */
   public void onArrayStart ()
   {
     m_aSB.append (CJson.ARRAY_START);
   }
 
+  /** {@inheritDoc} */
   public void onArrayNextElement ()
   {
     m_aSB.append (CJson.ITEM_SEPARATOR);
   }
 
+  /** {@inheritDoc} */
   public void onArrayEnd ()
   {
     m_aSB.append (CJson.ARRAY_END);
   }
 
+  /** {@inheritDoc} */
   public void onObjectStart ()
   {
     m_aSB.append (CJson.OBJECT_START);
   }
 
+  /** {@inheritDoc} */
   public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {
     m_aSB.append (sString);
   }
 
+  /** {@inheritDoc} */
   public void onObjectColon ()
   {
     m_aSB.append (CJson.NAME_VALUE_SEPARATOR);
   }
 
+  /** {@inheritDoc} */
   public void onObjectNextElement ()
   {
     m_aSB.append (CJson.ITEM_SEPARATOR);
   }
 
+  /** {@inheritDoc} */
   public void onObjectEnd ()
   {
     m_aSB.append (CJson.OBJECT_END);
   }
 
+  /**
+   * @return The assembled JSON string. Never <code>null</code>.
+   */
   @NonNull
   public String getJsonString ()
   {

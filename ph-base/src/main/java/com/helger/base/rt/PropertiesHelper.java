@@ -48,6 +48,14 @@ public final class PropertiesHelper
   private PropertiesHelper ()
   {}
 
+  /**
+   * Convert the passed {@link Properties} object to a simple {@link Map} with String keys and
+   * String values.
+   *
+   * @param aProps
+   *        The properties to convert. May not be <code>null</code>.
+   * @return A new mutable map with all entries. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static Map <String, String> getAsStringMap (@NonNull final Properties aProps)
@@ -60,6 +68,13 @@ public final class PropertiesHelper
     return ret;
   }
 
+  /**
+   * Load properties from the given input stream.
+   *
+   * @param aIS
+   *        The input stream to read from. May not be <code>null</code>. Will be closed.
+   * @return The loaded properties or <code>null</code> if loading failed.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull @WillClose final InputStream aIS)
   {
@@ -83,6 +98,13 @@ public final class PropertiesHelper
     }
   }
 
+  /**
+   * Load properties from the given reader.
+   *
+   * @param aReader
+   *        The reader to read from. May not be <code>null</code>. Will be closed.
+   * @return The loaded properties or <code>null</code> if loading failed.
+   */
   @Nullable
   public static NonBlockingProperties loadProperties (@NonNull @WillClose final Reader aReader)
   {

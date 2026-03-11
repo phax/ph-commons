@@ -38,6 +38,12 @@ public final class ArrayIteratorFloat
   private final float [] m_aArray;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor iterating over the whole array.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   */
   public ArrayIteratorFloat (final float @NonNull... aArray)
   {
     this (aArray, 0, aArray.length);
@@ -61,11 +67,19 @@ public final class ArrayIteratorFloat
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  /**
+   * @return <code>true</code> if there are more elements to iterate.
+   */
   public boolean hasNext ()
   {
     return m_nIndex < m_aArray.length;
   }
 
+  /**
+   * @return The next float value in the iteration.
+   * @throws NoSuchElementException
+   *         if there are no more elements.
+   */
   public float next ()
   {
     if (!hasNext ())
@@ -98,6 +112,17 @@ public final class ArrayIteratorFloat
                                        .getToString ();
   }
 
+  /**
+   * Create a new iterator for the given array with offset and length.
+   *
+   * @param aArray
+   *        Source array. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset. Must be &ge; 0.
+   * @param nLength
+   *        Length. Must be &ge; 0.
+   * @return A new {@link ArrayIteratorFloat} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ArrayIteratorFloat createOfsLen (final float @NonNull [] aArray,
                                                  @Nonnegative final int nOfs,
@@ -106,6 +131,17 @@ public final class ArrayIteratorFloat
     return new ArrayIteratorFloat (aArray, nOfs, nLength);
   }
 
+  /**
+   * Create a new iterator for the given array from begin index (inclusive) to end index (exclusive).
+   *
+   * @param aArray
+   *        Source array. May not be <code>null</code>.
+   * @param nBegin
+   *        Begin index (inclusive). Must be &ge; 0.
+   * @param nEnd
+   *        End index (exclusive). Must be &ge; nBegin.
+   * @return A new {@link ArrayIteratorFloat} instance. Never <code>null</code>.
+   */
   @NonNull
   public static ArrayIteratorFloat createBeginEnd (final float @NonNull [] aArray,
                                                    @Nonnegative final int nBegin,

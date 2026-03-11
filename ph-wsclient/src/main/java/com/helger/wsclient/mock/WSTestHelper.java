@@ -43,6 +43,16 @@ public final class WSTestHelper
   private WSTestHelper ()
   {}
 
+  /**
+   * Test if all sun-jaxws.xml endpoint configurations in the given base directory are valid.
+   *
+   * @param sBaseDir
+   *        The base directory to search for the sun-jaxws.xml file. May not be <code>null</code>.
+   * @param bContinueOnError
+   *        <code>true</code> to continue on validation errors, <code>false</code> to throw an
+   *        exception on the first error.
+   * @return The total number of valid implementations found.
+   */
   @Nonnegative
   public static int testIfAllSunJaxwsFilesAreValid (@NonNull final String sBaseDir, final boolean bContinueOnError)
   {
@@ -144,6 +154,14 @@ public final class WSTestHelper
     return nTotalImplementationCount;
   }
 
+  /**
+   * Test if all sun-jaxws.xml endpoint configurations in the default directories are valid.
+   *
+   * @param bContinueOnError
+   *        <code>true</code> to continue on validation errors, <code>false</code> to throw an
+   *        exception on the first error.
+   * @return The total number of valid implementations found.
+   */
   @Nonnegative
   public static int testIfAllSunJaxwsFilesAreValid (final boolean bContinueOnError)
   {
@@ -153,6 +171,10 @@ public final class WSTestHelper
     return ret;
   }
 
+  /**
+   * Test if all sun-jaxws.xml endpoint configurations in the default directories are valid, using
+   * strict mode.
+   */
   public static void testIfAllSunJaxwsFilesAreValid ()
   {
     testIfAllSunJaxwsFilesAreValid (false);

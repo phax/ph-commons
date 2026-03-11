@@ -38,14 +38,29 @@ import com.helger.collection.CollectionHelper;
  */
 public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 {
+  /**
+   * Create a new empty vector.
+   */
   public CommonsVector ()
   {}
 
+  /**
+   * Create a new vector with the specified initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity.
+   */
   public CommonsVector (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
+  /**
+   * Create a new vector with the elements of the provided collection.
+   *
+   * @param aCont
+   *        The collection to copy elements from. May be <code>null</code>.
+   */
   public CommonsVector (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     super (CollectionHelper.getSize (aCont));
@@ -53,11 +68,27 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
       addAll (aCont);
   }
 
+  /**
+   * Create a new vector with the elements of the provided iterable.
+   *
+   * @param aIterable
+   *        The iterable to copy elements from. May be <code>null</code>.
+   */
   public CommonsVector (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
     addAll (aIterable);
   }
 
+  /**
+   * Create a new vector with mapped elements of the provided collection.
+   *
+   * @param aValues
+   *        The collection to copy elements from. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source element type
+   */
   public <SRCTYPE> CommonsVector (@Nullable final Collection <? extends SRCTYPE> aValues,
                                   @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
@@ -65,18 +96,40 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * Create a new vector with mapped elements of the provided iterable.
+   *
+   * @param aValues
+   *        The iterable to copy elements from. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source element type
+   */
   public <SRCTYPE> CommonsVector (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                   @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
     addAllMapped (aValues, aMapper);
   }
 
+  /**
+   * Create a new vector with exactly one element.
+   *
+   * @param aValue
+   *        The value to add. May be <code>null</code>.
+   */
   public CommonsVector (@Nullable final ELEMENTTYPE aValue)
   {
     super (1);
     add (aValue);
   }
 
+  /**
+   * Create a new vector with the provided values.
+   *
+   * @param aValues
+   *        The values to add. May be <code>null</code>.
+   */
   @SafeVarargs
   public CommonsVector (@Nullable final ELEMENTTYPE... aValues)
   {
@@ -84,6 +137,16 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     addAll (aValues);
   }
 
+  /**
+   * Create a new vector with mapped elements of the provided array.
+   *
+   * @param aValues
+   *        The array to copy elements from. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function to apply. May not be <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source element type
+   */
   public <SRCTYPE> CommonsVector (@Nullable final SRCTYPE [] aValues,
                                   @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
@@ -99,6 +162,9 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     return new CommonsVector <> ();
   }
 
+  /**
+   * @return A mutable copy of this vector. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsVector <ELEMENTTYPE> getClone ()
@@ -106,6 +172,17 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     return new CommonsVector <> (this);
   }
 
+  /**
+   * Create a new vector that contains a subset of the provided iterable.
+   *
+   * @param aValues
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The created vector. Never <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Data type of the vector
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
@@ -116,6 +193,21 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     return ret;
   }
 
+  /**
+   * Create a new vector that contains a filtered and mapped subset of the provided iterable.
+   *
+   * @param aValues
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied before mapping. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return The created vector. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source data type
+   * @param <ELEMENTTYPE>
+   *        Final data type of the vector
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends SRCTYPE> aValues,
@@ -127,6 +219,17 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     return ret;
   }
 
+  /**
+   * Create a new vector that contains a subset of the provided array.
+   *
+   * @param aValues
+   *        The array from which the elements are copied from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code>.
+   * @return The created vector. Never <code>null</code>.
+   * @param <ELEMENTTYPE>
+   *        Data type of the vector
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
@@ -137,6 +240,21 @@ public class CommonsVector <ELEMENTTYPE> extends Vector <ELEMENTTYPE> implements
     return ret;
   }
 
+  /**
+   * Create a new vector that contains a filtered and mapped subset of the provided array.
+   *
+   * @param aValues
+   *        The array from which the elements are copied from. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to be applied before mapping. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return The created vector. Never <code>null</code>.
+   * @param <SRCTYPE>
+   *        Source data type
+   * @param <ELEMENTTYPE>
+   *        Final data type of the vector
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, ELEMENTTYPE> CommonsVector <ELEMENTTYPE> createFiltered (@Nullable final SRCTYPE [] aValues,

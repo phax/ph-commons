@@ -59,6 +59,13 @@ public abstract class AbstractHasText implements IHasText
   @Nullable
   protected abstract String internalGetText (@NonNull Locale aContentLocale);
 
+  /**
+   * Get the text in the specified locale, applying locale fallback resolution.
+   *
+   * @param aContentLocale
+   *        The locale to get the text for. May not be <code>null</code>.
+   * @return The text in the resolved locale, or <code>null</code> if no matching text was found.
+   */
   @Nullable
   public final String getText (@NonNull final Locale aContentLocale)
   {

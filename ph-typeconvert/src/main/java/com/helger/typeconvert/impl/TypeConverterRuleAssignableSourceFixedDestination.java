@@ -60,6 +60,7 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
+  /** {@inheritDoc} */
   public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     return m_aDstClass.equals (aDstClass) && m_aSrcClass.isAssignableFrom (aSrcClass);
@@ -83,6 +84,7 @@ public class TypeConverterRuleAssignableSourceFixedDestination <SRC, DST> extend
     return m_aDstClass;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public DST apply (@NonNull final SRC aSource)
   {

@@ -63,11 +63,18 @@ public final class ThirdPartyModuleRegistry
     reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this registry. Never <code>null</code>.
+   */
   @NonNull
   public static ThirdPartyModuleRegistry getInstance ()
   {
@@ -85,12 +92,23 @@ public final class ThirdPartyModuleRegistry
     return EChange.valueOf (m_aModules.add (aModule));
   }
 
+  /**
+   * Register a new third party module.
+   *
+   * @param aModule
+   *        The module to register. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the module was successfully registered, {@link EChange#UNCHANGED}
+   *         if it was already registered.
+   */
   @NonNull
   public EChange registerThirdPartyModule (@NonNull final IThirdPartyModule aModule)
   {
     return m_aRWLock.writeLockedGet ( () -> _registerThirdPartyModule (aModule));
   }
 
+  /**
+   * @return A mutable copy of all registered third party modules. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
@@ -98,12 +116,18 @@ public final class ThirdPartyModuleRegistry
     return m_aRWLock.readLockedGet ( () -> new LinkedHashSet <> (m_aModules));
   }
 
+  /**
+   * @return The number of registered third party modules. Always &ge; 0.
+   */
   @Nonnegative
   public int getRegisteredThirdPartyModuleCount ()
   {
     return m_aRWLock.readLockedInt (m_aModules::size);
   }
 
+  /**
+   * Reinitialize this registry by clearing all modules and reloading from SPI.
+   */
   public void reinitialize ()
   {
     m_aRWLock.writeLocked ( () -> {

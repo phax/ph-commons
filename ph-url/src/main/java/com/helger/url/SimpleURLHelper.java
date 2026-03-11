@@ -104,6 +104,15 @@ public final class SimpleURLHelper
         }
   }
 
+  /**
+   * Parse a URL query string into a list of {@link URLParameter} instances.
+   *
+   * @param sQueryString
+   *        The query string to parse. May be <code>null</code> or empty.
+   * @param aParameterDecoder
+   *        An optional decoder for parameter names and values. May be <code>null</code>.
+   * @return A mutable list of all parsed URL parameters. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <URLParameter> getParsedQueryParameters (@Nullable final String sQueryString,

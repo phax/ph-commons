@@ -31,48 +31,63 @@ import com.helger.annotation.concurrent.Immutable;
 @Immutable
 public class DoNothingJsonParserHandler implements IJsonParserHandler
 {
+  /** {@inheritDoc} */
   public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {}
 
+  /** {@inheritDoc} */
   public void onComment (@NonNull final String sComment)
   {}
 
+  /** {@inheritDoc} */
   public void onString (@NonNull final String sString, @NonNull final String sUnescaped)
   {}
 
+  /** {@inheritDoc} */
   public void onNumber (@NonNull final String sNumber, @NonNull final Number aNumber)
   {}
 
+  /** {@inheritDoc} */
   public void onFalse ()
   {}
 
+  /** {@inheritDoc} */
   public void onTrue ()
   {}
 
+  /** {@inheritDoc} */
   public void onNull ()
   {}
 
+  /** {@inheritDoc} */
   public void onArrayStart ()
   {}
 
+  /** {@inheritDoc} */
   public void onArrayNextElement ()
   {}
 
+  /** {@inheritDoc} */
   public void onArrayEnd ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectStart ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectName (@NonNull final String sString, @NonNull final String sName)
   {}
 
+  /** {@inheritDoc} */
   public void onObjectColon ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectNextElement ()
   {}
 
+  /** {@inheritDoc} */
   public void onObjectEnd ()
   {}
 }

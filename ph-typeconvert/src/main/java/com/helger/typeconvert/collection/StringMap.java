@@ -67,12 +67,30 @@ public class StringMap extends AttributeContainer <String, String> implements IS
     put (sName, sValue);
   }
 
+  /**
+   * Add an entry if the converted value is not <code>null</code>.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param aValue
+   *        The value to be converted to String. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap addIfNotNull (@NonNull final String sName, @NonNull final Object aValue)
   {
     return addIfNotNull (sName, TypeConverter.convert (aValue, String.class));
   }
 
+  /**
+   * Add an entry if the value is not <code>null</code>.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param sValue
+   *        The value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap addIfNotNull (@NonNull final String sName, @Nullable final String sValue)
   {
@@ -80,6 +98,17 @@ public class StringMap extends AttributeContainer <String, String> implements IS
     return this;
   }
 
+  /**
+   * Add an entry if the provided filter matches.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param sValue
+   *        The value. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to evaluate. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap addIf (@NonNull final String sName,
                                 @Nullable final String sValue,
@@ -89,12 +118,30 @@ public class StringMap extends AttributeContainer <String, String> implements IS
     return this;
   }
 
+  /**
+   * Add an entry by converting the value to a String.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param aValue
+   *        The value to be converted to String. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap add (@NonNull final String sName, @NonNull final Object aValue)
   {
     return add (sName, TypeConverter.convert (aValue, String.class));
   }
 
+  /**
+   * Add a String entry.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param sValue
+   *        The value. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap add (@NonNull final String sName, @Nullable final String sValue)
   {
@@ -102,24 +149,58 @@ public class StringMap extends AttributeContainer <String, String> implements IS
     return this;
   }
 
+  /**
+   * Add a boolean entry.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param bValue
+   *        The boolean value.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap add (@NonNull final String sName, final boolean bValue)
   {
     return add (sName, Boolean.toString (bValue));
   }
 
+  /**
+   * Add an int entry.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param nValue
+   *        The int value.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap add (@NonNull final String sName, final int nValue)
   {
     return add (sName, Integer.toString (nValue));
   }
 
+  /**
+   * Add a long entry.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @param nValue
+   *        The long value.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap add (@NonNull final String sName, final long nValue)
   {
     return add (sName, Long.toString (nValue));
   }
 
+  /**
+   * Add an entry with an empty string value.
+   *
+   * @param sName
+   *        The attribute name. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final StringMap addWithoutValue (@NonNull final String sName)
   {

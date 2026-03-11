@@ -35,41 +35,80 @@ public class IntSet implements IHasSize
 {
   private final IntObjectMap <Boolean> m_aMap;
 
+  /**
+   * Create a new int set with default initial capacity.
+   */
   public IntSet ()
   {
     this (16);
   }
 
+  /**
+   * Create a new int set with the specified initial capacity.
+   *
+   * @param nSize
+   *        The initial capacity.
+   */
   public IntSet (final int nSize)
   {
     this (nSize, 0.75f);
   }
 
+  /**
+   * Create a new int set with the specified initial capacity and fill factor.
+   *
+   * @param nSize
+   *        The initial capacity. Must be &gt; 0.
+   * @param fFillFactor
+   *        The fill factor. Must be between 0 and 1 (inclusive).
+   */
   public IntSet (final int nSize, final float fFillFactor)
   {
     m_aMap = new IntObjectMap <> (nSize, fFillFactor);
   }
 
+  /** {@inheritDoc} */
   public int size ()
   {
     return m_aMap.size ();
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_aMap.isEmpty ();
   }
 
+  /**
+   * Check if the set contains the given key.
+   *
+   * @param key
+   *        The key to check.
+   * @return <code>true</code> if the key is contained, <code>false</code> otherwise.
+   */
   public boolean contains (final int key)
   {
     return m_aMap.get (key) != null;
   }
 
+  /**
+   * Add a key to this set.
+   *
+   * @param key
+   *        The key to add.
+   * @return <code>true</code> if the key was added, <code>false</code> if it was already present.
+   */
   public boolean add (final int key)
   {
     return m_aMap.put (key, Boolean.TRUE) == null;
   }
 
+  /**
+   * Iterate over all keys in this set.
+   *
+   * @param aConsumer
+   *        The consumer to invoke for each key. May not be <code>null</code>.
+   */
   public void forEach (@NonNull final IntConsumer aConsumer)
   {
     m_aMap.forEach ( (k, v) -> aConsumer.accept (k));

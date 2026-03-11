@@ -60,6 +60,14 @@ public final class JsonEscapeHelper
   private JsonEscapeHelper ()
   {}
 
+  /**
+   * Escape a JSON character array and append the result to a {@link StringBuilder}.
+   *
+   * @param aInput
+   *        The character array to escape. May not be <code>null</code>.
+   * @param aSB
+   *        The StringBuilder to append the escaped output to. May not be <code>null</code>.
+   */
   public static void jsonEscapeToStringBuilder (final char @NonNull [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
@@ -75,6 +83,13 @@ public final class JsonEscapeHelper
     }
   }
 
+  /**
+   * Escape a JSON string.
+   *
+   * @param sInput
+   *        The string to escape. May be <code>null</code>.
+   * @return The escaped string, or <code>null</code> if the input was <code>null</code> or empty.
+   */
   @Nullable
   public static String jsonEscape (@Nullable final String sInput)
   {
@@ -84,6 +99,13 @@ public final class JsonEscapeHelper
     return jsonEscape (sInput.toCharArray ());
   }
 
+  /**
+   * Escape a JSON character array.
+   *
+   * @param aInput
+   *        The character array to escape. May be <code>null</code>.
+   * @return The escaped string, or <code>null</code> if the input was <code>null</code>.
+   */
   @Nullable
   public static String jsonEscape (final char @Nullable [] aInput)
   {
@@ -98,6 +120,14 @@ public final class JsonEscapeHelper
     return aSB.toString ();
   }
 
+  /**
+   * Escape a JSON string and append the result to a {@link StringBuilder}.
+   *
+   * @param sInput
+   *        The string to escape. May be <code>null</code> or empty.
+   * @param aSB
+   *        The StringBuilder to append the escaped output to. May not be <code>null</code>.
+   */
   public static void jsonEscape (@Nullable final String sInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aSB, "StringBuilder");
@@ -112,6 +142,17 @@ public final class JsonEscapeHelper
     }
   }
 
+  /**
+   * Escape a JSON character array and write the result to a {@link Writer}.
+   *
+   * @param aInput
+   *        The character array to escape. May not be <code>null</code>.
+   * @param aWriter
+   *        The Writer to write the escaped output to. May not be <code>null</code>. Will not be
+   *        closed.
+   * @throws IOException
+   *         On IO error
+   */
   public static void jsonEscapeToWriter (final char @NonNull [] aInput, @NonNull @WillNotClose final Writer aWriter)
                                                                                                                      throws IOException
   {
@@ -128,6 +169,17 @@ public final class JsonEscapeHelper
     }
   }
 
+  /**
+   * Escape a JSON string and write the result to a {@link Writer}.
+   *
+   * @param sInput
+   *        The string to escape. May be <code>null</code> or empty.
+   * @param aWriter
+   *        The Writer to write the escaped output to. May not be <code>null</code>. Will not be
+   *        closed.
+   * @throws IOException
+   *         On IO error
+   */
   public static void jsonEscapeToWriter (@Nullable final String sInput, @NonNull @WillNotClose final Writer aWriter)
                                                                                                                      throws IOException
   {
@@ -151,6 +203,14 @@ public final class JsonEscapeHelper
     return ret;
   }
 
+  /**
+   * Unescape a JSON character array and append the result to a {@link StringBuilder}.
+   *
+   * @param aInput
+   *        The character array to unescape. May not be <code>null</code>.
+   * @param aSB
+   *        The StringBuilder to append the unescaped output to. May not be <code>null</code>.
+   */
   public static void jsonUnescapeToStringBuilder (final char @NonNull [] aInput, @NonNull final StringBuilder aSB)
   {
     ValueEnforcer.notNull (aInput, "Input");
@@ -219,6 +279,13 @@ public final class JsonEscapeHelper
     }
   }
 
+  /**
+   * Unescape a JSON string.
+   *
+   * @param sInput
+   *        The string to unescape. May not be <code>null</code>.
+   * @return The unescaped string. Never <code>null</code>.
+   */
   @NonNull
   public static String jsonUnescape (@NonNull final String sInput)
   {
@@ -236,6 +303,13 @@ public final class JsonEscapeHelper
     return aSB.toString ();
   }
 
+  /**
+   * Unescape a JSON character array.
+   *
+   * @param aInput
+   *        The character array to unescape. May not be <code>null</code>.
+   * @return The unescaped string. Never <code>null</code>.
+   */
   @NonNull
   public static String jsonUnescape (final char @NonNull [] aInput)
   {

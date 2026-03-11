@@ -38,11 +38,15 @@ import com.helger.collection.commons.CommonsHashMap;
  */
 public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
 {
+  /**
+   * Constructor creating an empty soft hash map.
+   */
   public SoftHashMap ()
   {
     super (new CommonsHashMap <> ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public SoftHashMap <K, V> getClone ()

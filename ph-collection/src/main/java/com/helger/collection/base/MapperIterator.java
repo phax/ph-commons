@@ -93,11 +93,15 @@ public class MapperIterator <SRCTYPE, ELEMENTTYPE> implements IIterableIterator 
     return m_aConverter;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_aBaseIter.hasNext ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

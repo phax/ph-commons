@@ -31,57 +31,69 @@ public class TypeConverterToIJson implements ITypeConverterTo <IJson>
 {
   public static final TypeConverterToIJson INSTANCE = new TypeConverterToIJson ();
 
+  /**
+   * Default constructor.
+   */
   protected TypeConverterToIJson ()
   {}
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final boolean value)
   {
     return JsonValue.create (value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final byte value)
   {
     return convert ((int) value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final char value)
   {
     return JsonValue.create (value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final double value)
   {
     return JsonValue.create (value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final float value)
   {
     return convert ((double) value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final int value)
   {
     return JsonValue.create (value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final long value)
   {
     return JsonValue.create (value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (final short value)
   {
     return convert ((int) value);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IJson convert (@Nullable final Object value)
   {

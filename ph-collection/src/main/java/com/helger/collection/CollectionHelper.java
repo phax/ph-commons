@@ -627,6 +627,16 @@ public class CollectionHelper
     return aDefault;
   }
 
+  /**
+   * Create an unmodifiable list from the passed array.
+   *
+   * @param <ELEMENTTYPE>
+   *        Array element type
+   * @param aArray
+   *        The array to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed array is <code>null</code>, an unmodifiable list
+   *         otherwise.
+   */
   @SafeVarargs
   @Nullable
   @ReturnsImmutableObject
@@ -636,6 +646,16 @@ public class CollectionHelper
     return aArray == null ? null : Collections.unmodifiableList (Arrays.asList (aArray));
   }
 
+  /**
+   * Create an unmodifiable collection from the passed collection.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed collection is <code>null</code>, an unmodifiable
+   *         collection otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -644,6 +664,16 @@ public class CollectionHelper
     return aCollection == null ? null : Collections.unmodifiableCollection (aCollection);
   }
 
+  /**
+   * Create an unmodifiable list from the passed list.
+   *
+   * @param <ELEMENTTYPE>
+   *        List element type
+   * @param aList
+   *        The list to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed list is <code>null</code>, an unmodifiable list
+   *         otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -652,6 +682,16 @@ public class CollectionHelper
     return aList == null ? null : Collections.unmodifiableList (aList);
   }
 
+  /**
+   * Create an unmodifiable set from the passed set.
+   *
+   * @param <ELEMENTTYPE>
+   *        Set element type
+   * @param aSet
+   *        The set to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed set is <code>null</code>, an unmodifiable set
+   *         otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -660,6 +700,18 @@ public class CollectionHelper
     return aSet == null ? null : Collections.unmodifiableSet (aSet);
   }
 
+  /**
+   * Create an unmodifiable map from the passed map.
+   *
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   * @param aMap
+   *        The map to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed map is <code>null</code>, an unmodifiable map
+   *         otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -688,6 +740,16 @@ public class CollectionHelper
   // (aSortedMap);
   // }
 
+  /**
+   * Create an unmodifiable navigable set from the passed navigable set.
+   *
+   * @param <ELEMENTTYPE>
+   *        Set element type
+   * @param aNavigableSet
+   *        The navigable set to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed navigable set is <code>null</code>, an unmodifiable
+   *         navigable set otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -696,6 +758,18 @@ public class CollectionHelper
     return aNavigableSet == null ? null : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
+  /**
+   * Create an unmodifiable navigable map from the passed navigable map.
+   *
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   * @param aNavigableMap
+   *        The navigable map to wrap. May be <code>null</code>.
+   * @return <code>null</code> if the passed navigable map is <code>null</code>, an unmodifiable
+   *         navigable map otherwise.
+   */
   @Nullable
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -704,6 +778,17 @@ public class CollectionHelper
     return aNavigableMap == null ? null : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
+  /**
+   * Create an unmodifiable collection from the passed collection, returning an empty collection if
+   * the input is <code>null</code>.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection to wrap. May be <code>null</code>.
+   * @return An empty collection if the input is <code>null</code>, an unmodifiable collection
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -712,6 +797,17 @@ public class CollectionHelper
     return aCollection == null ? Collections.emptyList () : Collections.unmodifiableCollection (aCollection);
   }
 
+  /**
+   * Create an unmodifiable list from the passed list, returning an empty list if the input is
+   * <code>null</code>.
+   *
+   * @param <ELEMENTTYPE>
+   *        List element type
+   * @param aList
+   *        The list to wrap. May be <code>null</code>.
+   * @return An empty list if the input is <code>null</code>, an unmodifiable list otherwise. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -720,6 +816,17 @@ public class CollectionHelper
     return aList == null ? Collections.emptyList () : Collections.unmodifiableList (aList);
   }
 
+  /**
+   * Create an unmodifiable set from the passed set, returning an empty set if the input is
+   * <code>null</code>.
+   *
+   * @param <ELEMENTTYPE>
+   *        Set element type
+   * @param aSet
+   *        The set to wrap. May be <code>null</code>.
+   * @return An empty set if the input is <code>null</code>, an unmodifiable set otherwise. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -728,6 +835,19 @@ public class CollectionHelper
     return aSet == null ? Collections.emptySet () : Collections.unmodifiableSet (aSet);
   }
 
+  /**
+   * Create an unmodifiable map from the passed map, returning an empty map if the input is
+   * <code>null</code>.
+   *
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   * @param aMap
+   *        The map to wrap. May be <code>null</code>.
+   * @return An empty map if the input is <code>null</code>, an unmodifiable map otherwise. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -756,6 +876,17 @@ public class CollectionHelper
   // Collections.unmodifiableSortedMap (aSortedMap);
   // }
 
+  /**
+   * Create an unmodifiable navigable set from the passed navigable set, returning an empty
+   * navigable set if the input is <code>null</code>.
+   *
+   * @param <ELEMENTTYPE>
+   *        Set element type
+   * @param aNavigableSet
+   *        The navigable set to wrap. May be <code>null</code>.
+   * @return An empty navigable set if the input is <code>null</code>, an unmodifiable navigable set
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -765,6 +896,19 @@ public class CollectionHelper
                                                                                                             aNavigableSet);
   }
 
+  /**
+   * Create an unmodifiable navigable map from the passed navigable map, returning an empty
+   * navigable map if the input is <code>null</code>.
+   *
+   * @param <KEYTYPE>
+   *        Map key type
+   * @param <VALUETYPE>
+   *        Map value type
+   * @param aNavigableMap
+   *        The navigable map to wrap. May be <code>null</code>.
+   * @return An empty navigable map if the input is <code>null</code>, an unmodifiable navigable map
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsImmutableObject
   @CodingStyleguideUnaware
@@ -891,6 +1035,16 @@ public class CollectionHelper
     return ret;
   }
 
+  /**
+   * Get a new list with the elements of the passed collection in reverse order.
+   *
+   * @param <ELEMENTTYPE>
+   *        Collection element type
+   * @param aCollection
+   *        The collection to reverse. May be <code>null</code>.
+   * @return An empty list if the collection is <code>null</code> or empty, a new list with the
+   *         reversed elements otherwise.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
@@ -903,6 +1057,18 @@ public class CollectionHelper
     return ret;
   }
 
+  /**
+   * Reverse the order of elements in the passed list in-place.
+   *
+   * @param <ELEMENTTYPE>
+   *        List element type
+   * @param <LISTTYPE>
+   *        List type
+   * @param aList
+   *        The list to reverse in-place. May be <code>null</code>.
+   * @return <code>null</code> if the input list is <code>null</code>, the same list with reversed
+   *         elements otherwise.
+   */
   @Nullable
   @ReturnsMutableObject ("semantics of this method")
   @CodingStyleguideUnaware

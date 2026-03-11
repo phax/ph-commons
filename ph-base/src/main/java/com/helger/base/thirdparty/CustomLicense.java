@@ -63,6 +63,9 @@ public class CustomLicense implements ILicense
     m_sWebSiteURL = sURL;
   }
 
+  /**
+   * @return The unique ID of this license. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getID ()
@@ -70,6 +73,9 @@ public class CustomLicense implements ILicense
     return m_sID;
   }
 
+  /**
+   * @return The display name of this license. Neither <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getDisplayName ()
@@ -77,12 +83,18 @@ public class CustomLicense implements ILicense
     return m_sName;
   }
 
+  /**
+   * @return The version of this license. May be <code>null</code>.
+   */
   @Nullable
   public Version getVersion ()
   {
     return m_aVersion;
   }
 
+  /**
+   * @return The URL of this license. May be <code>null</code>.
+   */
   @Nullable
   public String getURL ()
   {

@@ -40,6 +40,7 @@ public final class ThirdPartyModuleProvider_ph_base implements IThirdPartyModule
                                                                        new Version (2, 3, 7),
                                                                        "http://iharder.net/base64");
 
+  /** {@inheritDoc} */
   @Nullable
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {

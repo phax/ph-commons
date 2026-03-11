@@ -85,24 +85,63 @@ public class IteratorHelper
     return CollectionHelper.getSizeIterator (aIterator);
   }
 
+  /**
+   * Get a non-<code>null</code> iterator from the passed iterable.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aCont
+   *        The iterable to get the iterator from. May be <code>null</code>.
+   * @return An empty iterator if the iterable is <code>null</code>, the iterable's iterator
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterable <ELEMENTTYPE> aCont)
   {
     return aCont == null ? new EmptyIterator <> () : getIterator (aCont.iterator ());
   }
 
+  /**
+   * Get a non-<code>null</code> iterator.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aIter
+   *        The iterator. May be <code>null</code>.
+   * @return An empty iterator if the input is <code>null</code>, the input iterator otherwise.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final Iterator <ELEMENTTYPE> aIter)
   {
     return aIter == null ? new EmptyIterator <> () : aIter;
   }
 
+  /**
+   * Get an iterable iterator wrapping the passed enumeration.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aEnum
+   *        The enumeration to wrap. May be <code>null</code>.
+   * @return An iterable iterator. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> IIterableIterator <ELEMENTTYPE> getIterator (@Nullable final Enumeration <? extends ELEMENTTYPE> aEnum)
   {
     return new CommonsIterableEnumeration <> (aEnum);
   }
 
+  /**
+   * Get an iterator for the passed array.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aArray
+   *        The array to iterate. May be <code>null</code>.
+   * @return An empty iterator if the array is <code>null</code> or empty, an array iterator
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   @SafeVarargs
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getIterator (@Nullable final ELEMENTTYPE... aArray)
@@ -110,6 +149,16 @@ public class IteratorHelper
     return ArrayHelper.isEmpty (aArray) ? new EmptyIterator <> () : new ArrayIterator <> (aArray);
   }
 
+  /**
+   * Get an iterator that iterates the passed list in reverse order.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @param aCont
+   *        The list to iterate in reverse. May be <code>null</code>.
+   * @return An empty iterator if the list is <code>null</code> or empty, a reverse iterator
+   *         otherwise. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> Iterator <ELEMENTTYPE> getReverseIterator (@Nullable final List <? extends ELEMENTTYPE> aCont)
   {

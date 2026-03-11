@@ -48,12 +48,31 @@ public class MessageDigestValue implements IHasByteArray
   private final EMessageDigestAlgorithm m_eAlgorithm;
   private final ByteArrayWrapper m_aBytes;
 
+  /**
+   * Constructor that copies the digest bytes by default.
+   *
+   * @param eAlgorithm
+   *        The message digest algorithm used. May not be <code>null</code>.
+   * @param aDigestBytes
+   *        The digest bytes. May not be <code>null</code> nor empty.
+   */
   public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
                              final byte @NonNull @Nonempty [] aDigestBytes)
   {
     this (eAlgorithm, aDigestBytes, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor with explicit copy control.
+   *
+   * @param eAlgorithm
+   *        The message digest algorithm used. May not be <code>null</code>.
+   * @param aDigestBytes
+   *        The digest bytes. May not be <code>null</code> nor empty.
+   * @param bIsCopyNeeded
+   *        <code>true</code> if the byte array should be copied internally, <code>false</code> to
+   *        use the reference directly.
+   */
   public MessageDigestValue (@NonNull final EMessageDigestAlgorithm eAlgorithm,
                              final byte @NonNull @Nonempty [] aDigestBytes,
                              final boolean bIsCopyNeeded)

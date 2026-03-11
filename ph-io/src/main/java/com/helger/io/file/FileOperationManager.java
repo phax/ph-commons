@@ -47,6 +47,9 @@ public class FileOperationManager implements IFileOperationManager
   private FileIOError m_aLastError;
   private final CallbackList <IFileOperationCallback> m_aCallbacks = new CallbackList <> ();
 
+  /**
+   * Default constructor without any registered callbacks.
+   */
   public FileOperationManager ()
   {}
 

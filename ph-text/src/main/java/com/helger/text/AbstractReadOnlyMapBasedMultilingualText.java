@@ -164,6 +164,9 @@ public abstract class AbstractReadOnlyMapBasedMultilingualText extends AbstractH
     return false;
   }
 
+  /**
+   * @return The internal mutable map of locale to text. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public final ICommonsOrderedMap <Locale, String> texts ()

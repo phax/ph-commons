@@ -40,6 +40,7 @@ public final class ThirdPartyModuleProvider_ph_bc implements IThirdPartyModulePr
                                                                               new Version (1, 83, 0),
                                                                               "https://www.bouncycastle.org/");
 
+  /** {@inheritDoc} */
   @NonNull
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {

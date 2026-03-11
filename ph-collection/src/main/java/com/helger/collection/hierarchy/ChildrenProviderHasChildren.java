@@ -39,12 +39,14 @@ public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDT
     return aCurrent != null && aCurrent.hasChildren ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int getChildCount (@Nullable final CHILDTYPE aCurrent)
   {
     return aCurrent == null ? 0 : aCurrent.getChildCount ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ICommonsCollection <? extends CHILDTYPE> getAllChildren (@Nullable final CHILDTYPE aCurrent)
   {

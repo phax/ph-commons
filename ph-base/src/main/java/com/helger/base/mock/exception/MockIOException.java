@@ -25,19 +25,42 @@ import java.io.IOException;
  */
 public class MockIOException extends IOException implements IMockException
 {
+  /**
+   * Default constructor.
+   */
   public MockIOException ()
   {}
 
+  /**
+   * Constructor with a message.
+   *
+   * @param s
+   *        The detail message. May be <code>null</code>.
+   */
   public MockIOException (final String s)
   {
     super (s);
   }
 
+  /**
+   * Constructor with a cause.
+   *
+   * @param t
+   *        The cause. May be <code>null</code>.
+   */
   public MockIOException (final Throwable t)
   {
     super (t);
   }
 
+  /**
+   * Constructor with a message and a cause.
+   *
+   * @param s
+   *        The detail message. May be <code>null</code>.
+   * @param t
+   *        The cause. May be <code>null</code>.
+   */
   public MockIOException (final String s, final Throwable t)
   {
     super (s, t);

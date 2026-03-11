@@ -77,16 +77,33 @@ public class IntFloatMap implements IHasSize
   /** Mask to calculate the original position */
   private int m_nMask;
 
+  /**
+   * Constructor with default initial capacity and fill factor.
+   */
   public IntFloatMap ()
   {
     this (16);
   }
 
+  /**
+   * Constructor with a custom initial capacity.
+   *
+   * @param nSize
+   *        The initial capacity. Must be &gt; 0.
+   */
   public IntFloatMap (final int nSize)
   {
     this (nSize, 0.75f);
   }
 
+  /**
+   * Constructor with a custom initial capacity and fill factor.
+   *
+   * @param nSize
+   *        The initial capacity. Must be &gt; 0.
+   * @param fFillFactor
+   *        The fill factor. Must be between 0 and 1 (inclusive).
+   */
   public IntFloatMap (final int nSize, final float fFillFactor)
   {
     ValueEnforcer.isBetweenInclusive (fFillFactor, "FillFactor", 0f, 1f);
@@ -108,11 +125,27 @@ public class IntFloatMap implements IHasSize
     return ret;
   }
 
+  /**
+   * Get the value associated with the given key.
+   *
+   * @param key
+   *        The key to look for.
+   * @return The associated value or {@link #NO_VALUE} if not found.
+   */
   public float get (final int key)
   {
     return get (key, NO_VALUE);
   }
 
+  /**
+   * Get the value associated with the given key or a default value.
+   *
+   * @param key
+   *        The key to look for.
+   * @param fDefault
+   *        The default value to return if the key is not found.
+   * @return The associated value or the default value if not found.
+   */
   public float get (final int key, final float fDefault)
   {
     if (key == FREE_KEY)
@@ -122,6 +155,15 @@ public class IntFloatMap implements IHasSize
     return idx != -1 ? m_aValues[idx] : fDefault;
   }
 
+  /**
+   * Get the value for the given key, computing it if absent.
+   *
+   * @param key
+   *        The key to look for.
+   * @param aProvider
+   *        The function to compute the value if absent. May not be <code>null</code>.
+   * @return The existing or computed value.
+   */
   public float computeIfAbsent (final int key, @NonNull final IKeyToValueFunction aProvider)
   {
     float ret = get (key);
@@ -134,6 +176,15 @@ public class IntFloatMap implements IHasSize
     return ret;
   }
 
+  /**
+   * Put a key-value pair into the map.
+   *
+   * @param key
+   *        The key.
+   * @param value
+   *        The value.
+   * @return The previous value associated with the key, or {@link #NO_VALUE} if there was none.
+   */
   public float put (final int key, final float value)
   {
     if (key == FREE_KEY)
@@ -174,6 +225,13 @@ public class IntFloatMap implements IHasSize
     return prev;
   }
 
+  /**
+   * Remove the entry with the given key.
+   *
+   * @param key
+   *        The key to remove.
+   * @return The previous value associated with the key, or {@link #NO_VALUE} if not found.
+   */
   public float remove (final int key)
   {
     if (key == FREE_KEY)
@@ -198,12 +256,14 @@ public class IntFloatMap implements IHasSize
     return res;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_nSize;
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_nSize == 0;
@@ -337,6 +397,12 @@ public class IntFloatMap implements IHasSize
     void accept (int nKey, float fValue);
   }
 
+  /**
+   * Iterate over all key-value pairs in this map.
+   *
+   * @param aConsumer
+   *        The consumer to invoke for each entry. May not be <code>null</code>.
+   */
   public void forEach (@NonNull final IConsumer aConsumer)
   {
     if (m_bHasFreeKey)

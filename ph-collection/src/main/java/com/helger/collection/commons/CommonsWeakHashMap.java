@@ -41,19 +41,42 @@ import com.helger.collection.CollectionHelper;
 public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYPE, VALUETYPE> implements
                                 ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  /**
+   * Create a new empty weak hash map.
+   */
   public CommonsWeakHashMap ()
   {}
 
+  /**
+   * Create a new weak hash map with the specified initial capacity.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity.
+   */
   public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity)
   {
     super (nInitialCapacity);
   }
 
+  /**
+   * Create a new weak hash map with the specified initial capacity and load factor.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity.
+   * @param fLoadFactor
+   *        The load factor.
+   */
   public CommonsWeakHashMap (@Nonnegative final int nInitialCapacity, @Nonnegative final float fLoadFactor)
   {
     super (nInitialCapacity, fLoadFactor);
   }
 
+  /**
+   * Create a new weak hash map with the entries of the provided map.
+   *
+   * @param aMap
+   *        The map to copy entries from. May be <code>null</code>.
+   */
   public CommonsWeakHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (CollectionHelper.getSize (aMap));
@@ -61,6 +84,18 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
       putAll (aMap);
   }
 
+  /**
+   * Create a new weak hash map with mapped entries from the provided array.
+   *
+   * @param aValues
+   *        The array to extract entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The function to derive the map key. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The function to derive the map value. May not be <code>null</code>.
+   * @param <COLLTYPE>
+   *        Array element type
+   */
   public <COLLTYPE> CommonsWeakHashMap (@Nullable final COLLTYPE [] aValues,
                                         @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                         @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
@@ -69,6 +104,18 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * Create a new weak hash map with mapped entries from the provided collection.
+   *
+   * @param aValues
+   *        The collection to extract entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The function to derive the map key. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The function to derive the map value. May not be <code>null</code>.
+   * @param <COLLTYPE>
+   *        Collection element type
+   */
   public <COLLTYPE> CommonsWeakHashMap (@Nullable final Collection <? extends COLLTYPE> aValues,
                                         @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                         @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
@@ -77,6 +124,20 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
+  /**
+   * Create a new weak hash map with mapped entries from the provided map.
+   *
+   * @param aValues
+   *        The map to extract and transform entries from. May be <code>null</code>.
+   * @param aKeyMapper
+   *        The function to transform the source key. May not be <code>null</code>.
+   * @param aValueMapper
+   *        The function to transform the source value. May not be <code>null</code>.
+   * @param <SRCKEYTYPE>
+   *        Source key type
+   * @param <SRCVALUETYPE>
+   *        Source value type
+   */
   public <SRCKEYTYPE, SRCVALUETYPE> CommonsWeakHashMap (@Nullable final Map <? extends SRCKEYTYPE, ? extends SRCVALUETYPE> aValues,
                                                         @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
                                                         @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
@@ -93,6 +154,9 @@ public class CommonsWeakHashMap <KEYTYPE, VALUETYPE> extends WeakHashMap <KEYTYP
     return new CommonsWeakHashMap <> ();
   }
 
+  /**
+   * @return A mutable copy of this map. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsWeakHashMap <KEYTYPE, VALUETYPE> getClone ()

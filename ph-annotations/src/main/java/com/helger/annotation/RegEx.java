@@ -43,6 +43,16 @@ public @interface RegEx
 
   static class Checker implements TypeQualifierValidator <RegEx>
   {
+    /**
+     * Validate whether the provided constant value is a valid regular expression.
+     *
+     * @param annotation
+     *        The {@link RegEx} annotation instance. Must not be <code>null</code>.
+     * @param value
+     *        The constant value to validate.
+     * @return {@link When#ALWAYS} if the value is a valid regular expression, {@link When#NEVER}
+     *         otherwise.
+     */
     public When forConstantValue (final RegEx annotation, final Object value)
     {
       if (!(value instanceof String))

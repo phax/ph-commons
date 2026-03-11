@@ -102,6 +102,14 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return null;
     }
 
+    /**
+     * Add a prefix to namespace URI mapping at this level.
+     *
+     * @param sPrefix
+     *        The prefix to use. May be <code>null</code> or empty for the default namespace.
+     * @param sNamespaceURI
+     *        The namespace URI to map. May not be <code>null</code>.
+     */
     public void addPrefixNamespaceMapping (@Nullable final String sPrefix, @NonNull final String sNamespaceURI)
     {
       if (LOGGER.isTraceEnabled ())
@@ -135,12 +143,22 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       }
     }
 
+    /**
+     * @return The default namespace URI of this level. May be <code>null</code>.
+     */
     @Nullable
     public String getDefaultNamespaceURI ()
     {
       return m_sDefaultNamespaceURI;
     }
 
+    /**
+     * Get the prefix mapped to the specified namespace URI at this level.
+     *
+     * @param sNamespaceURI
+     *        The namespace URI to look up. May not be <code>null</code>.
+     * @return <code>null</code> if the namespace URI is the default or if no prefix is mapped.
+     */
     @Nullable
     public String getPrefixOfNamespaceURI (@NonNull final String sNamespaceURI)
     {
@@ -152,12 +170,18 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return m_aURL2PrefixMap == null ? null : m_aURL2PrefixMap.get (sNamespaceURI);
     }
 
+    /**
+     * @return The total number of namespace mappings at this level. Always &ge; 0.
+     */
     @Nonnegative
     public int getNamespaceCount ()
     {
       return (m_sDefaultNamespaceURI == null ? 0 : 1) + (m_aURL2PrefixMap == null ? 0 : m_aURL2PrefixMap.size ());
     }
 
+    /**
+     * @return <code>true</code> if at least one namespace mapping exists at this level.
+     */
     public boolean hasAnyNamespace ()
     {
       return m_sDefaultNamespaceURI != null || (m_aURL2PrefixMap != null && !m_aURL2PrefixMap.isEmpty ());
@@ -183,6 +207,12 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     private final ICommonsList <NamespaceLevel> m_aStack = new CommonsArrayList <> ();
     private final NamespaceContext m_aNamespaceCtx;
 
+    /**
+     * Constructor.
+     *
+     * @param aNamespaceCtx
+     *        The namespace context to use. May not be <code>null</code>.
+     */
     public NamespaceStack (@NonNull final NamespaceContext aNamespaceCtx)
     {
       m_aNamespaceCtx = aNamespaceCtx;
@@ -221,6 +251,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       m_aStack.removeFirstOrNull ();
     }
 
+    /**
+     * @return The current number of namespace levels on the stack. Always &ge; 0.
+     */
     @Nonnegative
     public int size ()
     {
@@ -337,6 +370,18 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       } while (true);
     }
 
+    /**
+     * Determine the namespace prefix to use for the specified element namespace URI.
+     *
+     * @param sNamespaceURI
+     *        The namespace URI of the element. May not be <code>null</code>.
+     * @param bIsRootElement
+     *        <code>true</code> if this is the root element of the document.
+     * @param aAttrMap
+     *        The attribute map that receives potential xmlns attributes. May not be
+     *        <code>null</code>.
+     * @return <code>null</code> if no namespace prefix is required.
+     */
     @Nullable
     public String getElementNamespacePrefixToUse (@NonNull final String sNamespaceURI,
                                                   final boolean bIsRootElement,
@@ -369,6 +414,20 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       return sNSPrefix;
     }
 
+    /**
+     * Determine the namespace prefix to use for the specified attribute namespace URI.
+     *
+     * @param sNamespaceURI
+     *        The namespace URI of the attribute. May not be <code>null</code>.
+     * @param sName
+     *        The local name of the attribute. May not be <code>null</code>.
+     * @param sValue
+     *        The value of the attribute. May not be <code>null</code>.
+     * @param aAttrMap
+     *        The attribute map that receives potential xmlns attributes. May not be
+     *        <code>null</code>.
+     * @return <code>null</code> if no namespace prefix is required.
+     */
     @Nullable
     public String getAttributeNamespacePrefixToUse (@NonNull final String sNamespaceURI,
                                                     @NonNull final String sName,

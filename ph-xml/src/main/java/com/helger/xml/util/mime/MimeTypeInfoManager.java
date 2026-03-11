@@ -86,6 +86,9 @@ public class MimeTypeInfoManager
   public MimeTypeInfoManager ()
   {}
 
+  /**
+   * @return <code>true</code> if the default instance has been instantiated.
+   */
   public static boolean isDefaultInstantiated ()
   {
     return s_bDefaultInstantiated;
@@ -161,12 +164,18 @@ public class MimeTypeInfoManager
     });
   }
 
+  /**
+   * Clear all registered MIME types and re-read the default resource.
+   */
   public void reinitializeToDefault ()
   {
     clearCache ();
     readDefault ();
   }
 
+  /**
+   * @return All registered MIME type information as a micro XML document. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public IMicroDocument getAsDocument ()
@@ -182,6 +191,15 @@ public class MimeTypeInfoManager
     return aDoc;
   }
 
+  /**
+   * Register a new MIME type info. The MIME type must be unique - no duplicate MIME types are
+   * allowed.
+   *
+   * @param aInfo
+   *        The MIME type info to register. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If a MIME type is already registered.
+   */
   public void registerMimeType (@NonNull final MimeTypeInfo aInfo)
   {
     ValueEnforcer.notNull (aInfo, "Info");
@@ -214,6 +232,14 @@ public class MimeTypeInfoManager
     });
   }
 
+  /**
+   * Add an extension to an existing MIME type info.
+   *
+   * @param aInfo
+   *        The MIME type info to add the extension to. May not be <code>null</code>.
+   * @param aExt
+   *        The extension to add. May not be <code>null</code>.
+   */
   @VisibleForTesting
   public final void addExtension (@NonNull final MimeTypeInfo aInfo, @NonNull final ExtensionWithSource aExt)
   {
@@ -226,6 +252,14 @@ public class MimeTypeInfoManager
     });
   }
 
+  /**
+   * Add an additional MIME type to an existing MIME type info.
+   *
+   * @param aInfo
+   *        The MIME type info to add the MIME type to. May not be <code>null</code>.
+   * @param aMimeType
+   *        The MIME type to add. May not be <code>null</code>.
+   */
   @VisibleForTesting
   public final void addMimeType (@NonNull final MimeTypeInfo aInfo, @NonNull final MimeTypeWithSource aMimeType)
   {
@@ -238,6 +272,14 @@ public class MimeTypeInfoManager
     });
   }
 
+  /**
+   * Get all MIME type infos associated with the extension of the specified file.
+   *
+   * @param aFile
+   *        The file to get the infos for. May be <code>null</code>.
+   * @return <code>null</code> if the passed file is <code>null</code> or if no matching extension
+   *         is registered.
+   */
   @Nullable
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final File aFile)
@@ -249,6 +291,14 @@ public class MimeTypeInfoManager
     return getAllInfosOfExtension (sExtension);
   }
 
+  /**
+   * Get all MIME type infos associated with the extension of the specified filename.
+   *
+   * @param sFilename
+   *        The filename to get the infos for. May be <code>null</code> or empty.
+   * @return <code>null</code> if the passed filename is <code>null</code> or empty, or if no
+   *         matching extension is registered.
+   */
   @Nullable
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeInfo> getAllInfosOfFilename (@Nullable final String sFilename)

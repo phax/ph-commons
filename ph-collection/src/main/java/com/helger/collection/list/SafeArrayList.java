@@ -92,6 +92,16 @@ public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
     return super.get (nIndex);
   }
 
+  /**
+   * Get the element at the specified index. If the element is <code>null</code>, compute it using
+   * the provided factory and store the result.
+   *
+   * @param nIndex
+   *        The index to access. Should be &ge; 0.
+   * @param aFactory
+   *        The factory to compute the value if absent. May not be <code>null</code>.
+   * @return The existing or newly computed element. May be <code>null</code>.
+   */
   @Nullable
   public ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
   {

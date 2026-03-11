@@ -41,6 +41,18 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
   // Lazily initialized
   private LoadedKeyStore m_aLTS;
 
+  /**
+   * Constructor.
+   *
+   * @param aType
+   *        The trust store type. May not be <code>null</code>.
+   * @param sPath
+   *        The path to the trust store. May neither be <code>null</code> nor empty.
+   * @param aPassword
+   *        The password to access the trust store. May not be <code>null</code>.
+   * @param aProvider
+   *        The security provider to use. May be <code>null</code>.
+   */
   public TrustStoreDescriptor (@NonNull final IKeyStoreType aType,
                                @NonNull @Nonempty final String sPath,
                                final char @NonNull [] aPassword,

@@ -107,17 +107,26 @@ public class HasInputStream implements IHasInputStream
   {
     private final NonBlockingByteArrayOutputStream m_aBAOS;
 
+    /**
+     * Constructor.
+     *
+     * @param aBAOS
+     *        The {@link NonBlockingByteArrayOutputStream} to wrap. May not be
+     *        <code>null</code>.
+     */
     public HISNBBAOS (@NonNull final NonBlockingByteArrayOutputStream aBAOS)
     {
       m_aBAOS = aBAOS;
     }
 
+    /** {@inheritDoc} */
     @NonNull
     public InputStream getInputStream ()
     {
       return m_aBAOS.getAsInputStream ();
     }
 
+    /** {@inheritDoc} */
     public boolean isReadMultiple ()
     {
       return true;
@@ -146,17 +155,25 @@ public class HasInputStream implements IHasInputStream
   {
     private final byte [] m_aBytes;
 
+    /**
+     * Constructor.
+     *
+     * @param aBytes
+     *        The byte array to wrap. May not be <code>null</code>.
+     */
     public HISByteArray (final byte @NonNull [] aBytes)
     {
       m_aBytes = aBytes;
     }
 
+    /** {@inheritDoc} */
     @NonNull
     public InputStream getInputStream ()
     {
       return new NonBlockingByteArrayInputStream (m_aBytes);
     }
 
+    /** {@inheritDoc} */
     public boolean isReadMultiple ()
     {
       return true;

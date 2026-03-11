@@ -105,6 +105,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return addNode (aNode).isChanged () ? aNode : null;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange addNode (@NonNull final IMutableGraphNode aNode)
   {
@@ -122,6 +123,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeNode (@NonNull final IMutableGraphNode aNode)
   {
@@ -137,6 +139,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeNodeAndAllRelations (@NonNull final IMutableGraphNode aNode)
   {
@@ -167,6 +170,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return aRelation;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom,
                                                @NonNull final IMutableGraphNode aTo)
@@ -174,6 +178,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return _connect (m_aFactory.createRelation (aFrom, aTo));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMutableGraphRelation createRelation (@Nullable final String sID,
                                                @NonNull final IMutableGraphNode aFrom,
@@ -182,6 +187,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return _connect (m_aFactory.createRelation (sID, aFrom, aTo));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeRelation (@Nullable final IMutableGraphRelation aRelation)
   {
@@ -196,6 +202,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, IMutableGraphRelation> getAllRelations ()
@@ -206,6 +213,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IMutableGraphRelation> getAllRelationObjs ()
@@ -216,6 +224,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
+  /** {@inheritDoc} */
   public void forEachRelation (@NonNull final Consumer <? super IMutableGraphRelation> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
@@ -223,6 +232,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
       aNode.forEachRelation (aConsumer);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedSet <String> getAllRelationIDs ()
@@ -233,6 +243,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return ret;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAll ()
   {
@@ -243,6 +254,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean containsCycles ()
   {
     // Use cached result?
@@ -274,6 +286,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return m_eCacheHasCycles.getAsBooleanValue (true);
   }
 
+  /** {@inheritDoc} */
   public boolean isSelfContained ()
   {
     for (final IMutableGraphNode aNode : m_aNodes.values ())
@@ -284,6 +297,7 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
     return true;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Matrix createIncidenceMatrix ()
   {

@@ -832,11 +832,20 @@ public class HttpHeaderMap implements
     _setHeader (CHttpHeader.CONTENT_LENGTH, Long.toString (nLength));
   }
 
+  /**
+   * Set the "Content-Type" HTTP header.
+   *
+   * @param sContentType
+   *        The content type to set. May not be <code>null</code>.
+   */
   public void setContentType (@NonNull final String sContentType)
   {
     _setHeader (CHttpHeader.CONTENT_TYPE, sContentType);
   }
 
+  /**
+   * @return A deep copy of this header map. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public HttpHeaderMap getClone ()

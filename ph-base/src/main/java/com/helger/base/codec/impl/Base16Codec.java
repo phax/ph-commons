@@ -52,6 +52,14 @@ public class Base16Codec implements IByteArrayCodec
     return nDecodedLen * 2;
   }
 
+  /**
+   * Encode data from the input stream and write the Base16 encoded result to the output stream.
+   *
+   * @param aDecodedIS
+   *        The decoded input stream to read from. May not be <code>null</code>.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (@NonNull @WillNotClose final InputStream aDecodedIS,
                       @NonNull @WillNotClose final OutputStream aOS)
   {
@@ -73,6 +81,18 @@ public class Base16Codec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Encode the passed decoded buffer to Base16 and write it to the output stream.
+   *
+   * @param aDecodedBuffer
+   *        The buffer to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start encoding from.
+   * @param nLen
+   *        The number of bytes to encode.
+   * @param aOS
+   *        The output stream to write the encoded data to. May not be <code>null</code>.
+   */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -97,6 +117,15 @@ public class Base16Codec implements IByteArrayCodec
     return nEncodedLen / 2;
   }
 
+  /**
+   * Decode data from the Base16 encoded input stream and write the decoded result to the output
+   * stream.
+   *
+   * @param aEncodedIS
+   *        The Base16 encoded input stream to read from. May not be <code>null</code>.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (@NonNull @WillNotClose final InputStream aEncodedIS,
                       @NonNull @WillNotClose final OutputStream aOS)
   {
@@ -143,6 +172,18 @@ public class Base16Codec implements IByteArrayCodec
     }
   }
 
+  /**
+   * Decode the passed Base16 encoded buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The Base16 encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

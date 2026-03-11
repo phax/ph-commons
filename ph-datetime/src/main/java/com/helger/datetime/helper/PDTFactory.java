@@ -264,42 +264,95 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentZonedDateTimeUTC ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : a.toZonedDateTime ();
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalDateTime} using the default time
+   * zone.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : ZonedDateTime.of (a, _getZoneId ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalDateTime} using UTC.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final LocalDateTime a)
   {
     return a == null ? null : ZonedDateTime.of (a, ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalDate} using the default time zone.
+   * The time is set to midnight.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final LocalDate a)
   {
     return a == null ? null : ZonedDateTime.of (a.atStartOfDay (), _getZoneId ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalDate} using UTC. The time is set to
+   * midnight.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final LocalDate a)
   {
     return a == null ? null : ZonedDateTime.of (a.atStartOfDay (), ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link OffsetDate}. The time is set to midnight.
+   *
+   * @param aOD
+   *        The offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final OffsetDate aOD)
   {
     return aOD == null ? null : ZonedDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link XMLOffsetDate}. The time is set to
+   * midnight.
+   *
+   * @param aOD
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final XMLOffsetDate aOD)
   {
@@ -307,66 +360,162 @@ public final class PDTFactory
                                                   aOD.hasOffset () ? aOD.getOffset () : _getZoneId ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link YearMonth} using the default time zone.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final YearMonth a)
   {
     return createZonedDateTime (createLocalDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link YearMonth} using UTC.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final YearMonth a)
   {
     return createZonedDateTimeUTC (createLocalDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Year} using the default time zone.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final Year a)
   {
     return createZonedDateTime (createLocalDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Year} using UTC.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final Year a)
   {
     return createZonedDateTimeUTC (createLocalDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalTime} using the default time zone.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final LocalTime a)
   {
     return a == null ? null : ZonedDateTime.of (_toLocalDateTime (a), _getZoneId ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link LocalTime} using UTC.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final LocalTime a)
   {
     return a == null ? null : ZonedDateTime.of (_toLocalDateTime (a), ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link OffsetTime}.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final OffsetTime a)
   {
     return createZonedDateTime (createOffsetDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link XMLOffsetTime}.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final XMLOffsetTime a)
   {
     return createZonedDateTime (createOffsetDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from year, month and day using the default time zone.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTime (final int nYear, final Month eMonth, final int nDay)
   {
     return createZonedDateTime (createLocalDateTime (nYear, eMonth, nDay));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from year, month and day using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTimeUTC (final int nYear, final Month eMonth, final int nDay)
   {
     return createZonedDateTimeUTC (createLocalDateTime (nYear, eMonth, nDay));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from year, month, day, hour, minute and second using the default
+   * time zone.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTime (final int nYear,
                                                    @NonNull final Month eMonth,
@@ -378,6 +527,23 @@ public final class PDTFactory
     return createZonedDateTime (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from year, month, day, hour, minute and second using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTimeUTC (final int nYear,
                                                       @NonNull final Month eMonth,
@@ -395,54 +561,120 @@ public final class PDTFactory
     return ZonedDateTime.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final Instant a)
   {
     return a == null ? null : _toZonedDateTime (a);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Instant} using UTC.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final Instant a)
   {
     return a == null ? null : ZonedDateTime.ofInstant (a, ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param aCal
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final GregorianCalendar aCal)
   {
     return aCal == null ? null : aCal.toZonedDateTime ();
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final Date a)
   {
     return a == null ? null : _toOffsetDateTime (a).toZonedDateTime ();
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Timestamp}.
+   *
+   * @param a
+   *        The timestamp to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final Timestamp a)
   {
     return createZonedDateTime (createOffsetDateTime (a));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTime (final long nMillis)
   {
     return _toZonedDateTime (Instant.ofEpochMilli (nMillis));
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed milliseconds since epoch using UTC.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTimeUTC (final long nMillis)
   {
     return ZonedDateTime.ofInstant (Instant.ofEpochMilli (nMillis), ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTime (@Nullable final Number a)
   {
     return a == null ? null : createZonedDateTime (a.longValue ());
   }
 
+  /**
+   * Create a {@link ZonedDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using UTC.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @NonNull
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final Number a)
   {
@@ -512,6 +744,13 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentOffsetDateTimeUTC ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final ZonedDateTime a)
   {
@@ -524,102 +763,245 @@ public final class PDTFactory
     return ZonedDateTime.of (a, _getZoneId ()).toOffsetDateTime ();
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalDateTime} using the default time
+   * zone.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : _toOffsetDateTime (a);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalDateTime} using UTC.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final LocalDateTime a)
   {
     return a == null ? null : OffsetDateTime.of (a, ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalDate} using the default time zone.
+   * The time is set to midnight.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final LocalDate a)
   {
     return a == null ? null : _toOffsetDateTime (a.atStartOfDay ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalDate} using UTC. The time is set
+   * to midnight.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final LocalDate a)
   {
     return a == null ? null : createOffsetDateTimeUTC (a.atStartOfDay ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link OffsetDate}. The time is set to
+   * midnight.
+   *
+   * @param aOD
+   *        The offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final OffsetDate aOD)
   {
     return aOD == null ? null : OffsetDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link XMLOffsetDate}.
+   *
+   * @param aOD
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final XMLOffsetDate aOD)
   {
     return aOD == null ? null : createZonedDateTime (aOD).toOffsetDateTime ();
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link YearMonth} using the default time zone.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final YearMonth a)
   {
     return createOffsetDateTime (createLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link YearMonth} using UTC.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final YearMonth a)
   {
     return createOffsetDateTimeUTC (createLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Year} using the default time zone.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final Year a)
   {
     return createOffsetDateTime (createLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Year} using UTC.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final Year a)
   {
     return createOffsetDateTimeUTC (createLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalTime} using the default time zone.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final LocalTime a)
   {
     return a == null ? null : _toOffsetDateTime (_toLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link LocalTime} using UTC.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final LocalTime a)
   {
     return a == null ? null : createOffsetDateTimeUTC (_toLocalDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link OffsetTime}. The date is set to epoch
+   * day 0.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final OffsetTime a)
   {
     return a == null ? null : a.atDate (LocalDate.ofEpochDay (0));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link XMLOffsetTime}. The date is set to
+   * epoch day 0.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final XMLOffsetTime a)
   {
     return a == null ? null : a.atDate (LocalDate.ofEpochDay (0));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from year, month and day using the default time zone.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTime (final int nYear, final Month eMonth, final int nDay)
   {
     return _toOffsetDateTime (createLocalDate (nYear, eMonth, nDay).atStartOfDay ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from year, month and day using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTimeUTC (final int nYear, final Month eMonth, final int nDay)
   {
     return createOffsetDateTimeUTC (createLocalDate (nYear, eMonth, nDay).atStartOfDay ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from date and time components using the default time zone.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTime (final int nYear,
                                                      @NonNull final Month eMonth,
@@ -631,6 +1013,25 @@ public final class PDTFactory
     return _toOffsetDateTime (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from date and time components with a specific zone offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @param aZoneOffset
+   *        The zone offset to use. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTime (final int nYear,
                                                      @NonNull final Month eMonth,
@@ -643,6 +1044,23 @@ public final class PDTFactory
     return OffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), aZoneOffset);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from date and time components using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTimeUTC (final int nYear,
                                                         @NonNull final Month eMonth,
@@ -654,12 +1072,26 @@ public final class PDTFactory
     return createOffsetDateTimeUTC (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final Instant a)
   {
     return a == null ? null : OffsetDateTime.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Instant} using UTC.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final Instant a)
   {
@@ -672,42 +1104,94 @@ public final class PDTFactory
     return a.toInstant ().atOffset (getZoneOffset (a));
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final Date a)
   {
     return a == null ? null : _toOffsetDateTime (a);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Timestamp}.
+   *
+   * @param a
+   *        The timestamp to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final Timestamp a)
   {
     return a == null ? null : _toOffsetDateTime (a);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param aCal
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final GregorianCalendar aCal)
   {
     return aCal == null ? null : aCal.toZonedDateTime ().toOffsetDateTime ();
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed milliseconds since epoch using the default
+   * time zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTime (final long nMillis)
   {
     return OffsetDateTime.ofInstant (Instant.ofEpochMilli (nMillis), _getZoneId ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed milliseconds since epoch using UTC.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDateTime createOffsetDateTimeUTC (final long nMillis)
   {
     return OffsetDateTime.ofInstant (Instant.ofEpochMilli (nMillis), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTime (@Nullable final Number a)
   {
     return a == null ? null : createOffsetDateTime (a.longValue ());
   }
 
+  /**
+   * Create an {@link OffsetDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using UTC.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDateTime createOffsetDateTimeUTC (@Nullable final Number a)
   {
@@ -776,114 +1260,266 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentXMLOffsetDateTimeUTC ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final ZonedDateTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.toLocalDateTime (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.toLocalDateTime (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalDateTime} without an offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalDateTime} using UTC.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final LocalDateTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a, ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalDate} without an offset.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final LocalDate a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atStartOfDay (), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalDate} using UTC.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final LocalDate a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atStartOfDay (), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link OffsetDate}.
+   *
+   * @param aOD
+   *        The offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final OffsetDate aOD)
   {
     return aOD == null ? null : XMLOffsetDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link XMLOffsetDate}.
+   *
+   * @param aOD
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final XMLOffsetDate aOD)
   {
     return aOD == null ? null : XMLOffsetDateTime.of (aOD.toLocalDate ().atStartOfDay (), aOD.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link YearMonth} without an offset.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final YearMonth a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atDay (1).atStartOfDay (), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link YearMonth} using UTC.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final YearMonth a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atDay (1).atStartOfDay (), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Year} without an offset.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final Year a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atDay (1).atStartOfDay (), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Year} using UTC.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final Year a)
   {
     return a == null ? null : XMLOffsetDateTime.of (a.atDay (1).atStartOfDay (), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalTime} without an offset.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final LocalTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (_toLocalDateTime (a), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link LocalTime} using UTC.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final LocalTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (_toLocalDateTime (a), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link OffsetTime}.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final OffsetTime a)
   {
     return a == null ? null : XMLOffsetDateTime.of (_toLocalDateTime (a.toLocalTime ()), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link XMLOffsetTime}. The date is set to
+   * epoch day 0.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final XMLOffsetTime a)
   {
     return a == null ? null : a.atXMLDate (LocalDate.ofEpochDay (0));
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from year, month and day without an offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTime (final int nYear, final Month eMonth, final int nDay)
   {
     return XMLOffsetDateTime.of (createLocalDate (nYear, eMonth, nDay).atStartOfDay (), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from year, month and day using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (final int nYear, final Month eMonth, final int nDay)
   {
     return XMLOffsetDateTime.of (createLocalDate (nYear, eMonth, nDay).atStartOfDay (), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from date and time components without an offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTime (final int nYear,
                                                            @NonNull final Month eMonth,
@@ -895,6 +1531,25 @@ public final class PDTFactory
     return XMLOffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from date and time components with a specific zone offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @param aZoneOffset
+   *        The zone offset to use. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTime (final int nYear,
                                                            @NonNull final Month eMonth,
@@ -907,6 +1562,23 @@ public final class PDTFactory
     return XMLOffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), aZoneOffset);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from date and time components using UTC.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (final int nYear,
                                                               @NonNull final Month eMonth,
@@ -918,54 +1590,121 @@ public final class PDTFactory
     return XMLOffsetDateTime.of (createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, nSecond), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Instant} using the default time
+   * zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final Instant a)
   {
     return a == null ? null : XMLOffsetDateTime.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Instant} using UTC.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final Instant a)
   {
     return a == null ? null : XMLOffsetDateTime.ofInstant (a, ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final Date a)
   {
     return a == null ? null : XMLOffsetDateTime.ofInstant (a.toInstant (), getZoneOffset (a));
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Timestamp}.
+   *
+   * @param a
+   *        The timestamp to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final Timestamp a)
   {
     return a == null ? null : XMLOffsetDateTime.ofInstant (a.toInstant (), getZoneOffset (a));
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param aCal
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final GregorianCalendar aCal)
   {
     return aCal == null ? null : createXMLOffsetDateTime (aCal.toZonedDateTime ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed milliseconds since epoch using the default
+   * time zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTime (final long nMillis)
   {
     return XMLOffsetDateTime.ofInstant (Instant.ofEpochMilli (nMillis), _getZoneId ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed milliseconds since epoch using UTC.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (final long nMillis)
   {
     return XMLOffsetDateTime.ofInstant (Instant.ofEpochMilli (nMillis), ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTime (@Nullable final Number a)
   {
     return a == null ? null : createXMLOffsetDateTime (a.longValue ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using UTC.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDateTime createXMLOffsetDateTimeUTC (@Nullable final Number a)
   {
@@ -1035,48 +1774,107 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentLocalDateTimeUTC ());
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link ZonedDateTime}.
+   *
+   * @param aDT
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final ZonedDateTime aDT)
   {
     return aDT == null ? null : aDT.toLocalDateTime ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link OffsetDateTime}.
+   *
+   * @param aDT
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final OffsetDateTime aDT)
   {
     return aDT == null ? null : aDT.toLocalDateTime ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link XMLOffsetDateTime}.
+   *
+   * @param aDT
+   *        The XML offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final XMLOffsetDateTime aDT)
   {
     return aDT == null ? null : aDT.toLocalDateTime ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link OffsetDate}. The time is set to midnight.
+   *
+   * @param aDT
+   *        The offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final OffsetDate aDT)
   {
     return aDT == null ? null : aDT.toLocalDate ().atStartOfDay ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link XMLOffsetDate}. The time is set to
+   * midnight.
+   *
+   * @param aDT
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final XMLOffsetDate aDT)
   {
     return aDT == null ? null : aDT.toLocalDate ().atStartOfDay ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link LocalDate}. The time is set to midnight.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final LocalDate a)
   {
     return a == null ? null : a.atStartOfDay ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link YearMonth}. Day is set to 1, time to
+   * midnight.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final YearMonth a)
   {
     return a == null ? null : a.atDay (1).atStartOfDay ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link Year}. Day is set to 1, time to
+   * midnight.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final Year a)
   {
@@ -1089,30 +1887,80 @@ public final class PDTFactory
     return a.atDate (LocalDate.ofEpochDay (0));
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link LocalTime}. The date is set to epoch
+   * day 0.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final LocalTime a)
   {
     return a == null ? null : _toLocalDateTime (a);
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link OffsetTime}. The date is set to epoch
+   * day 0.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final OffsetTime a)
   {
     return a == null ? null : _toLocalDateTime (a.toLocalTime ());
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link XMLOffsetTime}. The date is set to epoch
+   * day 0.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final XMLOffsetTime a)
   {
     return a == null ? null : _toLocalDateTime (a.toLocalTime ());
   }
 
+  /**
+   * Create a {@link LocalDateTime} from year, month and day. Time is set to midnight.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime createLocalDateTime (final int nYear, @NonNull final Month eMonth, final int nDay)
   {
     return createLocalDateTime (nYear, eMonth, nDay, 0, 0, 0);
   }
 
+  /**
+   * Create a {@link LocalDateTime} from year, month, day, hour and minute. Second is set to 0.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime createLocalDateTime (final int nYear,
                                                    @NonNull final Month eMonth,
@@ -1123,6 +1971,23 @@ public final class PDTFactory
     return createLocalDateTime (nYear, eMonth, nDay, nHour, nMinute, 0);
   }
 
+  /**
+   * Create a {@link LocalDateTime} from year, month, day, hour, minute and second.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDay
+   *        The day of month.
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime createLocalDateTime (final int nYear,
                                                    @NonNull final Month eMonth,
@@ -1140,36 +2005,80 @@ public final class PDTFactory
     return LocalDateTime.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final Instant a)
   {
     return a == null ? null : _toLocalDateTime (a);
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link Date} using the default time zone.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final Date a)
   {
     return a == null ? null : _toLocalDateTime (a.toInstant ());
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link Timestamp}.
+   *
+   * @param a
+   *        The timestamp to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final Timestamp a)
   {
     return a == null ? null : a.toLocalDateTime ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param aCal
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final GregorianCalendar aCal)
   {
     return aCal == null ? null : aCal.toZonedDateTime ().toLocalDateTime ();
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDateTime createLocalDateTime (final long nMillis)
   {
     return _toLocalDateTime (Instant.ofEpochMilli (nMillis));
   }
 
+  /**
+   * Create a {@link LocalDateTime} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDateTime createLocalDateTime (@Nullable final Number a)
   {
@@ -1197,78 +2106,175 @@ public final class PDTFactory
     return LocalDate.now (ZoneOffset.UTC);
   }
 
+  /**
+   * Create a {@link LocalDate} from year, month and day.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDate createLocalDate (final int nYear, @NonNull final Month eMonth, final int nDayOfMonth)
   {
     return LocalDate.of (nYear, eMonth, nDayOfMonth);
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : a.toZonedDateTime ().toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalDate createLocalDate (final long nMillis)
   {
     return createLocalDateTime (nMillis).toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link Number} (interpreted as milliseconds since
+   * epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @NonNull
   public static LocalDate createLocalDate (@Nullable final Number a)
   {
     return a == null ? null : createLocalDateTime (a.longValue ()).toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final Instant a)
   {
     return a == null ? null : _toLocalDateTime (a).toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link Date} using the default time zone.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final Date a)
   {
     return a == null ? null : _toLocalDateTime (a.toInstant ()).toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link YearMonth}. Day is set to 1.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final YearMonth a)
   {
     return a == null ? null : a.atDay (1);
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link Year}. Day is set to 1.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final Year a)
   {
     return a == null ? null : a.atDay (1);
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link LocalDateTime}.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final LocalDateTime a)
   {
     return a == null ? null : a.toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final ZonedDateTime a)
   {
     return a == null ? null : a.toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : a.toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link XMLOffsetDateTime}.
+   *
+   * @param a
+   *        The XML offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final XMLOffsetDateTime a)
   {
     return a == null ? null : a.toLocalDate ();
   }
 
+  /**
+   * Create a {@link LocalDate} from the passed {@link XMLOffsetDate}.
+   *
+   * @param a
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalDate createLocalDate (@Nullable final XMLOffsetDate a)
   {
@@ -1320,18 +2326,45 @@ public final class PDTFactory
     return _getZoneId ().getRules ().getOffset (aLDT);
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link LocalDate} using the default time zone.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final LocalDate a)
   {
     return a == null ? null : OffsetDate.of (a, _getFallbackZoneOffset (a.atStartOfDay ()));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link LocalDate} with the specified offset.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the date parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final LocalDate a, @NonNull final ZoneOffset aOffset)
   {
     return a == null ? null : OffsetDate.of (a, aOffset);
   }
 
+  /**
+   * Create an {@link OffsetDate} from year, month and day using the default time zone.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDate createOffsetDate (final int nYear, @NonNull final Month eMonth, final int nDayOfMonth)
   {
@@ -1339,6 +2372,19 @@ public final class PDTFactory
     return OffsetDate.of (aLD, _getFallbackZoneOffset (aLD.atStartOfDay ()));
   }
 
+  /**
+   * Create an {@link OffsetDate} from year, month, day and zone offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDate createOffsetDate (final int nYear,
                                              @NonNull final Month eMonth,
@@ -1348,72 +2394,162 @@ public final class PDTFactory
     return OffsetDate.of (nYear, eMonth, nDayOfMonth, aOffset);
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link LocalDateTime} using the default time zone.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final LocalDateTime a)
   {
     return a == null ? null : OffsetDate.of (a.toLocalDate (), _getFallbackZoneOffset (a));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link LocalDateTime} with the specified offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the date time parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final LocalDateTime a, @NonNull final ZoneOffset aOffset)
   {
     return a == null ? null : OffsetDate.of (a.toLocalDate (), aOffset);
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : createOffsetDate (a.toZonedDateTime ());
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final Instant a)
   {
     return a == null ? null : OffsetDate.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link Instant} with the specified offset.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the instant parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final Instant a, @NonNull final ZoneOffset aOffset)
   {
     return a == null ? null : OffsetDate.ofInstant (a, aOffset);
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetDate createOffsetDate (final long nMillis)
   {
     return createOffsetDate (Instant.ofEpochMilli (nMillis));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link Number} (interpreted as milliseconds since
+   * epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final Number a)
   {
     return a == null ? null : createOffsetDate (a.longValue ());
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final Date a)
   {
     return a == null ? null : createOffsetDate (_toOffsetDateTime (a));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link YearMonth}. Day is set to 1.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final YearMonth a)
   {
     return a == null ? null : createOffsetDate (a.atDay (1));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link Year}. Day is set to 1.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final Year a)
   {
     return a == null ? null : createOffsetDate (a.atDay (1));
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : OffsetDate.of (a.toLocalDate (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link OffsetDate} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetDate createOffsetDate (@Nullable final ZonedDateTime a)
   {
@@ -1441,42 +2577,103 @@ public final class PDTFactory
     return XMLOffsetDate.now (ZoneOffset.UTC);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final ZonedDateTime a)
   {
     return a == null ? null : XMLOffsetDate.of (a.toLocalDate (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : XMLOffsetDate.of (a.toLocalDate (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link XMLOffsetDateTime}.
+   *
+   * @param a
+   *        The XML offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final XMLOffsetDateTime a)
   {
     return a == null ? null : XMLOffsetDate.of (a.toLocalDate (), a.getOffset ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link LocalDate} without an offset.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDate a)
   {
     return createXMLOffsetDate (a, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link LocalDate} with the specified offset.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the date parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDate a, @NonNull final ZoneOffset aOffset)
   {
     return a == null ? null : XMLOffsetDate.of (a, aOffset);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from year, month and day without an offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDate createXMLOffsetDate (final int nYear, @NonNull final Month eMonth, final int nDayOfMonth)
   {
     return createXMLOffsetDate (nYear, eMonth, nDayOfMonth, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from year, month, day and zone offset.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @param aOffset
+   *        The zone offset. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDate createXMLOffsetDate (final int nYear,
                                                    @NonNull final Month eMonth,
@@ -1486,60 +2683,137 @@ public final class PDTFactory
     return XMLOffsetDate.of (nYear, eMonth, nDayOfMonth, aOffset);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link LocalDateTime} without an offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDateTime a)
   {
     return createXMLOffsetDate (a, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link LocalDateTime} with the specified
+   * offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @param aOffset
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the date time parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final LocalDateTime a, @NonNull final ZoneOffset aOffset)
   {
     return a == null ? null : XMLOffsetDate.of (a.toLocalDate (), aOffset);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final Instant a)
   {
     return a == null ? null : XMLOffsetDate.ofInstant (a, _getZoneId ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link Instant} using the specified zone ID.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @param aZoneId
+   *        The zone ID. May not be <code>null</code>.
+   * @return <code>null</code> if the instant parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final Instant a, @NonNull final ZoneId aZoneId)
   {
     return a == null ? null : XMLOffsetDate.ofInstant (a, aZoneId);
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : createXMLOffsetDate (a.toZonedDateTime ());
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetDate createXMLOffsetDate (final long nMillis)
   {
     return createXMLOffsetDate (Instant.ofEpochMilli (nMillis));
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final Date a)
   {
     return a == null ? null : createXMLOffsetDate (_toOffsetDateTime (a));
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link YearMonth}. Day is set to 1.
+   *
+   * @param a
+   *        The year-month to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final YearMonth a)
   {
     return a == null ? null : createXMLOffsetDate (a.atDay (1));
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link Year}. Day is set to 1.
+   *
+   * @param a
+   *        The year to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final Year a)
   {
     return a == null ? null : createXMLOffsetDate (a.atDay (1));
   }
 
+  /**
+   * Create an {@link XMLOffsetDate} from the passed {@link Number} (interpreted as milliseconds
+   * since epoch) using the default time zone.
+   *
+   * @param a
+   *        The number to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetDate createXMLOffsetDate (@Nullable final Number a)
   {
@@ -1558,6 +2832,9 @@ public final class PDTFactory
     return LocalTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link LocalTime} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static LocalTime getCurrentLocalTimeUTC ()
   {
@@ -1604,48 +2881,109 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentLocalTimeUTC ());
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : a.toZonedDateTime ().toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalTime createLocalTime (final long nMillis)
   {
     return createLocalDateTime (nMillis).toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final Instant a)
   {
     return a == null ? null : createLocalDateTime (a).toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link Date} using the default time zone.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final Date a)
   {
     return a == null ? null : createLocalTime (a.toInstant ());
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link LocalDateTime}.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : a.toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link OffsetTime}.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final OffsetTime a)
   {
     return a == null ? null : a.toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from the passed {@link XMLOffsetTime}.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static LocalTime createLocalTime (@Nullable final XMLOffsetTime a)
   {
     return a == null ? null : a.toLocalTime ();
   }
 
+  /**
+   * Create a {@link LocalTime} from hour, minute and second.
+   *
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static LocalTime createLocalTime (final int nHour, final int nMinute, final int nSecond)
   {
@@ -1654,12 +2992,18 @@ public final class PDTFactory
 
   // to OffsetTime
 
+  /**
+   * @return The current {@link OffsetTime} in the default time zone. Never <code>null</code>.
+   */
   @Nonnegative
   public static OffsetTime getCurrentOffsetTime ()
   {
     return OffsetTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link OffsetTime} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static OffsetTime getCurrentOffsetTimeUTC ()
   {
@@ -1706,66 +3050,154 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentOffsetTimeUTC ());
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : a.toZonedDateTime ().toOffsetDateTime ().toOffsetTime ();
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetTime createOffsetTime (final long nMillis)
   {
     return createOffsetDateTime (nMillis).toOffsetTime ();
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final Instant a)
   {
     return a == null ? null : createOffsetDateTime (a).toOffsetTime ();
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final Date a)
   {
     return a == null ? null : createOffsetTime (a.toInstant ());
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : a.toOffsetTime ();
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final ZonedDateTime a)
   {
     return a == null ? null : a.toOffsetDateTime ().toOffsetTime ();
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link LocalDateTime} using the default time zone.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : a.toLocalTime ().atOffset (_getFallbackZoneOffset (a));
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link LocalDateTime} with the specified offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @param aOfs
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the date time parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final LocalDateTime a, @NonNull final ZoneOffset aOfs)
   {
     return a == null ? null : a.toLocalTime ().atOffset (aOfs);
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link LocalTime} using the default time zone.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final LocalTime a)
   {
     return a == null ? null : a.atOffset (_getFallbackZoneOffset ());
   }
 
+  /**
+   * Create an {@link OffsetTime} from the passed {@link LocalTime} with the specified offset.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @param aOfs
+   *        The zone offset. May not be <code>null</code>.
+   * @return <code>null</code> if the time parameter is <code>null</code>.
+   */
   @Nullable
   public static OffsetTime createOffsetTime (@Nullable final LocalTime a, @NonNull final ZoneOffset aOfs)
   {
     return a == null ? null : a.atOffset (aOfs);
   }
 
+  /**
+   * Create an {@link OffsetTime} from hour, minute, second and zone offset.
+   *
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @param aOfs
+   *        The zone offset. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static OffsetTime createOffsetTime (final int nHour,
                                              final int nMinute,
@@ -1777,12 +3209,18 @@ public final class PDTFactory
 
   // to XMLOffsetTime
 
+  /**
+   * @return The current {@link XMLOffsetTime} in the default time zone. Never <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetTime getCurrentXMLOffsetTime ()
   {
     return XMLOffsetTime.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link XMLOffsetTime} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static XMLOffsetTime getCurrentXMLOffsetTimeUTC ()
   {
@@ -1827,72 +3265,172 @@ public final class PDTFactory
     return getWithMillisOnly (getCurrentXMLOffsetTimeUTC ());
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link GregorianCalendar}.
+   *
+   * @param a
+   *        The calendar to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final GregorianCalendar a)
   {
     return a == null ? null : XMLOffsetTime.of (a.toZonedDateTime ().toOffsetDateTime ().toOffsetTime ());
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed milliseconds since epoch using the default time
+   * zone.
+   *
+   * @param nMillis
+   *        The milliseconds since epoch.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetTime createXMLOffsetTime (final long nMillis)
   {
     return createXMLOffsetDateTime (nMillis).toXMLOffsetTime ();
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link Instant} using the default time zone.
+   *
+   * @param a
+   *        The instant to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final Instant a)
   {
     return a == null ? null : createXMLOffsetDateTime (a).toXMLOffsetTime ();
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link Date}.
+   *
+   * @param a
+   *        The date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final Date a)
   {
     return a == null ? null : createXMLOffsetTime (a.toInstant ());
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final OffsetDateTime a)
   {
     return a == null ? null : XMLOffsetTime.of (a.toOffsetTime ());
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final ZonedDateTime a)
   {
     return a == null ? null : XMLOffsetTime.of (a.toOffsetDateTime ().toOffsetTime ());
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link LocalDateTime} without an offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final LocalDateTime a)
   {
     return a == null ? null : XMLOffsetTime.of (a.toLocalTime (), null);
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link LocalDateTime} with the specified
+   * offset.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @param aOfs
+   *        The zone offset. May be <code>null</code>.
+   * @return <code>null</code> if the date time parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final LocalDateTime a, @Nullable final ZoneOffset aOfs)
   {
     return a == null ? null : XMLOffsetTime.of (a.toLocalTime (), aOfs);
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link LocalTime} without an offset.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final LocalTime a)
   {
     return a == null ? null : XMLOffsetTime.of (a, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from the passed {@link LocalTime} with the specified offset.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @param aOfs
+   *        The zone offset. May be <code>null</code>.
+   * @return <code>null</code> if the time parameter is <code>null</code>.
+   */
   @Nullable
   public static XMLOffsetTime createXMLOffsetTime (@Nullable final LocalTime a, @Nullable final ZoneOffset aOfs)
   {
     return a == null ? null : XMLOffsetTime.of (a, aOfs);
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from hour, minute and second without an offset.
+   *
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetTime createXMLOffsetTime (final int nHour, final int nMinute, final int nSecond)
   {
     return createXMLOffsetTime (nHour, nMinute, nSecond, null);
   }
 
+  /**
+   * Create an {@link XMLOffsetTime} from hour, minute, second and zone offset.
+   *
+   * @param nHour
+   *        The hour of day.
+   * @param nMinute
+   *        The minute of hour.
+   * @param nSecond
+   *        The second of minute.
+   * @param aOfs
+   *        The zone offset. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static XMLOffsetTime createXMLOffsetTime (final int nHour,
                                                    final int nMinute,
@@ -1904,6 +3442,14 @@ public final class PDTFactory
 
   // to Date
 
+  /**
+   * Create a {@link Date} from the passed {@link ZonedDateTime}. Note that timezone details are
+   * lost.
+   *
+   * @param a
+   *        The zoned date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final ZonedDateTime a)
   {
@@ -1911,6 +3457,14 @@ public final class PDTFactory
     return a == null ? null : Date.from (a.toInstant ());
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link OffsetDateTime}. Note that timezone details are
+   * lost.
+   *
+   * @param a
+   *        The offset date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final OffsetDateTime a)
   {
@@ -1918,78 +3472,164 @@ public final class PDTFactory
     return a == null ? null : Date.from (a.toInstant ());
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link LocalDateTime} using the default time zone.
+   *
+   * @param a
+   *        The local date time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final LocalDateTime a)
   {
     return createDate (createZonedDateTime (a));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link LocalDate} using the default time zone.
+   *
+   * @param a
+   *        The local date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final LocalDate a)
   {
     return createDate (createZonedDateTime (a));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link OffsetDate}.
+   *
+   * @param aOD
+   *        The offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final OffsetDate aOD)
   {
     return createDate (createZonedDateTime (aOD));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link XMLOffsetDate}.
+   *
+   * @param aOD
+   *        The XML offset date to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final XMLOffsetDate aOD)
   {
     return createDate (createZonedDateTime (aOD));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link LocalTime} using the default time zone.
+   *
+   * @param a
+   *        The local time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final LocalTime a)
   {
     return createDate (createZonedDateTime (a));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link OffsetTime}.
+   *
+   * @param a
+   *        The offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final OffsetTime a)
   {
     return createDate (createZonedDateTime (a));
   }
 
+  /**
+   * Create a {@link Date} from the passed {@link XMLOffsetTime}.
+   *
+   * @param a
+   *        The XML offset time to convert. May be <code>null</code>.
+   * @return <code>null</code> if the parameter is <code>null</code>.
+   */
   @Nullable
   public static Date createDate (@Nullable final XMLOffsetTime a)
   {
     return createDate (createZonedDateTime (a));
   }
 
+  /**
+   * Create a {@link Date} from year, month and day.
+   *
+   * @param nYear
+   *        The year.
+   * @param eMonth
+   *        The month. May not be <code>null</code>.
+   * @param nDayOfMonth
+   *        The day of month.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static Date createDateForDate (final int nYear, @NonNull final Month eMonth, final int nDayOfMonth)
   {
     return createDate (createLocalDate (nYear, eMonth, nDayOfMonth));
   }
 
+  /**
+   * Create a {@link Date} from hour, minute and second.
+   *
+   * @param nHour
+   *        The hour of day.
+   * @param nMin
+   *        The minute of hour.
+   * @param nSec
+   *        The second of minute.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static Date createDateForTime (final int nHour, final int nMin, final int nSec)
   {
     return createDate (createLocalTime (nHour, nMin, nSec));
   }
 
+  /**
+   * @return A new {@link Calendar} using the default time zone and the default locale. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static Calendar createCalendar ()
   {
     return Calendar.getInstance (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
   }
 
+  /**
+   * @return A new {@link Calendar} using UTC and the default locale. Never <code>null</code>.
+   */
   @NonNull
   public static Calendar createCalendarUTC ()
   {
     return Calendar.getInstance (PDTConfig.getUTCTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
   }
 
+  /**
+   * @return A new {@link GregorianCalendar} using the default time zone and the default locale.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public static GregorianCalendar createGregorianCalendar ()
   {
     return new GregorianCalendar (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
   }
 
+  /**
+   * @return A new {@link GregorianCalendar} using UTC and the default locale. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static GregorianCalendar createGregorianCalendarUTC ()
   {
@@ -1998,121 +3638,227 @@ public final class PDTFactory
 
   // Misc
 
+  /**
+   * @return The current year in the default time zone.
+   */
   @Nonnegative
   public static int getCurrentYear ()
   {
     return getCurrentLocalDate ().getYear ();
   }
 
+  /**
+   * @return The current year in UTC.
+   */
   @Nonnegative
   public static int getCurrentYearUTC ()
   {
     return getCurrentLocalDateUTC ().getYear ();
   }
 
+  /**
+   * @return The current {@link Year} in the default time zone. Never <code>null</code>.
+   */
   @NonNull
   public static Year getCurrentYearObj ()
   {
     return Year.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link Year} in UTC. Never <code>null</code>.
+   */
   @NonNull
   public static Year getCurrentYearObjUTC ()
   {
     return Year.now (ZoneOffset.UTC);
   }
 
+  /**
+   * @return The current {@link MonthDay} in the default time zone. Never <code>null</code>.
+   */
   @NonNull
   public static MonthDay getCurrentMonthDay ()
   {
     return MonthDay.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link MonthDay} in UTC. Never <code>null</code>.
+   */
   @NonNull
   public static MonthDay getCurrentMonthDayUTC ()
   {
     return MonthDay.now (ZoneOffset.UTC);
   }
 
+  /**
+   * @return The current {@link YearMonth} in the default time zone. Never <code>null</code>.
+   */
   @Nonnegative
   public static YearMonth getCurrentYearMonth ()
   {
     return YearMonth.now (_getZoneId ());
   }
 
+  /**
+   * @return The current {@link YearMonth} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static YearMonth getCurrentYearMonthUTC ()
   {
     return YearMonth.now (ZoneOffset.UTC);
   }
 
+  /**
+   * @return The current {@link Instant} in the default time zone. Never <code>null</code>.
+   */
   @Nonnegative
   public static Instant getCurrentInstant ()
   {
     return Instant.now (Clock.system (_getZoneId ()));
   }
 
+  /**
+   * @return The current {@link Instant} in UTC. Never <code>null</code>.
+   */
   @Nonnegative
   public static Instant getCurrentInstantUTC ()
   {
     return Instant.now (Clock.system (ZoneOffset.UTC));
   }
 
+  /**
+   * @return The current time in milliseconds since epoch in the default time zone.
+   */
   public static long getCurrentMillis ()
   {
     return getCurrentInstant ().toEpochMilli ();
   }
 
+  /**
+   * @return The current time in milliseconds since epoch in UTC.
+   */
   public static long getCurrentMillisUTC ()
   {
     return getCurrentInstantUTC ().toEpochMilli ();
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link LocalDate}.
+   *
+   * @param a
+   *        The local date. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final LocalDate a)
   {
     return getMillis (createZonedDateTime (a));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link OffsetDate}.
+   *
+   * @param aOD
+   *        The offset date. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final OffsetDate aOD)
   {
     return getMillis (createZonedDateTime (aOD));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link XMLOffsetDate}.
+   *
+   * @param aOD
+   *        The XML offset date. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final XMLOffsetDate aOD)
   {
     return getMillis (createZonedDateTime (aOD));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link LocalTime}.
+   *
+   * @param a
+   *        The local time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final LocalTime a)
   {
     return getMillis (createZonedDateTime (a));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link OffsetTime}.
+   *
+   * @param a
+   *        The offset time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final OffsetTime a)
   {
     return getMillis (createZonedDateTime (a));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link XMLOffsetTime}.
+   *
+   * @param a
+   *        The XML offset time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final XMLOffsetTime a)
   {
     return getMillis (createZonedDateTime (a));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link LocalDateTime}.
+   *
+   * @param a
+   *        The local date time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final LocalDateTime a)
   {
     return getMillis (createZonedDateTime (a));
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link OffsetDateTime}.
+   *
+   * @param a
+   *        The offset date time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final OffsetDateTime a)
   {
     return a.toInstant ().toEpochMilli ();
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link XMLOffsetDateTime}.
+   *
+   * @param a
+   *        The XML offset date time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final XMLOffsetDateTime a)
   {
     return a.toInstant ().toEpochMilli ();
   }
 
+  /**
+   * Get the milliseconds since epoch of the passed {@link ZonedDateTime}.
+   *
+   * @param a
+   *        The zoned date time. May not be <code>null</code>.
+   * @return The epoch millis.
+   */
   public static long getMillis (@NonNull final ZonedDateTime a)
   {
     return a.toInstant ().toEpochMilli ();

@@ -42,6 +42,12 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
   private final ELEMENTTYPE [] m_aArray;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor iterating over the whole array.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   */
   @SafeVarargs
   public ArrayIterator (@NonNull final ELEMENTTYPE... aArray)
   {
@@ -67,11 +73,15 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_nIndex < m_aArray.length;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

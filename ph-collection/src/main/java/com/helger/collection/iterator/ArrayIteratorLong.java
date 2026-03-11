@@ -38,6 +38,12 @@ public final class ArrayIteratorLong
   private final long [] m_aArray;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor iterating over the whole array.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   */
   public ArrayIteratorLong (final long @NonNull... aArray)
   {
     this (aArray, 0, aArray.length);
@@ -59,11 +65,19 @@ public final class ArrayIteratorLong
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  /**
+   * @return <code>true</code> if there are more elements to iterate.
+   */
   public boolean hasNext ()
   {
     return m_nIndex < m_aArray.length;
   }
 
+  /**
+   * @return The next long value in the iteration.
+   * @throws NoSuchElementException
+   *         if there are no more elements.
+   */
   public long next ()
   {
     if (!hasNext ())

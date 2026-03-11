@@ -37,9 +37,24 @@ public class RunLengthCodec implements IByteArrayStreamDecoder
 {
   protected static final int RUN_LENGTH_EOD = 0x80;
 
+  /**
+   * Constructor.
+   */
   public RunLengthCodec ()
   {}
 
+  /**
+   * Decode the passed run length encoded buffer and write the decoded bytes to the output stream.
+   *
+   * @param aEncodedBuffer
+   *        The run length encoded buffer to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        The offset in the buffer to start decoding from.
+   * @param nLen
+   *        The number of bytes to decode.
+   * @param aOS
+   *        The output stream to write the decoded data to. May not be <code>null</code>.
+   */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

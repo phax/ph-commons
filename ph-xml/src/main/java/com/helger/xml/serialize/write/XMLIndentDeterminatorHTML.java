@@ -42,6 +42,9 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
     return sUCTagName.equals ("PRE") || sUCTagName.equals ("CODE");
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EXMLSerializeIndent getIndentOuter (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,
@@ -61,6 +64,9 @@ public class XMLIndentDeterminatorHTML implements IXMLIndentDeterminator
     return eDefaultIndent;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EXMLSerializeIndent getIndentInner (@Nullable final String sParentNamespaceURI,
                                              @Nullable final String sParentTagName,

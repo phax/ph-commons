@@ -46,12 +46,23 @@ public class AdapterOffsetDate extends XmlAdapter <String, OffsetDate>
 
   private static Function <LocalDate, ZoneOffset> s_aZOSupplier = x -> ZoneOffset.UTC;
 
+  /**
+   * @return The current fallback zone offset supplier used when no zone offset is present in the
+   *         parsed date string. Never <code>null</code>.
+   */
   @NonNull
   public static Function <LocalDate, ZoneOffset> getFallbackZoneOffsetSupplier ()
   {
     return s_aZOSupplier;
   }
 
+  /**
+   * Set the fallback zone offset supplier to be used when no zone offset is present in the parsed
+   * date string.
+   *
+   * @param aZOSupplier
+   *        The supplier to use. May not be <code>null</code>.
+   */
   public static void setFallbackZoneOffsetSupplier (@NonNull final Function <LocalDate, ZoneOffset> aZOSupplier)
   {
     ValueEnforcer.notNull (aZOSupplier, "ZoneOffsetSupplier");

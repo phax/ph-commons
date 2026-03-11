@@ -38,6 +38,12 @@ public final class ArrayIteratorDouble
   private final double [] m_aArray;
   private int m_nIndex = 0;
 
+  /**
+   * Constructor iterating over the whole array.
+   *
+   * @param aArray
+   *        The array to iterate. May not be <code>null</code>.
+   */
   public ArrayIteratorDouble (final double @NonNull... aArray)
   {
     this (aArray, 0, aArray.length);
@@ -61,11 +67,19 @@ public final class ArrayIteratorDouble
     m_aArray = ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  /**
+   * @return <code>true</code> if there are more elements to iterate.
+   */
   public boolean hasNext ()
   {
     return m_nIndex < m_aArray.length;
   }
 
+  /**
+   * @return The next double value in the iteration.
+   * @throws NoSuchElementException
+   *         if there are no more elements.
+   */
   public double next ()
   {
     if (!hasNext ())

@@ -36,18 +36,42 @@ import com.helger.collection.base.MapperIterator;
 public class CommonsMapperIterator <SRCTYPE, ELEMENTTYPE> extends MapperIterator <SRCTYPE, ELEMENTTYPE> implements
                                    ICommonsIterableIterator <ELEMENTTYPE>
 {
+  /**
+   * Constructor.
+   *
+   * @param aBaseIter
+   *        The base iterable iterator to use. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter to be used. May not be <code>null</code>.
+   */
   public CommonsMapperIterator (@NonNull final IIterableIterator <? extends SRCTYPE> aBaseIter,
                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     super (aBaseIter, aConverter);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aBaseCont
+   *        The collection to iterate. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter to be used. May not be <code>null</code>.
+   */
   public CommonsMapperIterator (@NonNull final Iterable <? extends SRCTYPE> aBaseCont,
                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {
     super (aBaseCont, aConverter);
   }
 
+  /**
+   * Constructor.
+   *
+   * @param aBaseIter
+   *        The base iterator to use. May not be <code>null</code>.
+   * @param aConverter
+   *        The converter to be used. May not be <code>null</code>.
+   */
   public CommonsMapperIterator (@NonNull final Iterator <? extends SRCTYPE> aBaseIter,
                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aConverter)
   {

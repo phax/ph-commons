@@ -33,6 +33,7 @@ import com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRe
 @IsSPIImplementation
 public class JsonConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
     aRegistry.register (ConfigurationSourceJson.FILE_EXT, x -> new ConfigurationSourceJson (x, StandardCharsets.UTF_8));

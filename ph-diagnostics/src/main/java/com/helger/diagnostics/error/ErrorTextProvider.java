@@ -78,6 +78,9 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
       m_sID = sID;
     }
 
+    /**
+     * @return The unique ID of this field. Never <code>null</code> nor empty.
+     */
     @NonNull
     @Nonempty
     public String getID ()
@@ -150,6 +153,15 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     private final EField m_eField;
     private final String m_sText;
 
+    /**
+     * Constructor.
+     *
+     * @param eField
+     *        The error field this item represents. May not be <code>null</code>.
+     * @param sText
+     *        The text pattern containing the placeholder character. May not be <code>null</code> or
+     *        empty.
+     */
     public FormattableItem (@NonNull final EField eField, @NonNull @Nonempty final String sText)
     {
       m_eField = ValueEnforcer.notNull (eField, "Field");
@@ -160,12 +172,14 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
                               () -> "Text '" + sText + "' is missing placeholder '" + PLACEHOLDER + "'");
     }
 
+    /** {@inheritDoc} */
     @NonNull
     public final EField getField ()
     {
       return m_eField;
     }
 
+    /** {@inheritDoc} */
     @NonNull
     @Nonempty
     public String getUnformattedText ()
@@ -173,6 +187,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
       return m_sText;
     }
 
+    /** {@inheritDoc} */
     @NonNull
     public String getFormattedText (@NonNull final String sReplacement)
     {
@@ -201,6 +216,9 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
   private final ICommonsList <IFormattableItem> m_aItems;
   private String m_sFieldSep = " ";
 
+  /**
+   * Default constructor creating an empty error text provider.
+   */
   public ErrorTextProvider ()
   {
     m_aItems = new CommonsArrayList <> ();

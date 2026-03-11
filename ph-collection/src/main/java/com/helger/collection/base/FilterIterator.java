@@ -114,11 +114,15 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
     }
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_bHasNext;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {

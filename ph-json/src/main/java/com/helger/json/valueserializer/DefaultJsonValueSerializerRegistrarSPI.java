@@ -47,6 +47,7 @@ import com.helger.base.numeric.mutable.MutableShort;
 @IsSPIImplementation
 public final class DefaultJsonValueSerializerRegistrarSPI implements IJsonValueSerializerRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerJsonValueSerializer (@NonNull final IJsonValueSerializerRegistry aRegistry)
   {
     aRegistry.registerJsonValueSerializer (AtomicBoolean.class, JsonValueSerializerToString.getInstance ());

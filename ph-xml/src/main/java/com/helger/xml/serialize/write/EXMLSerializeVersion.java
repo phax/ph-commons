@@ -53,6 +53,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
     m_eXMLVersion = eXMLVersion;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()

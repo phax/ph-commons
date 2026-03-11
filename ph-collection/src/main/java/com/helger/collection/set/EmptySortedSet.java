@@ -38,6 +38,9 @@ import com.helger.collection.commons.ICommonsSortedSet;
  */
 public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommonsSortedSet <T>
 {
+  /**
+   * Create a new empty sorted set.
+   */
   public EmptySortedSet ()
   {}
 
@@ -67,12 +70,14 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return false;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Comparator <Object> comparator ()
   {
     return null;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> subSet (final Object fromElement, final Object toElement)
@@ -80,6 +85,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> headSet (final Object toElement)
@@ -87,6 +93,7 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @CodingStyleguideUnaware
   public SortedSet <T> tailSet (final Object fromElement)
@@ -94,18 +101,23 @@ public final class EmptySortedSet <T> extends AbstractSet <T> implements ICommon
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public T first ()
   {
     return null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public T last ()
   {
     return null;
   }
 
+  /**
+   * @return This instance since it is immutable and empty. Never <code>null</code>.
+   */
   @NonNull
   public EmptySortedSet <T> getClone ()
   {

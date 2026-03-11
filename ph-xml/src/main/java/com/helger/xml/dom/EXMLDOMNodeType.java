@@ -98,6 +98,9 @@ public enum EXMLDOMNodeType implements IHasIntID
     m_nValue = nValue;
   }
 
+  /**
+   * @return The numeric node type ID. Always &ge; 0.
+   */
   @Nonnegative
   public int getID ()
   {

@@ -59,9 +59,19 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   private final ICommonsList <ThreadDescriptor> m_aList = new CommonsArrayList <> ();
   private String m_sError;
 
+  /**
+   * Default constructor.
+   */
   public ThreadDescriptorList ()
   {}
 
+  /**
+   * Add a thread descriptor to this list.
+   *
+   * @param aDescriptor
+   *        The descriptor to add. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ThreadDescriptorList addDescriptor (@NonNull final ThreadDescriptor aDescriptor)
   {
@@ -70,6 +80,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return this;
   }
 
+  /**
+   * @return A mutable copy of all contained thread descriptors. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <ThreadDescriptor> getAllDescriptors ()
@@ -77,6 +90,13 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return m_aList.getClone ();
   }
 
+  /**
+   * Set the error message.
+   *
+   * @param sError
+   *        The error message to set. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ThreadDescriptorList setError (@Nullable final String sError)
   {
@@ -84,6 +104,9 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return this;
   }
 
+  /**
+   * @return The error message. May be <code>null</code>.
+   */
   @Nullable
   public String getError ()
   {
@@ -105,6 +128,10 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return aStateMap;
   }
 
+  /**
+   * @return The complete thread descriptor list as a single string, including error information,
+   *         thread state summary and all stack traces. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getAsString ()
@@ -136,6 +163,7 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return aSB.toString ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement getAsMicroNode ()
   {
@@ -173,6 +201,12 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
     return t.getMessage () + " -- " + t.getClass ().getName ();
   }
 
+  /**
+   * Create a new {@link ThreadDescriptorList} containing all currently active threads and their
+   * stack traces.
+   *
+   * @return A new {@link ThreadDescriptorList}. Never <code>null</code>.
+   */
   @NonNull
   public static ThreadDescriptorList createWithAllThreads ()
   {

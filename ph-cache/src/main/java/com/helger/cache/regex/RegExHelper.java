@@ -215,6 +215,18 @@ public final class RegExHelper
     return getMatcher (sRegEx, nOptions, sValue).matches ();
   }
 
+  /**
+   * Replace all occurrences of the provided regular expression in the value string with the
+   * replacement string.
+   *
+   * @param sRegEx
+   *        The regular expression to search for. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        The string value to search in. May not be <code>null</code>.
+   * @param sReplacement
+   *        The replacement string. May be <code>null</code> in which case an empty string is used.
+   * @return The resulting string with all replacements applied. Never <code>null</code>.
+   */
   @NonNull
   public static String stringReplacePattern (@NonNull @RegEx final String sRegEx,
                                              @NonNull final String sValue,
@@ -224,6 +236,21 @@ public final class RegExHelper
     return getMatcher (sRegEx, sValue).replaceAll (StringHelper.getNotNull (sReplacement));
   }
 
+  /**
+   * Replace all occurrences of the provided regular expression in the value string with the
+   * replacement string, using the specified pattern compilation options.
+   *
+   * @param sRegEx
+   *        The regular expression to search for. May neither be <code>null</code> nor empty.
+   * @param nOptions
+   *        The pattern compilation options to be used.
+   * @param sValue
+   *        The string value to search in. May not be <code>null</code>.
+   * @param sReplacement
+   *        The replacement string. May be <code>null</code> in which case an empty string is used.
+   * @return The resulting string with all replacements applied. Never <code>null</code>.
+   * @see java.util.regex.Pattern#compile(String, int)
+   */
   @NonNull
   public static String stringReplacePattern (@NonNull @RegEx final String sRegEx,
                                              @Nonnegative final int nOptions,

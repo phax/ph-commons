@@ -41,28 +41,47 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
   private boolean m_bHasNext;
   private final ELEMENTTYPE m_aElement;
 
+  /**
+   * Constructor.
+   *
+   * @param aElement
+   *        The single element to iterate. May be <code>null</code>.
+   */
   public SingleElementListIterator (@Nullable final ELEMENTTYPE aElement)
   {
     m_bHasNext = true;
     m_aElement = aElement;
   }
 
+  /**
+   * Unsupported operation.
+   *
+   * @param o
+   *        The element to add. Ignored.
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void add (final ELEMENTTYPE o)
   {
     throw new UnsupportedOperationException ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_bHasNext;
   }
 
+  /** {@inheritDoc} */
   public boolean hasPrevious ()
   {
     return !m_bHasNext;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE next ()
   {
@@ -74,11 +93,13 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
     throw new NoSuchElementException ();
   }
 
+  /** {@inheritDoc} */
   public int nextIndex ()
   {
     return m_bHasNext ? 0 : 1;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE previous ()
   {
     if (!m_bHasNext)
@@ -89,17 +110,32 @@ public class SingleElementListIterator <ELEMENTTYPE> implements ListIterator <EL
     throw new NoSuchElementException ();
   }
 
+  /** {@inheritDoc} */
   public int previousIndex ()
   {
     return hasPrevious () ? 0 : -1;
   }
 
+  /**
+   * Unsupported operation.
+   *
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void remove ()
   {
     throw new UnsupportedOperationException ();
   }
 
+  /**
+   * Unsupported operation.
+   *
+   * @param o
+   *        The element to set. Ignored.
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void set (final ELEMENTTYPE o)
   {

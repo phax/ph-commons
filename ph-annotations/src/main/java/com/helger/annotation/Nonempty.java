@@ -51,6 +51,15 @@ public @interface Nonempty
 
   static class Checker implements TypeQualifierValidator <Nonempty>
   {
+    /**
+     * Validate whether the provided constant value is non-empty.
+     *
+     * @param annotation
+     *        The {@link Nonempty} annotation instance. Must not be <code>null</code>.
+     * @param value
+     *        The constant value to validate.
+     * @return {@link When#ALWAYS} if the value is non-empty, {@link When#NEVER} otherwise.
+     */
     public When forConstantValue (final Nonempty annotation, final Object value)
     {
       if (value instanceof final String s)

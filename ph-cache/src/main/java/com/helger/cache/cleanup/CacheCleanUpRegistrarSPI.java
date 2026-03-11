@@ -31,6 +31,7 @@ import com.helger.cache.regex.RegExCache;
 @IsSPIImplementation
 public final class CacheCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 200, () -> {

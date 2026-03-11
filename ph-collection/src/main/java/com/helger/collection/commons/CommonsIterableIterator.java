@@ -40,26 +40,48 @@ public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIt
 
   private final Iterator <ELEMENTTYPE> m_aIter;
 
+  /**
+   * Constructor iterating over the provided array.
+   *
+   * @param aCont
+   *        The array to iterate. May not be <code>null</code>.
+   */
   public CommonsIterableIterator (@NonNull final ELEMENTTYPE [] aCont)
   {
     this (Arrays.asList (aCont));
   }
 
+  /**
+   * Constructor iterating over the provided iterable.
+   *
+   * @param aCont
+   *        The iterable to iterate. May not be <code>null</code>.
+   */
   public CommonsIterableIterator (@NonNull final Iterable <ELEMENTTYPE> aCont)
   {
     this (aCont.iterator ());
   }
 
+  /**
+   * Constructor wrapping the provided iterator.
+   *
+   * @param aIter
+   *        The iterator to wrap. May not be <code>null</code>.
+   */
   public CommonsIterableIterator (@NonNull final Iterator <ELEMENTTYPE> aIter)
   {
     m_aIter = ValueEnforcer.notNull (aIter, "Iterator");
   }
 
+  /** {@inheritDoc} */
   public final boolean hasNext ()
   {
     return m_aIter.hasNext ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public final ELEMENTTYPE next ()
   {
@@ -85,6 +107,13 @@ public class CommonsIterableIterator <ELEMENTTYPE> implements ICommonsIterableIt
     return new ToStringGenerator (this).append ("Iter", m_aIter).getToString ();
   }
 
+  /**
+   * Create an empty iterable iterator.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type
+   * @return An empty iterable iterator. Never <code>null</code>.
+   */
   @NonNull
   public static <ELEMENTTYPE> ICommonsIterableIterator <ELEMENTTYPE> createEmpty ()
   {

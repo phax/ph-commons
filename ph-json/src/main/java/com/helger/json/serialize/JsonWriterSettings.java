@@ -57,9 +57,18 @@ public class JsonWriterSettings implements IJsonWriterSettings
   private boolean m_bWriteNewlineAtEnd = DEFAULT_WRITE_NEWLINE_AT_END;
   private boolean m_bQuoteNames = DEFAULT_QUOTE_NAMES;
 
+  /**
+   * Default constructor using the default settings.
+   */
   public JsonWriterSettings ()
   {}
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The settings to copy from. May not be <code>null</code>.
+   */
   public JsonWriterSettings (@NonNull final IJsonWriterSettings aOther)
   {
     ValueEnforcer.notNull (aOther, "Other");
@@ -70,11 +79,22 @@ public class JsonWriterSettings implements IJsonWriterSettings
     setQuoteNames (aOther.isQuoteNames ());
   }
 
+  /**
+   * @return <code>true</code> if indentation is enabled, <code>false</code> if not. Default is
+   *         {@link #DEFAULT_INDENT_ENABLED}.
+   */
   public boolean isIdentEnabled ()
   {
     return m_bIndentEnabled;
   }
 
+  /**
+   * Enable or disable indentation of the output.
+   *
+   * @param bIndentEnabled
+   *        <code>true</code> to enable indentation, <code>false</code> to disable it.
+   * @return this for chaining
+   */
   @NonNull
   public final JsonWriterSettings setIndentEnabled (final boolean bIndentEnabled)
   {
@@ -82,6 +102,10 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  /**
+   * @return The string to be used for a single indentation level. Never <code>null</code> nor
+   *         empty. Default is {@link #DEFAULT_INDENT_STRING}.
+   */
   @NonNull
   @Nonempty
   public String getIndentString ()
@@ -89,6 +113,13 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return m_sIndentString;
   }
 
+  /**
+   * Set the string to be used for a single indentation level.
+   *
+   * @param sIndentString
+   *        The indent string. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public final JsonWriterSettings setIndentString (@NonNull @Nonempty final String sIndentString)
   {
@@ -96,6 +127,10 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  /**
+   * @return The newline string to be used. Never <code>null</code> nor empty. Default is
+   *         {@link #DEFAULT_NEWLINE_STRING}.
+   */
   @NonNull
   @Nonempty
   public String getNewlineString ()
@@ -103,6 +138,13 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return m_sNewlineString;
   }
 
+  /**
+   * Set the newline string to be used.
+   *
+   * @param sNewlineString
+   *        The newline string. May neither be <code>null</code> nor empty.
+   * @return this for chaining
+   */
   @NonNull
   public final JsonWriterSettings setNewlineString (@NonNull @Nonempty final String sNewlineString)
   {
@@ -110,11 +152,22 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  /**
+   * @return <code>true</code> if a newline should be written at the end, <code>false</code> if not.
+   *         Default is {@link #DEFAULT_WRITE_NEWLINE_AT_END}.
+   */
   public boolean isWriteNewlineAtEnd ()
   {
     return m_bWriteNewlineAtEnd;
   }
 
+  /**
+   * Enable or disable writing a newline at the end of the output.
+   *
+   * @param bWriteNewlineAtEnd
+   *        <code>true</code> to write a newline at the end, <code>false</code> if not.
+   * @return this for chaining
+   */
   @NonNull
   public final JsonWriterSettings setWriteNewlineAtEnd (final boolean bWriteNewlineAtEnd)
   {
@@ -122,11 +175,22 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  /**
+   * @return <code>true</code> if object names should be quoted, <code>false</code> if not. Default
+   *         is {@link #DEFAULT_QUOTE_NAMES}.
+   */
   public boolean isQuoteNames ()
   {
     return m_bQuoteNames;
   }
 
+  /**
+   * Enable or disable quoting of object names.
+   *
+   * @param bQuoteNames
+   *        <code>true</code> to quote names, <code>false</code> if not.
+   * @return this for chaining
+   */
   @NonNull
   public final JsonWriterSettings setQuoteNames (final boolean bQuoteNames)
   {
@@ -134,6 +198,9 @@ public class JsonWriterSettings implements IJsonWriterSettings
     return this;
   }
 
+  /**
+   * @return A clone of this settings object. Never <code>null</code>.
+   */
   @NonNull
   public JsonWriterSettings getClone ()
   {

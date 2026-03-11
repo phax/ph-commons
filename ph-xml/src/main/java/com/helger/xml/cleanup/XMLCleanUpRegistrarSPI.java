@@ -33,6 +33,7 @@ import com.helger.xml.util.mime.MimeTypeInfoManager;
 @Immutable
 public final class XMLCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 700, () -> {

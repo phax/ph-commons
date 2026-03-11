@@ -48,6 +48,9 @@ public enum EHierarchyVisitorReturn
    */
   STOP_ITERATION;
 
+  /**
+   * @return <code>true</code> if this is {@link #CONTINUE}, <code>false</code> otherwise.
+   */
   public boolean isContinue ()
   {
     return this == CONTINUE;

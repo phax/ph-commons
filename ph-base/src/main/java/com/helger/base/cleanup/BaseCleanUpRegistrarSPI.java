@@ -32,6 +32,7 @@ import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 @IsSPIImplementation
 public final class BaseCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN, () -> {

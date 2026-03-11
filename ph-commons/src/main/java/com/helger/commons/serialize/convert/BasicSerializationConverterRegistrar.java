@@ -43,12 +43,14 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterBufferedImage implements ISerializationConverter <BufferedImage>
   {
+    /** {@inheritDoc} */
     public void writeConvertedObject (@NonNull final BufferedImage aSourceObject,
                                       @NonNull final ObjectOutputStream aOOS) throws IOException
     {
       ImageIO.write (aSourceObject, "png", aOOS);
     }
 
+    /** {@inheritDoc} */
     public BufferedImage readConvertedObject (@NonNull final ObjectInputStream aOIS) throws IOException
     {
       return ImageIO.read (aOIS);
@@ -57,12 +59,14 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
 
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
+    /** {@inheritDoc} */
     public void writeConvertedObject (@NonNull final Charset aSourceObject, @NonNull final ObjectOutputStream aOOS)
                                                                                                                     throws IOException
     {
       StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }
 
+    /** {@inheritDoc} */
     public Charset readConvertedObject (@NonNull final ObjectInputStream aOIS) throws IOException
     {
       final String sCharsetName = StreamHelper.readSafeUTF (aOIS);

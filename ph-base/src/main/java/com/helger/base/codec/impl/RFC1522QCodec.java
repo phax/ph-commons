@@ -99,6 +99,10 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
     PRINTABLE_CHARS.set ('~');
   }
 
+  /**
+   * @return A mutable copy of the default printable characters as defined in RFC 1522. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static BitSet getAllPrintableChars ()

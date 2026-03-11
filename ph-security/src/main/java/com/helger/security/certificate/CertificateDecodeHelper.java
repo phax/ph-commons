@@ -41,6 +41,9 @@ public class CertificateDecodeHelper
   private String m_sSrcString;
   private boolean m_bPEMEncoded = DEFAULT_PEM_ENCODED;
 
+  /**
+   * Default constructor.
+   */
   public CertificateDecodeHelper ()
   {}
 

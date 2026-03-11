@@ -55,6 +55,7 @@ public final class PasswordHashCreatorSHA512 extends AbstractPasswordHashCreator
     return false;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String createPasswordHash (@Nullable final IPasswordSalt aSalt, @NonNull final String sPlainTextPassword)
   {

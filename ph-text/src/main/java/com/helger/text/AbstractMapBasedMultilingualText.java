@@ -76,6 +76,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     m_aChangeNotifyCallbacks.forEach (x -> x.afterChange (this));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange addText (@NonNull final Locale aContentLocale, @Nullable final String sText)
   {
@@ -91,6 +92,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange setText (@NonNull final Locale aContentLocale, @Nullable final String sText)
   {
@@ -120,6 +122,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange removeText (@NonNull final Locale aContentLocale)
   {
@@ -138,6 +141,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.UNCHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange removeAll ()
   {
@@ -149,6 +153,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange assignFrom (@NonNull final IMultilingualText aMLT)
   {
@@ -165,6 +170,7 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableObject ("design")
   public final CallbackList <IChangeCallback <IMutableMultilingualText>> changeNotifyCallbacks ()

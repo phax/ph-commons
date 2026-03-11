@@ -211,28 +211,49 @@ public final class VersionRange implements IComparable <VersionRange>
       throw new IllegalArgumentException ("Floor version may not be greater than the ceiling version!");
   }
 
+  /**
+   * @return <code>true</code> if the floor version is included in the range (i.e. &gt;= comparison),
+   *         <code>false</code> if not (i.e. &gt; comparison).
+   */
   public boolean isIncludingFloor ()
   {
     return m_bIncludeFloor;
   }
 
+  /**
+   * @return The floor version of this range. May be <code>null</code>.
+   */
   @Nullable
   public Version getFloorVersion ()
   {
     return m_aFloorVersion;
   }
 
+  /**
+   * @return <code>true</code> if the ceiling version is included in the range (i.e. &lt;=
+   *         comparison), <code>false</code> if not (i.e. &lt; comparison).
+   */
   public boolean isIncludingCeil ()
   {
     return m_bIncludeCeil;
   }
 
+  /**
+   * @return The ceiling version of this range. May be <code>null</code> for an open upper bound.
+   */
   @Nullable
   public Version getCeilVersion ()
   {
     return m_aCeilVersion;
   }
 
+  /**
+   * Check if the passed version matches this version range.
+   *
+   * @param rhs
+   *        The version to check. May not be <code>null</code>.
+   * @return <code>true</code> if the version is within this range, <code>false</code> otherwise.
+   */
   public boolean versionMatches (@NonNull final Version rhs)
   {
     // returns -1 if floor < rhs

@@ -160,6 +160,16 @@ public final class MicroHelper
     return null;
   }
 
+  /**
+   * Convert the passed W3C DOM {@link Node} to an {@link IMicroNode}. This method handles the
+   * conversion recursively for all child nodes.
+   *
+   * @param aNode
+   *        The DOM node to convert. May not be <code>null</code>.
+   * @return The created micro node. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         If the node type is not supported.
+   */
   @NonNull
   public static IMicroNode convertToMicroNode (@NonNull final Node aNode)
   {

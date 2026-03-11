@@ -46,12 +46,21 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
 
   private final String m_sValue;
 
+  /**
+   * Constructor with a constant value.
+   *
+   * @param sValue
+   *        The constant value to use. May neither be <code>null</code> nor empty.
+   */
   public JsonValueSerializerConstant (@NonNull @Nonempty final String sValue)
   {
     ValueEnforcer.notEmpty (sValue, "Value");
     m_sValue = sValue;
   }
 
+  /**
+   * @return The constant value. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getValue ()
@@ -59,6 +68,9 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
     return m_sValue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter)
                                                                                                               throws IOException
   {

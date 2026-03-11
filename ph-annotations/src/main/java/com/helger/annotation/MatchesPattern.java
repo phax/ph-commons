@@ -44,6 +44,15 @@ public @interface MatchesPattern
 
   static class Checker implements TypeQualifierValidator <MatchesPattern>
   {
+    /**
+     * Validate whether the provided constant value matches the pattern defined by the annotation.
+     *
+     * @param annotation
+     *        The {@link MatchesPattern} annotation instance. Must not be <code>null</code>.
+     * @param value
+     *        The constant value to validate.
+     * @return {@link When#ALWAYS} if the value matches the pattern, {@link When#NEVER} otherwise.
+     */
     public When forConstantValue (final MatchesPattern annotation, final Object value)
     {
       final Pattern p = Pattern.compile (annotation.value (), annotation.flags ());

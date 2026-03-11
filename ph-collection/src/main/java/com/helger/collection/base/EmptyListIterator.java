@@ -33,48 +33,76 @@ import com.helger.base.tostring.ToStringGenerator;
 @Immutable
 public class EmptyListIterator <ELEMENTTYPE> implements ListIterator <ELEMENTTYPE>
 {
+  /**
+   * Unsupported operation.
+   *
+   * @param o
+   *        The element to add. Ignored.
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void add (final ELEMENTTYPE o)
   {
     throw new UnsupportedOperationException ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasPrevious ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE previous ()
   {
     throw new NoSuchElementException ();
   }
 
+  /** {@inheritDoc} */
   public int previousIndex ()
   {
     return -1;
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE next ()
   {
     throw new NoSuchElementException ();
   }
 
+  /** {@inheritDoc} */
   public int nextIndex ()
   {
     return 0;
   }
 
+  /**
+   * Unsupported operation.
+   *
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void remove ()
   {
     throw new UnsupportedOperationException ();
   }
 
+  /**
+   * Unsupported operation.
+   *
+   * @param o
+   *        The element to set. Ignored.
+   * @throws UnsupportedOperationException
+   *         Always thrown.
+   */
   @UnsupportedOperation
   public void set (final ELEMENTTYPE o)
   {

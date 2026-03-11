@@ -33,11 +33,13 @@ import com.helger.base.tostring.ToStringGenerator;
 @Immutable
 public class EmptyEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
 {
+  /** {@inheritDoc} */
   public boolean hasMoreElements ()
   {
     return false;
   }
 
+  /** {@inheritDoc} */
   public ELEMENTTYPE nextElement ()
   {
     throw new NoSuchElementException ();

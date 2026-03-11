@@ -41,6 +41,9 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
 {
   private final ICommonsList <T> m_aList = new CommonsArrayList <> ();
 
+  /**
+   * Default constructor creating an empty CSP policy.
+   */
   public AbstractCSPPolicy ()
   {}
 

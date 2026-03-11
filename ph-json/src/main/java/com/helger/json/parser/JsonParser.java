@@ -59,11 +59,21 @@ public class JsonParser
       m_cQuote = cQuote;
     }
 
+    /**
+     * @return The quote character for this mode.
+     */
     public char getQuoteChar ()
     {
       return m_cQuote;
     }
 
+    /**
+     * Get the quote mode for the given character, defaulting to {@link #DOUBLE}.
+     *
+     * @param c
+     *        The character to check.
+     * @return The matching quote mode. Never <code>null</code>.
+     */
     @NonNull
     public static EStringQuoteMode getFromCharOrDefault (final int c)
     {
@@ -96,6 +106,15 @@ public class JsonParser
   private final JsonStringBuilder m_aSB1 = new JsonStringBuilder (256);
   private final JsonStringBuilder m_aSB2 = new JsonStringBuilder (256);
 
+  /**
+   * Constructor.
+   *
+   * @param aReader
+   *        The reader to read JSON from. May not be <code>null</code>. Will not be closed.
+   * @param aCallback
+   *        The parser handler callback to be invoked for each parsed element. May not be
+   *        <code>null</code>.
+   */
   public JsonParser (@NonNull @WillNotClose final Reader aReader, @NonNull final IJsonParserHandler aCallback)
   {
     ValueEnforcer.notNull (aReader, "Reader");

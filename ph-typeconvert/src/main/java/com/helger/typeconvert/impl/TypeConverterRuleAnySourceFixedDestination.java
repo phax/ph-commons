@@ -53,6 +53,7 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
     m_aConverter = ValueEnforcer.notNull (aConverter, "Converter");
   }
 
+  /** {@inheritDoc} */
   public final boolean canConvert (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
   {
     // source class can be anything
@@ -68,6 +69,7 @@ public class TypeConverterRuleAnySourceFixedDestination <DST> extends AbstractTy
     return m_aDstClass;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public DST apply (@NonNull final Object aSource)
   {

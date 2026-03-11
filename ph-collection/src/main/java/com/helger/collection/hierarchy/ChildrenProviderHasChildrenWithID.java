@@ -37,6 +37,7 @@ public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasC
                                                ChildrenProviderHasChildren <CHILDTYPE> implements
                                                IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {
+  /** {@inheritDoc} */
   @Nullable
   public CHILDTYPE getChildWithID (@Nullable final CHILDTYPE aCurrent, @Nullable final KEYTYPE aID)
   {

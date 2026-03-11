@@ -40,12 +40,16 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   private JsonValueSerializerTypeConverterToString ()
   {}
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValueSerializerTypeConverterToString getInstance ()
   {
     return INSTANCE;
   }
 
+  /** {@inheritDoc} */
   public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");

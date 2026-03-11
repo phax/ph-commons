@@ -469,11 +469,21 @@ public class WSClientConfig
     return this;
   }
 
+  /**
+   * @return <code>true</code> if cookie support is enabled, <code>false</code> if not.
+   */
   public boolean isCookiesSupportEnabled ()
   {
     return m_eCookiesSupport.isTrue ();
   }
 
+  /**
+   * Enable or disable cookie support for this client.
+   *
+   * @param bEnabled
+   *        <code>true</code> to enable cookie support, <code>false</code> to disable it.
+   * @return this for chaining
+   */
   @NonNull
   public final WSClientConfig setCookiesSupportEnabled (final boolean bEnabled)
   {
@@ -481,6 +491,9 @@ public class WSClientConfig
     return this;
   }
 
+  /**
+   * @return The mutable list of JAX-WS handlers to be used. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public ICommonsList <Handler <? extends MessageContext>> handlers ()
@@ -509,6 +522,14 @@ public class WSClientConfig
     return this;
   }
 
+  /**
+   * Apply all configured settings to the provided JAX-WS {@link BindingProvider}. This includes
+   * endpoint address, SSL socket factory, hostname verifier, timeouts, authentication, SOAP action,
+   * HTTP headers, cookie support, and handlers.
+   *
+   * @param aBP
+   *        The binding provider to configure. May not be <code>null</code>.
+   */
   @OverrideOnDemand
   @OverridingMethodsMustInvokeSuper
   public void applyWSSettingsToBindingProvider (@NonNull final BindingProvider aBP)

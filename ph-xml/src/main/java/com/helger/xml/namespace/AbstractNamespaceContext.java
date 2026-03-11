@@ -38,6 +38,9 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   private static final ICommonsList <String> XML_NS = new CommonsArrayList <> (XMLConstants.XML_NS_PREFIX);
   private static final ICommonsList <String> XMLNS_ATTRIBUTE_NS = new CommonsArrayList <> (XMLConstants.XMLNS_ATTRIBUTE);
 
+  /**
+   * @return The default namespace URI. May be <code>null</code>.
+   */
   @Nullable
   public abstract String getDefaultNamespaceURI ();
 

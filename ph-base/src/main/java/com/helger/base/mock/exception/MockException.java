@@ -23,19 +23,42 @@ package com.helger.base.mock.exception;
  */
 public class MockException extends Exception implements IMockException
 {
+  /**
+   * Default constructor.
+   */
   public MockException ()
   {}
 
+  /**
+   * Constructor with a message.
+   *
+   * @param s
+   *        The detail message. May be <code>null</code>.
+   */
   public MockException (final String s)
   {
     super (s);
   }
 
+  /**
+   * Constructor with a cause.
+   *
+   * @param t
+   *        The cause. May be <code>null</code>.
+   */
   public MockException (final Throwable t)
   {
     super (t);
   }
 
+  /**
+   * Constructor with a message and a cause.
+   *
+   * @param s
+   *        The detail message. May be <code>null</code>.
+   * @param t
+   *        The cause. May be <code>null</code>.
+   */
   public MockException (final String s, final Throwable t)
   {
     super (s, t);

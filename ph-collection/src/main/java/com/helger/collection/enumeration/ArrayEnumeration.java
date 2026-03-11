@@ -93,11 +93,15 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
     return m_aArray.length;
   }
 
+  /** {@inheritDoc} */
   public boolean hasMoreElements ()
   {
     return m_nIndex < m_aArray.length;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public ELEMENTTYPE nextElement ()
   {

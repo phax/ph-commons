@@ -58,6 +58,14 @@ public final class CleanUpRegistry implements ICleanUpRegistry
       m_aRunnable = aRunnable;
     }
 
+    /**
+     * Compare this item with another item by priority.
+     *
+     * @param o
+     *        The other item to compare to. May not be <code>null</code>.
+     * @return A negative integer, zero, or a positive integer as this item has
+     *         lower, equal, or higher priority than the specified item.
+     */
     public int compareTo (@NonNull final Item o)
     {
       return Integer.compare (m_nPriority, o.m_nPriority);

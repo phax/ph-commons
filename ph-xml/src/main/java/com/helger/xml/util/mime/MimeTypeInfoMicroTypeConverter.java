@@ -64,6 +64,7 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
   private static final String ELEMENT_EXTENSION = "extension";
   private static final String ATTR_SOURCE = "source";
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroElement convertToMicroElement (@NonNull final MimeTypeInfo aObject,
                                               @Nullable final String sNamespaceURI,
@@ -92,6 +93,7 @@ public final class MimeTypeInfoMicroTypeConverter implements IMicroTypeConverter
     return eRet;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public MimeTypeInfo convertToNative (@NonNull final IMicroElement aElement)
   {

@@ -55,6 +55,18 @@ public abstract class AbstractTransformURIResolver implements URIResolver
   @Nullable
   protected abstract Source internalResolve (final String sHref, final String sBase) throws TransformerException;
 
+  /**
+   * Resolve the URI by first trying the internal resolution, and if that returns <code>null</code>,
+   * delegating to the wrapped URI resolver (if any).
+   *
+   * @param sHref
+   *        The href attribute of the URI to resolve.
+   * @param sBase
+   *        The base URI in effect when the href attribute was encountered.
+   * @return The resolved {@link Source}, or <code>null</code> if the URI could not be resolved.
+   * @throws TransformerException
+   *         If an error occurs during resolution.
+   */
   @Nullable
   public final Source resolve (final String sHref, final String sBase) throws TransformerException
   {

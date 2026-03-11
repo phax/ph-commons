@@ -93,6 +93,9 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   private Duration m_aExecutionDurationWarn = DEFAULT_EXECUTION_WARN_DURATION;
   private CRLCache m_aCRLCache = CertificateRevocationCheckerDefaults.getDefaultCRLCache ();
 
+  /**
+   * Default constructor.
+   */
   public AbstractRevocationCheckBuilder ()
   {}
 

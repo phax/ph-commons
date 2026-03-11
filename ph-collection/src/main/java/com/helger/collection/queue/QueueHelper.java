@@ -47,6 +47,15 @@ public final class QueueHelper
   private QueueHelper ()
   {}
 
+  /**
+   * Create a new empty priority queue with the specified initial capacity.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param nInitialCapacity
+   *        The initial capacity.
+   * @return A new empty priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnegative final int nInitialCapacity)
@@ -54,6 +63,13 @@ public final class QueueHelper
     return new PriorityQueue <> (nInitialCapacity);
   }
 
+  /**
+   * Create a new empty priority queue.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @return A new empty priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue ()
@@ -61,6 +77,19 @@ public final class QueueHelper
     return new PriorityQueue <> ();
   }
 
+  /**
+   * Create a new priority queue with mapped elements from the provided collection.
+   *
+   * @param <SRCTYPE>
+   *        Source element type
+   * @param <DSTTYPE>
+   *        Destination element type
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
@@ -74,6 +103,19 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue with mapped elements from the provided array.
+   *
+   * @param <SRCTYPE>
+   *        Source element type
+   * @param <DSTTYPE>
+   *        Destination element type
+   * @param aArray
+   *        The source array. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> PriorityQueue <DSTTYPE> newQueueMapped (@Nullable final SRCTYPE [] aArray,
@@ -87,6 +129,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue with exactly one element.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aValue
+   *        The value to add. May not be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@NonNull final ELEMENTTYPE aValue)
@@ -96,6 +147,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue with the provided values.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aValues
+   *        The values to add. May be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   @SafeVarargs
@@ -132,6 +192,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue from the provided iterator.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aIter
+   *        The iterator to copy elements from. May be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterator <? extends ELEMENTTYPE> aIter)
@@ -143,6 +212,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue from the provided iterable.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aIter
+   *        The iterable to copy elements from. May be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Iterable <? extends ELEMENTTYPE> aIter)
@@ -154,6 +232,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue from the provided collection.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aCont
+   *        The collection to copy elements from. May be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
@@ -163,6 +250,17 @@ public final class QueueHelper
     return new PriorityQueue <> (aCont);
   }
 
+  /**
+   * Create a new priority queue with filtered elements from the provided collection.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May not be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
@@ -175,6 +273,15 @@ public final class QueueHelper
     return ret;
   }
 
+  /**
+   * Create a new priority queue from the provided iterable iterator.
+   *
+   * @param <ELEMENTTYPE>
+   *        Queue element type
+   * @param aIter
+   *        The iterable iterator to copy elements from. May be <code>null</code>.
+   * @return A new priority queue. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)

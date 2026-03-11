@@ -49,16 +49,35 @@ public final class RegExPattern
   private Pattern m_aPattern;
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * @return <code>true</code> if debug consistency checks for regular expressions are enabled,
+   *         <code>false</code> if not.
+   */
   public static boolean areDebugConsistencyChecksEnabled ()
   {
     return CHECK_CONSISTENCY_ENABLED.get ();
   }
 
+  /**
+   * Enable or disable debug consistency checks for regular expressions.
+   *
+   * @param bEnable
+   *        <code>true</code> to enable, <code>false</code> to disable.
+   */
   public static void enableDebugConsistencyChecks (final boolean bEnable)
   {
     CHECK_CONSISTENCY_ENABLED.set (bEnable);
   }
 
+  /**
+   * Check the consistency of a regular expression pattern, especially verifying that all
+   * <code>$</code> signs are properly escaped.
+   *
+   * @param sRegEx
+   *        The regular expression to check. May not be <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the pattern contains unquoted <code>$</code> signs.
+   */
   public static void checkPatternConsistency (@NonNull @RegEx final String sRegEx)
   {
     // Check if a '$' is escaped if no digits follow
@@ -99,12 +118,27 @@ public final class RegExPattern
     }
   }
 
+  /**
+   * Constructor using the provided regular expression without any options.
+   *
+   * @param sRegEx
+   *        The regular expression. May neither be <code>null</code> nor empty.
+   */
   public RegExPattern (@NonNull @Nonempty @RegEx final String sRegEx)
   {
     // Default: no options
     this (sRegEx, 0);
   }
 
+  /**
+   * Constructor using the provided regular expression and options.
+   *
+   * @param sRegEx
+   *        The regular expression. May neither be <code>null</code> nor empty.
+   * @param nOptions
+   *        The options to use for {@link java.util.regex.Pattern#compile(String, int)}. Must
+   *        be &ge; 0.
+   */
   public RegExPattern (@NonNull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {
     ValueEnforcer.notEmpty (sRegEx, "RegEx");

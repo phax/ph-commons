@@ -36,6 +36,9 @@ public class BasicAuthServerBuilder
 {
   private String m_sRealm;
 
+  /**
+   * Default constructor.
+   */
   public BasicAuthServerBuilder ()
   {}
 

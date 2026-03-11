@@ -57,12 +57,18 @@ public final class DirectedGraphIteratorForward implements ICommonsIterableItera
       m_aOutgoingIt = aNode.getAllOutgoingRelations ().iterator ();
     }
 
+    /**
+     * @return The graph node of this iteration element. Never <code>null</code>.
+     */
     @NonNull
     public IMutableDirectedGraphNode getNode ()
     {
       return m_aNode;
     }
 
+    /**
+     * @return The iterator over all outgoing relations of this node. Never <code>null</code>.
+     */
     @NonNull
     public Iterator <IMutableDirectedGraphRelation> getOutgoingRelationIterator ()
     {

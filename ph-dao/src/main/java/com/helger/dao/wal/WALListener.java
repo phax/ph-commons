@@ -61,6 +61,14 @@ public final class WALListener extends AbstractGlobalSingleton
     private final ScheduledFuture <?> m_aFuture;
     private final Runnable m_aRunnable;
 
+    /**
+     * Constructor.
+     *
+     * @param aFuture
+     *        The scheduled future associated with this WAL item. May not be <code>null</code>.
+     * @param aRunnable
+     *        The runnable to be executed. May not be <code>null</code>.
+     */
     public WALItem (@NonNull final ScheduledFuture <?> aFuture, @NonNull final Runnable aRunnable)
     {
       m_aFuture = aFuture;

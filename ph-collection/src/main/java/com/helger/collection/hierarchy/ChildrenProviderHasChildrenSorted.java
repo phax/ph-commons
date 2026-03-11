@@ -42,6 +42,7 @@ public final class ChildrenProviderHasChildrenSorted <CHILDTYPE extends IHasChil
     return aCurrent == null ? null : aCurrent.getAllChildren ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public CHILDTYPE getChildAtIndex (@Nullable final CHILDTYPE aCurrent, @Nonnegative final int nIndex)
   {

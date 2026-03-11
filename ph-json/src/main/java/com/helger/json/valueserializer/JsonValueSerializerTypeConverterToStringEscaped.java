@@ -41,12 +41,16 @@ public final class JsonValueSerializerTypeConverterToStringEscaped implements IJ
   private JsonValueSerializerTypeConverterToStringEscaped ()
   {}
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static JsonValueSerializerTypeConverterToStringEscaped getInstance ()
   {
     return INSTANCE;
   }
 
+  /** {@inheritDoc} */
   public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");

@@ -180,6 +180,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     });
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <SRC, DST> void registerTypeConverter (@NonNull final Class <SRC> aSrcClass,
                                                 @NonNull final Class <DST> aDstClass,
                                                 @NonNull final ITypeConverter <SRC, DST> aConverter)
@@ -187,6 +190,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     _registerTypeConverter (aSrcClass, aDstClass, aConverter);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <DST> void registerTypeConverter (@NonNull final Class <?> [] aSrcClasses,
                                            @NonNull final Class <DST> aDstClass,
                                            @NonNull final ITypeConverter <?, DST> aConverter)
@@ -361,6 +367,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     });
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void registerTypeConverterRule (@NonNull final ITypeConverterRule <?, ?> aTypeConverterRule)
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
@@ -376,12 +385,18 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                     aTypeConverterRule.getSubType ());
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <DST> void registerTypeConverterRuleAnySourceFixedDestination (@NonNull final Class <DST> aDstClass,
                                                                         @NonNull final Function <? super Object, ? extends DST> aConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleAnySourceFixedDestination <> (aDstClass, aConverter));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <SRC, DST> void registerTypeConverterRuleAssignableSourceFixedDestination (@NonNull final Class <SRC> aSrcClass,
                                                                                     @NonNull final Class <DST> aDstClass,
                                                                                     @NonNull final Function <? super SRC, ? extends DST> aConverter)
@@ -391,12 +406,18 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
                                                                                          aConverter));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <SRC> void registerTypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
                                                                         @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter)
   {
     registerTypeConverterRule (new TypeConverterRuleFixedSourceAnyDestination <> (aSrcClass, aInBetweenConverter));
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <SRC, DST> void registerTypeConverterRuleFixedSourceAssignableDestination (@NonNull final Class <SRC> aSrcClass,
                                                                                     @NonNull final Class <DST> aDstClass,
                                                                                     @NonNull final Function <? super SRC, ? extends DST> aConverter)

@@ -42,6 +42,15 @@ public final class StackHelper
   private StackHelper ()
   {}
 
+  /**
+   * Create a new empty stack with the given initial capacity.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param nInitialCapacity
+   *        The initial capacity. Must be &ge; 0.
+   * @return A new empty {@link NonBlockingStack}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nonnegative final int nInitialCapacity)
@@ -49,6 +58,7 @@ public final class StackHelper
     return new NonBlockingStack <> (nInitialCapacity);
   }
 
+  /** @see #newStack(int) */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack ()
@@ -56,6 +66,19 @@ public final class StackHelper
     return new NonBlockingStack <> ();
   }
 
+  /**
+   * Create a new stack by mapping elements from the given collection.
+   *
+   * @param <SRCTYPE>
+   *        The source element type.
+   * @param <DSTTYPE>
+   *        The destination element type.
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aMapper
+   *        The mapping function. May not be <code>null</code>.
+   * @return A new {@link NonBlockingStack}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final Collection <? extends SRCTYPE> aCollection,
@@ -69,6 +92,7 @@ public final class StackHelper
     return ret;
   }
 
+  /** @see #newStackMapped(Collection, Function) */
   @NonNull
   @ReturnsMutableCopy
   public static <SRCTYPE, DSTTYPE> NonBlockingStack <DSTTYPE> newStackMapped (@Nullable final SRCTYPE [] aArray,
@@ -118,6 +142,17 @@ public final class StackHelper
     return new NonBlockingStack <> (aValues);
   }
 
+  /**
+   * Create a new stack from the given collection, applying a filter.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aCollection
+   *        The source collection. May be <code>null</code>.
+   * @param aFilter
+   *        The filter to apply. May not be <code>null</code>.
+   * @return A new {@link NonBlockingStack}. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> newStack (@Nullable final Collection <? extends ELEMENTTYPE> aCollection,
@@ -147,6 +182,16 @@ public final class StackHelper
     return new NonBlockingStack <> (aValues);
   }
 
+  /**
+   * Get a copy of the given stack without the top element.
+   *
+   * @param <ELEMENTTYPE>
+   *        The element type.
+   * @param aStack
+   *        The source stack. May be <code>null</code>.
+   * @return A copy of the stack without the top element, or <code>null</code> if the passed stack
+   *         is empty or <code>null</code>.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> NonBlockingStack <ELEMENTTYPE> getStackCopyWithoutTop (@Nullable final NonBlockingStack <ELEMENTTYPE> aStack)

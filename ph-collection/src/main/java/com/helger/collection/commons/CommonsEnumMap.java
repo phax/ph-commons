@@ -34,11 +34,23 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends EnumMap <KEYTYPE, VALUETYPE> implements
                             ICommonsMap <KEYTYPE, VALUETYPE>
 {
+  /**
+   * Create a new enum map with the specified key class.
+   *
+   * @param aKeyClass
+   *        The enum class used as the key type. May not be <code>null</code>.
+   */
   public CommonsEnumMap (@NonNull final Class <KEYTYPE> aKeyClass)
   {
     super (aKeyClass);
   }
 
+  /**
+   * Create a new enum map with the same entries as the provided enum map.
+   *
+   * @param aMap
+   *        The enum map to copy entries from. May not be <code>null</code>.
+   */
   public CommonsEnumMap (@NonNull final EnumMap <KEYTYPE, ? extends VALUETYPE> aMap)
   {
     super (aMap);
@@ -47,6 +59,9 @@ public class CommonsEnumMap <KEYTYPE extends Enum <KEYTYPE>, VALUETYPE> extends 
   // Cannot overwrite createInstance because of the special key type generics
   // constraints
 
+  /**
+   * @return A mutable copy of this map. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public CommonsEnumMap <KEYTYPE, VALUETYPE> getClone ()
