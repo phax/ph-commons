@@ -28,17 +28,34 @@ public enum EValidity implements IValidityIndicator
   VALID,
   INVALID;
 
+  /** {@inheritDoc} */
   public boolean isValid ()
   {
     return this == VALID;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EValidity} enum value.
+   *
+   * @param bValidity
+   *        <code>true</code> for {@link #VALID}, <code>false</code> for
+   *        {@link #INVALID}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EValidity valueOf (final boolean bValidity)
   {
     return bValidity ? VALID : INVALID;
   }
 
+  /**
+   * Convert an {@link IValidityIndicator} to the corresponding
+   * {@link EValidity} enum value.
+   *
+   * @param aValidityIndicator
+   *        The validity indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EValidity valueOf (@NonNull final IValidityIndicator aValidityIndicator)
   {

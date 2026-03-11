@@ -36,11 +36,23 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
 {
   private double m_dValue;
 
+  /**
+   * Initialize with a certain value.
+   *
+   * @param aValue
+   *        The value to be used.
+   */
   public MutableDouble (@NonNull final Number aValue)
   {
     this (aValue.doubleValue ());
   }
 
+  /**
+   * Initialize with a certain value.
+   *
+   * @param dValue
+   *        The value to be used.
+   */
   public MutableDouble (final double dValue)
   {
     m_dValue = dValue;
@@ -80,6 +92,13 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return inc (1);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param dDelta
+   *        The delta to add.
+   * @return The new value after incrementing.
+   */
   public double inc (final double dDelta)
   {
     m_dValue += dDelta;
@@ -87,28 +106,61 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing.
+   */
   public double inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.doubleValue ());
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value.
+   */
   public double dec ()
   {
     return inc (-1);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param dDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing.
+   */
   public double dec (final double dDelta)
   {
     return inc (-dDelta);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing.
+   */
   public double dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.doubleValue ());
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param dDivisor
+   *        The divisor to use.
+   * @return The new value after division.
+   */
   public double divide (final double dDivisor)
   {
     m_dValue /= dDivisor;
@@ -116,12 +168,26 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @return The new value after division.
+   */
   public double divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.doubleValue ());
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param dMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication.
+   */
   public double multiply (final double dMultiplicand)
   {
     m_dValue *= dMultiplicand;
@@ -129,12 +195,26 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return m_dValue;
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication.
+   */
   public double multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.doubleValue ());
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param dValue
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final double dValue)
   {
@@ -145,6 +225,13 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return EChange.CHANGED;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final Number aValue)
   {
@@ -152,31 +239,41 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return set (aValue.doubleValue ());
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return EqualsHelper.equals (m_dValue, 0);
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return CompareHelper.compare (m_dValue, 0) < 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return CompareHelper.compare (m_dValue, 0) <= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return CompareHelper.compare (m_dValue, 0) > 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return CompareHelper.compare (m_dValue, 0) >= 0;
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing.
+   */
   public double getAndInc ()
   {
     final double ret = doubleValue ();
@@ -184,17 +281,24 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing.
+   */
   public double incAndGet ()
   {
     inc ();
     return doubleValue ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableDouble rhs)
   {
     return CompareHelper.compare (m_dValue, rhs.m_dValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableDouble getClone ()
   {

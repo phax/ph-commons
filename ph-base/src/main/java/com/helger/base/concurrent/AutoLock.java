@@ -33,12 +33,21 @@ public class AutoLock implements AutoCloseable
 {
   private final Lock m_aLock;
 
+  /**
+   * Constructor that acquires the provided lock immediately.
+   *
+   * @param aLock
+   *        The lock to acquire. May not be <code>null</code>.
+   */
   public AutoLock (@NonNull final Lock aLock)
   {
     m_aLock = ValueEnforcer.notNull (aLock, "Lock");
     m_aLock.lock ();
   }
 
+  /**
+   * Release the lock that was acquired in the constructor.
+   */
   public void close ()
   {
     m_aLock.unlock ();

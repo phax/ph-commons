@@ -40,6 +40,12 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
 {
   private final IMicroElement m_eRoot;
 
+  /**
+   * Constructor.
+   *
+   * @param eRoot
+   *        The root element to append statistics to. May not be <code>null</code>.
+   */
   public StatisticsVisitorCallbackToXML (@NonNull final IMicroElement eRoot)
   {
     m_eRoot = ValueEnforcer.notNull (eRoot, "Root");

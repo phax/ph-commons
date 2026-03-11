@@ -45,6 +45,16 @@ public final class JMXHelper
   private JMXHelper ()
   {}
 
+  /**
+   * Register an MBean with the platform MBean server.
+   *
+   * @param aObject
+   *        The MBean object to register. May not be <code>null</code>.
+   * @param aObjectName
+   *        The object name to register the MBean with. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
   @NonNull
   public static ESuccess exposeMBean (@NonNull final Object aObject, @NonNull final ObjectName aObjectName)
   {
@@ -63,12 +73,31 @@ public final class JMXHelper
     }
   }
 
+  /**
+   * Register an MBean with an automatically generated object name based on
+   * the object's class.
+   *
+   * @param aObj
+   *        The MBean object to register. May not be <code>null</code>.
+   * @return {@link ESuccess}
+   */
   @NonNull
   public static ESuccess exposeMBeanWithAutoName (@NonNull final Object aObj)
   {
     return exposeMBean (aObj, ObjectNameHelper.createWithDefaultProperties (aObj));
   }
 
+  /**
+   * Register an MBean with an automatically generated object name based on
+   * the object's class and the provided name.
+   *
+   * @param aObj
+   *        The MBean object to register. May not be <code>null</code>.
+   * @param sName
+   *        The value of the "name" JMX property. May not be
+   *        <code>null</code>.
+   * @return {@link ESuccess}
+   */
   @NonNull
   public static ESuccess exposeMBeanWithAutoName (@NonNull final Object aObj, @NonNull final String sName)
   {

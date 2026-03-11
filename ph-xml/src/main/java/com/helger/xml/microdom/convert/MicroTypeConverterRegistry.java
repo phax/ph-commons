@@ -69,6 +69,10 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
@@ -85,11 +89,21 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     return ret;
   }
 
+  /**
+   * @return <code>true</code> if the class hierarchy is used for converter lookup,
+   *         <code>false</code> otherwise.
+   */
   public boolean isUseClassHierarchy ()
   {
     return m_bUseClassHierarchy;
   }
 
+  /**
+   * Enable or disable the usage of the class hierarchy for converter lookup.
+   *
+   * @param bUseClassHierarchy
+   *        <code>true</code> to enable, <code>false</code> to disable.
+   */
   public void setUseClassHierarchy (final boolean bUseClassHierarchy)
   {
     if (m_bUseClassHierarchy != bUseClassHierarchy)
@@ -100,6 +114,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     }
   }
 
+  /** {@inheritDoc} */
   public <T> void registerMicroElementTypeConverter (@NonNull final Class <T> aClass,
                                                      @NonNull final IMicroTypeConverter <T> aConverter)
   {
@@ -150,12 +165,30 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     });
   }
 
+  /**
+   * Get the converter that can convert the given class to a micro element.
+   *
+   * @param <T>
+   *        The source type
+   * @param aSrcClass
+   *        The source class. May be <code>null</code>.
+   * @return <code>null</code> if no converter was found.
+   */
   @Nullable
   public <T> IMicroTypeConverter <T> getConverterToMicroElement (@Nullable final Class <T> aSrcClass)
   {
     return GenericReflection.uncheckedCast (m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass)));
   }
 
+  /**
+   * Get the converter that can convert a micro element to the given class.
+   *
+   * @param <T>
+   *        The destination type
+   * @param aDstClass
+   *        The destination class. May not be <code>null</code>.
+   * @return <code>null</code> if no converter was found.
+   */
   @Nullable
   public <T> IMicroTypeConverter <T> getConverterToNative (@NonNull final Class <T> aDstClass)
   {
@@ -215,12 +248,19 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
         break;
   }
 
+  /**
+   * @return The number of registered micro type converters. Always &ge; 0.
+   */
   @Nonnegative
   public int getRegisteredMicroTypeConverterCount ()
   {
     return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
+  /**
+   * Re-initialize the registry by clearing all existing registrations and re-reading all SPI
+   * implementations.
+   */
   public void reinitialize ()
   {
     m_aRWLock.writeLocked ( () -> {

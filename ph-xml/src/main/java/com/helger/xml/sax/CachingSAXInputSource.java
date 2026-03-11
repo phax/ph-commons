@@ -44,26 +44,60 @@ public class CachingSAXInputSource extends InputSource
     return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
   }
 
+  /**
+   * Constructor using a readable resource.
+   *
+   * @param aRes
+   *        The readable resource. May not be <code>null</code>.
+   */
   public CachingSAXInputSource (@NonNull final IReadableResource aRes)
   {
     this (aRes.getInputStream (), aRes.getResourceID ());
   }
 
+  /**
+   * Constructor using an input stream provider.
+   *
+   * @param aISP
+   *        The input stream provider. May not be <code>null</code>.
+   */
   public CachingSAXInputSource (@NonNull final IHasInputStream aISP)
   {
     this (aISP.getInputStream (), null);
   }
 
+  /**
+   * Constructor using an input stream provider and a system ID.
+   *
+   * @param aISP
+   *        The input stream provider. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public CachingSAXInputSource (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     this (aISP.getInputStream (), sSystemID);
   }
 
+  /**
+   * Constructor using an input stream.
+   *
+   * @param aIS
+   *        The input stream. May not be <code>null</code>. Will be closed.
+   */
   public CachingSAXInputSource (@NonNull @WillClose final InputStream aIS)
   {
     this (aIS, null);
   }
 
+  /**
+   * Constructor using an input stream and a system ID.
+   *
+   * @param aIS
+   *        The input stream. May not be <code>null</code>. Will be closed.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public CachingSAXInputSource (@NonNull @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
     super (_getCachedInputStream (aIS));

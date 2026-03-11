@@ -31,6 +31,7 @@ import com.helger.config.source.resource.properties.ConfigurationSourcePropertie
 @IsSPIImplementation
 public class DefaultConfigurationSourceResourceTypeRegistrarSPI implements IConfigurationSourceResourceTypeRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
     aRegistry.register (ConfigurationSourceProperties.FILE_EXT,

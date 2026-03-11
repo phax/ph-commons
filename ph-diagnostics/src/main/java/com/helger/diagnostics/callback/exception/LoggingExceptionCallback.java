@@ -113,6 +113,9 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
     return !(t instanceof IMockException);
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void onException (@Nullable final Throwable t)
   {
     final String sLogMessage = getLogMessage (t);

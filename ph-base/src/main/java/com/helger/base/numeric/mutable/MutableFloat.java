@@ -36,11 +36,23 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
 {
   private float m_fValue;
 
+  /**
+   * Initialize with a certain value.
+   *
+   * @param aValue
+   *        The value to be used.
+   */
   public MutableFloat (@NonNull final Number aValue)
   {
     this (aValue.floatValue ());
   }
 
+  /**
+   * Initialize with a certain value.
+   *
+   * @param fValue
+   *        The value to be used.
+   */
   public MutableFloat (final float fValue)
   {
     m_fValue = fValue;
@@ -80,6 +92,13 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return inc (1f);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param fDelta
+   *        The delta to add.
+   * @return The new value after incrementing.
+   */
   public float inc (final float fDelta)
   {
     m_fValue += fDelta;
@@ -87,28 +106,61 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing.
+   */
   public float inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.floatValue ());
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value.
+   */
   public float dec ()
   {
     return inc (-1f);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param fDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing.
+   */
   public float dec (final float fDelta)
   {
     return inc (-fDelta);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing.
+   */
   public float dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.floatValue ());
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param fDivisor
+   *        The divisor to use.
+   * @return The new value after division.
+   */
   public float divide (final float fDivisor)
   {
     m_fValue /= fDivisor;
@@ -116,12 +168,26 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @return The new value after division.
+   */
   public float divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.floatValue ());
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param fMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication.
+   */
   public float multiply (final float fMultiplicand)
   {
     m_fValue *= fMultiplicand;
@@ -129,12 +195,26 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return m_fValue;
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication.
+   */
   public float multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.floatValue ());
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param fValue
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final float fValue)
   {
@@ -145,6 +225,13 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return EChange.CHANGED;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final Number aValue)
   {
@@ -152,31 +239,41 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return set (aValue.floatValue ());
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return EqualsHelper.equals (m_fValue, 0f);
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) < 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) <= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) > 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return CompareHelper.compare (m_fValue, 0f) >= 0;
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing.
+   */
   public float getAndInc ()
   {
     final float ret = floatValue ();
@@ -184,17 +281,24 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing.
+   */
   public float incAndGet ()
   {
     inc ();
     return floatValue ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableFloat rhs)
   {
     return CompareHelper.compare (m_fValue, rhs.m_fValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableFloat getClone ()
   {

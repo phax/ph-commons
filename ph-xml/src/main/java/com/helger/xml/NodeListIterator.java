@@ -40,17 +40,25 @@ public class NodeListIterator implements ICommonsIterableIterator <Node>
   private int m_nIndex = 0;
   private final int m_nMax;
 
+  /**
+   * Constructor.
+   *
+   * @param aNL
+   *        The node list to iterate. May be <code>null</code>.
+   */
   public NodeListIterator (@Nullable final NodeList aNL)
   {
     m_aNL = aNL;
     m_nMax = aNL == null ? 0 : aNL.getLength ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_nIndex < m_nMax;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Node next ()
   {
@@ -68,6 +76,14 @@ public class NodeListIterator implements ICommonsIterableIterator <Node>
     return new ToStringGenerator (this).append ("NodeList", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
   }
 
+  /**
+   * Create an iterator over all child nodes of the passed node.
+   *
+   * @param aNode
+   *        The node whose children are iterated. May be <code>null</code>.
+   * @return A non-<code>null</code> iterator. If the node is
+   *         <code>null</code>, an empty iterator is returned.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static NodeListIterator createChildNodeIterator (@Nullable final Node aNode)

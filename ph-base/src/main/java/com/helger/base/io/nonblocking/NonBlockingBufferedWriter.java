@@ -221,18 +221,27 @@ public class NonBlockingBufferedWriter extends Writer
     m_nNextChar = 0;
   }
 
+  /**
+   * @return The number of chars currently in the buffer. Always &ge; 0.
+   */
   @Nonnegative
   public int getSize ()
   {
     return m_nNextChar;
   }
 
+  /**
+   * @return The total size of the internal buffer. Always &ge; 0.
+   */
   @Nonnegative
   public int getBufferSize ()
   {
     return m_aBuf.length;
   }
 
+  /**
+   * @return <code>true</code> if the buffer is empty, <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     return m_nNextChar == 0;

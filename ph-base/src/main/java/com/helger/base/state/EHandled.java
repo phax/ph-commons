@@ -29,17 +29,34 @@ public enum EHandled implements IHandledIndicator
   HANDLED,
   UNHANDLED;
 
+  /** {@inheritDoc} */
   public boolean isHandled ()
   {
     return this == HANDLED;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EHandled} enum value.
+   *
+   * @param bHandleded
+   *        <code>true</code> for {@link #HANDLED}, <code>false</code> for
+   *        {@link #UNHANDLED}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EHandled valueOf (final boolean bHandleded)
   {
     return bHandleded ? HANDLED : UNHANDLED;
   }
 
+  /**
+   * Convert an {@link IHandledIndicator} to the corresponding {@link EHandled}
+   * enum value.
+   *
+   * @param aHandledIndicator
+   *        The handled indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EHandled valueOf (@NonNull final IHandledIndicator aHandledIndicator)
   {

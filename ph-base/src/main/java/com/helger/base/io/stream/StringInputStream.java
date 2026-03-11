@@ -30,6 +30,14 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
  */
 public class StringInputStream extends NonBlockingByteArrayInputStream
 {
+  /**
+   * Constructor.
+   *
+   * @param sInput
+   *        The input string. May not be <code>null</code>.
+   * @param aCharset
+   *        The charset to use for encoding. May not be <code>null</code>.
+   */
   public StringInputStream (@NonNull final String sInput, @NonNull final Charset aCharset)
   {
     super (sInput.getBytes (aCharset));

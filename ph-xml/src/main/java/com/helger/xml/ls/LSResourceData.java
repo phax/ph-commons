@@ -37,6 +37,20 @@ public class LSResourceData
   private final String m_sSystemID;
   private final String m_sBaseURI;
 
+  /**
+   * Constructor.
+   *
+   * @param sType
+   *        The resource type. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI. May be <code>null</code>.
+   * @param sPublicId
+   *        The public ID. May be <code>null</code>.
+   * @param sSystemId
+   *        The system ID. May be <code>null</code>.
+   * @param sBaseURI
+   *        The base URI. May be <code>null</code>.
+   */
   public LSResourceData (@Nullable final String sType,
                          @Nullable final String sNamespaceURI,
                          @Nullable final String sPublicId,
@@ -50,30 +64,45 @@ public class LSResourceData
     m_sBaseURI = sBaseURI;
   }
 
+  /**
+   * @return The resource type. May be <code>null</code>.
+   */
   @Nullable
   public String getType ()
   {
     return m_sType;
   }
 
+  /**
+   * @return The namespace URI. May be <code>null</code>.
+   */
   @Nullable
   public String getNamespaceURI ()
   {
     return m_sNamespaceURI;
   }
 
+  /**
+   * @return The public ID. May be <code>null</code>.
+   */
   @Nullable
   public String getPublicID ()
   {
     return m_sPublicID;
   }
 
+  /**
+   * @return The system ID. May be <code>null</code>.
+   */
   @Nullable
   public String getSystemID ()
   {
     return m_sSystemID;
   }
 
+  /**
+   * @return The base URI. May be <code>null</code>.
+   */
   @Nullable
   public String getBaseURI ()
   {

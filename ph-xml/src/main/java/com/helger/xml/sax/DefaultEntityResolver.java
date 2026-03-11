@@ -73,6 +73,7 @@ public class DefaultEntityResolver implements EntityResolver
     return m_sBaseURI;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public InputSource resolveEntity (@Nullable final String sPublicID, @Nullable final String sSystemID) throws SAXException, IOException
   {

@@ -56,6 +56,13 @@ public enum EXMLSerializeDocType implements IHasID <String>
     return this == EMIT;
   }
 
+  /**
+   * Get the {@link EXMLSerializeDocType} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLSerializeDocType getFromIDOrNull (@Nullable final String sID)
   {

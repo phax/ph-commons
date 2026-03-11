@@ -36,6 +36,12 @@ public class CountingReader extends WrappedReader
   private long m_nPosition = 0;
   private long m_nMark = 0;
 
+  /**
+   * Constructor wrapping the given reader.
+   *
+   * @param aSourceReader
+   *        The reader to be wrapped. May not be <code>null</code>.
+   */
   public CountingReader (@NonNull final Reader aSourceReader)
   {
     super (aSourceReader);

@@ -70,6 +70,9 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public void registerSerializationConverter (@NonNull final ISerializationConverterRegistry aRegistry)
   {
     aRegistry.registerSerializationConverter (BufferedImage.class, new SerializationConverterBufferedImage ());

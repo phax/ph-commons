@@ -38,12 +38,16 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
   private StringMicroTypeConverter ()
   {}
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static StringMicroTypeConverter getInstance ()
   {
     return INSTANCE;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement convertToMicroElement (@NonNull final String aObject,
                                               @Nullable final String sNamespaceURI,
@@ -54,6 +58,7 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
     return e;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String convertToNative (@NonNull final IMicroElement aElement)
   {

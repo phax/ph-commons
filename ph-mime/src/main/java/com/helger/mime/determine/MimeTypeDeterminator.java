@@ -123,11 +123,18 @@ public final class MimeTypeDeterminator
       }
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance. Never <code>null</code>.
+   */
   @NonNull
   public static MimeTypeDeterminator getInstance ()
   {

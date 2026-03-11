@@ -38,16 +38,36 @@ public class EmailAddress implements IEmailAddress
   private final String m_sAddress;
   private final String m_sPersonal;
 
+  /**
+   * Copy constructor.
+   *
+   * @param aAddress
+   *        The email address to copy from. May not be <code>null</code>.
+   */
   public EmailAddress (@NonNull final IEmailAddress aAddress)
   {
     this (aAddress.getAddress (), aAddress.getPersonal ());
   }
 
+  /**
+   * Constructor with address only.
+   *
+   * @param sAddress
+   *        The email address string. May not be <code>null</code>.
+   */
   public EmailAddress (@NonNull final String sAddress)
   {
     this (sAddress, null);
   }
 
+  /**
+   * Constructor with address and optional personal name.
+   *
+   * @param sAddress
+   *        The email address string. May not be <code>null</code>.
+   * @param sPersonal
+   *        The optional personal name. May be <code>null</code>.
+   */
   public EmailAddress (@NonNull final String sAddress, @Nullable final String sPersonal)
   {
     ValueEnforcer.notNull (sAddress, "EmailAddress");
@@ -57,12 +77,14 @@ public class EmailAddress implements IEmailAddress
     m_sPersonal = StringHelper.isEmpty (sPersonal) ? null : sPersonal;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getAddress ()
   {
     return m_sAddress;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getPersonal ()
   {
@@ -94,12 +116,30 @@ public class EmailAddress implements IEmailAddress
                                        .getToString ();
   }
 
+  /**
+   * Factory method that creates an {@link EmailAddress} only if the provided
+   * address is non-empty.
+   *
+   * @param sAddress
+   *        The email address string. May be <code>null</code>.
+   * @return <code>null</code> if the address is <code>null</code> or empty.
+   */
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress)
   {
     return StringHelper.isEmpty (sAddress) ? null : new EmailAddress (sAddress);
   }
 
+  /**
+   * Factory method that creates an {@link EmailAddress} only if the provided
+   * address is non-empty.
+   *
+   * @param sAddress
+   *        The email address string. May be <code>null</code>.
+   * @param sPersonal
+   *        The optional personal name. May be <code>null</code>.
+   * @return <code>null</code> if the address is <code>null</code> or empty.
+   */
   @Nullable
   public static EmailAddress createOnDemand (@Nullable final String sAddress, @Nullable final String sPersonal)
   {

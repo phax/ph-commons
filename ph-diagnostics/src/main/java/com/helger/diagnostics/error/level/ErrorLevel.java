@@ -42,6 +42,7 @@ public class ErrorLevel implements IErrorLevel
     m_nNumericLevel = nNumericLevel;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -49,6 +50,7 @@ public class ErrorLevel implements IErrorLevel
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getNumericLevel ()
   {

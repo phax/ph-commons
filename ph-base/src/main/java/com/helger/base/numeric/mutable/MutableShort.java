@@ -110,6 +110,13 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return inc (1);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to add.
+   * @return The new value after incrementing.
+   */
   public int inc (final int nDelta)
   {
     m_nValue = (short) (m_nValue + nDelta);
@@ -117,34 +124,74 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return m_nValue;
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing.
+   */
   public int inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.shortValue ());
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value.
+   */
   public int dec ()
   {
     return inc (-1);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing.
+   */
   public int dec (final int nDelta)
   {
     return inc (-nDelta);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing.
+   */
   public int dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.shortValue ());
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param nValue
+   *        The new value to set. If the value does not fit into a short, it is cut.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final int nValue)
   {
     return set ((short) nValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param nValue
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final short nValue)
   {
@@ -155,6 +202,13 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return EChange.CHANGED;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final Number aValue)
   {
@@ -162,36 +216,47 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return set (aValue.shortValue ());
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return m_nValue == 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return m_nValue < 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return m_nValue <= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return m_nValue > 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return m_nValue >= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isEven ()
   {
     return (m_nValue % 2) == 0;
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing.
+   */
   public short getAndInc ()
   {
     final short ret = shortValue ();
@@ -199,17 +264,24 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing.
+   */
   public short incAndGet ()
   {
     inc ();
     return shortValue ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableShort rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableShort getClone ()
   {

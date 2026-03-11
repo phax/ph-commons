@@ -70,11 +70,20 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     m_cValue = cValue;
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   */
   public MutableChar (@NonNull final MutableChar aOther)
   {
     this (aOther.m_cValue);
   }
 
+  /**
+   * @return The current char value.
+   */
   public char charValue ()
   {
     return m_cValue;
@@ -114,6 +123,13 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return inc (1);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to add.
+   * @return The new value after incrementing.
+   */
   public int inc (final int nDelta)
   {
     m_cValue += nDelta;
@@ -121,34 +137,74 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return m_cValue;
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aMC
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing.
+   */
   public int inc (@NonNull final MutableChar aMC)
   {
     ValueEnforcer.notNull (aMC, "MC");
     return inc (aMC.m_cValue);
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value.
+   */
   public int dec ()
   {
     return inc (-1);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing.
+   */
   public int dec (final int nDelta)
   {
     return inc (-nDelta);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aMC
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing.
+   */
   public int dec (@NonNull final MutableChar aMC)
   {
     ValueEnforcer.notNull (aMC, "MC");
     return inc (-aMC.m_cValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param cValue
+   *        The new value to set. If the value does not fit into a char, it is cut.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final int cValue)
   {
     return set ((char) cValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aMC
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final MutableChar aMC)
   {
@@ -156,6 +212,13 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return set (aMC.m_cValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param cValue
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final char cValue)
   {
@@ -166,38 +229,49 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return m_cValue == 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     // char is always >= 0
     return false;
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return m_cValue <= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return m_cValue > 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     // char is always >= 0
     return true;
   }
 
+  /** {@inheritDoc} */
   public boolean isEven ()
   {
     return (m_cValue % 2) == 0;
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing.
+   */
   public char getAndInc ()
   {
     final char ret = charValue ();
@@ -205,17 +279,24 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing.
+   */
   public char incAndGet ()
   {
     inc ();
     return charValue ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableChar rhs)
   {
     return CompareHelper.compare (m_cValue, rhs.m_cValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableChar getClone ()
   {

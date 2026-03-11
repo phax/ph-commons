@@ -34,6 +34,12 @@ public class CountingOutputStream extends WrappedOutputStream
 {
   private long m_nBytesWritten = 0;
 
+  /**
+   * Constructor wrapping the given output stream.
+   *
+   * @param aSourceOS
+   *        The output stream to be wrapped. May not be <code>null</code>.
+   */
   public CountingOutputStream (@NonNull final OutputStream aSourceOS)
   {
     super (aSourceOS);

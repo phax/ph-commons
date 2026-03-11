@@ -48,36 +48,78 @@ public final class TransformResultFactory
   private TransformResultFactory ()
   {}
 
+  /**
+   * Create a {@link StreamResult} from a {@link File}.
+   *
+   * @param aFile
+   *        The file to write to. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamResult create (@NonNull final File aFile)
   {
     return new StreamResult (aFile);
   }
 
+  /**
+   * Create a {@link StreamResult} from a {@link Path}.
+   *
+   * @param aPath
+   *        The path to write to. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamResult create (@NonNull final Path aPath)
   {
     return new StreamResult (aPath.toFile ());
   }
 
+  /**
+   * Create a {@link StreamResult} from an {@link IWritableResource}.
+   *
+   * @param aResource
+   *        The resource to write to. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamResult create (@NonNull final IWritableResource aResource)
   {
     return new StreamResult (aResource.getAsFile ());
   }
 
+  /**
+   * Create a {@link StreamResult} from an {@link OutputStream}.
+   *
+   * @param aOS
+   *        The output stream to write to. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamResult create (@Nullable @WillNotClose final OutputStream aOS)
   {
     return new StreamResult (aOS);
   }
 
+  /**
+   * Create a {@link StreamResult} from a {@link Writer}.
+   *
+   * @param aWriter
+   *        The writer to write to. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamResult create (@Nullable @WillNotClose final Writer aWriter)
   {
     return new StreamResult (aWriter);
   }
 
+  /**
+   * Create a {@link DOMResult} from a {@link Node}.
+   *
+   * @param aNode
+   *        The DOM node to use as the result target. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static DOMResult create (@Nullable final Node aNode)
   {

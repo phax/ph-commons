@@ -38,12 +38,28 @@ public interface ISuccessIndicator
     return !isSuccess ();
   }
 
+  /**
+   * Logical OR of this success indicator with another one.
+   *
+   * @param aSuccess
+   *        The other success indicator. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if either this or the other indicator is
+   *         successful.
+   */
   @NonNull
   default ESuccess or (@NonNull final ISuccessIndicator aSuccess)
   {
     return ESuccess.valueOf (isSuccess () || aSuccess.isSuccess ());
   }
 
+  /**
+   * Logical AND of this success indicator with another one.
+   *
+   * @param aSuccess
+   *        The other success indicator. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if both this and the other indicator are
+   *         successful.
+   */
   @NonNull
   default ESuccess and (@NonNull final ISuccessIndicator aSuccess)
   {

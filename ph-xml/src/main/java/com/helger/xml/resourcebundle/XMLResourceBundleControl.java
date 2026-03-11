@@ -44,6 +44,7 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
   private static final String FORMAT_XML = "xml";
   private static final ICommonsList <String> FORMATS = new CommonsArrayList <> (FORMAT_XML);
 
+  /** {@inheritDoc} */
   @Override
   @ReturnsMutableCopy
   @CodingStyleguideUnaware
@@ -53,6 +54,7 @@ public final class XMLResourceBundleControl extends ResourceBundle.Control
     return FORMATS.getClone ();
   }
 
+  /** {@inheritDoc} */
   @Override
   public ResourceBundle newBundle (@NonNull final String sBaseName,
                                    @NonNull final Locale aLocale,

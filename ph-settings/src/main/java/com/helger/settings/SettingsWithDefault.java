@@ -69,6 +69,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return super.containsKey (sFieldName);
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean containsKey (@Nullable final Object sFieldName)
   {
@@ -84,6 +85,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
     return super.getValue (sFieldName);
   }
 
+  /** {@inheritDoc} */
   @Override
   @Nullable
   public Object getValue (@Nullable final String sFieldName)

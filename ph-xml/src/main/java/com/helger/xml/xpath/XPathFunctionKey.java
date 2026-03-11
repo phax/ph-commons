@@ -71,6 +71,7 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
     return m_nArity;
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final XPathFunctionKey o)
   {
     // 1st namespace URI

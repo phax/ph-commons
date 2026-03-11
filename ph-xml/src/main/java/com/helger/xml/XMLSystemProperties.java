@@ -117,6 +117,10 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML entity expansion limit. The default value depends
+   *         on the JDK version (64000 before JDK 24, 2500 since JDK 24).
+   */
   public static int getXMLEntityExpansionLimit ()
   {
     // Default value depends.
@@ -190,6 +194,10 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML element attribute limit. The default value depends
+   *         on the JDK version (10000 before JDK 24, 200 since JDK 24).
+   */
   public static int getXMLElementAttributeLimit ()
   {
     // Default value depends.
@@ -263,6 +271,9 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML max occur limit. The default value is 5000.
+   */
   public static int getXMLMaxOccur ()
   {
     // Default value depends.
@@ -332,6 +343,10 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML total entity size limit. The default value depends
+   *         on the JDK version (50000000 before JDK 24, 100000 since JDK 24).
+   */
   public static int getXMLTotalEntitySizeLimit ()
   {
     // Default value:
@@ -405,6 +420,10 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML max general entity size limit. The default value is
+   *         0 (no limit).
+   */
   public static int getXMLMaxGeneralEntitySizeLimit ()
   {
     // Default value:
@@ -475,6 +494,10 @@ public final class XMLSystemProperties
     // else -> cannot be increased
   }
 
+  /**
+   * @return The current XML max parameter entity size limit. The default value
+   *         is 0 (no limit).
+   */
   public static int getXMLMaxParameterEntitySizeLimit ()
   {
     // Default value:

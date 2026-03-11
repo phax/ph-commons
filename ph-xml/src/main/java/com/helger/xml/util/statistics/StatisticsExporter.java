@@ -76,6 +76,11 @@ public final class StatisticsExporter
   private StatisticsExporter ()
   {}
 
+  /**
+   * Export all statistics as a micro XML document.
+   *
+   * @return The created document containing all statistics. Never <code>null</code>.
+   */
   @NonNull
   public static IMicroDocument getAsXMLDocument ()
   {

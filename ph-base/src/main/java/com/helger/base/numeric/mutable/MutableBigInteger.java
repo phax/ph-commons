@@ -41,16 +41,34 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
 {
   private BigInteger m_aValue;
 
+  /**
+   * Initialize with a certain long value.
+   *
+   * @param nValue
+   *        The value to be used.
+   */
   public MutableBigInteger (final long nValue)
   {
     this (BigInteger.valueOf (nValue));
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   */
   public MutableBigInteger (@NonNull final MutableBigInteger aOther)
   {
     this (aOther.m_aValue);
   }
 
+  /**
+   * Initialize with a certain {@link BigInteger} value.
+   *
+   * @param aValue
+   *        The value to be used. May not be <code>null</code>.
+   */
   public MutableBigInteger (@NonNull final BigInteger aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
@@ -105,12 +123,26 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return inc (BigInteger.ONE);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to add.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger inc (final long nDelta)
   {
     return inc (BigInteger.valueOf (nDelta));
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger inc (@NonNull final MutableBigInteger aDelta)
   {
@@ -118,6 +150,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return inc (aDelta.m_aValue);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger inc (@NonNull final BigInteger aDelta)
   {
@@ -127,18 +166,37 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger dec ()
   {
     return inc (CGlobal.BIGINT_MINUS_ONE);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger dec (final long nDelta)
   {
     return inc (BigInteger.valueOf (-nDelta));
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger dec (@NonNull final MutableBigInteger aDelta)
   {
@@ -146,6 +204,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return inc (aDelta.m_aValue.negate ());
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger dec (@NonNull final BigInteger aDelta)
   {
@@ -153,12 +218,26 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return inc (aDelta.negate ());
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param nDivisor
+   *        The divisor to use.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger divide (final long nDivisor)
   {
     return divide (BigHelper.toBigInteger (nDivisor));
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger divide (@NonNull final MutableBigInteger aDivisor)
   {
@@ -166,6 +245,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return divide (aDivisor.m_aValue);
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger divide (@NonNull final BigInteger aDivisor)
   {
@@ -175,12 +261,26 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param nMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger multiply (final long nMultiplicand)
   {
     return multiply (BigHelper.toBigInteger (nMultiplicand));
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger multiply (@NonNull final MutableBigInteger aMultiplicand)
   {
@@ -188,6 +288,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return multiply (aMultiplicand.m_aValue);
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger multiply (@NonNull final BigInteger aMultiplicand)
   {
@@ -197,12 +304,26 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return m_aValue;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param nDelta
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final long nDelta)
   {
     return set (BigInteger.valueOf (nDelta));
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final MutableBigInteger aValue)
   {
@@ -210,6 +331,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return set (aValue.m_aValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final BigInteger aValue)
   {
@@ -221,31 +349,41 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return BigHelper.isEQ0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return BigHelper.isLT0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return BigHelper.isLE0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return BigHelper.isGT0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return BigHelper.isGE0 (m_aValue);
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger getAndInc ()
   {
@@ -254,6 +392,11 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigInteger incAndGet ()
   {
@@ -261,11 +404,13 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
     return getAsBigInteger ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableBigInteger rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableBigInteger getClone ()
   {

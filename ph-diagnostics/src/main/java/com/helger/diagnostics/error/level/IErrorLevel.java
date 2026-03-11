@@ -47,69 +47,93 @@ public interface IErrorLevel extends
   @Nonnegative
   int getNumericLevel ();
 
+  /** {@inheritDoc} */
   default boolean isSuccess ()
   {
     return isEQ (EErrorLevel.SUCCESS);
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isFailure ()
   {
     return isGT (EErrorLevel.SUCCESS);
   }
 
+  /** {@inheritDoc} */
   default boolean isError ()
   {
     return isGE (EErrorLevel.ERROR);
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isNoError ()
   {
     return isLT (EErrorLevel.ERROR);
   }
 
+  /** {@inheritDoc} */
   default int compareTo (@NonNull final IErrorLevel aErrorLevel)
   {
     return Integer.compare (getNumericLevel (), aErrorLevel.getNumericLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isEQ (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () == aErrorLevel.getNumericLevel ();
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isNE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () != aErrorLevel.getNumericLevel ();
   }
 
+  /** {@inheritDoc} */
   default boolean isLT (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () < aErrorLevel.getNumericLevel ();
   }
 
+  /** {@inheritDoc} */
   default boolean isLE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () <= aErrorLevel.getNumericLevel ();
   }
 
+  /** {@inheritDoc} */
   default boolean isGT (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () > aErrorLevel.getNumericLevel ();
   }
 
+  /** {@inheritDoc} */
   default boolean isGE (@NonNull final IErrorLevel aErrorLevel)
   {
     return getNumericLevel () >= aErrorLevel.getNumericLevel ();
   }
 
+  /**
+   * @return <code>true</code> if this error level is the highest possible level,
+   *         <code>false</code> otherwise.
+   */
   default boolean isHighest ()
   {
     return isEQ (EErrorLevel.HIGHEST);
   }
 
+  /**
+   * Get the more severe of two error levels.
+   *
+   * @param aLevel1
+   *        The first error level. May be <code>null</code>.
+   * @param aLevel2
+   *        The second error level. May be <code>null</code>.
+   * @return The more severe error level, or <code>null</code> if both are <code>null</code>.
+   */
   @Nullable
   static IErrorLevel getMostSevere (@Nullable final IErrorLevel aLevel1, @Nullable final IErrorLevel aLevel2)
   {

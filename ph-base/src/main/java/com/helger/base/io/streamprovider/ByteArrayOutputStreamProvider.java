@@ -35,9 +35,13 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
 {
   private final NonBlockingByteArrayOutputStream m_aOS = new NonBlockingByteArrayOutputStream ();
 
+  /**
+   * Create a new empty instance.
+   */
   public ByteArrayOutputStreamProvider ()
   {}
 
+  /** {@inheritDoc} */
   @NonNull
   public final NonBlockingByteArrayOutputStream getOutputStream (@NonNull final EAppend eAppend)
   {
@@ -46,6 +50,7 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
     return m_aOS;
   }
 
+  /** {@inheritDoc} */
   public final boolean isWriteMultiple ()
   {
     return true;
@@ -60,6 +65,11 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
     return m_aOS.toByteArray ();
   }
 
+  /**
+   * @param aCharset
+   *        The charset to use for converting the bytes to a String. May not be <code>null</code>.
+   * @return All bytes already written as a String. Never <code>null</code>.
+   */
   @NonNull
   public final String getAsString (@NonNull final Charset aCharset)
   {

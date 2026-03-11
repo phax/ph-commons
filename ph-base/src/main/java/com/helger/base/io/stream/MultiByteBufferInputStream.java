@@ -56,6 +56,9 @@ public final class MultiByteBufferInputStream extends InputStream
     m_aBuffers = ArrayHelper.getCopy (aBuffers);
   }
 
+  /**
+   * @return <code>true</code> if this stream has been closed, <code>false</code> otherwise.
+   */
   public boolean isClosed ()
   {
     return m_aBuffers == null;

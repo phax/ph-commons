@@ -38,12 +38,28 @@ public interface IInterruptIndicator
     return !isInterrupted ();
   }
 
+  /**
+   * Logical OR of this interrupt indicator with another one.
+   *
+   * @param aInterrupt
+   *        The other interrupt indicator. May not be <code>null</code>.
+   * @return {@link EInterrupt#INTERRUPTED} if either this or the other
+   *         indicator is interrupted.
+   */
   @NonNull
   default EInterrupt or (@NonNull final IInterruptIndicator aInterrupt)
   {
     return EInterrupt.valueOf (isInterrupted () || aInterrupt.isInterrupted ());
   }
 
+  /**
+   * Logical AND of this interrupt indicator with another one.
+   *
+   * @param aInterrupt
+   *        The other interrupt indicator. May not be <code>null</code>.
+   * @return {@link EInterrupt#INTERRUPTED} if both this and the other indicator
+   *         are interrupted.
+   */
   @NonNull
   default EInterrupt and (@NonNull final IInterruptIndicator aInterrupt)
   {

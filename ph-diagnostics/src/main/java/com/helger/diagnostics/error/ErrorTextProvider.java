@@ -85,11 +85,22 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
       return m_sID;
     }
 
+    /**
+     * @return <code>true</code> if this field requires a placeholder character in the text,
+     *         <code>false</code> if it is a constant field.
+     */
     public boolean isPlaceholderRequired ()
     {
       return this != CONSTANT;
     }
 
+    /**
+     * Get the {@link EField} matching the provided ID.
+     *
+     * @param sID
+     *        The ID to search. May be <code>null</code>.
+     * @return <code>null</code> if no matching field was found.
+     */
     @Nullable
     public static EField getFromIDOrNull (@Nullable final String sID)
     {
@@ -208,6 +219,9 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     m_sFieldSep = aOther.m_sFieldSep;
   }
 
+  /**
+   * @return A copy of all formattable items. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <IFormattableItem> getAllItems ()
@@ -231,6 +245,13 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     return addItem (new FormattableItem (eField, sText));
   }
 
+  /**
+   * Add a formattable item.
+   *
+   * @param aItem
+   *        The item to be added. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ErrorTextProvider addItem (@NonNull final IFormattableItem aItem)
   {
@@ -239,12 +260,22 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     return this;
   }
 
+  /**
+   * @return The field separator used between individual error text parts. Never <code>null</code>.
+   */
   @NonNull
   public String getFieldSeparator ()
   {
     return m_sFieldSep;
   }
 
+  /**
+   * Set the field separator to use between individual error text parts.
+   *
+   * @param sFieldSep
+   *        The field separator. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public ErrorTextProvider setFieldSeparator (@NonNull final String sFieldSep)
   {
@@ -252,6 +283,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getErrorText (@NonNull final IError aError, @NonNull final Locale aContentLocale)
   {
@@ -400,6 +432,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
     return aSB.toString ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ErrorTextProvider getClone ()

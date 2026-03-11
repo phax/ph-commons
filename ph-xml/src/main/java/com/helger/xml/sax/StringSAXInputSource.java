@@ -36,32 +36,72 @@ public class StringSAXInputSource extends InputSource
 {
   private final String m_sText;
 
+  /**
+   * Constructor from a char array.
+   *
+   * @param aInput
+   *        The input characters. May not be <code>null</code>.
+   */
   public StringSAXInputSource (final char @NonNull [] aInput)
   {
     this (new String (aInput));
   }
 
+  /**
+   * Constructor from a char array with offset and length.
+   *
+   * @param aInput
+   *        The input characters. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   */
   public StringSAXInputSource (final char @NonNull [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (new String (aInput, nOfs, nLen));
   }
 
+  /**
+   * Constructor from a {@link CharSequence}.
+   *
+   * @param aInput
+   *        The input. May not be <code>null</code>.
+   */
   public StringSAXInputSource (@NonNull final CharSequence aInput)
   {
     this (aInput instanceof final String sInput ? sInput : aInput.toString ());
   }
 
+  /**
+   * Constructor from a {@link String}.
+   *
+   * @param sText
+   *        The text. May not be <code>null</code>.
+   */
   public StringSAXInputSource (@NonNull final String sText)
   {
     this (sText, null);
   }
 
+  /**
+   * Constructor from a {@link String} with a system ID.
+   *
+   * @param sText
+   *        The text. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public StringSAXInputSource (@NonNull final String sText, @Nullable final String sSystemID)
   {
     m_sText = ValueEnforcer.notNull (sText, "Text");
     setSystemId (sSystemID);
   }
 
+  /**
+   * @return The text that is used as the input source. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public final String getText ()
   {

@@ -85,6 +85,14 @@ public final class XMLHelper
     return aNode.getOwnerDocument ();
   }
 
+  /**
+   * Get the document element of the owner document of the passed node.
+   *
+   * @param aNode
+   *        The node to get the document element from. May be <code>null</code>.
+   * @return <code>null</code> if the passed node was <code>null</code> or has
+   *         no owner document.
+   */
   @Nullable
   public static Element getDocumentElement (@Nullable final Node aNode)
   {
@@ -92,6 +100,14 @@ public final class XMLHelper
     return aDoc == null ? null : aDoc.getDocumentElement ();
   }
 
+  /**
+   * Get the namespace URI of the passed node. If the node is a
+   * {@link Document}, the namespace URI of its document element is returned.
+   *
+   * @param aNode
+   *        The node to get the namespace URI from. May be <code>null</code>.
+   * @return <code>null</code> if no namespace URI is present.
+   */
   @Nullable
   public static String getNamespaceURI (@Nullable final Node aNode)
   {
@@ -105,6 +121,14 @@ public final class XMLHelper
     return null;
   }
 
+  /**
+   * Get the local name of an element, falling back to the tag name if no local
+   * name is available.
+   *
+   * @param aElement
+   *        The element to query. May not be <code>null</code>.
+   * @return The local name or tag name. Never <code>null</code>.
+   */
   @NonNull
   public static String getLocalNameOrTagName (@NonNull final Element aElement)
   {
@@ -114,6 +138,14 @@ public final class XMLHelper
     return ret;
   }
 
+  /**
+   * Get the local name of an attribute, falling back to the name if no local
+   * name is available.
+   *
+   * @param aAttr
+   *        The attribute to query. May not be <code>null</code>.
+   * @return The local name or name. Never <code>null</code>.
+   */
   @NonNull
   public static String getLocalNameOrName (@NonNull final Attr aAttr)
   {
@@ -123,6 +155,14 @@ public final class XMLHelper
     return ret;
   }
 
+  /**
+   * Get the element name of the passed node. If the node is a
+   * {@link Document}, the element name of its document element is returned.
+   *
+   * @param aNode
+   *        The node to get the element name from. May be <code>null</code>.
+   * @return <code>null</code> if the node is not an element.
+   */
   @Nullable
   public static String getElementName (@Nullable final Node aNode)
   {
@@ -138,11 +178,28 @@ public final class XMLHelper
     return null;
   }
 
+  /**
+   * Check if the passed node has no namespace URI assigned.
+   *
+   * @param aNode
+   *        The node to check. May not be <code>null</code>.
+   * @return <code>true</code> if the node has no namespace URI.
+   */
   public static boolean hasNoNamespaceURI (@NonNull final Node aNode)
   {
     return StringHelper.isEmpty (aNode.getNamespaceURI ());
   }
 
+  /**
+   * Check if the passed node has the specified namespace URI.
+   *
+   * @param aNode
+   *        The node to check. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI to compare against. May be <code>null</code>.
+   * @return <code>true</code> if the node has a non-<code>null</code>
+   *         namespace URI that equals the passed namespace URI.
+   */
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
   {
     final String sNSURI = aNode == null ? null : aNode.getNamespaceURI ();
@@ -162,41 +219,87 @@ public final class XMLHelper
     return aNode instanceof Text || aNode instanceof EntityReference;
   }
 
+  /**
+   * Get the number of nodes in a {@link NodeList}.
+   *
+   * @param aNL
+   *        The node list. May be <code>null</code>.
+   * @return 0 if the node list is <code>null</code>, the length of the node
+   *         list otherwise.
+   */
   @Nonnegative
   public static int getLength (@Nullable final NodeList aNL)
   {
     return aNL == null ? 0 : aNL.getLength ();
   }
 
+  /**
+   * Check if a {@link NodeList} is empty or <code>null</code>.
+   *
+   * @param aNL
+   *        The node list. May be <code>null</code>.
+   * @return <code>true</code> if the node list is <code>null</code> or empty.
+   */
   public static boolean isEmpty (@Nullable final NodeList aNL)
   {
     return aNL == null || aNL.getLength () == 0;
   }
 
+  /**
+   * @return A predicate that filters for nodes that are element nodes. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static Predicate <? super Node> filterNodeIsElement ()
   {
     return x -> x != null && x.getNodeType () == Node.ELEMENT_NODE;
   }
 
+  /**
+   * @return A predicate that filters for elements that have a namespace URI.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithNamespace ()
   {
     return x -> x != null && StringHelper.isNotEmpty (x.getNamespaceURI ());
   }
 
+  /**
+   * @return A predicate that filters for elements that have no namespace URI.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithoutNamespace ()
   {
     return x -> x != null && hasNoNamespaceURI (x);
   }
 
+  /**
+   * Create a predicate that filters for elements with the specified namespace
+   * URI.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to filter for. May be <code>null</code>.
+   * @return A non-<code>null</code> predicate.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithNamespace (@Nullable final String sNamespaceURI)
   {
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI);
   }
 
+  /**
+   * Create a predicate that filters for elements with the specified namespace
+   * URI and local name.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to filter for. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return A non-<code>null</code> predicate.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithNamespaceAndLocalName (@Nullable final String sNamespaceURI,
                                                                                     @NonNull @Nonempty final String sLocalName)
@@ -205,6 +308,15 @@ public final class XMLHelper
     return x -> x != null && hasNamespaceURI (x, sNamespaceURI) && x.getLocalName ().equals (sLocalName);
   }
 
+  /**
+   * Create a predicate that filters for elements with the specified tag name
+   * (potentially including a namespace prefix).
+   *
+   * @param sTagName
+   *        The tag name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return A non-<code>null</code> predicate.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithTagName (@NonNull @Nonempty final String sTagName)
   {
@@ -212,6 +324,15 @@ public final class XMLHelper
     return x -> EqualsHelper.equals (getElementName (x), sTagName);
   }
 
+  /**
+   * Create a predicate that filters for elements with the specified tag name
+   * and no namespace.
+   *
+   * @param sTagName
+   *        The tag name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return A non-<code>null</code> predicate.
+   */
   @NonNull
   public static Predicate <? super Element> filterElementWithTagNameNoNS (@NonNull @Nonempty final String sTagName)
   {
@@ -320,6 +441,16 @@ public final class XMLHelper
     return aCurElement;
   }
 
+  /**
+   * Append a child object to the given parent node. The child may be a
+   * {@link Node}, a {@link String}, an {@link Iterable} or an array.
+   *
+   * @param aParentNode
+   *        The parent node to append to. May not be <code>null</code>.
+   * @param aChild
+   *        The child to append. May be <code>null</code>.
+   * @return The parent node for chaining. Never <code>null</code>.
+   */
   @NonNull
   public static Node append (@NonNull final Node aParentNode, @Nullable final Object aChild)
   {
@@ -380,6 +511,14 @@ public final class XMLHelper
     return aParentNode;
   }
 
+  /**
+   * Append all children from the given iterable to the parent node.
+   *
+   * @param aParentNode
+   *        The parent node to append to. May not be <code>null</code>.
+   * @param aNodesToAppend
+   *        The nodes to append. May not be <code>null</code>.
+   */
   public static void append (@NonNull final Node aParentNode, @NonNull final Iterable <?> aNodesToAppend)
   {
     ValueEnforcer.notNull (aParentNode, "ParentNode");
@@ -387,18 +526,46 @@ public final class XMLHelper
       append (aParentNode, aNode);
   }
 
+  /**
+   * Get the number of direct child elements of the passed element.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent));
   }
 
+  /**
+   * Get the number of direct child elements without a namespace of the passed
+   * element.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent));
   }
 
+  /**
+   * Get the number of direct child elements with the specified tag name.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent,
                                                 @NonNull @Nonempty final String sTagName)
@@ -406,6 +573,18 @@ public final class XMLHelper
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
+  /**
+   * Get the number of direct child elements without a namespace and with the
+   * specified tag name.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
                                                     @NonNull @Nonempty final String sTagName)
@@ -413,12 +592,36 @@ public final class XMLHelper
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
 
+  /**
+   * Get the number of direct child elements with the specified namespace URI.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI to filter for. May be <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent, @Nullable final String sNamespaceURI)
   {
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI));
   }
 
+  /**
+   * Get the number of direct child elements with the specified namespace URI
+   * and local name.
+   *
+   * @param aParent
+   *        The parent element to check. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI to filter for. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name to filter for. May neither be <code>null</code> nor
+   *        empty.
+   * @return The number of direct child elements. 0 if the parent is
+   *         <code>null</code>.
+   */
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent,
                                                   @Nullable final String sNamespaceURI,
@@ -492,6 +695,16 @@ public final class XMLHelper
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
+  /**
+   * Get an iterator over all child elements that have the desired namespace
+   * URI.
+   *
+   * @param aStartNode
+   *        the parent element
+   * @param sNamespaceURI
+   *        The namespace URI to search. May be <code>null</code>.
+   * @return a non-null Iterator
+   */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI)
@@ -499,6 +712,19 @@ public final class XMLHelper
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
+  /**
+   * Get an iterator over all child elements that have the desired namespace
+   * URI and local name.
+   *
+   * @param aStartNode
+   *        the parent element
+   * @param sNamespaceURI
+   *        The namespace URI to search. May be <code>null</code>.
+   * @param sLocalName
+   *        The local name to search. May neither be <code>null</code> nor
+   *        empty.
+   * @return a non-null Iterator
+   */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
                                                                        @Nullable final String sNamespaceURI,
@@ -508,6 +734,16 @@ public final class XMLHelper
                                                                                                      sLocalName));
   }
 
+  /**
+   * Check if two elements have the same element name (considering both
+   * namespace URI and local name or just the tag name).
+   *
+   * @param aFirst
+   *        The first element. May not be <code>null</code>.
+   * @param aSecond
+   *        The second element. May not be <code>null</code>.
+   * @return <code>true</code> if both elements have the same element name.
+   */
   public static boolean hasSameElementName (@NonNull final Element aFirst, @NonNull final Element aSecond)
   {
     final String sFirstNS = aFirst.getNamespaceURI ();
@@ -857,6 +1093,7 @@ public final class XMLHelper
       return this;
     }
 
+    /** {@inheritDoc} */
     @NonNull
     public String build ()
     {
@@ -878,6 +1115,10 @@ public final class XMLHelper
     }
   }
 
+  /**
+   * @return A new {@link PathToNodeBuilder} instance. Never <code>null</code>.
+   * @since 10.2.2
+   */
   @NonNull
   public static PathToNodeBuilder pathToNodeBuilder ()
   {
@@ -1070,6 +1311,13 @@ public final class XMLHelper
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
 
+  /**
+   * Get all attributes of the passed element as a mutable list.
+   *
+   * @param aSrcNode
+   *        The source element. May be <code>null</code>.
+   * @return A non-<code>null</code> mutable list of all attributes.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsList <Attr> getAllAttributesAsList (@Nullable final Element aSrcNode)
@@ -1079,6 +1327,14 @@ public final class XMLHelper
     return ret;
   }
 
+  /**
+   * Get all attributes of the passed element as a mutable ordered map from
+   * attribute name to attribute value.
+   *
+   * @param aSrcNode
+   *        The source element. May be <code>null</code>.
+   * @return A non-<code>null</code> mutable ordered map.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> getAllAttributesAsMap (@Nullable final Element aSrcNode)
@@ -1089,12 +1345,31 @@ public final class XMLHelper
     return ret;
   }
 
+  /**
+   * Iterate all attributes of the passed element and invoke the consumer for
+   * each attribute.
+   *
+   * @param aSrcNode
+   *        The source element. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to invoke. May not be <code>null</code>.
+   */
   public static void forAllAttributes (@Nullable final Element aSrcNode,
                                        @NonNull final Consumer <? super Attr> aConsumer)
   {
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
+  /**
+   * Iterate all attributes of the passed element and invoke the consumer for
+   * each attribute name-value pair.
+   *
+   * @param aSrcNode
+   *        The source element. May be <code>null</code>.
+   * @param aConsumer
+   *        The consumer to invoke with the attribute name and value. May not
+   *        be <code>null</code>.
+   */
   public static void forAllAttributes (@Nullable final Element aSrcNode,
                                        @NonNull final BiConsumer <? super String, ? super String> aConsumer)
   {

@@ -49,6 +49,10 @@ public final class LogHelper
   @FunctionalInterface
   public interface IFuncIsLoggingEnabled
   {
+    /**
+     * @return <code>true</code> if logging is enabled for the respective level,
+     *         <code>false</code> otherwise.
+     */
     boolean isEnabled ();
   }
 
@@ -62,6 +66,14 @@ public final class LogHelper
   @FunctionalInterface
   public interface IFuncLogger
   {
+    /**
+     * Log a message with an optional throwable.
+     *
+     * @param sMsg
+     *        The message to log. May not be <code>null</code>.
+     * @param t
+     *        An optional exception. May be <code>null</code>.
+     */
     void log (@NonNull String sMsg, @Nullable Throwable t);
   }
 
@@ -71,6 +83,15 @@ public final class LogHelper
   private LogHelper ()
   {}
 
+  /**
+   * Get the function that checks whether logging is enabled for the specified level.
+   *
+   * @param aLogger
+   *        The logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        The error level to check. May not be <code>null</code>.
+   * @return A function that returns <code>true</code> if logging is enabled. Never <code>null</code>.
+   */
   @NonNull
   public static IFuncIsLoggingEnabled getFuncIsEnabled (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {
@@ -86,6 +107,15 @@ public final class LogHelper
     return aLogger::isDebugEnabled;
   }
 
+  /**
+   * Get the logger function for the specified error level.
+   *
+   * @param aLogger
+   *        The logger to use. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        The error level to log at. May not be <code>null</code>.
+   * @return A function that performs the actual logging. Never <code>null</code>.
+   */
   @NonNull
   public static IFuncLogger getFuncLogger (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {

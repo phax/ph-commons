@@ -147,6 +147,17 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     return getEncoded (aDecoded, 0, aDecoded.length);
   }
 
+  /**
+   * Encode a byte array and return the result as a string.
+   *
+   * @param aDecodedBuf
+   *        The byte array to be encoded. May be <code>null</code>.
+   * @param aCharset
+   *        The charset to be used for the result string. May not be <code>null</code>.
+   * @return <code>null</code> if the input buffer is <code>null</code>.
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
   @Nullable
   default String getEncodedAsString (final byte @Nullable [] aDecodedBuf, @NonNull final Charset aCharset)
   {
@@ -156,6 +167,21 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
     return getEncodedAsString (aDecodedBuf, 0, aDecodedBuf.length, aCharset);
   }
 
+  /**
+   * Encode a portion of a byte array and return the result as a string.
+   *
+   * @param aDecodedBuf
+   *        The byte array to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array to start from.
+   * @param nLen
+   *        Number of bytes starting from offset to consider.
+   * @param aCharset
+   *        The charset to be used for the result string. May not be <code>null</code>.
+   * @return <code>null</code> if the input buffer is <code>null</code>.
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
   @Nullable
   default String getEncodedAsString (final byte @Nullable [] aDecodedBuf,
                                      @Nonnegative final int nOfs,

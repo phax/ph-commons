@@ -94,6 +94,10 @@ public class ThreadDeadlockDetector
     }
   }
 
+  /**
+   * @return The mutable list of callbacks to be invoked when a deadlock is
+   *         detected. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public CallbackList <IThreadDeadlockCallback> callbacks ()

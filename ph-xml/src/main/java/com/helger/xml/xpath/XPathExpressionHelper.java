@@ -50,6 +50,23 @@ public final class XPathExpressionHelper
   private XPathExpressionHelper ()
   {}
 
+  /**
+   * Evaluate an XPath expression with variable resolver, function resolver and namespace context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @param aReturnType
+   *        The expected return type. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Object evalXPath (@Nullable final XPathVariableResolver aVariableResolver,
                                   @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -61,6 +78,19 @@ public final class XPathExpressionHelper
     return evalXPath (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc, aReturnType);
   }
 
+  /**
+   * Evaluate an XPath expression with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May neither be <code>null</code> nor empty.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @param aReturnType
+   *        The expected return type. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Object evalXPath (@NonNull final XPath aXPath,
                                   @NonNull @Nonempty final String sXPath,
@@ -87,6 +117,21 @@ public final class XPathExpressionHelper
     }
   }
 
+  /**
+   * Evaluate an XPath to a number with variable resolver, function resolver and namespace context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Double evalXPathToNumber (@Nullable final XPathVariableResolver aVariableResolver,
                                           @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -97,12 +142,32 @@ public final class XPathExpressionHelper
     return evalXPathToNumber (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a number using the default XPath factory.
+   *
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Double evalXPathToNumber (@NonNull final String sXPath, @NonNull final Document aDoc)
   {
     return evalXPathToNumber (XPathHelper.createNewXPath (), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a number with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Double evalXPathToNumber (@NonNull final XPath aXPath, @NonNull final String sXPath, @NonNull final Document aDoc)
   {
@@ -110,6 +175,21 @@ public final class XPathExpressionHelper
     return (Double) aResult;
   }
 
+  /**
+   * Evaluate an XPath to a string with variable resolver, function resolver and namespace context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static String evalXPathToString (@Nullable final XPathVariableResolver aVariableResolver,
                                           @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -120,12 +200,32 @@ public final class XPathExpressionHelper
     return evalXPathToString (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a string using the default XPath factory.
+   *
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static String evalXPathToString (@NonNull final String sXPath, @NonNull final Document aDoc)
   {
     return evalXPathToString (XPathHelper.createNewXPath (), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a string with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static String evalXPathToString (@NonNull final XPath aXPath, @NonNull final String sXPath, @NonNull final Document aDoc)
   {
@@ -133,6 +233,21 @@ public final class XPathExpressionHelper
     return (String) aResult;
   }
 
+  /**
+   * Evaluate an XPath to a boolean with variable resolver, function resolver and namespace context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Boolean evalXPathToBoolean (@Nullable final XPathVariableResolver aVariableResolver,
                                             @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -143,12 +258,32 @@ public final class XPathExpressionHelper
     return evalXPathToBoolean (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a boolean using the default XPath factory.
+   *
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Boolean evalXPathToBoolean (@NonNull final String sXPath, @NonNull final Document aDoc)
   {
     return evalXPathToBoolean (XPathHelper.createNewXPath (), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a boolean with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Boolean evalXPathToBoolean (@NonNull final XPath aXPath, @NonNull final String sXPath, @NonNull final Document aDoc)
   {
@@ -156,6 +291,22 @@ public final class XPathExpressionHelper
     return (Boolean) aResult;
   }
 
+  /**
+   * Evaluate an XPath to a node list with variable resolver, function resolver and namespace
+   * context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static NodeList evalXPathToNodeList (@Nullable final XPathVariableResolver aVariableResolver,
                                               @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -166,12 +317,32 @@ public final class XPathExpressionHelper
     return evalXPathToNodeList (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a node list using the default XPath factory.
+   *
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static NodeList evalXPathToNodeList (@NonNull final String sXPath, @NonNull final Document aDoc)
   {
     return evalXPathToNodeList (XPathHelper.createNewXPath (), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a node list with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static NodeList evalXPathToNodeList (@NonNull final XPath aXPath, @NonNull final String sXPath, @NonNull final Document aDoc)
   {
@@ -179,6 +350,22 @@ public final class XPathExpressionHelper
     return (NodeList) aResult;
   }
 
+  /**
+   * Evaluate an XPath to a single node with variable resolver, function resolver and namespace
+   * context.
+   *
+   * @param aVariableResolver
+   *        Variable resolver to be used. May be <code>null</code>.
+   * @param aFunctionResolver
+   *        Function resolver to be used. May be <code>null</code>.
+   * @param aNamespaceContext
+   *        Namespace context to be used. May be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Node evalXPathToNode (@Nullable final XPathVariableResolver aVariableResolver,
                                       @Nullable final XPathFunctionResolver aFunctionResolver,
@@ -189,12 +376,32 @@ public final class XPathExpressionHelper
     return evalXPathToNode (XPathHelper.createNewXPath (aVariableResolver, aFunctionResolver, aNamespaceContext), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a single node using the default XPath factory.
+   *
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Node evalXPathToNode (@NonNull final String sXPath, @NonNull final Document aDoc)
   {
     return evalXPathToNode (XPathHelper.createNewXPath (), sXPath, aDoc);
   }
 
+  /**
+   * Evaluate an XPath to a single node with an existing XPath object.
+   *
+   * @param aXPath
+   *        The pre-created XPath object. May not be <code>null</code>.
+   * @param sXPath
+   *        The XPath expression to evaluate. May not be <code>null</code>.
+   * @param aDoc
+   *        The document to evaluate the XPath on. May not be <code>null</code>.
+   * @return The evaluation result or <code>null</code>.
+   */
   @Nullable
   public static Node evalXPathToNode (@NonNull final XPath aXPath, @NonNull final String sXPath, @NonNull final Document aDoc)
   {

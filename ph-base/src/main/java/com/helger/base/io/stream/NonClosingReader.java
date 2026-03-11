@@ -28,6 +28,10 @@ import org.jspecify.annotations.NonNull;
  */
 public class NonClosingReader extends WrappedReader
 {
+  /**
+   * @param aSourceReader
+   *        The reader to be wrapped. May not be <code>null</code>.
+   */
   public NonClosingReader (@NonNull final Reader aSourceReader)
   {
     super (aSourceReader);

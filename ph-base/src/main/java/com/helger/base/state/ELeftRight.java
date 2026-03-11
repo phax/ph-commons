@@ -28,11 +28,20 @@ public enum ELeftRight implements ILeftRightIndicator
   LEFT,
   RIGHT;
 
+  /** {@inheritDoc} */
   public boolean isLeft ()
   {
     return this == LEFT;
   }
 
+  /**
+   * Convert an {@link ILeftRightIndicator} to the corresponding
+   * {@link ELeftRight} enum value.
+   *
+   * @param aLeftRightIndicator
+   *        The left/right indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ELeftRight valueOf (@NonNull final ILeftRightIndicator aLeftRightIndicator)
   {

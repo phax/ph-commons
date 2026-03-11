@@ -40,12 +40,28 @@ public interface IMandatoryIndicator
     return !isMandatory ();
   }
 
+  /**
+   * Logical OR of this mandatory indicator with another one.
+   *
+   * @param aMandatory
+   *        The other mandatory indicator. May not be <code>null</code>.
+   * @return {@link EMandatory#MANDATORY} if either this or the other indicator
+   *         is mandatory.
+   */
   @NonNull
   default EMandatory or (@NonNull final IMandatoryIndicator aMandatory)
   {
     return EMandatory.valueOf (isMandatory () || aMandatory.isMandatory ());
   }
 
+  /**
+   * Logical AND of this mandatory indicator with another one.
+   *
+   * @param aMandatory
+   *        The other mandatory indicator. May not be <code>null</code>.
+   * @return {@link EMandatory#MANDATORY} if both this and the other indicator
+   *         are mandatory.
+   */
   @NonNull
   default EMandatory and (@NonNull final IMandatoryIndicator aMandatory)
   {

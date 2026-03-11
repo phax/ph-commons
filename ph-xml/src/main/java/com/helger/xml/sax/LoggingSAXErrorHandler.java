@@ -39,6 +39,9 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingSAXErrorHandler.class);
 
+  /**
+   * Default constructor.
+   */
   public LoggingSAXErrorHandler ()
   {}
 

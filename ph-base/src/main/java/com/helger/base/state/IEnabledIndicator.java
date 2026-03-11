@@ -40,12 +40,28 @@ public interface IEnabledIndicator
     return !isEnabled ();
   }
 
+  /**
+   * Logical OR of this enabled indicator with another one.
+   *
+   * @param aEnabled
+   *        The other enabled indicator. May not be <code>null</code>.
+   * @return {@link EEnabled#ENABLED} if either this or the other indicator is
+   *         enabled.
+   */
   @NonNull
   default EEnabled or (@NonNull final IEnabledIndicator aEnabled)
   {
     return EEnabled.valueOf (isEnabled () || aEnabled.isEnabled ());
   }
 
+  /**
+   * Logical AND of this enabled indicator with another one.
+   *
+   * @param aEnabled
+   *        The other enabled indicator. May not be <code>null</code>.
+   * @return {@link EEnabled#ENABLED} if both this and the other indicator are
+   *         enabled.
+   */
   @NonNull
   default EEnabled and (@NonNull final IEnabledIndicator aEnabled)
   {

@@ -62,12 +62,14 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
     m_aID = ValueEnforcer.notNull (aID, "ID");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ObjectType getObjectType ()
   {
     return m_aObjectType;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IDTYPE getID ()
   {

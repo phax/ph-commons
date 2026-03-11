@@ -49,22 +49,26 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
     return getErrorLevel ().equals (aErrorLevel);
   }
 
+  /** {@inheritDoc} */
   default boolean isSuccess ()
   {
     return getErrorLevel ().isSuccess ();
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isFailure ()
   {
     return getErrorLevel ().isFailure ();
   }
 
+  /** {@inheritDoc} */
   default boolean isError ()
   {
     return getErrorLevel ().isError ();
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isNoError ()
   {

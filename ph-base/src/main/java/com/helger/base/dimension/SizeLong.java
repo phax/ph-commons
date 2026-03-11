@@ -37,28 +37,50 @@ public class SizeLong implements IHasDimensionLong
   private final long m_nWidth;
   private final long m_nHeight;
 
+  /**
+   * Constructor copying from an existing int dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeLong (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing long dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeLong (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor with width and height.
+   *
+   * @param nWidth
+   *        The width. Must be &ge; 0.
+   * @param nHeight
+   *        The height. Must be &ge; 0.
+   */
   public SizeLong (@Nonnegative final long nWidth, @Nonnegative final long nHeight)
   {
     m_nWidth = ValueEnforcer.isGE0 (nWidth, "Width");
     m_nHeight = ValueEnforcer.isGE0 (nHeight, "Height");
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public long getWidth ()
   {
     return m_nWidth;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public long getHeight ()
   {
@@ -97,6 +119,13 @@ public class SizeLong implements IHasDimensionLong
     return this;
   }
 
+  /**
+   * Get a new size that is scaled to the specified width, keeping the aspect ratio.
+   *
+   * @param nNewWidth
+   *        The new width. Must be &gt; 0.
+   * @return A new {@link SizeLong} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeLong getScaledToWidth (@Nonnegative final long nNewWidth)
@@ -109,6 +138,13 @@ public class SizeLong implements IHasDimensionLong
     return new SizeLong (nNewWidth, (long) (m_nHeight * dMultFactory));
   }
 
+  /**
+   * Get a new size that is scaled to the specified height, keeping the aspect ratio.
+   *
+   * @param nNewHeight
+   *        The new height. Must be &gt; 0.
+   * @return A new {@link SizeLong} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeLong getScaledToHeight (@Nonnegative final long nNewHeight)
@@ -121,6 +157,13 @@ public class SizeLong implements IHasDimensionLong
     return new SizeLong ((long) (m_nWidth * dMultFactory), nNewHeight);
   }
 
+  /**
+   * Get a new size with the dimensions of the provided object added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeLong}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeLong getAdded (@NonNull final IHasDimensionLong aToAdd)
@@ -130,6 +173,13 @@ public class SizeLong implements IHasDimensionLong
     return new SizeLong (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided object subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeLong}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeLong getSubtracted (@NonNull final IHasDimensionLong aToSubtract)

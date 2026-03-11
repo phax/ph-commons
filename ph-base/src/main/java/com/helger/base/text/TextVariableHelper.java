@@ -332,6 +332,17 @@ public final class TextVariableHelper
     }
   }
 
+  /**
+   * Replace all variables in the form <code>${...}</code> in the provided source string using the
+   * provided variable provider.
+   *
+   * @param sSourceString
+   *        The source string to parse and replace variables in. May be <code>null</code>.
+   * @param aVariableProvider
+   *        The function to resolve variable names to their values. May not be <code>null</code>.
+   * @return <code>null</code> if the input string is <code>null</code> or empty, otherwise the
+   *         string with all variables replaced.
+   */
   @Nullable
   public static String getWithReplacedVariables (@Nullable final String sSourceString,
                                                  @NonNull final UnaryOperator <String> aVariableProvider)

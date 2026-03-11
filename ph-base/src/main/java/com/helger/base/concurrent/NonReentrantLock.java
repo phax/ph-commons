@@ -33,39 +33,52 @@ public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
 {
   private transient Thread m_aOwner;
 
+  /**
+   * Default constructor.
+   */
   public NonReentrantLock ()
   {}
 
+  /** {@inheritDoc} */
   public void lock ()
   {
     acquire (1);
   }
 
+  /** {@inheritDoc} */
   public void lockInterruptibly () throws InterruptedException
   {
     acquireInterruptibly (1);
   }
 
+  /** {@inheritDoc} */
   public boolean tryLock ()
   {
     return tryAcquire (1);
   }
 
+  /** {@inheritDoc} */
   public boolean tryLock (final long nTime, final TimeUnit eUnit) throws InterruptedException
   {
     return tryAcquireNanos (1, eUnit.toNanos (nTime));
   }
 
+  /** {@inheritDoc} */
   public void unlock ()
   {
     release (1);
   }
 
+  /**
+   * @return <code>true</code> if the current thread holds this lock,
+   *         <code>false</code> otherwise.
+   */
   public boolean isHeldByCurrentThread ()
   {
     return isHeldExclusively ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Condition newCondition ()
   {

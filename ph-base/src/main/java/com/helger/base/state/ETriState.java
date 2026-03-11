@@ -44,6 +44,7 @@ public enum ETriState implements IHasID <String>, ITriState
     m_aBoolean = aBoolean;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -51,21 +52,25 @@ public enum ETriState implements IHasID <String>, ITriState
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   public boolean isTrue ()
   {
     return this == TRUE;
   }
 
+  /** {@inheritDoc} */
   public boolean isFalse ()
   {
     return this == FALSE;
   }
 
+  /** {@inheritDoc} */
   public boolean isDefined ()
   {
     return this != UNDEFINED;
   }
 
+  /** {@inheritDoc} */
   public boolean getAsBooleanValue ()
   {
     if (this == UNDEFINED)
@@ -73,53 +78,106 @@ public enum ETriState implements IHasID <String>, ITriState
     return m_aBoolean.booleanValue ();
   }
 
+  /** {@inheritDoc} */
   public boolean getAsBooleanValue (final boolean bUndefinedValue)
   {
     return this == UNDEFINED ? bUndefinedValue : m_aBoolean.booleanValue ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Boolean getAsBooleanObj ()
   {
     return m_aBoolean;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Boolean getAsBooleanObj (@Nullable final Boolean aUndefinedValue)
   {
     return this == UNDEFINED ? aUndefinedValue : m_aBoolean;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link ETriState} enum value.
+   *
+   * @param bValue
+   *        <code>true</code> for {@link #TRUE}, <code>false</code> for
+   *        {@link #FALSE}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ETriState valueOf (final boolean bValue)
   {
     return bValue ? TRUE : FALSE;
   }
 
+  /**
+   * Convert a {@link Boolean} value to the corresponding {@link ETriState} enum
+   * value.
+   *
+   * @param aValue
+   *        The Boolean value. May be <code>null</code> for {@link #UNDEFINED}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ETriState valueOf (@Nullable final Boolean aValue)
   {
     return aValue == null ? UNDEFINED : valueOf (aValue.booleanValue ());
   }
 
+  /**
+   * Convert an {@link ITriState} to the corresponding {@link ETriState} enum
+   * value.
+   *
+   * @param aTriState
+   *        The tri state to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ETriState valueOf (@NonNull final ITriState aTriState)
   {
     return valueOf (aTriState.getAsBooleanObj (null));
   }
 
+  /**
+   * Get the {@link ETriState} enum value matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static ETriState getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (ETriState.class, sID);
   }
 
+  /**
+   * Get the {@link ETriState} enum value matching the provided ID, defaulting
+   * to {@link #UNDEFINED}.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ETriState getFromIDOrUndefined (@Nullable final String sID)
   {
     return getFromIDOrDefault (sID, UNDEFINED);
   }
 
+  /**
+   * Get the {@link ETriState} enum value matching the provided ID, with a
+   * custom default.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return if no match is found. May be
+   *        <code>null</code>.
+   * @return The matching enum value or the provided default.
+   */
   @Nullable
   public static ETriState getFromIDOrDefault (@Nullable final String sID, @Nullable final ETriState eDefault)
   {

@@ -59,11 +59,21 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
   private final TimerTask m_aTimerTask;
   private final Timer m_aThreadCheck = new Timer ("ThreadDeadlockDetector", true);
 
+  /**
+   * Constructor using the {@link #DEFAULT_DEADLOCK_CHECK_PERIOD} as the check
+   * interval.
+   */
   public ThreadDeadlockDetectionTimer ()
   {
     this (DEFAULT_DEADLOCK_CHECK_PERIOD);
   }
 
+  /**
+   * Constructor with a custom deadlock check period.
+   *
+   * @param nDeadlockCheckPeriod
+   *        The number of milliseconds between checks. Must be &gt; 0.
+   */
   public ThreadDeadlockDetectionTimer (@Nonnegative final long nDeadlockCheckPeriod)
   {
     m_aTimerTask = new DetectorTimerTask ();

@@ -25,9 +25,18 @@ import org.jspecify.annotations.NonNull;
  */
 public final class SingleErrorBuilder extends AbstractSingleErrorBuilder <SingleError, SingleErrorBuilder>
 {
+  /**
+   * Default constructor with default error level.
+   */
   public SingleErrorBuilder ()
   {}
 
+  /**
+   * Constructor copying data from an existing error.
+   *
+   * @param aError
+   *        The error to copy the data from. May not be <code>null</code>.
+   */
   public SingleErrorBuilder (@NonNull final IError aError)
   {
     super (aError);

@@ -53,6 +53,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     protected AbstractMLTConverter ()
     {}
 
+    /** {@inheritDoc} */
     @NonNull
     public final IMicroElement convertToMicroElement (@NonNull final T aSource,
                                                       @Nullable final String sNamespaceURI,
@@ -91,6 +92,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
    */
   public static final class ReadOnlyMultilingualTextConverter extends AbstractMLTConverter <ReadOnlyMultilingualText>
   {
+    /** {@inheritDoc} */
     @NonNull
     public ReadOnlyMultilingualText convertToNative (@NonNull final IMicroElement aElement)
     {
@@ -105,6 +107,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
    */
   public static final class MultilingualTextConverter extends AbstractMLTConverter <MultilingualText>
   {
+    /** {@inheritDoc} */
     @NonNull
     public MultilingualText convertToNative (@NonNull final IMicroElement aElement)
     {
@@ -112,6 +115,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
     }
   }
 
+  /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // Register the read-only version first!

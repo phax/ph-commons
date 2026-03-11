@@ -40,26 +40,60 @@ import com.helger.io.resource.IReadableResource;
 @NotThreadSafe
 public class CachingTransformStreamSource extends StreamSource
 {
+  /**
+   * Constructor using a readable resource.
+   *
+   * @param aResource
+   *        The readable resource. May not be <code>null</code>.
+   */
   public CachingTransformStreamSource (@NonNull final IReadableResource aResource)
   {
     this (aResource.getInputStream (), aResource.getResourceID ());
   }
 
+  /**
+   * Constructor using an input stream provider.
+   *
+   * @param aIIS
+   *        The input stream provider. May not be <code>null</code>.
+   */
   public CachingTransformStreamSource (@NonNull final IHasInputStream aIIS)
   {
     this (aIIS, null);
   }
 
+  /**
+   * Constructor using an input stream provider and a system ID.
+   *
+   * @param aIIS
+   *        The input stream provider. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public CachingTransformStreamSource (@NonNull final IHasInputStream aIIS, @Nullable final String sSystemID)
   {
     this (aIIS.getInputStream (), sSystemID);
   }
 
+  /**
+   * Constructor using an input stream.
+   *
+   * @param aIS
+   *        The input stream. May be <code>null</code>. Will be closed.
+   */
   public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS)
   {
     this (aIS, null);
   }
 
+  /**
+   * Constructor using an input stream and a system ID.
+   *
+   * @param aIS
+   *        The input stream. May be <code>null</code>. Will be closed.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public CachingTransformStreamSource (@Nullable @WillClose final InputStream aIS, @Nullable final String sSystemID)
   {
     super (aIS == null ? null : new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS)), sSystemID);

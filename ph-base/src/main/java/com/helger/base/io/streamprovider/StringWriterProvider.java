@@ -30,9 +30,13 @@ import com.helger.base.tostring.ToStringGenerator;
  */
 public class StringWriterProvider implements IHasWriter
 {
+  /**
+   * Create a new instance.
+   */
   public StringWriterProvider ()
   {}
 
+  /** {@inheritDoc} */
   @NonNull
   public final NonBlockingStringWriter getWriter ()
   {

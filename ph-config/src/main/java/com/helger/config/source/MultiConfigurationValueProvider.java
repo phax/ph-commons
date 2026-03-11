@@ -198,6 +198,7 @@ public class MultiConfigurationValueProvider implements
     return m_aSources.size ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {

@@ -38,6 +38,7 @@ public final class ColorMicroTypeConverter implements IMicroTypeConverter <Color
   private static final String ATTR_BLUE = "blue";
   private static final String ATTR_ALPHA = "alpha";
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement convertToMicroElement (@NonNull final Color aObject,
                                               @Nullable final String sNamespaceURI,
@@ -53,6 +54,7 @@ public final class ColorMicroTypeConverter implements IMicroTypeConverter <Color
     return aElement;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Color convertToNative (@NonNull final IMicroElement aElement)
   {

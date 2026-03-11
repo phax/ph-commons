@@ -28,17 +28,34 @@ public enum EMandatory implements IMandatoryIndicator
   MANDATORY,
   OPTIONAL;
 
+  /** {@inheritDoc} */
   public boolean isMandatory ()
   {
     return this == MANDATORY;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EMandatory} enum value.
+   *
+   * @param bMandatory
+   *        <code>true</code> for {@link #MANDATORY}, <code>false</code> for
+   *        {@link #OPTIONAL}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EMandatory valueOf (final boolean bMandatory)
   {
     return bMandatory ? MANDATORY : OPTIONAL;
   }
 
+  /**
+   * Convert an {@link IMandatoryIndicator} to the corresponding
+   * {@link EMandatory} enum value.
+   *
+   * @param aMandatoryIndicator
+   *        The mandatory indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EMandatory valueOf (@NonNull final IMandatoryIndicator aMandatoryIndicator)
   {

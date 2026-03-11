@@ -62,17 +62,28 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
     m_nPriority = nPriority;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EConfigSourceType getSourceType ()
   {
     return m_eSourceType;
   }
 
+  /** {@inheritDoc} */
   public final int getPriority ()
   {
     return m_nPriority;
   }
 
+  /**
+   * Check if the provided key is considered a secret key (e.g. containing
+   * "password" or "passwd").
+   *
+   * @param sKey
+   *        The key to check. May not be <code>null</code>.
+   * @return <code>true</code> if the key is considered secret, <code>false</code>
+   *         otherwise.
+   */
   public static boolean isSecretKey (@NonNull final String sKey)
   {
     // Bad heuristics but better then nothing

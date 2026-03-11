@@ -37,11 +37,29 @@ public class MicroAttribute implements IMicroAttribute
   private final IMicroQName m_aQName;
   private String m_sAttributeValue;
 
+  /**
+   * Constructor with just a local name.
+   *
+   * @param sAttributeName
+   *        The attribute name. May neither be <code>null</code> nor empty.
+   * @param sAttributeValue
+   *        The attribute value. May not be <code>null</code>.
+   */
   public MicroAttribute (@NonNull @Nonempty final String sAttributeName, @NonNull final String sAttributeValue)
   {
     this (null, sAttributeName, sAttributeValue);
   }
 
+  /**
+   * Constructor with namespace URI and local name.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI. May be <code>null</code>.
+   * @param sAttributeName
+   *        The attribute name. May neither be <code>null</code> nor empty.
+   * @param sAttributeValue
+   *        The attribute value. May not be <code>null</code>.
+   */
   public MicroAttribute (@Nullable final String sNamespaceURI,
                          @NonNull @Nonempty final String sAttributeName,
                          @NonNull final String sAttributeValue)
@@ -49,24 +67,35 @@ public class MicroAttribute implements IMicroAttribute
     this (new MicroQName (sNamespaceURI, sAttributeName), sAttributeValue);
   }
 
+  /**
+   * Constructor with a qualified name.
+   *
+   * @param aQName
+   *        The qualified name. May not be <code>null</code>.
+   * @param sAttributeValue
+   *        The attribute value. May not be <code>null</code>.
+   */
   public MicroAttribute (@NonNull final IMicroQName aQName, @NonNull final String sAttributeValue)
   {
     m_aQName = ValueEnforcer.notNull (aQName, "QName");
     m_sAttributeValue = ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroQName getAttributeQName ()
   {
     return m_aQName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getAttributeValue ()
   {
     return m_sAttributeValue;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange setAttributeValue (@NonNull final String sAttributeValue)
   {
@@ -77,6 +106,7 @@ public class MicroAttribute implements IMicroAttribute
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MicroAttribute getClone ()
   {

@@ -44,17 +44,39 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;
 
+  /**
+   * Default constructor creating a pair with both values set to
+   * <code>null</code>.
+   */
   public Pair ()
   {
     this (null, null);
   }
 
+  /**
+   * Constructor with both values.
+   *
+   * @param aFirst
+   *        The first value. May be <code>null</code>.
+   * @param aSecond
+   *        The second value. May be <code>null</code>.
+   * @param <T2>
+   *        First value type
+   * @param <U2>
+   *        Second value type
+   */
   public <T2 extends DATA1TYPE, U2 extends DATA2TYPE> Pair (@Nullable final T2 aFirst, @Nullable final U2 aSecond)
   {
     m_aFirst = aFirst;
     m_aSecond = aSecond;
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The pair to copy from. May not be <code>null</code>.
+   */
   public Pair (@NonNull final IPair <? extends DATA1TYPE, ? extends DATA2TYPE> rhs)
   {
     ValueEnforcer.notNull (rhs, "Pair");
@@ -62,12 +84,18 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     m_aSecond = rhs.getSecond ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATA1TYPE getFirst ()
   {
     return m_aFirst;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange setFirst (@Nullable final DATA1TYPE aFirst)
   {
@@ -78,12 +106,18 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nullable
   public DATA2TYPE getSecond ()
   {
     return m_aSecond;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public EChange setSecond (@Nullable final DATA2TYPE aSecond)
   {
@@ -94,6 +128,9 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return EChange.CHANGED;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public Pair <DATA1TYPE, DATA2TYPE> getClone ()
   {
@@ -125,6 +162,19 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYP
     return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).getToString ();
   }
 
+  /**
+   * Factory method to create a new pair.
+   *
+   * @param aFirst
+   *        The first value. May be <code>null</code>.
+   * @param aSecond
+   *        The second value. May be <code>null</code>.
+   * @param <T>
+   *        First value type
+   * @param <U>
+   *        Second value type
+   * @return The new pair. Never <code>null</code>.
+   */
   @NonNull
   public static <T, U> Pair <T, U> create (@Nullable final T aFirst, @Nullable final U aSecond)
   {

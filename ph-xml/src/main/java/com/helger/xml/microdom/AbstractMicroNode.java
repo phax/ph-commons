@@ -103,6 +103,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     throw new MicroException ("Cannot insert children in class " + getClass ().getName ());
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE addChild (@Nullable final NODETYPE aChildNode)
   {
@@ -111,6 +112,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aChildNode;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable final NODETYPE aChildNode,
                                                                     @NonNull final IMicroNode aSuccessor)
@@ -120,6 +122,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aChildNode;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable final NODETYPE aChildNode,
                                                                    @NonNull final IMicroNode aPredecessor)
@@ -129,6 +132,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aChildNode;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex,
                                                                      @Nullable final NODETYPE aChildNode)
@@ -152,6 +156,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     throw new MicroException ("Cannot remove child from this node: " + getClass ().getName ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange removeChild (@NonNull final IMicroNode aChild)
   {
@@ -174,6 +179,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     throw new MicroException ("Cannot remove child from this node: " + getClass ().getName ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange removeChildAtIndex (@Nonnegative final int nIndex)
   {
@@ -193,6 +199,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     throw new MicroException ("Cannot remove all children from this node: " + getClass ().getName ());
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final EChange removeAllChildren ()
   {
@@ -291,6 +298,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final IMicroNode getPreviousSibling ()
   {
@@ -305,6 +313,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aParentChildren.getAtIndex (nIndex - 1);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final IMicroNode getNextSibling ()
   {
@@ -319,11 +328,13 @@ public abstract class AbstractMicroNode implements IMicroNode
     return aParentChildren.getAtIndex (nIndex + 1);
   }
 
+  /** {@inheritDoc} */
   public final boolean hasParent ()
   {
     return m_aParentNode != null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public final IMicroNode getParent ()
   {
@@ -346,6 +357,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     m_aParentNode = aParentNode;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final IMicroNode detachFromParent ()
   {
@@ -358,6 +370,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroElement findParentElement (@NonNull final Predicate <? super IMicroElement> aFilter)
   {
@@ -378,46 +391,55 @@ public abstract class AbstractMicroNode implements IMicroNode
    * "return true;" in the respective implementation classes.
    */
 
+  /** {@inheritDoc} */
   public final boolean isDocument ()
   {
     return this instanceof IMicroDocument;
   }
 
+  /** {@inheritDoc} */
   public final boolean isDocumentType ()
   {
     return this instanceof IMicroDocumentType;
   }
 
+  /** {@inheritDoc} */
   public final boolean isText ()
   {
     return this instanceof IMicroText;
   }
 
+  /** {@inheritDoc} */
   public final boolean isCDATA ()
   {
     return this instanceof IMicroCDATA;
   }
 
+  /** {@inheritDoc} */
   public final boolean isComment ()
   {
     return this instanceof IMicroComment;
   }
 
+  /** {@inheritDoc} */
   public final boolean isEntityReference ()
   {
     return this instanceof IMicroEntityReference;
   }
 
+  /** {@inheritDoc} */
   public final boolean isElement ()
   {
     return this instanceof IMicroElement;
   }
 
+  /** {@inheritDoc} */
   public final boolean isProcessingInstruction ()
   {
     return this instanceof IMicroProcessingInstruction;
   }
 
+  /** {@inheritDoc} */
   public final boolean isContainer ()
   {
     return this instanceof IMicroContainer;
@@ -447,6 +469,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     internalTriggerEvent (eEventType, new MicroEvent (eEventType, aSourceNode, aTargetNode));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange registerEventTarget (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEventTarget aTarget)
   {
@@ -460,6 +483,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return EChange.valueOf (aSet.add (aTarget));
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange unregisterEventTarget (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEventTarget aTarget)
   {
@@ -475,6 +499,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return EChange.UNCHANGED;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <EMicroEvent, CallbackList <IMicroEventTarget>> getAllEventTargets ()
@@ -482,6 +507,7 @@ public abstract class AbstractMicroNode implements IMicroNode
     return new CommonsEnumMap <> (m_aEventTargets);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public CallbackList <IMicroEventTarget> getAllEventTargets (@Nullable final EMicroEvent eEvent)

@@ -194,12 +194,28 @@ public final class RomanNumeral
     return m_nValue;
   }
 
+  /**
+   * Convert a Roman numeral string to its integer value.
+   *
+   * @param sRoman
+   *        The Roman numeral string (e.g. "XVII"). May not be
+   *        <code>null</code>. Both upper and lower case are accepted.
+   * @return The integer value of the Roman numeral.
+   */
   @Nonnegative
   public static int romanStringToInt (final String sRoman)
   {
     return new RomanNumeral (sRoman)._asInt ();
   }
 
+  /**
+   * Convert an integer value to its Roman numeral string representation.
+   *
+   * @param nValue
+   *        The integer value to convert. Must be between {@link #MIN_VAL}
+   *        and {@link #MAX_VAL} inclusive.
+   * @return The Roman numeral string. Never <code>null</code>.
+   */
   @NonNull
   public static String intToRomanString (final int nValue)
   {

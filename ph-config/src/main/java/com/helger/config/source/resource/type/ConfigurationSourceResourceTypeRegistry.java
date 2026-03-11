@@ -60,11 +60,18 @@ public final class ConfigurationSourceResourceTypeRegistry
     _reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton has already been instantiated,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static ConfigurationSourceResourceTypeRegistry getInstance ()
   {
@@ -90,6 +97,17 @@ public final class ConfigurationSourceResourceTypeRegistry
     });
   }
 
+  /**
+   * Register a new configuration source resource type factory for the given
+   * file extension.
+   *
+   * @param sFileExt
+   *        The file extension to register for. May neither be <code>null</code>
+   *        nor empty and must not start with a dot.
+   * @param aFactory
+   *        The factory to create configuration sources from a readable resource.
+   *        May not be <code>null</code>.
+   */
   public void register (@NonNull @Nonempty final String sFileExt,
                         @NonNull final Function <IReadableResource, AbstractConfigurationSourceResource> aFactory)
   {
@@ -107,6 +125,14 @@ public final class ConfigurationSourceResourceTypeRegistry
     });
   }
 
+  /**
+   * Get the factory for the given file extension.
+   *
+   * @param sFileExt
+   *        The file extension to look up. May be <code>null</code>.
+   * @return <code>null</code> if no factory is registered for the provided
+   *         file extension.
+   */
   @Nullable
   public Function <IReadableResource, AbstractConfigurationSourceResource> getFactoryOfFileExtension (@Nullable final String sFileExt)
   {
@@ -116,6 +142,19 @@ public final class ConfigurationSourceResourceTypeRegistry
     return m_aRWLock.readLockedGet ( () -> m_aMap.get (sFileExt));
   }
 
+  /**
+   * Get the factory for the given file extension, falling back to a second
+   * file extension if the first one is not found.
+   *
+   * @param sFileExt
+   *        The primary file extension to look up. May be <code>null</code>.
+   * @param sFileExtFallback
+   *        The fallback file extension to look up. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if neither the primary nor the fallback file extension could be
+   *         resolved.
+   */
   @NonNull
   public Function <IReadableResource, AbstractConfigurationSourceResource> getFactoryOfFileExtensionOrFallback (@Nullable final String sFileExt,
                                                                                                                 @Nullable final String sFileExtFallback)
@@ -132,6 +171,9 @@ public final class ConfigurationSourceResourceTypeRegistry
     return ret;
   }
 
+  /**
+   * Reinitialize this registry by re-reading all SPI implementations.
+   */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())

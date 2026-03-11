@@ -62,16 +62,19 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
    */
   protected abstract void internalLog (@NonNull final IError aResError);
 
+  /** {@inheritDoc} */
   public final void warning (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.WARN, EXMLTransformTexts.TRANSFORMATION_WARNING.getAsMLT ()));
   }
 
+  /** {@inheritDoc} */
   public final void error (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.ERROR, EXMLTransformTexts.TRANSFORMATION_ERROR.getAsMLT ()));
   }
 
+  /** {@inheritDoc} */
   public final void fatalError (@NonNull final TransformerException ex) throws TransformerException
   {
     internalLog (_buildError (ex, EErrorLevel.FATAL_ERROR, EXMLTransformTexts.TRANSFORMATION_FATAL_ERROR.getAsMLT ()));

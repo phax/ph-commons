@@ -78,6 +78,14 @@ public final class ObjectNameHelper
     return RW_LOCK.readLockedGet ( () -> s_sDefaultJMXDomain);
   }
 
+  /**
+   * Create a new {@link ObjectName} using the default JMX domain and the
+   * provided parameters.
+   *
+   * @param aParams
+   *        The JMX properties. May neither be <code>null</code> nor empty.
+   * @return The created {@link ObjectName}. Never <code>null</code>.
+   */
   @NonNull
   public static ObjectName create (@NonNull @Nonempty final Hashtable <String, String> aParams)
   {
@@ -93,6 +101,14 @@ public final class ObjectNameHelper
     }
   }
 
+  /**
+   * Create a new {@link ObjectName} using the default JMX domain and the
+   * provided parameters map.
+   *
+   * @param aParams
+   *        The JMX properties. May neither be <code>null</code> nor empty.
+   * @return The created {@link ObjectName}. Never <code>null</code>.
+   */
   @NonNull
   public static ObjectName create (@NonNull @Nonempty final Map <String, String> aParams)
   {

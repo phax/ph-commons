@@ -28,17 +28,34 @@ public enum EInterrupt implements IInterruptIndicator
   INTERRUPTED,
   NOT_INTERRUPTED;
 
+  /** {@inheritDoc} */
   public boolean isInterrupted ()
   {
     return this == INTERRUPTED;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EInterrupt} enum value.
+   *
+   * @param bInterrupted
+   *        <code>true</code> for {@link #INTERRUPTED}, <code>false</code> for
+   *        {@link #NOT_INTERRUPTED}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EInterrupt valueOf (final boolean bInterrupted)
   {
     return bInterrupted ? INTERRUPTED : NOT_INTERRUPTED;
   }
 
+  /**
+   * Convert an {@link IInterruptIndicator} to the corresponding
+   * {@link EInterrupt} enum value.
+   *
+   * @param aInterruptIndicator
+   *        The interrupt indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EInterrupt valueOf (@NonNull final IInterruptIndicator aInterruptIndicator)
   {

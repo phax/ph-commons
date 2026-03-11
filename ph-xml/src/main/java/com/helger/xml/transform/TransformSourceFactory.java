@@ -56,30 +56,65 @@ public final class TransformSourceFactory
   private TransformSourceFactory ()
   {}
 
+  /**
+   * Create a {@link StreamSource} from a {@link File}.
+   *
+   * @param aFile
+   *        The file to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final File aFile)
   {
     return new StreamSource (aFile);
   }
 
+  /**
+   * Create a {@link StreamSource} from a {@link Path}.
+   *
+   * @param aPath
+   *        The path to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final Path aPath)
   {
     return new StreamSource (aPath.toFile ());
   }
 
+  /**
+   * Create a {@link StreamSource} from a {@link URI}.
+   *
+   * @param aURI
+   *        The URI to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final URI aURI)
   {
     return create (URLHelper.getAsURL (aURI));
   }
 
+  /**
+   * Create a {@link StreamSource} from a {@link URL}.
+   *
+   * @param aURL
+   *        The URL to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final URL aURL)
   {
     return create (new URLResource (aURL));
   }
 
+  /**
+   * Create a {@link StreamSource} from an {@link IHasInputStream}.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final IHasInputStream aISP)
   {
@@ -88,6 +123,14 @@ public final class TransformSourceFactory
     return create (aISP.getInputStream ());
   }
 
+  /**
+   * Create a {@link StreamSource} from an {@link IReadableResource}. The content is read into
+   * memory.
+   *
+   * @param aResource
+   *        The resource to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final IReadableResource aResource)
   {
@@ -95,24 +138,56 @@ public final class TransformSourceFactory
     return new CachingTransformStreamSource (aResource);
   }
 
+  /**
+   * Create a {@link StringStreamSource} from a {@link CharSequence}.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StringStreamSource create (@NonNull final CharSequence aXML)
   {
     return new StringStreamSource (aXML);
   }
 
+  /**
+   * Create a {@link StringStreamSource} from a {@link String}.
+   *
+   * @param sXML
+   *        The XML string content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StringStreamSource create (@NonNull final String sXML)
   {
     return new StringStreamSource (sXML);
   }
 
+  /**
+   * Create a {@link StringStreamSource} from a char array.
+   *
+   * @param aXML
+   *        The XML char array content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StringStreamSource create (final char @NonNull [] aXML)
   {
     return new StringStreamSource (aXML);
   }
 
+  /**
+   * Create a {@link StringStreamSource} from a char array with offset and length.
+   *
+   * @param aXML
+   *        The XML char array content. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLength
+   *        The number of characters to use. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StringStreamSource create (final char @NonNull [] aXML,
                                            @Nonnegative final int nOfs,
@@ -121,12 +196,30 @@ public final class TransformSourceFactory
     return new StringStreamSource (aXML, nOfs, nLength);
   }
 
+  /**
+   * Create a {@link StreamSource} from a byte array.
+   *
+   * @param aXML
+   *        The XML byte array content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (final byte @NonNull [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
+  /**
+   * Create a {@link StreamSource} from a byte array with offset and length.
+   *
+   * @param aXML
+   *        The XML byte array content. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLength
+   *        The number of bytes to use. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (final byte @NonNull [] aXML,
                                      @Nonnegative final int nOfs,
@@ -135,24 +228,52 @@ public final class TransformSourceFactory
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLength));
   }
 
+  /**
+   * Create a {@link StreamSource} from a {@link ByteBuffer}.
+   *
+   * @param aXML
+   *        The byte buffer containing the XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@NonNull final ByteBuffer aXML)
   {
     return create (new ByteBufferInputStream (aXML));
   }
 
+  /**
+   * Create a {@link StreamSource} from an {@link InputStream}.
+   *
+   * @param aIS
+   *        The input stream to read from. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@Nullable final InputStream aIS)
   {
     return new StreamSource (aIS);
   }
 
+  /**
+   * Create a {@link StreamSource} from a {@link Reader}.
+   *
+   * @param aReader
+   *        The reader to read from. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static StreamSource create (@Nullable final Reader aReader)
   {
     return new StreamSource (aReader);
   }
 
+  /**
+   * Create a {@link DOMSource} from a DOM {@link Node}.
+   *
+   * @param aNode
+   *        The DOM node to use as the source. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static DOMSource create (@Nullable final Node aNode)
   {

@@ -29,16 +29,32 @@ public enum EEOI
   EOI,
   NOT_EOI;
 
+  /**
+   * @return <code>true</code> if end of input was reached, <code>false</code>
+   *         otherwise.
+   */
   public boolean isEndOfInput ()
   {
     return this == EOI;
   }
 
+  /**
+   * @return <code>true</code> if end of input was not yet reached,
+   *         <code>false</code> otherwise.
+   */
   public boolean isNotEndOfInput ()
   {
     return this == NOT_EOI;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EEOI} enum value.
+   *
+   * @param bEOI
+   *        <code>true</code> for {@link #EOI}, <code>false</code> for
+   *        {@link #NOT_EOI}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EEOI valueOf (final boolean bEOI)
   {

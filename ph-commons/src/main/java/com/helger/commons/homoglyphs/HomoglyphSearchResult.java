@@ -37,6 +37,19 @@ public class HomoglyphSearchResult
   private final String m_sMatch;
   private final String m_sWord;
 
+  /**
+   * Constructor.
+   *
+   * @param nIndex
+   *        The index in the searched text where the match was found. Must be
+   *        &ge; 0.
+   * @param sMatch
+   *        The actual text that matched (may contain homoglyphs). May neither
+   *        be <code>null</code> nor empty.
+   * @param sWord
+   *        The target word that was being searched for. May neither be
+   *        <code>null</code> nor empty.
+   */
   public HomoglyphSearchResult (@Nonnegative final int nIndex,
                                 @NonNull @Nonempty final String sMatch,
                                 @NonNull @Nonempty final String sWord)
@@ -49,12 +62,19 @@ public class HomoglyphSearchResult
     m_sWord = sWord;
   }
 
+  /**
+   * @return The index in the searched text where the match was found.
+   */
   @Nonnegative
   public int getIndex ()
   {
     return m_nIndex;
   }
 
+  /**
+   * @return The actual text that matched, potentially containing homoglyph
+   *         characters. Never <code>null</code>.
+   */
   @NonNull
   @Nonempty
   public String getMatch ()
@@ -62,6 +82,10 @@ public class HomoglyphSearchResult
     return m_sMatch;
   }
 
+  /**
+   * @return The target word that was being searched for. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @Nonempty
   public String getWord ()
@@ -69,6 +93,10 @@ public class HomoglyphSearchResult
     return m_sWord;
   }
 
+  /**
+   * @return A human-readable string representation of this search result.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public String getAsString ()
   {

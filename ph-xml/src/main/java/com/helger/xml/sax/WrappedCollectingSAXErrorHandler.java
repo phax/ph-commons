@@ -33,6 +33,12 @@ import com.helger.diagnostics.error.list.ErrorList;
 @ThreadSafe
 public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
 {
+  /**
+   * Constructor with an existing error list.
+   *
+   * @param aErrorList
+   *        The error list to use. May not be <code>null</code>.
+   */
   public WrappedCollectingSAXErrorHandler (@NonNull final ErrorList aErrorList)
   {
     super ( () -> ValueEnforcer.notNull (aErrorList, "ErrorList"));

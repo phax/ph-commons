@@ -27,9 +27,13 @@ import org.w3c.dom.ls.LSResourceResolver;
  */
 public class DoNothingLSResourceResolver implements LSResourceResolver
 {
+  /**
+   * Default constructor.
+   */
   public DoNothingLSResourceResolver ()
   {}
 
+  /** {@inheritDoc} */
   @Nullable
   public LSInput resolveResource (@Nullable final String sType,
                                   @Nullable final String sNamespaceURI,

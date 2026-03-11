@@ -58,6 +58,13 @@ public enum EXMLCharMode implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * Get the {@link EXMLCharMode} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLCharMode getFromIDOrNull (@Nullable final String sID)
   {

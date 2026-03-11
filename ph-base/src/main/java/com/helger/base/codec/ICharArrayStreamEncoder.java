@@ -34,6 +34,7 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 @FunctionalInterface
 public interface ICharArrayStreamEncoder extends ICharArrayEncoder
 {
+  /** {@inheritDoc} */
   @Nonnegative
   @Override
   default int getMaximumEncodedLength (@Nonnegative final int nDecodedLen)
@@ -144,6 +145,15 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
     return getEncoded (aDecoded, 0, aDecoded.length);
   }
 
+  /**
+   * Encode a char array and return the result as a String.
+   *
+   * @param aDecodedBuf
+   *        The char array to be encoded. May be <code>null</code>.
+   * @return The encoded string or <code>null</code> if the parameter was <code>null</code>.
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
   @Nullable
   default String getEncodedAsString (final char @Nullable [] aDecodedBuf)
   {
@@ -153,6 +163,19 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
     return getEncodedAsString (aDecodedBuf, 0, aDecodedBuf.length);
   }
 
+  /**
+   * Encode (part of) a char array and return the result as a String.
+   *
+   * @param aDecodedBuf
+   *        The char array to be encoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the char array to start from.
+   * @param nLen
+   *        Number of chars starting from offset to consider.
+   * @return The encoded string or <code>null</code> if the parameter was <code>null</code>.
+   * @throws EncodeException
+   *         In case something goes wrong
+   */
   @Nullable
   default String getEncodedAsString (final char @Nullable [] aDecodedBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {

@@ -35,15 +35,28 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
 
   private LSResourceResolver m_aWrappedResourceResolver;
 
+  /**
+   * Default constructor.
+   */
   public AbstractLSResourceResolver ()
   {}
 
+  /**
+   * @return The wrapped resource resolver. May be <code>null</code>.
+   */
   @Nullable
   public LSResourceResolver getWrappedResourceResolver ()
   {
     return m_aWrappedResourceResolver;
   }
 
+  /**
+   * Set the wrapped resource resolver to be used as a fallback.
+   *
+   * @param aWrappedResourceResolver
+   *        The wrapped resource resolver. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public AbstractLSResourceResolver setWrappedResourceResolver (@Nullable final LSResourceResolver aWrappedResourceResolver)
   {

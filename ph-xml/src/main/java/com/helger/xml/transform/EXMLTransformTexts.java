@@ -46,12 +46,16 @@ public enum EXMLTransformTexts implements IHasDisplayText
     m_aTP = TextHelper.create_DE_EN (sDE, sEN);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
   }
 
+  /**
+   * @return The multilingual text representation. Never <code>null</code>.
+   */
   @NonNull
   public IMultilingualText getAsMLT ()
   {

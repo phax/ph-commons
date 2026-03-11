@@ -54,6 +54,15 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
     this (XMLConstants.DEFAULT_NS_PREFIX, sNamespaceURI);
   }
 
+  /**
+   * Create a namespace context with the given prefix and namespace URI.
+   *
+   * @param sPrefix
+   *        The prefix. May not be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI to use. May neither be <code>null</code> nor
+   *        empty.
+   */
   public SingleElementNamespaceContext (@NonNull final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
@@ -88,6 +97,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
     return m_sPrefix.equals (sPrefix) ? m_sNamespaceURI : null;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getPrefixToNamespaceURIMap ()

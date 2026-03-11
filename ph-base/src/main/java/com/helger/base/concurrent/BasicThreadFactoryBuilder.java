@@ -59,6 +59,9 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   /** The daemon flag. */
   ETriState m_eDaemon = ETriState.UNDEFINED;
 
+  /**
+   * Create a new empty builder instance.
+   */
   public BasicThreadFactoryBuilder ()
   {}
 

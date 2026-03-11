@@ -32,6 +32,9 @@ import com.helger.commons.serialize.convert.SerializationConverterRegistry;
 @IsSPIImplementation
 public final class CommonsCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /**
+   * {@inheritDoc}
+   */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 500, () -> {

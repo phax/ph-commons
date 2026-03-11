@@ -40,6 +40,7 @@ public enum EMicroEvent implements IHasID <String>
     m_sID = sID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -47,6 +48,13 @@ public enum EMicroEvent implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * Get the enum value matching the given ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static EMicroEvent getFromIDOrNull (@Nullable final String sID)
   {

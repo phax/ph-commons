@@ -79,6 +79,14 @@ public final class XMLMapHandler
   private XMLMapHandler ()
   {}
 
+  /**
+   * Read a mapping from the passed input stream provider.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading the map failed.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsMap <String, String> readMap (@NonNull final IHasInputStream aISP)
@@ -88,6 +96,17 @@ public final class XMLMapHandler
     return readMap (aISP.getInputStream ());
   }
 
+  /**
+   * Read a mapping from the passed input stream provider into the target map.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be
+   *        <code>null</code>.
+   * @param aTargetMap
+   *        The target map to be filled. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess readMap (@NonNull final IHasInputStream aISP, @NonNull final Map <String, String> aTargetMap)
   {
@@ -146,6 +165,16 @@ public final class XMLMapHandler
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Read map entries from the passed micro element.
+   *
+   * @param aParentElement
+   *        The parent element to read from. May not be <code>null</code>.
+   * @param aTargetMap
+   *        The target map to be filled. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess readMap (@NonNull final IMicroElement aParentElement,
                                   @NonNull final Map <String, String> aTargetMap)
@@ -182,6 +211,13 @@ public final class XMLMapHandler
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Create a micro document from the passed map.
+   *
+   * @param aMap
+   *        The map to convert. May not be <code>null</code>.
+   * @return The created micro document. Never <code>null</code>.
+   */
   @NonNull
   public static IMicroDocument createMapDocument (@NonNull final Map <String, String> aMap)
   {
@@ -198,6 +234,16 @@ public final class XMLMapHandler
     return aDoc;
   }
 
+  /**
+   * Write the passed map to the passed output stream provider.
+   *
+   * @param aMap
+   *        The map to be written. May not be <code>null</code>.
+   * @param aOSP
+   *        The output stream provider. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} when everything went well,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess writeMap (@NonNull final Map <String, String> aMap, @NonNull final IHasOutputStream aOSP)
   {

@@ -73,18 +73,33 @@ public enum EXMLSerializeIndent implements IHasID <String>
     return m_bAlign;
   }
 
+  /**
+   * @return A version of this indent mode without indentation. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeIndent getWithoutIndent ()
   {
     return m_bAlign ? ALIGN_ONLY : NONE;
   }
 
+  /**
+   * @return A version of this indent mode with alignment enabled. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public EXMLSerializeIndent getWithAlign ()
   {
     return m_bIndent ? INDENT_AND_ALIGN : ALIGN_ONLY;
   }
 
+  /**
+   * Get the {@link EXMLSerializeIndent} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLSerializeIndent getFromIDOrNull (@Nullable final String sID)
   {

@@ -41,6 +41,18 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
   private final Serializable m_aMsg;
   private final Throwable m_aThrowable;
 
+  /**
+   * Constructor.
+   *
+   * @param aIssueDT
+   *        The date and time when the message was issued. May not be <code>null</code>.
+   * @param aErrorLevel
+   *        The error level. May not be <code>null</code>.
+   * @param aMsg
+   *        The message. May not be <code>null</code>.
+   * @param aThrowable
+   *        An optional exception. May be <code>null</code>.
+   */
   public LogMessage (@NonNull final LocalDateTime aIssueDT,
                      @NonNull final IErrorLevel aErrorLevel,
                      @NonNull final Serializable aMsg,
@@ -52,24 +64,34 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
     m_aThrowable = aThrowable;
   }
 
+  /**
+   * @return The date and time when this message was issued. Never <code>null</code>.
+   */
   @NonNull
   public LocalDateTime getIssueDateTime ()
   {
     return m_aIssueDT;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
   }
 
+  /**
+   * @return The log message. Never <code>null</code>.
+   */
   @NonNull
   public Serializable getMessage ()
   {
     return m_aMsg;
   }
 
+  /**
+   * @return The optional exception associated with this message. May be <code>null</code>.
+   */
   @Nullable
   public Throwable getThrowable ()
   {

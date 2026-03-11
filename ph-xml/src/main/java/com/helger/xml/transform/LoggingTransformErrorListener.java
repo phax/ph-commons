@@ -40,11 +40,22 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
 
   private final Locale m_aDisplayLocale;
 
+  /**
+   * Constructor with a display locale.
+   *
+   * @param aDisplayLocale
+   *        The display locale to use for error messages. May not be
+   *        <code>null</code>.
+   */
   public LoggingTransformErrorListener (@NonNull final Locale aDisplayLocale)
   {
     m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
   }
 
+  /**
+   * @return The display locale used for error messages. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public Locale getDisplayLocale ()
   {

@@ -36,11 +36,27 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
   private final String m_sPublicID;
   private final String m_sSystemID;
 
+  /**
+   * Copy constructor.
+   *
+   * @param rhs
+   *        The document type to copy from. May not be <code>null</code>.
+   */
   public MicroDocumentType (@NonNull final IMicroDocumentType rhs)
   {
     this (rhs.getQualifiedName (), rhs.getPublicID (), rhs.getSystemID ());
   }
 
+  /**
+   * Constructor.
+   *
+   * @param sQualifiedName
+   *        The qualified name. May neither be <code>null</code> nor empty.
+   * @param sPublicID
+   *        The public ID. May be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public MicroDocumentType (@NonNull final String sQualifiedName, @Nullable final String sPublicID, @Nullable final String sSystemID)
   {
     ValueEnforcer.notEmpty (sQualifiedName, "QualifiedName");
@@ -52,42 +68,49 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
     m_sSystemID = sSystemID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.DOCUMENT_TYPE;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getNodeName ()
   {
     return NODE_NAME;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getQualifiedName ()
   {
     return m_sQualifiedName;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getPublicID ()
   {
     return m_sPublicID;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getSystemID ()
   {
     return m_sSystemID;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroDocumentType getClone ()
   {
     return new MicroDocumentType (this);
   }
 
+  /** {@inheritDoc} */
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {
     if (o == this)

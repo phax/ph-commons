@@ -46,107 +46,140 @@ public class ResourceLSInput implements LSInput
   private String m_sBaseURI;
   private String m_sStringData;
 
+  /**
+   * Constructor using a readable resource.
+   *
+   * @param aResource
+   *        The readable resource to use. May not be <code>null</code>.
+   */
   public ResourceLSInput (@NonNull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
+  /**
+   * Constructor using an input stream provider and a system ID.
+   *
+   * @param aISP
+   *        The input stream provider. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public ResourceLSInput (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     m_sSystemId = sSystemID;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getBaseURI ()
   {
     return m_sBaseURI;
   }
 
+  /** {@inheritDoc} */
   public void setBaseURI (@Nullable final String sBaseURI)
   {
     m_sBaseURI = sBaseURI;
   }
 
+  /**
+   * @return The input stream provider. Never <code>null</code>.
+   */
   @NonNull
   public IHasInputStream getInputStreamProvider ()
   {
     return m_aISP;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public InputStream getByteStream ()
   {
     return m_aISP.getInputStream ();
   }
 
+  /** {@inheritDoc} */
   @UnsupportedOperation
   public void setByteStream (final InputStream aByteStream)
   {
     throw new UnsupportedOperationException ();
   }
 
+  /** {@inheritDoc} */
   public boolean getCertifiedText ()
   {
     return m_bCertifiedText;
   }
 
+  /** {@inheritDoc} */
   public void setCertifiedText (final boolean bCertifiedText)
   {
     m_bCertifiedText = bCertifiedText;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Reader getCharacterStream ()
   {
     return null;
   }
 
+  /** {@inheritDoc} */
   @UnsupportedOperation
   public void setCharacterStream (final Reader aCharacterStream)
   {
     throw new UnsupportedOperationException ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getEncoding ()
   {
     return m_aEncoding != null ? m_aEncoding.name () : null;
   }
 
+  /** {@inheritDoc} */
   public void setEncoding (@Nullable final String sEncoding)
   {
     m_aEncoding = sEncoding == null ? null : CharsetHelper.getCharsetFromName (sEncoding);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getPublicId ()
   {
     return m_sPublicId;
   }
 
+  /** {@inheritDoc} */
   public void setPublicId (@Nullable final String sPublicId)
   {
     m_sPublicId = sPublicId;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getStringData ()
   {
     return m_sStringData;
   }
 
+  /** {@inheritDoc} */
   public void setStringData (@Nullable final String sStringData)
   {
     m_sStringData = sStringData;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getSystemId ()
   {
     return m_sSystemId;
   }
 
+  /** {@inheritDoc} */
   public void setSystemId (@Nullable final String sSystemId)
   {
     m_sSystemId = sSystemId;

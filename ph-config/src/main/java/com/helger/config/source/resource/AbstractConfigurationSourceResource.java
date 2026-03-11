@@ -71,6 +71,7 @@ public abstract class AbstractConfigurationSourceResource extends AbstractConfig
     }
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final IReadableResource getResource ()
   {

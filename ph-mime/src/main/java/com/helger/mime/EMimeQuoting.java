@@ -140,10 +140,24 @@ public enum EMimeQuoting
     }
   }
 
+  /**
+   * Get the quoted representation of the provided string.
+   *
+   * @param sUnquotedString
+   *        The unquoted string. May neither be <code>null</code> nor empty.
+   * @return The quoted string. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public abstract String getQuotedString (@NonNull @Nonempty String sUnquotedString);
 
+  /**
+   * Get the unquoted representation of the provided quoted string.
+   *
+   * @param sQuotedString
+   *        The quoted string. May neither be <code>null</code> nor empty.
+   * @return The unquoted string. Never <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public abstract String getUnquotedString (@NonNull @Nonempty String sQuotedString);

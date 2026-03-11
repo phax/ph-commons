@@ -75,6 +75,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     linkedException (aError.getLinkedException ());
   }
 
+  /**
+   * Set the error date time.
+   *
+   * @param aErrorDT
+   *        The error date time. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE dateTime (@Nullable final LocalDateTime aErrorDT)
   {
@@ -82,6 +89,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set the error level.
+   *
+   * @param aErrorLevel
+   *        The error level to use. May not be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
@@ -90,6 +104,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set the error ID.
+   *
+   * @param sErrorID
+   *        The error ID. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorID (@Nullable final String sErrorID)
   {
@@ -97,6 +118,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set the error field name.
+   *
+   * @param sErrorFieldName
+   *        The error field name. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorFieldName (@Nullable final String sErrorFieldName)
   {
@@ -118,24 +146,52 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return errorLocation (new SimpleLocation (sErrorLocation));
   }
 
+  /**
+   * Set the error location from a SAX Locator.
+   *
+   * @param aLocator
+   *        The SAX locator to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorLocation (@Nullable final Locator aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
+  /**
+   * Set the error location from a SAX parse exception.
+   *
+   * @param aLocator
+   *        The SAX parse exception to extract the location from. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorLocation (@Nullable final SAXParseException aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
+  /**
+   * Set the error location from a StAX location.
+   *
+   * @param aLocator
+   *        The StAX location to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorLocation (@Nullable final Location aLocator)
   {
     return errorLocation (SimpleLocation.create (aLocator));
   }
 
+  /**
+   * Set the error location.
+   *
+   * @param aErrorLocation
+   *        The error location. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorLocation (@Nullable final ILocation aErrorLocation)
   {
@@ -143,12 +199,26 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set a constant error text.
+   *
+   * @param sErrorText
+   *        The error text. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorText (@Nullable final String sErrorText)
   {
     return errorText (ConstantHasErrorText.createOnDemand (sErrorText));
   }
 
+  /**
+   * Set a multilingual error text.
+   *
+   * @param aMLT
+   *        The multilingual text to use. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorText (@Nullable final IMultilingualText aMLT)
   {
@@ -168,6 +238,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set the error text provider.
+   *
+   * @param aErrorText
+   *        The error text provider. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE errorText (@Nullable final IHasErrorText aErrorText)
   {
@@ -175,6 +252,13 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
     return thisAsT ();
   }
 
+  /**
+   * Set the linked exception.
+   *
+   * @param aLinkedException
+   *        The linked exception. May be <code>null</code>.
+   * @return this for chaining
+   */
   @NonNull
   public final IMPLTYPE linkedException (@Nullable final Throwable aLinkedException)
   {

@@ -39,17 +39,25 @@ public class ConstantHasErrorText implements IHasErrorText
 {
   private final String m_sText;
 
+  /**
+   * Constructor.
+   *
+   * @param sText
+   *        The constant text to use. May be <code>null</code>.
+   */
   public ConstantHasErrorText (@Nullable final String sText)
   {
     m_sText = sText;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_sText;
   }
 
+  /** {@inheritDoc} */
   public boolean isMultiLingual ()
   {
     return false;
@@ -78,6 +86,14 @@ public class ConstantHasErrorText implements IHasErrorText
     return new ToStringGenerator (null).append ("Text", m_sText).getToString ();
   }
 
+  /**
+   * Factory method that creates a new instance only if the provided error text is not
+   * <code>null</code>.
+   *
+   * @param sErrorText
+   *        The error text to use. May be <code>null</code>.
+   * @return <code>null</code> if the provided error text is <code>null</code>.
+   */
   @Nullable
   public static ConstantHasErrorText createOnDemand (@Nullable final String sErrorText)
   {

@@ -270,12 +270,14 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
     m_aSB.setLength (0);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {
     return m_aSB.length ();
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_aSB.length () == 0;

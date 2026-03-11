@@ -223,18 +223,27 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
     return m_aMap.removeAll ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public XPathFunction resolveFunction (@NonNull final QName aFunctionName, @Nonnegative final int nArity)
   {
     return resolveFunction (new XPathFunctionKey (aFunctionName, nArity));
   }
 
+  /**
+   * Resolve a function by its key.
+   *
+   * @param aFunctionKey
+   *        The function key to resolve. May be <code>null</code>.
+   * @return The resolved function or <code>null</code> if no matching function is registered.
+   */
   @Nullable
   public XPathFunction resolveFunction (@Nullable final XPathFunctionKey aFunctionKey)
   {
     return m_aMap.get (aFunctionKey);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public MapBasedXPathFunctionResolver getClone ()

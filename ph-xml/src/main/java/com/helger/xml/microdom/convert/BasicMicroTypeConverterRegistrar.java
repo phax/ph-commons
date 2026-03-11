@@ -68,6 +68,7 @@ import com.helger.datetime.xml.XMLOffsetTime;
 @IsSPIImplementation
 public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConverterRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     // String converter

@@ -33,23 +33,41 @@ public class StringIDFactory implements IStringIDFactory
   private final String m_sPrefix;
   private final IStringIDFactory m_aBaseFactory;
 
+  /**
+   * Constructor using the default prefix.
+   *
+   * @param aBaseFactory
+   *        The base string ID factory to use. May not be <code>null</code>.
+   */
   public StringIDFactory (@NonNull final IStringIDFactory aBaseFactory)
   {
     this (GlobalIDFactory.DEFAULT_PREFIX, aBaseFactory);
   }
 
+  /**
+   * Constructor with a custom prefix.
+   *
+   * @param sPrefix
+   *        The prefix to prepend to each generated ID. May not be <code>null</code>.
+   * @param aBaseFactory
+   *        The base string ID factory to use. May not be <code>null</code>.
+   */
   public StringIDFactory (@NonNull final String sPrefix, @NonNull final IStringIDFactory aBaseFactory)
   {
     m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
     m_aBaseFactory = ValueEnforcer.notNull (aBaseFactory, "BaseFactory");
   }
 
+  /**
+   * @return The prefix used for all generated IDs. Never <code>null</code>.
+   */
   @NonNull
   public String getPrefix ()
   {
     return m_sPrefix;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getNewID ()
   {

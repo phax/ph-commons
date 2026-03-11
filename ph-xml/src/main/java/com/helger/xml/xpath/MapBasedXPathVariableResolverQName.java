@@ -231,6 +231,7 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
     m_aMap.setAll (aVars);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Object resolveVariable (@NonNull final QName aVariableName)
   {
@@ -239,6 +240,7 @@ public class MapBasedXPathVariableResolverQName implements XPathVariableResolver
     return m_aMap.get (aVariableName);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public MapBasedXPathVariableResolverQName getClone ()

@@ -34,26 +34,62 @@ import com.helger.base.tostring.ToStringGenerator;
 @NotThreadSafe
 public class StringStreamSource extends StreamSource
 {
+  /**
+   * Constructor from a char array.
+   *
+   * @param aInput
+   *        The input characters. May not be <code>null</code>.
+   */
   public StringStreamSource (final char @NonNull [] aInput)
   {
     super (new NonBlockingStringReader (aInput));
   }
 
+  /**
+   * Constructor from a char array with offset and length.
+   *
+   * @param aInput
+   *        The input characters. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   */
   public StringStreamSource (final char @NonNull [] aInput, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     super (new NonBlockingStringReader (aInput, nOfs, nLen));
   }
 
+  /**
+   * Constructor from a {@link CharSequence}.
+   *
+   * @param aInput
+   *        The input. May not be <code>null</code>.
+   */
   public StringStreamSource (@NonNull final CharSequence aInput)
   {
     this (aInput instanceof final String sInput ? sInput : aInput.toString ());
   }
 
+  /**
+   * Constructor from a {@link String}.
+   *
+   * @param sInput
+   *        The input. May not be <code>null</code>.
+   */
   public StringStreamSource (@NonNull final String sInput)
   {
     this (sInput, null);
   }
 
+  /**
+   * Constructor from a {@link String} with a system ID.
+   *
+   * @param sInput
+   *        The input. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public StringStreamSource (@NonNull final String sInput, @Nullable final String sSystemID)
   {
     super (new NonBlockingStringReader (sInput));

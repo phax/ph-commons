@@ -37,23 +37,39 @@ public class SizeInt implements IHasDimensionInt
   private final int m_nWidth;
   private final int m_nHeight;
 
+  /**
+   * Constructor copying from an existing dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeInt (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor with width and height.
+   *
+   * @param nWidth
+   *        The width. Must be &ge; 0.
+   * @param nHeight
+   *        The height. Must be &ge; 0.
+   */
   public SizeInt (@Nonnegative final int nWidth, @Nonnegative final int nHeight)
   {
     m_nWidth = ValueEnforcer.isGE0 (nWidth, "Width");
     m_nHeight = ValueEnforcer.isGE0 (nHeight, "Height");
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getWidth ()
   {
     return m_nWidth;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getHeight ()
   {
@@ -92,6 +108,13 @@ public class SizeInt implements IHasDimensionInt
     return this;
   }
 
+  /**
+   * Get a new size that is scaled to the specified width, keeping the aspect ratio.
+   *
+   * @param nNewWidth
+   *        The new width. Must be &gt; 0.
+   * @return A new {@link SizeInt} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
@@ -104,6 +127,13 @@ public class SizeInt implements IHasDimensionInt
     return new SizeInt (nNewWidth, (int) (m_nHeight * dMultFactory));
   }
 
+  /**
+   * Get a new size that is scaled to the specified height, keeping the aspect ratio.
+   *
+   * @param nNewHeight
+   *        The new height. Must be &gt; 0.
+   * @return A new {@link SizeInt} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
@@ -116,6 +146,13 @@ public class SizeInt implements IHasDimensionInt
     return new SizeInt ((int) (m_nWidth * dMultFactory), nNewHeight);
   }
 
+  /**
+   * Get a new size with the dimensions of the provided object added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeInt}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeInt getAdded (@NonNull final IHasDimensionInt aToAdd)
@@ -125,6 +162,13 @@ public class SizeInt implements IHasDimensionInt
     return new SizeInt (m_nWidth + aToAdd.getWidth (), m_nHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided object subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeInt}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeInt getSubtracted (@NonNull final IHasDimensionInt aToSubtract)

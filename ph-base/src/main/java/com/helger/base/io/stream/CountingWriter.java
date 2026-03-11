@@ -34,6 +34,12 @@ public class CountingWriter extends WrappedWriter
 {
   private long m_nCharsWritten = 0;
 
+  /**
+   * Constructor wrapping the given writer.
+   *
+   * @param aSourceOS
+   *        The writer to be wrapped. May not be <code>null</code>.
+   */
   public CountingWriter (@NonNull final Writer aSourceOS)
   {
     super (aSourceOS);

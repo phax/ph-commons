@@ -40,6 +40,9 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @GuardedBy ("m_aRWLock")
   private final ErrorList m_aErrors = new ErrorList ();
 
+  /**
+   * Default constructor.
+   */
   public CollectingTransformErrorListener ()
   {
     super ();
@@ -51,6 +54,9 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aResError));
   }
 
+  /**
+   * @return A copy of the collected error list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ErrorList getErrorList ()

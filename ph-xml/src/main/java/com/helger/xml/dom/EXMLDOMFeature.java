@@ -60,6 +60,9 @@ public enum EXMLDOMFeature implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * @return The feature string prefixed with '+'. Never <code>null</code>.
+   */
   @NonNull
   @Nonempty
   public String getPlusFeature ()
@@ -67,6 +70,13 @@ public enum EXMLDOMFeature implements IHasID <String>
     return '+' + m_sID;
   }
 
+  /**
+   * Get the {@link EXMLDOMFeature} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such feature exists.
+   */
   @Nullable
   public static EXMLDOMFeature getFromIDOrNull (@Nullable final String sID)
   {

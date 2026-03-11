@@ -63,6 +63,10 @@ public final class GlobalIDFactory
   private GlobalIDFactory ()
   {}
 
+  /**
+   * @return <code>true</code> if a non-persistent int ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasIntIDFactory ()
   {
     return getIntIDFactory () != null;
@@ -77,6 +81,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aIntIDFactory);
   }
 
+  /**
+   * Set the non-persistent int ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
@@ -91,6 +102,10 @@ public final class GlobalIDFactory
     });
   }
 
+  /**
+   * @return <code>true</code> if a persistent int ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasPersistentIntIDFactory ()
   {
     return getPersistentIntIDFactory () != null;
@@ -105,6 +120,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentIntIDFactory);
   }
 
+  /**
+   * Set the persistent int ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setPersistentIntIDFactory (@Nullable final IIntIDFactory aFactory)
   {
@@ -119,6 +141,10 @@ public final class GlobalIDFactory
     });
   }
 
+  /**
+   * @return <code>true</code> if a non-persistent long ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasLongIDFactory ()
   {
     return getLongIDFactory () != null;
@@ -133,6 +159,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aLongIDFactory);
   }
 
+  /**
+   * Set the non-persistent long ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
@@ -147,6 +180,10 @@ public final class GlobalIDFactory
     });
   }
 
+  /**
+   * @return <code>true</code> if a persistent long ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasPersistentLongIDFactory ()
   {
     return getPersistentLongIDFactory () != null;
@@ -161,6 +198,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentLongIDFactory);
   }
 
+  /**
+   * Set the persistent long ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setPersistentLongIDFactory (@Nullable final ILongIDFactory aFactory)
   {
@@ -175,6 +219,10 @@ public final class GlobalIDFactory
     });
   }
 
+  /**
+   * @return <code>true</code> if a non-persistent string ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasStringIDFactory ()
   {
     return getStringIDFactory () != null;
@@ -189,6 +237,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aStringIDFactory);
   }
 
+  /**
+   * Set the non-persistent string ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {
@@ -203,6 +258,10 @@ public final class GlobalIDFactory
     });
   }
 
+  /**
+   * @return <code>true</code> if a persistent string ID factory is set,
+   *         <code>false</code> otherwise.
+   */
   public static boolean hasPersistentStringIDFactory ()
   {
     return getPersistentStringIDFactory () != null;
@@ -217,6 +276,13 @@ public final class GlobalIDFactory
     return RW_LOCK.readLockedGet ( () -> s_aPersistentStringIDFactory);
   }
 
+  /**
+   * Set the persistent string ID factory.
+   *
+   * @param aFactory
+   *        The factory to set. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the factory was changed.
+   */
   @NonNull
   public static EChange setPersistentStringIDFactory (@Nullable final IStringIDFactory aFactory)
   {

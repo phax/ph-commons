@@ -27,11 +27,25 @@ import org.jspecify.annotations.Nullable;
  */
 public class MimeTypeParserException extends Exception
 {
+  /**
+   * Constructor with a message.
+   *
+   * @param sMsg
+   *        The error message. May not be <code>null</code>.
+   */
   public MimeTypeParserException (@NonNull final String sMsg)
   {
     super (sMsg);
   }
 
+  /**
+   * Constructor with a message and a cause.
+   *
+   * @param sMsg
+   *        The error message. May not be <code>null</code>.
+   * @param aCause
+   *        The cause of the exception. May be <code>null</code>.
+   */
   public MimeTypeParserException (@NonNull final String sMsg, @Nullable final Throwable aCause)
   {
     super (sMsg, aCause);

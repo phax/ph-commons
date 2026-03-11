@@ -52,6 +52,12 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
 
   private IConfigKeyOutdatedNotifier m_aOutdatedNotifier = DEFAULT_OUTDATED_NOTIFIER;
 
+  /**
+   * Constructor
+   *
+   * @param aValueProvider
+   *        The configuration value provider to use. May not be <code>null</code>.
+   */
   public ConfigWithFallback (@NonNull final IConfigurationValueProvider aValueProvider)
   {
     super (aValueProvider);
@@ -82,6 +88,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return this;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfiguredValueOrFallback (@NonNull final String sPrimary,
                                                        @NonNull final String... aOldOnes)
@@ -104,6 +111,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getAsStringOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
@@ -125,6 +133,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
+  /** {@inheritDoc} */
   public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
     char [] ret = getAsCharArray (sPrimary);
@@ -145,6 +154,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
   {
@@ -166,6 +176,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret;
   }
 
+  /** {@inheritDoc} */
   public int getAsIntOrFallback (@NonNull final String sPrimary,
                                  final int nBogus,
                                  final int nDefault,
@@ -189,6 +200,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     return ret == nBogus ? nDefault : ret;
   }
 
+  /** {@inheritDoc} */
   public long getAsLongOrFallback (@NonNull final String sPrimary,
                                    final long nBogus,
                                    final long nDefault,

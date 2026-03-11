@@ -39,6 +39,17 @@ public class ThreadDeadlockInfo
   private final Thread m_aThread;
   private final StackTraceElement [] m_aStackTrace;
 
+  /**
+   * Constructor.
+   *
+   * @param aThreadInfo
+   *        The JMX thread info. May not be <code>null</code>.
+   * @param aThread
+   *        The deadlocked thread. May not be <code>null</code>.
+   * @param aStackTrace
+   *        The stack trace at the time the deadlock was detected. May be
+   *        <code>null</code>.
+   */
   public ThreadDeadlockInfo (@NonNull final ThreadInfo aThreadInfo,
                              @NonNull final Thread aThread,
                              @Nullable final StackTraceElement [] aStackTrace)

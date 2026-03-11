@@ -40,9 +40,18 @@ import com.helger.xml.sax.AbstractSAXErrorHandler;
  */
 public class XMLLoggingExceptionCallback extends LoggingExceptionCallback
 {
+  /**
+   * Default constructor using the default error level.
+   */
   public XMLLoggingExceptionCallback ()
   {}
 
+  /**
+   * Constructor with a custom error level.
+   *
+   * @param aErrorLevel
+   *        The error level to use. May not be <code>null</code>.
+   */
   public XMLLoggingExceptionCallback (@NonNull final IErrorLevel aErrorLevel)
   {
     setErrorLevel (aErrorLevel);

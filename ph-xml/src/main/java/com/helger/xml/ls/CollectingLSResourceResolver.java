@@ -43,9 +43,16 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
   @GuardedBy ("m_aRWLock")
   private final ICommonsList <LSResourceData> m_aList = new CommonsArrayList <> ();
 
+  /**
+   * Default constructor.
+   */
   public CollectingLSResourceResolver ()
   {}
 
+  /**
+   * @return A copy of the list of all requested resources. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <LSResourceData> getAllRequestedResources ()

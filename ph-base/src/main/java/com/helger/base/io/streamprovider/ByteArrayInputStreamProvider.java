@@ -36,21 +36,57 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
 
   private final ByteArrayWrapper m_aBytes;
 
+  /**
+   * Constructor using the entire byte array without copying.
+   *
+   * @param aData
+   *        The byte data. May not be <code>null</code>.
+   */
   public ByteArrayInputStreamProvider (final byte @NonNull [] aData)
   {
     this (aData, 0, aData.length, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor using the entire byte array.
+   *
+   * @param aData
+   *        The byte data. May not be <code>null</code>.
+   * @param bCopyNeeded
+   *        <code>true</code> if the data should be copied, <code>false</code> otherwise.
+   */
   public ByteArrayInputStreamProvider (final byte @NonNull [] aData, final boolean bCopyNeeded)
   {
     this (aData, 0, aData.length, bCopyNeeded);
   }
 
+  /**
+   * Constructor using a portion of the byte array without copying.
+   *
+   * @param aData
+   *        The byte data. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        Length of bytes to use. Must be &ge; 0.
+   */
   public ByteArrayInputStreamProvider (final byte @NonNull [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }
 
+  /**
+   * Constructor using a portion of the byte array.
+   *
+   * @param aData
+   *        The byte data. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        Length of bytes to use. Must be &ge; 0.
+   * @param bCopyNeeded
+   *        <code>true</code> if the data should be copied, <code>false</code> otherwise.
+   */
   public ByteArrayInputStreamProvider (final byte @NonNull [] aData,
                                        @Nonnegative final int nOfs,
                                        @Nonnegative final int nLen,
@@ -60,23 +96,27 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
     m_aBytes = new ByteArrayWrapper (aData, nOfs, nLen, bCopyNeeded);
   }
 
+  /** {@inheritDoc} */
   public final boolean isCopy ()
   {
     return m_aBytes.isCopy ();
   }
 
+  /** {@inheritDoc} */
   @ReturnsMutableObject
   public final byte @NonNull [] bytes ()
   {
     return m_aBytes.bytes ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int getOffset ()
   {
     return m_aBytes.getOffset ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public final int size ()
   {

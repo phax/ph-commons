@@ -46,6 +46,12 @@ public final class StringDecoder
   private final CharsetDecoder m_aDecoder;
   private CharBuffer m_aBuffer = CharBuffer.allocate (INITIAL_BUFFER_SIZE);
 
+  /**
+   * Constructor.
+   *
+   * @param aCharset
+   *        The charset to use for decoding. May not be <code>null</code>.
+   */
   public StringDecoder (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -118,6 +124,14 @@ public final class StringDecoder
     assert !aByteBuffer.hasRemaining ();
   }
 
+  /**
+   * Decode the provided byte array, appending the decoded characters to the
+   * internal buffer. Call {@link #finish(ByteBuffer)} when done to retrieve
+   * the final string.
+   *
+   * @param aBuf
+   *        The byte array to decode. May not be <code>null</code>.
+   */
   public void decode (final byte @NonNull [] aBuf)
   {
     ValueEnforcer.notNull (aBuf, "Buffer");
@@ -125,6 +139,17 @@ public final class StringDecoder
     _decode (ByteBuffer.wrap (aBuf, 0, aBuf.length), false);
   }
 
+  /**
+   * Decode a portion of the provided byte array, appending the decoded
+   * characters to the internal buffer.
+   *
+   * @param aBuffer
+   *        The byte array to decode. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to decode. Must be &ge; 0.
+   */
   public void decode (final byte @NonNull [] aBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aBuffer, nOfs, nLen);
@@ -132,6 +157,13 @@ public final class StringDecoder
     _decode (ByteBuffer.wrap (aBuffer, nOfs, nLen), false);
   }
 
+  /**
+   * Decode the provided {@link ByteBuffer}, appending the decoded characters
+   * to the internal buffer.
+   *
+   * @param aByteBuffer
+   *        The byte buffer to decode. May not be <code>null</code>.
+   */
   public void decode (@NonNull final ByteBuffer aByteBuffer)
   {
     ValueEnforcer.notNull (aByteBuffer, "ByteBuffer");
@@ -139,12 +171,33 @@ public final class StringDecoder
     _decode (aByteBuffer, false);
   }
 
+  /**
+   * Decode the remaining bytes from the provided array and finish the
+   * decoding process, returning the final decoded string.
+   *
+   * @param aBuf
+   *        The byte array containing the final bytes. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes to decode. Must be &ge; 0.
+   * @return The decoded string. Never <code>null</code>.
+   */
   @NonNull
   public String finish (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return finish (ByteBuffer.wrap (aBuf, nOfs, nLen));
   }
 
+  /**
+   * Decode the remaining bytes from the provided {@link ByteBuffer} and
+   * finish the decoding process, returning the final decoded string. After
+   * calling this method, the decoder is reset and ready for the next string.
+   *
+   * @param aByteBuffer
+   *        The byte buffer containing the final bytes. May not be <code>null</code>.
+   * @return The decoded string. Never <code>null</code>.
+   */
   @NonNull
   public String finish (@NonNull final ByteBuffer aByteBuffer)
   {

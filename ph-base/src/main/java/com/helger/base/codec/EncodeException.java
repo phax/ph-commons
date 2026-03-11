@@ -23,16 +23,36 @@ package com.helger.base.codec;
  */
 public class EncodeException extends RuntimeException
 {
+  /**
+   * Constructor with a message.
+   *
+   * @param sMsg
+   *        The error message.
+   */
   public EncodeException (final String sMsg)
   {
     super (sMsg);
   }
 
+  /**
+   * Constructor with a cause.
+   *
+   * @param aCause
+   *        The causing exception.
+   */
   public EncodeException (final Throwable aCause)
   {
     super (aCause);
   }
 
+  /**
+   * Constructor with a message and a cause.
+   *
+   * @param sMsg
+   *        The error message.
+   * @param aCause
+   *        The causing exception.
+   */
   public EncodeException (final String sMsg, final Throwable aCause)
   {
     super (sMsg, aCause);

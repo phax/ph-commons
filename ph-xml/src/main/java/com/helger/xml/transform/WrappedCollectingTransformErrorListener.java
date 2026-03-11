@@ -37,6 +37,12 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
 {
   private final ErrorList m_aErrorList;
 
+  /**
+   * Constructor with an existing error list.
+   *
+   * @param aErrorList
+   *        The error list to use. May not be <code>null</code>.
+   */
   public WrappedCollectingTransformErrorListener (@NonNull final ErrorList aErrorList)
   {
     m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");

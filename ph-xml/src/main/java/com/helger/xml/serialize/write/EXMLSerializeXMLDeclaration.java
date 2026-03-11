@@ -70,6 +70,13 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
     return this == EMIT;
   }
 
+  /**
+   * Get the {@link EXMLSerializeXMLDeclaration} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLSerializeXMLDeclaration getFromIDOrNull (@Nullable final String sID)
   {

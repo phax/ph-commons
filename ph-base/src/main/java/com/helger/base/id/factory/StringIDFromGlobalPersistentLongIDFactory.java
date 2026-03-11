@@ -27,11 +27,20 @@ import org.jspecify.annotations.NonNull;
  */
 public class StringIDFromGlobalPersistentLongIDFactory extends StringIDFactory
 {
+  /**
+   * Constructor using the default prefix.
+   */
   public StringIDFromGlobalPersistentLongIDFactory ()
   {
     this (GlobalIDFactory.DEFAULT_PREFIX);
   }
 
+  /**
+   * Constructor with a custom prefix.
+   *
+   * @param sPrefix
+   *        The prefix to prepend to each generated ID. May not be <code>null</code>.
+   */
   public StringIDFromGlobalPersistentLongIDFactory (@NonNull final String sPrefix)
   {
     super (sPrefix, () -> Long.toString (GlobalIDFactory.getNewPersistentLongID ()));

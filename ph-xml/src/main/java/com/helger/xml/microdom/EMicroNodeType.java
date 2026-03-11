@@ -57,6 +57,7 @@ public enum EMicroNodeType implements IHasIntID
     m_nDOMNodeType = nDOMNodeType;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getID ()
   {
@@ -81,16 +82,29 @@ public enum EMicroNodeType implements IHasIntID
     return m_nDOMNodeType;
   }
 
+  /**
+   * @return <code>true</code> if this is the {@link #CDATA} type.
+   */
   public boolean isCDATA ()
   {
     return this == CDATA;
   }
 
+  /**
+   * @return <code>true</code> if this is the {@link #TEXT} type.
+   */
   public boolean isText ()
   {
     return this == TEXT;
   }
 
+  /**
+   * Get the enum value matching the given ID.
+   *
+   * @param nID
+   *        The ID to search.
+   * @return <code>null</code> if no matching enum value was found.
+   */
   @Nullable
   public static EMicroNodeType getFromIDOrNull (final int nID)
   {

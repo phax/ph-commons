@@ -28,17 +28,34 @@ public enum EChange implements IChangeIndicator
   CHANGED,
   UNCHANGED;
 
+  /** {@inheritDoc} */
   public boolean isChanged ()
   {
     return this == CHANGED;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EChange} enum value.
+   *
+   * @param bChanged
+   *        <code>true</code> for {@link #CHANGED}, <code>false</code> for
+   *        {@link #UNCHANGED}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EChange valueOf (final boolean bChanged)
   {
     return bChanged ? CHANGED : UNCHANGED;
   }
 
+  /**
+   * Convert an {@link IChangeIndicator} to the corresponding {@link EChange}
+   * enum value.
+   *
+   * @param aChangeIndicator
+   *        The change indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EChange valueOf (@NonNull final IChangeIndicator aChangeIndicator)
   {

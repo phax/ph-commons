@@ -235,22 +235,42 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
     return m_nCount;
   }
 
+  /** {@inheritDoc} */
   public boolean isEmpty ()
   {
     return m_nCount == 0;
   }
 
+  /** {@inheritDoc} */
   @Override
   public boolean isNotEmpty ()
   {
     return m_nCount > 0;
   }
 
+  /**
+   * Check if the buffer starts with the specified byte array.
+   *
+   * @param aBytes
+   *        The bytes to check against. May not be <code>null</code>.
+   * @return <code>true</code> if the buffer starts with the specified bytes.
+   */
   public boolean startsWith (final byte @NonNull [] aBytes)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes);
   }
 
+  /**
+   * Check if the buffer starts with the specified byte array.
+   *
+   * @param aBytes
+   *        The bytes to check against. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into the byte array. Must be &ge; 0.
+   * @param nLen
+   *        Length of bytes to check. Must be &ge; 0.
+   * @return <code>true</code> if the buffer starts with the specified bytes.
+   */
   public boolean startsWith (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     return ArrayHelper.startsWith (m_aBuf, m_nCount, aBytes, nOfs, nLen);

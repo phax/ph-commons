@@ -39,6 +39,18 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
   private final boolean m_bIgnorableWhitespace;
   private boolean m_bEscape = DEFAULT_ESCAPE;
 
+  /**
+   * Constructor with a character array.
+   *
+   * @param aChars
+   *        The character array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters. Must be &ge; 0.
+   * @param bIgnorableWhitespace
+   *        <code>true</code> if this is ignorable whitespace.
+   */
   public MicroText (final char @NonNull [] aChars,
                     @Nonnegative final int nOfs,
                     @Nonnegative final int nLen,
@@ -48,11 +60,25 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
     m_bIgnorableWhitespace = bIgnorableWhitespace;
   }
 
+  /**
+   * Constructor with text.
+   *
+   * @param sText
+   *        The text content. May be <code>null</code>.
+   */
   public MicroText (@Nullable final CharSequence sText)
   {
     this (sText, DEFAULT_IGNORABLE_WHITESPACE);
   }
 
+  /**
+   * Constructor with text and ignorable whitespace flag.
+   *
+   * @param sText
+   *        The text content. May be <code>null</code>.
+   * @param bIgnorableWhitespace
+   *        <code>true</code> if this is ignorable whitespace.
+   */
   public MicroText (@Nullable final CharSequence sText, final boolean bIgnorableWhitespace)
   {
     m_aData = new MicroDataAware (sText);
@@ -76,12 +102,14 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
     m_bEscape = bEscape;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.TEXT;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getNodeName ()
@@ -96,57 +124,68 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
     return getData ().toString ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public CharSequence getData ()
   {
     return m_aData.getData ();
   }
 
+  /** {@inheritDoc} */
   public void appendData (@Nullable final CharSequence sData)
   {
     m_aData.appendData (sData);
   }
 
+  /** {@inheritDoc} */
   public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.appendData (aChars, nOfs, nLen);
   }
 
+  /** {@inheritDoc} */
   public void appendData (final char cChar)
   {
     m_aData.appendData (cChar);
   }
 
+  /** {@inheritDoc} */
   public void prependData (@Nullable final CharSequence sData)
   {
     m_aData.prependData (sData);
   }
 
+  /** {@inheritDoc} */
   public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.prependData (aChars, nOfs, nLen);
   }
 
+  /** {@inheritDoc} */
   public void prependData (final char cChar)
   {
     m_aData.prependData (cChar);
   }
 
+  /** {@inheritDoc} */
   public void setData (@Nullable final CharSequence sData)
   {
     m_aData.setData (sData);
   }
 
+  /** {@inheritDoc} */
   public boolean isElementContentWhitespace ()
   {
     return m_bIgnorableWhitespace;
   }
 
+  /** {@inheritDoc} */
   public boolean isEscape ()
   {
     return m_bEscape;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MicroText setEscape (final boolean bEscape)
   {
@@ -154,12 +193,14 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
     return this;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroText getClone ()
   {
     return new MicroText (m_aData.getClone (), m_bIgnorableWhitespace, m_bEscape);
   }
 
+  /** {@inheritDoc} */
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {
     if (o == this)

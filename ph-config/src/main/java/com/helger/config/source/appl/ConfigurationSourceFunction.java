@@ -84,11 +84,13 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
     return m_aValueProvider;
   }
 
+  /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
     return true;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {

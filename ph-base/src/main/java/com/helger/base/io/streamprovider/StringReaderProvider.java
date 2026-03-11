@@ -34,32 +34,64 @@ public class StringReaderProvider implements IHasReader
 {
   private final String m_sData;
 
+  /**
+   * Constructor using a char array.
+   *
+   * @param aChars
+   *        The char data. May not be <code>null</code>.
+   */
   public StringReaderProvider (final char @NonNull [] aChars)
   {
     this (new String (aChars));
   }
 
+  /**
+   * Constructor using a portion of a char array.
+   *
+   * @param aChars
+   *        The char data. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into the char array. Must be &ge; 0.
+   * @param nLength
+   *        Number of chars to use. Must be &ge; 0.
+   */
   public StringReaderProvider (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     this (new String (aChars, nOfs, nLength));
   }
 
+  /**
+   * Constructor using a {@link CharSequence}.
+   *
+   * @param aData
+   *        The char sequence data. May not be <code>null</code>.
+   */
   public StringReaderProvider (@NonNull final CharSequence aData)
   {
     this (aData.toString ());
   }
 
+  /**
+   * Constructor using a {@link String}.
+   *
+   * @param sData
+   *        The string data. May not be <code>null</code>.
+   */
   public StringReaderProvider (@NonNull final String sData)
   {
     m_sData = ValueEnforcer.notNull (sData, "Data");
   }
 
+  /**
+   * @return The data string. Never <code>null</code>.
+   */
   @NonNull
   public String getData ()
   {
     return m_sData;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final NonBlockingStringReader getReader ()
   {

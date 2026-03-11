@@ -38,21 +38,34 @@ public enum EAppend implements BooleanSupplier
   @NonNull
   public static final EAppend DEFAULT = TRUNCATE;
 
+  /** {@inheritDoc} */
   public boolean getAsBoolean ()
   {
     return isAppend ();
   }
 
+  /**
+   * @return <code>true</code> if this is {@link #APPEND}, <code>false</code>
+   *         otherwise.
+   */
   public boolean isAppend ()
   {
     return this == APPEND;
   }
 
+  /**
+   * @return <code>true</code> if this is {@link #TRUNCATE},
+   *         <code>false</code> otherwise.
+   */
   public boolean isTruncate ()
   {
     return this == TRUNCATE;
   }
 
+  /**
+   * @return The matching NIO {@link OpenOption} array for this append mode.
+   *         Never <code>null</code>.
+   */
   @NonNull
   public OpenOption [] getAsOpenOptions ()
   {

@@ -143,6 +143,13 @@ public final class FactorialHelper
     }
   }
 
+  /**
+   * Calculate n! for any non-negative integer using a split algorithm.
+   *
+   * @param n
+   *        The input value. Must be &ge; 0.
+   * @return The factorial value as {@link BigInteger}. Never <code>null</code>.
+   */
   @NonNull
   public static BigInteger getAnyFactorialLinear (@Nonnegative final int n)
   {

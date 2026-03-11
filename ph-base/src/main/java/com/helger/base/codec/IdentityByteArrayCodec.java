@@ -37,6 +37,7 @@ public class IdentityByteArrayCodec extends IdentityCodec <byte []> implements I
   /** Default instance that can be used. */
   public static final IdentityByteArrayCodec INSTANCE = new IdentityByteArrayCodec ();
 
+  /** {@inheritDoc} */
   public void decode (final byte @Nullable [] aEncodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,
@@ -52,6 +53,7 @@ public class IdentityByteArrayCodec extends IdentityCodec <byte []> implements I
     }
   }
 
+  /** {@inheritDoc} */
   public void encode (final byte @Nullable [] aDecodedBuffer,
                       @Nonnegative final int nOfs,
                       @Nonnegative final int nLen,

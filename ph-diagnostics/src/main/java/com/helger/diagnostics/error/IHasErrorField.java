@@ -69,6 +69,10 @@ public interface IHasErrorField
     return EqualsHelper.equals (getErrorFieldName (), sErrorFieldName);
   }
 
+  /**
+   * @return A comparator that compares by error field name, with <code>null</code> values sorted
+   *         first. Never <code>null</code>.
+   */
   @NonNull
   static Comparator <IHasErrorField> getComparatorErrorFieldName ()
   {

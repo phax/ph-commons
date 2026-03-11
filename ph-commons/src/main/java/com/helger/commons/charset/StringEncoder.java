@@ -58,6 +58,12 @@ public final class StringEncoder
   private final CharsetEncoder m_aEncoder;
   private int m_nReadOffset = 0;
 
+  /**
+   * Constructor.
+   *
+   * @param aCharset
+   *        The charset to use for encoding. May not be <code>null</code>.
+   */
   public StringEncoder (@NonNull final Charset aCharset)
   {
     ValueEnforcer.notNull (aCharset, "Charset");
@@ -269,6 +275,9 @@ public final class StringEncoder
     return ret;
   }
 
+  /**
+   * Reset the encoder state so it can be reused for encoding a new string.
+   */
   public void reset ()
   {
     m_nReadOffset = 0;

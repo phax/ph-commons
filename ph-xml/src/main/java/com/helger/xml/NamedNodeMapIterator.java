@@ -41,17 +41,25 @@ public class NamedNodeMapIterator implements ICommonsIterableIterator <Node>
   private int m_nIndex = 0;
   private final int m_nMax;
 
+  /**
+   * Constructor.
+   *
+   * @param aNL
+   *        The named node map to iterate. May be <code>null</code>.
+   */
   public NamedNodeMapIterator (@Nullable final NamedNodeMap aNL)
   {
     m_aNL = aNL;
     m_nMax = aNL == null ? 0 : aNL.getLength ();
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_nIndex < m_nMax;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public Node next ()
   {
@@ -69,6 +77,15 @@ public class NamedNodeMapIterator implements ICommonsIterableIterator <Node>
     return new ToStringGenerator (this).append ("NamedNodeMap", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
   }
 
+  /**
+   * Create an iterator over all attributes of the passed element.
+   *
+   * @param aElement
+   *        The element whose attributes are iterated. May be
+   *        <code>null</code>.
+   * @return A non-<code>null</code> iterator. If the element is
+   *         <code>null</code>, an empty iterator is returned.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static NamedNodeMapIterator createAttributeIterator (@Nullable final Element aElement)

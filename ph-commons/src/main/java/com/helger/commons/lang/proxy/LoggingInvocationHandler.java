@@ -47,6 +47,13 @@ public class LoggingInvocationHandler implements InvocationHandler
   private final String m_sLogPrefix;
   private boolean m_bProxyReturnValues = DEFAULT_PROXY_RETURN_VALUES;
 
+  /**
+   * Constructor.
+   *
+   * @param aActualTarget
+   *        The actual target object to delegate method calls to. May not be
+   *        <code>null</code>.
+   */
   public LoggingInvocationHandler (@NonNull final Object aActualTarget)
   {
     m_aActualTarget = aActualTarget;

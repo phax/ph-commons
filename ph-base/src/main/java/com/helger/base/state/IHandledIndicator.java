@@ -39,12 +39,28 @@ public interface IHandledIndicator
     return !isHandled ();
   }
 
+  /**
+   * Logical OR of this handled indicator with another one.
+   *
+   * @param aOther
+   *        The other handled indicator. May not be <code>null</code>.
+   * @return {@link EHandled#HANDLED} if either this or the other indicator is
+   *         handled.
+   */
   @NonNull
   default EHandled or (@NonNull final IHandledIndicator aOther)
   {
     return EHandled.valueOf (isHandled () || aOther.isHandled ());
   }
 
+  /**
+   * Logical AND of this handled indicator with another one.
+   *
+   * @param aOther
+   *        The other handled indicator. May not be <code>null</code>.
+   * @return {@link EHandled#HANDLED} if both this and the other indicator are
+   *         handled.
+   */
   @NonNull
   default EHandled and (@NonNull final IHandledIndicator aOther)
   {

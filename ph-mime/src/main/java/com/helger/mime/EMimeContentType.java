@@ -120,6 +120,13 @@ public enum EMimeContentType implements IHasID <String>
     return m_sText.equalsIgnoreCase (sMimeType.substring (0, nIdx));
   }
 
+  /**
+   * Get the MIME content type matching the provided ID using case-insensitive comparison.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching MIME content type was found.
+   */
   @Nullable
   public static EMimeContentType getFromIDOrNull (@Nullable final String sID)
   {

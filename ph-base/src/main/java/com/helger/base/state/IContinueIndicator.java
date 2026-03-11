@@ -38,12 +38,28 @@ public interface IContinueIndicator
     return !isContinue ();
   }
 
+  /**
+   * Logical OR of this continue indicator with another one.
+   *
+   * @param aContinue
+   *        The other continue indicator. May not be <code>null</code>.
+   * @return {@link EContinue#CONTINUE} if either this or the other indicator
+   *         indicates continue.
+   */
   @NonNull
   default EContinue or (@NonNull final IContinueIndicator aContinue)
   {
     return EContinue.valueOf (isContinue () || aContinue.isContinue ());
   }
 
+  /**
+   * Logical AND of this continue indicator with another one.
+   *
+   * @param aContinue
+   *        The other continue indicator. May not be <code>null</code>.
+   * @return {@link EContinue#CONTINUE} if both this and the other indicator
+   *         indicate continue.
+   */
   @NonNull
   default EContinue and (@NonNull final IContinueIndicator aContinue)
   {

@@ -65,6 +65,15 @@ public final class XMLTransformerFactory
   private XMLTransformerFactory ()
   {}
 
+  /**
+   * Create a new {@link TransformerFactory} with the passed error listener and URI resolver.
+   *
+   * @param aErrorListener
+   *        The error listener to use. May be <code>null</code>.
+   * @param aURIResolver
+   *        The URI resolver to use. May be <code>null</code>.
+   * @return A new {@link TransformerFactory}. Never <code>null</code>.
+   */
   @NonNull
   public static TransformerFactory createTransformerFactory (@Nullable final ErrorListener aErrorListener,
                                                              @Nullable final URIResolver aURIResolver)

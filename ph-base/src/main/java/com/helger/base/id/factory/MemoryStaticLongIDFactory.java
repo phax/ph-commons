@@ -36,15 +36,24 @@ public final class MemoryStaticLongIDFactory implements ILongIDFactory
   public static final long INITIAL_ID = 10000L;
   private static final AtomicLong ID = new AtomicLong (INITIAL_ID);
 
+  /**
+   * Create a new instance using the shared static counter.
+   */
   public MemoryStaticLongIDFactory ()
   {}
 
+  /** {@inheritDoc} */
   @Nonnegative
   public long getNewID ()
   {
     return getNewStaticID ();
   }
 
+  /**
+   * Get a new unique long ID from the static counter.
+   *
+   * @return A new unique long ID. Always &ge; 0.
+   */
   @Nonnegative
   public static long getNewStaticID ()
   {

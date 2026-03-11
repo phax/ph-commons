@@ -296,12 +296,16 @@ public enum EXMLParserProperty implements IHasName
     m_sValueClassName = aValueClass.getName ();
   }
 
+  /**
+   * @return The property type of this parser property. Never <code>null</code>.
+   */
   @NonNull
   public EXMLParserPropertyType getPropertyType ()
   {
     return m_ePropertyType;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()
@@ -309,12 +313,20 @@ public enum EXMLParserProperty implements IHasName
     return m_sName;
   }
 
+  /**
+   * @return The expected value class for this property. May be
+   *         <code>null</code> if the class could not be resolved.
+   */
   @Nullable
   public Class <?> getValueClass ()
   {
     return m_aValueClass;
   }
 
+  /**
+   * @return The fully qualified class name of the expected value class. Never
+   *         <code>null</code> nor empty.
+   */
   @NonNull
   @Nonempty
   public String getValueClassName ()
@@ -347,6 +359,15 @@ public enum EXMLParserProperty implements IHasName
     return aValue;
   }
 
+  /**
+   * Apply this property safely onto the passed {@link XMLReader}.
+   *
+   * @param aParser
+   *        The XML reader to apply it onto. May not be <code>null</code>.
+   * @param aValue
+   *        The value to use. May be <code>null</code> depending on the
+   *        context.
+   */
   public void applyTo (@NonNull final XMLReader aParser, final Object aValue)
   {
     ValueEnforcer.notNull (aParser, "Parser");
@@ -373,6 +394,16 @@ public enum EXMLParserProperty implements IHasName
     }
   }
 
+  /**
+   * Apply this property safely onto the passed {@link DocumentBuilderFactory}.
+   *
+   * @param aDocumentBuilderFactory
+   *        The document builder factory to apply it onto. May not be
+   *        <code>null</code>.
+   * @param aValue
+   *        The value to use. May be <code>null</code> depending on the
+   *        context.
+   */
   public void applyTo (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory, final Object aValue)
   {
     ValueEnforcer.notNull (aDocumentBuilderFactory, "DocumentBuilderFactory");
@@ -463,6 +494,13 @@ public enum EXMLParserProperty implements IHasName
     }
   }
 
+  /**
+   * Get the {@link EXMLParserProperty} matching the passed name.
+   *
+   * @param sName
+   *        The name to search. May be <code>null</code>.
+   * @return <code>null</code> if no such property exists.
+   */
   @Nullable
   public static EXMLParserProperty getFromNameOrNull (@Nullable final String sName)
   {

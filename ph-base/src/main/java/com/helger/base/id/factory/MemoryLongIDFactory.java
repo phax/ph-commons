@@ -37,18 +37,28 @@ public final class MemoryLongIDFactory implements ILongIDFactory
 
   private final AtomicLong m_aID;
 
+  /**
+   * Default constructor starting at {@link #DEFAULT_START_ID}.
+   */
   public MemoryLongIDFactory ()
   {
     // new IDs start at 10000
     this (DEFAULT_START_ID);
   }
 
+  /**
+   * Constructor with a custom start ID.
+   *
+   * @param nStartID
+   *        The start ID to use. Must be &ge; 0.
+   */
   public MemoryLongIDFactory (@Nonnegative final long nStartID)
   {
     ValueEnforcer.isGE0 (nStartID, "StartID");
     m_aID = new AtomicLong (nStartID);
   }
 
+  /** {@inheritDoc} */
   public long getNewID ()
   {
     return m_aID.getAndIncrement ();

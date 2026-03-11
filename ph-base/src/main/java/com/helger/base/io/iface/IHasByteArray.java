@@ -40,6 +40,7 @@ import com.helger.base.string.StringHex;
  */
 public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWriteToStream
 {
+  /** {@inheritDoc} */
   default boolean isEmpty ()
   {
     return size () == 0;
@@ -101,12 +102,14 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
     return getOffset () > 0;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   default InputStream getInputStream ()
   {
     return new NonBlockingByteArrayInputStream (bytes (), getOffset (), size ());
   }
 
+  /** {@inheritDoc} */
   default boolean isReadMultiple ()
   {
     return true;

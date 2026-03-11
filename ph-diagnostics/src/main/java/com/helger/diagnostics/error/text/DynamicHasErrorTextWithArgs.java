@@ -46,18 +46,37 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   private final IHasText m_aParentText;
   private final Object [] m_aArgs;
 
+  /**
+   * Constructor using an {@link IHasDisplayText}.
+   *
+   * @param aParentText
+   *        The parent text to format. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to use for formatting. May neither be <code>null</code> nor empty.
+   */
   public DynamicHasErrorTextWithArgs (@NonNull final IHasDisplayText aParentText,
                                       @NonNull @Nonempty final Object... aArgs)
   {
     this (aParentText.getAsHasText (), aArgs);
   }
 
+  /**
+   * Constructor using an {@link IHasText}.
+   *
+   * @param aParentText
+   *        The parent text to format. May not be <code>null</code>.
+   * @param aArgs
+   *        The arguments to use for formatting. May neither be <code>null</code> nor empty.
+   */
   public DynamicHasErrorTextWithArgs (@NonNull final IHasText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
     m_aParentText = ValueEnforcer.notNull (aParentText, "ParentText");
     m_aArgs = ValueEnforcer.notEmpty (aArgs, "Arguments");
   }
 
+  /**
+   * @return The parent text provider. Never <code>null</code>.
+   */
   @NonNull
   public IHasText getParentText ()
   {
@@ -77,6 +96,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
     return ArrayHelper.getCopy (m_aArgs);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
@@ -84,6 +104,7 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
     return TextFormatter.getFormattedText (sText, m_aArgs);
   }
 
+  /** {@inheritDoc} */
   public boolean isMultiLingual ()
   {
     return true;

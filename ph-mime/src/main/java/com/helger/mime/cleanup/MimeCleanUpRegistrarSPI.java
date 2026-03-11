@@ -31,6 +31,7 @@ import com.helger.mime.determine.MimeTypeDeterminator;
 @IsSPIImplementation
 public final class MimeCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
 {
+  /** {@inheritDoc} */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 600, () -> {

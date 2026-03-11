@@ -174,6 +174,15 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
     return ArrayHelper.getCopy (aArray, nOfs, nLength);
   }
 
+  /**
+   * Get the current content as a {@link NonBlockingByteArrayInputStream}. This works only if the
+   * contained ByteBuffer has a backing array.
+   *
+   * @param bCopyNeeded
+   *        <code>true</code> if a copy of the underlying byte array is needed,
+   *        <code>false</code> if the original array can be reused.
+   * @return A new {@link NonBlockingByteArrayInputStream}. Never <code>null</code>.
+   */
   @NonNull
   public NonBlockingByteArrayInputStream getAsByteArrayInputStream (final boolean bCopyNeeded)
   {

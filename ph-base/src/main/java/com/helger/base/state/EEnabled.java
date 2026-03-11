@@ -28,17 +28,34 @@ public enum EEnabled implements IEnabledIndicator
   ENABLED,
   DISABLED;
 
+  /** {@inheritDoc} */
   public boolean isEnabled ()
   {
     return this == ENABLED;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EEnabled} enum value.
+   *
+   * @param bEnabled
+   *        <code>true</code> for {@link #ENABLED}, <code>false</code> for
+   *        {@link #DISABLED}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EEnabled valueOf (final boolean bEnabled)
   {
     return bEnabled ? ENABLED : DISABLED;
   }
 
+  /**
+   * Convert an {@link IEnabledIndicator} to the corresponding
+   * {@link EEnabled} enum value.
+   *
+   * @param aEnabledIndicator
+   *        The enabled indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EEnabled valueOf (@NonNull final IEnabledIndicator aEnabledIndicator)
   {

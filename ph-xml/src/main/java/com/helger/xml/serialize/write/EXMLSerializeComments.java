@@ -55,6 +55,13 @@ public enum EXMLSerializeComments implements IHasID <String>
     return this == EMIT;
   }
 
+  /**
+   * Get the {@link EXMLSerializeComments} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLSerializeComments getFromIDOrNull (@Nullable final String sID)
   {

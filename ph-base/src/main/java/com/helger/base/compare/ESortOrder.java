@@ -52,12 +52,16 @@ public enum ESortOrder implements ISortOrderIndicator
     return m_nValue;
   }
 
+  /**
+   * @return The value as a String representation. Never <code>null</code>.
+   */
   @NonNull
   public String getValueAsString ()
   {
     return Integer.toString (m_nValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isAscending ()
   {
     return this == ASCENDING;
@@ -75,12 +79,31 @@ public enum ESortOrder implements ISortOrderIndicator
     return isAscending () ? DESCENDING : ASCENDING;
   }
 
+  /**
+   * Get the {@link ESortOrder} matching the provided value, defaulting to
+   * {@link #DEFAULT}.
+   *
+   * @param nValue
+   *        The value to search for.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ESortOrder getFromValueOrDefault (final int nValue)
   {
     return getFromValue (nValue, DEFAULT);
   }
 
+  /**
+   * Get the {@link ESortOrder} matching the provided value, with a custom
+   * default.
+   *
+   * @param nValue
+   *        The value to search for.
+   * @param eDefault
+   *        The default value to return if no match is found. May be
+   *        <code>null</code>.
+   * @return The matching enum value or the provided default.
+   */
   @Nullable
   public static ESortOrder getFromValue (final int nValue, @Nullable final ESortOrder eDefault)
   {

@@ -55,6 +55,7 @@ public enum EErrorLevel implements IErrorLevel
     m_nNumericLevel = nNumericLevel;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getID ()
@@ -62,42 +63,95 @@ public enum EErrorLevel implements IErrorLevel
     return m_sID;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getNumericLevel ()
   {
     return m_nNumericLevel;
   }
 
+  /**
+   * Get the error level matching the provided ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching error level was found.
+   */
   @Nullable
   public static EErrorLevel getFromIDOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrNull (EErrorLevel.class, sID);
   }
 
+  /**
+   * Get the error level matching the provided ID or throw an exception.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if no matching error level was found
+   */
   @NonNull
   public static EErrorLevel getFromIDOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrThrow (EErrorLevel.class, sID);
   }
 
+  /**
+   * Get the error level matching the provided ID or return a default value.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return. May be <code>null</code>.
+   * @return <code>eDefault</code> if no matching error level was found.
+   */
   @Nullable
   public static EErrorLevel getFromIDOrDefault (@Nullable final String sID, @Nullable final EErrorLevel eDefault)
   {
     return EnumHelper.getFromIDOrDefault (EErrorLevel.class, sID, eDefault);
   }
 
+  /**
+   * Get the error level matching the provided ID using case-insensitive comparison.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching error level was found.
+   */
   @Nullable
   public static EErrorLevel getFromIDCaseInsensitiveOrNull (@Nullable final String sID)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrNull (EErrorLevel.class, sID);
   }
 
+  /**
+   * Get the error level matching the provided ID using case-insensitive comparison or throw an
+   * exception.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if no matching error level was found
+   */
   @NonNull
   public static EErrorLevel getFromIDCaseInsensitiveOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrThrow (EErrorLevel.class, sID);
   }
 
+  /**
+   * Get the error level matching the provided ID using case-insensitive comparison or return a
+   * default value.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return. May be <code>null</code>.
+   * @return <code>eDefault</code> if no matching error level was found.
+   */
   @Nullable
   public static EErrorLevel getFromIDCaseInsensitiveOrDefault (@Nullable final String sID, @Nullable final EErrorLevel eDefault)
   {

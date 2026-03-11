@@ -67,6 +67,10 @@ public final class SerializationConverterRegistry implements ISerializationConve
     reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton instance has been created,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
@@ -83,6 +87,9 @@ public final class SerializationConverterRegistry implements ISerializationConve
     return ret;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public <T> void registerSerializationConverter (@NonNull final Class <T> aClass, @NonNull final ISerializationConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
@@ -110,6 +117,16 @@ public final class SerializationConverterRegistry implements ISerializationConve
     });
   }
 
+  /**
+   * Get the serialization converter for the specified class. If no exact
+   * match is found, a fuzzy match via the class hierarchy is attempted.
+   *
+   * @param aDstClass
+   *        The class to find a converter for. May be <code>null</code>.
+   * @param <T>
+   *        The type of the class
+   * @return The converter, or <code>null</code> if no converter was found.
+   */
   @Nullable
   public <T> ISerializationConverter <T> getConverter (@Nullable final Class <T> aDstClass)
   {
@@ -156,12 +173,20 @@ public final class SerializationConverterRegistry implements ISerializationConve
         break;
   }
 
+  /**
+   * @return The number of currently registered serialization converters.
+   *         Always &ge; 0.
+   */
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
   {
     return m_aRWLock.readLockedInt (m_aMap::size);
   }
 
+  /**
+   * Clear all registered converters and re-register them from the SPI
+   * implementations.
+   */
   public void reinitialize ()
   {
     m_aRWLock.writeLocked (m_aMap::clear);

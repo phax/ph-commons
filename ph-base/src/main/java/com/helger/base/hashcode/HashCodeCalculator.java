@@ -57,36 +57,72 @@ public final class HashCodeCalculator
   private HashCodeCalculator ()
   {}
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the boolean value.
+   */
   public static int hashCode (final boolean x)
   {
     return x ? 1231 : 1237;
   }
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the byte value.
+   */
   public static int hashCode (final byte x)
   {
     return x;
   }
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the char value.
+   */
   public static int hashCode (final char x)
   {
     return x;
   }
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the double value.
+   */
   public static long hashCode (final double x)
   {
     return x == 0.0 ? 0L : Double.doubleToLongBits (x);
   }
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the float value.
+   */
   public static int hashCode (final float x)
   {
     return x == 0.0F ? 0 : Float.floatToIntBits (x);
   }
 
+  /**
+   * @param x
+   *        The value to hash.
+   * @return The hash code for the short value.
+   */
   public static int hashCode (final short x)
   {
     return x;
   }
 
+  /**
+   * @param x
+   *        The object to hash. May be <code>null</code>.
+   * @return The hash code for the object, or {@link #HASHCODE_NULL} if
+   *         <code>null</code>.
+   */
   @UsedInGeneratedCode
   public static int hashCode (@Nullable final Object x)
   {
@@ -220,6 +256,17 @@ public final class HashCodeCalculator
     return append (nPrevHashCode, hashCode (x));
   }
 
+  /**
+   * Compute a hash code for a sub-array of booleans.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final boolean @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -230,6 +277,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of bytes.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final byte @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -240,6 +298,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of chars.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final char @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -250,6 +319,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of doubles.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final double @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -260,6 +340,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of floats.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final float @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -270,6 +361,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of ints.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final int @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -280,6 +382,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of longs.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final long @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -290,6 +403,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of shorts.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (final short @NonNull [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);
@@ -300,6 +424,17 @@ public final class HashCodeCalculator
     return ret;
   }
 
+  /**
+   * Compute a hash code for a sub-array of objects.
+   *
+   * @param x
+   *        The array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset. Must be &ge; 0.
+   * @param nLen
+   *        The length. Must be &ge; 0.
+   * @return The computed hash code.
+   */
   public static int hashCode (@NonNull final Object [] x, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (x, nOfs, nLen);

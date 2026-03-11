@@ -36,23 +36,41 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   private final String m_sTarget;
   private final String m_sData;
 
+  /**
+   * Constructor with target only.
+   *
+   * @param sTarget
+   *        The processing instruction target. May neither be
+   *        <code>null</code> nor empty.
+   */
   public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget)
   {
     this (sTarget, null);
   }
 
+  /**
+   * Constructor with target and data.
+   *
+   * @param sTarget
+   *        The processing instruction target. May neither be
+   *        <code>null</code> nor empty.
+   * @param sData
+   *        The processing instruction data. May be <code>null</code>.
+   */
   public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget, @Nullable final String sData)
   {
     m_sTarget = ValueEnforcer.notEmpty (sTarget, "Target");
     m_sData = sData;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.PROCESSING_INSTRUCTION;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getNodeName ()
@@ -68,22 +86,26 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
     return getTarget ();
   }
 
+  /** {@inheritDoc} */
   public String getTarget ()
   {
     return m_sTarget;
   }
 
+  /** {@inheritDoc} */
   public String getData ()
   {
     return m_sData;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroProcessingInstruction getClone ()
   {
     return new MicroProcessingInstruction (m_sTarget, m_sData);
   }
 
+  /** {@inheritDoc} */
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {
     if (o == this)

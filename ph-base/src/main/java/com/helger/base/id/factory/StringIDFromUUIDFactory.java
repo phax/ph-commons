@@ -33,9 +33,13 @@ public class StringIDFromUUIDFactory implements IStringIDFactory
 {
   public static final StringIDFromUUIDFactory INSTANCE = new StringIDFromUUIDFactory ();
 
+  /**
+   * Create a new instance.
+   */
   public StringIDFromUUIDFactory ()
   {}
 
+  /** {@inheritDoc} */
   @NonNull
   public String getNewID ()
   {

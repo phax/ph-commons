@@ -46,6 +46,17 @@ public final class MicroTypeConverter
   private MicroTypeConverter ()
   {}
 
+  /**
+   * Convert an object to a micro element without namespace.
+   *
+   * @param <T>
+   *        The source type
+   * @param aObject
+   *        The object to convert. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name of the created element. May neither be <code>null</code> nor empty.
+   * @return <code>null</code> if the input object is <code>null</code>.
+   */
   @Nullable
   public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject, @NonNull @Nonempty final String sTagName)
   {
@@ -53,6 +64,19 @@ public final class MicroTypeConverter
     return convertToMicroElement (aObject, null, sTagName);
   }
 
+  /**
+   * Convert an object to a micro element with namespace.
+   *
+   * @param <T>
+   *        The source type
+   * @param aObject
+   *        The object to convert. May be <code>null</code>.
+   * @param sNamespaceURI
+   *        The namespace URI to use. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name of the created element. May neither be <code>null</code> nor empty.
+   * @return <code>null</code> if the input object is <code>null</code>.
+   */
   @Nullable
   public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
                                                          @Nullable final String sNamespaceURI,
@@ -76,12 +100,36 @@ public final class MicroTypeConverter
     return ret;
   }
 
+  /**
+   * Convert a micro element to a native object.
+   *
+   * @param <DSTTYPE>
+   *        The destination type
+   * @param aElement
+   *        The micro element to convert. May be <code>null</code>.
+   * @param aDstClass
+   *        The destination class. May not be <code>null</code>.
+   * @return <code>null</code> if the input element is <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement, @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convertToNative (aElement, aDstClass, null);
   }
 
+  /**
+   * Convert a micro element to a native object with a custom null value.
+   *
+   * @param <DSTTYPE>
+   *        The destination type
+   * @param aElement
+   *        The micro element to convert. May be <code>null</code>.
+   * @param aDstClass
+   *        The destination class. May not be <code>null</code>.
+   * @param aNullValue
+   *        The value to return if the element is <code>null</code>. May be <code>null</code>.
+   * @return The converted value or the null value if the input element is <code>null</code>.
+   */
   @Nullable
   public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
                                                    @NonNull final Class <DSTTYPE> aDstClass,

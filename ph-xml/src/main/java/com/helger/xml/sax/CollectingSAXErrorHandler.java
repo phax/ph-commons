@@ -45,6 +45,9 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   @GuardedBy ("m_aRWLock")
   protected final ErrorList m_aErrors;
 
+  /**
+   * Default constructor.
+   */
   public CollectingSAXErrorHandler ()
   {
     this (ErrorList::new);
@@ -72,6 +75,9 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
     m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aError));
   }
 
+  /**
+   * @return A copy of the collected error list. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public IErrorList getErrorList ()
@@ -79,6 +85,10 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
     return m_aRWLock.readLockedGet (m_aErrors::getClone);
   }
 
+  /**
+   * @return <code>true</code> if at least one error is contained,
+   *         <code>false</code> otherwise.
+   */
   public boolean containsAtLeastOneError ()
   {
     return m_aRWLock.readLockedBoolean (m_aErrors::containsAtLeastOneError);

@@ -318,21 +318,46 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
     return m_aBuf.length;
   }
 
+  /**
+   * @return <code>true</code> if the buffer is empty, <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     return m_nCount == 0;
   }
 
+  /**
+   * @return <code>true</code> if the buffer contains at least one character, <code>false</code>
+   *         otherwise.
+   */
   public boolean isNotEmpty ()
   {
     return m_nCount > 0;
   }
 
+  /**
+   * Check if the buffer starts with the specified char array.
+   *
+   * @param aChars
+   *        The char array to check. May not be <code>null</code>.
+   * @return <code>true</code> if the buffer starts with the provided characters.
+   */
   public boolean startsWith (final char @NonNull [] aChars)
   {
     return startsWith (aChars, 0, aChars.length);
   }
 
+  /**
+   * Check if the buffer starts with a portion of the specified char array.
+   *
+   * @param aChars
+   *        The char array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        Offset into the char array. Must be &ge; 0.
+   * @param nLen
+   *        Number of chars to compare. Must be &ge; 0.
+   * @return <code>true</code> if the buffer starts with the provided characters.
+   */
   public boolean startsWith (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     if (m_nCount < nLen || nLen < 0)

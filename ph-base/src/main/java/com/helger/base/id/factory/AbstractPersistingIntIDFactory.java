@@ -114,6 +114,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
   @IsLocked (ELockType.WRITE)
   protected abstract int readAndUpdateIDCounter (@Nonnegative int nReserveCount);
 
+  /** {@inheritDoc} */
   public final int getNewID ()
   {
     m_aLock.lock ();

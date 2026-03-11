@@ -28,17 +28,34 @@ public enum EContinue implements IContinueIndicator
   CONTINUE,
   BREAK;
 
+  /** {@inheritDoc} */
   public boolean isContinue ()
   {
     return this == CONTINUE;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link EContinue} enum value.
+   *
+   * @param bContinue
+   *        <code>true</code> for {@link #CONTINUE}, <code>false</code> for
+   *        {@link #BREAK}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EContinue valueOf (final boolean bContinue)
   {
     return bContinue ? CONTINUE : BREAK;
   }
 
+  /**
+   * Convert an {@link IContinueIndicator} to the corresponding
+   * {@link EContinue} enum value.
+   *
+   * @param aContinueIndicator
+   *        The continue indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static EContinue valueOf (@NonNull final IContinueIndicator aContinueIndicator)
   {

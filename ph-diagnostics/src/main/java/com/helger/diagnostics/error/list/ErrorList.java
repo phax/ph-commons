@@ -73,6 +73,7 @@ public class ErrorList extends CommonsArrayList <IError> implements IErrorList
     super (aErrorList);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ErrorList getSubList (@Nullable final Predicate <? super IError> aFilter)
   {
@@ -84,6 +85,7 @@ public class ErrorList extends CommonsArrayList <IError> implements IErrorList
     return ret;
   }
 
+  /** {@inheritDoc} */
   @Override
   @NonNull
   public ErrorList getClone ()

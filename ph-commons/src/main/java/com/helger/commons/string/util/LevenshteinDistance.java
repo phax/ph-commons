@@ -171,6 +171,22 @@ public final class LevenshteinDistance
     return _getDistance111 (aStr1, nLen1, aStr2, nLen2);
   }
 
+  /**
+   * Get the distance of the 2 character arrays, using custom costs for
+   * insertion, deletion and substitution.
+   *
+   * @param aStr1
+   *        First character array. May be <code>null</code>.
+   * @param aStr2
+   *        Second character array. May be <code>null</code>.
+   * @param nCostInsert
+   *        The cost for an insertion. Must be &ge; 0.
+   * @param nCostDelete
+   *        The cost for a deletion. Must be &ge; 0.
+   * @param nCostSubstitution
+   *        The cost for a substitution. Must be &ge; 0.
+   * @return The Levenshtein distance.
+   */
   public static int getDistance (final char @Nullable [] aStr1,
                                  final char @Nullable [] aStr2,
                                  @Nonnegative final int nCostInsert,
@@ -218,6 +234,22 @@ public final class LevenshteinDistance
     return _getDistance111 (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2);
   }
 
+  /**
+   * Get the distance of the 2 strings, using custom costs for insertion,
+   * deletion and substitution.
+   *
+   * @param sStr1
+   *        First string. May be <code>null</code>.
+   * @param sStr2
+   *        Second string. May be <code>null</code>.
+   * @param nCostInsert
+   *        The cost for an insertion. Must be &ge; 0.
+   * @param nCostDelete
+   *        The cost for a deletion. Must be &ge; 0.
+   * @param nCostSubstitution
+   *        The cost for a substitution. Must be &ge; 0.
+   * @return The Levenshtein distance.
+   */
   public static int getDistance (@Nullable final String sStr1,
                                  @Nullable final String sStr2,
                                  @Nonnegative final int nCostInsert,

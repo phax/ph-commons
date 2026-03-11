@@ -43,11 +43,19 @@ public class ObjectType implements IComparable <ObjectType>, IHasName
   // The mutable m_aHashCode does not contradict thread safety
   private int m_nHashCode = IHashCodeGenerator.ILLEGAL_HASHCODE;
 
+  /**
+   * Constructor.
+   *
+   * @param sName
+   *        The name of this object type. May neither be <code>null</code> nor
+   *        empty.
+   */
   public ObjectType (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "Name");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()
@@ -55,6 +63,7 @@ public class ObjectType implements IComparable <ObjectType>, IHasName
     return m_sName;
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final ObjectType aObjType)
   {
     return m_sName.compareTo (aObjType.m_sName);

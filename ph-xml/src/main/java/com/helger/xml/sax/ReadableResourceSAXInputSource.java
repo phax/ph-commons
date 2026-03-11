@@ -43,17 +43,34 @@ public class ReadableResourceSAXInputSource extends InputSource
 
   private final IHasInputStream m_aISP;
 
+  /**
+   * Constructor using a readable resource.
+   *
+   * @param aResource
+   *        The readable resource. May not be <code>null</code>.
+   */
   public ReadableResourceSAXInputSource (@NonNull final IReadableResource aResource)
   {
     this (aResource, aResource.getResourceID ());
   }
 
+  /**
+   * Constructor using an input stream provider and a system ID.
+   *
+   * @param aISP
+   *        The input stream provider. May not be <code>null</code>.
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public ReadableResourceSAXInputSource (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
     m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
     setSystemId (sSystemID);
   }
 
+  /**
+   * @return The input stream provider. Never <code>null</code>.
+   */
   @NonNull
   public final IHasInputStream getInputStreamProvider ()
   {

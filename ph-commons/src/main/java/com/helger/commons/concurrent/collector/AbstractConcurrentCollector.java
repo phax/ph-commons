@@ -87,6 +87,9 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     m_aQueue = aQueue;
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ESuccess queueObject (@NonNull final DATATYPE aObject)
   {
@@ -107,17 +110,26 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public boolean isQueueEmpty ()
   {
     return m_aQueue.isEmpty ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @Nonnegative
   public final int getQueueLength ()
   {
     return m_aQueue.size ();
   }
 
+  /**
+   * {@inheritDoc}
+   */
   @NonNull
   public final ESuccess stopQueuingNewObjects ()
   {
@@ -143,11 +155,20 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
     }
   }
 
+  /**
+   * {@inheritDoc}
+   */
   public final boolean isStopped ()
   {
     return m_aStopTakingNewObjects.get ();
   }
 
+  /**
+   * Drain all objects currently in the queue and return them as a list.
+   * Stop queue objects are re-added to the queue automatically.
+   *
+   * @return A mutable copy of all drained objects. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public final ICommonsList <DATATYPE> drainQueue ()

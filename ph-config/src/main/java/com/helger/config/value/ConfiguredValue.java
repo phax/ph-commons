@@ -34,6 +34,15 @@ public class ConfiguredValue
   private final IConfigurationSource m_aConfigSrc;
   private final String m_sValue;
 
+  /**
+   * Constructor
+   *
+   * @param aConfigSrc
+   *        The configuration source where the value was found. May not be
+   *        <code>null</code>.
+   * @param sValue
+   *        The resolved configuration value. May not be <code>null</code>.
+   */
   public ConfiguredValue (@NonNull final IConfigurationSource aConfigSrc, @NonNull final String sValue)
   {
     ValueEnforcer.notNull (aConfigSrc, "ConfigurationSource");

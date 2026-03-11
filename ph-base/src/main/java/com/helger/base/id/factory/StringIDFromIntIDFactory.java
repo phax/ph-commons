@@ -26,11 +26,25 @@ import org.jspecify.annotations.NonNull;
  */
 public class StringIDFromIntIDFactory extends StringIDFactory
 {
+  /**
+   * Constructor using the default prefix.
+   *
+   * @param aIntIDFactory
+   *        The int ID factory to use. May not be <code>null</code>.
+   */
   public StringIDFromIntIDFactory (@NonNull final IIntIDFactory aIntIDFactory)
   {
     this (aIntIDFactory, GlobalIDFactory.DEFAULT_PREFIX);
   }
 
+  /**
+   * Constructor with a custom prefix.
+   *
+   * @param aIntIDFactory
+   *        The int ID factory to use. May not be <code>null</code>.
+   * @param sPrefix
+   *        The prefix to prepend to each generated ID. May not be <code>null</code>.
+   */
   public StringIDFromIntIDFactory (@NonNull final IIntIDFactory aIntIDFactory, @NonNull final String sPrefix)
   {
     super (sPrefix, () -> Integer.toString (aIntIDFactory.getNewID ()));

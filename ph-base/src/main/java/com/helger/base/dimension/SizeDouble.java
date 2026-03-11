@@ -37,38 +37,72 @@ public class SizeDouble implements IHasDimensionDouble
   private final double m_dWidth;
   private final double m_dHeight;
 
+  /**
+   * Constructor copying from an existing int dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeDouble (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing long dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeDouble (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing float dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeDouble (@NonNull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing double dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeDouble (@NonNull final IHasDimensionDouble aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor with width and height.
+   *
+   * @param dWidth
+   *        The width. Must be &ge; 0.
+   * @param dHeight
+   *        The height. Must be &ge; 0.
+   */
   public SizeDouble (@Nonnegative final double dWidth, @Nonnegative final double dHeight)
   {
     m_dWidth = ValueEnforcer.isGE0 (dWidth, "Width");
     m_dHeight = ValueEnforcer.isGE0 (dHeight, "Height");
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public double getWidth ()
   {
     return m_dWidth;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public double getHeight ()
   {
@@ -107,6 +141,13 @@ public class SizeDouble implements IHasDimensionDouble
     return this;
   }
 
+  /**
+   * Get a new size that is scaled to the specified width, keeping the aspect ratio.
+   *
+   * @param dNewWidth
+   *        The new width. Must be &gt; 0.
+   * @return A new {@link SizeDouble} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getScaledToWidth (@Nonnegative final double dNewWidth)
@@ -119,6 +160,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (dNewWidth, m_dHeight * dMultFactory);
   }
 
+  /**
+   * Get a new size that is scaled to the specified height, keeping the aspect ratio.
+   *
+   * @param dNewHeight
+   *        The new height. Must be &gt; 0.
+   * @return A new {@link SizeDouble} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getScaledToHeight (@Nonnegative final double dNewHeight)
@@ -131,6 +179,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth * dMultFactory, dNewHeight);
   }
 
+  /**
+   * Get a new size with the dimensions of the provided int dimension added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getAdded (@NonNull final IHasDimensionInt aToAdd)
@@ -140,6 +195,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided float dimension added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getAdded (@NonNull final IHasDimensionFloat aToAdd)
@@ -149,6 +211,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided double dimension added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getAdded (@NonNull final IHasDimensionDouble aToAdd)
@@ -158,6 +227,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided int dimension subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getSubtracted (@NonNull final IHasDimensionInt aToSubtract)
@@ -167,6 +243,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided float dimension subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getSubtracted (@NonNull final IHasDimensionFloat aToSubtract)
@@ -176,6 +259,13 @@ public class SizeDouble implements IHasDimensionDouble
     return new SizeDouble (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided double dimension subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeDouble}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeDouble getSubtracted (@NonNull final IHasDimensionDouble aToSubtract)

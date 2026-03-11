@@ -148,6 +148,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     return m_aItems.length - m_aAvailable.availablePermits ();
   }
 
+  /** {@inheritDoc} */
   public void clearUnusedItems ()
   {
     // Reset all cached items
@@ -164,6 +165,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     }
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public DATATYPE borrowObject ()
   {
@@ -234,6 +236,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     }
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess returnObject (@NonNull final DATATYPE aItem)
   {

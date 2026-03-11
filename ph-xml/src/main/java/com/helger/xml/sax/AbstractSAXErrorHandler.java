@@ -63,16 +63,19 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
 
   protected abstract void internalLog (@NonNull IErrorLevel aErrorLevel, @NonNull SAXParseException aException);
 
+  /** {@inheritDoc} */
   public final void warning (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.WARN, ex);
   }
 
+  /** {@inheritDoc} */
   public final void error (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.ERROR, ex);
   }
 
+  /** {@inheritDoc} */
   public final void fatalError (final SAXParseException ex) throws SAXException
   {
     internalLog (EErrorLevel.FATAL_ERROR, ex);

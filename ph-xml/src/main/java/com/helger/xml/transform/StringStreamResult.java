@@ -37,11 +37,20 @@ public class StringStreamResult extends StreamResult
 {
   private final NonBlockingStringWriter m_aSW;
 
+  /**
+   * Default constructor.
+   */
   public StringStreamResult ()
   {
     this (null);
   }
 
+  /**
+   * Constructor with a system ID.
+   *
+   * @param sSystemID
+   *        The system ID. May be <code>null</code>.
+   */
   public StringStreamResult (@Nullable final String sSystemID)
   {
     super (new NonBlockingStringWriter ());
@@ -49,18 +58,27 @@ public class StringStreamResult extends StreamResult
     setSystemId (sSystemID);
   }
 
+  /**
+   * @return The underlying string writer. Never <code>null</code>.
+   */
   @NonNull
   public NonBlockingStringWriter getStringWriter ()
   {
     return m_aSW;
   }
 
+  /**
+   * @return The current content as a String. Never <code>null</code>.
+   */
   @NonNull
   public String getAsString ()
   {
     return m_aSW.getAsString ();
   }
 
+  /**
+   * @return The current content as a char array. Never <code>null</code>.
+   */
   @ReturnsMutableCopy
   public char @NonNull [] getAsCharArray ()
   {

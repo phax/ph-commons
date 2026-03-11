@@ -37,33 +37,61 @@ public class SizeFloat implements IHasDimensionFloat
   private final float m_dWidth;
   private final float m_dHeight;
 
+  /**
+   * Constructor copying from an existing int dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeFloat (@NonNull final IHasDimensionInt aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing long dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeFloat (@NonNull final IHasDimensionLong aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor copying from an existing float dimension object.
+   *
+   * @param aObj
+   *        The dimension object to copy from. May not be <code>null</code>.
+   */
   public SizeFloat (@NonNull final IHasDimensionFloat aObj)
   {
     this (aObj.getWidth (), aObj.getHeight ());
   }
 
+  /**
+   * Constructor with width and height.
+   *
+   * @param dWidth
+   *        The width. Must be &ge; 0.
+   * @param dHeight
+   *        The height. Must be &ge; 0.
+   */
   public SizeFloat (@Nonnegative final float dWidth, @Nonnegative final float dHeight)
   {
     m_dWidth = ValueEnforcer.isGE0 (dWidth, "Width");
     m_dHeight = ValueEnforcer.isGE0 (dHeight, "Height");
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public float getWidth ()
   {
     return m_dWidth;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public float getHeight ()
   {
@@ -102,6 +130,13 @@ public class SizeFloat implements IHasDimensionFloat
     return this;
   }
 
+  /**
+   * Get a new size that is scaled to the specified width, keeping the aspect ratio.
+   *
+   * @param dNewWidth
+   *        The new width. Must be &gt; 0.
+   * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToWidth (@Nonnegative final float dNewWidth)
@@ -114,6 +149,13 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (dNewWidth, m_dHeight * dMultFactory);
   }
 
+  /**
+   * Get a new size that is scaled to the specified height, keeping the aspect ratio.
+   *
+   * @param dNewHeight
+   *        The new height. Must be &gt; 0.
+   * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToHeight (@Nonnegative final float dNewHeight)
@@ -126,6 +168,13 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (m_dWidth * dMultFactory, dNewHeight);
   }
 
+  /**
+   * Get a new size with the dimensions of the provided int dimension added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeFloat}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getAdded (@NonNull final IHasDimensionInt aToAdd)
@@ -135,6 +184,13 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided float dimension added.
+   *
+   * @param aToAdd
+   *        The dimension to add. May not be <code>null</code>.
+   * @return A new {@link SizeFloat}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getAdded (@NonNull final IHasDimensionFloat aToAdd)
@@ -144,6 +200,13 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided int dimension subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeFloat}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getSubtracted (@NonNull final IHasDimensionInt aToSubtract)
@@ -153,6 +216,13 @@ public class SizeFloat implements IHasDimensionFloat
     return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
   }
 
+  /**
+   * Get a new size with the dimensions of the provided float dimension subtracted.
+   *
+   * @param aToSubtract
+   *        The dimension to subtract. May not be <code>null</code>.
+   * @return A new {@link SizeFloat}. Never <code>null</code>.
+   */
   @NonNull
   @CheckReturnValue
   public SizeFloat getSubtracted (@NonNull final IHasDimensionFloat aToSubtract)

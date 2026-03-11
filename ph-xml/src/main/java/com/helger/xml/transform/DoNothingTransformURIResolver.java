@@ -29,6 +29,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 @NotThreadSafe
 public class DoNothingTransformURIResolver extends AbstractTransformURIResolver
 {
+  /**
+   * Default constructor.
+   */
   public DoNothingTransformURIResolver ()
   {}
 

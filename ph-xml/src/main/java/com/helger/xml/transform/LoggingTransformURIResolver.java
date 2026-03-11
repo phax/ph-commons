@@ -37,11 +37,20 @@ public class LoggingTransformURIResolver extends AbstractTransformURIResolver
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingTransformURIResolver.class);
 
+  /**
+   * Default constructor.
+   */
   public LoggingTransformURIResolver ()
   {
     super ();
   }
 
+  /**
+   * Constructor with a wrapped URI resolver as fallback.
+   *
+   * @param aWrappedURIResolver
+   *        The wrapped URI resolver. May be <code>null</code>.
+   */
   public LoggingTransformURIResolver (@Nullable final URIResolver aWrappedURIResolver)
   {
     super (aWrappedURIResolver);

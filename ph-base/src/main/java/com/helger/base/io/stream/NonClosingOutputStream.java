@@ -27,6 +27,10 @@ import org.jspecify.annotations.NonNull;
  */
 public class NonClosingOutputStream extends WrappedOutputStream
 {
+  /**
+   * @param aSourceOS
+   *        The output stream to be wrapped. May not be <code>null</code>.
+   */
   public NonClosingOutputStream (@NonNull final OutputStream aSourceOS)
   {
     super (aSourceOS);

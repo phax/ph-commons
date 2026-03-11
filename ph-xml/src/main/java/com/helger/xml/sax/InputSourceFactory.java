@@ -54,30 +54,65 @@ public final class InputSourceFactory
   private InputSourceFactory ()
   {}
 
+  /**
+   * Create an {@link InputSource} from a {@link File}.
+   *
+   * @param aFile
+   *        The file to read from. May not be <code>null</code>.
+   * @return <code>null</code> if the file does not exist.
+   */
   @Nullable
   public static InputSource create (@NonNull final File aFile)
   {
     return create (new FileSystemResource (aFile));
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link Path}.
+   *
+   * @param aPath
+   *        The path to read from. May not be <code>null</code>.
+   * @return <code>null</code> if the path does not exist.
+   */
   @Nullable
   public static InputSource create (@NonNull final Path aPath)
   {
     return create (new FileSystemResource (aPath));
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link URI}.
+   *
+   * @param aURI
+   *        The URI to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (@NonNull final URI aURI)
   {
     return create (URLHelper.getAsURL (aURI));
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link URL}.
+   *
+   * @param aURL
+   *        The URL to read from. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (@NonNull final URL aURL)
   {
     return create (new URLResource (aURL));
   }
 
+  /**
+   * Create an {@link InputSource} from an {@link IHasInputStream}.
+   *
+   * @param aISP
+   *        The input stream provider. May not be <code>null</code>.
+   * @return <code>null</code> if the input stream could not be opened.
+   */
   @Nullable
   public static InputSource create (@NonNull final IHasInputStream aISP)
   {
@@ -86,6 +121,13 @@ public final class InputSourceFactory
     return create (aISP.getInputStream ());
   }
 
+  /**
+   * Create an {@link InputSource} from an {@link IReadableResource}.
+   *
+   * @param aResource
+   *        The readable resource. May not be <code>null</code>.
+   * @return <code>null</code> if the resource could not be opened.
+   */
   @Nullable
   public static InputSource create (@NonNull final IReadableResource aResource)
   {
@@ -110,24 +152,56 @@ public final class InputSourceFactory
     return new ReadableResourceSAXInputSource (aResource);
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link CharSequence}.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (@NonNull final CharSequence aXML)
   {
     return new StringSAXInputSource (aXML);
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link String}.
+   *
+   * @param sXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (@NonNull final String sXML)
   {
     return new StringSAXInputSource (sXML);
   }
 
+  /**
+   * Create an {@link InputSource} from a char array.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (final char @NonNull [] aXML)
   {
     return new StringSAXInputSource (aXML);
   }
 
+  /**
+   * Create an {@link InputSource} from a char array with offset and length.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (final char @NonNull [] aXML,
                                     @Nonnegative final int nOfs,
@@ -136,12 +210,30 @@ public final class InputSourceFactory
     return new StringSAXInputSource (aXML, nOfs, nLen);
   }
 
+  /**
+   * Create an {@link InputSource} from a byte array.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (final byte @NonNull [] aXML)
   {
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
+  /**
+   * Create an {@link InputSource} from a byte array with offset and length.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of bytes. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (final byte @NonNull [] aXML,
                                     @Nonnegative final int nOfs,
@@ -150,18 +242,39 @@ public final class InputSourceFactory
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link ByteBuffer}.
+   *
+   * @param aXML
+   *        The XML content. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static InputSource create (@NonNull final ByteBuffer aXML)
   {
     return create (new ByteBufferInputStream (aXML));
   }
 
+  /**
+   * Create an {@link InputSource} from an {@link InputStream}.
+   *
+   * @param aIS
+   *        The input stream. May be <code>null</code>.
+   * @return <code>null</code> if the input stream is <code>null</code>.
+   */
   @Nullable
   public static InputSource create (@Nullable final InputStream aIS)
   {
     return aIS == null ? null : new InputSource (aIS);
   }
 
+  /**
+   * Create an {@link InputSource} from a {@link Reader}.
+   *
+   * @param aReader
+   *        The reader. May be <code>null</code>.
+   * @return <code>null</code> if the reader is <code>null</code>.
+   */
   @Nullable
   public static InputSource create (@Nullable final Reader aReader)
   {

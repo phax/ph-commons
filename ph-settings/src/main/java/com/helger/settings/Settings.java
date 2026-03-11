@@ -60,6 +60,7 @@ public class Settings extends AttributeContainerAny <String> implements ISetting
     putAllIn (aOther);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Override
   public EChange putIn (@NonNull @Nonempty final String sName, @Nullable final Object aNewValue)

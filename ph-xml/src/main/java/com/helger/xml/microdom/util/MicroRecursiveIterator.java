@@ -37,17 +37,25 @@ public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroN
 {
   private final ICommonsList <IMicroNode> m_aOpen = new CommonsArrayList <> ();
 
+  /**
+   * Constructor.
+   *
+   * @param aNode
+   *        The start node to iterate. May not be <code>null</code>.
+   */
   public MicroRecursiveIterator (@NonNull final IMicroNode aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     m_aOpen.add (aNode);
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_aOpen.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroNode next ()
   {

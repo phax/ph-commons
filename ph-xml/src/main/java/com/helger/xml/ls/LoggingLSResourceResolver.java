@@ -31,6 +31,9 @@ public class LoggingLSResourceResolver extends AbstractLSResourceResolver
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingLSResourceResolver.class);
 
+  /**
+   * Default constructor.
+   */
   public LoggingLSResourceResolver ()
   {}
 

@@ -23,11 +23,25 @@ package com.helger.xml.microdom;
  */
 public class MicroException extends RuntimeException
 {
+  /**
+   * Constructor with message.
+   *
+   * @param sMsg
+   *        The error message.
+   */
   public MicroException (final String sMsg)
   {
     super (sMsg);
   }
 
+  /**
+   * Constructor with message and cause.
+   *
+   * @param sMsg
+   *        The error message.
+   * @param t
+   *        The causing exception.
+   */
   public MicroException (final String sMsg, final Throwable t)
   {
     super (sMsg, t);

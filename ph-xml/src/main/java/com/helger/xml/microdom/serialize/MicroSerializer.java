@@ -55,11 +55,20 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  */
 public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 {
+  /**
+   * Default constructor using {@link XMLWriterSettings#DEFAULT_XML_SETTINGS}.
+   */
   public MicroSerializer ()
   {
     this (XMLWriterSettings.DEFAULT_XML_SETTINGS);
   }
 
+  /**
+   * Constructor with custom settings.
+   *
+   * @param aSettings
+   *        The XML writer settings to use. May not be <code>null</code>.
+   */
   public MicroSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
     super (aSettings);

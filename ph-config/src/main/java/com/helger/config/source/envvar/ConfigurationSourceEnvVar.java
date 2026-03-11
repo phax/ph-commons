@@ -45,22 +45,33 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceEnvVar.class);
 
+  /**
+   * Constructor with default priority.
+   */
   public ConfigurationSourceEnvVar ()
   {
     this (SOURCE_TYPE.getDefaultPriority ());
   }
 
+  /**
+   * Constructor with custom priority.
+   *
+   * @param nPriority
+   *        The priority to use.
+   */
   public ConfigurationSourceEnvVar (final int nPriority)
   {
     super (SOURCE_TYPE, nPriority);
   }
 
+  /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
     // No differentiation here
     return true;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
@@ -91,6 +102,7 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
     return new ConfiguredValue (this, sValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllConfigItems ()

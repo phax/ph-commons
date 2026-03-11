@@ -35,6 +35,16 @@ public final class MicroEvent implements IMicroEvent
   private final IMicroNode m_aSourceNode;
   private final IMicroNode m_aTargetNode;
 
+  /**
+   * Constructor.
+   *
+   * @param eEventType
+   *        The event type. May not be <code>null</code>.
+   * @param aSourceNode
+   *        The source node. May be <code>null</code>.
+   * @param aTargetNode
+   *        The target node. May be <code>null</code>.
+   */
   public MicroEvent (@NonNull final EMicroEvent eEventType, @Nullable final IMicroNode aSourceNode, @Nullable final IMicroNode aTargetNode)
   {
     m_eEventType = ValueEnforcer.notNull (eEventType, "EventType");
@@ -42,18 +52,21 @@ public final class MicroEvent implements IMicroEvent
     m_aTargetNode = aTargetNode;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroEvent getEventType ()
   {
     return m_eEventType;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroNode getSourceNode ()
   {
     return m_aSourceNode;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public IMicroNode getTargetNode ()
   {

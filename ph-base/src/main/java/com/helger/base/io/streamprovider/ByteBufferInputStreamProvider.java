@@ -36,11 +36,20 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
 {
   private final ByteBuffer m_aBuffer;
 
+  /**
+   * Constructor.
+   *
+   * @param aBuffer
+   *        The byte buffer to use. May not be <code>null</code>.
+   */
   public ByteBufferInputStreamProvider (@NonNull final ByteBuffer aBuffer)
   {
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
   }
 
+  /**
+   * @return The byte buffer provided in the constructor. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableObject
   public final ByteBuffer getByteBuffer ()
@@ -48,12 +57,14 @@ public class ByteBufferInputStreamProvider implements IHasInputStreamAndReader
     return m_aBuffer;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final ByteBufferInputStream getInputStream ()
   {
     return new ByteBufferInputStream (m_aBuffer);
   }
 
+  /** {@inheritDoc} */
   public final boolean isReadMultiple ()
   {
     return true;

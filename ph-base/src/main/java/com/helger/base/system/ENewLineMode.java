@@ -81,6 +81,16 @@ public enum ENewLineMode
     return this == WINDOWS;
   }
 
+  /**
+   * Get the {@link ENewLineMode} matching the provided text representation.
+   *
+   * @param sText
+   *        The text to search. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to return if no match is found. May be
+   *        <code>null</code>.
+   * @return The matching enum value or the provided default.
+   */
   @Nullable
   public static ENewLineMode getFromTextOrDefault (@Nullable final String sText, @Nullable final ENewLineMode eDefault)
   {
@@ -91,6 +101,13 @@ public enum ENewLineMode
     return eDefault;
   }
 
+  /**
+   * Get the {@link ENewLineMode} matching the provided text representation.
+   *
+   * @param sText
+   *        The text to search. May be <code>null</code>.
+   * @return The matching enum value or <code>null</code>.
+   */
   @Nullable
   public static ENewLineMode getFromTextOrNull (@Nullable final String sText)
   {

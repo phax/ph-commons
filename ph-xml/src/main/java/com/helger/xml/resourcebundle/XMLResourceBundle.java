@@ -54,6 +54,13 @@ public final class XMLResourceBundle extends ResourceBundle
 {
   private final ICommonsOrderedMap <String, String> m_aValues;
 
+  /**
+   * Read data from a Java properties XML file format.
+   *
+   * @param aIS
+   *        The input stream to read from. Will be closed. May not be <code>null</code>.
+   * @return A mutable ordered map with all key-value pairs. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> readFromPropertiesXML (@NonNull @WillClose final InputStream aIS)
@@ -66,6 +73,13 @@ public final class XMLResourceBundle extends ResourceBundle
     return ret;
   }
 
+  /**
+   * Convert a map of key-value pairs to a Java properties XML document.
+   *
+   * @param aMap
+   *        The map to convert. May not be <code>null</code>.
+   * @return The created micro document. Never <code>null</code>.
+   */
   @NonNull
   public static IMicroDocument getAsPropertiesXML (@NonNull final Map <String, String> aMap)
   {
@@ -85,6 +99,9 @@ public final class XMLResourceBundle extends ResourceBundle
     m_aValues = readFromPropertiesXML (aIS);
   }
 
+  /**
+   * @return A mutable copy of all contained key-value pairs. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllValues ()
@@ -115,24 +132,52 @@ public final class XMLResourceBundle extends ResourceBundle
     return m_aValues.get (sKey);
   }
 
+  /** {@inheritDoc} */
   @Override
   public Enumeration <String> getKeys ()
   {
     return EnumerationHelper.getEnumeration (m_aValues.keySet ());
   }
 
+  /**
+   * Get the XML resource bundle with the specified base name using the default locale.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @return The XML resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName)
   {
     return getXMLBundle (sBaseName, Locale.getDefault ());
   }
 
+  /**
+   * Get the XML resource bundle with the specified base name and locale.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @return The XML resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName, @NonNull final Locale aLocale)
   {
     return (XMLResourceBundle) ResourceBundle.getBundle (sBaseName, aLocale, new XMLResourceBundleControl ());
   }
 
+  /**
+   * Get the XML resource bundle with the specified base name, locale and class loader.
+   *
+   * @param sBaseName
+   *        The base name of the resource bundle. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param aClassLoader
+   *        The class loader to use. May not be <code>null</code>.
+   * @return The XML resource bundle. Never <code>null</code>.
+   */
   @NonNull
   public static XMLResourceBundle getXMLBundle (@NonNull final String sBaseName,
                                                 @NonNull final Locale aLocale,

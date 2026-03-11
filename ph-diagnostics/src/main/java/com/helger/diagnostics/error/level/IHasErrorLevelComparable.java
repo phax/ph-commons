@@ -33,37 +33,44 @@ public interface IHasErrorLevelComparable <IMPLTYPE extends IHasErrorLevelCompar
                                           ISeverityComparable <IMPLTYPE>,
                                           IGenericImplTrait <IMPLTYPE>
 {
+  /** {@inheritDoc} */
   default int compareTo (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().compareTo (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isEQ (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isEQ (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   @Override
   default boolean isNE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isNE (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isLT (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isLT (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isLE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isLE (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isGT (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isGT (aOther.getErrorLevel ());
   }
 
+  /** {@inheritDoc} */
   default boolean isGE (@NonNull final IMPLTYPE aOther)
   {
     return getErrorLevel ().isGE (aOther.getErrorLevel ());

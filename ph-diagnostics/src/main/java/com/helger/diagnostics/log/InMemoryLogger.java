@@ -87,11 +87,29 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
   protected void onAddLogMessage (@NonNull final LogMessage aLogMessage)
   {}
 
+  /**
+   * Log a message at the specified error level.
+   *
+   * @param eErrorLevel
+   *        The error level to use. May not be <code>null</code>.
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public void log (@NonNull final IErrorLevel eErrorLevel, @NonNull final Serializable aMsg)
   {
     log (eErrorLevel, aMsg, null);
   }
 
+  /**
+   * Log a message at the specified error level with an optional exception.
+   *
+   * @param eErrorLevel
+   *        The error level to use. May not be <code>null</code>.
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        An optional exception. May be <code>null</code>.
+   */
   public void log (@NonNull final IErrorLevel eErrorLevel,
                    @NonNull final Serializable aMsg,
                    @Nullable final Throwable t)
@@ -104,46 +122,105 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
     }
   }
 
+  /**
+   * Log a message at the error level.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public void error (@NonNull final Serializable aMsg)
   {
     error (aMsg, null);
   }
 
+  /**
+   * Log a message at the error level with an optional exception.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        An optional exception. May be <code>null</code>.
+   */
   public void error (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.ERROR, aMsg, t);
   }
 
+  /**
+   * Log a message at the warning level.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public void warn (@NonNull final Serializable aMsg)
   {
     warn (aMsg, null);
   }
 
+  /**
+   * Log a message at the warning level with an optional exception.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        An optional exception. May be <code>null</code>.
+   */
   public void warn (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.WARN, aMsg, t);
   }
 
+  /**
+   * Log a message at the info level.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public void info (@NonNull final Serializable aMsg)
   {
     log (EErrorLevel.INFO, aMsg, null);
   }
 
+  /**
+   * Log a message at the info level with an optional exception.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        An optional exception. May be <code>null</code>.
+   */
   public void info (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.INFO, aMsg, t);
   }
 
+  /**
+   * Log a message at the success level.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   */
   public void success (@NonNull final Serializable aMsg)
   {
     log (EErrorLevel.SUCCESS, aMsg, null);
   }
 
+  /**
+   * Log a message at the success level with an optional exception.
+   *
+   * @param aMsg
+   *        The message to log. May not be <code>null</code>.
+   * @param t
+   *        An optional exception. May be <code>null</code>.
+   */
   public void success (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.SUCCESS, aMsg, t);
   }
 
+  /**
+   * @return A copy of all log messages. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <LogMessage> getAllMessages ()
@@ -151,23 +228,31 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
     return m_aMessages.getClone ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Iterator <LogMessage> iterator ()
   {
     return m_aMessages.iterator ();
   }
 
+  /**
+   * @return The number of contained log messages. Always &ge; 0.
+   */
   @Nonnegative
   public int size ()
   {
     return m_aMessages.size ();
   }
 
+  /**
+   * @return <code>true</code> if no log messages are contained, <code>false</code> otherwise.
+   */
   public boolean isEmpty ()
   {
     return m_aMessages.isEmpty ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EChange removeAll ()
   {

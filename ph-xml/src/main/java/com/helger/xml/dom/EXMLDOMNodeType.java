@@ -104,6 +104,13 @@ public enum EXMLDOMNodeType implements IHasIntID
     return m_nValue;
   }
 
+  /**
+   * Get the {@link EXMLDOMNodeType} matching the passed ID.
+   *
+   * @param nID
+   *        The numeric node type ID to search.
+   * @return <code>null</code> if no such node type exists.
+   */
   @Nullable
   public static EXMLDOMNodeType getFromIDOrNull (final int nID)
   {

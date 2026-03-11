@@ -99,6 +99,15 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
     }
   }
 
+  /**
+   * Decode a char array and return the result as a String.
+   *
+   * @param aEncodedBuffer
+   *        The char array to be decoded. May be <code>null</code>.
+   * @return The decoded string or <code>null</code> if the parameter was <code>null</code>.
+   * @throws DecodeException
+   *         in case something goes wrong
+   */
   @Nullable
   default String getDecodedAsString (final char @Nullable [] aEncodedBuffer)
   {
@@ -108,6 +117,19 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
     return getDecodedAsString (aEncodedBuffer, 0, aEncodedBuffer.length);
   }
 
+  /**
+   * Decode (part of) a char array and return the result as a String.
+   *
+   * @param aEncodedBuffer
+   *        The char array to be decoded. May be <code>null</code>.
+   * @param nOfs
+   *        Offset into the char array to start from.
+   * @param nLen
+   *        Number of chars starting from offset to consider.
+   * @return The decoded string or <code>null</code> if the parameter was <code>null</code>.
+   * @throws DecodeException
+   *         in case something goes wrong
+   */
   @Nullable
   default String getDecodedAsString (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {

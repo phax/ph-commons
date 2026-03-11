@@ -28,23 +28,48 @@ public enum ESuccess implements ISuccessIndicator
   SUCCESS,
   FAILURE;
 
+  /** {@inheritDoc} */
   public boolean isSuccess ()
   {
     return this == SUCCESS;
   }
 
+  /**
+   * Convert a boolean value to the corresponding {@link ESuccess} enum value.
+   *
+   * @param bSuccess
+   *        <code>true</code> for {@link #SUCCESS}, <code>false</code> for
+   *        {@link #FAILURE}.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ESuccess valueOf (final boolean bSuccess)
   {
     return bSuccess ? SUCCESS : FAILURE;
   }
 
+  /**
+   * Convert an {@link ISuccessIndicator} to the corresponding {@link ESuccess}
+   * enum value.
+   *
+   * @param aSuccessIndicator
+   *        The success indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ESuccess valueOf (@NonNull final ISuccessIndicator aSuccessIndicator)
   {
     return valueOf (aSuccessIndicator.isSuccess ());
   }
 
+  /**
+   * Convert an {@link IChangeIndicator} to the corresponding {@link ESuccess}
+   * enum value where changed maps to success.
+   *
+   * @param aChange
+   *        The change indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ESuccess valueOfChange (@NonNull final IChangeIndicator aChange)
   {

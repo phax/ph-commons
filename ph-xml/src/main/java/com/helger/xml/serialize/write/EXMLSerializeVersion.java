@@ -76,6 +76,14 @@ public enum EXMLSerializeVersion implements IHasID <String>
     return this == HTML;
   }
 
+  /**
+   * Get the XML version or a default value.
+   *
+   * @param eDefault
+   *        The default value to use. May be <code>null</code>.
+   * @return The XML version or the provided default if this is not an XML
+   *         version. May be <code>null</code>.
+   */
   @Nullable
   public EXMLVersion getXMLVersionOrDefault (@Nullable final EXMLVersion eDefault)
   {
@@ -112,6 +120,13 @@ public enum EXMLSerializeVersion implements IHasID <String>
     };
   }
 
+  /**
+   * Get the {@link EXMLSerializeVersion} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such value exists.
+   */
   @Nullable
   public static EXMLSerializeVersion getFromIDOrNull (@Nullable final String sID)
   {

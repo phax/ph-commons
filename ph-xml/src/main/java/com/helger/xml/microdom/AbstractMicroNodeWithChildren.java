@@ -284,6 +284,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     return m_aChildren == null ? null : m_aChildren.getLastOrNull ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getTextContent ()
   {
@@ -319,6 +320,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     return aSB.toString ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public <DSTTYPE> DSTTYPE getTextContentWithConversion (@NonNull final Class <DSTTYPE> aDstClass)
   {
@@ -332,6 +334,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
     return TypeConverter.convert (sTextContent, aDstClass);
   }
 
+  /** {@inheritDoc} */
   @OverridingMethodsMustInvokeSuper
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {

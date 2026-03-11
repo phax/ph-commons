@@ -31,6 +31,9 @@ public class LoggingThreadDeadlockCallback implements IThreadDeadlockCallback
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (LoggingThreadDeadlockCallback.class);
 
+  /**
+   * {@inheritDoc}
+   */
   public void onDeadlockDetected (@NonNull final ThreadDeadlockInfo [] aDeadlockedThreads)
   {
     final StringBuilder aMsg = new StringBuilder ();

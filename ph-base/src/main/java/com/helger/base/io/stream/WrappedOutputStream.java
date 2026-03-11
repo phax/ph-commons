@@ -33,6 +33,10 @@ import com.helger.base.tostring.ToStringGenerator;
  */
 public class WrappedOutputStream extends FilterOutputStream
 {
+  /**
+   * @param aWrappedOS
+   *        The output stream to be wrapped. May not be <code>null</code>.
+   */
   public WrappedOutputStream (@NonNull final OutputStream aWrappedOS)
   {
     super (ValueEnforcer.notNull (aWrappedOS, "WrappedOutputStream"));

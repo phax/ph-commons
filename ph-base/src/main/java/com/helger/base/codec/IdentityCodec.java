@@ -28,12 +28,14 @@ import org.jspecify.annotations.Nullable;
  */
 public class IdentityCodec <DATATYPE> implements ICodec <DATATYPE>
 {
+  /** {@inheritDoc} */
   @Nullable
   public DATATYPE getEncoded (@Nullable final DATATYPE aInput)
   {
     return aInput;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public DATATYPE getDecoded (@Nullable final DATATYPE aInput)
   {

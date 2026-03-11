@@ -32,11 +32,27 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
 {
   private final MicroDataAware m_aData;
 
+  /**
+   * Constructor with a character array.
+   *
+   * @param aChars
+   *        The character array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters. Must be &ge; 0.
+   */
   public MicroCDATA (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData = new MicroDataAware (aChars, nOfs, nLen);
   }
 
+  /**
+   * Constructor with text.
+   *
+   * @param sText
+   *        The text to use. May be <code>null</code>.
+   */
   public MicroCDATA (@Nullable final CharSequence sText)
   {
     m_aData = new MicroDataAware (sText);
@@ -47,12 +63,14 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     m_aData = aData.getClone ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.CDATA;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getNodeName ()
@@ -67,53 +85,63 @@ public final class MicroCDATA extends AbstractMicroNode implements IMicroCDATA
     return getData ().toString ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public CharSequence getData ()
   {
     return m_aData.getData ();
   }
 
+  /** {@inheritDoc} */
   public void appendData (@Nullable final CharSequence sData)
   {
     m_aData.appendData (sData);
   }
 
+  /** {@inheritDoc} */
   public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.appendData (aChars, nOfs, nLen);
   }
 
+  /** {@inheritDoc} */
   public void appendData (final char cChar)
   {
     m_aData.appendData (cChar);
   }
 
+  /** {@inheritDoc} */
   public void prependData (@Nullable final CharSequence sData)
   {
     m_aData.prependData (sData);
   }
 
+  /** {@inheritDoc} */
   public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     m_aData.prependData (aChars, nOfs, nLen);
   }
 
+  /** {@inheritDoc} */
   public void prependData (final char cChar)
   {
     m_aData.prependData (cChar);
   }
 
+  /** {@inheritDoc} */
   public void setData (@Nullable final CharSequence sData)
   {
     m_aData.setData (sData);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroCDATA getClone ()
   {
     return new MicroCDATA (m_aData);
   }
 
+  /** {@inheritDoc} */
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {
     if (o == this)

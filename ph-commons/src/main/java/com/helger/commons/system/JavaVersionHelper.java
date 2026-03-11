@@ -306,6 +306,16 @@ public final class JavaVersionHelper
   private JavaVersionHelper ()
   {}
 
+  /**
+   * Check if the current Java version is at least the specified version.
+   *
+   * @param nRequestedJavaMajor
+   *        The requested major version number.
+   * @param nRequestedJavaMinor
+   *        The requested minor version number.
+   * @return <code>true</code> if the current Java version is at least the
+   *         requested version, <code>false</code> otherwise.
+   */
   public static boolean isAtLeast (final int nRequestedJavaMajor, final int nRequestedJavaMinor)
   {
     if (JAVA_MAJOR_VERSION > nRequestedJavaMajor)

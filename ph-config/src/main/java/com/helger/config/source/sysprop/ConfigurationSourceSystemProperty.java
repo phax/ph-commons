@@ -45,22 +45,33 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   public static final EConfigSourceType SOURCE_TYPE = EConfigSourceType.SYSTEM_PROPERTY;
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigurationSourceSystemProperty.class);
 
+  /**
+   * Constructor with default priority.
+   */
   public ConfigurationSourceSystemProperty ()
   {
     this (SOURCE_TYPE.getDefaultPriority ());
   }
 
+  /**
+   * Constructor with custom priority.
+   *
+   * @param nPriority
+   *        The priority to use.
+   */
   public ConfigurationSourceSystemProperty (final int nPriority)
   {
     super (SOURCE_TYPE, nPriority);
   }
 
+  /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
     // No differentiation here
     return true;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
@@ -81,6 +92,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
     return new ConfiguredValue (this, sValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <String, String> getAllConfigItems ()

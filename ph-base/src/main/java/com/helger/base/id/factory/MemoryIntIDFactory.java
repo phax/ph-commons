@@ -37,18 +37,28 @@ public final class MemoryIntIDFactory implements IIntIDFactory
 
   private final AtomicInteger m_aID;
 
+  /**
+   * Default constructor starting at {@link #DEFAULT_START_ID}.
+   */
   public MemoryIntIDFactory ()
   {
     // new IDs start at 10000
     this (DEFAULT_START_ID);
   }
 
+  /**
+   * Constructor with a custom start ID.
+   *
+   * @param nStartID
+   *        The start ID to use. Must be &ge; 0.
+   */
   public MemoryIntIDFactory (@Nonnegative final int nStartID)
   {
     ValueEnforcer.isGE0 (nStartID, "StartID");
     m_aID = new AtomicInteger (nStartID);
   }
 
+  /** {@inheritDoc} */
   public int getNewID ()
   {
     return m_aID.getAndIncrement ();

@@ -108,12 +108,14 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     m_aParameters = new CommonsArrayList <> (aParameters);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMimeContentType getContentType ()
   {
     return m_eContentType;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getContentSubType ()
@@ -136,6 +138,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return aSB.toString ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getAsString (@NonNull final EMimeQuoting eQuotingAlgorithm)
@@ -151,12 +154,14 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return m_sMainTypeAsString + _getParametersAsString (eQuotingAlgorithm);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getAsStringWithoutParameters ()
   {
     return m_sMainTypeAsString;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public String getParametersAsString (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
@@ -264,17 +269,20 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return EChange.UNCHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean hasAnyParameters ()
   {
     return m_aParameters.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getParameterCount ()
   {
     return m_aParameters.size ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <MimeTypeParameter> getAllParameters ()
@@ -282,12 +290,14 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return m_aParameters.getClone ();
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public MimeTypeParameter getParameterAtIndex (@Nonnegative final int nIndex)
   {
     return m_aParameters.getAtIndex (nIndex);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public MimeTypeParameter getParameterWithName (@Nullable final String sParamName)
   {
@@ -298,6 +308,7 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return null;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getParameterValueWithName (@Nullable final String sParamName)
   {
@@ -305,18 +316,21 @@ public class MimeType implements IMimeType, IComparable <MimeType>
     return aParam == null ? null : aParam.getValue ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MimeType getClone ()
   {
     return new MimeType (m_eContentType, m_sContentSubType, m_aParameters);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MimeType getCopyWithoutParameters ()
   {
     return new MimeType (m_eContentType, m_sContentSubType);
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MimeType o)
   {
     return m_sMainTypeAsString.compareTo (o.m_sMainTypeAsString);

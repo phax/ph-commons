@@ -42,22 +42,36 @@ public class DynamicHasErrorText implements IHasErrorText
 {
   private final IHasText m_aText;
 
+  /**
+   * Constructor using an {@link IHasDisplayText}.
+   *
+   * @param aText
+   *        The display text provider. May not be <code>null</code>.
+   */
   public DynamicHasErrorText (@NonNull final IHasDisplayText aText)
   {
     this (aText.getAsHasText ());
   }
 
+  /**
+   * Constructor using an {@link IHasText}.
+   *
+   * @param aText
+   *        The text provider. May not be <code>null</code>.
+   */
   public DynamicHasErrorText (@NonNull final IHasText aText)
   {
     m_aText = ValueEnforcer.notNull (aText, "Text");
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
     return m_aText.getText (aContentLocale);
   }
 
+  /** {@inheritDoc} */
   public boolean isMultiLingual ()
   {
     return true;

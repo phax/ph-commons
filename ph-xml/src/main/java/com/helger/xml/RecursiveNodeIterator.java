@@ -38,17 +38,25 @@ public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
 {
   private final ICommonsList <Node> m_aOpen = new CommonsArrayList <> ();
 
+  /**
+   * Constructor.
+   *
+   * @param aNode
+   *        The start node to iterate from. May not be <code>null</code>.
+   */
   public RecursiveNodeIterator (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
     m_aOpen.add (aNode);
   }
 
+  /** {@inheritDoc} */
   public boolean hasNext ()
   {
     return m_aOpen.isNotEmpty ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public Node next ()
   {

@@ -79,11 +79,18 @@ public final class ImageDataManager
     m_aImageData = new LRUMap <> (nMaxCacheSize);
   }
 
+  /**
+   * @return <code>true</code> if the singleton instance has been created,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static ImageDataManager getInstance ()
   {
@@ -140,6 +147,16 @@ public final class ImageDataManager
     return aData;
   }
 
+  /**
+   * Get the image size of the specified resource. Results are cached for
+   * subsequent calls.
+   *
+   * @param aRes
+   *        The readable resource pointing to the image. May be
+   *        <code>null</code>.
+   * @return The image size or <code>null</code> if the resource is
+   *         <code>null</code> or could not be read as an image.
+   */
   @Nullable
   public SizeInt getImageSize (@Nullable final IReadableResource aRes)
   {
@@ -232,6 +249,10 @@ public final class ImageDataManager
     });
   }
 
+  /**
+   * @return A copy of all currently cached image sizes. Never
+   *         <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsMap <IReadableResource, SizeInt> getAllCachedSizes ()
@@ -239,6 +260,10 @@ public final class ImageDataManager
     return m_aRWLock.readLockedGet (m_aImageData::getClone);
   }
 
+  /**
+   * @return A copy of all resources that have been determined to be
+   *         non-existing or invalid images. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsSet <IReadableResource> getAllNotExistingResources ()

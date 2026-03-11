@@ -29,6 +29,9 @@ import com.helger.diagnostics.error.IError;
 @Immutable
 public class DoNothingTransformErrorListener extends AbstractTransformErrorListener
 {
+  /**
+   * Default constructor.
+   */
   public DoNothingTransformErrorListener ()
   {}
 

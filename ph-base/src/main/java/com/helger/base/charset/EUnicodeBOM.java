@@ -172,6 +172,10 @@ public enum EUnicodeBOM
     return m_aCharset != null;
   }
 
+  /**
+   * @return <code>true</code> if this BOM is supported by the standard XML
+   *         reader, <code>false</code> otherwise.
+   */
   public boolean isSupportedByXmlReader ()
   {
     if (true)

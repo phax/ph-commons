@@ -80,11 +80,18 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     _reinitialize ();
   }
 
+  /**
+   * @return <code>true</code> if the singleton instance has been created,
+   *         <code>false</code> otherwise.
+   */
   public static boolean isInstantiated ()
   {
     return s_bDefaultInstantiated;
   }
 
+  /**
+   * @return The singleton instance of this class. Never <code>null</code>.
+   */
   @NonNull
   public static CleanUpRegistry getInstance ()
   {
@@ -111,6 +118,9 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     });
   }
 
+  /**
+   * Reinitialize the clean up registry by re-reading all SPI implementations.
+   */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())
@@ -119,6 +129,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     _reinitialize ();
   }
 
+  /** {@inheritDoc} */
   public void registerCleanup (final int nPriority, @NonNull final Runnable aRunnable)
   {
     Objects.requireNonNull (aRunnable, "Runnable");
@@ -129,6 +140,9 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     });
   }
 
+  /**
+   * Execute all registered cleanup actions in priority order.
+   */
   public void performCleanUp ()
   {
     // Make a copy

@@ -38,24 +38,56 @@ public interface IValidityIndicator
     return !isValid ();
   }
 
+  /**
+   * Logical OR of this validity indicator with another one.
+   *
+   * @param aValidity
+   *        The other validity indicator. May not be <code>null</code>.
+   * @return {@link EValidity#VALID} if either this or the other indicator is
+   *         valid.
+   */
   @NonNull
   default EValidity or (@NonNull final IValidityIndicator aValidity)
   {
     return or (aValidity.isValid ());
   }
 
+  /**
+   * Logical OR of this validity indicator with a boolean value.
+   *
+   * @param bValid
+   *        The other validity value.
+   * @return {@link EValidity#VALID} if either this indicator is valid or the
+   *         passed value is <code>true</code>.
+   */
   @NonNull
   default EValidity or (final boolean bValid)
   {
     return EValidity.valueOf (isValid () || bValid);
   }
 
+  /**
+   * Logical AND of this validity indicator with another one.
+   *
+   * @param aValidity
+   *        The other validity indicator. May not be <code>null</code>.
+   * @return {@link EValidity#VALID} if both this and the other indicator are
+   *         valid.
+   */
   @NonNull
   default EValidity and (@NonNull final IValidityIndicator aValidity)
   {
     return and (aValidity.isValid ());
   }
 
+  /**
+   * Logical AND of this validity indicator with a boolean value.
+   *
+   * @param bValid
+   *        The other validity value.
+   * @return {@link EValidity#VALID} if both this indicator is valid and the
+   *         passed value is <code>true</code>.
+   */
   @NonNull
   default EValidity and (final boolean bValid)
   {

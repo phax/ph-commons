@@ -163,15 +163,38 @@ public interface IMicroNode extends
   @NonNull
   IMicroNode detachFromParent ();
 
+  /**
+   * Find the first parent element matching the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied to all parent elements. May not be <code>null</code>.
+   * @return <code>null</code> if no matching parent element was found.
+   */
   @Nullable
   IMicroElement findParentElement (@NonNull Predicate <? super IMicroElement> aFilter);
 
+  /**
+   * Get the first parent element with the specified tag name (without namespace).
+   *
+   * @param sTagName
+   *        The tag name to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching parent element was found.
+   */
   @Nullable
   default IMicroElement getParentElementWithName (@Nullable final String sTagName)
   {
     return findParentElement (x -> x.getTagName ().equals (sTagName));
   }
 
+  /**
+   * Get the first parent element with the specified namespace URI and tag name.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to search. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name to search. May be <code>null</code>.
+   * @return <code>null</code> if no matching parent element was found.
+   */
   @Nullable
   default IMicroElement getParentElementWithName (@Nullable final String sNamespaceURI, @Nullable final String sTagName)
   {

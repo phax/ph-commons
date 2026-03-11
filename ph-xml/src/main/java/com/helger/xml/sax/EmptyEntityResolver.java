@@ -28,6 +28,7 @@ import org.xml.sax.InputSource;
  */
 public class EmptyEntityResolver implements EntityResolver
 {
+  /** {@inheritDoc} */
   @NonNull
   public InputSource resolveEntity (final String sPublicId, final String sSystemId)
   {

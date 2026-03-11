@@ -42,16 +42,29 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
 
   private final WeakReference <ClassLoader> m_aClassLoader;
 
+  /**
+   * Default constructor using no specific class loader.
+   */
   public SimpleLSResourceResolver ()
   {
     this ((ClassLoader) null);
   }
 
+  /**
+   * Constructor with a custom class loader.
+   *
+   * @param aClassLoader
+   *        The class loader to use. May be <code>null</code>.
+   */
   public SimpleLSResourceResolver (@Nullable final ClassLoader aClassLoader)
   {
     m_aClassLoader = new WeakReference <> (aClassLoader);
   }
 
+  /**
+   * @return The class loader to use. May be <code>null</code> if the weak
+   *         reference has been cleared.
+   */
   @Nullable
   public ClassLoader getClassLoader ()
   {

@@ -48,6 +48,9 @@ public final class ByteBufferInputStream extends InputStream
     m_aBuffer = ValueEnforcer.notNull (aBuffer, "Buffer");
   }
 
+  /**
+   * @return <code>true</code> if this stream has been closed, <code>false</code> otherwise.
+   */
   public boolean isClosed ()
   {
     return m_aBuffer == null;

@@ -146,6 +146,10 @@ public class NonBlockingByteArrayInputStream extends InputStream
     m_bIsCopy = bIsCopyNeeded;
   }
 
+  /**
+   * @return <code>true</code> if the internal byte array is a copy of the original,
+   *         <code>false</code> if it references the original array.
+   */
   public final boolean isCopy ()
   {
     return m_bIsCopy;

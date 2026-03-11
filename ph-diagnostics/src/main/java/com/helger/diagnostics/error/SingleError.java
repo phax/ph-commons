@@ -106,18 +106,21 @@ public class SingleError implements IError
     m_aLinkedException = aLinkedException;
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public LocalDateTime getErrorDateTime ()
   {
     return m_aErrorDT;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IErrorLevel getErrorLevel ()
   {
     return m_aErrorLevel;
   }
 
+  /** {@inheritDoc} */
   @Override
   @Nullable
   public String getErrorID ()
@@ -125,6 +128,7 @@ public class SingleError implements IError
     return m_sErrorID;
   }
 
+  /** {@inheritDoc} */
   @Override
   @Nullable
   public String getErrorFieldName ()
@@ -132,6 +136,7 @@ public class SingleError implements IError
     return m_sErrorFieldName;
   }
 
+  /** {@inheritDoc} */
   @Override
   @NonNull
   public ILocation getErrorLocation ()
@@ -139,6 +144,7 @@ public class SingleError implements IError
     return m_aErrorLocation;
   }
 
+  /** {@inheritDoc} */
   @Override
   @Nullable
   public IHasErrorText getErrorTexts ()
@@ -146,6 +152,7 @@ public class SingleError implements IError
     return m_aErrorText;
   }
 
+  /** {@inheritDoc} */
   @Override
   @Nullable
   public Throwable getLinkedException ()

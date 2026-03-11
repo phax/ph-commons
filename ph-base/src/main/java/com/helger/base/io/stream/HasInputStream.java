@@ -57,11 +57,13 @@ public class HasInputStream implements IHasInputStream
     m_bReadMultiple = bReadMultiple;
   }
 
+  /** {@inheritDoc} */
   public final boolean isReadMultiple ()
   {
     return m_bReadMultiple;
   }
 
+  /** {@inheritDoc} */
   public final InputStream getInputStream ()
   {
     return m_aISP.get ();

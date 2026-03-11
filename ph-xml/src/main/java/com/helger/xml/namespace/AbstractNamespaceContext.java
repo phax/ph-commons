@@ -44,6 +44,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   @Nullable
   protected abstract Iterator <String> getCustomPrefixes (@NonNull String sNamespaceURI);
 
+  /** {@inheritDoc} */
   @NonNull
   public final Iterator <String> getPrefixes (@NonNull final String sNamespaceURI)
   {
@@ -62,6 +63,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   @Nullable
   protected abstract String getCustomPrefix (@NonNull String sNamespaceURI);
 
+  /** {@inheritDoc} */
   @Nullable
   public final String getPrefix (@NonNull final String sNamespaceURI)
   {
@@ -85,6 +87,7 @@ public abstract class AbstractNamespaceContext implements IIterableNamespaceCont
   @Nullable
   protected abstract String getCustomNamespaceURI (@NonNull String sPrefix);
 
+  /** {@inheritDoc} */
   @NonNull
   public final String getNamespaceURI (@NonNull final String sPrefix)
   {

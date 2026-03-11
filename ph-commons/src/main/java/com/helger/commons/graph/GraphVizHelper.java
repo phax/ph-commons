@@ -51,6 +51,16 @@ public final class GraphVizHelper
   private GraphVizHelper ()
   {}
 
+  /**
+   * Create a GraphViz DOT attribute string in the form
+   * <code>name=&lt;value&gt;</code> with XML-escaped value.
+   *
+   * @param sName
+   *        The attribute name. May neither be <code>null</code> nor empty.
+   * @param sValue
+   *        The attribute value. May not be <code>null</code>.
+   * @return The formatted attribute string. Never <code>null</code>.
+   */
   @NonNull
   @Nonempty
   public static String getAttribute (@NonNull @Nonempty final String sName, @NonNull final String sValue)

@@ -28,6 +28,10 @@ import org.jspecify.annotations.NonNull;
  */
 public class NonClosingInputStream extends WrappedInputStream
 {
+  /**
+   * @param aSourceIS
+   *        The input stream to be wrapped. May not be <code>null</code>.
+   */
   public NonClosingInputStream (@NonNull final InputStream aSourceIS)
   {
     super (aSourceIS);

@@ -28,11 +28,20 @@ public enum ETopBottom implements ITopBottomIndicator
   TOP,
   BOTTOM;
 
+  /** {@inheritDoc} */
   public boolean isTop ()
   {
     return this == TOP;
   }
 
+  /**
+   * Convert an {@link ITopBottomIndicator} to the corresponding
+   * {@link ETopBottom} enum value.
+   *
+   * @param aTopBottomIndicator
+   *        The top/bottom indicator to convert. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
   @NonNull
   public static ETopBottom valueOf (@NonNull final ITopBottomIndicator aTopBottomIndicator)
   {

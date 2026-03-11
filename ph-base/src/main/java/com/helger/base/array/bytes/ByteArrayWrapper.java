@@ -84,23 +84,30 @@ public final class ByteArrayWrapper implements IHasByteArray
     m_bIsCopy = bCopyNeeded;
   }
 
+  /**
+   * @return <code>true</code> if the internal byte array is a copy of the original,
+   *         <code>false</code> if it references the original array.
+   */
   public boolean isCopy ()
   {
     return m_bIsCopy;
   }
 
+  /** {@inheritDoc} */
   @ReturnsMutableObject
   public byte @NonNull [] bytes ()
   {
     return m_aBytes;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getOffset ()
   {
     return m_nOffset;
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int size ()
   {

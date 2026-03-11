@@ -27,6 +27,10 @@ import org.jspecify.annotations.NonNull;
  */
 public class NonClosingWriter extends WrappedWriter
 {
+  /**
+   * @param aSourceWriter
+   *        The writer to be wrapped. May not be <code>null</code>.
+   */
   public NonClosingWriter (@NonNull final Writer aSourceWriter)
   {
     super (aSourceWriter);

@@ -35,6 +35,13 @@ public class ChildElementIterator implements ICommonsIterableIterator <Element>
   /** The nodes to iterate. */
   private final ICommonsIterableIterator <Element> m_aIter;
 
+  /**
+   * Constructor.
+   *
+   * @param aStartNode
+   *        The parent node whose child elements are iterated. May be
+   *        <code>null</code>.
+   */
   public ChildElementIterator (@Nullable final Node aStartNode)
   {
     m_aIter = NodeListIterator.createChildNodeIterator (aStartNode)
@@ -42,11 +49,13 @@ public class ChildElementIterator implements ICommonsIterableIterator <Element>
                               .withMapper (Element.class::cast);
   }
 
+  /** {@inheritDoc} */
   public final boolean hasNext ()
   {
     return m_aIter.hasNext ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public final Element next ()
   {

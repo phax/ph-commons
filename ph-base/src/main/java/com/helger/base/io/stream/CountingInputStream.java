@@ -35,6 +35,12 @@ public class CountingInputStream extends WrappedInputStream
   private long m_nPosition = 0;
   private long m_nMark = 0;
 
+  /**
+   * Constructor wrapping the given input stream.
+   *
+   * @param aSourceIS
+   *        The input stream to be wrapped. May not be <code>null</code>.
+   */
   public CountingInputStream (@NonNull final InputStream aSourceIS)
   {
     super (aSourceIS);

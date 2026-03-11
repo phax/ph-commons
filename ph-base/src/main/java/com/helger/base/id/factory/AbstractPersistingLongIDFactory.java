@@ -114,6 +114,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
   @IsLocked (ELockType.WRITE)
   protected abstract long readAndUpdateIDCounter (@Nonnegative int nReserveCount);
 
+  /** {@inheritDoc} */
   public final long getNewID ()
   {
     m_aLock.lock ();

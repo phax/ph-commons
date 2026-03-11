@@ -109,6 +109,20 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     return aAllResults;
   }
 
+  /**
+   * Iterate all combinations of the given elements using the element count as
+   * the slot count.
+   *
+   * @param aElements
+   *        The elements to combine. May not be <code>null</code>.
+   * @param bAllowEmpty
+   *        Whether to include the empty result set.
+   * @param aCallback
+   *        The callback to invoke for each combination. May not be
+   *        <code>null</code>.
+   * @param <DATATYPE>
+   *        Element type
+   */
   public static <DATATYPE> void iterateAllCombinations (@NonNull final ICommonsList <DATATYPE> aElements,
                                                         final boolean bAllowEmpty,
                                                         @NonNull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
@@ -116,6 +130,18 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements, aCallback);
   }
 
+  /**
+   * Get all unique combinations of the given elements using the element count
+   * as the slot count.
+   *
+   * @param aElements
+   *        The elements to combine. May not be <code>null</code>.
+   * @param bAllowEmpty
+   *        Whether to include the empty result set.
+   * @param <DATATYPE>
+   *        Element type
+   * @return A set of all unique combinations. Never <code>null</code>.
+   */
   @NonNull
   @ReturnsMutableCopy
   public static <DATATYPE> ICommonsSet <ICommonsList <DATATYPE>> getCombinations (@NonNull final ICommonsList <DATATYPE> aElements,

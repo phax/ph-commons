@@ -68,6 +68,10 @@ public interface IHasErrorID
     return EqualsHelper.equals (getErrorID (), sErrorID);
   }
 
+  /**
+   * @return A comparator that compares by error ID, with <code>null</code> values sorted first.
+   *         Never <code>null</code>.
+   */
   @NonNull
   static Comparator <IHasErrorID> getComparatorErrorID ()
   {

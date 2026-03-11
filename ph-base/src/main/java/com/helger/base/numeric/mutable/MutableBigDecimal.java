@@ -42,21 +42,45 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
 {
   private BigDecimal m_aValue;
 
+  /**
+   * Initialize with a certain long value.
+   *
+   * @param nValue
+   *        The value to be used.
+   */
   public MutableBigDecimal (final long nValue)
   {
     this (BigHelper.toBigDecimal (nValue));
   }
 
+  /**
+   * Initialize with a certain double value.
+   *
+   * @param dValue
+   *        The value to be used.
+   */
   public MutableBigDecimal (final double dValue)
   {
     this (BigHelper.toBigDecimal (dValue));
   }
 
+  /**
+   * Copy constructor.
+   *
+   * @param aOther
+   *        The object to copy from. May not be <code>null</code>.
+   */
   public MutableBigDecimal (@NonNull final MutableBigDecimal aOther)
   {
     this (aOther.m_aValue);
   }
 
+  /**
+   * Initialize with a certain {@link BigDecimal} value.
+   *
+   * @param aValue
+   *        The value to be used. May not be <code>null</code>.
+   */
   public MutableBigDecimal (@NonNull final BigDecimal aValue)
   {
     m_aValue = ValueEnforcer.notNull (aValue, "Value");
@@ -104,18 +128,39 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return inc (BigDecimal.ONE);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to add.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal inc (final long nDelta)
   {
     return inc (BigHelper.toBigDecimal (nDelta));
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param dDelta
+   *        The delta to add.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal inc (final double dDelta)
   {
     return inc (BigHelper.toBigDecimal (dDelta));
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal inc (@NonNull final MutableBigDecimal aDelta)
   {
@@ -123,6 +168,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return inc (aDelta.m_aValue);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal inc (@NonNull final BigDecimal aDelta)
   {
@@ -132,24 +184,50 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal dec ()
   {
     return inc (CGlobal.BIGDEC_MINUS_ONE);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal dec (final long nDelta)
   {
     return inc (BigHelper.toBigDecimal (-nDelta));
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param dDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal dec (final double dDelta)
   {
     return inc (BigHelper.toBigDecimal (-dDelta));
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal dec (@NonNull final BigDecimal aDelta)
   {
@@ -157,6 +235,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return inc (aDelta.negate ());
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal dec (@NonNull final MutableBigDecimal aDelta)
   {
@@ -164,6 +249,17 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return inc (aDelta.m_aValue.negate ());
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param nDivisor
+   *        The divisor to use.
+   * @param nScale
+   *        The scale for the division result.
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal divide (final long nDivisor,
                             @Nonnegative final int nScale,
@@ -172,6 +268,17 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return divide (BigHelper.toBigDecimal (nDivisor), nScale, eRoundingMode);
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param dDivisor
+   *        The divisor to use.
+   * @param nScale
+   *        The scale for the division result.
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal divide (final double dDivisor,
                             @Nonnegative final int nScale,
@@ -180,6 +287,17 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return divide (BigHelper.toBigDecimal (dDivisor), nScale, eRoundingMode);
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @param nScale
+   *        The scale for the division result.
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal divide (@NonNull final MutableBigDecimal aDivisor,
                             @Nonnegative final int nScale,
@@ -189,6 +307,17 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return divide (aDivisor.m_aValue, nScale, eRoundingMode);
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @param nScale
+   *        The scale for the division result.
+   * @param eRoundingMode
+   *        The rounding mode to use. May not be <code>null</code>.
+   * @return The new value after division. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal divide (@NonNull final BigDecimal aDivisor,
                             @Nonnegative final int nScale,
@@ -200,18 +329,39 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param nMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal multiply (final long nMultiplicand)
   {
     return multiply (BigHelper.toBigDecimal (nMultiplicand));
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param dMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal multiply (final double dMultiplicand)
   {
     return multiply (BigHelper.toBigDecimal (dMultiplicand));
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal multiply (@NonNull final MutableBigDecimal aMultiplicand)
   {
@@ -219,6 +369,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return multiply (aMultiplicand.m_aValue);
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal multiply (@NonNull final BigDecimal aMultiplicand)
   {
@@ -228,18 +385,39 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return m_aValue;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param nDelta
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final long nDelta)
   {
     return set (BigHelper.toBigDecimal (nDelta));
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param dDelta
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final double dDelta)
   {
     return set (BigHelper.toBigDecimal (dDelta));
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final MutableBigDecimal aValue)
   {
@@ -247,6 +425,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return set (aValue.m_aValue);
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final BigDecimal aValue)
   {
@@ -258,31 +443,41 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return EChange.CHANGED;
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return BigHelper.isEQ0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return BigHelper.isLT0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return BigHelper.isLE0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return BigHelper.isGT0 (m_aValue);
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return BigHelper.isGE0 (m_aValue);
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal getAndInc ()
   {
@@ -291,6 +486,11 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing. Never <code>null</code>.
+   */
   @NonNull
   public BigDecimal incAndGet ()
   {
@@ -298,11 +498,13 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
     return getAsBigDecimal ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableBigDecimal rhs)
   {
     return m_aValue.compareTo (rhs.m_aValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableBigDecimal getClone ()
   {

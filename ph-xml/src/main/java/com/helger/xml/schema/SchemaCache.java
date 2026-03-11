@@ -52,6 +52,18 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
 
+  /**
+   * Constructor.
+   *
+   * @param sSchemaTypeName
+   *        The schema type name (e.g. "XSD"). May not be <code>null</code>.
+   * @param aSchemaFactory
+   *        The schema factory to use. May not be <code>null</code>.
+   * @param aErrorHandler
+   *        The error handler to use. May be <code>null</code>.
+   * @param aResourceResolver
+   *        The resource resolver to use. May be <code>null</code>.
+   */
   public SchemaCache (@NonNull final String sSchemaTypeName,
                       @NonNull final SchemaFactory aSchemaFactory,
                       @Nullable final ErrorHandler aErrorHandler,
@@ -66,30 +78,60 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
     m_aSchemaFactory.setResourceResolver (aResourceResolver);
   }
 
+  /**
+   * @return The schema type name as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public final String getSchemaTypeName ()
   {
     return m_sSchemaTypeName;
   }
 
+  /**
+   * @return The schema factory as provided in the constructor. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public final SchemaFactory getSchemaFactory ()
   {
     return m_aSchemaFactory;
   }
 
+  /**
+   * @return The error handler set on the schema factory. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public ErrorHandler getErrorHandler ()
   {
     return m_aSchemaFactory.getErrorHandler ();
   }
 
+  /**
+   * @return The resource resolver set on the schema factory. May be
+   *         <code>null</code>.
+   */
   @Nullable
   public LSResourceResolver getResourceResolver ()
   {
     return m_aSchemaFactory.getResourceResolver ();
   }
 
+  /**
+   * Create a {@link Schema} from the provided resources using the given schema
+   * factory.
+   *
+   * @param aSchemaFactory
+   *        The schema factory to use. May not be <code>null</code>.
+   * @param sSchemaTypeName
+   *        The schema type name for error messages. May not be
+   *        <code>null</code>.
+   * @param aResources
+   *        The resources to compile. May neither be <code>null</code> nor
+   *        empty.
+   * @return The compiled {@link Schema}. Never <code>null</code>.
+   */
   @NonNull
   public static Schema createSchema (@NonNull final SchemaFactory aSchemaFactory,
                                      @NonNull final String sSchemaTypeName,

@@ -69,63 +69,113 @@ public final class VendorInfo
   private VendorInfo ()
   {}
 
+  /**
+   * @return The vendor location. Never <code>null</code>.
+   */
   @NonNull
   public static String getVendorLocation ()
   {
     return s_sVendorLocation;
   }
 
+  /**
+   * Set the vendor location.
+   *
+   * @param sVendorLocation
+   *        The vendor location. May neither be <code>null</code> nor empty.
+   */
   public static void setVendorLocation (@NonNull @Nonempty final String sVendorLocation)
   {
     s_sVendorLocation = ValueEnforcer.notEmpty (sVendorLocation, "VendorLocation");
   }
 
+  /**
+   * @return The inception year. Always &ge; 0.
+   */
   @Nonnegative
   public static int getInceptionYear ()
   {
     return s_nInceptionYear;
   }
 
+  /**
+   * Set the inception year.
+   *
+   * @param nInceptionYear
+   *        The inception year. Must be &ge; 0.
+   */
   public static void setInceptionYear (@Nonnegative final int nInceptionYear)
   {
     s_nInceptionYear = ValueEnforcer.isGE0 (nInceptionYear, "InceptionYear");
   }
 
+  /**
+   * @return The vendor name. Never <code>null</code>.
+   */
   @NonNull
   public static String getVendorName ()
   {
     return s_sVendorName;
   }
 
+  /**
+   * Set the vendor name.
+   *
+   * @param sVendorName
+   *        The vendor name. May neither be <code>null</code> nor empty.
+   */
   public static void setVendorName (@NonNull @Nonempty final String sVendorName)
   {
     s_sVendorName = ValueEnforcer.notEmpty (sVendorName, "VendorName");
   }
 
+  /**
+   * @return The vendor URL. Never <code>null</code>.
+   */
   @NonNull
   public static String getVendorURL ()
   {
     return s_sVendorURL;
   }
 
+  /**
+   * Set the vendor URL.
+   *
+   * @param sVendorURL
+   *        The vendor URL. May neither be <code>null</code> nor empty.
+   */
   public static void setVendorURL (@NonNull @Nonempty final String sVendorURL)
   {
     ValueEnforcer.notEmpty (sVendorURL, "VendorURL");
     s_sVendorURL = sVendorURL;
   }
 
+  /**
+   * @return The vendor email. Never <code>null</code>.
+   */
   @NonNull
   public static String getVendorEmail ()
   {
     return s_sVendorEmail;
   }
 
+  /**
+   * @return The vendor email suffix starting from '@'. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static String getVendorEmailSuffix ()
   {
     return s_sVendorEmailSuffix;
   }
 
+  /**
+   * Set the vendor email address.
+   *
+   * @param sVendorEmail
+   *        The vendor email. May neither be <code>null</code> nor empty and
+   *        must be a valid email address.
+   */
   public static void setVendorEmail (@NonNull @Nonempty final String sVendorEmail)
   {
     ValueEnforcer.notEmpty (sVendorEmail, "VendorEmail");

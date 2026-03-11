@@ -30,6 +30,13 @@ import org.jspecify.annotations.Nullable;
  */
 public interface ITransformErrorListener extends ErrorListener
 {
+  /**
+   * Chain this error listener with another one, so that both are invoked.
+   *
+   * @param aOther
+   *        The other error listener to chain. May be <code>null</code>.
+   * @return A new combined error listener. Never <code>null</code>.
+   */
   @NonNull
   default ITransformErrorListener andThen (@Nullable final ErrorListener aOther)
   {

@@ -37,6 +37,12 @@ public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConver
 {
   private final Class <T> m_aNativeClass;
 
+  /**
+   * Constructor.
+   *
+   * @param aNativeClass
+   *        The native class to convert from and to. May not be <code>null</code>.
+   */
   public StringBasedMicroTypeConverter (@NonNull final Class <T> aNativeClass)
   {
     ValueEnforcer.notNull (aNativeClass, "NativeClass");
@@ -44,6 +50,7 @@ public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConver
     m_aNativeClass = aNativeClass;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroElement convertToMicroElement (@NonNull final T aObject,
                                               @Nullable final String sNamespaceURI,
@@ -56,6 +63,7 @@ public final class StringBasedMicroTypeConverter <T> implements IMicroTypeConver
     return StringMicroTypeConverter.getInstance ().convertToMicroElement (sValue, sNamespaceURI, sTagName);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public T convertToNative (@NonNull final IMicroElement aElement)
   {

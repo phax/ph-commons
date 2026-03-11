@@ -76,6 +76,14 @@ public final class XMLListHandler
   private XMLListHandler ()
   {}
 
+  /**
+   * Read a predefined XML file that contains list items.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be
+   *        <code>null</code>.
+   * @return <code>null</code> if reading fails - all list items otherwise.
+   */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsList <String> readList (@NonNull final IHasInputStream aISP)
@@ -85,6 +93,17 @@ public final class XMLListHandler
     return readList (aISP.getInputStream ());
   }
 
+  /**
+   * Read a predefined XML file that contains list items.
+   *
+   * @param aISP
+   *        The input stream provider to read from. May not be
+   *        <code>null</code>.
+   * @param aTargetList
+   *        The target collection to be filled. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess readList (@NonNull final IHasInputStream aISP, @NonNull final Collection <String> aTargetList)
   {
@@ -149,6 +168,16 @@ public final class XMLListHandler
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Read list items from the passed micro element.
+   *
+   * @param aParentElement
+   *        The parent element to read from. May not be <code>null</code>.
+   * @param aTargetList
+   *        The target collection to be filled. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess readList (@NonNull final IMicroElement aParentElement,
                                    @NonNull final Collection <String> aTargetList)
@@ -176,6 +205,13 @@ public final class XMLListHandler
     return ESuccess.FAILURE;
   }
 
+  /**
+   * Create a micro document from the passed collection.
+   *
+   * @param aCollection
+   *        The collection to convert. May not be <code>null</code>.
+   * @return The created micro document. Never <code>null</code>.
+   */
   @NonNull
   public static IMicroDocument createListDocument (@NonNull final Collection <String> aCollection)
   {
@@ -191,6 +227,16 @@ public final class XMLListHandler
     return aDoc;
   }
 
+  /**
+   * Write the passed collection to the passed output stream provider.
+   *
+   * @param aCollection
+   *        The collection to be written. May not be <code>null</code>.
+   * @param aOSP
+   *        The output stream provider. May not be <code>null</code>.
+   * @return {@link ESuccess#SUCCESS} when everything went well,
+   *         {@link ESuccess#FAILURE} otherwise.
+   */
   @NonNull
   public static ESuccess writeList (@NonNull final Collection <String> aCollection,
                                     @NonNull final IHasOutputStream aOSP)

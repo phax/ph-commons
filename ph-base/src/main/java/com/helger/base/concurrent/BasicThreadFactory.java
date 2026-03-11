@@ -319,6 +319,10 @@ public class BasicThreadFactory implements ThreadFactory
                                        .getToString ();
   }
 
+  /**
+   * @return A new {@link BasicThreadFactoryBuilder} instance. Never
+   *         <code>null</code>.
+   */
   @NonNull
   public static BasicThreadFactoryBuilder builder ()
   {

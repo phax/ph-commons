@@ -118,6 +118,10 @@ public enum EJVMVendor
 
   protected abstract boolean determineIfItIsCurrentJVMVendor ();
 
+  /**
+   * @return <code>true</code> if this enum constant represents the current JVM vendor,
+   *         <code>false</code> otherwise.
+   */
   public final boolean isJVMVendor ()
   {
     return m_bIsIt;

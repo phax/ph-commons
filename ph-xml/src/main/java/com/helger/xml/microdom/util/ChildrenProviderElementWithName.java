@@ -40,11 +40,27 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
   private final String m_sNamespaceURI;
   private final String m_sTagName;
 
+  /**
+   * Constructor without namespace URI.
+   *
+   * @param sTagName
+   *        The tag name to filter by. May neither be <code>null</code> nor
+   *        empty.
+   */
   public ChildrenProviderElementWithName (@NonNull @Nonempty final String sTagName)
   {
     this (null, sTagName);
   }
 
+  /**
+   * Constructor with optional namespace URI.
+   *
+   * @param sNamespaceURI
+   *        The namespace URI to filter by. May be <code>null</code>.
+   * @param sTagName
+   *        The tag name to filter by. May neither be <code>null</code> nor
+   *        empty.
+   */
   public ChildrenProviderElementWithName (@Nullable final String sNamespaceURI,
                                           @NonNull @Nonempty final String sTagName)
   {
@@ -65,6 +81,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     return aCurrent.hasChildElements (m_sTagName);
   }
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getChildCount (@Nullable final IMicroElement aCurrent)
   {
@@ -73,6 +90,7 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
     return getAllChildren (aCurrent).size ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsList <? extends IMicroElement> getAllChildren (@Nullable final IMicroElement aCurrent)

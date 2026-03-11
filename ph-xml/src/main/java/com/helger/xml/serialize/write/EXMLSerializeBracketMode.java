@@ -54,16 +54,29 @@ public enum EXMLSerializeBracketMode implements IHasID <String>
     return m_sID;
   }
 
+  /**
+   * @return <code>true</code> if this is the self-closed bracket mode.
+   */
   public boolean isSelfClosed ()
   {
     return this == SELF_CLOSED;
   }
 
+  /**
+   * @return <code>true</code> if this is the open-close bracket mode.
+   */
   public boolean isOpenClose ()
   {
     return this == OPEN_CLOSE;
   }
 
+  /**
+   * Get the {@link EXMLSerializeBracketMode} matching the passed ID.
+   *
+   * @param sID
+   *        The ID to search. May be <code>null</code>.
+   * @return <code>null</code> if no such bracket mode exists.
+   */
   @Nullable
   public static EXMLSerializeBracketMode getFromIDOrNull (@Nullable final String sID)
   {

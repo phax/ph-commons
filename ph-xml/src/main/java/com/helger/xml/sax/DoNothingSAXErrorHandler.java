@@ -30,6 +30,9 @@ import com.helger.diagnostics.error.level.IErrorLevel;
 @Immutable
 public class DoNothingSAXErrorHandler extends AbstractSAXErrorHandler
 {
+  /**
+   * Default constructor.
+   */
   public DoNothingSAXErrorHandler ()
   {}
 

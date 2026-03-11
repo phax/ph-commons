@@ -92,6 +92,13 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return inc (1);
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to add.
+   * @return The new value after incrementing.
+   */
   public int inc (final int nDelta)
   {
     m_nValue += nDelta;
@@ -99,28 +106,61 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
+  /**
+   * Increment by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to add. May not be <code>null</code>.
+   * @return The new value after incrementing.
+   */
   public int inc (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (aDelta.intValue ());
   }
 
+  /**
+   * Decrement by 1 and return the modified value.
+   *
+   * @return The by 1 decremented value.
+   */
   public int dec ()
   {
     return inc (-1);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param nDelta
+   *        The delta to subtract.
+   * @return The new value after decrementing.
+   */
   public int dec (final int nDelta)
   {
     return inc (-nDelta);
   }
 
+  /**
+   * Decrement by the given delta and return the modified value.
+   *
+   * @param aDelta
+   *        The delta to subtract. May not be <code>null</code>.
+   * @return The new value after decrementing.
+   */
   public int dec (@NonNull final Number aDelta)
   {
     ValueEnforcer.notNull (aDelta, "Delta");
     return inc (-aDelta.intValue ());
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param nDivisor
+   *        The divisor to use.
+   * @return The new value after division.
+   */
   public int divide (final int nDivisor)
   {
     m_nValue /= nDivisor;
@@ -128,12 +168,26 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
+  /**
+   * Divide the current value by the given divisor.
+   *
+   * @param aDivisor
+   *        The divisor to use. May not be <code>null</code>.
+   * @return The new value after division.
+   */
   public int divide (@NonNull final Number aDivisor)
   {
     ValueEnforcer.notNull (aDivisor, "Divisor");
     return divide (aDivisor.intValue ());
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param nMultiplicand
+   *        The multiplicand to use.
+   * @return The new value after multiplication.
+   */
   public int multiply (final int nMultiplicand)
   {
     m_nValue *= nMultiplicand;
@@ -141,12 +195,26 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return m_nValue;
   }
 
+  /**
+   * Multiply the current value by the given multiplicand.
+   *
+   * @param aMultiplicand
+   *        The multiplicand to use. May not be <code>null</code>.
+   * @return The new value after multiplication.
+   */
   public int multiply (@NonNull final Number aMultiplicand)
   {
     ValueEnforcer.notNull (aMultiplicand, "Multiplicand");
     return multiply (aMultiplicand.intValue ());
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param nValue
+   *        The new value to set.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (final int nValue)
   {
@@ -157,6 +225,13 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return EChange.CHANGED;
   }
 
+  /**
+   * Set a new value.
+   *
+   * @param aValue
+   *        The new value to set. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value was changed.
+   */
   @NonNull
   public EChange set (@NonNull final Number aValue)
   {
@@ -164,36 +239,47 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return set (aValue.intValue ());
   }
 
+  /** {@inheritDoc} */
   public boolean is0 ()
   {
     return m_nValue == 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLT0 ()
   {
     return m_nValue < 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isLE0 ()
   {
     return m_nValue <= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGT0 ()
   {
     return m_nValue > 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isGE0 ()
   {
     return m_nValue >= 0;
   }
 
+  /** {@inheritDoc} */
   public boolean isEven ()
   {
     return (m_nValue % 2) == 0;
   }
 
+  /**
+   * Get the current value and then increment by 1.
+   *
+   * @return The value before incrementing.
+   */
   public int getAndInc ()
   {
     final int ret = intValue ();
@@ -201,17 +287,24 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
     return ret;
   }
 
+  /**
+   * Increment by 1 and then get the new value.
+   *
+   * @return The value after incrementing.
+   */
   public int incAndGet ()
   {
     inc ();
     return intValue ();
   }
 
+  /** {@inheritDoc} */
   public int compareTo (@NonNull final MutableInt rhs)
   {
     return CompareHelper.compare (m_nValue, rhs.m_nValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public MutableInt getClone ()
   {

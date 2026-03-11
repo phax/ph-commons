@@ -36,15 +36,24 @@ public final class MemoryStaticIntIDFactory implements IIntIDFactory
   public static final int INITIAL_ID = 10000;
   private static final AtomicInteger ID = new AtomicInteger (INITIAL_ID);
 
+  /**
+   * Create a new instance using the shared static counter.
+   */
   public MemoryStaticIntIDFactory ()
   {}
 
+  /** {@inheritDoc} */
   @Nonnegative
   public int getNewID ()
   {
     return getNewStaticID ();
   }
 
+  /**
+   * Get a new unique int ID from the static counter.
+   *
+   * @return A new unique int ID. Always &ge; 0.
+   */
   @Nonnegative
   public static int getNewStaticID ()
   {

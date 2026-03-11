@@ -111,6 +111,7 @@ public enum EOperatingSystem implements IHasDisplayName
     m_bUnixBased = bUnixBased;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getDisplayName ()

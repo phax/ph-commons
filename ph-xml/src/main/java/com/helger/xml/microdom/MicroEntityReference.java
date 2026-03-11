@@ -34,17 +34,26 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
 {
   private final String m_sName;
 
+  /**
+   * Constructor.
+   *
+   * @param sName
+   *        The entity reference name. May neither be <code>null</code> nor
+   *        empty.
+   */
   public MicroEntityReference (@NonNull @Nonempty final String sName)
   {
     m_sName = ValueEnforcer.notEmpty (sName, "EntityReferenceName");
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public EMicroNodeType getType ()
   {
     return EMicroNodeType.ENTITY_REFERENCE;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getNodeName ()
@@ -60,6 +69,7 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
     return getName ();
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @Nonempty
   public String getName ()
@@ -67,12 +77,14 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
     return m_sName;
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public IMicroEntityReference getClone ()
   {
     return new MicroEntityReference (m_sName);
   }
 
+  /** {@inheritDoc} */
   public boolean isEqualContent (@Nullable final IMicroNode o)
   {
     if (o == this)

@@ -42,11 +42,27 @@ public class NonBlockingStringReader extends Reader
   private int m_nNext;
   private int m_nMark;
 
+  /**
+   * Creates a new string reader from a char array.
+   *
+   * @param aChars
+   *        The char array providing the character stream. May not be <code>null</code>.
+   */
   public NonBlockingStringReader (final char @NonNull [] aChars)
   {
     this (aChars, 0, aChars.length);
   }
 
+  /**
+   * Creates a new string reader from a portion of a char array.
+   *
+   * @param aChars
+   *        The char array providing the character stream. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array. Must be &ge; 0.
+   * @param nLen
+   *        The number of chars to read. Must be &ge; 0.
+   */
   public NonBlockingStringReader (final char @NonNull [] aChars,
                                   @Nonnegative final int nOfs,
                                   @Nonnegative final int nLen)
@@ -68,6 +84,16 @@ public class NonBlockingStringReader extends Reader
     this (sStr.toCharArray (), 0, sStr.length ());
   }
 
+  /**
+   * Creates a new string reader from a portion of a String.
+   *
+   * @param sStr
+   *        The String providing the character stream. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the string. Must be &ge; 0.
+   * @param nLen
+   *        The number of chars to read. Must be &ge; 0.
+   */
   public NonBlockingStringReader (@NonNull final String sStr, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
     this (sStr.toCharArray (), nOfs, nLen);

@@ -137,11 +137,13 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     return m_aCharset;
   }
 
+  /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
     return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   public ESuccess reload ()
   {
@@ -152,6 +154,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     return ESuccess.valueOf (aProps != null);
   }
 
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
@@ -159,6 +162,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
+  /** {@inheritDoc} */
   @NonNull
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()

@@ -39,10 +39,19 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
 {
   private String m_sDefaultBase;
 
+  /**
+   * Default constructor.
+   */
   public DefaultTransformURIResolver ()
   {
   }
 
+  /**
+   * Constructor with a wrapped URI resolver as fallback.
+   *
+   * @param aWrappedURIResolver
+   *        The wrapped URI resolver. May be <code>null</code>.
+   */
   public DefaultTransformURIResolver (@Nullable final URIResolver aWrappedURIResolver)
   {
     super (aWrappedURIResolver);
