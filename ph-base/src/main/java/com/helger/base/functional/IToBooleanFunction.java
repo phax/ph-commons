@@ -18,18 +18,18 @@ package com.helger.base.functional;
 
 /**
  * Represents a function that produces a boolean-valued result. This is the
- * {@code boolean}-producing primitive specialization for
- * {@link java.util.function.Function}.
+ * {@code boolean}-producing primitive specialization for {@link java.util.function.Function}.
  * <p>
- * This is a functional interface whose functional method is
- * {@link #applyAsBoolean(Object)}.
+ * This is a functional interface whose functional method is {@link #applyAsBoolean(Object)}.
  *
  * @param <T>
  *        the type of the input to the function
  * @see java.util.function.Function
  * @since 8.0.0
+ * @deprecated Use Predicate instead
  */
 @FunctionalInterface
+@Deprecated (forRemoval = true, since = "12.1.5")
 public interface IToBooleanFunction <T>
 {
   /**
@@ -39,5 +39,6 @@ public interface IToBooleanFunction <T>
    *        the function argument
    * @return the function result
    */
+  @Deprecated (forRemoval = true, since = "12.1.5")
   boolean applyAsBoolean (T value);
 }
