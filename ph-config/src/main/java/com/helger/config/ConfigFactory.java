@@ -23,8 +23,10 @@ import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.url.URLHelper;
 import com.helger.config.source.EConfigSourceType;
@@ -52,6 +54,10 @@ public final class ConfigFactory
   public static final String PRIVATE_APPLICATION_PROPERTIES_NAME = "private-application.properties";
   public static final int PRIVATE_APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () -
                                                                     10;
+
+  // Additional priority used for added Spring-based profiles
+  public static final int APPLICATION_PROFILE_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () -
+                                                                    15;
 
   public static final String APPLICATION_PROPERTIES_NAME = "application.properties";
   public static final int APPLICATION_PROPERTIES_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 20;
@@ -269,6 +275,59 @@ public final class ConfigFactory
                                                                                             true),
                                    REFERENCE_PROPERTIES_PRIORITY);
     return aMCSVP;
+  }
+
+  /**
+   * Add profile-specific properties files (e.g. {@code application-dev.properties},
+   * {@code application-prod.properties}) to an existing {@link MultiConfigurationValueProvider}.
+   * For each profile name, the file {@code application-&lt;profile&gt;.properties} is searched on
+   * the classpath and file system using priority {@link #APPLICATION_PROFILE_PROPERTIES_PRIORITY}
+   * (185), which sits between {@link #PRIVATE_APPLICATION_PROPERTIES_PRIORITY} (190) and
+   * {@link #APPLICATION_PROPERTIES_PRIORITY} (180). This means profile-specific properties override
+   * the base {@code application.properties} but not {@code private-application.properties}.
+   *
+   * @param aMCSVP
+   *        The value provider to add the profile sources to. May not be <code>null</code>.
+   * @param aProfileNames
+   *        The profile names to load. May not be <code>null</code> but may be empty. Empty or blank
+   *        profile names are silently skipped.
+   * @return The number of profile property files that were successfully loaded (&ge; 0).
+   * @sicne 12.1.5
+   */
+  @Nonnegative
+  public static int addProfilePropertiesSources (@NonNull final MultiConfigurationValueProvider aMCSVP,
+                                                 @NonNull final String... aProfileNames)
+  {
+    ValueEnforcer.notNull (aMCSVP, "MCSVP");
+    ValueEnforcer.notNull (aProfileNames, "ProfileNames");
+
+    final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
+    int nAdded = 0;
+
+    for (final String sProfile : aProfileNames)
+    {
+      if (StringHelper.isEmpty (sProfile))
+        continue;
+
+      final String sFilename = "application-" + sProfile + ".properties";
+      final MultiConfigurationValueProvider aProfileVP = MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                                                  sFilename,
+                                                                                                                  aURL -> new ConfigurationSourceProperties (APPLICATION_PROFILE_PROPERTIES_PRIORITY,
+                                                                                                                                                             new URLResource (aURL),
+                                                                                                                                                             StandardCharsets.UTF_8),
+                                                                                                                  true);
+      if (aProfileVP != null)
+      {
+        aMCSVP.addConfigurationSource (aProfileVP, APPLICATION_PROFILE_PROPERTIES_PRIORITY);
+        LOGGER.info ("Loaded profile configuration from '" + sFilename + "'");
+        nAdded++;
+      }
+      else
+      {
+        LOGGER.warn ("Profile configuration file '" + sFilename + "' not found on classpath or file system");
+      }
+    }
+    return nAdded;
   }
 
   private ConfigFactory ()
