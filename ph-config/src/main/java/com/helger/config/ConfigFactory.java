@@ -292,7 +292,7 @@ public final class ConfigFactory
    *        The profile names to load. May not be <code>null</code> but may be empty. Empty or blank
    *        profile names are silently skipped.
    * @return The number of profile property files that were successfully loaded (&ge; 0).
-   * @sicne 12.1.5
+   * @since 12.1.5
    */
   @Nonnegative
   public static int addProfilePropertiesSources (@NonNull final MultiConfigurationValueProvider aMCSVP,
