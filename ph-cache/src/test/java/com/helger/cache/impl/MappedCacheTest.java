@@ -18,12 +18,14 @@ package com.helger.cache.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
+import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 
 /**
@@ -166,5 +168,96 @@ public final class MappedCacheTest
     assertEquals ("b", c.getFromCache ("b"));
     assertEquals (2, c.size ());
     assertTrue (c.isInCache ("b"));
+  }
+
+  @Test
+  public void testRemoveFromCache ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MockRemove");
+    c.getFromCache ("a");
+    c.getFromCache ("b");
+    assertEquals (2, c.size ());
+
+    assertEquals (EChange.CHANGED, c.removeFromCache ("a"));
+    assertEquals (1, c.size ());
+    assertFalse (c.isInCache ("a"));
+    assertTrue (c.isInCache ("b"));
+
+    // Removing non-existent key
+    assertEquals (EChange.UNCHANGED, c.removeFromCache ("notThere"));
+    assertEquals (1, c.size ());
+  }
+
+  @Test
+  public void testRemoveFromEmptyCache ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MockRemoveEmpty");
+    assertEquals (EChange.UNCHANGED, c.removeFromCache ("a"));
+  }
+
+  @Test
+  public void testClearCache ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MockClear");
+    assertEquals (EChange.UNCHANGED, c.clearCache ());
+
+    c.getFromCache ("a");
+    c.getFromCache ("b");
+    assertEquals (2, c.size ());
+
+    assertEquals (EChange.CHANGED, c.clearCache ());
+    assertEquals (0, c.size ());
+    assertTrue (c.isEmpty ());
+
+    // Clearing an already empty cache
+    assertEquals (EChange.UNCHANGED, c.clearCache ());
+  }
+
+  @Test
+  public void testIsEmptyAndIsNotEmpty ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MockEmpty");
+    assertTrue (c.isEmpty ());
+    assertFalse (c.isNotEmpty ());
+
+    c.getFromCache ("x");
+    assertFalse (c.isEmpty ());
+    assertTrue (c.isNotEmpty ());
+  }
+
+  @Test
+  public void testGetName ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MyName");
+    assertEquals ("MyName", c.getName ());
+  }
+
+  @Test
+  public void testIsAllowNullValues ()
+  {
+    final Cache <String, String> c1 = new Cache <> (x -> x, "Mock1");
+    assertFalse (c1.isAllowNullValues ());
+
+    final Cache <String, String> c2 = new Cache <> (x -> x, MappedCache.NO_MAX_SIZE, "Mock2", true);
+    assertTrue (c2.isAllowNullValues ());
+  }
+
+  @Test
+  public void testCacheHit ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> "v" + x, "MockHit");
+    assertEquals ("va", c.getFromCache ("a"));
+    // Second call should be a cache hit, returning the same value
+    assertEquals ("va", c.getFromCache ("a"));
+    assertEquals (1, c.size ());
+  }
+
+  @Test
+  public void testToString ()
+  {
+    final Cache <String, String> c = new Cache <> (x -> x, "MockStr");
+    final String s = c.toString ();
+    assertNotNull (s);
+    assertTrue (s.contains ("MockStr"));
   }
 }

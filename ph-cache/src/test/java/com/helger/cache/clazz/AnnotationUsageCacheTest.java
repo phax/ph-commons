@@ -17,7 +17,14 @@
 package com.helger.cache.clazz;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -91,5 +98,100 @@ public final class AnnotationUsageCacheTest
     ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (e);
     LOGGER.info ("done after " + aSW.stopAndGetMillis () + " millis.");
     assertEquals (3 * nMaxOuter * nMaxInner, aCounter.intValue ());
+  }
+
+  @Test
+  public void testGetAnnotationClass ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    assertSame (UseDirectEqualsAndHashCode.class, a.getAnnotationClass ());
+  }
+
+  @Test
+  public void testHasAnnotationByClass ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    assertTrue (a.hasAnnotation (LRUMap.class));
+    assertFalse (a.hasAnnotation (String.class));
+
+    // Second call should be a cache hit
+    assertTrue (a.hasAnnotation (LRUMap.class));
+    assertFalse (a.hasAnnotation (String.class));
+  }
+
+  @Test
+  public void testHasAnnotationByObject ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    assertFalse (a.hasAnnotation ("hello"));
+    assertFalse (a.hasAnnotation (Integer.valueOf (1)));
+  }
+
+  @Test
+  public void testSetAnnotation ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    // Override the annotation status
+    a.setAnnotation (String.class, true);
+    assertTrue (a.hasAnnotation (String.class));
+
+    a.setAnnotation (String.class, false);
+    assertFalse (a.hasAnnotation (String.class));
+  }
+
+  @Test
+  public void testClearCache ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    a.hasAnnotation (String.class);
+    a.hasAnnotation (LRUMap.class);
+    a.clearCache ();
+    // After clear, values should be re-determined
+    assertTrue (a.hasAnnotation (LRUMap.class));
+    assertFalse (a.hasAnnotation (String.class));
+  }
+
+  @Test
+  public void testInvalidRetentionPolicy ()
+  {
+    try
+    {
+      // SuppressWarnings has CLASS retention, not RUNTIME
+      new AnnotationUsageCache (SuppressWarnings.class);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Retention (RetentionPolicy.SOURCE)
+  private @interface SourceAnnotation
+  {
+    // empty
+  }
+
+  @Test
+  public void testSourceRetentionPolicy ()
+  {
+    try
+    {
+      new AnnotationUsageCache (SourceAnnotation.class);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testToString ()
+  {
+    final AnnotationUsageCache a = new AnnotationUsageCache (UseDirectEqualsAndHashCode.class);
+    final String s = a.toString ();
+    assertNotNull (s);
+    assertTrue (s.contains ("UseDirectEqualsAndHashCode"));
   }
 }
