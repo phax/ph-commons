@@ -17,6 +17,7 @@
 package com.helger.base.wrapper;
 
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.ToDoubleFunction;
 import java.util.function.ToIntFunction;
 import java.util.function.ToLongFunction;
@@ -162,9 +163,27 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
    * @return The extracted value.
    * @since 12.1.2
    */
+  @SuppressWarnings ("removal")
+  @Deprecated (forRemoval = true, since = "12.1.5")
   public boolean get (@NonNull final IToBooleanFunction <DATATYPE> aProvider, final boolean bDefault)
   {
     return m_aObj == null ? bDefault : aProvider.applyAsBoolean (m_aObj);
+  }
+
+  /**
+   * Apply the provided function on the value contained in this wrapper, but only if the value is
+   * not <code>null</code>.
+   *
+   * @param aProvider
+   *        The function to be applied on the wrapped value.
+   * @param bDefault
+   *        the value to be returned if the wrapped value is <code>null</code>.
+   * @return The extracted value.
+   * @since 12.1.5
+   */
+  public boolean get (@NonNull final Predicate <? super DATATYPE> aProvider, final boolean bDefault)
+  {
+    return m_aObj == null ? bDefault : aProvider.test (m_aObj);
   }
 
   /**
