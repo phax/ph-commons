@@ -648,7 +648,7 @@ public final class JsonReader
       if (m_aReader == null)
         throw new IllegalStateException ("No source is set.");
       return JsonReader.parseJson (_getEffectiveReader (),
-                                   new DoNothingJsonParserHandler (),
+                                   DoNothingJsonParserHandler.INSTANCE,
                                    m_aParserSettings,
                                    m_aCustomExceptionCallback).isSuccess ();
     }

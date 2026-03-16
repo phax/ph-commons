@@ -22,15 +22,16 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 
 /**
- * This implementation of {@link IJsonParserHandler} does nothing. It can e.g.
- * be used to verify the validity of a JSON string without building the full
- * tree in memory.
+ * This implementation of {@link IJsonParserHandler} does nothing. It can e.g. be used to verify the
+ * validity of a JSON string without building the full tree in memory.
  *
  * @author Philip Helger
  */
 @Immutable
 public class DoNothingJsonParserHandler implements IJsonParserHandler
 {
+  public static final IJsonParserHandler INSTANCE = new DoNothingJsonParserHandler ();
+
   /** {@inheritDoc} */
   public void onWhitespace (@NonNull @Nonempty final String sWhitespace)
   {}
