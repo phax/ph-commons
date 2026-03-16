@@ -36,7 +36,6 @@ import com.helger.base.lang.clazz.ClassHelper;
 @Immutable
 public final class ClassHelperExt extends ClassHelper
 {
-
   @PresentForCodeCoverage
   private static final ClassHelperExt INSTANCE = new ClassHelperExt ();
 

@@ -37,9 +37,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringReplace;
 
 /**
- * Helper class for common reflection and class-related operations such as
- * primitive/wrapper type mapping, class name handling, and class hierarchy
- * inspection.
+ * Helper class for common reflection and class-related operations such as primitive/wrapper type
+ * mapping, class name handling, and class hierarchy inspection.
  *
  * @author Philip Helger
  */
@@ -135,8 +134,8 @@ public class ClassHelper
    *
    * @param aClass
    *        The class to check. May be <code>null</code>.
-   * @return <code>true</code> if the class is public, <code>false</code> if not or if the
-   *         parameter is <code>null</code>.
+   * @return <code>true</code> if the class is public, <code>false</code> if not or if the parameter
+   *         is <code>null</code>.
    */
   public static boolean isPublic (@Nullable final Class <?> aClass)
   {
@@ -216,8 +215,8 @@ public class ClassHelper
    *
    * @param aClass
    *        The class to check. May be <code>null</code>.
-   * @return <code>true</code> if the class is a primitive type, <code>false</code> if not or if
-   *         the parameter is <code>null</code>.
+   * @return <code>true</code> if the class is a primitive type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
    */
   public static boolean isPrimitiveType (@Nullable final Class <?> aClass)
   {
@@ -311,8 +310,8 @@ public class ClassHelper
    *
    * @param aClass
    *        The class to check. May be <code>null</code>.
-   * @return <code>true</code> if the class is a character type, <code>false</code> if not or if
-   *         the parameter is <code>null</code>.
+   * @return <code>true</code> if the class is a character type, <code>false</code> if not or if the
+   *         parameter is <code>null</code>.
    */
   public static boolean isCharacterClass (@Nullable final Class <?> aClass)
   {
@@ -622,7 +621,7 @@ public class ClassHelper
   @NonNull
   protected static String internalGetPathWithLeadingSlash (@NonNull @Nonempty final String sPath)
   {
-    return sPath.charAt (0) == '/' ? sPath : "/" + sPath;
+    return sPath.isEmpty () || sPath.charAt (0) == '/' ? sPath : "/" + sPath;
   }
 
   /**
