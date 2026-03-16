@@ -305,28 +305,26 @@ public final class ConfigFactory
     int nAdded = 0;
 
     for (final String sProfile : aProfileNames)
-    {
-      if (StringHelper.isEmpty (sProfile))
-        continue;
-
-      final String sFilename = "application-" + sProfile + ".properties";
-      final MultiConfigurationValueProvider aProfileVP = MultiConfigurationValueProvider.createForAllOccurrances (aCL,
-                                                                                                                  sFilename,
-                                                                                                                  aURL -> new ConfigurationSourceProperties (APPLICATION_PROFILE_PROPERTIES_PRIORITY,
-                                                                                                                                                             new URLResource (aURL),
-                                                                                                                                                             StandardCharsets.UTF_8),
-                                                                                                                  true);
-      if (aProfileVP != null)
+      if (StringHelper.isNotEmpty (sProfile))
       {
-        aMCSVP.addConfigurationSource (aProfileVP, APPLICATION_PROFILE_PROPERTIES_PRIORITY);
-        LOGGER.info ("Loaded profile configuration from '" + sFilename + "'");
-        nAdded++;
+        final String sFilename = "application-" + sProfile + ".properties";
+        final MultiConfigurationValueProvider aProfileVP = MultiConfigurationValueProvider.createForAllOccurrances (aCL,
+                                                                                                                    sFilename,
+                                                                                                                    aURL -> new ConfigurationSourceProperties (APPLICATION_PROFILE_PROPERTIES_PRIORITY,
+                                                                                                                                                               new URLResource (aURL),
+                                                                                                                                                               StandardCharsets.UTF_8),
+                                                                                                                    true);
+        if (aProfileVP != null)
+        {
+          aMCSVP.addConfigurationSource (aProfileVP, APPLICATION_PROFILE_PROPERTIES_PRIORITY);
+          LOGGER.info ("Loaded profile configuration from '" + sFilename + "'");
+          nAdded++;
+        }
+        else
+        {
+          LOGGER.warn ("Profile configuration file '" + sFilename + "' not found on classpath or file system");
+        }
       }
-      else
-      {
-        LOGGER.warn ("Profile configuration file '" + sFilename + "' not found on classpath or file system");
-      }
-    }
     return nAdded;
   }
 
