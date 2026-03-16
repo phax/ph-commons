@@ -180,7 +180,7 @@ public final class JsonReader
   {
     // Force silent parsing :)
     final ESuccess eSuccess = parseJson (aReader,
-                                         new DoNothingJsonParserHandler (),
+                                         DoNothingJsonParserHandler.INSTANCE,
                                          (IJsonParserSettings) null,
                                          ex -> {});
     return EValidity.valueOf (eSuccess.isSuccess ());

@@ -51,7 +51,7 @@ public final class JsonProfileFuncTest
         {
           final JsonParser aParser = new JsonParser (aReader,
                                                      false ? new CollectingJsonParserHandler ()
-                                                           : new DoNothingJsonParserHandler ());
+                                                           : DoNothingJsonParserHandler.INSTANCE);
           aParser.jsonParserSettings ().setCheckForEOI (false);
           try
           {
