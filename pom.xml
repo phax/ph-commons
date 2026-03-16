@@ -127,9 +127,9 @@
         <version>4.0.5</version>
       </dependency>
       <dependency>
-        <groupId>com.sun.xml.bind</groupId>
+        <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom-ext</artifactId>
-        <version>4.0.6</version>
+        <version>4.0.7</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
