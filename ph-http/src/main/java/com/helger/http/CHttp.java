@@ -42,7 +42,7 @@ public final class CHttp
   public static final String EOL = "\r\n";
 
   /**
-   * The response codes for HTTP, as of version 1.1 plus extensions.
+   * The response codes for HTTP as of RFC 9110 (HTTP Semantics) plus extensions.
    */
 
   /**
@@ -54,6 +54,15 @@ public final class CHttp
    * HTTP Status-Code 101: Switching Protocols.
    */
   public static final int HTTP_SWITCHING_PROTOCOLS = 101;
+
+  /**
+   * HTTP Status-Code 102: Processing (WebDAV, RFC 2518). Note: deprecated in RFC 9110 but still
+   * encountered in practice.
+   *
+   * @since 12.1.5
+   */
+  @Deprecated (forRemoval = false)
+  public static final int HTTP_PROCESSING = 102;
 
   /**
    * HTTP Status-Code 103: Early Hints.
@@ -97,6 +106,27 @@ public final class CHttp
    */
   public static final int HTTP_PARTIAL_CONTENT = 206;
 
+  /**
+   * HTTP Status-Code 207: Multi-Status (WebDAV, RFC 4918).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_MULTI_STATUS = 207;
+
+  /**
+   * HTTP Status-Code 208: Already Reported (WebDAV, RFC 5842).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_ALREADY_REPORTED = 208;
+
+  /**
+   * HTTP Status-Code 226: IM Used (RFC 3229).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_IM_USED = 226;
+
   /* 3XX: relocation/redirect */
 
   /**
@@ -110,9 +140,17 @@ public final class CHttp
   public static final int HTTP_MOVED_PERMANENTLY = 301;
 
   /**
-   * HTTP Status-Code 302: Temporary Redirect.
+   * HTTP Status-Code 302: Found. This is the RFC 9110 name for this status code.
+   *
+   * @since 12.1.5
    */
-  public static final int HTTP_MOVED_TEMPORARY = 302;
+  public static final int HTTP_FOUND = 302;
+
+  /**
+   * This is the old name of HTTP 302. Use {@link #HTTP_FOUND} instead.
+   */
+  @Deprecated (forRemoval = true, since = "12.1.5")
+  public static final int HTTP_MOVED_TEMPORARY = HTTP_FOUND;
 
   /**
    * HTTP Status-Code 303: See Other.
@@ -125,13 +163,16 @@ public final class CHttp
   public static final int HTTP_NOT_MODIFIED = 304;
 
   /**
-   * HTTP Status-Code 305: Use Proxy.
+   * HTTP Status-Code 305: Use Proxy. Deprecated in RFC 9110 Section 15.4.6 due to security
+   * concerns.
    */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final int HTTP_USE_PROXY = 305;
 
   /**
-   * HTTP Status-Code 306: Switch Proxy.
+   * HTTP Status-Code 306: Switch Proxy. Unused and reserved; not defined in RFC 9110.
    */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final int HTTP_SWITCH_PROXY = 306;
 
   /**
@@ -187,7 +228,7 @@ public final class CHttp
   public static final int HTTP_PROXY_AUTH_REQUIRED = 407;
 
   /**
-   * HTTP Status-Code 408: Request Time-Out.
+   * HTTP Status-Code 408: Request Timeout.
    */
   public static final int HTTP_REQUEST_TIMEOUT = 408;
 
@@ -212,14 +253,30 @@ public final class CHttp
   public static final int HTTP_PRECONDITION_FAILED = 412;
 
   /**
-   * HTTP Status-Code 413: Request Entity Too Large.
+   * HTTP Status-Code 413: Content Too Large. This is the RFC 9110 name for this status code.
+   *
+   * @since 12.1.5
    */
-  public static final int HTTP_ENTITY_TOO_LARGE = 413;
+  public static final int HTTP_CONTENT_TOO_LARGE = 413;
 
   /**
-   * HTTP Status-Code 414: Request-URI Too Large.
+   * This is the old name of HTTP 413. Use {@link #HTTP_CONTENT_TOO_LARGE} instead.
    */
-  public static final int HTTP_REQUEST_URI_TOO_LONG = 414;
+  @Deprecated (forRemoval = true, since = "12.1.5")
+  public static final int HTTP_ENTITY_TOO_LARGE = HTTP_CONTENT_TOO_LARGE;
+
+  /**
+   * HTTP Status-Code 414: URI Too Long. This is the RFC 9110 name for this status code.
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_URI_TOO_LONG = 414;
+
+  /**
+   * This is the old name of HTTP 414. Use {@link #HTTP_URI_TOO_LONG} instead.
+   */
+  @Deprecated (forRemoval = true, since = "12.1.5")
+  public static final int HTTP_REQUEST_URI_TOO_LONG = HTTP_URI_TOO_LONG;
 
   /**
    * HTTP Status-Code 415: Unsupported Media Type.
@@ -227,12 +284,20 @@ public final class CHttp
   public static final int HTTP_UNSUPPORTED_MEDIA_TYPE = 415;
 
   /**
-   * HTTP Status-Code 416: Requested Range not satisfiable.
+   * HTTP Status-Code 416: Range Not Satisfiable. This is the RFC 9110 name for this status code.
+   *
+   * @since 12.1.5
    */
-  public static final int HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = 416;
+  public static final int HTTP_RANGE_NOT_SATISFIABLE = 416;
 
   /**
-   * HTTP Status-Code 417: Expectation failed.
+   * This is the old name of HTTP 416. Use {@link #HTTP_RANGE_NOT_SATISFIABLE} instead.
+   */
+  @Deprecated (forRemoval = true, since = "12.1.5")
+  public static final int HTTP_REQUESTED_RANGE_NOT_SATISFIABLE = HTTP_RANGE_NOT_SATISFIABLE;
+
+  /**
+   * HTTP Status-Code 417: Expectation Failed.
    */
   public static final int HTTP_EXPECTATION_FAILED = 417;
 
@@ -253,6 +318,27 @@ public final class CHttp
    */
   @Deprecated (forRemoval = true, since = "12.1.3")
   public static final int HTTP_UNPROCESSABLE_ENTITY = HTTP_UNPROCESSABLE_CONTENT;
+
+  /**
+   * HTTP Status-Code 423: Locked (WebDAV, RFC 4918).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_LOCKED = 423;
+
+  /**
+   * HTTP Status-Code 424: Failed Dependency (WebDAV, RFC 4918).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_FAILED_DEPENDENCY = 424;
+
+  /**
+   * HTTP Status-Code 425: Too Early (RFC 8470).
+   *
+   * @since 12.1.5
+   */
+  public static final int HTTP_TOO_EARLY = 425;
 
   /**
    * HTTP Status-Code 426: Upgrade Required.
@@ -348,11 +434,12 @@ public final class CHttp
   @Nonempty
   public static String getHttpResponseMessage (final int nResponseCode)
   {
-    // All codes from HttpServletReponse in servlet Spec 3.1.0 are contained!
+    // Status code reason phrases per RFC 9110 and extensions
     final String sMsg = switch (nResponseCode)
     {
       case HTTP_CONTINUE -> "Continue";
       case HTTP_SWITCHING_PROTOCOLS -> "Switching Protocols";
+      case HTTP_PROCESSING -> "Processing";
       case HTTP_EARLY_HINTS -> "Early Hints";
       case HTTP_OK -> "OK";
       case HTTP_CREATED -> "Created";
@@ -361,9 +448,12 @@ public final class CHttp
       case HTTP_NO_CONTENT -> "No Content";
       case HTTP_RESET_CONTENT -> "Reset Content";
       case HTTP_PARTIAL_CONTENT -> "Partial Content";
+      case HTTP_MULTI_STATUS -> "Multi-Status";
+      case HTTP_ALREADY_REPORTED -> "Already Reported";
+      case HTTP_IM_USED -> "IM Used";
       case HTTP_MULTIPLE_CHOICES -> "Multiple Choices";
       case HTTP_MOVED_PERMANENTLY -> "Moved Permanently";
-      case HTTP_MOVED_TEMPORARY -> "Moved Temporary";
+      case HTTP_FOUND -> "Found";
       case HTTP_SEE_OTHER -> "See Other";
       case HTTP_NOT_MODIFIED -> "Not Modified";
       case HTTP_USE_PROXY -> "Use Proxy";
@@ -378,18 +468,21 @@ public final class CHttp
       case HTTP_METHOD_NOT_ALLOWED -> "Method Not Allowed";
       case HTTP_NOT_ACCEPTABLE -> "Not Acceptable";
       case HTTP_PROXY_AUTH_REQUIRED -> "Proxy Authentication Required";
-      case HTTP_REQUEST_TIMEOUT -> "Request Time-out";
+      case HTTP_REQUEST_TIMEOUT -> "Request Timeout";
       case HTTP_CONFLICT -> "Conflict";
       case HTTP_GONE -> "Gone";
       case HTTP_LENGTH_REQUIRED -> "Length Required";
       case HTTP_PRECONDITION_FAILED -> "Precondition Failed";
-      case HTTP_ENTITY_TOO_LARGE -> "Request Entity Too Large";
-      case HTTP_REQUEST_URI_TOO_LONG -> "Request-URI Too Large";
+      case HTTP_CONTENT_TOO_LARGE -> "Content Too Large";
+      case HTTP_URI_TOO_LONG -> "URI Too Long";
       case HTTP_UNSUPPORTED_MEDIA_TYPE -> "Unsupported Media Type";
-      case HTTP_REQUESTED_RANGE_NOT_SATISFIABLE -> "Requested Range not satisfiable";
+      case HTTP_RANGE_NOT_SATISFIABLE -> "Range Not Satisfiable";
       case HTTP_EXPECTATION_FAILED -> "Expectation Failed";
       case HTTP_IM_A_TEAPOT -> "I'm a teapot";
-      case HTTP_UNPROCESSABLE_ENTITY -> "Unprocessable Entity";
+      case HTTP_UNPROCESSABLE_CONTENT -> "Unprocessable Content";
+      case HTTP_LOCKED -> "Locked";
+      case HTTP_FAILED_DEPENDENCY -> "Failed Dependency";
+      case HTTP_TOO_EARLY -> "Too Early";
       case HTTP_UPGRADE_REQUIRED -> "Upgrade Required";
       case HTTP_PRECONDITION_REQUIRED -> "Precondition Required";
       case HTTP_TOO_MANY_REQUESTS -> "Too Many Requests";
@@ -399,8 +492,8 @@ public final class CHttp
       case HTTP_NOT_IMPLEMENTED -> "Not Implemented";
       case HTTP_BAD_GATEWAY -> "Bad Gateway";
       case HTTP_SERVICE_UNAVAILABLE -> "Service Unavailable";
-      case HTTP_GATEWAY_TIMEOUT -> "Gateway Time-out";
-      case HTTP_VERSION_NOT_SUPPORTED -> "HTTP Version not supported";
+      case HTTP_GATEWAY_TIMEOUT -> "Gateway Timeout";
+      case HTTP_VERSION_NOT_SUPPORTED -> "HTTP Version Not Supported";
       case HTTP_VARIANT_ALSO_NEGOTIATES -> "Variant Also Negotiates";
       case HTTP_INSUFFICIENT_STORAGE -> "Insufficient Storage";
       case HTTP_LOOP_DETECTED -> "Loop Detected";

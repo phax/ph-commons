@@ -53,10 +53,18 @@ public final class CHttpHeader
   public static final String IF_UNMODIFIED_SINCE = "If-Unmodified-Since";
   public static final String LAST_MODIFIED = "Last-Modified";
   public static final String LOCATION = "Location";
+  /**
+   * Deprecated in RFC 9111 Section 5.4. Use {@link #CACHE_CONTROL} instead.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String PRAGMA = "Pragma";
   public static final String REFERER = "Referer";
   public static final String USER_AGENT = "User-Agent";
   public static final String VARY = "Vary";
+  /**
+   * Removed in RFC 9111 (HTTP Caching, 2022). No longer defined in the HTTP standard.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String WARNING = "Warning";
   public static final String AUTHORIZATION = "Authorization";
   public static final String PROXY_AUTHORIZATION = "Proxy-Authorization";
@@ -102,22 +110,56 @@ public final class CHttpHeader
    */
   public static final String RETRY_AFTER = "Retry-After";
 
-  // Do Not Track header
+  /**
+   * Do Not Track header. Abandoned; never standardized, removed from most browsers.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String DNT = "DNT";
 
-  // Different user agent headers
+  /**
+   * Non-standard user agent variant.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String UA = "UA";
+  /**
+   * Non-standard device user agent header.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String X_DEVICE_USER_AGENT = "x-device-user-agent";
 
   // HTML
   public static final String CONTENT_LANGUAGE = "Content-Language";
+  /**
+   * HTML 4.01 only; obsolete in HTML5.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String CONTENT_SCRIPT_TYPE = "Content-Script-Type";
+  /**
+   * HTML 4.01 only; obsolete in HTML5.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String CONTENT_STYLE_TYPE = "Content-Style-Type";
   public static final String DEFAULT_STYLE = "Default-Style";
   public static final String REFRESH = "Refresh";
+  /**
+   * Non-standard header; never widely supported.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String WINDOW_TARGET = "Window-target";
+  /**
+   * Non-standard header.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String EXT_CACHE = "Ext-cache";
+  /**
+   * PICS was discontinued by W3C in 2006; obsolete.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String PICS_LABEL = "PICS-Label";
+  /**
+   * IE-specific header; no longer relevant.
+   */
+  @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String X_UA_COMPATIBLE = "X-UA-Compatible";
 
   // Response codes
@@ -174,6 +216,116 @@ public final class CHttpHeader
   public static final String SUBJECT = "Subject";
   /** Defined by RFC 6017 */
   public static final String EDIINT_FEATURES = "EDIINT-Features";
+
+  // Standard headers from RFC 9110 (HTTP Semantics)
+  /**
+   * RFC 9110 Section 14.3
+   *
+   * @since 12.1.5
+   */
+  public static final String ACCEPT_RANGES = "Accept-Ranges";
+  /**
+   * RFC 9110 Section 14.4
+   *
+   * @since 12.1.5
+   */
+  public static final String CONTENT_RANGE = "Content-Range";
+  /**
+   * RFC 9110 Section 10.1.1
+   *
+   * @since 12.1.5
+   */
+  public static final String EXPECT = "Expect";
+  /**
+   * RFC 9110 Section 13.1.5
+   *
+   * @since 12.1.5
+   */
+  public static final String IF_RANGE = "If-Range";
+  /**
+   * RFC 9110 Section 7.6.2
+   *
+   * @since 12.1.5
+   */
+  public static final String MAX_FORWARDS = "Max-Forwards";
+  /**
+   * RFC 9110 Section 11.7.1
+   *
+   * @since 12.1.5
+   */
+  public static final String PROXY_AUTHENTICATE = "Proxy-Authenticate";
+  /**
+   * RFC 9110 Section 14.2
+   *
+   * @since 12.1.5
+   */
+  public static final String RANGE = "Range";
+  /**
+   * RFC 9110 Section 10.1.4
+   *
+   * @since 12.1.5
+   */
+  public static final String TE = "TE";
+  /**
+   * RFC 9110 Section 6.6.2
+   *
+   * @since 12.1.5
+   */
+  public static final String TRAILER = "Trailer";
+  /**
+   * RFC 9110 Section 7.8
+   *
+   * @since 12.1.5
+   */
+  public static final String UPGRADE = "Upgrade";
+  /**
+   * RFC 9110 Section 7.6.3
+   *
+   * @since 12.1.5
+   */
+  public static final String VIA = "Via";
+
+  // Modern security headers
+  /**
+   * Permissions-Policy header (successor to Feature-Policy). See
+   * https://w3c.github.io/webappsec-permissions-policy/
+   *
+   * @since 12.1.5
+   */
+  public static final String PERMISSIONS_POLICY = "Permissions-Policy";
+  /**
+   * Cross-Origin-Embedder-Policy (COEP) header. See
+   * https://html.spec.whatwg.org/multipage/origin.html#coep
+   *
+   * @since 12.1.5
+   */
+  public static final String CROSS_ORIGIN_EMBEDDER_POLICY = "Cross-Origin-Embedder-Policy";
+  /**
+   * Cross-Origin-Opener-Policy (COOP) header. See
+   * https://html.spec.whatwg.org/multipage/origin.html#cross-origin-opener-policies
+   *
+   * @since 12.1.5
+   */
+  public static final String CROSS_ORIGIN_OPENER_POLICY = "Cross-Origin-Opener-Policy";
+  /**
+   * Cross-Origin-Resource-Policy (CORP) header. See
+   * https://fetch.spec.whatwg.org/#cross-origin-resource-policy-header
+   *
+   * @since 12.1.5
+   */
+  public static final String CROSS_ORIGIN_RESOURCE_POLICY = "Cross-Origin-Resource-Policy";
+  /**
+   * Alt-Svc header (RFC 7838). Used to advertise alternative services.
+   *
+   * @since 12.1.5
+   */
+  public static final String ALT_SVC = "Alt-Svc";
+  /**
+   * Priority header (RFC 9218). Used for HTTP extensible prioritization.
+   *
+   * @since 12.1.5
+   */
+  public static final String PRIORITY = "Priority";
 
   // Special values
   public static final String VALUE_ALLOW_FROM = "ALLOW-FROM";

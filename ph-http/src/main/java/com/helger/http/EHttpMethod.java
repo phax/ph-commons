@@ -24,8 +24,7 @@ import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 
 /**
- * HTTP 1.1 methods.<br>
- * http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html
+ * HTTP methods as defined in RFC 9110 (HTTP Semantics) and RFC 5789 (PATCH).
  *
  * @author Philip Helger
  */
@@ -39,7 +38,7 @@ public enum EHttpMethod implements IHasName
   DELETE ("DELETE"),
   TRACE ("TRACE"),
   CONNECT ("CONNECT"),
-  /* Extension as of RFC 5789 - partial PUT */
+  /** Extension as of RFC 5789 - partial PUT */
   PATCH ("PATCH");
 
   private final String m_sName;

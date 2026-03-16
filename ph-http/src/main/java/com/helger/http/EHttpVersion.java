@@ -24,7 +24,7 @@ import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 
 /**
- * HTTP versions
+ * HTTP versions as defined in RFC 9112 (HTTP/1.1), RFC 9113 (HTTP/2) and RFC 9114 (HTTP/3).
  *
  * @author Philip Helger
  */
@@ -32,7 +32,9 @@ public enum EHttpVersion implements IHasName
 {
   HTTP_10 ("HTTP/1.0"),
   HTTP_11 ("HTTP/1.1"),
-  HTTP_20 ("HTTP/2.0");
+  HTTP_20 ("HTTP/2.0"),
+  /** HTTP/3 as defined in RFC 9114. @since 12.1.5 */
+  HTTP_30 ("HTTP/3.0");
 
   private final String m_sName;
 
