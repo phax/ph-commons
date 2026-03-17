@@ -1,8 +1,8 @@
 # ph-commons
 
 <!-- ph-badge-start -->
-[![Maven Central](https://img.shields.io/maven-central/v/com.helger.commons/ph-commons-parent-pom)](https://img.shields.io/maven-central/v/com.helger.commons/ph-commons-parent-pom)
-[![javadoc](https://javadoc.io/badge2/com.helger.commons/ph-commons/javadoc.svg)](https://javadoc.io/doc/com.helger.commons/ph-commons)
+[![Sonatype Central](https://maven-badges.sml.io/sonatype-central/com.helger.commons/ph-commons-parent-pom/badge.svg)](https://maven-badges.sml.io/sonatype-central/com.helger.commons/ph-commons-parent-pom/)
+[![javadoc](https://javadoc.io/badge2/com.helger.commons/ph-annotations/javadoc.svg)](https://javadoc.io/doc/com.helger.commons/ph-annotations)
 <!-- ph-badge-end -->
 
 This is a set of shared Java 17 libraries used in many other projects.
