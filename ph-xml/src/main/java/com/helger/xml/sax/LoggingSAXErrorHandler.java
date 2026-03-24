@@ -16,8 +16,6 @@
  */
 package com.helger.xml.sax;
 
-import java.util.Locale;
-
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +50,7 @@ public class LoggingSAXErrorHandler extends AbstractSAXErrorHandler
   {
     // As the SAX error messages are not localized at the moment, we can use
     // a fixed locale here
-    return getSaxParseError (aErrorLevel, aException).getAsString (Locale.ROOT);
+    return getSaxParseError (aErrorLevel, aException).getAsStringLocaleIndepdent ();
   }
 
   @Override
