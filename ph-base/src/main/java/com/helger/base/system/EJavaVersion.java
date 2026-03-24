@@ -56,7 +56,7 @@ public enum EJavaVersion
   JDK_23 (67.0, false),
   JDK_24 (68.0, false),
   JDK_25 (69.0, true),
-  JDK_26 (70.0, true);
+  JDK_26 (70.0, false);
 
   /** The current version. */
   private static final EJavaVersion INSTANCE;
