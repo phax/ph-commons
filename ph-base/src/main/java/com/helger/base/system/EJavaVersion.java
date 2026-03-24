@@ -31,31 +31,32 @@ import com.helger.base.string.StringParser;
 public enum EJavaVersion
 {
   UNKNOWN (),
-  JDK_1_1 (45.3, 46.0, false),
-  JDK_1_2 (46.0, 47.0, false),
-  JDK_1_3 (47.0, 48.0, false),
-  JDK_1_4 (48.0, 49.0, false),
-  JDK_1_5 (49.0, 50.0, false),
-  JDK_1_6 (50.0, 51.0, false),
-  JDK_1_7 (51.0, 52.0, false),
-  JDK_1_8 (52.0, 53.0, true),
-  JDK_9 (53.0, 54.0, false),
-  JDK_10 (54.0, 55.0, false),
-  JDK_11 (55.0, 56.0, true),
-  JDK_12 (56.0, 57.0, false),
-  JDK_13 (57.0, 58.0, false),
-  JDK_14 (58.0, 59.0, false),
-  JDK_15 (59.0, 60.0, false),
-  JDK_16 (60.0, 61.0, false),
-  JDK_17 (61.0, 62.0, true),
-  JDK_18 (62.0, 63.0, false),
-  JDK_19 (63.0, 64.0, false),
-  JDK_20 (64.0, 65.0, false),
-  JDK_21 (65.0, 66.0, true),
-  JDK_22 (66.0, 67.0, false),
-  JDK_23 (67.0, 68.0, false),
-  JDK_24 (68.0, 69.0, false),
-  JDK_25 (69.0, 70.0, true);
+  JDK_1_1 (45.3, false),
+  JDK_1_2 (46.0, false),
+  JDK_1_3 (47.0, false),
+  JDK_1_4 (48.0, false),
+  JDK_1_5 (49.0, false),
+  JDK_1_6 (50.0, false),
+  JDK_1_7 (51.0, false),
+  JDK_1_8 (52.0, true),
+  JDK_9 (53.0, false),
+  JDK_10 (54.0, false),
+  JDK_11 (55.0, true),
+  JDK_12 (56.0, false),
+  JDK_13 (57.0, false),
+  JDK_14 (58.0, false),
+  JDK_15 (59.0, false),
+  JDK_16 (60.0, false),
+  JDK_17 (61.0, true),
+  JDK_18 (62.0, false),
+  JDK_19 (63.0, false),
+  JDK_20 (64.0, false),
+  JDK_21 (65.0, true),
+  JDK_22 (66.0, false),
+  JDK_23 (67.0, false),
+  JDK_24 (68.0, false),
+  JDK_25 (69.0, true),
+  JDK_26 (70.0, true);
 
   /** The current version. */
   private static final EJavaVersion INSTANCE;
@@ -93,18 +94,14 @@ public enum EJavaVersion
    *
    * @param dMinVersionIncl
    *        Minimum version (inclusive)
-   * @param dMaxVersionExcl
-   *        Maximum version (exclusive)
    * @param bLTS
    *        <code>true</code> if it is a "Long Term Support" (LTS) version, <code>false</code> if
    *        not
    */
-  EJavaVersion (@Nonnegative final double dMinVersionIncl,
-                @Nonnegative final double dMaxVersionExcl,
-                final boolean bLTS)
+  EJavaVersion (@Nonnegative final double dMinVersionIncl, final boolean bLTS)
   {
     m_dMinVersionIncl = dMinVersionIncl;
-    m_dMaxVersionExcl = dMaxVersionExcl;
+    m_dMaxVersionExcl = dMinVersionIncl + 1.0;
     m_bLTS = bLTS;
     m_bIsIt = isMatchingVersion (SystemProperties.JAVA_CLASS_VERSION);
   }
