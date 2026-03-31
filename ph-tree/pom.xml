@@ -27,7 +27,7 @@
   <artifactId>ph-tree</artifactId>
   <packaging>bundle</packaging>
   <name>ph-tree</name>
-  <description>Java 1.8+ Library with tree structures</description>
+  <description>Java 17+ Library with tree structures</description>
   <url>https://github.com/phax/ph-commons/ph-tree</url>
   <inceptionYear>2014</inceptionYear>
   

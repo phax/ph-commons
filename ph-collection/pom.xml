@@ -27,7 +27,7 @@
   <artifactId>ph-collection</artifactId>
   <packaging>bundle</packaging>
   <name>ph-collection</name>
-  <description>Special Java 1.8+ Library with extended collection related functionality</description>
+  <description>Special Java 17+ Library with extended collection related functionality</description>
   <url>https://github.com/phax/ph-commons/ph-collection</url>
   <inceptionYear>2017</inceptionYear>
   
