@@ -128,7 +128,7 @@
       </dependency>
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-bom-ext</artifactId>
+        <artifactId>jaxb-bom</artifactId>
         <version>4.0.7</version>
         <scope>import</scope>
         <type>pom</type>
