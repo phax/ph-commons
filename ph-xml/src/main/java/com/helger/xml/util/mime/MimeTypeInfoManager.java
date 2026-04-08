@@ -70,7 +70,7 @@ public class MimeTypeInfoManager
 
   public static final String MIME_TYPE_INFO_XML = "codelists/mime-type-info.xml";
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")

@@ -56,7 +56,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public static final boolean DEFAULT_USE_CLASS_HIERARCHY = false;
   private static final Logger LOGGER = LoggerFactory.getLogger (MicroTypeConverterRegistry.class);
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

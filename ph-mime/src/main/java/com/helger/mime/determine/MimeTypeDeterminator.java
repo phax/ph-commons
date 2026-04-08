@@ -69,7 +69,7 @@ public final class MimeTypeDeterminator
   private static final byte [] MIME_ID_PDF = { '%', 'P', 'D', 'F' };
   private static final byte [] MIME_ID_XLS = { (byte) 0xD0, (byte) 0xcd, 0x11, (byte) 0xe0 };
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

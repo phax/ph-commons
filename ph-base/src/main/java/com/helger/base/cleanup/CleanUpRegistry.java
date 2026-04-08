@@ -74,7 +74,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CleanUpRegistry.class);
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

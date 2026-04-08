@@ -68,7 +68,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   private static final Logger LOGGER = LoggerFactory.getLogger (TypeConverterRegistry.class);
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

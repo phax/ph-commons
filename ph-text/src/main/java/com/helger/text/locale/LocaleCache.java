@@ -93,7 +93,7 @@ public class LocaleCache implements IHasConditionalLogger
   private static final Logger LOGGER = LoggerFactory.getLogger (LocaleCache.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 

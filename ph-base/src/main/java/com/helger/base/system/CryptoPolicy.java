@@ -75,7 +75,7 @@ public final class CryptoPolicy
       final SecretKey aSecretKey = aKeyGen.generateKey ();
       final byte [] raw = aSecretKey.getEncoded ();
       final SecretKey aSecretKeySpec = new SecretKeySpec (raw, "AES");
-      final Cipher aCipher = Cipher.getInstance ("AES/ECB/NoPadding");
+      final Cipher aCipher = Cipher.getInstance ("AES/GCM/NoPadding");
 
       // This usually will throw InvalidKeyException unless the
       // unlimited jurisdiction policy files are installed. However,
