@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
@@ -91,7 +92,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfiguredValueOrFallback (@NonNull final String sPrimary,
-                                                       @NonNull final String... aOldOnes)
+                                                       @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     ConfiguredValue ret = getConfiguredValue (sPrimary);
     if (ret == null)
@@ -113,7 +114,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
 
   /** {@inheritDoc} */
   @Nullable
-  public String getAsStringOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
+  public String getAsStringOrFallback (@NonNull final String sPrimary,
+                                       @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     String ret = getAsString (sPrimary);
     if (StringHelper.isEmpty (ret))
@@ -134,7 +136,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   /** {@inheritDoc} */
-  public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
+  public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary,
+                                                     @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     char [] ret = getAsCharArray (sPrimary);
     if (ret == null)
@@ -156,7 +159,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
 
   /** {@inheritDoc} */
   @Nullable
-  public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary, @NonNull final String... aOldOnes)
+  public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary,
+                                               @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     BigDecimal ret = getAsBigDecimal (sPrimary);
     if (ret == null)
@@ -177,10 +181,33 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   }
 
   /** {@inheritDoc} */
+  public boolean getAsBooleanOrFallback (@NonNull final String sPrimary,
+                                         final boolean bDefault,
+                                         @NonNull @Nonempty final String @NonNull... aOldOnes)
+  {
+    Boolean ret = getAsBooleanObj (sPrimary);
+    if (ret == null)
+    {
+      // Try the old names
+      for (final String sOld : aOldOnes)
+      {
+        ret = getAsBooleanObj (sOld);
+        if (ret != null)
+        {
+          // Notify on old name usage
+          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
+          break;
+        }
+      }
+    }
+    return ret != null ? ret.booleanValue () : bDefault;
+  }
+
+  /** {@inheritDoc} */
   public int getAsIntOrFallback (@NonNull final String sPrimary,
                                  final int nBogus,
                                  final int nDefault,
-                                 @NonNull final String... aOldOnes)
+                                 @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     int ret = getAsInt (sPrimary, nBogus);
     if (ret == nBogus)
@@ -204,7 +231,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public long getAsLongOrFallback (@NonNull final String sPrimary,
                                    final long nBogus,
                                    final long nDefault,
-                                   @NonNull final String... aOldOnes)
+                                   @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
     long ret = getAsLong (sPrimary, nBogus);
     if (ret == nBogus)

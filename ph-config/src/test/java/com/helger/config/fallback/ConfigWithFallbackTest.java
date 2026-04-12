@@ -18,7 +18,9 @@ package com.helger.config.fallback;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -101,6 +103,32 @@ public final class ConfigWithFallbackTest
     assertEquals (123456, aConfig.getAsLongOrFallback ("x_int", -1, -1, "x_int-new"));
     assertEquals (123456, aConfig.getAsLongOrFallback ("x_int-new", -1, -1, "x_int"));
     assertEquals (-1, aConfig.getAsLongOrFallback ("foo", -2, -1, "bla"));
+  }
+
+  @Test
+  public void testGetAsBooleanOrFallback ()
+  {
+    final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
+    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+      assertEquals ("element.boolean.t", sOld);
+      assertEquals ("element.boolean.t-new", sNew);
+    });
+    assertTrue (aConfig.getAsBooleanOrFallback ("element.boolean.t", false, "element.boolean.t-new"));
+    assertTrue (aConfig.getAsBooleanOrFallback ("element.boolean.t-new", false, "element.boolean.t"));
+    assertFalse (aConfig.getAsBooleanOrFallback ("foo", false, "bla"));
+    assertTrue (aConfig.getAsBooleanOrFallback ("foo", true, "bla"));
+  }
+
+  @Test
+  public void testGetAsBooleanOrFallbackFalse ()
+  {
+    final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
+    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+      assertEquals ("element.boolean.f", sOld);
+      assertEquals ("element.boolean.f-new", sNew);
+    });
+    assertFalse (aConfig.getAsBooleanOrFallback ("element.boolean.f", true, "element.boolean.f-new"));
+    assertFalse (aConfig.getAsBooleanOrFallback ("element.boolean.f-new", true, "element.boolean.f"));
   }
 
   @Test

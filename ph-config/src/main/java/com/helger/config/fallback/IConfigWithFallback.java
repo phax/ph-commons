@@ -22,6 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
+import com.helger.config.ConfigSubset;
 import com.helger.config.IConfig;
 import com.helger.config.value.ConfiguredValue;
 
@@ -35,6 +36,29 @@ import com.helger.config.value.ConfiguredValue;
 public interface IConfigWithFallback extends IConfig
 {
   /**
+   * Create a subset view of this config that automatically prepends the provided key prefix to all
+   * lookups, including fallback key resolution. The returned subset preserves the fallback
+   * capabilities of this config.
+   * <p>
+   * Example:
+   * <code>config.getSubConfig ("db").getAsStringOrFallback ("url", "connection-string")</code>
+   * resolves the primary key <code>"db.url"</code> with fallback
+   * <code>"db.connection-string"</code>.
+   *
+   * @param sPrefix
+   *        The key prefix. May not be <code>null</code> or empty. A trailing dot is optional.
+   * @return A new {@link ConfigSubsetWithFallback} instance. Never <code>null</code>.
+   * @since 12.1.6
+   * @see ConfigSubset
+   */
+  @Override
+  @NonNull
+  default IConfigWithFallback getSubConfig (@NonNull @Nonempty final String sPrefix)
+  {
+    return new ConfigSubsetWithFallback (this, sPrefix);
+  }
+
+  /**
    * Get the {@link ConfiguredValue} based on the primary or the alternative keys.
    *
    * @param sPrimary
@@ -47,7 +71,8 @@ public interface IConfigWithFallback extends IConfig
    * @see #getConfiguredValue(String)
    */
   @Nullable
-  ConfiguredValue getConfiguredValueOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
+  ConfiguredValue getConfiguredValueOrFallback (@NonNull String sPrimary,
+                                                @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a String based on the primary or the alternative keys.
@@ -61,7 +86,7 @@ public interface IConfigWithFallback extends IConfig
    *         be resolved.
    */
   @Nullable
-  String getAsStringOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
+  String getAsStringOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a char array based on the primary or the alternative keys.
@@ -75,7 +100,7 @@ public interface IConfigWithFallback extends IConfig
    *         be resolved.
    * @since 11.1.10
    */
-  char @Nullable [] getAsCharArrayOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
+  char @Nullable [] getAsCharArrayOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a BigDecimal based on the primary or the alternative keys.
@@ -89,7 +114,25 @@ public interface IConfigWithFallback extends IConfig
    *         be resolved.
    */
   @Nullable
-  BigDecimal getAsBigDecimalOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String... aOldOnes);
+  BigDecimal getAsBigDecimalOrFallback (@NonNull String sPrimary, @NonNull @Nonempty String @NonNull... aOldOnes);
+
+  /**
+   * Get the configuration value as a boolean based on the primary or the alternative keys.
+   *
+   * @param sPrimary
+   *        Primary configuration key. Should not be <code>null</code>.
+   * @param bDefault
+   *        The value to be returned if none of the keys could be resolved.
+   * @param aOldOnes
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return The resolved boolean value or the default value if neither the primary nor the old
+   *         configuration property keys could be resolved.
+   * @since 12.1.6
+   */
+  boolean getAsBooleanOrFallback (@NonNull String sPrimary,
+                                  boolean bDefault,
+                                  @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a int based on the primary or the alternative keys.
@@ -107,7 +150,10 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration property keys could
    *         be resolved.
    */
-  int getAsIntOrFallback (@NonNull String sPrimary, int nBogus, int nDefault, @NonNull @Nonempty String... aOldOnes);
+  int getAsIntOrFallback (@NonNull String sPrimary,
+                          int nBogus,
+                          int nDefault,
+                          @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a long based on the primary or the alternative keys.
@@ -128,5 +174,5 @@ public interface IConfigWithFallback extends IConfig
   long getAsLongOrFallback (@NonNull String sPrimary,
                             long nBogus,
                             long nDefault,
-                            @NonNull @Nonempty String... aOldOnes);
+                            @NonNull @Nonempty String @NonNull... aOldOnes);
 }
