@@ -280,16 +280,13 @@ public class Config implements IConfig
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Failed to resolve configuration variable '" + sVarName + "'");
 
-        if (sVarDefaultValue != null)
-        {
-          // Default value might be an empty string
-          sNestedConfiguredValue = sVarDefaultValue;
-        }
-        else
+        if (sVarDefaultValue == null)
         {
           // No default value provided
           return m_aUnresolvedVariableProvider.apply (sVarName);
         }
+        // Default value might be an empty string
+        sNestedConfiguredValue = sVarDefaultValue;
       }
       else
       {
@@ -313,18 +310,16 @@ public class Config implements IConfig
     return TextVariableHelper.getWithReplacedVariables (sConfiguredValue, aVarProvider);
   }
 
-  /** {@inheritDoc} */
   @Nullable
-  public String getValue (@Nullable final String sKey)
+  public String getValue (@Nullable final ConfiguredValue aCV)
   {
-    final ConfiguredValue aCV = getConfiguredValue (sKey);
     if (aCV == null)
       return null;
 
     String sConfiguredValue = aCV.getValue ();
-    final String sStr = sConfiguredValue;
-    if (m_bReplaceVariables && StringHelper.isNotEmpty (sStr))
+    if (m_bReplaceVariables && StringHelper.isNotEmpty (sConfiguredValue))
     {
+      // Replace variables
       if (LOGGER.isTraceEnabled ())
         LOGGER.trace ("Resolving variables in configuration value '" + sConfiguredValue + "'");
 
@@ -342,6 +337,17 @@ public class Config implements IConfig
       }
     }
     return sConfiguredValue;
+  }
+
+  /** {@inheritDoc} */
+  @Nullable
+  public String getValue (@Nullable final String sKey)
+  {
+    final ConfiguredValue aCV = getConfiguredValue (sKey);
+    if (aCV == null)
+      return null;
+
+    return getValue (aCV);
   }
 
   private static void _forEachConfigurationValueProviderRecursive (@NonNull final IConfigurationValueProvider aValueProvider,
