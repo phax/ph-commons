@@ -63,7 +63,7 @@ public final class ImageDataManager
 
   private static final Logger LOGGER = LoggerFactory.getLogger (ImageDataManager.class);
   private static final IMutableStatisticsHandlerCache STATS_COUNTER = StatisticsManager.getCacheHandler (ImageDataManager.class);
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   // The main cache

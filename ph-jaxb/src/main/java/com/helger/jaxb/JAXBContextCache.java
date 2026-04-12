@@ -46,7 +46,7 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCache.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   /**
    * @return <code>true</code> if logging is disabled, <code>false</code> if it is enabled.

@@ -39,7 +39,10 @@ import com.helger.http.RFC1945Helper;
 @Immutable
 public class DigestAuthClientCredentials
 {
+  /** Expected response length for MD5 algorithms (32 hex chars). */
   public static final int EXPECTED_RESPONSE_LENGTH = 32;
+  /** Expected response length for SHA-256 algorithms (64 hex chars). @since 12.1.6 */
+  public static final int EXPECTED_SHA256_RESPONSE_LENGTH = 64;
   public static final int EXPECTED_NONCE_COUNT_LENGTH = 8;
 
   private final String m_sUserName;
@@ -95,8 +98,9 @@ public class DigestAuthClientCredentials
     ValueEnforcer.notEmpty (sServerNonce, "ServerNonce");
     ValueEnforcer.notEmpty (sDigestURI, "DigestURI");
     ValueEnforcer.notEmpty (sResponse, "Response");
-    if (sResponse.length () != EXPECTED_RESPONSE_LENGTH)
-      throw new IllegalArgumentException ("The 'response' value must be a 32-byte hex string!");
+    if (sResponse.length () != EXPECTED_RESPONSE_LENGTH && sResponse.length () != EXPECTED_SHA256_RESPONSE_LENGTH)
+      throw new IllegalArgumentException ("The 'response' value must be a 32-byte (MD5) or 64-byte (SHA-256) hex string but has length " +
+                                          sResponse.length ());
     if (!RFC1945Helper.isLowerHexNotEmpty (sResponse))
       throw new IllegalArgumentException ("The 'response' value must consist of all lowercase hex chars!");
     if (StringHelper.isNotEmpty (sMessageQOP) && StringHelper.isEmpty (sClientNonce))

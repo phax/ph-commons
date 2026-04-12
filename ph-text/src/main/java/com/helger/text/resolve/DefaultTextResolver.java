@@ -42,7 +42,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
     private static final DefaultTextResolver INSTANCE = new DefaultTextResolver ();
   }
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private DefaultTextResolver ()
   {}

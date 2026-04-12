@@ -17,8 +17,10 @@
 package com.helger.http.digestauth;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -87,5 +89,35 @@ public final class HttpDigestAuthTest
                                                                                               1);
     assertNotNull (aUP);
     assertEquals ("6629fae49393a05397450978507c4ef1", aUP.getResponse ());
+  }
+
+  @Test
+  public void testCreateSHA256 ()
+  {
+    // SHA-256 must produce a 64-character hex response
+    final DigestAuthClientCredentials aUP = HttpDigestAuth.createDigestAuthClientCredentials (EHttpMethod.GET,
+                                                                                              "/dir/index.html",
+                                                                                              "Mufasa",
+                                                                                              "Circle Of Life",
+                                                                                              "testrealm@host.com",
+                                                                                              "7ypf/xlj9XXwfDPEoM4URrv/xwf94BcCAzFZH4GiTo0v",
+                                                                                              HttpDigestAuth.ALGORITHM_SHA_256,
+                                                                                              "f2/wE4q74E6zIJEtWaHKaf5wv/H5QzzpXusqGemBqVY=",
+                                                                                              "5ccc069c403ebaf9f0171e9517f40e41",
+                                                                                              HttpDigestAuth.QOP_AUTH,
+                                                                                              1);
+    assertNotNull (aUP);
+    assertEquals (DigestAuthClientCredentials.EXPECTED_SHA256_RESPONSE_LENGTH, aUP.getResponse ().length ());
+  }
+
+  @Test
+  public void testIsSupportedAlgorithm ()
+  {
+    assertTrue (HttpDigestAuth.isSupportedAlgorithm (HttpDigestAuth.ALGORITHM_MD5));
+    assertTrue (HttpDigestAuth.isSupportedAlgorithm (HttpDigestAuth.ALGORITHM_MD5_SESS));
+    assertTrue (HttpDigestAuth.isSupportedAlgorithm (HttpDigestAuth.ALGORITHM_SHA_256));
+    assertTrue (HttpDigestAuth.isSupportedAlgorithm (HttpDigestAuth.ALGORITHM_SHA_256_SESS));
+    assertFalse (HttpDigestAuth.isSupportedAlgorithm (null));
+    assertFalse (HttpDigestAuth.isSupportedAlgorithm ("unknown"));
   }
 }

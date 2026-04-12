@@ -44,7 +44,7 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
   /** The default number of items to keep in the cache */
   public static final int MAX_CACHE_SIZE = 1_000;
 
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   private DateTimeFormatterCache ()
   {

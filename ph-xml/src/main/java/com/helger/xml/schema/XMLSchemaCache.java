@@ -53,7 +53,7 @@ public class XMLSchemaCache extends SchemaCache
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
   private static final ICommonsMap <String, XMLSchemaCache> PER_CL_CACHE = new CommonsHashMap <> ();
-  private static boolean s_bDefaultInstantiated = false;
+  private static volatile boolean s_bDefaultInstantiated = false;
 
   /**
    * Create a new XSD {@link SchemaFactory}.

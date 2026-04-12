@@ -50,6 +50,10 @@ public final class HttpDigestAuth
 
   public static final String ALGORITHM_MD5 = "MD5";
   public static final String ALGORITHM_MD5_SESS = "MD5-sess";
+  /** @since 12.1.6 */
+  public static final String ALGORITHM_SHA_256 = "SHA-256";
+  /** @since 12.1.6 */
+  public static final String ALGORITHM_SHA_256_SESS = "SHA-256-sess";
   public static final String DEFAULT_ALGORITHM = ALGORITHM_MD5;
 
   public static final String QOP_AUTH = "auth";
@@ -287,7 +291,61 @@ public final class HttpDigestAuth
   @NonNull
   private static String _md5 (@NonNull final String s)
   {
-    return MessageDigestValue.create (s.getBytes (CHARSET), EMessageDigestAlgorithm.MD5).getHexEncodedDigestString ();
+    return _hash (s, EMessageDigestAlgorithm.MD5);
+  }
+
+  @NonNull
+  private static String _hash (@NonNull final String s, @NonNull final EMessageDigestAlgorithm eAlgorithm)
+  {
+    return MessageDigestValue.create (s.getBytes (CHARSET), eAlgorithm).getHexEncodedDigestString ();
+  }
+
+  /**
+   * Determine if the passed algorithm string is a "-sess" variant.
+   *
+   * @param sAlgorithm
+   *        The algorithm string. May not be <code>null</code>.
+   * @return <code>true</code> if it is a session variant.
+   */
+  private static boolean _isSessionAlgorithm (@NonNull final String sAlgorithm)
+  {
+    return sAlgorithm.equals (ALGORITHM_MD5_SESS) || sAlgorithm.equals (ALGORITHM_SHA_256_SESS);
+  }
+
+  /**
+   * Resolve the digest algorithm name to the corresponding
+   * {@link EMessageDigestAlgorithm}.
+   *
+   * @param sAlgorithm
+   *        The algorithm string (e.g. "MD5", "MD5-sess", "SHA-256",
+   *        "SHA-256-sess"). May not be <code>null</code>.
+   * @return The matching {@link EMessageDigestAlgorithm}. Never
+   *         <code>null</code>.
+   */
+  @NonNull
+  private static EMessageDigestAlgorithm _resolveDigestAlgorithm (@NonNull final String sAlgorithm)
+  {
+    if (sAlgorithm.equals (ALGORITHM_MD5) || sAlgorithm.equals (ALGORITHM_MD5_SESS))
+      return EMessageDigestAlgorithm.MD5;
+    if (sAlgorithm.equals (ALGORITHM_SHA_256) || sAlgorithm.equals (ALGORITHM_SHA_256_SESS))
+      return EMessageDigestAlgorithm.SHA_256;
+    throw new IllegalArgumentException ("Unsupported algorithm: " + sAlgorithm);
+  }
+
+  /**
+   * Check if the provided algorithm string is a supported digest algorithm.
+   *
+   * @param sAlgorithm
+   *        The algorithm string. May be <code>null</code>.
+   * @return <code>true</code> if the algorithm is supported.
+   * @since 12.1.6
+   */
+  public static boolean isSupportedAlgorithm (@Nullable final String sAlgorithm)
+  {
+    return ALGORITHM_MD5.equals (sAlgorithm) ||
+           ALGORITHM_MD5_SESS.equals (sAlgorithm) ||
+           ALGORITHM_SHA_256.equals (sAlgorithm) ||
+           ALGORITHM_SHA_256_SESS.equals (sAlgorithm);
   }
 
   /**
@@ -308,8 +366,9 @@ public final class HttpDigestAuth
    * @param sServerNonce
    *        The nonce as supplied by the server. May neither be <code>null</code> nor empty.
    * @param sAlgorithm
-   *        The algorithm as provided by the server. Currently only {@link #ALGORITHM_MD5} and
-   *        {@link #ALGORITHM_MD5_SESS} is supported. If it is <code>null</code> than
+   *        The algorithm as provided by the server. Currently {@link #ALGORITHM_MD5},
+   *        {@link #ALGORITHM_MD5_SESS}, {@link #ALGORITHM_SHA_256} and
+   *        {@link #ALGORITHM_SHA_256_SESS} are supported. If it is <code>null</code> than
    *        {@link #ALGORITHM_MD5} is used as default.
    * @param sClientNonce
    *        The client nonce to be used. Must be present if message QOP is specified or if algorithm
@@ -370,51 +429,49 @@ public final class HttpDigestAuth
       throw new IllegalArgumentException ("If a QOP is defined, nonce count must be positive!");
 
     final String sRealAlgorithm = sAlgorithm == null ? DEFAULT_ALGORITHM : sAlgorithm;
-    if (!sRealAlgorithm.equals (ALGORITHM_MD5) && !sRealAlgorithm.equals (ALGORITHM_MD5_SESS))
-      throw new IllegalArgumentException ("Currently only '" +
-                                          ALGORITHM_MD5 +
-                                          "' and '" +
-                                          ALGORITHM_MD5_SESS +
-                                          "' algorithms are supported!");
+    if (!isSupportedAlgorithm (sRealAlgorithm))
+      throw new IllegalArgumentException ("Unsupported algorithm: '" + sRealAlgorithm + "'");
 
     if (sMessageQOP != null && !sMessageQOP.equals (QOP_AUTH))
       throw new IllegalArgumentException ("Currently only '" + QOP_AUTH + "' QOP is supported!");
+
+    final EMessageDigestAlgorithm eDigestAlgo = _resolveDigestAlgorithm (sRealAlgorithm);
 
     // Nonce must always by 8 chars long
     final String sNonceCount = getNonceCountString (nNonceCount);
 
     // Create HA1
-    String sHA1 = _md5 (sUserName + SEPARATOR + sRealm + SEPARATOR + sPassword);
-    if (sRealAlgorithm.equals (ALGORITHM_MD5_SESS))
+    String sHA1 = _hash (sUserName + SEPARATOR + sRealm + SEPARATOR + sPassword, eDigestAlgo);
+    if (_isSessionAlgorithm (sRealAlgorithm))
     {
       if (StringHelper.isEmpty (sClientNonce))
         throw new IllegalArgumentException ("Algorithm requires client nonce!");
-      sHA1 = _md5 (sHA1 + SEPARATOR + sServerNonce + SEPARATOR + sClientNonce);
+      sHA1 = _hash (sHA1 + SEPARATOR + sServerNonce + SEPARATOR + sClientNonce, eDigestAlgo);
     }
     // Create HA2
     // Method name must be upper-case!
-    final String sHA2 = _md5 (eMethod.getName () + SEPARATOR + sDigestURI);
+    final String sHA2 = _hash (eMethod.getName () + SEPARATOR + sDigestURI, eDigestAlgo);
 
     // Create the request digest - result must be all lowercase hex chars!
     String sRequestDigest;
     if (sMessageQOP == null)
     {
       // RFC 2069 backwards compatibility
-      sRequestDigest = _md5 (sHA1 + SEPARATOR + sServerNonce + SEPARATOR + sHA2);
+      sRequestDigest = _hash (sHA1 + SEPARATOR + sServerNonce + SEPARATOR + sHA2, eDigestAlgo);
     }
     else
     {
-      sRequestDigest = _md5 (sHA1 +
-                             SEPARATOR +
-                             sServerNonce +
-                             SEPARATOR +
-                             sNonceCount +
-                             SEPARATOR +
-                             sClientNonce +
-                             SEPARATOR +
-                             sMessageQOP +
-                             SEPARATOR +
-                             sHA2);
+      sRequestDigest = _hash (sHA1 +
+                              SEPARATOR +
+                              sServerNonce +
+                              SEPARATOR +
+                              sNonceCount +
+                              SEPARATOR +
+                              sClientNonce +
+                              SEPARATOR +
+                              sMessageQOP +
+                              SEPARATOR +
+                              sHA2, eDigestAlgo);
     }
     return new DigestAuthClientCredentials (sUserName,
                                             sRealm,
