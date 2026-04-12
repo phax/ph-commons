@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.Nonempty;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.ESuccess;
 import com.helger.base.wrapper.Wrapper;
@@ -76,6 +77,25 @@ public interface IConfig extends IGetterByKeyTrait <String>
    *        The callback to invoked. May not be <code>null</code>.
    */
   void forEachConfigurationValueProvider (@NonNull IConfigurationValueProviderWithPriorityCallback aCallback);
+
+  /**
+   * Create a subset view of this config that automatically prepends the provided key prefix to all
+   * lookups. This allows passing a scoped configuration to subsystems without them needing to know
+   * their own prefix.
+   * <p>
+   * Example: <code>config.getSubConfig ("db").getAsString ("host")</code> resolves the key
+   * <code>"db.host"</code>.
+   *
+   * @param sPrefix
+   *        The key prefix. May not be <code>null</code> or empty. A trailing dot is optional.
+   * @return A new {@link ConfigSubset} instance. Never <code>null</code>.
+   * @since 12.1.6
+   */
+  @NonNull
+  default IConfig getSubConfig (@NonNull @Nonempty final String sPrefix)
+  {
+    return new ConfigSubset (this, sPrefix);
+  }
 
   /**
    * Count all configuration sources that implement {@link IConfigurationSourceResource}
