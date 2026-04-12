@@ -34,9 +34,8 @@ import com.helger.config.source.IConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 
 /**
- * Default implementation of {@link IConfigurationSource} for application based
- * configuration sources. The main values are provided using a custom
- * {@link Function}.
+ * Default implementation of {@link IConfigurationSource} for application based configuration
+ * sources. The main values are provided using a custom {@link Function}.
  *
  * @author Philip Helger
  */
@@ -75,8 +74,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   }
 
   /**
-   * @return The value provider as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The value provider as passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final UnaryOperator <String> getValueProvider ()
@@ -88,6 +86,12 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   public boolean isInitializedAndUsable ()
   {
     return true;
+  }
+
+  /** {@inheritDoc} */
+  public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
+  {
+    return m_aValueProvider.apply (sKey) != null;
   }
 
   /** {@inheritDoc} */

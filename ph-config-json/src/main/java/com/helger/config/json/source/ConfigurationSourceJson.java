@@ -203,6 +203,12 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   }
 
   /** {@inheritDoc} */
+  public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
+  {
+    return m_aRWLock.readLockedBoolean ( () -> m_aProps == null ? false : m_aProps.containsKey (sKey));
+  }
+
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {

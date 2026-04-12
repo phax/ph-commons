@@ -45,11 +45,21 @@ public interface IConfig extends IGetterByKeyTrait <String>
   IConfigurationValueProvider getConfigurationValueProvider ();
 
   /**
-   * Get the configured value, which is the combination of the matching configuration source and the
-   * value, for the provided key.
+   * Check if the provided key is available in any of the configured value providers.
    *
    * @param sKey
-   *        The configuration key to look up.
+   *        The configuration key to look up. May be <code>null</code>.
+   * @return <code>true</code> if it is present, <code>false</code> if not.
+   * @since 12.1.6
+   */
+  boolean containsConfiguredValue (@Nullable String sKey);
+
+  /**
+   * Get the configured value, which is the combination of the matching configuration source and the
+   * value, for the provided key. This method may trigger key-found/not-found callbacks.
+   *
+   * @param sKey
+   *        The configuration key to look up. May be <code>null</code>.
    * @return <code>null</code> if no such configuration value is available.
    * @since 9.4.5
    */

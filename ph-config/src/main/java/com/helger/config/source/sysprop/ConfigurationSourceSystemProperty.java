@@ -72,6 +72,12 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   }
 
   /** {@inheritDoc} */
+  public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
+  {
+    return SystemProperties.getPropertyValueOrNull (sKey) != null;
+  }
+
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {

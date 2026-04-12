@@ -29,6 +29,16 @@ import com.helger.annotation.Nonempty;
 public interface IConfigurationValueProvider
 {
   /**
+   * Check if the provided key is available in this value provider.
+   *
+   * @param sKey
+   *        The configuration key to look up. May neither be <code>null</code> nor empty.
+   * @return <code>true</code> if it is present, <code>false</code> if not.
+   * @since 12.1.6
+   */
+  boolean containsConfigurationValue (@NonNull @Nonempty String sKey);
+
+  /**
    * Get the configuration value with the provided key.
    *
    * @param sKey

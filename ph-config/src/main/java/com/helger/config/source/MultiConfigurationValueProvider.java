@@ -207,6 +207,15 @@ public class MultiConfigurationValueProvider implements
   }
 
   /** {@inheritDoc} */
+  public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
+  {
+    for (final ConfigValueProviderWithPrio aSource : m_aSources)
+      if (aSource.m_aCVP.containsConfigurationValue (sKey))
+        return true;
+    return false;
+  }
+
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {

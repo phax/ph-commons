@@ -33,8 +33,7 @@ import com.helger.config.source.IIterableConfigurationSource;
 import com.helger.config.value.ConfiguredValue;
 
 /**
- * Default implementation of {@link IConfigurationSource} for environment
- * variables.
+ * Default implementation of {@link IConfigurationSource} for environment variables.
  *
  * @author Philip Helger
  */
@@ -69,6 +68,22 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
   {
     // No differentiation here
     return true;
+  }
+
+  /** {@inheritDoc} */
+  public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
+  {
+    final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
+    try
+    {
+      // More efficient then System.getenv().containsKey
+      return System.getenv (sRealName) != null;
+    }
+    catch (final SecurityException ex)
+    {
+      LOGGER.error ("Security violation accessing environment variable '" + sRealName + "'", ex);
+      return false;
+    }
   }
 
   /** {@inheritDoc} */

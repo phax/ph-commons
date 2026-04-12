@@ -213,6 +213,12 @@ public class Config implements IConfig
   }
 
   /** {@inheritDoc} */
+  public boolean containsConfiguredValue (@Nullable final String sKey)
+  {
+    return StringHelper.isEmpty (sKey) ? false : m_aValueProvider.containsConfigurationValue (sKey);
+  }
+
+  /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {
