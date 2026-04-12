@@ -43,7 +43,7 @@ import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
  * view, not a copy.
  *
  * @author Philip Helger
- * @since 12.1.6
+ * @since 12.2.0
  */
 public class ConfigSubset implements IConfig
 {

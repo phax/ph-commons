@@ -35,7 +35,7 @@ import com.helger.config.value.ConfiguredValue;
  * to the parent. This preserves the parent's outdated key notifier behavior.
  *
  * @author Philip Helger
- * @since 12.1.6
+ * @since 12.2.0
  */
 public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWithFallback
 {

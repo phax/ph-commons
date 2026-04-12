@@ -41,7 +41,7 @@ public class DigestAuthClientCredentials
 {
   /** Expected response length for MD5 algorithms (32 hex chars). */
   public static final int EXPECTED_RESPONSE_LENGTH = 32;
-  /** Expected response length for SHA-256 algorithms (64 hex chars). @since 12.1.6 */
+  /** Expected response length for SHA-256 algorithms (64 hex chars). @since 12.2.0 */
   public static final int EXPECTED_SHA256_RESPONSE_LENGTH = 64;
   public static final int EXPECTED_NONCE_COUNT_LENGTH = 8;
 

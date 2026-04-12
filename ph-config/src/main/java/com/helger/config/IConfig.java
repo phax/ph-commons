@@ -51,7 +51,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
    * @param sKey
    *        The configuration key to look up. May be <code>null</code>.
    * @return <code>true</code> if it is present, <code>false</code> if not.
-   * @since 12.1.6
+   * @since 12.2.0
    */
   boolean containsConfiguredValue (@Nullable String sKey);
 
@@ -89,7 +89,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
    * @param sPrefix
    *        The key prefix. May not be <code>null</code> or empty. A trailing dot is optional.
    * @return A new {@link ConfigSubset} instance. Never <code>null</code>.
-   * @since 12.1.6
+   * @since 12.2.0
    */
   @NonNull
   default IConfig getSubConfig (@NonNull @Nonempty final String sPrefix)

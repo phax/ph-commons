@@ -34,7 +34,7 @@ public interface IConfigurationValueProvider
    * @param sKey
    *        The configuration key to look up. May neither be <code>null</code> nor empty.
    * @return <code>true</code> if it is present, <code>false</code> if not.
-   * @since 12.1.6
+   * @since 12.2.0
    */
   boolean containsConfigurationValue (@NonNull @Nonempty String sKey);
 

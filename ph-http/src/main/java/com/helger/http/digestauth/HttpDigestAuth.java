@@ -50,9 +50,9 @@ public final class HttpDigestAuth
 
   public static final String ALGORITHM_MD5 = "MD5";
   public static final String ALGORITHM_MD5_SESS = "MD5-sess";
-  /** @since 12.1.6 */
+  /** @since 12.2.0 */
   public static final String ALGORITHM_SHA_256 = "SHA-256";
-  /** @since 12.1.6 */
+  /** @since 12.2.0 */
   public static final String ALGORITHM_SHA_256_SESS = "SHA-256-sess";
   public static final String DEFAULT_ALGORITHM = ALGORITHM_MD5;
 
@@ -338,7 +338,7 @@ public final class HttpDigestAuth
    * @param sAlgorithm
    *        The algorithm string. May be <code>null</code>.
    * @return <code>true</code> if the algorithm is supported.
-   * @since 12.1.6
+   * @since 12.2.0
    */
   public static boolean isSupportedAlgorithm (@Nullable final String sAlgorithm)
   {

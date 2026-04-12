@@ -48,7 +48,7 @@ public interface IConfigWithFallback extends IConfig
    * @param sPrefix
    *        The key prefix. May not be <code>null</code> or empty. A trailing dot is optional.
    * @return A new {@link ConfigSubsetWithFallback} instance. Never <code>null</code>.
-   * @since 12.1.6
+   * @since 12.2.0
    * @see ConfigSubset
    */
   @Override
@@ -128,7 +128,7 @@ public interface IConfigWithFallback extends IConfig
    *        <code>null</code> nor empty.
    * @return The resolved boolean value or the default value if neither the primary nor the old
    *         configuration property keys could be resolved.
-   * @since 12.1.6
+   * @since 12.2.0
    */
   boolean getAsBooleanOrFallback (@NonNull String sPrimary,
                                   boolean bDefault,
@@ -165,7 +165,7 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration property keys could
    *         be resolved.
    */
-  @Deprecated (forRemoval = true, since = "12.1.6")
+  @Deprecated (forRemoval = true, since = "12.2.0")
   default int getAsIntOrFallback (@NonNull final String sPrimary,
                                   final int nBogus,
                                   final int nDefault,
@@ -206,7 +206,7 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration property keys could
    *         be resolved.
    */
-  @Deprecated (forRemoval = true, since = "12.1.6")
+  @Deprecated (forRemoval = true, since = "12.2.0")
   default long getAsLongOrFallback (@NonNull final String sPrimary,
                                     final long nBogus,
                                     final long nDefault,
