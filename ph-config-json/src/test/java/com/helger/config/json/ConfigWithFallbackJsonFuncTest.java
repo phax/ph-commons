@@ -36,7 +36,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsConfiguredValueOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("element0", sOld);
       assertEquals ("element0-new", sNew);
     });
@@ -51,7 +51,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsStringOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("element0", sOld);
       assertEquals ("element0-new", sNew);
     });
@@ -64,7 +64,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsBigDecimalOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("dbl", sOld);
       assertEquals ("dbl-new", sNew);
     });
@@ -77,33 +77,33 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsIntOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("int", sOld);
       assertEquals ("int-new", sNew);
     });
-    assertEquals (123456, aConfig.getAsIntOrFallback ("int", -1, -1, "int-new"));
-    assertEquals (123456, aConfig.getAsIntOrFallback ("int-new", -1, -1, "int"));
-    assertEquals (-1, aConfig.getAsIntOrFallback ("foo", -2, -1, "bla"));
+    assertEquals (123456, aConfig.getAsIntOrFallback ("int", -1, "int-new"));
+    assertEquals (123456, aConfig.getAsIntOrFallback ("int-new", -1, "int"));
+    assertEquals (-1, aConfig.getAsIntOrFallback ("foo", -1, "bla"));
   }
 
   @Test
   public void testGetAsLongOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("int", sOld);
       assertEquals ("int-new", sNew);
     });
-    assertEquals (123456, aConfig.getAsLongOrFallback ("int", -1, -1, "int-new"));
-    assertEquals (123456, aConfig.getAsLongOrFallback ("int-new", -1, -1, "int"));
-    assertEquals (-1, aConfig.getAsLongOrFallback ("foo", -2, -1, "bla"));
+    assertEquals (123456, aConfig.getAsLongOrFallback ("int", -1, "int-new"));
+    assertEquals (123456, aConfig.getAsLongOrFallback ("int-new", -1, "int"));
+    assertEquals (-1, aConfig.getAsLongOrFallback ("foo", -1, "bla"));
   }
 
   @Test
   public void testGetAsCharArrayOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("chararray", sOld);
       assertEquals ("chararray-new", sNew);
     });

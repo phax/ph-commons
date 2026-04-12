@@ -56,12 +56,11 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
   }
 
   @NonNull
-  private String [] _prefixAll (@NonNull final String @NonNull [] aKeys)
+  private String [] _getAllPrefixed (@NonNull final String @NonNull [] aKeys)
   {
-    final String sPrefix = getPrefix ();
     final String [] ret = new String [aKeys.length];
     for (int i = 0; i < aKeys.length; i++)
-      ret[i] = sPrefix + aKeys[i];
+      ret[i] = getPrefixed (aKeys[i]);
     return ret;
   }
 
@@ -70,7 +69,7 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
   public ConfiguredValue getConfiguredValueOrFallback (@NonNull final String sPrimary,
                                                        @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getConfiguredValueOrFallback (getPrefix () + sPrimary, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getConfiguredValueOrFallback (getPrefixed (sPrimary), _getAllPrefixed (aOldOnes));
   }
 
   @Override
@@ -78,14 +77,14 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
   public String getAsStringOrFallback (@NonNull final String sPrimary,
                                        @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsStringOrFallback (getPrefix () + sPrimary, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsStringOrFallback (getPrefixed (sPrimary), _getAllPrefixed (aOldOnes));
   }
 
   @Override
   public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary,
                                                      @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsCharArrayOrFallback (getPrefix () + sPrimary, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsCharArrayOrFallback (getPrefixed (sPrimary), _getAllPrefixed (aOldOnes));
   }
 
   @Override
@@ -93,7 +92,7 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
   public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary,
                                                @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsBigDecimalOrFallback (getPrefix () + sPrimary, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsBigDecimalOrFallback (getPrefixed (sPrimary), _getAllPrefixed (aOldOnes));
   }
 
   @Override
@@ -101,24 +100,28 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
                                          final boolean bDefault,
                                          @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsBooleanOrFallback (getPrefix () + sPrimary, bDefault, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsBooleanOrFallback (getPrefixed (sPrimary), bDefault, _getAllPrefixed (aOldOnes));
   }
 
   @Override
   public int getAsIntOrFallback (@NonNull final String sPrimary,
-                                 final int nBogus,
                                  final int nDefault,
                                  @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsIntOrFallback (getPrefix () + sPrimary, nBogus, nDefault, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsIntOrFallback (getPrefixed (sPrimary), nDefault, _getAllPrefixed (aOldOnes));
   }
 
   @Override
   public long getAsLongOrFallback (@NonNull final String sPrimary,
-                                   final long nBogus,
                                    final long nDefault,
                                    @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    return m_aFallbackParent.getAsLongOrFallback (getPrefix () + sPrimary, nBogus, nDefault, _prefixAll (aOldOnes));
+    return m_aFallbackParent.getAsLongOrFallback (getPrefixed (sPrimary), nDefault, _getAllPrefixed (aOldOnes));
+  }
+
+  @Override
+  public String toString ()
+  {
+    return super.toString ();
   }
 }

@@ -19,10 +19,10 @@ package com.helger.config.fallback;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
+import com.helger.config.source.IConfigurationSource;
 
 /**
- * Sanity callback interface to notify about the usage of an outdated
- * configuration key.
+ * Sanity callback interface to notify about the usage of an outdated configuration key.
  *
  * @author Philip Helger
  * @since 10.2.0
@@ -33,12 +33,14 @@ public interface IConfigKeyOutdatedNotifier
   /**
    * Called to indicate that an outdated configuration key was used.
    *
+   * @param aOldConfigSrc
+   *        The source of the outdated configuration value. Never <code>null</code>.
    * @param sOldConfigKey
-   *        The outdated configuration key used. Neither <code>null</code> nor
-   *        empty.
+   *        The outdated configuration key used. Neither <code>null</code> nor empty.
    * @param sNewConfigKey
-   *        The new and corrected configuration key used. Neither
-   *        <code>null</code> nor empty.
+   *        The new and corrected configuration key used. Neither <code>null</code> nor empty.
    */
-  void onOutdatedConfigurationKey (@NonNull @Nonempty String sOldConfigKey, @NonNull @Nonempty String sNewConfigKey);
+  void onOutdatedConfigurationKey (@NonNull IConfigurationSource aOldConfigSrc,
+                                   @NonNull @Nonempty String sOldConfigKey,
+                                   @NonNull @Nonempty String sNewConfigKey);
 }

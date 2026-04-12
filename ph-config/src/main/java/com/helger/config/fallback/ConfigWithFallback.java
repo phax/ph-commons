@@ -25,11 +25,11 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.Config;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
+import com.helger.typeconvert.impl.TypeConverter;
 
 /**
  * The default implementation of {@link IConfigWithFallback}.
@@ -43,12 +43,13 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   /**
    * The default implementation that just logs a warning.
    */
-  public static final IConfigKeyOutdatedNotifier DEFAULT_OUTDATED_NOTIFIER = (sOld, sNew) -> {
+  public static final IConfigKeyOutdatedNotifier DEFAULT_OUTDATED_NOTIFIER = (aOldConfigSrc, sOld, sNew) -> {
     LOGGER.warn ("Please rename the configuration property '" +
                  sOld +
                  "' to '" +
                  sNew +
-                 "'. The old name is deprecated.");
+                 "'. The old name is deprecated. Source: " +
+                 aOldConfigSrc.toString ());
   };
 
   private IConfigKeyOutdatedNotifier m_aOutdatedNotifier = DEFAULT_OUTDATED_NOTIFIER;
@@ -104,7 +105,7 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
         if (ret != null)
         {
           // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
+          m_aOutdatedNotifier.onOutdatedConfigurationKey (ret.getConfigurationSource (), sOld, sPrimary);
           break;
         }
       }
@@ -117,44 +118,20 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public String getAsStringOrFallback (@NonNull final String sPrimary,
                                        @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    String ret = getAsString (sPrimary);
-    if (StringHelper.isEmpty (ret))
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsString (sOld);
-        if (StringHelper.isNotEmpty (ret))
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return null;
+    return aCV.getValue ();
   }
 
   /** {@inheritDoc} */
   public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary,
                                                      @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    char [] ret = getAsCharArray (sPrimary);
-    if (ret == null)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsCharArray (sOld);
-        if (ret != null)
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return null;
+    return TypeConverter.convert (aCV.getValue (), char [].class, null);
   }
 
   /** {@inheritDoc} */
@@ -162,22 +139,10 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary,
                                                @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    BigDecimal ret = getAsBigDecimal (sPrimary);
-    if (ret == null)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsBigDecimal (sOld);
-        if (ret != null)
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return null;
+    return TypeConverter.convert (aCV.getValue (), BigDecimal.class, null);
   }
 
   /** {@inheritDoc} */
@@ -185,70 +150,32 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
                                          final boolean bDefault,
                                          @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    Boolean ret = getAsBooleanObj (sPrimary);
-    if (ret == null)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsBooleanObj (sOld);
-        if (ret != null)
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret != null ? ret.booleanValue () : bDefault;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return bDefault;
+    return TypeConverter.convertToBoolean (aCV.getValue (), bDefault);
   }
 
   /** {@inheritDoc} */
   public int getAsIntOrFallback (@NonNull final String sPrimary,
-                                 final int nBogus,
                                  final int nDefault,
                                  @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    int ret = getAsInt (sPrimary, nBogus);
-    if (ret == nBogus)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsInt (sOld, nBogus);
-        if (ret != nBogus)
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret == nBogus ? nDefault : ret;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return nDefault;
+    return TypeConverter.convertToInt (aCV.getValue (), nDefault);
   }
 
   /** {@inheritDoc} */
   public long getAsLongOrFallback (@NonNull final String sPrimary,
-                                   final long nBogus,
                                    final long nDefault,
                                    @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    long ret = getAsLong (sPrimary, nBogus);
-    if (ret == nBogus)
-    {
-      // Try the old names
-      for (final String sOld : aOldOnes)
-      {
-        ret = getAsLong (sOld, nBogus);
-        if (ret != nBogus)
-        {
-          // Notify on old name usage
-          m_aOutdatedNotifier.onOutdatedConfigurationKey (sOld, sPrimary);
-          break;
-        }
-      }
-    }
-    return ret == nBogus ? nDefault : ret;
+    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
+    if (aCV == null)
+      return nDefault;
+    return TypeConverter.convertToLong (aCV.getValue (), nDefault);
   }
 
   @Override

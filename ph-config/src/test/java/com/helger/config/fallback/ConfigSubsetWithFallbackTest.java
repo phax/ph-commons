@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 
 import com.helger.base.numeric.BigHelper;
@@ -39,6 +40,7 @@ import com.helger.config.source.appl.ConfigurationSourceFunction;
  */
 public final class ConfigSubsetWithFallbackTest
 {
+  @NonNull
   private static IConfigWithFallback _createTestConfig ()
   {
     final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
@@ -125,9 +127,9 @@ public final class ConfigSubsetWithFallbackTest
     final IConfigWithFallback aConfig = _createTestConfig ();
     final IConfigWithFallback aDBConfig = aConfig.getSubConfig ("db");
 
-    assertEquals (5432, aDBConfig.getAsIntOrFallback ("port", -1, -1, "port-old"));
-    assertEquals (5432, aDBConfig.getAsIntOrFallback ("port-new", -1, -1, "port"));
-    assertEquals (99, aDBConfig.getAsIntOrFallback ("foo", -1, 99, "bar"));
+    assertEquals (5432, aDBConfig.getAsIntOrFallback ("port", -1, "port-old"));
+    assertEquals (5432, aDBConfig.getAsIntOrFallback ("port-new", -1, "port"));
+    assertEquals (99, aDBConfig.getAsIntOrFallback ("foo", 99, "bar"));
   }
 
   @Test
@@ -136,9 +138,9 @@ public final class ConfigSubsetWithFallbackTest
     final IConfigWithFallback aConfig = _createTestConfig ();
     final IConfigWithFallback aDBConfig = aConfig.getSubConfig ("db");
 
-    assertEquals (5432L, aDBConfig.getAsLongOrFallback ("port", -1L, -1L, "port-old"));
-    assertEquals (5432L, aDBConfig.getAsLongOrFallback ("port-new", -1L, -1L, "port"));
-    assertEquals (99L, aDBConfig.getAsLongOrFallback ("foo", -1L, 99L, "bar"));
+    assertEquals (5432L, aDBConfig.getAsLongOrFallback ("port", -1L, "port-old"));
+    assertEquals (5432L, aDBConfig.getAsLongOrFallback ("port-new", -1L, "port"));
+    assertEquals (99L, aDBConfig.getAsLongOrFallback ("foo", 99L, "bar"));
   }
 
   @Test
@@ -168,7 +170,7 @@ public final class ConfigSubsetWithFallbackTest
   {
     final IConfigWithFallback aConfig = _createTestConfig ();
     final AtomicInteger aNotifyCount = new AtomicInteger (0);
-    ((ConfigWithFallback) aConfig).setOutdatedNotifier ( (sOld, sNew) -> {
+    ((ConfigWithFallback) aConfig).setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
       // The notifier should receive the full prefixed keys
       assertEquals ("db.host", sOld);
       assertEquals ("db.hostname", sNew);
@@ -189,7 +191,7 @@ public final class ConfigSubsetWithFallbackTest
     assertEquals ("10", aPoolConfig.getAsString ("max-size"));
     assertEquals ("10", aPoolConfig.getAsStringOrFallback ("max-size", "maximum-size"));
     assertEquals ("10", aPoolConfig.getAsStringOrFallback ("maximum-size", "max-size"));
-    assertEquals (10, aPoolConfig.getAsIntOrFallback ("max-size", -1, -1, "maximum-size"));
+    assertEquals (10, aPoolConfig.getAsIntOrFallback ("max-size", -1, "maximum-size"));
   }
 
   @Test

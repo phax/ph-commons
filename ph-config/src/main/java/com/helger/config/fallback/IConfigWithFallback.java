@@ -139,6 +139,21 @@ public interface IConfigWithFallback extends IConfig
    *
    * @param sPrimary
    *        Primary configuration key. Should not be <code>null</code>.
+   * @param nDefault
+   *        The value to be returned if none of the keys could be resolved.
+   * @param aOldOnes
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
+   */
+  int getAsIntOrFallback (@NonNull String sPrimary, int nDefault, @NonNull @Nonempty String @NonNull... aOldOnes);
+
+  /**
+   * Get the configuration value as a int based on the primary or the alternative keys.
+   *
+   * @param sPrimary
+   *        Primary configuration key. Should not be <code>null</code>.
    * @param nBogus
    *        A value that is considered invalid for all (primary and old ones) to indicate that the
    *        other values need to be searched as well.
@@ -150,10 +165,30 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration property keys could
    *         be resolved.
    */
-  int getAsIntOrFallback (@NonNull String sPrimary,
-                          int nBogus,
-                          int nDefault,
-                          @NonNull @Nonempty String @NonNull... aOldOnes);
+  @Deprecated (forRemoval = true, since = "12.1.6")
+  default int getAsIntOrFallback (@NonNull final String sPrimary,
+                                  final int nBogus,
+                                  final int nDefault,
+                                  @NonNull @Nonempty final String @NonNull... aOldOnes)
+  {
+    // Ignore nBogus
+    return getAsIntOrFallback (sPrimary, nDefault, aOldOnes);
+  }
+
+  /**
+   * Get the configuration value as a long based on the primary or the alternative keys.
+   *
+   * @param sPrimary
+   *        Primary configuration key. Should not be <code>null</code>.
+   * @param nDefault
+   *        The value to be returned if none of the keys could be resolved.
+   * @param aOldOnes
+   *        The alternative keys to be resolved in the provided order. May neither be
+   *        <code>null</code> nor empty.
+   * @return <code>null</code> if neither the primary nor the old configuration property keys could
+   *         be resolved.
+   */
+  long getAsLongOrFallback (@NonNull String sPrimary, long nDefault, @NonNull @Nonempty String @NonNull... aOldOnes);
 
   /**
    * Get the configuration value as a long based on the primary or the alternative keys.
@@ -171,8 +206,13 @@ public interface IConfigWithFallback extends IConfig
    * @return <code>null</code> if neither the primary nor the old configuration property keys could
    *         be resolved.
    */
-  long getAsLongOrFallback (@NonNull String sPrimary,
-                            long nBogus,
-                            long nDefault,
-                            @NonNull @Nonempty String @NonNull... aOldOnes);
+  @Deprecated (forRemoval = true, since = "12.1.6")
+  default long getAsLongOrFallback (@NonNull final String sPrimary,
+                                    final long nBogus,
+                                    final long nDefault,
+                                    @NonNull @Nonempty final String @NonNull... aOldOnes)
+  {
+    // Ignore nBogus
+    return getAsLongOrFallback (sPrimary, nDefault, aOldOnes);
+  }
 }

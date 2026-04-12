@@ -94,7 +94,7 @@ public class ConfigSubset implements IConfig
   }
 
   @NonNull
-  private String _getPrefixed (@NonNull final String sKey)
+  protected final String getPrefixed (@NonNull final String sKey)
   {
     return m_sPrefix + sKey;
   }
@@ -103,7 +103,7 @@ public class ConfigSubset implements IConfig
   @Nullable
   public Object getValue (@Nullable final String sKey)
   {
-    return sKey == null ? null : m_aParent.getValue (_getPrefixed (sKey));
+    return sKey == null ? null : m_aParent.getValue (getPrefixed (sKey));
   }
 
   @Override
@@ -116,14 +116,14 @@ public class ConfigSubset implements IConfig
   @Override
   public boolean containsConfiguredValue (@Nullable final String sKey)
   {
-    return sKey != null && m_aParent.containsConfiguredValue (_getPrefixed (sKey));
+    return sKey != null && m_aParent.containsConfiguredValue (getPrefixed (sKey));
   }
 
   @Override
   @Nullable
   public ConfiguredValue getConfiguredValue (@Nullable final String sKey)
   {
-    return sKey == null ? null : m_aParent.getConfiguredValue (_getPrefixed (sKey));
+    return sKey == null ? null : m_aParent.getConfiguredValue (getPrefixed (sKey));
   }
 
   @Override
