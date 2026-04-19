@@ -20,6 +20,9 @@
 
 name: Maven build
 
+permissions:
+  contents: read
+
 on:
   push:
   pull_request:
