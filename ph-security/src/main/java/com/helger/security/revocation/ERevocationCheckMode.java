@@ -23,8 +23,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.base.id.IHasID;
+import com.helger.base.lang.EnumHelper;
 
 /**
  * An enum that defines the revocation checking modes.
@@ -32,41 +36,57 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
  * @author Philip Helger
  * @since 11.2.0
  */
-public enum ERevocationCheckMode
+public enum ERevocationCheckMode implements IHasID <String>
 {
   /**
    * Try OCSP before CRL.
    */
-  OCSP_BEFORE_CRL (true, true, new HashSet <> ()),
+  OCSP_BEFORE_CRL ("ocsp-before-crl", true, true, new HashSet <> ()),
   /**
    * Try OCSP but don't try CRL.
    */
-  OCSP (true, false, EnumSet.of (PKIXRevocationChecker.Option.NO_FALLBACK)),
+  OCSP ("ocsp", true, false, EnumSet.of (PKIXRevocationChecker.Option.NO_FALLBACK)),
   /**
    * Try CRL before OCSP.
    */
-  CRL_BEFORE_OCSP (true, true, EnumSet.of (PKIXRevocationChecker.Option.PREFER_CRLS)),
+  CRL_BEFORE_OCSP ("crl-before-ocsp", true, true, EnumSet.of (PKIXRevocationChecker.Option.PREFER_CRLS)),
   /**
    * Try CRL but don't try OCSP.
    */
-  CRL (false, true, EnumSet.of (PKIXRevocationChecker.Option.PREFER_CRLS, PKIXRevocationChecker.Option.NO_FALLBACK)),
+  CRL ("crl",
+       false,
+       true,
+       EnumSet.of (PKIXRevocationChecker.Option.PREFER_CRLS, PKIXRevocationChecker.Option.NO_FALLBACK)),
   /**
    * Don't do remote checking.
    */
-  NONE (false, false, new HashSet <> ());
+  NONE ("none", false, false, new HashSet <> ());
 
+  private final String m_sID;
   private final boolean m_bOCSP;
   private final boolean m_bCRL;
   @CodingStyleguideUnaware
   private final Set <PKIXRevocationChecker.Option> m_aOptions;
 
-  ERevocationCheckMode (final boolean bOCSP,
+  ERevocationCheckMode (@NonNull @Nonempty final String sID,
+                        final boolean bOCSP,
                         final boolean bCRL,
                         @NonNull final Set <PKIXRevocationChecker.Option> aOptions)
   {
+    m_sID = sID;
     m_bOCSP = bOCSP;
     m_bCRL = bCRL;
     m_aOptions = aOptions;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @NonNull
+  @Nonempty
+  public String getID ()
+  {
+    return m_sID;
   }
 
   /**
@@ -103,8 +123,7 @@ public enum ERevocationCheckMode
   }
 
   /**
-   * Add all {@link PKIXRevocationChecker.Option} values of this mode to the provided target
-   * collection.
+   * Add all PKIXRevocationChecker#Option values of this mode to the provided target collection.
    *
    * @param aTarget
    *        The target collection to add the options to. May not be <code>null</code>.
@@ -112,5 +131,36 @@ public enum ERevocationCheckMode
   public void addAllOptionsTo (@NonNull final Collection <? super PKIXRevocationChecker.Option> aTarget)
   {
     aTarget.addAll (m_aOptions);
+  }
+
+  /**
+   * Find the revocation check mode with the passed ID.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @return <code>null</code> if no such revocation check mode was found.
+   * @since 12.2.1
+   */
+  @Nullable
+  public static ERevocationCheckMode getFromIDOrNull (@Nullable final String sID)
+  {
+    return EnumHelper.getFromIDOrNull (ERevocationCheckMode.class, sID);
+  }
+
+  /**
+   * Find the revocation check mode with the passed ID.
+   *
+   * @param sID
+   *        The ID to be searched. May be <code>null</code>.
+   * @param eDefault
+   *        The default value to be returned if no such ID is contained. May be <code>null</code>.
+   * @return <code>eDefault</code> if no such revocation check mode was found.
+   * @since 12.2.1
+   */
+  @Nullable
+  public static ERevocationCheckMode getFromIDOrDefault (@Nullable final String sID,
+                                                         @Nullable final ERevocationCheckMode eDefault)
+  {
+    return EnumHelper.getFromIDOrDefault (ERevocationCheckMode.class, sID, eDefault);
   }
 }
