@@ -35,6 +35,7 @@ import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.state.ESuccess;
 import com.helger.base.timing.StopWatch;
@@ -510,10 +511,18 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         // Logger warning already emitted
         throw new DAOException ("Failed to open output stream");
       }
-      // Write to file (closes the OS)
-      final IXMLWriterSettings aXWS = getXMLWriterSettings ();
-      if (MicroWriter.writeToStream (aDoc, aOS, aXWS).isFailure ())
-        throw new DAOException ("Failed to write DAO XML data to file");
+      // Write to file (closes the OS in all cases via @WillClose)
+      try
+      {
+        final IXMLWriterSettings aXWS = getXMLWriterSettings ();
+        if (MicroWriter.writeToStream (aDoc, aOS, aXWS).isFailure ())
+          throw new DAOException ("Failed to write DAO XML data to file");
+      }
+      catch (final RuntimeException | DAOException ex)
+      {
+        StreamHelper.close (aOS);
+        throw ex;
+      }
 
       m_aStatsCounterWriteTimer.addTime (aSW.stopAndGetMillis ());
       m_aStatsCounterWriteSuccess.increment ();

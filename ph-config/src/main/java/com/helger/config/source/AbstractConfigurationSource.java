@@ -86,9 +86,15 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
    */
   public static boolean isSecretKey (@NonNull final String sKey)
   {
-    // Bad heuristics but better then nothing
     final String sRealKey = sKey.toLowerCase (Locale.ROOT);
-    return sRealKey.contains ("password") || sRealKey.contains ("passwd");
+    return sRealKey.contains ("password") ||
+           sRealKey.contains ("passwd") ||
+           sRealKey.contains ("secret") ||
+           sRealKey.contains ("token") ||
+           sRealKey.contains ("apikey") ||
+           sRealKey.contains ("api_key") ||
+           sRealKey.contains ("api-key") ||
+           sRealKey.contains ("credential");
   }
 
   // Old name before v12: "mapToStringNoSecrets"

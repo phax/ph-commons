@@ -825,13 +825,21 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
         // Logger warning already emitted
         throw new DAOException ("Failed to open output stream for '" + aFileNew.getAbsolutePath () + "'");
       }
-      // Write to file (closes the OS)
-      final IXMLWriterSettings aXWS = getXMLWriterSettings ();
+      // Write to file (closes the OS in all cases via @WillClose)
+      try
+      {
+        final IXMLWriterSettings aXWS = getXMLWriterSettings ();
 
-      CONDLOG.info ( () -> "Now serializing XML to stream with XWS " + aXWS);
+        CONDLOG.info ( () -> "Now serializing XML to stream with XWS " + aXWS);
 
-      if (MicroWriter.writeToStream (aDoc, aOS, aXWS).isFailure ())
-        throw new DAOException ("Failed to write DAO XML data to file");
+        if (MicroWriter.writeToStream (aDoc, aOS, aXWS).isFailure ())
+          throw new DAOException ("Failed to write DAO XML data to file");
+      }
+      catch (final RuntimeException | DAOException ex)
+      {
+        StreamHelper.close (aOS);
+        throw ex;
+      }
 
       CONDLOG.info ( () -> "Finished serializing XML to stream");
 

@@ -18,11 +18,13 @@ package com.helger.base.serialize;
 
 import java.io.IOException;
 import java.io.NotSerializableException;
+import java.io.ObjectInputFilter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
@@ -80,27 +82,56 @@ public final class SerializationHelper
    * Convert the passed byte array to an object using deserialization.
    *
    * @param aData
-   *        The source serialized byte array. Must contain a single object only.
-   *        May not be <code>null</code>.
+   *        The source serialized byte array. Must contain a single object only. May not be
+   *        <code>null</code>.
+   * @param aFilter
+   *        An optional {@link ObjectInputFilter} to restrict deserialization. May be
+   *        <code>null</code>.
    * @return The deserialized object. Never <code>null</code>.
    * @throws IllegalStateException
    *         If deserialization failed
    * @param <T>
    *        The type of the deserialized object
+   * @since 12.2.1
    */
   @NonNull
-  public static <T> T getDeserializedObject (final byte @NonNull [] aData)
+  public static <T> T getDeserializedObject (final byte @NonNull [] aData,
+                                             @Nullable final ObjectInputFilter aFilter)
   {
     ValueEnforcer.notNull (aData, "Data");
 
     // Read new object from byte array
     try (final ObjectInputStream aOIS = new ObjectInputStream (new NonBlockingByteArrayInputStream (aData)))
     {
+      if (aFilter != null)
+        aOIS.setObjectInputFilter (aFilter);
       return GenericReflection.uncheckedCast (aOIS.readObject ());
     }
     catch (final Exception ex)
     {
       throw new IllegalStateException ("Failed to read serializable object", ex);
     }
+  }
+
+  /**
+   * Convert the passed byte array to an object using deserialization. This method does not apply
+   * any {@link ObjectInputFilter} and should only be used with trusted data.
+   *
+   * @param aData
+   *        The source serialized byte array. Must contain a single object only. May not be
+   *        <code>null</code>.
+   * @return The deserialized object. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         If deserialization failed
+   * @param <T>
+   *        The type of the deserialized object
+   * @deprecated Use {@link #getDeserializedObject(byte[], ObjectInputFilter)} with an appropriate
+   *             filter instead.
+   */
+  @Deprecated (since = "12.2.1", forRemoval = false)
+  @NonNull
+  public static <T> T getDeserializedObject (final byte @NonNull [] aData)
+  {
+    return getDeserializedObject (aData, null);
   }
 }

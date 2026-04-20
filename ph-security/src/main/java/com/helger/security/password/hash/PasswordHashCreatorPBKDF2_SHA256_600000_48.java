@@ -17,27 +17,22 @@
 package com.helger.security.password.hash;
 
 /**
- * The old default implementation of {@link IPasswordHashCreator} that requires a salt and uses the
- * PBKDF2 algorithm with 1000 iterations and 48 bytes hash size. 1000 iterations is considered
- * insufficient by modern standards. Use {@link PasswordHashCreatorPBKDF2_SHA256_600000_48} for new
- * password hashing.
+ * The recommended implementation of {@link IPasswordHashCreator} that requires a salt and uses the
+ * PBKDF2 algorithm with 600000 iterations and 48 bytes hash size, following OWASP 2023 guidance.
  *
  * @author Philip Helger
- * @since 10.0.0
- * @deprecated Use {@link PasswordHashCreatorPBKDF2_SHA256_600000_48} instead. Keep this class only
- *             for verifying existing password hashes.
+ * @since 12.2.1
  */
-@Deprecated (since = "12.2.1", forRemoval = false)
-public final class PasswordHashCreatorPBKDF2_SHA256_1000_48 extends AbstractPasswordHashCreatorPBKDF2
+public final class PasswordHashCreatorPBKDF2_SHA256_600000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
-  public static final String ALGORITHM = "PBKDF2_SHA256_1000_48";
-  public static final int PBKDF2_ITERATIONS = 1_000;
+  public static final String ALGORITHM = "PBKDF2_SHA256_600000_48";
+  public static final int PBKDF2_ITERATIONS = 600_000;
   public static final int HASH_BYTE_SIZE = 48;
 
   /**
    * Constructor using the predefined algorithm name, iterations and hash byte size.
    */
-  public PasswordHashCreatorPBKDF2_SHA256_1000_48 ()
+  public PasswordHashCreatorPBKDF2_SHA256_600000_48 ()
   {
     super (ALGORITHM, "PBKDF2WithHmacSHA256", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
   }

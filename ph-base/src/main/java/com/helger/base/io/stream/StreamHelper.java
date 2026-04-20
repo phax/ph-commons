@@ -1656,6 +1656,13 @@ public class StreamHelper
   public static final int END_OF_STRING_MARKER = 0xfffdfffd;
 
   /**
+   * The maximum number of bytes that {@link #readSafeUTF(DataInput)} will allocate for a single
+   * string. This exists to prevent denial-of-service attacks via crafted serialized data that
+   * specifies a very large length value. The default is 64 MB.
+   */
+  public static final int MAX_SAFE_UTF_BYTES = 64 * CGlobal.BYTES_PER_MEGABYTE;
+
+  /**
    * Because {@link DataOutputStream#writeUTF(String)} has a limit of 64KB this methods provides a
    * similar solution but simply writing the bytes.
    *
@@ -1728,6 +1735,8 @@ public class StreamHelper
       {
         // length in UTF-8 bytes followed by the main bytes
         final int nLength = aDI.readInt ();
+        if (nLength < 0 || nLength > MAX_SAFE_UTF_BYTES)
+          throw new IOException ("Invalid SafeUTF length: " + nLength);
         final byte [] aData = new byte [nLength];
         aDI.readFully (aData);
         ret = new String (aData, StandardCharsets.UTF_8);
@@ -1738,6 +1747,8 @@ public class StreamHelper
         // length in UTF-8 bytes followed by the main bytes, than the end of
         // byte marker
         final int nLength = aDI.readInt ();
+        if (nLength < 0 || nLength > MAX_SAFE_UTF_BYTES)
+          throw new IOException ("Invalid SafeUTF length: " + nLength);
         final byte [] aData = new byte [nLength];
         aDI.readFully (aData);
         ret = new String (aData, StandardCharsets.UTF_8);

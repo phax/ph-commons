@@ -21,8 +21,12 @@ import javax.xml.validation.SchemaFactory;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.ErrorHandler;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
@@ -49,6 +53,7 @@ public class XMLSchemaCache extends SchemaCache
     private static final XMLSchemaCache INSTANCE = new XMLSchemaCache ();
   }
 
+  private static final Logger LOGGER = LoggerFactory.getLogger (XMLSchemaCache.class);
   public static final String SCHEMA_TYPE_NAME = "XSD";
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK")
@@ -56,14 +61,27 @@ public class XMLSchemaCache extends SchemaCache
   private static volatile boolean s_bDefaultInstantiated = false;
 
   /**
-   * Create a new XSD {@link SchemaFactory}.
+   * Create a new XSD {@link SchemaFactory} with XXE protection enabled. External DTD access is
+   * disabled. External schema access is limited to the "file" protocol to allow loading local
+   * schema includes.
    *
    * @return A new {@link SchemaFactory} and never <code>null</code>.
    */
   @NonNull
   public static SchemaFactory createXSDSchemaFactory ()
   {
-    return SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    final SchemaFactory aSF = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    try
+    {
+      aSF.setProperty (XMLConstants.ACCESS_EXTERNAL_DTD, "");
+      // Allow "file" for local schema includes/imports; block http/https/ftp
+      aSF.setProperty (XMLConstants.ACCESS_EXTERNAL_SCHEMA, "file");
+    }
+    catch (final SAXNotRecognizedException | SAXNotSupportedException ex)
+    {
+      LOGGER.warn ("SchemaFactory does not support XXE protection properties", ex);
+    }
+    return aSF;
   }
 
   /**
@@ -105,14 +123,14 @@ public class XMLSchemaCache extends SchemaCache
    * @param aResourceResolver
    *        The resource resolver to use. May be <code>null</code>.
    */
-  public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler, @Nullable final LSResourceResolver aResourceResolver)
+  public XMLSchemaCache (@Nullable final ErrorHandler aErrorHandler,
+                         @Nullable final LSResourceResolver aResourceResolver)
   {
     this (createXSDSchemaFactory (), aErrorHandler, aResourceResolver);
   }
 
   /**
-   * Constructor with a custom schema factory, error handler and resource
-   * resolver.
+   * Constructor with a custom schema factory, error handler and resource resolver.
    *
    * @param aSchemaFactory
    *        The schema factory to use. May not be <code>null</code>.
@@ -129,8 +147,8 @@ public class XMLSchemaCache extends SchemaCache
   }
 
   /**
-   * @return <code>true</code> if the default singleton instance has been
-   *         instantiated, <code>false</code> otherwise.
+   * @return <code>true</code> if the default singleton instance has been instantiated,
+   *         <code>false</code> otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -149,8 +167,7 @@ public class XMLSchemaCache extends SchemaCache
   }
 
   /**
-   * Get the {@link XMLSchemaCache} instance for the specified class loader
-   * provider.
+   * Get the {@link XMLSchemaCache} instance for the specified class loader provider.
    *
    * @param aClassLoaderProvider
    *        The class loader provider. May be <code>null</code>.
@@ -166,8 +183,8 @@ public class XMLSchemaCache extends SchemaCache
    * Get the {@link XMLSchemaCache} instance for the specified class loader.
    *
    * @param aClassLoader
-   *        The class loader to use. May be <code>null</code> in which case
-   *        the default instance is returned.
+   *        The class loader to use. May be <code>null</code> in which case the default instance is
+   *        returned.
    * @return The matching {@link XMLSchemaCache}. Never <code>null</code>.
    */
   @NonNull
