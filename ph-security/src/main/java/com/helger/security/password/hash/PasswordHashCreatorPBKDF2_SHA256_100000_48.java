@@ -18,23 +18,22 @@ package com.helger.security.password.hash;
 
 /**
  * The recommended implementation of {@link IPasswordHashCreator} that requires a salt and uses the
- * PBKDF2 algorithm with 600000 iterations and 48 bytes hash size, following OWASP 2023
- * guidance.<br>
- * A single creation takes 0,85 seconds on an Mac M4 Pro
+ * PBKDF2 algorithm with 100000 iterations and 48 bytes hash size.<br>
+ * A single creation takes 0,15 seconds on an Mac M4 Pro
  *
  * @author Philip Helger
  * @since 12.2.1
  */
-public final class PasswordHashCreatorPBKDF2_SHA256_600000_48 extends AbstractPasswordHashCreatorPBKDF2
+public final class PasswordHashCreatorPBKDF2_SHA256_100000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
-  public static final String ALGORITHM = "PBKDF2_SHA256_600000_48";
-  public static final int PBKDF2_ITERATIONS = 600_000;
+  public static final String ALGORITHM = "PBKDF2_SHA256_100000_48";
+  public static final int PBKDF2_ITERATIONS = 100_000;
   public static final int HASH_BYTE_SIZE = 48;
 
   /**
    * Constructor using the predefined algorithm name, iterations and hash byte size.
    */
-  public PasswordHashCreatorPBKDF2_SHA256_600000_48 ()
+  public PasswordHashCreatorPBKDF2_SHA256_100000_48 ()
   {
     super (ALGORITHM, "PBKDF2WithHmacSHA256", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);
   }
