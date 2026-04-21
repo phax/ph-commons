@@ -85,7 +85,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @NonNull
-  private static String _getParameter (@Nullable final Parameter [] aParams, @Nullable final Object [] aArgs)
+  private static String _getParameters (@Nullable final Parameter [] aParams, @Nullable final Object [] aArgs)
   {
     final StringBuilder aSB = new StringBuilder ();
     if (aParams != null)
@@ -124,7 +124,7 @@ public class LoggingInvocationHandler implements InvocationHandler
                            "." +
                            aMethod.getName () +
                            " (" +
-                           _getParameter (aMethod.getParameters (), aArgs) +
+                           _getParameters (aMethod.getParameters (), aArgs) +
                            ")";
     LOGGER.info (sMethod + " - invoke");
     final Object ret = aMethod.invoke (m_aActualTarget, aArgs);

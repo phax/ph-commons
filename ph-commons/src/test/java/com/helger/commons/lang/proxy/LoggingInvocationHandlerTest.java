@@ -28,11 +28,12 @@ import com.helger.collection.commons.ICommonsList;
  */
 public final class LoggingInvocationHandlerTest
 {
+  @SuppressWarnings("unchecked")
   @Test
   public void testBasic ()
   {
     final ICommonsList <String> aList = LoggingInvocationHandler.proxying (ICommonsList.class,
-                                                                           new CommonsArrayList <> ());
+                                                                           new CommonsArrayList <String> ());
     aList.add ("a");
     aList.add ("b");
     aList.subList (0, 1).isEmpty ();

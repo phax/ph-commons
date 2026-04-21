@@ -1332,11 +1332,11 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   public long until (@NonNull final Temporal endExclusive, @NonNull final TemporalUnit unit)
   {
     final XMLOffsetTime end = XMLOffsetTime.from (endExclusive);
-    if (unit instanceof ChronoUnit)
+    if (unit instanceof ChronoUnit aCU)
     {
       // no overflow
       final long nanosUntil = end.toEpochNano () - toEpochNano ();
-      switch ((ChronoUnit) unit)
+      switch (aCU)
       {
         case NANOS:
           return nanosUntil;

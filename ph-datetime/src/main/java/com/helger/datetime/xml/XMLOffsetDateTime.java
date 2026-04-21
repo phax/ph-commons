@@ -655,9 +655,9 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @Override
   public int get (@NonNull final TemporalField field)
   {
-    if (field instanceof ChronoField)
+    if (field instanceof ChronoField aCF)
     {
-      switch ((ChronoField) field)
+      switch (aCF)
       {
         case INSTANT_SECONDS:
           throw new UnsupportedTemporalTypeException ("Invalid field 'InstantSeconds' for get() method, use getLong() instead");
@@ -698,9 +698,9 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @Override
   public long getLong (@NonNull final TemporalField field)
   {
-    if (field instanceof ChronoField)
+    if (field instanceof ChronoField aCF)
     {
-      switch ((ChronoField) field)
+      switch (aCF)
       {
         case INSTANT_SECONDS:
           return toEpochSecond ();
@@ -1077,15 +1077,14 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @NonNull
   public XMLOffsetDateTime with (@NonNull final TemporalField field, final long newValue)
   {
-    if (field instanceof ChronoField)
+    if (field instanceof ChronoField aCF)
     {
-      final ChronoField f = (ChronoField) field;
-      switch (f)
+      switch (aCF)
       {
         case INSTANT_SECONDS:
           return ofInstant (Instant.ofEpochSecond (newValue, getNano ()), m_aOffset);
         case OFFSET_SECONDS:
-          return with (m_aDateTime, ZoneOffset.ofTotalSeconds (f.checkValidIntValue (newValue)));
+          return with (m_aDateTime, ZoneOffset.ofTotalSeconds (aCF.checkValidIntValue (newValue)));
       }
       return with (m_aDateTime.with (field, newValue), m_aOffset);
     }
