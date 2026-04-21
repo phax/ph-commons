@@ -306,8 +306,8 @@ public final class TestHelper
     // Serialize to byte array
     final byte [] aBytes = SerializationHelper.getSerializedByteArray (aSerializable);
 
-    // Read new object from byte array
-    final DATATYPE aReadObject = SerializationHelper.getDeserializedObject (aBytes);
+    // Read new object from byte array (no filter)
+    final DATATYPE aReadObject = SerializationHelper.getDeserializedObject (aBytes, null);
 
     // Now check them for equality
     testDefaultImplementationWithEqualContentObject (aSerializable, aReadObject);
