@@ -825,4 +825,67 @@ public final class MicroWriterTest
               "<!-- Let world.txt contain \"world\" (excluding the quotes) -->",
               "<doc attrExtEnt=\"entExt\">\n" + "   Hello, world!\n" + "</doc>\n");
   }
+
+  @Test 
+  public void testCommentIndentation ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // Comment as first child, followed by element
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("first comment");
+      eRoot.addElement ("child");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <!--first comment-->\n  <child />\n</root>\n", sResult);
+    }
+
+    // Comment as second child after an element
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addElement ("child1");
+      eRoot.addComment ("between elements");
+      eRoot.addElement ("child2");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <child1 />\n  <!--between elements-->\n  <child2 />\n</root>\n", sResult);
+    }
+
+    // Comment as last child
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addElement ("child");
+      eRoot.addComment ("trailing comment");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <child />\n  <!--trailing comment-->\n</root>\n", sResult);
+    }
+
+    // Multiple comments in a row
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("comment1");
+      eRoot.addComment ("comment2");
+      eRoot.addElement ("child");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <!--comment1-->\n  <!--comment2-->\n  <child />\n</root>\n", sResult);
+    }
+
+    // Comment only child
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("only comment");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <!--only comment-->\n</root>\n", sResult);
+    }
+
+    // Nested comment indentation
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      final IMicroElement eChild = eRoot.addElement ("child");
+      eChild.addComment ("nested comment");
+      eChild.addElement ("grandchild");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n  <child>\n    <!--nested comment-->\n    <grandchild />\n  </child>\n</root>\n", sResult);
+    }
+  }
 }

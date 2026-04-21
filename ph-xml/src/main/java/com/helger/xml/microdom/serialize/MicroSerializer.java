@@ -95,7 +95,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         _writeCDATA (aXMLWriter, (IMicroCDATA) aNode);
         break;
       case COMMENT:
-        _writeComment (aXMLWriter, (IMicroComment) aNode);
+        _writeComment (aXMLWriter, aPrevSibling, (IMicroComment) aNode, aNextSibling);
         break;
       case ENTITY_REFERENCE:
         _writeEntityReference (aXMLWriter, (IMicroEntityReference) aNode);
@@ -195,21 +195,24 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
     aXMLWriter.onText (aText.getData ().toString (), aText.isEscape ());
   }
 
-  private void _writeComment (@NonNull final XMLEmitter aXMLWriter, @NonNull final IMicroComment aComment)
+  private void _writeComment (@NonNull final XMLEmitter aXMLWriter,
+                              @Nullable final IMicroNode aPrevSibling,
+                              @NonNull final IMicroComment aComment,
+                              @Nullable final IMicroNode aNextSibling)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
-      if (m_aSettings.getIndent ().isIndent () && m_aIndent.length () > 0)
+      final boolean bIndentPrev = aPrevSibling == null || !_isInlineNode (aPrevSibling);
+      final boolean bIndentNext = aNextSibling == null || !_isInlineNode (aNextSibling);
+
+      if (m_aSettings.getIndent ().isIndent () && m_aIndent.length () > 0 && bIndentPrev)
         aXMLWriter.onContentElementWhitespace (m_aIndent);
 
       final String sComment = aComment.getData ().toString ();
       aXMLWriter.onComment (sComment);
 
-      if (sComment.indexOf ('\n') >= 0)
-      {
-        // Newline only after multi-line comments
-        aXMLWriter.newLine ();
-      }
+      if (m_aSettings.getIndent ().isAlign () && bIndentNext)
+        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
   }
 
