@@ -876,6 +876,152 @@ public final class XMLWriterTest
   }
 
   @Test
+  public void testCommentIndentAndAlign ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // Comment as first child, followed by element
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createComment ("first comment"));
+      eRoot.appendChild (aDoc.createElement ("child"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF + "  <!--first comment-->" + CRLF + "  <child />" + CRLF + "</root>" + CRLF, sResult);
+    }
+
+    // Comment between elements
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createElement ("child1"));
+      eRoot.appendChild (aDoc.createComment ("between"));
+      eRoot.appendChild (aDoc.createElement ("child2"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF + "  <child1 />" + CRLF + "  <!--between-->" + CRLF + "  <child2 />" + CRLF + "</root>" + CRLF,
+                    sResult);
+    }
+
+    // Comment as last child
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createElement ("child"));
+      eRoot.appendChild (aDoc.createComment ("trailing"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF + "  <child />" + CRLF + "  <!--trailing-->" + CRLF + "</root>" + CRLF, sResult);
+    }
+
+    // Comment among inline content - stays inline
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createTextNode ("Hello "));
+      eRoot.appendChild (aDoc.createComment ("inline"));
+      eRoot.appendChild (aDoc.createTextNode (" World"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>" + CRLF, sResult);
+    }
+
+    // Nested comment
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      final Element eChild = (Element) eRoot.appendChild (aDoc.createElement ("child"));
+      eChild.appendChild (aDoc.createComment ("nested"));
+      eChild.appendChild (aDoc.createElement ("grandchild"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF +
+                    "  <child>" + CRLF +
+                    "    <!--nested-->" + CRLF +
+                    "    <grandchild />" + CRLF +
+                    "  </child>" + CRLF +
+                    "</root>" + CRLF,
+                    sResult);
+    }
+  }
+
+  @Test
+  public void testCommentNoIndent ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // No indent, no newlines
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createComment ("first"));
+      eRoot.appendChild (aDoc.createElement ("child"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><!--first--><child /></root>", sResult);
+    }
+
+    // Comment between elements
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createElement ("child1"));
+      eRoot.appendChild (aDoc.createComment ("between"));
+      eRoot.appendChild (aDoc.createElement ("child2"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><child1 /><!--between--><child2 /></root>", sResult);
+    }
+
+    // Comment among inline content
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createTextNode ("Hello "));
+      eRoot.appendChild (aDoc.createComment ("inline"));
+      eRoot.appendChild (aDoc.createTextNode (" World"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>", sResult);
+    }
+  }
+
+  @Test
+  public void testCommentAlignOnly ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // Newlines but no indentation whitespace
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createComment ("first"));
+      eRoot.appendChild (aDoc.createElement ("child"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF + "<!--first-->" + CRLF + "<child />" + CRLF + "</root>" + CRLF, sResult);
+    }
+
+    // Comment between elements
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createElement ("child1"));
+      eRoot.appendChild (aDoc.createComment ("between"));
+      eRoot.appendChild (aDoc.createElement ("child2"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>" + CRLF + "<child1 />" + CRLF + "<!--between-->" + CRLF + "<child2 />" + CRLF + "</root>" + CRLF,
+                    sResult);
+    }
+
+    // Comment among inline content - stays inline
+    {
+      final Document aDoc = XMLFactory.newDocument ();
+      final Element eRoot = (Element) aDoc.appendChild (aDoc.createElement ("root"));
+      eRoot.appendChild (aDoc.createTextNode ("Hello "));
+      eRoot.appendChild (aDoc.createComment ("inline"));
+      eRoot.appendChild (aDoc.createTextNode (" World"));
+      final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>" + CRLF, sResult);
+    }
+  }
+
+  @Test
   public void testXMLDeclaration ()
   {
     final Document aDoc = XMLFactory.newDocument ();

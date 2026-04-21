@@ -77,7 +77,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
           _writeCDATA (aXMLWriter, (CDATASection) aNode);
         else
           if (nNodeType == Node.COMMENT_NODE)
-            _writeComment (aXMLWriter, (Comment) aNode);
+            _writeComment (aXMLWriter, aPrevSibling, (Comment) aNode, aNextSibling);
           else
             if (nNodeType == Node.ENTITY_REFERENCE_NODE)
               _writeEntityReference (aXMLWriter, (EntityReference) aNode);
@@ -155,17 +155,24 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
     aXMLWriter.onEntityReference (aEntRef.getNodeName ());
   }
 
-  private void _writeComment (@NonNull final XMLEmitter aXMLWriter, @NonNull final Comment aComment)
+  private void _writeComment (@NonNull final XMLEmitter aXMLWriter,
+                              @Nullable final Node aPrevSibling,
+                              @NonNull final Comment aComment,
+                              @Nullable final Node aNextSibling)
   {
     if (m_aSettings.getSerializeComments ().isEmit ())
     {
+      final boolean bIndentPrev = aPrevSibling == null || !XMLHelper.isInlineNode (aPrevSibling);
+      final boolean bIndentNext = aNextSibling == null || !XMLHelper.isInlineNode (aNextSibling);
+
+      if (m_aSettings.getIndent ().isIndent () && m_aIndent.length () > 0 && bIndentPrev)
+        aXMLWriter.onContentElementWhitespace (m_aIndent);
+
       final String sComment = aComment.getData ();
       aXMLWriter.onComment (sComment);
-      if (sComment.indexOf ('\n') >= 0)
-      {
-        // Newline only after multi-line comments
-        aXMLWriter.newLine ();
-      }
+
+      if (m_aSettings.getIndent ().isAlign () && bIndentPrev && bIndentNext)
+        aXMLWriter.onContentElementWhitespace (m_aSettings.getNewLineString ());
     }
   }
 

@@ -826,8 +826,8 @@ public final class MicroWriterTest
               "<doc attrExtEnt=\"entExt\">\n" + "   Hello, world!\n" + "</doc>\n");
   }
 
-  @Test 
-  public void testCommentIndentation ()
+  @Test
+  public void testCommentIndentAndAlign ()
   {
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.INDENT_AND_ALIGN)
                                                                 .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
@@ -886,6 +886,127 @@ public final class MicroWriterTest
       eChild.addElement ("grandchild");
       final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
       assertEquals ("<root>\n  <child>\n    <!--nested comment-->\n    <grandchild />\n  </child>\n</root>\n", sResult);
+    }
+
+    // Comment among inline siblings (text, CDATA) - should remain inline
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addText ("Hello ");
+      eRoot.addComment ("inline");
+      eRoot.addText (" World");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>\n", sResult);
+    }
+  }
+
+  @Test
+  public void testCommentNoIndent ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // Comment as first child, followed by element - no indent, no newlines
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("first comment");
+      eRoot.addElement ("child");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><!--first comment--><child /></root>", sResult);
+    }
+
+    // Comment between elements - no indent, no newlines
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addElement ("child1");
+      eRoot.addComment ("between");
+      eRoot.addElement ("child2");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><child1 /><!--between--><child2 /></root>", sResult);
+    }
+
+    // Multiple comments
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("c1");
+      eRoot.addComment ("c2");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><!--c1--><!--c2--></root>", sResult);
+    }
+
+    // Nested
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      final IMicroElement eChild = eRoot.addElement ("child");
+      eChild.addComment ("nested");
+      eChild.addElement ("grandchild");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root><child><!--nested--><grandchild /></child></root>", sResult);
+    }
+
+    // Comment among inline siblings
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addText ("Hello ");
+      eRoot.addComment ("inline");
+      eRoot.addText (" World");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>", sResult);
+    }
+  }
+
+  @Test
+  public void testCommentAlignOnly ()
+  {
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.ALIGN_ONLY)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    // Comment as first child - newlines but no indentation whitespace
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("first comment");
+      eRoot.addElement ("child");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n<!--first comment-->\n<child />\n</root>\n", sResult);
+    }
+
+    // Comment between elements
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addElement ("child1");
+      eRoot.addComment ("between");
+      eRoot.addElement ("child2");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n<child1 />\n<!--between-->\n<child2 />\n</root>\n", sResult);
+    }
+
+    // Multiple comments
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addComment ("c1");
+      eRoot.addComment ("c2");
+      eRoot.addElement ("child");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n<!--c1-->\n<!--c2-->\n<child />\n</root>\n", sResult);
+    }
+
+    // Nested - no indent whitespace even when nested
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      final IMicroElement eChild = eRoot.addElement ("child");
+      eChild.addComment ("nested");
+      eChild.addElement ("grandchild");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>\n<child>\n<!--nested-->\n<grandchild />\n</child>\n</root>\n", sResult);
+    }
+
+    // Comment among inline siblings - stays inline
+    {
+      final IMicroElement eRoot = new MicroElement ("root");
+      eRoot.addText ("Hello ");
+      eRoot.addComment ("inline");
+      eRoot.addText (" World");
+      final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
+      assertEquals ("<root>Hello <!--inline--> World</root>\n", sResult);
     }
   }
 }
