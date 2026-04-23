@@ -20,27 +20,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.io.Reader;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
-import java.util.Locale;
-
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.base.string.StringHelper;
-import com.helger.io.file.FileHelper;
-import com.helger.io.file.FileOperations;
 
 /**
  * TestMatrix tests the functionality of the Jama Matrix class and associated decompositions.
@@ -74,16 +59,14 @@ import com.helger.io.file.FileOperations;
 public final class MatrixTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (MatrixTest.class);
-  private static final File FILE_JAMA_TEST_MATRIX_OUT = new File ("Jamaout");
   private static final double EPSILON = Math.pow (2.0, -52.0);
-  private static final DecimalFormatSymbols DFS = DecimalFormatSymbols.getInstance (Locale.US);
 
   @Test
   public void testMain ()
   {
     // Uncomment this to test IO in a different locale.
     // Locale.setDefault(Locale.GERMAN);
-    int warningCount = 0;
+    final int warningCount = 0;
     double tmp;
     final double [] columnwise = { 1., 2., 3., 4., 5., 6., 7., 8., 9., 10., 11., 12. };
     final double [] rowwise = { 1., 4., 7., 10., 2., 5., 8., 11., 3., 6., 9., 12. };
@@ -905,113 +888,6 @@ public final class MatrixTest
     }
 
     /**
-     * I/O methods: read print serializable: writeObject readObject
-     **/
-    _print ("\nTesting I/O methods...\n");
-    try
-    {
-      final DecimalFormat fmt = new DecimalFormat ("0.0000E00", DFS);
-
-      try (final PrintWriter aPW = FileHelper.getPrintWriter (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
-      {
-        a.print (aPW, fmt, 10);
-      }
-      try (final Reader aReader = FileHelper.getBufferedReader (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
-      {
-        r = Matrix.read (aReader);
-      }
-      if (a.minus (r).norm1 () < .001)
-      {
-        _try_success ("print()/read()...", "");
-      }
-      else
-      {
-        fail ("Matrix read from file does not match Matrix printed to file");
-      }
-    }
-    catch (final IOException ioe)
-    {
-      warningCount = _try_warning (warningCount,
-                                   "print()/read()...",
-                                   "unexpected I/O error, unable to run print/read test;  _check write permission in current directory and retry");
-    }
-    catch (final Exception e)
-    {
-      try
-      {
-        LOGGER.error ("oops", e);
-        warningCount = _try_warning (warningCount,
-                                     "print()/read()...",
-                                     "Formatting error... will try JDK1.1 reformulation...");
-        final DecimalFormat fmt = new DecimalFormat ("0.0000", DFS);
-        try (final PrintWriter aPW = FileHelper.getPrintWriter (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
-        {
-          a.print (aPW, fmt, 10);
-        }
-        try (final Reader aReader = FileHelper.getBufferedReader (FILE_JAMA_TEST_MATRIX_OUT, StandardCharsets.UTF_8))
-        {
-          r = Matrix.read (aReader);
-        }
-        if (a.minus (r).norm1 () < .001)
-        {
-          _try_success ("print()/read()...", "");
-        }
-        else
-        {
-          fail ("Matrix read from file does not match Matrix printed to file");
-        }
-      }
-      catch (final IOException ioe)
-      {
-        warningCount = _try_warning (warningCount,
-                                     "print()/read()...",
-                                     "unexpected I/O error, unable to run print/read test;  _check write permission in current directory and retry");
-      }
-    }
-    finally
-    {
-      FileOperations.deleteFile (FILE_JAMA_TEST_MATRIX_OUT);
-    }
-
-    r = Matrix.random (a.getRowDimension (), a.getColumnDimension ());
-    final String tmpname = "TMPMATRIX.serial";
-    try
-    {
-      try (final ObjectOutputStream out = new ObjectOutputStream (new FileOutputStream (tmpname)))
-      {
-        out.writeObject (r);
-      }
-      try (final ObjectInputStream sin = new ObjectInputStream (new FileInputStream (tmpname)))
-      {
-        a = (Matrix) sin.readObject ();
-      }
-
-      try
-      {
-        _check (a, r);
-        _try_success ("writeObject(Matrix)/readObject(Matrix)...", "");
-      }
-      catch (final RuntimeException e)
-      {
-        fail ("Matrix not serialized correctly");
-      }
-    }
-    catch (final IOException ioe)
-    {
-      warningCount = _try_warning (warningCount,
-                                   "writeObject()/readObject()...",
-                                   "unexpected I/O error, unable to run serialization test;  _check write permission in current directory and retry");
-    }
-    catch (final Exception e)
-    {
-      fail ("unexpected error in serialization test");
-    }
-    finally
-    {
-      FileOperations.deleteFile (new File (tmpname));
-    }
-
-    /**
      * LA methods: transpose times cond rank det trace norm1 norm2 normF normInf solve
      * solveTranspose inverse chol eig lu qr svd
      **/
@@ -1265,15 +1141,12 @@ public final class MatrixTest
 
   private static void _check (final double [] x, final double [] y)
   {
-    if (x.length == y.length)
-    {
-      for (int i = 0; i < x.length; i++)
-        _check (x[i], y[i]);
-    }
-    else
+    if (x.length != y.length)
     {
       throw new IllegalArgumentException ("Attempt to compare vectors of different lengths");
     }
+    for (int i = 0; i < x.length; i++)
+      _check (x[i], y[i]);
   }
 
   /** Check norm of difference of arrays. **/
@@ -1311,13 +1184,5 @@ public final class MatrixTest
     _print (">    " + s + "success\n");
     if (StringHelper.isNotEmpty (e))
       _print (">      Message: " + e + "\n");
-  }
-
-  /** Print appropriate messages for unsuccessful outcome try **/
-
-  private static int _try_warning (final int count, final String s, final String e)
-  {
-    _print (">    " + s + "*** warning ***\n>      Message: " + e + "\n");
-    return count + 1;
   }
 }

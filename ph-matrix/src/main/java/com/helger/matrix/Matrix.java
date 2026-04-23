@@ -19,7 +19,6 @@ package com.helger.matrix;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.Serializable;
 import java.io.StreamTokenizer;
 import java.text.NumberFormat;
 import java.util.Arrays;
@@ -85,7 +84,7 @@ import com.helger.collection.commons.ICommonsList;
  * @author The MathWorks, Inc. and the National Institute of Standards and Technology.
  * @version 5 August 1998
  */
-public class Matrix implements ICloneable <Matrix>, Serializable
+public class Matrix implements ICloneable <Matrix>
 {
   /**
    * Array for internal storage of elements.

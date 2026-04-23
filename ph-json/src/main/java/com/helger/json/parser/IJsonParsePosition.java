@@ -16,8 +16,6 @@
  */
 package com.helger.json.parser;
 
-import java.io.Serializable;
-
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonnegative;
@@ -27,7 +25,7 @@ import com.helger.annotation.Nonnegative;
  *
  * @author Philip Helger
  */
-public interface IJsonParsePosition extends Serializable
+public interface IJsonParsePosition
 {
   /**
    * @return The current line number. First line has a value of 1.
