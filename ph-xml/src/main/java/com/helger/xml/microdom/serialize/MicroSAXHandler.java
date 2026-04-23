@@ -73,6 +73,7 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   private final EntityResolver m_aEntityResolver;
   private final EntityResolver2 m_aEntityResolver2;
   private final boolean m_bTrackPosition;
+  private boolean m_bSaveNamespaceDeclarations = false;
   private Locator m_aLocator;
   private String m_sSourceXMLVersion;
   private String m_sSourceXMLEncoding;
@@ -95,6 +96,25 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
     m_aEntityResolver = aEntityResolver;
     m_aEntityResolver2 = aEntityResolver instanceof final EntityResolver2 aER2 ? aER2 : null;
     m_bTrackPosition = bTrackPosition;
+  }
+
+  /**
+   * Set whether namespace declarations (xmlns attributes) should be saved as
+   * regular attributes on the micro elements. This is important for documents
+   * like XSLT where namespace prefixes are referenced inside attribute values
+   * (e.g. <code>xs:boolean</code>) and would otherwise be lost.
+   *
+   * @param bSaveNamespaceDeclarations
+   *        <code>true</code> to save namespace declarations as attributes,
+   *        <code>false</code> to ignore them (default).
+   * @return this for chaining
+   * @since 12.2.2
+   */
+  @NonNull
+  public MicroSAXHandler setSaveNamespaceDeclarations (final boolean bSaveNamespaceDeclarations)
+  {
+    m_bSaveNamespaceDeclarations = bSaveNamespaceDeclarations;
+    return this;
   }
 
   private void _createParentDocument ()
@@ -189,8 +209,9 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
         final String sAttrValue = aAttributes.getValue (i);
 
         // Ignore the "xmlns" attributes, as the SAX handler passes the correct
-        // namespace URIs
-        if (!sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
+        // namespace URIs. Unless saveNamespaceDeclarations is enabled, in which
+        // case we keep them for round-trip fidelity (e.g. XSLT documents).
+        if (m_bSaveNamespaceDeclarations || !sAttrName.startsWith (XMLConstants.XMLNS_ATTRIBUTE))
           aElement.setAttributeNS (sAttrNamespaceURI, sAttrName, sAttrValue);
       }
     }

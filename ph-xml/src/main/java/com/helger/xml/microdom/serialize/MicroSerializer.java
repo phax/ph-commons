@@ -18,6 +18,7 @@ package com.helger.xml.microdom.serialize;
 
 import java.util.List;
 
+import javax.xml.XMLConstants;
 import javax.xml.namespace.QName;
 
 import org.jspecify.annotations.NonNull;
@@ -257,39 +258,107 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
 
     try
     {
-      // resolve Namespace prefix
       String sElementNamespaceURI = null;
       String sElementNSPrefix = null;
-      if (bEmitNamespaces)
-      {
-        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
-        // Eventually adds a namespace attribute in the AttrMap
-        sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
-      }
 
-      // For all attributes
-      if (aElement.hasAttributes ())
-        for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
-        {
-          final IMicroQName aAttrName = aAttr.getAttributeQName ();
-          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
-          final String sAttrName = aAttrName.getName ();
-          final String sAttrValue = aAttr.getAttributeValue ();
-          String sAttrNSPrefix = null;
-          if (bEmitNamespaces)
+      if (m_aSettings.isUseExistingNamespaceDeclarations ())
+      {
+        // Use namespace URI as-is; prefix will be derived from existing xmlns
+        // attributes stored on the element or inherited from ancestors via the
+        // namespace stack
+        sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+
+        // First pass: process xmlns attributes and register them in the
+        // namespace stack so that child elements can look up prefixes
+        if (aElement.hasAttributes ())
+          for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
           {
-            // Eventually adds a namespace attribute in the AttrMap
-            sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                         sAttrName,
-                                                                         sAttrValue,
-                                                                         aAttrMap);
+            final IMicroQName aAttrName = aAttr.getAttributeQName ();
+            final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+            final String sAttrName = aAttrName.getName ();
+            final String sAttrValue = aAttr.getAttributeValue ();
+
+            if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+            {
+              if (XMLConstants.XMLNS_ATTRIBUTE.equals (sAttrName))
+              {
+                // Default namespace declaration (xmlns="...")
+                aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
+                m_aNSStack.addNamespaceMapping (null, sAttrValue);
+              }
+              else
+              {
+                // Prefixed namespace declaration (xmlns:prefix="...")
+                aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, XMLConstants.XMLNS_ATTRIBUTE),
+                              sAttrValue);
+                m_aNSStack.addNamespaceMapping (sAttrName, sAttrValue);
+              }
+            }
           }
 
-          if (sAttrNSPrefix != null)
-            aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
-          else
-            aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+        // Determine element prefix from namespace stack (covers both local
+        // xmlns attrs and those inherited from ancestors)
+        if (sElementNamespaceURI.length () > 0)
+          sElementNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sElementNamespaceURI);
+
+        // Second pass: process non-xmlns attributes and resolve their prefixes
+        if (aElement.hasAttributes ())
+          for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
+          {
+            final IMicroQName aAttrName = aAttr.getAttributeQName ();
+            final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+            final String sAttrValue = aAttr.getAttributeValue ();
+
+            if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+            {
+              // Regular attribute - find its prefix from namespace stack
+              String sAttrNSPrefix = null;
+              if (sAttrNamespaceURI.length () > 0)
+                sAttrNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sAttrNamespaceURI);
+
+              if (sAttrNSPrefix != null)
+                aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
+              else
+                aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+            }
+          }
+      }
+      else
+      {
+        // resolve Namespace prefix
+        if (bEmitNamespaces)
+        {
+          sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+          // Eventually adds a namespace attribute in the AttrMap
+          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI,
+                                                                        bIsRootElement,
+                                                                        aAttrMap);
         }
+
+        // For all attributes
+        if (aElement.hasAttributes ())
+          for (final IMicroAttribute aAttr : aElement.getAttributeObjs ())
+          {
+            final IMicroQName aAttrName = aAttr.getAttributeQName ();
+            final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+            final String sAttrName = aAttrName.getName ();
+            final String sAttrValue = aAttr.getAttributeValue ();
+            String sAttrNSPrefix = null;
+            if (bEmitNamespaces)
+            {
+              // Eventually adds a namespace attribute in the AttrMap
+              sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                           sAttrName,
+                                                                           sAttrValue,
+                                                                           aAttrMap);
+            }
+
+            if (sAttrNSPrefix != null)
+              aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);
+            else
+              aAttrMap.put (aAttrName.getAsXMLQName (), sAttrValue);
+          }
+      }
 
       // Determine indent
       final IMicroElement aParentElement = aParentNode != null && aParentNode.isElement () ? (IMicroElement) aParentNode

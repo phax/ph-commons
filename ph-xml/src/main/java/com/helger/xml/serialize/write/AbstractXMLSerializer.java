@@ -287,7 +287,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * @return <code>null</code> if no namespace prefix is required.
      */
     @Nullable
-    private String _getUsedPrefixOfNamespace (@NonNull final String sNamespaceURI)
+    public String getUsedPrefixOfNamespace (@NonNull final String sNamespaceURI)
     {
       ValueEnforcer.notNull (sNamespaceURI, "NamespaceURI");
 
@@ -394,7 +394,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         return null;
       }
       // Check if an existing prefix is in use
-      String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
+      String sNSPrefix = getUsedPrefixOfNamespace (sNamespaceURI);
 
       // Do we need to create a prefix?
       if (sNSPrefix == null && (!bIsRootElement || sNamespaceURI.length () > 0))
@@ -440,7 +440,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // It's the default namespace
         return null;
       }
-      String sNSPrefix = _getUsedPrefixOfNamespace (sNamespaceURI);
+      String sNSPrefix = getUsedPrefixOfNamespace (sNamespaceURI);
 
       // Do we need to create a prefix?
       if (sNSPrefix == null)
@@ -527,8 +527,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   }
 
   /**
-   * @return The XML writer settings as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The XML writer settings as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final IXMLWriterSettings getSettings ()

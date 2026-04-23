@@ -191,4 +191,17 @@ public interface IXMLWriterSettings
    * @since 9.1.4
    */
   boolean isOrderAttributesAndNamespaces ();
+
+  /**
+   * Determine if existing namespace declarations (xmlns attributes) from the
+   * DOM should be used as-is instead of being filtered out and rebuilt by the
+   * namespace stack. This is important for documents like XSLT where namespace
+   * prefixes are referenced inside attribute values (e.g.
+   * <code>xs:boolean</code>) and would otherwise be lost during serialization.
+   *
+   * @return <code>true</code> to keep existing namespace declarations from the
+   *         DOM as-is, <code>false</code> to filter and rebuild them (default).
+   * @since 12.2.2
+   */
+  boolean isUseExistingNamespaceDeclarations ();
 }

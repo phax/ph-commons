@@ -89,6 +89,11 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   public static final boolean DEFAULT_WRITE_CDATA_AS_TEXT = false;
   /** By default the insertion order of attributes is maintained */
   public static final boolean DEFAULT_ORDER_ATTRIBUTES_AND_NAMESPACES = false;
+  /**
+   * By default existing namespace declarations are NOT used as-is but are
+   * rebuilt by the namespace stack.
+   */
+  public static final boolean DEFAULT_USE_EXISTING_NAMESPACE_DECLARATIONS = false;
 
   /** The default settings to use - last constant */
   public static final IXMLWriterSettings DEFAULT_XML_SETTINGS = new XMLWriterSettings ();
@@ -112,6 +117,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   private boolean m_bPutNamespaceContextPrefixesInRoot = DEFAULT_PUT_NAMESPACE_CONTEXT_PREFIXES_IN_ROOT;
   private boolean m_bWriteCDATAAsText = DEFAULT_WRITE_CDATA_AS_TEXT;
   private boolean m_bOrderAttributesAndNamespaces = DEFAULT_ORDER_ATTRIBUTES_AND_NAMESPACES;
+  private boolean m_bUseExistingNamespaceDeclarations = DEFAULT_USE_EXISTING_NAMESPACE_DECLARATIONS;
 
   // Status vars
   private String m_sIndentationStringToString;
@@ -161,6 +167,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
     setPutNamespaceContextPrefixesInRoot (aOther.isPutNamespaceContextPrefixesInRoot ());
     setWriteCDATAAsText (aOther.isWriteCDATAAsText ());
     setOrderAttributesAndNamespaces (aOther.isOrderAttributesAndNamespaces ());
+    setUseExistingNamespaceDeclarations (aOther.isUseExistingNamespaceDeclarations ());
   }
 
   /**
@@ -665,6 +672,38 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   }
 
   /**
+   * Check whether existing namespace declarations (xmlns attributes) from the
+   * DOM are used as-is instead of being filtered out and rebuilt.
+   *
+   * @return <code>true</code> if existing namespace declarations are kept,
+   *         <code>false</code> if they are rebuilt.
+   */
+  public boolean isUseExistingNamespaceDeclarations ()
+  {
+    return m_bUseExistingNamespaceDeclarations;
+  }
+
+  /**
+   * Set whether existing namespace declarations (xmlns attributes) from the DOM
+   * should be used as-is instead of being filtered out and rebuilt by the
+   * namespace stack. This is important for documents like XSLT where namespace
+   * prefixes are referenced inside attribute values (e.g.
+   * <code>xs:boolean</code>) and would otherwise be lost during serialization.
+   *
+   * @param bUseExistingNamespaceDeclarations
+   *        <code>true</code> to keep existing namespace declarations,
+   *        <code>false</code> to filter and rebuild them.
+   * @return this for chaining
+   * @since 12.2.2
+   */
+  @NonNull
+  public final XMLWriterSettings setUseExistingNamespaceDeclarations (final boolean bUseExistingNamespaceDeclarations)
+  {
+    m_bUseExistingNamespaceDeclarations = bUseExistingNamespaceDeclarations;
+    return this;
+  }
+
+  /**
    * Create a clone of this settings object.
    *
    * @return A new {@link XMLWriterSettings} object with the same settings.
@@ -704,7 +743,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
            m_bEmitNamespaces == rhs.m_bEmitNamespaces &&
            m_bPutNamespaceContextPrefixesInRoot == rhs.m_bPutNamespaceContextPrefixesInRoot &&
            m_bWriteCDATAAsText == rhs.m_bWriteCDATAAsText &&
-           m_bOrderAttributesAndNamespaces == rhs.m_bOrderAttributesAndNamespaces;
+           m_bOrderAttributesAndNamespaces == rhs.m_bOrderAttributesAndNamespaces &&
+           m_bUseExistingNamespaceDeclarations == rhs.m_bUseExistingNamespaceDeclarations;
   }
 
   @Override
@@ -730,6 +770,7 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                        .append (m_bPutNamespaceContextPrefixesInRoot)
                                        .append (m_bWriteCDATAAsText)
                                        .append (m_bOrderAttributesAndNamespaces)
+                                       .append (m_bUseExistingNamespaceDeclarations)
                                        .getHashCode ();
   }
 
@@ -758,6 +799,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
                                                 m_bPutNamespaceContextPrefixesInRoot)
                                        .append ("WriteCDATAAsText", m_bWriteCDATAAsText)
                                        .append ("OrderAttributesAndNamespaces", m_bOrderAttributesAndNamespaces)
+                                       .append ("UseExistingNamespaceDeclarations",
+                                                m_bUseExistingNamespaceDeclarations)
                                        .getToString ();
   }
 

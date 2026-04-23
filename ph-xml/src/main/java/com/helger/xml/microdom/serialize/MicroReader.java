@@ -92,6 +92,8 @@ public final class MicroReader
 
     final EntityResolver aEntityResolver = aSettings == null ? null : aSettings.getEntityResolver ();
     final MicroSAXHandler aMicroHandler = new MicroSAXHandler (false, aEntityResolver, true);
+    if (aSettings instanceof final IMicroReaderSettings aMRS)
+      aMicroHandler.setSaveNamespaceDeclarations (aMRS.isSaveNamespaceDeclarations ());
 
     // Copy and modify settings
     final SAXReaderSettings aRealSettings = SAXReaderSettings.createCloneOnDemand (aSettings);
@@ -120,8 +122,8 @@ public final class MicroReader
    *
    * @param aIS
    *        The input stream to read from. Will be closed. May be <code>null</code>.
-   * @return <code>null</code> if the input stream is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the input stream is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS)
@@ -136,8 +138,8 @@ public final class MicroReader
    *        The input stream to read from. Will be closed. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the input stream is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the input stream is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@WillClose @Nullable final InputStream aIS,
@@ -223,8 +225,7 @@ public final class MicroReader
    *
    * @param aRes
    *        The readable resource to read from. May be <code>null</code>.
-   * @return <code>null</code> if the resource is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the resource is <code>null</code> or if the input was invalid XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes)
@@ -239,8 +240,7 @@ public final class MicroReader
    *        The readable resource to read from. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the resource is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the resource is <code>null</code> or if the input was invalid XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IReadableResource aRes,
@@ -257,8 +257,8 @@ public final class MicroReader
    *
    * @param aISP
    *        The input stream provider to read from. May be <code>null</code>.
-   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input
-   *         was invalid XML.
+   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input was
+   *         invalid XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP)
@@ -273,8 +273,8 @@ public final class MicroReader
    *        The input stream provider to read from. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input
-   *         was invalid XML.
+   * @return <code>null</code> if the input stream provider is <code>null</code> or if the input was
+   *         invalid XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final IHasInputStream aISP,
@@ -361,8 +361,8 @@ public final class MicroReader
    *
    * @param sXML
    *        The char sequence containing XML to parse. May be <code>null</code>.
-   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML)
@@ -377,8 +377,8 @@ public final class MicroReader
    *        The char sequence containing XML to parse. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char sequence is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final CharSequence sXML,
@@ -395,8 +395,8 @@ public final class MicroReader
    *
    * @param aXML
    *        The byte array containing XML to parse. May be <code>null</code>.
-   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML)
@@ -411,8 +411,8 @@ public final class MicroReader
    *        The byte array containing XML to parse. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
@@ -432,8 +432,8 @@ public final class MicroReader
    *        The offset into the byte array to start reading from.
    * @param nLen
    *        The number of bytes to read.
-   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
@@ -454,8 +454,8 @@ public final class MicroReader
    *        The number of bytes to read.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the byte array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final byte @Nullable [] aXML,
@@ -474,8 +474,8 @@ public final class MicroReader
    *
    * @param aXML
    *        The char array containing XML to parse. May be <code>null</code>.
-   * @return <code>null</code> if the char array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML)
@@ -490,8 +490,8 @@ public final class MicroReader
    *        The char array containing XML to parse. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the char array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML, @Nullable final ISAXReaderSettings aSettings)
@@ -511,8 +511,8 @@ public final class MicroReader
    *        The offset into the char array to start reading from.
    * @param nLen
    *        The number of chars to read.
-   * @return <code>null</code> if the char array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
@@ -533,8 +533,8 @@ public final class MicroReader
    *        The number of chars to read.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the char array is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the char array is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (final char @Nullable [] aXML,
@@ -553,8 +553,8 @@ public final class MicroReader
    *
    * @param aXML
    *        The byte buffer containing XML to parse. May be <code>null</code>.
-   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML)
@@ -569,8 +569,8 @@ public final class MicroReader
    *        The byte buffer containing XML to parse. May be <code>null</code>.
    * @param aSettings
    *        The settings to use. If <code>null</code> the default settings will be used.
-   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was
-   *         invalid XML.
+   * @return <code>null</code> if the byte buffer is <code>null</code> or if the input was invalid
+   *         XML.
    */
   @Nullable
   public static IMicroDocument readMicroXML (@Nullable final ByteBuffer aXML,

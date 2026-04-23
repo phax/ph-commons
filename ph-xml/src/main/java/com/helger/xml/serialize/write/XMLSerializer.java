@@ -220,47 +220,71 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
       // Eventually adds a namespace attribute in the AttrMap
       handlePutNamespaceContextPrefixInRoot (aAttrMap);
 
-      // resolve Namespace prefix
       final String sElementNamespaceURI;
       final String sElementNSPrefix;
-      if (bEmitNamespaces)
+
+      if (m_aSettings.isUseExistingNamespaceDeclarations ())
       {
+        // Use element prefix as-is from the DOM
         sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
-        // Eventually adds a namespace attribute in the AttrMap
-        sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
+        sElementNSPrefix = aElement.getPrefix ();
+
+        // Keep ALL attributes including xmlns: declarations as-is
+        XMLHelper.forAllAttributes (aElement, aAttr -> {
+          final String sAttrNsURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
+          final String sLocalName = XMLHelper.getLocalNameOrName (aAttr);
+          final String sAttrValue = aAttr.getValue ();
+          final String sAttrPrefix = aAttr.getPrefix ();
+          if (sAttrPrefix != null)
+            aAttrMap.put (new QName (sAttrNsURI, sLocalName, sAttrPrefix), sAttrValue);
+          else
+            aAttrMap.put (new QName (sAttrNsURI, sLocalName), sAttrValue);
+        });
       }
       else
       {
-        sElementNamespaceURI = null;
-        sElementNSPrefix = null;
-      }
-
-      // Get all attributes
-      XMLHelper.forAllAttributes (aElement, aAttr -> {
-        final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
-
-        // Ignore all "xmlns" attributes as they are created manually. They are
-        // only available when reading via DOM
-        if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+        // resolve Namespace prefix
+        if (bEmitNamespaces)
         {
-          final String sAttrName = XMLHelper.getLocalNameOrName (aAttr);
-          final String sAttrValue = aAttr.getValue ();
-          String sAttributeNSPrefix = null;
-          if (bEmitNamespaces)
-          {
-            // Eventually adds a namespace attribute in the AttrMap
-            sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
-                                                                              sAttrName,
-                                                                              sAttrValue,
-                                                                              aAttrMap);
-          }
-
-          if (sAttributeNSPrefix != null)
-            aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
-          else
-            aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
+          sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
+          // Eventually adds a namespace attribute in the AttrMap
+          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI,
+                                                                        bIsRootElement,
+                                                                        aAttrMap);
         }
-      });
+        else
+        {
+          sElementNamespaceURI = null;
+          sElementNSPrefix = null;
+        }
+
+        // Get all attributes
+        XMLHelper.forAllAttributes (aElement, aAttr -> {
+          final String sAttrNamespaceURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
+
+          // Ignore all "xmlns" attributes as they are created manually. They
+          // are only available when reading via DOM
+          if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
+          {
+            final String sAttrName = XMLHelper.getLocalNameOrName (aAttr);
+            final String sAttrValue = aAttr.getValue ();
+            String sAttributeNSPrefix = null;
+            if (bEmitNamespaces)
+            {
+              // Eventually adds a namespace attribute in the AttrMap
+              sAttributeNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                                sAttrName,
+                                                                                sAttrValue,
+                                                                                aAttrMap);
+            }
+
+            if (sAttributeNSPrefix != null)
+              aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, sAttributeNSPrefix), sAttrValue);
+            else
+              aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName), sAttrValue);
+          }
+        });
+      }
 
       // Determine indent
       final Element aParentElement = aParentNode != null && aParentNode.getNodeType () == Node.ELEMENT_NODE

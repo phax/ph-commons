@@ -43,6 +43,7 @@ import com.helger.xml.microdom.MicroElement;
 import com.helger.xml.microdom.MicroEntityReference;
 import com.helger.xml.microdom.MicroText;
 import com.helger.xml.namespace.MapBasedNamespaceContext;
+import com.helger.xml.sax.InputSourceFactory;
 import com.helger.xml.sax.StringSAXInputSource;
 import com.helger.xml.serialize.read.SAXReaderSettings;
 import com.helger.xml.serialize.write.EXMLIncorrectCharacterHandling;
@@ -1008,5 +1009,99 @@ public final class MicroWriterTest
       final String sResult = MicroWriter.getNodeAsString (eRoot, aSettings);
       assertEquals ("<root>Hello <!--inline--> World</root>\n", sResult);
     }
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsNoXmlnsAttrs ()
+  {
+    // When MicroDOM elements are created programmatically without xmlns
+    // attributes, the "use existing" flag means no xmlns declarations are
+    // emitted (there are none to use). Elements are written with their local
+    // names only.
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.ISO_8859_1)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final IMicroDocument aDoc = new MicroDocument ();
+    final IMicroElement eRoot = aDoc.addElementNS ("ns1url", "root");
+    eRoot.addElementNS ("ns2url", "child1");
+    eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
+
+    final String sResult = MicroWriter.getNodeAsString (aDoc, aSettings);
+    // No xmlns declarations because none are stored on the elements
+    assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
+                  "<root>" +
+                  "<child1 />" +
+                  "<child2 attr1=\"a\" />" +
+                  "</root>",
+                  sResult);
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsRoundTrip ()
+  {
+    // Test round-trip: parse XML with namespace declarations using
+    // bSaveNamespaceDeclarations=true, then serialize with the flag
+    final String sOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                             "<root xmlns:foo=\"urn:foo\" xmlns:bar=\"urn:bar\">" +
+                             "<foo:child bar:attr=\"value\" />" +
+                             "</root>";
+
+    // Read with namespace declarations preserved
+    final IMicroDocument aDoc = MicroReader.readMicroXML (InputSourceFactory.create (sOriginal),
+                                                          new MicroReaderSettings ().setSaveNamespaceDeclarations (true));
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final String sResult = MicroWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sResult);
+    assertTrue ("Result should contain xmlns:foo: " + sResult, sResult.contains ("xmlns:foo=\"urn:foo\""));
+    assertTrue ("Result should contain xmlns:bar: " + sResult, sResult.contains ("xmlns:bar=\"urn:bar\""));
+    assertTrue ("Result should contain foo:child: " + sResult, sResult.contains ("foo:child"));
+    assertTrue ("Result should contain bar:attr: " + sResult, sResult.contains ("bar:attr=\"value\""));
+
+    // Re-parse and serialize again to verify stability
+    final IMicroDocument aDoc2 = MicroReader.readMicroXML (InputSourceFactory.create (sResult),
+                                                           new MicroReaderSettings ().setSaveNamespaceDeclarations (true));
+    assertNotNull (aDoc2);
+    final String sResult2 = MicroWriter.getNodeAsString (aDoc2, aSettings);
+    assertEquals (sResult, sResult2);
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsXSLT ()
+  {
+    // XSLT-like scenario: namespace prefixes referenced in attribute values
+    final String sXSLT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                         "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"" +
+                         " xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"" +
+                         " xmlns:u=\"urn:my:utils\"" +
+                         " version=\"3.0\">" +
+                         "<xsl:function as=\"xs:boolean\" name=\"u:gln\">" +
+                         "<xsl:param as=\"xs:string\" name=\"val\" />" +
+                         "</xsl:function>" +
+                         "</xsl:stylesheet>";
+
+    // Read with namespace declarations preserved
+    final IMicroDocument aDoc = MicroReader.readMicroXML (InputSourceFactory.create (sXSLT),
+                                                          new MicroReaderSettings ().setSaveNamespaceDeclarations (true));
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final String sResult = MicroWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sResult);
+    assertTrue ("Result should contain xmlns:xsl: " + sResult,
+                sResult.contains ("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\""));
+    assertTrue ("Result should contain xmlns:xs: " + sResult,
+                sResult.contains ("xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""));
+    assertTrue ("Result should contain xmlns:u: " + sResult, sResult.contains ("xmlns:u=\"urn:my:utils\""));
+    assertTrue ("Result should contain xs:boolean: " + sResult, sResult.contains ("as=\"xs:boolean\""));
+    assertTrue ("Result should contain u:gln: " + sResult, sResult.contains ("name=\"u:gln\""));
   }
 }

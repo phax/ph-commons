@@ -1064,4 +1064,126 @@ public final class XMLWriterTest
                   CRLF,
                   s);
   }
+
+  @Test
+  public void testUseExistingNamespaceDeclarations ()
+  {
+    // Simulate an XSLT-like document where namespace prefixes are referenced
+    // inside attribute values (e.g. "xs:boolean", "u:gln")
+    final String sXSLT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                          "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"" +
+                          " xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"" +
+                          " xmlns:u=\"urn:my:utils\"" +
+                          " version=\"3.0\">" +
+                          "<xsl:function as=\"xs:boolean\" name=\"u:gln\">" +
+                          "<xsl:param as=\"xs:string\" name=\"val\" />" +
+                          "</xsl:function>" +
+                          "</xsl:stylesheet>";
+
+    final Document aDoc = DOMReader.readXMLDOM (sXSLT);
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8);
+
+    // Default behavior: xmlns:xs and xmlns:u are lost because they are only
+    // referenced in attribute values, not in element/attribute namespace URIs
+    final String sDefault = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sDefault);
+    // The default output does NOT contain xmlns:xs or xmlns:u because the
+    // namespace stack only tracks namespace URIs used by elements/attributes
+    assertTrue ("Default output should not contain xmlns:xs: " + sDefault,
+                !sDefault.contains ("xmlns:xs="));
+    assertTrue ("Default output should not contain xmlns:u: " + sDefault,
+                !sDefault.contains ("xmlns:u="));
+
+    // With useExistingNamespaceDeclarations: all xmlns: attributes are preserved
+    aSettings.setUseExistingNamespaceDeclarations (true);
+    final String sExisting = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sExisting);
+    assertTrue (sExisting.contains ("xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\""));
+    assertTrue (sExisting.contains ("xmlns:xs=\"http://www.w3.org/2001/XMLSchema\""));
+    assertTrue (sExisting.contains ("xmlns:u=\"urn:my:utils\""));
+    assertTrue (sExisting.contains ("as=\"xs:boolean\""));
+    assertTrue (sExisting.contains ("name=\"u:gln\""));
+    assertTrue (sExisting.contains ("as=\"xs:string\""));
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsRoundTrip ()
+  {
+    // Test round-trip: parse XML with namespace declarations, serialize, parse
+    // again
+    final String sOriginal = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                             "<root xmlns:foo=\"urn:foo\" xmlns:bar=\"urn:bar\">" +
+                             "<foo:child bar:attr=\"value\" />" +
+                             "</root>";
+
+    final Document aDoc = DOMReader.readXMLDOM (sOriginal);
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final String sResult = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sResult);
+    assertTrue (sResult.contains ("xmlns:foo=\"urn:foo\""));
+    assertTrue (sResult.contains ("xmlns:bar=\"urn:bar\""));
+    assertTrue (sResult.contains ("foo:child"));
+    assertTrue (sResult.contains ("bar:attr=\"value\""));
+
+    // Re-parse and serialize again to verify stability
+    final Document aDoc2 = DOMReader.readXMLDOM (sResult);
+    assertNotNull (aDoc2);
+    final String sResult2 = XMLWriter.getNodeAsString (aDoc2, aSettings);
+    assertEquals (sResult, sResult2);
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsWithDefaultNS ()
+  {
+    // Test with both default namespace and prefixed namespaces
+    final String sXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                        "<root xmlns=\"urn:default\" xmlns:p=\"urn:prefixed\">" +
+                        "<child p:attr=\"val\" />" +
+                        "</root>";
+
+    final Document aDoc = DOMReader.readXMLDOM (sXML);
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final String sResult = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sResult);
+    assertTrue (sResult.contains ("xmlns=\"urn:default\""));
+    assertTrue (sResult.contains ("xmlns:p=\"urn:prefixed\""));
+    assertTrue (sResult.contains ("p:attr=\"val\""));
+  }
+
+  @Test
+  public void testUseExistingNamespaceDeclarationsUnusedPrefixes ()
+  {
+    // Test that unused namespace prefixes (only referenced in attribute values)
+    // are preserved
+    final String sXML = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+                        "<root xmlns:unused=\"urn:unused\" attr=\"unused:ref\">" +
+                        "<child />" +
+                        "</root>";
+
+    final Document aDoc = DOMReader.readXMLDOM (sXML);
+    assertNotNull (aDoc);
+
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setCharset (StandardCharsets.UTF_8)
+                                                                .setUseExistingNamespaceDeclarations (true);
+
+    final String sResult = XMLWriter.getNodeAsString (aDoc, aSettings);
+    assertNotNull (sResult);
+    // The "unused" namespace prefix is preserved because we use as-is mode
+    assertTrue (sResult.contains ("xmlns:unused=\"urn:unused\""));
+    assertTrue (sResult.contains ("attr=\"unused:ref\""));
+  }
 }
