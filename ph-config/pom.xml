@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-config</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-config</name>
   <description>General purpose configuration library with different sources</description>
   <url>https://github.com/phax/ph-commons/ph-config</url>
@@ -66,32 +66,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-text</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.config</Automatic-Module-Name>
-            <Export-Package>com.helger.config.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
-osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI</Provide-Capability>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

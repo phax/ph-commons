@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-datetime</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-datetime</name>
   <description>Java date time library based on joda time</description>
   <url>https://github.com/phax/ph-commons/ph-datetime</url>
@@ -72,21 +72,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.datetime</Automatic-Module-Name>
-            <Export-Package>com.helger.datetime.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)"</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.typeconvert.ITypeConverterRegistrarSPI</Provide-Capability>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

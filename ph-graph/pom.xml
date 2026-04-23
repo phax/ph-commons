@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-graph</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-graph</name>
   <description>Java library with basic graph implementations</description>
   <url>https://github.com/phax/ph-commons/ph-graph</url>
@@ -62,27 +62,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-typeconvert</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.graph</Automatic-Module-Name>
-            <Export-Package>com.helger.graph.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

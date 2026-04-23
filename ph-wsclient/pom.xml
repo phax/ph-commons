@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-wsclient</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-wsclient</name>
   <description>Java library with WebService client</description>
   <url>https://github.com/phax/ph-commons/ph-wsclient</url>
@@ -41,7 +41,6 @@
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -50,7 +49,6 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>jakarta.xml.ws</groupId>
@@ -60,28 +58,10 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-http</artifactId>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-xml</artifactId>
       <optional>true</optional>
     </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.wsclient</Automatic-Module-Name>
-            <Export-Package>com.helger.wsclient.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

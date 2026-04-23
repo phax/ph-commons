@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-xml</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-xml</name>
   <description>Java 17+ Library with XML handling routines</description>
   <url>https://github.com/phax/ph-commons/ph-xml</url>
@@ -66,7 +66,8 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-diagnostics</artifactId>
     </dependency>
-    <!-- cannot be optional -->    <dependency>
+    <!-- cannot be optional -->
+    <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-mime</artifactId>
     </dependency>
@@ -93,32 +94,12 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <!-- OSGI container is required for a test case -->    <dependency>
+    <!-- OSGI container is required for a test case -->
+    <dependency>
       <groupId>org.apache.felix</groupId>
       <artifactId>org.apache.felix.framework</artifactId>
       <version>7.0.5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.xml</Automatic-Module-Name>
-            <Export-Package>com.helger.xml.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.registrar)",
-osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
-            <Provide-Capability>osgi.serviceloader; osgi.serviceloader=com.helger.base.cleanup.ICleanUpRegistrarSPI,
-osgi.serviceloader; osgi.serviceloader=com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI</Provide-Capability>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>

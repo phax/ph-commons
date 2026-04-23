@@ -25,7 +25,7 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-jaxb</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-jaxb</name>
   <description>Special Java 17+ Library with extended JAXB support</description>
   <url>https://github.com/phax/ph-commons/ph-jaxb</url>
@@ -49,7 +49,6 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-
   <dependencies>
     <dependency>
       <groupId>jakarta.xml.bind</groupId>
@@ -65,14 +64,12 @@
       <artifactId>jaxb-runtime</artifactId>
       <optional>true</optional>
     </dependency>
-
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-
   <build>
     <pluginManagement>
       <plugins>
@@ -105,18 +102,6 @@
           </compilerArgs>
           <!-- fork needs to be true in order to use the -X... arg -->
           <fork>true</fork>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.jaxb</Automatic-Module-Name>
-            <Export-Package>com.helger.jaxb.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-          </instructions>
         </configuration>
       </plugin>
     </plugins>

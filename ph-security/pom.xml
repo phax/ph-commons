@@ -25,12 +25,11 @@
     <version>12.2.2-SNAPSHOT</version>
   </parent>
   <artifactId>ph-security</artifactId>
-  <packaging>bundle</packaging>
+  <packaging>jar</packaging>
   <name>ph-security</name>
   <description>Special Java Library with security related functionality</description>
   <url>https://github.com/phax/ph-commons/ph-security</url>
   <inceptionYear>2016</inceptionYear>
-  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,12 +37,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
-  
   <developers>
     <developer>
       <id>philip</id>
@@ -52,7 +49,6 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
-  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -74,37 +70,15 @@
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-url</artifactId>
     </dependency>
-    
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-bc</artifactId>
       <optional>true</optional>
     </dependency>
-    
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support-ext</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
-  
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.felix</groupId>
-        <artifactId>maven-bundle-plugin</artifactId>
-        <extensions>true</extensions>
-        <configuration>
-          <instructions>
-            <Automatic-Module-Name>com.helger.security</Automatic-Module-Name>
-            <Export-Package>com.helger.security.*</Export-Package>
-            <Import-Package>!org.jspecify.annotations.*,*</Import-Package>
-            <Require-Capability>osgi.extender; filter:="(osgi.extender=osgi.serviceloader.processor)",
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialToSubjectResolverSPI)"; cardinality:=multiple; resolution:=optional,
-osgi.serviceloader; filter:="(osgi.serviceloader=com.helger.security.authentication.credentials.IAuthCredentialValidatorSPI)"; cardinality:=multiple; resolution:=optional</Require-Capability>
-          </instructions>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 </project>
