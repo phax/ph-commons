@@ -27,16 +27,20 @@ package com.helger.security.password.hash;
  * @deprecated Use {@link PasswordHashCreatorPBKDF2_SHA256_600000_48} instead. Keep this class only
  *             for verifying existing password hashes.
  */
-@Deprecated (since = "12.2.1", forRemoval = false)
+@Deprecated (since = "12.2.1", forRemoval = true)
 public final class PasswordHashCreatorPBKDF2_SHA256_1000_48 extends AbstractPasswordHashCreatorPBKDF2
 {
+  @Deprecated (since = "12.2.1", forRemoval = true)
   public static final String ALGORITHM = "PBKDF2_SHA256_1000_48";
+  @Deprecated (since = "12.2.1", forRemoval = true)
   public static final int PBKDF2_ITERATIONS = 1_000;
+  @Deprecated (since = "12.2.1", forRemoval = true)
   public static final int HASH_BYTE_SIZE = 48;
 
   /**
    * Constructor using the predefined algorithm name, iterations and hash byte size.
    */
+  @Deprecated (since = "12.2.1", forRemoval = true)
   public PasswordHashCreatorPBKDF2_SHA256_1000_48 ()
   {
     super (ALGORITHM, "PBKDF2WithHmacSHA256", PBKDF2_ITERATIONS, HASH_BYTE_SIZE);

@@ -29,7 +29,7 @@ import com.helger.security.password.salt.PasswordSalt;
  *
  * @author Philip Helger
  */
-@SuppressWarnings ("deprecation")
+@SuppressWarnings ({ "removal", "javadoc" })
 public final class PasswordHashCreatorPBKDF2_SHA256_1000_48Test
 {
   @Test
