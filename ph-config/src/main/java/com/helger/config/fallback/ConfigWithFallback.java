@@ -121,17 +121,17 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
     final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
     if (aCV == null)
       return null;
-    return aCV.getValue ();
+
+    // Make sure variables get replaced
+    return getValue (aCV);
   }
 
   /** {@inheritDoc} */
   public char @Nullable [] getAsCharArrayOrFallback (@NonNull final String sPrimary,
                                                      @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
-    if (aCV == null)
-      return null;
-    return TypeConverter.convert (aCV.getValue (), char [].class, null);
+    final String sValue = getAsStringOrFallback (sPrimary, aOldOnes);
+    return TypeConverter.convert (sValue, char [].class, null);
   }
 
   /** {@inheritDoc} */
@@ -139,10 +139,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public BigDecimal getAsBigDecimalOrFallback (@NonNull final String sPrimary,
                                                @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
-    if (aCV == null)
-      return null;
-    return TypeConverter.convert (aCV.getValue (), BigDecimal.class, null);
+    final String sValue = getAsStringOrFallback (sPrimary, aOldOnes);
+    return TypeConverter.convert (sValue, BigDecimal.class, null);
   }
 
   /** {@inheritDoc} */
@@ -150,10 +148,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
                                          final boolean bDefault,
                                          @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
-    if (aCV == null)
-      return bDefault;
-    return TypeConverter.convertToBoolean (aCV.getValue (), bDefault);
+    final String sValue = getAsStringOrFallback (sPrimary, aOldOnes);
+    return TypeConverter.convertToBoolean (sValue, bDefault);
   }
 
   /** {@inheritDoc} */
@@ -161,10 +157,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
                                  final int nDefault,
                                  @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
-    if (aCV == null)
-      return nDefault;
-    return TypeConverter.convertToInt (aCV.getValue (), nDefault);
+    final String sValue = getAsStringOrFallback (sPrimary, aOldOnes);
+    return TypeConverter.convertToInt (sValue, nDefault);
   }
 
   /** {@inheritDoc} */
@@ -172,10 +166,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
                                    final long nDefault,
                                    @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
-    final ConfiguredValue aCV = getConfiguredValueOrFallback (sPrimary, aOldOnes);
-    if (aCV == null)
-      return nDefault;
-    return TypeConverter.convertToLong (aCV.getValue (), nDefault);
+    final String sValue = getAsStringOrFallback (sPrimary, aOldOnes);
+    return TypeConverter.convertToLong (sValue, nDefault);
   }
 
   @Override

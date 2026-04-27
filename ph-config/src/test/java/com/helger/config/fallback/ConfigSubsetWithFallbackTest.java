@@ -16,6 +16,7 @@
  */
 package com.helger.config.fallback;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -54,6 +55,7 @@ public final class ConfigSubsetWithFallbackTest
     aMap.put ("db.pool.min-idle", "2");
     aMap.put ("db.amount", "123.45");
     aMap.put ("cache.ttl", "3600");
+    aMap.put ("db.replaced", "${cache.ttl}");
     return new ConfigWithFallback (new ConfigurationSourceFunction (aMap::get));
   }
 
@@ -105,6 +107,20 @@ public final class ConfigSubsetWithFallbackTest
     assertEquals ("localhost", aDBConfig.getAsStringOrFallback ("host", "hostname"));
     assertEquals ("localhost", aDBConfig.getAsStringOrFallback ("hostname", "host"));
     assertNull (aDBConfig.getAsStringOrFallback ("foo", "bar"));
+
+    // Check variable replacements in primary
+    assertEquals ("3600", aDBConfig.getAsStringOrFallback ("replaced"));
+    assertEquals (3600, aDBConfig.getAsIntOrFallback ("replaced", 0));
+    assertEquals (3600L, aDBConfig.getAsLongOrFallback ("replaced", 0));
+    assertEquals (BigHelper.toBigDecimal (3600), aDBConfig.getAsBigDecimalOrFallback ("replaced"));
+    assertArrayEquals ("3600".toCharArray (), aDBConfig.getAsCharArrayOrFallback ("replaced"));
+
+    // Check variable replacements in secondary
+    assertEquals ("3600", aDBConfig.getAsStringOrFallback ("non-existing", "replaced"));
+    assertEquals (3600, aDBConfig.getAsIntOrFallback ("non-existing", 0, "replaced"));
+    assertEquals (3600L, aDBConfig.getAsLongOrFallback ("non-existing", 0, "replaced"));
+    assertEquals (BigHelper.toBigDecimal (3600), aDBConfig.getAsBigDecimalOrFallback ("non-existing", "replaced"));
+    assertArrayEquals ("3600".toCharArray (), aDBConfig.getAsCharArrayOrFallback ("non-existing", "replaced"));
   }
 
   @Test
