@@ -136,12 +136,14 @@ public class CRLAllowList
    */
   public boolean isAllowed (@Nullable final String sURL)
   {
-    if (StringHelper.isEmpty (sURL))
-      return false;
-
     return m_aRWLock.readLockedBoolean ( () -> {
+      // Empty list allows everything
       if (m_aAllowedPrefixes.isEmpty ())
         return true;
+
+      // Empty URL is never fine
+      if (StringHelper.isEmpty (sURL))
+        return false;
 
       for (final String sPrefix : m_aAllowedPrefixes)
         if (sURL.regionMatches (true, 0, sPrefix, 0, sPrefix.length ()))
