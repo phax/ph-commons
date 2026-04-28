@@ -19,9 +19,11 @@ package com.helger.security.certificate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.security.GeneralSecurityException;
+import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
@@ -29,6 +31,9 @@ import java.util.Arrays;
 
 import org.junit.Ignore;
 import org.junit.Test;
+
+import com.helger.security.revocation.ERevocationCheckMode;
+import com.helger.security.revocation.RevocationCheckBuilder;
 
 /**
  * Test class for class {@link CertificateHelper}.
@@ -177,5 +182,33 @@ public final class CertificateHelperTest
   {
     final PrivateKey pk = CertificateHelper.convertStringToPrivateKey ("test key here");
     assertNotNull (pk);
+  }
+
+  @Test
+  public void testCertificateHelper_CRLFailureNoCacheReturnsRevocationUnknown () throws Exception
+  {
+    final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+    final KeyPair aEEKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aEECert = MockCertificateHelper.createEndEntityWithCRLDP (aCACert,
+                                                                                    aCAKeyPair.getPrivate (),
+                                                                                    aEEKeyPair.getPublic (),
+                                                                                    MockCertificateHelper.UNREACHABLE_CRL_URL);
+
+    // Drive CertificateHelper.checkCertificate without a cache, with CRL-only mode and a CRLCache
+    // whose downloader always returns null.
+    final ECertificateCheckResult eResult = CertificateHelper.checkCertificate (null,
+                                                                                null,
+                                                                                new RevocationCheckBuilder ().certificate (aEECert)
+                                                                                                             .validCA (aCACert)
+                                                                                                             .checkMode (ERevocationCheckMode.CRL)
+                                                                                                             .allowSoftFail (false)
+                                                                                                             .crlCache (MockCertificateHelper.createAlwaysFailingCRLCache ())
+                                                                                                             .exceptionHandler (ex -> {
+                                                                                                               // swallow
+                                                                                                             }));
+    assertSame ("CRL download failure must surface as REVOCATION_STATUS_UNKNOWN, not REVOKED or VALID",
+                ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN,
+                eResult);
   }
 }

@@ -126,16 +126,18 @@ public class RevocationCheckResultCache
   }
 
   /**
-   * Check whether the provided certificate is revoked. The result is cached for
-   * the configured caching duration. If the cached entry is expired, it is
-   * automatically re-fetched.
+   * Get the full {@link ERevoked} revocation status for the provided certificate. The result is
+   * cached for the configured caching duration. If the cached entry is expired, it is automatically
+   * re-fetched.
    *
    * @param aCert
    *        The certificate to check. May not be <code>null</code>.
-   * @return <code>true</code> if the certificate is revoked,
-   *         <code>false</code> if not.
+   * @return The revocation status. Never <code>null</code>. Returns {@link ERevoked#UNKNOWN} if
+   *         the underlying check could not determine the status (e.g. CRL endpoint unreachable).
+   * @since 12.2.4
    */
-  public boolean isRevoked (@NonNull final X509Certificate aCert)
+  @NonNull
+  public ERevoked getRevocationStatus (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
@@ -150,7 +152,24 @@ public class RevocationCheckResultCache
       m_aCache.removeFromCache (aCert);
       aObject = m_aCache.getFromCache (aCert);
     }
-    return aObject.getObject ().isRevoked ();
+    return aObject.getObject ();
+  }
+
+  /**
+   * Check whether the provided certificate is revoked. The result is cached for
+   * the configured caching duration. If the cached entry is expired, it is
+   * automatically re-fetched.
+   *
+   * @param aCert
+   *        The certificate to check. May not be <code>null</code>.
+   * @return <code>true</code> if the certificate is revoked,
+   *         <code>false</code> if not. Note that "not revoked" also covers the
+   *         {@link ERevoked#UNKNOWN} case - use {@link #getRevocationStatus(X509Certificate)} to
+   *         distinguish "verified not revoked" from "could not be determined".
+   */
+  public boolean isRevoked (@NonNull final X509Certificate aCert)
+  {
+    return getRevocationStatus (aCert).isRevoked ();
   }
 
   /**

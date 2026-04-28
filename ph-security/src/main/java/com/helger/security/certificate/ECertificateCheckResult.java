@@ -37,6 +37,15 @@ public enum ECertificateCheckResult implements IHasID <String>, IValidityIndicat
   EXPIRED ("expired", "certificate is already expired"),
   UNSUPPORTED_ISSUER ("unsupportedissuer", "unsupported certificate issuer"),
   REVOKED ("revoked", "certificate is revoked"),
+  /**
+   * The revocation status of the certificate could not be determined - for example because the
+   * configured CRL distribution point was unreachable and there was no working OCSP fallback. The
+   * certificate is neither confirmed valid nor confirmed revoked. {@link #isValid()} returns
+   * <code>false</code> for this state since the check was unable to complete.
+   *
+   * @since 12.2.4
+   */
+  REVOCATION_STATUS_UNKNOWN ("revocation-unknown", "certificate revocation status could not be determined"),
   NOT_CHECKED ("not-checked", "the certificate was not checked");
 
   private final String m_sID;

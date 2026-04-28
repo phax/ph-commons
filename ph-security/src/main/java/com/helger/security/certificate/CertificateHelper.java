@@ -55,6 +55,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.security.revocation.AbstractRevocationCheckBuilder;
+import com.helger.security.revocation.ERevoked;
 import com.helger.security.revocation.RevocationCheckResultCache;
 
 /**
@@ -567,18 +568,14 @@ public final class CertificateHelper
     }
 
     // Check revocation OCSP/CLR
+    final ERevoked eRevoked;
     if (aRevocationCache != null)
     {
       // Caching is enabled
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Testing if the Certificate is revoked, using a cache");
 
-      final boolean bRevoked = aRevocationCache.isRevoked (aCert);
-      if (bRevoked)
-      {
-        LOGGER.warn ("The Certificate is revoked [caching used]");
-        return ECertificateCheckResult.REVOKED;
-      }
+      eRevoked = aRevocationCache.getRevocationStatus (aCert);
     }
     else
     {
@@ -586,11 +583,19 @@ public final class CertificateHelper
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Testing if the Certificate is revoked, without a cache");
 
-      if (aRevocationChecker.build ().isRevoked ())
-      {
-        LOGGER.warn ("The Certificate is revoked [no caching]");
-        return ECertificateCheckResult.REVOKED;
-      }
+      eRevoked = aRevocationChecker.build ();
+    }
+
+    if (eRevoked.isRevoked ())
+    {
+      LOGGER.warn ("The Certificate is revoked" + (aRevocationCache != null ? " [caching used]" : " [no caching]"));
+      return ECertificateCheckResult.REVOKED;
+    }
+    if (eRevoked.isUnknown ())
+    {
+      LOGGER.warn ("The Certificate revocation status could not be determined" +
+                   (aRevocationCache != null ? " [caching used]" : " [no caching]"));
+      return ECertificateCheckResult.REVOCATION_STATUS_UNKNOWN;
     }
 
     // Done
