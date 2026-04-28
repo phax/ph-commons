@@ -18,6 +18,7 @@ package com.helger.base.url;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.net.URLConnection;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -35,6 +36,20 @@ import com.helger.base.io.stream.StreamHelper;
 public interface IURLDownloader
 {
   /**
+   * The default connection timeout used by {@link #createDefault()} in milliseconds (10 seconds).
+   *
+   * @since 12.2.4
+   */
+  int DEFAULT_CONNECT_TIMEOUT_MS = 10_000;
+
+  /**
+   * The default read timeout used by {@link #createDefault()} in milliseconds (60 seconds).
+   *
+   * @since 12.2.4
+   */
+  int DEFAULT_READ_TIMEOUT_MS = 60_000;
+
+  /**
    * Download the content of the provided URL
    *
    * @param sURL
@@ -46,14 +61,38 @@ public interface IURLDownloader
   byte @Nullable [] downloadURL (@NonNull @Nonempty String sURL) throws Exception;
 
   /**
-   * @return The default URL downloader using {@link URL#openStream()}. Never <code>null</code>.
+   * @return The default URL downloader using {@link URL#openConnection()} with the default
+   *         connection timeout of {@link #DEFAULT_CONNECT_TIMEOUT_MS} milliseconds and the default
+   *         read timeout of {@link #DEFAULT_READ_TIMEOUT_MS} milliseconds. Never
+   *         <code>null</code>.
    */
   @NonNull
   static IURLDownloader createDefault ()
   {
+    return createDefault (DEFAULT_CONNECT_TIMEOUT_MS, DEFAULT_READ_TIMEOUT_MS);
+  }
+
+  /**
+   * Create a default URL downloader using {@link URL#openConnection()} with the provided
+   * connection and read timeouts. A timeout value of 0 means infinite (the JVM default), so this
+   * is strongly discouraged for downloads from the public Internet.
+   *
+   * @param nConnectTimeoutMS
+   *        The connection timeout in milliseconds. Must be &ge; 0.
+   * @param nReadTimeoutMS
+   *        The read timeout in milliseconds. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   * @since 12.2.4
+   */
+  @NonNull
+  static IURLDownloader createDefault (final int nConnectTimeoutMS, final int nReadTimeoutMS)
+  {
     return sURL -> {
       // Use the built in HTTP client here (global proxy, etc.)
-      try (final InputStream aIS = new URL (sURL).openStream ())
+      final URLConnection aConn = new URL (sURL).openConnection ();
+      aConn.setConnectTimeout (nConnectTimeoutMS);
+      aConn.setReadTimeout (nReadTimeoutMS);
+      try (final InputStream aIS = aConn.getInputStream ())
       {
         return StreamHelper.getAllBytes (aIS);
       }
