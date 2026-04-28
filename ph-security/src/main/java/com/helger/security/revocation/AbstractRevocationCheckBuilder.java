@@ -40,6 +40,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
@@ -64,8 +65,8 @@ import com.helger.security.crl.CRLHelper;
 import com.helger.security.keystore.KeyStoreHelper;
 
 /**
- * A utility class to configure the revocation check in a fine grained way. This
- * class does NOT use any caching, so it's up to the caller to do that caching.
+ * A utility class to configure the revocation check in a fine grained way. This class does NOT use
+ * any caching, so it's up to the caller to do that caching.
  *
  * @param <IMPLTYPE>
  *        Implementation type
@@ -137,12 +138,10 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the valid CAs to be checked against. All previous trusted CAs are
-   * removed.
+   * Set the valid CAs to be checked against. All previous trusted CAs are removed.
    *
    * @param a
-   *        The list of CA certificates to be checked against. May be
-   *        <code>null</code>.
+   *        The list of CA certificates to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
   @NonNull
@@ -153,12 +152,10 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the valid CAs to be checked against. All previous trusted CAs are
-   * removed.
+   * Set the valid CAs to be checked against. All previous trusted CAs are removed.
    *
    * @param a
-   *        The array of CA certificates to be checked against. May be
-   *        <code>null</code>.
+   *        The array of CA certificates to be checked against. May be <code>null</code>.
    * @return this for chaining
    */
   @NonNull
@@ -169,8 +166,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the valid CAs to be checked against from the provided trust store. All
-   * previous trusted CAs are removed.
+   * Set the valid CAs to be checked against from the provided trust store. All previous trusted CAs
+   * are removed.
    *
    * @param aTrustStore
    *        The trust store to be checked against. May be <code>null</code>.
@@ -183,8 +180,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Add a valid CA to be checked against. All previously contained valid CAs
-   * are kept.
+   * Add a valid CA to be checked against. All previously contained valid CAs are kept.
    *
    * @param a
    *        A CA certificate to be checked against. May be <code>null</code>.
@@ -199,8 +195,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Add valid CAs to be checked against. All previously contained valid CAs are
-   * kept.
+   * Add valid CAs to be checked against. All previously contained valid CAs are kept.
    *
    * @param a
    *        A CA certificates to be checked against. May be <code>null</code>.
@@ -214,8 +209,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Add valid CAs to be checked against. All previously contained valid CAs are
-   * kept.
+   * Add valid CAs to be checked against. All previously contained valid CAs are kept.
    *
    * @param a
    *        A CA certificates to be checked against. May be <code>null</code>.
@@ -229,8 +223,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Add the valid CAs to be checked against from the provided trust store. All
-   * previously contained valid CAs are kept.
+   * Add the valid CAs to be checked against from the provided trust store. All previously contained
+   * valid CAs are kept.
    *
    * @param aTrustStore
    *        The trust store to be checked against. May be <code>null</code>.
@@ -243,8 +237,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * @return The current check dates. May be <code>null</code> to indicate
-   *         "current date and time".
+   * @return The current check dates. May be <code>null</code> to indicate "current date and time".
    */
   @Nullable
   public final Date checkDate ()
@@ -253,8 +246,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the date of check for the certificate to the "current date and time"
-   * (which is the default).
+   * Set the date of check for the certificate to the "current date and time" (which is the
+   * default).
    *
    * @return this for chaining
    */
@@ -265,8 +258,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the date of check for the certificate. May be <code>null</code> to
-   * indicate "use the current date time".
+   * Set the date of check for the certificate. May be <code>null</code> to indicate "use the
+   * current date time".
    *
    * @param a
    *        The date to check at. May be <code>null</code>.
@@ -279,8 +272,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the date of check for the certificate. May be <code>null</code> to
-   * indicate "use the current date time".
+   * Set the date of check for the certificate. May be <code>null</code> to indicate "use the
+   * current date time".
    *
    * @param a
    *        The date to check at. May be <code>null</code>.
@@ -293,8 +286,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the date of check for the certificate. May be <code>null</code> to
-   * indicate "use the current date time".
+   * Set the date of check for the certificate. May be <code>null</code> to indicate "use the
+   * current date time".
    *
    * @param a
    *        The date to check at. May be <code>null</code>.
@@ -307,8 +300,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the date of check for the certificate. May be <code>null</code> to
-   * indicate "use the current date time".
+   * Set the date of check for the certificate. May be <code>null</code> to indicate "use the
+   * current date time".
    *
    * @param a
    *        The date to check at. May be <code>null</code>.
@@ -322,8 +315,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the revocation check mode to use. If this parameter is not set, the
-   * global default value is used.
+   * Set the revocation check mode to use. If this parameter is not set, the global default value is
+   * used.
    *
    * @param e
    *        The revocation check mode to use. May be <code>null</code>.
@@ -337,8 +330,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the the handler to be called if a certificate is indicated as
-   * "revoked". If it is not set, the global exception handler is used.
+   * Set the the handler to be called if a certificate is indicated as "revoked". If it is not set,
+   * the global exception handler is used.
    *
    * @param a
    *        The exception handler to be called. May be <code>null</code>.
@@ -352,8 +345,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Enable or disable the usage of "soft fail". If this method is not set, the
-   * global setting is used.
+   * Enable or disable the usage of "soft fail". If this method is not set, the global setting is
+   * used.
    *
    * @param b
    *        <code>true</code> to enable it, <code>false</code> to disable it.
@@ -379,8 +372,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the the handler to be called if there was a problem communicating with
-   * the remote servers. This is only called if "allow soft fail" is enabled.
+   * Set the the handler to be called if there was a problem communicating with the remote servers.
+   * This is only called if "allow soft fail" is enabled.
    *
    * @param a
    *        The handler to be called. May be <code>null</code>.
@@ -394,13 +387,12 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * This is a professional setting. Since the activation of OCSP requires the
-   * setting of a global Security property, this call is by default not thread
-   * safe. Therefore the checking logic is by default executed in a
-   * <code>synchronized</code> block. This slows down parallel execution.
-   * Consider disabling this only if you are sure to use a single setting for
-   * your complete application. Please mind that the security properties may
-   * also affect other applications run on the same application server.<br>
+   * This is a professional setting. Since the activation of OCSP requires the setting of a global
+   * Security property, this call is by default not thread safe. Therefore the checking logic is by
+   * default executed in a <code>synchronized</code> block. This slows down parallel execution.
+   * Consider disabling this only if you are sure to use a single setting for your complete
+   * application. Please mind that the security properties may also affect other applications run on
+   * the same application server.<br>
    * If this setting is not set, the global default setting is used.
    *
    * @param b
@@ -416,9 +408,9 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the number of milliseconds that act as a barrier, if an execution took
-   * longer than that duration, that a warning message is emitted. By default it
-   * is 500 milliseconds meaning half a second.
+   * Set the number of milliseconds that act as a barrier, if an execution took longer than that
+   * duration, that a warning message is emitted. By default it is 500 milliseconds meaning half a
+   * second.
    *
    * @param n
    *        the number of milliseconds.
@@ -431,9 +423,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Set the duration that act as a barrier, if an execution took longer than
-   * that duration, that a warning message is emitted. By default it is 500
-   * milliseconds meaning half a second.
+   * Set the duration that act as a barrier, if an execution took longer than that duration, that a
+   * warning message is emitted. By default it is 500 milliseconds meaning half a second.
    *
    * @param a
    *        the duration to use. May be <code>null</code>.
@@ -462,21 +453,17 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
   }
 
   /**
-   * Check the certificate revocation status. This method requires that the
-   * following fields are set:
+   * Check the certificate revocation status. This method requires that the following fields are
+   * set:
    * <ul>
    * <li>certificate</li>
    * <li>validCAs</li>
    * </ul>
-   * If the following fields are not set, a fallback to the default is
-   * performed:
+   * If the following fields are not set, a fallback to the default is performed:
    * <ul>
-   * <li>checkMode -
-   * {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}</li>
-   * <li>exceptionHandler -
-   * {@link CertificateRevocationCheckerDefaults#getExceptionHdl()}</li>
-   * <li>allowSoftFail -
-   * {@link CertificateRevocationCheckerDefaults#isAllowSoftFail()}</li>
+   * <li>checkMode - {@link CertificateRevocationCheckerDefaults#getRevocationCheckMode()}</li>
+   * <li>exceptionHandler - {@link CertificateRevocationCheckerDefaults#getExceptionHdl()}</li>
+   * <li>allowSoftFail - {@link CertificateRevocationCheckerDefaults#isAllowSoftFail()}</li>
    * <li>softFailExceptionHandler -
    * {@link CertificateRevocationCheckerDefaults#getSoftFailExceptionHdl()}</li>
    * <li>executeInSynchronizedBlock -
@@ -493,8 +480,9 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
                                                                                                   : CertificateRevocationCheckerDefaults.getExceptionHdl ();
     final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue ()
                                                                  : CertificateRevocationCheckerDefaults.isAllowSoftFail ();
-    final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl != null ? m_aSoftFailExceptionHdl
-                                                                                                                           : CertificateRevocationCheckerDefaults.getSoftFailExceptionHdl ();
+    final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl !=
+                                                                                           null ? m_aSoftFailExceptionHdl
+                                                                                                : CertificateRevocationCheckerDefaults.getSoftFailExceptionHdl ();
     final boolean bExecuteSync = m_eExecuteInSynchronizedBlock.isDefined () ? m_eExecuteInSynchronizedBlock.getAsBooleanValue ()
                                                                             : CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ();
 
@@ -514,6 +502,11 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
                     "' " +
                     (m_aCheckDate != null ? "for datetime " + m_aCheckDate : "without a datetime") +
                     (bExecuteSync ? " [synchronized]" : " [not synchronized]"));
+
+    // Tracks whether all CRL distribution points listed in the certificate failed to download.
+    // Used to distinguish "could not determine status" from "is revoked" when the PKIX validator
+    // bubbles up an UNDETERMINED_REVOCATION_STATUS exception.
+    final AtomicBoolean aCRLDownloadFailed = new AtomicBoolean (false);
 
     // check OCSP and CRL
     final StopWatch aSW = StopWatch.createdStarted ();
@@ -588,7 +581,17 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
             }
             else
             {
-              LOGGER.warn ("Failed to find any CRL objects for revocation checking");
+              if (aCRLURLs.isNotEmpty ())
+              {
+                // CRL distribution points are present in the certificate, but none of them could be
+                // resolved. Track this so the outer flow can return UNKNOWN instead of REVOKED.
+                LOGGER.warn ("All " +
+                             aCRLURLs.size () +
+                             " CRL download(s) failed - the revocation status cannot be determined via CRL");
+                aCRLDownloadFailed.set (true);
+              }
+              else
+                LOGGER.warn ("Failed to find any CRL objects for revocation checking");
             }
           }
 
@@ -640,8 +643,10 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
         if (bExecuteSync)
         {
           // Synchronize because the change of the Security.property is global.
-          // The lock has to span the entire CertPathBuilder.build() and CertPathValidator.validate()
-          // call because the JDK reads the "ocsp.enable" Security property lazily during validation,
+          // The lock has to span the entire CertPathBuilder.build() and
+          // CertPathValidator.validate()
+          // call because the JDK reads the "ocsp.enable" Security property lazily during
+          // validation,
           // not at the moment we set it. Narrowing the lock to only the Security.setProperty() call
           // would allow another thread to flip the property mid-validation. Callers that pin the
           // OCSP setting once at startup and never change it can disable this lock by calling
@@ -660,10 +665,35 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
         }
       }
 
+      // If CRL was the only revocation source we could rely on and every CRL download failed,
+      // we cannot truthfully claim the certificate is "not revoked" - report UNKNOWN instead.
+      if (aCRLDownloadFailed.get () && eRealCheckMode == ERevocationCheckMode.CRL)
+        return ERevoked.UNKNOWN;
+
       return ERevoked.NOT_REVOKED;
     }
     catch (final GeneralSecurityException ex)
     {
+      // If PKIX could not determine the revocation status, do not surface that as REVOKED - the
+      // certificate may well be fine but the infrastructure to verify it is unavailable. We
+      // identify this case in two ways:
+      // (a) the JDK gave us a CertPathValidatorException with UNDETERMINED_REVOCATION_STATUS, or
+      // (b) we already know that every CRL distribution point download failed and CRL was the only
+      //     revocation source we were configured to consult - the JDK's CertPathBuilder swallows
+      //     the underlying revocation reason in that case and reports a generic "unable to find
+      //     valid certification path".
+      final boolean bUndetermined = ex instanceof final CertPathValidatorException aCPVEx &&
+                                    aCPVEx.getReason () == CertPathValidatorException.BasicReason.UNDETERMINED_REVOCATION_STATUS;
+      if (bUndetermined || (aCRLDownloadFailed.get () && eRealCheckMode == ERevocationCheckMode.CRL))
+      {
+        LOGGER.warn ("Certificate revocation status could not be determined: " +
+                     ex.getClass ().getName () +
+                     " - " +
+                     ex.getMessage ());
+        aRealExceptionHdl.accept (ex);
+        return ERevoked.UNKNOWN;
+      }
+
       LOGGER.error ("Error running certification revocation check: " +
                     ex.getClass ().getName () +
                     " - " +

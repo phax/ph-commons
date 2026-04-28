@@ -27,7 +27,15 @@ import org.jspecify.annotations.NonNull;
 public enum ERevoked implements IRevokedIndicator
 {
   REVOKED,
-  NOT_REVOKED;
+  NOT_REVOKED,
+  /**
+   * The revocation status could not be determined - e.g. because a CRL could not be downloaded or
+   * an OCSP responder was unreachable. This is treated as "not revoked" by {@link #isRevoked()} but
+   * can be distinguished via {@link #isUnknown()}.
+   *
+   * @since 12.2.4
+   */
+  UNKNOWN;
 
   /**
    * {@inheritDoc}
@@ -35,6 +43,15 @@ public enum ERevoked implements IRevokedIndicator
   public boolean isRevoked ()
   {
     return this == REVOKED;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public boolean isUnknown ()
+  {
+    return this == UNKNOWN;
   }
 
   /**
@@ -51,7 +68,9 @@ public enum ERevoked implements IRevokedIndicator
   }
 
   /**
-   * Convert a {@link IRevokedIndicator} to an {@link ERevoked} instance.
+   * Convert a {@link IRevokedIndicator} to an {@link ERevoked} instance. Note that this conversion
+   * only preserves the binary "revoked / not revoked" information - any {@link #UNKNOWN} state is
+   * collapsed to {@link #NOT_REVOKED}.
    *
    * @param aEnabledIndicator
    *        The indicator to convert. May not be <code>null</code>.

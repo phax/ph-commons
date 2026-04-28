@@ -27,18 +27,37 @@ import org.jspecify.annotations.NonNull;
 public interface IRevokedIndicator
 {
   /**
-   * @return <code>true</code> if the object is currently revoked,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the object is currently revoked, <code>false</code> otherwise.
    */
   boolean isRevoked ();
 
   /**
-   * @return <code>true</code> if the object is currently not revoked,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the object is currently not revoked, <code>false</code> otherwise.
    */
   default boolean isNotRevoked ()
   {
     return !isRevoked ();
+  }
+
+  /**
+   * @return <code>true</code> if the revocation status could not be determined (e.g. because a CRL
+   *         could not be downloaded), <code>false</code> otherwise. By default this is always
+   *         <code>false</code>.
+   * @since 12.2.4
+   */
+  default boolean isUnknown ()
+  {
+    return false;
+  }
+
+  /**
+   * @return <code>true</code> if the revocation status is known (either {@link ERevoked#REVOKED} or
+   *         {@link ERevoked#NOT_REVOKED}), <code>false</code> if it is {@link ERevoked#UNKNOWN}.
+   * @since 12.2.4
+   */
+  default boolean isKnown ()
+  {
+    return !isUnknown ();
   }
 
   /**
