@@ -121,6 +121,16 @@ public class CRLCache
 
   /**
    * Get the CRL object from the provided URL. Uses caching internally.
+   * <p>
+   * If a previously cached CRL has expired and a re-fetch fails (e.g. because the CRL distribution
+   * point is temporarily unreachable), the cache keeps serving the previously cached CRL with a
+   * shortened lifetime of {@code cachingDuration / 2}. This is a deliberate availability trade-off:
+   * it prevents transient outages of the CRL distribution point from breaking certificate
+   * validation, but it also means that during a sustained outage of the CRL endpoint, a revoked
+   * certificate may continue to be accepted up until the previous CRL's <code>nextUpdate</code> is
+   * reached. The PKIX validator enforces the CRL's <code>nextUpdate</code> field, which acts as the
+   * ultimate upper bound for how long a stale CRL can be used.
+   * </p>
    *
    * @param sCRLURL
    *        The URL to read the CRL from.

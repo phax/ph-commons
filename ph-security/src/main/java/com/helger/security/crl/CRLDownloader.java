@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.timing.StopWatch;
 import com.helger.base.tostring.ToStringGenerator;
@@ -40,6 +41,7 @@ public class CRLDownloader
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLDownloader.class);
 
   private final IURLDownloader m_aURLDownloader;
+  private final CRLAllowList m_aAllowList = new CRLAllowList ();
 
   /**
    * Use the system default URL downloader.
@@ -71,6 +73,19 @@ public class CRLDownloader
   }
 
   /**
+   * @return The mutable allow list that restricts which CRL URLs may be downloaded. By default the
+   *         allow list is empty which means every HTTP/HTTPS URL is allowed (legacy behavior). Add
+   *         entries to opt in to URL filtering. Never <code>null</code>.
+   * @since 12.2.4
+   */
+  @NonNull
+  @ReturnsMutableObject
+  public final CRLAllowList allowList ()
+  {
+    return m_aAllowList;
+  }
+
+  /**
    * Download a CRL from the provided URL. Only HTTP and HTTPS URLs are supported.
    *
    * @param sCRLURL
@@ -83,6 +98,14 @@ public class CRLDownloader
   {
     if (EURLProtocol.HTTP.isUsedInURL (sCRLURL) || EURLProtocol.HTTPS.isUsedInURL (sCRLURL))
     {
+      if (!m_aAllowList.isAllowed (sCRLURL))
+      {
+        LOGGER.warn ("Refused to download CRL from URL '" +
+                     sCRLURL +
+                     "' because it is not allowed by the configured CRLAllowList");
+        return null;
+      }
+
       // Try to download from remote URL
       LOGGER.info ("Downloading CRL from URL '" + sCRLURL + "'");
       final StopWatch aSW = StopWatch.createdStarted ();
@@ -121,6 +144,12 @@ public class CRLDownloader
                        " bytes");
       }
     }
+    else
+    {
+      LOGGER.warn ("Skipping CRL URL '" +
+                   sCRLURL +
+                   "' because the protocol is not supported - only HTTP and HTTPS are supported");
+    }
 
     return null;
   }
@@ -128,6 +157,8 @@ public class CRLDownloader
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("URLDownloader", m_aURLDownloader).getToString ();
+    return new ToStringGenerator (null).append ("URLDownloader", m_aURLDownloader)
+                                       .append ("AllowList", m_aAllowList)
+                                       .getToString ();
   }
 }

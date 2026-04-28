@@ -639,7 +639,14 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
 
         if (bExecuteSync)
         {
-          // Synchronize because the change of the Security.property is global
+          // Synchronize because the change of the Security.property is global.
+          // The lock has to span the entire CertPathBuilder.build() and CertPathValidator.validate()
+          // call because the JDK reads the "ocsp.enable" Security property lazily during validation,
+          // not at the moment we set it. Narrowing the lock to only the Security.setProperty() call
+          // would allow another thread to flip the property mid-validation. Callers that pin the
+          // OCSP setting once at startup and never change it can disable this lock by calling
+          // executeInSynchronizedBlock(false) - this allows fully parallel revocation checks at the
+          // cost of having to manage the global ocsp.enable property themselves.
           synchronized (CertificateRevocationCheckerDefaults.class)
           {
             aPerformer.run ();
