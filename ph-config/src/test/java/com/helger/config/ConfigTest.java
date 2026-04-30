@@ -17,12 +17,17 @@
 package com.helger.config;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.time.Duration;
 
 import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.rt.PropertiesHelper;
+import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.source.appl.ConfigurationSourceFunction;
@@ -302,5 +307,45 @@ public final class ConfigTest
       final Config aConfig = new Config (new ConfigurationSourceFunction (aProps::get)).setReplaceVariables (true);
       assertEquals ("false", aConfig.getAsString ("webapp.startpage.participants.none"));
     }
+  }
+
+  @Test
+  public void testGetAsConfigDuration ()
+  {
+    final ICommonsMap <String, String> aMap = new CommonsHashMap <> ();
+    aMap.put ("timeout", "5s");
+    aMap.put ("retry", "2d 5m 23ms");
+    aMap.put ("base", "30");
+    aMap.put ("base.unit", "s");
+    aMap.put ("ref", "${base}${base.unit}");
+    aMap.put ("invalid", "5xyz");
+    aMap.put ("blank", "   ");
+    final Config aConfig = new Config (new ConfigurationSourceFunction (aMap::get));
+
+    // Simple cases
+    assertEquals (Duration.ofSeconds (5), aConfig.getAsConfigDuration ("timeout"));
+    assertEquals (Duration.ofDays (2).plusMinutes (5).plusMillis (23),
+                  aConfig.getAsConfigDuration ("retry"));
+
+    // Variable replacement is applied before parsing
+    assertEquals (Duration.ofSeconds (30), aConfig.getAsConfigDuration ("ref"));
+
+    // Missing key -> null, no error handler invocation
+    final Wrapper <String> aErr1 = new Wrapper <> ();
+    assertNull (aConfig.getAsConfigDuration ("missing", aErr1::set));
+    assertNull (aErr1.get ());
+
+    // Blank value -> null, no error handler invocation
+    final Wrapper <String> aErr2 = new Wrapper <> ();
+    assertNull (aConfig.getAsConfigDuration ("blank", aErr2::set));
+    assertNull (aErr2.get ());
+
+    // Invalid value -> null, error handler invoked
+    final Wrapper <String> aErr3 = new Wrapper <> ();
+    assertNull (aConfig.getAsConfigDuration ("invalid", aErr3::set));
+    assertNotNull (aErr3.get ());
+
+    // No error handler form must not throw on invalid input
+    assertNull (aConfig.getAsConfigDuration ("invalid"));
   }
 }

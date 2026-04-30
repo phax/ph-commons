@@ -16,6 +16,9 @@
  */
 package com.helger.config;
 
+import java.time.Duration;
+import java.util.function.Consumer;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -29,6 +32,7 @@ import com.helger.config.source.resource.IConfigurationSourceResource;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.config.value.IConfigurationValueProviderWithPriorityCallback;
+import com.helger.config.value.parser.ConfigDurationParser;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 /**
@@ -95,6 +99,48 @@ public interface IConfig extends IGetterByKeyTrait <String>
   default IConfig getSubConfig (@NonNull @Nonempty final String sPrefix)
   {
     return new ConfigSubset (this, sPrefix);
+  }
+
+  /**
+   * Look up the configured value for the provided key and parse it as a {@link Duration} using
+   * {@link ConfigDurationParser}. Equivalent to
+   * {@link #getAsConfigDuration(String, Consumer)} with a <code>null</code> error handler — i.e.
+   * parse failures are reported only via a <code>null</code> return value.
+   *
+   * @param sKey
+   *        The configuration key to look up. May be <code>null</code>.
+   * @return <code>null</code> if no such value is configured, the value is blank, or it cannot be
+   *         parsed; otherwise the parsed {@link Duration}.
+   * @see ConfigDurationParser
+   * @since 12.2.5
+   */
+  @Nullable
+  default Duration getAsConfigDuration (@Nullable final String sKey)
+  {
+    return getAsConfigDuration (sKey, null);
+  }
+
+  /**
+   * Look up the configured value for the provided key and parse it as a {@link Duration} using
+   * {@link ConfigDurationParser}. Variable replacement (if enabled on the underlying config) is
+   * applied before parsing.
+   *
+   * @param sKey
+   *        The configuration key to look up. May be <code>null</code>.
+   * @param aParseErrorHdl
+   *        Invoked once with a descriptive message if the configured value is present but cannot be
+   *        parsed. Not invoked when no value is configured. May be <code>null</code> in which case
+   *        parse failures are silent.
+   * @return <code>null</code> if no such value is configured, the value is blank, or it cannot be
+   *         parsed; otherwise the parsed {@link Duration}.
+   * @see ConfigDurationParser#parseDuration(String, Consumer)
+   * @since 12.2.5
+   */
+  @Nullable
+  default Duration getAsConfigDuration (@Nullable final String sKey,
+                                        @Nullable final Consumer <String> aParseErrorHdl)
+  {
+    return ConfigDurationParser.parseDuration (getAsString (sKey), aParseErrorHdl);
   }
 
   /**
