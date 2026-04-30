@@ -28,7 +28,6 @@ import com.helger.collection.commons.ICommonsList;
  */
 public final class LoggingInvocationHandlerTest
 {
-  @SuppressWarnings("unchecked")
   @Test
   public void testBasic ()
   {
