@@ -162,6 +162,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
    *        the value to be returned if the wrapped value is <code>null</code>.
    * @return The extracted value.
    * @since 12.1.2
+   * @deprecated Use the version with Predicate instead
    */
   @SuppressWarnings ("removal")
   @Deprecated (forRemoval = true, since = "12.1.5")
