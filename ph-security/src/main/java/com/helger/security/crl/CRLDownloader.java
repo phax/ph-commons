@@ -112,6 +112,7 @@ public class CRLDownloader
       int nByteCount = 0;
       try
       {
+        // Main download
         final byte [] aCRLBytes = getURLDownloader ().downloadURL (sCRLURL);
         if (aCRLBytes != null)
         {
