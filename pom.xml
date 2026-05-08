@@ -126,11 +126,10 @@
         <artifactId>jakarta.xml.bind-api</artifactId>
         <version>4.0.5</version>
       </dependency>
-      <!-- 4.0.7 has a regression -->
       <dependency>
         <groupId>org.glassfish.jaxb</groupId>
         <artifactId>jaxb-bom</artifactId>
-        <version>4.0.6</version>
+        <version>4.0.8</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
