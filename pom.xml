@@ -190,6 +190,11 @@
       </dependency>
       <dependency>
         <groupId>com.helger.commons</groupId>
+        <artifactId>ph-telemetry</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helger.commons</groupId>
         <artifactId>ph-cache</artifactId>
         <version>${project.version}</version>
       </dependency>
@@ -358,6 +363,7 @@
     <module>ph-typeconvert</module>
     <module>ph-cli</module>
     <module>ph-statistics</module>
+    <module>ph-telemetry</module>
     <module>ph-cache</module>
     <module>ph-datetime</module>
     <module>ph-jaxb-adapter</module>
