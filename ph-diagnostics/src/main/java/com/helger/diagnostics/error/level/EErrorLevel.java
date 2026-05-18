@@ -30,8 +30,12 @@ import com.helger.base.lang.EnumHelper;
  */
 public enum EErrorLevel implements IErrorLevel
 {
-  /** Success */
-  SUCCESS ("success", 0),
+  /**
+   * Success.<br>
+   * Info: Success is not really an error level. Information is needed - nothing else.
+   */
+  @Deprecated (forRemoval = true, since = "12.2.6")
+  SUCCESS("success", 0),
   /** Information level */
   INFO ("info", 100),
   /** Warning level. */
@@ -153,7 +157,8 @@ public enum EErrorLevel implements IErrorLevel
    * @return <code>eDefault</code> if no matching error level was found.
    */
   @Nullable
-  public static EErrorLevel getFromIDCaseInsensitiveOrDefault (@Nullable final String sID, @Nullable final EErrorLevel eDefault)
+  public static EErrorLevel getFromIDCaseInsensitiveOrDefault (@Nullable final String sID,
+                                                               @Nullable final EErrorLevel eDefault)
   {
     return EnumHelper.getFromIDCaseInsensitiveOrDefault (EErrorLevel.class, sID, eDefault);
   }

@@ -30,6 +30,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class EErrorLevelTest
 {
   public void testBasic ()

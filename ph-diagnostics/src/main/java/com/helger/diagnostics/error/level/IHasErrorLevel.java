@@ -41,8 +41,8 @@ public interface IHasErrorLevel extends ISuccessIndicator, IErrorIndicator
    *
    * @param aErrorLevel
    *        The error level to check. May be <code>null</code>.
-   * @return <code>true</code> if {@link #getErrorLevel()} and the passed error
-   *         level are equal, <code>false</code> otherwise.
+   * @return <code>true</code> if {@link #getErrorLevel()} and the passed error level are equal,
+   *         <code>false</code> otherwise.
    */
   default boolean hasErrorLevel (@Nullable final IErrorLevel aErrorLevel)
   {

@@ -49,6 +49,7 @@ import com.helger.diagnostics.error.level.EErrorLevel;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class ErrorListTest
 {
   @Test

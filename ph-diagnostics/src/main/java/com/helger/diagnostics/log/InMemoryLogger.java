@@ -200,6 +200,8 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
    * @param aMsg
    *        The message to log. May not be <code>null</code>.
    */
+  @SuppressWarnings ("removal")
+  @Deprecated (forRemoval = true, since = "12.2.6")
   public void success (@NonNull final Serializable aMsg)
   {
     log (EErrorLevel.SUCCESS, aMsg, null);
@@ -213,6 +215,8 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
    * @param t
    *        An optional exception. May be <code>null</code>.
    */
+  @SuppressWarnings ("removal")
+  @Deprecated (forRemoval = true, since = "12.2.6")
   public void success (@NonNull final Serializable aMsg, @Nullable final Throwable t)
   {
     log (EErrorLevel.SUCCESS, aMsg, t);

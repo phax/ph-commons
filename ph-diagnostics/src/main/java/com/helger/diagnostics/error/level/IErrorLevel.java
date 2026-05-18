@@ -48,15 +48,19 @@ public interface IErrorLevel extends
   int getNumericLevel ();
 
   /** {@inheritDoc} */
+  @SuppressWarnings ("removal")
   default boolean isSuccess ()
   {
+    // Switch to INFO
     return isEQ (EErrorLevel.SUCCESS);
   }
 
   /** {@inheritDoc} */
   @Override
+  @SuppressWarnings ("removal")
   default boolean isFailure ()
   {
+    // Switch to INFO
     return isGT (EErrorLevel.SUCCESS);
   }
 
@@ -117,8 +121,8 @@ public interface IErrorLevel extends
   }
 
   /**
-   * @return <code>true</code> if this error level is the highest possible level,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this error level is the highest possible level, <code>false</code>
+   *         otherwise.
    */
   default boolean isHighest ()
   {

@@ -277,6 +277,8 @@ public class SingleError implements IError
    *         <code>null</code>.
    */
   @NonNull
+  @SuppressWarnings ("removal")
+  @Deprecated (forRemoval = true, since = "12.2.6")
   public static SingleErrorBuilder builderSuccess ()
   {
     return builder ().errorLevel (EErrorLevel.SUCCESS);
