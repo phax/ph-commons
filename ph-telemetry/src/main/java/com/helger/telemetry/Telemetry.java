@@ -150,8 +150,6 @@ public final class Telemetry
    *        The span kind. Never <code>null</code>.
    * @param aBody
    *        The body. Never <code>null</code>. Receives the active span.
-   * @param <T>
-   *        Body return type.
    */
   public static void withSpanVoid (@NonNull final String sName,
                                    @NonNull final ETelemetrySpanKind eKind,
