@@ -70,23 +70,24 @@ public final class Telemetry
       return aFast;
 
     return RW_LOCK.writeLockedGet ( () -> {
-      ITelemetryTracerSPI aRet = s_aTracer;
-      if (aRet == null)
+      ITelemetryTracerSPI ret = s_aTracer;
+      if (ret == null)
       {
         final Iterator <ITelemetryTracerSPI> aIt = ServiceLoader.load (ITelemetryTracerSPI.class).iterator ();
         if (aIt.hasNext ())
         {
-          aRet = aIt.next ();
-          LOGGER.info ("Resolved telemetry tracer SPI: " + aRet.getClass ().getName ());
+          ret = aIt.next ();
+          LOGGER.info ("Resolved telemetry tracer SPI: " + ret.getClass ().getName ());
         }
         else
         {
-          aRet = NoOpTelemetryTracer.INSTANCE;
-          LOGGER.debug ("No ITelemetryTracerSPI registered - using no-op tracer");
+          ret = NoOpTelemetryTracer.INSTANCE;
+          if (LOGGER.isDebugEnabled ())
+            LOGGER.debug ("No ITelemetryTracerSPI registered - using no-op tracer");
         }
-        s_aTracer = aRet;
+        s_aTracer = ret;
       }
-      return aRet;
+      return ret;
     });
   }
 
