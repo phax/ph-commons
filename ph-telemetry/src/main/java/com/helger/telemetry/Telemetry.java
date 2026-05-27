@@ -223,6 +223,12 @@ public final class Telemetry
     }
 
     @NonNull
+    public ITelemetrySpan addEvent (@NonNull final String sName, @NonNull final TelemetryAttributes aAttributes)
+    {
+      return this;
+    }
+
+    @NonNull
     public ITelemetrySpan setStatusOk ()
     {
       return this;

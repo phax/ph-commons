@@ -51,6 +51,9 @@ public final class TelemetryTest
       assertSame (aSpan, aSpan.setAttribute ("n", 42L));
       assertSame (aSpan, aSpan.setAttribute ("d", 3.14));
       assertSame (aSpan, aSpan.recordException (new RuntimeException ("boom")));
+      assertSame (aSpan, aSpan.addEvent ("custom_event"));
+      assertSame (aSpan,
+                  aSpan.addEvent ("custom_event", TelemetryAttributes.builder ().put ("k", "v").build ()));
       assertSame (aSpan, aSpan.setStatusOk ());
       assertSame (aSpan, aSpan.setStatusError ("nope"));
     }
@@ -144,6 +147,13 @@ public final class TelemetryTest
 
     @org.jspecify.annotations.NonNull
     public ITelemetrySpan recordException (@org.jspecify.annotations.NonNull final Throwable aException)
+    {
+      return this;
+    }
+
+    @org.jspecify.annotations.NonNull
+    public ITelemetrySpan addEvent (@org.jspecify.annotations.NonNull final String sName,
+                                    @org.jspecify.annotations.NonNull final TelemetryAttributes aAttributes)
     {
       return this;
     }

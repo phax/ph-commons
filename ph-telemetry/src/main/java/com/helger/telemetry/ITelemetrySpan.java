@@ -108,6 +108,35 @@ public interface ITelemetrySpan extends AutoCloseable
   ITelemetrySpan recordException (@NonNull Throwable aException);
 
   /**
+   * Record a named event on this span without attached attributes. Useful for marking transitions
+   * inside a span ("ddd_unwrapped_sbdh", "cache_miss") that do not warrant a full sub-span.
+   *
+   * @param sName
+   *        The event name. Never <code>null</code>.
+   * @return this. Never <code>null</code>.
+   * @since 12.2.7
+   */
+  @NonNull
+  default ITelemetrySpan addEvent (@NonNull final String sName)
+  {
+    return addEvent (sName, TelemetryAttributes.EMPTY);
+  }
+
+  /**
+   * Record a named event on this span with attached attributes.
+   *
+   * @param sName
+   *        The event name. Never <code>null</code>.
+   * @param aAttributes
+   *        The attributes to attach. Never <code>null</code>; pass
+   *        {@link TelemetryAttributes#EMPTY} for none.
+   * @return this. Never <code>null</code>.
+   * @since 12.2.7
+   */
+  @NonNull
+  ITelemetrySpan addEvent (@NonNull String sName, @NonNull TelemetryAttributes aAttributes);
+
+  /**
    * Mark this span as having completed successfully. Optional — leaving the status unset is also
    * treated as success by most observability backends.
    *
