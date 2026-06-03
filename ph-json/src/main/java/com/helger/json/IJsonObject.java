@@ -62,6 +62,77 @@ public interface IJsonObject extends
   @NonNull
   EChange removeKey (@Nullable String sName);
 
+  /**
+   * Replace the value of an existing key with the provided new value. The original insertion order
+   * of the keys is maintained. If the provided key is not present, no change is made.
+   *
+   * @param sName
+   *        The name of the key whose value should be replaced. May be <code>null</code>.
+   * @param aNewValue
+   *        The new value to associate with the key. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value of an existing key was replaced;
+   *         {@link EChange#UNCHANGED} if the key was not present.
+   * @since 12.2.7
+   */
+  @NonNull
+  EChange replaceKey (@Nullable String sName, @NonNull IJson aNewValue);
+
+  /**
+   * Replace the value of an existing key with the provided new value, converting it to an
+   * {@link IJson} using the registered type converter. The original insertion order of the keys is
+   * maintained. If the provided key is not present, no change is made.
+   *
+   * @param sName
+   *        The name of the key whose value should be replaced. May be <code>null</code>.
+   * @param aNewValue
+   *        The new value to associate with the key. May be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the value of an existing key was replaced;
+   *         {@link EChange#UNCHANGED} if the key was not present.
+   * @since 12.2.7
+   */
+  @NonNull
+  default EChange replaceKey (@Nullable final String sName, @Nullable final Object aNewValue)
+  {
+    return replaceKey (sName, getTypeConverterTo ().convert (aNewValue));
+  }
+
+  /**
+   * Modify the value associated with the provided key by applying the supplied function to the
+   * existing value and storing the result. The function receives the current value (which is
+   * <code>null</code> if the key is not present) and returns the new value. If the function
+   * returns <code>null</code>, no change is performed (so the function can opt out of the
+   * replacement). If the function returns a non-<code>null</code> value, that value is associated
+   * with the key. When the key already existed, its original insertion position is preserved.
+   * When the key did not exist, it is appended at the end.
+   *
+   * @param sName
+   *        The name of the key whose value should be modified. May be <code>null</code>.
+   * @param aOldToNewMapper
+   *        Function applied to the existing value to compute the new value. The first parameter
+   *        passed in is the current value, which may be <code>null</code> if the key is not
+   *        present. May not be <code>null</code>.
+   * @return {@link EChange#CHANGED} if the mapping was inserted or replaced;
+   *         {@link EChange#UNCHANGED} if the mapper returned <code>null</code>.
+   * @since 12.2.7
+   */
+  @NonNull
+  default EChange replaceKey (@Nullable final String sName,
+                              @NonNull final Function <? super IJson, ? extends IJson> aOldToNewMapper)
+  {
+    final IJson aOldValue = get (sName);
+    final IJson aNewValue = aOldToNewMapper.apply (aOldValue);
+    if (aNewValue == null)
+      return EChange.UNCHANGED;
+    if (aOldValue == null)
+    {
+      // Key did not exist before -> append
+      add (sName, aNewValue);
+      return EChange.CHANGED;
+    }
+    // Key existed -> replace in place (preserves insertion order)
+    return replaceKey (sName, aNewValue);
+  }
+
   boolean containsKey (@Nullable String sName);
 
   @NonNull

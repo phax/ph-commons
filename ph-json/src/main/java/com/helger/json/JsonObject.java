@@ -191,6 +191,20 @@ public class JsonObject implements IJsonObject
   /**
    * {@inheritDoc}
    */
+  @NonNull
+  public EChange replaceKey (@Nullable final String sName, @NonNull final IJson aNewValue)
+  {
+    ValueEnforcer.notNull (aNewValue, "NewValue");
+    if (!m_aValues.containsKey (sName))
+      return EChange.UNCHANGED;
+    // LinkedHashMap.put keeps the original insertion position when the key already exists
+    m_aValues.put (sName, aNewValue);
+    return EChange.CHANGED;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public boolean containsKey (@Nullable final String sName)
   {
     return m_aValues.containsKey (sName);
