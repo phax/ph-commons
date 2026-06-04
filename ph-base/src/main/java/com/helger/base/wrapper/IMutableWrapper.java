@@ -16,6 +16,9 @@
  */
 package com.helger.base.wrapper;
 
+import java.util.function.Function;
+
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.state.EChange;
@@ -38,4 +41,16 @@ public interface IMutableWrapper <DATATYPE> extends IWrapper <DATATYPE>
    */
   @Nullable
   EChange set (@Nullable DATATYPE aObj);
+
+  /**
+   * Update the wrapped object.
+   *
+   * @param aUpdater
+   *        The function that takes the existing wrapped object and returns the new object. May not
+   *        be <code>null</code>.
+   * @return {@link EChange}
+   * @since 12.3.0
+   */
+  @NonNull
+  EChange update (@Nullable Function <DATATYPE, DATATYPE> aUpdater);
 }
