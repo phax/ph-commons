@@ -239,4 +239,10 @@ public class ProviderCache <KEYTYPE, VALUETYPE> implements IMutableCacheWithExpi
                             .append ("ValueProvider", m_aValueProvider)
                             .getToString ();
   }
+
+  @NonNull
+  public static <K, V> CacheBuilder <K, V> builder ()
+  {
+    return new CacheBuilder <> ();
+  }
 }

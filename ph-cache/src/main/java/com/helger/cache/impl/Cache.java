@@ -44,6 +44,10 @@ import com.helger.cache.IMutableCache;
 @Deprecated (forRemoval = true, since = "12.3.0")
 public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, VALUETYPE>
 {
+  /** Default value of {@link #isAllowNullValues()} */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
+
   /**
    * Constructor with no maximum size.
    *
