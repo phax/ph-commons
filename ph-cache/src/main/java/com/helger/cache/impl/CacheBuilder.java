@@ -190,6 +190,7 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
    */
   @NonNull
   @Deprecated (forRemoval = true, since = "12.3.0")
+  @SuppressWarnings ("removal")
   public Cache <KEYTYPE, VALUETYPE> build ()
   {
     _checkCommonFields ();

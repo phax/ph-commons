@@ -33,8 +33,10 @@ import com.helger.base.string.StringHelper;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ("removal")
 public final class MappedCacheTest
 {
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testMaxSize ()
   {
@@ -52,6 +54,7 @@ public final class MappedCacheTest
     assertTrue (c.isInCache ("anything9"));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testNoMaxSize ()
   {
@@ -68,6 +71,7 @@ public final class MappedCacheTest
     assertTrue (c.isInCache ("anything9"));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testSameStoreKey ()
   {
@@ -88,6 +92,7 @@ public final class MappedCacheTest
     assertTrue (c.isInCache (null));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testNullStoreKey ()
   {
@@ -109,6 +114,7 @@ public final class MappedCacheTest
     assertTrue (c.isEmpty ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testNullValueNotAllowed ()
   {
@@ -132,6 +138,7 @@ public final class MappedCacheTest
     assertFalse (c.isInCache (null));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testNullValueAllowed ()
   {
@@ -147,6 +154,7 @@ public final class MappedCacheTest
     assertTrue (c.isInCache ("blub"));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testPrefilledCache ()
   {
@@ -170,6 +178,7 @@ public final class MappedCacheTest
     assertTrue (c.isInCache ("b"));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testRemoveFromCache ()
   {
@@ -188,6 +197,7 @@ public final class MappedCacheTest
     assertEquals (1, c.size ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testRemoveFromEmptyCache ()
   {
@@ -195,6 +205,7 @@ public final class MappedCacheTest
     assertEquals (EChange.UNCHANGED, c.removeFromCache ("a"));
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testClearCache ()
   {
@@ -213,6 +224,7 @@ public final class MappedCacheTest
     assertEquals (EChange.UNCHANGED, c.clearCache ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testIsEmptyAndIsNotEmpty ()
   {
@@ -225,6 +237,7 @@ public final class MappedCacheTest
     assertTrue (c.isNotEmpty ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testGetName ()
   {
@@ -232,6 +245,7 @@ public final class MappedCacheTest
     assertEquals ("MyName", c.getName ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testIsAllowNullValues ()
   {
@@ -242,6 +256,7 @@ public final class MappedCacheTest
     assertTrue (c2.isAllowNullValues ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testCacheHit ()
   {
@@ -252,6 +267,7 @@ public final class MappedCacheTest
     assertEquals (1, c.size ());
   }
 
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Test
   public void testToString ()
   {

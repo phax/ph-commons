@@ -31,7 +31,7 @@ import com.helger.cache.IMutableCache;
 
 /**
  * An implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class is based
- * on {@link MappedCache}.
+ * on MappedCache.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -42,9 +42,11 @@ import com.helger.cache.IMutableCache;
  */
 @ThreadSafe
 @Deprecated (forRemoval = true, since = "12.3.0")
+@SuppressWarnings ("removal")
 public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, VALUETYPE>
 {
-  /** Default value of {@link #isAllowNullValues()} */
+  /** Default value of isAllowNullValues */
+  @SuppressWarnings ("hiding")
   @Deprecated (forRemoval = true, since = "12.3.0")
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
 

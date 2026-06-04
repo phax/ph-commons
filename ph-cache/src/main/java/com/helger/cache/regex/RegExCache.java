@@ -25,17 +25,18 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.AbstractMapBasedCache;
+import com.helger.cache.impl.ProviderCache;
 
 /**
- * This class provides a cached for compiled regular expressions. It caches up
- * to a limited number of compiled {@link Pattern} objects.
+ * This class provides a cached for compiled regular expressions. It caches up to a limited number
+ * of compiled {@link Pattern} objects.
  *
  * @author Philip Helger
  */
 @ThreadSafe
 @Singleton
-public final class RegExCache extends Cache <RegExPattern, Pattern>
+public final class RegExCache extends ProviderCache <RegExPattern, Pattern>
 {
   private static final class SingletonHolder
   {
@@ -49,7 +50,12 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
 
   private RegExCache ()
   {
-    super (RegExPattern::getAsPattern, MAX_CACHE_SIZE, RegExCache.class.getName ());
+    super (RegExCache.class.getName (),
+           MAX_CACHE_SIZE,
+           AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES,
+           null,
+           AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+           RegExPattern::getAsPattern);
   }
 
   /**
@@ -76,10 +82,8 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
    * Get the cached regular expression pattern.
    *
    * @param sRegEx
-   *        The regular expression to retrieve. May neither be <code>null</code>
-   *        nor empty.
-   * @return The compiled regular expression pattern and never <code>null</code>
-   *         .
+   *        The regular expression to retrieve. May neither be <code>null</code> nor empty.
+   * @return The compiled regular expression pattern and never <code>null</code> .
    * @throws IllegalArgumentException
    *         If the passed regular expression has an illegal syntax
    */
@@ -93,12 +97,10 @@ public final class RegExCache extends Cache <RegExPattern, Pattern>
    * Get the cached regular expression pattern.
    *
    * @param sRegEx
-   *        The regular expression to retrieve. May neither be <code>null</code>
-   *        nor empty.
+   *        The regular expression to retrieve. May neither be <code>null</code> nor empty.
    * @param nOptions
    *        The options used for Pattern.compile
-   * @return The compiled regular expression pattern and never <code>null</code>
-   *         .
+   * @return The compiled regular expression pattern and never <code>null</code> .
    * @see Pattern#compile(String, int)
    * @throws IllegalArgumentException
    *         If the passed regular expression has an illegal syntax

@@ -44,7 +44,7 @@ import com.helger.cache.IMutableCacheWithExpiration;
  * {@link ManualCache} super class.
  *
  * @author Philip Helger
- * @since 9.3.8 generalized from the existing {@link Cache} class.
+ * @since 9.3.8 generalized from the existing Cache class.
  * @param <KEYTYPE>
  *        The cache source type
  * @param <KEYSTORETYPE>
@@ -56,12 +56,13 @@ import com.helger.cache.IMutableCacheWithExpiration;
  */
 @Deprecated (forRemoval = true, since = "12.3.0")
 @ThreadSafe
+@SuppressWarnings ("removal")
 public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableCacheWithExpiration <KEYTYPE, VALUETYPE>
 {
   /** A constant indicating, that a cache has no max size */
   @Deprecated (forRemoval = true, since = "12.3.0")
   public static final int NO_MAX_SIZE = AbstractMapBasedCache.NO_MAX_SIZE;
-  /** Default value of {@link #isAllowNullValues()} */
+  /** Default value of isAllowNullValues() */
   @Deprecated (forRemoval = true, since = "12.3.0")
   public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
 
