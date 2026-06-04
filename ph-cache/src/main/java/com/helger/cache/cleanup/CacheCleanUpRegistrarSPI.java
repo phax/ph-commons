@@ -21,6 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
+import com.helger.cache.eviction.CacheEvictionScheduler;
 import com.helger.cache.regex.RegExCache;
 
 /**
@@ -37,6 +38,7 @@ public final class CacheCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 200, () -> {
       if (RegExCache.isInstantiated ())
         RegExCache.getInstance ().clearCache ();
+      CacheEvictionScheduler.getInstance ().shutdown ();
     });
   }
 }

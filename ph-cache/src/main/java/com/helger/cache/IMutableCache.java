@@ -18,6 +18,7 @@ package com.helger.cache;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.base.state.EChange;
 
 /**
@@ -35,10 +36,10 @@ public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VAL
    * Remove the given key from the cache.
    *
    * @param aKey
-   *        The key to be removed. May be <code>null</code>able or not - depends
-   *        upon the implementation.
-   * @return {@link EChange#CHANGED} upon success, {@link EChange#UNCHANGED} if
-   *         the key was not within the cache,
+   *        The key to be removed. May be <code>null</code>able or not - depends upon the
+   *        implementation.
+   * @return {@link EChange#CHANGED} upon success, {@link EChange#UNCHANGED} if the key was not
+   *         within the cache,
    */
   @NonNull
   EChange removeFromCache (KEYTYPE aKey);
@@ -50,4 +51,14 @@ public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VAL
    */
   @NonNull
   EChange clearCache ();
+
+  /**
+   * Remove all entries that are expired by their time-based expiration. For caches without a
+   * time-based expiration policy this is a no-op.
+   *
+   * @return The number of entries removed. Always &ge; 0.
+   * @since 12.3.0
+   */
+  @Nonnegative
+  int evictExpired ();
 }

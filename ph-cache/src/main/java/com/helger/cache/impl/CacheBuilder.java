@@ -16,6 +16,7 @@
  */
 package com.helger.cache.impl;
 
+import java.time.Duration;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
@@ -24,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.string.StringHelper;
+import com.helger.cache.eviction.CacheEvictionScheduler;
 
 /**
  * Builder class for {@link Cache} objects.
@@ -42,6 +44,8 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   private int m_nMaxSize = MappedCache.NO_MAX_SIZE;
   private String m_sName;
   private boolean m_bAllowNullValues = Cache.DEFAULT_ALLOW_NULL_VALUES;
+  private Duration m_aTimeToLive;
+  private Duration m_aEvictionInterval;
 
   /**
    * Default constructor.
@@ -106,11 +110,50 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
   }
 
   /**
+   * Set the time-to-live for cache entries. Entries are considered expired
+   * after this duration has passed since they were stored, and are
+   * automatically refreshed on the next read (lazy expiration).
+   *
+   * @param a
+   *        Time after which a cache entry is considered expired. May be
+   *        <code>null</code>, zero or negative to disable time-based
+   *        expiration.
+   * @return this for chaining
+   * @since 12.3.0
+   */
+  @NonNull
+  public CacheBuilder <KEYTYPE, VALUETYPE> expireAfterWrite (@Nullable final Duration a)
+  {
+    m_aTimeToLive = a;
+    return this;
+  }
+
+  /**
+   * Register the built cache with the shared
+   * {@link CacheEvictionScheduler} so that expired entries are actively removed
+   * on the provided interval. Requires {@link #expireAfterWrite(Duration)} to
+   * be set; otherwise there is nothing to evict.
+   *
+   * @param a
+   *        The eviction interval. May be <code>null</code>, zero or negative
+   *        to disable background eviction (the default).
+   * @return this for chaining
+   * @since 12.3.0
+   */
+  @NonNull
+  public CacheBuilder <KEYTYPE, VALUETYPE> evictionInterval (@Nullable final Duration a)
+  {
+    m_aEvictionInterval = a;
+    return this;
+  }
+
+  /**
    * Build the {@link Cache} instance from the configured parameters.
    *
    * @return A new {@link Cache} instance. Never <code>null</code>.
    * @throws IllegalStateException
-   *         if the value provider or cache name is missing.
+   *         if the value provider or cache name is missing, or if an eviction
+   *         interval is set without a time-to-live.
    */
   @NonNull
   public Cache <KEYTYPE, VALUETYPE> build ()
@@ -120,6 +163,22 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> implements IBuilder <Cache <KEYTY
     if (StringHelper.isEmpty (m_sName))
       throw new IllegalStateException ("The mandatory Cache Name is missing");
 
-    return new Cache <> (m_aValueProvider, m_nMaxSize, m_sName, m_bAllowNullValues);
+    final boolean bHasEvictionInterval = m_aEvictionInterval != null &&
+                                         !m_aEvictionInterval.isZero () &&
+                                         !m_aEvictionInterval.isNegative ();
+    final boolean bHasTimeToLive = m_aTimeToLive != null && !m_aTimeToLive.isZero () && !m_aTimeToLive.isNegative ();
+    if (bHasEvictionInterval && !bHasTimeToLive)
+      throw new IllegalStateException ("An eviction interval is configured but no positive time-to-live is set - nothing to evict");
+
+    final Cache <KEYTYPE, VALUETYPE> ret = new Cache <> (m_aValueProvider,
+                                                         m_nMaxSize,
+                                                         m_sName,
+                                                         m_bAllowNullValues,
+                                                         m_aTimeToLive);
+
+    if (bHasEvictionInterval)
+      CacheEvictionScheduler.getInstance ().register (ret, m_aEvictionInterval);
+
+    return ret;
   }
 }

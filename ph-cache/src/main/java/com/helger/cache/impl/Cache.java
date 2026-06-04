@@ -16,6 +16,7 @@
  */
 package com.helger.cache.impl;
 
+import java.time.Duration;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
@@ -90,7 +91,34 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
                 @NonNull @Nonempty final String sCacheName,
                 final boolean bAllowNullValues)
   {
-    super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues);
+    this (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues, null);
+  }
+
+  /**
+   * Constructor with all parameters including time-based expiration.
+   *
+   * @param aCacheValueProvider
+   *        The function to compute cache values. May not be <code>null</code>.
+   * @param nMaxSize
+   *        The maximum number of entries in the cache. Values &le; 0 mean no limit.
+   * @param sCacheName
+   *        The name of the cache. May neither be <code>null</code> nor empty.
+   * @param bAllowNullValues
+   *        <code>true</code> if <code>null</code> values are allowed in the cache,
+   *        <code>false</code> if not.
+   * @param aTimeToLive
+   *        Time after which a cache entry is considered expired. May be
+   *        <code>null</code> or zero or negative to disable time-based
+   *        expiration.
+   * @since 12.3.0
+   */
+  public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+                final int nMaxSize,
+                @NonNull @Nonempty final String sCacheName,
+                final boolean bAllowNullValues,
+                @Nullable final Duration aTimeToLive)
+  {
+    super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues, aTimeToLive);
   }
 
   /**
