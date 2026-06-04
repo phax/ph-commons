@@ -360,7 +360,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        The cache value. May be <code>null</code> depending on the settings.
    */
   @IsLocked (ELockType.WRITE)
-  protected final void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
+  public final void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
   {
     final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
     final CacheEntry <VALUETYPE> aCacheEntry = _buildCacheEntry (aKey, aValue);

@@ -154,12 +154,8 @@ public final class MappedCacheTest
                                                                        StringHelper::getNotNull,
                                                                        MappedCache.NO_MAX_SIZE,
                                                                        "Mock",
-                                                                       false)
-    {
-      {
-        putInCache ("a", "b");
-      }
-    };
+                                                                       false);
+    c.putInCache ("a", "b");
     assertEquals (1, c.size ());
     assertTrue (c.isInCache ("a"));
     assertEquals ("b", c.getFromCache ("a"));

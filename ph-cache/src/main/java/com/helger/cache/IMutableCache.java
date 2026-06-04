@@ -33,6 +33,17 @@ import com.helger.base.state.EChange;
 public interface IMutableCache <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VALUETYPE>
 {
   /**
+   * Explicitly add a value into the cache.
+   *
+   * @param aKey
+   *        The key to be added. Usually non-<code>null</code>.
+   * @param aValue
+   *        The value to be added. Implementation depends on nullability.
+   * @since 12.3.0
+   */
+  void putInCache (KEYTYPE aKey, VALUETYPE aValue);
+
+  /**
    * Remove the given key from the cache.
    *
    * @param aKey
