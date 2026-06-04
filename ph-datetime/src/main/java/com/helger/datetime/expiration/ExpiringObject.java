@@ -45,11 +45,12 @@ public class ExpiringObject <DATATYPE> implements IExpirable
    * @param aObj
    *        The object it's all about. May be <code>null</code>.
    * @param aExpirationDT
-   *        The expiration date time. May not be <code>null</code>.
+   *        The expiration date time. May be <code>null</code> if no expiration
+   *        is defined for this object. Since 12.3.0 this may be
+   *        <code>null</code>; previously it had to be non-<code>null</code>.
    */
-  public ExpiringObject (@Nullable final DATATYPE aObj, @NonNull final LocalDateTime aExpirationDT)
+  public ExpiringObject (@Nullable final DATATYPE aObj, @Nullable final LocalDateTime aExpirationDT)
   {
-    ValueEnforcer.notNull (aExpirationDT, "ExpirationDT");
     m_aObj = aObj;
     m_aExpirationDT = aExpirationDT;
   }
@@ -64,9 +65,11 @@ public class ExpiringObject <DATATYPE> implements IExpirable
   }
 
   /**
-   * @return The expiration date time of this object. Never <code>null</code>.
+   * @return The expiration date time of this object, or <code>null</code> if no
+   *         expiration is defined.
    */
-  @NonNull
+  @Override
+  @Nullable
   public final LocalDateTime getExpirationDateTime ()
   {
     return m_aExpirationDT;

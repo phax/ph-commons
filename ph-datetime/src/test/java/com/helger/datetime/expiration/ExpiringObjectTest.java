@@ -18,9 +18,11 @@ package com.helger.datetime.expiration;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 
@@ -39,5 +41,17 @@ public final class ExpiringObjectTest
     assertFalse (aObj.isExpiredNow ());
     assertTrue (aObj.isExpiredIn (Duration.ofMillis (100)));
     assertTrue (aObj.isExpiredIn (Duration.ofSeconds (1)));
+  }
+
+  @Test
+  public void testNullExpirationDateTime ()
+  {
+    // Since 12.3.0: null expiration is allowed and means "never expires"
+    final ExpiringObject <String> aObj = new ExpiringObject <> ("Hello", (LocalDateTime) null);
+    assertNotNull (aObj);
+    assertNull (aObj.getExpirationDateTime ());
+    assertFalse (aObj.isExpirationDefined ());
+    assertFalse (aObj.isExpiredNow ());
+    assertFalse (aObj.isExpiredIn (Duration.ofDays (365)));
   }
 }
