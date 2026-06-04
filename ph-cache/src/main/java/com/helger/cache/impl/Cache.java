@@ -17,7 +17,9 @@
 package com.helger.cache.impl;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -28,20 +30,20 @@ import com.helger.cache.ICache;
 import com.helger.cache.IMutableCache;
 
 /**
- * The default implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class
- * is based on {@link MappedCache}.
+ * An implementation of {@link ICache} and {@link IMutableCache}. Since v9.3.8 this class is based
+ * on {@link MappedCache}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The cache key type
  * @param <VALUETYPE>
  *        The cache value type
+ * @deprecated Use {@link ProviderCache} instead
  */
 @ThreadSafe
+@Deprecated (forRemoval = true, since = "12.3.0")
 public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, VALUETYPE>
 {
-  public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
-
   /**
    * Constructor with no maximum size.
    *
@@ -50,10 +52,11 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
    * @param sCacheName
    *        The name of the cache. May neither be <code>null</code> nor empty.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 @NonNull @Nonempty final String sCacheName)
   {
-    this (aCacheValueProvider, NO_MAX_SIZE, sCacheName);
+    this (aCacheValueProvider, AbstractMapBasedCache.NO_MAX_SIZE, sCacheName);
   }
 
   /**
@@ -66,11 +69,12 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
    * @param sCacheName
    *        The name of the cache. May neither be <code>null</code> nor empty.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @NonNull @Nonempty final String sCacheName)
   {
-    this (aCacheValueProvider, nMaxSize, sCacheName, DEFAULT_ALLOW_NULL_VALUES);
+    this (aCacheValueProvider, nMaxSize, sCacheName, AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES);
   }
 
   /**
@@ -86,39 +90,48 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
    *        <code>true</code> if <code>null</code> values are allowed in the cache,
    *        <code>false</code> if not.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 final int nMaxSize,
                 @NonNull @Nonempty final String sCacheName,
                 final boolean bAllowNullValues)
   {
-    this (aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues, null);
+    this (sCacheName,
+          nMaxSize,
+          bAllowNullValues,
+          null,
+          AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+          aCacheValueProvider);
   }
 
   /**
    * Constructor with all parameters including time-based expiration.
    *
-   * @param aCacheValueProvider
-   *        The function to compute cache values. May not be <code>null</code>.
-   * @param nMaxSize
-   *        The maximum number of entries in the cache. Values &le; 0 mean no limit.
    * @param sCacheName
    *        The name of the cache. May neither be <code>null</code> nor empty.
+   * @param nMaxSize
+   *        The maximum number of entries in the cache. Values &le; 0 mean no limit.
    * @param bAllowNullValues
    *        <code>true</code> if <code>null</code> values are allowed in the cache,
    *        <code>false</code> if not.
    * @param aTimeToLive
-   *        Time after which a cache entry is considered expired. May be
-   *        <code>null</code> or zero or negative to disable time-based
-   *        expiration.
+   *        Time after which a cache entry is considered expired. May be <code>null</code> or zero
+   *        or negative to disable time-based expiration.
+   * @param aClockSupplier
+   *        The clock supplier. May not be <code>null</code>.
+   * @param aCacheValueProvider
+   *        The function to compute cache values. May not be <code>null</code>.
    * @since 12.3.0
    */
-  public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public Cache (@NonNull @Nonempty final String sCacheName,
                 final int nMaxSize,
-                @NonNull @Nonempty final String sCacheName,
                 final boolean bAllowNullValues,
-                @Nullable final Duration aTimeToLive)
+                @Nullable final Duration aTimeToLive,
+                @NonNull final Supplier <LocalDateTime> aClockSupplier,
+                @NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider)
   {
-    super (x -> x, aCacheValueProvider, nMaxSize, sCacheName, bAllowNullValues, aTimeToLive);
+    super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier, x -> x, aCacheValueProvider);
   }
 
   /**
@@ -128,6 +141,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
    * @param <VALUETYPE>
    *        The cache value type
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder ()
   {
@@ -145,6 +159,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
    *        The cache value type
    * @return A new builder for {@link Cache} objects. Never <code>null</code>.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
   public static <KEYTYPE, VALUETYPE> CacheBuilder <KEYTYPE, VALUETYPE> builder (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {

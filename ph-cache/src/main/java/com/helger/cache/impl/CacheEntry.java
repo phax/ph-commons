@@ -27,15 +27,13 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Internal cache value holder that combines the cached value with an optional
- * expiration date time. A <code>null</code> expiration means the entry never
- * expires by time. The presence of a {@link CacheEntry} in the internal cache
- * map represents "the key is in the cache" (independently of whether the
- * contained value is <code>null</code>).
+ * Internal cache value holder that combines the cached value with an optional expiration date time.
+ * A <code>null</code> expiration means the entry never expires by time. The presence of a
+ * {@link CacheEntry} in the internal cache map represents "the key is in the cache" (independently
+ * of whether the contained value is <code>null</code>).
  * <p>
- * This type mirrors the shape of
- * <code>com.helger.datetime.expiration.ExpiringObject</code> but is kept inside
- * ph-cache to avoid a module dependency cycle with ph-datetime.
+ * This type mirrors the shape of <code>com.helger.datetime.expiration.ExpiringObject</code> but is
+ * kept inside ph-cache to avoid a module dependency cycle with ph-datetime.
  *
  * @author Philip Helger
  * @param <VALUETYPE>
@@ -54,8 +52,7 @@ public final class CacheEntry <VALUETYPE>
    * @param aValue
    *        The cached value. May be <code>null</code>.
    * @param aExpirationDT
-   *        The expiration date time. May be <code>null</code> if the entry
-   *        never expires by time.
+   *        The expiration date time. May be <code>null</code> if the entry never expires by time.
    */
   public CacheEntry (@Nullable final VALUETYPE aValue, @Nullable final LocalDateTime aExpirationDT)
   {
@@ -73,8 +70,8 @@ public final class CacheEntry <VALUETYPE>
   }
 
   /**
-   * @return The expiration date time of this entry, or <code>null</code> if no
-   *         expiration is defined.
+   * @return The expiration date time of this entry, or <code>null</code> if no expiration is
+   *         defined.
    */
   @Nullable
   public LocalDateTime getExpirationDateTime ()
@@ -83,8 +80,7 @@ public final class CacheEntry <VALUETYPE>
   }
 
   /**
-   * @return <code>true</code> if an expiration date time is defined,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date time is defined, <code>false</code> otherwise.
    */
   public boolean hasExpirationDateTime ()
   {
@@ -94,9 +90,8 @@ public final class CacheEntry <VALUETYPE>
   /**
    * @param aDT
    *        The date time to check against. May not be <code>null</code>.
-   * @return <code>true</code> if an expiration date time is defined and the
-   *         provided date time is after the expiration date time,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date time is defined and the provided date time is
+   *         after the expiration date time, <code>false</code> otherwise.
    */
   public boolean isExpiredAt (@NonNull final LocalDateTime aDT)
   {
@@ -107,7 +102,9 @@ public final class CacheEntry <VALUETYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Value", m_aValue).appendIfNotNull ("ExpirationDT", m_aExpirationDT).getToString ();
+    return new ToStringGenerator (null).append ("Value", m_aValue)
+                                       .appendIfNotNull ("ExpirationDT", m_aExpirationDT)
+                                       .getToString ();
   }
 
   /**
@@ -141,12 +138,13 @@ public final class CacheEntry <VALUETYPE>
                                                                          @NonNull final LocalDateTime aExpirationDT)
   {
     ValueEnforcer.notNull (aExpirationDT, "ExpirationDT");
+
     return new CacheEntry <> (aValue, aExpirationDT);
   }
 
   /**
-   * Create a new {@link CacheEntry} that expires after the provided duration
-   * starting from the provided "now".
+   * Create a new {@link CacheEntry} that expires after the provided duration starting from the
+   * provided "now".
    *
    * @param <VALUETYPE>
    *        The cache value type.
@@ -165,7 +163,9 @@ public final class CacheEntry <VALUETYPE>
   {
     ValueEnforcer.notNull (aNow, "Now");
     ValueEnforcer.notNull (aTimeToLive, "TimeToLive");
+    ValueEnforcer.isFalse (aTimeToLive::isZero, "TimeToLive must not be zero");
     ValueEnforcer.isFalse (aTimeToLive::isNegative, "TimeToLive must not be negative");
+
     return new CacheEntry <> (aValue, aNow.plus (aTimeToLive));
   }
 }

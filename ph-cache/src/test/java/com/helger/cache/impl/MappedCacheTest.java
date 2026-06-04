@@ -73,7 +73,7 @@ public final class MappedCacheTest
   {
     final MappedCache <String, String, String> c = new MappedCache <> (StringHelper::getNotNull,
                                                                        StringHelper::getNotNull,
-                                                                       MappedCache.NO_MAX_SIZE,
+                                                                       AbstractMapBasedCache.NO_MAX_SIZE,
                                                                        "Mock",
                                                                        false);
     assertEquals (0, c.size ());
@@ -93,7 +93,7 @@ public final class MappedCacheTest
   {
     final MappedCache <String, String, String> c = new MappedCache <> (x -> x,
                                                                        StringHelper::getNotNull,
-                                                                       MappedCache.NO_MAX_SIZE,
+                                                                       AbstractMapBasedCache.NO_MAX_SIZE,
                                                                        "Mock",
                                                                        false);
     try
@@ -113,7 +113,7 @@ public final class MappedCacheTest
   public void testNullValueNotAllowed ()
   {
     final Cache <Integer, String> c = new Cache <> (x -> x == null ? null : "v" + x.intValue (),
-                                                    MappedCache.NO_MAX_SIZE,
+                                                    AbstractMapBasedCache.NO_MAX_SIZE,
                                                     "Mock",
                                                     false);
     assertEquals ("v1", c.getFromCache (Integer.valueOf (1)));
@@ -136,7 +136,7 @@ public final class MappedCacheTest
   public void testNullValueAllowed ()
   {
     final Cache <String, String> c = new Cache <> (aKey -> "blub".equals (aKey) ? null : aKey,
-                                                   MappedCache.NO_MAX_SIZE,
+                                                   AbstractMapBasedCache.NO_MAX_SIZE,
                                                    "Mock",
                                                    true);
     assertEquals ("v1", c.getFromCache ("v1"));
@@ -152,10 +152,14 @@ public final class MappedCacheTest
   {
     final MappedCache <String, String, String> c = new MappedCache <> (x -> x,
                                                                        StringHelper::getNotNull,
-                                                                       MappedCache.NO_MAX_SIZE,
+                                                                       AbstractMapBasedCache.NO_MAX_SIZE,
                                                                        "Mock",
-                                                                       false);
-    c.putInCache ("a", "b");
+                                                                       false)
+    {
+      {
+        internalGetCache ().putInCache ("a", "b");
+      }
+    };
     assertEquals (1, c.size ());
     assertTrue (c.isInCache ("a"));
     assertEquals ("b", c.getFromCache ("a"));

@@ -18,43 +18,30 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
-import com.helger.annotation.OverridingMethodsMustInvokeSuper;
-import com.helger.annotation.concurrent.ELockType;
-import com.helger.annotation.concurrent.GuardedBy;
-import com.helger.annotation.concurrent.IsLocked;
-import com.helger.annotation.concurrent.MustBeLocked;
 import com.helger.annotation.concurrent.ThreadSafe;
-import com.helger.annotation.style.CodingStyleguideUnaware;
-import com.helger.annotation.style.OverrideOnDemand;
-import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.ICache;
 import com.helger.cache.IMutableCache;
-import com.helger.collection.CollectionHelper;
-import com.helger.collection.commons.ICommonsMap;
-import com.helger.collection.map.SoftHashMap;
-import com.helger.collection.map.SoftLinkedHashMap;
-import com.helger.statistics.api.IMutableStatisticsHandlerCache;
-import com.helger.statistics.api.IMutableStatisticsHandlerCounter;
-import com.helger.statistics.impl.StatisticsManager;
+import com.helger.cache.IMutableCacheWithExpiration;
 
 /**
- * Base implementation of {@link ICache} and {@link IMutableCache}.
+ * Cache implementation that maps a public-facing key type {@code KEYTYPE} to an internal storage
+ * key type {@code KEYSTORETYPE} via a key provider function, and resolves values on a cache miss
+ * via a value provider function. The storage, locking and TTL handling are provided by the
+ * {@link ManualCache} super class.
  *
  * @author Philip Helger
  * @since 9.3.8 generalized from the existing {@link Cache} class.
@@ -64,39 +51,23 @@ import com.helger.statistics.impl.StatisticsManager;
  *        The internal storage key type
  * @param <VALUETYPE>
  *        The cache value type
+ * @see ICache
+ * @see IMutableCache
  */
+@Deprecated (forRemoval = true, since = "12.3.0")
 @ThreadSafe
-public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableCache <KEYTYPE, VALUETYPE>
+public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableCacheWithExpiration <KEYTYPE, VALUETYPE>
 {
-  /** The prefix to be used for statistics elements */
-  public static final String STATISTICS_PREFIX = "cache:";
   /** A constant indicating, that a cache has no max size */
-  public static final int NO_MAX_SIZE = 0;
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public static final int NO_MAX_SIZE = AbstractMapBasedCache.NO_MAX_SIZE;
+  /** Default value of {@link #isAllowNullValues()} */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (MappedCache.class);
-
-  private final IMutableStatisticsHandlerCache m_aStatsCacheAccess;
-  private final IMutableStatisticsHandlerCounter m_aStatsCountRemove;
-  private final IMutableStatisticsHandlerCounter m_aStatsCountClear;
-  private final IMutableStatisticsHandlerCounter m_aStatsCountExpired;
-
-  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   private final Function <KEYTYPE, KEYSTORETYPE> m_aCacheKeyProvider;
   private final Function <KEYTYPE, VALUETYPE> m_aValueProvider;
-  private final int m_nMaxSize;
-  private final String m_sName;
-  private final boolean m_bAllowNullValues;
-  private final Duration m_aTimeToLive;
-  // Clock supplier; volatile to allow tests to inject a deterministic clock
-  // without locking on the hot path. UTC is used to avoid DST jumps in the
-  // expiration arithmetic; the absolute time zone is irrelevant because the
-  // same supplier is used for writes and expiry checks.
-  private volatile Supplier <LocalDateTime> m_aClockSupplier = () -> LocalDateTime.now (ZoneOffset.UTC);
-  // Status vars
-  // The main cache. The presence of a CacheEntry is the marker for
-  // "key is in the cache" (including cached null values). Lazily created.
-  @GuardedBy ("m_aRWLock")
-  private ICommonsMap <KEYSTORETYPE, CacheEntry <VALUETYPE>> m_aCache;
+  private final ManualCache <KEYSTORETYPE, VALUETYPE> m_aCache;
 
   /**
    * Constructor without time-based expiration.
@@ -116,29 +87,30 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        <code>true</code> if <code>null</code> values are allowed to be in the cache,
    *        <code>false</code> if not.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   public MappedCache (@NonNull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
                       @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider,
                       @CheckForSigned final int nMaxSize,
                       @NonNull @Nonempty final String sCacheName,
                       final boolean bAllowNullValues)
   {
-    this (aCacheKeyProvider, aValueProvider, nMaxSize, sCacheName, bAllowNullValues, null);
+    this (sCacheName,
+          nMaxSize,
+          bAllowNullValues,
+          null,
+          AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+          aCacheKeyProvider,
+          aValueProvider);
   }
 
   /**
    * Constructor with optional time-based expiration.
    *
-   * @param aCacheKeyProvider
-   *        The cache key provider, that takes any KEYTYPE and creates a non-<code>null</code>
-   *        KEYSTORETYPE instance. May not be <code>null</code>.
-   * @param aValueProvider
-   *        The cache value provider. The value to be cached may be <code>null</code> depending on
-   *        the parameter {@code bAllowNullValues}. May not be <code>null</code>.
-   * @param nMaxSize
-   *        The maximum size of the cache. All values &le; 0 indicate an unlimited size.
    * @param sCacheName
    *        The internal name of the cache. May neither be <code>null</code> nor empty. This name is
    *        NOT checked for uniqueness.
+   * @param nMaxSize
+   *        The maximum size of the cache. All values &le; 0 indicate an unlimited size.
    * @param bAllowNullValues
    *        <code>true</code> if <code>null</code> values are allowed to be in the cache,
    *        <code>false</code> if not.
@@ -146,36 +118,45 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        Time after which a cache entry is considered expired (counted from the time it was put
    *        in the cache). May be <code>null</code> or zero or negative to disable time-based
    *        expiration.
+   * @param aClockSupplier
+   *        The clock supplier. May not be <code>null</code>.
+   * @param aCacheKeyProvider
+   *        The cache key provider, that takes any KEYTYPE and creates a non-<code>null</code>
+   *        KEYSTORETYPE instance. May not be <code>null</code>.
+   * @param aValueProvider
+   *        The cache value provider. The value to be cached may be <code>null</code> depending on
+   *        the parameter {@code bAllowNullValues}. May not be <code>null</code>.
    * @since 12.3.0
    */
-  public MappedCache (@NonNull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
-                      @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider,
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public MappedCache (@NonNull @Nonempty final String sCacheName,
                       @CheckForSigned final int nMaxSize,
-                      @NonNull @Nonempty final String sCacheName,
                       final boolean bAllowNullValues,
-                      @Nullable final Duration aTimeToLive)
+                      @Nullable final Duration aTimeToLive,
+                      @NonNull final Supplier <LocalDateTime> aClockSupplier,
+                      @NonNull final Function <KEYTYPE, KEYSTORETYPE> aCacheKeyProvider,
+                      @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider)
   {
     ValueEnforcer.notNull (aCacheKeyProvider, "CacheKeyProvider");
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
-    ValueEnforcer.notEmpty (sCacheName, "CacheName");
-
-    m_aStatsCacheAccess = StatisticsManager.getCacheHandler (STATISTICS_PREFIX + sCacheName + "$access");
-    m_aStatsCountRemove = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$remove");
-    m_aStatsCountClear = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$clear");
-    m_aStatsCountExpired = StatisticsManager.getCounterHandler (STATISTICS_PREFIX + sCacheName + "$expired");
 
     m_aCacheKeyProvider = aCacheKeyProvider;
     m_aValueProvider = aValueProvider;
-    m_nMaxSize = nMaxSize;
-    m_sName = sCacheName;
-    m_bAllowNullValues = bAllowNullValues;
-    m_aTimeToLive = aTimeToLive != null && !aTimeToLive.isZero () && !aTimeToLive.isNegative () ? aTimeToLive : null;
+    m_aCache = new ManualCache <> (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier);
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @VisibleForTesting
+  final ManualCache <KEYSTORETYPE, VALUETYPE> internalGetCache ()
+  {
+    return m_aCache;
   }
 
   /**
    * @return The cache key provider from the constructor. Never <code>null</code>.
    * @since 9.3.8
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
   protected final Function <KEYTYPE, KEYSTORETYPE> getCacheKeyProvider ()
   {
@@ -186,6 +167,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    * @return The cache value provider from the constructor. Never <code>null</code>.
    * @since 9.3.8
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
   protected final Function <KEYTYPE, VALUETYPE> getValueProvider ()
   {
@@ -193,217 +175,59 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   }
 
   /**
-   * @return The maximum number of entries allowed in this cache. Values &le; 0 indicate that the
-   *         cache size is not limited at all.
-   * @see #hasMaxSize()
-   */
-  public final int getMaxSize ()
-  {
-    // No need to lock, as it is final
-    return m_nMaxSize;
-  }
-
-  /**
-   * @return <code>true</code> if this cache has a size limit, <code>false</code> if not.
-   * @see #getMaxSize()
-   */
-  public final boolean hasMaxSize ()
-  {
-    // No need to lock, as it is final
-    return m_nMaxSize > 0;
-  }
-
-  /**
    * @return The internal name of this cache. Neither <code>null</code> nor empty.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
   @NonNull
   @Nonempty
   public final String getName ()
   {
-    return m_sName;
+    return m_aCache.getName ();
   }
 
-  /**
-   * @return <code>true</code> if <code>null</code> can be in the cache, <code>false</code> if not.
-   * @since 9.3.8
-   */
-  public final boolean isAllowNullValues ()
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  @Nonnegative
+  public int size ()
   {
-    return m_bAllowNullValues;
+    return m_aCache.size ();
   }
 
-  /**
-   * @return The configured time to live for cache entries, or <code>null</code> if no time-based
-   *         expiration is configured.
-   * @since 12.3.0
-   */
-  @Nullable
-  public final Duration getTimeToLive ()
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  public boolean isEmpty ()
   {
-    return m_aTimeToLive;
+    return m_aCache.isEmpty ();
   }
 
-  /**
-   * @return <code>true</code> if a positive time to live is configured, <code>false</code>
-   *         otherwise.
-   * @since 12.3.0
-   */
-  public final boolean hasTimeToLive ()
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  public boolean isNotEmpty ()
   {
-    return m_aTimeToLive != null;
-  }
-
-  /**
-   * @return The clock supplier currently in use. Never <code>null</code>.
-   * @since 12.3.0
-   */
-  @NonNull
-  public final Supplier <LocalDateTime> getClockSupplier ()
-  {
-    return m_aClockSupplier;
-  }
-
-  /**
-   * Set the clock supplier used to determine "now" when checking for time-based expiration. Mainly
-   * intended for deterministic unit tests; production code should rely on the default
-   * ({@link LocalDateTime#now()}).
-   *
-   * @param aClockSupplier
-   *        The clock supplier. May not be <code>null</code>.
-   * @since 12.3.0
-   */
-  public final void setClockSupplier (@NonNull final Supplier <LocalDateTime> aClockSupplier)
-  {
-    ValueEnforcer.notNull (aClockSupplier, "ClockSupplier");
-    m_aClockSupplier = aClockSupplier;
-  }
-
-  /**
-   * Create a new cache map. This is the internal map that is used to store the items.
-   *
-   * @return Never <code>null</code>.
-   */
-  @NonNull
-  @ReturnsMutableCopy
-  @OverrideOnDemand
-  @CodingStyleguideUnaware
-  protected ICommonsMap <KEYSTORETYPE, CacheEntry <VALUETYPE>> createCache ()
-  {
-    return hasMaxSize () ? new SoftLinkedHashMap <> (m_nMaxSize) : new SoftHashMap <> ();
+    return m_aCache.isNotEmpty ();
   }
 
   @NonNull
-  @Nonempty
-  private String _getCacheLogText ()
-  {
-    final StringBuilder ret = new StringBuilder ("Cache '").append (m_sName).append ("'");
-    if (hasMaxSize ())
-      ret.append (" with max size of ").append (m_nMaxSize);
-    return ret.append (": ").toString ();
-  }
-
-  /**
-   * Put a new entry into the cache.
-   *
-   * @param aCacheKey
-   *        The cache key. May not be <code>null</code>.
-   * @param aCacheEntry
-   *        The cache entry. May not be <code>null</code>.
-   */
-  @MustBeLocked (ELockType.WRITE)
-  protected final void putInCacheNotLocked (@NonNull final KEYSTORETYPE aCacheKey,
-                                            @NonNull final CacheEntry <VALUETYPE> aCacheEntry)
-  {
-    ValueEnforcer.notNull (aCacheKey, "CacheKey");
-    ValueEnforcer.notNull (aCacheEntry, "CacheEntry");
-
-    // try again in write lock
-    if (m_aCache == null)
-    {
-      // Lazily create a new map to cache the objects
-      m_aCache = createCache ();
-      if (m_aCache == null)
-        throw new IllegalStateException (_getCacheLogText () + "Failed to create internal Map!");
-    }
-    m_aCache.put (aCacheKey, aCacheEntry);
-  }
-
-  @NonNull
-  private KEYSTORETYPE _getCacheKeyNonNull (final KEYTYPE aKey)
+  private final KEYSTORETYPE _getStorageKey (final KEYTYPE aKey)
   {
     final KEYSTORETYPE aCacheKey = m_aCacheKeyProvider.apply (aKey);
     if (aCacheKey == null)
-      throw new IllegalStateException (_getCacheLogText () + "The created cache key of '" + aKey + "' is null.");
+      throw new IllegalStateException ("Cache '" + getName () + "': The created cache key of '" + aKey + "' is null.");
     return aCacheKey;
   }
 
-  @NonNull
-  private CacheEntry <VALUETYPE> _buildCacheEntry (final KEYTYPE aKey, final VALUETYPE aValue)
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public boolean isInCache (final KEYTYPE aKey)
   {
-    if (aValue == null && !m_bAllowNullValues)
-      throw new IllegalStateException (_getCacheLogText () +
-                                       "The created cache value of key '" +
-                                       aKey +
-                                       "' is null. null values are not allowed in this cache.");
-    if (m_aTimeToLive == null)
-      return CacheEntry.ofNoExpiration (aValue);
-    return CacheEntry.ofTimeToLive (aValue, m_aClockSupplier.get (), m_aTimeToLive);
-  }
-
-  /**
-   * Put a new value into the cache. Use this in derived classes to e.g. prefill the cache with
-   * existing values.
-   *
-   * @param aKey
-   *        The cache key. May be <code>null</code> depending on the cache key provider.
-   * @param aValue
-   *        The cache value. May be <code>null</code> depending on the settings.
-   */
-  @IsLocked (ELockType.WRITE)
-  public final void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
-  {
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
-    final CacheEntry <VALUETYPE> aCacheEntry = _buildCacheEntry (aKey, aValue);
-    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aCacheKey, aCacheEntry));
-  }
-
-  @Nullable
-  @MustBeLocked (ELockType.READ)
-  protected final CacheEntry <VALUETYPE> getFromCacheNoStatsNotLocked (@Nullable final KEYSTORETYPE aCacheKey)
-  {
-    return m_aCache == null ? null : m_aCache.get (aCacheKey);
-  }
-
-  @Nullable
-  @IsLocked (ELockType.READ)
-  protected final CacheEntry <VALUETYPE> getFromCacheNoStats (@Nullable final KEYSTORETYPE aCacheKey)
-  {
-    // null cache keys can never be in the cache
-    if (aCacheKey == null)
-      return null;
-    return m_aRWLock.readLockedGet ( () -> getFromCacheNoStatsNotLocked (aCacheKey));
-  }
-
-  /**
-   * Check if the passed key is already in the cache or not. An entry that is past its time-based
-   * expiration is considered as <em>not</em> in the cache for the purposes of this check.
-   *
-   * @param aKey
-   *        The key to check. May be <code>null</code>.
-   * @return <code>true</code> if the value is already in the cache, <code>false</code> if not.
-   * @since 9.3.8
-   */
-  public final boolean isInCache (final KEYTYPE aKey)
-  {
-    // Determine the internal key - maybe null here
-    final KEYSTORETYPE aCacheKey = m_aCacheKeyProvider.apply (aKey);
-
-    final CacheEntry <VALUETYPE> aEntry = getFromCacheNoStats (aCacheKey);
-    if (aEntry == null)
+    try
+    {
+      return m_aCache.isInCache (_getStorageKey (aKey));
+    }
+    catch (final IllegalStateException ex)
+    {
       return false;
-    if (m_aTimeToLive != null && aEntry.isExpiredAt (m_aClockSupplier.get ()))
-      return false;
-    return true;
+    }
   }
 
   /**
@@ -414,208 +238,120 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
    *        The key to look up. May be <code>null</code> depending on the cache key provider.
    * @return The cached value. May be <code>null</code> if null values are allowed.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
   public VALUETYPE getFromCache (final KEYTYPE aKey)
   {
     // Determine the internal key
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
+    final KEYSTORETYPE aStorageKey = _getStorageKey (aKey);
 
-    CacheEntry <VALUETYPE> aCacheEntry = getFromCacheNoStats (aCacheKey);
-    final boolean bExpired = aCacheEntry != null &&
-                             m_aTimeToLive != null &&
-                             aCacheEntry.isExpiredAt (m_aClockSupplier.get ());
-    if (aCacheEntry == null || bExpired)
+    final ReadWriteLock aRWLock = m_aCache.internalRwLock ();
+
+    // Check for CacheEntry, so that it works with null values as well
+    CacheEntry <VALUETYPE> aCacheEntry;
+    aRWLock.readLock ().lock ();
+    try
+    {
+      aCacheEntry = m_aCache.internalGetCacheEntryNotLockedNoStats (aStorageKey);
+    }
+    finally
+    {
+      aRWLock.readLock ().unlock ();
+    }
+
+    if (aCacheEntry == null)
     {
       // No old value in the cache, or the existing value is expired
-      m_aRWLock.writeLock ().lock ();
+      aRWLock.writeLock ().lock ();
       try
       {
         // Read again, in case the value was set between the two locking
-        // sections
-        // Note: do not increase statistics in this second try
-        aCacheEntry = getFromCacheNoStatsNotLocked (aCacheKey);
-        final boolean bStillExpired = aCacheEntry != null &&
-                                      m_aTimeToLive != null &&
-                                      aCacheEntry.isExpiredAt (m_aClockSupplier.get ());
-        if (aCacheEntry == null || bStillExpired)
+        // sections. Note: do not increase statistics in this second try.
+        aCacheEntry = m_aCache.internalGetCacheEntryNotLockedNoStats (aStorageKey);
+        if (aCacheEntry == null)
         {
-          if (bStillExpired)
-          {
-            // Drop the expired entry
-            m_aCache.remove (aCacheKey);
-            m_aStatsCountExpired.increment ();
-            if (LOGGER.isDebugEnabled ())
-              LOGGER.debug (_getCacheLogText () + "Cache key '" + aKey + "' expired and was removed.");
-          }
           // Call the value provider to create the value to cache
           final VALUETYPE aValue = m_aValueProvider.apply (aKey);
-          aCacheEntry = _buildCacheEntry (aKey, aValue);
 
-          // Put the new value into the cache
-          putInCacheNotLocked (aCacheKey, aCacheEntry);
-          m_aStatsCacheAccess.cacheMiss ();
+          // Store in cache
+          m_aCache.internalPutInCacheNotLocked (aStorageKey, aValue);
+          return aValue;
         }
-        else
-          m_aStatsCacheAccess.cacheHit ();
       }
       finally
       {
-        m_aRWLock.writeLock ().unlock ();
+        aRWLock.writeLock ().unlock ();
       }
     }
-    else
-      m_aStatsCacheAccess.cacheHit ();
 
-    // the get() may resolve to a null value
     return aCacheEntry.getValue ();
   }
 
-  /**
-   * Remove the entry with the specified key from the cache.
-   *
-   * @param aKey
-   *        The key of the entry to remove. May be <code>null</code> depending on the cache key
-   *        provider.
-   * @return {@link EChange#CHANGED} if the entry was successfully removed,
-   *         {@link EChange#UNCHANGED} if the key was not found in the cache.
-   */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  public int getMaxSize ()
+  {
+    return m_aCache.getMaxSize ();
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  public boolean isAllowNullValues ()
+  {
+    return m_aCache.isAllowNullValues ();
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Nullable
+  public Duration getTimeToLive ()
+  {
+    return m_aCache.getTimeToLive ();
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
-  @OverridingMethodsMustInvokeSuper
+  public Supplier <LocalDateTime> getClockSupplier ()
+  {
+    return m_aCache.getClockSupplier ();
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
+  {
+    m_aCache.putInCache (_getStorageKey (aKey), aValue);
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @NonNull
   public EChange removeFromCache (final KEYTYPE aKey)
   {
-    final KEYSTORETYPE aCacheKey = _getCacheKeyNonNull (aKey);
-
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      if (m_aCache == null || m_aCache.remove (aCacheKey) == null)
-        return EChange.UNCHANGED;
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-
-    m_aStatsCountRemove.increment ();
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (_getCacheLogText () + "Cache key '" + aKey + "' was removed.");
-    return EChange.CHANGED;
+    return m_aCache.removeFromCache (_getStorageKey (aKey));
   }
 
-  /**
-   * Remove all entries from the cache.
-   *
-   * @return {@link EChange#CHANGED} if at least one entry was removed, {@link EChange#UNCHANGED} if
-   *         the cache was already empty.
-   */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
   @NonNull
-  @OverridingMethodsMustInvokeSuper
   public EChange clearCache ()
   {
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      if (m_aCache == null || m_aCache.isEmpty ())
-        return EChange.UNCHANGED;
-
-      m_aCache.clear ();
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-
-    m_aStatsCountClear.increment ();
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug (_getCacheLogText () + "Cache was cleared");
-    return EChange.CHANGED;
+    return m_aCache.clearCache ();
   }
 
-  /**
-   * Remove all entries that are expired by their time-based expiration. For caches without a
-   * time-based expiration this is a no-op.
-   *
-   * @return The number of entries that were removed. Always &ge; 0.
-   * @since 12.3.0
-   */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
   @Nonnegative
-  @OverridingMethodsMustInvokeSuper
   public int evictExpired ()
   {
-    // No time eviction enabled
-    if (m_aTimeToLive == null)
-      return 0;
-
-    int nRemoved = 0;
-    m_aRWLock.writeLock ().lock ();
-    try
-    {
-      if (m_aCache != null && m_aCache.isNotEmpty ())
-      {
-        final LocalDateTime aNow = m_aClockSupplier.get ();
-        final var it = m_aCache.entrySet ().iterator ();
-        while (it.hasNext ())
-        {
-          final var aMapEntry = it.next ();
-          if (aMapEntry.getValue ().isExpiredAt (aNow))
-          {
-            it.remove ();
-            nRemoved++;
-          }
-        }
-      }
-    }
-    finally
-    {
-      m_aRWLock.writeLock ().unlock ();
-    }
-
-    if (nRemoved > 0)
-    {
-      m_aStatsCountExpired.increment (nRemoved);
-      if (LOGGER.isDebugEnabled ())
-        LOGGER.debug (_getCacheLogText () + nRemoved + " expired entries were removed.");
-    }
-    return nRemoved;
+    return m_aCache.evictExpired ();
   }
 
-  /**
-   * @return The number of entries currently in the cache. Always &ge; 0.
-   */
-  @Nonnegative
-  public int size ()
-  {
-    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getSize (m_aCache));
-  }
-
-  /**
-   * @return <code>true</code> if the cache contains no entries, <code>false</code> if it contains
-   *         at least one entry.
-   */
-  public boolean isEmpty ()
-  {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aCache));
-  }
-
-  /**
-   * @return <code>true</code> if the cache contains at least one entry, <code>false</code> if it is
-   *         empty.
-   */
-  @Override
-  public boolean isNotEmpty ()
-  {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isNotEmpty (m_aCache));
-  }
-
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("CacheKeyProvider", m_aCacheKeyProvider)
-                                       .append ("ValueProvider", m_aValueProvider)
-                                       .append ("MaxSize", m_nMaxSize)
-                                       .append ("Name", m_sName)
-                                       .append ("AllowNullValues", m_bAllowNullValues)
-                                       .appendIfNotNull ("TimeToLive", m_aTimeToLive)
-                                       .append ("Cache", m_aCache)
-                                       .getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("CacheKeyProvider", m_aCacheKeyProvider)
+                            .append ("ValueProvider", m_aValueProvider)
+                            .append ("Cache", m_aCache)
+                            .getToString ();
   }
 }

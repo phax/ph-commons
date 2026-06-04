@@ -25,15 +25,14 @@ import static org.junit.Assert.assertTrue;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
 
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
+import com.helger.base.wrapper.Wrapper;
 
 /**
- * Test class for the time-based expiration support in
- * {@link MappedCache} / {@link Cache}.
+ * Test class for the time-based expiration support in {@link ProviderCache} / {@link ManualCache}.
  *
  * @author Philip Helger
  */
@@ -41,11 +40,11 @@ public final class CacheExpirationTest
 {
   private static final class FixedClock
   {
-    private final AtomicReference <LocalDateTime> m_aNow;
+    private final Wrapper <LocalDateTime> m_aNow;
 
     FixedClock (final LocalDateTime aStart)
     {
-      m_aNow = new AtomicReference <> (aStart);
+      m_aNow = Wrapper.of (aStart);
     }
 
     LocalDateTime get ()
@@ -55,7 +54,7 @@ public final class CacheExpirationTest
 
     void advance (final Duration aDuration)
     {
-      m_aNow.updateAndGet (aDT -> aDT.plus (aDuration));
+      m_aNow.update (aDT -> aDT.plus (aDuration));
     }
   }
 
@@ -64,15 +63,10 @@ public final class CacheExpirationTest
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
     final AtomicInteger aProviderCalls = new AtomicInteger (0);
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> {
-                                            aProviderCalls.incrementAndGet ();
-                                            return "v" + k;
-                                          })
-                                          .name ("TTLCache")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> {
+      aProviderCalls.incrementAndGet ();
+      return "v" + k;
+    }).name ("TTLCache").expireAfterWrite (Duration.ofSeconds (10)).clockSupplier (aClock::get).buildProviderCache ();
 
     assertTrue (c.hasTimeToLive ());
     assertEquals (Duration.ofSeconds (10), c.getTimeToLive ());
@@ -95,12 +89,11 @@ public final class CacheExpirationTest
   public void testIsInCacheRespectsExpiry ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("TTLIsInCache")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("TTLIsInCache")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
 
     c.getFromCache ("a");
     assertTrue (c.isInCache ("a"));
@@ -113,13 +106,11 @@ public final class CacheExpirationTest
   public void testEvictExpiredRemovesAll ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("TTLEvict")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
-
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("TTLEvict")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
     c.getFromCache ("a");
     c.getFromCache ("b");
     c.getFromCache ("c");
@@ -138,18 +129,18 @@ public final class CacheExpirationTest
   public void testEvictExpiredOnlySomeExpired ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("TTLEvictPartial")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("TTLEvictPartial")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
 
     c.getFromCache ("a");
     aClock.advance (Duration.ofSeconds (6));
     c.getFromCache ("b");
     // "a" was added at t=0, expires at t=10. "b" was added at t=6, expires at t=16.
-    aClock.advance (Duration.ofSeconds (5)); // now at t=11
+    // now at t=11
+    aClock.advance (Duration.ofSeconds (5));
     assertEquals (1, c.evictExpired ());
     assertEquals (1, c.size ());
     assertTrue (c.isInCache ("b"));
@@ -159,7 +150,7 @@ public final class CacheExpirationTest
   @Test
   public void testEvictExpiredNoTTLIsNoOp ()
   {
-    final Cache <String, String> c = new Cache <> (k -> k, "NoTTL");
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k).name ("NoTTL").buildProviderCache ();
     c.getFromCache ("a");
     c.getFromCache ("b");
     assertEquals (0, c.evictExpired ());
@@ -170,12 +161,11 @@ public final class CacheExpirationTest
   public void testRemoveFromCacheStillWorks ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("TTLRemove")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("TTLRemove")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
     c.getFromCache ("a");
     assertEquals (EChange.CHANGED, c.removeFromCache ("a"));
     assertEquals (0, c.size ());
@@ -186,12 +176,11 @@ public final class CacheExpirationTest
   public void testClearCacheStillWorks ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("TTLClear")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("TTLClear")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
     c.getFromCache ("a");
     c.getFromCache ("b");
     assertEquals (EChange.CHANGED, c.clearCache ());
@@ -203,20 +192,20 @@ public final class CacheExpirationTest
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
     final AtomicInteger aProviderCalls = new AtomicInteger (0);
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> {
-                                            aProviderCalls.incrementAndGet ();
-                                            return null;
-                                          })
-                                          .allowNullValues (true)
-                                          .name ("TTLNull")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> {
+      aProviderCalls.incrementAndGet ();
+      return null;
+    })
+                                                      .allowNullValues (true)
+                                                      .name ("TTLNull")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
 
     assertNull (c.getFromCache ("k"));
     assertEquals (1, aProviderCalls.get ());
     assertTrue (c.isInCache ("k"));
+    assertEquals (1, aProviderCalls.get ());
 
     // Still in cache and the null is cached
     assertNull (c.getFromCache ("k"));
@@ -233,13 +222,12 @@ public final class CacheExpirationTest
   public void testTTLInteractionWithMaxSize ()
   {
     final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .maxSize (3)
-                                          .name ("TTLMaxSize")
-                                          .expireAfterWrite (Duration.ofSeconds (10))
-                                          .build ();
-    c.setClockSupplier (aClock::get);
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .maxSize (3)
+                                                      .name ("TTLMaxSize")
+                                                      .expireAfterWrite (Duration.ofSeconds (10))
+                                                      .clockSupplier (aClock::get)
+                                                      .buildProviderCache ();
 
     c.getFromCache ("a");
     c.getFromCache ("b");
@@ -253,7 +241,7 @@ public final class CacheExpirationTest
   @Test
   public void testNoTTLToString ()
   {
-    final Cache <String, String> c = new Cache <> (k -> k, "ToStr");
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k).name ("ToStr").buildManualCache ();
     final String s = c.toString ();
     assertNotNull (s);
     assertFalse (s.contains ("TimeToLive"));
@@ -262,11 +250,10 @@ public final class CacheExpirationTest
   @Test
   public void testWithTTLToString ()
   {
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("ToStrTTL")
-                                          .expireAfterWrite (Duration.ofSeconds (5))
-                                          .build ();
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("ToStrTTL")
+                                                      .expireAfterWrite (Duration.ofSeconds (5))
+                                                      .buildManualCache ();
     final String s = c.toString ();
     assertNotNull (s);
     assertTrue (s.contains ("TimeToLive"));
@@ -275,11 +262,10 @@ public final class CacheExpirationTest
   @Test
   public void testZeroTTLIsDisabled ()
   {
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("ZeroTTL")
-                                          .expireAfterWrite (Duration.ZERO)
-                                          .build ();
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("ZeroTTL")
+                                                      .expireAfterWrite (Duration.ZERO)
+                                                      .buildManualCache ();
     assertFalse (c.hasTimeToLive ());
     assertNull (c.getTimeToLive ());
   }
@@ -287,11 +273,10 @@ public final class CacheExpirationTest
   @Test
   public void testNegativeTTLIsDisabled ()
   {
-    final Cache <String, String> c = Cache.<String, String> builder ()
-                                          .valueProvider (k -> k)
-                                          .name ("NegTTL")
-                                          .expireAfterWrite (Duration.ofSeconds (-5))
-                                          .build ();
+    final var c = new CacheBuilder <String, String> ().valueProvider (k -> k)
+                                                      .name ("NegTTL")
+                                                      .expireAfterWrite (Duration.ofSeconds (-5))
+                                                      .buildManualCache ();
     assertFalse (c.hasTimeToLive ());
   }
 

@@ -35,15 +35,15 @@ import com.helger.base.concurrent.ExecutorServiceHelper;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
-import com.helger.cache.IMutableCache;
+import com.helger.cache.IMutableCacheWithExpiration;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * A process-wide scheduler that periodically calls {@link IMutableCache#evictExpired()} on
- * registered caches. One single daemon thread serves all registered caches; the underlying executor
- * is started lazily on the first {@link #register(IMutableCache, Duration)} call and shut down when
- * the last cache is unregistered.
+ * A process-wide scheduler that periodically calls {@link IMutableCacheWithExpiration#evictExpired()}
+ * on registered caches. One single daemon thread serves all registered caches; the underlying
+ * executor is started lazily on the first {@link #register(IMutableCacheWithExpiration, Duration)}
+ * call and shut down when the last cache is unregistered.
  *
  * @author Philip Helger
  * @since 12.3.0
@@ -64,7 +64,7 @@ public final class CacheEvictionScheduler
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
   @GuardedBy ("m_aRWLock")
-  private final ICommonsMap <IMutableCache <?, ?>, ScheduledFuture <?>> m_aRegistrations = new CommonsHashMap <> ();
+  private final ICommonsMap <IMutableCacheWithExpiration <?, ?>, ScheduledFuture <?>> m_aRegistrations = new CommonsHashMap <> ();
   @GuardedBy ("m_aRWLock")
   private ScheduledExecutorService m_aExecutor;
 
@@ -98,7 +98,7 @@ public final class CacheEvictionScheduler
     return m_aRWLock.readLockedInt (m_aRegistrations::size);
   }
 
-  private static void _safeEvict (@NonNull final IMutableCache <?, ?> aCache)
+  private static void _safeEvict (@NonNull final IMutableCacheWithExpiration <?, ?> aCache)
   {
     try
     {
@@ -119,10 +119,10 @@ public final class CacheEvictionScheduler
    * @param aCache
    *        The cache to register. May not be <code>null</code>.
    * @param aInterval
-   *        The interval between successive {@link IMutableCache#evictExpired()} calls. Must be
-   *        positive and non-<code>null</code>.
+   *        The interval between successive {@link IMutableCacheWithExpiration#evictExpired()} calls.
+   *        Must be positive and non-<code>null</code>.
    */
-  public void register (@NonNull final IMutableCache <?, ?> aCache, @NonNull final Duration aInterval)
+  public void register (@NonNull final IMutableCacheWithExpiration <?, ?> aCache, @NonNull final Duration aInterval)
   {
     ValueEnforcer.notNull (aCache, "Cache");
     ValueEnforcer.notNull (aInterval, "Interval");
@@ -173,7 +173,7 @@ public final class CacheEvictionScheduler
    *         otherwise.
    */
   @NonNull
-  public EChange unregister (@NonNull final IMutableCache <?, ?> aCache)
+  public EChange unregister (@NonNull final IMutableCacheWithExpiration <?, ?> aCache)
   {
     ValueEnforcer.notNull (aCache, "Cache");
 
