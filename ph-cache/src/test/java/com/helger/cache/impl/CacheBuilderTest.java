@@ -35,7 +35,7 @@ public final class CacheBuilderTest
   @Test
   public void testBasicBuilder ()
   {
-    final var c = new CacheBuilder <String, String> ().valueProvider (x -> x).name ("TestCache").buildManualCache ();
+    final var c = ManualCache.builder ().name ("TestCache").build ();
     assertNotNull (c);
     assertEquals ("TestCache", c.getName ());
     assertFalse (c.hasMaxSize ());
@@ -45,9 +45,7 @@ public final class CacheBuilderTest
   @Test
   public void testBuilderWithValueProvider ()
   {
-    final var c = new CacheBuilder <String, String> ().valueProvider (x -> "v" + x)
-                                                      .name ("TestCache2")
-                                                      .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> "v" + x).name ("TestCache2").build ();
     assertNotNull (c);
     assertEquals ("vfoo", c.getFromCache ("foo"));
     assertEquals (1, c.size ());
@@ -56,10 +54,7 @@ public final class CacheBuilderTest
   @Test
   public void testBuilderWithMaxSize ()
   {
-    final var c = new CacheBuilder <String, String> ().valueProvider (x -> x)
-                                                      .maxSize (3)
-                                                      .name ("MaxSizeCache")
-                                                      .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).maxSize (3).name ("MaxSizeCache").build ();
     assertTrue (c.hasMaxSize ());
     assertEquals (3, c.getMaxSize ());
 
@@ -71,10 +66,7 @@ public final class CacheBuilderTest
   @Test
   public void testBuilderWithAllowNullValues ()
   {
-    final var c = new CacheBuilder <String, String> ().valueProvider (x -> null)
-                                                      .name ("NullCache")
-                                                      .allowNullValues (true)
-                                                      .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> null).name ("NullCache").allowNullValues (true).build ();
     assertTrue (c.isAllowNullValues ());
     assertNull (c.getFromCache ("any"));
     assertEquals (1, c.size ());
@@ -85,7 +77,7 @@ public final class CacheBuilderTest
   {
     try
     {
-      new CacheBuilder <String, String> ().name ("NoProvider").buildProviderCache ();
+      ProviderCache.builder ().name ("NoProvider").build ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -99,7 +91,7 @@ public final class CacheBuilderTest
   {
     try
     {
-      new CacheBuilder <String, String> ().valueProvider (x -> x).buildManualCache ();
+      ManualCache.builder ().build ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -113,7 +105,7 @@ public final class CacheBuilderTest
   {
     try
     {
-      new CacheBuilder <String, String> ().valueProvider (x -> x).name ("").buildManualCache ();
+      ManualCache.builder ().name ("").build ();
       fail ();
     }
     catch (final IllegalStateException ex)

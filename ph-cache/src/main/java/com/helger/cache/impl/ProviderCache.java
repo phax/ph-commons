@@ -240,9 +240,16 @@ public class ProviderCache <KEYTYPE, VALUETYPE> implements IMutableCacheWithExpi
                             .getToString ();
   }
 
+  /**
+   * @return A new builder for {@link ProviderCache} objects. Never <code>null</code>.
+   * @param <KEYTYPE>
+   *        The cache key type
+   * @param <VALUETYPE>
+   *        The cache value type
+   */
   @NonNull
-  public static <K, V> CacheBuilder <K, V> builder ()
+  public static <KEYTYPE, VALUETYPE> ProviderCacheBuilder <KEYTYPE, VALUETYPE> builder ()
   {
-    return new CacheBuilder <> ();
+    return new ProviderCacheBuilder <> ();
   }
 }

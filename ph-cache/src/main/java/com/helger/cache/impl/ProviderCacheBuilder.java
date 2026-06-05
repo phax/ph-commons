@@ -26,25 +26,26 @@ import com.helger.base.builder.IBuilder;
 import com.helger.cache.eviction.CacheEvictionScheduler;
 
 /**
- * Builder class for {@link Cache} objects.
+ * Builder class for {@link ProviderCache} objects.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The cache key type
  * @param <VALUETYPE>
  *        The cache value type
- * @since v12.0.0
+ * @since v12.3.0
  */
 @NotThreadSafe
-public class CacheBuilder <KEYTYPE, VALUETYPE> extends CacheBuilderBase <CacheBuilder <KEYTYPE, VALUETYPE>> implements
-                          IBuilder <Cache <KEYTYPE, VALUETYPE>>
+public class ProviderCacheBuilder <KEYTYPE, VALUETYPE> extends
+                                  CacheBuilderBase <ProviderCacheBuilder <KEYTYPE, VALUETYPE>> implements
+                                  IBuilder <ProviderCache <KEYTYPE, VALUETYPE>>
 {
   private Function <KEYTYPE, VALUETYPE> m_aValueProvider;
 
   /**
    * Default constructor.
    */
-  public CacheBuilder ()
+  public ProviderCacheBuilder ()
   {}
 
   /**
@@ -55,35 +56,33 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> extends CacheBuilderBase <CacheBu
    * @return this for chaining
    */
   @NonNull
-  public CacheBuilder <KEYTYPE, VALUETYPE> valueProvider (@Nullable final Function <KEYTYPE, VALUETYPE> a)
+  public ProviderCacheBuilder <KEYTYPE, VALUETYPE> valueProvider (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {
     m_aValueProvider = a;
     return this;
   }
 
   /**
-   * Build the {@link Cache} instance from the configured parameters.
+   * Build the {@link ProviderCache} instance from the configured parameters.
    *
-   * @return A new {@link Cache} instance. Never <code>null</code>.
+   * @return A new {@link ProviderCache} instance. Never <code>null</code>.
    * @throws IllegalStateException
    *         if the value provider or cache name is missing, or if an eviction interval is set
    *         without a time-to-live.
    */
   @NonNull
-  @Deprecated (forRemoval = true, since = "12.3.0")
-  @SuppressWarnings ("removal")
-  public Cache <KEYTYPE, VALUETYPE> build ()
+  public ProviderCache <KEYTYPE, VALUETYPE> build ()
   {
     checkCommonFields ();
     if (m_aValueProvider == null)
       throw new IllegalStateException ("The mandatory Cache Value Provider is missing");
 
-    final Cache <KEYTYPE, VALUETYPE> ret = new Cache <> (m_sName,
-                                                         m_nMaxSize,
-                                                         m_bAllowNullValues,
-                                                         m_aTimeToLive,
-                                                         m_aClockSupplier,
-                                                         m_aValueProvider);
+    final ProviderCache <KEYTYPE, VALUETYPE> ret = new ProviderCache <> (m_sName,
+                                                                         m_nMaxSize,
+                                                                         m_bAllowNullValues,
+                                                                         m_aTimeToLive,
+                                                                         m_aClockSupplier,
+                                                                         m_aValueProvider);
     if (hasEvictionInterval ())
       CacheEvictionScheduler.getInstance ().register (ret, m_aEvictionInterval);
     return ret;

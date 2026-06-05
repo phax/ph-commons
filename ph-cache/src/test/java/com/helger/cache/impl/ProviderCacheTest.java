@@ -39,11 +39,7 @@ public final class ProviderCacheTest
   public void testMaxSize ()
   {
     final int nMaxSize = 5;
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .maxSize (nMaxSize)
-                                                          .name ("Mock")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).maxSize (nMaxSize).name ("Mock").build ();
     assertTrue (c.hasMaxSize ());
     assertEquals (nMaxSize, c.getMaxSize ());
 
@@ -59,10 +55,7 @@ public final class ProviderCacheTest
   @Test
   public void testNoMaxSize ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("Mock")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("Mock").build ();
     assertFalse (c.hasMaxSize ());
 
     final int nMax = 10;
@@ -78,10 +71,10 @@ public final class ProviderCacheTest
   @Test
   public void testSameStoreKey ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (StringHelper::getNotNull)
-                                                          .name ("Mock")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.<String, String> builder ()
+                               .valueProvider (StringHelper::getNotNull)
+                               .name ("Mock")
+                               .build ();
     assertEquals (0, c.size ());
     assertEquals ("", c.getFromCache (""));
     assertEquals (1, c.size ());
@@ -101,10 +94,10 @@ public final class ProviderCacheTest
   @Test
   public void testNullStoreKey ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (StringHelper::getNotNull)
-                                                          .name ("Mock")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.<String, String> builder ()
+                               .valueProvider (StringHelper::getNotNull)
+                               .name ("Mock")
+                               .build ();
     try
     {
       // null key not allowed
@@ -121,10 +114,10 @@ public final class ProviderCacheTest
   @Test
   public void testNullValueNotAllowed ()
   {
-    final ProviderCache <Integer, String> c = ProviderCache.<Integer, String> builder ()
-                                                           .valueProvider (x -> x == null ? null : "v" + x.intValue ())
-                                                           .name ("Mock")
-                                                           .buildProviderCache ();
+    final var c = ProviderCache.<Integer, String> builder ()
+                               .valueProvider (x -> x == null ? null : "v" + x.intValue ())
+                               .name ("Mock")
+                               .build ();
     assertEquals ("v1", c.getFromCache (Integer.valueOf (1)));
     assertEquals (1, c.size ());
     try
@@ -144,11 +137,11 @@ public final class ProviderCacheTest
   @Test
   public void testNullValueAllowed ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (aKey -> "blub".equals (aKey) ? null : aKey)
-                                                          .name ("Mock")
-                                                          .allowNullValues (true)
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ()
+                               .valueProvider (aKey -> "blub".equals (aKey) ? null : aKey)
+                               .name ("Mock")
+                               .allowNullValues (true)
+                               .build ();
     assertEquals ("v1", c.getFromCache ("v1"));
     assertEquals (1, c.size ());
     // null value allowed
@@ -160,10 +153,10 @@ public final class ProviderCacheTest
   @Test
   public void testPrefilledCache ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (StringHelper::getNotNull)
-                                                          .name ("Mock")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.<String, String> builder ()
+                               .valueProvider (StringHelper::getNotNull)
+                               .name ("Mock")
+                               .build ();
     c.putInCache ("a", "b");
     assertEquals (1, c.size ());
     assertTrue (c.isInCache ("a"));
@@ -178,10 +171,7 @@ public final class ProviderCacheTest
   @Test
   public void testRemoveFromCache ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MockRemove")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MockRemove").build ();
     c.getFromCache ("a");
     c.getFromCache ("b");
     assertEquals (2, c.size ());
@@ -199,20 +189,14 @@ public final class ProviderCacheTest
   @Test
   public void testRemoveFromEmptyCache ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MockRemoveEmpty")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MockRemoveEmpty").build ();
     assertEquals (EChange.UNCHANGED, c.removeFromCache ("a"));
   }
 
   @Test
   public void testClearCache ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MockClear")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MockClear").build ();
     assertEquals (EChange.UNCHANGED, c.clearCache ());
 
     c.getFromCache ("a");
@@ -230,10 +214,7 @@ public final class ProviderCacheTest
   @Test
   public void testIsEmptyAndIsNotEmpty ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MockEmpty")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MockEmpty").build ();
     assertTrue (c.isEmpty ());
     assertFalse (c.isNotEmpty ());
 
@@ -245,37 +226,24 @@ public final class ProviderCacheTest
   @Test
   public void testGetName ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MyName")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MyName").build ();
     assertEquals ("MyName", c.getName ());
   }
 
   @Test
   public void testIsAllowNullValues ()
   {
-    final ProviderCache <String, String> c1 = ProviderCache.<String, String> builder ()
-                                                           .valueProvider (x -> x)
-                                                           .name ("Mock1")
-                                                           .buildProviderCache ();
+    final var c1 = ProviderCache.builder ().valueProvider (x -> x).name ("Mock1").build ();
     assertFalse (c1.isAllowNullValues ());
 
-    final ProviderCache <String, String> c2 = ProviderCache.<String, String> builder ()
-                                                           .valueProvider (x -> x)
-                                                           .name ("Mock2")
-                                                           .allowNullValues (true)
-                                                           .buildProviderCache ();
+    final var c2 = ProviderCache.builder ().valueProvider (x -> x).name ("Mock2").allowNullValues (true).build ();
     assertTrue (c2.isAllowNullValues ());
   }
 
   @Test
   public void testCacheHit ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> "v" + x)
-                                                          .name ("MockHit")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> "v" + x).name ("MockHit").build ();
     assertEquals ("va", c.getFromCache ("a"));
     // Second call should be a cache hit, returning the same value
     assertEquals ("va", c.getFromCache ("a"));
@@ -285,10 +253,7 @@ public final class ProviderCacheTest
   @Test
   public void testToString ()
   {
-    final ProviderCache <String, String> c = ProviderCache.<String, String> builder ()
-                                                          .valueProvider (x -> x)
-                                                          .name ("MockStr")
-                                                          .buildProviderCache ();
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("MockStr").build ();
     final String s = c.toString ();
     assertNotNull (s);
     assertTrue (s.contains ("MockStr"));

@@ -96,4 +96,17 @@ public class ManualCache <KEYTYPE, VALUETYPE> extends AbstractMapBasedCache <KEY
   {
     putInCacheNotLocked (aKey, buildCacheEntry (aKey, aValue));
   }
+
+  /**
+   * @return A new builder for {@link ManualCache} objects. Never <code>null</code>.
+   * @param <KEYTYPE>
+   *        The cache key type
+   * @param <VALUETYPE>
+   *        The cache value type
+   */
+  @NonNull
+  public static <KEYTYPE, VALUETYPE> ManualCacheBuilder <KEYTYPE, VALUETYPE> builder ()
+  {
+    return new ManualCacheBuilder <> ();
+  }
 }

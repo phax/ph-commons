@@ -30,7 +30,8 @@ import org.junit.After;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
-import com.helger.cache.impl.CacheBuilder;
+import com.helger.cache.impl.ManualCache;
+import com.helger.cache.impl.ProviderCache;
 
 /**
  * Test class for {@link CacheEvictionScheduler}.
@@ -52,9 +53,7 @@ public final class CacheEvictionSchedulerTest
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
     assertFalse (aScheduler.isRunning ());
 
-    final var c = new CacheBuilder <String, String> ().name ("SchedRegister")
-                                                      .expireAfterWrite (Duration.ofSeconds (10))
-                                                      .buildManualCache ();
+    final var c = ManualCache.builder ().name ("SchedRegister").expireAfterWrite (Duration.ofSeconds (10)).build ();
     aScheduler.register (c, Duration.ofSeconds (60));
     try
     {
@@ -73,11 +72,12 @@ public final class CacheEvictionSchedulerTest
   public void testBackgroundEvictionRemovesEntries () throws InterruptedException
   {
     final AtomicReference <LocalDateTime> aNow = new AtomicReference <> (LocalDateTime.of (2026, 1, 1, 12, 0));
-    final var c = new CacheBuilder <String, String> ().name ("SchedEvict")
-                                                      .expireAfterWrite (Duration.ofMillis (50))
-                                                      .clockSupplier (aNow::get)
-                                                      .valueProvider (x -> x)
-                                                      .buildProviderCache ();
+    final var c = ProviderCache.builder ()
+                               .name ("SchedEvict")
+                               .expireAfterWrite (Duration.ofMillis (50))
+                               .clockSupplier (aNow::get)
+                               .valueProvider (x -> x)
+                               .build ();
 
     c.getFromCache ("a");
     c.getFromCache ("b");
@@ -107,9 +107,7 @@ public final class CacheEvictionSchedulerTest
   public void testReRegisterReplacesExisting ()
   {
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
-    final var c = new CacheBuilder <String, String> ().name ("SchedReRegister")
-                                                      .expireAfterWrite (Duration.ofSeconds (10))
-                                                      .buildManualCache ();
+    final var c = ManualCache.builder ().name ("SchedReRegister").expireAfterWrite (Duration.ofSeconds (10)).build ();
     aScheduler.register (c, Duration.ofSeconds (60));
     aScheduler.register (c, Duration.ofSeconds (120));
     try
@@ -126,9 +124,7 @@ public final class CacheEvictionSchedulerTest
   public void testUnregisterUnknownReturnsUnchanged ()
   {
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
-    final var c = new CacheBuilder <String, String> ().name ("SchedUnknown")
-                                                      .expireAfterWrite (Duration.ofSeconds (10))
-                                                      .buildManualCache ();
+    final var c = ManualCache.builder ().name ("SchedUnknown").expireAfterWrite (Duration.ofSeconds (10)).build ();
     assertEquals (EChange.UNCHANGED, aScheduler.unregister (c));
   }
 
@@ -136,12 +132,8 @@ public final class CacheEvictionSchedulerTest
   public void testShutdownClearsAll ()
   {
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
-    final var c1 = new CacheBuilder <String, String> ().name ("SchedShutdown1")
-                                                       .expireAfterWrite (Duration.ofSeconds (10))
-                                                       .buildManualCache ();
-    final var c2 = new CacheBuilder <String, String> ().name ("SchedShutdown2")
-                                                       .expireAfterWrite (Duration.ofSeconds (10))
-                                                       .buildManualCache ();
+    final var c1 = ManualCache.builder ().name ("SchedShutdown1").expireAfterWrite (Duration.ofSeconds (10)).build ();
+    final var c2 = ManualCache.builder ().name ("SchedShutdown2").expireAfterWrite (Duration.ofSeconds (10)).build ();
     aScheduler.register (c1, Duration.ofSeconds (60));
     aScheduler.register (c2, Duration.ofSeconds (60));
     assertEquals (2, aScheduler.getRegistrationCount ());
@@ -168,9 +160,7 @@ public final class CacheEvictionSchedulerTest
   {
     try
     {
-      new CacheBuilder <String, String> ().name ("MissingTTL")
-                                          .evictionInterval (Duration.ofSeconds (60))
-                                          .buildManualCache ();
+      ManualCache.builder ().name ("MissingTTL").evictionInterval (Duration.ofSeconds (60)).build ();
       fail ("Expected IllegalStateException because TTL is missing");
     }
     catch (final IllegalStateException ex)
@@ -183,10 +173,11 @@ public final class CacheEvictionSchedulerTest
   public void testBuilderEvictionIntervalRegisters ()
   {
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
-    final var c = new CacheBuilder <String, String> ().name ("BuilderRegister")
-                                                      .expireAfterWrite (Duration.ofSeconds (10))
-                                                      .evictionInterval (Duration.ofSeconds (60))
-                                                      .buildManualCache ();
+    final var c = ManualCache.builder ()
+                             .name ("BuilderRegister")
+                             .expireAfterWrite (Duration.ofSeconds (10))
+                             .evictionInterval (Duration.ofSeconds (60))
+                             .build ();
     try
     {
       assertEquals (1, aScheduler.getRegistrationCount ());
