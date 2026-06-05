@@ -36,6 +36,7 @@ import com.helger.cache.eviction.CacheEvictionScheduler;
  * @since v12.0.0
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "12.3.0")
 public class CacheBuilder <KEYTYPE, VALUETYPE> extends CacheBuilderBase <CacheBuilder <KEYTYPE, VALUETYPE>> implements
                           IBuilder <Cache <KEYTYPE, VALUETYPE>>
 {
@@ -44,6 +45,7 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> extends CacheBuilderBase <CacheBu
   /**
    * Default constructor.
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   public CacheBuilder ()
   {}
 
@@ -54,6 +56,7 @@ public class CacheBuilder <KEYTYPE, VALUETYPE> extends CacheBuilderBase <CacheBu
    *        The value provider function. May be <code>null</code>.
    * @return this for chaining
    */
+  @Deprecated (forRemoval = true, since = "12.3.0")
   @NonNull
   public CacheBuilder <KEYTYPE, VALUETYPE> valueProvider (@Nullable final Function <KEYTYPE, VALUETYPE> a)
   {

@@ -19,23 +19,33 @@ package com.helger.cache.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
+
 import org.junit.Test;
 
+import com.helger.cache.eviction.CacheEvictionScheduler;
+
 /**
- * Test class for class {@link CacheBuilder}.
+ * Test class for class {@link ProviderCacheBuilder}.
  *
  * @author Philip Helger
  */
-public final class CacheBuilderTest
+public final class ProviderCacheBuilderTest
 {
   @Test
   public void testBasicBuilder ()
   {
-    final var c = ManualCache.builder ().name ("TestCache").build ();
+    final var c = ProviderCache.builder ().valueProvider (x -> "v" + x).name ("TestCache").build ();
     assertNotNull (c);
     assertEquals ("TestCache", c.getName ());
     assertFalse (c.hasMaxSize ());
@@ -91,7 +101,7 @@ public final class CacheBuilderTest
   {
     try
     {
-      ManualCache.builder ().build ();
+      ProviderCache.builder ().valueProvider (x -> x).build ();
       fail ();
     }
     catch (final IllegalStateException ex)
@@ -105,7 +115,7 @@ public final class CacheBuilderTest
   {
     try
     {
-      ManualCache.builder ().name ("").build ();
+      ProviderCache.builder ().valueProvider (x -> x).name ("").build ();
       fail ();
     }
     catch (final IllegalStateException ex)
