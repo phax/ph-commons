@@ -18,7 +18,6 @@ package com.helger.security.crl;
 
 import java.security.cert.CRL;
 import java.time.Duration;
-import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -31,8 +30,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.impl.Cache;
-import com.helger.datetime.expiration.ExpiringObject;
+import com.helger.cache.impl.CacheEntry;
+import com.helger.cache.impl.ManualCache;
 
 /**
  * A cache for CRLs read from remote locations.
@@ -43,30 +42,42 @@ import com.helger.datetime.expiration.ExpiringObject;
 public class CRLCache
 {
   /**
-   * This is the main cache object that performs a download if it is not in the cache
+   * Inner cache that stores CRLs by URL with the configured time-to-live. CRLs are downloaded
+   * explicitly by the enclosing {@link CRLCache}; this subclass only exposes a peek helper used by
+   * the stale-fallback path in {@link CRLCache#getCRLFromURL(String)}.
    *
    * @author Philip Helger
    */
   @ThreadSafe
-  private static class CRLInternalCache extends Cache <String, ExpiringObject <CRL>>
+  private static class CRLInternalCache extends ManualCache <String, CRL>
   {
     /**
      * Constructor.
      *
-     * @param aCacheValueProvider
-     *        The function that provides cache values for a given key. May not be <code>null</code>.
      * @param nMaxSize
      *        The maximum number of entries in the cache.
+     * @param aCachingDuration
+     *        The default time-to-live for new entries. May not be <code>null</code>.
      */
-    public CRLInternalCache (@NonNull final Function <String, ExpiringObject <CRL>> aCacheValueProvider,
-                             final int nMaxSize)
+    public CRLInternalCache (final int nMaxSize, @NonNull final Duration aCachingDuration)
     {
-      super (aCacheValueProvider, nMaxSize, "CRLCache", true);
+      super ("CRLCache", nMaxSize, false, aCachingDuration, DEFAULT_CLOCK_SUPPLIER);
     }
 
-    private void _insertManually (final String aKey, final ExpiringObject <CRL> aValue)
+    /**
+     * Peek at the raw cached CRL for the provided key, including entries whose TTL has already
+     * passed but have not yet been evicted. Used by the fallback path to keep a previously cached
+     * CRL available when a re-fetch fails.
+     *
+     * @param sCRLURL
+     *        The URL to look up.
+     * @return The cached CRL value (possibly stale), or <code>null</code> if no entry exists.
+     */
+    @Nullable
+    final CRL peekStale (@Nullable final String sCRLURL)
     {
-      super.putInCache (aKey, aValue);
+      final CacheEntry <CRL> aEntry = getFromCacheNoStats (sCRLURL);
+      return aEntry == null ? null : aEntry.getValue ();
     }
   }
 
@@ -93,10 +104,7 @@ public class CRLCache
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
-    m_aCache = new CRLInternalCache (url -> {
-      final CRL aCRL = aDownloader.downloadCRL (url);
-      return aCRL == null ? null : ExpiringObject.ofDuration (aCRL, aCachingDuration);
-    }, 200);
+    m_aCache = new CRLInternalCache (200, aCachingDuration);
     m_aDownloader = aDownloader;
     m_aCachingDuration = aCachingDuration;
   }
@@ -139,36 +147,34 @@ public class CRLCache
   @Nullable
   public CRL getCRLFromURL (@Nullable final String sCRLURL)
   {
-    if (StringHelper.isNotEmpty (sCRLURL))
+    if (StringHelper.isEmpty (sCRLURL))
+      return null;
+
+    // Fast path: non-expired entry available?
+    if (m_aCache.isInCache (sCRLURL))
+      return m_aCache.getFromCache (sCRLURL);
+
+    // Slow path: nothing cached or the entry has expired. Peek for a stale value to fall back to
+    // and try to re-download.
+    final CRL aStaleCRL = m_aCache.peekStale (sCRLURL);
+    if (aStaleCRL != null)
+      LOGGER.info ("The cached entry for CRL URL '" + sCRLURL + "' is expired and needs to be re-fetched.");
+
+    final CRL aFreshCRL = m_aDownloader.downloadCRL (sCRLURL);
+    if (aFreshCRL != null)
     {
-      final ExpiringObject <CRL> aObject = m_aCache.getFromCache (sCRLURL);
-      if (aObject != null)
-      {
-        // maximum life time check
-        if (aObject.isExpiredNow ())
-        {
-          LOGGER.info ("The cached entry for CRL URL '" + sCRLURL + "' is expired and needs to be re-fetched.");
+      m_aCache.putInCache (sCRLURL, aFreshCRL);
+      return aFreshCRL;
+    }
 
-          // Object expired - re-fetch
-          m_aCache.removeFromCache (sCRLURL);
-          final ExpiringObject <CRL> aObjectNew = m_aCache.getFromCache (sCRLURL);
-          if (aObjectNew != null)
-          {
-            // We got something new from the fetch
-            return aObjectNew.getObject ();
-          }
-
-          // The re-fetch was not successful - keep the old one and start a new cycle, but only half
-          // the time
-          LOGGER.warn ("The re-fetch for CRL URL '" +
-                       sCRLURL +
-                       "' was unsuccessful, so keeping the previous CRL version.");
-          m_aCache._insertManually (sCRLURL,
-                                    ExpiringObject.ofDuration (aObject.getObject (), m_aCachingDuration.dividedBy (2)));
-        }
-
-        return aObject.getObject ();
-      }
+    // Re-fetch failed - keep the stale value with a reduced lifetime if one was previously cached
+    if (aStaleCRL != null)
+    {
+      LOGGER.warn ("The re-fetch for CRL URL '" +
+                   sCRLURL +
+                   "' was unsuccessful, so keeping the previous CRL version.");
+      m_aCache.putInCache (sCRLURL, aStaleCRL, m_aCachingDuration.dividedBy (2));
+      return aStaleCRL;
     }
     return null;
   }
@@ -186,7 +192,7 @@ public class CRLCache
   {
     ValueEnforcer.notEmpty (sCRLURL, "CRLURL");
     ValueEnforcer.notNull (aCRL, "CRL");
-    m_aCache._insertManually (sCRLURL, ExpiringObject.ofDuration (aCRL, m_aCachingDuration));
+    m_aCache.putInCache (sCRLURL, aCRL);
   }
 
   /**

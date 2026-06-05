@@ -24,7 +24,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 
 import jakarta.xml.bind.JAXBContext;
 
@@ -36,7 +36,8 @@ import jakarta.xml.bind.JAXBContext;
  */
 @ThreadSafe
 @Singleton
-public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBContext> implements IHasConditionalLogger
+public final class JAXBContextCache extends ProviderCache <JAXBContextCacheKey, JAXBContext> implements
+                                    IHasConditionalLogger
 {
   private static final class SingletonHolder
   {
@@ -72,7 +73,12 @@ public final class JAXBContextCache extends Cache <JAXBContextCacheKey, JAXBCont
 
   private JAXBContextCache ()
   {
-    super (aCacheKey -> aCacheKey.createJAXBContext (CONDLOG), 1_000, JAXBContextCache.class.getName ());
+    super (JAXBContextCache.class.getName (),
+           1_000,
+           DEFAULT_ALLOW_NULL_VALUES,
+           null,
+           DEFAULT_CLOCK_SUPPLIER,
+           aCacheKey -> aCacheKey.createJAXBContext (CONDLOG));
   }
 
   /**

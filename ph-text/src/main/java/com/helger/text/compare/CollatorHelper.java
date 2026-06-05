@@ -32,7 +32,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringReplace;
 import com.helger.base.system.SystemHelper;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 
 /**
  * Helper class to easily create commonly used {@link Collator} objects.
@@ -44,10 +44,10 @@ public final class CollatorHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CollatorHelper.class);
 
-  private static final Cache <Locale, Collator> COLLATOR_CACHE;
+  private static final ProviderCache <Locale, Collator> COLLATOR_CACHE;
   static
   {
-    COLLATOR_CACHE = Cache.<Locale, Collator> builder ().valueProvider (aLocale -> {
+    COLLATOR_CACHE = ProviderCache.<Locale, Collator> builder ().valueProvider (aLocale -> {
       if (aLocale == null)
       {
         LOGGER.error ("Very weird: no locale passed in. Falling back to system locale.");

@@ -33,6 +33,8 @@ import java.util.function.Supplier;
 
 import org.junit.Test;
 
+import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.eviction.CacheEvictionScheduler;
 
 /**
@@ -122,5 +124,151 @@ public final class ProviderCacheBuilderTest
     {
       // expected
     }
+  }
+
+  @Test
+  public void testBuilderFluentChain ()
+  {
+    final ProviderCacheBuilder <String, String> aBuilder = ProviderCache.builder ();
+    assertSame (aBuilder, aBuilder.name ("Chain"));
+    assertSame (aBuilder, aBuilder.maxSize (5));
+    assertSame (aBuilder, aBuilder.allowNullValues (true));
+    assertSame (aBuilder, aBuilder.expireAfterWrite (Duration.ofSeconds (10)));
+    assertSame (aBuilder, aBuilder.evictionInterval (Duration.ofSeconds (60)));
+    assertSame (aBuilder, aBuilder.clockSupplier (ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER));
+    assertSame (aBuilder, aBuilder.valueProvider (x -> x));
+    final var c = aBuilder.build ();
+    try
+    {
+      assertNotNull (c);
+    }
+    finally
+    {
+      CacheEvictionScheduler.getInstance ().unregister (c);
+    }
+  }
+
+  @Test
+  public void testBuilderWithTTL ()
+  {
+    final var c = ProviderCache.builder ()
+                               .valueProvider (x -> x)
+                               .name ("TTL")
+                               .expireAfterWrite (Duration.ofSeconds (10))
+                               .build ();
+    assertTrue (c.hasTimeToLive ());
+    assertEquals (Duration.ofSeconds (10), c.getTimeToLive ());
+  }
+
+  @Test
+  public void testBuilderNullTTL ()
+  {
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("NullTTL").expireAfterWrite (null).build ();
+    assertFalse (c.hasTimeToLive ());
+    assertNull (c.getTimeToLive ());
+  }
+
+  @Test
+  public void testBuilderZeroTTLDisabled ()
+  {
+    final var c = ProviderCache.builder ()
+                               .valueProvider (x -> x)
+                               .name ("ZeroTTL")
+                               .expireAfterWrite (Duration.ZERO)
+                               .build ();
+    assertFalse (c.hasTimeToLive ());
+    assertNull (c.getTimeToLive ());
+  }
+
+  @Test
+  public void testBuilderNegativeTTLDisabled ()
+  {
+    final var c = ProviderCache.builder ()
+                               .valueProvider (x -> x)
+                               .name ("NegTTL")
+                               .expireAfterWrite (Duration.ofSeconds (-1))
+                               .build ();
+    assertFalse (c.hasTimeToLive ());
+    assertNull (c.getTimeToLive ());
+  }
+
+  @Test
+  public void testBuilderClockSupplierPropagated ()
+  {
+    final AtomicReference <LocalDateTime> aNow = new AtomicReference <> (LocalDateTime.of (2026, 1, 1, 12, 0));
+    final Supplier <LocalDateTime> aSupplier = aNow::get;
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("Clock").clockSupplier (aSupplier).build ();
+    assertSame (aSupplier, c.getClockSupplier ());
+  }
+
+  @Test
+  public void testBuilderNullClockSupplier ()
+  {
+    try
+    {
+      ProviderCache.builder ().valueProvider (x -> x).name ("NullClock").clockSupplier (null).build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testBuilderZeroEvictionIntervalIgnored ()
+  {
+    final var c = ProviderCache.builder ()
+                               .valueProvider (x -> x)
+                               .name ("ZeroInterval")
+                               .evictionInterval (Duration.ZERO)
+                               .build ();
+    assertNotNull (c);
+    assertEquals (0, CacheEvictionScheduler.getInstance ().getRegistrationCount ());
+  }
+
+  @Test
+  public void testBuilderNegativeEvictionIntervalIgnored ()
+  {
+    final var c = ProviderCache.builder ()
+                               .valueProvider (x -> x)
+                               .name ("NegInterval")
+                               .evictionInterval (Duration.ofSeconds (-1))
+                               .build ();
+    assertNotNull (c);
+    assertEquals (0, CacheEvictionScheduler.getInstance ().getRegistrationCount ());
+  }
+
+  @Test
+  public void testBuilderBuildTwiceCreatesIndependentCaches ()
+  {
+    final AtomicInteger aCalls = new AtomicInteger (0);
+    final ProviderCacheBuilder <String, String> aBuilder = ProviderCache.<String, String> builder ()
+                                                                        .name ("Twice")
+                                                                        .valueProvider (k -> {
+                                                                          aCalls.incrementAndGet ();
+                                                                          return "v" + k;
+                                                                        });
+    final var c1 = aBuilder.build ();
+    final var c2 = aBuilder.build ();
+    assertNotSame (c1, c2);
+    c1.getFromCache ("a");
+    assertEquals (1, c1.size ());
+    assertEquals (0, c2.size ());
+    assertEquals (1, aCalls.get ());
+    c2.getFromCache ("a");
+    assertEquals (2, aCalls.get ());
+  }
+
+  @Test
+  public void testBuilderDefaults ()
+  {
+    final var c = ProviderCache.builder ().valueProvider (x -> x).name ("Defaults").build ();
+    assertFalse (c.hasMaxSize ());
+    assertEquals (ICache.NO_MAX_SIZE, c.getMaxSize ());
+    assertFalse (c.isAllowNullValues ());
+    assertFalse (c.hasTimeToLive ());
+    assertNull (c.getTimeToLive ());
+    assertSame (ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER, c.getClockSupplier ());
   }
 }

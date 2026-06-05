@@ -21,6 +21,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -275,6 +276,161 @@ public final class CacheExpirationTest
   {
     final var c = ManualCache.builder ().name ("NegTTL").expireAfterWrite (Duration.ofSeconds (-5)).build ();
     assertFalse (c.hasTimeToLive ());
+  }
+
+  @Test
+  public void testPutWithPerEntryTTL ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    // No cache-wide TTL configured
+    final var c = ManualCache.builder ().name ("PerEntryTTL").clockSupplier (aClock::get).build ();
+    assertFalse (c.hasTimeToLive ());
+
+    c.putInCache ("short", "vS", Duration.ofSeconds (5));
+    c.putInCache ("long", "vL", Duration.ofSeconds (60));
+    assertTrue (c.isInCache ("short"));
+    assertTrue (c.isInCache ("long"));
+
+    aClock.advance (Duration.ofSeconds (10));
+    // "short" is expired even though the cache has no cache-wide TTL
+    assertFalse (c.isInCache ("short"));
+    assertTrue (c.isInCache ("long"));
+    assertNull (c.getFromCache ("short"));
+    assertEquals ("vL", c.getFromCache ("long"));
+  }
+
+  @Test
+  public void testPutWithPerEntryExpirationDateTime ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    final var c = ManualCache.builder ().name ("PerEntryDT").clockSupplier (aClock::get).build ();
+
+    final LocalDateTime aExpiry = aClock.get ().plusSeconds (10);
+    c.putInCache ("k", "v", aExpiry);
+    assertTrue (c.isInCache ("k"));
+    assertEquals ("v", c.getFromCache ("k"));
+
+    aClock.advance (Duration.ofSeconds (11));
+    assertFalse (c.isInCache ("k"));
+    assertNull (c.getFromCache ("k"));
+  }
+
+  @Test
+  public void testPerEntryTTLOverridesCacheWideTTL ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    // Cache-wide TTL is 5 seconds. The per-entry overload should override it for that key only.
+    final var c = ManualCache.builder ()
+                             .name ("Override")
+                             .expireAfterWrite (Duration.ofSeconds (5))
+                             .clockSupplier (aClock::get)
+                             .build ();
+
+    c.putInCache ("default", "vD");
+    c.putInCache ("custom", "vC", Duration.ofSeconds (60));
+
+    // After 10s the default entry has expired but the custom one hasn't
+    aClock.advance (Duration.ofSeconds (10));
+    assertFalse (c.isInCache ("default"));
+    assertTrue (c.isInCache ("custom"));
+  }
+
+  @Test
+  public void testEvictExpiredFindsPerEntryExpirations ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    // No cache-wide TTL — evictExpired must still find per-entry expirations
+    final var c = ManualCache.builder ().name ("PerEntryEvict").clockSupplier (aClock::get).build ();
+
+    c.putInCache ("a", "vA", Duration.ofSeconds (5));
+    c.putInCache ("b", "vB", Duration.ofSeconds (60));
+    c.putInCache ("c", "vC");
+    assertEquals (3, c.size ());
+
+    aClock.advance (Duration.ofSeconds (10));
+    // Only "a" has an expiration that has passed; "b" not yet, "c" never
+    assertEquals (1, c.evictExpired ());
+    assertEquals (2, c.size ());
+    assertTrue (c.isInCache ("b"));
+    assertTrue (c.isInCache ("c"));
+  }
+
+  @Test
+  public void testPutWithPerEntryTTLNullDurationFails ()
+  {
+    final var c = ManualCache.builder ().name ("NullDur").build ();
+    try
+    {
+      c.putInCache ("k", "v", (Duration) null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testPutWithPerEntryExpirationDateTimeNullFails ()
+  {
+    final var c = ManualCache.builder ().name ("NullDT").build ();
+    try
+    {
+      c.putInCache ("k", "v", (LocalDateTime) null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testPutWithPerEntryTTLZeroFails ()
+  {
+    final var c = ManualCache.builder ().name ("ZeroDur").build ();
+    try
+    {
+      c.putInCache ("k", "v", Duration.ZERO);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testPutWithPerEntryTTLNullValueRespectsPolicy ()
+  {
+    final var c = ManualCache.builder ().name ("NullPolicy").build ();
+    try
+    {
+      c.putInCache ("k", null, Duration.ofSeconds (10));
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testProviderCachePerEntryTTL ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    final var c = ProviderCache.builder ()
+                               .valueProvider (k -> "v" + k)
+                               .name ("ProvPerEntry")
+                               .clockSupplier (aClock::get)
+                               .build ();
+
+    c.putInCache ("k", "explicit", Duration.ofSeconds (10));
+    assertEquals ("explicit", c.getFromCache ("k"));
+
+    aClock.advance (Duration.ofSeconds (11));
+    // After expiration, ProviderCache re-fetches via the provider
+    assertEquals ("vk", c.getFromCache ("k"));
   }
 
   @Test

@@ -27,6 +27,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.IMutableCache;
 
 /**
@@ -48,7 +49,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
   /** Default value of isAllowNullValues */
   @SuppressWarnings ("hiding")
   @Deprecated (forRemoval = true, since = "12.3.0")
-  public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
+  public static final boolean DEFAULT_ALLOW_NULL_VALUES = ICache.DEFAULT_ALLOW_NULL_VALUES;
 
   /**
    * Constructor with no maximum size.
@@ -62,7 +63,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
   public Cache (@NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider,
                 @NonNull @Nonempty final String sCacheName)
   {
-    this (aCacheValueProvider, AbstractMapBasedCache.NO_MAX_SIZE, sCacheName);
+    this (aCacheValueProvider, ICache.NO_MAX_SIZE, sCacheName);
   }
 
   /**
@@ -80,7 +81,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
                 final int nMaxSize,
                 @NonNull @Nonempty final String sCacheName)
   {
-    this (aCacheValueProvider, nMaxSize, sCacheName, AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES);
+    this (aCacheValueProvider, nMaxSize, sCacheName, ICache.DEFAULT_ALLOW_NULL_VALUES);
   }
 
   /**
@@ -106,7 +107,7 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
           nMaxSize,
           bAllowNullValues,
           null,
-          AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+          ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER,
           aCacheValueProvider);
   }
 

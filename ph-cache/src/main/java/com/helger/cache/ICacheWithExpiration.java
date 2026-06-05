@@ -18,6 +18,7 @@ package com.helger.cache;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
@@ -35,6 +36,12 @@ import org.jspecify.annotations.Nullable;
  */
 public interface ICacheWithExpiration <KEYTYPE, VALUETYPE> extends ICache <KEYTYPE, VALUETYPE>
 {
+  /**
+   * UTC is used to avoid DST jumps in the expiration arithmetic; the absolute time zone is
+   * irrelevant because the same supplier is used for writes and expiry checks.
+   */
+  Supplier <LocalDateTime> DEFAULT_CLOCK_SUPPLIER = () -> LocalDateTime.now (ZoneOffset.UTC);
+
   /**
    * @return The configured time to live for cache entries, or <code>null</code> if no time-based
    *         expiration is configured.

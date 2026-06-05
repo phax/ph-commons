@@ -34,20 +34,20 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.transform.TransformSourceFactory;
 
 /**
- * Base class for caching abstract {@link Schema} objects. A {@link Schema} is
- * immutable and can therefore safely be used in multi-threaded environments.
+ * Base class for caching abstract {@link Schema} objects. A {@link Schema} is immutable and can
+ * therefore safely be used in multi-threaded environments.
  *
  * @author Philip Helger
  */
 @ThreadSafe
-public class SchemaCache extends Cache <ICommonsList <? extends IReadableResource>, Schema>
+public class SchemaCache extends ProviderCache <ICommonsList <? extends IReadableResource>, Schema>
 {
   private final String m_sSchemaTypeName;
   private final SchemaFactory m_aSchemaFactory;
@@ -69,7 +69,12 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
                       @Nullable final ErrorHandler aErrorHandler,
                       @Nullable final LSResourceResolver aResourceResolver)
   {
-    super (aKey -> createSchema (aSchemaFactory, sSchemaTypeName, aKey), 500, SchemaCache.class.getName () + "$" + sSchemaTypeName);
+    super (SchemaCache.class.getName () + "$" + sSchemaTypeName,
+           500,
+           DEFAULT_ALLOW_NULL_VALUES,
+           null,
+           DEFAULT_CLOCK_SUPPLIER,
+           aKey -> createSchema (aSchemaFactory, sSchemaTypeName, aKey));
     ValueEnforcer.notNull (sSchemaTypeName, "SchemaTypeName");
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
     m_sSchemaTypeName = sSchemaTypeName;
@@ -79,8 +84,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * @return The schema type name as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The schema type name as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final String getSchemaTypeName ()
@@ -89,8 +93,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * @return The schema factory as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The schema factory as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final SchemaFactory getSchemaFactory ()
@@ -99,8 +102,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * @return The error handler set on the schema factory. May be
-   *         <code>null</code>.
+   * @return The error handler set on the schema factory. May be <code>null</code>.
    */
   @Nullable
   public ErrorHandler getErrorHandler ()
@@ -109,8 +111,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * @return The resource resolver set on the schema factory. May be
-   *         <code>null</code>.
+   * @return The resource resolver set on the schema factory. May be <code>null</code>.
    */
   @Nullable
   public LSResourceResolver getResourceResolver ()
@@ -119,17 +120,14 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * Create a {@link Schema} from the provided resources using the given schema
-   * factory.
+   * Create a {@link Schema} from the provided resources using the given schema factory.
    *
    * @param aSchemaFactory
    *        The schema factory to use. May not be <code>null</code>.
    * @param sSchemaTypeName
-   *        The schema type name for error messages. May not be
-   *        <code>null</code>.
+   *        The schema type name for error messages. May not be <code>null</code>.
    * @param aResources
-   *        The resources to compile. May neither be <code>null</code> nor
-   *        empty.
+   *        The resources to compile. May neither be <code>null</code> nor empty.
    * @return The compiled {@link Schema}. Never <code>null</code>.
    */
   @NonNull
@@ -149,7 +147,10 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
     {
       final Schema ret = aSchemaFactory.newSchema (aSources);
       if (ret == null)
-        throw new IllegalStateException ("Failed to create " + sSchemaTypeName + " schema from " + aResources.toString ());
+        throw new IllegalStateException ("Failed to create " +
+                                         sSchemaTypeName +
+                                         " schema from " +
+                                         aResources.toString ());
       return ret;
     }
     catch (final SAXException ex)
@@ -162,8 +163,7 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * Get a cached {@link Schema} from a single resource.
    *
    * @param aResource
-   *        The resource to parse into a {@link Schema}. May not be
-   *        <code>null</code>.
+   *        The resource to parse into a {@link Schema}. May not be <code>null</code>.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
   @NonNull
@@ -178,9 +178,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * Get a cached {@link Schema} that consists of multiple resources.
    *
    * @param aResources
-   *        The resources to parse into a single {@link Schema}. May neither
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        elements.
+   *        The resources to parse into a single {@link Schema}. May neither <code>null</code> nor
+   *        empty nor may it contain <code>null</code> elements.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
   @NonNull
@@ -196,9 +195,8 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
    * Get a cached {@link Schema} that consists of multiple resources.
    *
    * @param aResources
-   *        The resources to parse into a single {@link Schema}. May neither
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        elements.
+   *        The resources to parse into a single {@link Schema}. May neither <code>null</code> nor
+   *        empty nor may it contain <code>null</code> elements.
    * @return Either the {@link Schema} from the cache or the newly compiled one.
    */
   @NonNull
@@ -211,12 +209,11 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * Utility method to get the validator for a given schema using the error
-   * handler provided in the constructor.
+   * Utility method to get the validator for a given schema using the error handler provided in the
+   * constructor.
    *
    * @param aSchema
-   *        The schema for which the validator is to be retrieved. May not be
-   *        <code>null</code>.
+   *        The schema for which the validator is to be retrieved. May not be <code>null</code>.
    * @return The validator and never <code>null</code>.
    */
   @NonNull
@@ -230,12 +227,10 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * Get a new validator based on the {@link Schema} that consists of a single
-   * resource.
+   * Get a new validator based on the {@link Schema} that consists of a single resource.
    *
    * @param aResource
-   *        The resource to parse into a single {@link Schema}. May not be
-   *        <code>null</code>.
+   *        The resource to parse into a single {@link Schema}. May not be <code>null</code>.
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(IReadableResource)
    */
@@ -246,13 +241,11 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * Get a new validator based on the {@link Schema} that consists of multiple
-   * resources.
+   * Get a new validator based on the {@link Schema} that consists of multiple resources.
    *
    * @param aResources
-   *        The resources to parse into a single {@link Schema}. May neither
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        elements.
+   *        The resources to parse into a single {@link Schema}. May neither <code>null</code> nor
+   *        empty nor may it contain <code>null</code> elements.
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(IReadableResource...)
    */
@@ -263,13 +256,11 @@ public class SchemaCache extends Cache <ICommonsList <? extends IReadableResourc
   }
 
   /**
-   * Get a new validator based on the {@link Schema} that consists of multiple
-   * resources.
+   * Get a new validator based on the {@link Schema} that consists of multiple resources.
    *
    * @param aResources
-   *        The resources to parse into a single {@link Schema}. May neither
-   *        <code>null</code> nor empty nor may it contain <code>null</code>
-   *        elements.
+   *        The resources to parse into a single {@link Schema}. May neither <code>null</code> nor
+   *        empty nor may it contain <code>null</code> elements.
    * @return A new {@link Validator} object. Never <code>null</code>.
    * @see #getSchema(Collection)
    */

@@ -34,6 +34,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.IMutableCache;
 import com.helger.cache.IMutableCacheWithExpiration;
 
@@ -61,10 +62,10 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
 {
   /** A constant indicating, that a cache has no max size */
   @Deprecated (forRemoval = true, since = "12.3.0")
-  public static final int NO_MAX_SIZE = AbstractMapBasedCache.NO_MAX_SIZE;
+  public static final int NO_MAX_SIZE = ICache.NO_MAX_SIZE;
   /** Default value of isAllowNullValues() */
   @Deprecated (forRemoval = true, since = "12.3.0")
-  public static final boolean DEFAULT_ALLOW_NULL_VALUES = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
+  public static final boolean DEFAULT_ALLOW_NULL_VALUES = ICache.DEFAULT_ALLOW_NULL_VALUES;
 
   private final Function <KEYTYPE, KEYSTORETYPE> m_aCacheKeyProvider;
   private final Function <KEYTYPE, VALUETYPE> m_aValueProvider;
@@ -99,7 +100,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
           nMaxSize,
           bAllowNullValues,
           null,
-          AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+          ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER,
           aCacheKeyProvider,
           aValueProvider);
   }
@@ -320,6 +321,18 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
   public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
   {
     m_aCache.putInCache (_getStorageKey (aKey), aValue);
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final Duration aTimeToLive)
+  {
+    m_aCache.putInCache (_getStorageKey (aKey), aValue, aTimeToLive);
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final LocalDateTime aExpirationDT)
+  {
+    m_aCache.putInCache (_getStorageKey (aKey), aValue, aExpirationDT);
   }
 
   @Deprecated (forRemoval = true, since = "12.3.0")

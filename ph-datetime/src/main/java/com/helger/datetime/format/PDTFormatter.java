@@ -31,7 +31,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringCount;
 import com.helger.base.string.StringReplace;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 import com.helger.datetime.EDTType;
 
 /**
@@ -107,43 +107,48 @@ public final class PDTFormatter
    * @author Philip Helger
    */
   @ThreadSafe
-  public static final class LocalizedDateFormatCache extends Cache <CacheKey, DateTimeFormatter>
+  public static final class LocalizedDateFormatCache extends ProviderCache <CacheKey, DateTimeFormatter>
   {
     /**
      * Default constructor initializing the cache with the pattern creation logic.
      */
     public LocalizedDateFormatCache ()
     {
-      super (aCacheKey -> {
-        String sPattern = getSourcePattern (aCacheKey);
+      super (LocalizedDateFormatCache.class.getName (),
+             1_000,
+             DEFAULT_ALLOW_NULL_VALUES,
+             null,
+             DEFAULT_CLOCK_SUPPLIER,
+             aCacheKey -> {
+               String sPattern = getSourcePattern (aCacheKey);
 
-        // Change "year of era" to "year"
-        sPattern = StringReplace.replaceAll (sPattern, 'y', 'u');
+               // Change "year of era" to "year"
+               sPattern = StringReplace.replaceAll (sPattern, 'y', 'u');
 
-        if (false)
-          if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringCount.getCharCount (sPattern, 'u') == 1)
-          {
-            // In Java 9, if CLDR mode is active, switch from a single "u" to
-            // "uuuu" (for parsing)
-            sPattern = StringReplace.replaceAll (sPattern, "u", "uuuu");
-          }
+               if (false)
+                 if (aCacheKey.m_eMode == EDTFormatterMode.PARSE && StringCount.getCharCount (sPattern, 'u') == 1)
+                 {
+                   // In Java 9, if CLDR mode is active, switch from a single "u" to
+                   // "uuuu" (for parsing)
+                   sPattern = StringReplace.replaceAll (sPattern, "u", "uuuu");
+                 }
 
-        if (aCacheKey.m_eMode == EDTFormatterMode.PARSE &&
-            "de".equals (aCacheKey.m_aLocale.getLanguage ()) &&
-            aCacheKey.m_eStyle == FormatStyle.MEDIUM)
-        {
-          // Change from 2 required fields to 1
-          sPattern = StringReplace.replaceAll (sPattern, "dd", "d");
-          sPattern = StringReplace.replaceAll (sPattern, "MM", "M");
-          sPattern = StringReplace.replaceAll (sPattern, "HH", "H");
-          sPattern = StringReplace.replaceAll (sPattern, "mm", "m");
-          sPattern = StringReplace.replaceAll (sPattern, "ss", "s");
-        }
+               if (aCacheKey.m_eMode == EDTFormatterMode.PARSE &&
+                   "de".equals (aCacheKey.m_aLocale.getLanguage ()) &&
+                   aCacheKey.m_eStyle == FormatStyle.MEDIUM)
+               {
+                 // Change from 2 required fields to 1
+                 sPattern = StringReplace.replaceAll (sPattern, "dd", "d");
+                 sPattern = StringReplace.replaceAll (sPattern, "MM", "M");
+                 sPattern = StringReplace.replaceAll (sPattern, "HH", "H");
+                 sPattern = StringReplace.replaceAll (sPattern, "mm", "m");
+                 sPattern = StringReplace.replaceAll (sPattern, "ss", "s");
+               }
 
-        // And finally create the cached DateTimeFormatter
-        // Default to strict - can be changed afterwards
-        return DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
-      }, 1_000, LocalizedDateFormatCache.class.getName ());
+               // And finally create the cached DateTimeFormatter
+               // Default to strict - can be changed afterwards
+               return DateTimeFormatterCache.getDateTimeFormatterStrict (sPattern);
+             });
     }
 
     /**
@@ -157,25 +162,17 @@ public final class PDTFormatter
     @NonNull
     public static String getSourcePattern (@NonNull final CacheKey aKey)
     {
-      switch (aKey.m_eDTType)
+      return switch (aKey.m_eDTType)
       {
-        case LOCAL_TIME:
-          return PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale);
-        case OFFSET_TIME:
-          return PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
-        case LOCAL_DATE:
-          return PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale);
-        case OFFSET_DATE:
-          return PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale) + " Z";
-        case LOCAL_DATE_TIME:
-          return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale);
-        case OFFSET_DATE_TIME:
-          return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
-        case ZONED_DATE_TIME:
-          return PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " z";
-        default:
-          throw new IllegalStateException ("Unsupported DTType " + aKey.m_eDTType);
-      }
+        case LOCAL_TIME -> PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale);
+        case OFFSET_TIME -> PDTFormatPatterns.getPatternTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
+        case LOCAL_DATE -> PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale);
+        case OFFSET_DATE -> PDTFormatPatterns.getPatternDate (aKey.m_eStyle, aKey.m_aLocale) + " Z";
+        case LOCAL_DATE_TIME -> PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale);
+        case OFFSET_DATE_TIME -> PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " Z";
+        case ZONED_DATE_TIME -> PDTFormatPatterns.getPatternDateTime (aKey.m_eStyle, aKey.m_aLocale) + " z";
+        default -> throw new IllegalStateException ("Unsupported DTType " + aKey.m_eDTType);
+      };
     }
   }
 
@@ -190,13 +187,11 @@ public final class PDTFormatter
   {}
 
   /**
-   * Convert a {@link DateFormat} style constant to a {@link FormatStyle} enum
-   * value.
+   * Convert a {@link DateFormat} style constant to a {@link FormatStyle} enum value.
    *
    * @param nStyle
-   *        The {@link DateFormat} style constant ({@link DateFormat#FULL},
-   *        {@link DateFormat#LONG}, {@link DateFormat#MEDIUM} or
-   *        {@link DateFormat#SHORT}).
+   *        The {@link DateFormat} style constant ({@link DateFormat#FULL}, {@link DateFormat#LONG},
+   *        {@link DateFormat#MEDIUM} or {@link DateFormat#SHORT}).
    * @return The corresponding {@link FormatStyle}. Never <code>null</code>.
    * @throws IllegalArgumentException
    *         If an invalid style is passed.
@@ -204,24 +199,18 @@ public final class PDTFormatter
   @NonNull
   public static FormatStyle toFormatStyle (final int nStyle)
   {
-    switch (nStyle)
+    return switch (nStyle)
     {
-      case DateFormat.FULL:
-        return FormatStyle.FULL;
-      case DateFormat.LONG:
-        return FormatStyle.LONG;
-      case DateFormat.MEDIUM:
-        return FormatStyle.MEDIUM;
-      case DateFormat.SHORT:
-        return FormatStyle.SHORT;
-      default:
-        throw new IllegalArgumentException ("Invalid style passed: " + nStyle);
-    }
+      case DateFormat.FULL -> FormatStyle.FULL;
+      case DateFormat.LONG -> FormatStyle.LONG;
+      case DateFormat.MEDIUM -> FormatStyle.MEDIUM;
+      case DateFormat.SHORT -> FormatStyle.SHORT;
+      default -> throw new IllegalArgumentException ("Invalid style passed: " + nStyle);
+    };
   }
 
   /**
-   * Convert a {@link FormatStyle} enum value to a {@link DateFormat} style
-   * constant.
+   * Convert a {@link FormatStyle} enum value to a {@link DateFormat} style constant.
    *
    * @param eStyle
    *        The format style to convert. May not be <code>null</code>.
@@ -231,19 +220,14 @@ public final class PDTFormatter
    */
   public static int toDateStyle (@NonNull final FormatStyle eStyle)
   {
-    switch (eStyle)
+    return switch (eStyle)
     {
-      case FULL:
-        return DateFormat.FULL;
-      case LONG:
-        return DateFormat.LONG;
-      case MEDIUM:
-        return DateFormat.MEDIUM;
-      case SHORT:
-        return DateFormat.SHORT;
-      default:
-        throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
-    }
+      case FULL -> DateFormat.FULL;
+      case LONG -> DateFormat.LONG;
+      case MEDIUM -> DateFormat.MEDIUM;
+      case SHORT -> DateFormat.SHORT;
+      default -> throw new IllegalArgumentException ("Unsupported style passed: " + eStyle);
+    };
   }
 
   /**

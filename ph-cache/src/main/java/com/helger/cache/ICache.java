@@ -30,6 +30,11 @@ import com.helger.base.name.IHasName;
  */
 public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
 {
+  /** A constant indicating, that a cache has no max size */
+  int NO_MAX_SIZE = 0;
+  /** Default value of {@link #isAllowNullValues()} */
+  boolean DEFAULT_ALLOW_NULL_VALUES = false;
+
   /**
    * Check if the passed key is already in the cache or not. An entry that is past its time-based
    * expiration is considered as <em>not</em> in the cache for the purposes of this check.

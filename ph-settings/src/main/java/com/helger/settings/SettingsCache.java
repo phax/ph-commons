@@ -20,7 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 import com.helger.settings.factory.ISettingsFactory;
 
 /**
@@ -29,7 +29,7 @@ import com.helger.settings.factory.ISettingsFactory;
  * @author Philip Helger
  */
 @ThreadSafe
-public class SettingsCache extends Cache <String, ISettings>
+public class SettingsCache extends ProviderCache <String, ISettings>
 {
   private final ISettingsFactory <?> m_aSettingsFactory;
 
@@ -41,7 +41,12 @@ public class SettingsCache extends Cache <String, ISettings>
    */
   public SettingsCache (@NonNull final ISettingsFactory <?> aSettingsFactory)
   {
-    super (aSettingsFactory::apply, 500, SettingsCache.class.getName ());
+    super (SettingsCache.class.getName (),
+           1_000,
+           DEFAULT_ALLOW_NULL_VALUES,
+           null,
+           DEFAULT_CLOCK_SUPPLIER,
+           aSettingsFactory::apply);
     m_aSettingsFactory = ValueEnforcer.notNull (aSettingsFactory, "SettingsFactory");
   }
 

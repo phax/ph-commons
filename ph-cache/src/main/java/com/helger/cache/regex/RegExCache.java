@@ -25,7 +25,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.RegEx;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.cache.impl.AbstractMapBasedCache;
+import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.impl.ProviderCache;
 
 /**
@@ -52,9 +53,9 @@ public final class RegExCache extends ProviderCache <RegExPattern, Pattern>
   {
     super (RegExCache.class.getName (),
            MAX_CACHE_SIZE,
-           AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES,
+           ICache.DEFAULT_ALLOW_NULL_VALUES,
            null,
-           AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER,
+           ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER,
            RegExPattern::getAsPattern);
   }
 

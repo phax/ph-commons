@@ -26,6 +26,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.string.StringHelper;
 import com.helger.base.trait.IGenericImplTrait;
+import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.eviction.CacheEvictionScheduler;
 
 /**
@@ -42,11 +44,11 @@ import com.helger.cache.eviction.CacheEvictionScheduler;
 class CacheBuilderBase <IMPLTYPE extends CacheBuilderBase <IMPLTYPE>> implements IGenericImplTrait <IMPLTYPE>
 {
   protected String m_sName;
-  protected int m_nMaxSize = AbstractMapBasedCache.NO_MAX_SIZE;
-  protected boolean m_bAllowNullValues = AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES;
+  protected int m_nMaxSize = ICache.NO_MAX_SIZE;
+  protected boolean m_bAllowNullValues = ICache.DEFAULT_ALLOW_NULL_VALUES;
   protected Duration m_aTimeToLive;
   protected Duration m_aEvictionInterval;
-  protected Supplier <LocalDateTime> m_aClockSupplier = AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER;
+  protected Supplier <LocalDateTime> m_aClockSupplier = ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER;
 
   /**
    * Default constructor.

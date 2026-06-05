@@ -27,11 +27,13 @@ import static org.junit.Assert.fail;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Supplier;
 
 import org.junit.Test;
 
+import com.helger.cache.ICache;
+import com.helger.cache.ICacheWithExpiration;
 import com.helger.cache.eviction.CacheEvictionScheduler;
 
 /**
@@ -110,7 +112,7 @@ public final class ManualCacheBuilderTest
     assertSame (aBuilder, aBuilder.allowNullValues (true));
     assertSame (aBuilder, aBuilder.expireAfterWrite (Duration.ofSeconds (10)));
     assertSame (aBuilder, aBuilder.evictionInterval (Duration.ofSeconds (60)));
-    assertSame (aBuilder, aBuilder.clockSupplier (AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER));
+    assertSame (aBuilder, aBuilder.clockSupplier (ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER));
     final var c = aBuilder.build ();
     try
     {
@@ -189,10 +191,7 @@ public final class ManualCacheBuilderTest
   @Test
   public void testBuilderNegativeEvictionIntervalIgnored ()
   {
-    final var c = ManualCache.builder ()
-                             .name ("NegInterval")
-                             .evictionInterval (Duration.ofSeconds (-1))
-                             .build ();
+    final var c = ManualCache.builder ().name ("NegInterval").evictionInterval (Duration.ofSeconds (-1)).build ();
     assertNotNull (c);
     assertEquals (0, CacheEvictionScheduler.getInstance ().getRegistrationCount ());
   }
@@ -214,10 +213,10 @@ public final class ManualCacheBuilderTest
   {
     final var c = ManualCache.builder ().name ("Defaults").build ();
     assertFalse (c.hasMaxSize ());
-    assertEquals (AbstractMapBasedCache.NO_MAX_SIZE, c.getMaxSize ());
-    assertEquals (AbstractMapBasedCache.DEFAULT_ALLOW_NULL_VALUES, c.isAllowNullValues ());
+    assertEquals (ICache.NO_MAX_SIZE, c.getMaxSize ());
+    assertFalse (c.isAllowNullValues ());
     assertFalse (c.hasTimeToLive ());
     assertNull (c.getTimeToLive ());
-    assertSame (AbstractMapBasedCache.DEFAULT_CLOCK_SUPPLIER, c.getClockSupplier ());
+    assertSame (ICacheWithExpiration.DEFAULT_CLOCK_SUPPLIER, c.getClockSupplier ());
   }
 }

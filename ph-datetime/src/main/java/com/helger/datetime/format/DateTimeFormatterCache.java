@@ -24,7 +24,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 
 /**
  * This class provides a cache for {@link DateTimeFormatter} instances. It caches up to a limited
@@ -34,7 +34,7 @@ import com.helger.cache.impl.Cache;
  */
 @ThreadSafe
 @Singleton
-public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPattern, DateTimeFormatter>
+public final class DateTimeFormatterCache extends ProviderCache <DateTimeFormatterPattern, DateTimeFormatter>
 {
   private static final class SingletonHolder
   {
@@ -48,12 +48,16 @@ public final class DateTimeFormatterCache extends Cache <DateTimeFormatterPatter
 
   private DateTimeFormatterCache ()
   {
-    super (DateTimeFormatterPattern::getAsFormatter, MAX_CACHE_SIZE, DateTimeFormatterCache.class.getName ());
+    super (DateTimeFormatterCache.class.getName (),
+           MAX_CACHE_SIZE,
+           DEFAULT_ALLOW_NULL_VALUES,
+           null,
+           DEFAULT_CLOCK_SUPPLIER,
+           DateTimeFormatterPattern::getAsFormatter);
   }
 
   /**
-   * @return <code>true</code> if the singleton has been instantiated,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the singleton has been instantiated, <code>false</code> if not.
    */
   public static boolean isInstantiated ()
   {

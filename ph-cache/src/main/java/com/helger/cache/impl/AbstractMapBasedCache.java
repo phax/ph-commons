@@ -18,7 +18,6 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
@@ -63,16 +62,6 @@ import com.helger.collection.map.SoftLinkedHashMap;
 public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends AbstractCacheSupport implements
                                             IMutableCacheWithExpiration <KEYTYPE, VALUETYPE>
 {
-  /** A constant indicating, that a cache has no max size */
-  public static final int NO_MAX_SIZE = 0;
-  /** Default value of {@link #isAllowNullValues()} */
-  public static final boolean DEFAULT_ALLOW_NULL_VALUES = false;
-  /**
-   * UTC is used to avoid DST jumps in the expiration arithmetic; the absolute time zone is
-   * irrelevant because the same supplier is used for writes and expiry checks.
-   */
-  public static final Supplier <LocalDateTime> DEFAULT_CLOCK_SUPPLIER = () -> LocalDateTime.now (ZoneOffset.UTC);
-
   private static final Logger LOGGER = LoggerFactory.getLogger (AbstractMapBasedCache.class);
 
   private final int m_nMaxSize;
@@ -216,8 +205,25 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   }
 
   /**
+   * Validate that the provided value is allowed by the null-value policy. Throws otherwise.
+   *
+   * @param aKey
+   *        The public-facing key. Used only for error reporting.
+   * @param aValue
+   *        The value to check.
+   */
+  private void _checkNullValuePolicy (final KEYTYPE aKey, final VALUETYPE aValue)
+  {
+    if (aValue == null && !m_bAllowNullValues)
+      throw new IllegalStateException (getCacheLogText () +
+                                       "The cache value of key '" +
+                                       aKey +
+                                       "' is null. null values are not allowed in this cache.");
+  }
+
+  /**
    * Build a {@link CacheEntry} for the provided value, honoring the configured null-value policy
-   * and time-to-live.
+   * and the cache-wide time-to-live.
    *
    * @param aKey
    *        The public-facing key. Used only for error reporting.
@@ -228,19 +234,69 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   @NonNull
   protected final CacheEntry <VALUETYPE> buildCacheEntry (final KEYTYPE aKey, final VALUETYPE aValue)
   {
-    if (aValue == null && !m_bAllowNullValues)
-      throw new IllegalStateException (getCacheLogText () +
-                                       "The cache value of key '" +
-                                       aKey +
-                                       "' is null. null values are not allowed in this cache.");
+    _checkNullValuePolicy (aKey, aValue);
     if (m_aTimeToLive == null)
       return CacheEntry.ofNoExpiration (aValue);
     return CacheEntry.ofTimeToLive (aValue, m_aClockSupplier.get (), m_aTimeToLive);
   }
 
+  /**
+   * Build a {@link CacheEntry} for the provided value using an explicit per-entry time-to-live.
+   * Honors the null-value policy but ignores the cache-wide TTL.
+   *
+   * @param aKey
+   *        The public-facing key. Used only for error reporting.
+   * @param aValue
+   *        The value to wrap. May be <code>null</code> only if {@link #isAllowNullValues()}.
+   * @param aTimeToLive
+   *        The per-entry time to live. May not be <code>null</code> and must be strictly positive.
+   * @return Never <code>null</code>.
+   */
+  @NonNull
+  protected final CacheEntry <VALUETYPE> buildCacheEntry (final KEYTYPE aKey,
+                                                          final VALUETYPE aValue,
+                                                          @NonNull final Duration aTimeToLive)
+  {
+    _checkNullValuePolicy (aKey, aValue);
+    return CacheEntry.ofTimeToLive (aValue, m_aClockSupplier.get (), aTimeToLive);
+  }
+
+  /**
+   * Build a {@link CacheEntry} for the provided value using an explicit per-entry expiration date
+   * time. Honors the null-value policy but ignores the cache-wide TTL.
+   *
+   * @param aKey
+   *        The public-facing key. Used only for error reporting.
+   * @param aValue
+   *        The value to wrap. May be <code>null</code> only if {@link #isAllowNullValues()}.
+   * @param aExpirationDT
+   *        The per-entry expiration date time. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
+  @NonNull
+  protected final CacheEntry <VALUETYPE> buildCacheEntry (final KEYTYPE aKey,
+                                                          final VALUETYPE aValue,
+                                                          @NonNull final LocalDateTime aExpirationDT)
+  {
+    _checkNullValuePolicy (aKey, aValue);
+    return CacheEntry.ofExpirationDateTime (aValue, aExpirationDT);
+  }
+
   public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
   {
     final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue);
+    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
+  }
+
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final Duration aTimeToLive)
+  {
+    final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue, aTimeToLive);
+    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
+  }
+
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final LocalDateTime aExpirationDT)
+  {
+    final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue, aExpirationDT);
     m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
   }
 
@@ -289,11 +345,15 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   /**
    * @param aCacheEntry
    *        The entry to check. May be <code>null</code>.
-   * @return <code>true</code> if the entry exists and is expired according to the configured TTL.
+   * @return <code>true</code> if the entry exists, carries an expiration timestamp (set either by
+   *         the cache-wide TTL or per-entry via the explicit putInCache overloads) and that
+   *         timestamp has already passed.
    */
   protected final boolean isExpired (@Nullable final CacheEntry <VALUETYPE> aCacheEntry)
   {
-    return aCacheEntry != null && m_aTimeToLive != null && aCacheEntry.isExpiredAt (m_aClockSupplier.get ());
+    return aCacheEntry != null &&
+           aCacheEntry.hasExpirationDateTime () &&
+           aCacheEntry.isExpiredAt (m_aClockSupplier.get ());
   }
 
   /**
@@ -424,8 +484,11 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   }
 
   /**
-   * Remove all entries that are expired by their time-based expiration. For caches without a
-   * time-based expiration this is a no-op.
+   * Remove all entries whose per-entry expiration timestamp has passed. Honors both the cache-wide
+   * TTL and any per-entry expirations supplied via the explicit
+   * {@link #putInCache(Object, Object, Duration)} /
+   * {@link #putInCache(Object, Object, LocalDateTime)} overloads. For caches that contain no
+   * expiring entries this is effectively a no-op returning <code>0</code>.
    *
    * @return The number of entries that were removed. Always &ge; 0.
    */
@@ -433,10 +496,6 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   @OverridingMethodsMustInvokeSuper
   public int evictExpired ()
   {
-    // No time eviction enabled
-    if (m_aTimeToLive == null)
-      return 0;
-
     int nRemoved = 0;
     m_aRWLock.writeLock ().lock ();
     try

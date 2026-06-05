@@ -34,7 +34,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.state.EChange;
 import com.helger.base.string.StringHelper;
 import com.helger.base.system.SystemHelper;
-import com.helger.cache.impl.Cache;
+import com.helger.cache.impl.ProviderCache;
 import com.helger.cache.regex.RegExHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
@@ -76,7 +76,7 @@ public final class LocaleHelper
 
   private static final String LOCALE_ALL_STR = LOCALE_ALL.toString ();
   private static final String LOCALE_INDEPENDENT_STR = LOCALE_INDEPENDENT.toString ();
-  private static final Cache <Locale, List <Locale>> LOCALE_LIST_CACHE;
+  private static final ProviderCache <Locale, List <Locale>> LOCALE_LIST_CACHE;
   private static final ICommonsMap <String, String> COUNTRY_ISO3TO2 = new CommonsHashMap <> ();
 
   @PresentForCodeCoverage
@@ -84,7 +84,7 @@ public final class LocaleHelper
 
   static
   {
-    LOCALE_LIST_CACHE = Cache.<Locale, List <Locale>> builder ().valueProvider (aBaseLocale -> {
+    LOCALE_LIST_CACHE = ProviderCache.<Locale, List <Locale>> builder ().valueProvider (aBaseLocale -> {
       ValueEnforcer.notNull (aBaseLocale, "BaseLocale");
 
       // List has a maximum of 3 entries
@@ -393,8 +393,8 @@ public final class LocaleHelper
   }
 
   /**
-   * Validate and normalize a language code. Valid language codes consist of 2 to 8 ASCII letters, or
-   * are special locale codes.
+   * Validate and normalize a language code. Valid language codes consist of 2 to 8 ASCII letters,
+   * or are special locale codes.
    *
    * @param sCode
    *        The language code to validate. May be <code>null</code>.

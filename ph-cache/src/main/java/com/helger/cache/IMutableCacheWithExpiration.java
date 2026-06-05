@@ -16,6 +16,11 @@
  */
 package com.helger.cache;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
+import org.jspecify.annotations.NonNull;
+
 import com.helger.annotation.Nonnegative;
 
 /**
@@ -33,8 +38,41 @@ public interface IMutableCacheWithExpiration <KEYTYPE, VALUETYPE> extends
                                              ICacheWithExpiration <KEYTYPE, VALUETYPE>
 {
   /**
-   * Remove all entries that are expired by their time-based expiration. For caches without a
-   * time-based expiration policy this is a no-op.
+   * Put a value into the cache with an explicit per-entry time-to-live. The provided duration
+   * overrides the cache-wide TTL (if any) for this entry only; other entries are unaffected. The
+   * absolute expiration timestamp is computed as
+   * <code>getClockSupplier().get() + aTimeToLive</code> at insertion time.
+   *
+   * @param aKey
+   *        The key to be added. Usually non-<code>null</code>.
+   * @param aValue
+   *        The value to be added. Nullability follows the configured null-value policy.
+   * @param aTimeToLive
+   *        Time after which this entry is considered expired, counted from "now" as provided by
+   *        {@link #getClockSupplier()}. May not be <code>null</code> and must be strictly positive.
+   */
+  void putInCache (KEYTYPE aKey, VALUETYPE aValue, @NonNull Duration aTimeToLive);
+
+  /**
+   * Put a value into the cache that expires at the provided absolute date time. The provided
+   * timestamp overrides the cache-wide TTL (if any) for this entry only; other entries are
+   * unaffected.
+   *
+   * @param aKey
+   *        The key to be added. Usually non-<code>null</code>.
+   * @param aValue
+   *        The value to be added. Nullability follows the configured null-value policy.
+   * @param aExpirationDT
+   *        The absolute date time at which this entry is considered expired. May not be
+   *        <code>null</code>. Compared against {@link #getClockSupplier()}.
+   */
+  void putInCache (KEYTYPE aKey, VALUETYPE aValue, @NonNull LocalDateTime aExpirationDT);
+
+  /**
+   * Remove all entries whose per-entry expiration timestamp has passed. Both the cache-wide TTL and
+   * any per-entry expirations set via {@link #putInCache(Object, Object, Duration)} or
+   * {@link #putInCache(Object, Object, LocalDateTime)} are honored. For caches that contain no
+   * expiring entries this is effectively a no-op returning <code>0</code>.
    *
    * @return The number of entries removed. Always &ge; 0.
    */

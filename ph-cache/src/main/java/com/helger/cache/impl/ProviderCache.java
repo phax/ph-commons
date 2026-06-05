@@ -211,6 +211,16 @@ public class ProviderCache <KEYTYPE, VALUETYPE> implements IMutableCacheWithExpi
     m_aCache.putInCache (aKey, aValue);
   }
 
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final Duration aTimeToLive)
+  {
+    m_aCache.putInCache (aKey, aValue, aTimeToLive);
+  }
+
+  public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final LocalDateTime aExpirationDT)
+  {
+    m_aCache.putInCache (aKey, aValue, aExpirationDT);
+  }
+
   @NonNull
   public EChange removeFromCache (final KEYTYPE aKey)
   {
