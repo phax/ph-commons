@@ -71,9 +71,53 @@ public final class CertificateRevocationCheckerDefaults
   private static CRLCache s_aDefaultCRLCache = CRLCache.createDefault ();
   // Revocation checking stuff
   private static final AtomicBoolean CACHE_REVOCATION_RESULTS = new AtomicBoolean (DEFAULT_CACHE_REVOCATION_CHECK_RESULTS);
+  /**
+   * One-shot, irreversible flag used by {@link #freezeDefaults()} to reject further mutations of
+   * the process-wide revocation defaults. Trust-boundary-sensitive: see the Javadoc on
+   * {@link #freezeDefaults()}.
+   */
+  private static final AtomicBoolean FROZEN = new AtomicBoolean (false);
 
   private CertificateRevocationCheckerDefaults ()
   {}
+
+  private static void _checkNotFrozen (@NonNull final String sSetterName)
+  {
+    if (FROZEN.get ())
+      throw new IllegalStateException ("CertificateRevocationCheckerDefaults are frozen - " +
+                                       sSetterName +
+                                       " cannot be invoked anymore. Call freezeDefaults() only after all configuration is in place.");
+  }
+
+  /**
+   * Freeze the process-wide revocation defaults. After this call, all setter methods on this class
+   * (in particular {@link #setDefaultCRLCache(CRLCache)} but also the other <code>set...</code>
+   * methods) throw {@link IllegalStateException}. This is intended to be called once during
+   * application startup, after all configuration has been applied, to harden the trust boundary:
+   * any later (possibly malicious or accidental) attempt to swap the CRL cache or alter
+   * revocation-check defaults from anywhere in the same JVM is refused.
+   * <p>
+   * This is a defence-in-depth measure - it does <em>not</em> protect against in-process code that
+   * already holds a reference to the configured {@link CRLCache} and calls
+   * {@link CRLCache#setCRLOfURL(String, java.security.cert.CRL)} on it directly. To fully harden
+   * the CRL cache itself, see {@link CRLCache} for the corresponding considerations.
+   * <p>
+   * The freeze is irreversible by design; there is no <code>unfreezeDefaults()</code>.
+   */
+  public static void freezeDefaults ()
+  {
+    if (FROZEN.compareAndSet (false, true))
+      LOGGER.info ("Global CertificateRevocationCheckerDefaults are now frozen");
+  }
+
+  /**
+   * @return <code>true</code> if {@link #freezeDefaults()} has been called and further mutations of
+   *         the process-wide revocation defaults are rejected.
+   */
+  public static boolean isDefaultsFrozen ()
+  {
+    return FROZEN.get ();
+  }
 
   /**
    * @return The global revocation check mode. Never <code>null</code>. The default is
@@ -94,6 +138,7 @@ public final class CertificateRevocationCheckerDefaults
   public static void setRevocationCheckMode (@NonNull final ERevocationCheckMode eRevocationCheckMode)
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
+    _checkNotFrozen ("setRevocationCheckMode");
     RW_LOCK.writeLocked ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
     LOGGER.info ("Global CertificateRevocationChecker revocation mode was set to: " + eRevocationCheckMode);
   }
@@ -116,6 +161,7 @@ public final class CertificateRevocationCheckerDefaults
   public static void setExceptionHdl (@NonNull final Consumer <? super GeneralSecurityException> aExceptionHdl)
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
+    _checkNotFrozen ("setExceptionHdl");
     RW_LOCK.writeLocked ( () -> s_aExceptionHdl = aExceptionHdl);
   }
 
@@ -148,6 +194,7 @@ public final class CertificateRevocationCheckerDefaults
    */
   public static void setAllowSoftFail (final boolean bAllow)
   {
+    _checkNotFrozen ("setAllowSoftFail");
     ALLOW_SOFT_FAIL.set (bAllow);
     LOGGER.info ("Global CertificateRevocationChecker allows for soft fail: " + bAllow);
   }
@@ -172,6 +219,7 @@ public final class CertificateRevocationCheckerDefaults
   public static void setSoftFailExceptionHdl (@NonNull final Consumer <? super List <? extends CertPathValidatorException>> aSoftFailExceptionHdl)
   {
     ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
+    _checkNotFrozen ("setSoftFailExceptionHdl");
     RW_LOCK.writeLocked ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
   }
 
@@ -194,6 +242,7 @@ public final class CertificateRevocationCheckerDefaults
    */
   public static void setExecuteInSynchronizedBlock (final boolean bExecSync)
   {
+    _checkNotFrozen ("setExecuteInSynchronizedBlock");
     ALLOW_EXEC_SYNC.set (bExecSync);
     LOGGER.info ("Global CertificateRevocationChecker is executed synchronously: " + bExecSync);
   }
@@ -209,13 +258,22 @@ public final class CertificateRevocationCheckerDefaults
 
   /**
    * Set the default CRL cache to be used.
+   * <p>
+   * <b>Trust boundary:</b> any in-process code can call this method to swap the process-wide CRL
+   * cache. A malicious or buggy caller could install a cache that returns CRLs with an empty
+   * revoked-cert list, effectively suppressing CRL-based revocation for the whole JVM. After all
+   * legitimate configuration has been applied, call {@link #freezeDefaults()} during application
+   * startup to refuse any further mutation of this and the other revocation defaults.
    *
    * @param aCRLCache
    *        The cache to be used. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if {@link #freezeDefaults()} has already been called.
    */
   public static void setDefaultCRLCache (@NonNull final CRLCache aCRLCache)
   {
     ValueEnforcer.notNull (aCRLCache, "CRLCache");
+    _checkNotFrozen ("setDefaultCRLCache");
     RW_LOCK.writeLocked ( () -> s_aDefaultCRLCache = aCRLCache);
     LOGGER.info ("Global default CRL Cache is set to: " + aCRLCache);
   }
@@ -237,6 +295,7 @@ public final class CertificateRevocationCheckerDefaults
    */
   public static void setCacheRevocationCheckResults (final boolean bCache)
   {
+    _checkNotFrozen ("setCacheRevocationCheckResults");
     CACHE_REVOCATION_RESULTS.set (bCache);
     LOGGER.info ("Global cache revocation check results enabled: " + bCache);
   }

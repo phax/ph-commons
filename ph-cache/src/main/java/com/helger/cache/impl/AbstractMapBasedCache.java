@@ -560,12 +560,14 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   @Override
   public String toString ()
   {
+    // Intentionally NOT including the map contents: cached values can be sensitive (CRLs,
+    // certificates, settings, JAXBContexts, ...) and the cache's toString may end up in logs.
     return ToStringGenerator.getDerived (super.toString ())
                             .append ("MaxSize", m_nMaxSize)
                             .append ("AllowNullValues", m_bAllowNullValues)
                             .appendIfNotNull ("TimeToLive", m_aTimeToLive)
                             .append ("ClockSupplier", m_aClockSupplier)
-                            .append ("Map", m_aMap)
+                            .append ("Size", size ())
                             .getToString ();
   }
 }

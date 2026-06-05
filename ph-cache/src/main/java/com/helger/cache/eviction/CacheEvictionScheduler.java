@@ -40,10 +40,11 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * A process-wide scheduler that periodically calls {@link IMutableCacheWithExpiration#evictExpired()}
- * on registered caches. One single daemon thread serves all registered caches; the underlying
- * executor is started lazily on the first {@link #register(IMutableCacheWithExpiration, Duration)}
- * call and shut down when the last cache is unregistered.
+ * A process-wide scheduler that periodically calls
+ * {@link IMutableCacheWithExpiration#evictExpired()} on registered caches. One single daemon thread
+ * serves all registered caches; the underlying executor is started lazily on the first
+ * {@link #register(IMutableCacheWithExpiration, Duration)} call and shut down when the last cache
+ * is unregistered.
  *
  * @author Philip Helger
  * @since 12.3.0
@@ -54,6 +55,13 @@ public final class CacheEvictionScheduler
 {
   /** Name pattern for the scheduler thread. */
   public static final String THREAD_NAME_PATTERN = "ph-cache-evictor-%d";
+
+  /**
+   * Minimum eviction interval accepted by {@link #register(IMutableCacheWithExpiration, Duration)}.
+   * Intervals shorter than this are rejected to prevent a misconfigured cache from starving the
+   * shared eviction thread (and thereby every other registered cache).
+   */
+  public static final Duration MIN_EVICTION_INTERVAL = Duration.ofSeconds (1);
 
   private static final Logger LOGGER = LoggerFactory.getLogger (CacheEvictionScheduler.class);
 
@@ -119,15 +127,18 @@ public final class CacheEvictionScheduler
    * @param aCache
    *        The cache to register. May not be <code>null</code>.
    * @param aInterval
-   *        The interval between successive {@link IMutableCacheWithExpiration#evictExpired()} calls.
-   *        Must be positive and non-<code>null</code>.
+   *        The interval between successive {@link IMutableCacheWithExpiration#evictExpired()}
+   *        calls. Must be positive and non-<code>null</code>.
    */
   public void register (@NonNull final IMutableCacheWithExpiration <?, ?> aCache, @NonNull final Duration aInterval)
   {
     ValueEnforcer.notNull (aCache, "Cache");
     ValueEnforcer.notNull (aInterval, "Interval");
-    ValueEnforcer.isFalse (aInterval::isZero, "Interval must not be zero");
-    ValueEnforcer.isFalse (aInterval::isNegative, "Interval must not be negative");
+    if (aInterval.compareTo (MIN_EVICTION_INTERVAL) < 0)
+      throw new IllegalArgumentException ("Interval must be at least " +
+                                          MIN_EVICTION_INTERVAL +
+                                          " to avoid starving the shared scheduler thread, but got " +
+                                          aInterval);
 
     m_aRWLock.writeLock ().lock ();
     try
@@ -177,6 +188,10 @@ public final class CacheEvictionScheduler
   {
     ValueEnforcer.notNull (aCache, "Cache");
 
+    // Detach the executor from the member field under the write lock so concurrent register/
+    // unregister calls see a consistent state, then await termination outside the lock so other
+    // scheduler operations are not blocked for the duration of the shutdown wait.
+    ScheduledExecutorService aExecutorToShutdown = null;
     m_aRWLock.writeLock ().lock ();
     try
     {
@@ -190,17 +205,23 @@ public final class CacheEvictionScheduler
 
       if (m_aRegistrations.isEmpty () && m_aExecutor != null)
       {
-        ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (m_aExecutor);
+        aExecutorToShutdown = m_aExecutor;
         m_aExecutor = null;
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Stopped cache eviction scheduler thread");
       }
-      return EChange.CHANGED;
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
     }
+
+    if (aExecutorToShutdown != null)
+    {
+      // Do outside the lock
+      ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecutorToShutdown);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Stopped cache eviction scheduler thread");
+    }
+    return EChange.CHANGED;
   }
 
   /**
@@ -209,6 +230,7 @@ public final class CacheEvictionScheduler
    */
   public void shutdown ()
   {
+    ScheduledExecutorService aExecutorToShutdown = null;
     m_aRWLock.writeLock ().lock ();
     try
     {
@@ -218,15 +240,20 @@ public final class CacheEvictionScheduler
 
       if (m_aExecutor != null)
       {
-        ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (m_aExecutor);
+        aExecutorToShutdown = m_aExecutor;
         m_aExecutor = null;
-        if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("Cache eviction scheduler shut down");
       }
     }
     finally
     {
       m_aRWLock.writeLock ().unlock ();
+    }
+
+    if (aExecutorToShutdown != null)
+    {
+      ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecutorToShutdown);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Cache eviction scheduler shut down");
     }
   }
 }

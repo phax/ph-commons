@@ -84,16 +84,16 @@ public final class CacheEvictionSchedulerTest
     assertEquals (2, c.size ());
 
     final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
-    aScheduler.register (c, Duration.ofMillis (50));
+    aScheduler.register (c, CacheEvictionScheduler.MIN_EVICTION_INTERVAL);
     try
     {
       // Advance the cache's clock so its entries are expired
       aNow.set (aNow.get ().plusSeconds (1));
 
-      // Wait up to ~2s for the scheduler thread to run an eviction
-      final long nDeadline = System.currentTimeMillis () + 2_000;
+      // Wait up to ~4s for the scheduler thread (which fires at the min eviction interval) to run
+      final long nDeadline = System.currentTimeMillis () + 4_000;
       while (c.size () > 0 && System.currentTimeMillis () < nDeadline)
-        Thread.sleep (25);
+        Thread.sleep (50);
 
       assertEquals ("Scheduler should have evicted both entries", 0, c.size ());
     }
@@ -101,6 +101,23 @@ public final class CacheEvictionSchedulerTest
     {
       aScheduler.unregister (c);
     }
+  }
+
+  @Test
+  public void testRegisterRejectsSubMinimumInterval ()
+  {
+    final CacheEvictionScheduler aScheduler = CacheEvictionScheduler.getInstance ();
+    final var c = ManualCache.builder ().name ("SchedTooFast").expireAfterWrite (Duration.ofSeconds (10)).build ();
+    try
+    {
+      aScheduler.register (c, Duration.ofMillis (500));
+      fail ("Sub-minimum interval should have been rejected");
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+    assertEquals (0, aScheduler.getRegistrationCount ());
   }
 
   @Test

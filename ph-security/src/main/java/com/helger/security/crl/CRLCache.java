@@ -181,6 +181,15 @@ public class CRLCache
 
   /**
    * Allow to manually add a downloaded CRL into the cache, for the provided URL.
+   * <p>
+   * <b>Trust boundary:</b> this method bypasses the {@link CRLDownloader} and stores the provided
+   * {@link CRL} verbatim. Any in-process caller that obtains a reference to this cache can use
+   * this method (or the inherited {@code putInCache(...)} overloads) to plant an arbitrary
+   * {@link CRL} - including one with an empty revoked-cert list - and thereby subvert CRL-based
+   * revocation checking for the affected URL. The PKIX validator only enforces the cached CRL's
+   * {@code nextUpdate} field; CRL signature / issuer validation must happen <em>before</em> a CRL
+   * is handed to this method. Treat this method as a privileged API and only call it with CRLs
+   * obtained from a trusted source.
    *
    * @param sCRLURL
    *        The URL for which the cached URL should be used. May neither be <code>null</code> nor

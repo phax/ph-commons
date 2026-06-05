@@ -118,7 +118,9 @@ class CacheBuilderBase <IMPLTYPE extends CacheBuilderBase <IMPLTYPE>> implements
   /**
    * Register the built cache with the shared {@link CacheEvictionScheduler} so that expired entries
    * are actively removed on the provided interval. Requires {@link #expireAfterWrite(Duration)} to
-   * be set; otherwise there is nothing to evict.
+   * be set; otherwise there is nothing to evict. Positive intervals must be at least
+   * {@link CacheEvictionScheduler#MIN_EVICTION_INTERVAL}; shorter positive intervals are rejected by
+   * {@link #build()} to prevent starving the shared scheduler thread.
    *
    * @param a
    *        The eviction interval. May be <code>null</code>, zero or negative to disable background
