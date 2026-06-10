@@ -21,20 +21,17 @@ import java.time.Duration;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
-import com.helger.cache.impl.MappedCache;
-import com.helger.datetime.expiration.ExpiringObject;
+import com.helger.cache.impl.MappedKeyProviderCache;
 
 /**
- * An revocation cache that checks the revocation status of each certificate and
- * keeps the status for a provided duration.
+ * An revocation cache that checks the revocation status of each certificate and keeps the status
+ * for a provided duration.
  *
  * @author Philip Helger
  * @since 11.2.0
@@ -44,11 +41,9 @@ public class RevocationCheckResultCache
 {
   public static final int DEFAULT_MAX_SIZE = 1_000;
 
-  private static final Logger LOGGER = LoggerFactory.getLogger (RevocationCheckResultCache.class);
-
-  private final MappedCache <X509Certificate, String, ExpiringObject <ERevoked>> m_aCache;
   private final Function <X509Certificate, ERevoked> m_aRevocationChecker;
   private final Duration m_aCachingDuration;
+  private final MappedKeyProviderCache <X509Certificate, String, ERevoked> m_aCache;
 
   @NonNull
   private static String _getKey (@NonNull final X509Certificate aCert)
@@ -64,11 +59,11 @@ public class RevocationCheckResultCache
    * Constructor using the {@link #DEFAULT_MAX_SIZE} as the maximum cache size.
    *
    * @param aRevocationChecker
-   *        The function that checks revocation status for a given certificate.
-   *        May not be <code>null</code>.
+   *        The function that checks revocation status for a given certificate. May not be
+   *        <code>null</code>.
    * @param aCachingDuration
-   *        The duration to cache each revocation check result. May not be
-   *        <code>null</code> and must not be negative.
+   *        The duration to cache each revocation check result. May not be <code>null</code> and
+   *        must not be negative.
    */
   public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                      @NonNull final Duration aCachingDuration)
@@ -80,14 +75,13 @@ public class RevocationCheckResultCache
    * Constructor with explicit maximum cache size.
    *
    * @param aRevocationChecker
-   *        The function that checks revocation status for a given certificate.
-   *        May not be <code>null</code>.
+   *        The function that checks revocation status for a given certificate. May not be
+   *        <code>null</code>.
    * @param aCachingDuration
-   *        The duration to cache each revocation check result. May not be
-   *        <code>null</code> and must not be negative.
+   *        The duration to cache each revocation check result. May not be <code>null</code> and
+   *        must not be negative.
    * @param nMaxSize
-   *        The maximum number of entries in the cache. Values &le; 0 mean no
-   *        maximum size.
+   *        The maximum number of entries in the cache. Values &le; 0 mean no maximum size.
    */
   public RevocationCheckResultCache (@NonNull final Function <X509Certificate, ERevoked> aRevocationChecker,
                                      @NonNull final Duration aCachingDuration,
@@ -96,18 +90,20 @@ public class RevocationCheckResultCache
     ValueEnforcer.notNull (aCachingDuration, "CachingDuration");
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
-    final boolean bAllowNullValues = false;
-    m_aCache = new MappedCache <> (RevocationCheckResultCache::_getKey, cert -> {
-      final ERevoked eRevoked = aRevocationChecker.apply (cert);
-      return ExpiringObject.ofDuration (eRevoked, aCachingDuration);
-    }, nMaxSize, "CertificateRevocationCache", bAllowNullValues);
     m_aRevocationChecker = aRevocationChecker;
     m_aCachingDuration = aCachingDuration;
+    m_aCache = MappedKeyProviderCache.<X509Certificate, String, ERevoked> builder ()
+                                     .name ("CertificateRevocationCache")
+                                     .maxSize (nMaxSize)
+                                     .expireAfterWrite (m_aCachingDuration)
+                                     .keyMapper (RevocationCheckResultCache::_getKey)
+                                     .valueProvider (m_aRevocationChecker::apply)
+                                     .build ();
   }
 
   /**
-   * @return The revocation checker function as provided in the constructor.
-   *         Never <code>null</code>.
+   * @return The revocation checker function as provided in the constructor. Never
+   *         <code>null</code>.
    */
   @NonNull
   public final Function <X509Certificate, ERevoked> getRevocationChecker ()
@@ -116,8 +112,7 @@ public class RevocationCheckResultCache
   }
 
   /**
-   * @return The caching duration as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The caching duration as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final Duration getCachingDuration ()
@@ -132,8 +127,8 @@ public class RevocationCheckResultCache
    *
    * @param aCert
    *        The certificate to check. May not be <code>null</code>.
-   * @return The revocation status. Never <code>null</code>. Returns {@link ERevoked#UNKNOWN} if
-   *         the underlying check could not determine the status (e.g. CRL endpoint unreachable).
+   * @return The revocation status. Never <code>null</code>. Returns {@link ERevoked#UNKNOWN} if the
+   *         underlying check could not determine the status (e.g. CRL endpoint unreachable).
    * @since 12.2.4
    */
   @NonNull
@@ -141,31 +136,19 @@ public class RevocationCheckResultCache
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
-    // Cannot return null
-    ExpiringObject <ERevoked> aObject = m_aCache.getFromCache (aCert);
-    // maximum life time check
-    if (aObject.isExpiredNow ())
-    {
-      LOGGER.info ("The cached entry for certificate '" + _getKey (aCert) + "' is expired and needs to be re-fetched.");
-
-      // Object expired - re-fetch
-      m_aCache.removeFromCache (aCert);
-      aObject = m_aCache.getFromCache (aCert);
-    }
-    return aObject.getObject ();
+    return m_aCache.getFromCache (aCert);
   }
 
   /**
-   * Check whether the provided certificate is revoked. The result is cached for
-   * the configured caching duration. If the cached entry is expired, it is
-   * automatically re-fetched.
+   * Check whether the provided certificate is revoked. The result is cached for the configured
+   * caching duration. If the cached entry is expired, it is automatically re-fetched.
    *
    * @param aCert
    *        The certificate to check. May not be <code>null</code>.
-   * @return <code>true</code> if the certificate is revoked,
-   *         <code>false</code> if not. Note that "not revoked" also covers the
-   *         {@link ERevoked#UNKNOWN} case - use {@link #getRevocationStatus(X509Certificate)} to
-   *         distinguish "verified not revoked" from "could not be determined".
+   * @return <code>true</code> if the certificate is revoked, <code>false</code> if not. Note that
+   *         "not revoked" also covers the {@link ERevoked#UNKNOWN} case - use
+   *         {@link #getRevocationStatus(X509Certificate)} to distinguish "verified not revoked"
+   *         from "could not be determined".
    */
   public boolean isRevoked (@NonNull final X509Certificate aCert)
   {
@@ -187,9 +170,9 @@ public class RevocationCheckResultCache
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("Cache", m_aCache)
-                                       .append ("RevocationChecker", m_aRevocationChecker)
+    return new ToStringGenerator (null).append ("RevocationChecker", m_aRevocationChecker)
                                        .append ("CachingDuration", m_aCachingDuration)
+                                       .append ("Cache", m_aCache)
                                        .getToString ();
   }
 }

@@ -16,6 +16,9 @@
  */
 package com.helger.cache;
 
+import org.jspecify.annotations.Nullable;
+
+import com.helger.annotation.CheckForSigned;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.name.IHasName;
 
@@ -55,6 +58,7 @@ public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
    *        implementation.
    * @return <code>null</code> if no such value is in the cache.
    */
+  @Nullable
   VALUETYPE getFromCache (KEYTYPE aKey);
 
   /**
@@ -63,6 +67,7 @@ public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
    * @since 12.3.0 in this interface
    * @see #hasMaxSize()
    */
+  @CheckForSigned
   int getMaxSize ();
 
   /**
