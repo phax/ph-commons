@@ -42,7 +42,7 @@ public class RevocationCheckResultCache
   public static final int DEFAULT_MAX_SIZE = 1_000;
 
   private final Function <X509Certificate, ERevoked> m_aRevocationChecker;
-  private final Duration m_aCachingDuration;
+  private final Duration m_aTimeToLive;
   private final MappedKeyProviderCache <X509Certificate, String, ERevoked> m_aCache;
 
   @NonNull
@@ -91,11 +91,12 @@ public class RevocationCheckResultCache
     ValueEnforcer.isFalse (aCachingDuration::isNegative, "CachingDuration must not be negative");
 
     m_aRevocationChecker = aRevocationChecker;
-    m_aCachingDuration = aCachingDuration;
+    m_aTimeToLive = aCachingDuration;
     m_aCache = MappedKeyProviderCache.<X509Certificate, String, ERevoked> builder ()
                                      .name ("CertificateRevocationCache")
                                      .maxSize (nMaxSize)
-                                     .expireAfterWrite (m_aCachingDuration)
+                                     .expireAfterWrite (m_aTimeToLive)
+                                     .evictionInterval (Duration.ofMinutes (1))
                                      .keyMapper (RevocationCheckResultCache::_getKey)
                                      .valueProvider (m_aRevocationChecker::apply)
                                      .build ();
@@ -117,7 +118,7 @@ public class RevocationCheckResultCache
   @NonNull
   public final Duration getCachingDuration ()
   {
-    return m_aCachingDuration;
+    return m_aTimeToLive;
   }
 
   /**
@@ -171,7 +172,7 @@ public class RevocationCheckResultCache
   public String toString ()
   {
     return new ToStringGenerator (null).append ("RevocationChecker", m_aRevocationChecker)
-                                       .append ("CachingDuration", m_aCachingDuration)
+                                       .append ("CachingDuration", m_aTimeToLive)
                                        .append ("Cache", m_aCache)
                                        .getToString ();
   }

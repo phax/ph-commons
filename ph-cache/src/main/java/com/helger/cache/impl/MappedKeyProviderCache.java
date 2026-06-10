@@ -83,7 +83,7 @@ public class MappedKeyProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> extends
                                  @NonNull final Function <KEYTYPE, KEYSTORETYPE> aKeyMapper,
                                  @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider)
   {
-    super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier, aValueProvider);
+    super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, null, aClockSupplier, aValueProvider);
     ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
     m_aKeyMapper = aKeyMapper;
   }

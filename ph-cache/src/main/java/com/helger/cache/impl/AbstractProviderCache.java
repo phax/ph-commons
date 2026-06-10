@@ -72,6 +72,9 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
    *        Time after which a cache entry is considered expired (counted from the time it was put
    *        in the cache). May be <code>null</code> or zero or negative to disable time-based
    *        expiration.
+   * @param aEvictionInterval
+   *        The eviction interval. May be <code>null</code>, zero or negative to disable background
+   *        eviction.
    * @param aClockSupplier
    *        The clock supplier. May not be <code>null</code>.
    * @param aValueProvider
@@ -82,11 +85,20 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
                                    @CheckForSigned final int nMaxSize,
                                    final boolean bAllowNullValues,
                                    @Nullable final Duration aTimeToLive,
+                                   @Nullable final Duration aEvictionInterval,
                                    @NonNull final Supplier <LocalDateTime> aClockSupplier,
                                    @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider)
   {
     ValueEnforcer.notNull (aValueProvider, "ValueProvider");
-    m_aCache = new ManualCache <> (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier);
+    // Use the builder, to register for cache eviction
+    m_aCache = ManualCache.<KEYSTORETYPE, VALUETYPE> builder ()
+                          .name (sCacheName)
+                          .maxSize (nMaxSize)
+                          .allowNullValues (bAllowNullValues)
+                          .expireAfterWrite (aTimeToLive)
+                          .evictionInterval (aEvictionInterval)
+                          .clockSupplier (aClockSupplier)
+                          .build ();
     m_aValueProvider = aValueProvider;
   }
 

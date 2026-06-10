@@ -71,7 +71,7 @@ public class ProviderCache <KEYTYPE, VALUETYPE> extends AbstractProviderCache <K
                         @NonNull final Supplier <LocalDateTime> aClockSupplier,
                         @NonNull final Function <KEYTYPE, VALUETYPE> aValueProvider)
   {
-    super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier, aValueProvider);
+    super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, null, aClockSupplier, aValueProvider);
   }
 
   @Override
