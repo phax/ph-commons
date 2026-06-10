@@ -399,8 +399,8 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
 
   /**
    * Get a value from the cache. Returns <code>null</code> if the key is not in the cache or its
-   * entry has expired. Subclasses (notably {@link MappedCache}) may override this method to
-   * automatically resolve missing values via a value provider.
+   * entry has expired. Subclasses (notably {@link AbstractProviderCache}) may override this method
+   * to automatically resolve missing values via a value provider.
    *
    * @param aKey
    *        The key to look up.
