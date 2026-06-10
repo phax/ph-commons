@@ -63,7 +63,7 @@ import com.helger.xml.sax.StringSAXInputSource;
  * individual tests for the raw values):
  * <ul>
  * <li><strong>{@code ContentHandler.declaration()} is the reliable signal.</strong> It is called
- * exactly once iff an XML declaration is present, and the parameter values reflect the literal
+ * exactly once if an XML declaration is present, and the parameter values reflect the literal
  * declaration content.</li>
  * <li>{@code processingInstruction()} is not called for the XML declaration; {@link LexicalHandler}
  * has no matching callback; {@link DeclHandler} only fires for DTD-internal declarations.</li>

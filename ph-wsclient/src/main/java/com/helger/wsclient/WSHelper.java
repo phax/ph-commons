@@ -25,7 +25,7 @@ import com.helger.base.system.SystemProperties;
 import jakarta.xml.ws.handler.MessageContext;
 
 /**
- * Helper class for Webservice invocations and servics
+ * Helper class for Webservice invocations and services
  *
  * @author Philip Helger
  */
@@ -36,13 +36,11 @@ public final class WSHelper
   {}
 
   /**
-   * Enable the JAX-WS SOAP debugging (server and client). This shows the
-   * exchanged SOAP messages in the log file. By default this logging is
-   * disabled.
+   * Enable the JAX-WS SOAP debugging (server and client). This shows the exchanged SOAP messages in
+   * the log file. By default this logging is disabled.
    *
    * @param bDebug
-   *        <code>true</code> to enable debugging, <code>false</code> to disable
-   *        it.
+   *        <code>true</code> to enable debugging, <code>false</code> to disable it.
    */
   public static void enableSoapLogging (final boolean bDebug)
   {
@@ -50,15 +48,13 @@ public final class WSHelper
   }
 
   /**
-   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in
-   * the log file. By default this logging is disabled.
+   * Enable the JAX-WS SOAP debugging. This shows the exchanged SOAP messages in the log file. By
+   * default this logging is disabled.
    *
    * @param bServerDebug
-   *        <code>true</code> to enable server debugging, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable server debugging, <code>false</code> to disable it.
    * @param bClientDebug
-   *        <code>true</code> to enable client debugging, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable client debugging, <code>false</code> to disable it.
    */
   public static void enableSoapLogging (final boolean bServerDebug, final boolean bClientDebug)
   {
@@ -83,13 +79,12 @@ public final class WSHelper
   }
 
   /**
-   * Enable advanced JAX-WS debugging on more or less all relevant layers. This
-   * method internally calls {@link #enableSoapLogging(boolean)} so it does not
-   * need to be called explicitly. By default all this logging is disabled.
+   * Enable advanced JAX-WS debugging on more or less all relevant layers. This method internally
+   * calls {@link #enableSoapLogging(boolean)} so it does not need to be called explicitly. By
+   * default all this logging is disabled.
    *
    * @param bDebug
-   *        <code>true</code> to enabled debugging, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enabled debugging, <code>false</code> to disable it.
    */
   public static void setMetroDebugSystemProperties (final boolean bDebug)
   {
@@ -100,14 +95,17 @@ public final class WSHelper
     // "Classname" + ".property"
     SystemProperties.setPropertyValue ("com.sun.xml.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
     // "Classname" + ".property"
-    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.internal.ws.transport.http.HttpAdapter.dump",
+                                       Boolean.toString (bDebug));
     // "Classname" + ".property"
-    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.captureStackTrace", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.ws.fault.SOAPFaultBuilder.captureStackTrace",
+                                       Boolean.toString (bDebug));
 
     // Defined in com.sun.xml.ws.assembler.MetroTubelineAssembler
     SystemProperties.setPropertyValue ("com.sun.metro.soap.dump", Boolean.toString (bDebug));
 
-    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump", Boolean.toString (bDebug));
+    SystemProperties.setPropertyValue ("com.sun.xml.wss.provider.wsit.SecurityTubeFactory.dump",
+                                       Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityServerTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.wss.jaxws.impl.SecurityClientTube.dump", Boolean.toString (bDebug));
     SystemProperties.setPropertyValue ("com.sun.xml.ws.rx.rm.runtime.ClientTube.dump", Boolean.toString (bDebug));
