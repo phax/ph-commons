@@ -16,7 +16,11 @@
  */
 package com.helger.security.certificate;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.security.KeyPair;
 import java.security.cert.X509Certificate;
@@ -44,6 +48,7 @@ public final class TrustedCACheckerTest
   {
     final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
     final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+
     final KeyPair aEEKeyPair = MockCertificateHelper.createKeyPair ();
     final X509Certificate aEECert = MockCertificateHelper.createEndEntityWithCRLDP (aCACert,
                                                                                     aCAKeyPair.getPrivate (),
@@ -55,10 +60,12 @@ public final class TrustedCACheckerTest
     CertificateRevocationCheckerDefaults.setDefaultCRLCache (MockCertificateHelper.createAlwaysFailingCRLCache ());
     try
     {
-      final TrustedCAChecker aChecker = new TrustedCAChecker (ERevocationCheckMode.CRL,
-                                                              Duration.ofMinutes (1),
-                                                              10,
-                                                              aCACert);
+      final TrustedCAChecker aChecker = TrustedCAChecker.builder ()
+                                                        .checkMode (ERevocationCheckMode.CRL)
+                                                        .cachingDuration (Duration.ofMinutes (1))
+                                                        .cacheMaxSize (10)
+                                                        .trustedCACertificates (aCACert)
+                                                        .build ();
       // Force caching ON so we go through RevocationCheckResultCache.getRevocationStatus.
       final ECertificateCheckResult eResult = aChecker.checkCertificate (aEECert,
                                                                          null,
@@ -68,7 +75,78 @@ public final class TrustedCACheckerTest
     }
     finally
     {
+      // Restore previous cache
       CertificateRevocationCheckerDefaults.setDefaultCRLCache (aPreviousCache);
+    }
+  }
+
+  @Test
+  public void testBuilderDefaults () throws Exception
+  {
+    final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+
+    final TrustedCAChecker aChecker = TrustedCAChecker.builder ().trustedCACertificates (aCACert).build ();
+    assertNotNull (aChecker);
+    assertNotNull (aChecker.getRevocationCache ());
+    // Default is taken from the global defaults
+    assertTrue (CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock () ==
+                aChecker.isSynchronizedRevocationCheck ());
+  }
+
+  @Test
+  public void testBuilderSynchronizedRevocationCheck () throws Exception
+  {
+    final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+
+    final TrustedCAChecker aCheckerSync = TrustedCAChecker.builder ()
+                                                          .checkMode (ERevocationCheckMode.CRL)
+                                                          .cachingDuration (Duration.ofMinutes (1))
+                                                          .cacheMaxSize (10)
+                                                          .synchronizedRevocationCheck (true)
+                                                          .trustedCACertificates (aCACert)
+                                                          .build ();
+    assertTrue (aCheckerSync.isSynchronizedRevocationCheck ());
+
+    final TrustedCAChecker aCheckerNoSync = TrustedCAChecker.builder ()
+                                                            .checkMode (ERevocationCheckMode.CRL)
+                                                            .cachingDuration (Duration.ofMinutes (1))
+                                                            .cacheMaxSize (10)
+                                                            .synchronizedRevocationCheck (false)
+                                                            .trustedCACertificates (aCACert)
+                                                            .build ();
+    assertFalse (aCheckerNoSync.isSynchronizedRevocationCheck ());
+  }
+
+  @Test
+  public void testBuilderNoCACertificatesFails ()
+  {
+    try
+    {
+      TrustedCAChecker.builder ().build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // Expected, because at least one trusted CA certificate is required
+    }
+  }
+
+  @Test
+  public void testBuilderNegativeCachingDurationFails () throws Exception
+  {
+    final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+
+    try
+    {
+      TrustedCAChecker.builder ().cachingDuration (Duration.ofMinutes (-1)).trustedCACertificates (aCACert).build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // Expected, because the caching duration must not be negative
     }
   }
 }
