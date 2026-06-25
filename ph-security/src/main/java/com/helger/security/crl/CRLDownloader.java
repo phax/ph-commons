@@ -136,7 +136,7 @@ public class CRLDownloader
       {
         aSW.stop ();
         if (aSW.getMillis () > 1_000)
-          LOGGER.info ("Downloading the CRL from '" +
+          LOGGER.warn ("Downloading the CRL from '" +
                        sCRLURL +
                        "' took " +
                        aSW.getMillis () +
