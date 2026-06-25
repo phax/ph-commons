@@ -496,12 +496,13 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
     // Check date may be null
 
     // Run it
-    if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Performing certificate revocation check on certificate '" +
-                    m_aCert.getSubjectX500Principal ().getName () +
-                    "' " +
-                    (m_aCheckDate != null ? "for datetime " + m_aCheckDate : "without a datetime") +
-                    (bExecuteSync ? " [synchronized]" : " [not synchronized]"));
+    LOGGER.info ("Performing certificate revocation check on certificate '" +
+                 m_aCert.getSubjectX500Principal ().getName () +
+                 "' " +
+                 (m_aCheckDate != null ? "for datetime " + m_aCheckDate : "without a datetime") +
+                 " in mode " +
+                 eRealCheckMode +
+                 (bExecuteSync ? " [synchronized]" : " [not synchronized]"));
 
     // Tracks whether all CRL distribution points listed in the certificate failed to download.
     // Used to distinguish "could not determine status" from "is revoked" when the PKIX validator
@@ -679,11 +680,12 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
       // identify this case in two ways:
       // (a) the JDK gave us a CertPathValidatorException with UNDETERMINED_REVOCATION_STATUS, or
       // (b) we already know that every CRL distribution point download failed and CRL was the only
-      //     revocation source we were configured to consult - the JDK's CertPathBuilder swallows
-      //     the underlying revocation reason in that case and reports a generic "unable to find
-      //     valid certification path".
+      // revocation source we were configured to consult - the JDK's CertPathBuilder swallows
+      // the underlying revocation reason in that case and reports a generic "unable to find
+      // valid certification path".
       final boolean bUndetermined = ex instanceof final CertPathValidatorException aCPVEx &&
-                                    aCPVEx.getReason () == CertPathValidatorException.BasicReason.UNDETERMINED_REVOCATION_STATUS;
+                                    aCPVEx.getReason () ==
+                                                                                             CertPathValidatorException.BasicReason.UNDETERMINED_REVOCATION_STATUS;
       if (bUndetermined || (aCRLDownloadFailed.get () && eRealCheckMode == ERevocationCheckMode.CRL))
       {
         LOGGER.warn ("Certificate revocation status could not be determined: " +
@@ -705,10 +707,18 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
     {
       final long nMillis = aSW.stopAndGetMillis ();
       if (m_aExecutionDurationWarn != null && nMillis > m_aExecutionDurationWarn.toMillis ())
-        LOGGER.warn ("OCSP/CRL revocation check took " + nMillis + " milliseconds which is too long");
+        LOGGER.warn ("OCSP/CRL revocation check (mode: " +
+                     eRealCheckMode +
+                     "; CRL DL failed: " +
+                     aCRLDownloadFailed.get () +
+                     ") took " +
+                     nMillis +
+                     " milliseconds which is too long (barrier: " +
+                     m_aExecutionDurationWarn.toMillis () +
+                     " ms)");
       else
         if (LOGGER.isDebugEnabled ())
-          LOGGER.debug ("OCSP/CRL revocation check took " + nMillis + " milliseconds");
+          LOGGER.debug ("OCSP/CRL revocation check (" + eRealCheckMode + ") took " + nMillis + " milliseconds");
     }
   }
 }
