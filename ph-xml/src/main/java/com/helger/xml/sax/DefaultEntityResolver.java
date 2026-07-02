@@ -33,6 +33,15 @@ import com.helger.xml.ls.SimpleLSResourceResolver;
 /**
  * A simple version of {@link EntityResolver} using
  * {@link SimpleLSResourceResolver} with a base URL.
+ * <p>
+ * <b>Security warning:</b> this resolver performs <b>unrestricted</b> resolution of the passed
+ * system ID via {@link DefaultResourceResolver}. Absolute system IDs using remote schemes (such as
+ * <code>http</code>, <code>https</code> or <code>ftp</code>) are fetched as-is, which is a Server
+ * Side Request Forgery (SSRF) primitive. Do <b>not</b> install this resolver when parsing untrusted
+ * XML, and do not combine it with a parser that has DOCTYPE declarations and external entities
+ * re-enabled. The default parser configuration in
+ * {@link com.helger.xml.XMLFactory} disallows DOCTYPE declarations and external entities, so this
+ * resolver is not invoked for external entities under the default (secure) settings.
  *
  * @author Philip Helger
  * @since 8.6.5
