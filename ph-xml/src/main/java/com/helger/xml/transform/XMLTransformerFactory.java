@@ -93,6 +93,26 @@ public final class XMLTransformerFactory
     }
   }
 
+  private static void _setSecureAttribute (@NonNull final TransformerFactory aFactory,
+                                           @NonNull final String sAttribute,
+                                           @NonNull final String sValue)
+  {
+    try
+    {
+      aFactory.setAttribute (sAttribute, sValue);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Attribute not supported by this implementation
+      LOGGER.warn ("Failed to set attribute " +
+                   sAttribute +
+                   " to '" +
+                   sValue +
+                   "' on XML TransformerFactory: " +
+                   ex.getMessage ());
+    }
+  }
+
   /**
    * Set the secure processing feature to a {@link TransformerFactory}. See
    * https://docs.oracle.com/javase/tutorial/jaxp/properties/properties.html for details.
@@ -100,7 +120,10 @@ public final class XMLTransformerFactory
    * @param aFactory
    *        The factory to secure. May not be <code>null</code>.
    * @param aAllowedExternalSchemes
-   *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http")
+   *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http").
+   *        If none is provided, all external DTD and stylesheet access is denied to prevent Server
+   *        Side Request Forgery (SSRF) via <code>document()</code>, <code>xsl:import</code> or
+   *        <code>xsl:include</code>.
    * @since 9.1.2
    */
   public static void makeTransformerFactorySecure (@NonNull final TransformerFactory aFactory,
@@ -111,19 +134,18 @@ public final class XMLTransformerFactory
     try
     {
       aFactory.setFeature (XMLConstants.FEATURE_SECURE_PROCESSING, true);
-
-      final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
-      if (sCombinedSchemes.length () > 0)
-      {
-        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
-        aFactory.setAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
-        // external schema is unknown
-      }
     }
     catch (final TransformerConfigurationException ex)
     {
       throw new InitializationException ("Failed to secure XML TransformerFactory", ex);
     }
+
+    // Restrict external DTD and stylesheet access to the explicitly allowed schemes.
+    // An empty String (no scheme provided) denies all external access.
+    final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+    _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
+    _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
+    // external schema is unknown
   }
 
   /**
