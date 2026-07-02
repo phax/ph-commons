@@ -94,8 +94,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    * Constructor.
    *
    * @param aWriter
-   *        The writer to emit XML to. May not be <code>null</code>. Will not
-   *        be closed by this class.
+   *        The writer to emit XML to. May not be <code>null</code>. Will not be closed by this
+   *        class.
    * @param aSettings
    *        The XML writer settings to use. May not be <code>null</code>.
    */
@@ -393,6 +393,15 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onProcessingInstruction (@NonNull final String sTarget, @Nullable final String sData)
   {
+    // Neither target nor data may contain the PI end marker "?>" as that would
+    // allow breaking out of the processing instruction (XML injection)
+    if (sTarget.contains (PI_END))
+      throw new IllegalArgumentException ("XML processing instruction target contains PI end marker: '" +
+                                          sTarget +
+                                          "'");
+    if (sData != null && sData.contains (PI_END))
+      throw new IllegalArgumentException ("XML processing instruction data contains PI end marker: '" + sData + "'");
+
     _append (PI_START)._append (sTarget);
     if (StringHelper.isNotEmpty (sData))
       _append (' ')._append (sData);
@@ -545,8 +554,7 @@ public class XMLEmitter implements AutoCloseable, Flushable
   }
 
   /**
-   * Emit the opening part of an element start tag (the '&lt;' and element
-   * name).
+   * Emit the opening part of an element start tag (the '&lt;' and element name).
    *
    * @param sNamespacePrefix
    *        Optional namespace prefix. May be <code>null</code>.
