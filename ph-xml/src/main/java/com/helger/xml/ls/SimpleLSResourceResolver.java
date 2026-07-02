@@ -17,6 +17,7 @@
 package com.helger.xml.ls;
 
 import java.lang.ref.WeakReference;
+import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -26,9 +27,14 @@ import org.w3c.dom.ls.LSInput;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
+import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.IHasClassLoader;
+import com.helger.base.string.StringHelper;
+import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
+import com.helger.xml.XMLResourceSchemeHelper;
 
 /**
  * A simple LS resource resolver that can handle URLs, JAR files and file system
@@ -41,6 +47,9 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
   private static final Logger LOGGER = LoggerFactory.getLogger (SimpleLSResourceResolver.class);
 
   private final WeakReference <ClassLoader> m_aClassLoader;
+  // Remote schemes that are explicitly allowed for resolution. Empty by default
+  // to prevent SSRF via XML Schema xs:import/xs:include or external entities.
+  private final ICommonsSet <String> m_aAllowedRemoteSchemes = new CommonsHashSet <> ();
 
   /**
    * Default constructor using no specific class loader.
@@ -69,6 +78,42 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
   public ClassLoader getClassLoader ()
   {
     return m_aClassLoader.get ();
+  }
+
+  /**
+   * @return A mutable copy of the set of remote URL schemes (all lower case, e.g. "http") that are
+   *         allowed to be resolved. Empty by default, meaning that only local (class path or
+   *         <code>file</code> based) resources may be resolved. Never <code>null</code>.
+   * @since 12.3.2
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public final ICommonsSet <String> getAllAllowedRemoteSchemes ()
+  {
+    return m_aAllowedRemoteSchemes.getClone ();
+  }
+
+  /**
+   * Set the remote URL schemes that are allowed to be resolved. By default no remote scheme is
+   * allowed, to prevent Server Side Request Forgery (SSRF) via XML Schema <code>xs:import</code>,
+   * <code>xs:include</code> or external entities referencing remote locations. Local resources
+   * (class path or <code>file</code> based) are always resolved regardless of this setting.
+   *
+   * @param aAllowedRemoteSchemes
+   *        The remote schemes to allow (e.g. "http", "https"). May be <code>null</code> or empty to
+   *        deny all remote schemes.
+   * @return this for chaining
+   * @since 12.3.2
+   */
+  @NonNull
+  public final SimpleLSResourceResolver setAllowedRemoteSchemes (@Nullable final String... aAllowedRemoteSchemes)
+  {
+    m_aAllowedRemoteSchemes.clear ();
+    if (aAllowedRemoteSchemes != null)
+      for (final String sScheme : aAllowedRemoteSchemes)
+        if (StringHelper.isNotEmpty (sScheme))
+          m_aAllowedRemoteSchemes.add (sScheme.toLowerCase (Locale.ROOT));
+    return this;
   }
 
   /**
@@ -179,6 +224,22 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                                                                            sPublicId,
                                                                            sSystemId,
                                                                            sBaseURI);
+      if (aResolvedResource == null)
+        return null;
+
+      // Check the scheme to prevent SSRF via remote xs:import/xs:include etc.
+      if (!XMLResourceSchemeHelper.isResourceAccessAllowed (aResolvedResource, m_aAllowedRemoteSchemes))
+      {
+        LOGGER.warn ("Blocked resolution of resource '" +
+                     sSystemId +
+                     "' (base '" +
+                     sBaseURI +
+                     "') because its URL scheme is not in the list of allowed remote schemes " +
+                     m_aAllowedRemoteSchemes);
+        // Returning null lets the parser apply its own (restricted) default resolution
+        return null;
+      }
+
       return new ResourceLSInput (aResolvedResource);
     }
     catch (final Exception ex)
