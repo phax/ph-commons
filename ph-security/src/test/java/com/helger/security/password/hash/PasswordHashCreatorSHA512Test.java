@@ -25,6 +25,7 @@ import org.junit.Test;
  *
  * @author Philip Helger
  */
+@SuppressWarnings ({ "deprecation", "javadoc" })
 public final class PasswordHashCreatorSHA512Test
 {
   @Test
