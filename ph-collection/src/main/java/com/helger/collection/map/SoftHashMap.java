@@ -20,6 +20,7 @@ import java.util.HashMap;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsHashMap;
 
@@ -28,7 +29,8 @@ import com.helger.collection.commons.CommonsHashMap;
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from
  * <code>org.hypergraphdb.util</code><br>
- * Note: {@link SoftHashMap} is <b>NOT</b> serializable!
+ * Note: {@link SoftHashMap} is <b>NOT</b> serializable!<br>
+ * See {@link AbstractSoftMap} for the thread safety details.
  *
  * @author Philip Helger
  * @param <K>
@@ -36,6 +38,7 @@ import com.helger.collection.commons.CommonsHashMap;
  * @param <V>
  *        Value type
  */
+@ThreadSafe
 public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   /**
@@ -52,7 +55,8 @@ public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
   public SoftHashMap <K, V> getClone ()
   {
     final SoftHashMap <K, V> ret = new SoftHashMap <> ();
-    ret.putAll (this);
+    // Read lock to block concurrent modifications of this map while iterating it
+    m_aRWLock.readLocked ( () -> ret.putAll (this));
     return ret;
   }
 }

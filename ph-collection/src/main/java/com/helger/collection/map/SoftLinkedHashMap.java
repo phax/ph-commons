@@ -23,6 +23,7 @@ import java.util.function.Predicate;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.hashcode.HashCodeGenerator;
@@ -33,7 +34,10 @@ import com.helger.collection.commons.MapEntry;
  * Soft {@link HashMap} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from <code>org.hypergraphdb.util</code><br>
- * Note: {@link SoftLinkedHashMap} is <b>NOT</b> serializable!
+ * Note: {@link SoftLinkedHashMap} is <b>NOT</b> serializable!<br>
+ * See {@link AbstractSoftMap} for the thread safety details. Attention: the internal map uses
+ * access order, so every read reorders the entries - that's why even {@link #get(Object)} requires
+ * the internal write lock.
  *
  * @author Philip Helger
  * @param <K>
@@ -41,6 +45,7 @@ import com.helger.collection.commons.MapEntry;
  * @param <V>
  *        Value type
  */
+@ThreadSafe
 public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
 {
   private final int m_nMaxSize;
@@ -99,7 +104,9 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
     m_nMaxSize = nMaxSize;
     // Must be set explicitly for dependency handling
     ((InternalLinkedHashMap <K, V>) m_aSrcMap).m_aFilter = aEldest -> {
-      final int nSize = size ();
+      // Use the source map size directly: put() already drained the reference queue, and
+      // removeEldestEntry must not modify the map (LinkedHashMap contract)
+      final int nSize = m_aSrcMap.size ();
       if (nSize <= m_nMaxSize)
       {
         // No need to remove anything
@@ -122,7 +129,8 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   }
 
   /**
-   * Protected method that is invoked every time the oldest entry is removed.
+   * Protected method that is invoked every time the oldest entry is removed. Note: this method is
+   * invoked while the internal write lock is held.
    *
    * @param nSize
    *        Current size of the map. Always &ge; 0.
@@ -139,7 +147,8 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   public SoftLinkedHashMap <K, V> getClone ()
   {
     final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap <> (m_nMaxSize);
-    ret.putAll (this);
+    // Read lock to block concurrent modifications of this map while iterating it
+    m_aRWLock.readLocked ( () -> ret.putAll (this));
     return ret;
   }
 

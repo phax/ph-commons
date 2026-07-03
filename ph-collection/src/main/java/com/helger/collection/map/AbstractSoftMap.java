@@ -27,10 +27,13 @@ import java.util.Set;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableObject;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.MapEntry;
@@ -38,7 +41,16 @@ import com.helger.collection.commons.MapEntry;
 /**
  * Soft {@link Map} implementation based on http://www.javaspecialists.eu/archive/Issue015.html<br>
  * The <code>entrySet</code> implementation is from <code>org.hypergraphdb.util</code><br>
- * Note: {@link AbstractSoftMap} is <b>NOT</b> serializable!
+ * Note: {@link AbstractSoftMap} is <b>NOT</b> serializable!<br>
+ * This class is thread-safe. Note that even seemingly read-only operations like
+ * {@link #get(Object)} or {@link #size()} internally acquire the <b>write</b> lock, because no
+ * operation of this map is truly read-only: garbage collected entries are removed on access, and
+ * access-ordered source maps (like in {@link SoftLinkedHashMap}) reorder their entries on every
+ * read.<br>
+ * Attention: iterators (via {@link #entrySet()}, {@link #keySet()} or {@link #values()}) are NOT
+ * thread-safe. As with {@link java.util.Collections#synchronizedMap(Map)} the caller must ensure
+ * that the map is not modified concurrently while iterating. Compound default operations (like
+ * <code>putIfAbsent</code> or <code>computeIfAbsent</code>) are thread-safe but not atomic.
  *
  * @author Philip Helger
  * @param <K>
@@ -46,6 +58,7 @@ import com.helger.collection.commons.MapEntry;
  * @param <V>
  *        Value type
  */
+@ThreadSafe
 public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implements ICommonsMap <K, V>
 {
   /**
@@ -65,51 +78,6 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     {
       super (aValue, aQueue);
       m_aKey = aKey;
-    }
-  }
-
-  private static class SoftMapEntry <K, V> implements Map.Entry <K, SoftValue <K, V>>
-  {
-    private final K m_aKey;
-    private SoftValue <K, V> m_aSoftValue;
-
-    /**
-     * Constructor.
-     *
-     * @param aKey
-     *        The map entry key. May be <code>null</code>.
-     * @param aValue
-     *        The map entry value. May be <code>null</code>.
-     * @param aQueue
-     *        The reference queue for garbage collection tracking. May be
-     *        <code>null</code>.
-     */
-    public SoftMapEntry (final K aKey, final V aValue, @Nullable final ReferenceQueue <V> aQueue)
-    {
-      m_aKey = aKey;
-      m_aSoftValue = new SoftValue <> (aKey, aValue, aQueue);
-    }
-
-    /** {@inheritDoc} */
-    public K getKey ()
-    {
-      return m_aKey;
-    }
-
-    /** {@inheritDoc} */
-    @NonNull
-    public final SoftValue <K, V> getValue ()
-    {
-      return m_aSoftValue;
-    }
-
-    /** {@inheritDoc} */
-    @NonNull
-    public final SoftValue <K, V> setValue (@NonNull final SoftValue <K, V> aNew)
-    {
-      final SoftValue <K, V> aOld = aNew;
-      m_aSoftValue = aNew;
-      return aOld;
     }
   }
 
@@ -145,45 +113,74 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     }
 
     @CodingStyleguideUnaware
-    private final Set <Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
-    private final ReferenceQueue <V> m_aQueue;
+    private final Set <Map.Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
+    private final SimpleReadWriteLock m_aRWLock;
 
-    private SoftEntrySet (@NonNull final Set <Entry <K, SoftValue <K, V>>> aSrcEntrySet,
-                          @NonNull final ReferenceQueue <V> aQueue)
+    private SoftEntrySet (@NonNull final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet,
+                          @NonNull final SimpleReadWriteLock aRWLock)
     {
       m_aSrcEntrySet = aSrcEntrySet;
-      m_aQueue = aQueue;
+      m_aRWLock = aRWLock;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * This operation is not supported, as with all JDK Map implementations. Use
+     * {@link AbstractSoftMap#put(Object, Object)} instead.
+     */
     public boolean add (final Map.@NonNull Entry <K, V> aEntry)
     {
-      return m_aSrcEntrySet.add (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      throw new UnsupportedOperationException ();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * This operation is not supported, as with all JDK Map implementations. Use
+     * {@link AbstractSoftMap#putAll(Map)} instead.
+     */
     public boolean addAll (@NonNull final Collection <? extends Map.Entry <K, V>> c)
     {
-      boolean result = false;
-      for (final Map.Entry <K, V> e : c)
-        if (this.add (e))
-          result = true;
-      return result;
+      throw new UnsupportedOperationException ();
     }
 
     /** {@inheritDoc} */
     public void clear ()
     {
-      m_aSrcEntrySet.clear ();
+      m_aRWLock.writeLock ().lock ();
+      try
+      {
+        m_aSrcEntrySet.clear ();
+      }
+      finally
+      {
+        m_aRWLock.writeLock ().unlock ();
+      }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc} Consistent with {@link AbstractSoftMap#get(Object)}: an entry whose value was
+     * garbage collected counts as "not contained".
+     */
     public boolean contains (final Object aEntryObj)
     {
-      if (!(aEntryObj instanceof Map.Entry))
+      if (!(aEntryObj instanceof Map.Entry <?, ?>))
         return false;
+
       final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
-      return m_aSrcEntrySet.contains (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      m_aRWLock.readLock ().lock ();
+      try
+      {
+        for (final Map.Entry <K, SoftValue <K, V>> aSrcEntry : m_aSrcEntrySet)
+          if (EqualsHelper.equals (aSrcEntry.getKey (), aEntry.getKey ()))
+          {
+            // Keys are unique - compare the referent with the probe value
+            final V aSrcValue = aSrcEntry.getValue ().get ();
+            return aSrcValue != null && aSrcValue.equals (aEntry.getValue ());
+          }
+        return false;
+      }
+      finally
+      {
+        m_aRWLock.readLock ().unlock ();
+      }
     }
 
     /** {@inheritDoc} */
@@ -198,10 +195,21 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     /** {@inheritDoc} */
     public boolean isEmpty ()
     {
-      return m_aSrcEntrySet.isEmpty ();
+      m_aRWLock.readLock ().lock ();
+      try
+      {
+        return m_aSrcEntrySet.isEmpty ();
+      }
+      finally
+      {
+        m_aRWLock.readLock ().unlock ();
+      }
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc} Attention: the returned iterator is NOT thread-safe - the caller must ensure
+     * that the map is not modified concurrently while iterating.
+     */
     @NonNull
     public Iterator <Map.Entry <K, V>> iterator ()
     {
@@ -209,13 +217,41 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
       return new SoftIterator <> (aSrcIter);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc} Consistent with {@link AbstractSoftMap#get(Object)}: an entry whose value was
+     * garbage collected counts as "not contained" and is therefore not removed.
+     */
     public boolean remove (final Object aEntryObj)
     {
       if (!(aEntryObj instanceof Map.Entry <?, ?>))
         return false;
+
       final Map.Entry <K, V> aEntry = GenericReflection.uncheckedCast (aEntryObj);
-      return m_aSrcEntrySet.remove (new SoftMapEntry <> (aEntry.getKey (), aEntry.getValue (), m_aQueue));
+      m_aRWLock.writeLock ().lock ();
+      try
+      {
+        final Iterator <Map.Entry <K, SoftValue <K, V>>> aSrcIter = m_aSrcEntrySet.iterator ();
+        while (aSrcIter.hasNext ())
+        {
+          final Map.Entry <K, SoftValue <K, V>> aSrcEntry = aSrcIter.next ();
+          if (EqualsHelper.equals (aSrcEntry.getKey (), aEntry.getKey ()))
+          {
+            // Keys are unique - compare the referent with the probe value
+            final V aSrcValue = aSrcEntry.getValue ().get ();
+            if (aSrcValue != null && aSrcValue.equals (aEntry.getValue ()))
+            {
+              aSrcIter.remove ();
+              return true;
+            }
+            return false;
+          }
+        }
+        return false;
+      }
+      finally
+      {
+        m_aRWLock.writeLock ().unlock ();
+      }
     }
 
     /** {@inheritDoc} */
@@ -237,7 +273,15 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     /** {@inheritDoc} */
     public int size ()
     {
-      return m_aSrcEntrySet.size ();
+      m_aRWLock.readLock ().lock ();
+      try
+      {
+        return m_aSrcEntrySet.size ();
+      }
+      finally
+      {
+        m_aRWLock.readLock ().unlock ();
+      }
     }
 
     /** {@inheritDoc} */
@@ -251,19 +295,27 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     @NonNull
     public <T> T [] toArray (@Nullable final T [] a)
     {
-      MapEntry <K, V> [] result = null;
-      if (a instanceof MapEntry <?, ?> [] && a.length >= size ())
-        result = GenericReflection.uncheckedCast (a);
-      else
-        result = GenericReflection.uncheckedCast (new MapEntry <?, ?> [size ()]);
-
-      final Object [] aSrcArray = m_aSrcEntrySet.toArray ();
-      for (int i = 0; i < aSrcArray.length; i++)
+      m_aRWLock.readLock ().lock ();
+      try
       {
-        final Map.Entry <K, SoftValue <K, V>> e = GenericReflection.uncheckedCast (aSrcArray[i]);
-        result[i] = new MapEntry <> (e.getKey (), e.getValue ().get ());
+        MapEntry <K, V> [] result = null;
+        if (a instanceof MapEntry <?, ?> [] && a.length >= size ())
+          result = GenericReflection.uncheckedCast (a);
+        else
+          result = GenericReflection.uncheckedCast (new MapEntry <?, ?> [size ()]);
+
+        final Object [] aSrcArray = m_aSrcEntrySet.toArray ();
+        for (int i = 0; i < aSrcArray.length; i++)
+        {
+          final Map.Entry <K, SoftValue <K, V>> e = GenericReflection.uncheckedCast (aSrcArray[i]);
+          result[i] = new MapEntry <> (e.getKey (), e.getValue ().get ());
+        }
+        return GenericReflection.uncheckedCast (result);
       }
-      return GenericReflection.uncheckedCast (result);
+      finally
+      {
+        m_aRWLock.readLock ().unlock ();
+      }
     }
   }
 
@@ -272,6 +324,12 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   protected final Map <K, SoftValue <K, V>> m_aSrcMap;
   /** Reference queue for cleared SoftReference objects. */
   private final ReferenceQueue <V> m_aQueue = new ReferenceQueue <> ();
+  /**
+   * The lock guarding all access to {@link #m_aSrcMap}. Mostly the write lock is used, because
+   * nearly no operation of this map is read-only: garbage collected entries are removed on access,
+   * and access-ordered source maps reorder their entries on every read.
+   */
+  protected final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
   /**
    * Constructor.
@@ -285,7 +343,8 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   }
 
   /**
-   * Callback method invoked after a map entry is garbage collected
+   * Callback method invoked after a map entry is garbage collected. Note: this method is invoked
+   * while the internal write lock is held.
    *
    * @param aKey
    *        Key the removed key
@@ -297,24 +356,68 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   @Override
   public V get (final Object aKey)
   {
-    V ret = null;
-    // We get the SoftReference represented by that key
-    final SoftValue <K, V> aSoftValue = m_aSrcMap.get (aKey);
-    if (aSoftValue != null)
+    // Write lock, because a read may remove garbage collected entries and may reorder
+    // access-ordered source maps
+    m_aRWLock.writeLock ().lock ();
+    try
     {
-      // From the SoftReference we get the value, which can be
-      // null if it was not in the map, or it was removed in
-      // the processQueue() method defined below
-      ret = aSoftValue.get ();
-      if (ret == null)
+      V ret = null;
+      // We get the SoftReference represented by that key
+      final SoftValue <K, V> aSoftValue = m_aSrcMap.get (aKey);
+      if (aSoftValue != null)
       {
-        // If the value has been garbage collected, remove the
-        // entry from the HashMap.
-        if (m_aSrcMap.remove (aKey) != null)
-          onEntryRemoved (GenericReflection.uncheckedCast (aKey));
+        // From the SoftReference we get the value, which can be
+        // null if it was not in the map, or it was removed in
+        // the processQueue() method defined below
+        ret = aSoftValue.get ();
+        if (ret == null)
+        {
+          // If the value has been garbage collected, remove the
+          // entry from the HashMap.
+          if (m_aSrcMap.remove (aKey) != null)
+            onEntryRemoved (GenericReflection.uncheckedCast (aKey));
+        }
       }
+      return ret;
     }
-    return ret;
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * {@inheritDoc} Consistent with {@link #get(Object)}: an entry whose value was garbage collected
+   * counts as "not contained".
+   */
+  @Override
+  public boolean containsKey (final Object aKey)
+  {
+    return get (aKey) != null;
+  }
+
+  /**
+   * {@inheritDoc} Consistent with {@link #get(Object)}: entries whose value was garbage collected
+   * are ignored.
+   */
+  @Override
+  public boolean containsValue (final Object aValue)
+  {
+    m_aRWLock.readLock ().lock ();
+    try
+    {
+      for (final SoftValue <K, V> aSoftValue : m_aSrcMap.values ())
+      {
+        final V aExistingValue = aSoftValue.get ();
+        if (aExistingValue != null && aExistingValue.equals (aValue))
+          return true;
+      }
+      return false;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
+    }
   }
 
   /**
@@ -336,44 +439,81 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   @Override
   public V put (final K aKey, final V aValue)
   {
-    // throw out garbage collected values first
-    _processQueue ();
-    final SoftValue <K, V> aOld = m_aSrcMap.put (aKey, new SoftValue <> (aKey, aValue, m_aQueue));
-    return aOld == null ? null : aOld.get ();
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      // throw out garbage collected values first
+      _processQueue ();
+      final SoftValue <K, V> aOld = m_aSrcMap.put (aKey, new SoftValue <> (aKey, aValue, m_aQueue));
+      return aOld == null ? null : aOld.get ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @Override
   public V remove (final Object aKey)
   {
-    // throw out garbage collected values first
-    _processQueue ();
-    final SoftValue <K, V> aRemoved = m_aSrcMap.remove (aKey);
-    return aRemoved == null ? null : aRemoved.get ();
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      // throw out garbage collected values first
+      _processQueue ();
+      final SoftValue <K, V> aRemoved = m_aSrcMap.remove (aKey);
+      return aRemoved == null ? null : aRemoved.get ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @Override
   public void clear ()
   {
-    // throw out garbage collected values
-    _processQueue ();
-    m_aSrcMap.clear ();
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      // throw out garbage collected values
+      _processQueue ();
+      m_aSrcMap.clear ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
   @Override
   public int size ()
   {
-    // throw out garbage collected values first
-    _processQueue ();
-    return m_aSrcMap.size ();
+    // Write lock, because the reference queue processing may remove entries
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      // throw out garbage collected values first
+      _processQueue ();
+      return m_aSrcMap.size ();
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
   }
 
+  /**
+   * {@inheritDoc} Attention: iterators created from the returned Set are NOT thread-safe - the
+   * caller must ensure that the map is not modified concurrently while iterating.
+   */
   @Override
   @ReturnsMutableObject ("design")
   @CodingStyleguideUnaware
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();
-    return new SoftEntrySet <> (aSrcEntrySet, m_aQueue);
+    return new SoftEntrySet <> (aSrcEntrySet, m_aRWLock);
   }
 
   @Override
