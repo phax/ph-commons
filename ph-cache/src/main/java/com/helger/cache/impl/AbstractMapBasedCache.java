@@ -155,7 +155,10 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   }
 
   /**
-   * Create a new cache map. This is the internal map that is used to store the items.
+   * Create a new cache map. This is the internal map that is used to store the items. The returned
+   * map MUST be thread-safe, because it may be accessed by multiple threads concurrently holding
+   * only the cache's read lock - and even read operations of the default soft maps modify the map
+   * (removal of garbage collected entries; reordering in access order).
    *
    * @return Never <code>null</code>.
    */
@@ -285,24 +288,26 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue)
   {
     final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue);
-    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
+    m_aRWLock.writeLocked (() -> putInCacheNotLocked (aKey, aCacheEntry));
   }
 
   public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final Duration aTimeToLive)
   {
     final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue, aTimeToLive);
-    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
+    m_aRWLock.writeLocked (() -> putInCacheNotLocked (aKey, aCacheEntry));
   }
 
   public void putInCache (final KEYTYPE aKey, final VALUETYPE aValue, @NonNull final LocalDateTime aExpirationDT)
   {
     final CacheEntry <VALUETYPE> aCacheEntry = buildCacheEntry (aKey, aValue, aExpirationDT);
-    m_aRWLock.writeLocked ( () -> putInCacheNotLocked (aKey, aCacheEntry));
+    m_aRWLock.writeLocked (() -> putInCacheNotLocked (aKey, aCacheEntry));
   }
 
   /**
    * Look up the raw {@link CacheEntry} for the provided storage key without updating statistics.
-   * The caller must hold the read lock.
+   * The caller must hold the read lock. Note: the map get() may be a mutating operation (removal of
+   * garbage collected entries; reordering in access order) - that is safe under the shared read
+   * lock only because the map itself is thread-safe (see {@link #createCache()}).
    *
    * @param aKey
    *        The storage key. May be <code>null</code>.
@@ -331,6 +336,7 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
       return null;
 
     // Unroll for maximum performance
+    // The read lock is sufficient, because the map synchronizes its own mutations internally
     m_aRWLock.readLock ().lock ();
     try
     {
@@ -419,7 +425,7 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
     if (isExpired (aCacheEntry))
     {
       // Drop the expired entry
-      m_aRWLock.writeLocked ( () -> {
+      m_aRWLock.writeLocked (() -> {
         // Check again in write lock
         final CacheEntry <VALUETYPE> aCurrent = getFromCacheNoStatsNotLocked (aKey);
         if (aCurrent != null && isExpired (aCurrent))
@@ -507,12 +513,20 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
         while (it.hasNext ())
         {
           final var aMapEntry = it.next ();
-          if (aMapEntry.getValue ().isExpiredAt (aNow))
+          final CacheEntry <VALUETYPE> aCacheEntry = aMapEntry.getValue ();
+          if (aCacheEntry == null)
           {
+            // The value was garbage collected from the soft map but the entry was not yet cleaned
+            // up - drop the stale entry. Deliberately not counted as an expired entry.
             it.remove ();
-            nRemoved++;
-            incCacheExpired ();
           }
+          else
+            if (aCacheEntry.isExpiredAt (aNow))
+            {
+              it.remove ();
+              nRemoved++;
+              incCacheExpired ();
+            }
         }
       }
     }
@@ -535,7 +549,8 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   @Nonnegative
   public int size ()
   {
-    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getSize (m_aMap));
+    // The read lock is sufficient, because the map synchronizes its own mutations internally
+    return m_aRWLock.readLockedInt (() -> CollectionHelper.getSize (m_aMap));
   }
 
   /**
@@ -544,7 +559,8 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
    */
   public boolean isEmpty ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isEmpty (m_aMap));
+    // The read lock is sufficient, because the map synchronizes its own mutations internally
+    return m_aRWLock.readLockedBoolean (() -> CollectionHelper.isEmpty (m_aMap));
   }
 
   /**
@@ -554,7 +570,8 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
   @Override
   public boolean isNotEmpty ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionHelper.isNotEmpty (m_aMap));
+    // The read lock is sufficient, because the map synchronizes its own mutations internally
+    return m_aRWLock.readLockedBoolean (() -> CollectionHelper.isNotEmpty (m_aMap));
   }
 
   @Override

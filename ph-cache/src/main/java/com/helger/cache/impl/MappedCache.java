@@ -250,6 +250,7 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     final ReadWriteLock aRWLock = m_aCache.internalRwLock ();
 
     // Check for CacheEntry, so that it works with null values as well
+    // The read lock is sufficient, because the map synchronizes its own mutations internally
     CacheEntry <VALUETYPE> aCacheEntry;
     aRWLock.readLock ().lock ();
     try
