@@ -34,13 +34,33 @@ import com.helger.base.tostring.ToStringGenerator;
 public final class JsonParserSettings implements IJsonParserSettings
 {
   // Default values
+  /** By default the parse position (line and column) is not tracked. */
   public static final boolean DEFAULT_TRACK_POSITION = false;
+  /** The default tab size used for column counting during position tracking. */
   public static final int DEFAULT_TAB_SIZE = 8;
+  /**
+   * By default numeric values are read as the smallest matching type instead of always using
+   * <code>BigInteger</code> / <code>BigDecimal</code>.
+   */
   public static final boolean DEFAULT_ALWAYS_USE_BIG_NUMBER = false;
+  /** By default JSON string values must be enclosed in quotes. */
   public static final boolean DEFAULT_REQUIRE_STRING_QUOTES = true;
+  /** By default special characters (e.g. raw line breaks) are not allowed inside JSON strings. */
   public static final boolean DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING = false;
+  /**
+   * By default the parser checks that no non-whitespace content follows the top-level JSON value.
+   */
   public static final boolean DEFAULT_CHECK_FOR_EOI = true;
+  /**
+   * The default maximum nesting depth of arrays and objects. This limits the stack usage caused by
+   * deeply nested input.
+   */
   public static final int DEFAULT_MAX_NESTING_DEPTH = 1000;
+  /**
+   * The default maximum absolute value of a numeric exponent. The value of 100.000 is aligned with
+   * the <code>MAX_BIGINT_SCALE_MAGNITUDE</code> constant of the Jackson JSON parser.
+   */
+  public static final int DEFAULT_MAX_EXPONENT = 100_000;
 
   // Settings
   private boolean m_bTrackPosition = DEFAULT_TRACK_POSITION;
@@ -50,6 +70,7 @@ public final class JsonParserSettings implements IJsonParserSettings
   private boolean m_bAllowSpecialCharsInStrings = DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING;
   private boolean m_bCheckForEOI = DEFAULT_CHECK_FOR_EOI;
   private int m_nMaxNestingDepth = DEFAULT_MAX_NESTING_DEPTH;
+  private int m_nMaxExponent = DEFAULT_MAX_EXPONENT;
 
   /**
    * Default constructor with default settings.
@@ -228,6 +249,34 @@ public final class JsonParserSettings implements IJsonParserSettings
   }
 
   /**
+   * @return The maximum allowed absolute value of a numeric exponent. Always &gt; 0. Default is
+   *         {@link #DEFAULT_MAX_EXPONENT}.
+   * @since v12.3.3
+   */
+  @Nonnegative
+  public int getMaxExponent ()
+  {
+    return m_nMaxExponent;
+  }
+
+  /**
+   * Set the maximum allowed absolute value of a numeric exponent. This limits the amount of memory a
+   * single number token like <code>1e999999999</code> can force to be allocated.
+   *
+   * @param nMaxExponent
+   *        The maximum allowed absolute exponent value. Must be &gt; 0.
+   * @return this for chaining
+   * @since v12.3.3
+   */
+  @NonNull
+  public JsonParserSettings setMaxExponent (@Nonnegative final int nMaxExponent)
+  {
+    ValueEnforcer.isGT0 (nMaxExponent, "MaxExponent");
+    m_nMaxExponent = nMaxExponent;
+    return this;
+  }
+
+  /**
    * Assign all settings from the provided source.
    *
    * @param rhs
@@ -243,6 +292,7 @@ public final class JsonParserSettings implements IJsonParserSettings
     setAllowSpecialCharsInStrings (rhs.isAllowSpecialCharsInStrings ());
     setCheckForEOI (rhs.isCheckForEOI ());
     setMaxNestingDepth (rhs.getMaxNestingDepth ());
+    setMaxExponent (rhs.getMaxExponent ());
   }
 
   @Override
@@ -255,6 +305,7 @@ public final class JsonParserSettings implements IJsonParserSettings
                                        .append ("AllowSpecialCharsInStrings", m_bAllowSpecialCharsInStrings)
                                        .append ("CheckForEOI", m_bCheckForEOI)
                                        .append ("MaxNestingDepth", m_nMaxNestingDepth)
+                                       .append ("MaxExponent", m_nMaxExponent)
                                        .getToString ();
   }
 }

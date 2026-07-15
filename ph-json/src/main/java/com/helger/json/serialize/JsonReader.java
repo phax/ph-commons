@@ -600,6 +600,19 @@ public final class JsonReader
     }
 
     /**
+     * @param nMaxExponent
+     *        The maximum allowed absolute value of a numeric exponent. Must be &gt; 0.
+     * @return this for chaining
+     * @since v12.3.3
+     */
+    @NonNull
+    public JsonBuilder maxExponent (@Nonnegative final int nMaxExponent)
+    {
+      m_aParserSettings.setMaxExponent (nMaxExponent);
+      return this;
+    }
+
+    /**
      * Set the optional exception callback.
      *
      * @param aCustomExceptionCallback

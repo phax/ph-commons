@@ -18,12 +18,15 @@ package com.helger.json.parser.handler;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.collection.stack.NonBlockingStack;
 import com.helger.json.IJson;
 import com.helger.json.IJsonCollection;
+import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.JsonValue;
@@ -38,6 +41,8 @@ import com.helger.json.JsonValue;
 @NotThreadSafe
 public class CollectingJsonParserHandler implements IJsonParserHandler
 {
+  private static final Logger LOGGER = LoggerFactory.getLogger (CollectingJsonParserHandler.class);
+
   private IJson m_aJson;
   private final NonBlockingStack <IJsonCollection> m_aStack = new NonBlockingStack <> ();
   private final NonBlockingStack <String> m_aObjectName = new NonBlockingStack <> ();
@@ -59,7 +64,13 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
         if (m_aObjectName.isEmpty ())
           throw new IllegalStateException ("Internal inconsistency - empty object name stack");
 
-      aParent.getAsObject ().add (m_aObjectName.pop (), aValue);
+      final IJsonObject aObject = aParent.getAsObject ();
+      final String sName = m_aObjectName.pop ();
+      if (aObject.containsKey (sName))
+        LOGGER.warn ("The JSON object already contains a key '" +
+                     sName +
+                     "'. The previous value will be overwritten.");
+      aObject.add (sName, aValue);
     }
   }
 

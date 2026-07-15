@@ -621,10 +621,14 @@ public class JsonParser
 
       return _parseNumberInt (aNumChars);
     }
-    catch (final NumberFormatException ex)
+    catch (final NumberFormatException | ArithmeticException ex)
     {
-      // This should never happen, as our consistency check beforehand are quite
-      // okay :)
+      // NumberFormatException should never happen, as our consistency checks
+      // beforehand are quite okay :)
+      // ArithmeticException can occur for huge positive exponents like
+      // "1e999999999" where BigDecimal.toBigIntegerExact overflows the
+      // supported BigInteger range - turn it into a regular parse exception
+      // instead of letting it escape the parser.
       throw _parseEx (aStartPos, "Invalid JSON Number '" + aNumChars.getAsString () + "'");
     }
   }
@@ -700,16 +704,34 @@ public class JsonParser
       }
 
       boolean bExponentDigits = false;
+      final int nMaxExponent = m_aSettings.getMaxExponent ();
+      long nExponentValue = 0;
+      boolean bExponentTooLarge = false;
       while (c >= '0' && c <= '9')
       {
         aStrNumber.append ((char) c);
         bExponentDigits = true;
+
+        if (!bExponentTooLarge)
+        {
+          // Accumulate the absolute exponent value; stop accumulating once the
+          // limit is exceeded to avoid a long overflow on huge exponents.
+          nExponentValue = nExponentValue * 10 + (c - '0');
+          if (nExponentValue > nMaxExponent)
+            bExponentTooLarge = true;
+        }
 
         c = _readChar ();
       }
       if (!bExponentDigits)
         throw _parseEx (aStartPos,
                         "Missing digits after exponent sign in JSON Number '" + aStrNumber.getAsString () + "'");
+      if (bExponentTooLarge)
+        throw _parseEx (aStartPos,
+                        "The exponent of the JSON Number '" +
+                                   aStrNumber.getAsString () +
+                                   "' exceeds the maximum allowed absolute exponent of " +
+                                   nMaxExponent);
     }
 
     // Backup last (unused) char

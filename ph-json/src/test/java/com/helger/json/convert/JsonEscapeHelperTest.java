@@ -18,6 +18,7 @@ package com.helger.json.convert;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
@@ -60,6 +61,66 @@ public final class JsonEscapeHelperTest
     final String sEscaped = JsonEscapeHelper.jsonEscape (aChars);
     final String sUnescaped = JsonEscapeHelper.jsonUnescape (sEscaped);
     assertEquals (new String (aChars), sUnescaped);
+  }
+
+  @Test
+  public void testEscapeAllControlChars ()
+  {
+    // Per RFC 8259 all control characters U+0000 - U+001F must be escaped,
+    // regardless of whether they have a short named escape sequence.
+    for (int i = 0; i <= 0x1f; ++i)
+    {
+      final String sSource = "a" + (char) i + "b";
+      final String sEscaped = JsonEscapeHelper.jsonEscape (sSource);
+
+      // The escaped output must not contain the raw control character
+      assertEquals ("Control char 0x" + Integer.toHexString (i) + " was not escaped",
+                    -1,
+                    sEscaped.indexOf ((char) i));
+
+      // The escaped output must be parseable as a JSON String by a strict-ish
+      // reader and round-trip to the original value
+      final String sRead = JsonReader.builder ().source ("\"" + sEscaped + "\"").readAsValue ().getAsString ();
+      assertEquals (sSource, sRead);
+
+      // jsonUnescape must reverse the escaping
+      assertEquals (sSource, JsonEscapeHelper.jsonUnescape (sEscaped));
+    }
+
+    // Spot check a few specific representations
+    assertEquals ("\\u0000", JsonEscapeHelper.jsonEscape (Character.toString ((char) 0x00)));
+    assertEquals ("\\u0001", JsonEscapeHelper.jsonEscape (Character.toString ((char) 0x01)));
+    assertEquals ("\\u001f", JsonEscapeHelper.jsonEscape (Character.toString ((char) 0x1f)));
+    // Named escapes are still preferred over the generic \\u00XX form
+    assertEquals ("\\b", JsonEscapeHelper.jsonEscape ("\b"));
+    assertEquals ("\\t", JsonEscapeHelper.jsonEscape ("\t"));
+    assertEquals ("\\n", JsonEscapeHelper.jsonEscape ("\n"));
+    assertEquals ("\\f", JsonEscapeHelper.jsonEscape ("\f"));
+    assertEquals ("\\r", JsonEscapeHelper.jsonEscape ("\r"));
+    // 0x7f (DEL) is not a C0 control char and stays as-is
+    assertEquals ("", JsonEscapeHelper.jsonEscape (""));
+  }
+
+  @Test
+  public void testUnescapeMalformed ()
+  {
+    // A string ending with a lone escape char must throw a documented
+    // IllegalArgumentException - not an ArrayIndexOutOfBoundsException
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("abc\\"));
+
+    // An incomplete \\uXXXX sequence must throw IllegalArgumentException - not a
+    // StringIndexOutOfBoundsException from constructing the error message
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\u"));
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\u1"));
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\u12"));
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\u123"));
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("ab\\u12"));
+
+    // An invalid hex digit in a \\uXXXX sequence must throw
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\u123x"));
+
+    // An unknown escape sequence must throw
+    assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\x"));
   }
 
   @Test

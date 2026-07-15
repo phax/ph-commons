@@ -61,6 +61,24 @@ public final class JsonEscapeHelper
   {}
 
   /**
+   * Check if the provided character array contains at least one character that
+   * needs to be escaped for JSON output. This covers the explicitly masked
+   * characters as well as all control characters (U+0000 - U+001F) per RFC
+   * 8259.
+   *
+   * @param aInput
+   *        The character array to check. May not be <code>null</code>.
+   * @return <code>true</code> if at least one character needs escaping.
+   */
+  private static boolean _containsCharToEscape (final char @NonNull [] aInput)
+  {
+    for (final char c : aInput)
+      if (c < 0x20 || ArrayHelper.contains (CHARS_TO_MASK, c))
+        return true;
+    return false;
+  }
+
+  /**
    * Escape a JSON character array and append the result to a {@link StringBuilder}.
    *
    * @param aInput
@@ -79,7 +97,14 @@ public final class JsonEscapeHelper
       if (nIndex >= 0)
         aSB.append (REPLACEMENT_STRINGS[nIndex]);
       else
-        aSB.append (cCurrent);
+        if (cCurrent < 0x20)
+        {
+          // Per RFC 8259 all control characters (U+0000 - U+001F) must be
+          // escaped. The named ones are already handled above.
+          aSB.append ("\\u00").append (StringHex.getHexStringLeadingZero (cCurrent, 2));
+        }
+        else
+          aSB.append (cCurrent);
     }
   }
 
@@ -112,7 +137,7 @@ public final class JsonEscapeHelper
     if (aInput == null)
       return null;
 
-    if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
+    if (!_containsCharToEscape (aInput))
       return new String (aInput);
 
     final StringBuilder aSB = new StringBuilder (aInput.length * 2);
@@ -135,7 +160,7 @@ public final class JsonEscapeHelper
     if (StringHelper.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
+      if (!_containsCharToEscape (aInput))
         aSB.append (sInput);
       else
         jsonEscapeToStringBuilder (aInput, aSB);
@@ -165,7 +190,15 @@ public final class JsonEscapeHelper
       if (nIndex >= 0)
         aWriter.write (REPLACEMENT_STRINGS[nIndex]);
       else
-        aWriter.write (cCurrent);
+        if (cCurrent < 0x20)
+        {
+          // Per RFC 8259 all control characters (U+0000 - U+001F) must be
+          // escaped. The named ones are already handled above.
+          aWriter.write ("\\u00");
+          aWriter.write (StringHex.getHexStringLeadingZero (cCurrent, 2));
+        }
+        else
+          aWriter.write (cCurrent);
     }
   }
 
@@ -188,7 +221,7 @@ public final class JsonEscapeHelper
     if (StringHelper.isNotEmpty (sInput))
     {
       final char [] aInput = sInput.toCharArray ();
-      if (!StringHelper.containsAny (aInput, CHARS_TO_MASK))
+      if (!_containsCharToEscape (aInput))
         aWriter.write (aInput, 0, aInput.length);
       else
         jsonEscapeToWriter (aInput, aWriter);
@@ -222,7 +255,7 @@ public final class JsonEscapeHelper
       final char c = aInput[i];
       if (c == MASK_CHAR)
       {
-        if (i > nMax - 1)
+        if (i + 1 >= nMax)
           throw new IllegalArgumentException ("JSON string ends with escape char");
         ++i;
         final char cNext = aInput[i];
@@ -254,7 +287,8 @@ public final class JsonEscapeHelper
             // The parser ensures we get 4 chars!
             if (i + 4 > nMax - 1)
               throw new IllegalArgumentException ("JSON unicode escape sequence \\uXXXX is incomplete: " +
-                                                  new String (aInput, i - 1, 6));
+                                                  // Only the remaining characters are available
+                                                  new String (aInput, i - 1, nMax - (i - 1)));
             ++i;
             final char cU1 = aInput[i];
             ++i;

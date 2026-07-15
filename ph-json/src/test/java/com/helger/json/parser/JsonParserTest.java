@@ -18,6 +18,8 @@ package com.helger.json.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +38,7 @@ import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.stream.LoggingInputStream;
 import com.helger.base.io.stream.StringInputStream;
 import com.helger.json.IJson;
+import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
 import com.helger.json.serialize.JsonReader;
@@ -91,6 +94,76 @@ public final class JsonParserTest
     assertEquals (BigDecimal.class, ((IJsonValue) _read ("-5e-7897", null)).getValueClass ());
     assertEquals (BigDecimal.class, ((IJsonValue) _read ("5e-10", null)).getValueClass ());
     assertEquals (BigDecimal.class, ((IJsonValue) _read ("5e-7897", null)).getValueClass ());
+  }
+
+  @Test
+  public void testHugePositiveExponent ()
+  {
+    // With the default max exponent, "1e999999999" is rejected while reading -
+    // and must be a graceful parse failure (null), not an escaping exception.
+    assertNull (_read ("1e999999999", null));
+    assertNull (_read ("-1e999999999", null));
+    assertNull (_read ("9e2147483647", null));
+    assertNull (JsonReader.readFromString ("1e999999999"));
+
+    // Even when the exponent limit is raised so far that the exponent itself is
+    // accepted, "9e2147483647" makes BigDecimal.toBigIntegerExact() throw an
+    // ArithmeticException ("BigInteger would overflow supported range"). This
+    // backstop must be turned into a graceful parse failure (null) instead of
+    // letting the RuntimeException escape the parser.
+    final IJsonParserSettings aHighLimit = new JsonParserSettings ().setMaxExponent (Integer.MAX_VALUE);
+    assertNull (_read ("9e2147483647", aHighLimit));
+  }
+
+  @Test
+  public void testMaxExponent ()
+  {
+    // Default limit is 100.000 (absolute value), aligned with Jackson
+    assertEquals (JsonParserSettings.DEFAULT_MAX_EXPONENT, new JsonParserSettings ().getMaxExponent ());
+
+    // Exactly at the limit is still allowed
+    assertNotNull (_read ("1e100000", null));
+    assertNotNull (_read ("1e-100000", null));
+
+    // Beyond the limit is rejected - for both positive and negative exponents
+    assertNull (_read ("1e100001", null));
+    assertNull (_read ("1e-100001", null));
+
+    // An exponent with far more digits than a long can hold must not overflow
+    // but be rejected gracefully
+    assertNull (_read ("1e99999999999999999999", null));
+
+    // Regular exponents are unaffected
+    assertNotNull (_read ("1e5", null));
+    assertNotNull (_read ("1e-5", null));
+
+    // Custom lower limit
+    final IJsonParserSettings aSettings = new JsonParserSettings ().setMaxExponent (10);
+    assertNotNull (_read ("1e10", aSettings));
+    assertNull (_read ("1e11", aSettings));
+
+    // A too small max exponent value is not allowed
+    try
+    {
+      new JsonParserSettings ().setMaxExponent (0);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testDuplicateObjectKeyLastWins ()
+  {
+    // Duplicate keys are tolerated (a warning is logged); the last value wins
+    // and the position of the first occurrence is kept.
+    final IJsonObject aJson = JsonReader.builder ().source ("{\"a\":1,\"b\":2,\"a\":3}").readAsObject ();
+    assertNotNull (aJson);
+    assertEquals (2, aJson.size ());
+    assertEquals (3, aJson.getAsInt ("a", -1));
+    assertEquals (2, aJson.getAsInt ("b", -1));
   }
 
   @Test

@@ -51,4 +51,14 @@ public interface IJsonParserSettings
    */
   @Nonnegative
   int getMaxNestingDepth ();
+
+  /**
+   * @return The maximum allowed absolute value of a numeric exponent (the part after
+   *         <code>e</code>/<code>E</code>). Always &gt; 0. This limits the amount of memory that a
+   *         single number token can force to be allocated - e.g. <code>1e999999999</code>. See
+   *         {@link JsonParserSettings#DEFAULT_MAX_EXPONENT}.
+   * @since v12.3.3
+   */
+  @Nonnegative
+  int getMaxExponent ();
 }

@@ -139,6 +139,9 @@ public class JsonStringBuilder
   public void backup (final int n)
   {
     m_nLen -= n;
+    // Invalidate the cached String, otherwise a previously cached value would
+    // be returned by getAsString() even though the content changed.
+    m_sCache = null;
   }
 
   /**

@@ -50,6 +50,7 @@ import com.helger.collection.commons.ICommonsNavigableMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.collection.helper.CollectionHelperExt;
 import com.helger.json.IJson;
+import com.helger.json.IJsonObject;
 import com.helger.json.JsonArray;
 import com.helger.json.JsonObject;
 import com.helger.json.convert.JsonConverter;
@@ -283,5 +284,38 @@ public final class JsonWriterTest
     assertEquals ("{\"foo\":\"bar\"}" + sCRLF,
                   new JsonWriter (new JsonWriterSettings ().setWriteNewlineAtEnd (true)).writeAsString (new JsonObject ().add ("foo",
                                                                                                                                "bar")));
+  }
+
+  @Test
+  public void testControlCharsAreEscaped ()
+  {
+    // Values and names containing control characters must be serialized to
+    // valid JSON, i.e. every control char U+0000 - U+001F must be escaped so
+    // that a strict JSON parser can read the result back.
+    for (int i = 0; i <= 0x1f; ++i)
+    {
+      final String sValue = "x" + (char) i + "y";
+
+      // Control char in a value
+      final IJson aValueJson = JsonConverter.convertToJson (sValue);
+      final String sSerialized = aValueJson.getAsJsonString ();
+      assertEquals ("Raw control char 0x" + Integer.toHexString (i) + " leaked into the output",
+                    -1,
+                    sSerialized.indexOf ((char) i));
+      // Round-trip
+      assertEquals (sValue, JsonReader.builder ().source (sSerialized).readAsValue ().getAsString ());
+
+      // Control char in an object name
+      final IJsonObject aObj = new JsonObject ().add (sValue, "v");
+      final String sObjSerialized = new JsonWriter ().writeAsString (aObj);
+      assertEquals ("Raw control char 0x" + Integer.toHexString (i) + " leaked into the object name",
+                    -1,
+                    sObjSerialized.indexOf ((char) i));
+      final IJsonObject aReadBack = JsonReader.builder ().source (sObjSerialized).readAsObject ();
+      assertNotNull (aReadBack);
+      assertEquals ("v", aReadBack.getAsValue (sValue).getAsString ());
+    }
+
+    assertEquals ("\"x\\u0001y\"", JsonConverter.convertToJson ("x" + ((char) 1) + "y").getAsJsonString ());
   }
 }
