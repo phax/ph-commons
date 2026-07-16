@@ -24,7 +24,7 @@ import com.helger.base.lang.EnumHelper;
 import com.helger.base.name.IHasName;
 
 /**
- * HTTP methods as defined in RFC 9110 (HTTP Semantics) and RFC 5789 (PATCH).
+ * HTTP methods as defined in RFC 9110 (HTTP Semantics), RFC 5789 (PATCH) and RFC 10008 (QUERY).
  *
  * @author Philip Helger
  */
@@ -39,7 +39,13 @@ public enum EHttpMethod implements IHasName
   TRACE ("TRACE"),
   CONNECT ("CONNECT"),
   /** Extension as of RFC 5789 - partial PUT */
-  PATCH ("PATCH");
+  PATCH ("PATCH"),
+  /**
+   * Extension as of RFC 10008 - safe query with a request body.
+   *
+   * @since 12.3.4
+   */
+  QUERY ("QUERY");
 
   private final String m_sName;
 
@@ -57,17 +63,23 @@ public enum EHttpMethod implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this HTTP method is idempotent (GET, HEAD,
-   *         PUT, DELETE, OPTIONS, TRACE), <code>false</code> otherwise.
+   * @return <code>true</code> if this HTTP method is idempotent (GET, HEAD, PUT, DELETE, OPTIONS,
+   *         TRACE, QUERY), <code>false</code> otherwise.
    */
   public boolean isIdempodent ()
   {
-    return this == GET || this == HEAD || this == PUT || this == DELETE || this == OPTIONS || this == TRACE;
+    return this == GET ||
+           this == HEAD ||
+           this == PUT ||
+           this == DELETE ||
+           this == OPTIONS ||
+           this == TRACE ||
+           this == QUERY;
   }
 
   /**
-   * @return <code>true</code> if the response to this HTTP method may contain
-   *         a body. This is <code>false</code> only for HEAD.
+   * @return <code>true</code> if the response to this HTTP method may contain a body. This is
+   *         <code>false</code> only for HEAD.
    */
   public boolean isContentAllowed ()
   {
@@ -75,13 +87,12 @@ public enum EHttpMethod implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this HTTP method typically carries a payload
-   *         in the request body (POST, PUT, PATCH), <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this HTTP method typically carries a payload in the request body
+   *         (POST, PUT, PATCH, QUERY), <code>false</code> otherwise.
    */
   public boolean isPayloadInBody ()
   {
-    return this == POST || this == PUT || this == PATCH;
+    return this == POST || this == PUT || this == PATCH || this == QUERY;
   }
 
   /**
@@ -103,8 +114,7 @@ public enum EHttpMethod implements IHasName
    * @param sName
    *        The name to search. May be <code>null</code>.
    * @param eDefault
-   *        The default value to return if no match is found. May be
-   *        <code>null</code>.
+   *        The default value to return if no match is found. May be <code>null</code>.
    * @return The matching enum value or the provided default.
    */
   @Nullable
