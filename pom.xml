@@ -45,7 +45,7 @@
     <connection>scm:git:https://github.com/phax/ph-commons.git</connection>
     <developerConnection>scm:git:https://github.com/phax/ph-commons.git</developerConnection>
     <url>https://github.com/phax/ph-commons</url>
-    <tag>HEAD</tag>
+    <tag>v11</tag>
   </scm>
 
   <organization>
@@ -69,10 +69,10 @@
     -->
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
-    <bc.version>1.81</bc.version>
+    <bc.version>1.85</bc.version>
     <bcpg.version>${bc.version}</bcpg.version>
     <jsr305.version>3.0.2</jsr305.version>
-    <spotbugs-annotations.version>4.9.3</spotbugs-annotations.version>
+    <spotbugs-annotations.version>4.10.3</spotbugs-annotations.version>
   </properties>
   
   <dependencyManagement>
@@ -107,12 +107,12 @@
       <dependency>
         <groupId>jakarta.xml.bind</groupId>
         <artifactId>jakarta.xml.bind-api</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.5</version>
       </dependency>
       <dependency>
-        <groupId>com.sun.xml.bind</groupId>
-        <artifactId>jaxb-bom-ext</artifactId>
-        <version>4.0.5</version>
+        <groupId>org.glassfish.jaxb</groupId>
+        <artifactId>jaxb-bom</artifactId>
+        <version>4.0.9</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -121,12 +121,12 @@
       <dependency>
         <groupId>jakarta.xml.ws</groupId>
         <artifactId>jakarta.xml.ws-api</artifactId>
-        <version>4.0.2</version>
+        <version>4.0.3</version>
       </dependency>
       <dependency>
         <groupId>com.sun.xml.ws</groupId>
         <artifactId>jaxws-ri-bom</artifactId>
-        <version>4.0.3</version>
+        <version>4.0.5</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
