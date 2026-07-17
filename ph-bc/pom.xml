@@ -31,6 +31,7 @@
   <description>BouncyCastle common use case wrapper</description>
   <url>https://github.com/phax/ph-commons/ph-bc</url>
   <inceptionYear>2018</inceptionYear>
+  
   <licenses>
     <license>
       <name>Apache 2</name>
@@ -38,10 +39,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+  
   <organization>
     <name>Philip Helger</name>
     <url>https://www.helger.com</url>
   </organization>
+  
   <developers>
     <developer>
       <id>philip</id>
@@ -50,6 +53,7 @@
       <url>https://www.helger.com</url>
     </developer>
   </developers>
+  
   <dependencies>
     <dependency>
       <groupId>com.helger.commons</groupId>
@@ -63,6 +67,7 @@
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcpkix-jdk18on</artifactId>
     </dependency>
+    
     <dependency>
       <groupId>org.bouncycastle</groupId>
       <artifactId>bcjmail-jdk18on</artifactId>
@@ -80,6 +85,7 @@
       <artifactId>bcpg-jdk18on</artifactId>
       <optional>true</optional>
     </dependency>
+    
     <dependency>
       <groupId>com.helger.commons</groupId>
       <artifactId>ph-unittest-support-ext</artifactId>
