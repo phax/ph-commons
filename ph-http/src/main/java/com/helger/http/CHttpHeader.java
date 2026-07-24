@@ -170,7 +170,12 @@ public final class CHttpHeader
    */
   @Deprecated (forRemoval = false, since = "12.1.5")
   public static final String CONTENT_STYLE_TYPE = "Content-Style-Type";
+  /** Selects the preferred style sheet when multiple alternates are present. */
   public static final String DEFAULT_STYLE = "Default-Style";
+  /**
+   * Non-standard header instructing the client to reload or redirect after a given number of
+   * seconds. Commonly used as an HTML {@code <meta http-equiv>} equivalent.
+   */
   public static final String REFRESH = "Refresh";
   /**
    * Non-standard header; never widely supported.
@@ -201,34 +206,67 @@ public final class CHttpHeader
   public static final String TRANSFER_ENCODING = "Transfer-Encoding";
 
   // CORS
+  /**
+   * CORS response header indicating whether the response may be exposed when credentials are set.
+   */
   public static final String ACCESS_CONTROL_ALLOW_CREDENTIALS = "Access-Control-Allow-Credentials";
+  /** CORS response header listing the request headers allowed in the actual request. */
   public static final String ACCESS_CONTROL_ALLOW_HEADERS = "Access-Control-Allow-Headers";
+  /** CORS response header listing the HTTP methods allowed for the resource. */
   public static final String ACCESS_CONTROL_ALLOW_METHODS = "Access-Control-Allow-Methods";
+  /** CORS response header indicating which origins may access the resource. */
   public static final String ACCESS_CONTROL_ALLOW_ORIGIN = "Access-Control-Allow-Origin";
+  /** CORS response header listing the response headers exposed to the client. */
   public static final String ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
+  /** CORS response header indicating how long a preflight response may be cached. */
   public static final String ACCESS_CONTROL_MAX_AGE = "Access-Control-Max-Age";
+  /** CORS preflight request header indicating the HTTP method of the actual request. */
   public static final String ACCESS_CONTROL_REQUEST_METHOD = "Access-Control-Request-Method";
+  /** CORS preflight request header listing the headers used in the actual request. */
   public static final String ACCESS_CONTROL_REQUEST_HEADERS = "Access-Control-Request-Headers";
+  /** RFC 6454. Indicates the origin of the request. */
   public static final String ORIGIN = "Origin";
 
   // CSP
+  /** Content Security Policy header controlling the resources the user agent may load. */
   public static final String CONTENT_SECURITY_POLICY = "Content-Security-Policy";
+  /**
+   * Legacy, vendor-prefixed variant of {@link #CONTENT_SECURITY_POLICY}. Use
+   * {@link #CONTENT_SECURITY_POLICY} instead.
+   */
   @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_CONTENT_SECURITY_POLICY = "X-Content-Security-Policy";
+  /**
+   * Legacy, WebKit-prefixed variant of {@link #CONTENT_SECURITY_POLICY}. Use
+   * {@link #CONTENT_SECURITY_POLICY} instead.
+   */
   @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_WEBKIT_CSP = "X-WebKit-CSP";
+  /** Content Security Policy header that reports violations without enforcing the policy. */
   public static final String CONTENT_SECURITY_POLICY_REPORT_ONLY = "Content-Security-Policy-Report-Only";
+  /**
+   * Legacy, vendor-prefixed variant of {@link #CONTENT_SECURITY_POLICY_REPORT_ONLY}. Use
+   * {@link #CONTENT_SECURITY_POLICY_REPORT_ONLY} instead.
+   */
   @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_CONTENT_SECURITY_POLICY_REPORT_ONLY = "X-Content-Security-Policy-Report-Only";
 
   // WAP-248-UAPROF-20011020-a
+  /** WAP UAProf header referencing the user agent profile document. */
   public static final String X_WAP_PROFILE = "X-Wap-Profile";
+  /** WAP UAProf header referencing the user agent profile document. */
   public static final String PROFILE = "Profile";
+  /** WAP UAProf header referencing the user agent profile document. */
   public static final String WAP_PROFILE = "Wap-Profile";
+  /** RFC 2774. Mandatory extension declaration used by the WAP UAProf protocol. */
   public static final String MAN = "Man";
+  /** RFC 2774. Optional extension declaration used by the WAP UAProf protocol. */
   public static final String OPT = "Opt";
+  /** WAP UAProf header carrying the differences to the referenced profile. */
   public static final String X_WAP_PROFILE_DIFF = "X-Wap-Profile-Diff";
+  /** WAP UAProf header carrying the differences to the referenced profile. */
   public static final String PROFILE_DIFF = "Profile-Diff";
+  /** WAP UAProf header carrying the differences to the referenced profile. */
   public static final String WAP_PROFILE_DIFF = "Wap-Profile-Diff";
 
   // AS2 headers (RFC 4130)
@@ -371,11 +409,47 @@ public final class CHttpHeader
    */
   public static final String PRIORITY = "Priority";
 
+  /**
+   * The name of the de-facto standard HTTP header that contains the original client IP address when
+   * running behind a reverse proxy.
+   *
+   * @since 12.3.4
+   */
+  public static final String X_FORWARDED_FOR = "X-Forwarded-For";
+  /**
+   * De-facto standard header identifying the protocol (HTTP or HTTPS) used by the client to connect
+   * to a reverse proxy.
+   *
+   * @since 12.3.4
+   */
+  public static final String X_FORWARDED_PROTO = "X-Forwarded-Proto";
+  /**
+   * De-facto standard header identifying the original host requested by the client when running
+   * behind a reverse proxy.
+   *
+   * @since 12.3.4
+   */
+  public static final String X_FORWARDED_HOST = "X-Forwarded-Host";
+  /**
+   * De-facto standard header identifying the original port requested by the client when running
+   * behind a reverse proxy.
+   *
+   * @since 12.3.4
+   */
+  public static final String X_FORWARDED_PORT = "X-Forwarded-Port";
+
   // Special values
+  /** Header value for {@link #X_FRAME_OPTIONS} allowing framing only by the given origin. */
   public static final String VALUE_ALLOW_FROM = "ALLOW-FROM";
+  /** Header value for {@link #X_FRAME_OPTIONS} denying all framing of the resource. */
   public static final String VALUE_DENY = "DENY";
+  /**
+   * Header value for {@link #STRICT_TRANSPORT_SECURITY} extending the policy to all subdomains.
+   */
   public static final String VALUE_INCLUDE_SUBDOMAINS = "includeSubDomains";
+  /** Header value for {@link #X_CONTENT_TYPE_OPTIONS} disabling MIME type sniffing. */
   public static final String VALUE_NOSNIFF = "nosniff";
+  /** Header value for {@link #X_FRAME_OPTIONS} allowing framing only by the same origin. */
   public static final String VALUE_SAMEORIGIN = "SAMEORIGIN";
 
   @PresentForCodeCoverage
