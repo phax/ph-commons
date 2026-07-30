@@ -29,6 +29,11 @@ import com.helger.base.version.Version;
 @IsSPIImplementation
 public final class ThirdPartyModuleProvider_ph_base implements IThirdPartyModuleProviderSPI
 {
+  public static final IThirdPartyModule JSPECIFY = new ThirdPartyModule ("JSpecify",
+                                                                         "JSpecify Authors",
+                                                                         ELicense.APACHE2,
+                                                                         new Version (1, 0, 1),
+                                                                         "https://jspecify.dev/");
   public static final IThirdPartyModule SLF4J = new ThirdPartyModule ("SLF4J API",
                                                                       "QOS.ch",
                                                                       ELicense.MIT,
@@ -44,6 +49,6 @@ public final class ThirdPartyModuleProvider_ph_base implements IThirdPartyModule
   @Nullable
   public IThirdPartyModule [] getAllThirdPartyModules ()
   {
-    return new IThirdPartyModule [] { SLF4J, BASE64 };
+    return new IThirdPartyModule [] { JSPECIFY, SLF4J, BASE64 };
   }
 }
