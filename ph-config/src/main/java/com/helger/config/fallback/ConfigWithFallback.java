@@ -27,6 +27,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.Config;
+import com.helger.config.source.EConfigSourceType;
 import com.helger.config.value.ConfiguredValue;
 import com.helger.config.value.IConfigurationValueProvider;
 import com.helger.typeconvert.impl.TypeConverter;
@@ -41,15 +42,24 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConfigWithFallback.class);
   /**
-   * The default implementation that just logs a warning.
+   * The default implementation that just logs a warning. For configuration values coming from a
+   * system property or an environment variable, no warning is logged, as these sources can usually
+   * not be renamed as easily as e.g. a configuration file.
    */
   public static final IConfigKeyOutdatedNotifier DEFAULT_OUTDATED_NOTIFIER = (aOldConfigSrc, sOld, sNew) -> {
-    LOGGER.warn ("Please rename the configuration property '" +
-                 sOld +
-                 "' to '" +
-                 sNew +
-                 "'. The old name is deprecated. Source: " +
-                 aOldConfigSrc.toString ());
+    final String sMsg = "Please rename the configuration property '" +
+                        sOld +
+                        "' to '" +
+                        sNew +
+                        "'. The old name is deprecated. Source: " +
+                        aOldConfigSrc.toString ();
+
+    final EConfigSourceType eSourceType = aOldConfigSrc.getSourceType ();
+    if (eSourceType != EConfigSourceType.SYSTEM_PROPERTY && eSourceType != EConfigSourceType.ENVIRONMENT_VARIABLE)
+      LOGGER.warn (sMsg);
+    else
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug (sMsg);
   };
 
   private IConfigKeyOutdatedNotifier m_aOutdatedNotifier = DEFAULT_OUTDATED_NOTIFIER;
