@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -125,6 +126,34 @@ public class MappedKeyManualCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements
   public void iterateStorageCacheKey (@NonNull final Consumer <? super KEYSTORETYPE> aConsumer)
   {
     m_aCache.iterateCacheKey (aConsumer);
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This cache only retains the mapped storage keys, so the original cache keys cannot be iterated.
+   * Use {@link #iterateStorageCache(BiConsumer)} to iterate the storage keys instead.
+   * </p>
+   */
+  public void iterateCache (@NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    throw new UnsupportedOperationException ("The cache '" +
+                                             getName () +
+                                             "' maps the cache key to a different storage key, so the cache entries cannot be iterated");
+  }
+
+  /**
+   * Invoke the provided consumer for each <em>storage</em> key and value combination currently in the
+   * wrapped cache. This is the mapped counterpart of {@link #iterateCache(BiConsumer)}.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked with each storage key and the respective cache value. May not
+   *        be <code>null</code>.
+   * @since 12.3.4
+   */
+  public void iterateStorageCache (@NonNull final BiConsumer <? super KEYSTORETYPE, ? super VALUETYPE> aConsumer)
+  {
+    m_aCache.iterateCache (aConsumer);
   }
 
   public int getMaxSize ()

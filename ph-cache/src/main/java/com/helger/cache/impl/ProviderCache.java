@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -86,6 +87,13 @@ public class ProviderCache <KEYTYPE, VALUETYPE> extends AbstractProviderCache <K
   {
     // The storage key is the cache key, so the keys of the internal cache can be used as-is
     internalGetCache ().iterateCacheKey (aConsumer);
+  }
+
+  @Override
+  public void iterateCache (@NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    // The storage key is the cache key, so the keys of the internal cache can be used as-is
+    internalGetCache ().iterateCache (aConsumer);
   }
 
   /**

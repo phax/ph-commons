@@ -19,6 +19,7 @@ package com.helger.cache.impl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -29,11 +30,15 @@ import java.time.LocalDateTime;
 import org.junit.Test;
 
 import com.helger.base.wrapper.Wrapper;
+import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.CommonsHashSet;
+import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
 
 /**
- * Test class for the key iteration support of {@link AbstractMapBasedCache} - see
+ * Test class for the cache iteration support of {@link AbstractMapBasedCache} - see
+ * {@link AbstractMapBasedCache#iterateCacheKey(java.util.function.Consumer)},
+ * {@link AbstractMapBasedCache#iterateCache(java.util.function.BiConsumer)},
  * {@link AbstractMapBasedCache#getAllCacheKeys()} and
  * {@link AbstractMapBasedCache#removeFromCacheIf(java.util.function.Predicate)}.
  *
@@ -144,6 +149,111 @@ public final class CacheKeyIterationTest
     final ICommonsSet <String> aCollected = new CommonsHashSet <> ();
     c.iterateStorageCacheKey (aCollected::add);
     assertEquals (new CommonsHashSet <> ("1"), aCollected);
+  }
+
+  @Test
+  public void testIterateCache ()
+  {
+    final var c = ManualCache.<String, String> builder ().name ("IterateKV").build ();
+    final ICommonsMap <String, String> aCollected = new CommonsHashMap <> ();
+
+    c.iterateCache (aCollected::put);
+    assertTrue (aCollected.isEmpty ());
+
+    c.putInCache ("a", "va");
+    c.putInCache ("b", "vb");
+    c.iterateCache (aCollected::put);
+    assertEquals (2, aCollected.size ());
+    assertEquals ("va", aCollected.get ("a"));
+    assertEquals ("vb", aCollected.get ("b"));
+  }
+
+  @Test
+  public void testIterateCacheSkipsExpired ()
+  {
+    final FixedClock aClock = new FixedClock (LocalDateTime.of (2026, 1, 1, 12, 0));
+    final var c = ManualCache.<String, String> builder ()
+                             .name ("IterateKVExpired")
+                             .expireAfterWrite (Duration.ofSeconds (10))
+                             .clockSupplier (aClock::get)
+                             .build ();
+    c.putInCache ("a", "va");
+    aClock.advance (Duration.ofSeconds (11));
+    c.putInCache ("b", "vb");
+
+    final ICommonsMap <String, String> aCollected = new CommonsHashMap <> ();
+    c.iterateCache (aCollected::put);
+    assertEquals (1, aCollected.size ());
+    assertEquals ("vb", aCollected.get ("b"));
+  }
+
+  @Test
+  public void testIterateCacheWithNullValues ()
+  {
+    final var c = ManualCache.<String, String> builder ().name ("IterateKVNull").allowNullValues (true).build ();
+    c.putInCache ("a", null);
+
+    final ICommonsMap <String, String> aCollected = new CommonsHashMap <> ();
+    c.iterateCache (aCollected::put);
+    assertEquals (1, aCollected.size ());
+    assertTrue (aCollected.containsKey ("a"));
+    assertNull (aCollected.get ("a"));
+  }
+
+  @Test
+  public void testIterateCacheNullConsumer ()
+  {
+    final var c = ManualCache.<String, String> builder ().name ("IterateKVNullConsumer").build ();
+    try
+    {
+      c.iterateCache (null);
+      fail ();
+    }
+    catch (final NullPointerException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testIterateCacheProviderCache ()
+  {
+    // The storage key is the cache key, so iteration is supported
+    final var c = ProviderCache.<String, String> builder ()
+                               .name ("IterateKVProvider")
+                               .valueProvider (k -> "v" + k)
+                               .build ();
+    assertEquals ("vfoo", c.getFromCache ("foo"));
+
+    final ICommonsMap <String, String> aCollected = new CommonsHashMap <> ();
+    c.iterateCache (aCollected::put);
+    assertEquals (1, aCollected.size ());
+    assertEquals ("vfoo", aCollected.get ("foo"));
+  }
+
+  @Test
+  public void testIterateCacheMappedKeyCacheUnsupported ()
+  {
+    final var c = MappedKeyManualCache.of (ManualCache.<String, String> builder ().name ("IterateKVMapped").build (),
+                                           (final BigDecimal x) -> x.toString ());
+    c.putInCache (BigDecimal.ONE, "v1");
+
+    try
+    {
+      // The original keys are not retained
+      c.iterateCache ( (k, v) -> fail ());
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {
+      // expected
+    }
+
+    // The storage keys can be iterated
+    final ICommonsMap <String, String> aCollected = new CommonsHashMap <> ();
+    c.iterateStorageCache (aCollected::put);
+    assertEquals (1, aCollected.size ());
+    assertEquals ("v1", aCollected.get ("1"));
   }
 
   @Test

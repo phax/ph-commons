@@ -19,6 +19,7 @@ package com.helger.cache.impl;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -185,6 +186,21 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
     throw new UnsupportedOperationException ("The cache '" +
                                              getName () +
                                              "' maps the cache key to a different storage key, so the cache keys cannot be iterated");
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This cache only retains the storage keys created by {@link #getStorageKey(Object)}, so the
+   * original cache keys cannot be iterated. Subclasses that use the query key as storage key (like
+   * {@link ProviderCache}) override this method.
+   * </p>
+   */
+  public void iterateCache (@NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    throw new UnsupportedOperationException ("The cache '" +
+                                             getName () +
+                                             "' maps the cache key to a different storage key, so the cache entries cannot be iterated");
   }
 
   /**

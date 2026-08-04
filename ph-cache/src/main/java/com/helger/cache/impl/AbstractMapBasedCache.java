@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -565,6 +566,33 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
           // Skip entries that were garbage collected from the soft map as well as expired ones
           if (aCacheEntry != null && !aCacheEntry.isExpiredAt (aNow))
             aConsumer.accept (aMapEntry.getKey ());
+        }
+      }
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  @IsLocked (ELockType.WRITE)
+  public void iterateCache (@NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    // The write lock is needed, because the iterators of the internal soft maps are not thread-safe
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (m_aMap != null && m_aMap.isNotEmpty ())
+      {
+        final LocalDateTime aNow = m_aClockSupplier.get ();
+        for (final var aMapEntry : m_aMap.entrySet ())
+        {
+          final CacheEntry <VALUETYPE> aCacheEntry = aMapEntry.getValue ();
+          // Skip entries that were garbage collected from the soft map as well as expired ones
+          if (aCacheEntry != null && !aCacheEntry.isExpiredAt (aNow))
+            aConsumer.accept (aMapEntry.getKey (), aCacheEntry.getValue ());
         }
       }
     }

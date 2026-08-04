@@ -16,6 +16,7 @@
  */
 package com.helger.cache;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
@@ -82,6 +83,26 @@ public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
    * @since 12.3.4
    */
   void iterateCacheKey (@NonNull Consumer <? super KEYTYPE> aConsumer);
+
+  /**
+   * Invoke the provided consumer for each key and value combination currently in the cache. Entries
+   * that are past their time-based expiration, or the value of which was already garbage collected,
+   * are not provided.
+   * <p>
+   * Note: implementations may hold an internal lock while iterating, so the provided consumer must
+   * neither modify this cache nor perform long running operations. Implementations that map the
+   * public key to a different internal storage key (like <code>MappedKeyManualCache</code>) throw
+   * an {@link UnsupportedOperationException}, because the original cache keys are not retained.
+   * </p>
+   *
+   * @param aConsumer
+   *        The consumer to be invoked with each cache key and the respective cache value. May not be
+   *        <code>null</code>.
+   * @throws UnsupportedOperationException
+   *         if this cache implementation cannot provide its cache keys.
+   * @since 12.3.4
+   */
+  void iterateCache (@NonNull BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer);
 
   /**
    * @return The maximum number of entries allowed in this cache. Values &le; 0 indicate that the

@@ -19,6 +19,7 @@ package com.helger.cache.impl;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -247,6 +248,22 @@ public class MappedCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements IMutableC
     throw new UnsupportedOperationException ("The cache '" +
                                              getName () +
                                              "' maps the cache key to a different storage key, so the cache keys cannot be iterated");
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This cache only retains the keys created by the cache key provider, so the original cache keys
+   * cannot be iterated. Subclasses that use the query key as storage key (like {@link Cache})
+   * override this method.
+   * </p>
+   */
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  public void iterateCache (@NonNull final BiConsumer <? super KEYTYPE, ? super VALUETYPE> aConsumer)
+  {
+    throw new UnsupportedOperationException ("The cache '" +
+                                             getName () +
+                                             "' maps the cache key to a different storage key, so the cache entries cannot be iterated");
   }
 
   /**
