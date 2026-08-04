@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -78,6 +79,13 @@ public class ProviderCache <KEYTYPE, VALUETYPE> extends AbstractProviderCache <K
   protected KEYTYPE getStorageKey (final KEYTYPE aKey)
   {
     return aKey;
+  }
+
+  @Override
+  public void iterateCacheKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    // The storage key is the cache key, so the keys of the internal cache can be used as-is
+    internalGetCache ().iterateCacheKey (aConsumer);
   }
 
   /**

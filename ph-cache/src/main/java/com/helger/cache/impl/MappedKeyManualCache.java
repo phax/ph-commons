@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -97,6 +98,33 @@ public class MappedKeyManualCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements
   public VALUETYPE getFromCache (final @NonNull KEYTYPE aKey)
   {
     return m_aCache.getFromCache (getStorageKey (aKey));
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This cache only retains the mapped storage keys, so the original cache keys cannot be iterated.
+   * Use {@link #iterateStorageCacheKey(Consumer)} to iterate the storage keys instead.
+   * </p>
+   */
+  public void iterateCacheKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    throw new UnsupportedOperationException ("The cache '" +
+                                             getName () +
+                                             "' maps the cache key to a different storage key, so the cache keys cannot be iterated");
+  }
+
+  /**
+   * Invoke the provided consumer for each <em>storage</em> key currently in the wrapped cache. This
+   * is the mapped counterpart of {@link #iterateCacheKey(Consumer)}.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked for each storage key. May not be <code>null</code>.
+   * @since 12.3.4
+   */
+  public void iterateStorageCacheKey (@NonNull final Consumer <? super KEYSTORETYPE> aConsumer)
+  {
+    m_aCache.iterateCacheKey (aConsumer);
   }
 
   public int getMaxSize ()

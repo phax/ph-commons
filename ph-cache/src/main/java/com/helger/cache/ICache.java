@@ -16,6 +16,9 @@
  */
 package com.helger.cache;
 
+import java.util.function.Consumer;
+
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.CheckForSigned;
@@ -60,6 +63,25 @@ public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
    */
   @Nullable
   VALUETYPE getFromCache (KEYTYPE aKey);
+
+  /**
+   * Invoke the provided consumer for each key currently in the cache. Keys of entries that are past
+   * their time-based expiration, or the value of which was already garbage collected, are not
+   * provided.
+   * <p>
+   * Note: implementations may hold an internal lock while iterating, so the provided consumer must
+   * neither modify this cache nor perform long running operations. Implementations that map the
+   * public key to a different internal storage key (like <code>MappedKeyManualCache</code>) throw
+   * an {@link UnsupportedOperationException}, because the original cache keys are not retained.
+   * </p>
+   *
+   * @param aConsumer
+   *        The consumer to be invoked for each cache key. May not be <code>null</code>.
+   * @throws UnsupportedOperationException
+   *         if this cache implementation cannot provide its cache keys.
+   * @since 12.3.4
+   */
+  void iterateCacheKey (@NonNull Consumer <? super KEYTYPE> aConsumer);
 
   /**
    * @return The maximum number of entries allowed in this cache. Values &le; 0 indicate that the

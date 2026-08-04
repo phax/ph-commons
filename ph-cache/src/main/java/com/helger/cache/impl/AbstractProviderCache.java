@@ -19,6 +19,7 @@ package com.helger.cache.impl;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.concurrent.locks.ReadWriteLock;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -112,6 +113,15 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
   }
 
   /**
+   * @return The internal cache that stores the values by their storage key. Never <code>null</code>.
+   */
+  @NonNull
+  final ManualCache <KEYSTORETYPE, VALUETYPE> internalGetCache ()
+  {
+    return m_aCache;
+  }
+
+  /**
    * Translate the public-facing query key into the internal storage key. Called from every cache
    * operation that accepts a {@code KEYTYPE}. Implementations that cannot produce a valid storage
    * key should throw an {@link IllegalStateException}; {@link #isInCache(Object)} translates such
@@ -160,6 +170,21 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
     {
       return false;
     }
+  }
+
+  /**
+   * {@inheritDoc}
+   * <p>
+   * This cache only retains the storage keys created by {@link #getStorageKey(Object)}, so the
+   * original cache keys cannot be iterated. Subclasses that use the query key as storage key (like
+   * {@link ProviderCache}) override this method.
+   * </p>
+   */
+  public void iterateCacheKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    throw new UnsupportedOperationException ("The cache '" +
+                                             getName () +
+                                             "' maps the cache key to a different storage key, so the cache keys cannot be iterated");
   }
 
   /**

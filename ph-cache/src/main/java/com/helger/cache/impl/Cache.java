@@ -18,6 +18,7 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -139,6 +140,14 @@ public class Cache <KEYTYPE, VALUETYPE> extends MappedCache <KEYTYPE, KEYTYPE, V
                 @NonNull final Function <KEYTYPE, VALUETYPE> aCacheValueProvider)
   {
     super (sCacheName, nMaxSize, bAllowNullValues, aTimeToLive, aClockSupplier, x -> x, aCacheValueProvider);
+  }
+
+  @Deprecated (forRemoval = true, since = "12.3.0")
+  @Override
+  public void iterateCacheKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    // The storage key is the cache key, so the keys of the internal cache can be used as-is
+    internalGetCache ().iterateCacheKey (aConsumer);
   }
 
   /**

@@ -18,6 +18,8 @@ package com.helger.cache.impl;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
@@ -42,7 +44,9 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.cache.IMutableCacheWithExpiration;
 import com.helger.collection.CollectionHelper;
+import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
+import com.helger.collection.commons.ICommonsSet;
 import com.helger.collection.map.SoftHashMap;
 import com.helger.collection.map.SoftLinkedHashMap;
 
@@ -539,6 +543,104 @@ public abstract class AbstractMapBasedCache <KEYTYPE, VALUETYPE> extends Abstrac
     {
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug (getCacheLogText () + nRemoved + " expired entries were removed.");
+    }
+    return nRemoved;
+  }
+
+  @IsLocked (ELockType.WRITE)
+  public void iterateCacheKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    // The write lock is needed, because the iterators of the internal soft maps are not thread-safe
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (m_aMap != null && m_aMap.isNotEmpty ())
+      {
+        final LocalDateTime aNow = m_aClockSupplier.get ();
+        for (final var aMapEntry : m_aMap.entrySet ())
+        {
+          final CacheEntry <VALUETYPE> aCacheEntry = aMapEntry.getValue ();
+          // Skip entries that were garbage collected from the soft map as well as expired ones
+          if (aCacheEntry != null && !aCacheEntry.isExpiredAt (aNow))
+            aConsumer.accept (aMapEntry.getKey ());
+        }
+      }
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+  }
+
+  /**
+   * Get a snapshot of all keys currently in the cache. Entries that are expired, or the value of
+   * which was already garbage collected, are not contained. The returned set is a copy - modifying
+   * it has no effect on the cache. Note that the cache content may change immediately after this
+   * method returned, so a key of the returned set is not guaranteed to be in the cache anymore.
+   *
+   * @return A set with all cache keys. Never <code>null</code>.
+   * @see #iterateCacheKey(Consumer)
+   * @see #removeFromCacheIf(Predicate)
+   * @since 12.3.4
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsSet <KEYTYPE> getAllCacheKeys ()
+  {
+    final ICommonsSet <KEYTYPE> ret = new CommonsHashSet <> ();
+    iterateCacheKey (ret::add);
+    return ret;
+  }
+
+  /**
+   * Remove all cache entries, the key of which matches the provided filter. Contrary to
+   * {@link #getAllCacheKeys()} this also removes entries that are already expired, but were not yet
+   * evicted, so the returned number may be greater than the number of entries that were effectively
+   * usable.
+   *
+   * @param aFilter
+   *        The filter to be applied on each cache key. May not be <code>null</code>.
+   * @return The number of entries that were removed. Always &ge; 0.
+   * @see #getAllCacheKeys()
+   * @since 12.3.4
+   */
+  @Nonnegative
+  @OverridingMethodsMustInvokeSuper
+  public int removeFromCacheIf (@NonNull final Predicate <? super KEYTYPE> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+
+    int nRemoved = 0;
+    // The write lock is needed, because the iterators of the internal soft maps are not thread-safe
+    m_aRWLock.writeLock ().lock ();
+    try
+    {
+      if (m_aMap != null && m_aMap.isNotEmpty ())
+      {
+        final var it = m_aMap.entrySet ().iterator ();
+        while (it.hasNext ())
+        {
+          final var aMapEntry = it.next ();
+          if (aFilter.test (aMapEntry.getKey ()))
+          {
+            it.remove ();
+            nRemoved++;
+            incCacheRemove ();
+          }
+        }
+      }
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
+    }
+
+    if (nRemoved > 0)
+    {
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug (getCacheLogText () + nRemoved + " entries were removed by filter.");
     }
     return nRemoved;
   }
