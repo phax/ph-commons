@@ -779,6 +779,118 @@ public final class VersionTest
   }
 
   @Test
+  public void testParseNumericQualifier ()
+  {
+    // A qualifier separated with "-" is taken as a qualifier, as long as it is
+    // not numeric
+    for (final String sQualifier : new String [] { "SNAPSHOT", "RC1", "hotfix03", "a" })
+    {
+      final Version v = Version.parse ("1.4-" + sQualifier);
+      assertEquals (1, v.getMajor ());
+      assertEquals (4, v.getMinor ());
+      assertEquals (0, v.getMicro ());
+      assertEquals (sQualifier, v.getQualifier ());
+    }
+
+    // Problem: as soon as the qualifier is purely numeric, the very same layout
+    // is interpreted differently - the "-" is treated like a "." and the
+    // qualifier ends up as the micro version number instead
+    Version v = Version.parse ("1.4-03");
+    assertEquals (1, v.getMajor ());
+    assertEquals (4, v.getMinor ());
+    assertEquals (3, v.getMicro ());
+    assertNull (v.getQualifier ());
+    assertEquals (Version.parse ("1.4.3"), v);
+
+    // Only with an explicit micro version the numeric qualifier is retained
+    v = Version.parse ("1.4.0-03");
+    assertEquals (1, v.getMajor ());
+    assertEquals (4, v.getMinor ());
+    assertEquals (0, v.getMicro ());
+    assertEquals ("03", v.getQualifier ());
+
+    // parseStrictOrNull does not have that ambiguity, because the qualifier is
+    // always introduced by the first "-"
+    assertEquals (new Version (1, 4, 0, "03"), Version.parseStrictOrNull ("1.4-03"));
+    assertEquals (new Version (1, 4, 0, "03"), Version.parseStrictOrNull ("1.4.0-03"));
+    assertEquals (new Version (1, 4, 3), Version.parseStrictOrNull ("1.4.3"));
+  }
+
+  @Test
+  public void testParseStrictOrNull ()
+  {
+    assertEquals (new Version (1, 0, 0), Version.parseStrictOrNull ("1"));
+    assertEquals (new Version (1, 4, 0), Version.parseStrictOrNull ("1.4"));
+    assertEquals (new Version (1, 4, 2), Version.parseStrictOrNull ("1.4.2"));
+    assertEquals (new Version (0, 0, 0), Version.parseStrictOrNull ("0"));
+
+    // Trailing zero elements are accepted and normalized away
+    assertEquals (new Version (1, 0, 0), Version.parseStrictOrNull ("1.0"));
+    assertEquals (new Version (1, 0, 0), Version.parseStrictOrNull ("1.0.0"));
+
+    // Qualifier handling - only the first separator counts
+    assertEquals (new Version (1, 4, 0, "03"), Version.parseStrictOrNull ("1.4-03"));
+    assertEquals (new Version (1, 4, 2, "SNAPSHOT"), Version.parseStrictOrNull ("1.4.2-SNAPSHOT"));
+    assertEquals (new Version (1, 0, 0, "a-b-c"), Version.parseStrictOrNull ("1-a-b-c"));
+    assertEquals (new Version (1, 4, 0, "1.2.3"), Version.parseStrictOrNull ("1.4-1.2.3"));
+
+    // Surrounding whitespace is ignored
+    assertEquals (new Version (1, 4, 0, "03"), Version.parseStrictOrNull ("  1.4-03  "));
+
+    // Invalid
+    assertNull (Version.parseStrictOrNull (null));
+    assertNull (Version.parseStrictOrNull (""));
+    assertNull (Version.parseStrictOrNull ("   "));
+    // No numeric part at all
+    assertNull (Version.parseStrictOrNull ("bla"));
+    assertNull (Version.parseStrictOrNull ("-bla"));
+    // Empty qualifier
+    assertNull (Version.parseStrictOrNull ("1.4-"));
+    // Too many numeric parts
+    assertNull (Version.parseStrictOrNull ("1.2.3.4"));
+    // The "." is not a qualifier separator here
+    assertNull (Version.parseStrictOrNull ("1.2.3.alpha"));
+    // Superfluous leading zeroes are ambiguous
+    assertNull (Version.parseStrictOrNull ("1.04"));
+    assertNull (Version.parseStrictOrNull ("01"));
+    // Negative numbers
+    assertNull (Version.parseStrictOrNull ("1.-1"));
+    // Empty numeric part
+    assertNull (Version.parseStrictOrNull ("1..2"));
+    assertNull (Version.parseStrictOrNull (".1"));
+  }
+
+  @Test
+  public void testGetAsStringStrict ()
+  {
+    assertEquals ("1", new Version (1, 0, 0).getAsStringStrict ());
+    assertEquals ("1.4", new Version (1, 4, 0).getAsStringStrict ());
+    assertEquals ("1.4.2", new Version (1, 4, 2).getAsStringStrict ());
+    assertEquals ("1.0.2", new Version (1, 0, 2).getAsStringStrict ());
+    assertEquals ("0", new Version (0, 0, 0).getAsStringStrict ());
+    assertEquals ("1.4-03", new Version (1, 4, 0, "03").getAsStringStrict ());
+    assertEquals ("1.4.2-SNAPSHOT", new Version (1, 4, 2, "SNAPSHOT").getAsStringStrict ());
+    assertEquals ("0-bla", new Version (0, 0, 0, "bla").getAsStringStrict ());
+
+    // getAsStringStrict and parseStrictOrNull are exact inverses
+    for (final Version aVersion : new Version [] { new Version (0, 0, 0),
+                                                   new Version (1, 0, 0),
+                                                   new Version (1, 4, 0),
+                                                   new Version (1, 4, 2),
+                                                   new Version (1, 0, 2),
+                                                   new Version (1, 4, 0, "03"),
+                                                   new Version (1, 4, 0, "3"),
+                                                   new Version (1, 4, 2, "SNAPSHOT"),
+                                                   new Version (0, 0, 0, "bla"),
+                                                   new Version (0, 0, 0, "03"),
+                                                   new Version (0, 0, 0, "000000009"),
+                                                   new Version (1, 0, 0, "a-b-c"),
+                                                   new Version (1, 0, 0, "3"),
+                                                   new Version (1, 0, 0, "04") })
+      assertEquals (aVersion, Version.parseStrictOrNull (aVersion.getAsStringStrict ()));
+  }
+
+  @Test
   public void testCompare ()
   {
     assertTrue (new Version (1, 2).isGT (new Version (1, 1)));

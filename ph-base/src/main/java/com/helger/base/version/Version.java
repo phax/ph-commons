@@ -48,6 +48,20 @@ public class Version implements IComparable <Version>
   /** Default value for printing zero elements in getAsString */
   public static final boolean DEFAULT_PRINT_ZERO_ELEMENTS = false;
 
+  /**
+   * The character that separates the qualifier from the numeric version parts in the strict layout.
+   *
+   * @since v12.3.5
+   */
+  public static final char STRICT_QUALIFIER_SEPARATOR = '-';
+
+  /**
+   * The character that separates the numeric version parts from each other.
+   *
+   * @since v12.3.5
+   */
+  public static final char NUMERIC_PART_SEPARATOR = '.';
+
   /** major version. */
   private final int m_nMajor;
 
@@ -307,6 +321,34 @@ public class Version implements IComparable <Version>
   }
 
   /**
+   * Get the string representation of the version number using the strict layout
+   * <code>major[.minor[.micro]][-qualifier]</code>. Trailing zero elements are omitted, but the
+   * major version is always printed. The qualifier - if present - is always separated with a
+   * <code>-</code> character.<br>
+   * The result of this method can always be read back with {@link #parseStrictOrNull(String)},
+   * contrary to the combination of {@link #getAsString()} and {@link #parse(String)}.
+   *
+   * @return Never <code>null</code> nor empty.
+   * @see #parseStrictOrNull(String)
+   * @since v12.3.5
+   */
+  @NonNull
+  @Nonempty
+  public String getAsStringStrict ()
+  {
+    final StringBuilder aSB = new StringBuilder ().append (m_nMajor);
+    if (m_nMinor > 0 || m_nMicro > 0)
+    {
+      aSB.append ('.').append (m_nMinor);
+      if (m_nMicro > 0)
+        aSB.append ('.').append (m_nMicro);
+    }
+    if (m_sQualifier != null)
+      aSB.append (STRICT_QUALIFIER_SEPARATOR).append (m_sQualifier);
+    return aSB.toString ();
+  }
+
+  /**
    * Get the string representation of the version number but only major and minor version number.
    *
    * @return Never <code>null</code>.
@@ -526,5 +568,109 @@ public class Version implements IComparable <Version>
       sQualifier = null;
 
     return new Version (nMajor, nMinor, nMicro, sQualifier);
+  }
+
+  /**
+   * Check if the provided string is a numeric version part, meaning it consists of digits only and
+   * has no superfluous leading zeroes. The latter is required so that the parsing is the exact
+   * inverse of {@link #getAsStringStrict()}.
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if it is a valid numeric version part.
+   */
+  private static boolean _isStrictNumericPart (@Nullable final String s)
+  {
+    final int nLen = StringHelper.getLength (s);
+    if (nLen == 0)
+      return false;
+
+    // No leading zero, except for "0" itself
+    if (nLen > 1 && s.charAt (0) == '0')
+      return false;
+
+    for (int i = 0; i < nLen; ++i)
+      if (!Character.isDigit (s.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
+   * Construct a version object from a string using a strict layout. This is the exact inverse of
+   * {@link #getAsStringStrict()}.<br>
+   * EBNF:<br>
+   * version ::= major ( '.' minor ( '.' micro )? )? ( '-' qualifier )? <br>
+   * major ::= number<br>
+   * minor ::= number<br>
+   * micro ::= number<br>
+   * qualifier ::= .+
+   * <p>
+   * Contrary to {@link #parse(String)} the qualifier is always introduced by the first
+   * <code>-</code> character. That way a purely numeric qualifier is retained as such, whereas
+   * {@link #parse(String)} takes it as the micro version number instead - e.g. <code>1.4-03</code>
+   * is parsed to <code>1.4.0-03</code> by this method but to <code>1.4.3</code> by
+   * {@link #parse(String)}.
+   * </p>
+   * <p>
+   * Additionally this method is strict about its input and returns <code>null</code> instead of
+   * silently falling back to a default value. Numeric version parts must not have superfluous
+   * leading zeroes, so that <code>1.04</code> is rejected instead of being read as
+   * <code>1.4</code>. Trailing zero elements are accepted though, so <code>1</code>,
+   * <code>1.0</code> and <code>1.0.0</code> all lead to the same version.
+   * </p>
+   *
+   * @param sVersionString
+   *        the version string to be interpreted as a version. May be <code>null</code>.
+   * @return <code>null</code> if the provided string does not match the layout above.
+   * @see #getAsStringStrict()
+   * @since v12.3.5
+   */
+  @Nullable
+  public static Version parseStrictOrNull (@Nullable final String sVersionString)
+  {
+    if (sVersionString == null)
+      return null;
+
+    final String s = sVersionString.trim ();
+    if (s.length () == 0)
+      return null;
+
+    // Split of the qualifier at the first separator - the qualifier itself may
+    // contain further separators
+    final String sNumbers;
+    final String sQualifier;
+    final int nSepIdx = s.indexOf (STRICT_QUALIFIER_SEPARATOR);
+    if (nSepIdx < 0)
+    {
+      sNumbers = s;
+      sQualifier = null;
+    }
+    else
+    {
+      sNumbers = s.substring (0, nSepIdx);
+      sQualifier = s.substring (nSepIdx + 1);
+      // Neither "1.2-" nor "-bla" are valid
+      if (sQualifier.length () == 0)
+        return null;
+    }
+
+    final String [] aParts = StringHelper.getExplodedArray (NUMERIC_PART_SEPARATOR, sNumbers);
+    if (aParts.length == 0 || aParts.length > 3)
+      return null;
+
+    for (final String sPart : aParts)
+      if (!_isStrictNumericPart (sPart))
+        return null;
+
+    // Returns null on overflow, so that no negative number can arise
+    final Integer aMajor = StringParser.parseIntObj (aParts[0]);
+    final Integer aMinor = aParts.length > 1 ? StringParser.parseIntObj (aParts[1]) : Integer.valueOf (0);
+    final Integer aMicro = aParts.length > 2 ? StringParser.parseIntObj (aParts[2]) : Integer.valueOf (0);
+    if (aMajor == null || aMinor == null || aMicro == null)
+      return null;
+
+    // Trailing zero elements are accepted but not canonical, so "1", "1.0" and
+    // "1.0.0" all lead to the same Version
+    return new Version (aMajor.intValue (), aMinor.intValue (), aMicro.intValue (), sQualifier);
   }
 }
