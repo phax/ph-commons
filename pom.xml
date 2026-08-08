@@ -83,6 +83,7 @@
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
     <bc.version>1.85</bc.version>
+    <bcprov.version>1.85.2</bcprov.version>
     <bcpg.version>${bc.version}</bcpg.version>
   </properties>
   
@@ -97,7 +98,7 @@
       <dependency>
         <groupId>org.bouncycastle</groupId>
         <artifactId>bcprov-jdk18on</artifactId>
-        <version>${bc.version}</version>
+        <version>${bcprov.version}</version>
       </dependency>
       <dependency>
         <groupId>org.bouncycastle</groupId>
