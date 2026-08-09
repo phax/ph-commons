@@ -21,6 +21,7 @@ import java.util.function.Supplier;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -30,8 +31,8 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Special implementation of {@link IHasInputStream} with that has an
- * InputStream supplier that can be read more than once!
+ * Special implementation of {@link IHasInputStream} with that has an InputStream supplier that can
+ * be read more than once!
  *
  * @author Philip Helger
  */
@@ -47,9 +48,8 @@ public class HasInputStream implements IHasInputStream
    * @param aISP
    *        {@link InputStream} supplier. May not be <code>null</code>.
    * @param bReadMultiple
-   *        <code>true</code> if the supplier can be invoked more than once
-   *        (e.g. from a byte[]) or <code>false</code> if it can be invoked only
-   *        once (e.g. from an open socket).
+   *        <code>true</code> if the supplier can be invoked more than once (e.g. from a byte[]) or
+   *        <code>false</code> if it can be invoked only once (e.g. from an open socket).
    */
   public HasInputStream (@NonNull final Supplier <? extends InputStream> aISP, final boolean bReadMultiple)
   {
@@ -111,8 +111,7 @@ public class HasInputStream implements IHasInputStream
      * Constructor.
      *
      * @param aBAOS
-     *        The {@link NonBlockingByteArrayOutputStream} to wrap. May not be
-     *        <code>null</code>.
+     *        The {@link NonBlockingByteArrayOutputStream} to wrap. May not be <code>null</code>.
      */
     public HISNBBAOS (@NonNull final NonBlockingByteArrayOutputStream aBAOS)
     {
@@ -135,8 +134,7 @@ public class HasInputStream implements IHasInputStream
 
   /**
    * Get a special implementation of {@link IHasInputStream} for
-   * {@link NonBlockingByteArrayOutputStream}. This input stream can be read
-   * multiple times.
+   * {@link NonBlockingByteArrayOutputStream}. This input stream can be read multiple times.
    *
    * @param aBAOS
    *        Source stream. May not be <code>null</code>.
@@ -154,23 +152,33 @@ public class HasInputStream implements IHasInputStream
   private static final class HISByteArray implements IHasInputStream
   {
     private final byte [] m_aBytes;
+    private final int m_nOfs;
+    private final int m_nLen;
 
     /**
      * Constructor.
      *
      * @param aBytes
      *        The byte array to wrap. May not be <code>null</code>.
+     * @param nOfs
+     *        The offset in the byte array of the first byte to read. Must be &ge; 0.
+     * @param nLen
+     *        The maximum number of bytes to read from the byte array. Must be &ge; 0.
      */
-    public HISByteArray (final byte @NonNull [] aBytes)
+    public HISByteArray (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen)
     {
+      ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
       m_aBytes = aBytes;
+      m_nOfs = nOfs;
+      m_nLen = nLen;
     }
 
     /** {@inheritDoc} */
     @NonNull
     public InputStream getInputStream ()
     {
-      return new NonBlockingByteArrayInputStream (m_aBytes);
+      // No copy needed
+      return new NonBlockingByteArrayInputStream (m_aBytes, m_nOfs, m_nLen, false);
     }
 
     /** {@inheritDoc} */
@@ -181,10 +189,9 @@ public class HasInputStream implements IHasInputStream
   }
 
   /**
-   * Get a special implementation of {@link IHasInputStream} for byte array.
-   * This input stream can be read multiple times. <br>
-   * Note: don't alter the byte array after passing it in. It is not copied for
-   * performance reasons.
+   * Get a special implementation of {@link IHasInputStream} for byte array. This input stream can
+   * be read multiple times. <br>
+   * Note: don't alter the byte array after passing it in. It is not copied for performance reasons.
    *
    * @param aBytes
    *        Source byte array. May not be <code>null</code>.
@@ -196,6 +203,30 @@ public class HasInputStream implements IHasInputStream
   public static IHasInputStream create (final byte @NonNull [] aBytes)
   {
     ValueEnforcer.notNull (aBytes, "Bytes");
-    return new HISByteArray (aBytes);
+    return create (aBytes, 0, aBytes.length);
+  }
+
+  /**
+   * Get a special implementation of {@link IHasInputStream} for a part of a byte array. This input
+   * stream can be read multiple times. <br>
+   * Note: don't alter the byte array after passing it in. It is not copied for performance reasons.
+   *
+   * @param aBytes
+   *        Source byte array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset in the byte array of the first byte to read. Must be &ge; 0.
+   * @param nLen
+   *        The maximum number of bytes to read from the byte array. Must be &ge; 0.
+   * @return Never <code>null</code>.
+   * @since 12.3.5
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public static IHasInputStream create (final byte @NonNull [] aBytes,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (aBytes, nOfs, nLen);
+    return new HISByteArray (aBytes, nOfs, nLen);
   }
 }
