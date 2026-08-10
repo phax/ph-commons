@@ -630,19 +630,17 @@ public final class MicroWriterTest
       aNC.addMapping ("n2", "ns2url");
       aNC.addMapping ("", "ns3url");
       final String s = MicroWriter.getNodeAsString (aDoc, new XMLWriterSettings (aSettings).setNamespaceContext (aNC));
+      // The default namespace prefix of the namespace context cannot be used
+      // for "attr2", because the default namespace never applies to attributes
       assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
                     "<n1:root xmlns:n1=\"ns1url\">" +
                     "<n2:child1 xmlns:n2=\"ns2url\" n2:attr1=\"value1\" />" +
-                    "<n2:child2 xmlns:n2=\"ns2url\" xmlns=\"ns3url\" attr2=\"value2\" />" +
+                    "<n2:child2 xmlns:n2=\"ns2url\" xmlns:ns0=\"ns3url\" ns0:attr2=\"value2\" />" +
                     "</n1:root>",
                     s);
       final IMicroDocument aDoc2 = MicroReader.readMicroXML (s);
       assertNotNull (aDoc2);
-      if (false)
-      {
-        // Different namespace for attr2
-        assertTrue (aDoc.isEqualContent (aDoc2));
-      }
+      assertTrue (aDoc.isEqualContent (aDoc2));
     }
 
     {
@@ -1015,9 +1013,9 @@ public final class MicroWriterTest
   public void testUseExistingNamespaceDeclarationsNoXmlnsAttrs ()
   {
     // When MicroDOM elements are created programmatically without xmlns
-    // attributes, the "use existing" flag means no xmlns declarations are
-    // emitted (there are none to use). Elements are written with their local
-    // names only.
+    // attributes, the "use existing" flag has nothing to take over, so the
+    // missing namespace declarations are created on the fly. Otherwise the
+    // resulting XML would silently loose all namespaces.
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.ISO_8859_1)
                                                                 .setUseExistingNamespaceDeclarations (true);
@@ -1028,13 +1026,42 @@ public final class MicroWriterTest
     eRoot.addElementNS ("ns2url", "child2").setAttribute ("attr1", "a");
 
     final String sResult = MicroWriter.getNodeAsString (aDoc, aSettings);
-    // No xmlns declarations because none are stored on the elements
     assertEquals ("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>" +
-                  "<root>" +
-                  "<child1 />" +
-                  "<child2 attr1=\"a\" />" +
+                  "<root xmlns=\"ns1url\">" +
+                  "<ns0:child1 xmlns:ns0=\"ns2url\" />" +
+                  "<ns0:child2 xmlns:ns0=\"ns2url\" attr1=\"a\" />" +
                   "</root>",
                   sResult);
+
+    // The namespaces survive the round trip now
+    final IMicroDocument aDoc2 = MicroReader.readMicroXML (sResult);
+    assertNotNull (aDoc2);
+    assertTrue (aDoc.isEqualContent (aDoc2));
+  }
+
+  @Test
+  public void testElementWithoutNamespaceInsideDefaultNamespace ()
+  {
+    // A namespace prefix can never be bound to the empty namespace URI, so an
+    // element without a namespace must undeclare the default namespace of the
+    // parent element
+    final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
+                                                                .setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE);
+
+    final IMicroDocument aDoc = new MicroDocument ();
+    final IMicroElement eRoot = aDoc.addElementNS ("urn:def", "root");
+    eRoot.addElement ("child");
+
+    for (final boolean bUseExisting : new boolean [] { false, true })
+    {
+      final String sResult = MicroWriter.getNodeAsString (aDoc,
+                                                          new XMLWriterSettings (aSettings).setUseExistingNamespaceDeclarations (bUseExisting));
+      assertEquals ("<root xmlns=\"urn:def\"><child xmlns=\"\" /></root>", sResult);
+
+      final IMicroDocument aDoc2 = MicroReader.readMicroXML (sResult);
+      assertNotNull (aDoc2);
+      assertTrue (aDoc.isEqualContent (aDoc2));
+    }
   }
 
   @Test

@@ -119,16 +119,16 @@ public final class MicroReaderTest
                   CRLF +
                   INDENT +
                   INDENT +
-                  "<ns0:child xmlns:ns0=\"\">" +
+                  "<child xmlns=\"\">" +
                   CRLF +
                   INDENT +
                   INDENT +
                   INDENT +
-                  "<ns1:child2 xmlns:ns1=\"foo\">Value text - no entities!</ns1:child2>" +
+                  "<ns0:child2 xmlns:ns0=\"foo\">Value text - no entities!</ns0:child2>" +
                   CRLF +
                   INDENT +
                   INDENT +
-                  "</ns0:child>" +
+                  "</child>" +
                   CRLF +
                   INDENT +
                   "</root>" +
@@ -193,9 +193,9 @@ public final class MicroReaderTest
     assertEquals ("<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
                   "<verrryoot>" +
                   "<root xmlns=\"myuri\">" +
-                  "<ns0:child xmlns:ns0=\"\">" +
-                  "<ns1:child2 xmlns:ns1=\"foo\">Value text - no entities!</ns1:child2>" +
-                  "</ns0:child>" +
+                  "<child xmlns=\"\">" +
+                  "<ns0:child2 xmlns:ns0=\"foo\">Value text - no entities!</ns0:child2>" +
+                  "</child>" +
                   "</root>" +
                   "</verrryoot>",
                   sXML);

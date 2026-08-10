@@ -753,11 +753,13 @@ public final class XMLWriterTest
     e.setAttributeNS ("urn:ns3", "c", "1");
     e.setAttributeNS ("urn:ns2", "b", "2");
     e.setAttributeNS ("urn:ns1", "a", "3");
-    assertEquals ("<a xmlns='urn:ns1' a='3' xmlns:ns0='urn:ns2' ns0:b='2' xmlns:ns1='urn:ns3' ns1:c='1' />",
+    // Note: namespaced attributes always need a prefix, because the default
+    // namespace does not apply to attribute names
+    assertEquals ("<a xmlns:ns0='urn:ns1' ns0:a='3' xmlns:ns1='urn:ns2' ns1:b='2' xmlns:ns2='urn:ns3' ns2:c='1' />",
                   XMLWriter.getNodeAsString (e, aSettings));
 
     aSettings = aSettings.setOrderAttributesAndNamespaces (true);
-    assertEquals ("<a xmlns='urn:ns1' xmlns:ns0='urn:ns2' xmlns:ns1='urn:ns3' a='3' ns0:b='2' ns1:c='1' />",
+    assertEquals ("<a xmlns:ns0='urn:ns1' xmlns:ns1='urn:ns2' xmlns:ns2='urn:ns3' ns0:a='3' ns1:b='2' ns2:c='1' />",
                   XMLWriter.getNodeAsString (e, aSettings));
   }
 

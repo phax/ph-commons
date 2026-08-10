@@ -234,9 +234,11 @@ public abstract class AbstractXMLSerializer <NODETYPE>
      * @param sPrefix
      *        Prefix to use. May be <code>null</code>.
      * @param sNamespaceURI
-     *        Namespace URI to use. May neither be <code>null</code> nor empty.
+     *        Namespace URI to use. May not be <code>null</code> but maybe empty. An empty namespace
+     *        URI is only allowed for the default namespace, in which case it undeclares an outer
+     *        default namespace (<code>xmlns=""</code>).
      */
-    public void addNamespaceMapping (@Nullable final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
+    public void addNamespaceMapping (@Nullable final String sPrefix, @NonNull final String sNamespaceURI)
     {
       // Add the namespace to the current level
       m_aStack.getFirstOrNull ().addPrefixNamespaceMapping (sPrefix, sNamespaceURI);
@@ -262,7 +264,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
     /**
      * @return The namespace URI that is currently active in the stack. May be <code>null</code> for
-     *         no specific namespace.
+     *         no specific namespace. May be empty, if an outer default namespace was explicitly
+     *         undeclared via <code>xmlns=""</code>.
      */
     @Nullable
     private String _getDefaultNamespaceURI ()
@@ -271,10 +274,36 @@ public abstract class AbstractXMLSerializer <NODETYPE>
       for (final NamespaceLevel aNSLevel : m_aStack)
       {
         final String sDefaultNamespaceURI = aNSLevel.getDefaultNamespaceURI ();
-        if (StringHelper.isNotEmpty (sDefaultNamespaceURI))
+        // Note: an empty namespace URI is an explicit undeclaration and must
+        // therefore shadow all outer default namespaces
+        if (sDefaultNamespaceURI != null)
           return sDefaultNamespaceURI;
       }
       // no default namespace
+      return null;
+    }
+
+    /**
+     * Resolve the namespace URI a certain prefix is currently mapped to.
+     *
+     * @param sPrefix
+     *        The prefix to resolve. May not be <code>null</code>. Pass in an empty string for the
+     *        default namespace.
+     * @return <code>null</code> if the prefix is not mapped.
+     */
+    @Nullable
+    private String _getNamespaceURIOfPrefix (@NonNull final String sPrefix)
+    {
+      if (sPrefix.length () == 0)
+        return _getDefaultNamespaceURI ();
+
+      // find existing mapping (iterate current to root)
+      for (final NamespaceLevel aNSLevel : m_aStack)
+      {
+        final String sNamespaceURI = aNSLevel.getNamespaceURIOfPrefix (sPrefix);
+        if (sNamespaceURI != null)
+          return sNamespaceURI;
+      }
       return null;
     }
 
@@ -345,6 +374,27 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     }
 
     /**
+     * Create a new unique namespace prefix that is never empty. This is needed for attributes,
+     * because the default namespace never applies to attribute names.
+     *
+     * @return The created prefix. Neither <code>null</code> nor empty.
+     */
+    @NonNull
+    @Nonempty
+    private String _createUniqueNonEmptyPrefix ()
+    {
+      // find a unique prefix
+      int nCount = 0;
+      do
+      {
+        final String sNSPrefix = DEFAULT_NAMESPACE_PREFIX_PREFIX + nCount;
+        if (_containsNoPrefix (sNSPrefix))
+          return sNSPrefix;
+        ++nCount;
+      } while (true);
+    }
+
+    /**
      * Create a new unique namespace prefix.
      *
      * @return <code>null</code> or empty if the default namespace is available, the prefix
@@ -359,15 +409,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // Use the default namespace
         return null;
       }
-      // find a unique prefix
-      int nCount = 0;
-      do
-      {
-        final String sNSPrefix = DEFAULT_NAMESPACE_PREFIX_PREFIX + nCount;
-        if (_containsNoPrefix (sNSPrefix))
-          return sNSPrefix;
-        ++nCount;
-      } while (true);
+      return _createUniqueNonEmptyPrefix ();
     }
 
     /**
@@ -393,11 +435,23 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         // It's the default namespace
         return null;
       }
+
+      if (sNamespaceURI.length () == 0)
+      {
+        // The element is in no namespace, but a default namespace is currently
+        // in scope. As a namespace prefix can never be bound to the empty
+        // namespace URI in XML 1.0, the default namespace must be undeclared
+        // instead - see https://www.w3.org/TR/xml-names/#nsc-NoPrefixUndecl
+        aAttrMap.put (XMLHelper.getXMLNSAttrQName (null), "");
+        addNamespaceMapping (null, "");
+        return null;
+      }
+
       // Check if an existing prefix is in use
       String sNSPrefix = getUsedPrefixOfNamespace (sNamespaceURI);
 
       // Do we need to create a prefix?
-      if (sNSPrefix == null && (!bIsRootElement || sNamespaceURI.length () > 0))
+      if (sNSPrefix == null)
       {
         // Ensure to use the correct prefix (check if defined in namespace
         // context)
@@ -434,10 +488,14 @@ public abstract class AbstractXMLSerializer <NODETYPE>
                                                     @NonNull final String sValue,
                                                     @NonNull final Map <QName, String> aAttrMap)
     {
-      final String sDefaultNamespaceURI = StringHelper.getNotNull (_getDefaultNamespaceURI ());
-      if (sNamespaceURI.equals (sDefaultNamespaceURI))
+      // Note: the default namespace never applies to attribute names, so an
+      // attribute in a namespace ALWAYS needs a prefix, and an attribute
+      // without a namespace NEVER has one.
+      // See https://www.w3.org/TR/xml-names/#defaulting
+      if (sNamespaceURI.length () == 0)
       {
-        // It's the default namespace
+        // Don't create a namespace mapping for attributes without a namespace
+        // URI
         return null;
       }
       String sNSPrefix = getUsedPrefixOfNamespace (sNamespaceURI);
@@ -462,17 +520,11 @@ public abstract class AbstractXMLSerializer <NODETYPE>
           // Ensure to use the correct prefix (namespace context)
           sNSPrefix = _getMappedPrefix (sNamespaceURI);
 
-          // Do not create a prefix for the root element
-          if (sNSPrefix == null)
-          {
-            if (sNamespaceURI.length () == 0)
-            {
-              // Don't create a namespace mapping for attributes without a
-              // namespace URI
-              return null;
-            }
-            sNSPrefix = _createUniquePrefix ();
-          }
+          // A namespaced attribute can never use the default namespace, so
+          // always create a non-empty prefix
+          if (StringHelper.isEmpty (sNSPrefix))
+            sNSPrefix = _createUniqueNonEmptyPrefix ();
+
           // Don't emit "xmlns:xml"
           if (!XMLConstants.XML_NS_PREFIX.equals (sNSPrefix))
           {
@@ -483,6 +535,44 @@ public abstract class AbstractXMLSerializer <NODETYPE>
         }
       }
       return sNSPrefix;
+    }
+
+    /**
+     * Ensure that the passed namespace prefix is bound to the passed namespace URI in the current
+     * scope. If it is not, a respective namespace declaration is added to the provided attribute
+     * map and is remembered in this stack. This is only needed if the existing namespace
+     * declarations are used as-is, because in that case a source node may use a namespace prefix
+     * for which no explicit declaration exists (e.g. because the node was created
+     * programmatically).
+     *
+     * @param sPrefix
+     *        The namespace prefix that is about to be emitted. May be <code>null</code> or empty
+     *        for the default namespace.
+     * @param sNamespaceURI
+     *        The namespace URI the prefix must be bound to. May not be <code>null</code> but maybe
+     *        empty.
+     * @param aAttrMap
+     *        The attribute map that receives potential xmlns attributes. May not be
+     *        <code>null</code>.
+     * @since 12.3.5
+     */
+    public void ensureNamespaceDeclaration (@Nullable final String sPrefix,
+                                            @NonNull final String sNamespaceURI,
+                                            @NonNull final Map <QName, String> aAttrMap)
+    {
+      // The "xml" prefix is implicitly bound and must never be declared
+      if (XMLConstants.XML_NS_PREFIX.equals (sPrefix))
+        return;
+
+      final String sRealPrefix = StringHelper.getNotNull (sPrefix);
+      final String sMappedNamespaceURI = StringHelper.getNotNull (_getNamespaceURIOfPrefix (sRealPrefix));
+      if (!sMappedNamespaceURI.equals (sNamespaceURI))
+      {
+        // Not yet bound, or bound to a different namespace URI
+        final String sNSPrefix = sRealPrefix.length () == 0 ? null : sRealPrefix;
+        aAttrMap.put (XMLHelper.getXMLNSAttrQName (sNSPrefix), sNamespaceURI);
+        addNamespaceMapping (sNSPrefix, sNamespaceURI);
+      }
     }
   }
 

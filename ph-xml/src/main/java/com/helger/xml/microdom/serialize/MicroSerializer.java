@@ -299,7 +299,23 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         // Determine element prefix from namespace stack (covers both local
         // xmlns attrs and those inherited from ancestors)
         if (sElementNamespaceURI.length () > 0)
+        {
           sElementNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sElementNamespaceURI);
+          if (sElementNSPrefix == null)
+          {
+            // Either it is the default namespace, or no declaration exists for
+            // the namespace URI - in the latter case a new one is created
+            sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI,
+                                                                          bIsRootElement,
+                                                                          aAttrMap);
+          }
+        }
+        else
+        {
+          // The element is in no namespace - a default namespace that is in
+          // scope must be undeclared
+          m_aNSStack.ensureNamespaceDeclaration (null, "", aAttrMap);
+        }
 
         // Second pass: process non-xmlns attributes and resolve their prefixes
         if (aElement.hasAttributes ())
@@ -307,6 +323,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
           {
             final IMicroQName aAttrName = aAttr.getAttributeQName ();
             final String sAttrNamespaceURI = StringHelper.getNotNull (aAttrName.getNamespaceURI ());
+            final String sAttrName = aAttrName.getName ();
             final String sAttrValue = aAttr.getAttributeValue ();
 
             if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNamespaceURI))
@@ -314,7 +331,18 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
               // Regular attribute - find its prefix from namespace stack
               String sAttrNSPrefix = null;
               if (sAttrNamespaceURI.length () > 0)
+              {
                 sAttrNSPrefix = m_aNSStack.getUsedPrefixOfNamespace (sAttrNamespaceURI);
+                if (sAttrNSPrefix == null)
+                {
+                  // No declaration exists for the namespace URI - create one,
+                  // because the default namespace never applies to attributes
+                  sAttrNSPrefix = m_aNSStack.getAttributeNamespacePrefixToUse (sAttrNamespaceURI,
+                                                                               sAttrName,
+                                                                               sAttrValue,
+                                                                               aAttrMap);
+                }
+              }
 
               if (sAttrNSPrefix != null)
                 aAttrMap.put (aAttrName.getAsXMLQName (sAttrNSPrefix), sAttrValue);

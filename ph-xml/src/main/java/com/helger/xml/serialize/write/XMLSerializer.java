@@ -229,16 +229,51 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
         sElementNSPrefix = aElement.getPrefix ();
 
-        // Keep ALL attributes including xmlns: declarations as-is
+        // First pass: keep all existing xmlns: declarations as-is and remember
+        // them, so that missing declarations can be determined afterwards
         XMLHelper.forAllAttributes (aElement, aAttr -> {
           final String sAttrNsURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
-          final String sLocalName = XMLHelper.getLocalNameOrName (aAttr);
-          final String sAttrValue = aAttr.getValue ();
-          final String sAttrPrefix = aAttr.getPrefix ();
-          if (sAttrPrefix != null)
-            aAttrMap.put (new QName (sAttrNsURI, sLocalName, sAttrPrefix), sAttrValue);
-          else
-            aAttrMap.put (new QName (sAttrNsURI, sLocalName), sAttrValue);
+          if (XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNsURI))
+          {
+            final String sLocalName = XMLHelper.getLocalNameOrName (aAttr);
+            final String sAttrValue = aAttr.getValue ();
+            if (XMLConstants.XMLNS_ATTRIBUTE.equals (sLocalName))
+            {
+              // Default namespace declaration (xmlns="...")
+              aAttrMap.put (new QName (sAttrNsURI, sLocalName), sAttrValue);
+              m_aNSStack.addNamespaceMapping (null, sAttrValue);
+            }
+            else
+            {
+              // Prefixed namespace declaration (xmlns:prefix="...")
+              aAttrMap.put (new QName (sAttrNsURI, sLocalName, XMLConstants.XMLNS_ATTRIBUTE), sAttrValue);
+              m_aNSStack.addNamespaceMapping (sLocalName, sAttrValue);
+            }
+          }
+        });
+
+        // The DOM may use a prefix without having an explicit declaration for
+        // it (e.g. for programmatically created nodes)
+        if (bEmitNamespaces)
+          m_aNSStack.ensureNamespaceDeclaration (sElementNSPrefix, sElementNamespaceURI, aAttrMap);
+
+        // Second pass: all other attributes, keeping their prefix as-is
+        XMLHelper.forAllAttributes (aElement, aAttr -> {
+          final String sAttrNsURI = StringHelper.getNotNull (aAttr.getNamespaceURI ());
+          if (!XMLConstants.XMLNS_ATTRIBUTE_NS_URI.equals (sAttrNsURI))
+          {
+            final String sLocalName = XMLHelper.getLocalNameOrName (aAttr);
+            final String sAttrValue = aAttr.getValue ();
+            final String sAttrPrefix = aAttr.getPrefix ();
+            if (sAttrPrefix != null)
+            {
+              if (bEmitNamespaces)
+                m_aNSStack.ensureNamespaceDeclaration (sAttrPrefix, sAttrNsURI, aAttrMap);
+              aAttrMap.put (new QName (sAttrNsURI, sLocalName, sAttrPrefix), sAttrValue);
+            }
+            else
+              aAttrMap.put (new QName (sAttrNsURI, sLocalName), sAttrValue);
+          }
         });
       }
       else
