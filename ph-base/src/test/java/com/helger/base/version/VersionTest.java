@@ -866,9 +866,13 @@ public final class VersionTest
     assertEquals ("1", new Version (1, 0, 0).getAsStringStrict ());
     assertEquals ("1.4", new Version (1, 4, 0).getAsStringStrict ());
     assertEquals ("1.4.2", new Version (1, 4, 2).getAsStringStrict ());
+    assertEquals ("1.4.2", new Version (1, 4, 2, null).getAsStringStrict ());
+    assertEquals ("1.4.2", new Version (1, 4, 2, "").getAsStringStrict ());
     assertEquals ("1.0.2", new Version (1, 0, 2).getAsStringStrict ());
     assertEquals ("0", new Version (0, 0, 0).getAsStringStrict ());
+    assertEquals ("1-03", new Version (1, 0, 0, "03").getAsStringStrict ());
     assertEquals ("1.4-03", new Version (1, 4, 0, "03").getAsStringStrict ());
+    assertEquals ("1.4.1-03", new Version (1, 4, 1, "03").getAsStringStrict ());
     assertEquals ("1.4.2-SNAPSHOT", new Version (1, 4, 2, "SNAPSHOT").getAsStringStrict ());
     assertEquals ("0-bla", new Version (0, 0, 0, "bla").getAsStringStrict ());
 

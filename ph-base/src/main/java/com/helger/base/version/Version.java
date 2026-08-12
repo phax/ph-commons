@@ -343,7 +343,7 @@ public class Version implements IComparable <Version>
       if (m_nMicro > 0)
         aSB.append ('.').append (m_nMicro);
     }
-    if (m_sQualifier != null)
+    if (StringHelper.isNotEmpty (m_sQualifier))
       aSB.append (STRICT_QUALIFIER_SEPARATOR).append (m_sQualifier);
     return aSB.toString ();
   }
