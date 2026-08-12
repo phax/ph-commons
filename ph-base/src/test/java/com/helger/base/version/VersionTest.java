@@ -878,7 +878,9 @@ public final class VersionTest
 
     // getAsStringStrict and parseStrictOrNull are exact inverses
     for (final Version aVersion : new Version [] { new Version (0, 0, 0),
+                                                   new Version (0, 0, 0, "bla"),
                                                    new Version (1, 0, 0),
+                                                   new Version (1, 0, 0, "gnlpf"),
                                                    new Version (1, 4, 0),
                                                    new Version (1, 4, 2),
                                                    new Version (1, 0, 2),

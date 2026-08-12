@@ -650,7 +650,7 @@ public class Version implements IComparable <Version>
       sNumbers = s.substring (0, nSepIdx);
       sQualifier = s.substring (nSepIdx + 1);
       // Neither "1.2-" nor "-bla" are valid
-      if (sQualifier.length () == 0)
+      if (sNumbers.length () == 0 || sQualifier.length () == 0)
         return null;
     }
 
