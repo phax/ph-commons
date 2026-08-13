@@ -17,6 +17,7 @@
 package com.helger.xml.serialize.read;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -51,8 +52,9 @@ public final class XIncludeDOMReaderTest
   public void testXIncludeDisabledByDefault ()
   {
     // XMLFactory / DOMReaderSettings are not XInclude aware by default
-    assertEquals (Boolean.FALSE, Boolean.valueOf (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE));
-    assertEquals (Boolean.FALSE, Boolean.valueOf (new DOMReaderSettings ().isXIncludeAware ()));
+    assertFalse (XMLFactory.DEFAULT_DOM_XINCLUDE_AWARE);
+    assertFalse (DOMReaderDefaultSettings.isXIncludeAware ());
+    assertFalse (new DOMReaderSettings ().isXIncludeAware ());
 
     // Read with the default settings
     final Document aDoc = DOMReader.readXMLDOM (new ClassPathResource ("xml/xinclude/main-benign.xml"));
