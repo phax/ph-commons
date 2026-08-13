@@ -74,8 +74,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   private boolean m_bRequiresNewXMLParserExplicitly;
 
   /**
-   * Constructor using the default settings from
-   * {@link DOMReaderDefaultSettings}.
+   * Constructor using the default settings from {@link DOMReaderDefaultSettings}.
    */
   public DOMReaderSettings ()
   {
@@ -177,8 +176,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
    * Set whether the parser should ignore element content whitespace.
    *
    * @param bIgnoringElementContentWhitespace
-   *        <code>true</code> if the parser should ignore element content
-   *        whitespace.
+   *        <code>true</code> if the parser should ignore element content whitespace.
    * @return this for chaining
    */
   @NonNull
@@ -235,8 +233,8 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   /**
-   * Set whether the parser should be coalescing (convert CDATA nodes to text
-   * nodes and append to an adjacent text node if any).
+   * Set whether the parser should be coalescing (convert CDATA nodes to text nodes and append to an
+   * adjacent text node if any).
    *
    * @param bCoalescing
    *        <code>true</code> if the parser should be coalescing.
@@ -260,8 +258,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
    * Set the XML {@link Schema} to use for validation.
    *
    * @param aSchema
-   *        The schema to use. May be <code>null</code> to disable schema
-   *        validation.
+   *        The schema to use. May be <code>null</code> to disable schema validation.
    * @return this for chaining
    */
   @NonNull
@@ -318,8 +315,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
    * @param eProperty
    *        The property to set. May not be <code>null</code>.
    * @param aPropertyValue
-   *        The property value to set. May be <code>null</code> to remove
-   *        the property.
+   *        The property value to set. May be <code>null</code> to remove the property.
    * @return this for chaining
    */
   @NonNull
@@ -451,8 +447,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
    * @param eFeature
    *        The feature to set. May not be <code>null</code>.
    * @param aValue
-   *        The feature value to set. May be <code>null</code> to remove the
-   *        feature.
+   *        The feature value to set. May be <code>null</code> to remove the feature.
    * @return this for chaining
    */
   @NonNull
@@ -606,8 +601,7 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   }
 
   /**
-   * Set whether a new XML parser is explicitly required (instead of using a
-   * pooled one).
+   * Set whether a new XML parser is explicitly required (instead of using a pooled one).
    *
    * @param bRequiresNewXMLParserExplicitly
    *        <code>true</code> to always create a new XML parser.
@@ -680,20 +674,20 @@ public class DOMReaderSettings implements ICloneable <DOMReaderSettings>, IDOMRe
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("namespaceAware", m_bNamespaceAware)
-                                       .append ("validating", m_bValidating)
-                                       .append ("ignoringElementContentWhitespace", m_bIgnoringElementContentWhitespace)
-                                       .append ("expandEntityReferences", m_bExpandEntityReferences)
-                                       .append ("ignoringComments", m_bIgnoringComments)
-                                       .append ("coalescing", m_bCoalescing)
-                                       .append ("schema", m_aSchema)
+    return new ToStringGenerator (this).append ("NamespaceAware", m_bNamespaceAware)
+                                       .append ("Validating", m_bValidating)
+                                       .append ("IgnoringElementContentWhitespace", m_bIgnoringElementContentWhitespace)
+                                       .append ("ExpandEntityReferences", m_bExpandEntityReferences)
+                                       .append ("IgnoringComments", m_bIgnoringComments)
+                                       .append ("Coalescing", m_bCoalescing)
+                                       .append ("Schema", m_aSchema)
                                        .append ("XIncludeAware", m_bXIncludeAware)
-                                       .append ("properties", m_aProperties)
-                                       .append ("features", m_aFeatures)
-                                       .append ("entityResolver", m_aEntityResolver)
-                                       .append ("errorHandler", m_aErrorHandler)
-                                       .append ("exceptionCallbacks", m_aExceptionCallbacks)
-                                       .append ("requiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
+                                       .append ("Properties", m_aProperties)
+                                       .append ("Features", m_aFeatures)
+                                       .append ("EntityResolver", m_aEntityResolver)
+                                       .append ("ErrorHandler", m_aErrorHandler)
+                                       .append ("ExceptionCallbacks", m_aExceptionCallbacks)
+                                       .append ("RequiresNewXMLParserExplicitly", m_bRequiresNewXMLParserExplicitly)
                                        .getToString ();
   }
 }
