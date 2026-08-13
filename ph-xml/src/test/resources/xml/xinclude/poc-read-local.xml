@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE r [
+  <!ELEMENT r ANY>
+  <!ENTITY send SYSTEM "../../test1.txt">
+]>
+<r>&send;</r>

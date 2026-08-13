@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ext:UBLExtension xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+  <ext:ExtensionContent>
+    <xi:include xmlns:xi="http://www.w3.org/2001/XInclude" href="benign.xml" parse="xml">
+      <xi:fallback>
+        <xi:include href="fallback.xml" parse="xml" />
+      </xi:fallback>
+    </xi:include>
+  </ext:ExtensionContent>
+</ext:UBLExtension>
