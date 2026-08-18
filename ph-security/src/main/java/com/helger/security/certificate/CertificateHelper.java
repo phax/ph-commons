@@ -16,7 +16,6 @@
  */
 package com.helger.security.certificate;
 
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
@@ -37,11 +36,6 @@ import javax.naming.ldap.LdapName;
 import javax.naming.ldap.Rdn;
 import javax.security.auth.x500.X500Principal;
 
-import org.bouncycastle.asn1.ASN1Encodable;
-import org.bouncycastle.asn1.ASN1Sequence;
-import org.bouncycastle.asn1.x509.BasicConstraints;
-import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
@@ -454,26 +448,10 @@ public final class CertificateHelper
   {
     ValueEnforcer.notNull (aCert, "Cert");
 
-    final byte [] aBCBytes = aCert.getExtensionValue (Extension.basicConstraints.getId ());
-    if (aBCBytes != null)
-    {
-      try
-      {
-        final ASN1Encodable aBCDecoded = JcaX509ExtensionUtils.parseExtensionValue (aBCBytes);
-        if (aBCDecoded instanceof final ASN1Sequence aBCSequence)
-        {
-          final BasicConstraints aBasicConstraints = BasicConstraints.getInstance (aBCSequence);
-          if (aBasicConstraints != null)
-            return aBasicConstraints.isCA ();
-        }
-      }
-      catch (final IOException e)
-      {
-        // Fall through
-      }
-    }
-    // Defaults to "no"
-    return false;
+    // getBasicConstraints() returns -1 if the extension is absent or isCA=false,
+    // Integer.MAX_VALUE if isCA=true with no path length constraint,
+    // or a non-negative int for the path length constraint value.
+    return aCert.getBasicConstraints () >= 0;
   }
 
   /**
@@ -611,8 +589,7 @@ public final class CertificateHelper
    * @param sPrincipal
    *        The principal string to parse. May be <code>null</code>.
    * @param sType
-   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
-   *        <code>null</code>.
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be <code>null</code>.
    * @return The value of the requested type, or <code>null</code> if not found or if the principal
    *         is <code>null</code>.
    * @throws InvalidNameException
@@ -637,8 +614,7 @@ public final class CertificateHelper
    * @param sPrincipal
    *        The principal string to parse. May be <code>null</code>.
    * @param sType
-   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
-   *        <code>null</code>.
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be <code>null</code>.
    * @return The value of the requested type, or <code>null</code> if not found or on error.
    */
   @Nullable
@@ -661,8 +637,7 @@ public final class CertificateHelper
    * @param aPrincipal
    *        The principal to extract the value from. May be <code>null</code>.
    * @param sType
-   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
-   *        <code>null</code>.
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be <code>null</code>.
    * @return The value of the requested type, or <code>null</code> if not found or if the principal
    *         is <code>null</code>.
    * @throws InvalidNameException
@@ -685,8 +660,7 @@ public final class CertificateHelper
    * @param aPrincipal
    *        The principal to extract the value from. May be <code>null</code>.
    * @param sType
-   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be
-   *        <code>null</code>.
+   *        The RDN type to extract (e.g. {@link #PRINCIPAL_TYPE_CN}). May not be <code>null</code>.
    * @return The value of the requested type, or <code>null</code> if not found or on error.
    */
   @Nullable
