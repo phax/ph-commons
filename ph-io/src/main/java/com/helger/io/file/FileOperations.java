@@ -77,8 +77,8 @@ public final class FileOperations
    * Enable or disable the exception that is thrown when trying to delete the root directory.
    *
    * @param bExceptionOnDeleteRoot
-   *        <code>true</code> to throw an exception on root deletion attempts, <code>false</code>
-   *        to disable it.
+   *        <code>true</code> to throw an exception on root deletion attempts, <code>false</code> to
+   *        disable it.
    */
   public static void setExceptionOnDeleteRoot (final boolean bExceptionOnDeleteRoot)
   {
@@ -108,8 +108,17 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aDir.mkdir () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+      if (aDir.mkdir ())
+      {
+        // Success
+        return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+      }
+
+      // The most reasonable solution is, that it already exists - try again
+      if (aDir.exists ())
+        return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
+
+      return EFileIOErrorCode.OPERATION_FAILED.getAsIOError (EFileIOOperation.CREATE_DIR, aDir);
     }
     catch (final SecurityException ex)
     {
@@ -157,8 +166,17 @@ public final class FileOperations
 
     try
     {
-      final EFileIOErrorCode eError = aDir.mkdirs () ? EFileIOErrorCode.NO_ERROR : EFileIOErrorCode.OPERATION_FAILED;
-      return eError.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+      if (aDir.mkdirs ())
+      {
+        // Success
+        return EFileIOErrorCode.NO_ERROR.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+      }
+
+      // The most reasonable solution is, that it already exists - try again
+      if (aDir.exists ())
+        return EFileIOErrorCode.TARGET_ALREADY_EXISTS.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
+
+      return EFileIOErrorCode.OPERATION_FAILED.getAsIOError (EFileIOOperation.CREATE_DIR_RECURSIVE, aDir);
     }
     catch (final SecurityException ex)
     {
