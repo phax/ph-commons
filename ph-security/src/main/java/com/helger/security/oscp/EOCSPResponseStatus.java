@@ -16,7 +16,6 @@
  */
 package com.helger.security.oscp;
 
-import org.bouncycastle.asn1.ocsp.OCSPResponseStatus;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.base.id.IHasIntID;
@@ -30,12 +29,12 @@ import com.helger.base.state.ISuccessIndicator;
  */
 public enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
 {
-  SUCCESSFUL (OCSPResponseStatus.SUCCESSFUL),
-  MALFORMED_REQUEST (OCSPResponseStatus.MALFORMED_REQUEST),
-  INTERNAL_ERROR (OCSPResponseStatus.INTERNAL_ERROR),
-  TRY_LATER (OCSPResponseStatus.TRY_LATER),
-  SIG_REQUIRED (OCSPResponseStatus.SIG_REQUIRED),
-  UNAUTHORIZED (OCSPResponseStatus.UNAUTHORIZED);
+  SUCCESSFUL (0),
+  MALFORMED_REQUEST (1),
+  INTERNAL_ERROR (2),
+  TRY_LATER (3),
+  SIG_REQUIRED (5),
+  UNAUTHORIZED (6);
 
   private final int m_nValue;
 
