@@ -26,7 +26,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Permissions_Policy
  *
  * @author Philip Helger
- * @since 12.3.6
+ * @since 12.4.0
  */
 @NotThreadSafe
 public class PermissionsPolicy extends AbstractPermissionsPolicy <PermissionsPolicyDirective>

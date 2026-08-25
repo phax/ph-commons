@@ -25,7 +25,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * It's just a convenient way to build a Permissions Policy directive value.
  *
  * @author Philip Helger
- * @since 12.3.6
+ * @since 12.4.0
  */
 @NotThreadSafe
 public class PermissionsPolicyAllowList extends AbstractPermissionsPolicyAllowList <PermissionsPolicyAllowList>

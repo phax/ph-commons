@@ -43,7 +43,7 @@ import com.helger.url.ISimpleURL;
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        Implementation type
- * @since 12.3.6
+ * @since 12.4.0
  */
 @NotThreadSafe
 public abstract class AbstractPermissionsPolicyAllowList <IMPLTYPE extends AbstractPermissionsPolicyAllowList <IMPLTYPE>>

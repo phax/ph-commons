@@ -28,7 +28,7 @@ import com.helger.base.string.StringHelper;
  * an optional reporting endpoint.
  *
  * @author Philip Helger
- * @since 12.3.6
+ * @since 12.4.0
  */
 public interface IPermissionsPolicyDirective extends IHasName
 {

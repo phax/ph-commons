@@ -35,7 +35,7 @@ import com.helger.collection.commons.ICommonsList;
  * @author Philip Helger
  * @param <T>
  *        The Permissions Policy directive type
- * @since 12.3.6
+ * @since 12.4.0
  */
 @NotThreadSafe
 public abstract class AbstractPermissionsPolicy <T extends IPermissionsPolicyDirective>
