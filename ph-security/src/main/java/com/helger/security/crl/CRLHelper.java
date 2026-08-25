@@ -16,24 +16,12 @@
  */
 package com.helger.security.crl;
 
-import java.io.IOException;
-import java.io.UncheckedIOException;
 import java.security.cert.CRLException;
 import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 
-import org.bouncycastle.asn1.ASN1IA5String;
-import org.bouncycastle.asn1.ASN1InputStream;
-import org.bouncycastle.asn1.ASN1Primitive;
-import org.bouncycastle.asn1.DEROctetString;
-import org.bouncycastle.asn1.x509.CRLDistPoint;
-import org.bouncycastle.asn1.x509.DistributionPoint;
-import org.bouncycastle.asn1.x509.DistributionPointName;
-import org.bouncycastle.asn1.x509.Extension;
-import org.bouncycastle.asn1.x509.GeneralName;
-import org.bouncycastle.asn1.x509.GeneralNames;
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,8 +34,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Helper class to deal with CRLs. This class requires BouncyCastle to be in the
- * classpath.
+ * Helper class to deal with CRLs.
  *
  * @author Philip Helger
  * @since 11.2.0
@@ -56,6 +43,7 @@ import com.helger.collection.commons.ICommonsList;
 public final class CRLHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CRLHelper.class);
+  private static final String CRL_DISTRIBUTION_POINTS_OID = "2.5.29.31";
 
   private CRLHelper ()
   {}
@@ -104,67 +92,14 @@ public final class CRLHelper
   public static ICommonsList <String> getAllDistributionPoints (@NonNull final X509Certificate aCert)
   {
     ValueEnforcer.notNull (aCert, "Certificate");
-    final ICommonsList <String> ret = new CommonsArrayList <> ();
+    final byte [] aExtensionValue = aCert.getExtensionValue (CRL_DISTRIBUTION_POINTS_OID);
+    if (aExtensionValue == null)
+      return new CommonsArrayList <> ();
 
-    // Gets the DER-encoded OCTET string for the extension value for
-    // CRLDistributionPoints
-    final byte [] aExtensionValue = aCert.getExtensionValue (Extension.cRLDistributionPoints.getId ());
-    if (aExtensionValue != null)
-    {
-      // crlDPExtensionValue is encoded in ASN.1 format.
-      try (final ASN1InputStream aAsn1IS = new ASN1InputStream (aExtensionValue))
-      {
-        // DER (Distinguished Encoding Rules) is one of ASN.1 encoding rules
-        // defined in ITU-T X.690, 2002, specification.
-        // ASN.1 encoding rules can be used to encode any data object into a
-        // binary file. Read the object in octets.
-        final CRLDistPoint aDistPoint;
-        try
-        {
-          final DEROctetString aCrlDEROctetString = (DEROctetString) aAsn1IS.readObject ();
-          // Get Input stream in octets
-          try (final ASN1InputStream aAsn1InOctets = new ASN1InputStream (aCrlDEROctetString.getOctets ()))
-          {
-            final ASN1Primitive aCrlDERObject = aAsn1InOctets.readObject ();
-            aDistPoint = CRLDistPoint.getInstance (aCrlDERObject);
-          }
-        }
-        catch (final IOException e)
-        {
-          throw new UncheckedIOException (e);
-        }
-
-        // Loop through ASN1Encodable DistributionPoints
-        for (final DistributionPoint aDP : aDistPoint.getDistributionPoints ())
-        {
-          // get ASN1Encodable DistributionPointName
-          final DistributionPointName aDPName = aDP.getDistributionPoint ();
-          if (aDPName != null && aDPName.getType () == DistributionPointName.FULL_NAME)
-          {
-            // Create ASN1Encodable General Names
-            final GeneralName [] aGenNames = GeneralNames.getInstance (aDPName.getName ()).getNames ();
-            // Look for a URI
-            for (final GeneralName aGenName : aGenNames)
-            {
-              if (aGenName.getTagNo () == GeneralName.uniformResourceIdentifier)
-              {
-                // DERIA5String contains an ascii string.
-                // A IA5String is a restricted character string type in the
-                // ASN.1 notation
-                final String sURL = ASN1IA5String.getInstance (aGenName.getName ()).getString ().trim ();
-                if (LOGGER.isDebugEnabled ())
-                  LOGGER.debug ("Found CRL URL '" + sURL + "' in certificate");
-                ret.add (sURL);
-              }
-            }
-          }
-        }
-      }
-      catch (final IOException ex)
-      {
-        throw new UncheckedIOException (ex);
-      }
-    }
+    final ICommonsList <String> ret = CRLDistributionPointParser.parse (aExtensionValue);
+    if (LOGGER.isDebugEnabled ())
+      for (final String sURL : ret)
+        LOGGER.debug ("Found CRL URL '" + sURL + "' in certificate");
     return ret;
   }
 }

@@ -18,12 +18,20 @@ package com.helger.security.crl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 
 import java.io.File;
+import java.io.UncheckedIOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.cert.X509Certificate;
 
+import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.x509.CRLDistPoint;
+import org.bouncycastle.asn1.x509.DistributionPoint;
+import org.bouncycastle.asn1.x509.DistributionPointName;
+import org.bouncycastle.asn1.x509.GeneralName;
+import org.bouncycastle.asn1.x509.GeneralNames;
 import org.junit.Test;
 
 import com.helger.collection.commons.ICommonsList;
@@ -55,5 +63,38 @@ public final class CRLHelperTest
     assertNotNull (aList);
     assertEquals (1, aList.size ());
     assertEquals ("http://pki-crl.symauth.com/ca_6a937734a393a0805bf33cda8b331093/LatestCRL.crl", aList.get (0));
+  }
+
+  @Test
+  public void testRejectsTruncatedDER ()
+  {
+    assertThrows (UncheckedIOException.class,
+                  () -> CRLDistributionPointParser.parse (new byte [] { 0x04, (byte) 0x82, 0x01 }));
+  }
+
+  @Test
+  public void testMultipleDistributionPointsAndGeneralNames () throws Exception
+  {
+    final GeneralNames aFullNames = new GeneralNames (new GeneralName [] { new GeneralName (GeneralName.dNSName,
+                                                                                           "crl.example.org"),
+                                                                          new GeneralName (GeneralName.uniformResourceIdentifier,
+                                                                                           "https://crl.example.org/one.crl"),
+                                                                          new GeneralName (GeneralName.uniformResourceIdentifier,
+                                                                                           "ldap://crl.example.org/two") });
+    final DistributionPoint aNamedDistributionPoint = new DistributionPoint (new DistributionPointName (DistributionPointName.FULL_NAME,
+                                                                                                           aFullNames),
+                                                                               null,
+                                                                               null);
+    final DistributionPoint aIssuerOnlyDistributionPoint = new DistributionPoint (null,
+                                                                                    null,
+                                                                                    new GeneralNames (new GeneralName (GeneralName.uniformResourceIdentifier,
+                                                                                                                       "https://issuer.example.org/not-a-distribution-point.crl")));
+    final byte [] aEncodedExtension = new DEROctetString (new CRLDistPoint (new DistributionPoint [] { aNamedDistributionPoint,
+                                                                                                       aIssuerOnlyDistributionPoint }).getEncoded ()).getEncoded ();
+
+    final ICommonsList <String> aURLs = CRLDistributionPointParser.parse (aEncodedExtension);
+    assertEquals (2, aURLs.size ());
+    assertEquals ("https://crl.example.org/one.crl", aURLs.get (0));
+    assertEquals ("ldap://crl.example.org/two", aURLs.get (1));
   }
 }
