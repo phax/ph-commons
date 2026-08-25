@@ -65,8 +65,8 @@ public final class CRLHelper
 
     try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aCRLBytes))
     {
-      final CertificateFactory cf = CertificateFactory.getInstance ("X.509");
-      return (X509CRL) cf.generateCRL (aIS);
+      final CertificateFactory aCertFactory = CertificateFactory.getInstance ("X.509");
+      return (X509CRL) aCertFactory.generateCRL (aIS);
     }
     catch (final CertificateException ex)
     {
