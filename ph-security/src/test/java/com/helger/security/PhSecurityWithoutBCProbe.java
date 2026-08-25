@@ -17,8 +17,14 @@
 package com.helger.security;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+
+import org.jspecify.annotations.NonNull;
 
 import com.helger.collection.commons.ICommonsList;
 import com.helger.security.certificate.CertificateHelper;
@@ -32,14 +38,16 @@ public final class PhSecurityWithoutBCProbe
   private PhSecurityWithoutBCProbe ()
   {}
 
-  public static String verify () throws Exception
+  @NonNull
+  public static String verify () throws KeyStoreException, IOException, NoSuchAlgorithmException, CertificateException
   {
     final KeyStore aAPKeyStore = KeyStore.getInstance ("PKCS12");
     try (final FileInputStream aIS = new FileInputStream ("src/test/resources/keystores/keystore-pw-peppol-expired-2023.p12"))
     {
       aAPKeyStore.load (aIS, "peppol".toCharArray ());
     }
-    final X509Certificate aAPCert = (X509Certificate) aAPKeyStore.getCertificate (aAPKeyStore.aliases ().nextElement ());
+    final X509Certificate aAPCert = (X509Certificate) aAPKeyStore.getCertificate (aAPKeyStore.aliases ()
+                                                                                             .nextElement ());
     if (CertificateHelper.isCA (aAPCert))
       throw new IllegalStateException ("The AP certificate must not be treated as a CA");
 
@@ -52,7 +60,8 @@ public final class PhSecurityWithoutBCProbe
     {
       aTrustStore.load (aIS, "peppol".toCharArray ());
     }
-    final X509Certificate aCACert = (X509Certificate) aTrustStore.getCertificate (aTrustStore.aliases ().nextElement ());
+    final X509Certificate aCACert = (X509Certificate) aTrustStore.getCertificate (aTrustStore.aliases ()
+                                                                                             .nextElement ());
     final TrustedCACertificates aTrustedCAs = new TrustedCACertificates ();
     aTrustedCAs.addTrustedCACertificate (aCACert);
 

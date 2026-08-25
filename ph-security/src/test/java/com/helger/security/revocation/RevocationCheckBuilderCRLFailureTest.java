@@ -119,4 +119,32 @@ public final class RevocationCheckBuilderCRLFailureTest
     assertSame (ERevoked.UNKNOWN, eResult);
     assertEquals (1, aDownloadAttempts.get ());
   }
+
+  @Test
+  public void testUndecodableCRLDistributionPointsReturnsUnknown () throws Exception
+  {
+    final KeyPair aCAKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aCACert = MockCertificateHelper.createSelfSignedCA (aCAKeyPair);
+    final KeyPair aEEKeyPair = MockCertificateHelper.createKeyPair ();
+    final X509Certificate aEECert = MockCertificateHelper.createEndEntityWithBrokenCRLDP (aCACert,
+                                                                                          aCAKeyPair.getPrivate (),
+                                                                                          aEEKeyPair.getPublic ());
+
+    final AtomicInteger aDownloadAttempts = new AtomicInteger (0);
+    final CRLCache aCRLCache = MockCertificateHelper.createAlwaysFailingCRLCache (aDownloadAttempts);
+
+    // The "CRL Distribution Points" extension cannot be decoded. That must not escape as an
+    // UncheckedIOException and it must not be reported as REVOKED either.
+    final ERevoked eResult = new RevocationCheckBuilder ().certificate (aEECert)
+                                                          .validCA (aCACert)
+                                                          .checkMode (ERevocationCheckMode.CRL)
+                                                          .allowSoftFail (true)
+                                                          .crlCache (aCRLCache)
+                                                          .exceptionHandler (ex -> {
+                                                            // swallow - we only care about the result
+                                                          })
+                                                          .build ();
+    assertSame (ERevoked.UNKNOWN, eResult);
+    assertEquals ("No CRL URL is known, so nothing must be downloaded", 0, aDownloadAttempts.get ());
+  }
 }

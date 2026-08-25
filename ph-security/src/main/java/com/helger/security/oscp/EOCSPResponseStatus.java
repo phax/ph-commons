@@ -29,6 +29,8 @@ import com.helger.base.state.ISuccessIndicator;
  */
 public enum EOCSPResponseStatus implements ISuccessIndicator, IHasIntID
 {
+  // The numerical values are defined by the OCSPResponseStatus ENUMERATED of RFC 6960, section
+  // 4.2.1 - the value 4 is deliberately not assigned there
   SUCCESSFUL (0),
   MALFORMED_REQUEST (1),
   INTERNAL_ERROR (2),

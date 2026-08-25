@@ -16,6 +16,7 @@
  */
 package com.helger.security.revocation;
 
+import java.io.UncheckedIOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.Security;
@@ -566,7 +567,21 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
               LOGGER.debug ("Setting up CRL check data");
 
             // Get all necessary CRLs
-            final ICommonsList <String> aCRLURLs = CRLHelper.getAllDistributionPoints (m_aCert);
+            ICommonsList <String> aCRLURLs;
+            try
+            {
+              aCRLURLs = CRLHelper.getAllDistributionPoints (m_aCert);
+            }
+            catch (final UncheckedIOException ex)
+            {
+              // The "CRL Distribution Points" extension is present but cannot be decoded. That
+              // means we don't know where to look - which is "undetermined" and not "revoked".
+              LOGGER.warn ("Failed to decode the CRL distribution points of the certificate - the revocation status cannot be determined via CRL: " +
+                           ex.getMessage ());
+              aCRLURLs = new CommonsArrayList <> ();
+              aCRLDownloadFailed.set (true);
+            }
+
             final ICommonsList <CRL> aCRLs = new CommonsArrayList <> ();
             for (final String sCRLURL : aCRLURLs)
             {

@@ -87,6 +87,12 @@ public final class CRLHelper
    *        The certificate to extract the CRLs from
    * @return Never <code>null</code> but maybe empty list of distribution
    *         points.
+   * @throws java.io.UncheckedIOException
+   *         If the certificate contains a "CRL Distribution Points" extension
+   *         that is not valid DER. Up to and including v12.3.5 this was decoded
+   *         by BouncyCastle, which also accepted certain BER encodings and
+   *         reported structural problems as
+   *         {@link IllegalArgumentException} instead.
    */
   @NonNull
   public static ICommonsList <String> getAllDistributionPoints (@NonNull final X509Certificate aCert)
