@@ -48,8 +48,7 @@ public class RingBufferFifo <ELEMENTTYPE>
    * @param nCapacity
    *        The number of elements in the ring buffer. Must be &gt; 0.
    * @param bAllowOverwrite
-   *        <code>true</code> if the oldest element gets overwritten when the
-   *        next element is put.
+   *        <code>true</code> if the oldest element gets overwritten when the next element is put.
    */
   public RingBufferFifo (@Nonnegative final int nCapacity, final boolean bAllowOverwrite)
   {
@@ -96,8 +95,8 @@ public class RingBufferFifo <ELEMENTTYPE>
   }
 
   /**
-   * @return <code>true</code> if overwriting the oldest element is allowed (as
-   *         specified in the constructor).
+   * @return <code>true</code> if overwriting the oldest element is allowed (as specified in the
+   *         constructor).
    */
   public boolean isOverwriteAllowed ()
   {
@@ -109,8 +108,8 @@ public class RingBufferFifo <ELEMENTTYPE>
    *
    * @param aElement
    *        The element to be added. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the element was successfully added or if
-   *         allow overwrite is active and the element was overwritten.
+   * @return {@link EChange#CHANGED} if the element was successfully added or if allow overwrite is
+   *         active and the element was overwritten.
    */
   @NonNull
   public EChange put (@Nullable final ELEMENTTYPE aElement)
@@ -140,8 +139,8 @@ public class RingBufferFifo <ELEMENTTYPE>
   /**
    * Take an element from the ring buffer.
    *
-   * @return <code>null</code> if no more element is available or if the current
-   *         element is <code>null</code>.
+   * @return <code>null</code> if no more element is available or if the current element is
+   *         <code>null</code>.
    */
   @Nullable
   public ELEMENTTYPE take ()

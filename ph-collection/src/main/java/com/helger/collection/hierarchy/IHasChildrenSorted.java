@@ -35,8 +35,7 @@ import com.helger.collection.commons.ICommonsList;
 public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
 {
   /**
-   * @return A ordered list of child elements. May be <code>null</code> if no
-   *         children are present.
+   * @return A ordered list of child elements. May be <code>null</code> if no children are present.
    */
   @Nullable
   ICommonsList <? extends CHILDTYPE> getAllChildren ();
@@ -45,10 +44,8 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    * Get the child node at the specified index
    *
    * @param nIndex
-   *        The index to be queried. May not be &lt; 0 or &ge; the number of
-   *        children
-   * @return The child at the specified index or <code>null</code> if the index
-   *         is invalid.
+   *        The index to be queried. May not be &lt; 0 or &ge; the number of children
+   * @return The child at the specified index or <code>null</code> if the index is invalid.
    * @throws IndexOutOfBoundsException
    *         in case the index is invalid
    */
@@ -70,10 +67,9 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    * Find the first direct child that matches the passed predicate.
    *
    * @param aFilter
-   *        The filter that is applied on each direct child node. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if no direct child matches the passed filter or
-   *         if no child is present at all.
+   *        The filter that is applied on each direct child node. May not be <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or if no child is
+   *         present at all.
    */
   @Nullable
   default CHILDTYPE findFirstChild (@NonNull final Predicate <? super CHILDTYPE> aFilter)
@@ -87,13 +83,11 @@ public interface IHasChildrenSorted <CHILDTYPE> extends IHasChildren <CHILDTYPE>
    * Find the first direct child that matches the passed predicate.
    *
    * @param aFilter
-   *        The filter that is applied on each direct child node. May not be
-   *        <code>null</code>.
+   *        The filter that is applied on each direct child node. May not be <code>null</code>.
    * @param aMapper
-   *        The mapping function from micro node to the target type. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if no direct child matches the passed filter or
-   *         if no child is present at all.
+   *        The mapping function from micro node to the target type. May not be <code>null</code>.
+   * @return <code>null</code> if no direct child matches the passed filter or if no child is
+   *         present at all.
    * @param <DSTTYPE>
    *        The destination type to be mapped to
    */

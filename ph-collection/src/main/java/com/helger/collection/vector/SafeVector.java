@@ -30,13 +30,11 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsVector;
 
 /**
- * This is a specialized {@link CommonsVector} that can handle read accesses on
- * list items that are not yet in the container. If {@link #get(int)} is called
- * with an index that would normally throw an
- * {@link ArrayIndexOutOfBoundsException} this class will fill all indices
- * between the current {@link #size()} and the desired index with values
- * provided by an {@link Supplier}. If you don't pass an {@link Supplier} in the
- * constructor a default factory returning null values is used.
+ * This is a specialized {@link CommonsVector} that can handle read accesses on list items that are
+ * not yet in the container. If {@link #get(int)} is called with an index that would normally throw
+ * an {@link ArrayIndexOutOfBoundsException} this class will fill all indices between the current
+ * {@link #size()} and the desired index with values provided by an {@link Supplier}. If you don't
+ * pass an {@link Supplier} in the constructor a default factory returning null values is used.
  *
  * @author Philip
  * @param <ELEMENTTYPE>
@@ -53,7 +51,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    */
   public SafeVector ()
   {
-    this ( () -> null);
+    this (() -> null);
   }
 
   /**
@@ -68,8 +66,7 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
   }
 
   /**
-   * @return The factory for filling missing values as provided in the
-   *         constructor.
+   * @return The factory for filling missing values as provided in the constructor.
    */
   @NonNull
   public Supplier <? extends ELEMENTTYPE> getFactory ()
@@ -102,7 +99,8 @@ public class SafeVector <ELEMENTTYPE> extends CommonsVector <ELEMENTTYPE>
    * @return The existing or newly created element. May be <code>null</code>.
    */
   @Nullable
-  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex, @NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
+  public synchronized ELEMENTTYPE computeIfAbsent (@Nonnegative final int nIndex,
+                                                   @NonNull final Supplier <? extends ELEMENTTYPE> aFactory)
   {
     _ensureSize (nIndex);
     ELEMENTTYPE ret = super.get (nIndex);

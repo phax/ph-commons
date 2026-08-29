@@ -367,7 +367,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    */
   default void forEachKey (@NonNull final Consumer <? super KEYTYPE> aConsumer)
   {
-    forEach ( (k, v) -> aConsumer.accept (k));
+    forEach ((k, v) -> aConsumer.accept (k));
   }
 
   /**
@@ -378,7 +378,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
    */
   default void forEachValue (@NonNull final Consumer <? super VALUETYPE> aConsumer)
   {
-    forEach ( (k, v) -> aConsumer.accept (v));
+    forEach ((k, v) -> aConsumer.accept (v));
   }
 
   /**
@@ -399,7 +399,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     else
     {
       // Use eventually present more performant forEach
-      forEach ( (k, v) -> {
+      forEach ((k, v) -> {
         if (aFilter.test (k, v))
           aConsumer.accept (k, v);
       });
@@ -422,7 +422,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     if (aFilter == null)
       forEachKey (aConsumer);
     else
-      forEach ( (k, v) -> aFilter.test (k), (k, v) -> aConsumer.accept (k));
+      forEach ((k, v) -> aFilter.test (k), (k, v) -> aConsumer.accept (k));
   }
 
   /**
@@ -441,7 +441,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
     if (aFilter == null)
       forEachValue (aConsumer);
     else
-      forEach ( (k, v) -> aFilter.test (v), (k, v) -> aConsumer.accept (v));
+      forEach ((k, v) -> aFilter.test (v), (k, v) -> aConsumer.accept (v));
   }
 
   /**

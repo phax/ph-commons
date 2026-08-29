@@ -46,9 +46,8 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Helper class providing factory methods and utility operations for JDK
- * collections, including null-safe size checks, safe access, unmodifiable
- * wrappers, and type conversions.
+ * Helper class providing factory methods and utility operations for JDK collections, including
+ * null-safe size checks, safe access, unmodifiable wrappers, and type conversions.
  *
  * @author Philip Helger
  */
@@ -892,8 +891,8 @@ public class CollectionHelper
   @CodingStyleguideUnaware
   public static <ELEMENTTYPE extends Comparable <? super ELEMENTTYPE>> NavigableSet <ELEMENTTYPE> makeUnmodifiableNotNull (@Nullable final NavigableSet <ELEMENTTYPE> aNavigableSet)
   {
-    return aNavigableSet == null ? Collections.emptyNavigableSet () : Collections.unmodifiableNavigableSet (
-                                                                                                            aNavigableSet);
+    return aNavigableSet == null ? Collections.emptyNavigableSet ()
+                                 : Collections.unmodifiableNavigableSet (aNavigableSet);
   }
 
   /**
@@ -914,8 +913,8 @@ public class CollectionHelper
   @CodingStyleguideUnaware
   public static <KEYTYPE extends Comparable <? super KEYTYPE>, VALUETYPE> NavigableMap <KEYTYPE, VALUETYPE> makeUnmodifiableNotNull (@Nullable final NavigableMap <KEYTYPE, VALUETYPE> aNavigableMap)
   {
-    return aNavigableMap == null ? Collections.emptyNavigableMap () : Collections.unmodifiableNavigableMap (
-                                                                                                            aNavigableMap);
+    return aNavigableMap == null ? Collections.emptyNavigableMap ()
+                                 : Collections.unmodifiableNavigableMap (aNavigableMap);
   }
 
   /**

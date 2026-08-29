@@ -31,8 +31,7 @@ import com.helger.collection.CollectionFind;
 import com.helger.collection.CollectionHelper;
 
 /**
- * Helper class for creating and populating {@link NonBlockingStack} instances
- * from various sources.
+ * Helper class for creating and populating {@link NonBlockingStack} instances from various sources.
  *
  * @author Philip Helger
  */

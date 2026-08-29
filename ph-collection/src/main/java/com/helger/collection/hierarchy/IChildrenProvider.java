@@ -22,8 +22,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.collection.commons.ICommonsCollection;
 
 /**
- * This interface can be used to generically resolved children of a certain
- * object.
+ * This interface can be used to generically resolved children of a certain object.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
@@ -35,10 +34,9 @@ public interface IChildrenProvider <CHILDTYPE>
    * Check if an item has children.
    *
    * @param aCurrent
-   *        The object to determine the children of. No <code>null</code> or
-   *        non- <code>null</code> constraint possible.
-   * @return <code>true</code> if this item has children, <code>false</code>
-   *         otherwise.
+   *        The object to determine the children of. No <code>null</code> or non- <code>null</code>
+   *        constraint possible.
+   * @return <code>true</code> if this item has children, <code>false</code> otherwise.
    */
   default boolean hasChildren (final CHILDTYPE aCurrent)
   {
@@ -49,10 +47,9 @@ public interface IChildrenProvider <CHILDTYPE>
    * Check if an item has no children.
    *
    * @param aCurrent
-   *        The object to determine the children of. No <code>null</code> or
-   *        non- <code>null</code> constraint possible.
-   * @return <code>true</code> if this item has no children, <code>false</code>
-   *         otherwise.
+   *        The object to determine the children of. No <code>null</code> or non- <code>null</code>
+   *        constraint possible.
+   * @return <code>true</code> if this item has no children, <code>false</code> otherwise.
    */
   default boolean hasNoChildren (final CHILDTYPE aCurrent)
   {
@@ -61,8 +58,8 @@ public interface IChildrenProvider <CHILDTYPE>
 
   /**
    * @param aCurrent
-   *        The object to determine the children count of. No <code>null</code>
-   *        or non- <code>null</code> constraint possible.
+   *        The object to determine the children count of. No <code>null</code> or non-
+   *        <code>null</code> constraint possible.
    * @return The number of contained direct children. Always &ge; 0.
    */
   @Nonnegative
@@ -72,13 +69,12 @@ public interface IChildrenProvider <CHILDTYPE>
    * Get the children of the passed object.
    *
    * @param aCurrent
-   *        The object to determine the children of. No <code>null</code> or
-   *        non-<code>null</code> constraint possible.
-   * @return The child objects, or <code>null</code> if there are no children.
-   *         If <code>null</code> is passed, the resolver is expected to return
-   *         any possible top level (root) elements. This method may NOT return
-   *         <code>null</code> if the call to {@link #hasChildren(Object)} with
-   *         the same object returned <code>true</code>.
+   *        The object to determine the children of. No <code>null</code> or non-<code>null</code>
+   *        constraint possible.
+   * @return The child objects, or <code>null</code> if there are no children. If <code>null</code>
+   *         is passed, the resolver is expected to return any possible top level (root) elements.
+   *         This method may NOT return <code>null</code> if the call to
+   *         {@link #hasChildren(Object)} with the same object returned <code>true</code>.
    */
   @Nullable
   ICommonsCollection <? extends CHILDTYPE> getAllChildren (CHILDTYPE aCurrent);

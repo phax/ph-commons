@@ -27,8 +27,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * A special {@link TreeSet} implementation based on
- * {@link ICommonsNavigableSet}.
+ * A special {@link TreeSet} implementation based on {@link ICommonsNavigableSet}.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -46,8 +45,8 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
    * Create a new empty tree set with the specified comparator.
    *
    * @param aComparator
-   *        The comparator to use for element ordering. May be
-   *        <code>null</code> to use natural ordering.
+   *        The comparator to use for element ordering. May be <code>null</code> to use natural
+   *        ordering.
    */
   public CommonsTreeSet (@Nullable final Comparator <? super ELEMENTTYPE> aComparator)
   {
@@ -55,12 +54,10 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * Create a new tree set that contains the same elements as the provided
-   * collection.
+   * Create a new tree set that contains the same elements as the provided collection.
    *
    * @param aCont
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    */
   public CommonsTreeSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
@@ -69,12 +66,10 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * Create a new tree set with the default initial capacity and add all
-   * provided elements.
+   * Create a new tree set with the default initial capacity and add all provided elements.
    *
    * @param aIterable
-   *        The iterable from which the elements are copied from. May be
-   *        <code>null</code>.
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
    */
   public CommonsTreeSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
@@ -82,15 +77,14 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * Create a new tree set with the default initial capacity and add all mapped
-   * items of the provided iterable.
+   * Create a new tree set with the default initial capacity and add all mapped items of the
+   * provided iterable.
    *
    * @param aValues
-   *        The iterable from which the elements are copied from. May be
-   *        <code>null</code>.
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
    * @param aMapper
-   *        The mapping function to be executed for all provided elements. May
-   *        not be <code>null</code>.
+   *        The mapping function to be executed for all provided elements. May not be
+   *        <code>null</code>.
    * @param <SRCTYPE>
    *        source data type
    */
@@ -101,8 +95,7 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * Create a new tree set with exactly the provided value, even if it is
-   * <code>null</code>.
+   * Create a new tree set with exactly the provided value, even if it is <code>null</code>.
    *
    * @param aValue
    *        The value to be added. May be <code>null</code>.
@@ -113,8 +106,7 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * Create a new tree set that contains the same elements as the provided
-   * array.
+   * Create a new tree set that contains the same elements as the provided array.
    *
    * @param aValues
    *        The array to copy the elements from. May be <code>null</code>.
@@ -131,8 +123,8 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
    * @param aValues
    *        The array to copy the elements from. May be <code>null</code>.
    * @param aMapper
-   *        The mapping function to be executed for all provided elements. May
-   *        not be <code>null</code>.
+   *        The mapping function to be executed for all provided elements. May not be
+   *        <code>null</code>.
    * @param <SRCTYPE>
    *        source data type
    */
@@ -154,8 +146,7 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   }
 
   /**
-   * @return A mutable copy of this set, preserving the comparator. Never
-   *         <code>null</code>.
+   * @return A mutable copy of this set, preserving the comparator. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

@@ -28,8 +28,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * A special {@link TreeMap} implementation based on
- * {@link ICommonsNavigableMap}.
+ * A special {@link TreeMap} implementation based on {@link ICommonsNavigableMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -50,8 +49,8 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
    * Create a new empty tree map with the specified comparator.
    *
    * @param aComparator
-   *        The comparator to use for key ordering. May be <code>null</code>
-   *        to use natural ordering.
+   *        The comparator to use for key ordering. May be <code>null</code> to use natural
+   *        ordering.
    */
   public CommonsTreeMap (@Nullable final Comparator <? super KEYTYPE> aComparator)
   {
@@ -78,8 +77,7 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -91,17 +89,14 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
   }
 
   /**
-   * Create a new tree map that contains mapped entries from the provided
-   * collection.
+   * Create a new tree map that contains mapped entries from the provided collection.
    *
    * @param aValues
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -118,11 +113,9 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
    * @param aValues
    *        The map to copy the entries from. May be <code>null</code>.
    * @param aKeyMapper
-   *        The mapping function to transform keys. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to transform values. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform values. May not be <code>null</code>.
    * @param <SRCKEYTYPE>
    *        source key type
    * @param <SRCVALUETYPE>
@@ -147,8 +140,7 @@ public class CommonsTreeMap <KEYTYPE, VALUETYPE> extends TreeMap <KEYTYPE, VALUE
   }
 
   /**
-   * @return A mutable copy of this map, preserving the comparator. Never
-   *         <code>null</code>.
+   * @return A mutable copy of this map, preserving the comparator. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

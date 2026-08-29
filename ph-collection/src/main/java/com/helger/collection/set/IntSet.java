@@ -111,6 +111,6 @@ public class IntSet implements IHasSize
    */
   public void forEach (@NonNull final IntConsumer aConsumer)
   {
-    m_aMap.forEach ( (k, v) -> aConsumer.accept (k));
+    m_aMap.forEach ((k, v) -> aConsumer.accept (k));
   }
 }

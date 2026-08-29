@@ -23,15 +23,16 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.collection.commons.ICommonsCollection;
 
 /**
- * A standard implementation of the {@link IChildrenProvider} interface that
- * works with all types that implement {@link IHasChildren}.
+ * A standard implementation of the {@link IChildrenProvider} interface that works with all types
+ * that implement {@link IHasChildren}.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
 @Immutable
-public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements IChildrenProvider <CHILDTYPE>
+public class ChildrenProviderHasChildren <CHILDTYPE extends IHasChildren <CHILDTYPE>> implements
+                                         IChildrenProvider <CHILDTYPE>
 {
   @Override
   public final boolean hasChildren (@Nullable final CHILDTYPE aCurrent)

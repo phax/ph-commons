@@ -26,14 +26,14 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * A special {@link CopyOnWriteArraySet} implementation based on
- * {@link ICommonsSet}.
+ * A special {@link CopyOnWriteArraySet} implementation based on {@link ICommonsSet}.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Set element type
  */
-public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
+public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySet <ELEMENTTYPE> implements
+                                        ICommonsSet <ELEMENTTYPE>
 {
   /**
    * Create a new empty copy-on-write array set.

@@ -31,8 +31,7 @@ public interface IHasParent <PARENTTYPE>
   /**
    * Get the parent object of this object.
    *
-   * @return The parent object or <code>null</code> if this object has no
-   *         parent.
+   * @return The parent object or <code>null</code> if this object has no parent.
    */
   @Nullable
   PARENTTYPE getParent ();
@@ -40,8 +39,7 @@ public interface IHasParent <PARENTTYPE>
   /**
    * Check if this element has a parent.
    * 
-   * @return <code>true</code> if this element has a parent, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this element has a parent, <code>false</code> otherwise.
    * @since 8.5.2
    */
   default boolean hasParent ()

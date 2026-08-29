@@ -29,9 +29,9 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsArrayList;
 
 /**
- * A version of a stack that does not use {@link java.util.Vector} but an
- * {@link CommonsArrayList} as the underlying data structure as opposed to
- * {@link java.util.Stack}. This spares us from unnecessary synchronization.
+ * A version of a stack that does not use {@link java.util.Vector} but an {@link CommonsArrayList}
+ * as the underlying data structure as opposed to {@link java.util.Stack}. This spares us from
+ * unnecessary synchronization.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -108,8 +108,8 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   }
 
   /**
-   * Removes the object at the top of this stack and returns that object as the
-   * value of this function.
+   * Removes the object at the top of this stack and returns that object as the value of this
+   * function.
    *
    * @return The object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
@@ -124,8 +124,7 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   }
 
   /**
-   * Looks at the object at the top of this stack without removing it from the
-   * stack.
+   * Looks at the object at the top of this stack without removing it from the stack.
    *
    * @return the object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
@@ -140,8 +139,8 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   }
 
   /**
-   * Looks at the object at the top of this stack without removing it from the
-   * stack. Synonym for {@link #peek()}
+   * Looks at the object at the top of this stack without removing it from the stack. Synonym for
+   * {@link #peek()}
    *
    * @return the object at the top of this stack (the last item of the list).
    * @exception EmptyStackException
@@ -155,8 +154,8 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   }
 
   /**
-   * @return The first element in the stack (the oldest element) in comparison
-   *         to {@link #peek()} delivering the last element.
+   * @return The first element in the stack (the oldest element) in comparison to {@link #peek()}
+   *         delivering the last element.
    * @throws EmptyStackException
    *         if the stack is empty
    */

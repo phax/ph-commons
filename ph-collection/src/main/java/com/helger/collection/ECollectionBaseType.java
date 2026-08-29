@@ -24,8 +24,8 @@ package com.helger.collection;
 public enum ECollectionBaseType
 {
   /**
-   * The collection type applies to all Collection objects that are not Sets,
-   * and will be compared in their regular order.
+   * The collection type applies to all Collection objects that are not Sets, and will be compared
+   * in their regular order.
    */
   COLLECTION,
   /** Sets represent unordered container */

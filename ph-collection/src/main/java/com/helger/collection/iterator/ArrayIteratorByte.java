@@ -44,7 +44,7 @@ public final class ArrayIteratorByte
    * @param aArray
    *        The array to iterate. May not be <code>null</code>.
    */
-  public ArrayIteratorByte (final byte @NonNull ... aArray)
+  public ArrayIteratorByte (final byte @NonNull... aArray)
   {
     this (aArray, 0, aArray.length, DEFAULT_COPY_NEEDED);
   }

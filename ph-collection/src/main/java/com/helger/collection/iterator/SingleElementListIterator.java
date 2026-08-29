@@ -28,8 +28,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Specialized version of the {@link ListIterator} interface for a single
- * element.
+ * Specialized version of the {@link ListIterator} interface for a single element.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

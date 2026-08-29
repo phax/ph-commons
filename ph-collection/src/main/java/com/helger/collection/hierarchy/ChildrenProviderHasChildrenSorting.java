@@ -27,18 +27,17 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * An implementation of the
- * {@link com.helger.collection.hierarchy.IChildrenProvider} interface that works
- * with all types that implement
- * {@link com.helger.collection.hierarchy.IHasChildren}. It automatically sorts the
- * returned children by the specified comparator.
+ * An implementation of the {@link com.helger.collection.hierarchy.IChildrenProvider} interface that
+ * works with all types that implement {@link com.helger.collection.hierarchy.IHasChildren}. It
+ * automatically sorts the returned children by the specified comparator.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
 @Immutable
-public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren <CHILDTYPE>> extends ChildrenProviderHasChildren <CHILDTYPE>
+public class ChildrenProviderHasChildrenSorting <CHILDTYPE extends IHasChildren <CHILDTYPE>> extends
+                                                ChildrenProviderHasChildren <CHILDTYPE>
 {
   private final Comparator <? super CHILDTYPE> m_aComparator;
 

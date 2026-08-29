@@ -31,8 +31,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * This is a small helper class implementing {@link Enumeration} for array input
- * data.
+ * This is a small helper class implementing {@link Enumeration} for array input data.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -66,7 +65,9 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
    * @param nLength
    *        The maximum number of elements to be iterated.
    */
-  public ArrayEnumeration (@NonNull final ELEMENTTYPE [] aArray, @Nonnegative final int nStartIndex, @Nonnegative final int nLength)
+  public ArrayEnumeration (@NonNull final ELEMENTTYPE [] aArray,
+                           @Nonnegative final int nStartIndex,
+                           @Nonnegative final int nLength)
   {
     ValueEnforcer.notNull (aArray, "Array");
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");

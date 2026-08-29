@@ -23,8 +23,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Represents a fixed {@link Enumeration} implementation that contains no
- * elements.
+ * Represents a fixed {@link Enumeration} implementation that contains no elements.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

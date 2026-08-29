@@ -40,8 +40,7 @@ import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsOrderedMap;
 
 /**
- * Helper class for sorting lists, iterators, and maps, both inline and by
- * creating sorted copies.
+ * Helper class for sorting lists, iterators, and maps, both inline and by creating sorted copies.
  *
  * @author Philip Helger
  */
@@ -56,11 +55,10 @@ public class CollectionSort
    *
    * @param aList
    *        The list to be sorted inline. May be <code>null</code>.
-   * @return The same list instance, sorted. May be <code>null</code> if the
-   *         input list was <code>null</code>.
+   * @return The same list instance, sorted. May be <code>null</code> if the input list was
+   *         <code>null</code>.
    * @param <ELEMENTTYPE>
-   *        The type of elements in the list. Must implement
-   *        {@link Comparable}.
+   *        The type of elements in the list. Must implement {@link Comparable}.
    * @param <LISTTYPE>
    *        The type of the list.
    */
@@ -81,8 +79,8 @@ public class CollectionSort
    *        The list to be sorted inline. May be <code>null</code>.
    * @param aComparator
    *        The comparator to use for sorting. May not be <code>null</code>.
-   * @return The same list instance, sorted. May be <code>null</code> if the
-   *         input list was <code>null</code>.
+   * @return The same list instance, sorted. May be <code>null</code> if the input list was
+   *         <code>null</code>.
    * @param <ELEMENTTYPE>
    *        The type of elements in the list.
    * @param <LISTTYPE>

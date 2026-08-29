@@ -56,8 +56,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new empty linked hash set with the specified initial capacity and
-   * load factor.
+   * Create a new empty linked hash set with the specified initial capacity and load factor.
    *
    * @param nInitialCapacity
    *        The initial capacity for which memory is reserved. Must be &gt; 0.
@@ -70,12 +69,10 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set that contains the same elements as the
-   * provided collection.
+   * Create a new linked hash set that contains the same elements as the provided collection.
    *
    * @param aCont
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    */
   public CommonsLinkedHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
@@ -85,12 +82,10 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set with the default initial capacity and add all
-   * provided elements.
+   * Create a new linked hash set with the default initial capacity and add all provided elements.
    *
    * @param aIterable
-   *        The iterable from which the elements are copied from. May be
-   *        <code>null</code>.
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
    */
   public CommonsLinkedHashSet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
@@ -98,15 +93,13 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set that contains the mapped elements of the
-   * provided collection.
+   * Create a new linked hash set that contains the mapped elements of the provided collection.
    *
    * @param aValues
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    * @param aMapper
-   *        The mapping function to be executed for all provided elements. May
-   *        not be <code>null</code>.
+   *        The mapping function to be executed for all provided elements. May not be
+   *        <code>null</code>.
    * @param <SRCTYPE>
    *        source data type
    */
@@ -118,15 +111,14 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set with the default initial capacity and add all
-   * mapped items of the provided iterable.
+   * Create a new linked hash set with the default initial capacity and add all mapped items of the
+   * provided iterable.
    *
    * @param aValues
-   *        The iterable from which the elements are copied from. May be
-   *        <code>null</code>.
+   *        The iterable from which the elements are copied from. May be <code>null</code>.
    * @param aMapper
-   *        The mapping function to be executed for all provided elements. May
-   *        not be <code>null</code>.
+   *        The mapping function to be executed for all provided elements. May not be
+   *        <code>null</code>.
    * @param <SRCTYPE>
    *        source data type
    */
@@ -137,8 +129,8 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set with an initial capacity of 1 and exactly the
-   * provided value, even if it is <code>null</code>.
+   * Create a new linked hash set with an initial capacity of 1 and exactly the provided value, even
+   * if it is <code>null</code>.
    *
    * @param aValue
    *        The value to be added. May be <code>null</code>.
@@ -150,8 +142,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set that contains the same elements as the
-   * provided array.
+   * Create a new linked hash set that contains the same elements as the provided array.
    *
    * @param aValues
    *        The array to copy the elements from. May be <code>null</code>.
@@ -164,14 +155,13 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   }
 
   /**
-   * Create a new linked hash set that contains mapped elements of the provided
-   * array.
+   * Create a new linked hash set that contains mapped elements of the provided array.
    *
    * @param aValues
    *        The array to copy the elements from. May be <code>null</code>.
    * @param aMapper
-   *        The mapping function to be executed for all provided elements. May
-   *        not be <code>null</code>.
+   *        The mapping function to be executed for all provided elements. May not be
+   *        <code>null</code>.
    * @param <SRCTYPE>
    *        source data type
    */

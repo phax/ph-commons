@@ -29,8 +29,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 
 /**
- * A special {@link Set} interface with extended functionality based on
- * {@link ICommonsCollection}.
+ * A special {@link Set} interface with extended functionality based on {@link ICommonsCollection}.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>
@@ -42,8 +41,7 @@ public interface ICommonsSet <ELEMENTTYPE> extends
                              ICloneable <ICommonsSet <ELEMENTTYPE>>
 {
   /**
-   * Create a new empty set. Overwrite this if you don't want to use
-   * {@link CommonsHashSet}.
+   * Create a new empty set. Overwrite this if you don't want to use {@link CommonsHashSet}.
    *
    * @return A new empty set. Never <code>null</code>.
    * @param <T>
@@ -101,8 +99,8 @@ public interface ICommonsSet <ELEMENTTYPE> extends
    *
    * @param aElement
    *        The new element to be added.
-   * @return <code>true</code> if a previous item was removed,
-   *         <code>false</code> if this element was simply added.
+   * @return <code>true</code> if a previous item was removed, <code>false</code> if this element
+   *         was simply added.
    */
   default boolean replace (@Nullable final ELEMENTTYPE aElement)
   {

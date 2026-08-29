@@ -27,10 +27,10 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * An {@link IChildrenProvider} that returns the children in
- * {@link #getAllChildren(Object)} sorted.<br>
- * The implementation wraps an existing children provider and uses and external
- * comparator for sorting.
+ * An {@link IChildrenProvider} that returns the children in {@link #getAllChildren(Object)}
+ * sorted.<br>
+ * The implementation wraps an existing children provider and uses and external comparator for
+ * sorting.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>

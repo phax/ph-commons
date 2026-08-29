@@ -30,8 +30,7 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionHelper;
 
 /**
- * A special {@link LinkedHashMap} implementation based on
- * {@link ICommonsOrderedMap}.
+ * A special {@link LinkedHashMap} implementation based on {@link ICommonsOrderedMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -60,8 +59,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new empty linked hash map with the specified initial capacity and
-   * load factor.
+   * Create a new empty linked hash map with the specified initial capacity and load factor.
    *
    * @param nInitialCapacity
    *        The initial capacity for which memory is reserved. Must be &gt; 0.
@@ -74,8 +72,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new linked hash map that contains the same entries as the provided
-   * map.
+   * Create a new linked hash map that contains the same entries as the provided map.
    *
    * @param aMap
    *        The map to copy the entries from. May be <code>null</code>.
@@ -88,16 +85,15 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new empty linked hash map with the specified initial capacity,
-   * load factor, and ordering mode.
+   * Create a new empty linked hash map with the specified initial capacity, load factor, and
+   * ordering mode.
    *
    * @param nInitialCapacity
    *        The initial capacity for which memory is reserved. Must be &gt; 0.
    * @param fLoadFactor
    *        The load factor for the hash map.
    * @param bAccessOrder
-   *        <code>true</code> for access-order, <code>false</code> for
-   *        insertion-order.
+   *        <code>true</code> for access-order, <code>false</code> for insertion-order.
    */
   public CommonsLinkedHashMap (@Nonnegative final int nInitialCapacity,
                                final float fLoadFactor,
@@ -107,16 +103,14 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new linked hash map that contains mapped entries from the provided
-   * array.
+   * Create a new linked hash map that contains mapped entries from the provided array.
    *
    * @param aValues
    *        The array to copy the elements from. May be <code>null</code>.
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -129,17 +123,14 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new linked hash map that contains mapped entries from the provided
-   * collection.
+   * Create a new linked hash map that contains mapped entries from the provided collection.
    *
    * @param aValues
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -152,17 +143,14 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
   }
 
   /**
-   * Create a new linked hash map that contains mapped entries from the provided
-   * map.
+   * Create a new linked hash map that contains mapped entries from the provided map.
    *
    * @param aValues
    *        The map to copy the entries from. May be <code>null</code>.
    * @param aKeyMapper
-   *        The mapping function to transform keys. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to transform values. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform values. May not be <code>null</code>.
    * @param <SRCKEYTYPE>
    *        source key type
    * @param <SRCVALUETYPE>

@@ -25,8 +25,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * This is a helper class to create an {@link Enumeration} from an existing
- * {@link Iterator}
+ * This is a helper class to create an {@link Enumeration} from an existing {@link Iterator}
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

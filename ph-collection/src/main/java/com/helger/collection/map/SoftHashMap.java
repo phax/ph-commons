@@ -27,8 +27,7 @@ import com.helger.collection.commons.CommonsHashMap;
 /**
  * Soft {@link HashMap} implementation based on
  * http://www.javaspecialists.eu/archive/Issue015.html<br>
- * The <code>entrySet</code> implementation is from
- * <code>org.hypergraphdb.util</code><br>
+ * The <code>entrySet</code> implementation is from <code>org.hypergraphdb.util</code><br>
  * Note: {@link SoftHashMap} is <b>NOT</b> serializable!<br>
  * See {@link AbstractSoftMap} for the thread safety details.
  *
@@ -56,7 +55,7 @@ public class SoftHashMap <K, V> extends AbstractSoftMap <K, V>
   {
     final SoftHashMap <K, V> ret = new SoftHashMap <> ();
     // Read lock to block concurrent modifications of this map while iterating it
-    m_aRWLock.readLocked ( () -> ret.putAll (this));
+    m_aRWLock.readLocked (() -> ret.putAll (this));
     return ret;
   }
 }

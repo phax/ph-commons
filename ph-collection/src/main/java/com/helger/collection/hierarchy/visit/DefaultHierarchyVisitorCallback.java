@@ -22,8 +22,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.OverridingMethodsMustInvokeSuper;
 
 /**
- * The default implementation of the {@link IHierarchyVisitorCallback} interface
- * doing nothing except counting levels.
+ * The default implementation of the {@link IHierarchyVisitorCallback} interface doing nothing
+ * except counting levels.
  *
  * @author Philip Helger
  * @param <DATATYPE>

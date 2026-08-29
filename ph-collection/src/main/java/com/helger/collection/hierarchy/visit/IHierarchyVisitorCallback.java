@@ -37,48 +37,45 @@ public interface IHierarchyVisitorCallback <DATATYPE> extends ICallback
   {}
 
   /**
-   * @return The level of the current node within the hierarchy. Always &ge; 0.
-   *         The root item has level 0.
+   * @return The level of the current node within the hierarchy. Always &ge; 0. The root item has
+   *         level 0.
    */
   @Nonnegative
   int getLevel ();
 
   /**
-   * Called before the tree walker descends into the next tree level. After this
-   * call {@link #getLevel()} should return a value increased by 1.
+   * Called before the tree walker descends into the next tree level. After this call
+   * {@link #getLevel()} should return a value increased by 1.
    */
   default void onLevelDown ()
   {}
 
   /**
-   * Called after the tree walker ascends into the previous tree level. After
-   * this call {@link #getLevel()} should return a value decreased by 1.
+   * Called after the tree walker ascends into the previous tree level. After this call
+   * {@link #getLevel()} should return a value decreased by 1.
    */
   default void onLevelUp ()
   {}
 
   /**
-   * Called before children of the current item are visited. This method is also
-   * to be called if no children are present at all.
+   * Called before children of the current item are visited. This method is also to be called if no
+   * children are present at all.
    *
    * @param aItem
    *        The current item. May be <code>null</code>.
-   * @return A non-<code>null</code> status code that determines how to continue
-   *         iteration.
+   * @return A non-<code>null</code> status code that determines how to continue iteration.
    */
   @NonNull
   EHierarchyVisitorReturn onItemBeforeChildren (DATATYPE aItem);
 
   /**
-   * Called after eventual children of the current item were visited. This
-   * method is also to be called if no children are present at all. This method
-   * has always to be called if {@link #onItemBeforeChildren(Object)} was
-   * called.
+   * Called after eventual children of the current item were visited. This method is also to be
+   * called if no children are present at all. This method has always to be called if
+   * {@link #onItemBeforeChildren(Object)} was called.
    *
    * @param aItem
    *        The current item. May be <code>null</code>.
-   * @return A non-<code>null</code> status code that determines how to continue
-   *         iteration.
+   * @return A non-<code>null</code> status code that determines how to continue iteration.
    */
   @NonNull
   EHierarchyVisitorReturn onItemAfterChildren (DATATYPE aItem);

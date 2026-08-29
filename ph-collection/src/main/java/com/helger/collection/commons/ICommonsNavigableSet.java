@@ -25,8 +25,8 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * A special {@link NavigableSet} based interface with extended functionality
- * based on {@link ICommonsSortedSet}.
+ * A special {@link NavigableSet} based interface with extended functionality based on
+ * {@link ICommonsSortedSet}.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

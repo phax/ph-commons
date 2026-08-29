@@ -39,8 +39,7 @@ import com.helger.collection.commons.ICommonsIterable;
 public interface IHasChildren <CHILDTYPE>
 {
   /**
-   * @return <code>true</code> if this item has direct children,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this item has direct children, <code>false</code> otherwise.
    */
   default boolean hasChildren ()
   {
@@ -48,8 +47,7 @@ public interface IHasChildren <CHILDTYPE>
   }
 
   /**
-   * @return <code>true</code> if this item has no direct children,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this item has no direct children, <code>false</code> otherwise.
    */
   default boolean hasNoChildren ()
   {
@@ -63,11 +61,9 @@ public interface IHasChildren <CHILDTYPE>
   int getChildCount ();
 
   /**
-   * @return A collection of all direct child elements. May be <code>null</code>
-   *         if no children are contained. This method should always return a
-   *         copy of the collection to avoid
-   *         {@link java.util.ConcurrentModificationException} when modifying
-   *         it.
+   * @return A collection of all direct child elements. May be <code>null</code> if no children are
+   *         contained. This method should always return a copy of the collection to avoid
+   *         {@link java.util.ConcurrentModificationException} when modifying it.
    * @see #hasChildren()
    * @see #getChildren()
    */
@@ -76,11 +72,10 @@ public interface IHasChildren <CHILDTYPE>
   ICommonsCollection <? extends CHILDTYPE> getAllChildren ();
 
   /**
-   * @return An iterable over all direct children. May be <code>null</code> if
-   *         no children are contained. Compared to {@link #getAllChildren()}
-   *         this method is not supposed to create a copy of the underlying
-   *         container but instead return the iterable only. Be careful when
-   *         using this method to modify a collection - it will lead to a
+   * @return An iterable over all direct children. May be <code>null</code> if no children are
+   *         contained. Compared to {@link #getAllChildren()} this method is not supposed to create
+   *         a copy of the underlying container but instead return the iterable only. Be careful
+   *         when using this method to modify a collection - it will lead to a
    *         {@link java.util.ConcurrentModificationException}.
    * @see #hasChildren()
    * @see #getChildren()
@@ -91,8 +86,8 @@ public interface IHasChildren <CHILDTYPE>
 
   /**
    * Perform something on all children (if any).<br>
-   * Note: use this only for reading. Writing operations will potentially cause
-   * concurrent modification exceptions!
+   * Note: use this only for reading. Writing operations will potentially cause concurrent
+   * modification exceptions!
    *
    * @param aConsumer
    *        The consumer to be invoked. May not be <code>null</code>.
@@ -105,13 +100,12 @@ public interface IHasChildren <CHILDTYPE>
 
   /**
    * Perform something on all children (if any).<br>
-   * Note: use this only for reading. Writing operations will potentially cause
-   * concurrent modification exceptions!
+   * Note: use this only for reading. Writing operations will potentially cause concurrent
+   * modification exceptions!
    *
    * @param aConsumer
    *        The breakable consumer to be invoked. May not be <code>null</code>.
-   * @return {@link EContinue#BREAK} if iteration was stopped,
-   *         {@link EContinue#CONTINUE} otherwise.
+   * @return {@link EContinue#BREAK} if iteration was stopped, {@link EContinue#CONTINUE} otherwise.
    */
   @NonNull
   default EContinue forAllChildrenBreakable (@NonNull final Function <? super CHILDTYPE, EContinue> aConsumer)
@@ -122,39 +116,37 @@ public interface IHasChildren <CHILDTYPE>
   }
 
   /**
-   * Iterate all direct children (if at least one is present) and invoke the
-   * provided consumer if the passed predicate is fulfilled.<br>
-   * Note: use this only for reading. Writing operations will potentially cause
-   * concurrent modification exceptions!
+   * Iterate all direct children (if at least one is present) and invoke the provided consumer if
+   * the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will potentially cause concurrent
+   * modification exceptions!
    *
    * @param aFilter
-   *        The filter that is applied to all children. May not be
-   *        <code>null</code>.
+   *        The filter that is applied to all children. May not be <code>null</code>.
    * @param aConsumer
-   *        The consumer to be invoked for all children matching the filter. May
-   *        not be <code>null</code>.
+   *        The consumer to be invoked for all children matching the filter. May not be
+   *        <code>null</code>.
    */
-  default void forAllChildren (@NonNull final Predicate <? super CHILDTYPE> aFilter, @NonNull final Consumer <? super CHILDTYPE> aConsumer)
+  default void forAllChildren (@NonNull final Predicate <? super CHILDTYPE> aFilter,
+                               @NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {
     if (hasChildren ())
       getChildren ().findAll (aFilter, aConsumer);
   }
 
   /**
-   * Iterate all direct children (if at least one is present) and invoked the
-   * provided consumer if the passed predicate is fulfilled.<br>
-   * Note: use this only for reading. Writing operations will potentially cause
-   * concurrent modification exceptions!
+   * Iterate all direct children (if at least one is present) and invoked the provided consumer if
+   * the passed predicate is fulfilled.<br>
+   * Note: use this only for reading. Writing operations will potentially cause concurrent
+   * modification exceptions!
    *
    * @param aFilter
-   *        The filter that is applied to all children. May not be
-   *        <code>null</code>.
+   *        The filter that is applied to all children. May not be <code>null</code>.
    * @param aMapper
-   *        The mapping function from child type to the target type. May not be
-   *        <code>null</code>.
+   *        The mapping function from child type to the target type. May not be <code>null</code>.
    * @param aConsumer
-   *        The consumer to be invoked for all target types matching the filter.
-   *        May not be <code>null</code>.
+   *        The consumer to be invoked for all target types matching the filter. May not be
+   *        <code>null</code>.
    * @param <DSTTYPE>
    *        The destination data type.
    */

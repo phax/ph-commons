@@ -36,8 +36,7 @@ import com.helger.collection.commons.CommonsVector;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
 /**
- * Helper class for creating and populating {@link CommonsVector} instances from
- * various sources.
+ * Helper class for creating and populating {@link CommonsVector} instances from various sources.
  *
  * @author Philip Helger
  */
@@ -194,8 +193,8 @@ public final class VectorHelper
   }
 
   /**
-   * Compared to {@link Collections#list(Enumeration)} this method is more
-   * flexible in Generics parameter.
+   * Compared to {@link Collections#list(Enumeration)} this method is more flexible in Generics
+   * parameter.
    *
    * @param <ELEMENTTYPE>
    *        Type of the elements

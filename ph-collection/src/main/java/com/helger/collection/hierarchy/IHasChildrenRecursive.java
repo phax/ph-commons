@@ -22,14 +22,14 @@ import java.util.function.Predicate;
 import org.jspecify.annotations.NonNull;
 
 /**
- * A simple interface, indicating that an item has children which also has
- * children etc.
+ * A simple interface, indicating that an item has children which also has children etc.
  *
  * @author Philip Helger
  * @param <CHILDTYPE>
  *        The type of the children.
  */
-public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive <CHILDTYPE>> extends IHasChildren <CHILDTYPE>
+public interface IHasChildrenRecursive <CHILDTYPE extends IHasChildrenRecursive <CHILDTYPE>> extends
+                                       IHasChildren <CHILDTYPE>
 {
   default void forAllChildrenRecursive (@NonNull final Consumer <? super CHILDTYPE> aConsumer)
   {

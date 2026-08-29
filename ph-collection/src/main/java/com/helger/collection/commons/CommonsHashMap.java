@@ -59,8 +59,7 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
   }
 
   /**
-   * Create a new empty hash map with the specified initial capacity and load
-   * factor.
+   * Create a new empty hash map with the specified initial capacity and load factor.
    *
    * @param nInitialCapacity
    *        The initial capacity for which memory is reserved. Must be &gt; 0.
@@ -93,8 +92,7 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -107,17 +105,14 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
   }
 
   /**
-   * Create a new hash map that contains mapped entries from the provided
-   * collection.
+   * Create a new hash map that contains mapped entries from the provided collection.
    *
    * @param aValues
-   *        The collection to copy the elements from. May be
-   *        <code>null</code>.
+   *        The collection to copy the elements from. May be <code>null</code>.
    * @param aKeyMapper
    *        The mapping function to extract keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to extract values. May not be
-   *        <code>null</code>.
+   *        The mapping function to extract values. May not be <code>null</code>.
    * @param <COLLTYPE>
    *        source element type
    */
@@ -135,11 +130,9 @@ public class CommonsHashMap <KEYTYPE, VALUETYPE> extends HashMap <KEYTYPE, VALUE
    * @param aValues
    *        The map to copy the entries from. May be <code>null</code>.
    * @param aKeyMapper
-   *        The mapping function to transform keys. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform keys. May not be <code>null</code>.
    * @param aValueMapper
-   *        The mapping function to transform values. May not be
-   *        <code>null</code>.
+   *        The mapping function to transform values. May not be <code>null</code>.
    * @param <SRCKEYTYPE>
    *        source key type
    * @param <SRCVALUETYPE>

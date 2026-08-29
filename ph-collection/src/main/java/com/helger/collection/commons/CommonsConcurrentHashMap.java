@@ -29,8 +29,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.CollectionHelper;
 
 /**
- * A special {@link ConcurrentHashMap} implementation based on
- * {@link ICommonsMap}.
+ * A special {@link ConcurrentHashMap} implementation based on {@link ICommonsMap}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

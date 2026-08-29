@@ -132,7 +132,8 @@ public final class ArrayIteratorFloat
   }
 
   /**
-   * Create a new iterator for the given array from begin index (inclusive) to end index (exclusive).
+   * Create a new iterator for the given array from begin index (inclusive) to end index
+   * (exclusive).
    *
    * @param aArray
    *        Source array. May not be <code>null</code>.

@@ -38,8 +38,7 @@ final class MapHelper
    *
    * @param nValue
    *        a long integer smaller than or equal to 2<sup>62</sup>.
-   * @return the least power of two greater than or equal to the specified
-   *         value.
+   * @return the least power of two greater than or equal to the specified value.
    */
   public static long nextPowerOfTwo (final long nValue)
   {
@@ -55,8 +54,8 @@ final class MapHelper
   }
 
   /**
-   * Returns the least power of two smaller than or equal to 2<sup>30</sup> and
-   * larger than or equal to <code>Math.ceil( expected / f )</code>.
+   * Returns the least power of two smaller than or equal to 2<sup>30</sup> and larger than or equal
+   * to <code>Math.ceil( expected / f )</code>.
    *
    * @param nExpected
    *        the expected number of elements in a hash table.
@@ -71,7 +70,11 @@ final class MapHelper
   {
     final long s = Math.max (2, nextPowerOfTwo ((long) Math.ceil (nExpected / fLoadFactor)));
     if (s > (1 << 30))
-      throw new IllegalArgumentException ("Too large (" + nExpected + " expected elements with load factor " + fLoadFactor + ")");
+      throw new IllegalArgumentException ("Too large (" +
+                                          nExpected +
+                                          " expected elements with load factor " +
+                                          fLoadFactor +
+                                          ")");
     return (int) s;
   }
 

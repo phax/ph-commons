@@ -24,8 +24,8 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.id.IHasID;
 
 /**
- * An implementation of the {@link IChildrenProviderWithID} interface that works
- * with all types that implement {@link IHasChildren} and {@link IHasID}.
+ * An implementation of the {@link IChildrenProviderWithID} interface that works with all types that
+ * implement {@link IHasChildren} and {@link IHasID}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -33,7 +33,8 @@ import com.helger.base.id.IHasID;
  * @param <CHILDTYPE>
  *        The data type of the child objects.
  */
-public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>> extends
+public class ChildrenProviderHasChildrenWithID <KEYTYPE, CHILDTYPE extends IHasChildren <CHILDTYPE> & IHasID <KEYTYPE>>
+                                               extends
                                                ChildrenProviderHasChildren <CHILDTYPE> implements
                                                IChildrenProviderWithID <KEYTYPE, CHILDTYPE>
 {

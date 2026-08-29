@@ -46,7 +46,8 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
    * @param aIter2
    *        Second iterator. May be <code>null</code>.
    */
-  public CombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1, @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
+  public CombinedIterator (@Nullable final Iterator <? extends ELEMENTTYPE> aIter1,
+                           @Nullable final Iterator <? extends ELEMENTTYPE> aIter2)
   {
     m_aIter1 = aIter1;
     m_aIter2 = aIter2;

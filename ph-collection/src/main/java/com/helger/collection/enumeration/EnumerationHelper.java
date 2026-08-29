@@ -31,9 +31,8 @@ import com.helger.collection.CollectionHelper;
 import com.helger.collection.base.EmptyEnumeration;
 
 /**
- * Helper class for working with {@link java.util.Enumeration} instances,
- * providing null-safe emptiness checks, size calculations, and conversions to
- * lists.
+ * Helper class for working with {@link java.util.Enumeration} instances, providing null-safe
+ * emptiness checks, size calculations, and conversions to lists.
  *
  * @author Philip Helger
  */
@@ -44,13 +43,13 @@ public final class EnumerationHelper
   {}
 
   /**
-   * Check if the passed {@link Enumeration} is empty. An enumeration is
-   * considered empty if it is <code>null</code> or has no more elements.
+   * Check if the passed {@link Enumeration} is empty. An enumeration is considered empty if it is
+   * <code>null</code> or has no more elements.
    *
    * @param aEnum
    *        The enumeration to check. May be <code>null</code>.
-   * @return <code>true</code> if the enumeration is <code>null</code> or has no
-   *         more elements, <code>false</code> otherwise.
+   * @return <code>true</code> if the enumeration is <code>null</code> or has no more elements,
+   *         <code>false</code> otherwise.
    */
   public static boolean isEmpty (@Nullable final Enumeration <?> aEnum)
   {
@@ -58,13 +57,13 @@ public final class EnumerationHelper
   }
 
   /**
-   * Check if the passed {@link Enumeration} is not empty. An enumeration is
-   * considered not empty if it is not <code>null</code> and has more elements.
+   * Check if the passed {@link Enumeration} is not empty. An enumeration is considered not empty if
+   * it is not <code>null</code> and has more elements.
    *
    * @param aEnum
    *        The enumeration to check. May be <code>null</code>.
-   * @return <code>true</code> if the enumeration is not <code>null</code> and
-   *         has more elements, <code>false</code> otherwise.
+   * @return <code>true</code> if the enumeration is not <code>null</code> and has more elements,
+   *         <code>false</code> otherwise.
    */
   public static boolean isNotEmpty (@Nullable final Enumeration <?> aEnum)
   {

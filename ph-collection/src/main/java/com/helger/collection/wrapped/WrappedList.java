@@ -33,8 +33,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * This is a facade for a {@link List}. It may be used to wrap any kind of
- * {@link List} and overwrite single methods, e.g. for logging.
+ * This is a facade for a {@link List}. It may be used to wrap any kind of {@link List} and
+ * overwrite single methods, e.g. for logging.
  *
  * @author Philip Helger
  * @param <ELEMENTTYPE>

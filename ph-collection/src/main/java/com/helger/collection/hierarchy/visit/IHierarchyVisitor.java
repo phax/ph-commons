@@ -32,13 +32,11 @@ public interface IHierarchyVisitor <DATATYPE>
    * Visit all objects, starting specified one.
    *
    * @param aStartObject
-   *        The object to start from. May be <code>null</code> to indicate the
-   *        hierarchy root.
+   *        The object to start from. May be <code>null</code> to indicate the hierarchy root.
    * @param bInvokeOnStartObject
-   *        <code>true</code> to indicate that the callback should also be
-   *        invoked on the first element, <code>false</code> to indicate that
-   *        the callback should only be invoked for the children of the passed
-   *        element.
+   *        <code>true</code> to indicate that the callback should also be invoked on the first
+   *        element, <code>false</code> to indicate that the callback should only be invoked for the
+   *        children of the passed element.
    */
   void visit (@Nullable DATATYPE aStartObject, boolean bInvokeOnStartObject);
 }
