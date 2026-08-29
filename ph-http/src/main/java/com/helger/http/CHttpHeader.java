@@ -250,6 +250,14 @@ public final class CHttpHeader
    */
   @Deprecated (forRemoval = true, since = "12.1.4")
   public static final String X_CONTENT_SECURITY_POLICY_REPORT_ONLY = "X-Content-Security-Policy-Report-Only";
+  /**
+   * Reporting API header that declares named reporting endpoints, to be referenced from the CSP
+   * <code>report-to</code> directive. The value is a structured field dictionary, mapping an
+   * endpoint name to a quoted URL - e.g. <code>csp-endpoint="/cspreporting"</code>.
+   *
+   * @since 12.4.0
+   */
+  public static final String REPORTING_ENDPOINTS = "Reporting-Endpoints";
 
   // WAP-248-UAPROF-20011020-a
   /** WAP UAProf header referencing the user agent profile document. */
