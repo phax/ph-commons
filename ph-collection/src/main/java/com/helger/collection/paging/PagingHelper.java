@@ -16,8 +16,8 @@
  */
 package com.helger.collection.paging;
 
-import java.util.Collection;
 import java.util.Comparator;
+import java.util.List;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -47,8 +47,11 @@ public final class PagingHelper
    *
    * @param <T>
    *        The collection element type
-   * @param aCollection
-   *        The collection to take the page from. May not be <code>null</code>.
+   * @param aList
+   *        The list to take the page from. May not be <code>null</code>.
+   * @param bCopyList
+   *        <code>true</code> if the operation should work on copy of the list, <code>false</code>
+   *        if the original list can be used.
    * @param aPagingSpec
    *        The paging specification to be applied. May not be <code>null</code>.
    * @param aComparator
@@ -60,19 +63,20 @@ public final class PagingHelper
    */
   @NonNull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getPage (@NonNull final Collection <? extends T> aCollection,
+  public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
+                                              final boolean bCopyList,
                                               @NonNull final IPagingSpec aPagingSpec,
                                               @Nullable final Comparator <? super T> aComparator)
   {
-    ValueEnforcer.notNull (aCollection, "Collection");
+    ValueEnforcer.notNull (aList, "Collection");
     ValueEnforcer.notNull (aPagingSpec, "PagingSpec");
 
     final long nStartIndex = aPagingSpec.getStartIndex ();
-    if (aPagingSpec.isEmptyPage () || nStartIndex >= aCollection.size ())
+    if (aPagingSpec.isEmptyPage () || nStartIndex >= aList.size ())
       return new CommonsArrayList <> ();
 
     // Always work on a copy, so that the source collection is not modified
-    final ICommonsList <T> aSorted = new CommonsArrayList <> (aCollection);
+    final List <? extends T> aSorted = bCopyList ? new CommonsArrayList <> (aList) : aList;
     if (aComparator != null)
       aSorted.sort (aComparator);
 
@@ -96,17 +100,21 @@ public final class PagingHelper
    *
    * @param <T>
    *        The collection element type
-   * @param aCollection
-   *        The collection to take the page from. May not be <code>null</code>.
+   * @param aList
+   *        The list to take the page from. May not be <code>null</code>.
+   * @param bCopyList
+   *        <code>true</code> if the operation should work on copy of the list, <code>false</code>
+   *        if the original list can be used.
    * @param aPagingSpec
    *        The paging specification to be applied. May not be <code>null</code>.
    * @return A non-<code>null</code> but maybe empty list.
    */
   @NonNull
   @ReturnsMutableCopy
-  public static <T> ICommonsList <T> getPage (@NonNull final Collection <? extends T> aCollection,
+  public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
+                                              final boolean bCopyList,
                                               @NonNull final IPagingSpec aPagingSpec)
   {
-    return getPage (aCollection, aPagingSpec, (Comparator <? super T>) null);
+    return getPage (aList, bCopyList, aPagingSpec, (Comparator <? super T>) null);
   }
 }

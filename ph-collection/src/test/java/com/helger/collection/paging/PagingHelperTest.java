@@ -40,49 +40,49 @@ public final class PagingHelperTest
   {
     final Comparator <String> aComp = Comparator.naturalOrder ();
 
-    assertEquals (new CommonsArrayList <> ("a", "b"), PagingHelper.getPage (LIST, new PagingSpec (0, 2), aComp));
-    assertEquals (new CommonsArrayList <> ("c", "d"), PagingHelper.getPage (LIST, new PagingSpec (2, 2), aComp));
+    assertEquals (new CommonsArrayList <> ("a", "b"), PagingHelper.getPage (LIST, true, new PagingSpec (0, 2), aComp));
+    assertEquals (new CommonsArrayList <> ("c", "d"), PagingHelper.getPage (LIST, true, new PagingSpec (2, 2), aComp));
 
     // Last page is not full
-    assertEquals (new CommonsArrayList <> ("e"), PagingHelper.getPage (LIST, new PagingSpec (4, 2), aComp));
+    assertEquals (new CommonsArrayList <> ("e"), PagingHelper.getPage (LIST, true, new PagingSpec (4, 2), aComp));
 
     // Start index beyond the end
-    assertTrue (PagingHelper.getPage (LIST, new PagingSpec (5, 2), aComp).isEmpty ());
-    assertTrue (PagingHelper.getPage (LIST, new PagingSpec (99, 2), aComp).isEmpty ());
+    assertTrue (PagingHelper.getPage (LIST, true, new PagingSpec (5, 2), aComp).isEmpty ());
+    assertTrue (PagingHelper.getPage (LIST, true, new PagingSpec (99, 2), aComp).isEmpty ());
 
     // Max count 0
-    assertTrue (PagingHelper.getPage (LIST, new PagingSpec (0, 0), aComp).isEmpty ());
+    assertTrue (PagingHelper.getPage (LIST, true, new PagingSpec (0, 0), aComp).isEmpty ());
 
     // Unlimited
     assertEquals (new CommonsArrayList <> ("a", "b", "c", "d", "e"),
-                  PagingHelper.getPage (LIST, PagingSpec.UNLIMITED, aComp));
+                  PagingHelper.getPage (LIST, true, PagingSpec.UNLIMITED, aComp));
     assertEquals (new CommonsArrayList <> ("c", "d", "e"),
-                  PagingHelper.getPage (LIST, new PagingSpec (2, -1), aComp));
+                  PagingHelper.getPage (LIST, true, new PagingSpec (2, -1), aComp));
 
     // Descending
     assertEquals (new CommonsArrayList <> ("e", "d"),
-                  PagingHelper.getPage (LIST, new PagingSpec (0, 2), aComp.reversed ()));
+                  PagingHelper.getPage (LIST, true, new PagingSpec (0, 2), aComp.reversed ()));
   }
 
   @Test
   public void testUnsorted ()
   {
     // No comparator - existing order is kept
-    assertEquals (new CommonsArrayList <> ("d", "b"), PagingHelper.getPage (LIST, new PagingSpec (0, 2)));
-    assertEquals (new CommonsArrayList <> ("e", "a"), PagingHelper.getPage (LIST, new PagingSpec (2, 2)));
+    assertEquals (new CommonsArrayList <> ("d", "b"), PagingHelper.getPage (LIST, true, new PagingSpec (0, 2)));
+    assertEquals (new CommonsArrayList <> ("e", "a"), PagingHelper.getPage (LIST, true, new PagingSpec (2, 2)));
   }
 
   @Test
   public void testSourceIsNotModified ()
   {
     final ICommonsList <String> aSource = new CommonsArrayList <> ("d", "b", "e", "a", "c");
-    PagingHelper.getPage (aSource, new PagingSpec (0, 2), Comparator.naturalOrder ());
+    PagingHelper.getPage (aSource, true, new PagingSpec (0, 2), Comparator.naturalOrder ());
     assertEquals (new CommonsArrayList <> ("d", "b", "e", "a", "c"), aSource);
   }
 
   @Test
   public void testEmptySource ()
   {
-    assertTrue (PagingHelper.getPage (new CommonsArrayList <String> (), new PagingSpec (0, 25)).isEmpty ());
+    assertTrue (PagingHelper.getPage (new CommonsArrayList <String> (), true, new PagingSpec (0, 25)).isEmpty ());
   }
 }

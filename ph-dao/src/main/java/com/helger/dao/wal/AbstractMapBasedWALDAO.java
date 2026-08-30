@@ -48,8 +48,6 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.CollectionFind;
-import com.helger.collection.paging.IPagingSpec;
-import com.helger.collection.paging.PagingHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
@@ -57,6 +55,8 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.ICommonsSet;
+import com.helger.collection.paging.IPagingSpec;
+import com.helger.collection.paging.PagingHelper;
 import com.helger.dao.DAOException;
 import com.helger.dao.EDAOActionType;
 import com.helger.io.relative.IFileRelativeIO;
@@ -98,8 +98,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
      * Set whether the initial read should happen in the constructor.
      *
      * @param bDoInitialRead
-     *        <code>true</code> to perform initial read, <code>false</code> to
-     *        skip it.
+     *        <code>true</code> to perform initial read, <code>false</code> to skip it.
      * @return this for chaining
      */
     @NonNull
@@ -110,8 +109,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     }
 
     /**
-     * Set the supplier for the internal map. By default a
-     * {@link CommonsHashMap} is used.
+     * Set the supplier for the internal map. By default a {@link CommonsHashMap} is used.
      *
      * @param aMapSupplier
      *        The map supplier to use. May not be <code>null</code>.
@@ -247,8 +245,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   }
 
   /**
-   * @return The mutable callback list for DAO change events. Never
-   *         <code>null</code>.
+   * @return The mutable callback list for DAO change events. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject
@@ -565,7 +562,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   {
     // Use new CommonsArrayList to get the return type to NOT use "? extends
     // INTERFACETYPE"
-    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aMap.values ()));
+    return m_aRWLock.readLockedGet (() -> new CommonsArrayList <> (m_aMap.values ()));
   }
 
   /** {@inheritDoc} */
@@ -612,7 +609,8 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     if (aPagingSpec.isEmptyPage ())
       return new CommonsArrayList <> ();
 
-    return PagingHelper.getPage (getAll (aFilter), aPagingSpec, aComparator);
+    // getAll is already a copy
+    return PagingHelper.getPage (getAll (aFilter), false, aPagingSpec, aComparator);
   }
 
   @NonNull
@@ -628,7 +626,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final ICommonsList <IMPLTYPE> internalGetAll (@Nullable final Predicate <? super IMPLTYPE> aFilter)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aMap.copyOfValues (aFilter));
+    return m_aRWLock.readLockedGet (() -> m_aMap.copyOfValues (aFilter));
   }
 
   /** {@inheritDoc} */
@@ -647,7 +645,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> ICommonsList <RETTYPE> getAllMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                               @NonNull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aMap.copyOfValuesMapped (aFilter, aMapper));
+    return m_aRWLock.readLockedGet (() -> m_aMap.copyOfValuesMapped (aFilter, aMapper));
   }
 
   /** {@inheritDoc} */
@@ -668,7 +666,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nullable
   public final INTERFACETYPE findFirst (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirst (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedGet (() -> CollectionFind.findFirst (m_aMap.values (), aFilter));
   }
 
   /** {@inheritDoc} */
@@ -677,7 +675,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final <RETTYPE> RETTYPE findFirstMapped (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                                   @NonNull final Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionFind.findFirstMapped (m_aMap.values (), aFilter, aMapper));
+    return m_aRWLock.readLockedGet (() -> CollectionFind.findFirstMapped (m_aMap.values (), aFilter, aMapper));
   }
 
   /** {@inheritDoc} */
@@ -692,7 +690,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsAny (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsAny (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean (() -> CollectionFind.containsAny (m_aMap.values (), aFilter));
   }
 
   /** {@inheritDoc} */
@@ -706,21 +704,21 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   public final boolean containsNone (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsNone (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean (() -> CollectionFind.containsNone (m_aMap.values (), aFilter));
   }
 
   /** {@inheritDoc} */
   @IsLocked (ELockType.READ)
   public final boolean containsOnly (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> CollectionFind.containsOnly (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedBoolean (() -> CollectionFind.containsOnly (m_aMap.values (), aFilter));
   }
 
   /** {@inheritDoc} */
   @IsLocked (ELockType.READ)
   public final void forEach (@Nullable final BiConsumer <? super String, ? super INTERFACETYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEach (aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEach (aConsumer));
   }
 
   /** {@inheritDoc} */
@@ -728,14 +726,14 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final void forEach (@Nullable final BiPredicate <? super String, ? super INTERFACETYPE> aFilter,
                              @Nullable final BiConsumer <? super String, ? super INTERFACETYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEach (aFilter, aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEach (aFilter, aConsumer));
   }
 
   /** {@inheritDoc} */
   @IsLocked (ELockType.READ)
   public final void forEachKey (@Nullable final Consumer <? super String> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachKey (aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachKey (aConsumer));
   }
 
   /** {@inheritDoc} */
@@ -743,20 +741,20 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final void forEachKey (@Nullable final Predicate <? super String> aFilter,
                                 @Nullable final Consumer <? super String> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachKey (aFilter, aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachKey (aFilter, aConsumer));
   }
 
   /** {@inheritDoc} */
   @IsLocked (ELockType.READ)
   public final void forEachValue (@Nullable final Consumer <? super INTERFACETYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachValue (aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachValue (aConsumer));
   }
 
   @IsLocked (ELockType.READ)
   protected final void internalForEachValue (@Nullable final Consumer <? super IMPLTYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachValue (aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachValue (aConsumer));
   }
 
   /** {@inheritDoc} */
@@ -764,14 +762,14 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   public final void forEachValue (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
                                   @Nullable final Consumer <? super INTERFACETYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachValue (aFilter, aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachValue (aFilter, aConsumer));
   }
 
   @IsLocked (ELockType.READ)
   protected final void internalForEachValue (@Nullable final Predicate <? super IMPLTYPE> aFilter,
                                              @Nullable final Consumer <? super IMPLTYPE> aConsumer)
   {
-    m_aRWLock.readLocked ( () -> m_aMap.forEachValue (aFilter, aConsumer));
+    m_aRWLock.readLocked (() -> m_aMap.forEachValue (aFilter, aConsumer));
   }
 
   /**
@@ -806,7 +804,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     if (StringHelper.isEmpty (sID))
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aMap.get (sID));
+    return m_aRWLock.readLockedGet (() -> m_aMap.get (sID));
   }
 
   /**
@@ -821,7 +819,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @IsLocked (ELockType.READ)
   protected final INTERFACETYPE getAtIndex (@Nonnegative final int nIndex)
   {
-    return m_aRWLock.readLockedGet ( () -> CollectionHelper.getAtIndex (m_aMap.values (), nIndex));
+    return m_aRWLock.readLockedGet (() -> CollectionHelper.getAtIndex (m_aMap.values (), nIndex));
   }
 
   @MustBeLocked (ELockType.READ)
@@ -840,7 +838,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     if (StringHelper.isEmpty (sID))
       return false;
 
-    return m_aRWLock.readLockedBoolean ( () -> m_aMap.containsKey (sID));
+    return m_aRWLock.readLockedBoolean (() -> m_aMap.containsKey (sID));
   }
 
   /** {@inheritDoc} */
@@ -883,7 +881,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
   @Nonnegative
   public final int getCount (@Nullable final Predicate <? super INTERFACETYPE> aFilter)
   {
-    return m_aRWLock.readLockedInt ( () -> CollectionHelper.getCount (m_aMap.values (), aFilter));
+    return m_aRWLock.readLockedInt (() -> CollectionHelper.getCount (m_aMap.values (), aFilter));
   }
 
   @Override
