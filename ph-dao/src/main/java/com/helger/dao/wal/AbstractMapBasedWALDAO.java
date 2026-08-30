@@ -48,6 +48,8 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.wrapper.Wrapper;
 import com.helger.collection.CollectionFind;
+import com.helger.collection.paging.IPagingSpec;
+import com.helger.collection.paging.PagingHelper;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
@@ -581,6 +583,36 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
     // (Runnable) cast for Java 9
     m_aRWLock.readLocked ((Runnable) () -> CollectionFind.findAll (m_aMap.values (), aFilter, ret::add));
     return ret;
+  }
+
+  /**
+   * Get a single "page" of all contained items, optionally filtered and sorted. This is the
+   * in-memory implementation of a paged query - the whole content is held in memory anyway.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case all items are
+   *        considered.
+   * @param aPagingSpec
+   *        The paging specification to be applied. May not be <code>null</code>.
+   * @param aComparator
+   *        The comparator matching the sort fields of the paging specification. May be
+   *        <code>null</code> in which case the order is undefined. It is up to the caller to
+   *        resolve the sort fields onto a comparator, because only the caller knows the data model.
+   * @return A non-<code>null</code> but maybe empty list.
+   * @since 12.4.0
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public final ICommonsList <INTERFACETYPE> getAllPaged (@Nullable final Predicate <? super INTERFACETYPE> aFilter,
+                                                         @NonNull final IPagingSpec aPagingSpec,
+                                                         @Nullable final Comparator <? super INTERFACETYPE> aComparator)
+  {
+    ValueEnforcer.notNull (aPagingSpec, "PagingSpec");
+
+    if (aPagingSpec.isEmptyPage ())
+      return new CommonsArrayList <> ();
+
+    return PagingHelper.getPage (getAll (aFilter), aPagingSpec, aComparator);
   }
 
   @NonNull
