@@ -19,6 +19,7 @@ package com.helger.base.location;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.misc.ChangeNextMajorRelease;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.base.CGlobal;
 import com.helger.base.string.StringHelper;
@@ -70,6 +71,7 @@ public interface ILocation
    *
    * @return <code>true</code> if at least one field is set, <code>false</code> otherwise.
    */
+  @ChangeNextMajorRelease ("Rename to hasAnyInformation")
   default boolean isAnyInformationPresent ()
   {
     return hasResourceID () || hasLineNumber () || hasColumnNumber ();
@@ -81,7 +83,7 @@ public interface ILocation
   @NonNull
   default String getAsString ()
   {
-    StringBuilder ret = new StringBuilder ();
+    final StringBuilder ret = new StringBuilder ();
 
     final String sResourceID = getResourceID ();
     if (StringHelper.isNotEmpty (sResourceID))
