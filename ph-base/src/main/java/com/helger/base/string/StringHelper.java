@@ -100,9 +100,24 @@ public class StringHelper
    *         whitespaces, <code>false</code> otherwise
    * @since 10.1.8
    */
+  @Deprecated (forRemoval = true, since = "12.4.1")
   public static boolean isEmptyAfterTrim (@Nullable final String s)
   {
-    return s == null || s.trim ().isEmpty ();
+    return isBlank (s);
+  }
+
+  /**
+   * Check if the string is <code>null</code> or empty after trimming.
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is <code>null</code> or empty or consists only of
+   *         whitespaces, <code>false</code> otherwise
+   * @since 12.4.1
+   */
+  public static boolean isBlank (@Nullable final String s)
+  {
+    return s == null || s.isBlank ();
   }
 
   /**
@@ -141,9 +156,24 @@ public class StringHelper
    *         only of whitespaces, <code>false</code> otherwise
    * @since 10.1.8
    */
+  @Deprecated (forRemoval = true, since = "12.4.1")
   public static boolean isNotEmptyAfterTrim (@Nullable final String s)
   {
-    return s != null && !s.trim ().isEmpty ();
+    return isNotBlank (s);
+  }
+
+  /**
+   * Check if the string neither <code>null</code> nor empty after trimming.
+   *
+   * @param s
+   *        The string to check. May be <code>null</code>.
+   * @return <code>true</code> if the string is neither <code>null</code> nor empty nor consists
+   *         only of whitespaces, <code>false</code> otherwise
+   * @since 12.4.1
+   */
+  public static boolean isNotBlank (@Nullable final String s)
+  {
+    return s != null && !s.isBlank ();
   }
 
   /**
@@ -2670,8 +2700,7 @@ public class StringHelper
   }
 
   /**
-   * Cut the passed string after the specified length, optionally appending a suffix (e.g.
-   * "...").
+   * Cut the passed string after the specified length, optionally appending a suffix (e.g. "...").
    *
    * @param sValue
    *        The value to be cut. May not be <code>null</code>.
