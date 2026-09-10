@@ -809,7 +809,7 @@ public final class CollectionHelperTest
     assertTrue (aSet.contains ("Welt"));
     assertTrue (aSet.contains (null));
 
-    aSet = createSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <> ()));
+    aSet = createSortedSet (new CommonsIterableIterator <> (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }
@@ -823,7 +823,7 @@ public final class CollectionHelperTest
     assertTrue (aSet.contains ("Hallo"));
     assertTrue (aSet.contains ("Welt"));
 
-    aSet = createSortedSet (getEnumeration (new CommonsArrayList <> ()));
+    aSet = createSortedSet (getEnumeration (new CommonsArrayList <String> ()));
     assertNotNull (aSet);
     assertEquals (0, aSet.size ());
   }

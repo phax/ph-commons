@@ -62,7 +62,7 @@ public final class ArrayHelper
    * @return The class that determines a single element of the array.
    */
   @NonNull
-  public static <ELEMENTTYPE> Class <? extends ELEMENTTYPE> getComponentType (@NonNull final ELEMENTTYPE [] aArray)
+  public static <ELEMENTTYPE> Class <ELEMENTTYPE> getComponentType (@NonNull final ELEMENTTYPE [] aArray)
   {
     ValueEnforcer.notNull (aArray, "Array");
     final Class <?> aComponentType = aArray.getClass ().getComponentType ();
