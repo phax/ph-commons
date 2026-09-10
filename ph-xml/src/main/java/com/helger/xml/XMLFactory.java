@@ -54,8 +54,7 @@ public final class XMLFactory
   /** DocumentBuilderFactory is by default not DTD validating */
   public static final boolean DEFAULT_DOM_VALIDATING = false;
   /**
-   * DocumentBuilderFactory is by default not ignoring element content
-   * whitespace
+   * DocumentBuilderFactory is by default not ignoring element content whitespace
    */
   public static final boolean DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE = false;
   /** DocumentBuilderFactory is by default entity reference expanding */
@@ -97,12 +96,12 @@ public final class XMLFactory
   }
 
   /**
-   * Reinitialize the document builder factory. This may be necessary if the
-   * system properties change!
+   * Reinitialize the document builder factory. This may be necessary if the system properties
+   * change!
    */
   public static void reinitialize ()
   {
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       // create DOM document builder
       s_aDefaultDocBuilderFactory = createDefaultDocumentBuilderFactory ();
       s_aDefaultDocBuilder = null;
@@ -116,12 +115,11 @@ public final class XMLFactory
   {}
 
   /**
-   * Set a feature on a {@link DocumentBuilderFactory}, logging a warning if
-   * the feature is not supported.
+   * Set a feature on a {@link DocumentBuilderFactory}, logging a warning if the feature is not
+   * supported.
    *
    * @param aFactory
-   *        The document builder factory to set the feature on. May not be
-   *        <code>null</code>.
+   *        The document builder factory to set the feature on. May not be <code>null</code>.
    * @param eFeature
    *        The parser feature to set. May not be <code>null</code>.
    * @param bValue
@@ -147,22 +145,20 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed
-   * {@link DocumentBuilderFactory}. This includes setting secure processing,
-   * disallowing DOCTYPE declarations, and configuring namespace awareness,
-   * validation, and other standard settings.
+   * Apply the default customization to the passed {@link DocumentBuilderFactory}. This includes
+   * setting secure processing, disallowing DOCTYPE declarations, and configuring namespace
+   * awareness, validation, and other standard settings.
    *
    * @param aFactory
-   *        The document builder factory to customize. May not be
-   *        <code>null</code>.
+   *        The document builder factory to customize. May not be <code>null</code>.
    */
   public static void defaultCustomizeDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aFactory)
   {
     /*
      * Secure processing is enabled by default since JDK 8. See class
-     * "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl"
-     * field "fSecure" is initially "true". However, if someone uses an external
-     * XML parser library (like Xerces) it might be disabled.
+     * "com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderFactoryImpl" field "fSecure" is
+     * initially "true". However, if someone uses an external XML parser library (like Xerces) it
+     * might be disabled.
      */
     setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true);
     setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true);
@@ -186,12 +182,10 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link DocumentBuilderFactory} using the defaults defined in
-   * this class ({@link #DEFAULT_DOM_NAMESPACE_AWARE},
-   * {@link #DEFAULT_DOM_VALIDATING} ,
+   * Create a new {@link DocumentBuilderFactory} using the defaults defined in this class
+   * ({@link #DEFAULT_DOM_NAMESPACE_AWARE}, {@link #DEFAULT_DOM_VALIDATING} ,
    * {@link #DEFAULT_DOM_IGNORING_ELEMENT_CONTENT_WHITESPACE},
-   * {@link #DEFAULT_DOM_EXPAND_ENTITY_REFERENCES},
-   * {@link #DEFAULT_DOM_IGNORING_COMMENTS} and
+   * {@link #DEFAULT_DOM_EXPAND_ENTITY_REFERENCES}, {@link #DEFAULT_DOM_IGNORING_COMMENTS} and
    * {@link #DEFAULT_DOM_COALESCING}.).
    *
    * @return Never <code>null</code>.
@@ -205,8 +199,8 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link DocumentBuilderFactory} for the specified schema, with
-   * the following settings: coalescing, comment ignoring and namespace aware.
+   * Create a new {@link DocumentBuilderFactory} for the specified schema, with the following
+   * settings: coalescing, comment ignoring and namespace aware.
    *
    * @param aSchema
    *        The schema to use. May not be <code>null</code>.
@@ -223,28 +217,27 @@ public final class XMLFactory
   }
 
   /**
-   * @return The default document builder factory that is not schema specific.
-   *         Never <code>null</code>.
+   * @return The default document builder factory that is not schema specific. Never
+   *         <code>null</code>.
    */
   @NonNull
   public static DocumentBuilderFactory getDocumentBuilderFactory ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultDocBuilderFactory);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultDocBuilderFactory);
   }
 
   /**
-   * @return The default document builder that is not schema specific. Never
-   *         <code>null</code>.
+   * @return The default document builder that is not schema specific. Never <code>null</code>.
    */
   @NonNull
   public static DocumentBuilder getDocumentBuilder ()
   {
     // Lazily init
-    final DocumentBuilder ret = RW_LOCK.readLockedGet ( () -> s_aDefaultDocBuilder);
+    final DocumentBuilder ret = RW_LOCK.readLockedGet (() -> s_aDefaultDocBuilder);
     if (ret != null)
       return ret;
 
-    return RW_LOCK.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet (() -> {
       DocumentBuilder ret2 = s_aDefaultDocBuilder;
       if (ret2 == null)
         ret2 = s_aDefaultDocBuilder = createDocumentBuilder (s_aDefaultDocBuilderFactory);
@@ -253,8 +246,7 @@ public final class XMLFactory
   }
 
   /**
-   * @return The DOM implementation of the default document builder. Never
-   *         <code>null</code>.
+   * @return The DOM implementation of the default document builder. Never <code>null</code>.
    */
   @NonNull
   public static DOMImplementation getDOMImplementation ()
@@ -292,8 +284,7 @@ public final class XMLFactory
    * {@link DocumentBuilderFactory}.
    *
    * @param aDocBuilderFactory
-   *        The document builder factory to be used. May not be
-   *        <code>null</code>.
+   *        The document builder factory to be used. May not be <code>null</code>.
    * @return The created document builder. Never <code>null</code>.
    * @throws InitializationException
    *         In case some DOM initialization goes wrong
@@ -316,8 +307,8 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new XML document without document type using version
-   * {@link EXMLVersion#XML_10}. The default document builder is used.
+   * Create a new XML document without document type using version {@link EXMLVersion#XML_10}. The
+   * default document builder is used.
    *
    * @return The created document. Never <code>null</code>.
    */
@@ -328,8 +319,8 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new XML document without document type using version
-   * {@link EXMLVersion#XML_10}. A custom document builder is used.
+   * Create a new XML document without document type using version {@link EXMLVersion#XML_10}. A
+   * custom document builder is used.
    *
    * @param aDocBuilder
    *        The document builder to use. May not be <code>null</code>.
@@ -342,12 +333,11 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new XML document without document type using the default document
-   * builder.
+   * Create a new XML document without document type using the default document builder.
    *
    * @param eVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
+   *        The XML version to use. If <code>null</code> is passed, {@link EXMLVersion#XML_10} will
+   *        be used.
    * @return The created document. Never <code>null</code>.
    */
   @NonNull
@@ -357,14 +347,13 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new XML document without document type using a custom document
-   * builder.
+   * Create a new XML document without document type using a custom document builder.
    *
    * @param aDocBuilder
    *        The document builder to use. May not be <code>null</code>.
    * @param eVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
+   *        The XML version to use. If <code>null</code> is passed, {@link EXMLVersion#XML_10} will
+   *        be used.
    * @return The created document. Never <code>null</code>.
    */
   @NonNull
@@ -378,8 +367,7 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new document with a document type using version
-   * {@link EXMLVersion#XML_10}.
+   * Create a new document with a document type using version {@link EXMLVersion#XML_10}.
    *
    * @param sQualifiedName
    *        The qualified name to use.
@@ -398,12 +386,11 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new document with a document type using the default document
-   * builder.
+   * Create a new document with a document type using the default document builder.
    *
    * @param eVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
+   *        The XML version to use. If <code>null</code> is passed, {@link EXMLVersion#XML_10} will
+   *        be used.
    * @param sQualifiedName
    *        The qualified name to use.
    * @param sPublicId
@@ -427,8 +414,8 @@ public final class XMLFactory
    * @param aDocBuilder
    *        the document builder to be used. May not be <code>null</code>.
    * @param eVersion
-   *        The XML version to use. If <code>null</code> is passed,
-   *        {@link EXMLVersion#XML_10} will be used.
+   *        The XML version to use. If <code>null</code> is passed, {@link EXMLVersion#XML_10} will
+   *        be used.
    * @param sQualifiedName
    *        The qualified name to use.
    * @param sPublicId
@@ -455,12 +442,10 @@ public final class XMLFactory
   }
 
   /**
-   * Set a feature on a {@link SAXParserFactory}, logging a warning if the
-   * feature is not supported.
+   * Set a feature on a {@link SAXParserFactory}, logging a warning if the feature is not supported.
    *
    * @param aFactory
-   *        The SAX parser factory to set the feature on. May not be
-   *        <code>null</code>.
+   *        The SAX parser factory to set the feature on. May not be <code>null</code>.
    * @param eFeature
    *        The parser feature to set. May not be <code>null</code>.
    * @param bValue
@@ -486,14 +471,12 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link SAXParserFactory}.
-   * This includes setting secure processing, disallowing DOCTYPE
-   * declarations, and configuring namespace awareness, validation, and
-   * XInclude awareness.
+   * Apply the default customization to the passed {@link SAXParserFactory}. This includes setting
+   * secure processing, disallowing DOCTYPE declarations, and configuring namespace awareness,
+   * validation, and XInclude awareness.
    *
    * @param aFactory
-   *        The SAX parser factory to customize. May not be
-   *        <code>null</code>.
+   *        The SAX parser factory to customize. May not be <code>null</code>.
    */
   public static void defaultCustomizeSAXParserFactory (@NonNull final SAXParserFactory aFactory)
   {
@@ -508,11 +491,9 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link SAXParserFactory} with the default customization
-   * applied.
+   * Create a new {@link SAXParserFactory} with the default customization applied.
    *
-   * @return A new, customized {@link SAXParserFactory}. Never
-   *         <code>null</code>.
+   * @return A new, customized {@link SAXParserFactory}. Never <code>null</code>.
    */
   @NonNull
   public static SAXParserFactory createDefaultSAXParserFactory ()
@@ -533,19 +514,18 @@ public final class XMLFactory
   }
 
   /**
-   * Set a feature on a {@link TransformerFactory}, optionally logging a
-   * warning if the feature is not supported.
+   * Set a feature on a {@link TransformerFactory}, optionally logging a warning if the feature is
+   * not supported.
    *
    * @param aFactory
-   *        The transformer factory to set the feature on. May not be
-   *        <code>null</code>.
+   *        The transformer factory to set the feature on. May not be <code>null</code>.
    * @param eFeature
    *        The parser feature to set. May not be <code>null</code>.
    * @param bValue
    *        The value to set for the feature.
    * @param bLogOnError
-   *        <code>true</code> to log a warning if the feature is not
-   *        supported, <code>false</code> to silently ignore the error.
+   *        <code>true</code> to log a warning if the feature is not supported, <code>false</code>
+   *        to silently ignore the error.
    */
   public static void setFeature (@NonNull final TransformerFactory aFactory,
                                  @NonNull final EXMLParserFeature eFeature,
@@ -569,13 +549,11 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed
-   * {@link TransformerFactory}. This includes disallowing DOCTYPE
-   * declarations and disabling external entities.
+   * Apply the default customization to the passed {@link TransformerFactory}. This includes
+   * disallowing DOCTYPE declarations and disabling external entities.
    *
    * @param aFactory
-   *        The transformer factory to customize. May not be
-   *        <code>null</code>.
+   *        The transformer factory to customize. May not be <code>null</code>.
    */
   public static void defaultCustomizeTransformerFactory (@NonNull final TransformerFactory aFactory)
   {
@@ -585,8 +563,8 @@ public final class XMLFactory
       setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
     }
     /*
-     * The following properties might not be applied - e.g. default JDK does not
-     * support them. But as other implementations might allow it...
+     * The following properties might not be applied - e.g. default JDK does not support them. But
+     * as other implementations might allow it...
      */
     setFeature (aFactory, EXMLParserFeature.DISALLOW_DOCTYPE_DECL, true, false);
     setFeature (aFactory, EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES, false, false);
@@ -595,11 +573,9 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link TransformerFactory} with the default customization
-   * applied.
+   * Create a new {@link TransformerFactory} with the default customization applied.
    *
-   * @return A new, customized {@link TransformerFactory}. Never
-   *         <code>null</code>.
+   * @return A new, customized {@link TransformerFactory}. Never <code>null</code>.
    * @throws InitializationException
    *         In case the factory cannot be created
    */

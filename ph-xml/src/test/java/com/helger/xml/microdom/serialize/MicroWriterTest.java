@@ -718,9 +718,9 @@ public final class MicroWriterTest
                                                                                                     false)
                                                                                   .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
                                                                                                     true)
-                                                                                  .setEntityResolver ( (x,
-                                                                                                        y) -> "world.txt".equals (y) ? new StringSAXInputSource ("world")
-                                                                                                                                     : new StringSAXInputSource ("")));
+                                                                                  .setEntityResolver ((x,
+                                                                                                       y) -> "world.txt".equals (y) ? new StringSAXInputSource ("world")
+                                                                                                                                    : new StringSAXInputSource ("")));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();

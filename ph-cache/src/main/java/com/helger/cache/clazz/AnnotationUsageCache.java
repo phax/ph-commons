@@ -30,14 +30,11 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * A simple cache for the usage of a certain annotation class at other classes.
- * <br>
- * Note: cannot use {@link com.helger.cache.impl.Cache} because it would need
- * a <code>Class&lt;?&gt;</code> as a key and this would be a hard wired
- * reference.<br>
- * Since 10.1.3 the class is no longer read-write-locked, as the performance
- * overhead is too big for reading only, compared to the penalty of double
- * annotation determination.
+ * A simple cache for the usage of a certain annotation class at other classes. <br>
+ * Note: cannot use {@link com.helger.cache.impl.Cache} because it would need a
+ * <code>Class&lt;?&gt;</code> as a key and this would be a hard wired reference.<br>
+ * Since 10.1.3 the class is no longer read-write-locked, as the performance overhead is too big for
+ * reading only, compared to the penalty of double annotation determination.
  *
  * @author Philip Helger
  */
@@ -70,8 +67,7 @@ public class AnnotationUsageCache
   }
 
   /**
-   * @return The annotation class passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The annotation class passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final Class <? extends Annotation> getAnnotationClass ()
@@ -80,13 +76,11 @@ public class AnnotationUsageCache
   }
 
   /**
-   * Check if the class of the passed object has the annotation provided in the
-   * constructor.
+   * Check if the class of the passed object has the annotation provided in the constructor.
    *
    * @param aObject
    *        The object. To be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the owning class has the annotation,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the owning class has the annotation, <code>false</code> if not.
    * @see #hasAnnotation(Class)
    */
   public boolean hasAnnotation (@NonNull final Object aObject)
@@ -97,13 +91,12 @@ public class AnnotationUsageCache
   }
 
   /**
-   * Check if the provided class has the annotation from the constructor or not.
-   * If the value is not yet in the cache, it will be determined.
+   * Check if the provided class has the annotation from the constructor or not. If the value is not
+   * yet in the cache, it will be determined.
    *
    * @param aClass
    *        The class to check. May not be <code>null</code>.
-   * @return <code>true</code> if the provided class has the annotation,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the provided class has the annotation, <code>false</code> if not.
    */
   public boolean hasAnnotation (@NonNull final Class <?> aClass)
   {
@@ -115,7 +108,9 @@ public class AnnotationUsageCache
     {
       // Don't use computeIfAbsent here, because it can throw
       // ConcurrentModificationException in Java 11
-      return m_aMap.computeIfAbsent (sClassName, k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null)).isTrue ();
+      return m_aMap.computeIfAbsent (sClassName,
+                                     k -> ETriState.valueOf (aClass.getAnnotation (m_aAnnotationClass) != null))
+                   .isTrue ();
     }
 
     // This version is save for Java 1.8 and Java 11
@@ -130,8 +125,7 @@ public class AnnotationUsageCache
   }
 
   /**
-   * In case the knowledge was gathered on the outside, remember the wisdom in
-   * this class.
+   * In case the knowledge was gathered on the outside, remember the wisdom in this class.
    *
    * @param aClass
    *        The class that it is about.
@@ -148,8 +142,8 @@ public class AnnotationUsageCache
   }
 
   /**
-   * Remove all entries from the cache. That is mainly of interested for testing
-   * purposes, to provide a clean state.
+   * Remove all entries from the cache. That is mainly of interested for testing purposes, to
+   * provide a clean state.
    */
   public void clearCache ()
   {
@@ -159,6 +153,8 @@ public class AnnotationUsageCache
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("AnnotationClass", m_aAnnotationClass).append ("Map", m_aMap).getToString ();
+    return new ToStringGenerator (this).append ("AnnotationClass", m_aAnnotationClass)
+                                       .append ("Map", m_aMap)
+                                       .getToString ();
   }
 }

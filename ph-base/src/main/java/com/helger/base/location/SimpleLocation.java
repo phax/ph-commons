@@ -31,8 +31,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Default implementation of the {@link ILocation} interface. The implementation
- * is immutable.
+ * Default implementation of the {@link ILocation} interface. The implementation is immutable.
  *
  * @author Philip Helger
  */
@@ -115,7 +114,10 @@ public class SimpleLocation implements ILocation
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sResourceID).append (m_nLineNumber).append (m_nColumnNumber).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sResourceID)
+                                       .append (m_nLineNumber)
+                                       .append (m_nColumnNumber)
+                                       .getHashCode ();
   }
 
   @Override
@@ -140,7 +142,9 @@ public class SimpleLocation implements ILocation
     if (aLocator == null)
       return null;
 
-    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (), "/", aLocator.getSystemId ()),
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
                                aLocator.getLineNumber (),
                                aLocator.getColumnNumber ());
   }
@@ -158,7 +162,9 @@ public class SimpleLocation implements ILocation
     if (aLocator == null)
       return null;
 
-    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (), "/", aLocator.getSystemId ()),
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
                                aLocator.getLineNumber (),
                                aLocator.getColumnNumber ());
   }
@@ -176,7 +182,9 @@ public class SimpleLocation implements ILocation
     if (aLocator == null)
       return null;
 
-    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (), "/", aLocator.getSystemId ()),
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
                                aLocator.getLineNumber (),
                                aLocator.getColumnNumber ());
   }
@@ -194,7 +202,9 @@ public class SimpleLocation implements ILocation
     if (aLocator == null)
       return null;
 
-    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (), "/", aLocator.getSystemId ()),
+    return new SimpleLocation (StringHelper.getConcatenatedOnDemand (aLocator.getPublicId (),
+                                                                     "/",
+                                                                     aLocator.getSystemId ()),
                                aLocator.getLineNumber (),
                                aLocator.getColumnNumber ());
   }

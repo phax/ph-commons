@@ -96,8 +96,7 @@ public final class PropertiesLoader
   }
 
   /**
-   * Load properties from the given readable resource using the specified
-   * charset.
+   * Load properties from the given readable resource using the specified charset.
    *
    * @param aRes
    *        The resource to load from. May not be <code>null</code>.

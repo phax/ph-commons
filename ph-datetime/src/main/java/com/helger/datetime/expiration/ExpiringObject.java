@@ -45,9 +45,9 @@ public class ExpiringObject <DATATYPE> implements IExpirable
    * @param aObj
    *        The object it's all about. May be <code>null</code>.
    * @param aExpirationDT
-   *        The expiration date time. May be <code>null</code> if no expiration
-   *        is defined for this object. Since 12.3.0 this may be
-   *        <code>null</code>; previously it had to be non-<code>null</code>.
+   *        The expiration date time. May be <code>null</code> if no expiration is defined for this
+   *        object. Since 12.3.0 this may be <code>null</code>; previously it had to be
+   *        non-<code>null</code>.
    */
   public ExpiringObject (@Nullable final DATATYPE aObj, @Nullable final LocalDateTime aExpirationDT)
   {
@@ -65,8 +65,8 @@ public class ExpiringObject <DATATYPE> implements IExpirable
   }
 
   /**
-   * @return The expiration date time of this object, or <code>null</code> if no
-   *         expiration is defined.
+   * @return The expiration date time of this object, or <code>null</code> if no expiration is
+   *         defined.
    */
   @Override
   @Nullable
@@ -91,8 +91,7 @@ public class ExpiringObject <DATATYPE> implements IExpirable
    * @param aObj
    *        The object it's all about. May be <code>null</code>.
    * @param aValidityDuration
-   *        The validity duration of the object. Must be positive and not
-   *        <code>null</code>.
+   *        The validity duration of the object. Must be positive and not <code>null</code>.
    * @return Never <code>null</code>.
    */
   @NonNull

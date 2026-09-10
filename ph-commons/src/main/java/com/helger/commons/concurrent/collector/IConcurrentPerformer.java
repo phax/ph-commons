@@ -30,8 +30,7 @@ public interface IConcurrentPerformer <DATATYPE>
    * Run something asynchronously.
    * 
    * @param aCurrentObject
-   *        The current object to work on. No assumptions on
-   *        <code>null</code>-ness can be provided.
+   *        The current object to work on. No assumptions on <code>null</code>-ness can be provided.
    * @throws Exception
    *         Can be thrown in case of an error.
    */

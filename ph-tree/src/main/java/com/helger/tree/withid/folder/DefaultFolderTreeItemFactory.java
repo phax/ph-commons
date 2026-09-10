@@ -43,8 +43,7 @@ public class DefaultFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE extends C
    * Constructor.
    *
    * @param aKeyCombinator
-   *        The key combinator to be used to create global unique IDs. May be
-   *        <code>null</code>.
+   *        The key combinator to be used to create global unique IDs. May be <code>null</code>.
    */
   public DefaultFolderTreeItemFactory (@Nullable final IAggregator <KEYTYPE, KEYTYPE> aKeyCombinator)
   {

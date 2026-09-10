@@ -24,9 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Just to indicate that a class is a singleton and therefore only a single
- * instance of the class exists. Usually singletons have a static
- * <code>getInstance()</code> method.
+ * Just to indicate that a class is a singleton and therefore only a single instance of the class
+ * exists. Usually singletons have a static <code>getInstance()</code> method.
  *
  * @author Philip Helger
  */

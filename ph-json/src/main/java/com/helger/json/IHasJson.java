@@ -19,8 +19,7 @@ package com.helger.json;
 import org.jspecify.annotations.NonNull;
 
 /**
- * An interface for non JSON objects which implement a conversion to a JSON
- * object
+ * An interface for non JSON objects which implement a conversion to a JSON object
  *
  * @author Philip Helger
  */
@@ -28,8 +27,7 @@ import org.jspecify.annotations.NonNull;
 public interface IHasJson
 {
   /**
-   * @return a JSON object representing this object. May not be
-   *         <code>null</code>.
+   * @return a JSON object representing this object. May not be <code>null</code>.
    */
   @NonNull
   IJson getAsJson ();

@@ -23,9 +23,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.json.CJson;
 
 /**
- * This {@link IJsonParserHandler} builds the JSON string as a 1:1 copy of the
- * original. It can be used to read and validate the JSON is one step. Use
- * {@link #getJsonString()} after reading to retrieve the whole content.
+ * This {@link IJsonParserHandler} builds the JSON string as a 1:1 copy of the original. It can be
+ * used to read and validate the JSON is one step. Use {@link #getJsonString()} after reading to
+ * retrieve the whole content.
  *
  * @author Philip Helger
  */

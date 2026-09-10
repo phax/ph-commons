@@ -62,7 +62,7 @@ public final class PasswordHash
                        @NonNull @Nonempty final String sPasswordHashValue)
   {
     ValueEnforcer.notEmpty (sAlgorithmName, "AlgorithmName");
-    ValueEnforcer.isTrue ( () -> sAlgorithmName.length () <= ALGORITHM_NAME_MAX_LENGTH, "AlgorithmName is too long");
+    ValueEnforcer.isTrue (() -> sAlgorithmName.length () <= ALGORITHM_NAME_MAX_LENGTH, "AlgorithmName is too long");
     ValueEnforcer.notEmpty (sPasswordHashValue, "PasswordHashValue");
 
     m_sAlgorithmName = sAlgorithmName;
@@ -132,7 +132,10 @@ public final class PasswordHash
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_sAlgorithmName).append (m_aSalt).append (m_sPasswordHashValue).getHashCode ();
+    return new HashCodeGenerator (this).append (m_sAlgorithmName)
+                                       .append (m_aSalt)
+                                       .append (m_sPasswordHashValue)
+                                       .getHashCode ();
   }
 
   @Override

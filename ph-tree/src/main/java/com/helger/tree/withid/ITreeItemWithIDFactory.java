@@ -52,8 +52,8 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
   ITEMTYPE create (@NonNull ITEMTYPE aParent, @NonNull KEYTYPE aDataID);
 
   /**
-   * To be called once a tree item is removed from the owning tree. This method
-   * is mainly important for the tree with globally unique IDs.
+   * To be called once a tree item is removed from the owning tree. This method is mainly important
+   * for the tree with globally unique IDs.
    *
    * @param aItem
    *        The item that was removed.
@@ -61,8 +61,8 @@ public interface ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITr
   void onRemoveItem (@NonNull ITEMTYPE aItem);
 
   /**
-   * To be called once a tree item is added to the owning tree. This method is
-   * mainly important for the tree with globally unique IDs.
+   * To be called once a tree item is added to the owning tree. This method is mainly important for
+   * the tree with globally unique IDs.
    *
    * @param aItem
    *        The item that was added.

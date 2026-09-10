@@ -32,8 +32,8 @@ import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
 
 /**
- * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
- * interface. It collects all events that occurred!
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler} interface. It
+ * collects all events that occurred!
  *
  * @author Philip Helger
  */
@@ -53,7 +53,7 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   protected void onEvent (@NonNull final IError aEvent)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aEvent));
+    m_aRWLock.writeLockedBoolean (() -> m_aErrors.add (aEvent));
   }
 
   /**
@@ -70,13 +70,13 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
    * Call the provided consumer for all contained resource errors.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading actions!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        actions!
    */
   public void forEachResourceError (@NonNull final Consumer <? super IError> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
-    m_aRWLock.readLocked ( () -> m_aErrors.forEach (aConsumer));
+    m_aRWLock.readLocked (() -> m_aErrors.forEach (aConsumer));
   }
 
   /**
@@ -93,8 +93,8 @@ public class CollectingValidationEventHandler extends AbstractValidationEventHan
   @Override
   public String toString ()
   {
-    return m_aRWLock.readLockedGet ( () -> ToStringGenerator.getDerived (super.toString ())
-                                                            .append ("Errors", m_aErrors)
-                                                            .getToString ());
+    return m_aRWLock.readLockedGet (() -> ToStringGenerator.getDerived (super.toString ())
+                                                           .append ("Errors", m_aErrors)
+                                                           .getToString ());
   }
 }

@@ -31,13 +31,13 @@ import com.helger.base.state.EChange;
 public interface IMutableExpirable extends IExpirable
 {
   /**
-   * Change the expiration date time of this object. If you want to remove the
-   * expiration, please call {@link #resetExpiration()} instead.
+   * Change the expiration date time of this object. If you want to remove the expiration, please
+   * call {@link #resetExpiration()} instead.
    *
    * @param aExpirationDateTime
    *        The new expiration date time. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the expiration date time changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the expiration date time changed, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @NonNull
   EChange setExpirationDateTime (@Nullable LocalDateTime aExpirationDateTime);
@@ -45,8 +45,8 @@ public interface IMutableExpirable extends IExpirable
   /**
    * Remove any available expiration data.
    *
-   * @return {@link EChange#CHANGED} if the expiration was reset,
-   *         {@link EChange#UNCHANGED} if no expiration was defined.
+   * @return {@link EChange#CHANGED} if the expiration was reset, {@link EChange#UNCHANGED} if no
+   *         expiration was defined.
    */
   @NonNull
   default EChange resetExpiration ()

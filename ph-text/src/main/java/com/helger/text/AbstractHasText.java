@@ -24,8 +24,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * An abstract implementation of the {@link IHasText} that has default
- * implementations for the formatting things.
+ * An abstract implementation of the {@link IHasText} that has default implementations for the
+ * formatting things.
  *
  * @author Philip Helger
  */
@@ -52,8 +52,7 @@ public abstract class AbstractHasText implements IHasText
    * Main text resolving. Get the text in the passed locale.
    *
    * @param aContentLocale
-   *        Locale to use. This is the locale resolved internally. Never
-   *        <code>null</code>.
+   *        Locale to use. This is the locale resolved internally. Never <code>null</code>.
    * @return <code>null</code> if no such text present in the passed locale
    */
   @Nullable

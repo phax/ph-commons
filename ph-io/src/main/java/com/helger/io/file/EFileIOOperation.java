@@ -43,8 +43,7 @@ public enum EFileIOOperation
   }
 
   /**
-   * @return The number of parameters (File objects) involved in this operation.
-   *         Always &gt; 0.
+   * @return The number of parameters (File objects) involved in this operation. Always &gt; 0.
    */
   @Nonnegative
   public int getParamCount ()

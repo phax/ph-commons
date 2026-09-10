@@ -31,8 +31,8 @@ import org.xml.sax.SAXParseException;
 public interface ISAXErrorHandler extends ErrorHandler
 {
   /**
-   * Create a new combined error handler that first invoked this handler, and
-   * afterwards the passed on.
+   * Create a new combined error handler that first invoked this handler, and afterwards the passed
+   * on.
    *
    * @param aOther
    *        The other handler to use. May be <code>null</code>.

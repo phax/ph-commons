@@ -19,9 +19,8 @@ package com.helger.base.id.factory;
 import org.jspecify.annotations.NonNull;
 
 /**
- * An {@link IStringIDFactory} implementation that uses a constant prefix and an
- * int supplied from {@link GlobalIDFactory#getNewPersistentIntID()} to create
- * unique IDs.
+ * An {@link IStringIDFactory} implementation that uses a constant prefix and an int supplied from
+ * {@link GlobalIDFactory#getNewPersistentIntID()} to create unique IDs.
  *
  * @author Philip Helger
  */

@@ -26,13 +26,11 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A special namespace prefix mapper for the Jakarta XML Binding
- * implementation.<br>
- * Important note: this class works only, if the
- * <code>com.sun.xml.bind:jaxb-impl</code> artifact is in your classpath,
- * because this class extends
- * <code>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</code>
- * which is not available in the other JAXB implementations.
+ * A special namespace prefix mapper for the Jakarta XML Binding implementation.<br>
+ * Important note: this class works only, if the <code>com.sun.xml.bind:jaxb-impl</code> artifact is
+ * in your classpath, because this class extends
+ * <code>org.glassfish.jaxb.runtime.marshaller.NamespacePrefixMapper</code> which is not available
+ * in the other JAXB implementations.
  *
  * @author Philip Helger
  */

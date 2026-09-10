@@ -35,8 +35,8 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
                                 IBaseGraph <NODETYPE, RELATIONTYPE>
 {
   /**
-   * Try to retrieve the single start node of this graph. A start node is
-   * identified by having no incoming relations.
+   * Try to retrieve the single start node of this graph. A start node is identified by having no
+   * incoming relations.
    *
    * @return The single start node and never <code>null</code>.
    * @throws IllegalStateException
@@ -46,8 +46,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
   NODETYPE getSingleStartNode ();
 
   /**
-   * Get all start nodes of this graph. Start nodes are identified by having no
-   * incoming relations.
+   * Get all start nodes of this graph. Start nodes are identified by having no incoming relations.
    *
    * @return A set with all start nodes. Never <code>null</code>.
    */
@@ -56,8 +55,8 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
   ICommonsSet <NODETYPE> getAllStartNodes ();
 
   /**
-   * Try to retrieve the single end node of this graph. An end node is
-   * identified by having no outgoing relations.
+   * Try to retrieve the single end node of this graph. An end node is identified by having no
+   * outgoing relations.
    *
    * @return The single end node and never <code>null</code>.
    * @throws IllegalStateException
@@ -67,8 +66,7 @@ public interface IDirectedGraph <NODETYPE extends IDirectedGraphNode <NODETYPE, 
   NODETYPE getSingleEndNode ();
 
   /**
-   * Get all end nodes of this graph. End nodes are identified by having no
-   * outgoing relations.
+   * Get all end nodes of this graph. End nodes are identified by having no outgoing relations.
    *
    * @return A set with all end nodes. Never <code>null</code>.
    */

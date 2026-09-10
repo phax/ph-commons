@@ -42,16 +42,15 @@ import com.helger.scope.IScope;
 import com.helger.scope.singleton.AbstractGlobalSingleton;
 
 /**
- * The global write ahead logging manager that schedules future writings of a
- * DAO.
+ * The global write ahead logging manager that schedules future writings of a DAO.
  *
  * @author Philip Helger
  */
 public final class WALListener extends AbstractGlobalSingleton
 {
   /**
-   * A single scheduled action consisting of the scheduled {@link Future} as
-   * well as the original {@link Runnable} for rescheduling upon shutdown.
+   * A single scheduled action consisting of the scheduled {@link Future} as well as the original
+   * {@link Runnable} for rescheduling upon shutdown.
    *
    * @author Philip Helger
    */
@@ -98,8 +97,7 @@ public final class WALListener extends AbstractGlobalSingleton
   {}
 
   /**
-   * @return The global singleton instance of this class. Never
-   *         <code>null</code>.
+   * @return The global singleton instance of this class. Never <code>null</code>.
    */
   @NonNull
   public static WALListener getInstance ()
@@ -110,7 +108,7 @@ public final class WALListener extends AbstractGlobalSingleton
   @Override
   protected void onDestroy (@NonNull final IScope aScopeInDestruction)
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // Reschedule all existing scheduled items to run now
       for (final Map.Entry <String, WALListener.WALItem> aEntry : m_aScheduledItems.entrySet ())
       {
@@ -128,7 +126,7 @@ public final class WALListener extends AbstractGlobalSingleton
       m_aScheduledItems.clear ();
     });
 
-    final int nRemaining = m_aRWLock.readLockedInt ( () -> m_aWaitingDAOs.size ());
+    final int nRemaining = m_aRWLock.readLockedInt (() -> m_aWaitingDAOs.size ());
     if (nRemaining > 0)
       LOGGER.info ("Waiting for all remaining " + nRemaining + " DAO writing to be finalized");
     else
@@ -148,11 +146,10 @@ public final class WALListener extends AbstractGlobalSingleton
    * @param aDAO
    *        The DAO to be written
    * @param sWALFilename
-   *        The filename of the WAL file for later deletion (in case the
-   *        filename changes over time).
+   *        The filename of the WAL file for later deletion (in case the filename changes over
+   *        time).
    * @param aWaitingWime
-   *        The time to wait, until the file is physically written. May not be
-   *        <code>null</code>.
+   *        The time to wait, until the file is physically written. May not be <code>null</code>.
    */
   public void registerForLaterWriting (@NonNull final AbstractWALDAO <?> aDAO,
                                        @NonNull final String sWALFilename,
@@ -162,7 +159,7 @@ public final class WALListener extends AbstractGlobalSingleton
     final String sKey = aDAO.getClass ().getName () + "::" + sWALFilename;
 
     // Check if the passed DAO is already scheduled for writing
-    final boolean bDoScheduleForWriting = m_aRWLock.writeLockedBoolean ( () -> m_aWaitingDAOs.add (sKey));
+    final boolean bDoScheduleForWriting = m_aRWLock.writeLockedBoolean (() -> m_aWaitingDAOs.add (sKey));
 
     if (bDoScheduleForWriting)
     {
@@ -173,7 +170,7 @@ public final class WALListener extends AbstractGlobalSingleton
       // What should be executed upon writing
       final Runnable r = () -> {
         // Use DAO lock!
-        aDAO.internalWriteLocked ( () -> {
+        aDAO.internalWriteLocked (() -> {
           // Main DAO writing
           aDAO._writeToFileAndResetPendingChanges ("ScheduledWriter.run");
           // Delete the WAL file
@@ -186,7 +183,7 @@ public final class WALListener extends AbstractGlobalSingleton
         // Remove from the internal set so that another job will be
         // scheduled for the same DAO
         // Do this after the writing to the file
-        m_aRWLock.writeLocked ( () -> {
+        m_aRWLock.writeLocked (() -> {
           // Remove from the overall set as well as from the scheduled items
           m_aWaitingDAOs.remove (sKey);
           m_aScheduledItems.remove (sKey);
@@ -200,7 +197,7 @@ public final class WALListener extends AbstractGlobalSingleton
 
         // Remember the scheduled item and the runnable so that the task can
         // be rescheduled upon shutdown.
-        m_aRWLock.writeLocked ( () -> m_aScheduledItems.put (sKey, new WALItem (aFuture, r)));
+        m_aRWLock.writeLocked (() -> m_aScheduledItems.put (sKey, new WALItem (aFuture, r)));
       }
       catch (final RejectedExecutionException ex)
       {

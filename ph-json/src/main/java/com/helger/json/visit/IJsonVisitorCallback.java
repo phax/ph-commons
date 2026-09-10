@@ -67,8 +67,8 @@ public interface IJsonVisitorCallback extends ICallback
   {}
 
   /**
-   * Invoked for each Json object element. The value is handled with the
-   * existing methods like {@link #onJsonValue(IJsonValue)} etc.
+   * Invoked for each Json object element. The value is handled with the existing methods like
+   * {@link #onJsonValue(IJsonValue)} etc.
    *
    * @param sName
    *        The current object's element name. Never <code>null</code>.

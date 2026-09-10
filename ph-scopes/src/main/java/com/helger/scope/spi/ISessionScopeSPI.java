@@ -22,8 +22,7 @@ import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.ISessionScope;
 
 /**
- * SPI for handling the session scope lifecycle. Is invoked for non-web and web
- * scopes.
+ * SPI for handling the session scope lifecycle. Is invoked for non-web and web scopes.
  *
  * @author Philip Helger
  */

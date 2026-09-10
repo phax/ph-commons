@@ -25,8 +25,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * This class represents a multilingual text that cannot be altered after the
- * constructor.
+ * This class represents a multilingual text that cannot be altered after the constructor.
  *
  * @author Philip Helger
  */
@@ -34,8 +33,8 @@ import com.helger.base.enforce.ValueEnforcer;
 public class ReadOnlyMultilingualText extends AbstractReadOnlyMapBasedMultilingualText
 {
   /**
-   * Create an empty read-only multilingual text. Handle with care, as this type
-   * does not allow for public modification!
+   * Create an empty read-only multilingual text. Handle with care, as this type does not allow for
+   * public modification!
    */
   public ReadOnlyMultilingualText ()
   {}

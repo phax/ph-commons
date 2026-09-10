@@ -103,9 +103,9 @@ public interface IConfig extends IGetterByKeyTrait <String>
 
   /**
    * Look up the configured value for the provided key and parse it as a {@link Duration} using
-   * {@link ConfigDurationParser}. Equivalent to
-   * {@link #getAsConfigDuration(String, Consumer)} with a <code>null</code> error handler — i.e.
-   * parse failures are reported only via a <code>null</code> return value.
+   * {@link ConfigDurationParser}. Equivalent to {@link #getAsConfigDuration(String, Consumer)} with
+   * a <code>null</code> error handler — i.e. parse failures are reported only via a
+   * <code>null</code> return value.
    *
    * @param sKey
    *        The configuration key to look up. May be <code>null</code>.
@@ -137,8 +137,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
    * @since 12.2.5
    */
   @Nullable
-  default Duration getAsConfigDuration (@Nullable final String sKey,
-                                        @Nullable final Consumer <String> aParseErrorHdl)
+  default Duration getAsConfigDuration (@Nullable final String sKey, @Nullable final Consumer <String> aParseErrorHdl)
   {
     return ConfigDurationParser.parseDuration (getAsString (sKey), aParseErrorHdl);
   }
@@ -152,7 +151,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
   default int getResourceBasedConfigurationValueProviderCount ()
   {
     final MutableInt aCount = new MutableInt (0);
-    forEachConfigurationValueProvider ( (cvp, prio) -> {
+    forEachConfigurationValueProvider ((cvp, prio) -> {
       if (cvp instanceof IConfigurationSourceResource)
         aCount.inc ();
     });
@@ -171,7 +170,7 @@ public interface IConfig extends IGetterByKeyTrait <String>
   default ESuccess reloadAllResourceBasedConfigurationValues ()
   {
     final Wrapper <ESuccess> ret = Wrapper.of (ESuccess.SUCCESS);
-    forEachConfigurationValueProvider ( (cvp, prio) -> {
+    forEachConfigurationValueProvider ((cvp, prio) -> {
       if (cvp instanceof final IConfigurationSourceResource aSrcRes)
         ret.set (ret.get ().and (aSrcRes.reload ()));
     });

@@ -26,8 +26,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Object wrapper around a short so that it can be passed a final object but is
- * mutable.
+ * Object wrapper around a short so that it can be passed a final object but is mutable.
  *
  * @author Philip Helger
  */
@@ -37,8 +36,7 @@ public class MutableShort extends AbstractMutableInteger <MutableShort>
   private short m_nValue;
 
   /**
-   * Initialize with a certain int value. If the value does not fit into a
-   * short, the value is cut!
+   * Initialize with a certain int value. If the value does not fit into a short, the value is cut!
    *
    * @param nValue
    *        The value to be used.

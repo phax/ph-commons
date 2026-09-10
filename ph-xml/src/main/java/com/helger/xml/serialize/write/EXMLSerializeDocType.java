@@ -24,8 +24,8 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Used for creating string representation of XML. Determines whether the
- * Document Type should be emitted or ignored.
+ * Used for creating string representation of XML. Determines whether the Document Type should be
+ * emitted or ignored.
  *
  * @author Philip Helger
  */

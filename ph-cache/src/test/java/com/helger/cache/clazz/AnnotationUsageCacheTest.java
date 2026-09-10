@@ -80,7 +80,7 @@ public final class AnnotationUsageCacheTest
     final int nMaxOuter = 1_000_000;
     final int nMaxInner = 10;
     for (int i = 0; i < nMaxOuter; ++i)
-      e.submit ( () -> {
+      e.submit (() -> {
         try
         {
           for (int j = 0; j < nMaxInner; ++j)

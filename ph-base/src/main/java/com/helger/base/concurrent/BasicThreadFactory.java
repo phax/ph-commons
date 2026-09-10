@@ -114,8 +114,7 @@ public class BasicThreadFactory implements ThreadFactory
      * Create a new thread with the configured thread group and naming pattern.
      *
      * @param r
-     *        The {@link Runnable} to be executed by the new thread. May not be
-     *        <code>null</code>.
+     *        The {@link Runnable} to be executed by the new thread. May not be <code>null</code>.
      * @return The newly created thread. Never <code>null</code>.
      */
     @NonNull
@@ -328,8 +327,7 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * @return A new {@link BasicThreadFactoryBuilder} instance. Never
-   *         <code>null</code>.
+   * @return A new {@link BasicThreadFactoryBuilder} instance. Never <code>null</code>.
    */
   @NonNull
   public static BasicThreadFactoryBuilder builder ()

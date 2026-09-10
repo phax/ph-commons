@@ -26,8 +26,8 @@ import com.helger.graph.impl.GraphNodeFast;
 import com.helger.graph.impl.GraphRelationFast;
 
 /**
- * Default implementation of the {@link IMutableGraphObjectFactory} with
- * {@link GraphNodeFast} and {@link GraphRelationFast}.
+ * Default implementation of the {@link IMutableGraphObjectFactory} with {@link GraphNodeFast} and
+ * {@link GraphRelationFast}.
  *
  * @author Philip Helger
  */
@@ -49,7 +49,8 @@ public class SimpleGraphObjectFastFactory implements IMutableGraphObjectFactory
 
   /** {@inheritDoc} */
   @NonNull
-  public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
+  public IMutableGraphRelation createRelation (@NonNull final IMutableGraphNode aFrom,
+                                               @NonNull final IMutableGraphNode aTo)
   {
     return new GraphRelationFast (aFrom, aTo);
   }

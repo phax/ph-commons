@@ -73,8 +73,7 @@ public final class DOMReader
   {}
 
   /**
-   * Reinitialize the internal document builder pool by clearing all unused
-   * items.
+   * Reinitialize the internal document builder pool by clearing all unused items.
    */
   public static void reinitialize ()
   {
@@ -82,14 +81,12 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link InputSource} using default
-   * settings.
+   * Read an XML document from the given {@link InputSource} using default settings.
    *
    * @param aIS
-   *        The input source to read from. May not be <code>null</code>. Will
-   *        be closed after reading.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The input source to read from. May not be <code>null</code>. Will be closed after
+   *        reading.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@WillClose @NonNull final InputSource aIS)
@@ -98,14 +95,12 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link InputStream} using default
-   * settings.
+   * Read an XML document from the given {@link InputStream} using default settings.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>. Will
-   *        be closed after reading.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The input stream to read from. May not be <code>null</code>. Will be closed after
+   *        reading.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull @WillClose final InputStream aIS)
@@ -114,16 +109,14 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link InputStream} using custom
-   * settings.
+   * Read an XML document from the given {@link InputStream} using custom settings.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>. Will
-   *        be closed after reading.
+   *        The input stream to read from. May not be <code>null</code>. Will be closed after
+   *        reading.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull @WillClose final InputStream aIS,
@@ -145,10 +138,8 @@ public final class DOMReader
    * Read an XML document from the given {@link Reader} using default settings.
    *
    * @param aReader
-   *        The reader to read from. May not be <code>null</code>. Will be
-   *        closed after reading.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The reader to read from. May not be <code>null</code>. Will be closed after reading.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@WillClose @NonNull final Reader aReader)
@@ -160,12 +151,10 @@ public final class DOMReader
    * Read an XML document from the given {@link Reader} using custom settings.
    *
    * @param aReader
-   *        The reader to read from. May not be <code>null</code>. Will be
-   *        closed after reading.
+   *        The reader to read from. May not be <code>null</code>. Will be closed after reading.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@WillClose @NonNull final Reader aReader,
@@ -188,8 +177,7 @@ public final class DOMReader
    *
    * @param aFile
    *        The URI to read from. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final URI aFile)
@@ -204,8 +192,7 @@ public final class DOMReader
    *        The URI to read from. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final URI aFile, @NonNull final IDOMReaderSettings aSettings)
@@ -218,8 +205,7 @@ public final class DOMReader
    *
    * @param aFile
    *        The URL to read from. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final URL aFile)
@@ -234,8 +220,7 @@ public final class DOMReader
    *        The URL to read from. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final URL aFile, @NonNull final IDOMReaderSettings aSettings)
@@ -248,8 +233,7 @@ public final class DOMReader
    *
    * @param aFile
    *        The file to read from. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final File aFile)
@@ -264,8 +248,7 @@ public final class DOMReader
    *        The file to read from. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final File aFile, @NonNull final IDOMReaderSettings aSettings)
@@ -278,8 +261,7 @@ public final class DOMReader
    *
    * @param aPath
    *        The path to read from. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final Path aPath)
@@ -294,8 +276,7 @@ public final class DOMReader
    *        The path to read from. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final Path aPath, @NonNull final IDOMReaderSettings aSettings)
@@ -305,13 +286,11 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link IReadableResource} using
-   * default settings.
+   * Read an XML document from the given {@link IReadableResource} using default settings.
    *
    * @param aIIS
    *        The resource to read from. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final IReadableResource aIIS)
@@ -320,15 +299,13 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link IReadableResource} using
-   * custom settings.
+   * Read an XML document from the given {@link IReadableResource} using custom settings.
    *
    * @param aIIS
    *        The resource to read from. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final IReadableResource aIIS, @NonNull final IDOMReaderSettings aSettings)
@@ -341,8 +318,7 @@ public final class DOMReader
    *
    * @param sXML
    *        The XML string to parse. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final String sXML)
@@ -357,8 +333,7 @@ public final class DOMReader
    *        The XML string to parse. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final String sXML, @NonNull final IDOMReaderSettings aSettings)
@@ -367,13 +342,11 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link CharSequence} using default
-   * settings.
+   * Read an XML document from the given {@link CharSequence} using default settings.
    *
    * @param sXML
    *        The XML char sequence to parse. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final CharSequence sXML)
@@ -382,15 +355,13 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link CharSequence} using custom
-   * settings.
+   * Read an XML document from the given {@link CharSequence} using custom settings.
    *
    * @param sXML
    *        The XML char sequence to parse. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final CharSequence sXML, @NonNull final IDOMReaderSettings aSettings)
@@ -399,14 +370,11 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link ByteBuffer} using default
-   * settings.
+   * Read an XML document from the given {@link ByteBuffer} using default settings.
    *
    * @param aXML
-   *        The byte buffer containing the XML to parse. May not be
-   *        <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The byte buffer containing the XML to parse. May not be <code>null</code>.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final ByteBuffer aXML)
@@ -415,16 +383,13 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link ByteBuffer} using custom
-   * settings.
+   * Read an XML document from the given {@link ByteBuffer} using custom settings.
    *
    * @param aXML
-   *        The byte buffer containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The byte buffer containing the XML to parse. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@NonNull final ByteBuffer aXML, @NonNull final IDOMReaderSettings aSettings)
@@ -436,10 +401,8 @@ public final class DOMReader
    * Read an XML document from the given byte array using default settings.
    *
    * @param aXML
-   *        The byte array containing the XML to parse. May not be
-   *        <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The byte array containing the XML to parse. May not be <code>null</code>.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final byte @NonNull [] aXML)
@@ -451,12 +414,10 @@ public final class DOMReader
    * Read an XML document from the given byte array using custom settings.
    *
    * @param aXML
-   *        The byte array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The byte array containing the XML to parse. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final byte @NonNull [] aXML, @NonNull final IDOMReaderSettings aSettings)
@@ -465,18 +426,15 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from a portion of the given byte array using
-   * default settings.
+   * Read an XML document from a portion of the given byte array using default settings.
    *
    * @param aXML
-   *        The byte array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The byte array containing the XML to parse. May not be <code>null</code>.
    * @param nOfs
    *        The offset within the byte array to start reading.
    * @param nLen
    *        The number of bytes to read from the byte array.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final byte @NonNull [] aXML,
@@ -487,20 +445,17 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from a portion of the given byte array using
-   * custom settings.
+   * Read an XML document from a portion of the given byte array using custom settings.
    *
    * @param aXML
-   *        The byte array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The byte array containing the XML to parse. May not be <code>null</code>.
    * @param nOfs
    *        The offset within the byte array to start reading.
    * @param nLen
    *        The number of bytes to read from the byte array.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final byte @NonNull [] aXML,
@@ -515,10 +470,8 @@ public final class DOMReader
    * Read an XML document from the given char array using default settings.
    *
    * @param aXML
-   *        The char array containing the XML to parse. May not be
-   *        <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   *        The char array containing the XML to parse. May not be <code>null</code>.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final char @NonNull [] aXML)
@@ -530,12 +483,10 @@ public final class DOMReader
    * Read an XML document from the given char array using custom settings.
    *
    * @param aXML
-   *        The char array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The char array containing the XML to parse. May not be <code>null</code>.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final char @NonNull [] aXML, @NonNull final IDOMReaderSettings aSettings)
@@ -544,18 +495,15 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from a portion of the given char array using
-   * default settings.
+   * Read an XML document from a portion of the given char array using default settings.
    *
    * @param aXML
-   *        The char array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The char array containing the XML to parse. May not be <code>null</code>.
    * @param nOfs
    *        The offset within the char array to start reading.
    * @param nLen
    *        The number of chars to read from the char array.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final char @NonNull [] aXML,
@@ -566,20 +514,17 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from a portion of the given char array using
-   * custom settings.
+   * Read an XML document from a portion of the given char array using custom settings.
    *
    * @param aXML
-   *        The char array containing the XML to parse. May not be
-   *        <code>null</code>.
+   *        The char array containing the XML to parse. May not be <code>null</code>.
    * @param nOfs
    *        The offset within the char array to start reading.
    * @param nLen
    *        The number of chars to read from the char array.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (final char @NonNull [] aXML,
@@ -591,17 +536,15 @@ public final class DOMReader
   }
 
   /**
-   * Read an XML document from the given {@link InputSource} using the
-   * specified settings. This is the main reading method that all other
-   * overloads delegate to.
+   * Read an XML document from the given {@link InputSource} using the specified settings. This is
+   * the main reading method that all other overloads delegate to.
    *
    * @param aInputSource
-   *        The input source to read from. May not be <code>null</code>. Will
-   *        be closed after reading.
+   *        The input source to read from. May not be <code>null</code>. Will be closed after
+   *        reading.
    * @param aSettings
    *        The DOM reader settings to use. May not be <code>null</code>.
-   * @return The read XML {@link Document} or <code>null</code> if reading
-   *         fails.
+   * @return The read XML {@link Document} or <code>null</code> if reading fails.
    */
   @Nullable
   public static Document readXMLDOM (@WillClose @NonNull final InputSource aInputSource,

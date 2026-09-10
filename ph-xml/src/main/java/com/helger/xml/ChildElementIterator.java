@@ -25,8 +25,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
 /**
- * Iterate child elements of a single node. Does not iterate recursively. Does
- * not return the start node.
+ * Iterate child elements of a single node. Does not iterate recursively. Does not return the start
+ * node.
  *
  * @author Philip Helger
  */
@@ -39,8 +39,7 @@ public class ChildElementIterator implements ICommonsIterableIterator <Element>
    * Constructor.
    *
    * @param aStartNode
-   *        The parent node whose child elements are iterated. May be
-   *        <code>null</code>.
+   *        The parent node whose child elements are iterated. May be <code>null</code>.
    */
   public ChildElementIterator (@Nullable final Node aStartNode)
   {

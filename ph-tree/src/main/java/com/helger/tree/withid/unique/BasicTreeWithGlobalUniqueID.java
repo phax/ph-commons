@@ -31,9 +31,8 @@ import com.helger.tree.withid.BasicTreeWithID;
 import com.helger.tree.withid.ITreeItemWithID;
 
 /**
- * A managed tree is a specialized version of the tree, where each item is
- * required to have a unique ID so that item searching can be performed quite
- * easily.
+ * A managed tree is a specialized version of the tree, where each item is required to have a unique
+ * ID so that item searching can be performed quite easily.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -44,7 +43,8 @@ import com.helger.tree.withid.ITreeItemWithID;
  *        tree item type
  */
 @NotThreadSafe
-public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
+public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                         extends
                                          BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE> implements
                                          ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
@@ -157,7 +157,8 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   /**
    * {@inheritDoc}
    */
-  public final boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID, @Nullable final KEYTYPE aChildItemID)
+  public final boolean isItemSameOrDescendant (@Nullable final KEYTYPE aParentItemID,
+                                               @Nullable final KEYTYPE aChildItemID)
   {
     final ITEMTYPE aSearchParent = getItemWithID (aParentItemID);
     if (aSearchParent == null)
@@ -165,7 +166,6 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
 
     final ITEMTYPE aChild = getItemWithID (aChildItemID);
     return aChild != null && aChild.isSameOrChildOf (aSearchParent);
-
   }
 
   @Override

@@ -36,14 +36,14 @@ public abstract class AbstractDAOContainer implements IDAOContainer
   @OverridingMethodsMustInvokeSuper
   public boolean isAutoSaveEnabled ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> containsAny (x -> x != null && x.isAutoSaveEnabled ()));
+    return m_aRWLock.readLockedBoolean (() -> containsAny (x -> x != null && x.isAutoSaveEnabled ()));
   }
 
   /** {@inheritDoc} */
   public final void beginWithoutAutoSave ()
   {
     final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       for (final IDAO aDAO : aDAOs)
         if (aDAO != null)
           aDAO.beginWithoutAutoSave ();
@@ -54,7 +54,7 @@ public abstract class AbstractDAOContainer implements IDAOContainer
   public final void endWithoutAutoSave ()
   {
     final ICommonsList <IDAO> aDAOs = getAllContainedDAOs ();
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       for (final IDAO aDAO : aDAOs)
         if (aDAO != null)
           aDAO.endWithoutAutoSave ();

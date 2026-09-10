@@ -84,8 +84,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -107,12 +107,12 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @ReturnsMutableObject ("internal use only")
   private ICommonsMap <Class <?>, ITypeConverter <?, ?>> _getOrCreateConverterMap (@NonNull final Class <?> aClass)
   {
-    ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLockedGet ( () -> m_aConverter.get (aClass));
+    ICommonsMap <Class <?>, ITypeConverter <?, ?>> ret = m_aRWLock.readLockedGet (() -> m_aConverter.get (aClass));
     if (ret == null)
     {
       // Try again in write lock
       // Weak hash map because key is a class
-      ret = m_aRWLock.writeLockedGet ( () -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
+      ret = m_aRWLock.writeLockedGet (() -> m_aConverter.computeIfAbsent (aClass, k -> new CommonsWeakHashMap <> ()));
     }
     return ret;
   }
@@ -153,7 +153,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcMap.containsKey (aDstClass))
       throw new IllegalArgumentException ("A mapping from " + aSrcClass + " to " + aDstClass + " is already defined!");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // Automatically register the destination class, and all parent
       // classes/interfaces
       for (final WeakReference <Class <?>> aCurWRDstClass : ClassHierarchyCache.getClassHierarchyIterator (aDstClass))
@@ -214,7 +214,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nullable
   ITypeConverter <?, ?> getExactConverter (@Nullable final Class <?> aSrcClass, @Nullable final Class <?> aDstClass)
   {
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       final Map <Class <?>, ITypeConverter <?, ?>> aConverterMap = m_aConverter.get (aSrcClass);
       return aConverterMap == null ? null : aConverterMap.get (aDstClass);
     });
@@ -236,7 +236,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       // Check all rules in the correct order
       for (final Map.Entry <ITypeConverterRule.ESubType, ICommonsList <ITypeConverterRule <?, ?>>> aEntry : m_aRules.entrySet ())
         for (final ITypeConverterRule <?, ?> aRule : aEntry.getValue ())
@@ -303,7 +303,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
     if (aSrcClass == null || aDstClass == null)
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       if (GlobalDebug.isDebugMode ())
       {
         // Perform a check, whether there is more than one potential converter
@@ -341,7 +341,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   public void iterateAllRegisteredTypeConverters (@NonNull final ITypeConverterCallback aCallback)
   {
     // Create a copy of the map
-    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aConverter));
+    final Map <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aCopy = m_aRWLock.readLockedGet (() -> new CommonsHashMap <> (m_aConverter));
 
     // And iterate the copy
     outer: for (final Map.Entry <Class <?>, Map <Class <?>, ITypeConverter <?, ?>>> aSrcEntry : aCopy.entrySet ())
@@ -359,7 +359,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnegative
   public int getRegisteredTypeConverterCount ()
   {
-    return m_aRWLock.readLockedInt ( () -> {
+    return m_aRWLock.readLockedInt (() -> {
       int ret = 0;
       for (final Map <Class <?>, ITypeConverter <?, ?>> aMap : m_aConverter.values ())
         ret += aMap.size ();
@@ -374,9 +374,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   {
     ValueEnforcer.notNull (aTypeConverterRule, "TypeConverterRule");
 
-    m_aRWLock.writeLockedBoolean ( () -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
-                                                                   x -> new CommonsArrayList <> ())
-                                                 .add (aTypeConverterRule));
+    m_aRWLock.writeLockedBoolean (() -> m_aRules.computeIfAbsent (aTypeConverterRule.getSubType (),
+                                                                  x -> new CommonsArrayList <> ())
+                                                .add (aTypeConverterRule));
 
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Registered type converter rule " +
@@ -433,7 +433,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   @Nonnegative
   public long getRegisteredTypeConverterRuleCount ()
   {
-    return m_aRWLock.readLockedInt ( () -> {
+    return m_aRWLock.readLockedInt (() -> {
       int ret = 0;
       for (final ICommonsList <?> aValue : m_aRules.values ())
         ret += aValue.size ();
@@ -443,7 +443,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
 
   private void _reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aConverter.clear ();
       m_aRules.clear ();
 
@@ -465,8 +465,8 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Reinitialize all type converters by clearing existing registrations and
-   * reloading all SPI implementations.
+   * Reinitialize all type converters by clearing existing registrations and reloading all SPI
+   * implementations.
    */
   public void reinitialize ()
   {

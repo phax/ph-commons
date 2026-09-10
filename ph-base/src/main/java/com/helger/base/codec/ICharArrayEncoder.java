@@ -31,9 +31,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public interface ICharArrayEncoder extends IEncoder <char [], char []>
 {
   /**
-   * Get the maximum encoded length based on the provided decoded length. This
-   * is purely for performance reasons. The name of the method would be better
-   * called "getMaximumEncodedLength".
+   * Get the maximum encoded length based on the provided decoded length. This is purely for
+   * performance reasons. The name of the method would be better called "getMaximumEncodedLength".
    *
    * @param nDecodedLen
    *        The decoded length. Always &ge; 0.
@@ -50,8 +49,7 @@ public interface ICharArrayEncoder extends IEncoder <char [], char []>
    *
    * @param aDecodedBuffer
    *        The char array to be encoded. May be <code>null</code>.
-   * @return The encoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
@@ -72,8 +70,7 @@ public interface ICharArrayEncoder extends IEncoder <char [], char []>
    *        Offset into the char array to start from.
    * @param nLen
    *        Number of chars starting from offset to consider.
-   * @return The encoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */

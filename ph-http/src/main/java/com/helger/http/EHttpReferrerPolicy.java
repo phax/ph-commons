@@ -19,8 +19,7 @@ package com.helger.http;
 import org.jspecify.annotations.NonNull;
 
 /**
- * HTTP response header "Referrer-Policy" values. See
- * https://www.w3.org/TR/referrer-policy/
+ * HTTP response header "Referrer-Policy" values. See https://www.w3.org/TR/referrer-policy/
  *
  * @author Philip Helger
  */
@@ -44,8 +43,8 @@ public enum EHttpReferrerPolicy
   }
 
   /**
-   * @return The HTTP header value for this referrer policy. Never
-   *         <code>null</code> but may be empty for {@link #NONE}.
+   * @return The HTTP header value for this referrer policy. Never <code>null</code> but may be
+   *         empty for {@link #NONE}.
    */
   @NonNull
   public String getValue ()

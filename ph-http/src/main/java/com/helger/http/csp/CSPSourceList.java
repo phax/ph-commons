@@ -19,8 +19,8 @@ package com.helger.http.csp;
 import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
- * A source list to be used in a CSP directive ({@link CSPDirective}). It's just
- * a convenient way to build a CSP directive value.
+ * A source list to be used in a CSP directive ({@link CSPDirective}). It's just a convenient way to
+ * build a CSP directive value.
  *
  * @author Philip Helger
  */

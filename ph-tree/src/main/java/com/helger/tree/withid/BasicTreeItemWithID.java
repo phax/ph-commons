@@ -122,8 +122,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return The tree item factory used for creating new tree items.
-   *         Never <code>null</code>.
+   * @return The tree item factory used for creating new tree items. Never <code>null</code>.
    */
   @NonNull
   public final ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ()
@@ -160,8 +159,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return <code>true</code> if this is the root item (i.e. has no parent),
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this is the root item (i.e. has no parent), <code>false</code>
+   *         otherwise.
    */
   public final boolean isRootItem ()
   {
@@ -184,8 +183,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return The ID of the parent tree item or <code>null</code> if this is the
-   *         root item.
+   * @return The ID of the parent tree item or <code>null</code> if this is the root item.
    */
   @Nullable
   public final KEYTYPE getParentID ()
@@ -194,8 +192,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return The data of the parent tree item or <code>null</code> if this is
-   *         the root item.
+   * @return The data of the parent tree item or <code>null</code> if this is the root item.
    */
   @Nullable
   public final DATATYPE getParentData ()
@@ -204,8 +201,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return The nesting level of this item. The root item has level 0, its
-   *         children have level 1 etc.
+   * @return The nesting level of this item. The root item has level 0, its children have level 1
+   *         etc.
    */
   @Nonnegative
   public final int getLevel ()
@@ -254,8 +251,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return A mutable copy of all children of this item, or <code>null</code>
-   *         if this item has no children.
+   * @return A mutable copy of all children of this item, or <code>null</code> if this item has no
+   *         children.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -265,8 +262,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return An iterable over the direct children of this item, or
-   *         <code>null</code> if this item has no children.
+   * @return An iterable over the direct children of this item, or <code>null</code> if this item
+   *         has no children.
    */
   @Nullable
   public final ICommonsIterable <ITEMTYPE> getChildren ()
@@ -299,8 +296,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return A mutable copy of the IDs of all direct children, or
-   *         <code>null</code> if this item has no children.
+   * @return A mutable copy of the IDs of all direct children, or <code>null</code> if this item has
+   *         no children.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -312,8 +309,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * @return A mutable copy of the data of all direct children, or
-   *         <code>null</code> if this item has no children.
+   * @return A mutable copy of the data of all direct children, or <code>null</code> if this item
+   *         has no children.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -386,15 +383,15 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   }
 
   /**
-   * Create a child item with the specified data ID and data. If a child with
-   * the same data ID already exists, its data is overwritten.
+   * Create a child item with the specified data ID and data. If a child with the same data ID
+   * already exists, its data is overwritten.
    *
    * @param aDataID
    *        The data ID of the new child. May be <code>null</code>.
    * @param aData
    *        The data of the new child. May be <code>null</code>.
-   * @return The created or existing child item. May be <code>null</code> if
-   *         overwrite is not allowed and the ID already exists.
+   * @return The created or existing child item. May be <code>null</code> if overwrite is not
+   *         allowed and the ID already exists.
    */
   @Nullable
   public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID, @Nullable final DATATYPE aData)
@@ -410,11 +407,11 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aData
    *        The data of the new child. May be <code>null</code>.
    * @param bAllowOverwrite
-   *        <code>true</code> to allow overwriting existing children with the
-   *        same ID, <code>false</code> to return <code>null</code> if a child
-   *        with the same ID already exists.
-   * @return The created or existing child item, or <code>null</code> if
-   *         overwrite is not allowed and the ID already exists.
+   *        <code>true</code> to allow overwriting existing children with the same ID,
+   *        <code>false</code> to return <code>null</code> if a child with the same ID already
+   *        exists.
+   * @return The created or existing child item, or <code>null</code> if overwrite is not allowed
+   *         and the ID already exists.
    */
   @Nullable
   public final ITEMTYPE createChildItem (@Nullable final KEYTYPE aDataID,
@@ -457,8 +454,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @param aDataID
    *        The data ID to check. May be <code>null</code>.
-   * @return <code>true</code> if a child with the given data ID exists,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a child with the given data ID exists, <code>false</code>
+   *         otherwise.
    */
   public final boolean containsChildItemWithDataID (@Nullable final KEYTYPE aDataID)
   {
@@ -470,8 +467,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @param aDataID
    *        The data ID to search. May be <code>null</code>.
-   * @return The child item with the given data ID, or <code>null</code> if no
-   *         such child exists.
+   * @return The child item with the given data ID, or <code>null</code> if no such child exists.
    */
   @Nullable
   public final ITEMTYPE getChildItemOfDataID (@Nullable final KEYTYPE aDataID)
@@ -484,8 +480,8 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @param aParent
    *        The parent item to check against. May not be <code>null</code>.
-   * @return <code>true</code> if this item is the same as or a descendant of
-   *         the passed parent item, <code>false</code> otherwise.
+   * @return <code>true</code> if this item is the same as or a descendant of the passed parent
+   *         item, <code>false</code> otherwise.
    */
   public final boolean isSameOrChildOf (@NonNull final ITEMTYPE aParent)
   {
@@ -508,8 +504,7 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aNewParent
    *        The new parent item. May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the parent was changed successfully,
-   *         {@link ESuccess#FAILURE} if the new parent is the same as or a
-   *         child of this item.
+   *         {@link ESuccess#FAILURE} if the new parent is the same as or a child of this item.
    */
   @NonNull
   public final ESuccess changeParent (@NonNull final ITEMTYPE aNewParent)
@@ -542,12 +537,10 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aChild
    *        The child item to be added. May not be <code>null</code>.
    * @param bAllowOverwrite
-   *        <code>true</code> to allow overwriting existing children,
-   *        <code>false</code> to return {@link EChange#UNCHANGED} if a child
-   *        with the same ID already exists.
-   * @return {@link EChange#CHANGED} if the child was added successfully,
-   *         {@link EChange#UNCHANGED} if overwrite is not allowed and the ID
-   *         already exists.
+   *        <code>true</code> to allow overwriting existing children, <code>false</code> to return
+   *        {@link EChange#UNCHANGED} if a child with the same ID already exists.
+   * @return {@link EChange#CHANGED} if the child was added successfully, {@link EChange#UNCHANGED}
+   *         if overwrite is not allowed and the ID already exists.
    */
   @NonNull
   public final EChange internalAddChild (@NonNull final KEYTYPE aDataID,

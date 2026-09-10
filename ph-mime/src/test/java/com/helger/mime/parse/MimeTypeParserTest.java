@@ -262,7 +262,12 @@ public final class MimeTypeParserTest
       try
       {
         final MimeType aMT = MimeTypeParser.parseMimeType (sInvalid, EMimeQuoting.QUOTED_PRINTABLE);
-        fail ("'" + sInvalid + "' should not be parsable with quoting " + EMimeQuoting.QUOTED_PRINTABLE + "! Got " + aMT);
+        fail ("'" +
+              sInvalid +
+              "' should not be parsable with quoting " +
+              EMimeQuoting.QUOTED_PRINTABLE +
+              "! Got " +
+              aMT);
       }
       catch (final MimeTypeParserException ex)
       {}

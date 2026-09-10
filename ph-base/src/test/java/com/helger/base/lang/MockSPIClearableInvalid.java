@@ -19,8 +19,8 @@ package com.helger.base.lang;
 import com.helger.annotation.style.IsSPIImplementation;
 
 /**
- * Claims to be an SPI but does not implement the required
- * {@link com.helger.base.state.IClearable} interface.
+ * Claims to be an SPI but does not implement the required {@link com.helger.base.state.IClearable}
+ * interface.
  *
  * @author Philip Helger
  */

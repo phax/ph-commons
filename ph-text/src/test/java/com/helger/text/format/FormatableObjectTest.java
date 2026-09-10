@@ -101,7 +101,8 @@ public final class FormatableObjectTest
 
     aFO = new FormatableObject <> ("Any",
                                    FormatterStringPrefixAndSuffix.createWithBrackets ()
-                                                                 .andThen (new FormatterMinLengthAddTrailing (10, '@')));
+                                                                 .andThen (new FormatterMinLengthAddTrailing (10,
+                                                                                                              '@')));
     assertEquals ("Any", aFO.getValue ());
     assertEquals ("[Any]@@@@@", aFO.getAsString ());
     TestHelper.testToStringImplementation (aFO);
@@ -111,50 +112,50 @@ public final class FormatableObjectTest
   public void testImpl ()
   {
     TestHelper.testDefaultImplementationWithEqualContentObject (new FormatableObject <> ("Any",
-                                                                                                FormatterStringPrefixAndSuffix.createWithBrackets ()),
-                                                                       new FormatableObject <> ("Any",
-                                                                                                FormatterStringPrefixAndSuffix.createWithBrackets ()));
+                                                                                         FormatterStringPrefixAndSuffix.createWithBrackets ()),
+                                                                new FormatableObject <> ("Any",
+                                                                                         FormatterStringPrefixAndSuffix.createWithBrackets ()));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject <> ("Any",
-                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()),
-                                                                           new FormatableObject <> ("Any2",
-                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()));
+                                                                                             FormatterStringPrefixAndSuffix.createWithBrackets ()),
+                                                                    new FormatableObject <> ("Any2",
+                                                                                             FormatterStringPrefixAndSuffix.createWithBrackets ()));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatableObject <> ("Any",
-                                                                                                    FormatterStringPrefixAndSuffix.createWithBrackets ()),
-                                                                           new FormatableObject <> ("Any",
-                                                                                                    FormatterStringPrefixAndSuffix.createPrefixOnly ("oprefix")));
+                                                                                             FormatterStringPrefixAndSuffix.createWithBrackets ()),
+                                                                    new FormatableObject <> ("Any",
+                                                                                             FormatterStringPrefixAndSuffix.createPrefixOnly ("oprefix")));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createWithBrackets (),
-                                                                       FormatterStringPrefixAndSuffix.createWithBrackets ());
+                                                                FormatterStringPrefixAndSuffix.createWithBrackets ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                       new FormatterMinLengthAddLeading (10, ' '));
+                                                                new FormatterMinLengthAddLeading (10, ' '));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                           new FormatterMinLengthAddLeading (10, 'x'));
+                                                                    new FormatterMinLengthAddLeading (10, 'x'));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddLeading (10, ' '),
-                                                                           new FormatterMinLengthAddLeading (5, ' '));
+                                                                    new FormatterMinLengthAddLeading (5, ' '));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                       new FormatterMinLengthAddTrailing (10, ' '));
+                                                                new FormatterMinLengthAddTrailing (10, ' '));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                           new FormatterMinLengthAddTrailing (10, 'x'));
+                                                                    new FormatterMinLengthAddTrailing (10, 'x'));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterMinLengthAddTrailing (10, ' '),
-                                                                           new FormatterMinLengthAddTrailing (5, ' '));
+                                                                    new FormatterMinLengthAddTrailing (5, ' '));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                       new FormatterStringPrefixAndSuffix ("p", "s"));
+                                                                new FormatterStringPrefixAndSuffix ("p", "s"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                           new FormatterStringPrefixAndSuffix ("p", "ss"));
+                                                                    new FormatterStringPrefixAndSuffix ("p", "ss"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FormatterStringPrefixAndSuffix ("p", "s"),
-                                                                           new FormatterStringPrefixAndSuffix ("pp", "s"));
+                                                                    new FormatterStringPrefixAndSuffix ("pp", "s"));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createPrefixOnly ("p"),
-                                                                       FormatterStringPrefixAndSuffix.createPrefixOnly ("p"));
+                                                                FormatterStringPrefixAndSuffix.createPrefixOnly ("p"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (FormatterStringPrefixAndSuffix.createPrefixOnly ("p"),
-                                                                           FormatterStringPrefixAndSuffix.createPrefixOnly ("pp"));
+                                                                    FormatterStringPrefixAndSuffix.createPrefixOnly ("pp"));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (FormatterStringPrefixAndSuffix.createSuffixOnly ("s"),
-                                                                       FormatterStringPrefixAndSuffix.createSuffixOnly ("s"));
+                                                                FormatterStringPrefixAndSuffix.createSuffixOnly ("s"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (FormatterStringPrefixAndSuffix.createSuffixOnly ("s"),
-                                                                           FormatterStringPrefixAndSuffix.createSuffixOnly ("ss"));
+                                                                    FormatterStringPrefixAndSuffix.createSuffixOnly ("ss"));
   }
 }

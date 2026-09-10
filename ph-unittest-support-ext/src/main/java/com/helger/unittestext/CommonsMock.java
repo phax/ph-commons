@@ -522,8 +522,9 @@ public final class CommonsMock
   }
 
   @NonNull
-  private Object _mock (@NonNull final Class <?> aClass, @Nullable final Object [] aParams, final int nLevel)
-                                                                                                              throws Exception
+  private Object _mock (@NonNull final Class <?> aClass,
+                        @Nullable final Object [] aParams,
+                        final int nLevel) throws Exception
   {
     // Check for static supplier
     final MockSupplier aStatic = STATIC_SUPPLIERS.get (aClass);

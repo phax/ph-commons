@@ -279,8 +279,8 @@ public final class HttpDigestAuth
    *
    * @param nNonceCount
    *        The nonce count value. If &le; 0, <code>null</code> is returned.
-   * @return The formatted nonce count string, or <code>null</code> if the
-   *         nonce count is not positive.
+   * @return The formatted nonce count string, or <code>null</code> if the nonce count is not
+   *         positive.
    */
   @Nullable
   public static String getNonceCountString (@CheckForSigned final int nNonceCount)
@@ -313,14 +313,12 @@ public final class HttpDigestAuth
   }
 
   /**
-   * Resolve the digest algorithm name to the corresponding
-   * {@link EMessageDigestAlgorithm}.
+   * Resolve the digest algorithm name to the corresponding {@link EMessageDigestAlgorithm}.
    *
    * @param sAlgorithm
-   *        The algorithm string (e.g. "MD5", "MD5-sess", "SHA-256",
-   *        "SHA-256-sess"). May not be <code>null</code>.
-   * @return The matching {@link EMessageDigestAlgorithm}. Never
-   *         <code>null</code>.
+   *        The algorithm string (e.g. "MD5", "MD5-sess", "SHA-256", "SHA-256-sess"). May not be
+   *        <code>null</code>.
+   * @return The matching {@link EMessageDigestAlgorithm}. Never <code>null</code>.
    */
   @NonNull
   private static EMessageDigestAlgorithm _resolveDigestAlgorithm (@NonNull final String sAlgorithm)
@@ -471,7 +469,8 @@ public final class HttpDigestAuth
                               SEPARATOR +
                               sMessageQOP +
                               SEPARATOR +
-                              sHA2, eDigestAlgo);
+                              sHA2,
+                              eDigestAlgo);
     }
     return new DigestAuthClientCredentials (sUserName,
                                             sRealm,

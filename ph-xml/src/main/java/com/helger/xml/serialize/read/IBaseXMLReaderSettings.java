@@ -54,24 +54,21 @@ public interface IBaseXMLReaderSettings
   Object getPropertyValue (@Nullable EXMLParserProperty eProperty);
 
   /**
-   * @return A copy of all contained parser property values. Never
-   *         <code>null</code>.
+   * @return A copy of all contained parser property values. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsMap <EXMLParserProperty, Object> getAllPropertyValues ();
 
   /**
-   * @return The locale to be used for error messages. By default it is
-   *         <code>null</code> and therefore the XML parser will use the system
-   *         default locale.
+   * @return The locale to be used for error messages. By default it is <code>null</code> and
+   *         therefore the XML parser will use the system default locale.
    */
   @Nullable
   Locale getLocale ();
 
   /**
-   * @return <code>true</code> if at least one parser feature is defined,
-   *         <code>false</code> if not
+   * @return <code>true</code> if at least one parser feature is defined, <code>false</code> if not
    */
   boolean hasAnyFeature ();
 
@@ -93,8 +90,8 @@ public interface IBaseXMLReaderSettings
   ICommonsMap <EXMLParserFeature, Boolean> getAllFeatureValues ();
 
   /**
-   * @return A special error handler to be used or <code>null</code> if no
-   *         special error handler is needed.
+   * @return A special error handler to be used or <code>null</code> if no special error handler is
+   *         needed.
    */
   @Nullable
   ErrorHandler getErrorHandler ();
@@ -114,12 +111,10 @@ public interface IBaseXMLReaderSettings
 
   /**
    * Check if the current settings require a separate DOM
-   * {@link javax.xml.parsers.DocumentBuilderFactory}/SAX
-   * {@link org.xml.sax.XMLReader} object or if a pooled default object can be
-   * used.
+   * {@link javax.xml.parsers.DocumentBuilderFactory}/SAX {@link org.xml.sax.XMLReader} object or if
+   * a pooled default object can be used.
    *
-   * @return <code>true</code> if a separate parser object is required,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a separate parser object is required, <code>false</code> if not.
    */
   boolean requiresNewXMLParser ();
 }

@@ -48,7 +48,8 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
    * @param aTo
    *        The to-node. May not be <code>null</code>.
    */
-  public DirectedGraphRelation (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelation (@NonNull final IMutableDirectedGraphNode aFrom,
+                                @NonNull final IMutableDirectedGraphNode aTo)
   {
     this (null, aFrom, aTo);
   }
@@ -57,8 +58,7 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this relation. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this relation. If <code>null</code> or empty a new ID is generated.
    * @param aFrom
    *        The from-node. May not be <code>null</code>.
    * @param aTo
@@ -151,6 +151,9 @@ public class DirectedGraphRelation extends AbstractBaseGraphObject implements IM
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("from", m_aFrom).append ("to", m_aTo).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("from", m_aFrom)
+                            .append ("to", m_aTo)
+                            .getToString ();
   }
 }

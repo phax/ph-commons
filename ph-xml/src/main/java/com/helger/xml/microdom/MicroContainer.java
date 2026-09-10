@@ -82,8 +82,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   }
 
   /**
-   * Create a new {@link IMicroContainer} that contains clones of all passed
-   * nodes
+   * Create a new {@link IMicroContainer} that contains clones of all passed nodes
    *
    * @param aChildNodes
    *        The micro node array to add to the {@link IMicroContainer}
@@ -100,8 +99,7 @@ public final class MicroContainer extends AbstractMicroNodeWithChildren implemen
   }
 
   /**
-   * Create a new {@link IMicroContainer} that contains clones of all passed
-   * nodes
+   * Create a new {@link IMicroContainer} that contains clones of all passed nodes
    *
    * @param aChildNodes
    *        The micro node container to add to the {@link IMicroContainer}

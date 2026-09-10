@@ -70,13 +70,13 @@ public final class DirectedGraphRelationTest
     assertSame (gr.getTo (), nt);
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphRelation ("id1", nf, nt),
-                                                                       new DirectedGraphRelation ("id1", nf, nt));
+                                                                new DirectedGraphRelation ("id1", nf, nt));
     // different IDs
     TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation (nf, nt),
-                                                                           new DirectedGraphRelation (nf, nt));
+                                                                    new DirectedGraphRelation (nf, nt));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphRelation ("id1", nf, nt),
-                                                                           new DirectedGraphRelation ("id1",
-                                                                                                      nf,
-                                                                                                      new DirectedGraphNode ()));
+                                                                    new DirectedGraphRelation ("id1",
+                                                                                               nf,
+                                                                                               new DirectedGraphNode ()));
   }
 }

@@ -74,13 +74,11 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   }
 
   /**
-   * Get the store value if this is a change. Otherwise the passed unchanged
-   * value is returned.
+   * Get the store value if this is a change. Otherwise the passed unchanged value is returned.
    *
    * @param aUnchangedValue
    *        The unchanged value to be used. May be <code>null</code>.
-   * @return Either the stored value or the unchanged value. May be
-   *         <code>null</code>.
+   * @return Either the stored value or the unchanged value. May be <code>null</code>.
    */
   @Nullable
   public DATATYPE getIfChanged (@Nullable final DATATYPE aUnchangedValue)
@@ -89,8 +87,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   }
 
   /**
-   * Get the store value if this is a changed. Otherwise <code>null</code> is
-   * returned.
+   * Get the store value if this is a changed. Otherwise <code>null</code> is returned.
    *
    * @return Either the stored value or <code>null</code>.
    */
@@ -101,13 +98,11 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   }
 
   /**
-   * Get the store value if this is unchanged. Otherwise the passed changed
-   * value is returned.
+   * Get the store value if this is unchanged. Otherwise the passed changed value is returned.
    *
    * @param aChangedValue
    *        The changed value to be used. May be <code>null</code>.
-   * @return Either the stored value or the changed value. May be
-   *         <code>null</code>.
+   * @return Either the stored value or the changed value. May be <code>null</code>.
    */
   @Nullable
   public DATATYPE getIfUnchanged (@Nullable final DATATYPE aChangedValue)
@@ -116,8 +111,7 @@ public class ChangeWithValue <DATATYPE> implements IChangeIndicator, IWrapper <D
   }
 
   /**
-   * Get the store value if this is unchanged. Otherwise <code>null</code> is
-   * returned.
+   * Get the store value if this is unchanged. Otherwise <code>null</code> is returned.
    *
    * @return Either the stored value or <code>null</code>.
    */

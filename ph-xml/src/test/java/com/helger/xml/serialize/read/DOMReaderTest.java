@@ -361,8 +361,8 @@ public final class DOMReaderTest
                                                                              false)
                                                            .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
                                                                              true)
-                                                           .setEntityResolver ( (publicId,
-                                                                                 systemId) -> InputSourceFactory.create (new URLResource (systemId)));
+                                                           .setEntityResolver ((publicId,
+                                                                                systemId) -> InputSourceFactory.create (new URLResource (systemId)));
 
     // Read successful - entity expansion!
     final Document aDoc = DOMReader.readXMLDOM (sXML, aDRS);

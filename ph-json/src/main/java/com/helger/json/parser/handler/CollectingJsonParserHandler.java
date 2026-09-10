@@ -67,9 +67,7 @@ public class CollectingJsonParserHandler implements IJsonParserHandler
       final IJsonObject aObject = aParent.getAsObject ();
       final String sName = m_aObjectName.pop ();
       if (aObject.containsKey (sName))
-        LOGGER.warn ("The JSON object already contains a key '" +
-                     sName +
-                     "'. The previous value will be overwritten.");
+        LOGGER.warn ("The JSON object already contains a key '" + sName + "'. The previous value will be overwritten.");
       aObject.add (sName, aValue);
     }
   }

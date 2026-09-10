@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * This annotation defines that an element is "work in progress" and should not
- * yet be used in production.
+ * This annotation defines that an element is "work in progress" and should not yet be used in
+ * production.
  *
  * @author Philip Helger
  */

@@ -77,7 +77,7 @@ public final class KeyStoreHelper
   @NonNull
   public static IReadableResourceProvider getResourceProvider ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aResourceProvider);
+    return RW_LOCK.readLockedGet (() -> s_aResourceProvider);
   }
 
   /**
@@ -89,7 +89,7 @@ public final class KeyStoreHelper
   public static void setResourceProvider (@NonNull final IReadableResourceProvider aResourceProvider)
   {
     ValueEnforcer.notNull (aResourceProvider, "ResourceProvider");
-    RW_LOCK.writeLocked ( () -> s_aResourceProvider = aResourceProvider);
+    RW_LOCK.writeLocked (() -> s_aResourceProvider = aResourceProvider);
   }
 
   /**
@@ -155,8 +155,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
-                                             final char @Nullable [] aKeyStorePassword) throws GeneralSecurityException,
-                                                                                        IOException
+                                             final char @Nullable [] aKeyStorePassword) throws GeneralSecurityException, IOException
   {
     return loadKeyStoreDirect (aKeyStoreType, sKeyStorePath, aKeyStorePassword, null);
   }
@@ -188,8 +187,7 @@ public final class KeyStoreHelper
   public static KeyStore loadKeyStoreDirect (@NonNull final IKeyStoreType aKeyStoreType,
                                              @Nullable final String sKeyStorePath,
                                              final char @Nullable [] aKeyStorePassword,
-                                             @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
-                                                                                         IOException
+                                             @Nullable final Provider aSecurityProvider) throws GeneralSecurityException, IOException
   {
     ValueEnforcer.notNull (aKeyStoreType, "KeyStoreType");
 
@@ -249,8 +247,7 @@ public final class KeyStoreHelper
   @NonNull
   public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
                                                         @NonNull final String sAliasToCopy,
-                                                        final char @Nullable [] aAliasPassword) throws GeneralSecurityException,
-                                                                                                IOException
+                                                        final char @Nullable [] aAliasPassword) throws GeneralSecurityException, IOException
   {
     return createKeyStoreWithOnlyOneItem (aBaseKeyStore, sAliasToCopy, aAliasPassword, null);
   }
@@ -278,8 +275,7 @@ public final class KeyStoreHelper
   public static KeyStore createKeyStoreWithOnlyOneItem (@NonNull final KeyStore aBaseKeyStore,
                                                         @NonNull final String sAliasToCopy,
                                                         final char @Nullable [] aAliasPassword,
-                                                        @Nullable final Provider aSecurityProvider) throws GeneralSecurityException,
-                                                                                                    IOException
+                                                        @Nullable final Provider aSecurityProvider) throws GeneralSecurityException, IOException
   {
     ValueEnforcer.notNull (aBaseKeyStore, "BaseKeyStore");
     ValueEnforcer.notNull (sAliasToCopy, "AliasToCopy");

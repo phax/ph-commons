@@ -49,8 +49,7 @@ public enum EInterrupt implements IInterruptIndicator
   }
 
   /**
-   * Convert an {@link IInterruptIndicator} to the corresponding
-   * {@link EInterrupt} enum value.
+   * Convert an {@link IInterruptIndicator} to the corresponding {@link EInterrupt} enum value.
    *
    * @param aInterruptIndicator
    *        The interrupt indicator to convert. May not be <code>null</code>.

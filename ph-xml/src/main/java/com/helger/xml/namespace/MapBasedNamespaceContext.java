@@ -168,8 +168,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Add all mappings from the given namespace context without overwriting
-   * existing mappings.
+   * Add all mappings from the given namespace context without overwriting existing mappings.
    *
    * @param aOther
    *        The namespace context to copy from. May be <code>null</code>.
@@ -184,8 +183,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Set all mappings from the given namespace context, overwriting existing
-   * mappings if present.
+   * Set all mappings from the given namespace context, overwriting existing mappings if present.
    *
    * @param aOther
    *        The namespace context to copy from. May be <code>null</code>.
@@ -216,8 +214,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * Set all mappings from the given map, overwriting existing mappings if
-   * present.
+   * Set all mappings from the given map, overwriting existing mappings if present.
    *
    * @param aOther
    *        Map from prefix to namespace URI. May be <code>null</code>.
@@ -368,8 +365,7 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   }
 
   /**
-   * @return The number of currently registered prefix-namespace mappings.
-   *         Always &ge; 0.
+   * @return The number of currently registered prefix-namespace mappings. Always &ge; 0.
    */
   @Nonnegative
   public int getMappingCount ()

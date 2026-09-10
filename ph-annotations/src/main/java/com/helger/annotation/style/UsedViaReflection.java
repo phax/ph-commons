@@ -22,9 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Just to indicate that a class is used via reflection and not by direct
- * references. This is helpful to identify that classes are indeed use even
- * though no direct reference exists.
+ * Just to indicate that a class is used via reflection and not by direct references. This is
+ * helpful to identify that classes are indeed use even though no direct reference exists.
  *
  * @author Philip Helger
  */

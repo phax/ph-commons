@@ -28,8 +28,8 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.xml.microdom.IMicroNode;
 
 /**
- * Class for recursively visiting all children of an {@link IMicroNode}. It
- * includes the initial node in the visitation.
+ * Class for recursively visiting all children of an {@link IMicroNode}. It includes the initial
+ * node in the visitation.
  *
  * @author Philip Helger
  */
@@ -75,8 +75,7 @@ public class MicroRecursiveIterator implements ICommonsIterableIterator <IMicroN
   }
 
   /**
-   * Create a {@link MicroRecursiveIterator} that only iterates the child nodes
-   * of the given node.
+   * Create a {@link MicroRecursiveIterator} that only iterates the child nodes of the given node.
    *
    * @param aNode
    *        The node to iterate the children from. May not be <code>null</code>.

@@ -22,8 +22,7 @@ import org.jspecify.annotations.Nullable;
 import jakarta.xml.bind.ValidationEventHandler;
 
 /**
- * An extended version of {@link ValidationEventHandler} with chaining
- * possibilities.
+ * An extended version of {@link ValidationEventHandler} with chaining possibilities.
  *
  * @author Philip Helger
  * @since 8.5.1
@@ -46,8 +45,7 @@ public interface IValidationEventHandler extends ValidationEventHandler
   }
 
   /**
-   * Create an instance of {@link IValidationEventHandler} that invokes both
-   * passed event handlers.
+   * Create an instance of {@link IValidationEventHandler} that invokes both passed event handlers.
    *
    * @param aFirst
    *        The first event handler. May be <code>null</code>.
@@ -57,7 +55,8 @@ public interface IValidationEventHandler extends ValidationEventHandler
    * @since 8.6.0
    */
   @NonNull
-  static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst, @Nullable final ValidationEventHandler aSecond)
+  static IValidationEventHandler and (@Nullable final ValidationEventHandler aFirst,
+                                      @Nullable final ValidationEventHandler aSecond)
   {
     if (aFirst != null)
     {

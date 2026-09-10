@@ -30,15 +30,14 @@ import org.jspecify.annotations.Nullable;
 public interface IFileOperationManager
 {
   /**
-   * @return The last error that occurred. May be <code>null</code> if no action
-   *         was yet performed.
+   * @return The last error that occurred. May be <code>null</code> if no action was yet performed.
    */
   @Nullable
   FileIOError getLastError ();
 
   /**
-   * @return The last operation that was executed, independent of error or
-   *         success. May be <code>null</code> if no action was performed yet.
+   * @return The last operation that was executed, independent of error or success. May be
+   *         <code>null</code> if no action was performed yet.
    */
   @Nullable
   EFileIOOperation getLastOperation ();
@@ -54,20 +53,18 @@ public interface IFileOperationManager
   FileIOError createDir (@NonNull File aDir);
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
   FileIOError createDirIfNotExisting (@NonNull File aDir);
 
   /**
-   * Create a new directory. The parent directories are created if they are
-   * missing.
+   * Create a new directory. The parent directories are created if they are missing.
    *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
@@ -77,20 +74,18 @@ public interface IFileOperationManager
   FileIOError createDirRecursive (@NonNull File aDir);
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
   FileIOError createDirRecursiveIfNotExisting (@NonNull File aDir);
 
   /**
-   * Delete an existing directory. The directory needs to be empty before it can
-   * be deleted.
+   * Delete an existing directory. The directory needs to be empty before it can be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -100,8 +95,8 @@ public interface IFileOperationManager
   FileIOError deleteDir (@NonNull File aDir);
 
   /**
-   * Delete an existing directory if it is existing. The directory needs to be
-   * empty before it can be deleted.
+   * Delete an existing directory if it is existing. The directory needs to be empty before it can
+   * be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -180,8 +175,8 @@ public interface IFileOperationManager
    * @param aSourceDir
    *        The source directory to be copied. May not be <code>null</code>.
    * @param aTargetDir
-   *        The destination directory where to be copied. This directory may not
-   *        be existing. May not be <code>null</code>.
+   *        The destination directory where to be copied. This directory may not be existing. May
+   *        not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
@@ -191,11 +186,9 @@ public interface IFileOperationManager
    * Copies the source file to the target file.
    *
    * @param aSourceFile
-   *        The source file to use. May not be <code>null</code>. Needs to be an
-   *        existing file.
+   *        The source file to use. May not be <code>null</code>. Needs to be an existing file.
    * @param aTargetFile
-   *        The destination files. May not be <code>null</code> and may not be
-   *        an existing file.
+   *        The destination files. May not be <code>null</code> and may not be an existing file.
    * @return A non-<code>null</code> error code.
    */
   @NonNull

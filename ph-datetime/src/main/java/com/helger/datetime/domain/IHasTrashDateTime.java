@@ -34,15 +34,13 @@ import com.helger.base.enforce.ValueEnforcer;
 public interface IHasTrashDateTime
 {
   /**
-   * @return The trash date time or <code>null</code> if the object has not been
-   *         trashed yet.
+   * @return The trash date time or <code>null</code> if the object has not been trashed yet.
    */
   @Nullable
   LocalDateTime getTrashDateTime ();
 
   /**
-   * @return <code>true</code> if a trash date time is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a trash date time is present, <code>false</code> if not.
    * @see #getTrashDateTime()
    */
   default boolean hasTrashDateTime ()
@@ -51,8 +49,8 @@ public interface IHasTrashDateTime
   }
 
   /**
-   * @return The extracted date from the trash date and time or
-   *         <code>null</code> if no trash date time is present.
+   * @return The extracted date from the trash date and time or <code>null</code> if no trash date
+   *         time is present.
    */
   @Nullable
   default LocalDate getTrashDate ()
@@ -62,8 +60,8 @@ public interface IHasTrashDateTime
   }
 
   /**
-   * @return The extracted time from the trash date and time or
-   *         <code>null</code> if no trash date time is present.
+   * @return The extracted time from the trash date and time or <code>null</code> if no trash date
+   *         time is present.
    */
   @Nullable
   default LocalTime getTrashTime ()
@@ -73,14 +71,12 @@ public interface IHasTrashDateTime
   }
 
   /**
-   * Check if the object was trashed at the specified local date time. This is
-   * <code>true</code>, if the trashed time is &le; than the specified local
-   * date time.
+   * Check if the object was trashed at the specified local date time. This is <code>true</code>, if
+   * the trashed time is &le; than the specified local date time.
    *
    * @param aDT
    *        The time to check for trashing. May not be <code>null</code>.
-   * @return <code>true</code> if this object was trashed, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if this object was trashed, <code>false</code> if not.
    * @since 9.1.6
    */
   default boolean isTrashedAt (@NonNull final LocalDateTime aDT)

@@ -82,8 +82,8 @@ public final class XMLCharsetDeterminator
   {}
 
   /**
-   * @return A mutable Set with all charsets that can be used for the charset
-   *         determination. Never <code>null</code>.
+   * @return A mutable Set with all charsets that can be used for the charset determination. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -93,17 +93,16 @@ public final class XMLCharsetDeterminator
   }
 
   /**
-   * Use a Reader to parse the XML declaration specified by the byte array,
-   * starting at the specified offset using the provided charset.
+   * Use a Reader to parse the XML declaration specified by the byte array, starting at the
+   * specified offset using the provided charset.
    *
    * @param aBytes
    *        Byte array to read. Maximum length is 4 + 4096
    * @param nOfs
-   *        Offset to start parsing. Usually between 0 and 4 (depending on an
-   *        eventually present BOM)
+   *        Offset to start parsing. Usually between 0 and 4 (depending on an eventually present
+   *        BOM)
    * @param aParseCharset
-   *        The basic charset determined by BOM or byte array matching for
-   *        parsing the byte array.
+   *        The basic charset determined by BOM or byte array matching for parsing the byte array.
    * @return <code>null</code> if no charset was found!
    * @throws UncheckedIOException
    *         if something goes wrong
@@ -113,11 +112,10 @@ public final class XMLCharsetDeterminator
                                             @Nonnegative final int nOfs,
                                             @NonNull final Charset aParseCharset)
   {
-    try (
-        final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
-                                                                                         nOfs,
-                                                                                         aBytes.length - nOfs);
-        final Reader aReader = new InputStreamReader (aIS, aParseCharset))
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                          nOfs,
+                                                                                          aBytes.length - nOfs);
+         final Reader aReader = new InputStreamReader (aIS, aParseCharset))
     {
       final StringBuilder aSB = new StringBuilder ();
       int c;
@@ -203,8 +201,8 @@ public final class XMLCharsetDeterminator
    *
    * @param aBytes
    *        XML byte representation
-   * @return <code>null</code> if no charset was found. In that case you might
-   *         wanna try UTF-8 as the fallback.
+   * @return <code>null</code> if no charset was found. In that case you might wanna try UTF-8 as
+   *         the fallback.
    */
   @Nullable
   public static Charset determineXMLCharset (final byte @NonNull [] aBytes)
@@ -218,11 +216,10 @@ public final class XMLCharsetDeterminator
     {
       // Check if a BOM is present
       // Read at maximum 4 bytes (max BOM bytes)
-      try (
-          NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
-                                                                                     0,
-                                                                                     Math.min (EUnicodeBOM.getMaximumByteCount (),
-                                                                                               aBytes.length)))
+      try (NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (aBytes,
+                                                                                      0,
+                                                                                      Math.min (EUnicodeBOM.getMaximumByteCount (),
+                                                                                                aBytes.length)))
       {
         // Check for BOM first
         final InputStreamAndCharset aISC = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);

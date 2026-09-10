@@ -38,8 +38,8 @@ import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.numeric.mutable.MutableShort;
 
 /**
- * Implementation of {@link IJsonValueSerializerRegistrarSPI} for basic types
- * like Boolean, Byte, Integer, AtomicInteger etc.
+ * Implementation of {@link IJsonValueSerializerRegistrarSPI} for basic types like Boolean, Byte,
+ * Integer, AtomicInteger etc.
  *
  * @author Philip Helger
  */
@@ -66,13 +66,18 @@ public final class DefaultJsonValueSerializerRegistrarSPI implements IJsonValueS
     aRegistry.registerJsonValueSerializer (String.class, JsonValueSerializerEscaped.getInstance ());
 
     // Special versions for Mutable objects
-    aRegistry.registerJsonValueSerializer (MutableBigDecimal.class, JsonValueSerializerTypeConverterToString.getInstance ());
-    aRegistry.registerJsonValueSerializer (MutableBigInteger.class, JsonValueSerializerTypeConverterToString.getInstance ());
-    aRegistry.registerJsonValueSerializer (MutableBoolean.class, JsonValueSerializerTypeConverterToString.getInstance ());
+    aRegistry.registerJsonValueSerializer (MutableBigDecimal.class,
+                                           JsonValueSerializerTypeConverterToString.getInstance ());
+    aRegistry.registerJsonValueSerializer (MutableBigInteger.class,
+                                           JsonValueSerializerTypeConverterToString.getInstance ());
+    aRegistry.registerJsonValueSerializer (MutableBoolean.class,
+                                           JsonValueSerializerTypeConverterToString.getInstance ());
     aRegistry.registerJsonValueSerializer (MutableByte.class, JsonValueSerializerTypeConverterToString.getInstance ());
     // Handle as String:
-    aRegistry.registerJsonValueSerializer (MutableChar.class, JsonValueSerializerTypeConverterToStringEscaped.getInstance ());
-    aRegistry.registerJsonValueSerializer (MutableDouble.class, JsonValueSerializerTypeConverterToString.getInstance ());
+    aRegistry.registerJsonValueSerializer (MutableChar.class,
+                                           JsonValueSerializerTypeConverterToStringEscaped.getInstance ());
+    aRegistry.registerJsonValueSerializer (MutableDouble.class,
+                                           JsonValueSerializerTypeConverterToString.getInstance ());
     aRegistry.registerJsonValueSerializer (MutableFloat.class, JsonValueSerializerTypeConverterToString.getInstance ());
     aRegistry.registerJsonValueSerializer (MutableInt.class, JsonValueSerializerTypeConverterToString.getInstance ());
     aRegistry.registerJsonValueSerializer (MutableLong.class, JsonValueSerializerTypeConverterToString.getInstance ());

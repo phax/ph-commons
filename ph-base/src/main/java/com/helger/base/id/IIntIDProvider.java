@@ -31,8 +31,7 @@ public interface IIntIDProvider <VALUETYPE>
    * Get the ID of the passed object.
    *
    * @param aObject
-   *        The object who's ID is to be retrieved. May not be <code>null</code>
-   *        .
+   *        The object who's ID is to be retrieved. May not be <code>null</code> .
    * @return The ID of the object.
    */
   int getID (@NonNull VALUETYPE aObject);

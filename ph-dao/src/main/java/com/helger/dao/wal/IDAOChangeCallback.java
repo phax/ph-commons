@@ -58,8 +58,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
   {}
 
   /**
-   * Called after an item was marked as deleted (but is still present - special
-   * case of update!).
+   * Called after an item was marked as deleted (but is still present - special case of update!).
    *
    * @param aItem
    *        The item that was marked as deleted. Never <code>null</code>.
@@ -71,8 +70,7 @@ public interface IDAOChangeCallback <INTERFACETYPE extends IHasID <String>> exte
    * Called after an item was marked as undeleted.
    *
    * @param aItem
-   *        The item that was marked as not deleted anymore. Never
-   *        <code>null</code>.
+   *        The item that was marked as not deleted anymore. Never <code>null</code>.
    */
   default void onMarkItemUndeleted (@NonNull final INTERFACETYPE aItem)
   {}

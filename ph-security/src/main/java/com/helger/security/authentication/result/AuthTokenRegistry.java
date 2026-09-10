@@ -66,7 +66,7 @@ public final class AuthTokenRegistry
     final AuthToken aToken = new AuthToken (aIdentification, nExpirationSeconds);
     final String sTokenID = aToken.getID ();
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (MAP.containsKey (sTokenID))
         throw new IllegalArgumentException ("Token '" + sTokenID + "' already contained");
       MAP.put (sTokenID, aToken);
@@ -86,7 +86,7 @@ public final class AuthTokenRegistry
   @NonNull
   public static ESuccess removeToken (@NonNull final String sTokenID)
   {
-    return RW_LOCK.writeLockedGet ( () -> {
+    return RW_LOCK.writeLockedGet (() -> {
       final AuthToken aToken = MAP.remove (sTokenID);
       if (aToken == null)
         return ESuccess.FAILURE;
@@ -104,7 +104,7 @@ public final class AuthTokenRegistry
     if (StringHelper.isEmpty (sTokenID))
       return null;
 
-    final AuthToken aToken = RW_LOCK.readLockedGet ( () -> MAP.get (sTokenID));
+    final AuthToken aToken = RW_LOCK.readLockedGet (() -> MAP.get (sTokenID));
     return aToken != null && !aToken.isExpired () ? aToken : null;
   }
 
@@ -155,9 +155,9 @@ public final class AuthTokenRegistry
   {
     ValueEnforcer.notNull (aSubject, "Subject");
 
-    return RW_LOCK.readLockedGet ( () -> CommonsArrayList.createFiltered (MAP.values (),
-                                                                          aToken -> aToken.getIdentification ()
-                                                                                          .hasAuthSubject (aSubject)));
+    return RW_LOCK.readLockedGet (() -> CommonsArrayList.createFiltered (MAP.values (),
+                                                                         aToken -> aToken.getIdentification ()
+                                                                                         .hasAuthSubject (aSubject)));
   }
 
   /**
@@ -175,7 +175,7 @@ public final class AuthTokenRegistry
     // get all token IDs matching a given subject
     // Note: required IAuthSubject to implement equals!
     final ICommonsList <String> aDelTokenIDs = new CommonsArrayList <> ();
-    RW_LOCK.readLocked ( () -> {
+    RW_LOCK.readLocked (() -> {
       for (final Map.Entry <String, AuthToken> aEntry : MAP.entrySet ())
         if (aEntry.getValue ().getIdentification ().hasAuthSubject (aSubject))
           aDelTokenIDs.add (aEntry.getKey ());

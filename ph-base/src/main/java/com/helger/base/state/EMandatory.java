@@ -38,8 +38,7 @@ public enum EMandatory implements IMandatoryIndicator
    * Convert a boolean value to the corresponding {@link EMandatory} enum value.
    *
    * @param bMandatory
-   *        <code>true</code> for {@link #MANDATORY}, <code>false</code> for
-   *        {@link #OPTIONAL}.
+   *        <code>true</code> for {@link #MANDATORY}, <code>false</code> for {@link #OPTIONAL}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum EMandatory implements IMandatoryIndicator
   }
 
   /**
-   * Convert an {@link IMandatoryIndicator} to the corresponding
-   * {@link EMandatory} enum value.
+   * Convert an {@link IMandatoryIndicator} to the corresponding {@link EMandatory} enum value.
    *
    * @param aMandatoryIndicator
    *        The mandatory indicator to convert. May not be <code>null</code>.

@@ -47,14 +47,12 @@ public interface ISettingsPersistence
   Charset getCharset ();
 
   /**
-   * Read settings from a String and convert it to an {@link ISettings} object.
-   * Note: to read from a file you need to explicitly invoke the
-   * {@link #readSettings(File)} method!
+   * Read settings from a String and convert it to an {@link ISettings} object. Note: to read from a
+   * file you need to explicitly invoke the {@link #readSettings(File)} method!
    *
    * @param sSettings
    *        The settings string. May not be <code>null</code>.
-   * @return <code>null</code> if reading failed, a non-<code>null</code>
-   *         settings object otherwise.
+   * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
   @NonNull
   default ISettings readSettings (@NonNull final String sSettings)
@@ -69,8 +67,7 @@ public interface ISettingsPersistence
    *
    * @param aFile
    *        The settings file. May not be <code>null</code>.
-   * @return <code>null</code> if reading failed, a non-<code>null</code>
-   *         settings object otherwise.
+   * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
   @NonNull
   default ISettings readSettings (@NonNull final File aFile)
@@ -81,13 +78,11 @@ public interface ISettingsPersistence
   }
 
   /**
-   * Read settings from an InputStream provider and convert it to an
-   * {@link ISettings} object.
+   * Read settings from an InputStream provider and convert it to an {@link ISettings} object.
    *
    * @param aISP
    *        The InputStream provider to read from. May not be <code>null</code>.
-   * @return <code>null</code> if reading failed, a non-<code>null</code>
-   *         settings object otherwise.
+   * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
   @NonNull
   default ISettings readSettings (@NonNull final IHasInputStream aISP)
@@ -101,14 +96,12 @@ public interface ISettingsPersistence
   }
 
   /**
-   * Read settings from an input stream and convert it to an {@link ISettings}
-   * object.
+   * Read settings from an input stream and convert it to an {@link ISettings} object.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>. Must be
-   *        closed by the implementing method.
-   * @return <code>null</code> if reading failed, a non-<code>null</code>
-   *         settings object otherwise.
+   *        The input stream to read from. May not be <code>null</code>. Must be closed by the
+   *        implementing method.
+   * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
   @Nullable
   ISettings readSettings (@NonNull @WillClose InputStream aIS);
@@ -118,8 +111,8 @@ public interface ISettingsPersistence
    *
    * @param aSettings
    *        The settings to be written. May not be <code>null</code>.
-   * @return The string representation of the settings. <code>null</code> when
-   *         writing/conversion fails.
+   * @return The string representation of the settings. <code>null</code> when writing/conversion
+   *         fails.
    */
   @Nullable
   default String writeSettings (@NonNull final ISettings aSettings)
@@ -136,8 +129,7 @@ public interface ISettingsPersistence
    * @param aSettings
    *        The settings to be written. May not be <code>null</code>.
    * @param aFile
-   *        The file where the settings should be written to. May not be
-   *        <code>null</code>.
+   *        The file where the settings should be written to. May not be <code>null</code>.
    * @return Success and never <code>null</code>.
    */
   @NonNull
@@ -155,9 +147,8 @@ public interface ISettingsPersistence
    * @param aSettings
    *        The settings to be written. May not be <code>null</code>.
    * @param aOS
-   *        The output stream where the settings should be written to. May not
-   *        be <code>null</code>. After writing to the stream the output stream
-   *        must be closed by the implementing method.
+   *        The output stream where the settings should be written to. May not be <code>null</code>.
+   *        After writing to the stream the output stream must be closed by the implementing method.
    * @return Success and never <code>null</code>.
    */
   @NonNull

@@ -38,9 +38,9 @@ import com.helger.collection.commons.CommonsLinkedHashMap;
 import com.helger.collection.commons.ICommonsOrderedMap;
 
 /**
- * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to
- * resolve variable values used in XPath queries at runtime. The whole QName is
- * used as the key in the map. The namespace is not-ignored in this class.
+ * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to resolve variable
+ * values used in XPath queries at runtime. The whole QName is used as the key in the map. The
+ * namespace is not-ignored in this class.
  *
  * @author Philip Helger
  */
@@ -103,7 +103,9 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    * @return {@link EChange}
    */
   @NonNull
-  public EChange addUniqueFunction (@NonNull final QName aName, @Nonnegative final int nArity, @NonNull final XPathFunction aFunction)
+  public EChange addUniqueFunction (@NonNull final QName aName,
+                                    @Nonnegative final int nArity,
+                                    @NonNull final XPathFunction aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
 
@@ -118,11 +120,10 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
    * Add all functions from the other function resolver into this resolver.
    *
    * @param aOther
-   *        The function resolver to import the functions from. May not be
-   *        <code>null</code>.
+   *        The function resolver to import the functions from. May not be <code>null</code>.
    * @param bOverwrite
-   *        if <code>true</code> existing functions will be overwritten with the
-   *        new functions, otherwise the old functions are kept.
+   *        if <code>true</code> existing functions will be overwritten with the new functions,
+   *        otherwise the old functions are kept.
    * @return {@link EChange}
    */
   @NonNull
@@ -171,8 +172,8 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   }
 
   /**
-   * Remove all functions with the same name. This can be helpful when the same
-   * function is registered for multiple parameters.
+   * Remove all functions with the same name. This can be helpful when the same function is
+   * registered for multiple parameters.
    *
    * @param aName
    *        The name to be removed. May be <code>null</code>.
@@ -193,8 +194,7 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   }
 
   /**
-   * @return A mutable copy of all contained functions. Never <code>null</code>
-   *         but maybe empty.
+   * @return A mutable copy of all contained functions. Never <code>null</code> but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy

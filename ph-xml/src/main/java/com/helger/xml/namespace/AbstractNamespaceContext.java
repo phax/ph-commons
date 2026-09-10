@@ -28,8 +28,8 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Represents an abstract namespace context that does the predefined mapping as
- * stated in the Javadoc.
+ * Represents an abstract namespace context that does the predefined mapping as stated in the
+ * Javadoc.
  *
  * @author Philip Helger
  */

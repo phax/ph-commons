@@ -71,7 +71,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
    */
   public static void setEnableThreadInfo (final boolean bEnableThreadInfo)
   {
-    RW_LOCK.writeLocked ( () -> s_bEnableThreadInfo = bEnableThreadInfo);
+    RW_LOCK.writeLocked (() -> s_bEnableThreadInfo = bEnableThreadInfo);
   }
 
   /**
@@ -79,7 +79,7 @@ public class ThreadDescriptor implements IHasMicroNodeRepresentation
    */
   public static boolean isEnableThreadInfo ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bEnableThreadInfo);
+    return RW_LOCK.readLockedBoolean (() -> s_bEnableThreadInfo);
   }
 
   /**

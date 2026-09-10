@@ -56,8 +56,7 @@ public enum EAmPm implements IHasIntID
    *
    * @param aLocale
    *        The locale to use. May not be <code>null</code>.
-   * @return The display name or <code>null</code> if the locale does not
-   *         provide AM/PM strings.
+   * @return The display name or <code>null</code> if the locale does not provide AM/PM strings.
    */
   @Nullable
   public String getDisplayName (@NonNull final Locale aLocale)

@@ -118,7 +118,10 @@ public final class CacheKeyIterationTest
   public void testIterateCacheKeyProviderCache ()
   {
     // The storage key is the cache key, so iteration is supported
-    final var c = ProviderCache.<String, String> builder ().name ("IterateProvider").valueProvider (k -> "v" + k).build ();
+    final var c = ProviderCache.<String, String> builder ()
+                               .name ("IterateProvider")
+                               .valueProvider (k -> "v" + k)
+                               .build ();
     assertEquals ("vfoo", c.getFromCache ("foo"));
     assertEquals ("vbar", c.getFromCache ("bar"));
 
@@ -241,7 +244,7 @@ public final class CacheKeyIterationTest
     try
     {
       // The original keys are not retained
-      c.iterateCache ( (k, v) -> fail ());
+      c.iterateCache ((k, v) -> fail ());
       fail ();
     }
     catch (final UnsupportedOperationException ex)

@@ -69,9 +69,10 @@ public final class ConstantHasTextWithArgsTest
   public void testStandard ()
   {
     TestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs ("any"),
-                                                                       new ConstantHasTextWithArgs ("any"));
-    TestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs (""), new ConstantHasTextWithArgs (""));
+                                                                new ConstantHasTextWithArgs ("any"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ConstantHasTextWithArgs (""),
+                                                                new ConstantHasTextWithArgs (""));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new ConstantHasTextWithArgs ("any"),
-                                                                           new ConstantHasTextWithArgs ("anyy"));
+                                                                    new ConstantHasTextWithArgs ("anyy"));
   }
 }

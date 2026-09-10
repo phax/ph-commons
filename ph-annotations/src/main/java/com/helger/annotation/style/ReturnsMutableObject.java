@@ -24,10 +24,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicates that a method returns a mutable object. This annotation is meant to
- * indicate that the internal object is returned in a mutable way. If a copy of
- * the internal object is returned and is mutable, please use the
- * {@link ReturnsMutableCopy} annotation.
+ * Indicates that a method returns a mutable object. This annotation is meant to indicate that the
+ * internal object is returned in a mutable way. If a copy of the internal object is returned and is
+ * mutable, please use the {@link ReturnsMutableCopy} annotation.
  *
  * @author Philip Helger
  */

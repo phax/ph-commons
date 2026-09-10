@@ -27,9 +27,8 @@ import com.helger.settings.Settings;
 import com.helger.settings.SettingsWithDefault;
 
 /**
- * This is just a type definition for the settings factory. The factory
- * parameter is the name of the factory set to read. This may e.g. be a file
- * name for file based settings factories.
+ * This is just a type definition for the settings factory. The factory parameter is the name of the
+ * factory set to read. This may e.g. be a file name for file based settings factories.
  *
  * @author Philip Helger
  * @param <T>
@@ -41,16 +40,15 @@ public interface ISettingsFactory <T extends ISettings> extends Function <String
    * Create a new settings object.
    *
    * @param sName
-   *        The name of the settings. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of the settings. May neither be <code>null</code> nor empty.
    * @return The created settings object. May not be <code>null</code>.
    */
   @NonNull
   T apply (@NonNull @Nonempty String sName);
 
   /**
-   * @return A new default settings factory creating {@link Settings} objects.
-   *         Never <code>null</code>.
+   * @return A new default settings factory creating {@link Settings} objects. Never
+   *         <code>null</code>.
    */
   @NonNull
   static ISettingsFactory <Settings> newInstance ()
@@ -59,8 +57,8 @@ public interface ISettingsFactory <T extends ISettings> extends Function <String
   }
 
   /**
-   * Create a new settings factory that creates {@link SettingsWithDefault}
-   * objects backed by the provided default settings.
+   * Create a new settings factory that creates {@link SettingsWithDefault} objects backed by the
+   * provided default settings.
    *
    * @param aDefaultSettings
    *        The default settings. May not be <code>null</code>.

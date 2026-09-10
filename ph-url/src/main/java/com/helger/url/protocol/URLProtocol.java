@@ -40,8 +40,8 @@ public class URLProtocol implements IURLProtocol
    * @param sProtocol
    *        The protocol string (e.g. "http://"). May neither be <code>null</code> nor empty.
    * @param bAllowsForQueryParameters
-   *        <code>true</code> if this protocol supports query parameters,
-   *        <code>false</code> otherwise.
+   *        <code>true</code> if this protocol supports query parameters, <code>false</code>
+   *        otherwise.
    */
   public URLProtocol (@NonNull @Nonempty final String sProtocol, final boolean bAllowsForQueryParameters)
   {
@@ -79,14 +79,12 @@ public class URLProtocol implements IURLProtocol
   }
 
   /**
-   * Get the URL with this protocol prepended, but only if no known protocol is
-   * already present.
+   * Get the URL with this protocol prepended, but only if no known protocol is already present.
    *
    * @param sURL
    *        The URL to check. May be <code>null</code>.
-   * @return <code>null</code> if the input URL is <code>null</code>, the
-   *         original URL if it already has a known protocol, or the URL
-   *         prefixed with this protocol.
+   * @return <code>null</code> if the input URL is <code>null</code>, the original URL if it already
+   *         has a known protocol, or the URL prefixed with this protocol.
    */
   @Nullable
   public String getWithProtocolIfNone (@Nullable final String sURL)
@@ -124,6 +122,8 @@ public class URLProtocol implements IURLProtocol
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("protocol", m_sProtocol).append ("queryParams", m_bAllowsForQueryParameters).getToString ();
+    return new ToStringGenerator (this).append ("protocol", m_sProtocol)
+                                       .append ("queryParams", m_bAllowsForQueryParameters)
+                                       .getToString ();
   }
 }

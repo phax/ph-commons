@@ -28,9 +28,8 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A generic pair class. It wraps two objects of arbitrary type. If you just
- * want to wrap a single object, look at class
- * {@link com.helger.base.wrapper.Wrapper}.
+ * A generic pair class. It wraps two objects of arbitrary type. If you just want to wrap a single
+ * object, look at class {@link com.helger.base.wrapper.Wrapper}.
  *
  * @author Philip Helger
  * @param <DATA1TYPE>
@@ -39,14 +38,15 @@ import com.helger.base.tostring.ToStringGenerator;
  *        Second type.
  */
 @NotThreadSafe
-public final class Pair <DATA1TYPE, DATA2TYPE> implements IMutablePair <DATA1TYPE, DATA2TYPE>, ICloneable <Pair <DATA1TYPE, DATA2TYPE>>
+public final class Pair <DATA1TYPE, DATA2TYPE> implements
+                        IMutablePair <DATA1TYPE, DATA2TYPE>,
+                        ICloneable <Pair <DATA1TYPE, DATA2TYPE>>
 {
   private DATA1TYPE m_aFirst;
   private DATA2TYPE m_aSecond;
 
   /**
-   * Default constructor creating a pair with both values set to
-   * <code>null</code>.
+   * Default constructor creating a pair with both values set to <code>null</code>.
    */
   public Pair ()
   {

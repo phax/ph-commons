@@ -42,7 +42,8 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
    * <li>Exception text</li>
    * </ul>
    */
-  KEYSTORE_LOAD_ERROR_NON_EXISTING ("keystore-load-error-non-existing", EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_NON_EXISTING),
+  KEYSTORE_LOAD_ERROR_NON_EXISTING ("keystore-load-error-non-existing",
+                                    EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_NON_EXISTING),
   /**
    * Invalid key store password. Parameters:
    * <ul>
@@ -58,7 +59,8 @@ public enum EKeyStoreLoadError implements IHasID <String>, IHasDisplayTextWithAr
    * <li>Exception text</li>
    * </ul>
    */
-  KEYSTORE_LOAD_ERROR_FORMAT_ERROR ("keystore-load-error-format-error", EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_FORMAT_ERROR),
+  KEYSTORE_LOAD_ERROR_FORMAT_ERROR ("keystore-load-error-format-error",
+                                    EKeyStoreLoadErrorText.KEYSTORE_LOAD_ERROR_FORMAT_ERROR),
   // Key loading
   /**
    * No alias specified. Parameters:

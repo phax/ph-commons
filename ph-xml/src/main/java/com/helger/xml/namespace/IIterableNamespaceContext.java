@@ -25,8 +25,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * A special namespace context interface that allows the iteration of the
- * contained mappings.
+ * A special namespace context interface that allows the iteration of the contained mappings.
  *
  * @author Philip Helger
  */

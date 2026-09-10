@@ -48,13 +48,11 @@ public final class ResourceBundleTextProviderTest
     assertEquals ("äöü", aRBT.getTextWithArgs (L_DE, "egal"));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                       new ResourceBundleTextProvider (key));
+                                                                new ResourceBundleTextProvider (key));
     TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleTextProvider (key),
-                                                                       new ResourceBundleTextProvider (sBundle,
-                                                                                                       "key1"));
+                                                                new ResourceBundleTextProvider (sBundle, "key1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleTextProvider (key),
-                                                                           new ResourceBundleTextProvider (sBundle,
-                                                                                                           "key2"));
+                                                                    new ResourceBundleTextProvider (sBundle, "key2"));
 
     try
     {

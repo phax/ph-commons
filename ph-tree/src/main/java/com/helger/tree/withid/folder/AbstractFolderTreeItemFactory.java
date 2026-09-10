@@ -75,8 +75,7 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   protected abstract ITEMTYPE internalCreateRoot ();
 
   /*
-   * This implementation is different, because the root object is also put into
-   * the item store.
+   * This implementation is different, because the root object is also put into the item store.
    */
   /**
    * {@inheritDoc}

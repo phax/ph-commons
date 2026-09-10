@@ -30,8 +30,8 @@ import com.helger.graph.IMutableDirectedGraphRelation;
 public interface ISimpleDirectedGraph extends IMutableDirectedGraph
 {
   /**
-   * Create a new relation from the passed fromNode to the toNode. Internally
-   * the IDs are resolved to the respective graph nodes and later on calls
+   * Create a new relation from the passed fromNode to the toNode. Internally the IDs are resolved
+   * to the respective graph nodes and later on calls
    * {@link #createRelation(com.helger.graph.IMutableDirectedGraphNode, com.helger.graph.IMutableDirectedGraphNode)}
    *
    * @param sFromNodeID
@@ -44,8 +44,8 @@ public interface ISimpleDirectedGraph extends IMutableDirectedGraph
   IMutableDirectedGraphRelation createRelation (@NonNull String sFromNodeID, @NonNull String sToNodeID);
 
   /**
-   * Create a new relation from the passed fromNode to the toNode. Internally
-   * the IDs are resolved to the respective graph nodes and later on calls
+   * Create a new relation from the passed fromNode to the toNode. Internally the IDs are resolved
+   * to the respective graph nodes and later on calls
    * {@link #createRelation(com.helger.graph.IMutableDirectedGraphNode, com.helger.graph.IMutableDirectedGraphNode)}
    *
    * @param sRelationID

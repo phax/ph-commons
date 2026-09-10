@@ -49,8 +49,8 @@ public final class PDTIOHelper
   {}
 
   /**
-   * @return The current local date time formatted for usage in a file name. It
-   *         uses the pattern <code>YYYYMMDD_HHMMSS</code>.
+   * @return The current local date time formatted for usage in a file name. It uses the pattern
+   *         <code>YYYYMMDD_HHMMSS</code>.
    */
   @NonNull
   public static String getCurrentLocalDateTimeForFilename ()
@@ -59,8 +59,8 @@ public final class PDTIOHelper
   }
 
   /**
-   * Get the passed local date time formatted suitable for a file name. It uses
-   * the pattern <code>YYYYMMDD_HHMMSS</code>.
+   * Get the passed local date time formatted suitable for a file name. It uses the pattern
+   * <code>YYYYMMDD_HHMMSS</code>.
    *
    * @param aDT
    *        The local date time to be formatted. May not be <code>null</code>.
@@ -73,8 +73,8 @@ public final class PDTIOHelper
   }
 
   /**
-   * @return The current date formatted for usage in a file name. It uses the
-   *         pattern <code>YYYYMMDD</code>.
+   * @return The current date formatted for usage in a file name. It uses the pattern
+   *         <code>YYYYMMDD</code>.
    */
   public static String getCurrentDateForFilename ()
   {
@@ -95,8 +95,8 @@ public final class PDTIOHelper
   }
 
   /**
-   * @return The current time formatted for usage in a file name. It uses the
-   *         pattern <code>HHMMSS</code>.
+   * @return The current time formatted for usage in a file name. It uses the pattern
+   *         <code>HHMMSS</code>.
    */
   public static String getCurrentTimeForFilename ()
   {

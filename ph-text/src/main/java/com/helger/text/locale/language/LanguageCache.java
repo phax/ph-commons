@@ -95,8 +95,8 @@ public final class LanguageCache implements IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -123,7 +123,7 @@ public final class LanguageCache implements IHasConditionalLogger
     ValueEnforcer.isTrue (sValidLanguage != null, () -> "illegal language code '" + sLanguage + "'");
     ValueEnforcer.isEqual (sLanguage, sValidLanguage, () -> "invalid casing of '" + sLanguage + "'");
 
-    return m_aRWLock.writeLockedGet ( () -> m_aLanguages.addObject (sValidLanguage));
+    return m_aRWLock.writeLockedGet (() -> m_aLanguages.addObject (sValidLanguage));
   }
 
   /**
@@ -193,8 +193,8 @@ public final class LanguageCache implements IHasConditionalLogger
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC
-                                                                                      .getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
+                                                               : aLC.getDefaultMissingLocaleHandler ();
 
     // Was something like "de_" passed in? -> indirect recursion
     if (sLanguage.indexOf (LocaleHelper.LOCALE_SEPARATOR) >= 0)
@@ -202,7 +202,7 @@ public final class LanguageCache implements IHasConditionalLogger
 
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (!containsLanguage (sValidLanguage))
-      CONDLOG.warn ( () -> "Trying to retrieve unsupported language '" + sLanguage + "'");
+      CONDLOG.warn (() -> "Trying to retrieve unsupported language '" + sLanguage + "'");
     return aLC.getLocale (sValidLanguage, "", "", aMLH);
   }
 
@@ -223,7 +223,7 @@ public final class LanguageCache implements IHasConditionalLogger
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllLanguageLocales ()
   {
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
       return new CommonsHashSet <> (m_aLanguages, sLanguage -> aLC.getLocale (sLanguage, "", ""));
     });
@@ -256,7 +256,7 @@ public final class LanguageCache implements IHasConditionalLogger
     final String sValidLanguage = LocaleHelper.getValidLanguageCode (sLanguage);
     if (sValidLanguage == null)
       return false;
-    return m_aRWLock.readLockedBoolean ( () -> m_aLanguages.contains (sValidLanguage));
+    return m_aRWLock.readLockedBoolean (() -> m_aLanguages.contains (sValidLanguage));
   }
 
   /**
@@ -274,6 +274,6 @@ public final class LanguageCache implements IHasConditionalLogger
         addLanguage (sLanguage);
       }
     }
-    CONDLOG.debug ( () -> "Reinitialized " + LanguageCache.class.getName ());
+    CONDLOG.debug (() -> "Reinitialized " + LanguageCache.class.getName ());
   }
 }

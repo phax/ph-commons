@@ -19,8 +19,7 @@ package com.helger.typeconvert;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Flexible type converter that can handle multiple source and/or destination
- * classes.
+ * Flexible type converter that can handle multiple source and/or destination classes.
  *
  * @author Philip Helger
  * @param <SRC>
@@ -31,8 +30,7 @@ import org.jspecify.annotations.NonNull;
 public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
 {
   /**
-   * Define the sub types of the rules. The order is the sub type in which they
-   * are evaluated.
+   * Define the sub types of the rules. The order is the sub type in which they are evaluated.
    *
    * @author Philip Helger
    */
@@ -55,17 +53,15 @@ public interface ITypeConverterRule <SRC, DST> extends ITypeConverter <SRC, DST>
   ESubType getSubType ();
 
   /**
-   * Check if this converter can handle the conversion from the passed source to
-   * the passed destination class. Note: as this method is called for every type
-   * conversion for which no exact converters are present, the implementation of
-   * this method should be as efficient as possible.
+   * Check if this converter can handle the conversion from the passed source to the passed
+   * destination class. Note: as this method is called for every type conversion for which no exact
+   * converters are present, the implementation of this method should be as efficient as possible.
    *
    * @param aSrcClass
    *        Source class to convert from. Never <code>null</code>.
    * @param aDstClass
    *        Destination class to convert to. Never <code>null</code>.
-   * @return <code>true</code> if conversion is possible, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if conversion is possible, <code>false</code> otherwise.
    */
   boolean canConvert (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass);
 }

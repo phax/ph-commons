@@ -38,8 +38,7 @@ public enum EValidity implements IValidityIndicator
    * Convert a boolean value to the corresponding {@link EValidity} enum value.
    *
    * @param bValidity
-   *        <code>true</code> for {@link #VALID}, <code>false</code> for
-   *        {@link #INVALID}.
+   *        <code>true</code> for {@link #VALID}, <code>false</code> for {@link #INVALID}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum EValidity implements IValidityIndicator
   }
 
   /**
-   * Convert an {@link IValidityIndicator} to the corresponding
-   * {@link EValidity} enum value.
+   * Convert an {@link IValidityIndicator} to the corresponding {@link EValidity} enum value.
    *
    * @param aValidityIndicator
    *        The validity indicator to convert. May not be <code>null</code>.

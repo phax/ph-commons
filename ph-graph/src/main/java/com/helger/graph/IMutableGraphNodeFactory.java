@@ -26,8 +26,8 @@ import org.jspecify.annotations.Nullable;
 public interface IMutableGraphNodeFactory
 {
   /**
-   * Create a new graph node with a <code>null</code> value and add it to the
-   * graph. A new ID is generated.<br>
+   * Create a new graph node with a <code>null</code> value and add it to the graph. A new ID is
+   * generated.<br>
    * Equal to calling <code>createNode (null);</code>
    *
    * @return The created graph node. May be <code>null</code>.
@@ -39,10 +39,9 @@ public interface IMutableGraphNodeFactory
    * Create a new graph node with a known ID.
    *
    * @param sID
-   *        The ID of the graph node. If it is <code>null</code> or empty a new
-   *        ID is automatically created.
-   * @return The created graph node. May be <code>null</code> if the ID
-   *         constraint is violated.
+   *        The ID of the graph node. If it is <code>null</code> or empty a new ID is automatically
+   *        created.
+   * @return The created graph node. May be <code>null</code> if the ID constraint is violated.
    */
   @Nullable
   IMutableGraphNode createNode (@Nullable String sID);

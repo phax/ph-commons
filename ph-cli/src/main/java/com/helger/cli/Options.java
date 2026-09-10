@@ -102,8 +102,8 @@ public class Options implements ICommonsIterable <IOptionBase>
    * Add a single option.
    *
    * @param aOption
-   *        The option to add. May not be <code>null</code>. Must not have a
-   *        short or long name that conflicts with an already added option.
+   *        The option to add. May not be <code>null</code>. Must not have a short or long name that
+   *        conflicts with an already added option.
    * @return this for chaining
    */
   @NonNull
@@ -118,8 +118,8 @@ public class Options implements ICommonsIterable <IOptionBase>
    * Add a group of mutually exclusive options.
    *
    * @param aOptionGroup
-   *        The option group to add. May not be <code>null</code>. The options
-   *        in the group must not conflict with already added options.
+   *        The option group to add. May not be <code>null</code>. The options in the group must not
+   *        conflict with already added options.
    * @return this for chaining
    */
   @NonNull
@@ -133,8 +133,8 @@ public class Options implements ICommonsIterable <IOptionBase>
   }
 
   /**
-   * @return A mutable copy of all top-level options (excluding options inside
-   *         option groups). Never <code>null</code>.
+   * @return A mutable copy of all top-level options (excluding options inside option groups). Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -144,8 +144,8 @@ public class Options implements ICommonsIterable <IOptionBase>
   }
 
   /**
-   * @return An iterator over all contained {@link IOptionBase} elements
-   *         (options and option groups). Never <code>null</code>.
+   * @return An iterator over all contained {@link IOptionBase} elements (options and option
+   *         groups). Never <code>null</code>.
    */
   @NonNull
   public Iterator <IOptionBase> iterator ()
@@ -154,8 +154,8 @@ public class Options implements ICommonsIterable <IOptionBase>
   }
 
   /**
-   * @return A mutable copy of all options, resolving option groups to their
-   *         contained individual options. Never <code>null</code>.
+   * @return A mutable copy of all options, resolving option groups to their contained individual
+   *         options. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -175,9 +175,8 @@ public class Options implements ICommonsIterable <IOptionBase>
    *
    * @param aOption
    *        The option to search for. May be <code>null</code>.
-   * @return The containing {@link OptionGroup}, or <code>null</code> if the
-   *         option is not part of any group or if the parameter is
-   *         <code>null</code>.
+   * @return The containing {@link OptionGroup}, or <code>null</code> if the option is not part of
+   *         any group or if the parameter is <code>null</code>.
    */
   @Nullable
   public OptionGroup getOptionGroup (@Nullable final Option aOption)

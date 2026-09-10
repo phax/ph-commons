@@ -32,8 +32,7 @@ public class CodepointIteratorReader extends CodepointIteratorCharArray
    * Constructor.
    *
    * @param aReader
-   *        The reader to iterate. Will be closed. May not be
-   *        <code>null</code>.
+   *        The reader to iterate. Will be closed. May not be <code>null</code>.
    */
   public CodepointIteratorReader (@NonNull @WillClose final Reader aReader)
   {

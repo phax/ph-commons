@@ -32,8 +32,8 @@ import com.helger.base.io.stream.StreamHelper;
 public interface IHasOutputStream
 {
   /**
-   * Get the output stream to read from the object. Each time this method is
-   * call, a new {@link OutputStream} needs to be created!
+   * Get the output stream to read from the object. Each time this method is call, a new
+   * {@link OutputStream} needs to be created!
    *
    * @param eAppend
    *        appending mode. May not be <code>null</code>.
@@ -43,9 +43,8 @@ public interface IHasOutputStream
   OutputStream getOutputStream (@NonNull EAppend eAppend);
 
   /**
-   * Get the output stream to read from the object. Each time this method is
-   * call, a new {@link OutputStream} needs to be created. Internally invokes
-   * {@link #getOutputStream(EAppend)}.
+   * Get the output stream to read from the object. Each time this method is call, a new
+   * {@link OutputStream} needs to be created. Internally invokes {@link #getOutputStream(EAppend)}.
    *
    * @param eAppend
    *        appending mode. May not be <code>null</code>.
@@ -60,11 +59,10 @@ public interface IHasOutputStream
 
   /**
    * Check if the {@link OutputStream} from {@link #getOutputStream(EAppend)} or
-   * {@link #getBufferedOutputStream(EAppend)} can be acquired more than once or
-   * not.
+   * {@link #getBufferedOutputStream(EAppend)} can be acquired more than once or not.
    *
-   * @return <code>true</code> if the output stream can be acquired more than
-   *         once, <code>false</code> if not.
+   * @return <code>true</code> if the output stream can be acquired more than once,
+   *         <code>false</code> if not.
    */
   boolean isWriteMultiple ();
 }

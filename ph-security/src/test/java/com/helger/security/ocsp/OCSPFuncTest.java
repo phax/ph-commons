@@ -47,7 +47,8 @@ import com.helger.security.oscp.EOCSPResponseStatus;
 public final class OCSPFuncTest
 {
   @NonNull
-  public static OCSPReq generateOCSPRequest (final X509Certificate aIssuerCert, final BigInteger aCheckSerialNumber) throws OCSPException
+  public static OCSPReq generateOCSPRequest (final X509Certificate aIssuerCert,
+                                             final BigInteger aCheckSerialNumber) throws OCSPException
   {
     try
     {

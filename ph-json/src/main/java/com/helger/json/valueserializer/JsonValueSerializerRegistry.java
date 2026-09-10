@@ -76,7 +76,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aValueSerializer, "ValueSerializer");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // The class should not already be registered
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("An IJsonValueSerializer for class " + aClass + " is already registered!");
@@ -96,7 +96,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   @Nullable
   public IJsonValueSerializer getJsonValueSerializer (@Nullable final Class <?> aSrcClass)
   {
-    return m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass));
+    return m_aRWLock.readLockedGet (() -> m_aMap.get (aSrcClass));
   }
 
   /**
@@ -121,9 +121,8 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
 
     // Register all json value serializer
     for (final IJsonValueSerializerRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IJsonValueSerializerRegistrarSPI.class,
-                                                                                                     aClassLoader !=
-                                                                                                                                             null ? aClassLoader
-                                                                                                                                                  : ClassLoaderHelper.getDefaultClassLoader ()))
+                                                                                                     aClassLoader != null ? aClassLoader
+                                                                                                                          : ClassLoaderHelper.getDefaultClassLoader ()))
       aSPI.registerJsonValueSerializer (this);
 
     if (LOGGER.isDebugEnabled ())

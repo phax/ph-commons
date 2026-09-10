@@ -19,8 +19,8 @@ package com.helger.base.exception;
 import org.jspecify.annotations.Nullable;
 
 /**
- * This class should be used when an error occurs in the initialization phase
- * (e.g. in static blocks of classes).
+ * This class should be used when an error occurs in the initialization phase (e.g. in static blocks
+ * of classes).
  *
  * @author Philip Helger
  */

@@ -83,16 +83,15 @@ public abstract class AbstractScope implements IScope
    */
   public final boolean isValid ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
+    return m_aRWLock.readLockedBoolean (() -> !m_bInPreDestruction && !m_bInDestruction && !m_bDestroyed);
   }
 
   /**
-   * @return <code>true</code> if this scope is currently in the pre
-   *         destruction phase.
+   * @return <code>true</code> if this scope is currently in the pre destruction phase.
    */
   public final boolean isInPreDestruction ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bInPreDestruction);
+    return m_aRWLock.readLockedBoolean (() -> m_bInPreDestruction);
   }
 
   /**
@@ -100,7 +99,7 @@ public abstract class AbstractScope implements IScope
    */
   public final boolean isInDestruction ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bInDestruction);
+    return m_aRWLock.readLockedBoolean (() -> m_bInDestruction);
   }
 
   /**
@@ -108,20 +107,20 @@ public abstract class AbstractScope implements IScope
    */
   public final boolean isDestroyed ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bDestroyed);
+    return m_aRWLock.readLockedBoolean (() -> m_bDestroyed);
   }
 
   /**
-   * Override this method to perform further actions BEFORE the scope is
-   * destroyed. The state is "in pre destruction".
+   * Override this method to perform further actions BEFORE the scope is destroyed. The state is "in
+   * pre destruction".
    */
   @OverrideOnDemand
   protected void preDestroy ()
   {}
 
   /**
-   * Override this method to perform further actions AFTER the scope was
-   * destroyed. The state is "destroyed".
+   * Override this method to perform further actions AFTER the scope was destroyed. The state is
+   * "destroyed".
    */
   @OverrideOnDemand
   protected void postDestroy ()
@@ -132,7 +131,7 @@ public abstract class AbstractScope implements IScope
    */
   public final void destroyScope ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (m_bInPreDestruction)
         throw new IllegalStateException ("Scope " + getID () + " is already in pre destruction!");
       m_bInPreDestruction = true;
@@ -154,7 +153,7 @@ public abstract class AbstractScope implements IScope
         LOGGER.error ("Failed to call onBeforeScopeDestruction in scope " + getID () + " for " + aValue, ex);
       }
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (m_bDestroyed)
         throw new IllegalStateException ("Scope " + getID () + " is already destroyed!");
       if (m_bInDestruction)
@@ -176,7 +175,7 @@ public abstract class AbstractScope implements IScope
       }
 
     // Finished destruction process -> remember this
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // remove all attributes (double write lock is no problem)
       m_aAttrs.clear ();
 
@@ -194,7 +193,7 @@ public abstract class AbstractScope implements IScope
   public final <T> T runAtomic (@NonNull final Function <? super IScope, ? extends T> aFunction)
   {
     ValueEnforcer.notNull (aFunction, "Function");
-    return m_aRWLock.writeLockedGet ( () -> aFunction.apply (this));
+    return m_aRWLock.writeLockedGet (() -> aFunction.apply (this));
   }
 
   /**
@@ -203,7 +202,7 @@ public abstract class AbstractScope implements IScope
   public final void runAtomic (@NonNull final Consumer <? super IScope> aConsumer)
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
-    m_aRWLock.writeLocked ( () -> aConsumer.accept (this));
+    m_aRWLock.writeLocked (() -> aConsumer.accept (this));
   }
 
   /**

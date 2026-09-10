@@ -30,8 +30,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Object wrapper around a boolean so that it can be passed a final object but
- * is mutable.
+ * Object wrapper around a boolean so that it can be passed a final object but is mutable.
  *
  * @author Philip Helger
  */

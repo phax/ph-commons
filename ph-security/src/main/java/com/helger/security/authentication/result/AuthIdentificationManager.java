@@ -29,8 +29,7 @@ import com.helger.security.authentication.credentials.ICredentialValidationResul
 import com.helger.security.authentication.subject.IAuthSubject;
 
 /**
- * This is the main class for creating an {@link IAuthToken} from
- * {@link IAuthCredentials}.
+ * This is the main class for creating an {@link IAuthToken} from {@link IAuthCredentials}.
  *
  * @author Philip Helger
  */
@@ -43,12 +42,10 @@ public final class AuthIdentificationManager
   {}
 
   /**
-   * Validate the login credentials, try to resolve the subject and create a
-   * token upon success.
+   * Validate the login credentials, try to resolve the subject and create a token upon success.
    *
    * @param aCredentials
-   *        The credentials to validate. If <code>null</code> it is treated as
-   *        error.
+   *        The credentials to validate. If <code>null</code> it is treated as error.
    * @return Never <code>null</code>.
    */
   @NonNull

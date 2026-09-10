@@ -94,8 +94,8 @@ public class SizeLong implements IHasDimensionLong
    *        Maximum width. Must be &gt; 0.
    * @param nMaxHeight
    *        Maximum height. Must be &gt; 0.
-   * @return An array with 2 elements, where the first element is the width, and
-   *         the second is the height.
+   * @return An array with 2 elements, where the first element is the width, and the second is the
+   *         height.
    */
   @NonNull
   @CheckReturnValue

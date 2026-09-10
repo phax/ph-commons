@@ -45,8 +45,7 @@ public enum EAppend implements BooleanSupplier
   }
 
   /**
-   * @return <code>true</code> if this is {@link #APPEND}, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this is {@link #APPEND}, <code>false</code> otherwise.
    */
   public boolean isAppend ()
   {
@@ -54,8 +53,7 @@ public enum EAppend implements BooleanSupplier
   }
 
   /**
-   * @return <code>true</code> if this is {@link #TRUNCATE},
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this is {@link #TRUNCATE}, <code>false</code> otherwise.
    */
   public boolean isTruncate ()
   {
@@ -63,8 +61,8 @@ public enum EAppend implements BooleanSupplier
   }
 
   /**
-   * @return The matching NIO {@link OpenOption} array for this append mode.
-   *         Never <code>null</code>.
+   * @return The matching NIO {@link OpenOption} array for this append mode. Never
+   *         <code>null</code>.
    */
   @NonNull
   public OpenOption [] getAsOpenOptions ()

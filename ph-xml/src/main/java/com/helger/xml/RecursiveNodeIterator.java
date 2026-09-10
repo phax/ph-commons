@@ -85,8 +85,7 @@ public class RecursiveNodeIterator implements ICommonsIterableIterator <Node>
   }
 
   /**
-   * Create a {@link RecursiveNodeIterator} that only iterates the child nodes
-   * of the given node.
+   * Create a {@link RecursiveNodeIterator} that only iterates the child nodes of the given node.
    *
    * @param aNode
    *        The node to iterate the children from. May not be <code>null</code>.

@@ -87,8 +87,8 @@ public final class XMLDebug
   {}
 
   /**
-   * @return A mutable copy of all supported DOM features grouped by version.
-   *         Never <code>null</code>.
+   * @return A mutable copy of all supported DOM features grouped by version. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -102,8 +102,8 @@ public final class XMLDebug
    *
    * @param eFeatureVersion
    *        The DOM feature version to query. May not be <code>null</code>.
-   * @return A mutable copy of the supported features for the given version,
-   *         or <code>null</code> if the version is unknown.
+   * @return A mutable copy of the supported features for the given version, or <code>null</code> if
+   *         the version is unknown.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -128,8 +128,8 @@ public final class XMLDebug
    *
    * @param nNodeType
    *        The DOM node type ID (e.g. {@link org.w3c.dom.Node#ELEMENT_NODE}).
-   * @return The name of the node type or the numeric value as a string if
-   *         the type is unknown. Never <code>null</code>.
+   * @return The name of the node type or the numeric value as a string if the type is unknown.
+   *         Never <code>null</code>.
    */
   @NonNull
   public static String getNodeTypeAsString (final int nNodeType)

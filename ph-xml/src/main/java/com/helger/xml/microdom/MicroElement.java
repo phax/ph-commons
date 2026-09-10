@@ -78,8 +78,8 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
    * @param sNamespaceURI
    *        The namespace URI to use. May be <code>null</code>.
    * @param sTagName
-   *        The tag name of the element. May neither be <code>null</code> nor empty. If a
-   *        namespace prefix is contained, it will be stripped.
+   *        The tag name of the element. May neither be <code>null</code> nor empty. If a namespace
+   *        prefix is contained, it will be stripped.
    */
   public MicroElement (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sTagName)
   {

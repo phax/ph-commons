@@ -39,9 +39,9 @@ public final class ArrayIteratorTest
   public void testAll ()
   {
     final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.createArray ("Hallo",
-                                                                                  "Welt",
-                                                                                  "from",
-                                                                                  "Copenhagen"));
+                                                                                     "Welt",
+                                                                                     "from",
+                                                                                     "Copenhagen"));
     for (int i = 0; i < 10; ++i)
       assertTrue (ae.hasNext ());
     assertEquals ("Hallo", ae.next ());
@@ -109,9 +109,9 @@ public final class ArrayIteratorTest
   public void testStdMethods ()
   {
     final ArrayIterator <String> ae = new ArrayIterator <> (ArrayHelper.createArray ("Hallo",
-                                                                                  "Welt",
-                                                                                  "from",
-                                                                                  "Copenhagen"));
+                                                                                     "Welt",
+                                                                                     "from",
+                                                                                     "Copenhagen"));
     assertEquals (ae, new ArrayIterator <> (ArrayHelper.createArray ("Hallo", "Welt", "from", "Copenhagen")));
     assertNotEquals (ae, new ArrayIterator <> (ArrayHelper.createArray ("Hallo", "Welt", "from")));
 

@@ -32,8 +32,8 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.tree.withid.ITreeItemWithID;
 
 /**
- * An abstract tree item factory that maintains a unique ID over all items. It
- * does not put the root item in the data store!
+ * An abstract tree item factory that maintains a unique ID over all items. It does not put the root
+ * item in the data store!
  *
  * @param <KEYTYPE>
  *        The key type.

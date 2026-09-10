@@ -24,8 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate methods that are supposed to throw an
- * {@link UnsupportedOperationException}.
+ * Indicate methods that are supposed to throw an {@link UnsupportedOperationException}.
  *
  * @author Philip Helger
  */

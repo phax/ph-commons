@@ -25,8 +25,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A wrapper around another {@link FilterReader} to make the wrapped
- * {@link Reader} accessible.
+ * A wrapper around another {@link FilterReader} to make the wrapped {@link Reader} accessible.
  *
  * @author Philip Helger
  */
@@ -42,8 +41,7 @@ public class WrappedReader extends FilterReader
   }
 
   /**
-   * @return The wrapped reader provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The wrapped reader provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final Reader getWrappedReader ()

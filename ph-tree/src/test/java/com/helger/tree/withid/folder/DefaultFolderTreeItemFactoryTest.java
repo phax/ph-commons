@@ -55,10 +55,10 @@ public final class DefaultFolderTreeItemFactoryTest
     final IAggregator <String, String> aAggregator = x -> StringImplode.getImploded ('/', x);
     final DefaultFolderTreeItemFactory <String, String, List <String>> ftif = new DefaultFolderTreeItemFactory <> (aAggregator);
     TestHelper.testDefaultImplementationWithEqualContentObject (ftif,
-                                                                       new DefaultFolderTreeItemFactory <> (aAggregator));
+                                                                new DefaultFolderTreeItemFactory <> (aAggregator));
     // New aggregator - different object!
     TestHelper.testDefaultImplementationWithDifferentContentObject (ftif,
-                                                                           new DefaultFolderTreeItemFactory <> (x -> StringImplode.getImploded ('/',
-                                                                                                                                                x)));
+                                                                    new DefaultFolderTreeItemFactory <> (x -> StringImplode.getImploded ('/',
+                                                                                                                                         x)));
   }
 }

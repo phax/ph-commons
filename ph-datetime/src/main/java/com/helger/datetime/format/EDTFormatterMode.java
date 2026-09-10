@@ -17,8 +17,7 @@
 package com.helger.datetime.format;
 
 /**
- * Formatters can be created in different modes. This enum lists the potential
- * modes.
+ * Formatters can be created in different modes. This enum lists the potential modes.
  * 
  * @author Philip Helger
  */

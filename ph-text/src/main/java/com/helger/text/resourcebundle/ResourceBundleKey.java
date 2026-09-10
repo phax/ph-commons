@@ -43,13 +43,12 @@ public class ResourceBundleKey
    * Constructor.
    *
    * @param sBundleName
-   *        The resource bundle name. May neither be <code>null</code> nor
-   *        empty.
+   *        The resource bundle name. May neither be <code>null</code> nor empty.
    * @param sKey
-   *        The property key within the bundle. May neither be
-   *        <code>null</code> nor empty.
+   *        The property key within the bundle. May neither be <code>null</code> nor empty.
    */
-  public ResourceBundleKey (@NonNull @Nonempty final String sBundleName, @NonNull @Nonempty @PropertyKey final String sKey)
+  public ResourceBundleKey (@NonNull @Nonempty final String sBundleName,
+                            @NonNull @Nonempty @PropertyKey final String sKey)
   {
     m_sBundleName = ValueEnforcer.notEmpty (sBundleName, "BundleName");
     m_sKey = ValueEnforcer.notEmpty (sKey, "Key");
@@ -66,8 +65,7 @@ public class ResourceBundleKey
   }
 
   /**
-   * @return The property key within the bundle. Neither <code>null</code> nor
-   *         empty.
+   * @return The property key within the bundle. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -119,8 +117,7 @@ public class ResourceBundleKey
   }
 
   /**
-   * Get the UTF-8 string value for the given locale using a specific class
-   * loader.
+   * Get the UTF-8 string value for the given locale using a specific class loader.
    *
    * @param aContentLocale
    *        The locale to use. May not be <code>null</code>.

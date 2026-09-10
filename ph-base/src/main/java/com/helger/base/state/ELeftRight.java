@@ -35,8 +35,7 @@ public enum ELeftRight implements ILeftRightIndicator
   }
 
   /**
-   * Convert an {@link ILeftRightIndicator} to the corresponding
-   * {@link ELeftRight} enum value.
+   * Convert an {@link ILeftRightIndicator} to the corresponding {@link ELeftRight} enum value.
    *
    * @param aLeftRightIndicator
    *        The left/right indicator to convert. May not be <code>null</code>.

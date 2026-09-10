@@ -33,11 +33,10 @@ import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Utility class for generating all possible combinations of elements for a
- * specified number of available slots. Duplicates in the passed elements will
- * be treated as different individuals and hence deliver duplicate result
- * solutions. This generator will only return complete result sets filling all
- * slots.
+ * Utility class for generating all possible combinations of elements for a specified number of
+ * available slots. Duplicates in the passed elements will be treated as different individuals and
+ * hence deliver duplicate result solutions. This generator will only return complete result sets
+ * filling all slots.
  *
  * @author Boris Gregorcic
  * @author Philip Helger
@@ -58,13 +57,12 @@ public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator
    * Ctor
    *
    * @param aElements
-   *        the elements to fill into the slots for creating all combinations
-   *        (must not be empty!)
+   *        the elements to fill into the slots for creating all combinations (must not be empty!)
    * @param nSlotCount
-   *        the number of slots to use (must not be greater than the element
-   *        count!)
+   *        the number of slots to use (must not be greater than the element count!)
    */
-  public CombinationGenerator (@NonNull @Nonempty final ICommonsList <DATATYPE> aElements, @Nonnegative final int nSlotCount)
+  public CombinationGenerator (@NonNull @Nonempty final ICommonsList <DATATYPE> aElements,
+                               @Nonnegative final int nSlotCount)
   {
     ValueEnforcer.notEmpty (aElements, "Elements");
     ValueEnforcer.isBetweenInclusive (nSlotCount, "SlotCount", 0, aElements.size ());
@@ -121,8 +119,8 @@ public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator
   /**
    * Generate next combination (algorithm from Rosen p. 286)
    *
-   * @return the next combination as list of the size specified for slots filled
-   *         with elements from the original list
+   * @return the next combination as list of the size specified for slots filled with elements from
+   *         the original list
    */
   @NonNull
   @ReturnsMutableCopy
@@ -132,7 +130,8 @@ public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator
       throw new NoSuchElementException ();
 
     // Not for the very first item, as the first item is the original order
-    final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations : m_aCombinationsLeft.equals (m_aTotalCombinations);
+    final boolean bFirstItem = m_bUseLong ? m_nCombinationsLeft == m_nTotalCombinations
+                                          : m_aCombinationsLeft.equals (m_aTotalCombinations);
     if (!bFirstItem)
     {
       final int nElementCount = m_aElements.length;
@@ -173,9 +172,8 @@ public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator
    *        Input list.
    * @param nSlotCount
    *        Slot count.
-   * @return The list of all permutations. Beware: the resulting list may be
-   *         quite large and may contain duplicates if the input list contains
-   *         duplicate elements!
+   * @return The list of all permutations. Beware: the resulting list may be quite large and may
+   *         contain duplicates if the input list contains duplicate elements!
    */
   @NonNull
   public static <DATATYPE> ICommonsList <ICommonsList <DATATYPE>> getAllPermutations (@NonNull @Nonempty final ICommonsList <DATATYPE> aInput,
@@ -196,9 +194,9 @@ public class CombinationGenerator <DATATYPE> implements ICommonsIterableIterator
    * @param nSlotCount
    *        Slot count.
    * @param aResultList
-   *        The list to be filled with all permutations. Beware: this list may
-   *        be quite large and may contain duplicates if the input list contains
-   *        duplicate elements! Note: this list is not cleared before filling
+   *        The list to be filled with all permutations. Beware: this list may be quite large and
+   *        may contain duplicates if the input list contains duplicate elements! Note: this list is
+   *        not cleared before filling
    */
   public static <DATATYPE> void addAllPermutations (@NonNull @Nonempty final ICommonsList <DATATYPE> aInput,
                                                     @Nonnegative final int nSlotCount,

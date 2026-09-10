@@ -101,7 +101,6 @@ public final class PDTXMLConverterTest
     assertNotNull (aLD2);
     assertEquals (aLD, aLD2);
     assertNull (PDTXMLConverter.getLocalDate (null));
-
   }
 
   @Test
@@ -137,8 +136,10 @@ public final class PDTXMLConverterTest
     // Depends on the system timezone
     if (false)
       assertEquals ("Wed Oct 31 00:00:00 CET 2018", aDate.toString ());
-    assertEquals (PDTConfig.getDefaultZoneId ().getRules ().getOffset (PDTFactory.createLocalDateTime (aDate)).getTotalSeconds () /
-                  CGlobal.SECONDS_PER_MINUTE,
+    assertEquals (PDTConfig.getDefaultZoneId ()
+                           .getRules ()
+                           .getOffset (PDTFactory.createLocalDateTime (aDate))
+                           .getTotalSeconds () / CGlobal.SECONDS_PER_MINUTE,
                   PDTFactory.getTimezoneOffsetInMinutes (aDate));
 
     GregorianCalendar c0 = PDTXMLConverter.getCalendar (aDate);

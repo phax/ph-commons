@@ -20,11 +20,11 @@ import java.math.BigDecimal;
 import java.util.Random;
 
 /**
- * This code benchmarks the performance of copying an array purely in Java
- * versus copying it with System.arraycopy.
+ * This code benchmarks the performance of copying an array purely in Java versus copying it with
+ * System.arraycopy.
  * <p>
- * If available on the executing platform, it may be very useful to perform
- * benchmarks with the server JVM as well as the default client JVM.
+ * If available on the executing platform, it may be very useful to perform benchmarks with the
+ * server JVM as well as the default client JVM.
  */
 public final class BenchmarkBigDecimalEquals extends AbstractBenchmarkTask
 {

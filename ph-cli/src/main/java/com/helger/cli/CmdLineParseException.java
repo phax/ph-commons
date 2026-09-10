@@ -21,9 +21,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Base class for commandline parse exceptions. Is a checked exception, as
- * invalid values are possible from the user side, so it is advisable to catch
- * them any way!
+ * Base class for commandline parse exceptions. Is a checked exception, as invalid values are
+ * possible from the user side, so it is advisable to catch them any way!
  *
  * @author Philip Helger
  */
@@ -43,7 +42,9 @@ public class CmdLineParseException extends Exception
    * @param sMessage
    *        the detail message
    */
-  public CmdLineParseException (@NonNull final ECmdLineParseError eError, @NonNull final Option aOption, @NonNull final String sMessage)
+  public CmdLineParseException (@NonNull final ECmdLineParseError eError,
+                                @NonNull final Option aOption,
+                                @NonNull final String sMessage)
   {
     super (sMessage);
     m_eError = eError;
@@ -72,8 +73,8 @@ public class CmdLineParseException extends Exception
   }
 
   /**
-   * @return The error code describing the type of parse error that occurred.
-   *         Never <code>null</code>.
+   * @return The error code describing the type of parse error that occurred. Never
+   *         <code>null</code>.
    */
   @NonNull
   public ECmdLineParseError getError ()
@@ -82,9 +83,8 @@ public class CmdLineParseException extends Exception
   }
 
   /**
-   * @return The affected option that caused the parse error, or
-   *         <code>null</code> if the error is related to an option group
-   *         instead.
+   * @return The affected option that caused the parse error, or <code>null</code> if the error is
+   *         related to an option group instead.
    */
   @Nullable
   public Option getOption ()
@@ -93,9 +93,8 @@ public class CmdLineParseException extends Exception
   }
 
   /**
-   * @return The affected option group that caused the parse error, or
-   *         <code>null</code> if the error is related to a single option
-   *         instead.
+   * @return The affected option group that caused the parse error, or <code>null</code> if the
+   *         error is related to a single option instead.
    */
   @Nullable
   public OptionGroup getOptionGroup ()

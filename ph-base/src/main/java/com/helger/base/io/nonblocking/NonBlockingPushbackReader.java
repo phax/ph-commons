@@ -120,13 +120,14 @@ public class NonBlockingPushbackReader extends FilterReader
    *        Offset at which to start writing characters
    * @param nLen
    *        Maximum number of characters to read
-   * @return The number of characters read, or -1 if the end of the stream has
-   *         been reached
+   * @return The number of characters read, or -1 if the end of the stream has been reached
    * @exception IOException
    *            If an I/O error occurs
    */
   @Override
-  public int read (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final char @NonNull [] aBuf,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -164,15 +165,13 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Pushes back a single character by copying it to the front of the pushback
-   * buffer. After this method returns, the next character to be read will have
-   * the value <code>(char)c</code>.
+   * Pushes back a single character by copying it to the front of the pushback buffer. After this
+   * method returns, the next character to be read will have the value <code>(char)c</code>.
    *
    * @param c
    *        The int value representing a character to be pushed back
    * @exception IOException
-   *            If the pushback buffer is full, or if some other I/O error
-   *            occurs
+   *            If the pushback buffer is full, or if some other I/O error occurs
    */
   public void unread (final int c) throws IOException
   {
@@ -183,10 +182,10 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Pushes back a portion of an array of characters by copying it to the front
-   * of the pushback buffer. After this method returns, the next character to be
-   * read will have the value <code>cbuf[off]</code>, the character after that
-   * will have the value <code>cbuf[off+1]</code>, and so forth.
+   * Pushes back a portion of an array of characters by copying it to the front of the pushback
+   * buffer. After this method returns, the next character to be read will have the value
+   * <code>cbuf[off]</code>, the character after that will have the value <code>cbuf[off+1]</code>,
+   * and so forth.
    *
    * @param aBuf
    *        Character array
@@ -195,10 +194,12 @@ public class NonBlockingPushbackReader extends FilterReader
    * @param nLen
    *        Number of characters to push back
    * @exception IOException
-   *            If there is insufficient room in the pushback buffer, or if some
-   *            other I/O error occurs
+   *            If there is insufficient room in the pushback buffer, or if some other I/O error
+   *            occurs
    */
-  public void unread (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void unread (final char @NonNull [] aBuf,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -209,16 +210,15 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Pushes back an array of characters by copying it to the front of the
-   * pushback buffer. After this method returns, the next character to be read
-   * will have the value <code>cbuf[0]</code>, the character after that will
-   * have the value <code>cbuf[1]</code>, and so forth.
+   * Pushes back an array of characters by copying it to the front of the pushback buffer. After
+   * this method returns, the next character to be read will have the value <code>cbuf[0]</code>,
+   * the character after that will have the value <code>cbuf[1]</code>, and so forth.
    *
    * @param aBuf
    *        Character array to push back
    * @exception IOException
-   *            If there is insufficient room in the pushback buffer, or if some
-   *            other I/O error occurs
+   *            If there is insufficient room in the pushback buffer, or if some other I/O error
+   *            occurs
    */
   public void unread (final char @NonNull [] aBuf) throws IOException
   {
@@ -252,8 +252,8 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Resets the stream. The <code>reset</code> method of
-   * <code>PushbackReader</code> always throws an exception.
+   * Resets the stream. The <code>reset</code> method of <code>PushbackReader</code> always throws
+   * an exception.
    *
    * @exception IOException
    *            Always, since reset is not supported
@@ -274,10 +274,9 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Closes the stream and releases any system resources associated with it.
-   * Once the stream has been closed, further read(), unread(), ready(), or
-   * skip() invocations will throw an IOException. Closing a previously closed
-   * stream has no effect.
+   * Closes the stream and releases any system resources associated with it. Once the stream has
+   * been closed, further read(), unread(), ready(), or skip() invocations will throw an
+   * IOException. Closing a previously closed stream has no effect.
    *
    * @exception IOException
    *            If an I/O error occurs
@@ -290,8 +289,8 @@ public class NonBlockingPushbackReader extends FilterReader
   }
 
   /**
-   * Skips characters. This method will block until some characters are
-   * available, an I/O error occurs, or the end of the stream is reached.
+   * Skips characters. This method will block until some characters are available, an I/O error
+   * occurs, or the end of the stream is reached.
    *
    * @param nSkip
    *        The number of characters to skip. Must be &ge; 0.

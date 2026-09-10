@@ -75,8 +75,7 @@ public enum EXMLSerializeIndent implements IHasID <String>
   }
 
   /**
-   * @return A version of this indent mode without indentation. Never
-   *         <code>null</code>.
+   * @return A version of this indent mode without indentation. Never <code>null</code>.
    */
   @NonNull
   public EXMLSerializeIndent getWithoutIndent ()
@@ -85,8 +84,7 @@ public enum EXMLSerializeIndent implements IHasID <String>
   }
 
   /**
-   * @return A version of this indent mode with alignment enabled. Never
-   *         <code>null</code>.
+   * @return A version of this indent mode with alignment enabled. Never <code>null</code>.
    */
   @NonNull
   public EXMLSerializeIndent getWithAlign ()

@@ -44,8 +44,7 @@ public interface IHandledIndicator
    *
    * @param aOther
    *        The other handled indicator. May not be <code>null</code>.
-   * @return {@link EHandled#HANDLED} if either this or the other indicator is
-   *         handled.
+   * @return {@link EHandled#HANDLED} if either this or the other indicator is handled.
    */
   @NonNull
   default EHandled or (@NonNull final IHandledIndicator aOther)
@@ -58,8 +57,7 @@ public interface IHandledIndicator
    *
    * @param aOther
    *        The other handled indicator. May not be <code>null</code>.
-   * @return {@link EHandled#HANDLED} if both this and the other indicator are
-   *         handled.
+   * @return {@link EHandled#HANDLED} if both this and the other indicator are handled.
    */
   @NonNull
   default EHandled and (@NonNull final IHandledIndicator aOther)

@@ -46,14 +46,13 @@ public interface IJsonValue extends IJson, IGetterDirectTrait
   boolean isBooleanValue ();
 
   /**
-   * @return <code>true</code> if the value is of type {@link BigInteger},
-   *         {@link Integer} or {@link Long}.
+   * @return <code>true</code> if the value is of type {@link BigInteger}, {@link Integer} or
+   *         {@link Long}.
    */
   boolean isIntValue ();
 
   /**
-   * @return <code>true</code> if the value is of type {@link BigDecimal} or
-   *         {@link Double}.
+   * @return <code>true</code> if the value is of type {@link BigDecimal} or {@link Double}.
    */
   boolean isDecimalValue ();
 
@@ -69,8 +68,7 @@ public interface IJsonValue extends IJson, IGetterDirectTrait
   IJsonValueSerializer getValueSerializer ();
 
   /**
-   * Append this value in JSON notation to the passed {@link Writer}. This is a
-   * shortcut for
+   * Append this value in JSON notation to the passed {@link Writer}. This is a shortcut for
    * <code>getValueSerializer ().appendAsJsonString (getValue (), aWriter);</code>
    *
    * @param aWriter

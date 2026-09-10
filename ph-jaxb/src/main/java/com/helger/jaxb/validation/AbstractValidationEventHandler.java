@@ -41,8 +41,7 @@ import jakarta.xml.bind.ValidationEventHandler;
 import jakarta.xml.bind.ValidationEventLocator;
 
 /**
- * An abstract implementation of the JAXB {@link ValidationEventHandler}
- * interface.
+ * An abstract implementation of the JAXB {@link ValidationEventHandler} interface.
  *
  * @author Philip Helger
  */
@@ -125,14 +124,13 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   protected abstract void onEvent (@NonNull final IError aError);
 
   /**
-   * Should the processing be continued? By default it is always continued, as
-   * long as no fatal error occurs. This method is only invoked, if no wrapped
-   * handler is present.
+   * Should the processing be continued? By default it is always continued, as long as no fatal
+   * error occurs. This method is only invoked, if no wrapped handler is present.
    *
    * @param aErrorLevel
    *        The error level to be checked.
-   * @return <code>true</code> if processing should be continued,
-   *         <code>false</code> if processing should stop.
+   * @return <code>true</code> if processing should be continued, <code>false</code> if processing
+   *         should stop.
    */
   @OverrideOnDemand
   protected boolean continueProcessing (@NonNull final IErrorLevel aErrorLevel)
@@ -142,14 +140,13 @@ public abstract class AbstractValidationEventHandler implements IValidationEvent
   }
 
   /**
-   * Handle a validation event. This method determines the error level, extracts
-   * location information and the error message, calls {@link #onEvent(IError)}
-   * and then decides whether processing should continue.
+   * Handle a validation event. This method determines the error level, extracts location
+   * information and the error message, calls {@link #onEvent(IError)} and then decides whether
+   * processing should continue.
    *
    * @param aEvent
    *        The validation event to handle. May not be <code>null</code>.
-   * @return <code>true</code> if processing should continue, <code>false</code>
-   *         if it should stop.
+   * @return <code>true</code> if processing should continue, <code>false</code> if it should stop.
    */
   public final boolean handleEvent (@NonNull final ValidationEvent aEvent)
   {

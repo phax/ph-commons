@@ -238,9 +238,9 @@ public final class ClassPathResourceTest
     final ClassPathResource aCPISP2 = new ClassPathResource ("folder/test1.txt");
     TestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a, aCPISP1b);
     TestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                       new ClassPathResource ("cp:folder/test2.txt"));
+                                                                new ClassPathResource ("cp:folder/test2.txt"));
     TestHelper.testDefaultImplementationWithEqualContentObject (aCPISP1a,
-                                                                       new ClassPathResource ("classpath:folder/test2.txt"));
+                                                                new ClassPathResource ("classpath:folder/test2.txt"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aCPISP1a, aCPISP2);
   }
 

@@ -21,8 +21,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.state.ESuccess;
 
 /**
- * Base interface for a concurrent queue worker. It asynchronously collects
- * objects to handle (via the {@link #queueObject(Object)} method).
+ * Base interface for a concurrent queue worker. It asynchronously collects objects to handle (via
+ * the {@link #queueObject(Object)} method).
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -43,8 +43,8 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
   ESuccess queueObject (@NonNull DATATYPE aObject);
 
   /**
-   * Stop taking new objects in the collector. Returns directly and does not
-   * wait until the processing finished.
+   * Stop taking new objects in the collector. Returns directly and does not wait until the
+   * processing finished.
    *
    * @return {@link ESuccess}
    */
@@ -52,10 +52,9 @@ public interface IMutableConcurrentCollector <DATATYPE> extends IConcurrentColle
   ESuccess stopQueuingNewObjects ();
 
   /**
-   * This method starts the collector by taking objects from the internal queue.
-   * So this method blocks and must be invoked from a separate thread. This
-   * method runs until {@link #stopQueuingNewObjects()} is new called and the
-   * queue is empty.
+   * This method starts the collector by taking objects from the internal queue. So this method
+   * blocks and must be invoked from a separate thread. This method runs until
+   * {@link #stopQueuingNewObjects()} is new called and the queue is empty.
    */
   void collect ();
 }

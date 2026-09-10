@@ -152,9 +152,8 @@ public final class ClassHierarchyCache
   {}
 
   /**
-   * It's important to clear the cache upon application shutdown, because for
-   * web applications, keeping a cache of classes may prevent the web
-   * application from unloading
+   * It's important to clear the cache upon application shutdown, because for web applications,
+   * keeping a cache of classes may prevent the web application from unloading
    *
    * @return {@link EChange}
    */
@@ -177,25 +176,24 @@ public final class ClassHierarchyCache
     final String sKey = aClass.getName ();
 
     // Get or update from cache
-    ClassList aClassList = RW_LOCK.readLockedGet ( () -> CLASS_HIERARCHY.get (sKey));
+    ClassList aClassList = RW_LOCK.readLockedGet (() -> CLASS_HIERARCHY.get (sKey));
 
     if (aClassList == null)
     {
       // try again in write lock
-      aClassList = RW_LOCK.writeLockedGet ( () -> CLASS_HIERARCHY.computeIfAbsent (sKey, x -> new ClassList (aClass)));
+      aClassList = RW_LOCK.writeLockedGet (() -> CLASS_HIERARCHY.computeIfAbsent (sKey, x -> new ClassList (aClass)));
     }
     return aClassList;
   }
 
   /**
-   * Get the complete super class hierarchy of the passed class including all
-   * super classes and all interfaces of the passed class and of all parent
-   * classes.
+   * Get the complete super class hierarchy of the passed class including all super classes and all
+   * interfaces of the passed class and of all parent classes.
    *
    * @param aClass
    *        The source class to get the hierarchy from.
-   * @return A non-<code>null</code> and non-empty Set containing the passed
-   *         class and all super classes, and all super-interfaces.
+   * @return A non-<code>null</code> and non-empty Set containing the passed class and all super
+   *         classes, and all super-interfaces.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -205,15 +203,13 @@ public final class ClassHierarchyCache
   }
 
   /**
-   * Get the complete super class hierarchy of the passed class including all
-   * super classes and all interfaces of the passed class and of all parent
-   * classes.
+   * Get the complete super class hierarchy of the passed class including all super classes and all
+   * interfaces of the passed class and of all parent classes.
    *
    * @param aClass
    *        The source class to get the hierarchy from.
-   * @return A non-<code>null</code> and non-empty list containing the passed
-   *         class and all super classes, and all super-interfaces. Duplicates
-   *         were already removed.
+   * @return A non-<code>null</code> and non-empty list containing the passed class and all super
+   *         classes, and all super-interfaces. Duplicates were already removed.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -223,15 +219,13 @@ public final class ClassHierarchyCache
   }
 
   /**
-   * Iterate the complete super class hierarchy of the passed class including
-   * all super classes and all interfaces of the passed class and of all parent
-   * classes.
+   * Iterate the complete super class hierarchy of the passed class including all super classes and
+   * all interfaces of the passed class and of all parent classes.
    *
    * @param aClass
    *        The source class to get the hierarchy from.
-   * @return A non-<code>null</code> and non-empty list containing the passed
-   *         class and all super classes, and all super-interfaces. Duplicates
-   *         were already removed.
+   * @return A non-<code>null</code> and non-empty list containing the passed class and all super
+   *         classes, and all super-interfaces. Duplicates were already removed.
    */
   @NonNull
   public static ICommonsIterable <WeakReference <Class <?>>> getClassHierarchyIterator (@NonNull final Class <?> aClass)

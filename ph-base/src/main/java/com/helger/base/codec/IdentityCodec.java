@@ -19,8 +19,8 @@ package com.helger.base.codec;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Special implementation of {@link ICodec} that does nothing. This is a
- * separate class to be able to identify it from non-identity codecs.
+ * Special implementation of {@link ICodec} that does nothing. This is a separate class to be able
+ * to identify it from non-identity codecs.
  *
  * @author Philip Helger
  * @param <DATATYPE>

@@ -26,8 +26,7 @@ import org.jspecify.annotations.NonNull;
 public interface IStoppable
 {
   /**
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   EChange stop ();

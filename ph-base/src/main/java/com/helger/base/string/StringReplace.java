@@ -32,8 +32,8 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Helper class for replacing characters and substrings within strings, with
- * support for multiple replacements and streaming output.
+ * Helper class for replacing characters and substrings within strings, with support for multiple
+ * replacements and streaming output.
  *
  * @author Philip Helger
  */
@@ -115,9 +115,8 @@ public final class StringReplace
       return sInputString;
 
     // build output buffer
-    final StringBuilder ret = new StringBuilder (nOldLength >= nNewLength ? sInputString.length () : sInputString
-                                                                                                                 .length () *
-                                                                                                     2);
+    final StringBuilder ret = new StringBuilder (nOldLength >= nNewLength ? sInputString.length ()
+                                                                          : sInputString.length () * 2);
     int nOldIndex = 0;
     do
     {
@@ -267,8 +266,8 @@ public final class StringReplace
    *         <code>null</code>.
    */
   public static char @NonNull [] replaceMultiple (@Nullable final String sInputString,
-                                         final char @NonNull [] aSearchChars,
-                                         final char @NonNull [] [] aReplacementStrings)
+                                                  final char @NonNull [] aSearchChars,
+                                                  final char @NonNull [] [] aReplacementStrings)
   {
     // Any input text?
     if (StringHelper.isEmpty (sInputString))
@@ -291,8 +290,8 @@ public final class StringReplace
    *         <code>null</code>.
    */
   public static char @NonNull [] replaceMultiple (final char @Nullable [] aInput,
-                                         final char @NonNull [] aSearchChars,
-                                         final char @NonNull [] [] aReplacementStrings)
+                                                  final char @NonNull [] aSearchChars,
+                                                  final char @NonNull [] [] aReplacementStrings)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
     ValueEnforcer.notNull (aReplacementStrings, "ReplacementStrings");
@@ -395,12 +394,8 @@ public final class StringReplace
                                        final char @NonNull [] [] aReplacementStrings,
                                        @NonNull final Writer aTarget) throws IOException
   {
-    return aInput == null ? 0 : replaceMultipleTo (aInput,
-                                                   0,
-                                                   aInput.length,
-                                                   aSearchChars,
-                                                   aReplacementStrings,
-                                                   aTarget);
+    return aInput == null ? 0
+                          : replaceMultipleTo (aInput, 0, aInput.length, aSearchChars, aReplacementStrings, aTarget);
   }
 
   /**
@@ -490,8 +485,8 @@ public final class StringReplace
    *         <code>null</code>.
    */
   public static char @NonNull [] replaceMultiple (@Nullable final String sInputString,
-                                         final char @NonNull [] aSearchChars,
-                                         final char cReplacementChar)
+                                                  final char @NonNull [] aSearchChars,
+                                                  final char cReplacementChar)
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 

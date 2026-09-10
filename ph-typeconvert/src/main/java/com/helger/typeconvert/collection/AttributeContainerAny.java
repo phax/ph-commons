@@ -25,15 +25,16 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * Base class for all kind of string-object mapping container. This
- * implementation is not thread-safe!
+ * Base class for all kind of string-object mapping container. This implementation is not
+ * thread-safe!
  *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        Key type
  */
 @NotThreadSafe
-public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements IAttributeContainerAny <KEYTYPE>
+public class AttributeContainerAny <KEYTYPE> extends AttributeContainer <KEYTYPE, Object> implements
+                                   IAttributeContainerAny <KEYTYPE>
 {
   /**
    * Default constructor creating an empty container.

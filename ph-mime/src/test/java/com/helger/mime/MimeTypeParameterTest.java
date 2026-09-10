@@ -40,7 +40,9 @@ public final class MimeTypeParameterTest
     assertFalse (p.isValueRequiringQuoting ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", "iso-8859-1"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p,
+                                                                    new MimeTypeParameter ("charsetname",
+                                                                                           "iso-8859-1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
 
     p = new MimeTypeParameter ("charset", "foo bar");
@@ -58,7 +60,9 @@ public final class MimeTypeParameterTest
     assertTrue (p.isValueRequiringQuoting ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (p, new MimeTypeParameter ("charset", ""));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charsetname", "iso-8859-1"));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (p,
+                                                                    new MimeTypeParameter ("charsetname",
+                                                                                           "iso-8859-1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (p, new MimeTypeParameter ("charset", "utf-8"));
   }
 }

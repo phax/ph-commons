@@ -188,8 +188,8 @@ public class Homoglyph
     }
 
     /**
-     * Extract a substring from the code points starting at the given offset with the
-     * specified length.
+     * Extract a substring from the code points starting at the given offset with the specified
+     * length.
      *
      * @param nOfs
      *        The zero-based offset to start at.

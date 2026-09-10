@@ -62,8 +62,7 @@ public class DirectedGraphNode extends AbstractBaseGraphObject implements IMutab
    * Constructor with an explicit ID.
    *
    * @param sID
-   *        The ID of the node. May be <code>null</code> to have one generated
-   *        automatically.
+   *        The ID of the node. May be <code>null</code> to have one generated automatically.
    */
   public DirectedGraphNode (@Nullable final String sID)
   {

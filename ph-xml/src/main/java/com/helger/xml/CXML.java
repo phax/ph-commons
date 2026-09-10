@@ -27,8 +27,8 @@ import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparator;
 
 /**
- * This is just a workaround if Xerces is not in the build path. Normally you
- * would use the constants from the file org.apache.xerces.impl.Constants
+ * This is just a workaround if Xerces is not in the build path. Normally you would use the
+ * constants from the file org.apache.xerces.impl.Constants
  *
  * @author Philip
  */
@@ -93,8 +93,8 @@ public final class CXML
   {}
 
   /**
-   * @return A comparator that compares {@link QName} objects by namespace URI
-   *         first and local part second. Never <code>null</code>.
+   * @return A comparator that compares {@link QName} objects by namespace URI first and local part
+   *         second. Never <code>null</code>.
    */
   @NonNull
   public static IComparator <QName> getComparatorQNameNamespaceURIBeforeLocalPart ()
@@ -108,8 +108,8 @@ public final class CXML
   }
 
   /**
-   * @return A comparator that compares {@link QName} objects by local part
-   *         first and namespace URI second. Never <code>null</code>.
+   * @return A comparator that compares {@link QName} objects by local part first and namespace URI
+   *         second. Never <code>null</code>.
    */
   @NonNull
   public static IComparator <QName> getComparatorQNameLocalPartBeforeNamespaceURI ()
@@ -123,8 +123,8 @@ public final class CXML
   }
 
   /**
-   * @return A comparator that compares {@link QName} objects by their effective
-   *         namespace prefix. Never <code>null</code>.
+   * @return A comparator that compares {@link QName} objects by their effective namespace prefix.
+   *         Never <code>null</code>.
    */
   @NonNull
   public static IComparator <QName> getComparatorQNameForNamespacePrefix ()

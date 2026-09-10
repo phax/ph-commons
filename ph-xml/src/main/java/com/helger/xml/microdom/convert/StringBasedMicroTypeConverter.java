@@ -25,9 +25,8 @@ import com.helger.typeconvert.impl.TypeConverter;
 import com.helger.xml.microdom.IMicroElement;
 
 /**
- * An implementation if {@link IMicroTypeConverter} that uses a regular type
- * converter conversion (see {@link TypeConverter}) from and to string for
- * conversion.
+ * An implementation if {@link IMicroTypeConverter} that uses a regular type converter conversion
+ * (see {@link TypeConverter}) from and to string for conversion.
  *
  * @author Philip Helger
  * @param <T>

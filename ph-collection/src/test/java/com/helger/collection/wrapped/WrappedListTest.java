@@ -41,11 +41,8 @@ import com.helger.collection.commons.CommonsArrayList;
  */
 public final class WrappedListTest
 {
-  private static <T> void _testList (@NonNull final List <T> aList, @NonNull final Class <T> aClass) throws InstantiationException,
-                                                                                                     IllegalAccessException,
-                                                                                                     NoSuchMethodException,
-                                                                                                     SecurityException,
-                                                                                                     InvocationTargetException
+  private static <T> void _testList (@NonNull final List <T> aList,
+                                     @NonNull final Class <T> aClass) throws InstantiationException, IllegalAccessException, NoSuchMethodException, SecurityException, InvocationTargetException
   {
     final Constructor <T> aCtor = aClass.getConstructor ();
 

@@ -27,8 +27,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
- * {@link javax.xml.transform.URIResolver} that logs to a logger but does not
- * resolve anything.
+ * {@link javax.xml.transform.URIResolver} that logs to a logger but does not resolve anything.
  *
  * @author Philip Helger
  */

@@ -34,14 +34,13 @@ import com.helger.io.resource.IWritableResource;
 public interface IWritableResourceProvider extends IReadableResourceProvider
 {
   /**
-   * Check if this resource provider can handle the resource with the passed
-   * name. If there is no real check on whether your resource provider can
-   * handle it, simply return <code>true</code>.
+   * Check if this resource provider can handle the resource with the passed name. If there is no
+   * real check on whether your resource provider can handle it, simply return <code>true</code>.
    *
    * @param sName
    *        The name to check. May be <code>null</code>.
-   * @return <code>true</code> if the name is not <code>null</code> and can be
-   *         handled by this provider, <code>false</code> otherwise.
+   * @return <code>true</code> if the name is not <code>null</code> and can be handled by this
+   *         provider, <code>false</code> otherwise.
    */
   boolean supportsWriting (@Nullable String sName);
 
@@ -56,17 +55,16 @@ public interface IWritableResourceProvider extends IReadableResourceProvider
   IWritableResource getWritableResource (@NonNull String sName);
 
   /**
-   * Get the {@link OutputStream} specified by the given name for reading. This
-   * method may be called without prior call to
-   * {@link #supportsWriting(String)}.
+   * Get the {@link OutputStream} specified by the given name for reading. This method may be called
+   * without prior call to {@link #supportsWriting(String)}.
    *
    * @param sName
    *        The name of the resource to resolve.
    * @param eAppend
    *        Appending mode. May not be <code>null</code>.
-   * @return The {@link OutputStream}. May be <code>null</code> if the
-   *         underlying resource does not exist and cannot be created or if
-   *         {@link #supportsWriting(String)} returns <code>false</code>.
+   * @return The {@link OutputStream}. May be <code>null</code> if the underlying resource does not
+   *         exist and cannot be created or if {@link #supportsWriting(String)} returns
+   *         <code>false</code>.
    */
   @Nullable
   default OutputStream getOutputStream (@NonNull final String sName, @NonNull final EAppend eAppend)

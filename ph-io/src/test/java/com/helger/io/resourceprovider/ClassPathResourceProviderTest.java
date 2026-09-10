@@ -70,10 +70,11 @@ public final class ClassPathResourceProviderTest
   @Test
   public void testEqualsAndHashcode ()
   {
-    TestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (), new ClassPathResourceProvider ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider (),
+                                                                new ClassPathResourceProvider ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (new ClassPathResourceProvider (),
-                                                                           new ClassPathResourceProvider ("folder"));
+                                                                    new ClassPathResourceProvider ("folder"));
     TestHelper.testDefaultImplementationWithEqualContentObject (new ClassPathResourceProvider ("folder"),
-                                                                       new ClassPathResourceProvider ("folder"));
+                                                                new ClassPathResourceProvider ("folder"));
   }
 }

@@ -24,8 +24,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Abstract type converter than can convert from a base source class to a
- * destination class. Example from Number.class to String.class
+ * Abstract type converter than can convert from a base source class to a destination class. Example
+ * from Number.class to String.class
  *
  * @author Philip Helger
  * @param <SRC>
@@ -44,8 +44,8 @@ public class TypeConverterRuleFixedSourceAnyDestination <SRC> extends AbstractTy
    * @param aSrcClass
    *        The fixed source class. May not be <code>null</code>.
    * @param aInBetweenConverter
-   *        The converter function for the intermediate conversion step. May not
-   *        be <code>null</code>.
+   *        The converter function for the intermediate conversion step. May not be
+   *        <code>null</code>.
    */
   public TypeConverterRuleFixedSourceAnyDestination (@NonNull final Class <SRC> aSrcClass,
                                                      @NonNull final Function <? super SRC, ? extends Object> aInBetweenConverter)

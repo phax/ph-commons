@@ -22,8 +22,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.scope.IScope;
 
 /**
- * This enumeration defines all the possible non-web scopes including some
- * utility methods on it.
+ * This enumeration defines all the possible non-web scopes including some utility methods on it.
  *
  * @author Philip Helger
  */
@@ -49,8 +48,7 @@ public enum EScope
    * Get the scope matching this enum value.
    *
    * @param bCreateIfNotExisting
-   *        if <code>false</code> and the scope is not existing,
-   *        <code>null</code> will be returned.
+   *        if <code>false</code> and the scope is not existing, <code>null</code> will be returned.
    * @return The matching {@link IScope} or <code>null</code>.
    */
   @Nullable
@@ -65,11 +63,10 @@ public enum EScope
    * @param eScope
    *        The scope to resolve to a real scope.
    * @param bCreateIfNotExisting
-   *        if <code>false</code> and the scope is not existing,
-   *        <code>null</code> will be returned. This parameter is only used in
-   *        application scopes.
-   * @return The matching {@link IScope} or <code>null</code> if
-   *         bCreateIfNotExisting is <code>false</code> and no scope is present
+   *        if <code>false</code> and the scope is not existing, <code>null</code> will be returned.
+   *        This parameter is only used in application scopes.
+   * @return The matching {@link IScope} or <code>null</code> if bCreateIfNotExisting is
+   *         <code>false</code> and no scope is present
    * @throws IllegalArgumentException
    *         If an illegal enumeration value is passed.
    */

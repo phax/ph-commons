@@ -19,8 +19,8 @@ package com.helger.base.functional;
 /**
  * Represents a supplier of results that may throw an Exception.
  * <p>
- * There is no requirement that a new or distinct result be returned each time
- * the supplier is invoked.
+ * There is no requirement that a new or distinct result be returned each time the supplier is
+ * invoked.
  * <p>
  * This is a functional interface whose functional method is {@link #get()}.
  *

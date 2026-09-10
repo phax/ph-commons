@@ -21,8 +21,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.security.authentication.credentials.IAuthCredentials;
 
 /**
- * This interface represents username and password credentials passed from a
- * login page.
+ * This interface represents username and password credentials passed from a login page.
  *
  * @author Philip Helger
  */

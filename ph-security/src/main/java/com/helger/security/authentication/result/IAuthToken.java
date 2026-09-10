@@ -35,8 +35,7 @@ public interface IAuthToken extends IHasID <String>
   int EXPIRATION_SECONDS_INFINITE = 0;
 
   /**
-   * @return The secret key token representing a session of a subject. Never
-   *         <code>null</code>.
+   * @return The secret key token representing a session of a subject. Never <code>null</code>.
    */
   @NonNull
   String getID ();
@@ -48,44 +47,40 @@ public interface IAuthToken extends IHasID <String>
   IAuthIdentification getIdentification ();
 
   /**
-   * @return The date and time when the token was created. Never
-   *         <code>null</code>.
+   * @return The date and time when the token was created. Never <code>null</code>.
    */
   @NonNull
   LocalDateTime getCreationDate ();
 
   /**
-   * @return The date and time when the token was last accessed. If the token
-   *         was never accessed before, the creation date time is returned.
-   *         Never <code>null</code>.
+   * @return The date and time when the token was last accessed. If the token was never accessed
+   *         before, the creation date time is returned. Never <code>null</code>.
    */
   @NonNull
   LocalDateTime getLastAccessDate ();
 
   /**
-   * @return The expiration seconds. Always &ge; 0. A value of
-   *         {@value #EXPIRATION_SECONDS_INFINITE} means no expiration.
+   * @return The expiration seconds. Always &ge; 0. A value of {@value #EXPIRATION_SECONDS_INFINITE}
+   *         means no expiration.
    * @see #isExpirationPossible()
    */
   @Nonnegative
   int getExpirationSeconds ();
 
   /**
-   * Check if this token can expire (expiration seconds &gt; 0) or not
-   * (expiration seconds = {@value #EXPIRATION_SECONDS_INFINITE}).
+   * Check if this token can expire (expiration seconds &gt; 0) or not (expiration seconds =
+   * {@value #EXPIRATION_SECONDS_INFINITE}).
    *
-   * @return <code>true</code> if this token can expire, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this token can expire, <code>false</code> otherwise.
    * @see #getExpirationSeconds()
    */
   boolean isExpirationPossible ();
 
   /**
-   * Get the date time when this token will expire. This date time changes every
-   * time the last access is updated.
+   * Get the date time when this token will expire. This date time changes every time the last
+   * access is updated.
    *
-   * @return The expiration date and time or <code>null</code> if this token
-   *         cannot expire.
+   * @return The expiration date and time or <code>null</code> if this token cannot expire.
    * @see #isExpirationPossible()
    */
   @Nullable
@@ -94,8 +89,8 @@ public interface IAuthToken extends IHasID <String>
   /**
    * Check if the token is expired. Expired tokens are considered invalid.
    *
-   * @return <code>true</code> if the token is already expired,
-   *         <code>false</code> if the token is still valid.
+   * @return <code>true</code> if the token is already expired, <code>false</code> if the token is
+   *         still valid.
    */
   boolean isExpired ();
 }

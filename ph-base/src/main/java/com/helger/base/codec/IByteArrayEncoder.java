@@ -33,9 +33,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
 {
   /**
-   * Get the maximum encoded length based on the provided decoded length. This
-   * is purely for performance reasons. The name of the method would be better
-   * called "getMaximumEncodedLength".
+   * Get the maximum encoded length based on the provided decoded length. This is purely for
+   * performance reasons. The name of the method would be better called "getMaximumEncodedLength".
    *
    * @param nDecodedLen
    *        The decoded length. Always &ge; 0.
@@ -53,8 +52,7 @@ public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
    *
    * @param aDecodedBuffer
    *        The byte array to be encoded. May be <code>null</code>.
-   * @return The encoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded byte array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
@@ -75,13 +73,14 @@ public interface IByteArrayEncoder extends IEncoder <byte [], byte []>
    *        Offset into the byte array to start from.
    * @param nLen
    *        Number of bytes starting from offset to consider.
-   * @return The encoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded byte array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
   @ReturnsMutableCopy
-  byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen);
 
   /**
    * Encode the passed string.

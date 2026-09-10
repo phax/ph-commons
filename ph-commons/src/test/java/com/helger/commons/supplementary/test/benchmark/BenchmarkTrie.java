@@ -52,8 +52,8 @@ public final class BenchmarkTrie extends AbstractBenchmarkTask
     execute ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset)
-                                                                                                            throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     final BufferedReader aBR = new BufferedReader (new InputStreamReader (aRes.getInputStream (), aCharset));

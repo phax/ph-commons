@@ -44,8 +44,8 @@ public interface ICSPDirective extends IHasName
   String getValue ();
 
   /**
-   * @return <code>true</code> if this directive has a non-empty value,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this directive has a non-empty value, <code>false</code>
+   *         otherwise.
    */
   default boolean hasValue ()
   {
@@ -53,8 +53,7 @@ public interface ICSPDirective extends IHasName
   }
 
   /**
-   * @return The directive as a string in the format "name value". Never
-   *         <code>null</code>.
+   * @return The directive as a string in the format "name value". Never <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -64,8 +63,8 @@ public interface ICSPDirective extends IHasName
   }
 
   /**
-   * @return The directive as a string in the format "name value" if a value is
-   *         present, or <code>null</code> if no value is set.
+   * @return The directive as a string in the format "name value" if a value is present, or
+   *         <code>null</code> if no value is set.
    */
   @Nullable
   default String getAsStringIfHasValue ()

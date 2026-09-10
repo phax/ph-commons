@@ -24,9 +24,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate that a class's native implementations of {@link #equals(Object)} and
- * {@link #hashCode()} should be used and no wrapper. This is only important to
- * the classes com.helger.commons.equals.EqualsImplementationRegistry and
+ * Indicate that a class's native implementations of {@link #equals(Object)} and {@link #hashCode()}
+ * should be used and no wrapper. This is only important to the classes
+ * com.helger.commons.equals.EqualsImplementationRegistry and
  * com.helger.commons.hashcode.HashCodeImplementationRegistry.
  *
  * @author Philip Helger

@@ -47,8 +47,7 @@ public class ThreadDeadlockInfo
    * @param aThread
    *        The deadlocked thread. May not be <code>null</code>.
    * @param aStackTrace
-   *        The stack trace at the time the deadlock was detected. May be
-   *        <code>null</code>.
+   *        The stack trace at the time the deadlock was detected. May be <code>null</code>.
    */
   public ThreadDeadlockInfo (@NonNull final ThreadInfo aThreadInfo,
                              @NonNull final Thread aThread,
@@ -78,8 +77,7 @@ public class ThreadDeadlockInfo
   }
 
   /**
-   * @return <code>true</code> if a stack trace is present, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if a stack trace is present, <code>false</code> otherwise
    */
   public boolean hasStackTrace ()
   {
@@ -87,10 +85,9 @@ public class ThreadDeadlockInfo
   }
 
   /**
-   * @return The stack trace at the time the dead lock was found. May be
-   *         <code>null</code> for certain system threads. Use
-   *         <code>getThread ().getStackTrace ()</code> to retrieve the current
-   *         stack trace.
+   * @return The stack trace at the time the dead lock was found. May be <code>null</code> for
+   *         certain system threads. Use <code>getThread ().getStackTrace ()</code> to retrieve the
+   *         current stack trace.
    */
   @Nullable
   @ReturnsMutableCopy

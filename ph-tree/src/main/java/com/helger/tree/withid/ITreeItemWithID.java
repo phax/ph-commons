@@ -28,8 +28,8 @@ import com.helger.collection.commons.ICommonsSet;
 import com.helger.tree.IBasicTreeItem;
 
 /**
- * Represents a basic tree item with an ID. Never use this class directly but
- * provide a sub interface that specifies the generic T parameter.
+ * Represents a basic tree item with an ID. Never use this class directly but provide a sub
+ * interface that specifies the generic T parameter.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -39,7 +39,8 @@ import com.helger.tree.IBasicTreeItem;
  * @param <ITEMTYPE>
  *        The implementation type.
  */
-public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
+public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                 extends
                                  IBasicTreeItem <DATATYPE, ITEMTYPE>,
                                  IHasID <KEYTYPE>
 {
@@ -50,20 +51,19 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE> getFactory ();
 
   /**
-   * @return The data ID of this item. May be <code>null</code> depending on the
-   *         validator.
+   * @return The data ID of this item. May be <code>null</code> depending on the validator.
    */
   KEYTYPE getID ();
 
   /**
-   * @return The data ID of the parent item. May be <code>null</code> if no
-   *         parent is present or depending on the validator.
+   * @return The data ID of the parent item. May be <code>null</code> if no parent is present or
+   *         depending on the validator.
    */
   KEYTYPE getParentID ();
 
   /**
-   * @return A set with the data IDs of all children. If this tree item does not
-   *         have children, <code>null</code> if returned.
+   * @return A set with the data IDs of all children. If this tree item does not have children,
+   *         <code>null</code> if returned.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -74,8 +74,8 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @param aDataID
    *        The ID to search. May be <code>null</code>.
-   * @return <code>true</code> if this item has a child with the given ID,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this item has a child with the given ID, <code>false</code>
+   *         otherwise
    */
   boolean containsChildItemWithDataID (@Nullable KEYTYPE aDataID);
 
@@ -84,8 +84,7 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    *
    * @param aDataID
    *        The ID to search. May be <code>null</code>.
-   * @return <code>null</code> if this item has no child with the given ID. The
-   *         item otherwise.
+   * @return <code>null</code> if this item has no child with the given ID. The item otherwise.
    */
   @Nullable
   ITEMTYPE getChildItemOfDataID (@Nullable KEYTYPE aDataID);
@@ -105,12 +104,11 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   EChange internalAddChild (@NonNull KEYTYPE aDataID, @NonNull ITEMTYPE aChild, boolean bAllowOverwrite);
 
   /**
-   * Add a direct child item to this item. If another item with the same ID is
-   * already contained, the item is automatically overwritten.
+   * Add a direct child item to this item. If another item with the same ID is already contained,
+   * the item is automatically overwritten.
    *
    * @param aDataID
-   *        ID of the item to generate. May be <code>null</code> in rare
-   *        circumstances.
+   *        ID of the item to generate. May be <code>null</code> in rare circumstances.
    * @param aData
    *        The data associated with this item.
    * @return the created tree item. May be null in certain implementations
@@ -125,10 +123,9 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * @param aData
    *        The data associated with this item.
    * @param bAllowOverwrite
-   *        If <code>true</code> a potential existing child item with the same
-   *        ID is overwritten.
-   * @return the created tree item or <code>null</code> if the data ID is
-   *         already in use and bAllowOverwrite is <code>false</code>
+   *        If <code>true</code> a potential existing child item with the same ID is overwritten.
+   * @return the created tree item or <code>null</code> if the data ID is already in use and
+   *         bAllowOverwrite is <code>false</code>
    */
   @Nullable
   ITEMTYPE createChildItem (KEYTYPE aDataID, DATATYPE aData, boolean bAllowOverwrite);

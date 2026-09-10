@@ -28,12 +28,11 @@ import com.helger.base.state.EContinue;
 public interface ISessionScope extends IScope
 {
   /**
-   * A special internal method that destroys the session. This is especially
-   * relevant for session web scope, because it is all done via the invalidation
-   * of the underlying HTTP session.
+   * A special internal method that destroys the session. This is especially relevant for session
+   * web scope, because it is all done via the invalidation of the underlying HTTP session.
    *
-   * @return {@link EContinue#BREAK} to indicate that the regular destruction
-   *         should not be performed!
+   * @return {@link EContinue#BREAK} to indicate that the regular destruction should not be
+   *         performed!
    */
   @NonNull
   EContinue selfDestruct ();

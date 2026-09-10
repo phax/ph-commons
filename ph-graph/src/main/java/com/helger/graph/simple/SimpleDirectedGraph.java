@@ -45,8 +45,7 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
    * Constructor using a custom directed graph object factory.
    *
    * @param aFactory
-   *        The factory to use for creating nodes and relations. May not be
-   *        <code>null</code>.
+   *        The factory to use for creating nodes and relations. May not be <code>null</code>.
    */
   public SimpleDirectedGraph (@NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
@@ -55,7 +54,8 @@ public class SimpleDirectedGraph extends DirectedGraph implements ISimpleDirecte
 
   /** {@inheritDoc} */
   @NonNull
-  public IMutableDirectedGraphRelation createRelation (@NonNull final String sFromNodeID, @NonNull final String sToNodeID)
+  public IMutableDirectedGraphRelation createRelation (@NonNull final String sFromNodeID,
+                                                       @NonNull final String sToNodeID)
   {
     final IMutableDirectedGraphNode aFromNode = getNodeOfID (sFromNodeID);
     if (aFromNode == null)

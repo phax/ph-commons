@@ -22,8 +22,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Special implementation of {@link AbstractTreeItemWithIDFactory} using the
- * item type {@link DefaultTreeItemWithID}.
+ * Special implementation of {@link AbstractTreeItemWithIDFactory} using the item type
+ * {@link DefaultTreeItemWithID}.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

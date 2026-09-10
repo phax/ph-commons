@@ -17,10 +17,9 @@
 package com.helger.dao.wal;
 
 /**
- * Dummy marker interface. If a DAO based class reads an object that implements
- * this interface and {@link #isReadChanged()} returns <code>true</code> the
- * whole read method returns "CHANGED" and therefore the deltas are directly
- * written to disk.
+ * Dummy marker interface. If a DAO based class reads an object that implements this interface and
+ * {@link #isReadChanged()} returns <code>true</code> the whole read method returns "CHANGED" and
+ * therefore the deltas are directly written to disk.
  *
  * @author Philip Helger
  */

@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.state.EContinue;
 
 /**
- * A callback interface that is used to iterate all available micro type
- * converters.
+ * A callback interface that is used to iterate all available micro type converters.
  *
  * @author Philip Helger
  */
@@ -36,8 +35,8 @@ public interface IMicroTypeConverterCallback
    *        The class for which the converter was registered.
    * @param aConverter
    *        The main converter object. Never <code>null</code>.
-   * @return {@link EContinue#CONTINUE} to continue iteration,
-   *         {@link EContinue#BREAK} to stop iteration.
+   * @return {@link EContinue#CONTINUE} to continue iteration, {@link EContinue#BREAK} to stop
+   *         iteration.
    */
   @NonNull
   EContinue call (@NonNull Class <?> aClass, @NonNull IMicroTypeConverter <?> aConverter);

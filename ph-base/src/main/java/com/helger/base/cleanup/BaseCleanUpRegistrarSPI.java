@@ -24,8 +24,7 @@ import com.helger.base.system.SystemProperties;
 import com.helger.base.thirdparty.ThirdPartyModuleRegistry;
 
 /**
- * SPI implementation that registers cleanup actions for base module singletons
- * and caches.
+ * SPI implementation that registers cleanup actions for base module singletons and caches.
  *
  * @author Philip Helger
  */

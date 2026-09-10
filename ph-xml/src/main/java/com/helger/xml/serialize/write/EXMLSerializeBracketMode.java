@@ -35,8 +35,8 @@ public enum EXMLSerializeBracketMode implements IHasID <String>
   /** Self closed tag. E.g. &lt;a /&gt; */
   SELF_CLOSED ("selfclosed"),
   /**
-   * Only open tag (and no closing tag). E.g. &lt;a&gt; Note: this is required
-   * for some HTML versions.
+   * Only open tag (and no closing tag). E.g. &lt;a&gt; Note: this is required for some HTML
+   * versions.
    */
   OPEN_ONLY ("openonly");
 

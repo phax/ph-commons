@@ -84,9 +84,8 @@ public final class TreeSorter
   }
 
   /**
-   * Sort each level of the passed tree with the specified comparator. This
-   * method assumes that the values in the tree item implement the
-   * {@link Comparable} interface.
+   * Sort each level of the passed tree with the specified comparator. This method assumes that the
+   * values in the tree item implement the {@link Comparable} interface.
    *
    * @param aTree
    *        The tree to be sorted.

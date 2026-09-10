@@ -24,9 +24,8 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Used for creating string representation of XML. Determines whether the XML
- * declaration (<code>&lt;?xml version=... encoding=...?&gt;</code>) should be
- * emitted or ignored.
+ * Used for creating string representation of XML. Determines whether the XML declaration
+ * (<code>&lt;?xml version=... encoding=...?&gt;</code>) should be emitted or ignored.
  *
  * @author Philip Helger
  */
@@ -63,8 +62,8 @@ public enum EXMLSerializeXMLDeclaration implements IHasID <String>
   }
 
   /**
-   * @return <code>true</code> if the "standalone" part of the XML declaration
-   *         should be printed or not.
+   * @return <code>true</code> if the "standalone" part of the XML declaration should be printed or
+   *         not.
    */
   public boolean isEmitStandalone ()
   {

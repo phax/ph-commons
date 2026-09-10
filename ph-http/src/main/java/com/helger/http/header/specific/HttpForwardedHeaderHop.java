@@ -74,12 +74,12 @@ public class HttpForwardedHeaderHop
   }
 
   /**
-   * Add a token-value pair to this forwarded hop. If the token already exists,
-   * its value will be overwritten with a warning.
+   * Add a token-value pair to this forwarded hop. If the token already exists, its value will be
+   * overwritten with a warning.
    *
    * @param sToken
-   *        The token name. May neither be <code>null</code> nor empty. Must
-   *        be a valid RFC 7230 token.
+   *        The token name. May neither be <code>null</code> nor empty. Must be a valid RFC 7230
+   *        token.
    * @param sValue
    *        The value for the token. May not be <code>null</code>.
    * @return this for chaining
@@ -88,7 +88,7 @@ public class HttpForwardedHeaderHop
   public HttpForwardedHeaderHop addPair (@NonNull @Nonempty final String sToken, @NonNull final String sValue)
   {
     ValueEnforcer.notEmpty (sToken, "Token");
-    ValueEnforcer.isTrue ( () -> RFC7230Helper.isValidToken (sToken), "Token is not valid according to RFC 7230");
+    ValueEnforcer.isTrue (() -> RFC7230Helper.isValidToken (sToken), "Token is not valid according to RFC 7230");
     ValueEnforcer.notNull (sValue, "Value");
 
     final String sUnifiedToken = _getUnifiedToken (sToken);

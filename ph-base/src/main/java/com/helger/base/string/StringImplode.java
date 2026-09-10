@@ -36,8 +36,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
 
 /**
- * Helper class for joining (imploding) collections and arrays into a single
- * string with a configurable separator.
+ * Helper class for joining (imploding) collections and arrays into a single string with a
+ * configurable separator.
  *
  * @author Philip Helger
  */

@@ -26,18 +26,16 @@ import org.jspecify.annotations.NonNull;
 public interface IMicroText extends IMicroNode, IMicroDataAware
 {
   /**
-   * Check whether the text node consists solely of whitespaces. This may be
-   * helpful in detecting XML that has been indented :)
+   * Check whether the text node consists solely of whitespaces. This may be helpful in detecting
+   * XML that has been indented :)
    *
-   * @return <code>true</code> if the text node consists solely of whitespaces
-   *         (blank, tab etc.).
+   * @return <code>true</code> if the text node consists solely of whitespaces (blank, tab etc.).
    */
   boolean isElementContentWhitespace ();
 
   /**
-   * @return <code>true</code> if the content of this text node should be
-   *         masked, and <code>false</code> if not. By default a text node
-   *         should always be masked.
+   * @return <code>true</code> if the content of this text node should be masked, and
+   *         <code>false</code> if not. By default a text node should always be masked.
    */
   boolean isEscape ();
 

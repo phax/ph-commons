@@ -46,12 +46,13 @@ public final class LSResourceDataTest
     assertEquals ("schema1.xsd", rd.getSystemID ());
     assertNotNull (rd.getBaseURI ());
     assertTrue (rd.getBaseURI ().endsWith ("xml/schema2.xsd"));
-    TestHelper.testDefaultImplementationWithDifferentContentObject (rd, new LSResourceData (null, null, null, null, null));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (rd,
+                                                                    new LSResourceData (null, null, null, null, null));
     TestHelper.testDefaultImplementationWithEqualContentObject (rd,
-                                                                       new LSResourceData (rd.getType (),
-                                                                                           rd.getNamespaceURI (),
-                                                                                           rd.getPublicID (),
-                                                                                           rd.getSystemID (),
-                                                                                           rd.getBaseURI ()));
+                                                                new LSResourceData (rd.getType (),
+                                                                                    rd.getNamespaceURI (),
+                                                                                    rd.getPublicID (),
+                                                                                    rd.getSystemID (),
+                                                                                    rd.getBaseURI ()));
   }
 }

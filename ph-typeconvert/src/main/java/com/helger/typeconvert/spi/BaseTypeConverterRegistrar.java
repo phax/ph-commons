@@ -73,8 +73,7 @@ public final class BaseTypeConverterRegistrar implements ITypeConverterRegistrar
     // to Boolean
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (Number.class,
                                                                          Boolean.class,
-                                                                         aSource -> Boolean.valueOf (aSource.intValue () !=
-                                                                                                     0));
+                                                                         aSource -> Boolean.valueOf (aSource.intValue () != 0));
     aRegistry.registerTypeConverter (Character.class,
                                      Boolean.class,
                                      aSource -> Boolean.valueOf (aSource.charValue () != 0));

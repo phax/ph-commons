@@ -33,8 +33,7 @@ import com.helger.tree.util.TreeVisitor;
 import com.helger.tree.withid.ITreeItemWithID;
 
 /**
- * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively -
- * either by ID or by value
+ * Sort {@link com.helger.tree.withid.ITreeWithID} instances recursively - either by ID or by value
  *
  * @author Philip Helger
  */
@@ -81,8 +80,7 @@ public final class TreeWithIDSorter
    * @param aTree
    *        The tree to be sorted.
    * @param aKeyComparator
-   *        The comparator to be used for sorting the tree item keys on each
-   *        level.
+   *        The comparator to be used for sorting the tree item keys on each level.
    */
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByID (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                    @NonNull final Comparator <? super KEYTYPE> aKeyComparator)
@@ -91,9 +89,8 @@ public final class TreeWithIDSorter
   }
 
   /**
-   * Sort each level of the passed tree on the ID with the specified comparator.
-   * This method assumes that the IDs in the tree item implement the
-   * {@link Comparable} interface.
+   * Sort each level of the passed tree on the ID with the specified comparator. This method assumes
+   * that the IDs in the tree item implement the {@link Comparable} interface.
    *
    * @param <KEYTYPE>
    *        Tree item key type
@@ -110,8 +107,7 @@ public final class TreeWithIDSorter
   }
 
   /**
-   * Sort each level of the passed tree on the value with the specified
-   * comparator.
+   * Sort each level of the passed tree on the value with the specified comparator.
    *
    * @param <KEYTYPE>
    *        Tree item key type
@@ -122,8 +118,7 @@ public final class TreeWithIDSorter
    * @param aTree
    *        The tree to be sorted.
    * @param aValueComparator
-   *        The comparator to be used for sorting the tree item keys on each
-   *        level.
+   *        The comparator to be used for sorting the tree item keys on each level.
    */
   public static <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> void sortByValue (@NonNull final IBasicTree <DATATYPE, ITEMTYPE> aTree,
                                                                                                                       @NonNull final Comparator <? super DATATYPE> aValueComparator)
@@ -132,9 +127,8 @@ public final class TreeWithIDSorter
   }
 
   /**
-   * Sort each level of the passed tree on the value with the specified
-   * comparator. This method assumes that the values in the tree item implement
-   * the {@link Comparable} interface.
+   * Sort each level of the passed tree on the value with the specified comparator. This method
+   * assumes that the values in the tree item implement the {@link Comparable} interface.
    *
    * @param <KEYTYPE>
    *        Tree item key type

@@ -49,8 +49,7 @@ public final class CodepointHelper
    *        Low index
    * @param cHigh
    *        high index
-   * @return <code>true</code> if all the characters in chars are within the set
-   *         [low,high]
+   * @return <code>true</code> if all the characters in chars are within the set [low,high]
    */
   public static boolean inRange (final char @NonNull [] aChars, final char cLow, final char cHigh)
   {
@@ -67,8 +66,7 @@ public final class CodepointHelper
    *        Low index
    * @param nHigh
    *        high index
-   * @return <code>true</code> if all the characters in chars are within the set
-   *         [low,high]
+   * @return <code>true</code> if all the characters in chars are within the set [low,high]
    */
   public static boolean inRange (final char [] aChars, final int nLow, final int nHigh)
   {
@@ -112,8 +110,7 @@ public final class CodepointHelper
   {
     return Character.isSupplementaryCodePoint (nCodepoint) ? (char) ((Character.MIN_HIGH_SURROGATE -
                                                                       (Character.MIN_SUPPLEMENTARY_CODE_POINT >> 10)) +
-                                                                     (nCodepoint >> 10))
-                                                           : 0;
+                                                                     (nCodepoint >> 10)) : 0;
   }
 
   /**
@@ -131,8 +128,7 @@ public final class CodepointHelper
    *        source sequence
    * @param nIndex
    *        index
-   * @return the codepoint at the given location, automatically dealing with
-   *         surrogate pairs
+   * @return the codepoint at the given location, automatically dealing with surrogate pairs
    */
   @NonNull
   public static Codepoint codepointAt (@NonNull final CharSequence aSeq, final int nIndex)
@@ -163,8 +159,7 @@ public final class CodepointHelper
   }
 
   /**
-   * Insert a codepoint into the buffer, automatically dealing with surrogate
-   * pairs
+   * Insert a codepoint into the buffer, automatically dealing with surrogate pairs
    *
    * @param aSeq
    *        source sequence
@@ -179,8 +174,7 @@ public final class CodepointHelper
   }
 
   /**
-   * Insert a codepoint into the buffer, automatically dealing with surrogate
-   * pairs
+   * Insert a codepoint into the buffer, automatically dealing with surrogate pairs
    *
    * @param aSeq
    *        source sequence
@@ -212,8 +206,7 @@ public final class CodepointHelper
   }
 
   /**
-   * Set the character at a given location, automatically dealing with surrogate
-   * pairs
+   * Set the character at a given location, automatically dealing with surrogate pairs
    *
    * @param aSeq
    *        source sequence
@@ -228,8 +221,7 @@ public final class CodepointHelper
   }
 
   /**
-   * Set the character at a given location, automatically dealing with surrogate
-   * pairs
+   * Set the character at a given location, automatically dealing with surrogate pairs
    *
    * @param aSeq
    *        source sequence
@@ -274,8 +266,8 @@ public final class CodepointHelper
   /**
    * @param aSeq
    *        source sequence
-   * @return the total number of codepoints in the buffer. Each surrogate pair
-   *         counts as a single codepoint
+   * @return the total number of codepoints in the buffer. Each surrogate pair counts as a single
+   *         codepoint
    */
   @Nonnegative
   public static int length (@NonNull final CharSequence aSeq)
@@ -286,8 +278,8 @@ public final class CodepointHelper
   /**
    * @param aArray
    *        source array
-   * @return the total number of codepoints in the buffer. Each surrogate pair
-   *         counts as a single codepoint
+   * @return the total number of codepoints in the buffer. Each surrogate pair counts as a single
+   *         codepoint
    */
   @Nonnegative
   public static int length (final char @NonNull [] aArray)
@@ -316,8 +308,7 @@ public final class CodepointHelper
   /**
    * @param nCodepoint
    *        codepoint
-   * @return the String representation of the codepoint, automatically dealing
-   *         with surrogate pairs
+   * @return the String representation of the codepoint, automatically dealing with surrogate pairs
    */
   @NonNull
   @Nonempty
@@ -478,9 +469,9 @@ public final class CodepointHelper
   }
 
   /**
-   * Treats the specified int array as an Inversion Set and returns
-   * <code>true</code> if the value is located within the set. This will only
-   * work correctly if the values in the int array are monotonically increasing
+   * Treats the specified int array as an Inversion Set and returns <code>true</code> if the value
+   * is located within the set. This will only work correctly if the values in the int array are
+   * monotonically increasing
    *
    * @param aCodepointSet
    *        Source set
@@ -516,7 +507,10 @@ public final class CodepointHelper
    */
   public static boolean isPctEnc (final int codepoint)
   {
-    return codepoint == '%' || Character.isDigit (codepoint) || inRange (codepoint, 'A', 'F') || inRange (codepoint, 'a', 'f');
+    return codepoint == '%' ||
+           Character.isDigit (codepoint) ||
+           inRange (codepoint, 'A', 'F') ||
+           inRange (codepoint, 'a', 'f');
   }
 
   /**
@@ -549,7 +543,11 @@ public final class CodepointHelper
    */
   public static boolean isUnreserved (final int codepoint)
   {
-    return Character.isLetterOrDigit (codepoint) || codepoint == '-' || codepoint == '.' || codepoint == '_' || codepoint == '~';
+    return Character.isLetterOrDigit (codepoint) ||
+           codepoint == '-' ||
+           codepoint == '.' ||
+           codepoint == '_' ||
+           codepoint == '~';
   }
 
   /**
@@ -744,7 +742,9 @@ public final class CodepointHelper
    */
   public static boolean is_iprivate (final int codepoint)
   {
-    return inRange (codepoint, '\uE000', '\uF8FF') || inRange (codepoint, 0xF0000, 0xFFFFD) || inRange (codepoint, 0x100000, 0x10FFFD);
+    return inRange (codepoint, '\uE000', '\uF8FF') ||
+           inRange (codepoint, 0xF0000, 0xFFFFD) ||
+           inRange (codepoint, 0x100000, 0x10FFFD);
   }
 
   /**
@@ -811,7 +811,12 @@ public final class CodepointHelper
    */
   public static boolean is_iquery (final int codepoint)
   {
-    return is_ipchar (codepoint) || is_iprivate (codepoint) || codepoint == ';' || codepoint == '/' || codepoint == '?' || codepoint == '%';
+    return is_ipchar (codepoint) ||
+           is_iprivate (codepoint) ||
+           codepoint == ';' ||
+           codepoint == '/' ||
+           codepoint == '?' ||
+           codepoint == '%';
   }
 
   /**

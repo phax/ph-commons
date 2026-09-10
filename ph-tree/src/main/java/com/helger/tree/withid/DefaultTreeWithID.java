@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
- * Root class for a simple tree. The elements of the tree are not sorted by any
- * means.
+ * Root class for a simple tree. The elements of the tree are not sorted by any means.
  *
  * @param <KEYTYPE>
  *        The type of the key elements for the tree.
@@ -31,7 +30,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * @author Philip Helger
  */
 @NotThreadSafe
-public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends BasicTreeWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
+public class DefaultTreeWithID <KEYTYPE, DATATYPE> extends
+                               BasicTreeWithID <KEYTYPE, DATATYPE, DefaultTreeItemWithID <KEYTYPE, DATATYPE>>
 {
   /**
    * Constructor using the default {@link DefaultTreeItemWithIDFactory}.

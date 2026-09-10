@@ -41,14 +41,12 @@ public class HomoglyphSearchResult
    * Constructor.
    *
    * @param nIndex
-   *        The index in the searched text where the match was found. Must be
-   *        &ge; 0.
+   *        The index in the searched text where the match was found. Must be &ge; 0.
    * @param sMatch
-   *        The actual text that matched (may contain homoglyphs). May neither
-   *        be <code>null</code> nor empty.
+   *        The actual text that matched (may contain homoglyphs). May neither be <code>null</code>
+   *        nor empty.
    * @param sWord
-   *        The target word that was being searched for. May neither be
-   *        <code>null</code> nor empty.
+   *        The target word that was being searched for. May neither be <code>null</code> nor empty.
    */
   public HomoglyphSearchResult (@Nonnegative final int nIndex,
                                 @NonNull @Nonempty final String sMatch,
@@ -72,8 +70,8 @@ public class HomoglyphSearchResult
   }
 
   /**
-   * @return The actual text that matched, potentially containing homoglyph
-   *         characters. Never <code>null</code>.
+   * @return The actual text that matched, potentially containing homoglyph characters. Never
+   *         <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -83,8 +81,7 @@ public class HomoglyphSearchResult
   }
 
   /**
-   * @return The target word that was being searched for. Never
-   *         <code>null</code>.
+   * @return The target word that was being searched for. Never <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -94,8 +91,7 @@ public class HomoglyphSearchResult
   }
 
   /**
-   * @return A human-readable string representation of this search result.
-   *         Never <code>null</code>.
+   * @return A human-readable string representation of this search result. Never <code>null</code>.
    */
   @NonNull
   public String getAsString ()
@@ -106,6 +102,9 @@ public class HomoglyphSearchResult
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Index", m_nIndex).append ("Match", m_sMatch).append ("Word", m_sWord).getToString ();
+    return new ToStringGenerator (this).append ("Index", m_nIndex)
+                                       .append ("Match", m_sMatch)
+                                       .append ("Word", m_sWord)
+                                       .getToString ();
   }
 }

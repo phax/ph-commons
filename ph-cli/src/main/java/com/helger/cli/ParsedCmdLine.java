@@ -99,8 +99,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    *
    * @param aOption
    *        The option to check. May be <code>null</code>.
-   * @return <code>true</code> if the option was present, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the option was present, <code>false</code> otherwise.
    */
   public boolean hasOption (@Nullable final IOptionBase aOption)
   {
@@ -112,8 +111,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    *
    * @param sOption
    *        The short or long option name to check. May be <code>null</code>.
-   * @return <code>true</code> if the option was present, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the option was present, <code>false</code> otherwise.
    */
   public boolean hasOption (@Nullable final String sOption)
   {
@@ -125,8 +123,8 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    *
    * @param aOption
    *        The option to get the value for. May not be <code>null</code>.
-   * @return The first value of the option, or <code>null</code> if the option
-   *         was not present or has no values.
+   * @return The first value of the option, or <code>null</code> if the option was not present or
+   *         has no values.
    */
   @Nullable
   public String getValue (@NonNull final IOptionBase aOption)
@@ -139,10 +137,9 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    * Get the first value of the specified option (by name).
    *
    * @param sOption
-   *        The short or long option name to get the value for. May be
-   *        <code>null</code>.
-   * @return The first value of the option, or <code>null</code> if the option
-   *         was not present or has no values.
+   *        The short or long option name to get the value for. May be <code>null</code>.
+   * @return The first value of the option, or <code>null</code> if the option was not present or
+   *         has no values.
    */
   @Nullable
   public String getValue (@Nullable final String sOption)
@@ -156,8 +153,7 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    *
    * @param aOption
    *        The option to get the values for. May not be <code>null</code>.
-   * @return A mutable copy of the values list, or <code>null</code> if the
-   *         option was not present.
+   * @return A mutable copy of the values list, or <code>null</code> if the option was not present.
    */
   @Nullable
   @ReturnsMutableObject
@@ -171,10 +167,8 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
    * Get all values of the specified option (by name).
    *
    * @param sOption
-   *        The short or long option name to get the values for. May not be
-   *        <code>null</code>.
-   * @return A mutable copy of the values list, or <code>null</code> if the
-   *         option was not present.
+   *        The short or long option name to get the values for. May not be <code>null</code>.
+   * @return A mutable copy of the values list, or <code>null</code> if the option was not present.
    */
   @Nullable
   @ReturnsMutableObject
@@ -185,8 +179,8 @@ public class ParsedCmdLine implements IGetterByKeyTrait <String>
   }
 
   /**
-   * @return A mutable list of all tokens that could not be matched to any
-   *         known option. Never <code>null</code>.
+   * @return A mutable list of all tokens that could not be matched to any known option. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject

@@ -39,8 +39,8 @@ public final class MimeTypeHelper
    *
    * @param aMimeType
    *        The MIME type to query. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was provided or if the MIME type
-   *         does not contain a "charset" parameter
+   * @return <code>null</code> if no MIME type was provided or if the MIME type does not contain a
+   *         "charset" parameter
    */
   @Nullable
   public static String getCharsetNameFromMimeType (@Nullable final IMimeType aMimeType)
@@ -53,9 +53,8 @@ public final class MimeTypeHelper
    *
    * @param aMimeType
    *        The MIME type to query. May be <code>null</code>.
-   * @return <code>null</code> if no MIME type was provided or if the MIME type
-   *         does not contain a "charset" parameter or if the provided charset
-   *         name is invalid.
+   * @return <code>null</code> if no MIME type was provided or if the MIME type does not contain a
+   *         "charset" parameter or if the provided charset name is invalid.
    */
   @Nullable
   public static Charset getCharsetFromMimeType (@Nullable final IMimeType aMimeType)

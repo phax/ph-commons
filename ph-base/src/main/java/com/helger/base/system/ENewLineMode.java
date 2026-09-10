@@ -87,8 +87,7 @@ public enum ENewLineMode
    * @param sText
    *        The text to search. May be <code>null</code>.
    * @param eDefault
-   *        The default value to return if no match is found. May be
-   *        <code>null</code>.
+   *        The default value to return if no match is found. May be <code>null</code>.
    * @return The matching enum value or the provided default.
    */
   @Nullable

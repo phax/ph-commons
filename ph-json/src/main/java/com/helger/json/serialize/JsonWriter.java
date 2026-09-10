@@ -222,8 +222,8 @@ public class JsonWriter
    * @throws IOException
    *         On IO error
    */
-  public void writeToWriterAndClose (@NonNull final IJson aJson, @NonNull @WillClose final Writer aWriter)
-                                                                                                           throws IOException
+  public void writeToWriterAndClose (@NonNull final IJson aJson,
+                                     @NonNull @WillClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aWriter, "Writer");

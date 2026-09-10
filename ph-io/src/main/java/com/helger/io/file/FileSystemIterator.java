@@ -24,8 +24,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.collection.commons.CommonsIterableIterator;
 
 /**
- * Iterate over the content of a single directory. Iteration is <b>not</b>
- * recursive.
+ * Iterate over the content of a single directory. Iteration is <b>not</b> recursive.
  *
  * @author Philip Helger
  */
@@ -60,8 +59,7 @@ public final class FileSystemIterator extends CommonsIterableIterator <File>
    * @param aBaseDir
    *        The base directory to iterate. May not be <code>null</code>.
    * @param sDirName
-   *        The directory name relative to the passed base directory. May not be
-   *        <code>null</code>.
+   *        The directory name relative to the passed base directory. May not be <code>null</code>.
    */
   public FileSystemIterator (@NonNull final File aBaseDir, @NonNull final String sDirName)
   {

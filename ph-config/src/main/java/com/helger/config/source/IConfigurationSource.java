@@ -35,14 +35,13 @@ public interface IConfigurationSource extends IConfigurationValueProvider
 
   /**
    * @return THe higher the priority the earlier it is checked. Values between
-   *         {@link Integer#MIN_VALUE} and {@link Integer#MAX_VALUE} are
-   *         allowed.
+   *         {@link Integer#MIN_VALUE} and {@link Integer#MAX_VALUE} are allowed.
    */
   int getPriority ();
 
   /**
-   * @return <code>true</code> if the file was successfully initialized and can
-   *         be used as a configuration source.
+   * @return <code>true</code> if the file was successfully initialized and can be used as a
+   *         configuration source.
    */
   boolean isInitializedAndUsable ();
 }

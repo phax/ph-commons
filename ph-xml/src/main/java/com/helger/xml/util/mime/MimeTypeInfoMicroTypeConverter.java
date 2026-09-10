@@ -50,8 +50,8 @@ import com.helger.xml.util.mime.MimeTypeInfo.ExtensionWithSource;
 import com.helger.xml.util.mime.MimeTypeInfo.MimeTypeWithSource;
 
 /**
- * Micro type converter for serializing and deserializing {@link MimeTypeInfo}
- * objects to and from micro DOM elements.
+ * Micro type converter for serializing and deserializing {@link MimeTypeInfo} objects to and from
+ * micro DOM elements.
  *
  * @author Philip Helger
  */

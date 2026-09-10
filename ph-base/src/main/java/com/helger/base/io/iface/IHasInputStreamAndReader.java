@@ -25,16 +25,14 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.io.stream.StreamHelper;
 
 /**
- * A callback interface to retrieve {@link Reader} objects based on
- * InputStreams.
+ * A callback interface to retrieve {@link Reader} objects based on InputStreams.
  *
  * @author Philip Helger
  */
 public interface IHasInputStreamAndReader extends IHasInputStream
 {
   /**
-   * Get a {@link Reader} based on this input stream provider using the given
-   * charset.
+   * Get a {@link Reader} based on this input stream provider using the given charset.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
@@ -47,8 +45,7 @@ public interface IHasInputStreamAndReader extends IHasInputStream
   }
 
   /**
-   * Get a buffered {@link Reader} based on this input stream provider using the
-   * given charset.
+   * Get a buffered {@link Reader} based on this input stream provider using the given charset.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.

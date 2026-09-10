@@ -31,9 +31,8 @@ import com.helger.diagnostics.error.list.IErrorList;
 public interface IJAXBValidator <JAXBTYPE>
 {
   /**
-   * @return <code>true</code> if an eventually configured XML Schema should be
-   *         used, <code>false</code> to explicitly disable the usage of XML
-   *         Schema.
+   * @return <code>true</code> if an eventually configured XML Schema should be used,
+   *         <code>false</code> to explicitly disable the usage of XML Schema.
    * @since 11.0.3
    */
   boolean isUseSchema ();
@@ -43,8 +42,7 @@ public interface IJAXBValidator <JAXBTYPE>
    *
    * @param aJAXBDocument
    *        The JAXB document to be validated. May not be <code>null</code>.
-   * @return <code>true</code> if the document is valid, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the document is valid, <code>false</code> if not.
    * @see #validate(Object)
    */
   default boolean isValid (@NonNull final JAXBTYPE aJAXBDocument)

@@ -173,8 +173,8 @@ public enum EUnicodeBOM
   }
 
   /**
-   * @return <code>true</code> if this BOM is supported by the standard XML
-   *         reader, <code>false</code> otherwise.
+   * @return <code>true</code> if this BOM is supported by the standard XML reader,
+   *         <code>false</code> otherwise.
    */
   public boolean isSupportedByXmlReader ()
   {

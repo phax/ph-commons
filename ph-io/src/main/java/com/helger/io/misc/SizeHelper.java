@@ -31,10 +31,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A utility class that converts sizes into the corresponding Kilobyte, Megabyte
- * etc. notation.<br>
- * This class is not thread-safe, because the {@link DecimalFormat} class is not
- * thread-safe!
+ * A utility class that converts sizes into the corresponding Kilobyte, Megabyte etc. notation.<br>
+ * This class is not thread-safe, because the {@link DecimalFormat} class is not thread-safe!
  *
  * @author Philip Helger
  */
@@ -263,18 +261,18 @@ public final class SizeHelper
   private static void _checkConvertibility (@NonNull final BigInteger aSize)
   {
     if (aSize.compareTo (CGlobal.BIGINT_MAX_LONG) > 0)
-      throw new IllegalArgumentException ("The passed BigInteger is too large to be converted into a long value: " + aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigInteger is too large to be converted into a long value: " +
+                                          aSize.toString ());
     if (aSize.compareTo (CGlobal.BIGINT_MIN_LONG) < 0)
-      throw new IllegalArgumentException ("The passed BigInteger is too small to be converted into a long value: " + aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigInteger is too small to be converted into a long value: " +
+                                          aSize.toString ());
   }
 
   /**
-   * Get the best matching formatting of the passed value. No fraction digits
-   * will be emitted.
+   * Get the best matching formatting of the passed value. No fraction digits will be emitted.
    *
    * @param aSize
-   *        The value to be converted to a size value. May not be
-   *        <code>null</code>.
+   *        The value to be converted to a size value. May not be <code>null</code>.
    * @return The string representation
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
@@ -290,8 +288,7 @@ public final class SizeHelper
    * Get the best matching formatting of the passed value.
    *
    * @param aSize
-   *        The value to be converted to a size value. May not be
-   *        <code>null</code>.
+   *        The value to be converted to a size value. May not be <code>null</code>.
    * @param nDecimals
    *        The number of fraction digits.
    * @return The string representation
@@ -308,18 +305,18 @@ public final class SizeHelper
   private static void _checkConvertibility (@NonNull final BigDecimal aSize)
   {
     if (aSize.compareTo (CGlobal.BIGDEC_MAX_LONG) > 0)
-      throw new IllegalArgumentException ("The passed BigDecimal is too large to be converted into a long value: " + aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigDecimal is too large to be converted into a long value: " +
+                                          aSize.toString ());
     if (aSize.compareTo (CGlobal.BIGDEC_MIN_LONG) < 0)
-      throw new IllegalArgumentException ("The passed BigDecimal is too small to be converted into a long value: " + aSize.toString ());
+      throw new IllegalArgumentException ("The passed BigDecimal is too small to be converted into a long value: " +
+                                          aSize.toString ());
   }
 
   /**
-   * Get the best matching formatting of the passed value. No fraction digits
-   * will be emitted.
+   * Get the best matching formatting of the passed value. No fraction digits will be emitted.
    *
    * @param aSize
-   *        The value to be converted to a size value. May not be
-   *        <code>null</code>.
+   *        The value to be converted to a size value. May not be <code>null</code>.
    * @return The string representation
    * @throws IllegalArgumentException
    *         If the passed value cannot be fit in a long
@@ -335,8 +332,7 @@ public final class SizeHelper
    * Get the best matching formatting of the passed value.
    *
    * @param aSize
-   *        The value to be converted to a size value. May not be
-   *        <code>null</code>.
+   *        The value to be converted to a size value. May not be <code>null</code>.
    * @param nDecimals
    *        The number of fraction digits.
    * @return The string representation
@@ -405,13 +401,12 @@ public final class SizeHelper
   }
 
   /**
-   * Get the size helper for the passed locale. The locale determines the
-   * formatting of the numeric value.
+   * Get the size helper for the passed locale. The locale determines the formatting of the numeric
+   * value.
    *
    * @param aDisplayLocale
    *        The locale to be used.
-   * @return The non-<code>null</code> {@link SizeHelper} object for the passed
-   *         locale.
+   * @return The non-<code>null</code> {@link SizeHelper} object for the passed locale.
    */
   @NonNull
   public static SizeHelper getSizeHelperOfLocale (@NonNull final Locale aDisplayLocale)

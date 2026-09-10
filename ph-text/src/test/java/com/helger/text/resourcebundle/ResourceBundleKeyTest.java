@@ -54,12 +54,12 @@ public final class ResourceBundleKeyTest
 
     final String sBundle = "external/properties/test-iso8859";
     TestHelper.testDefaultImplementationWithEqualContentObject (new ResourceBundleKey (sBundle, "key1"),
-                                                                       new ResourceBundleKey (sBundle, "key1"));
+                                                                new ResourceBundleKey (sBundle, "key1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
-                                                                           new ResourceBundleKey ("external/properties/test-iso8859-1",
-                                                                                                  "key1"));
+                                                                    new ResourceBundleKey ("external/properties/test-iso8859-1",
+                                                                                           "key1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new ResourceBundleKey (sBundle, "key1"),
-                                                                           new ResourceBundleKey (sBundle, "key2"));
+                                                                    new ResourceBundleKey (sBundle, "key2"));
 
     ResourceBundleHelper.clearCache ();
   }

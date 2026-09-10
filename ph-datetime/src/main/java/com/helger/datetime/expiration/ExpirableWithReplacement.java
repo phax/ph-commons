@@ -45,15 +45,15 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
   {}
 
   /**
-   * Constructor with an optional expiration date time and an optional
-   * replacement.
+   * Constructor with an optional expiration date time and an optional replacement.
    *
    * @param aExpirationDateTime
    *        The expiration date time. May be <code>null</code>.
    * @param aReplacement
    *        The replacement object. May be <code>null</code>.
    */
-  public ExpirableWithReplacement (@Nullable final LocalDateTime aExpirationDateTime, @Nullable final DATATYPE aReplacement)
+  public ExpirableWithReplacement (@Nullable final LocalDateTime aExpirationDateTime,
+                                   @Nullable final DATATYPE aReplacement)
   {
     m_aExpirationDateTime = aExpirationDateTime;
     m_aReplacement = aReplacement;
@@ -113,8 +113,7 @@ public class ExpirableWithReplacement <DATATYPE> implements IMutableExpirableWit
     final ExpirableWithReplacement <?> rhs = (ExpirableWithReplacement <?>) o;
     final Object aObj1 = m_aExpirationDateTime;
     final Object aObj11 = m_aReplacement;
-    return EqualsHelper.equals (aObj1, rhs.m_aExpirationDateTime) &&
-           EqualsHelper.equals (aObj11, rhs.m_aReplacement);
+    return EqualsHelper.equals (aObj1, rhs.m_aExpirationDateTime) && EqualsHelper.equals (aObj11, rhs.m_aReplacement);
   }
 
   @Override

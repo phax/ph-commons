@@ -121,8 +121,7 @@ public class PDTZoneID
   }
 
   /**
-   * Create a new {@link PDTZoneID} from the given zone ID string and an hour
-   * offset.
+   * Create a new {@link PDTZoneID} from the given zone ID string and an hour offset.
    *
    * @param sZoneID
    *        The zone ID string. May not be <code>null</code>.

@@ -32,7 +32,7 @@ public final class MicroTypeConverterRegistryTest
   @Test
   public void testIterate ()
   {
-    MicroTypeConverterRegistry.getInstance ().iterateAllRegisteredMicroTypeConverters ( (aClass, aConverter) -> {
+    MicroTypeConverterRegistry.getInstance ().iterateAllRegisteredMicroTypeConverters ((aClass, aConverter) -> {
       assertNotNull (aClass);
       assertNotNull (aConverter);
       return EContinue.CONTINUE;

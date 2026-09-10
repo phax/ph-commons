@@ -160,8 +160,7 @@ public final class VendorInfo
   }
 
   /**
-   * @return The vendor email suffix starting from '@'. Never
-   *         <code>null</code>.
+   * @return The vendor email suffix starting from '@'. Never <code>null</code>.
    */
   @NonNull
   public static String getVendorEmailSuffix ()
@@ -173,8 +172,8 @@ public final class VendorInfo
    * Set the vendor email address.
    *
    * @param sVendorEmail
-   *        The vendor email. May neither be <code>null</code> nor empty and
-   *        must be a valid email address.
+   *        The vendor email. May neither be <code>null</code> nor empty and must be a valid email
+   *        address.
    */
   public static void setVendorEmail (@NonNull @Nonempty final String sVendorEmail)
   {

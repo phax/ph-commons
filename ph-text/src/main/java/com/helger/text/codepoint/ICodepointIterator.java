@@ -121,8 +121,8 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   boolean isLow (@Nonnegative int nIndex);
 
   /**
-   * Create a restricted iterator using the provided filter with default
-   * scanning and invert settings.
+   * Create a restricted iterator using the provided filter with default scanning and invert
+   * settings.
    *
    * @param aFilter
    *        The filter predicate. May not be <code>null</code>.
@@ -135,8 +135,8 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   }
 
   /**
-   * Create a restricted iterator using the provided filter and scanning mode
-   * with default invert setting.
+   * Create a restricted iterator using the provided filter and scanning mode with default invert
+   * setting.
    *
    * @param aFilter
    *        The filter predicate. May not be <code>null</code>.
@@ -151,8 +151,7 @@ public interface ICodepointIterator extends Iterator <Codepoint>
   }
 
   /**
-   * Create a restricted iterator using the provided filter, scanning mode and
-   * invert flag.
+   * Create a restricted iterator using the provided filter, scanning mode and invert flag.
    *
    * @param aFilter
    *        The filter predicate. May not be <code>null</code>.

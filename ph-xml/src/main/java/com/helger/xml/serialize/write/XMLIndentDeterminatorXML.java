@@ -27,8 +27,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Implementation of {@link IXMLIndentDeterminator} for real XML. It always uses
- * the default indent and align mode.
+ * Implementation of {@link IXMLIndentDeterminator} for real XML. It always uses the default indent
+ * and align mode.
  *
  * @author Philip Helger
  */

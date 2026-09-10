@@ -745,9 +745,9 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
                                        .append ("NSContext", m_aNSContext)
                                        .append ("Charset", m_aCharset)
                                        .append ("IndentString",
-                                                m_sIndentString == null ? null : StringHex.getHexEncoded (
-                                                                                                          m_sIndentString,
-                                                                                                          StandardCharsets.ISO_8859_1))
+                                                m_sIndentString == null ? null
+                                                                        : StringHex.getHexEncoded (m_sIndentString,
+                                                                                                   StandardCharsets.ISO_8859_1))
                                        .append ("SchemaLocation", m_sSchemaLocation)
                                        .append ("NoNamespaceSchemaLocation", m_sNoNamespaceSchemaLocation)
                                        .append ("UseContextCache", m_bUseContextCache)

@@ -116,8 +116,8 @@ public class LZWCodec implements IByteArrayCodec
      *
      * @param nIndex
      *        The byte index (0-255) of the child node to retrieve.
-     * @return The child node at the given index, or <code>null</code> if no
-     *         child exists at that index.
+     * @return The child node at the given index, or <code>null</code> if no child exists at that
+     *         index.
      */
     @Nullable
     public LZWNode getChildNode (final byte nIndex)
@@ -172,8 +172,8 @@ public class LZWCodec implements IByteArrayCodec
     {}
 
     /**
-     * Reset this dictionary to its initial state, clearing all entries and
-     * re-initializing with the 256 single-byte entries.
+     * Reset this dictionary to its initial state, clearing all entries and re-initializing with the
+     * 256 single-byte entries.
      */
     public void reset ()
     {
@@ -190,8 +190,8 @@ public class LZWCodec implements IByteArrayCodec
      * @param aByteSeq
      *        The byte sequence to add. May not be <code>null</code>.
      * @param bForEncode
-     *        <code>true</code> if this is used for encoding, <code>false</code>
-     *        for decoding. This affects code length thresholds.
+     *        <code>true</code> if this is used for encoding, <code>false</code> for decoding. This
+     *        affects code length thresholds.
      * @throws EncodeException
      *         if the table overflows during encoding.
      * @throws DecodeException
@@ -201,8 +201,8 @@ public class LZWCodec implements IByteArrayCodec
     {
       ValueEnforcer.notNull (aByteSeq, "ByteSeq");
       if (m_nFreeCode == m_aTab.length)
-        throw bForEncode ? new EncodeException ("LZW encode table overflow") : new DecodeException (
-                                                                                                    "LZW decode table overflow");
+        throw bForEncode ? new EncodeException ("LZW encode table overflow")
+                         : new DecodeException ("LZW decode table overflow");
 
       // Add this new String to the table
       m_aTab[m_nFreeCode] = aByteSeq;
@@ -255,8 +255,8 @@ public class LZWCodec implements IByteArrayCodec
      *
      * @param nCode
      *        The code to look up. Must be &ge; 0.
-     * @return The byte array for the given code, or <code>null</code> if the
-     *         code is not in the dictionary.
+     * @return The byte array for the given code, or <code>null</code> if the code is not in the
+     *         dictionary.
      */
     @ReturnsMutableObject ("speed")
     public byte @Nullable [] directGetAllBytes (@Nonnegative final int nCode)
@@ -294,13 +294,13 @@ public class LZWCodec implements IByteArrayCodec
     }
 
     /**
-     * Visit a single byte during the encoding process. If a new byte sequence
-     * is found that is not yet in the dictionary, it is added.
+     * Visit a single byte during the encoding process. If a new byte sequence is found that is not
+     * yet in the dictionary, it is added.
      *
      * @param nByteToVisit
      *        The byte to process.
-     * @return <code>true</code> if a new entry was added to the dictionary,
-     *         <code>false</code> otherwise.
+     * @return <code>true</code> if a new entry was added to the dictionary, <code>false</code>
+     *         otherwise.
      */
     public boolean visit (final byte nByteToVisit)
     {
@@ -329,13 +329,11 @@ public class LZWCodec implements IByteArrayCodec
     }
 
     /**
-     * Get the node in the encoding tree corresponding to the provided byte
-     * sequence.
+     * Get the node in the encoding tree corresponding to the provided byte sequence.
      *
      * @param aBytes
      *        The byte sequence to look up. May not be <code>null</code>.
-     * @return The corresponding node, or <code>null</code> if no such node
-     *         exists.
+     * @return The corresponding node, or <code>null</code> if no such node exists.
      */
     @Nullable
     public LZWNode getNode (final byte @NonNull [] aBytes)

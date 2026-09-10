@@ -99,8 +99,7 @@ public class StringSAXInputSource extends InputSource
   }
 
   /**
-   * @return The text that is used as the input source. Never
-   *         <code>null</code>.
+   * @return The text that is used as the input source. Never <code>null</code>.
    */
   @NonNull
   public final String getText ()

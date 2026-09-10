@@ -26,16 +26,15 @@ import com.helger.base.state.ISuccessIndicator;
 import com.helger.security.authentication.subject.IAuthSubject;
 
 /**
- * The interface representing the authentication result of an
- * {@link IAuthSubject} (e.g. user) at a given date and time.
+ * The interface representing the authentication result of an {@link IAuthSubject} (e.g. user) at a
+ * given date and time.
  *
  * @author Philip Helger
  */
 public interface IAuthIdentification extends ISuccessIndicator
 {
   /**
-   * @return The identified subject. May be <code>null</code> if no subject
-   *         matched the credentials.
+   * @return The identified subject. May be <code>null</code> if no subject matched the credentials.
    */
   @Nullable
   IAuthSubject getAuthSubject ();
@@ -63,8 +62,7 @@ public interface IAuthIdentification extends ISuccessIndicator
   /**
    * Method to retrieve the time stamp of when this object was created.
    *
-   * @return The date and time the identification occurred. Never
-   *         <code>null</code>.
+   * @return The date and time the identification occurred. Never <code>null</code>.
    */
   @NonNull
   LocalDateTime getIdentificationDateTime ();

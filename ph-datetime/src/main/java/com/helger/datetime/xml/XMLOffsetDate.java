@@ -1181,8 +1181,8 @@ public class XMLOffsetDate implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetDate minus (final long amountToSubtract, @NonNull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract,
-                                                                                                   unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   /**

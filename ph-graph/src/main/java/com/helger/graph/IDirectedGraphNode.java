@@ -57,8 +57,8 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *
    * @param aRelation
    *        The relation to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed relation is an incoming relation,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the passed relation is an incoming relation, <code>false</code> if
+   *         not
    */
   boolean isIncomingRelation (@Nullable RELATIONTYPE aRelation);
 
@@ -70,18 +70,16 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   ICommonsList <RELATIONTYPE> getAllIncomingRelations ();
 
   /**
-   * Iterate each incoming relation calling the provided consumer with the
-   * relation object.
+   * Iterate each incoming relation calling the provided consumer with the relation object.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        operations!
    */
   void forEachIncomingRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
-   * Check if this graph node is directly connected to the passed node via an
-   * incoming relation.
+   * Check if this graph node is directly connected to the passed node via an incoming relation.
    *
    * @param aNode
    *        The node to be checked. May be <code>null</code>.
@@ -101,8 +99,8 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *
    * @param aFromNode
    *        The from node to use. May be <code>null</code>.
-   * @return <code>null</code> if there exists no incoming relation from the
-   *         passed node to this node.
+   * @return <code>null</code> if there exists no incoming relation from the passed node to this
+   *         node.
    */
   @Nullable
   RELATIONTYPE getIncomingRelationFrom (@Nullable NODETYPE aFromNode);
@@ -125,8 +123,8 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *
    * @param aRelation
    *        The relation to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed relation is an outgoing relation,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the passed relation is an outgoing relation, <code>false</code> if
+   *         not
    */
   boolean isOutgoingRelation (@Nullable RELATIONTYPE aRelation);
 
@@ -138,18 +136,16 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   ICommonsList <RELATIONTYPE> getAllOutgoingRelations ();
 
   /**
-   * Iterate each outgoing relation calling the provided consumer with the
-   * relation object.
+   * Iterate each outgoing relation calling the provided consumer with the relation object.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        operations!
    */
   void forEachOutgoingRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
-   * Check if this graph node is directly connected to the passed node via an
-   * outgoing relation.
+   * Check if this graph node is directly connected to the passed node via an outgoing relation.
    *
    * @param aNode
    *        The node to be checked. May be <code>null</code>.
@@ -169,8 +165,8 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
    *
    * @param aToNode
    *        The to node to use. May be <code>null</code>.
-   * @return <code>null</code> if there exists no incoming relation from this
-   *         node to the passed node.
+   * @return <code>null</code> if there exists no incoming relation from this node to the passed
+   *         node.
    */
   @Nullable
   RELATIONTYPE getOutgoingRelationTo (@Nullable NODETYPE aToNode);
@@ -178,11 +174,10 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   // --- incoming and/or outgoing
 
   /**
-   * Check if this node has incoming <b>or</b> outgoing relations. This is equal
-   * to calling <code>hasIncomingRelations() || hasOutgoingRelations()</code>
+   * Check if this node has incoming <b>or</b> outgoing relations. This is equal to calling
+   * <code>hasIncomingRelations() || hasOutgoingRelations()</code>
    *
-   * @return <code>true</code> if this node has at least one incoming or
-   *         outgoing relation.
+   * @return <code>true</code> if this node has at least one incoming or outgoing relation.
    */
   default boolean hasIncomingOrOutgoingRelations ()
   {
@@ -190,12 +185,11 @@ public interface IDirectedGraphNode <NODETYPE extends IDirectedGraphNode <NODETY
   }
 
   /**
-   * Check if this node has incoming <b>and</b> outgoing relations. This is
-   * equal to calling
+   * Check if this node has incoming <b>and</b> outgoing relations. This is equal to calling
    * <code>hasIncomingRelations() &amp;&amp; hasOutgoingRelations()</code>
    *
-   * @return <code>true</code> if this node has at least one incoming and at
-   *         least one outgoing relation.
+   * @return <code>true</code> if this node has at least one incoming and at least one outgoing
+   *         relation.
    */
   default boolean hasIncomingAndOutgoingRelations ()
   {

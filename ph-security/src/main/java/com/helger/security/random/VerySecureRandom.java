@@ -34,40 +34,34 @@ import com.helger.base.system.SystemProperties;
 import com.helger.base.timing.StopWatch;
 
 /**
- * A secure random generator initialized with another secure random
- * generator.<br>
- * Using <code>/dev/random</code> may require waiting for the result as it uses
- * so-called entropy pool, where random data may not be available at the moment.
- * <code>/dev/urandom</code> returns as many bytes as user requested and thus it
- * is less random than /dev/random.<br>
+ * A secure random generator initialized with another secure random generator.<br>
+ * Using <code>/dev/random</code> may require waiting for the result as it uses so-called entropy
+ * pool, where random data may not be available at the moment. <code>/dev/urandom</code> returns as
+ * many bytes as user requested and thus it is less random than /dev/random.<br>
  * <ul>
- * <li><strong>random</strong> When read, the /dev/random device will only
- * return random bytes within the estimated number of bits of noise in the
- * entropy pool. /dev/random should be suitable for uses that need very high
- * quality randomness such as one-time pad or key generation. When the entropy
- * pool is empty, reads from /dev/random will block until additional
- * environmental noise is gathered.</li>
- * <li><strong>urandom</strong> A read from the /dev/urandom device will not
- * block waiting for more entropy. As a result, if there is not sufficient
- * entropy in the entropy pool, the returned values are theoretically vulnerable
- * to a cryptographic attack on the algorithms used by the driver. Knowledge of
- * how to do this is not available in the current unclassified literature, but
- * it is theoretically possible that such an attack may exist. If this is a
- * concern in your application, use /dev/random instead.</li>
+ * <li><strong>random</strong> When read, the /dev/random device will only return random bytes
+ * within the estimated number of bits of noise in the entropy pool. /dev/random should be suitable
+ * for uses that need very high quality randomness such as one-time pad or key generation. When the
+ * entropy pool is empty, reads from /dev/random will block until additional environmental noise is
+ * gathered.</li>
+ * <li><strong>urandom</strong> A read from the /dev/urandom device will not block waiting for more
+ * entropy. As a result, if there is not sufficient entropy in the entropy pool, the returned values
+ * are theoretically vulnerable to a cryptographic attack on the algorithms used by the driver.
+ * Knowledge of how to do this is not available in the current unclassified literature, but it is
+ * theoretically possible that such an attack may exist. If this is a concern in your application,
+ * use /dev/random instead.</li>
  * </ul>
  * <p>
- * Use <code>-Djava.security.egd=file:/dev/./urandom</code> on the commandline
- * to use urandom
+ * Use <code>-Djava.security.egd=file:/dev/./urandom</code> on the commandline to use urandom
  * </p>
  * <p>
  * Find a good description that states how it is done this way:
  * https://www.cigital.com/blog/proper-use-of-javas-securerandom/ Updated to
- * https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/
- * <br>
- * Initialize SecureRandom This is a lengthy operation, to be done only upon
- * initialization of the application. <br>
- * On Linux SecureRandom.getInstanceStrong () takes more or less forever (when
- * using /dev/random) - up to 30 minutes until enough entropy is present
+ * https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/ <br>
+ * Initialize SecureRandom This is a lengthy operation, to be done only upon initialization of the
+ * application. <br>
+ * On Linux SecureRandom.getInstanceStrong () takes more or less forever (when using /dev/random) -
+ * up to 30 minutes until enough entropy is present
  * </p>
  *
  * @author Philip Helger
@@ -102,11 +96,10 @@ public final class VerySecureRandom
   }
 
   /**
-   * Create a new {@link SecureRandom} instance. First the IBM secure random is
-   * tried, than the SHA1PRNG secure random and finally if the previous ones
-   * failed, the default instance is used. In certain circumstances (Linux +
-   * some Java version; most likely using the blocking '/dev/random') this
-   * initialization takes forever and that's why the debug statements are added.
+   * Create a new {@link SecureRandom} instance. First the IBM secure random is tried, than the
+   * SHA1PRNG secure random and finally if the previous ones failed, the default instance is used.
+   * In certain circumstances (Linux + some Java version; most likely using the blocking
+   * '/dev/random') this initialization takes forever and that's why the debug statements are added.
    *
    * @return A new {@link SecureRandom} instance. Never <code>null</code>.
    */
@@ -201,12 +194,11 @@ public final class VerySecureRandom
   {}
 
   /**
-   * Set the interval of {@link #getInstance()} calls after which the random
-   * should be re-seeded.
+   * Set the interval of {@link #getInstance()} calls after which the random should be re-seeded.
    *
    * @param nReseedInterval
-   *        The re-seed interval. Must be &ge; 0. The value of 0 means: don't
-   *        re-seed. The default value is {@value #DEFAULT_RE_SEED_INTERVAL}.
+   *        The re-seed interval. Must be &ge; 0. The value of 0 means: don't re-seed. The default
+   *        value is {@value #DEFAULT_RE_SEED_INTERVAL}.
    */
   public static void setReSeedInterval (@Nonnegative final int nReseedInterval)
   {
@@ -215,11 +207,10 @@ public final class VerySecureRandom
   }
 
   /**
-   * Get the interval of {@link #getInstance()} calls after which the random
-   * should be re-seeded.
+   * Get the interval of {@link #getInstance()} calls after which the random should be re-seeded.
    *
-   * @return The re-seed interval. Always &ge; 0. The value of 0 means: don't
-   *         re-seed. The default value is {@value #DEFAULT_RE_SEED_INTERVAL}.
+   * @return The re-seed interval. Always &ge; 0. The value of 0 means: don't re-seed. The default
+   *         value is {@value #DEFAULT_RE_SEED_INTERVAL}.
    */
   @Nonnegative
   public static int getReSeedInterval ()
@@ -228,8 +219,7 @@ public final class VerySecureRandom
   }
 
   /**
-   * @return The {@link SecureRandom} instance that does the hard work. Never
-   *         <code>null</code>.
+   * @return The {@link SecureRandom} instance that does the hard work. Never <code>null</code>.
    */
   @NonNull
   public static SecureRandom getInstance ()
@@ -242,7 +232,7 @@ public final class VerySecureRandom
           LOGGER.debug ("Re-seeding VerySecureRandom started");
 
         // Re-seed
-        final Duration aDuration = StopWatch.runMeasured ( () -> SECURE_RANDOM.setSeed (SECURE_RANDOM.generateSeed (SEED_BYTE_COUNT)));
+        final Duration aDuration = StopWatch.runMeasured (() -> SECURE_RANDOM.setSeed (SECURE_RANDOM.generateSeed (SEED_BYTE_COUNT)));
         if (aDuration.toMillis () > WARNING_MILLISECONDS_THRESHOLD)
           LOGGER.warn ("Re-seeding VerySecureRandom took too long (" +
                        aDuration.toMillis () +

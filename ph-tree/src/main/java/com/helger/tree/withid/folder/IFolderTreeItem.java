@@ -23,8 +23,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.tree.withid.ITreeItemWithID;
 
 /**
- * This interface represents a single folder within a directory tree. Each
- * folder has a list of file items (or leaves).
+ * This interface represents a single folder within a directory tree. Each folder has a list of file
+ * items (or leaves).
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -41,9 +41,8 @@ public interface IFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
                                  ITreeItemWithID <KEYTYPE, COLLTYPE, ITEMTYPE>
 {
   /**
-   * @return The globally unique ID of this folder. This can e.g. be an
-   *         aggregation of the ID with a separator and the parent's unique
-   *         name.
+   * @return The globally unique ID of this folder. This can e.g. be an aggregation of the ID with a
+   *         separator and the parent's unique name.
    */
   @NonNull
   KEYTYPE getGlobalUniqueDataID ();

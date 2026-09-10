@@ -217,8 +217,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @param sRelativePath
    *        The relative path of the directory. May not be <code>null</code>.
    * @param bDeleteRecursively
-   *        <code>true</code> to delete recursively, <code>false</code> to
-   *        delete only if empty.
+   *        <code>true</code> to delete recursively, <code>false</code> to delete only if empty.
    * @return The operation result. Never <code>null</code>.
    * @see #getBasePathFile()
    */
@@ -226,8 +225,8 @@ public interface IFileRelativeIO extends IPathRelativeIO
   default FileIOError deleteDirectory (@NonNull final String sRelativePath, final boolean bDeleteRecursively)
   {
     final File aDir = getFile (sRelativePath);
-    return bDeleteRecursively ? FileOperationManager.INSTANCE.deleteDirRecursive (aDir) : FileOperationManager.INSTANCE
-                                                                                                                       .deleteDir (aDir);
+    return bDeleteRecursively ? FileOperationManager.INSTANCE.deleteDirRecursive (aDir)
+                              : FileOperationManager.INSTANCE.deleteDir (aDir);
   }
 
   /**
@@ -236,8 +235,7 @@ public interface IFileRelativeIO extends IPathRelativeIO
    * @param sRelativePath
    *        The relative path of the directory. May not be <code>null</code>.
    * @param bDeleteRecursively
-   *        <code>true</code> to delete recursively, <code>false</code> to
-   *        delete only if empty.
+   *        <code>true</code> to delete recursively, <code>false</code> to delete only if empty.
    * @return The operation result. Never <code>null</code>.
    * @see #getBasePathFile()
    */

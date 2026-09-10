@@ -29,17 +29,15 @@ import com.helger.security.password.salt.IPasswordSalt;
 public interface IPasswordHashCreator
 {
   /**
-   * @return The name of the algorithm used in this creator. May neither be
-   *         <code>null</code> nor empty. This is a self-chosen name and not
-   *         related to a JDK internal name.
+   * @return The name of the algorithm used in this creator. May neither be <code>null</code> nor
+   *         empty. This is a self-chosen name and not related to a JDK internal name.
    */
   @NonNull
   @Nonempty
   String getAlgorithmName ();
 
   /**
-   * @return <code>true</code> if this hash creator requires a salt,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if this hash creator requires a salt, <code>false</code> if not.
    */
   boolean requiresSalt ();
 
@@ -47,12 +45,11 @@ public interface IPasswordHashCreator
    * The method to create a message digest hash from a password.
    *
    * @param aSalt
-   *        Optional salt to be used. This parameter is only <code>null</code>
-   *        for backwards compatibility reasons.
+   *        Optional salt to be used. This parameter is only <code>null</code> for backwards
+   *        compatibility reasons.
    * @param sPlainTextPassword
    *        Plain text password. May not be <code>null</code>.
-   * @return The String representation of the password hash. Must be valid to
-   *         encode in UTF-8.
+   * @return The String representation of the password hash. Must be valid to encode in UTF-8.
    */
   @NonNull
   String createPasswordHash (IPasswordSalt aSalt, @NonNull String sPlainTextPassword);

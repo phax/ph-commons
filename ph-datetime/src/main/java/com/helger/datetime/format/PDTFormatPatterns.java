@@ -27,8 +27,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
- * Create common {@link FormatStyle} patterns to format date, time and datetime
- * objects.
+ * Create common {@link FormatStyle} patterns to format date, time and datetime objects.
  *
  * @author Philip Helger
  */
@@ -213,12 +212,14 @@ public final class PDTFormatPatterns
   @NonNull
   public static String getPatternDateTime (@NonNull final FormatStyle eStyle, @NonNull final Locale aDisplayLocale)
   {
-    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle, eStyle, IsoChronology.INSTANCE, aDisplayLocale);
+    return DateTimeFormatterBuilder.getLocalizedDateTimePattern (eStyle,
+                                                                 eStyle,
+                                                                 IsoChronology.INSTANCE,
+                                                                 aDisplayLocale);
   }
 
   /**
-   * Get the default (medium) localized date time pattern for the specified
-   * locale.
+   * Get the default (medium) localized date time pattern for the specified locale.
    *
    * @param aDisplayLocale
    *        The locale to use. May not be <code>null</code>.

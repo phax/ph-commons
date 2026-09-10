@@ -170,7 +170,8 @@ public final class JsonObjectTest
     assertFalse (aObject.containsKey (null));
     assertEquals (nSizeBefore, aObject.size ());
 
-    // Object overload with null value goes through the type converter (results in a null JSON value)
+    // Object overload with null value goes through the type converter (results in a null JSON
+    // value)
     assertEquals (EChange.CHANGED, aObject.replaceKey ("k3", (Object) null));
     assertEquals ("k3", aObject.keySet ().getCopyAsList ().get (2));
   }

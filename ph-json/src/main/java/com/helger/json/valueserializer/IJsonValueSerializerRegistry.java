@@ -19,8 +19,8 @@ package com.helger.json.valueserializer;
 import org.jspecify.annotations.NonNull;
 
 /**
- * This is the callback interface implemented by
- * {@link JsonValueSerializerRegistry} for registration via the SPI interface.
+ * This is the callback interface implemented by {@link JsonValueSerializerRegistry} for
+ * registration via the SPI interface.
  *
  * @author Philip Helger
  */
@@ -34,8 +34,7 @@ public interface IJsonValueSerializerRegistry
    * @param aValueSerializer
    *        The value serializer. May not be <code>null</code>.
    * @throws IllegalArgumentException
-   *         If a value serializer for the specified class is already
-   *         registered.
+   *         If a value serializer for the specified class is already registered.
    */
   void registerJsonValueSerializer (@NonNull Class <?> aClass, @NonNull IJsonValueSerializer aValueSerializer);
 }

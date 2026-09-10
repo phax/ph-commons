@@ -502,8 +502,8 @@ public enum ECountry implements IHasDisplayText, IHasID <String>
   }
 
   /**
-   * @return <code>true</code> if this is a country sub-element (e.g. a state or
-   *         province), <code>false</code> if it is a top-level country.
+   * @return <code>true</code> if this is a country sub-element (e.g. a state or province),
+   *         <code>false</code> if it is a top-level country.
    */
   public boolean isCountrySub ()
   {

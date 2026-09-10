@@ -43,8 +43,7 @@ public interface IInterruptIndicator
    *
    * @param aInterrupt
    *        The other interrupt indicator. May not be <code>null</code>.
-   * @return {@link EInterrupt#INTERRUPTED} if either this or the other
-   *         indicator is interrupted.
+   * @return {@link EInterrupt#INTERRUPTED} if either this or the other indicator is interrupted.
    */
   @NonNull
   default EInterrupt or (@NonNull final IInterruptIndicator aInterrupt)
@@ -57,8 +56,7 @@ public interface IInterruptIndicator
    *
    * @param aInterrupt
    *        The other interrupt indicator. May not be <code>null</code>.
-   * @return {@link EInterrupt#INTERRUPTED} if both this and the other indicator
-   *         are interrupted.
+   * @return {@link EInterrupt#INTERRUPTED} if both this and the other indicator are interrupted.
    */
   @NonNull
   default EInterrupt and (@NonNull final IInterruptIndicator aInterrupt)

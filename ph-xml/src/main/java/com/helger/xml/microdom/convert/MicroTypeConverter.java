@@ -30,9 +30,8 @@ import com.helger.xml.microdom.IMicroElement;
 
 /**
  * A utility class for converting objects from and to {@link IMicroElement}.<br>
- * The functionality is a special case of the
- * {@link com.helger.typeconvert.impl.TypeConverter} as we need a parameter
- * for conversion in this case.<br>
+ * The functionality is a special case of the {@link com.helger.typeconvert.impl.TypeConverter} as
+ * we need a parameter for conversion in this case.<br>
  * All converters are registered in the {@link MicroTypeConverterRegistry}.
  *
  * @author Philip Helger
@@ -58,7 +57,8 @@ public final class MicroTypeConverter
    * @return <code>null</code> if the input object is <code>null</code>.
    */
   @Nullable
-  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject, @NonNull @Nonempty final String sTagName)
+  public static <T> IMicroElement convertToMicroElement (@Nullable final T aObject,
+                                                         @NonNull @Nonempty final String sTagName)
   {
     // Use a null namespace
     return convertToMicroElement (aObject, null, sTagName);
@@ -89,7 +89,8 @@ public final class MicroTypeConverter
 
     // Lookup converter
     final Class <T> aSrcClass = GenericReflection.uncheckedCast (aObject.getClass ());
-    final IMicroTypeConverter <T> aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToMicroElement (aSrcClass);
+    final IMicroTypeConverter <T> aConverter = MicroTypeConverterRegistry.getInstance ()
+                                                                         .getConverterToMicroElement (aSrcClass);
     if (aConverter == null)
       throw new TypeConverterException (aSrcClass, IMicroElement.class, EReason.NO_CONVERTER_FOUND);
 
@@ -112,7 +113,8 @@ public final class MicroTypeConverter
    * @return <code>null</code> if the input element is <code>null</code>.
    */
   @Nullable
-  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement, @NonNull final Class <DSTTYPE> aDstClass)
+  public static <DSTTYPE> DSTTYPE convertToNative (@Nullable final IMicroElement aElement,
+                                                   @NonNull final Class <DSTTYPE> aDstClass)
   {
     return convertToNative (aElement, aDstClass, null);
   }
@@ -141,7 +143,8 @@ public final class MicroTypeConverter
       return aNullValue;
 
     // Lookup converter
-    final IMicroTypeConverter <DSTTYPE> aConverter = MicroTypeConverterRegistry.getInstance ().getConverterToNative (aDstClass);
+    final IMicroTypeConverter <DSTTYPE> aConverter = MicroTypeConverterRegistry.getInstance ()
+                                                                               .getConverterToNative (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (IMicroElement.class, aDstClass, EReason.NO_CONVERTER_FOUND);
 

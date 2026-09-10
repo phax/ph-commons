@@ -19,8 +19,8 @@ package com.helger.base.id.factory;
 import org.jspecify.annotations.NonNull;
 
 /**
- * A factory that creates String IDs based on a specified {@link IIntIDFactory}.
- * The implementation is as thread-safe as the used {@link IIntIDFactory}.
+ * A factory that creates String IDs based on a specified {@link IIntIDFactory}. The implementation
+ * is as thread-safe as the used {@link IIntIDFactory}.
  *
  * @author Philip Helger
  */

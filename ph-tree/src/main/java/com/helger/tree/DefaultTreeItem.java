@@ -34,8 +34,7 @@ public class DefaultTreeItem <DATATYPE> extends BasicTreeItem <DATATYPE, Default
    * Constructor for root object.
    *
    * @param aFactory
-   *        The factory to use for creating tree items. May not be
-   *        <code>null</code>.
+   *        The factory to use for creating tree items. May not be <code>null</code>.
    */
   public DefaultTreeItem (@NonNull final ITreeItemFactory <DATATYPE, DefaultTreeItem <DATATYPE>> aFactory)
   {
@@ -46,9 +45,8 @@ public class DefaultTreeItem <DATATYPE> extends BasicTreeItem <DATATYPE, Default
    * Constructor for normal elements.
    *
    * @param aParent
-   *        Parent item to use. May never be <code>null</code> since only the
-   *        root has no parent and for the root item a special no-argument
-   *        constructor is present.
+   *        Parent item to use. May never be <code>null</code> since only the root has no parent and
+   *        for the root item a special no-argument constructor is present.
    */
   public DefaultTreeItem (@NonNull final DefaultTreeItem <DATATYPE> aParent)
   {

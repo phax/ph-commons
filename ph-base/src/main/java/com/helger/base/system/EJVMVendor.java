@@ -144,8 +144,8 @@ public enum EJVMVendor
   }
 
   /**
-   * @return The current JVM vendor. If the vendor could not be determined,
-   *         {@link #UNKNOWN} is returned and never <code>null</code>.
+   * @return The current JVM vendor. If the vendor could not be determined, {@link #UNKNOWN} is
+   *         returned and never <code>null</code>.
    */
   @NonNull
   public static EJVMVendor getCurrentVendor ()

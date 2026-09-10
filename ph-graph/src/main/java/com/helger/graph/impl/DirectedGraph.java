@@ -59,11 +59,9 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
    * Constructor.
    *
    * @param sID
-   *        The unique graph ID. May be <code>null</code> to have one
-   *        generated automatically.
+   *        The unique graph ID. May be <code>null</code> to have one generated automatically.
    * @param aFactory
-   *        The factory to create graph nodes and relations. May not be
-   *        <code>null</code>.
+   *        The factory to create graph nodes and relations. May not be <code>null</code>.
    */
   public DirectedGraph (@Nullable final String sID, @NonNull final IMutableDirectedGraphObjectFactory aFactory)
   {
@@ -376,12 +374,10 @@ public class DirectedGraph extends AbstractBaseGraph <IMutableDirectedGraphNode,
   }
 
   /**
-   * Create the incidence matrix for this directed graph. The matrix has
-   * dimensions [nodeCount x nodeCount]. For each relation from row to column,
-   * the value is 1 and the reverse is -1.
+   * Create the incidence matrix for this directed graph. The matrix has dimensions [nodeCount x
+   * nodeCount]. For each relation from row to column, the value is 1 and the reverse is -1.
    *
-   * @return A new {@link Matrix} representing the incidence structure. Never
-   *         <code>null</code>.
+   * @return A new {@link Matrix} representing the incidence structure. Never <code>null</code>.
    */
   @NonNull
   public Matrix createIncidenceMatrix ()

@@ -22,9 +22,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.tree.withid.DefaultTreeItemWithID;
 
 /**
- * A managed tree is a specialized version of the tree, where each item is
- * required to have a unique ID so that item searching can be performed quite
- * easily.
+ * A managed tree is a specialized version of the tree, where each item is required to have a unique
+ * ID so that item searching can be performed quite easily.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

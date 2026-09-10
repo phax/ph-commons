@@ -433,7 +433,8 @@ public final class RFC1945Helper
   }
 
   /**
-   * Check if the passed character array is non-empty and consists only of lower-case hex characters.
+   * Check if the passed character array is non-empty and consists only of lower-case hex
+   * characters.
    *
    * @param aChars
    *        The character array to check. May be <code>null</code>.

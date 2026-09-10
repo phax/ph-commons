@@ -24,8 +24,8 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Defines the different characters modes that are relevant to determine invalid
- * characters as well characters to be masked.
+ * Defines the different characters modes that are relevant to determine invalid characters as well
+ * characters to be masked.
  *
  * @author Philip Helger
  */

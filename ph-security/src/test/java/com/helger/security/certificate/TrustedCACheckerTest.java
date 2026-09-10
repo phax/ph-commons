@@ -90,8 +90,7 @@ public final class TrustedCACheckerTest
     assertNotNull (aChecker);
     assertNotNull (aChecker.getRevocationCache ());
     // Default is taken from the global defaults
-    assertTrue (CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock () ==
-                aChecker.isSynchronizedRevocationCheck ());
+    assertTrue (CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock () == aChecker.isSynchronizedRevocationCheck ());
   }
 
   @Test

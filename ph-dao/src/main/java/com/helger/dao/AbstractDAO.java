@@ -133,22 +133,20 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    */
   public final boolean isAutoSaveEnabled ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bAutoSaveEnabled);
+    return m_aRWLock.readLockedBoolean (() -> m_bAutoSaveEnabled);
   }
 
   /**
-   * Set the pending changes flag. This method must only be called within a
-   * write lock.
+   * Set the pending changes flag. This method must only be called within a write lock.
    *
    * @param bPendingChanges
-   *        <code>true</code> if there are pending changes, <code>false</code>
-   *        if not.
+   *        <code>true</code> if there are pending changes, <code>false</code> if not.
    */
   @MustBeLocked (ELockType.WRITE)
   public final void internalSetPendingChanges (final boolean bPendingChanges)
   {
     m_bPendingChanges = bPendingChanges;
-    CONDLOG.info ( () -> "Pending changes now: " + bPendingChanges);
+    CONDLOG.info (() -> "Pending changes now: " + bPendingChanges);
   }
 
   /**
@@ -165,17 +163,17 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
    */
   public final boolean hasPendingChanges ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bPendingChanges);
+    return m_aRWLock.readLockedBoolean (() -> m_bPendingChanges);
   }
 
   /** {@inheritDoc} */
   public final void beginWithoutAutoSave ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // Save old auto save state
       m_aAutoSaveStack.push (Boolean.valueOf (m_bAutoSaveEnabled));
       m_bAutoSaveEnabled = false;
-      CONDLOG.info ( () -> "Begin autosave");
+      CONDLOG.info (() -> "Begin autosave");
     });
   }
 
@@ -183,10 +181,10 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   public final void endWithoutAutoSave ()
   {
     // Restore previous auto save state
-    final boolean bPreviouslyAutoSaveEnabled = m_aRWLock.writeLockedBoolean ( () -> {
+    final boolean bPreviouslyAutoSaveEnabled = m_aRWLock.writeLockedBoolean (() -> {
       final boolean bPreviously = m_aAutoSaveStack.pop ().booleanValue ();
       m_bAutoSaveEnabled = bPreviously;
-      CONDLOG.info ( () -> "End autosave");
+      CONDLOG.info (() -> "End autosave");
       return bPreviously;
     });
 
@@ -213,7 +211,7 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
     ValueEnforcer.notNull (aFile, "File");
     ValueEnforcer.notNull (eMode, "Mode");
 
-    CONDLOG.debug ( () -> "Checking file access for " + eMode + " for file '" + aFile.getAbsolutePath () + "'");
+    CONDLOG.debug (() -> "Checking file access for " + eMode + " for file '" + aFile.getAbsolutePath () + "'");
 
     final String sFilename = aFile.toString ();
     if (aFile.exists ())

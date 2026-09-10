@@ -34,9 +34,8 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsIterable;
 
 /**
- * Base class for a tree having items with IDs. This implementation is
- * independent of the item implementation class. The elements of the tree are
- * not sorted by any means.
+ * Base class for a tree having items with IDs. This implementation is independent of the item
+ * implementation class. The elements of the tree are not sorted by any means.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -47,7 +46,8 @@ import com.helger.collection.commons.ICommonsIterable;
  *        tree item implementation type
  */
 @NotThreadSafe
-public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> implements
+public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                             implements
                              ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   // Root item.

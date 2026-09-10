@@ -58,7 +58,8 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
    * @throws IOException
    *         On IO error
    */
-  public static void appendEscapedJsonString (@NonNull final String sValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
+  public static void appendEscapedJsonString (@NonNull final String sValue,
+                                              @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write ('"');
     JsonEscapeHelper.jsonEscapeToWriter (sValue, aWriter);
@@ -68,7 +69,8 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
   /**
    * {@inheritDoc}
    */
-  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue,
+                                  @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     appendEscapedJsonString (String.valueOf (aValue), aWriter);
   }

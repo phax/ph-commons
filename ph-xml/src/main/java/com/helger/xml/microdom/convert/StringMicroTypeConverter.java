@@ -25,8 +25,7 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.MicroElement;
 
 /**
- * Default {@link IMicroTypeConverter} implementation for {@link String}
- * objects.
+ * Default {@link IMicroTypeConverter} implementation for {@link String} objects.
  *
  * @author Philip Helger
  */

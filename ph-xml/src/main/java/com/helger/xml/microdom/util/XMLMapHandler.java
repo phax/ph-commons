@@ -83,8 +83,7 @@ public final class XMLMapHandler
    * Read a mapping from the passed input stream provider.
    *
    * @param aISP
-   *        The input stream provider to read from. May not be
-   *        <code>null</code>.
+   *        The input stream provider to read from. May not be <code>null</code>.
    * @return <code>null</code> if reading the map failed.
    */
   @Nullable
@@ -100,12 +99,10 @@ public final class XMLMapHandler
    * Read a mapping from the passed input stream provider into the target map.
    *
    * @param aISP
-   *        The input stream provider to read from. May not be
-   *        <code>null</code>.
+   *        The input stream provider to read from. May not be <code>null</code>.
    * @param aTargetMap
    *        The target map to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess readMap (@NonNull final IHasInputStream aISP, @NonNull final Map <String, String> aTargetMap)
@@ -172,8 +169,7 @@ public final class XMLMapHandler
    *        The parent element to read from. May not be <code>null</code>.
    * @param aTargetMap
    *        The target map to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess readMap (@NonNull final IMicroElement aParentElement,
@@ -241,8 +237,7 @@ public final class XMLMapHandler
    *        The map to be written. May not be <code>null</code>.
    * @param aOSP
    *        The output stream provider. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} when everything went well,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess writeMap (@NonNull final Map <String, String> aMap, @NonNull final IHasOutputStream aOSP)

@@ -57,14 +57,15 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this relation. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this relation. If <code>null</code> or empty a new ID is generated.
    * @param aNode1
    *        The first node. May not be <code>null</code>.
    * @param aNode2
    *        The second node. May not be <code>null</code>.
    */
-  public GraphRelation (@Nullable final String sID, @NonNull final IMutableGraphNode aNode1, @NonNull final IMutableGraphNode aNode2)
+  public GraphRelation (@Nullable final String sID,
+                        @NonNull final IMutableGraphNode aNode1,
+                        @NonNull final IMutableGraphNode aNode2)
   {
     super (sID);
     ValueEnforcer.notNull (aNode1, "Node1");
@@ -135,6 +136,9 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("node1", m_aNode1).append ("node2", m_aNode2).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("node1", m_aNode1)
+                            .append ("node2", m_aNode2)
+                            .getToString ();
   }
 }

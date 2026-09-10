@@ -92,8 +92,7 @@ public final class SystemHelper
   }
 
   /**
-   * @return The vendor of the Java Virtual Machine (JVM) that we're operating
-   *         on.
+   * @return The vendor of the Java Virtual Machine (JVM) that we're operating on.
    */
   @NonNull
   public static EJVMVendor getJVMVendor ()
@@ -131,8 +130,8 @@ public final class SystemHelper
   /**
    * Returns the amount of free memory in the Java Virtual Machine.
    *
-   * @return an approximation to the total amount of memory currently available
-   *         for future allocated objects, measured in bytes.
+   * @return an approximation to the total amount of memory currently available for future allocated
+   *         objects, measured in bytes.
    */
   @Nonnegative
   public static long getFreeMemory ()
@@ -141,12 +140,11 @@ public final class SystemHelper
   }
 
   /**
-   * Returns the maximum amount of memory that the Java virtual machine will
-   * attempt to use. If there is no inherent limit then the value
-   * {@link java.lang.Long#MAX_VALUE} will be returned.
+   * Returns the maximum amount of memory that the Java virtual machine will attempt to use. If
+   * there is no inherent limit then the value {@link java.lang.Long#MAX_VALUE} will be returned.
    *
-   * @return the maximum amount of memory that the virtual machine will attempt
-   *         to use, measured in bytes
+   * @return the maximum amount of memory that the virtual machine will attempt to use, measured in
+   *         bytes
    */
   @Nonnegative
   public static long getMaxMemory ()
@@ -155,16 +153,15 @@ public final class SystemHelper
   }
 
   /**
-   * Returns the total amount of memory in the Java virtual machine. The value
-   * returned by this method may vary over time, depending on the host
-   * environment.
+   * Returns the total amount of memory in the Java virtual machine. The value returned by this
+   * method may vary over time, depending on the host environment.
    * <p>
-   * Note that the amount of memory required to hold an object of any given type
-   * may be implementation-dependent.
+   * Note that the amount of memory required to hold an object of any given type may be
+   * implementation-dependent.
    * </p>
    *
-   * @return the total amount of memory currently available for current and
-   *         future objects, measured in bytes.
+   * @return the total amount of memory currently available for current and future objects, measured
+   *         in bytes.
    */
   @Nonnegative
   public static long getTotalMemory ()

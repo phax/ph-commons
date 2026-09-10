@@ -92,7 +92,7 @@ public final class PromiseFuncTest
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
+    final MutableInt aMI = CompletableFuture.supplyAsync (() -> f.apply (new MutableInt (0)))
                                             .thenApplyAsync (f)
                                             .thenApplyAsync (f)
                                             .get ();
@@ -111,7 +111,7 @@ public final class PromiseFuncTest
       return new MutableInt (x.intValue () + 1);
     };
     final StopWatch aSW = StopWatch.createdStarted ();
-    final MutableInt aMI = CompletableFuture.supplyAsync ( () -> f.apply (new MutableInt (0)))
+    final MutableInt aMI = CompletableFuture.supplyAsync (() -> f.apply (new MutableInt (0)))
                                             .thenApply (f)
                                             .thenApply (f)
                                             .get ();

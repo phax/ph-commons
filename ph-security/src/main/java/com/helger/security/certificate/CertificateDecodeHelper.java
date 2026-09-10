@@ -81,8 +81,8 @@ public class CertificateDecodeHelper
    * Set whether the certificate source is PEM encoded or not.
    *
    * @param b
-   *        <code>true</code> if the source is PEM (Base64) encoded, <code>false</code> if it is
-   *        in binary (DER) format.
+   *        <code>true</code> if the source is PEM (Base64) encoded, <code>false</code> if it is in
+   *        binary (DER) format.
    * @return this for chaining
    */
   @NonNull
@@ -109,8 +109,9 @@ public class CertificateDecodeHelper
     if (m_bPEMEncoded)
     {
       // Certificate is always ISO-8859-1 encoded
-      final String sEncodedString = (m_sSrcString != null ? m_sSrcString : new String (m_aSrcBytes,
-                                                                                       CertificateHelper.CERT_CHARSET)).trim ();
+      final String sEncodedString = (m_sSrcString != null ? m_sSrcString
+                                                          : new String (m_aSrcBytes, CertificateHelper.CERT_CHARSET))
+                                                                                                                     .trim ();
       if (!sEncodedString.isEmpty ())
       {
         // Source is not empty
@@ -126,8 +127,9 @@ public class CertificateDecodeHelper
     }
     else
     {
-      final byte [] aEncodedBytes = m_aSrcBytes != null ? m_aSrcBytes : m_sSrcString.trim ()
-                                                                                    .getBytes (CertificateHelper.CERT_CHARSET);
+      final byte [] aEncodedBytes = m_aSrcBytes != null ? m_aSrcBytes
+                                                        : m_sSrcString.trim ()
+                                                                      .getBytes (CertificateHelper.CERT_CHARSET);
       if (aEncodedBytes.length > 0)
       {
         final CertificateFactory aCertificateFactory = CertificateHelper.getX509CertificateFactory ();

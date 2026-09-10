@@ -26,8 +26,8 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
 
 /**
- * This implementation of {@link javax.xml.transform.ErrorListener} saves all
- * occurred warnings/errors/fatals in a list for later evaluation.
+ * This implementation of {@link javax.xml.transform.ErrorListener} saves all occurred
+ * warnings/errors/fatals in a list for later evaluation.
  *
  * @author Philip Helger
  * @since 8.5.1
@@ -49,8 +49,7 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
   }
 
   /**
-   * @return The error list object passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The error list object passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject ("design")

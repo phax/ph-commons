@@ -95,7 +95,7 @@ public final class URLResourceTest
     TestHelper.testDefaultImplementationWithEqualContentObject (ur, new URLResource (aFileURL));
     TestHelper.testDefaultImplementationWithEqualContentObject (ur, ur.getReadableCloneForPath (aFileURL));
     TestHelper.testDefaultImplementationWithEqualContentObject (ur,
-                                                                       ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
+                                                                ur.getReadableCloneForPath (aFileURL.toExternalForm ()));
     TestHelper.testDefaultImplementationWithDifferentContentObject (ur, new URLResource (aNoNExistingURL));
 
     assertNotNull (URLHelper.getAsFile (aFileURL));

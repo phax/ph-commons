@@ -76,13 +76,11 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
   }
 
   /**
-   * Check if the provided key is considered a secret key (e.g. containing
-   * "password" or "passwd").
+   * Check if the provided key is considered a secret key (e.g. containing "password" or "passwd").
    *
    * @param sKey
    *        The key to check. May not be <code>null</code>.
-   * @return <code>true</code> if the key is considered secret, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the key is considered secret, <code>false</code> otherwise.
    */
   public static boolean isSecretKey (@NonNull final String sKey)
   {

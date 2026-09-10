@@ -68,8 +68,8 @@ public class DigestAuthClientCredentials
    * @param sDigestURI
    *        The digest URI. May neither be <code>null</code> nor empty.
    * @param sResponse
-   *        The response hash. May neither be <code>null</code> nor empty.
-   *        Must be a 32-character lowercase hex string.
+   *        The response hash. May neither be <code>null</code> nor empty. Must be a 32-character
+   *        lowercase hex string.
    * @param sAlgorithm
    *        The algorithm used. May be <code>null</code>.
    * @param sClientNonce
@@ -79,8 +79,7 @@ public class DigestAuthClientCredentials
    * @param sMessageQOP
    *        The quality of protection. May be <code>null</code>.
    * @param sNonceCount
-   *        The nonce count as an 8-character hex string. May be
-   *        <code>null</code>.
+   *        The nonce count as an 8-character hex string. May be <code>null</code>.
    */
   public DigestAuthClientCredentials (@NonNull @Nonempty final String sUserName,
                                       @NonNull @Nonempty final String sRealm,
@@ -224,8 +223,8 @@ public class DigestAuthClientCredentials
   }
 
   /**
-   * @return The complete Digest authentication request header value. Neither
-   *         <code>null</code> nor empty.
+   * @return The complete Digest authentication request header value. Neither <code>null</code> nor
+   *         empty.
    */
   @NonNull
   @Nonempty

@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * A code comment for elements that were added at a specific version. This is
- * present in contrary to {@link Until}.
+ * A code comment for elements that were added at a specific version. This is present in contrary to
+ * {@link Until}.
  *
  * @author Philip Helger
  * @see Until

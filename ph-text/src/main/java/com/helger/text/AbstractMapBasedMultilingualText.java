@@ -37,9 +37,8 @@ import com.helger.collection.commons.ICommonsOrderedMap;
 import com.helger.text.locale.LocaleHelper;
 
 /**
- * A {@link Map} based implementation of {@link IMultilingualText} that does
- * also provide writing methods to the outside and is only to be used as a
- * non-abstract base class.
+ * A {@link Map} based implementation of {@link IMultilingualText} that does also provide writing
+ * methods to the outside and is only to be used as a non-abstract base class.
  *
  * @author Philip Helger
  */
@@ -54,8 +53,8 @@ public abstract class AbstractMapBasedMultilingualText extends AbstractReadOnlyM
   {}
 
   /**
-   * Protected constructor that specifies the underlying {@link Map} to use. Use
-   * this constructor to e.g. provide a concurrent {@link HashMap} or similar.
+   * Protected constructor that specifies the underlying {@link Map} to use. Use this constructor to
+   * e.g. provide a concurrent {@link HashMap} or similar.
    *
    * @param aMapToUse
    *        The map to use. Must not be <code>null</code> and must be writable.

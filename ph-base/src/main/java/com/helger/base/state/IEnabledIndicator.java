@@ -26,14 +26,12 @@ import org.jspecify.annotations.NonNull;
 public interface IEnabledIndicator
 {
   /**
-   * @return <code>true</code> if the object is currently enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the object is currently enabled, <code>false</code> otherwise.
    */
   boolean isEnabled ();
 
   /**
-   * @return <code>true</code> if the object is currently disabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the object is currently disabled, <code>false</code> otherwise.
    */
   default boolean isDisabled ()
   {
@@ -45,8 +43,7 @@ public interface IEnabledIndicator
    *
    * @param aEnabled
    *        The other enabled indicator. May not be <code>null</code>.
-   * @return {@link EEnabled#ENABLED} if either this or the other indicator is
-   *         enabled.
+   * @return {@link EEnabled#ENABLED} if either this or the other indicator is enabled.
    */
   @NonNull
   default EEnabled or (@NonNull final IEnabledIndicator aEnabled)
@@ -59,8 +56,7 @@ public interface IEnabledIndicator
    *
    * @param aEnabled
    *        The other enabled indicator. May not be <code>null</code>.
-   * @return {@link EEnabled#ENABLED} if both this and the other indicator are
-   *         enabled.
+   * @return {@link EEnabled#ENABLED} if both this and the other indicator are enabled.
    */
   @NonNull
   default EEnabled and (@NonNull final IEnabledIndicator aEnabled)

@@ -23,8 +23,8 @@ import com.helger.base.CGlobal;
 import com.helger.base.string.StringParser;
 
 /**
- * Enum for representing the current processor architecture. Works only on Sun
- * JVMs using the proprietary system property <code>sun.arch.data.model</code>.
+ * Enum for representing the current processor architecture. Works only on Sun JVMs using the
+ * proprietary system property <code>sun.arch.data.model</code>.
  *
  * @author Philip Helger
  */
@@ -53,8 +53,8 @@ public enum EProcessorArchitecture
   }
 
   /**
-   * @return The number of bits of this architecture. May be
-   *         {@link CGlobal#ILLEGAL_UINT} for the unknown architecture.
+   * @return The number of bits of this architecture. May be {@link CGlobal#ILLEGAL_UINT} for the
+   *         unknown architecture.
    */
   public int getBits ()
   {
@@ -62,8 +62,8 @@ public enum EProcessorArchitecture
   }
 
   /**
-   * @return The number of bytes of this architecture (=bits/8). May be
-   *         {@link CGlobal#ILLEGAL_UINT} for the unknown architecture.
+   * @return The number of bytes of this architecture (=bits/8). May be {@link CGlobal#ILLEGAL_UINT}
+   *         for the unknown architecture.
    */
   public int getBytes ()
   {
@@ -71,8 +71,8 @@ public enum EProcessorArchitecture
   }
 
   /**
-   * @return The number of bits in the current architecture or
-   *         {@link CGlobal#ILLEGAL_UINT} if this is undetermined.
+   * @return The number of bits in the current architecture or {@link CGlobal#ILLEGAL_UINT} if this
+   *         is undetermined.
    */
   @CheckForSigned
   public static int getCurrentArchitectureBits ()
@@ -98,9 +98,9 @@ public enum EProcessorArchitecture
   }
 
   /**
-   * @return The current processor architecture if running inside a Sun JVM. If
-   *         no processor architecture could be determined, {@link #UNKNOWN} is
-   *         returned and never <code>null</code>.
+   * @return The current processor architecture if running inside a Sun JVM. If no processor
+   *         architecture could be determined, {@link #UNKNOWN} is returned and never
+   *         <code>null</code>.
    */
   @NonNull
   public static EProcessorArchitecture getCurrentArchitecture ()

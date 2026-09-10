@@ -693,8 +693,7 @@ public class EigenvalueDecomposition
             r /= s;
             if (m == l)
               break;
-            if (MathHelper.abs (m_aHessenBerg[m][m - 1]) * (MathHelper.abs (q) + MathHelper.abs (r)) <
-                EPSILON *
+            if (MathHelper.abs (m_aHessenBerg[m][m - 1]) * (MathHelper.abs (q) + MathHelper.abs (r)) < EPSILON *
                                                                                                        (MathHelper.abs (p) *
                                                                                                         (MathHelper.abs (m_aHessenBerg[m -
                                                                                                                                        1][m -

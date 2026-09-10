@@ -59,9 +59,8 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   {}
 
   /**
-   * @return <code>true</code> if override texts are checked,
-   *         <code>false</code> if not. The default value is
-   *         {@link #DEFAULT_CHECK_FOR_OVERRIDE}.
+   * @return <code>true</code> if override texts are checked, <code>false</code> if not. The default
+   *         value is {@link #DEFAULT_CHECK_FOR_OVERRIDE}.
    */
   public final boolean isCheckForOverride ()
   {
@@ -84,13 +83,12 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
    */
   public final void setCheckForOverride (final boolean bCheckForOverride)
   {
-    m_aRWLock.writeLocked ( () -> m_bCheckForOverride = bCheckForOverride);
+    m_aRWLock.writeLocked (() -> m_bCheckForOverride = bCheckForOverride);
   }
 
   /**
-   * @return <code>true</code> if fallback texts are checked,
-   *         <code>false</code> if not. The default value is
-   *         {@link #DEFAULT_CHECK_FOR_FALLBACK}.
+   * @return <code>true</code> if fallback texts are checked, <code>false</code> if not. The default
+   *         value is {@link #DEFAULT_CHECK_FOR_FALLBACK}.
    */
   public final boolean isCheckForFallback ()
   {
@@ -113,7 +111,7 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
    */
   public final void setCheckForFallback (final boolean bCheckForFallback)
   {
-    m_aRWLock.writeLocked ( () -> m_bCheckForFallback = bCheckForFallback);
+    m_aRWLock.writeLocked (() -> m_bCheckForFallback = bCheckForFallback);
   }
 
   /**
@@ -143,8 +141,8 @@ public abstract class AbstractEnumTextResolverWithOverrideAndFallback implements
   protected abstract String internalGetFallbackString (@NonNull String sID, @NonNull Locale aContentLocale);
 
   /**
-   * Resolve the text for the given enum value, checking for overrides first, then
-   * the text provider, and finally the fallback.
+   * Resolve the text for the given enum value, checking for overrides first, then the text
+   * provider, and finally the fallback.
    *
    * @param aEnum
    *        The enum value to resolve text for. May not be <code>null</code>.

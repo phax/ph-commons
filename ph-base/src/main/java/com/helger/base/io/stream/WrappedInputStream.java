@@ -25,8 +25,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A wrapper around another {@link FilterInputStream} to make the wrapped
- * {@link InputStream} accessible.
+ * A wrapper around another {@link FilterInputStream} to make the wrapped {@link InputStream}
+ * accessible.
  *
  * @author Philip Helger
  */
@@ -42,8 +42,7 @@ public class WrappedInputStream extends FilterInputStream
   }
 
   /**
-   * @return The input stream provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The input stream provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final InputStream getWrappedInputStream ()

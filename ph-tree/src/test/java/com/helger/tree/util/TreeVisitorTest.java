@@ -42,7 +42,9 @@ public final class TreeVisitorTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (TreeVisitorTest.class);
 
-  private static void _fillTree (final DefaultTreeItem <String> aParentItem, final int nLevels, final int nItemsPerLevel)
+  private static void _fillTree (final DefaultTreeItem <String> aParentItem,
+                                 final int nLevels,
+                                 final int nItemsPerLevel)
   {
     if (nLevels > 0)
       for (int i = 0; i < nItemsPerLevel; ++i)
@@ -86,17 +88,18 @@ public final class TreeVisitorTest
 
       // count at before children
       final MutableInt aMI = new MutableInt (0);
-      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel), new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-      {
-        @Override
-        public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
-        {
-          if (getLevel () < 0)
-            throw new IllegalStateException ();
-          aMI.inc ();
-          return EHierarchyVisitorReturn.CONTINUE;
-        }
-      });
+      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
+                             new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                             {
+                               @Override
+                               public EHierarchyVisitorReturn onItemBeforeChildren (final DefaultTreeItem <String> aItem)
+                               {
+                                 if (getLevel () < 0)
+                                   throw new IllegalStateException ();
+                                 aMI.inc ();
+                                 return EHierarchyVisitorReturn.CONTINUE;
+                               }
+                             });
       assertEquals (nExpected, aMI.intValue ());
 
       // count at before children
@@ -117,17 +120,18 @@ public final class TreeVisitorTest
 
       // count at after children
       aMI.set (0);
-      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel), new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
-      {
-        @Override
-        public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
-        {
-          if (getLevel () < 0)
-            throw new IllegalStateException ();
-          aMI.inc ();
-          return EHierarchyVisitorReturn.CONTINUE;
-        }
-      });
+      TreeVisitor.visitTree (_createTree (nLevel, nItemsPerLevel),
+                             new DefaultHierarchyVisitorCallback <DefaultTreeItem <String>> ()
+                             {
+                               @Override
+                               public EHierarchyVisitorReturn onItemAfterChildren (final DefaultTreeItem <String> aItem)
+                               {
+                                 if (getLevel () < 0)
+                                   throw new IllegalStateException ();
+                                 aMI.inc ();
+                                 return EHierarchyVisitorReturn.CONTINUE;
+                               }
+                             });
       assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
@@ -192,7 +196,8 @@ public final class TreeVisitorTest
 
       // count at before children
       aMI.set (0);
-      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), new MockTreeVisitorCallback (aMI));
+      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+                                 new MockTreeVisitorCallback (aMI));
       assertEquals (nExpected, aMI.intValue ());
 
       // count at after children
@@ -202,7 +207,8 @@ public final class TreeVisitorTest
 
       // count at after children
       aMI.set (0);
-      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (), new MockTreeVisitorCallback (aMI));
+      TreeVisitor.visitTreeItem (_createTreeWithID (nLevel, nItemsPerLevel).getRootItem (),
+                                 new MockTreeVisitorCallback (aMI));
       assertEquals (nExpected, aMI.intValue ());
 
       try

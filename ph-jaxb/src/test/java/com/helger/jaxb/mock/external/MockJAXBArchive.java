@@ -33,8 +33,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * <p>
  * Java class for anonymous complex type.
  * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType>
@@ -62,10 +61,9 @@ public class MockJAXBArchive
   /**
    * Gets the value of the collection property.
    * <p>
-   * This accessor method returns a reference to the live list, not a snapshot.
-   * Therefore any modification you make to the returned list will be present
-   * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
-   * for the collection property.
+   * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the collection property.
    * <p>
    * For example, to add a new item, do as follows:
    *
@@ -73,8 +71,7 @@ public class MockJAXBArchive
    * getCollection ().add (newItem);
    * </pre>
    * <p>
-   * Objects of the following type(s) are allowed in the list
-   * {@link MockJAXBCollection }
+   * Objects of the following type(s) are allowed in the list {@link MockJAXBCollection }
    *
    * @return Collection
    */

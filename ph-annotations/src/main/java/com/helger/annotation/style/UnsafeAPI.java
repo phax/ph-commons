@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Indicate methods that are unsafe but are helpful in very rare scenarios. This
- * is a marker annotation that just helps easily identifying these APIs.
+ * Indicate methods that are unsafe but are helpful in very rare scenarios. This is a marker
+ * annotation that just helps easily identifying these APIs.
  *
  * @author Philip Helger
  */

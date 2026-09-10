@@ -67,8 +67,7 @@ public class AcceptCharsetList extends AbstractQValueList <String>
    * Add a charset by name with the given quality.
    *
    * @param sCharset
-   *        The charset name to add. May neither be <code>null</code> nor
-   *        empty.
+   *        The charset name to add. May neither be <code>null</code> nor empty.
    * @param dQuality
    *        The quality value between 0 and 1.
    * @return this for chaining
@@ -121,13 +120,11 @@ public class AcceptCharsetList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed charset is supported. Supported means the quality is
-   * &gt; 0.
+   * Check if the passed charset is supported. Supported means the quality is &gt; 0.
    *
    * @param sCharset
    *        The charset name to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the charset is supported, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if the charset is supported, <code>false</code> if not.
    */
   public boolean supportsCharset (@NonNull final String sCharset)
   {
@@ -135,13 +132,12 @@ public class AcceptCharsetList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed charset is explicitly supported (without wildcard
-   * fallback). Supported means the quality is &gt; 0.
+   * Check if the passed charset is explicitly supported (without wildcard fallback). Supported
+   * means the quality is &gt; 0.
    *
    * @param sCharset
    *        The charset name to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the charset is explicitly supported,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the charset is explicitly supported, <code>false</code> if not.
    */
   public boolean explicitlySupportsCharset (@NonNull final String sCharset)
   {

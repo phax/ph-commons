@@ -189,10 +189,7 @@ public final class MockCertificateHelper
                                                                      new GeneralNames (new GeneralName (GeneralName.uniformResourceIdentifier,
                                                                                                         sCRLURL)));
     final DistributionPoint aDP = new DistributionPoint (aDPName, null, null);
-    return _createEndEntity (aIssuerCert,
-                             aIssuerKey,
-                             aSubjectKey,
-                             new CRLDistPoint (new DistributionPoint [] { aDP }));
+    return _createEndEntity (aIssuerCert, aIssuerKey, aSubjectKey, new CRLDistPoint (new DistributionPoint [] { aDP }));
   }
 
   /**
@@ -215,10 +212,7 @@ public final class MockCertificateHelper
                                                                 @NonNull final PublicKey aSubjectKey) throws Exception
   {
     // An OCTET STRING where a SEQUENCE OF DistributionPoint is required
-    return _createEndEntity (aIssuerCert,
-                             aIssuerKey,
-                             aSubjectKey,
-                             new DEROctetString (new byte [] { 1, 2, 3 }));
+    return _createEndEntity (aIssuerCert, aIssuerKey, aSubjectKey, new DEROctetString (new byte [] { 1, 2, 3 }));
   }
 
   /**

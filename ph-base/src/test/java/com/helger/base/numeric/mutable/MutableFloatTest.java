@@ -91,9 +91,9 @@ public final class MutableFloatTest
     assertTrue (x.isGT0 ());
 
     BaseTestHelper.testDefaultImplementationWithEqualContentObject (new MutableFloat (3.1234f),
-                                                                       new MutableFloat (3.1234f));
+                                                                    new MutableFloat (3.1234f));
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableFloat (3.1234f),
-                                                                           new MutableFloat (3.123f));
+                                                                        new MutableFloat (3.123f));
     BaseTestHelper.testGetClone (new MutableFloat (47.11f));
   }
 }

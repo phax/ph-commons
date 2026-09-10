@@ -39,13 +39,12 @@ public class CSPDirective implements ICSPDirective
   private final String m_sValue;
 
   /**
-   * Check if the provided string is a valid CSP directive name. Valid names
-   * consist of alpha, digit and hyphen characters only.
+   * Check if the provided string is a valid CSP directive name. Valid names consist of alpha, digit
+   * and hyphen characters only.
    *
    * @param sName
    *        The name to check. May be <code>null</code>.
-   * @return <code>true</code> if the name is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the name is valid, <code>false</code> otherwise.
    */
   public static boolean isValidName (@Nullable final String sName)
   {
@@ -64,13 +63,12 @@ public class CSPDirective implements ICSPDirective
   }
 
   /**
-   * Check if the provided string is a valid CSP directive value. Empty values
-   * are allowed. The value must not contain semicolons or commas.
+   * Check if the provided string is a valid CSP directive value. Empty values are allowed. The
+   * value must not contain semicolons or commas.
    *
    * @param sValue
    *        The value to check. May be <code>null</code>.
-   * @return <code>true</code> if the value is valid, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the value is valid, <code>false</code> otherwise.
    */
   public static boolean isValidValue (@Nullable final String sValue)
   {
@@ -92,8 +90,7 @@ public class CSPDirective implements ICSPDirective
    * Constructor using a source list as the value.
    *
    * @param sName
-   *        The directive name. May neither be <code>null</code> nor empty and
-   *        must be a valid name.
+   *        The directive name. May neither be <code>null</code> nor empty and must be a valid name.
    * @param aValue
    *        The source list value. May be <code>null</code>.
    */
@@ -106,8 +103,7 @@ public class CSPDirective implements ICSPDirective
    * Constructor using a string as the value.
    *
    * @param sName
-   *        The directive name. May neither be <code>null</code> nor empty and
-   *        must be a valid name.
+   *        The directive name. May neither be <code>null</code> nor empty and must be a valid name.
    * @param sValue
    *        The directive value. May be <code>null</code>.
    */

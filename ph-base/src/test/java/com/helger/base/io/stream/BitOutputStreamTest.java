@@ -141,7 +141,8 @@ public final class BitOutputStreamTest
         // only for high order bit
         assertArrayEquals (buf, written);
 
-        try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written), ByteOrder.LITTLE_ENDIAN))
+        try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written),
+                                                             ByteOrder.LITTLE_ENDIAN))
         {
           aBAOS.reset ();
           for (final byte element : written)
@@ -180,7 +181,8 @@ public final class BitOutputStreamTest
         final byte [] written = aBAOS.toByteArray ();
         // not the same as input
 
-        try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written), ByteOrder.BIG_ENDIAN))
+        try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (written),
+                                                             ByteOrder.BIG_ENDIAN))
         {
           aBAOS.reset ();
           for (final byte element : written)
@@ -207,7 +209,8 @@ public final class BitOutputStreamTest
       final byte [] buf = new byte [i * 100];
       aRandom.nextBytes (buf);
 
-      try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf), ByteOrder.LITTLE_ENDIAN);
+      try (final BitInputStream aBIS = new BitInputStream (new NonBlockingByteArrayInputStream (buf),
+                                                           ByteOrder.LITTLE_ENDIAN);
            final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
            final BitOutputStream aBOS = new BitOutputStream (aBAOS, ByteOrder.LITTLE_ENDIAN))
       {

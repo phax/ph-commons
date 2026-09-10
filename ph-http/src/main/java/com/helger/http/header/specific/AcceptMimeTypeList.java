@@ -48,8 +48,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    * Add a MIME type with the given quality by parsing the provided string.
    *
    * @param sMimeType
-   *        The MIME type string to parse and add. May neither be
-   *        <code>null</code> nor empty.
+   *        The MIME type string to parse and add. May neither be <code>null</code> nor empty.
    * @param dQuality
    *        The quality value between 0 and 1.
    * @return this for chaining
@@ -57,20 +56,18 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    *         If the MIME type string cannot be parsed.
    */
   @NonNull
-  public AcceptMimeTypeList addMimeType (@NonNull @Nonempty final String sMimeType, @Nonnegative final double dQuality)
-                                                                                                                        throws MimeTypeParserException
+  public AcceptMimeTypeList addMimeType (@NonNull @Nonempty final String sMimeType,
+                                         @Nonnegative final double dQuality) throws MimeTypeParserException
   {
     ValueEnforcer.notEmpty (sMimeType, "MimeType");
     return addMimeType (MimeTypeParser.parseMimeType (sMimeType), dQuality);
   }
 
   /**
-   * Add a MIME type with the given quality. The MIME type must not contain any
-   * parameters.
+   * Add a MIME type with the given quality. The MIME type must not contain any parameters.
    *
    * @param aMimeType
-   *        The MIME type to add. May not be <code>null</code> and must not
-   *        have any parameters.
+   *        The MIME type to add. May not be <code>null</code> and must not have any parameters.
    * @param dQuality
    *        The quality value between 0 and 1.
    * @return this for chaining

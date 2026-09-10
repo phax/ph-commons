@@ -38,8 +38,7 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
    * Constructor.
    *
    * @param sName
-   *        The entity reference name. May neither be <code>null</code> nor
-   *        empty.
+   *        The entity reference name. May neither be <code>null</code> nor empty.
    */
   public MicroEntityReference (@NonNull @Nonempty final String sName)
   {

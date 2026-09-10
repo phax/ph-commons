@@ -26,11 +26,10 @@ import com.helger.base.concurrent.SimpleLock;
 import com.helger.base.io.nonblocking.NonBlockingBitInputStream;
 
 /**
- * The {@link BitInputStream} allows reading individual bits from a general Java
- * InputStream. Like the various Stream-classes from Java, the BitInputStream
- * has to be created based on another Input stream. It provides a function to
- * read the next bit from the stream, as well as to read multiple bits at once
- * and write the resulting data into an integer value.<br>
+ * The {@link BitInputStream} allows reading individual bits from a general Java InputStream. Like
+ * the various Stream-classes from Java, the BitInputStream has to be created based on another Input
+ * stream. It provides a function to read the next bit from the stream, as well as to read multiple
+ * bits at once and write the resulting data into an integer value.<br>
  * For a non-blocking version see {@link NonBlockingBitInputStream}.
  *
  * @author Andreas Jakl
@@ -44,8 +43,7 @@ public class BitInputStream extends NonBlockingBitInputStream
    * Create a new bit input stream based on an existing Java InputStream.
    *
    * @param aIS
-   *        the input stream this class should read the bits from. May not be
-   *        <code>null</code>.
+   *        the input stream this class should read the bits from. May not be <code>null</code>.
    * @param aByteOrder
    *        The non-<code>null</code> byte order to use.
    */

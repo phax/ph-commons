@@ -58,7 +58,9 @@ public class DCTCodec implements IByteArrayDecoder
    * @return The decoded byte array or <code>null</code> if the input was <code>null</code>.
    */
   @ReturnsMutableCopy
-  public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
   {
     return getDecodedDCT (aEncodedBuffer, nOfs, nLen);
   }
@@ -75,7 +77,9 @@ public class DCTCodec implements IByteArrayDecoder
    * @return The decoded byte array or <code>null</code> if the input was <code>null</code>.
    */
   @ReturnsMutableCopy
-  public static byte @Nullable [] getDecodedDCT (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public static byte @Nullable [] getDecodedDCT (final byte @Nullable [] aEncodedBuffer,
+                                                 @Nonnegative final int nOfs,
+                                                 @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

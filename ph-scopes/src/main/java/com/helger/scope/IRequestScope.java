@@ -31,9 +31,8 @@ public interface IRequestScope extends IScope
   /**
    * Shortcut for <code>getSessionID(true)</code>
    *
-   * @return The session ID associated with this request. May be
-   *         <code>null</code> if no session ID is present and no session should
-   *         be created.
+   * @return The session ID associated with this request. May be <code>null</code> if no session ID
+   *         is present and no session should be created.
    */
   @NonNull
   @Nonempty
@@ -45,9 +44,8 @@ public interface IRequestScope extends IScope
   /**
    * @param bCreateIfNotExisting
    *        if <code>true</code> a session ID is created if needed
-   * @return The session ID associated with this request. May be
-   *         <code>null</code> if no session ID is present and no session should
-   *         be created.
+   * @return The session ID associated with this request. May be <code>null</code> if no session ID
+   *         is present and no session should be created.
    */
   @Nullable
   String getSessionID (boolean bCreateIfNotExisting);

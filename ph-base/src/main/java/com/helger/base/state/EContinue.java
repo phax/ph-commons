@@ -38,8 +38,7 @@ public enum EContinue implements IContinueIndicator
    * Convert a boolean value to the corresponding {@link EContinue} enum value.
    *
    * @param bContinue
-   *        <code>true</code> for {@link #CONTINUE}, <code>false</code> for
-   *        {@link #BREAK}.
+   *        <code>true</code> for {@link #CONTINUE}, <code>false</code> for {@link #BREAK}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum EContinue implements IContinueIndicator
   }
 
   /**
-   * Convert an {@link IContinueIndicator} to the corresponding
-   * {@link EContinue} enum value.
+   * Convert an {@link IContinueIndicator} to the corresponding {@link EContinue} enum value.
    *
    * @param aContinueIndicator
    *        The continue indicator to convert. May not be <code>null</code>.

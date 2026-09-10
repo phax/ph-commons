@@ -29,8 +29,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
 /**
- * Special {@link Iterator} for {@link Node} objects based on {@link NodeList}
- * objects.
+ * Special {@link Iterator} for {@link Node} objects based on {@link NodeList} objects.
  *
  * @author Philip Helger
  */
@@ -73,7 +72,10 @@ public class NodeListIterator implements ICommonsIterableIterator <Node>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("NodeList", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("NodeList", m_aNL)
+                                       .append ("Max", m_nMax)
+                                       .append ("Index", m_nIndex)
+                                       .getToString ();
   }
 
   /**
@@ -81,8 +83,8 @@ public class NodeListIterator implements ICommonsIterableIterator <Node>
    *
    * @param aNode
    *        The node whose children are iterated. May be <code>null</code>.
-   * @return A non-<code>null</code> iterator. If the node is
-   *         <code>null</code>, an empty iterator is returned.
+   * @return A non-<code>null</code> iterator. If the node is <code>null</code>, an empty iterator
+   *         is returned.
    */
   @NonNull
   @ReturnsMutableCopy

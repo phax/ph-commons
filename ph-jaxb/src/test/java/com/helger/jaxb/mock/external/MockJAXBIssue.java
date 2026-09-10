@@ -30,8 +30,7 @@ import jakarta.xml.bind.annotation.XmlValue;
  * <p>
  * Java class for CA_GEN_Issue complex type.
  * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CA_GEN_Issue">
@@ -451,8 +450,7 @@ public final class MockJAXBIssue
    * <p>
    * Java class for anonymous complex type.
    * <p>
-   * The following schema fragment specifies the expected content contained
-   * within this class.
+   * The following schema fragment specifies the expected content contained within this class.
    *
    * <pre>
    * &lt;complexType>

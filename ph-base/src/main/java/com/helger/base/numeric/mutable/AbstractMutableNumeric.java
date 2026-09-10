@@ -19,19 +19,19 @@ package com.helger.base.numeric.mutable;
 import com.helger.annotation.style.OverrideOnDemand;
 
 /**
- * Base implementation class for {@link IMutableNumeric} extending
- * {@link Number} class.
+ * Base implementation class for {@link IMutableNumeric} extending {@link Number} class.
  *
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        Real implementation type
  */
-public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number implements
+public abstract class AbstractMutableNumeric <IMPLTYPE extends AbstractMutableNumeric <IMPLTYPE>> extends Number
+                                             implements
                                              IMutableNumeric <IMPLTYPE>
 {
   /**
-   * This method is invoked after a value changed. This method is also called if
-   * e.g. an increment of zero happens so no change effectively was performed.
+   * This method is invoked after a value changed. This method is also called if e.g. an increment
+   * of zero happens so no change effectively was performed.
    */
   @OverrideOnDemand
   protected void onAfterChange ()

@@ -104,7 +104,7 @@ public final class DOMReaderDefaultSettings
    */
   public static boolean isNamespaceAware ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultNamespaceAware);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultNamespaceAware);
   }
 
   /**
@@ -115,7 +115,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setNamespaceAware (final boolean bNamespaceAware)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultNamespaceAware = bNamespaceAware);
+    RW_LOCK.writeLocked (() -> s_bDefaultNamespaceAware = bNamespaceAware);
   }
 
   /**
@@ -123,7 +123,7 @@ public final class DOMReaderDefaultSettings
    */
   public static boolean isValidating ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultValidating);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultValidating);
   }
 
   /**
@@ -134,37 +134,34 @@ public final class DOMReaderDefaultSettings
    */
   public static void setValidating (final boolean bValidating)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultValidating = bValidating);
+    RW_LOCK.writeLocked (() -> s_bDefaultValidating = bValidating);
   }
 
   /**
-   * @return <code>true</code> if the default DOM parser is ignoring element
-   *         content whitespace.
+   * @return <code>true</code> if the default DOM parser is ignoring element content whitespace.
    */
   public static boolean isIgnoringElementContentWhitespace ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultIgnoringElementContentWhitespace);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultIgnoringElementContentWhitespace);
   }
 
   /**
    * Set the default behavior for ignoring element content whitespace.
    *
    * @param bIgnoringElementContentWhitespace
-   *        <code>true</code> if the parser should ignore element content
-   *        whitespace.
+   *        <code>true</code> if the parser should ignore element content whitespace.
    */
   public static void setIgnoringElementContentWhitespace (final boolean bIgnoringElementContentWhitespace)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
+    RW_LOCK.writeLocked (() -> s_bDefaultIgnoringElementContentWhitespace = bIgnoringElementContentWhitespace);
   }
 
   /**
-   * @return <code>true</code> if the default DOM parser is expanding entity
-   *         references.
+   * @return <code>true</code> if the default DOM parser is expanding entity references.
    */
   public static boolean isExpandEntityReferences ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultExpandEntityReferences);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultExpandEntityReferences);
   }
 
   /**
@@ -175,7 +172,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setExpandEntityReferences (final boolean bExpandEntityReferences)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
+    RW_LOCK.writeLocked (() -> s_bDefaultExpandEntityReferences = bExpandEntityReferences);
   }
 
   /**
@@ -183,7 +180,7 @@ public final class DOMReaderDefaultSettings
    */
   public static boolean isIgnoringComments ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultIgnoringComments);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultIgnoringComments);
   }
 
   /**
@@ -194,7 +191,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setIgnoringComments (final boolean bIgnoringComments)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultIgnoringComments = bIgnoringComments);
+    RW_LOCK.writeLocked (() -> s_bDefaultIgnoringComments = bIgnoringComments);
   }
 
   /**
@@ -202,7 +199,7 @@ public final class DOMReaderDefaultSettings
    */
   public static boolean isCoalescing ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultCoalescing);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultCoalescing);
   }
 
   /**
@@ -213,7 +210,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setCoalescing (final boolean bCoalescing)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultCoalescing = bCoalescing);
+    RW_LOCK.writeLocked (() -> s_bDefaultCoalescing = bCoalescing);
   }
 
   /**
@@ -222,7 +219,7 @@ public final class DOMReaderDefaultSettings
   @Nullable
   public static Schema getSchema ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultSchema);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultSchema);
   }
 
   /**
@@ -233,7 +230,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setSchema (@Nullable final Schema aSchema)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultSchema = aSchema);
+    RW_LOCK.writeLocked (() -> s_aDefaultSchema = aSchema);
   }
 
   /**
@@ -241,7 +238,7 @@ public final class DOMReaderDefaultSettings
    */
   public static boolean isXIncludeAware ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultXIncludeAware);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultXIncludeAware);
   }
 
   /**
@@ -252,7 +249,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setXIncludeAware (final boolean bXIncludeAware)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultXIncludeAware = bXIncludeAware);
+    RW_LOCK.writeLocked (() -> s_bDefaultXIncludeAware = bXIncludeAware);
   }
 
   /**
@@ -268,8 +265,7 @@ public final class DOMReaderDefaultSettings
    *
    * @param eProperty
    *        The property to query. May be <code>null</code>.
-   * @return <code>null</code> if the property is not set or the parameter is
-   *         <code>null</code>.
+   * @return <code>null</code> if the property is not set or the parameter is <code>null</code>.
    */
   @Nullable
   public static Object getPropertyValue (@Nullable final EXMLParserProperty eProperty)
@@ -277,12 +273,11 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return null;
 
-    return RW_LOCK.readLockedGet ( () -> DEFAULT_PROPS.get (eProperty));
+    return RW_LOCK.readLockedGet (() -> DEFAULT_PROPS.get (eProperty));
   }
 
   /**
-   * @return A mutable copy of all default parser property values. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all default parser property values. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -297,15 +292,14 @@ public final class DOMReaderDefaultSettings
    * @param eProperty
    *        The property to set. May not be <code>null</code>.
    * @param aPropertyValue
-   *        The value to set. May be <code>null</code> to remove the
-   *        property.
+   *        The value to set. May be <code>null</code> to remove the property.
    */
   public static void setPropertyValue (@NonNull final EXMLParserProperty eProperty,
                                        @Nullable final Object aPropertyValue)
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (aPropertyValue != null)
         DEFAULT_PROPS.put (eProperty, aPropertyValue);
       else
@@ -323,7 +317,7 @@ public final class DOMReaderDefaultSettings
   {
     if (aProperties != null)
     {
-      RW_LOCK.writeLocked ( () -> DEFAULT_PROPS.putAll (aProperties));
+      RW_LOCK.writeLocked (() -> DEFAULT_PROPS.putAll (aProperties));
     }
   }
 
@@ -340,7 +334,7 @@ public final class DOMReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    return RW_LOCK.writeLockedGet ( () -> DEFAULT_PROPS.removeObject (eProperty));
+    return RW_LOCK.writeLockedGet (() -> DEFAULT_PROPS.removeObject (eProperty));
   }
 
   /**
@@ -367,8 +361,7 @@ public final class DOMReaderDefaultSettings
    *
    * @param eFeature
    *        The feature to query. May be <code>null</code>.
-   * @return <code>null</code> if the feature is not set or the parameter is
-   *         <code>null</code>.
+   * @return <code>null</code> if the feature is not set or the parameter is <code>null</code>.
    */
   @Nullable
   public static Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
@@ -380,8 +373,7 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * @return A mutable copy of all default parser feature values. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all default parser feature values. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -406,20 +398,18 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * Set a default parser feature value with an optional {@link Boolean}
-   * wrapper.
+   * Set a default parser feature value with an optional {@link Boolean} wrapper.
    *
    * @param eFeature
    *        The feature to set. May not be <code>null</code>.
    * @param aValue
-   *        The feature value to set. May be <code>null</code> to remove the
-   *        feature.
+   *        The feature value to set. May be <code>null</code> to remove the feature.
    */
   public static void setFeatureValue (@NonNull final EXMLParserFeature eFeature, @Nullable final Boolean aValue)
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (aValue == null)
         DEFAULT_FEATURES.remove (eFeature);
       else
@@ -437,7 +427,7 @@ public final class DOMReaderDefaultSettings
   {
     if (aValues != null)
     {
-      RW_LOCK.writeLocked ( () -> DEFAULT_FEATURES.putAll (aValues));
+      RW_LOCK.writeLocked (() -> DEFAULT_FEATURES.putAll (aValues));
     }
   }
 
@@ -454,7 +444,7 @@ public final class DOMReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    return RW_LOCK.writeLockedGet ( () -> DEFAULT_FEATURES.removeObject (eFeature));
+    return RW_LOCK.writeLockedGet (() -> DEFAULT_FEATURES.removeObject (eFeature));
   }
 
   /**
@@ -469,12 +459,12 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * @return <code>true</code> if the default settings require a new XML
-   *         parser to be created (i.e., a pooled parser cannot be used).
+   * @return <code>true</code> if the default settings require a new XML parser to be created (i.e.,
+   *         a pooled parser cannot be used).
    */
   public static boolean requiresNewXMLParser ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> {
+    return RW_LOCK.readLockedBoolean (() -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -503,7 +493,7 @@ public final class DOMReaderDefaultSettings
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultEntityResolver);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultEntityResolver);
   }
 
   /**
@@ -514,7 +504,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
+    RW_LOCK.writeLocked (() -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
   /**
@@ -523,7 +513,7 @@ public final class DOMReaderDefaultSettings
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultErrorHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultErrorHandler);
   }
 
   /**
@@ -534,7 +524,7 @@ public final class DOMReaderDefaultSettings
    */
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
   /**
@@ -548,12 +538,11 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * @return <code>true</code> if a new XML parser is explicitly required by
-   *         default.
+   * @return <code>true</code> if a new XML parser is explicitly required by default.
    */
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   /**
@@ -564,6 +553,6 @@ public final class DOMReaderDefaultSettings
    */
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
+    RW_LOCK.writeLocked (() -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

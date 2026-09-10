@@ -49,16 +49,16 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
   DATATYPE getData ();
 
   /**
-   * @return the data associated with the parent node. May be <code>null</code>.
-   *         This is like a shortcut for <code>getParent().getData()</code> with
-   *         implicit <code>null</code> handling.
+   * @return the data associated with the parent node. May be <code>null</code>. This is like a
+   *         shortcut for <code>getParent().getData()</code> with implicit <code>null</code>
+   *         handling.
    */
   @Nullable
   DATATYPE getParentData ();
 
   /**
-   * @return The nesting level of this node. The root node has level 0. A child
-   *         of the root item has level 1 etc.
+   * @return The nesting level of this node. The root node has level 0. A child of the root item has
+   *         level 1 etc.
    * @since 5.5.0
    */
   @Nonnegative
@@ -67,8 +67,8 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
   /**
    * Get the data values of all contained children.
    *
-   * @return <code>null</code> if this item does not have children. Use
-   *         {@link #hasChildren()} to check for the existence.
+   * @return <code>null</code> if this item does not have children. Use {@link #hasChildren()} to
+   *         check for the existence.
    */
   @Nullable
   ICommonsList <DATATYPE> getAllChildDatas ();
@@ -84,20 +84,18 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
   void setData (@Nullable DATATYPE aData);
 
   /**
-   * @return <code>true</code> if this is the internal root item without a
-   *         parent, <code>false</code> if this is a public item.
+   * @return <code>true</code> if this is the internal root item without a parent,
+   *         <code>false</code> if this is a public item.
    */
   boolean isRootItem ();
 
   /**
-   * Check if this item is the same or a child of the passed item. This is not
-   * limited to direct children but to children on all levels.
+   * Check if this item is the same or a child of the passed item. This is not limited to direct
+   * children but to children on all levels.
    *
    * @param aParent
-   *        The parent item to check whether this is a child of it. May not be
-   *        <code>null</code>.
-   * @return <code>true</code> if <code>this</code> is the same or a child of
-   *         aParent.
+   *        The parent item to check whether this is a child of it. May not be <code>null</code>.
+   * @return <code>true</code> if <code>this</code> is the same or a child of aParent.
    */
   boolean isSameOrChildOf (@NonNull ITEMTYPE aParent);
 
@@ -105,8 +103,8 @@ public interface IBasicTreeItem <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATA
    * Change the parent node of this node to another node (subordination).
    *
    * @param aNewParent
-   *        The new parent to use. May not be <code>null</code>. To make it a
-   *        root item, pass the owning tree's root item.
+   *        The new parent to use. May not be <code>null</code>. To make it a root item, pass the
+   *        owning tree's root item.
    * @return {@link ESuccess}
    */
   @NonNull

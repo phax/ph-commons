@@ -31,9 +31,8 @@ import com.helger.collection.commons.ICommonsSet;
 public interface IURLProtocolRegistrarSPI
 {
   /**
-   * @return The set of protocols to be registered for this registrar. The
-   *         returned set may be <code>null</code> but may not contain
-   *         <code>null</code> elements!
+   * @return The set of protocols to be registered for this registrar. The returned set may be
+   *         <code>null</code> but may not contain <code>null</code> elements!
    */
   @Nullable
   ICommonsSet <? extends IURLProtocol> getAllProtocols ();

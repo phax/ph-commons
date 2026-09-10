@@ -48,8 +48,8 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @param aDecodedBuffer
    *        The byte array to be encoded. May be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code> and is
-   *        NOT closed afterwards!
+   *        The output stream to write to. May not be <code>null</code> and is NOT closed
+   *        afterwards!
    * @throws EncodeException
    *         In case something goes wrong
    * @since 9.0.0
@@ -72,20 +72,22 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    * @param nLen
    *        Number of bytes starting from offset to consider.
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code> and is
-   *        NOT closed afterwards!
+   *        The output stream to write to. May not be <code>null</code> and is NOT closed
+   *        afterwards!
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (byte @Nullable [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
+  void encode (byte @Nullable [] aDecodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @NonNull @WillNotClose OutputStream aOS);
 
   /**
    * Encode a byte array.
    *
    * @param aDecodedBuffer
    *        The byte array to be encoded. May be <code>null</code>.
-   * @return The encoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded byte array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
@@ -107,13 +109,14 @@ public interface IByteArrayStreamEncoder extends IByteArrayEncoder
    *        Offset into the byte array to start from.
    * @param nLen
    *        Number of bytes starting from offset to consider.
-   * @return The encoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded byte array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
   @ReturnsMutableCopy
-  default byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;

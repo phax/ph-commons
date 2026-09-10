@@ -26,23 +26,20 @@ import com.helger.annotation.WillNotClose;
 import com.helger.json.IJsonValue;
 
 /**
- * Interface for handling the serialization of simple {@link IJsonValue}
- * objects.
+ * Interface for handling the serialization of simple {@link IJsonValue} objects.
  *
  * @author Philip Helger
  */
 public interface IJsonValueSerializer
 {
   /**
-   * Append the textual representation of the passed value to the passed
-   * {@link Writer}.
+   * Append the textual representation of the passed value to the passed {@link Writer}.
    *
    * @param aValue
-   *        The native value to use. May be <code>null</code>. Note: this is not
-   *        the {@link IJsonValue} but the inner object.
+   *        The native value to use. May be <code>null</code>. Note: this is not the
+   *        {@link IJsonValue} but the inner object.
    * @param aWriter
-   *        the {@link Writer} to append the string representation to. Never
-   *        <code>null</code>.
+   *        the {@link Writer} to append the string representation to. Never <code>null</code>.
    * @throws IOException
    *         in case of a write error
    */

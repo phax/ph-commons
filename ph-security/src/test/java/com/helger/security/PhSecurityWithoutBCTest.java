@@ -45,8 +45,8 @@ public final class PhSecurityWithoutBCTest
   @Test
   public void testStandardX509HelpersWithoutBC () throws Exception
   {
-    final URL [] aURLs = { new File ("target/classes").toURI ().toURL (), new File ("target/test-classes").toURI ()
-                                                                                                          .toURL () };
+    final URL [] aURLs = { new File ("target/classes").toURI ().toURL (),
+                           new File ("target/test-classes").toURI ().toURL () };
     try (final URLClassLoader aCL = new URLClassLoader (aURLs, getClass ().getClassLoader ())
     {
       @Override

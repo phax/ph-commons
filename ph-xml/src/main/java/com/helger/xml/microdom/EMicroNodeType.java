@@ -65,8 +65,8 @@ public enum EMicroNodeType implements IHasIntID
   }
 
   /**
-   * @return <code>true</code> if this micro node type has a corresponding DOM
-   *         node type. <code>false</code> if not.
+   * @return <code>true</code> if this micro node type has a corresponding DOM node type.
+   *         <code>false</code> if not.
    */
   public boolean hasCorrespondingDOMNodeType ()
   {
@@ -74,8 +74,8 @@ public enum EMicroNodeType implements IHasIntID
   }
 
   /**
-   * @return The corresponding DOM node type or {@link #ILLEGAL_DOM_NODE_TYPE}
-   *         if this micro node type has no corresponding DOM node type.
+   * @return The corresponding DOM node type or {@link #ILLEGAL_DOM_NODE_TYPE} if this micro node
+   *         type has no corresponding DOM node type.
    */
   public short getDOMNodeType ()
   {

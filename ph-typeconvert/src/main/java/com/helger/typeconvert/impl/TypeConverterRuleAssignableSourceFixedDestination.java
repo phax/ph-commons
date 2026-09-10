@@ -25,8 +25,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Abstract type converter than can convert from a base source class to a
- * destination class. Example from Number.class to String.class
+ * Abstract type converter than can convert from a base source class to a destination class. Example
+ * from Number.class to String.class
  *
  * @author Philip Helger
  * @param <SRC>

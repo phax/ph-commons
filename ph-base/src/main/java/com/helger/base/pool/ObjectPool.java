@@ -196,7 +196,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           {
             // if the object is used for the first time, create a new object
             // via the factory
-            CONDLOG.debug ( () -> "ObjectPool creates a new object for index " + index);
+            CONDLOG.debug (() -> "ObjectPool creates a new object for index " + index);
 
             m_aItems[i] = ret = m_aFactory.create ();
             if (ret == null)
@@ -205,13 +205,13 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           else
           {
             // An object is already existing and may be reused
-            CONDLOG.debug ( () -> "ObjectPool reuses object for index " + index);
+            CONDLOG.debug (() -> "ObjectPool reuses object for index " + index);
 
             ret = GenericReflection.uncheckedCast (m_aItems[i]);
             if (m_aFactory.activate (ret).isFailure ())
             {
               // Object cannot be reused - create a new one
-              CONDLOG.info ( () -> "ObjectPool failed to activate object for index " + index);
+              CONDLOG.info (() -> "ObjectPool failed to activate object for index " + index);
 
               m_aItems[i] = ret = m_aFactory.create ();
               if (ret == null)
@@ -219,7 +219,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
             }
             else
             {
-              CONDLOG.debug ( () -> "ObjectPool successfully activated object for index " + index);
+              CONDLOG.debug (() -> "ObjectPool successfully activated object for index " + index);
             }
           }
 
@@ -248,7 +248,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
         {
           final int index = i;
 
-          CONDLOG.debug ( () -> "ObjectPool passivates object for index " + index);
+          CONDLOG.debug (() -> "ObjectPool passivates object for index " + index);
 
           m_aFactory.passivate (aItem);
           m_aUsed[i] = false;
@@ -258,7 +258,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
           return ESuccess.SUCCESS;
         }
 
-      CONDLOG.error ( () -> "Object " + aItem + " is not pooled!");
+      CONDLOG.error (() -> "Object " + aItem + " is not pooled!");
       return ESuccess.FAILURE;
     }
     finally

@@ -17,11 +17,11 @@
 package com.helger.commons.supplementary.test.benchmark;
 
 /**
- * This code benchmarks the performance of copying an array purely in Java
- * versus copying it with System.arraycopy.
+ * This code benchmarks the performance of copying an array purely in Java versus copying it with
+ * System.arraycopy.
  * <p>
- * If available on the executing platform, it may be very useful to perform
- * benchmarks with the server JVM as well as the default client JVM.
+ * If available on the executing platform, it may be very useful to perform benchmarks with the
+ * server JVM as well as the default client JVM.
  */
 public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
 {
@@ -63,10 +63,9 @@ public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
 
   /**
    * This method finds how the execution time of
-   * {@link System#arraycopy(Object, int, Object, int, int)} scales versus array
-   * length. (The execution time for small arrays is dominated by the overhead
-   * of making a native call, not array length. For large arrays, this overhead
-   * is minimal and the scaling should become linear.)
+   * {@link System#arraycopy(Object, int, Object, int, int)} scales versus array length. (The
+   * execution time for small arrays is dominated by the overhead of making a native call, not array
+   * length. For large arrays, this overhead is minimal and the scaling should become linear.)
    */
   private static void exploreScalingOfSystemArrayCopy ()
   {

@@ -26,16 +26,14 @@ import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
 
 /**
- * A callback interface to retrieve {@link Writer} objects based on
- * InputStreams.
+ * A callback interface to retrieve {@link Writer} objects based on InputStreams.
  *
  * @author Philip Helger
  */
 public interface IHasOutputStreamAndWriter extends IHasOutputStream
 {
   /**
-   * Get a {@link Writer} based on this output stream provider using the given
-   * charset.
+   * Get a {@link Writer} based on this output stream provider using the given charset.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
@@ -50,8 +48,7 @@ public interface IHasOutputStreamAndWriter extends IHasOutputStream
   }
 
   /**
-   * Get a buffered {@link Writer} based on this output stream provider using
-   * the given charset.
+   * Get a buffered {@link Writer} based on this output stream provider using the given charset.
    *
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.

@@ -26,9 +26,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
- * Interface used in writing XML to determine which of the bracket mode as
- * outlined in {@link EXMLSerializeBracketMode} should be used for a single
- * element.
+ * Interface used in writing XML to determine which of the bracket mode as outlined in
+ * {@link EXMLSerializeBracketMode} should be used for a single element.
  *
  * @author Philip Helger
  */

@@ -45,8 +45,8 @@ import com.helger.base.string.StringHelper;
  * <li>Decimal values are <b>not</b> accepted — write <code>"1h 30m"</code> instead of
  * <code>"1.5h"</code></li>
  * <li>Inputs longer than {@link #MAX_VALUE_LENGTH} characters are rejected without further
- * processing — this bounds the parser's work and mitigates denial-of-service / overflow attacks
- * via overly long configuration values</li>
+ * processing — this bounds the parser's work and mitigates denial-of-service / overflow attacks via
+ * overly long configuration values</li>
  * </ul>
  * <b>Supported units</b>
  * <table>

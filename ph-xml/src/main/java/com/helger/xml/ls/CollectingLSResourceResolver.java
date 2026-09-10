@@ -50,8 +50,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
   {}
 
   /**
-   * @return A copy of the list of all requested resources. Never
-   *         <code>null</code>.
+   * @return A copy of the list of all requested resources. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -82,7 +81,7 @@ public class CollectingLSResourceResolver extends AbstractLSResourceResolver
                    ")");
 
     final LSResourceData aData = new LSResourceData (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
-    m_aRWLock.writeLockedBoolean ( () -> m_aList.add (aData));
+    m_aRWLock.writeLockedBoolean (() -> m_aList.add (aData));
     return null;
   }
 }

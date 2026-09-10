@@ -80,8 +80,8 @@ public final class ImageDataManager
   }
 
   /**
-   * @return <code>true</code> if the singleton instance has been created,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton instance has been created, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -148,14 +148,12 @@ public final class ImageDataManager
   }
 
   /**
-   * Get the image size of the specified resource. Results are cached for
-   * subsequent calls.
+   * Get the image size of the specified resource. Results are cached for subsequent calls.
    *
    * @param aRes
-   *        The readable resource pointing to the image. May be
-   *        <code>null</code>.
-   * @return The image size or <code>null</code> if the resource is
-   *         <code>null</code> or could not be read as an image.
+   *        The readable resource pointing to the image. May be <code>null</code>.
+   * @return The image size or <code>null</code> if the resource is <code>null</code> or could not
+   *         be read as an image.
    */
   @Nullable
   public SizeInt getImageSize (@Nullable final IReadableResource aRes)
@@ -191,7 +189,7 @@ public final class ImageDataManager
     // Main read data outside of lock!
     final SizeInt aData = _readImageData (aRes);
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // In case the image is invalid (why-so-ever), remember a null value
       if (aData == null)
         m_aNonExistingResources.add (aRes);
@@ -215,7 +213,7 @@ public final class ImageDataManager
     if (aRes == null)
       return EChange.UNCHANGED;
 
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       // Existing resource?
       if (m_aImageData.remove (aRes) != null)
         return EChange.CHANGED;
@@ -236,7 +234,7 @@ public final class ImageDataManager
   @NonNull
   public EChange clearCache ()
   {
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       if (m_aImageData.isEmpty () && m_aNonExistingResources.isEmpty ())
         return EChange.UNCHANGED;
 
@@ -250,8 +248,7 @@ public final class ImageDataManager
   }
 
   /**
-   * @return A copy of all currently cached image sizes. Never
-   *         <code>null</code>.
+   * @return A copy of all currently cached image sizes. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -261,8 +258,8 @@ public final class ImageDataManager
   }
 
   /**
-   * @return A copy of all resources that have been determined to be
-   *         non-existing or invalid images. Never <code>null</code>.
+   * @return A copy of all resources that have been determined to be non-existing or invalid images.
+   *         Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

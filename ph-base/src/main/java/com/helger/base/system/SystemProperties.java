@@ -114,7 +114,7 @@ public final class SystemProperties implements IHasConditionalLogger
       if (ret == null && WARNED_PROP_NAMES.add (sKey))
       {
         // Warn about each property once
-        CONDLOG.warn ( () -> "System property '" + sKey + "' cannot be read because it is not set");
+        CONDLOG.warn (() -> "System property '" + sKey + "' cannot be read because it is not set");
       }
     }
     return ret;
@@ -210,7 +210,7 @@ public final class SystemProperties implements IHasConditionalLogger
       final String sOld = System.setProperty (sKey, sValue);
       bChanged = sOld != null && !sValue.equals (sOld);
       if (bChanged)
-        CONDLOG.info ( () -> "Set system property '" + sKey + "' to '" + sValue + "'");
+        CONDLOG.info (() -> "Set system property '" + sKey + "' to '" + sValue + "'");
     }
     return EChange.valueOf (bChanged);
   }
@@ -228,9 +228,9 @@ public final class SystemProperties implements IHasConditionalLogger
   {
     final String sOldValue = System.clearProperty (sKey);
     if (sOldValue != null)
-      CONDLOG.info ( () -> "Removed system property '" + sKey + "' with value '" + sOldValue + "'");
+      CONDLOG.info (() -> "Removed system property '" + sKey + "' with value '" + sOldValue + "'");
     else
-      CONDLOG.warn ( () -> "Remove system property '" + sKey + "' failed");
+      CONDLOG.warn (() -> "Remove system property '" + sKey + "' failed");
     return sOldValue;
   }
 

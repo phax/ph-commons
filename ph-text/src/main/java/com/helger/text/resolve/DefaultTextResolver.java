@@ -28,8 +28,8 @@ import com.helger.text.IHasText;
 import com.helger.text.IHasTextWithArgs;
 
 /**
- * Resolves texts either from a text provider or otherwise uses a fallback to a
- * file, based on the given enum constant.
+ * Resolves texts either from a text provider or otherwise uses a fallback to a file, based on the
+ * given enum constant.
  *
  * @author Philip Helger
  */
@@ -48,8 +48,8 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
   {}
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -76,8 +76,7 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *        Text provider. May not be <code>null</code>.
    * @param aContentLocale
    *        Locale to use. May not be <code>null</code>.
-   * @return <code>null</code> if the text is not available in the specific
-   *         locale
+   * @return <code>null</code> if the text is not available in the specific locale
    */
   @Nullable
   public static String getTextStatic (@NonNull final Enum <?> aEnum,
@@ -96,10 +95,8 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    *        Text provider. May not be <code>null</code>.
    * @param aContentLocale
    *        Locale to use. May not be <code>null</code>.
-   * @return <code>null</code> if the text is not available in the specific
-   *         locale
-   * @deprecated Don't call this; Use the version without "WithArgs" because
-   *             there are no args
+   * @return <code>null</code> if the text is not available in the specific locale
+   * @deprecated Don't call this; Use the version without "WithArgs" because there are no args
    */
   @Nullable
   @Deprecated (forRemoval = false)
@@ -121,10 +118,9 @@ public final class DefaultTextResolver extends EnumTextResolverWithPropertiesOve
    * @param aContentLocale
    *        Locale to use. May not be <code>null</code>.
    * @param aArgs
-   *        The arguments to be added for the placeholders. May neither be
-   *        <code>null</code> nor empty.
-   * @return <code>null</code> if the text is not available in the specific
-   *         locale
+   *        The arguments to be added for the placeholders. May neither be <code>null</code> nor
+   *        empty.
+   * @return <code>null</code> if the text is not available in the specific locale
    */
   @Nullable
   public static String getTextWithArgsStatic (@NonNull final Enum <?> aEnum,

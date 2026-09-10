@@ -71,8 +71,7 @@ public class PathRelativeIO implements IPathRelativeIO
   }
 
   /**
-   * @return The base URL derived from the base path. Neither <code>null</code>
-   *         nor empty.
+   * @return The base URL derived from the base path. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

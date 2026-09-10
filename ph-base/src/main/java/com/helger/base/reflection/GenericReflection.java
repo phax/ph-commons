@@ -199,9 +199,7 @@ public final class GenericReflection
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeMethod (@NonNull final Object aSrcObj,
                                                       @NonNull final String sMethodName,
-                                                      @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                       IllegalAccessException,
-                                                                                       InvocationTargetException
+                                                      @Nullable final Object... aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     return GenericReflection.<RETURNTYPE> invokeMethod (aSrcObj, sMethodName, getClassArray (aArgs), aArgs);
   }
@@ -231,9 +229,7 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeMethod (@NonNull final Object aSrcObj,
                                                       @NonNull final String sMethodName,
                                                       @Nullable final Class <?> [] aArgClasses,
-                                                      @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                       IllegalAccessException,
-                                                                                       InvocationTargetException
+                                                      @Nullable final Object [] aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     final Method aMethod = aSrcObj.getClass ().getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (aSrcObj, aArgs);
@@ -264,10 +260,7 @@ public final class GenericReflection
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final String sClassName,
                                                             @NonNull final String sMethodName,
-                                                            @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                             IllegalAccessException,
-                                                                                             InvocationTargetException,
-                                                                                             ClassNotFoundException
+                                                            @Nullable final Object... aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName), sMethodName, aArgs);
   }
@@ -294,9 +287,7 @@ public final class GenericReflection
   @Nullable
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final Class <?> aClass,
                                                             @NonNull final String sMethodName,
-                                                            @Nullable final Object... aArgs) throws NoSuchMethodException,
-                                                                                             IllegalAccessException,
-                                                                                             InvocationTargetException
+                                                            @Nullable final Object... aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (aClass, sMethodName, getClassArray (aArgs), aArgs);
   }
@@ -329,10 +320,7 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final String sClassName,
                                                             @NonNull final String sMethodName,
                                                             @Nullable final Class <?> [] aArgClasses,
-                                                            @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                             IllegalAccessException,
-                                                                                             InvocationTargetException,
-                                                                                             ClassNotFoundException
+                                                            @Nullable final Object [] aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException
   {
     return GenericReflection.<RETURNTYPE> invokeStaticMethod (getClassFromName (sClassName),
                                                               sMethodName,
@@ -365,9 +353,7 @@ public final class GenericReflection
   public static <RETURNTYPE> RETURNTYPE invokeStaticMethod (@NonNull final Class <?> aClass,
                                                             @NonNull final String sMethodName,
                                                             @Nullable final Class <?> [] aArgClasses,
-                                                            @Nullable final Object [] aArgs) throws NoSuchMethodException,
-                                                                                             IllegalAccessException,
-                                                                                             InvocationTargetException
+                                                            @Nullable final Object [] aArgs) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
   {
     final Method aMethod = aClass.getDeclaredMethod (sMethodName, aArgClasses);
     final Object aReturn = aMethod.invoke (null, aArgs);
@@ -414,10 +400,7 @@ public final class GenericReflection
    *         Reflection exception
    */
   @NonNull
-  public static <DATATYPE> DATATYPE newInstance (@NonNull final DATATYPE aObj) throws IllegalAccessException,
-                                                                               NoSuchMethodException,
-                                                                               InvocationTargetException,
-                                                                               InstantiationException
+  public static <DATATYPE> DATATYPE newInstance (@NonNull final DATATYPE aObj) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException
   {
     return findConstructor (aObj).newInstance ();
   }

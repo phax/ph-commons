@@ -30,8 +30,8 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.dao.IDAO;
 
 /**
- * The default implementation of {@link IDAOContainer} using a list of DAOs
- * provider in the constructor.
+ * The default implementation of {@link IDAOContainer} using a list of DAOs provider in the
+ * constructor.
  *
  * @author Philip Helger
  */
@@ -43,8 +43,8 @@ public class DefaultDAOContainer extends AbstractDAOContainer
    * Constructor with a varargs array of DAOs.
    *
    * @param aDAOs
-   *        The DAOs to manage. May neither be <code>null</code> nor empty and
-   *        may not contain <code>null</code> elements.
+   *        The DAOs to manage. May neither be <code>null</code> nor empty and may not contain
+   *        <code>null</code> elements.
    */
   public DefaultDAOContainer (@NonNull @Nonempty final IDAO... aDAOs)
   {
@@ -56,8 +56,8 @@ public class DefaultDAOContainer extends AbstractDAOContainer
    * Constructor with an iterable of DAOs.
    *
    * @param aDAOs
-   *        The DAOs to manage. May neither be <code>null</code> nor empty and
-   *        may not contain <code>null</code> elements.
+   *        The DAOs to manage. May neither be <code>null</code> nor empty and may not contain
+   *        <code>null</code> elements.
    */
   public DefaultDAOContainer (@NonNull @Nonempty final Iterable <? extends IDAO> aDAOs)
   {
@@ -76,7 +76,7 @@ public class DefaultDAOContainer extends AbstractDAOContainer
   /** {@inheritDoc} */
   public boolean containsAny (@Nullable final Predicate <? super IDAO> aFilter)
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aDAOs.containsAny (aFilter));
+    return m_aRWLock.readLockedBoolean (() -> m_aDAOs.containsAny (aFilter));
   }
 
   @Override

@@ -27,8 +27,7 @@ import com.helger.base.io.stream.ByteBufferInputStream;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * An {@link java.io.InputStream} provider based on a
- * {@link java.nio.ByteBuffer}.
+ * An {@link java.io.InputStream} provider based on a {@link java.nio.ByteBuffer}.
  *
  * @author Philip Helger
  */

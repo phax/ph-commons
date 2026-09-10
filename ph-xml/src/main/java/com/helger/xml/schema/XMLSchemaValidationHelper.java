@@ -75,7 +75,8 @@ public final class XMLSchemaValidationHelper
    * @return A non-<code>null</code> error list with all validation errors.
    */
   @NonNull
-  public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas, @NonNull final IReadableResource aXML)
+  public static IErrorList validate (@NonNull @Nonempty final IReadableResource [] aSchemas,
+                                     @NonNull final IReadableResource aXML)
   {
     ValueEnforcer.notNull (aXML, "XML");
 
@@ -83,8 +84,7 @@ public final class XMLSchemaValidationHelper
   }
 
   /**
-   * Validate the passed XML resource against the passed compiled
-   * {@link Schema}.
+   * Validate the passed XML resource against the passed compiled {@link Schema}.
    *
    * @param aSchema
    *        The compiled schema. May not be <code>null</code>.
@@ -132,8 +132,7 @@ public final class XMLSchemaValidationHelper
   }
 
   /**
-   * Validate the passed XML source against the passed compiled
-   * {@link Schema}.
+   * Validate the passed XML source against the passed compiled {@link Schema}.
    *
    * @param aSchema
    *        The compiled schema. May not be <code>null</code>.
@@ -150,8 +149,7 @@ public final class XMLSchemaValidationHelper
   }
 
   /**
-   * Validate the passed XML against the passed XSD and put all errors in the
-   * passed error list.
+   * Validate the passed XML against the passed XSD and put all errors in the passed error list.
    *
    * @param aSchema
    *        The source XSD. May not be <code>null</code>.
@@ -163,14 +161,15 @@ public final class XMLSchemaValidationHelper
    *         If XSD validation failed with an exception
    * @since 8.5.3
    */
-  public static void validate (@NonNull final Schema aSchema, @NonNull final Source aXML, @NonNull final ErrorList aErrorList)
+  public static void validate (@NonNull final Schema aSchema,
+                               @NonNull final Source aXML,
+                               @NonNull final ErrorList aErrorList)
   {
     validate (aSchema, aXML, aErrorList, (Locale) null);
   }
 
   /**
-   * Validate the passed XML against the passed XSD and put all errors in the
-   * passed error list.
+   * Validate the passed XML against the passed XSD and put all errors in the passed error list.
    *
    * @param aSchema
    *        The source XSD. May not be <code>null</code>.
@@ -179,8 +178,8 @@ public final class XMLSchemaValidationHelper
    * @param aErrorList
    *        The error list to be filled. May not be <code>null</code>.
    * @param aLocale
-   *        The locale to use for error messages. May be <code>null</code> to
-   *        use the system default locale.
+   *        The locale to use for error messages. May be <code>null</code> to use the system default
+   *        locale.
    * @throws IllegalArgumentException
    *         If XSD validation failed with an exception
    * @since 9.0.1

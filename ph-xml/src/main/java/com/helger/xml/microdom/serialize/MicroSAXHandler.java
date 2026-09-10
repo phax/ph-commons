@@ -99,14 +99,13 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   /**
-   * Set whether namespace declarations (xmlns attributes) should be saved as
-   * regular attributes on the micro elements. This is important for documents
-   * like XSLT where namespace prefixes are referenced inside attribute values
-   * (e.g. <code>xs:boolean</code>) and would otherwise be lost.
+   * Set whether namespace declarations (xmlns attributes) should be saved as regular attributes on
+   * the micro elements. This is important for documents like XSLT where namespace prefixes are
+   * referenced inside attribute values (e.g. <code>xs:boolean</code>) and would otherwise be lost.
    *
    * @param bSaveNamespaceDeclarations
-   *        <code>true</code> to save namespace declarations as attributes,
-   *        <code>false</code> to ignore them (default).
+   *        <code>true</code> to save namespace declarations as attributes, <code>false</code> to
+   *        ignore them (default).
    * @return this for chaining
    * @since 12.2.2
    */
@@ -284,8 +283,9 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
   }
 
   /** {@inheritDoc} */
-  public void comment (final char @NonNull [] aChars, @Nonnegative final int nStart, @Nonnegative final int nLength)
-                                                                                                                     throws SAXException
+  public void comment (final char @NonNull [] aChars,
+                       @Nonnegative final int nStart,
+                       @Nonnegative final int nLength) throws SAXException
   {
     _updatePosition ("comment");
     // Ignore comments in DTD
@@ -347,8 +347,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   /** {@inheritDoc} */
   @Nullable
-  public InputSource getExternalSubset (final String sName, @Nullable final String sBaseURI) throws SAXException,
-                                                                                             IOException
+  public InputSource getExternalSubset (final String sName,
+                                        @Nullable final String sBaseURI) throws SAXException, IOException
   {
     _updatePosition ("getExternalSubset");
     final EntityResolver2 aER2 = m_aEntityResolver2;
@@ -443,8 +443,8 @@ public class MicroSAXHandler implements EntityResolver2, DTDHandler, ContentHand
 
   // For namespace handling
   /** {@inheritDoc} */
-  public void startPrefixMapping (@NonNull final String sPrefix, @NonNull final String sNamespaceURI)
-                                                                                                      throws SAXException
+  public void startPrefixMapping (@NonNull final String sPrefix,
+                                  @NonNull final String sNamespaceURI) throws SAXException
   {}
 
   // for namespace handling

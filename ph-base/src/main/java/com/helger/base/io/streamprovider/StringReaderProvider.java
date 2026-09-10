@@ -55,7 +55,9 @@ public class StringReaderProvider implements IHasReader
    * @param nLength
    *        Number of chars to use. Must be &ge; 0.
    */
-  public StringReaderProvider (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLength)
+  public StringReaderProvider (final char @NonNull [] aChars,
+                               @Nonnegative final int nOfs,
+                               @Nonnegative final int nLength)
   {
     this (new String (aChars, nOfs, nLength));
   }

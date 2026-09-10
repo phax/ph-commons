@@ -29,8 +29,7 @@ import com.helger.base.exception.InitializationException;
 import com.helger.xml.XMLFactory;
 
 /**
- * Factory for creating {@link XMLReader} instances from the default
- * {@link SAXParserFactory}.
+ * Factory for creating {@link XMLReader} instances from the default {@link SAXParserFactory}.
  *
  * @author Philip Helger
  */

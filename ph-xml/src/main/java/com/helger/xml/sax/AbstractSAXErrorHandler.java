@@ -41,8 +41,7 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   {}
 
   /**
-   * Utility method to convert a {@link SAXParseException} into an
-   * {@link IError}.
+   * Utility method to convert a {@link SAXParseException} into an {@link IError}.
    *
    * @param aErrorLevel
    *        The occurred error level. May not be <code>null</code>.

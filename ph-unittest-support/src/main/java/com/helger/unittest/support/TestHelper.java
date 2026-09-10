@@ -333,7 +333,7 @@ public final class TestHelper
     final List <String> aErrors = new Vector <> ();
     for (int i = 0; i < nCalls; ++i)
     {
-      aES.submit ( () -> {
+      aES.submit (() -> {
         try
         {
           aRunnable.run ();

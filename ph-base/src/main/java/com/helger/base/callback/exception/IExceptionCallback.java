@@ -31,8 +31,8 @@ import com.helger.base.callback.ICallback;
 public interface IExceptionCallback <EXTYPE extends Throwable> extends ICallback
 {
   /**
-   * Called when an exception of the specified type occurred. You may not
-   * re-throw the exception from in here!
+   * Called when an exception of the specified type occurred. You may not re-throw the exception
+   * from in here!
    *
    * @param ex
    *        The exception. Never <code>null</code>.

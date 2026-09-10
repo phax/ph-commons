@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.state.EContinue;
 
 /**
- * A callback interface that is used to iterate all available serialization
- * converters.
+ * A callback interface that is used to iterate all available serialization converters.
  *
  * @author Philip Helger
  */
@@ -33,12 +32,11 @@ public interface ISerializationConverterCallback
    * Invoked for each converter.
    *
    * @param aClass
-   *        The class for which the converter was registered. Never
-   *        <code>null</code>.
+   *        The class for which the converter was registered. Never <code>null</code>.
    * @param aConverter
    *        The main converter object. Never <code>null</code>.
-   * @return {@link EContinue#CONTINUE} to continue iteration,
-   *         {@link EContinue#BREAK} to stop iteration.
+   * @return {@link EContinue#CONTINUE} to continue iteration, {@link EContinue#BREAK} to stop
+   *         iteration.
    */
   @NonNull
   EContinue call (@NonNull Class <?> aClass, @NonNull ISerializationConverter <?> aConverter);

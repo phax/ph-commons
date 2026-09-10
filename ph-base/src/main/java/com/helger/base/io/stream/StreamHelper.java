@@ -52,8 +52,8 @@ import com.helger.base.numeric.mutable.MutableLong;
 import com.helger.base.state.ESuccess;
 
 /**
- * Helper class for safe stream operations such as copying, closing, flushing,
- * and converting between byte/char streams.
+ * Helper class for safe stream operations such as copying, closing, flushing, and converting
+ * between byte/char streams.
  *
  * @author Philip Helger
  */
@@ -118,8 +118,7 @@ public class StreamHelper
   }
 
   /**
-   * Create an {@link InputStreamReader} wrapping the given input stream with
-   * the specified charset.
+   * Create an {@link InputStreamReader} wrapping the given input stream with the specified charset.
    *
    * @param aIS
    *        The input stream to wrap. May be <code>null</code>.
@@ -135,8 +134,8 @@ public class StreamHelper
   }
 
   /**
-   * Create an {@link OutputStreamWriter} wrapping the given output stream with
-   * the specified charset.
+   * Create an {@link OutputStreamWriter} wrapping the given output stream with the specified
+   * charset.
    *
    * @param aOS
    *        The output stream to wrap. May be <code>null</code>.
@@ -302,8 +301,8 @@ public class StreamHelper
   }
 
   /**
-   * Get a buffered version of the passed input stream. If the stream is already
-   * buffered, it is returned as-is.
+   * Get a buffered version of the passed input stream. If the stream is already buffered, it is
+   * returned as-is.
    *
    * @param aIS
    *        The input stream to buffer. May be <code>null</code>.
@@ -333,8 +332,8 @@ public class StreamHelper
   }
 
   /**
-   * Get a buffered version of the passed output stream. If the stream is
-   * already buffered, it is returned as-is.
+   * Get a buffered version of the passed output stream. If the stream is already buffered, it is
+   * returned as-is.
    *
    * @param aOS
    *        The output stream to buffer. May be <code>null</code>.
@@ -363,8 +362,8 @@ public class StreamHelper
   }
 
   /**
-   * Get a buffered version of the passed reader. If the reader is already
-   * buffered, it is returned as-is.
+   * Get a buffered version of the passed reader. If the reader is already buffered, it is returned
+   * as-is.
    *
    * @param aReader
    *        The reader to buffer. May be <code>null</code>.
@@ -393,8 +392,8 @@ public class StreamHelper
   }
 
   /**
-   * Get a buffered version of the passed writer. If the writer is already
-   * buffered, it is returned as-is.
+   * Get a buffered version of the passed writer. If the writer is already buffered, it is returned
+   * as-is.
    *
    * @param aWriter
    *        The writer to buffer. May be <code>null</code>.
@@ -1221,12 +1220,11 @@ public class StreamHelper
   }
 
   /**
-   * Copy the content of the given reader into a new
-   * {@link NonBlockingStringWriter}. The reader is closed after the operation.
+   * Copy the content of the given reader into a new {@link NonBlockingStringWriter}. The reader is
+   * closed after the operation.
    *
    * @param aReader
-   *        The reader to copy from. May not be <code>null</code>. Will be
-   *        closed.
+   *        The reader to copy from. May not be <code>null</code>. Will be closed.
    * @return <code>null</code> if copying failed.
    */
   @Nullable
@@ -1239,13 +1237,11 @@ public class StreamHelper
   }
 
   /**
-   * Copy at most the specified number of characters from the given reader into
-   * a new {@link NonBlockingStringWriter}. The reader is closed after the
-   * operation.
+   * Copy at most the specified number of characters from the given reader into a new
+   * {@link NonBlockingStringWriter}. The reader is closed after the operation.
    *
    * @param aReader
-   *        The reader to copy from. May not be <code>null</code>. Will be
-   *        closed.
+   *        The reader to copy from. May not be <code>null</code>. Will be closed.
    * @param nLimit
    *        The maximum number of characters to copy. Must be &ge; 0.
    * @return <code>null</code> if copying failed.
@@ -1504,15 +1500,14 @@ public class StreamHelper
   }
 
   /**
-   * Read the input stream until EOF, passing each chunk to the consumer. The
-   * stream is closed after the operation. Uses the default buffer size.
+   * Read the input stream until EOF, passing each chunk to the consumer. The stream is closed after
+   * the operation. Uses the default buffer size.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>. Will
-   *        be closed.
+   *        The input stream to read from. May not be <code>null</code>. Will be closed.
    * @param aConsumer
-   *        The consumer receiving each read chunk and the number of bytes read.
-   *        May not be <code>null</code>.
+   *        The consumer receiving each read chunk and the number of bytes read. May not be
+   *        <code>null</code>.
    * @throws IOException
    *         In case of an I/O error.
    */
@@ -1523,17 +1518,16 @@ public class StreamHelper
   }
 
   /**
-   * Read the input stream until EOF, passing each chunk to the consumer. The
-   * stream is closed after the operation.
+   * Read the input stream until EOF, passing each chunk to the consumer. The stream is closed after
+   * the operation.
    *
    * @param aIS
-   *        The input stream to read from. May not be <code>null</code>. Will
-   *        be closed.
+   *        The input stream to read from. May not be <code>null</code>. Will be closed.
    * @param aBuffer
    *        The buffer to use for reading. May not be <code>null</code>.
    * @param aConsumer
-   *        The consumer receiving each read chunk and the number of bytes read.
-   *        May not be <code>null</code>.
+   *        The consumer receiving each read chunk and the number of bytes read. May not be
+   *        <code>null</code>.
    * @throws IOException
    *         In case of an I/O error.
    */
@@ -1570,15 +1564,14 @@ public class StreamHelper
   }
 
   /**
-   * Read the reader until EOF, passing each chunk to the consumer. The reader
-   * is closed after the operation. Uses the default buffer size.
+   * Read the reader until EOF, passing each chunk to the consumer. The reader is closed after the
+   * operation. Uses the default buffer size.
    *
    * @param aReader
-   *        The reader to read from. May not be <code>null</code>. Will be
-   *        closed.
+   *        The reader to read from. May not be <code>null</code>. Will be closed.
    * @param aConsumer
-   *        The consumer receiving each read chunk and the number of chars read.
-   *        May not be <code>null</code>.
+   *        The consumer receiving each read chunk and the number of chars read. May not be
+   *        <code>null</code>.
    * @throws IOException
    *         In case of an I/O error.
    */
@@ -1589,17 +1582,16 @@ public class StreamHelper
   }
 
   /**
-   * Read the reader until EOF, passing each chunk to the consumer. The reader
-   * is closed after the operation.
+   * Read the reader until EOF, passing each chunk to the consumer. The reader is closed after the
+   * operation.
    *
    * @param aReader
-   *        The reader to read from. May not be <code>null</code>. Will be
-   *        closed.
+   *        The reader to read from. May not be <code>null</code>. Will be closed.
    * @param aBuffer
    *        The buffer to use for reading. May not be <code>null</code>.
    * @param aConsumer
-   *        The consumer receiving each read chunk and the number of chars read.
-   *        May not be <code>null</code>.
+   *        The consumer receiving each read chunk and the number of chars read. May not be
+   *        <code>null</code>.
    * @throws IOException
    *         In case of an I/O error.
    */
@@ -1622,14 +1614,14 @@ public class StreamHelper
   }
 
   /**
-   * Check if the passed input stream is a {@link FilterInputStream} with a
-   * <code>null</code> contained input stream. This can happen when a JAR URL
-   * with a directory path that does not end with a slash is resolved.
+   * Check if the passed input stream is a {@link FilterInputStream} with a <code>null</code>
+   * contained input stream. This can happen when a JAR URL with a directory path that does not end
+   * with a slash is resolved.
    *
    * @param aIS
    *        The input stream to check. May be <code>null</code>.
-   * @return <code>null</code> if the input stream is invalid or
-   *         <code>null</code>, the passed stream otherwise.
+   * @return <code>null</code> if the input stream is invalid or <code>null</code>, the passed
+   *         stream otherwise.
    */
   @Nullable
   public static InputStream checkForInvalidFilterInputStream (@Nullable final InputStream aIS)

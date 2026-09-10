@@ -155,7 +155,7 @@ public final class MimeTypeDeterminator
   {
     ValueEnforcer.notNull (aMimeTypeContent, "MimeTypeContent");
 
-    return m_aRWLock.writeLockedGet ( () -> m_aMimeTypeContents.addObject (aMimeTypeContent));
+    return m_aRWLock.writeLockedGet (() -> m_aMimeTypeContents.addObject (aMimeTypeContent));
   }
 
   /**
@@ -171,7 +171,7 @@ public final class MimeTypeDeterminator
     if (aMimeTypeContent == null)
       return EChange.UNCHANGED;
 
-    return m_aRWLock.writeLockedGet ( () -> m_aMimeTypeContents.removeObject (aMimeTypeContent));
+    return m_aRWLock.writeLockedGet (() -> m_aMimeTypeContents.removeObject (aMimeTypeContent));
   }
 
   /**
@@ -239,7 +239,7 @@ public final class MimeTypeDeterminator
     if (aBytes == null || aBytes.length == 0)
       return aDefault;
 
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       for (final MimeTypeContent aMTC : m_aMimeTypeContents)
         if (aMTC.matchesBeginning (aBytes))
           return aMTC.getMimeType ();
@@ -268,7 +268,7 @@ public final class MimeTypeDeterminator
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aMimeTypeContents.clear ();
       _registerDefaultMimeTypeContents ();
     });

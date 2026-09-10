@@ -30,8 +30,8 @@ import com.helger.graph.IMutableGraphRelation;
 public interface ISimpleGraph extends IMutableGraph
 {
   /**
-   * Create a new relation from the passed fromNode to the toNode. Internally
-   * the IDs are resolved to the respective graph nodes and later on calls
+   * Create a new relation from the passed fromNode to the toNode. Internally the IDs are resolved
+   * to the respective graph nodes and later on calls
    * {@link #createRelation(com.helger.graph.IMutableGraphNode, com.helger.graph.IMutableGraphNode)}
    *
    * @param sFromNodeID
@@ -44,8 +44,8 @@ public interface ISimpleGraph extends IMutableGraph
   IMutableGraphRelation createRelation (@NonNull String sFromNodeID, @NonNull String sToNodeID);
 
   /**
-   * Create a new relation from the passed fromNode to the toNode. Internally
-   * the IDs are resolved to the respective graph nodes and later on calls
+   * Create a new relation from the passed fromNode to the toNode. Internally the IDs are resolved
+   * to the respective graph nodes and later on calls
    * {@link #createRelation(com.helger.graph.IMutableGraphNode, com.helger.graph.IMutableGraphNode)}
    *
    * @param sRelationID
@@ -57,5 +57,7 @@ public interface ISimpleGraph extends IMutableGraph
    * @return The created graph relation and never <code>null</code>.
    */
   @NonNull
-  IMutableGraphRelation createRelation (@NonNull @Nonempty String sRelationID, @NonNull String sFromNodeID, @NonNull String sToNodeID);
+  IMutableGraphRelation createRelation (@NonNull @Nonempty String sRelationID,
+                                        @NonNull String sFromNodeID,
+                                        @NonNull String sToNodeID);
 }

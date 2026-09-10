@@ -249,7 +249,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     if (sFilename == null)
     {
       // this branch is required for testing
-      CONDLOG.info ( () -> "This DAO of class " + getClass ().getName () + " will not be able to read from a file");
+      CONDLOG.info (() -> "This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
       // do not return - run initialization anyway
     }
@@ -259,7 +259,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       aFile = getSafeFile (sFilename, EMode.READ);
     }
     final File aFinalFile = aFile;
-    m_aRWLock.writeLockedThrowing ( () -> {
+    m_aRWLock.writeLockedThrowing (() -> {
       final boolean bIsInitialization = aFinalFile == null || !aFinalFile.exists ();
       try
       {
@@ -267,7 +267,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         if (bIsInitialization)
         {
           // initial setup for non-existing file
-          CONDLOG.info ( () -> "Trying to initialize DAO XML file '" + aFinalFile + "'");
+          CONDLOG.info (() -> "Trying to initialize DAO XML file '" + aFinalFile + "'");
 
           beginWithoutAutoSave ();
           try
@@ -296,7 +296,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         else
         {
           // Read existing file
-          CONDLOG.info ( () -> "Trying to read DAO XML file '" + aFinalFile + "'");
+          CONDLOG.info (() -> "Trying to read DAO XML file '" + aFinalFile + "'");
 
           m_aStatsCounterReadTotal.increment ();
           final IMicroDocument aDoc = MicroReader.readMicroXML (aFinalFile);
@@ -428,7 +428,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   @Nullable
   public final String getLastFilename ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_sPreviousFilename);
+    return m_aRWLock.readLockedGet (() -> m_sPreviousFilename);
   }
 
   /**
@@ -470,7 +470,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     if (sFilename == null)
     {
       // We're not operating on a file! Required for testing
-      CONDLOG.info ( () -> "The DAO of class " + getClass ().getName () + " cannot write to a file");
+      CONDLOG.info (() -> "The DAO of class " + getClass ().getName () + " cannot write to a file");
       return ESuccess.FAILURE;
     }
     // Check for a filename change before writing
@@ -479,7 +479,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       onFilenameChange (m_sPreviousFilename, sFilename);
       m_sPreviousFilename = sFilename;
     }
-    CONDLOG.info ( () -> "Trying to write DAO file '" + sFilename + "'");
+    CONDLOG.info (() -> "Trying to write DAO file '" + sFilename + "'");
 
     File aFile = null;
     IMicroDocument aDoc = null;
@@ -576,7 +576,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   {
     if (hasPendingChanges ())
     {
-      m_aRWLock.writeLocked ( () -> {
+      m_aRWLock.writeLocked (() -> {
         // Write to file
         if (_writeToFile ().isSuccess ())
           internalSetPendingChanges (false);

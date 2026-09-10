@@ -90,8 +90,7 @@ public final class XMLHelper
    *
    * @param aNode
    *        The node to get the document element from. May be <code>null</code>.
-   * @return <code>null</code> if the passed node was <code>null</code> or has
-   *         no owner document.
+   * @return <code>null</code> if the passed node was <code>null</code> or has no owner document.
    */
   @Nullable
   public static Element getDocumentElement (@Nullable final Node aNode)
@@ -101,8 +100,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get the namespace URI of the passed node. If the node is a
-   * {@link Document}, the namespace URI of its document element is returned.
+   * Get the namespace URI of the passed node. If the node is a {@link Document}, the namespace URI
+   * of its document element is returned.
    *
    * @param aNode
    *        The node to get the namespace URI from. May be <code>null</code>.
@@ -122,8 +121,7 @@ public final class XMLHelper
   }
 
   /**
-   * Get the local name of an element, falling back to the tag name if no local
-   * name is available.
+   * Get the local name of an element, falling back to the tag name if no local name is available.
    *
    * @param aElement
    *        The element to query. May not be <code>null</code>.
@@ -139,8 +137,7 @@ public final class XMLHelper
   }
 
   /**
-   * Get the local name of an attribute, falling back to the name if no local
-   * name is available.
+   * Get the local name of an attribute, falling back to the name if no local name is available.
    *
    * @param aAttr
    *        The attribute to query. May not be <code>null</code>.
@@ -156,8 +153,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get the element name of the passed node. If the node is a
-   * {@link Document}, the element name of its document element is returned.
+   * Get the element name of the passed node. If the node is a {@link Document}, the element name of
+   * its document element is returned.
    *
    * @param aNode
    *        The node to get the element name from. May be <code>null</code>.
@@ -197,8 +194,8 @@ public final class XMLHelper
    *        The node to check. May be <code>null</code>.
    * @param sNamespaceURI
    *        The namespace URI to compare against. May be <code>null</code>.
-   * @return <code>true</code> if the node has a non-<code>null</code>
-   *         namespace URI that equals the passed namespace URI.
+   * @return <code>true</code> if the node has a non-<code>null</code> namespace URI that equals the
+   *         passed namespace URI.
    */
   public static boolean hasNamespaceURI (@Nullable final Node aNode, @Nullable final String sNamespaceURI)
   {
@@ -224,8 +221,7 @@ public final class XMLHelper
    *
    * @param aNL
    *        The node list. May be <code>null</code>.
-   * @return 0 if the node list is <code>null</code>, the length of the node
-   *         list otherwise.
+   * @return 0 if the node list is <code>null</code>, the length of the node list otherwise.
    */
   @Nonnegative
   public static int getLength (@Nullable final NodeList aNL)
@@ -246,8 +242,7 @@ public final class XMLHelper
   }
 
   /**
-   * @return A predicate that filters for nodes that are element nodes. Never
-   *         <code>null</code>.
+   * @return A predicate that filters for nodes that are element nodes. Never <code>null</code>.
    */
   @NonNull
   public static Predicate <? super Node> filterNodeIsElement ()
@@ -256,8 +251,8 @@ public final class XMLHelper
   }
 
   /**
-   * @return A predicate that filters for elements that have a namespace URI.
-   *         Never <code>null</code>.
+   * @return A predicate that filters for elements that have a namespace URI. Never
+   *         <code>null</code>.
    */
   @NonNull
   public static Predicate <? super Element> filterElementWithNamespace ()
@@ -266,8 +261,8 @@ public final class XMLHelper
   }
 
   /**
-   * @return A predicate that filters for elements that have no namespace URI.
-   *         Never <code>null</code>.
+   * @return A predicate that filters for elements that have no namespace URI. Never
+   *         <code>null</code>.
    */
   @NonNull
   public static Predicate <? super Element> filterElementWithoutNamespace ()
@@ -276,8 +271,7 @@ public final class XMLHelper
   }
 
   /**
-   * Create a predicate that filters for elements with the specified namespace
-   * URI.
+   * Create a predicate that filters for elements with the specified namespace URI.
    *
    * @param sNamespaceURI
    *        The namespace URI to filter for. May be <code>null</code>.
@@ -290,14 +284,12 @@ public final class XMLHelper
   }
 
   /**
-   * Create a predicate that filters for elements with the specified namespace
-   * URI and local name.
+   * Create a predicate that filters for elements with the specified namespace URI and local name.
    *
    * @param sNamespaceURI
    *        The namespace URI to filter for. May be <code>null</code>.
    * @param sLocalName
-   *        The local name to filter for. May neither be <code>null</code> nor
-   *        empty.
+   *        The local name to filter for. May neither be <code>null</code> nor empty.
    * @return A non-<code>null</code> predicate.
    */
   @NonNull
@@ -309,12 +301,11 @@ public final class XMLHelper
   }
 
   /**
-   * Create a predicate that filters for elements with the specified tag name
-   * (potentially including a namespace prefix).
+   * Create a predicate that filters for elements with the specified tag name (potentially including
+   * a namespace prefix).
    *
    * @param sTagName
-   *        The tag name to filter for. May neither be <code>null</code> nor
-   *        empty.
+   *        The tag name to filter for. May neither be <code>null</code> nor empty.
    * @return A non-<code>null</code> predicate.
    */
   @NonNull
@@ -325,12 +316,10 @@ public final class XMLHelper
   }
 
   /**
-   * Create a predicate that filters for elements with the specified tag name
-   * and no namespace.
+   * Create a predicate that filters for elements with the specified tag name and no namespace.
    *
    * @param sTagName
-   *        The tag name to filter for. May neither be <code>null</code> nor
-   *        empty.
+   *        The tag name to filter for. May neither be <code>null</code> nor empty.
    * @return A non-<code>null</code> predicate.
    */
   @NonNull
@@ -442,8 +431,8 @@ public final class XMLHelper
   }
 
   /**
-   * Append a child object to the given parent node. The child may be a
-   * {@link Node}, a {@link String}, an {@link Iterable} or an array.
+   * Append a child object to the given parent node. The child may be a {@link Node}, a
+   * {@link String}, an {@link Iterable} or an array.
    *
    * @param aParentNode
    *        The parent node to append to. May not be <code>null</code>.
@@ -531,8 +520,7 @@ public final class XMLHelper
    *
    * @param aParent
    *        The parent element to check. May be <code>null</code>.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent)
@@ -541,13 +529,11 @@ public final class XMLHelper
   }
 
   /**
-   * Get the number of direct child elements without a namespace of the passed
-   * element.
+   * Get the number of direct child elements without a namespace of the passed element.
    *
    * @param aParent
    *        The parent element to check. May be <code>null</code>.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent)
@@ -561,10 +547,8 @@ public final class XMLHelper
    * @param aParent
    *        The parent element to check. May be <code>null</code>.
    * @param sTagName
-   *        The tag name to filter for. May neither be <code>null</code> nor
-   *        empty.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   *        The tag name to filter for. May neither be <code>null</code> nor empty.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCount (@Nullable final Element aParent,
@@ -574,16 +558,13 @@ public final class XMLHelper
   }
 
   /**
-   * Get the number of direct child elements without a namespace and with the
-   * specified tag name.
+   * Get the number of direct child elements without a namespace and with the specified tag name.
    *
    * @param aParent
    *        The parent element to check. May be <code>null</code>.
    * @param sTagName
-   *        The tag name to filter for. May neither be <code>null</code> nor
-   *        empty.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   *        The tag name to filter for. May neither be <code>null</code> nor empty.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
@@ -599,8 +580,7 @@ public final class XMLHelper
    *        The parent element to check. May be <code>null</code>.
    * @param sNamespaceURI
    *        The namespace URI to filter for. May be <code>null</code>.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent, @Nullable final String sNamespaceURI)
@@ -609,27 +589,23 @@ public final class XMLHelper
   }
 
   /**
-   * Get the number of direct child elements with the specified namespace URI
-   * and local name.
+   * Get the number of direct child elements with the specified namespace URI and local name.
    *
    * @param aParent
    *        The parent element to check. May be <code>null</code>.
    * @param sNamespaceURI
    *        The namespace URI to filter for. May be <code>null</code>.
    * @param sLocalName
-   *        The local name to filter for. May neither be <code>null</code> nor
-   *        empty.
-   * @return The number of direct child elements. 0 if the parent is
-   *         <code>null</code>.
+   *        The local name to filter for. May neither be <code>null</code> nor empty.
+   * @return The number of direct child elements. 0 if the parent is <code>null</code>.
    */
   @Nonnegative
   public static int getDirectChildElementCountNS (@Nullable final Element aParent,
                                                   @Nullable final String sNamespaceURI,
                                                   @NonNull @Nonempty final String sLocalName)
   {
-    return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNS (aParent,
-                                                                                      sNamespaceURI,
-                                                                                      sLocalName));
+    return aParent == null ? 0
+                           : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
 
   /**
@@ -671,7 +647,7 @@ public final class XMLHelper
    */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNoNS (@Nullable final Node aStartNode,
-                                                                         @NonNull @Nonempty final String sTagName)
+                                                                                @NonNull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagNameNoNS (sTagName));
   }
@@ -690,14 +666,13 @@ public final class XMLHelper
    */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIterator (@Nullable final Node aStartNode,
-                                                                     @NonNull @Nonempty final String sTagName)
+                                                                            @NonNull @Nonempty final String sTagName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithTagName (sTagName));
   }
 
   /**
-   * Get an iterator over all child elements that have the desired namespace
-   * URI.
+   * Get an iterator over all child elements that have the desired namespace URI.
    *
    * @param aStartNode
    *        the parent element
@@ -707,36 +682,34 @@ public final class XMLHelper
    */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
-                                                                       @Nullable final String sNamespaceURI)
+                                                                              @Nullable final String sNamespaceURI)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespace (sNamespaceURI));
   }
 
   /**
-   * Get an iterator over all child elements that have the desired namespace
-   * URI and local name.
+   * Get an iterator over all child elements that have the desired namespace URI and local name.
    *
    * @param aStartNode
    *        the parent element
    * @param sNamespaceURI
    *        The namespace URI to search. May be <code>null</code>.
    * @param sLocalName
-   *        The local name to search. May neither be <code>null</code> nor
-   *        empty.
+   *        The local name to search. May neither be <code>null</code> nor empty.
    * @return a non-null Iterator
    */
   @NonNull
   public static ICommonsIterableIterator <Element> getChildElementIteratorNS (@Nullable final Node aStartNode,
-                                                                       @Nullable final String sNamespaceURI,
-                                                                       @NonNull @Nonempty final String sLocalName)
+                                                                              @Nullable final String sNamespaceURI,
+                                                                              @NonNull @Nonempty final String sLocalName)
   {
     return new ChildElementIterator (aStartNode).withFilter (filterElementWithNamespaceAndLocalName (sNamespaceURI,
                                                                                                      sLocalName));
   }
 
   /**
-   * Check if two elements have the same element name (considering both
-   * namespace URI and local name or just the tag name).
+   * Check if two elements have the same element name (considering both namespace URI and local name
+   * or just the tag name).
    *
    * @param aFirst
    *        The first element. May not be <code>null</code>.
@@ -1331,8 +1304,8 @@ public final class XMLHelper
   }
 
   /**
-   * Get all attributes of the passed element as a mutable ordered map from
-   * attribute name to attribute value.
+   * Get all attributes of the passed element as a mutable ordered map from attribute name to
+   * attribute value.
    *
    * @param aSrcNode
    *        The source element. May be <code>null</code>.
@@ -1349,8 +1322,7 @@ public final class XMLHelper
   }
 
   /**
-   * Iterate all attributes of the passed element and invoke the consumer for
-   * each attribute.
+   * Iterate all attributes of the passed element and invoke the consumer for each attribute.
    *
    * @param aSrcNode
    *        The source element. May be <code>null</code>.
@@ -1364,14 +1336,13 @@ public final class XMLHelper
   }
 
   /**
-   * Iterate all attributes of the passed element and invoke the consumer for
-   * each attribute name-value pair.
+   * Iterate all attributes of the passed element and invoke the consumer for each attribute
+   * name-value pair.
    *
    * @param aSrcNode
    *        The source element. May be <code>null</code>.
    * @param aConsumer
-   *        The consumer to invoke with the attribute name and value. May not
-   *        be <code>null</code>.
+   *        The consumer to invoke with the attribute name and value. May not be <code>null</code>.
    */
   public static void forAllAttributes (@Nullable final Element aSrcNode,
                                        @NonNull final BiConsumer <? super String, ? super String> aConsumer)

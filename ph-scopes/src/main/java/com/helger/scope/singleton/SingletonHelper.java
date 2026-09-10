@@ -52,7 +52,7 @@ public final class SingletonHelper
    */
   public static void setDebugConsistency (final boolean bDebugConsistency)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugConsistency = bDebugConsistency);
+    RW_LOCK.writeLocked (() -> s_bDebugConsistency = bDebugConsistency);
   }
 
   /**
@@ -61,7 +61,7 @@ public final class SingletonHelper
    */
   public static boolean isDebugConsistency ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugConsistency);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugConsistency);
   }
 
   /**
@@ -73,7 +73,7 @@ public final class SingletonHelper
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
+    RW_LOCK.writeLocked (() -> s_bDebugWithStackTrace = bDebugWithStackTrace);
   }
 
   /**
@@ -82,7 +82,7 @@ public final class SingletonHelper
    */
   public static boolean isDebugWithStackTrace ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugWithStackTrace);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugWithStackTrace);
   }
 
   /**

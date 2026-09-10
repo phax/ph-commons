@@ -34,8 +34,7 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.io.resource.IReadableResource;
 
 /**
- * A readable resource provider that chains multiple
- * {@link IReadableResourceProvider}.
+ * A readable resource provider that chains multiple {@link IReadableResourceProvider}.
  *
  * @author Philip Helger
  */
@@ -48,8 +47,8 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
    * Constructor with a varargs array of resource providers.
    *
    * @param aResProviders
-   *        The resource providers to use. May neither be <code>null</code> nor
-   *        empty and may not contain <code>null</code> elements.
+   *        The resource providers to use. May neither be <code>null</code> nor empty and may not
+   *        contain <code>null</code> elements.
    */
   public ReadableResourceProviderChain (@NonNull final IReadableResourceProvider... aResProviders)
   {
@@ -62,8 +61,8 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
    * Constructor with an iterable of resource providers.
    *
    * @param aResProviders
-   *        The resource providers to use. May neither be <code>null</code> nor
-   *        empty and may not contain <code>null</code> elements.
+   *        The resource providers to use. May neither be <code>null</code> nor empty and may not
+   *        contain <code>null</code> elements.
    */
   public ReadableResourceProviderChain (@NonNull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
@@ -80,8 +79,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   }
 
   /**
-   * @return A copy of all contained reading resource providers. Never
-   *         <code>null</code>.
+   * @return A copy of all contained reading resource providers. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -110,7 +108,10 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
     for (final IReadableResourceProvider aResProvider : m_aReadingResourceProviders)
       if (aResProvider.supportsReading (sName))
         return aResProvider.getReadableResource (sName);
-    throw new IllegalArgumentException ("Cannot handle reading '" + sName + "' by any of " + m_aReadingResourceProviders);
+    throw new IllegalArgumentException ("Cannot handle reading '" +
+                                        sName +
+                                        "' by any of " +
+                                        m_aReadingResourceProviders);
   }
 
   /**
@@ -119,8 +120,7 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
    * @param sName
    *        The name of the resource to resolve. May not be <code>null</code>.
    * @param aReturnFilter
-   *        The filter to apply on found resources. May not be
-   *        <code>null</code>.
+   *        The filter to apply on found resources. May not be <code>null</code>.
    * @return <code>null</code> if no matching resource was found.
    */
   @Nullable

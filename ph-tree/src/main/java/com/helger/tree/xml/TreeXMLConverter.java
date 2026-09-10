@@ -61,8 +61,7 @@ public final class TreeXMLConverter
   {}
 
   /**
-   * Specialized conversion method for converting a tree with ID to a
-   * standardized XML tree.
+   * Specialized conversion method for converting a tree with ID to a standardized XML tree.
    *
    * @param <DATATYPE>
    *        tree item value type
@@ -93,11 +92,9 @@ public final class TreeXMLConverter
    * @param aTree
    *        The tree to be converted. May not be <code>null</code>.
    * @param aItemComparator
-   *        The comparator for sorting items on each level. May not be
-   *        <code>null</code>.
+   *        The comparator for sorting items on each level. May not be <code>null</code>.
    * @param aIDConverter
-   *        The converter from key type to String. May not be
-   *        <code>null</code>.
+   *        The converter from key type to String. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @param aElement
@@ -159,11 +156,9 @@ public final class TreeXMLConverter
    * @param aTree
    *        The tree to be converted. May not be <code>null</code>.
    * @param aItemComparator
-   *        The comparator for sorting items on each level. May not be
-   *        <code>null</code>.
+   *        The comparator for sorting items on each level. May not be <code>null</code>.
    * @param aIDConverter
-   *        The converter from key type to String. May not be
-   *        <code>null</code>.
+   *        The converter from key type to String. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @return The created document. Never <code>null</code>.
@@ -190,8 +185,7 @@ public final class TreeXMLConverter
    * @param aTree
    *        The tree to be converted. May not be <code>null</code>.
    * @param aItemComparator
-   *        The comparator for sorting items on each level. May not be
-   *        <code>null</code>.
+   *        The comparator for sorting items on each level. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @param aElement
@@ -249,8 +243,7 @@ public final class TreeXMLConverter
    * @param aTree
    *        The tree to be converted. May not be <code>null</code>.
    * @param aItemComparator
-   *        The comparator for sorting items on each level. May not be
-   *        <code>null</code>.
+   *        The comparator for sorting items on each level. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @return The created document. Never <code>null</code>.
@@ -278,8 +271,7 @@ public final class TreeXMLConverter
    * @param aElement
    *        The source XML element. May not be <code>null</code>.
    * @param aIDConverter
-   *        The converter from String to key type. May not be
-   *        <code>null</code>.
+   *        The converter from String to key type. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @param aTree
@@ -353,8 +345,7 @@ public final class TreeXMLConverter
    * @param aElement
    *        The source XML element. May not be <code>null</code>.
    * @param aIDConverter
-   *        The converter from String to key type. May not be
-   *        <code>null</code>.
+   *        The converter from String to key type. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @return The created tree. Never <code>null</code>.
@@ -379,8 +370,7 @@ public final class TreeXMLConverter
    * @param aElement
    *        The source XML element. May not be <code>null</code>.
    * @param aIDConverter
-   *        The converter from String to key type. May not be
-   *        <code>null</code>.
+   *        The converter from String to key type. May not be <code>null</code>.
    * @param aDataConverter
    *        The data converter. May not be <code>null</code>.
    * @return The created tree. Never <code>null</code>.

@@ -24,8 +24,7 @@ package com.helger.base.dimension;
 public interface IHasDimensionInt extends IHasWidthInt, IHasHeightInt
 {
   /**
-   * @return <code>true</code> if width &gt; height, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if width &gt; height, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isLandscape ()
@@ -34,8 +33,7 @@ public interface IHasDimensionInt extends IHasWidthInt, IHasHeightInt
   }
 
   /**
-   * @return <code>true</code> if height &gt; width, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if height &gt; width, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isPortrait ()
@@ -44,8 +42,7 @@ public interface IHasDimensionInt extends IHasWidthInt, IHasHeightInt
   }
 
   /**
-   * @return <code>true</code> if width equals height, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if width equals height, <code>false</code> otherwise.
    * @since 9.2.1
    */
   default boolean isQuadratic ()

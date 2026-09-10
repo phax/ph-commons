@@ -63,11 +63,9 @@ public final class AcceptEncodingHandler
    * Parse the Accept-Encoding HTTP header value and return a structured list.
    *
    * @param sAcceptEncoding
-   *        The Accept-Encoding header value. May be <code>null</code> or
-   *        empty.
-   * @return A non-<code>null</code> {@link AcceptEncodingList} containing the
-   *         parsed encodings. If the input is empty, only identity encoding
-   *         is included.
+   *        The Accept-Encoding header value. May be <code>null</code> or empty.
+   * @return A non-<code>null</code> {@link AcceptEncodingList} containing the parsed encodings. If
+   *         the input is empty, only identity encoding is included.
    */
   @NonNull
   public static AcceptEncodingList getAcceptEncodings (@Nullable final String sAcceptEncoding)

@@ -481,9 +481,8 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
                                                                                                   : CertificateRevocationCheckerDefaults.getExceptionHdl ();
     final boolean bAllowSoftFail = m_eAllowSoftFail.isDefined () ? m_eAllowSoftFail.getAsBooleanValue ()
                                                                  : CertificateRevocationCheckerDefaults.isAllowSoftFail ();
-    final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl !=
-                                                                                           null ? m_aSoftFailExceptionHdl
-                                                                                                : CertificateRevocationCheckerDefaults.getSoftFailExceptionHdl ();
+    final Consumer <? super List <CertPathValidatorException>> aRealSoftFailExceptionHdl = m_aSoftFailExceptionHdl != null ? m_aSoftFailExceptionHdl
+                                                                                                                           : CertificateRevocationCheckerDefaults.getSoftFailExceptionHdl ();
     final boolean bExecuteSync = m_eExecuteInSynchronizedBlock.isDefined () ? m_eExecuteInSynchronizedBlock.getAsBooleanValue ()
                                                                             : CertificateRevocationCheckerDefaults.isExecuteInSynchronizedBlock ();
 
@@ -699,8 +698,7 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
       // the underlying revocation reason in that case and reports a generic "unable to find
       // valid certification path".
       final boolean bUndetermined = ex instanceof final CertPathValidatorException aCPVEx &&
-                                    aCPVEx.getReason () ==
-                                                                                             CertPathValidatorException.BasicReason.UNDETERMINED_REVOCATION_STATUS;
+                                    aCPVEx.getReason () == CertPathValidatorException.BasicReason.UNDETERMINED_REVOCATION_STATUS;
       if (bUndetermined || (aCRLDownloadFailed.get () && eRealCheckMode == ERevocationCheckMode.CRL))
       {
         LOGGER.warn ("Certificate revocation status could not be determined: " +

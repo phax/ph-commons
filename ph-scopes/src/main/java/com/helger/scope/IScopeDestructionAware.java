@@ -19,19 +19,17 @@ package com.helger.scope;
 import org.jspecify.annotations.NonNull;
 
 /**
- * A listener interfaces that is invoked before a scope is destroyed. If an
- * object implementing this interface is added into a scope, this destruction
- * method is automatically called!
+ * A listener interfaces that is invoked before a scope is destroyed. If an object implementing this
+ * interface is added into a scope, this destruction method is automatically called!
  *
  * @author Philip Helger
  */
 public interface IScopeDestructionAware
 {
   /**
-   * Called before the owning scope is destroyed. You may perform some last
-   * actions before the scope is really destroyed. This method is called after
-   * the <code>IScope.preDestroy()</code> callback is invoked and before the
-   * scope is set as being "in destruction".
+   * Called before the owning scope is destroyed. You may perform some last actions before the scope
+   * is really destroyed. This method is called after the <code>IScope.preDestroy()</code> callback
+   * is invoked and before the scope is set as being "in destruction".
    *
    * @param aScopeToBeDestroyed
    *        The scope that will be destroyed. Never <code>null</code>.
@@ -42,9 +40,8 @@ public interface IScopeDestructionAware
   {}
 
   /**
-   * Called when the owning scope is destroyed. You may perform some cleanup
-   * work in here. This is method is called when the scope is already "in
-   * destruction".
+   * Called when the owning scope is destroyed. You may perform some cleanup work in here. This is
+   * method is called when the scope is already "in destruction".
    *
    * @param aScopeInDestruction
    *        The scope in destruction. Never <code>null</code>.

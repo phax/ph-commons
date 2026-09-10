@@ -38,11 +38,11 @@ public class AuthIdentificationResult implements ISuccessIndicator
    * Constructor.
    *
    * @param aAuthToken
-   *        The auth token. May not be <code>null</code> in case of success.
-   *        Must be <code>null</code> in case of failure.
+   *        The auth token. May not be <code>null</code> in case of success. Must be
+   *        <code>null</code> in case of failure.
    * @param aCredentialValidationFailure
-   *        The validation failure. May not be <code>null</code> in case of
-   *        failure. Must be <code>null</code> in case of success.
+   *        The validation failure. May not be <code>null</code> in case of failure. Must be
+   *        <code>null</code> in case of success.
    */
   protected AuthIdentificationResult (@Nullable final IAuthToken aAuthToken,
                                       @Nullable final ICredentialValidationResult aCredentialValidationFailure)
@@ -75,8 +75,8 @@ public class AuthIdentificationResult implements ISuccessIndicator
   }
 
   /**
-   * @return The auth token in case of successful identification or
-   *         <code>null</code> in case of an error.
+   * @return The auth token in case of successful identification or <code>null</code> in case of an
+   *         error.
    */
   @Nullable
   public IAuthToken getAuthToken ()
@@ -85,8 +85,7 @@ public class AuthIdentificationResult implements ISuccessIndicator
   }
 
   /**
-   * @return The credential validation failure or <code>null</code> in case of
-   *         success.
+   * @return The credential validation failure or <code>null</code> in case of success.
    */
   @Nullable
   public ICredentialValidationResult getCredentialValidationFailure ()
@@ -120,8 +119,7 @@ public class AuthIdentificationResult implements ISuccessIndicator
    * Factory method for error in authentication.
    *
    * @param aCredentialValidationFailure
-   *        The validation failure. May not be <code>null</code> in case of
-   *        failure!
+   *        The validation failure. May not be <code>null</code> in case of failure!
    * @return Never <code>null</code>.
    */
   @NonNull

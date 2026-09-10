@@ -136,7 +136,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // The main class should not already be registered
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
@@ -177,7 +177,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   @Nullable
   public <T> IMicroTypeConverter <T> getConverterToMicroElement (@Nullable final Class <T> aSrcClass)
   {
-    return GenericReflection.uncheckedCast (m_aRWLock.readLockedGet ( () -> m_aMap.get (aSrcClass)));
+    return GenericReflection.uncheckedCast (m_aRWLock.readLockedGet (() -> m_aMap.get (aSrcClass)));
   }
 
   /**
@@ -194,7 +194,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   {
     ValueEnforcer.notNull (aDstClass, "DestClass");
 
-    final IMicroTypeConverter <?> ret2 = m_aRWLock.readLockedGet ( () -> {
+    final IMicroTypeConverter <?> ret2 = m_aRWLock.readLockedGet (() -> {
       // Check for an exact match first
       IMicroTypeConverter <?> ret = m_aMap.get (aDstClass);
       if (ret != null)
@@ -263,7 +263,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aMap.clear ();
 
       // Register all custom micro type converter

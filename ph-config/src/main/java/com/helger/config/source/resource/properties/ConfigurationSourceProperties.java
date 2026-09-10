@@ -140,7 +140,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   /** {@inheritDoc} */
   public boolean isInitializedAndUsable ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aProps != null);
+    return m_aRWLock.readLockedBoolean (() -> m_aProps != null);
   }
 
   /** {@inheritDoc} */
@@ -150,21 +150,21 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
     // Main load
     final NonBlockingProperties aProps = _load (getResource (), m_aCharset);
     // Replace in write-lock
-    m_aRWLock.writeLocked ( () -> m_aProps = aProps);
+    m_aRWLock.writeLocked (() -> m_aProps = aProps);
     return ESuccess.valueOf (aProps != null);
   }
 
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aProps == null ? false : m_aProps.containsKey (sKey));
+    return m_aRWLock.readLockedBoolean (() -> m_aProps == null ? false : m_aProps.containsKey (sKey));
   }
 
   /** {@inheritDoc} */
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
-    final String sValue = m_aRWLock.readLockedGet ( () -> m_aProps == null ? null : m_aProps.get (sKey));
+    final String sValue = m_aRWLock.readLockedGet (() -> m_aProps == null ? null : m_aProps.get (sKey));
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }
 
@@ -173,7 +173,7 @@ public class ConfigurationSourceProperties extends AbstractConfigurationSourceRe
   @ReturnsMutableCopy
   public ICommonsOrderedMap <String, String> getAllConfigItems ()
   {
-    return m_aRWLock.readLockedGet ( () -> new CommonsLinkedHashMap <> (m_aProps));
+    return m_aRWLock.readLockedGet (() -> new CommonsLinkedHashMap <> (m_aProps));
   }
 
   @Override

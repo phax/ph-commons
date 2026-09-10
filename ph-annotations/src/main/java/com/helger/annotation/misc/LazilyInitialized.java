@@ -24,8 +24,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This is an indicator, that a field is lazily initialized. This annotation has
- * mainly documentational purposes.
+ * This is an indicator, that a field is lazily initialized. This annotation has mainly
+ * documentational purposes.
  *
  * @author Philip Helger
  */

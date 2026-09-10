@@ -41,8 +41,8 @@ import com.helger.graph.IMutableDirectedGraphRelation;
 public final class DirectedGraphIteratorForward implements ICommonsIterableIterator <IMutableDirectedGraphNode>
 {
   /**
-   * This class represents a node in the current iteration process. It is
-   * relevant to easily keep the current iterator status and the node together.
+   * This class represents a node in the current iteration process. It is relevant to easily keep
+   * the current iterator status and the node together.
    *
    * @author Philip Helger
    */
@@ -77,20 +77,20 @@ public final class DirectedGraphIteratorForward implements ICommonsIterableItera
   }
 
   /**
-   * Current stack. It contains the current node plus an iterator of the
-   * outgoing relations of the node
+   * Current stack. It contains the current node plus an iterator of the outgoing relations of the
+   * node
    */
   private final NonBlockingStack <IterationNode> m_aNodeStack = new NonBlockingStack <> ();
 
   /**
-   * Optional filter for graph relations to defined whether thy should be
-   * followed or not. May be <code>null</code>.
+   * Optional filter for graph relations to defined whether thy should be followed or not. May be
+   * <code>null</code>.
    */
   private final Predicate <? super IMutableDirectedGraphRelation> m_aRelationFilter;
 
   /**
-   * This set keeps track of all the nodes we already visited. This is important
-   * for cyclic dependencies.
+   * This set keeps track of all the nodes we already visited. This is important for cyclic
+   * dependencies.
    */
   private final ICommonsSet <String> m_aHandledNodes = new CommonsHashSet <> ();
 
@@ -111,14 +111,13 @@ public final class DirectedGraphIteratorForward implements ICommonsIterableItera
   }
 
   /**
-   * Constructor iterating outgoing relations from the start node, optionally
-   * filtering relations.
+   * Constructor iterating outgoing relations from the start node, optionally filtering relations.
    *
    * @param aStartNode
    *        The node to start iterating from. May not be <code>null</code>.
    * @param aRelationFilter
-   *        An optional filter to decide which relations to follow. May be
-   *        <code>null</code> to follow all relations.
+   *        An optional filter to decide which relations to follow. May be <code>null</code> to
+   *        follow all relations.
    */
   public DirectedGraphIteratorForward (@NonNull final IMutableDirectedGraphNode aStartNode,
                                        @Nullable final Predicate <? super IMutableDirectedGraphRelation> aRelationFilter)
@@ -198,8 +197,7 @@ public final class DirectedGraphIteratorForward implements ICommonsIterableItera
   }
 
   /**
-   * @return <code>true</code> if the iterator determined a cycle while
-   *         iterating the graph
+   * @return <code>true</code> if the iterator determined a cycle while iterating the graph
    */
   public boolean hasCycles ()
   {

@@ -52,8 +52,8 @@ public final class CRLHelper
    * Convert the provided CRL bytes into a {@link X509CRL} object.
    *
    * @param aCRLBytes
-   *        The CRL bytes received from an external source. May neither be
-   *        <code>null</code> nor empty.
+   *        The CRL bytes received from an external source. May neither be <code>null</code> nor
+   *        empty.
    * @return The parsed CRL object.
    * @throws IllegalArgumentException
    *         In case of conversion errors
@@ -79,19 +79,16 @@ public final class CRLHelper
   }
 
   /**
-   * Extracts all CRL distribution point URLs from the "CRL Distribution Point"
-   * extension in a X.509 certificate. If CRL distribution point extension is
-   * unavailable, returns an empty list.
+   * Extracts all CRL distribution point URLs from the "CRL Distribution Point" extension in a X.509
+   * certificate. If CRL distribution point extension is unavailable, returns an empty list.
    *
    * @param aCert
    *        The certificate to extract the CRLs from
-   * @return Never <code>null</code> but maybe empty list of distribution
-   *         points.
+   * @return Never <code>null</code> but maybe empty list of distribution points.
    * @throws java.io.UncheckedIOException
-   *         If the certificate contains a "CRL Distribution Points" extension
-   *         that is not valid DER. Up to and including v12.3.5 this was decoded
-   *         by BouncyCastle, which also accepted certain BER encodings and
-   *         reported structural problems as
+   *         If the certificate contains a "CRL Distribution Points" extension that is not valid
+   *         DER. Up to and including v12.3.5 this was decoded by BouncyCastle, which also accepted
+   *         certain BER encodings and reported structural problems as
    *         {@link IllegalArgumentException} instead.
    */
   @NonNull

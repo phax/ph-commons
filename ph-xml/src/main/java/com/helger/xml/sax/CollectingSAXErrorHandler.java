@@ -33,8 +33,7 @@ import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
 
 /**
- * An error handler implementation that stores all warnings, errors and fatal
- * errors.
+ * An error handler implementation that stores all warnings, errors and fatal errors.
  *
  * @author Philip Helger
  */
@@ -54,8 +53,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   }
 
   /**
-   * Protected constructor to use a different {@link ErrorList} - e.g. for
-   * existing error lists.<br>
+   * Protected constructor to use a different {@link ErrorList} - e.g. for existing error lists.<br>
    *
    * @param aErrorListProvider
    *        The error list provider. May not be <code>null</code>.
@@ -72,7 +70,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   protected void internalLog (@NonNull final IErrorLevel aErrorLevel, final SAXParseException aException)
   {
     final IError aError = getSaxParseError (aErrorLevel, aException);
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aError));
+    m_aRWLock.writeLockedBoolean (() -> m_aErrors.add (aError));
   }
 
   /**
@@ -86,8 +84,7 @@ public class CollectingSAXErrorHandler extends AbstractSAXErrorHandler
   }
 
   /**
-   * @return <code>true</code> if at least one error is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one error is contained, <code>false</code> otherwise.
    */
   public boolean containsAtLeastOneError ()
   {

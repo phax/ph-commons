@@ -35,14 +35,14 @@ import com.helger.json.serialize.JsonWriterSettings;
 public interface IJson extends ICloneable <IJson>, IAddableByTrait
 {
   /**
-   * @return <code>true</code> if it is an array and can be case to
-   *         {@link IJsonArray}, <code>false</code> otherwise.
+   * @return <code>true</code> if it is an array and can be case to {@link IJsonArray},
+   *         <code>false</code> otherwise.
    */
   boolean isArray ();
 
   /**
-   * @return this as an {@link IJsonArray} or <code>null</code> if
-   *         {@link #isArray()} returned <code>false</code>
+   * @return this as an {@link IJsonArray} or <code>null</code> if {@link #isArray()} returned
+   *         <code>false</code>
    */
   @Nullable
   default IJsonArray getAsArray ()
@@ -51,14 +51,14 @@ public interface IJson extends ICloneable <IJson>, IAddableByTrait
   }
 
   /**
-   * @return <code>true</code> if it is an array and can be case to
-   *         {@link IJsonObject}, <code>false</code> otherwise.
+   * @return <code>true</code> if it is an array and can be case to {@link IJsonObject},
+   *         <code>false</code> otherwise.
    */
   boolean isObject ();
 
   /**
-   * @return this as an {@link IJsonObject} or <code>null</code> if
-   *         {@link #isObject()} returned <code>false</code>
+   * @return this as an {@link IJsonObject} or <code>null</code> if {@link #isObject()} returned
+   *         <code>false</code>
    */
   @Nullable
   default IJsonObject getAsObject ()
@@ -67,14 +67,14 @@ public interface IJson extends ICloneable <IJson>, IAddableByTrait
   }
 
   /**
-   * @return <code>true</code> if it is an array and can be case to
-   *         {@link IJsonValue}, <code>false</code> otherwise.
+   * @return <code>true</code> if it is an array and can be case to {@link IJsonValue},
+   *         <code>false</code> otherwise.
    */
   boolean isValue ();
 
   /**
-   * @return this as an {@link IJsonValue} or <code>null</code> if
-   *         {@link #isValue()} returned <code>false</code>
+   * @return this as an {@link IJsonValue} or <code>null</code> if {@link #isValue()} returned
+   *         <code>false</code>
    */
   @Nullable
   default IJsonValue getAsValue ()
@@ -85,8 +85,8 @@ public interface IJson extends ICloneable <IJson>, IAddableByTrait
   /**
    * Convert this JSON element to a string.
    *
-   * @return The non-<code>null</code> String (serialization) representation of
-   *         this JSON object using the default settings.
+   * @return The non-<code>null</code> String (serialization) representation of this JSON object
+   *         using the default settings.
    * @see #getAsJsonString(IJsonWriterSettings)
    * @see JsonWriterSettings#DEFAULT_SETTINGS
    * @see JsonWriter

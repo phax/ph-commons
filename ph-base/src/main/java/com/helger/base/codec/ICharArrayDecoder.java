@@ -31,8 +31,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 public interface ICharArrayDecoder extends IDecoder <char [], char []>
 {
   /**
-   * Get the maximum decoded length based on the provided encoded length. This
-   * is purely for performance reasons.
+   * Get the maximum decoded length based on the provided encoded length. This is purely for
+   * performance reasons.
    *
    * @param nEncodedLen
    *        The encoded length. Always &ge; 0.
@@ -49,8 +49,7 @@ public interface ICharArrayDecoder extends IDecoder <char [], char []>
    *
    * @param aEncodedBuffer
    *        The char array to be decoded. May be <code>null</code>.
-   * @return The decoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The decoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
    */
@@ -71,13 +70,14 @@ public interface ICharArrayDecoder extends IDecoder <char [], char []>
    *        Offset into the char array to start from.
    * @param nLen
    *        Number of chars starting from offset to consider.
-   * @return The decoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The decoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
    */
   @ReturnsMutableCopy
-  char @Nullable [] getDecoded (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen);
+  char @Nullable [] getDecoded (final char @Nullable [] aEncodedBuffer,
+                                @Nonnegative final int nOfs,
+                                @Nonnegative final int nLen);
 
   /**
    * Decode the passed string.

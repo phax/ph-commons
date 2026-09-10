@@ -26,8 +26,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.settings.Settings;
 
 /**
- * Special {@link Settings} implementation that trims all values before adding
- * them.
+ * Special {@link Settings} implementation that trims all values before adding them.
  *
  * @author Philip Helger
  */
@@ -38,8 +37,7 @@ public class TrimmedValueSettings extends Settings
    * Constructor.
    *
    * @param sName
-   *        The name of the settings. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of the settings. May neither be <code>null</code> nor empty.
    */
   public TrimmedValueSettings (@NonNull @Nonempty final String sName)
   {

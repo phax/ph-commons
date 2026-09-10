@@ -30,11 +30,10 @@ import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsSet;
 
 /**
- * Utility class for generating all possible combinations of elements for a
- * specified number of available slots. Duplicates in the passed elements will
- * not deliver duplicate result solutions. This implementation is flexible in
- * terms of handling the slots. This means it will also return result sets where
- * not all slots are filled.
+ * Utility class for generating all possible combinations of elements for a specified number of
+ * available slots. Duplicates in the passed elements will not deliver duplicate result solutions.
+ * This implementation is flexible in terms of handling the slots. This means it will also return
+ * result sets where not all slots are filled.
  *
  * @author Boris Gregorcic
  * @author Philip Helger
@@ -110,16 +109,14 @@ public final class CombinationGeneratorFlexible <DATATYPE>
   }
 
   /**
-   * Iterate all combinations of the given elements using the element count as
-   * the slot count.
+   * Iterate all combinations of the given elements using the element count as the slot count.
    *
    * @param aElements
    *        The elements to combine. May not be <code>null</code>.
    * @param bAllowEmpty
    *        Whether to include the empty result set.
    * @param aCallback
-   *        The callback to invoke for each combination. May not be
-   *        <code>null</code>.
+   *        The callback to invoke for each combination. May not be <code>null</code>.
    * @param <DATATYPE>
    *        Element type
    */
@@ -127,12 +124,12 @@ public final class CombinationGeneratorFlexible <DATATYPE>
                                                         final boolean bAllowEmpty,
                                                         @NonNull final Consumer <? super ICommonsList <DATATYPE>> aCallback)
   {
-    new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements, aCallback);
+    new CombinationGeneratorFlexible <DATATYPE> (aElements.size (), bAllowEmpty).iterateAllCombinations (aElements,
+                                                                                                         aCallback);
   }
 
   /**
-   * Get all unique combinations of the given elements using the element count
-   * as the slot count.
+   * Get all unique combinations of the given elements using the element count as the slot count.
    *
    * @param aElements
    *        The elements to combine. May not be <code>null</code>.

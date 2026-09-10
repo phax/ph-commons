@@ -81,13 +81,19 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
     aRegistry.registerTypeConverter (String.class, URL.class, URLHelper::getAsURL);
 
     // IResourceBase to string
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class, String.class, IResourceBase::getPath);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                         String.class,
+                                                                         IResourceBase::getPath);
 
     // IReadableResource to URL
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class, URL.class, IResourceBase::getAsURL);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                         URL.class,
+                                                                         IResourceBase::getAsURL);
 
     // IResourceBase to File
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class, File.class, IResourceBase::getAsFile);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IResourceBase.class,
+                                                                         File.class,
+                                                                         IResourceBase::getAsFile);
 
     // IInputStreamProvider to InputStream
     aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasInputStream.class,
@@ -100,10 +106,14 @@ public final class IOTypeConverterRegistrar implements ITypeConverterRegistrarSP
                                                                          aSource -> aSource.getOutputStream (EAppend.DEFAULT));
 
     // IReaderProvider to Reader
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class, Reader.class, IHasReader::getReader);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasReader.class,
+                                                                         Reader.class,
+                                                                         IHasReader::getReader);
 
     // IWriterProvider to Writer
-    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class, Writer.class, IHasWriter::getWriter);
+    aRegistry.registerTypeConverterRuleAssignableSourceFixedDestination (IHasWriter.class,
+                                                                         Writer.class,
+                                                                         IHasWriter::getWriter);
 
     // ClassPathResource
     aRegistry.registerTypeConverter (String.class, ClassPathResource.class, ClassPathResource::new);

@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.state.EContinue;
 
 /**
- * A callback interface that is used in several places of the type conversion
- * engine.
+ * A callback interface that is used in several places of the type conversion engine.
  *
  * @author Philip Helger
  */
@@ -38,9 +37,10 @@ public interface ITypeConverterCallback
    *        The destination class of the converter. Never <code>null</code>.
    * @param aConverter
    *        The type converter itself. Never <code>null</code>.
-   * @return {@link EContinue#CONTINUE} to continue iteration,
-   *         {@link EContinue#BREAK} to stop.
+   * @return {@link EContinue#CONTINUE} to continue iteration, {@link EContinue#BREAK} to stop.
    */
   @NonNull
-  EContinue call (@NonNull Class <?> aSrcClass, @NonNull Class <?> aDstClass, @NonNull ITypeConverter <?, ?> aConverter);
+  EContinue call (@NonNull Class <?> aSrcClass,
+                  @NonNull Class <?> aDstClass,
+                  @NonNull ITypeConverter <?, ?> aConverter);
 }

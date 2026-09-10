@@ -134,6 +134,8 @@ public class MicroAttribute implements IMicroAttribute
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("QName", m_aQName).append ("AttributeValue", m_sAttributeValue).getToString ();
+    return new ToStringGenerator (this).append ("QName", m_aQName)
+                                       .append ("AttributeValue", m_sAttributeValue)
+                                       .getToString ();
   }
 }

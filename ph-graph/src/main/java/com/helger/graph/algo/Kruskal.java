@@ -43,8 +43,8 @@ import com.helger.graph.simple.SimpleGraphObjectFastFactory;
 public final class Kruskal
 {
   /**
-   * The result of a Kruskal minimum spanning tree computation, containing the
-   * resulting graph and total weight.
+   * The result of a Kruskal minimum spanning tree computation, containing the resulting graph and
+   * total weight.
    *
    * @author Philip Helger
    */
@@ -57,8 +57,7 @@ public final class Kruskal
      * Constructor.
      *
      * @param aGraph
-     *        The resulting minimum spanning tree graph. May not be
-     *        <code>null</code>.
+     *        The resulting minimum spanning tree graph. May not be <code>null</code>.
      * @param nTotalWeight
      *        The total weight of the minimum spanning tree.
      */
@@ -70,8 +69,7 @@ public final class Kruskal
     }
 
     /**
-     * @return The minimum spanning tree as a {@link SimpleGraph}. Never
-     *         <code>null</code>.
+     * @return The minimum spanning tree as a {@link SimpleGraph}. Never <code>null</code>.
      */
     @NonNull
     public SimpleGraph getGraph ()
@@ -88,8 +86,8 @@ public final class Kruskal
     }
 
     /**
-     * @return A human-readable string representation of this result containing
-     *         the total weight and node IDs. Never <code>null</code>.
+     * @return A human-readable string representation of this result containing the total weight and
+     *         node IDs. Never <code>null</code>.
      */
     @NonNull
     @Nonempty
@@ -128,17 +126,16 @@ public final class Kruskal
   }
 
   /**
-   * Apply Kruskal's algorithm to find the minimum spanning tree of the
-   * provided undirected graph.
+   * Apply Kruskal's algorithm to find the minimum spanning tree of the provided undirected graph.
    *
    * @param aGraph
-   *        The undirected graph to compute the minimum spanning tree for. May
-   *        not be <code>null</code>.
+   *        The undirected graph to compute the minimum spanning tree for. May not be
+   *        <code>null</code>.
    * @param sRelationCostAttr
-   *        The name of the attribute on each relation that contains the
-   *        integer cost/weight. May not be <code>null</code>.
-   * @return The result containing the minimum spanning tree and total weight.
-   *         Never <code>null</code>.
+   *        The name of the attribute on each relation that contains the integer cost/weight. May
+   *        not be <code>null</code>.
+   * @return The result containing the minimum spanning tree and total weight. Never
+   *         <code>null</code>.
    */
   public static Kruskal.@NonNull Result applyKruskal (@NonNull final ISimpleGraph aGraph,
                                                       @NonNull @Nonempty final String sRelationCostAttr)

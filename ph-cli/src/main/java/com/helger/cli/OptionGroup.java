@@ -26,8 +26,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * A group of mutually related {@link Option} instances, optionally marked as
- * required.
+ * A group of mutually related {@link Option} instances, optionally marked as required.
  *
  * @author Philip Helger
  */

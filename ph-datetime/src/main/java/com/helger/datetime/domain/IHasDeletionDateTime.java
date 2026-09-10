@@ -34,15 +34,13 @@ import com.helger.base.enforce.ValueEnforcer;
 public interface IHasDeletionDateTime
 {
   /**
-   * @return The deletion date time or <code>null</code> if the object has not
-   *         been deleted yet.
+   * @return The deletion date time or <code>null</code> if the object has not been deleted yet.
    */
   @Nullable
   LocalDateTime getDeletionDateTime ();
 
   /**
-   * @return <code>true</code> if a deletion date time is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a deletion date time is present, <code>false</code> if not.
    * @see #getDeletionDateTime()
    */
   default boolean hasDeletionDateTime ()
@@ -51,8 +49,8 @@ public interface IHasDeletionDateTime
   }
 
   /**
-   * @return The extracted date from the deletion date and time or
-   *         <code>null</code> if no deletion date time is present.
+   * @return The extracted date from the deletion date and time or <code>null</code> if no deletion
+   *         date time is present.
    */
   @Nullable
   default LocalDate getDeletionDate ()
@@ -62,8 +60,8 @@ public interface IHasDeletionDateTime
   }
 
   /**
-   * @return The extracted time from the deletion date and time or
-   *         <code>null</code> if no deletion date time is present.
+   * @return The extracted time from the deletion date and time or <code>null</code> if no deletion
+   *         date time is present.
    */
   @Nullable
   default LocalTime getDeletionTime ()
@@ -73,14 +71,12 @@ public interface IHasDeletionDateTime
   }
 
   /**
-   * Check if the object was deleted at the specified local date time. This is
-   * <code>true</code>, if the deletion time is &le; than the specified local
-   * date time.
+   * Check if the object was deleted at the specified local date time. This is <code>true</code>, if
+   * the deletion time is &le; than the specified local date time.
    *
    * @param aDT
    *        The time to check for deletion. May not be <code>null</code>.
-   * @return <code>true</code> if this object was deleted, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if this object was deleted, <code>false</code> if not.
    * @since 9.1.6
    */
   default boolean isDeletedAt (@NonNull final LocalDateTime aDT)

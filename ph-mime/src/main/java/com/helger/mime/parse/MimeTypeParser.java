@@ -314,8 +314,8 @@ public final class MimeTypeParser
    *         In case of an error
    */
   @Nullable
-  public static MimeType parseMimeType (@Nullable final String sMimeType, @NonNull final EMimeQuoting eQuotingAlgorithm)
-                                                                                                                         throws MimeTypeParserException
+  public static MimeType parseMimeType (@Nullable final String sMimeType,
+                                        @NonNull final EMimeQuoting eQuotingAlgorithm) throws MimeTypeParserException
   {
     ValueEnforcer.notNull (eQuotingAlgorithm, "QuotingAlgorithm");
 

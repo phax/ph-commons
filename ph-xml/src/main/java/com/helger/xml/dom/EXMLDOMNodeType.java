@@ -24,8 +24,8 @@ import com.helger.base.id.IHasIntID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Represents the different DOM node types. This is a type-safe version of the
- * node types defined in {@link org.w3c.dom.Node}.
+ * Represents the different DOM node types. This is a type-safe version of the node types defined in
+ * {@link org.w3c.dom.Node}.
  *
  * @author Philip Helger
  */

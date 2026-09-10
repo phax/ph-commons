@@ -24,8 +24,8 @@ import com.helger.security.password.salt.IPasswordSalt;
 import com.helger.security.password.salt.PasswordSaltBCrypt;
 
 /**
- * The new default implementation of {@link IPasswordHashCreator} that requires
- * a salt and uses the BCrypt algorithm.
+ * The new default implementation of {@link IPasswordHashCreator} that requires a salt and uses the
+ * BCrypt algorithm.
  *
  * @author Philip Helger
  */

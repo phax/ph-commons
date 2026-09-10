@@ -227,9 +227,9 @@ public final class DirectedGraphNodeTest
   public void testStdMethods ()
   {
     TestHelper.testDefaultImplementationWithEqualContentObject (new DirectedGraphNode ("id0"),
-                                                                       new DirectedGraphNode ("id0"));
+                                                                new DirectedGraphNode ("id0"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new DirectedGraphNode ("id0"),
-                                                                           new DirectedGraphNode ("id1"));
+                                                                    new DirectedGraphNode ("id1"));
     final DirectedGraphNode n1 = new DirectedGraphNode ("id0");
     n1.attrs ().putIn ("a", "b");
     final DirectedGraphNode n2 = new DirectedGraphNode ("id0");

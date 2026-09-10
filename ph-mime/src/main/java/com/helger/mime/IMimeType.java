@@ -49,8 +49,8 @@ public interface IMimeType extends ICloneable <IMimeType>
   String getContentSubType ();
 
   /**
-   * Get the MIME type including all parameters as a single string. By default
-   * the {@link CMimeType#DEFAULT_QUOTING} quoting algorithm is used.
+   * Get the MIME type including all parameters as a single string. By default the
+   * {@link CMimeType#DEFAULT_QUOTING} quoting algorithm is used.
    *
    * @return The combined string to be used as text representation:
    *         <code><em>contentType</em> '/' <em>subType</em> ( ';'
@@ -65,9 +65,8 @@ public interface IMimeType extends ICloneable <IMimeType>
   }
 
   /**
-   * Get the MIME type including all parameters as a single string. The
-   * specified quoting algorithm is used to quote parameter values (if
-   * necessary).
+   * Get the MIME type including all parameters as a single string. The specified quoting algorithm
+   * is used to quote parameter values (if necessary).
    *
    * @param eQuotingAlgorithm
    *        Quoting algorithm to be used
@@ -82,8 +81,8 @@ public interface IMimeType extends ICloneable <IMimeType>
   String getAsString (@NonNull EMimeQuoting eQuotingAlgorithm);
 
   /**
-   * @return The combined string to be used as text representation but without
-   *         the parameters: <code><em>contentType</em> '/'
+   * @return The combined string to be used as text representation but without the parameters:
+   *         <code><em>contentType</em> '/'
    *         <em>subType</em></code>
    * @see #getAsString()
    */
@@ -92,16 +91,14 @@ public interface IMimeType extends ICloneable <IMimeType>
   String getAsStringWithoutParameters ();
 
   /**
-   * Get all MIME type parameters as a single string but without the leading
-   * content and sub type. The specified quoting algorithm is used to quote
-   * parameter values.
+   * Get all MIME type parameters as a single string but without the leading content and sub type.
+   * The specified quoting algorithm is used to quote parameter values.
    *
    * @param eQuotingAlgorithm
    *        Quoting algorithm to be used
    * @return The combined string to be used as text representation:
    *         <code>(';' <em>parameterName</em> '=' <em>parameterValue</em>
-   *         )*</code> . If no parameters are present, an empty String is
-   *         returned!
+   *         )*</code> . If no parameters are present, an empty String is returned!
    * @see #getAsString(EMimeQuoting)
    * @see #getAsStringWithoutParameters()
    */
@@ -109,8 +106,8 @@ public interface IMimeType extends ICloneable <IMimeType>
   String getParametersAsString (@NonNull EMimeQuoting eQuotingAlgorithm);
 
   /**
-   * @return <code>true</code> if at least one parameter is present,
-   *         <code>false</code> if no parameter is present.
+   * @return <code>true</code> if at least one parameter is present, <code>false</code> if no
+   *         parameter is present.
    */
   boolean hasAnyParameters ();
 
@@ -138,8 +135,7 @@ public interface IMimeType extends ICloneable <IMimeType>
   MimeTypeParameter getParameterAtIndex (@Nonnegative int nIndex);
 
   /**
-   * Check if a parameter with the specified name is present. The names are
-   * matched case sensitive!
+   * Check if a parameter with the specified name is present. The names are matched case sensitive!
    *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
@@ -151,8 +147,7 @@ public interface IMimeType extends ICloneable <IMimeType>
   }
 
   /**
-   * Get the parameter with the specified name. The names are matched case
-   * sensitive!
+   * Get the parameter with the specified name. The names are matched case sensitive!
    *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
@@ -162,8 +157,7 @@ public interface IMimeType extends ICloneable <IMimeType>
   MimeTypeParameter getParameterWithName (@Nullable String sParamName);
 
   /**
-   * Get the value of the parameter with the specified name. The names are
-   * matched case sensitive!
+   * Get the value of the parameter with the specified name. The names are matched case sensitive!
    *
    * @param sParamName
    *        The parameter name to search. May be <code>null</code>.
@@ -173,9 +167,8 @@ public interface IMimeType extends ICloneable <IMimeType>
   String getParameterValueWithName (@Nullable String sParamName);
 
   /**
-   * @return A copy of this MIME type but only the content type and the sub
-   *         type. This method must even deliver a copy if no parameter are
-   *         present! May not return <code>null</code>.
+   * @return A copy of this MIME type but only the content type and the sub type. This method must
+   *         even deliver a copy if no parameter are present! May not return <code>null</code>.
    */
   @NonNull
   IMimeType getCopyWithoutParameters ();

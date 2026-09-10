@@ -46,11 +46,9 @@ public class HasTextWithArgs implements IHasText
    * Constructor.
    *
    * @param aParentText
-   *        The parent text provider to resolve the base text. May not be
-   *        <code>null</code>.
+   *        The parent text provider to resolve the base text. May not be <code>null</code>.
    * @param aArgs
-   *        The arguments to be used for formatting. May neither be
-   *        <code>null</code> nor empty.
+   *        The arguments to be used for formatting. May neither be <code>null</code> nor empty.
    */
   public HasTextWithArgs (@NonNull final IHasText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
@@ -59,8 +57,7 @@ public class HasTextWithArgs implements IHasText
   }
 
   /**
-   * @return The parent text provider as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The parent text provider as passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public IHasText getParentText ()

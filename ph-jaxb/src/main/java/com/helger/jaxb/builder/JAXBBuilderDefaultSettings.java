@@ -34,8 +34,8 @@ import jakarta.xml.bind.ValidationEventHandler;
 
 /**
  * A class containing some default settings for the various JAXB builders.<br>
- * Changes made in this class only effects instances that are created
- * afterwards. Existing instances are never changed.
+ * Changes made in this class only effects instances that are created afterwards. Existing instances
+ * are never changed.
  *
  * @author Philip Helger
  */
@@ -74,17 +74,17 @@ public final class JAXBBuilderDefaultSettings
   {}
 
   /**
-   * @return <code>true</code> if the JAXBContext cache should be used. Default
-   *         is <code>true</code>.
+   * @return <code>true</code> if the JAXBContext cache should be used. Default is
+   *         <code>true</code>.
    */
   public static boolean isDefaultUseContextCache ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bUseContextCache);
+    return RW_LOCK.readLockedBoolean (() -> s_bUseContextCache);
   }
 
   /**
-   * Enable or disable the usage of the JAXBContext cache. For performance
-   * reasons it is recommended to enable it. By default it is enabled.
+   * Enable or disable the usage of the JAXBContext cache. For performance reasons it is recommended
+   * to enable it. By default it is enabled.
    *
    * @param bUseContextCache
    *        <code>true</code> to enable it, <code>false</code> to disable it.
@@ -92,67 +92,62 @@ public final class JAXBBuilderDefaultSettings
   public static void setDefaultUseContextCache (final boolean bUseContextCache)
   {
     LOGGER.info ("The default JAXB Context Cache is now " + (bUseContextCache ? "enabled" : "disabled"));
-    RW_LOCK.writeLocked ( () -> s_bUseContextCache = bUseContextCache);
+    RW_LOCK.writeLocked (() -> s_bUseContextCache = bUseContextCache);
   }
 
   /**
-   * @return The current default validation event handler. May be
-   *         <code>null</code> to indicate that no global validation event
-   *         handler is defined, and the default validation handler is used.
+   * @return The current default validation event handler. May be <code>null</code> to indicate that
+   *         no global validation event handler is defined, and the default validation handler is
+   *         used.
    */
   @Nullable
   public static ValidationEventHandler getDefaultValidationEventHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aEventHandler);
+    return RW_LOCK.readLockedGet (() -> s_aEventHandler);
   }
 
   /**
-   * Set a global event handler that should be passed to all read/write actions.
-   * If no global validation handler is defined, a default logging event handler
-   * is used.
+   * Set a global event handler that should be passed to all read/write actions. If no global
+   * validation handler is defined, a default logging event handler is used.
    *
    * @param aEventHandler
-   *        The new default event handler. May be <code>null</code> to indicate,
-   *        that the default handler should be used.
+   *        The new default event handler. May be <code>null</code> to indicate, that the default
+   *        handler should be used.
    */
   public static void setDefaultValidationEventHandler (@Nullable final ValidationEventHandler aEventHandler)
   {
     LOGGER.info ("The default JAXB Validation Event Handler is now " + aEventHandler);
-    RW_LOCK.writeLocked ( () -> s_aEventHandler = aEventHandler);
+    RW_LOCK.writeLocked (() -> s_aEventHandler = aEventHandler);
   }
 
   /**
-   * @return The special JAXB namespace context to be used. <code>null</code> by
-   *         default.
+   * @return The special JAXB namespace context to be used. <code>null</code> by default.
    */
   @Nullable
   public static NamespaceContext getDefaultNamespaceContext ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aNamespaceContext);
+    return RW_LOCK.readLockedGet (() -> s_aNamespaceContext);
   }
 
   /**
-   * Set the default namespace context (prefix to namespace URL mapping) to be
-   * used.
+   * Set the default namespace context (prefix to namespace URL mapping) to be used.
    *
    * @param aNamespaceContext
-   *        The namespace context to be used by default. May be
-   *        <code>null</code>.
+   *        The namespace context to be used by default. May be <code>null</code>.
    */
   public static void setDefaultNamespaceContext (@Nullable final NamespaceContext aNamespaceContext)
   {
     LOGGER.info ("The default JAXB XML Namespace Context is now " + aNamespaceContext);
-    RW_LOCK.writeLocked ( () -> s_aNamespaceContext = aNamespaceContext);
+    RW_LOCK.writeLocked (() -> s_aNamespaceContext = aNamespaceContext);
   }
 
   /**
-   * @return <code>true</code> if the JAXB output should be formatted. Only for
-   *         writers. Default is <code>false</code>. The JDK implementation does
-   *         not format by default.
+   * @return <code>true</code> if the JAXB output should be formatted. Only for writers. Default is
+   *         <code>false</code>. The JDK implementation does not format by default.
    */
   public static boolean isDefaultFormattedOutput ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bFormattedOutput);
+    return RW_LOCK.readLockedBoolean (() -> s_bFormattedOutput);
   }
 
   /**
@@ -164,17 +159,17 @@ public final class JAXBBuilderDefaultSettings
   public static void setDefaultFormattedOutput (final boolean bFormattedOutput)
   {
     LOGGER.info ("The default JAXB XML output is now " + (bFormattedOutput ? "formatted" : "unformatted"));
-    RW_LOCK.writeLocked ( () -> s_bFormattedOutput = bFormattedOutput);
+    RW_LOCK.writeLocked (() -> s_bFormattedOutput = bFormattedOutput);
   }
 
   /**
-   * @return The special JAXB Charset to be used for writing. <code>null</code>
-   *         by default. The JDK implementation uses UTF-8 by default.
+   * @return The special JAXB Charset to be used for writing. <code>null</code> by default. The JDK
+   *         implementation uses UTF-8 by default.
    */
   @Nullable
   public static Charset getDefaultCharset ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aCharset);
+    return RW_LOCK.readLockedGet (() -> s_aCharset);
   }
 
   /**
@@ -186,18 +181,17 @@ public final class JAXBBuilderDefaultSettings
   public static void setDefaultCharset (@Nullable final Charset aCharset)
   {
     LOGGER.info ("The default JAXB Charset is now " + (aCharset == null ? "null" : "'" + aCharset.name () + "'"));
-    RW_LOCK.writeLocked ( () -> s_aCharset = aCharset);
+    RW_LOCK.writeLocked (() -> s_aCharset = aCharset);
   }
 
   /**
-   * @return The JAXB indentation string to be used for writing.
-   *         <code>null</code> by default. Only used when formatted output is
-   *         used. The JDK implementation uses 4 spaces by default.
+   * @return The JAXB indentation string to be used for writing. <code>null</code> by default. Only
+   *         used when formatted output is used. The JDK implementation uses 4 spaces by default.
    */
   @Nullable
   public static String getDefaultIndentString ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_sIndentString);
+    return RW_LOCK.readLockedGet (() -> s_sIndentString);
   }
 
   @Nullable
@@ -235,43 +229,40 @@ public final class JAXBBuilderDefaultSettings
   public static void setDefaultIndentString (@Nullable final String sIndentString)
   {
     LOGGER.info ("The default JAXB Indent String is now '" + _getNice (sIndentString) + "'");
-    RW_LOCK.writeLocked ( () -> s_sIndentString = sIndentString);
+    RW_LOCK.writeLocked (() -> s_sIndentString = sIndentString);
   }
 
   /**
-   * @return <code>true</code> if an eventually configured XML Schema should be
-   *         used, <code>false</code> to explicitly disable the usage of XML
-   *         Schema.
+   * @return <code>true</code> if an eventually configured XML Schema should be used,
+   *         <code>false</code> to explicitly disable the usage of XML Schema.
    * @since 11.0.3
    */
   public static boolean isDefaultUseSchema ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bUseSchema);
+    return RW_LOCK.readLockedBoolean (() -> s_bUseSchema);
   }
 
   /**
    * Enable or disable the usage of an eventually configured XML Schema.
    *
    * @param bUseSchema
-   *        <code>true</code> to use an XML Schema, <code>false</code> to not
-   *        use it.
+   *        <code>true</code> to use an XML Schema, <code>false</code> to not use it.
    * @since 11.0.3
    */
   public static void setDefaultUseSchema (final boolean bUseSchema)
   {
     LOGGER.info ("The default JAXB XML Schema usage is now " + (bUseSchema ? "enabled" : "disabled"));
-    RW_LOCK.writeLocked ( () -> s_bUseSchema = bUseSchema);
+    RW_LOCK.writeLocked (() -> s_bUseSchema = bUseSchema);
   }
 
   /**
-   * @return The JAXB schema location to be used for writing. <code>null</code>
-   *         by default.
+   * @return The JAXB schema location to be used for writing. <code>null</code> by default.
    * @since 8.6.0
    */
   @Nullable
   public static String getDefaultSchemaLocation ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_sSchemaLocation);
+    return RW_LOCK.readLockedGet (() -> s_sSchemaLocation);
   }
 
   /**
@@ -285,32 +276,31 @@ public final class JAXBBuilderDefaultSettings
   {
     LOGGER.info ("The default JAXB XML Schema Location is now " +
                  (sSchemaLocation == null ? "null" : "'" + sSchemaLocation + "'"));
-    RW_LOCK.writeLocked ( () -> s_sSchemaLocation = sSchemaLocation);
+    RW_LOCK.writeLocked (() -> s_sSchemaLocation = sSchemaLocation);
   }
 
   /**
-   * @return The JAXB no namespace schema location to be used for writing.
-   *         <code>null</code> by default.
+   * @return The JAXB no namespace schema location to be used for writing. <code>null</code> by
+   *         default.
    * @since 9.0.0
    */
   @Nullable
   public static String getDefaultNoNamespaceSchemaLocation ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_sNoNamespaceSchemaLocation);
+    return RW_LOCK.readLockedGet (() -> s_sNoNamespaceSchemaLocation);
   }
 
   /**
    * Set the no namespace schema location to be used for writing JAXB objects.
    *
    * @param sNoNamespaceSchemaLocation
-   *        The no namespace schema location to be used by default. May be
-   *        <code>null</code>.
+   *        The no namespace schema location to be used by default. May be <code>null</code>.
    * @since 9.0.0
    */
   public static void setDefaultNoNamespaceSchemaLocation (@Nullable final String sNoNamespaceSchemaLocation)
   {
     LOGGER.info ("The default JAXB XML Schema No-Namespace Schema Location is now " +
                  (sNoNamespaceSchemaLocation == null ? "null" : "'" + sNoNamespaceSchemaLocation + "'"));
-    RW_LOCK.writeLocked ( () -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
+    RW_LOCK.writeLocked (() -> s_sNoNamespaceSchemaLocation = sNoNamespaceSchemaLocation);
   }
 }

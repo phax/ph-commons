@@ -1123,8 +1123,8 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @NonNull
   public OffsetDate minus (final long amountToSubtract, @NonNull final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract,
-                                                                                                   unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   // -----------------------------------------------------------------------

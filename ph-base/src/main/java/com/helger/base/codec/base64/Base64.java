@@ -1359,9 +1359,9 @@ public final class Base64
    */
   @ReturnsMutableObject ("passed parameter")
   static byte @NonNull [] _encode3to4 (final byte @NonNull [] b4,
-                              final byte @NonNull [] threeBytes,
-                              @Nonnegative final int numSigBytes,
-                              final int options)
+                                       final byte @NonNull [] threeBytes,
+                                       @Nonnegative final int numSigBytes,
+                                       final int options)
   {
     _encode3to4 (threeBytes, 0, numSigBytes, b4, 0, options);
     return b4;
@@ -1395,11 +1395,11 @@ public final class Base64
    */
   @ReturnsMutableObject ("passed parameter")
   static byte @NonNull [] _encode3to4 (final byte @NonNull [] source,
-                              @Nonnegative final int srcOffset,
-                              @Nonnegative final int numSigBytes,
-                              final byte @NonNull [] destination,
-                              @Nonnegative final int destOffset,
-                              final int options)
+                                       @Nonnegative final int srcOffset,
+                                       @Nonnegative final int numSigBytes,
+                                       final byte @NonNull [] destination,
+                                       @Nonnegative final int destOffset,
+                                       final int options)
   {
     final byte [] aAlphabet = _getAlphabet (options);
 
@@ -1708,9 +1708,9 @@ public final class Base64
    */
   @ReturnsMutableCopy
   public static byte @NonNull [] encodeBytesToBytes (final byte @NonNull [] aSource,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen,
-                                            final int nOptions) throws IOException
+                                                     @Nonnegative final int nOfs,
+                                                     @Nonnegative final int nLen,
+                                                     final int nOptions) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
 
@@ -1982,8 +1982,10 @@ public final class Base64
    * @since 1.3
    */
   @ReturnsMutableCopy
-  public static byte @NonNull [] decode (final byte @NonNull [] aSource, final int nOfs, final int nLen, final int nOptions)
-                                                                                                                    throws IOException
+  public static byte @NonNull [] decode (final byte @NonNull [] aSource,
+                                         final int nOfs,
+                                         final int nLen,
+                                         final int nOptions) throws IOException
   {
     // Lots of error checking and exception throwing
     ValueEnforcer.isArrayOfsLen (aSource, nOfs, nLen);
@@ -2205,8 +2207,8 @@ public final class Base64
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen)
+                                              @Nonnegative final int nOfs,
+                                              @Nonnegative final int nLen)
   {
     return safeDecode (aEncodedBytes, nOfs, nLen, DONT_GUNZIP);
   }
@@ -2226,9 +2228,9 @@ public final class Base64
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeDecode (final byte @Nullable [] aEncodedBytes,
-                                    @Nonnegative final int nOfs,
-                                    @Nonnegative final int nLen,
-                                    final int nOptions)
+                                              @Nonnegative final int nOfs,
+                                              @Nonnegative final int nLen,
+                                              final int nOptions)
   {
     if (aEncodedBytes != null)
       try
@@ -2361,8 +2363,8 @@ public final class Base64
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
-                                                @Nonnegative final int nOfs,
-                                                @Nonnegative final int nLen)
+                                                          @Nonnegative final int nOfs,
+                                                          @Nonnegative final int nLen)
   {
     return safeEncodeBytesToBytes (aDecoded, nOfs, nLen, NO_OPTIONS);
   }
@@ -2382,9 +2384,9 @@ public final class Base64
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] safeEncodeBytesToBytes (final byte @Nullable [] aDecoded,
-                                                @Nonnegative final int nOfs,
-                                                @Nonnegative final int nLen,
-                                                final int nOptions)
+                                                          @Nonnegative final int nOfs,
+                                                          @Nonnegative final int nLen,
+                                                          final int nOptions)
   {
     if (aDecoded != null)
       try

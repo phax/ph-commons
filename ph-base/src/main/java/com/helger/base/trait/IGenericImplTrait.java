@@ -30,8 +30,7 @@ import com.helger.base.reflection.GenericReflection;
 public interface IGenericImplTrait <IMPLTYPE extends IGenericImplTrait <IMPLTYPE>>
 {
   /**
-   * @return <code>this</code> casted to <code>IMPLTYPE</code>. Never
-   *         <code>null</code>.
+   * @return <code>this</code> casted to <code>IMPLTYPE</code>. Never <code>null</code>.
    */
   @NonNull
   default IMPLTYPE thisAsT ()

@@ -61,10 +61,9 @@ public final class JsonEscapeHelper
   {}
 
   /**
-   * Check if the provided character array contains at least one character that
-   * needs to be escaped for JSON output. This covers the explicitly masked
-   * characters as well as all control characters (U+0000 - U+001F) per RFC
-   * 8259.
+   * Check if the provided character array contains at least one character that needs to be escaped
+   * for JSON output. This covers the explicitly masked characters as well as all control characters
+   * (U+0000 - U+001F) per RFC 8259.
    *
    * @param aInput
    *        The character array to check. May not be <code>null</code>.
@@ -178,8 +177,8 @@ public final class JsonEscapeHelper
    * @throws IOException
    *         On IO error
    */
-  public static void jsonEscapeToWriter (final char @NonNull [] aInput, @NonNull @WillNotClose final Writer aWriter)
-                                                                                                                     throws IOException
+  public static void jsonEscapeToWriter (final char @NonNull [] aInput,
+                                         @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aInput, "Input");
     ValueEnforcer.notNull (aWriter, "Writer");
@@ -213,8 +212,8 @@ public final class JsonEscapeHelper
    * @throws IOException
    *         On IO error
    */
-  public static void jsonEscapeToWriter (@Nullable final String sInput, @NonNull @WillNotClose final Writer aWriter)
-                                                                                                                     throws IOException
+  public static void jsonEscapeToWriter (@Nullable final String sInput,
+                                         @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 

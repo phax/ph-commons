@@ -173,8 +173,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   private static final AtomicBoolean DEFAULT_DEBUG_MODE = new AtomicBoolean (ConditionalLogger.DEFAULT_ENABLED);
 
   /**
-   * @return <code>true</code> if the default debug mode is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the default debug mode is enabled, <code>false</code> otherwise.
    */
   public static boolean isDefaultDebugMode ()
   {
@@ -203,7 +202,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     {
       final int nOld = size ();
       final ElementState ret = super.push (o);
-      debug ( () -> "Pushed[" + nOld + "->" + (nOld + 1) + "] " + o);
+      debug (() -> "Pushed[" + nOld + "->" + (nOld + 1) + "] " + o);
       return ret;
     }
 
@@ -212,7 +211,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     {
       final int nOld = size ();
       final ElementState ret = super.pop ();
-      debug ( () -> "Popped[" + nOld + "->" + (nOld - 1) + "] " + ret);
+      debug (() -> "Popped[" + nOld + "->" + (nOld - 1) + "] " + ret);
       return ret;
     }
   };
@@ -270,7 +269,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
         final ElementState aState = m_aElementStateStack.peek ();
         if (aState.m_nTextBasedContentCount == 0)
         {
-          debug ( () -> "indent[" + nLevel + "]");
+          debug (() -> "indent[" + nLevel + "]");
           m_aEmitter.onContentElementWhitespace (StringHelper.getRepeated (m_sIndent, nLevel));
         }
       }
@@ -288,7 +287,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
         if (false)
           m_aEmitter.onContentElementWhitespace ("[BS]");
 
-        debug ( () -> "newLineBeforeStartElement");
+        debug (() -> "newLineBeforeStartElement");
         m_aEmitter.newLine ();
       }
     }
@@ -307,7 +306,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
         if (false)
           m_aEmitter.onContentElementWhitespace ("[AE]");
 
-        debug ( () -> "newLineAfterEndElement");
+        debug (() -> "newLineAfterEndElement");
         m_aEmitter.newLine ();
         aState.m_bOnAfterEndNewLine = true;
         return true;
@@ -359,8 +358,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
   /** {@inheritDoc} */
   /** {@inheritDoc} */
-  public void writeStartDocument (@NonNull final String sEncoding, @Nullable final String sVersion)
-                                                                                                    throws XMLStreamException
+  public void writeStartDocument (@NonNull final String sEncoding,
+                                  @Nullable final String sVersion) throws XMLStreamException
   {
     writeStartDocument (CharsetHelper.getCharsetFromName (sEncoding), EXMLVersion.getFromVersionOrNull (sVersion));
   }
@@ -383,7 +382,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
    */
   public void writeStartDocument (@NonNull final Charset aEncoding, @NonNull final EXMLVersion eVersion)
   {
-    debug ( () -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
+    debug (() -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
 
     if (m_aEmitter.getXMLWriterSettings ().getSerializeXMLDeclaration ().isEmit ())
     {
@@ -395,7 +394,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeDTD (@NonNull final String sDTD) throws XMLStreamException
   {
-    debug ( () -> "writeDTD (" + sDTD + ")");
+    debug (() -> "writeDTD (" + sDTD + ")");
     m_aEmitter.onDTD (sDTD);
   }
 
@@ -408,8 +407,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
   /** {@inheritDoc} */
   /** {@inheritDoc} */
-  public void writeStartElement (@Nullable final String sNamespaceURI, final String sLocalName)
-                                                                                                throws XMLStreamException
+  public void writeStartElement (@Nullable final String sNamespaceURI,
+                                 final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
@@ -420,7 +419,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
                                  final String sLocalName,
                                  @Nullable final String sNamespaceURI) throws XMLStreamException
   {
-    debug ( () -> "writeStartElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
+    debug (() -> "writeStartElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
     _setElementBasedContent ();
     _newLineBeforeStartElement ();
@@ -442,8 +441,8 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
   /** {@inheritDoc} */
   /** {@inheritDoc} */
-  public void writeEmptyElement (@Nullable final String sNamespaceURI, final String sLocalName)
-                                                                                                throws XMLStreamException
+  public void writeEmptyElement (@Nullable final String sNamespaceURI,
+                                 final String sLocalName) throws XMLStreamException
   {
     writeStartElement (null, sLocalName, sNamespaceURI);
   }
@@ -454,7 +453,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
                                  final String sLocalName,
                                  @Nullable final String sNamespaceURI) throws XMLStreamException
   {
-    debug ( () -> "writeEmptyElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
+    debug (() -> "writeEmptyElement (" + sPrefix + ", " + sLocalName + ", " + sNamespaceURI + ")");
     _elementStartClose ();
     _setElementBasedContent ();
     _newLineBeforeStartElement ();
@@ -476,8 +475,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
   /** {@inheritDoc} */
   /** {@inheritDoc} */
-  public void writeAttribute (@Nullable final String sNamespaceURI, final String sLocalName, final String sValue)
-                                                                                                                  throws XMLStreamException
+  public void writeAttribute (@Nullable final String sNamespaceURI,
+                              final String sLocalName,
+                              final String sValue) throws XMLStreamException
   {
     writeAttribute (null, sNamespaceURI, sLocalName, sValue);
   }
@@ -489,7 +489,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
                               final String sLocalName,
                               final String sValue) throws XMLStreamException
   {
-    debug ( () -> "writeAttribute (" + sPrefix + ", " + sNamespaceURI + ", " + sLocalName + ", " + sValue + ")");
+    debug (() -> "writeAttribute (" + sPrefix + ", " + sNamespaceURI + ", " + sLocalName + ", " + sValue + ")");
     if (!m_bInElementStart)
       throw new IllegalStateException ("No element open");
     m_aEmitter.elementAttr (sPrefix, sLocalName, sValue);
@@ -497,10 +497,10 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
 
   /** {@inheritDoc} */
   /** {@inheritDoc} */
-  public void writeNamespace (@Nullable final String sPrefix, @NonNull final String sNamespaceURI)
-                                                                                                   throws XMLStreamException
+  public void writeNamespace (@Nullable final String sPrefix,
+                              @NonNull final String sNamespaceURI) throws XMLStreamException
   {
-    debug ( () -> "writeNamespace (" + sPrefix + ", " + sNamespaceURI + ")");
+    debug (() -> "writeNamespace (" + sPrefix + ", " + sNamespaceURI + ")");
     if (!m_bInElementStart)
       throw new IllegalStateException ("No element open");
 
@@ -540,7 +540,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
     // Pop anyway
     final ElementState aState = m_aElementStateStack.pop ();
 
-    debug ( () -> "writeEndElement (" + aState.m_sPrefix + ", " + aState.m_sLocalName + ")");
+    debug (() -> "writeEndElement (" + aState.m_sPrefix + ", " + aState.m_sLocalName + ")");
 
     // Special _elementStartClose () with check if empty
     boolean bWriteElementEnd = true;
@@ -575,7 +575,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeComment (final String sData) throws XMLStreamException
   {
-    debug ( () -> "writeComment (" + sData + ")");
+    debug (() -> "writeComment (" + sData + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onComment (sData);
@@ -584,7 +584,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeCData (final String sData) throws XMLStreamException
   {
-    debug ( () -> "writeCData (" + sData + ")");
+    debug (() -> "writeCData (" + sData + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onCDATA (sData);
@@ -593,7 +593,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeEntityRef (final String sName) throws XMLStreamException
   {
-    debug ( () -> "writeEntityRef (" + sName + ")");
+    debug (() -> "writeEntityRef (" + sName + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onEntityReference (sName);
@@ -602,7 +602,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeCharacters (final String sText) throws XMLStreamException
   {
-    debug ( () -> "writeCharacters (" + sText + ")");
+    debug (() -> "writeCharacters (" + sText + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onText (sText);
@@ -611,7 +611,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeCharacters (final char [] aText, final int nStart, final int nLen) throws XMLStreamException
   {
-    debug ( () -> "writeCharacters (" + String.valueOf (aText, nStart, nLen) + ", " + nStart + ", " + nLen + ")");
+    debug (() -> "writeCharacters (" + String.valueOf (aText, nStart, nLen) + ", " + nStart + ", " + nLen + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onText (aText, nStart, nLen);
@@ -624,10 +624,10 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   /** {@inheritDoc} */
-  public void writeProcessingInstruction (@NonNull final String sTarget, @Nullable final String sData)
-                                                                                                       throws XMLStreamException
+  public void writeProcessingInstruction (@NonNull final String sTarget,
+                                          @Nullable final String sData) throws XMLStreamException
   {
-    debug ( () -> "writeProcessingInstruction (" + sTarget + ", " + sData + ")");
+    debug (() -> "writeProcessingInstruction (" + sTarget + ", " + sData + ")");
     _elementStartClose ();
     _setTextBasedContent ();
     m_aEmitter.onProcessingInstruction (sTarget, sData);
@@ -636,7 +636,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void writeEndDocument () throws XMLStreamException
   {
-    debug ( () -> "writeEndDocument ()");
+    debug (() -> "writeEndDocument ()");
     _elementStartClose ();
 
     if (m_aElementStateStack.isNotEmpty ())
@@ -646,42 +646,42 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   /** {@inheritDoc} */
   public void flush () throws XMLStreamException
   {
-    debug ( () -> "flush ()");
+    debug (() -> "flush ()");
     StreamHelper.flush (m_aEmitter);
   }
 
   /** {@inheritDoc} */
   public void close () throws XMLStreamException
   {
-    debug ( () -> "close ()");
+    debug (() -> "close ()");
     StreamHelper.close (m_aEmitter);
   }
 
   /** {@inheritDoc} */
   public String getPrefix (@NonNull final String sUri) throws XMLStreamException
   {
-    debug ( () -> "getPrefix (" + sUri + ")");
+    debug (() -> "getPrefix (" + sUri + ")");
     return m_aNamespaceContext.getPrefix (sUri);
   }
 
   /** {@inheritDoc} */
   public void setPrefix (@NonNull final String sPrefix, @NonNull final String sUri) throws XMLStreamException
   {
-    debug ( () -> "setPrefix (" + sPrefix + ", " + sUri + ")");
+    debug (() -> "setPrefix (" + sPrefix + ", " + sUri + ")");
     m_aNamespaceContext.m_aInternalContext.addMapping (sPrefix, sUri);
   }
 
   /** {@inheritDoc} */
   public void setDefaultNamespace (@NonNull final String sUri) throws XMLStreamException
   {
-    debug ( () -> "setDefaultNamespace (" + sUri + ")");
+    debug (() -> "setDefaultNamespace (" + sUri + ")");
     m_aNamespaceContext.m_aInternalContext.addDefaultNamespaceURI (sUri);
   }
 
   /** {@inheritDoc} */
   public void setNamespaceContext (@Nullable final NamespaceContext aContext) throws XMLStreamException
   {
-    debug ( () -> "setNamespaceContext (" + aContext + ")");
+    debug (() -> "setNamespaceContext (" + aContext + ")");
     m_aNamespaceContext.m_aUserContext = aContext;
   }
 
@@ -689,7 +689,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   @NonNull
   public NamespaceContext getNamespaceContext ()
   {
-    debug ( () -> "getNamespaceContext ()");
+    debug (() -> "getNamespaceContext ()");
     return m_aNamespaceContext;
   }
 
@@ -697,7 +697,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   @Nullable
   public Object getProperty (final String sName)
   {
-    debug ( () -> "getProperty (" + sName + ") - UNSUPPORTED");
+    debug (() -> "getProperty (" + sName + ") - UNSUPPORTED");
     return null;
   }
 
@@ -713,8 +713,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   /**
-   * Factory method to create a {@link SafeXMLStreamWriter} from a
-   * {@link Writer}.
+   * Factory method to create a {@link SafeXMLStreamWriter} from a {@link Writer}.
    *
    * @param aWriter
    *        The writer to write to. May not be <code>null</code>.
@@ -730,8 +729,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   }
 
   /**
-   * Factory method to create a {@link SafeXMLStreamWriter} from an
-   * {@link OutputStream}.
+   * Factory method to create a {@link SafeXMLStreamWriter} from an {@link OutputStream}.
    *
    * @param aOS
    *        The output stream to write to. May not be <code>null</code>.

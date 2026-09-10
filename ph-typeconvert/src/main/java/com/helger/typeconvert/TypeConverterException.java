@@ -70,8 +70,7 @@ public final class TypeConverterException extends RuntimeException
     }
 
     /**
-     * Get the formatted error message with source and destination class
-     * parameters.
+     * Get the formatted error message with source and destination class parameters.
      *
      * @param aSrcClass
      *        The source class. May not be <code>null</code>.

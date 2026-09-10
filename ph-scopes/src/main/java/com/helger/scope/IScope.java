@@ -123,7 +123,7 @@ public interface IScope extends IHasID <String>
   default ICommonsMap <String, IScopeRenewalAware> getAllScopeRenewalAwareAttributes ()
   {
     final ICommonsMap <String, IScopeRenewalAware> ret = new CommonsHashMap <> ();
-    attrs ().forEach ( (n, v) -> {
+    attrs ().forEach ((n, v) -> {
       if (v instanceof final IScopeRenewalAware aRenewalAware)
         ret.put (n, aRenewalAware);
     });

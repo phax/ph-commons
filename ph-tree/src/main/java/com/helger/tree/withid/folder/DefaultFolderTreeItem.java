@@ -52,12 +52,12 @@ public class DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collecti
    * Constructor for normal elements
    *
    * @param aParent
-   *        Parent item. May never be <code>null</code> since only the root has
-   *        no parent.
+   *        Parent item. May never be <code>null</code> since only the root has no parent.
    * @param aDataID
    *        The ID of the new item. May not be <code>null</code>.
    */
-  public DefaultFolderTreeItem (@NonNull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent, @NonNull final KEYTYPE aDataID)
+  public DefaultFolderTreeItem (@NonNull final DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE> aParent,
+                                @NonNull final KEYTYPE aDataID)
   {
     super (aParent, aDataID);
   }

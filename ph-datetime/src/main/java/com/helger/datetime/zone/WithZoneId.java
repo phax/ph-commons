@@ -68,8 +68,7 @@ public class WithZoneId
   }
 
   /**
-   * @return <code>true</code> if a zone ID is present, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if a zone ID is present, <code>false</code> if not.
    */
   public boolean hasZoneID ()
   {

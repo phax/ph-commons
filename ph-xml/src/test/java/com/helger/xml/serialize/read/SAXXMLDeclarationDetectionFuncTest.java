@@ -107,8 +107,9 @@ public final class SAXXMLDeclarationDetectionFuncTest
     }
 
     @Override
-    public void declaration (final String sVersion, final String sEncoding, final String sStandalone)
-                                                                                                      throws SAXException
+    public void declaration (final String sVersion,
+                             final String sEncoding,
+                             final String sStandalone) throws SAXException
     {
       m_nDeclarationCount++;
       m_sDeclaredVersion = sVersion;

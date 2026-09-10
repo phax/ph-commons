@@ -33,8 +33,7 @@ import com.helger.base.iface.IThrowingRunnable;
 public interface IAutoSaveAware
 {
   /**
-   * @return <code>true</code> if auto save is enabled, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if auto save is enabled, <code>false</code> otherwise.
    */
   boolean isAutoSaveEnabled ();
 
@@ -45,16 +44,14 @@ public interface IAutoSaveAware
 
   /**
    * End doing something without auto save. It must be ensure that each call to
-   * {@link #beginWithoutAutoSave()} is always correctly ended with a call to
-   * this method.
+   * {@link #beginWithoutAutoSave()} is always correctly ended with a call to this method.
    */
   void endWithoutAutoSave ();
 
   /**
-   * This method is used for batch processing of instructions (like the initial
-   * read). If first turns automatic saving off, runs the desired operations and
-   * finally restores the initial state of the "automatic save" flag and tries
-   * to write any pending changes.
+   * This method is used for batch processing of instructions (like the initial read). If first
+   * turns automatic saving off, runs the desired operations and finally restores the initial state
+   * of the "automatic save" flag and tries to write any pending changes.
    *
    * @param aRunnable
    *        The runnable to be executed. May not be <code>null</code>.
@@ -75,10 +72,9 @@ public interface IAutoSaveAware
   }
 
   /**
-   * This method is used for batch processing of instructions (like the initial
-   * read). If first turns automatic saving off, runs the desired operations and
-   * finally restores the initial state of the "automatic save" flag and tries
-   * to write any pending changes.
+   * This method is used for batch processing of instructions (like the initial read). If first
+   * turns automatic saving off, runs the desired operations and finally restores the initial state
+   * of the "automatic save" flag and tries to write any pending changes.
    *
    * @param aCallable
    *        The runnable to be executed. May not be <code>null</code>.
@@ -103,8 +99,8 @@ public interface IAutoSaveAware
   }
 
   /**
-   * Execute a callback with autosave being disabled. Must be called outside a
-   * writeLock, as this method locks itself!
+   * Execute a callback with autosave being disabled. Must be called outside a writeLock, as this
+   * method locks itself!
    *
    * @param aRunnable
    *        The callback to be executed
@@ -129,8 +125,8 @@ public interface IAutoSaveAware
   }
 
   /**
-   * Execute a callback with autosave being disabled. Must be called outside a
-   * writeLock, as this method locks itself!
+   * Execute a callback with autosave being disabled. Must be called outside a writeLock, as this
+   * method locks itself!
    *
    * @param aCallable
    *        The callback to be executed

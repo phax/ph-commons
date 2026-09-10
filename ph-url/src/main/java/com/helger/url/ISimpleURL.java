@@ -67,8 +67,7 @@ public interface ISimpleURL extends IURLData
   ISimpleURL getWithAnchor (@Nullable String sAnchor);
 
   /**
-   * Create a new URL with a different charset but the same path, parameters and
-   * anchor.
+   * Create a new URL with a different charset but the same path, parameters and anchor.
    *
    * @param aCharset
    *        The new charset. May be <code>null</code>.
@@ -116,8 +115,7 @@ public interface ISimpleURL extends IURLData
   }
 
   /**
-   * @return This URL as a {@link URL} object, or <code>null</code> if
-   *         conversion fails.
+   * @return This URL as a {@link URL} object, or <code>null</code> if conversion fails.
    */
   @Nullable
   default URL getAsURL ()
@@ -126,8 +124,7 @@ public interface ISimpleURL extends IURLData
   }
 
   /**
-   * @return This URL as a {@link URI} object, or <code>null</code> if
-   *         conversion fails.
+   * @return This URL as a {@link URI} object, or <code>null</code> if conversion fails.
    */
   @Nullable
   default URI getAsURI ()

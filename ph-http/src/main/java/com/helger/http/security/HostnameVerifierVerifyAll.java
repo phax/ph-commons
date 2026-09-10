@@ -48,8 +48,7 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
    * Constructor with explicit debug flag.
    *
    * @param bDebug
-   *        <code>true</code> to enable debug logging, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable debug logging, <code>false</code> to disable it.
    */
   public HostnameVerifierVerifyAll (final boolean bDebug)
   {
@@ -70,8 +69,7 @@ public class HostnameVerifierVerifyAll implements HostnameVerifier
    * @param sURLHostname
    *        The hostname to verify. May not be <code>null</code>.
    * @param aSession
-   *        The SSL session used on the connection. May not be
-   *        <code>null</code>.
+   *        The SSL session used on the connection. May not be <code>null</code>.
    * @return Always <code>true</code>.
    */
   public boolean verify (final String sURLHostname, final SSLSession aSession)

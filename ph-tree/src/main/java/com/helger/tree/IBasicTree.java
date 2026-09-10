@@ -29,12 +29,13 @@ import com.helger.collection.hierarchy.IHasChildren;
  *        tree item implementation type
  * @author Philip Helger
  */
-public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends IHasChildren <ITEMTYPE>
+public interface IBasicTree <DATATYPE, ITEMTYPE extends IBasicTreeItem <DATATYPE, ITEMTYPE>> extends
+                            IHasChildren <ITEMTYPE>
 {
   /**
-   * @return The root item of the tree. Never <code>null</code>. The root item
-   *         should not be displayed but it is the parent node of all displayed
-   *         root items and therefore cannot be removed.
+   * @return The root item of the tree. Never <code>null</code>. The root item should not be
+   *         displayed but it is the parent node of all displayed root items and therefore cannot be
+   *         removed.
    */
   @NonNull
   ITEMTYPE getRootItem ();

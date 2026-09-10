@@ -22,8 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * A callback interface to retrieve {@link InputStream} objects from a given
- * name.
+ * A callback interface to retrieve {@link InputStream} objects from a given name.
  *
  * @author Philip Helger
  */

@@ -27,8 +27,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingBufferedReader;
 
 /**
- * A special implementation of {@link ICSVLineReader} using a
- * {@link NonBlockingBufferedReader}.
+ * A special implementation of {@link ICSVLineReader} using a {@link NonBlockingBufferedReader}.
  *
  * @author Philip Helger
  */
@@ -40,8 +39,8 @@ public class CSVLineReaderNonBlockingBufferedReader implements ICSVLineReader
    * Constructor.
    *
    * @param aReader
-   *        Reader that data will be read from. May not be <code>null</code>.
-   *        Will not be closed in this class.
+   *        Reader that data will be read from. May not be <code>null</code>. Will not be closed in
+   *        this class.
    */
   public CSVLineReaderNonBlockingBufferedReader (@NonNull @WillNotClose final NonBlockingBufferedReader aReader)
   {

@@ -28,8 +28,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A constant implementation of {@link IHasErrorText}. Cannot be a lambda
- * expression because equals/hashCode is required!
+ * A constant implementation of {@link IHasErrorText}. Cannot be a lambda expression because
+ * equals/hashCode is required!
  *
  * @author Philip Helger
  */

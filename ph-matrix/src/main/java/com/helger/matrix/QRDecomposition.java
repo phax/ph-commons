@@ -24,14 +24,13 @@ import com.helger.base.numeric.MathHelper;
 /**
  * QR Decomposition.
  * <P>
- * For an m-by-n matrix A with m &ge; n, the QR decomposition is an m-by-n
- * orthogonal matrix Q and an n-by-n upper triangular matrix R so that A = Q*R.
+ * For an m-by-n matrix A with m &ge; n, the QR decomposition is an m-by-n orthogonal matrix Q and
+ * an n-by-n upper triangular matrix R so that A = Q*R.
  * </P>
  * <P>
- * The QR decompostion always exists, even if the matrix does not have full
- * rank, so the constructor will never fail. The primary use of the QR
- * decomposition is in the least squares solution of nonsquare systems of
- * simultaneous linear equations. This will fail if isFullRank() returns false.
+ * The QR decompostion always exists, even if the matrix does not have full rank, so the constructor
+ * will never fail. The primary use of the QR decomposition is in the least squares solution of
+ * nonsquare systems of simultaneous linear equations. This will fail if isFullRank() returns false.
  * </P>
  */
 public class QRDecomposition
@@ -65,8 +64,8 @@ public class QRDecomposition
   private final double [] m_aRdiag;
 
   /**
-   * QR Decomposition, computed by Householder reflections. Structure to access
-   * R and the Householder vectors and compute Q.
+   * QR Decomposition, computed by Householder reflections. Structure to access R and the
+   * Householder vectors and compute Q.
    *
    * @param aMatrix
    *        Rectangular matrix

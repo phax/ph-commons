@@ -66,8 +66,8 @@ public final class PathOperations
    * Enable or disable the exception that is thrown when trying to delete the root directory.
    *
    * @param bExceptionOnDeleteRoot
-   *        <code>true</code> to throw an exception on root deletion attempts, <code>false</code>
-   *        to disable it.
+   *        <code>true</code> to throw an exception on root deletion attempts, <code>false</code> to
+   *        disable it.
    */
   public static void setExceptionOnDeleteRoot (final boolean bExceptionOnDeleteRoot)
   {
@@ -183,12 +183,11 @@ public final class PathOperations
   }
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
@@ -201,8 +200,7 @@ public final class PathOperations
   }
 
   /**
-   * Create a new directory. The parent directories are created if they are
-   * missing.
+   * Create a new directory. The parent directories are created if they are missing.
    *
    * @param aDir
    *        The directory to be created. May not be <code>null</code>.
@@ -233,12 +231,11 @@ public final class PathOperations
   }
 
   /**
-   * Create a new directory if it does not exist. The direct parent directory
-   * already needs to exist.
+   * Create a new directory if it does not exist. The direct parent directory already needs to
+   * exist.
    *
    * @param aDir
-   *        The directory to be created if it does not exist. May not be
-   *        <code>null</code>.
+   *        The directory to be created if it does not exist. May not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    * @see #createDirRecursive(Path)
    */
@@ -252,8 +249,7 @@ public final class PathOperations
   }
 
   /**
-   * Delete an existing directory. The directory needs to be empty before it can
-   * be deleted.
+   * Delete an existing directory. The directory needs to be empty before it can be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -286,8 +282,8 @@ public final class PathOperations
   }
 
   /**
-   * Delete an existing directory if it is existing. The directory needs to be
-   * empty before it can be deleted.
+   * Delete an existing directory if it is existing. The directory needs to be empty before it can
+   * be deleted.
    *
    * @param aDir
    *        The directory to be deleted. May not be <code>null</code>.
@@ -509,7 +505,9 @@ public final class PathOperations
 
     // Is the source a parent of target?
     if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR, aRealSourceDir, aRealTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.RENAME_DIR,
+                                                                      aRealSourceDir,
+                                                                      aRealTargetDir);
 
     // Is the source parent directory writable?
     final Path aSourceParentDir = aRealSourceDir.getParent ();
@@ -531,11 +529,9 @@ public final class PathOperations
    * Copies the source file to the target file.
    *
    * @param aSourceFile
-   *        The source file to use. May not be <code>null</code>. Needs to be an
-   *        existing file.
+   *        The source file to use. May not be <code>null</code>. Needs to be an existing file.
    * @param aTargetFile
-   *        The destination files. May not be <code>null</code> and may not be
-   *        an existing file.
+   *        The destination files. May not be <code>null</code> and may not be an existing file.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
@@ -580,8 +576,8 @@ public final class PathOperations
    * @param aSourceDir
    *        The source directory to be copied. May not be <code>null</code>.
    * @param aTargetDir
-   *        The destination directory where to be copied. This directory may not
-   *        be existing. May not be <code>null</code>.
+   *        The destination directory where to be copied. This directory may not be existing. May
+   *        not be <code>null</code>.
    * @return A non-<code>null</code> error code.
    */
   @NonNull
@@ -603,7 +599,9 @@ public final class PathOperations
 
     // Is the source a parent of target?
     if (PathHelper.isParentDirectory (aRealSourceDir, aRealTargetDir))
-      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealSourceDir, aRealTargetDir);
+      return EFileIOErrorCode.TARGET_IS_CHILD_OF_SOURCE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
+                                                                      aRealSourceDir,
+                                                                      aRealTargetDir);
 
     // Does the target directory already exist?
     if (aRealTargetDir.toFile ().exists ())
@@ -616,7 +614,8 @@ public final class PathOperations
     // Is the target parent directory writable?
     final Path aTargetParentDir = aRealTargetDir.getParent ();
     if (aTargetParentDir != null && aTargetParentDir.toFile ().exists () && !Files.isWritable (aTargetParentDir))
-      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE, aRealTargetDir);
+      return EFileIOErrorCode.TARGET_PARENT_NOT_WRITABLE.getAsIOError (EFileIOOperation.COPY_DIR_RECURSIVE,
+                                                                       aRealTargetDir);
 
     FileIOError eCode;
 

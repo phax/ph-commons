@@ -50,8 +50,8 @@ public interface IHasObjectType
    * 
    * @param aOT
    *        The object type to check. May be <code>null</code>.
-   * @return <code>true</code> if this object has the passed ObjectType,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this object has the passed ObjectType, <code>false</code>
+   *         otherwise.
    */
   default boolean hasObjectType (@Nullable final ObjectType aOT)
   {

@@ -100,7 +100,7 @@ public final class SAXReaderDefaultSettings
   @Nullable
   public static EntityResolver getEntityResolver ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultEntityResolver);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultEntityResolver);
   }
 
   /**
@@ -111,7 +111,7 @@ public final class SAXReaderDefaultSettings
    */
   public static void setEntityResolver (@Nullable final EntityResolver aEntityResolver)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultEntityResolver = aEntityResolver);
+    RW_LOCK.writeLocked (() -> s_aDefaultEntityResolver = aEntityResolver);
   }
 
   /**
@@ -120,7 +120,7 @@ public final class SAXReaderDefaultSettings
   @Nullable
   public static DTDHandler getDTDHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultDTDHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultDTDHandler);
   }
 
   /**
@@ -131,7 +131,7 @@ public final class SAXReaderDefaultSettings
    */
   public static void setDTDHandler (@Nullable final DTDHandler aDTDHandler)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultDTDHandler = aDTDHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultDTDHandler = aDTDHandler);
   }
 
   /**
@@ -140,7 +140,7 @@ public final class SAXReaderDefaultSettings
   @Nullable
   public static ContentHandler getContentHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultContentHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultContentHandler);
   }
 
   /**
@@ -151,7 +151,7 @@ public final class SAXReaderDefaultSettings
    */
   public static void setContentHandler (@Nullable final ContentHandler aContentHandler)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultContentHandler = aContentHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultContentHandler = aContentHandler);
   }
 
   /**
@@ -160,7 +160,7 @@ public final class SAXReaderDefaultSettings
   @Nullable
   public static ErrorHandler getErrorHandler ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultErrorHandler);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultErrorHandler);
   }
 
   /**
@@ -171,7 +171,7 @@ public final class SAXReaderDefaultSettings
    */
   public static void setErrorHandler (@Nullable final ErrorHandler aErrorHandler)
   {
-    RW_LOCK.writeLocked ( () -> s_aDefaultErrorHandler = aErrorHandler);
+    RW_LOCK.writeLocked (() -> s_aDefaultErrorHandler = aErrorHandler);
   }
 
   /**
@@ -219,7 +219,7 @@ public final class SAXReaderDefaultSettings
    */
   public static boolean hasAnyProperties ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> !DEFAULT_PROPS.isEmpty ());
+    return RW_LOCK.readLockedBoolean (() -> !DEFAULT_PROPS.isEmpty ());
   }
 
   /**
@@ -236,7 +236,7 @@ public final class SAXReaderDefaultSettings
     if (eProperty == null)
       return null;
 
-    return RW_LOCK.readLockedGet ( () -> DEFAULT_PROPS.get (eProperty));
+    return RW_LOCK.readLockedGet (() -> DEFAULT_PROPS.get (eProperty));
   }
 
   /**
@@ -250,8 +250,8 @@ public final class SAXReaderDefaultSettings
   }
 
   /**
-   * Set the value of the specified parser property. If the value is <code>null</code>, the
-   * property is removed.
+   * Set the value of the specified parser property. If the value is <code>null</code>, the property
+   * is removed.
    *
    * @param eProperty
    *        The property to set. May not be <code>null</code>.
@@ -263,7 +263,7 @@ public final class SAXReaderDefaultSettings
   {
     ValueEnforcer.notNull (eProperty, "Property");
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (aPropertyValue != null)
         DEFAULT_PROPS.put (eProperty, aPropertyValue);
       else
@@ -281,7 +281,7 @@ public final class SAXReaderDefaultSettings
   {
     if (aProperties != null && !aProperties.isEmpty ())
     {
-      RW_LOCK.writeLocked ( () -> DEFAULT_PROPS.putAll (aProperties));
+      RW_LOCK.writeLocked (() -> DEFAULT_PROPS.putAll (aProperties));
     }
   }
 
@@ -298,7 +298,7 @@ public final class SAXReaderDefaultSettings
     if (eProperty == null)
       return EChange.UNCHANGED;
 
-    return RW_LOCK.writeLockedGet ( () -> DEFAULT_PROPS.removeObject (eProperty));
+    return RW_LOCK.writeLockedGet (() -> DEFAULT_PROPS.removeObject (eProperty));
   }
 
   /**
@@ -363,8 +363,8 @@ public final class SAXReaderDefaultSettings
   }
 
   /**
-   * Set the value of the specified parser feature. If the value is <code>null</code>, the
-   * feature is removed.
+   * Set the value of the specified parser feature. If the value is <code>null</code>, the feature
+   * is removed.
    *
    * @param eFeature
    *        The feature to set. May not be <code>null</code>.
@@ -375,7 +375,7 @@ public final class SAXReaderDefaultSettings
   {
     ValueEnforcer.notNull (eFeature, "Feature");
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (aValue == null)
         DEFAULT_FEATURES.remove (eFeature);
       else
@@ -393,7 +393,7 @@ public final class SAXReaderDefaultSettings
   {
     if (aValues != null && !aValues.isEmpty ())
     {
-      RW_LOCK.writeLocked ( () -> DEFAULT_FEATURES.putAll (aValues));
+      RW_LOCK.writeLocked (() -> DEFAULT_FEATURES.putAll (aValues));
     }
   }
 
@@ -410,7 +410,7 @@ public final class SAXReaderDefaultSettings
     if (eFeature == null)
       return EChange.UNCHANGED;
 
-    return RW_LOCK.writeLockedGet ( () -> DEFAULT_FEATURES.removeObject (eFeature));
+    return RW_LOCK.writeLockedGet (() -> DEFAULT_FEATURES.removeObject (eFeature));
   }
 
   /**
@@ -429,7 +429,7 @@ public final class SAXReaderDefaultSettings
    */
   public static boolean requiresNewXMLParser ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> {
+    return RW_LOCK.readLockedBoolean (() -> {
       // Force a new XML parser?
       if (s_bDefaultRequiresNewXMLParserExplicitly)
         return true;
@@ -459,7 +459,7 @@ public final class SAXReaderDefaultSettings
    */
   public static boolean isRequiresNewXMLParserExplicitly ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDefaultRequiresNewXMLParserExplicitly);
+    return RW_LOCK.readLockedBoolean (() -> s_bDefaultRequiresNewXMLParserExplicitly);
   }
 
   /**
@@ -470,6 +470,6 @@ public final class SAXReaderDefaultSettings
    */
   public static void setRequiresNewXMLParserExplicitly (final boolean bDefaultRequiresNewXMLParserExplicitly)
   {
-    RW_LOCK.writeLocked ( () -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
+    RW_LOCK.writeLocked (() -> s_bDefaultRequiresNewXMLParserExplicitly = bDefaultRequiresNewXMLParserExplicitly);
   }
 }

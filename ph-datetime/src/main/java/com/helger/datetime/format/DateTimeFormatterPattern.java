@@ -32,8 +32,7 @@ import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * This class encapsulates a String pattern and a set of options to be used in
- * parsing.
+ * This class encapsulates a String pattern and a set of options to be used in parsing.
  *
  * @author Philip Helger
  */
@@ -56,7 +55,8 @@ public final class DateTimeFormatterPattern
    * @param eResolverStyle
    *        The resolver style to use. May not be <code>null</code>.
    */
-  public DateTimeFormatterPattern (@NonNull @Nonempty final String sPattern, @NonNull final ResolverStyle eResolverStyle)
+  public DateTimeFormatterPattern (@NonNull @Nonempty final String sPattern,
+                                   @NonNull final ResolverStyle eResolverStyle)
   {
     ValueEnforcer.notEmpty (sPattern, "RegEx");
     ValueEnforcer.notNull (eResolverStyle, "ResolverStyle");
@@ -78,8 +78,7 @@ public final class DateTimeFormatterPattern
   }
 
   /**
-   * @return The resolver style as passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The resolver style as passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public ResolverStyle getResolverStyle ()
@@ -120,6 +119,8 @@ public final class DateTimeFormatterPattern
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Pattern", m_sPattern).append ("ResolverStyle", m_eResolverStyle).getToString ();
+    return new ToStringGenerator (this).append ("Pattern", m_sPattern)
+                                       .append ("ResolverStyle", m_eResolverStyle)
+                                       .getToString ();
   }
 }

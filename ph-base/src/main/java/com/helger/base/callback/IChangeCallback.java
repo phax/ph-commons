@@ -34,9 +34,8 @@ public interface IChangeCallback <DATATYPE> extends ICallback
    *
    * @param aObjectToChange
    *        The object to be changed. Never <code>null</code>.
-   * @return {@link EContinue#CONTINUE} if the action may be performed. If the
-   *         return value is {@link EContinue#BREAK} the action will not be
-   *         performed.
+   * @return {@link EContinue#CONTINUE} if the action may be performed. If the return value is
+   *         {@link EContinue#BREAK} the action will not be performed.
    */
   @NonNull
   EContinue beforeChange (@NonNull DATATYPE aObjectToChange);

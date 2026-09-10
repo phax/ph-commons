@@ -43,8 +43,7 @@ public interface IValidityIndicator
    *
    * @param aValidity
    *        The other validity indicator. May not be <code>null</code>.
-   * @return {@link EValidity#VALID} if either this or the other indicator is
-   *         valid.
+   * @return {@link EValidity#VALID} if either this or the other indicator is valid.
    */
   @NonNull
   default EValidity or (@NonNull final IValidityIndicator aValidity)
@@ -57,8 +56,8 @@ public interface IValidityIndicator
    *
    * @param bValid
    *        The other validity value.
-   * @return {@link EValidity#VALID} if either this indicator is valid or the
-   *         passed value is <code>true</code>.
+   * @return {@link EValidity#VALID} if either this indicator is valid or the passed value is
+   *         <code>true</code>.
    */
   @NonNull
   default EValidity or (final boolean bValid)
@@ -71,8 +70,7 @@ public interface IValidityIndicator
    *
    * @param aValidity
    *        The other validity indicator. May not be <code>null</code>.
-   * @return {@link EValidity#VALID} if both this and the other indicator are
-   *         valid.
+   * @return {@link EValidity#VALID} if both this and the other indicator are valid.
    */
   @NonNull
   default EValidity and (@NonNull final IValidityIndicator aValidity)
@@ -85,8 +83,8 @@ public interface IValidityIndicator
    *
    * @param bValid
    *        The other validity value.
-   * @return {@link EValidity#VALID} if both this indicator is valid and the
-   *         passed value is <code>true</code>.
+   * @return {@link EValidity#VALID} if both this indicator is valid and the passed value is
+   *         <code>true</code>.
    */
   @NonNull
   default EValidity and (final boolean bValid)

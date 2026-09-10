@@ -28,24 +28,20 @@ import org.jspecify.annotations.NonNull;
 public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPLTYPE>>
 {
   /**
-   * Check if this object is of the same level (= equal important) than the
-   * passed object.
+   * Check if this object is of the same level (= equal important) than the passed object.
    *
    * @param aOther
    *        The object to compare to.
-   * @return <code>true</code> if this object is equally important than the
-   *         passed object!
+   * @return <code>true</code> if this object is equally important than the passed object!
    */
   boolean isEQ (@NonNull IMPLTYPE aOther);
 
   /**
-   * Check if this object is of a different level (= different importance) than
-   * the passed object.
+   * Check if this object is of a different level (= different importance) than the passed object.
    *
    * @param aOther
    *        The object to compare to.
-   * @return <code>true</code> if this object is not equally important than the
-   *         passed object!
+   * @return <code>true</code> if this object is not equally important than the passed object!
    * @since 8.6.5
    */
   default boolean isNE (@NonNull final IMPLTYPE aOther)
@@ -54,46 +50,40 @@ public interface ISeverityComparable <IMPLTYPE extends ISeverityComparable <IMPL
   }
 
   /**
-   * Check if this object is of lower level (= less important) than the passed
-   * object.
+   * Check if this object is of lower level (= less important) than the passed object.
    *
    * @param aOther
    *        The object to compare to.
-   * @return <code>true</code> if this object is less important than the passed
-   *         object!
+   * @return <code>true</code> if this object is less important than the passed object!
    */
   boolean isLT (@NonNull IMPLTYPE aOther);
 
   /**
-   * Check if this object is of equal or lower level (= equally or less
-   * important) than the passed object.
-   *
-   * @param aOther
-   *        The object to compare to.
-   * @return <code>true</code> if this object is equally or less important than
-   *         the passed object!
-   */
-  boolean isLE (@NonNull IMPLTYPE aOther);
-
-  /**
-   * Check if this object is of higher level (= more important) than the passed
+   * Check if this object is of equal or lower level (= equally or less important) than the passed
    * object.
    *
    * @param aOther
    *        The object to compare to.
-   * @return <code>true</code> if this object is more important than the passed
-   *         object!
+   * @return <code>true</code> if this object is equally or less important than the passed object!
+   */
+  boolean isLE (@NonNull IMPLTYPE aOther);
+
+  /**
+   * Check if this object is of higher level (= more important) than the passed object.
+   *
+   * @param aOther
+   *        The object to compare to.
+   * @return <code>true</code> if this object is more important than the passed object!
    */
   boolean isGT (@NonNull IMPLTYPE aOther);
 
   /**
-   * Check if this object is of equal or higher level (= equally or more
-   * important) than the passed object.
+   * Check if this object is of equal or higher level (= equally or more important) than the passed
+   * object.
    *
    * @param aOther
    *        The object to compare to.
-   * @return <code>true</code> if this object is equally or more important than
-   *         the passed object!
+   * @return <code>true</code> if this object is equally or more important than the passed object!
    */
   boolean isGE (@NonNull IMPLTYPE aOther);
 }

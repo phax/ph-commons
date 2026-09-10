@@ -25,8 +25,8 @@ import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableDirectedGraphNode;
 
 /**
- * Implementation of {@link com.helger.graph.IMutableDirectedGraphRelation}
- * interface with quick and dirty equals and hashCode (on ID only)
+ * Implementation of {@link com.helger.graph.IMutableDirectedGraphRelation} interface with quick and
+ * dirty equals and hashCode (on ID only)
  *
  * @author Philip Helger
  */
@@ -44,7 +44,8 @@ public class DirectedGraphRelationFast extends DirectedGraphRelation
    * @param aTo
    *        The to-node. May not be <code>null</code>.
    */
-  public DirectedGraphRelationFast (@NonNull final IMutableDirectedGraphNode aFrom, @NonNull final IMutableDirectedGraphNode aTo)
+  public DirectedGraphRelationFast (@NonNull final IMutableDirectedGraphNode aFrom,
+                                    @NonNull final IMutableDirectedGraphNode aTo)
   {
     super (aFrom, aTo);
   }
@@ -53,8 +54,7 @@ public class DirectedGraphRelationFast extends DirectedGraphRelation
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this relation. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this relation. If <code>null</code> or empty a new ID is generated.
    * @param aFrom
    *        The from-node. May not be <code>null</code>.
    * @param aTo

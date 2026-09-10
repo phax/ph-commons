@@ -31,11 +31,10 @@ import com.helger.base.state.ESuccess;
 public interface IMutableObjectPool <DATATYPE>
 {
   /**
-   * Borrow an object from the pool. This method blocks until an object is
-   * available.
+   * Borrow an object from the pool. This method blocks until an object is available.
    *
-   * @return The borrowed object. May be <code>null</code> depending on the
-   *         factory, and the locking used.
+   * @return The borrowed object. May be <code>null</code> depending on the factory, and the locking
+   *         used.
    */
   @Nullable
   DATATYPE borrowObject ();
@@ -44,8 +43,7 @@ public interface IMutableObjectPool <DATATYPE>
    * Return a previously borrowed object back to the pool.
    *
    * @param aItem
-   *        The previously borrowed object to be returned. Never
-   *        <code>null</code>.
+   *        The previously borrowed object to be returned. Never <code>null</code>.
    * @return {@link ESuccess#SUCCESS} upon success
    */
   @NonNull

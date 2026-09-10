@@ -143,8 +143,8 @@ public class MappedKeyManualCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> implements
   }
 
   /**
-   * Invoke the provided consumer for each <em>storage</em> key and value combination currently in the
-   * wrapped cache. This is the mapped counterpart of {@link #iterateCache(BiConsumer)}.
+   * Invoke the provided consumer for each <em>storage</em> key and value combination currently in
+   * the wrapped cache. This is the mapped counterpart of {@link #iterateCache(BiConsumer)}.
    *
    * @param aConsumer
    *        The consumer to be invoked with each storage key and the respective cache value. May not

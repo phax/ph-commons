@@ -52,8 +52,8 @@ public interface IXMLWriterSettings
   EXMLSerializeXMLDeclaration getSerializeXMLDeclaration ();
 
   /**
-   * @return <code>true</code> if a newline should be added after the XML
-   *         declaration or not. Defaults to <code>true</code>.
+   * @return <code>true</code> if a newline should be added after the XML declaration or not.
+   *         Defaults to <code>true</code>.
    * @since 9.3.5
    */
   boolean isNewLineAfterXMLDeclaration ();
@@ -71,22 +71,20 @@ public interface IXMLWriterSettings
   EXMLSerializeComments getSerializeComments ();
 
   /**
-   * @return Indent and/or align code? Default is
-   *         <code>indent and aligned</code>.
+   * @return Indent and/or align code? Default is <code>indent and aligned</code>.
    */
   @NonNull
   EXMLSerializeIndent getIndent ();
 
   /**
-   * @return The dynamic (per-element) indentation determinator. This must be
-   *         changed when e.g. serializing HTML. Never <code>null</code>.
+   * @return The dynamic (per-element) indentation determinator. This must be changed when e.g.
+   *         serializing HTML. Never <code>null</code>.
    */
   @NonNull
   IXMLIndentDeterminator getIndentDeterminator ();
 
   /**
-   * @return The incorrect character handling to be used. May not be
-   *         <code>null</code>.
+   * @return The incorrect character handling to be used. May not be <code>null</code>.
    */
   @NonNull
   EXMLIncorrectCharacterHandling getIncorrectCharacterHandling ();
@@ -104,32 +102,30 @@ public interface IXMLWriterSettings
   NamespaceContext getNamespaceContext ();
 
   /**
-   * @return <code>true</code> if attribute values should be enclosed in double
-   *         quotes, <code>false</code> if single quotes should be used.
+   * @return <code>true</code> if attribute values should be enclosed in double quotes,
+   *         <code>false</code> if single quotes should be used.
    */
   boolean isUseDoubleQuotesForAttributes ();
 
   /**
-   * @return The dynamic (per-element) bracket mode determinator to use. This
-   *         must be changed when e.g. serializing HTML. Never <code>null</code>
-   *         .
+   * @return The dynamic (per-element) bracket mode determinator to use. This must be changed when
+   *         e.g. serializing HTML. Never <code>null</code> .
    */
   @NonNull
   IXMLBracketModeDeterminator getBracketModeDeterminator ();
 
   /**
-   * Determine if a self closed element (an element having no children) should
-   * be emitted with a space at the end (<code>&lt;br /&gt;</code>) or not (
-   * <code>&lt;br/&gt;</code>)
+   * Determine if a self closed element (an element having no children) should be emitted with a
+   * space at the end (<code>&lt;br /&gt;</code>) or not ( <code>&lt;br/&gt;</code>)
    *
-   * @return <code>true</code> if a space should be emitted, <code>false</code>
-   *         if no space should be emitted.
+   * @return <code>true</code> if a space should be emitted, <code>false</code> if no space should
+   *         be emitted.
    */
   boolean isSpaceOnSelfClosedElement ();
 
   /**
-   * @return The newline mode to be used. By default it is the platform specific
-   *         new line mode. Never <code>null</code>.
+   * @return The newline mode to be used. By default it is the platform specific new line mode.
+   *         Never <code>null</code>.
    */
   @NonNull
   ENewLineMode getNewLineMode ();
@@ -146,8 +142,7 @@ public interface IXMLWriterSettings
   }
 
   /**
-   * @return The string to be used for indentation of a single level. By default
-   *         it is 2 spaces.
+   * @return The string to be used for indentation of a single level. By default it is 2 spaces.
    */
   @NonNull
   @Nonempty
@@ -156,51 +151,47 @@ public interface IXMLWriterSettings
   /**
    * Determine if namespaces should be emitted or not.
    *
-   * @return <code>true</code> if namespaces should be emitted,
-   *         <code>false</code> if all created elements should reside in the
-   *         default namespace.
+   * @return <code>true</code> if namespaces should be emitted, <code>false</code> if all created
+   *         elements should reside in the default namespace.
    */
   boolean isEmitNamespaces ();
 
   /**
-   * Check if the flag for putting all namespace prefixes specified in the
-   * namespace context should be put in the root document. This setting only has
-   * an effect if a namespace context is defined and if it implements the
-   * {@link com.helger.xml.namespace.IIterableNamespaceContext} interface!
+   * Check if the flag for putting all namespace prefixes specified in the namespace context should
+   * be put in the root document. This setting only has an effect if a namespace context is defined
+   * and if it implements the {@link com.helger.xml.namespace.IIterableNamespaceContext} interface!
    *
    * @return <code>true</code> if it is enabled, <code>false</code> if not.
    */
   boolean isPutNamespaceContextPrefixesInRoot ();
 
   /**
-   * Check if all CDATA children should be emitted as normal text or not. This
-   * is required for XML canonicalization.
+   * Check if all CDATA children should be emitted as normal text or not. This is required for XML
+   * canonicalization.
    *
-   * @return <code>true</code> if CDATA should be written as text,
-   *         <code>false</code> to keep CDATA as it is.
+   * @return <code>true</code> if CDATA should be written as text, <code>false</code> to keep CDATA
+   *         as it is.
    * @since 9.1.4
    */
   boolean isWriteCDATAAsText ();
 
   /**
-   * Determine if attributes of elements and namespaces should be emitted in
-   * alphabetical order or not. This is required for XML canonicalization.
+   * Determine if attributes of elements and namespaces should be emitted in alphabetical order or
+   * not. This is required for XML canonicalization.
    *
-   * @return <code>true</code> to order attributes, <code>false</code> to keep
-   *         the original order.
+   * @return <code>true</code> to order attributes, <code>false</code> to keep the original order.
    * @since 9.1.4
    */
   boolean isOrderAttributesAndNamespaces ();
 
   /**
-   * Determine if existing namespace declarations (xmlns attributes) from the
-   * DOM should be used as-is instead of being filtered out and rebuilt by the
-   * namespace stack. This is important for documents like XSLT where namespace
-   * prefixes are referenced inside attribute values (e.g.
+   * Determine if existing namespace declarations (xmlns attributes) from the DOM should be used
+   * as-is instead of being filtered out and rebuilt by the namespace stack. This is important for
+   * documents like XSLT where namespace prefixes are referenced inside attribute values (e.g.
    * <code>xs:boolean</code>) and would otherwise be lost during serialization.
    *
-   * @return <code>true</code> to keep existing namespace declarations from the
-   *         DOM as-is, <code>false</code> to filter and rebuild them (default).
+   * @return <code>true</code> to keep existing namespace declarations from the DOM as-is,
+   *         <code>false</code> to filter and rebuild them (default).
    * @since 12.2.2
    */
   boolean isUseExistingNamespaceDeclarations ();

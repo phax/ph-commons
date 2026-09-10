@@ -107,7 +107,7 @@ public class CRLAllowList
   public CRLAllowList addAllowedPrefix (@NonNull @Nonempty final String sPrefix)
   {
     ValueEnforcer.notEmpty (sPrefix, "Prefix");
-    m_aRWLock.writeLocked ( () -> m_aAllowedPrefixes.add (sPrefix));
+    m_aRWLock.writeLocked (() -> m_aAllowedPrefixes.add (sPrefix));
     return this;
   }
 
@@ -136,7 +136,7 @@ public class CRLAllowList
    */
   public boolean isAllowed (@Nullable final String sURL)
   {
-    return m_aRWLock.readLockedBoolean ( () -> {
+    return m_aRWLock.readLockedBoolean (() -> {
       // Empty list allows everything
       if (m_aAllowedPrefixes.isEmpty ())
         return true;

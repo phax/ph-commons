@@ -41,8 +41,7 @@ public final class BooleanHelper
    * @param aObj
    *        The Boolean value to be converted
    * @param bDefault
-   *        The default value to be returned, if the passed obj is
-   *        <code>null</code>.
+   *        The default value to be returned, if the passed obj is <code>null</code>.
    * @return Either the primitive boolean value or the default value
    */
   public static boolean getBooleanValue (@Nullable final Boolean aObj, final boolean bDefault)

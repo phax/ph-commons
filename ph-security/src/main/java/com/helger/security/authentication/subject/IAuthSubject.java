@@ -21,8 +21,8 @@ import com.helger.base.id.IHasID;
 import com.helger.base.name.IHasDisplayName;
 
 /**
- * Represents a user or any other subject that can be authenticated in an
- * application. An authentication subject has at least an ID and a name.
+ * Represents a user or any other subject that can be authenticated in an application. An
+ * authentication subject has at least an ID and a name.
  *
  * @author Philip Helger
  */

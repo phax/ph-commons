@@ -117,8 +117,7 @@ public class EmailAddress implements IEmailAddress
   }
 
   /**
-   * Factory method that creates an {@link EmailAddress} only if the provided
-   * address is non-empty.
+   * Factory method that creates an {@link EmailAddress} only if the provided address is non-empty.
    *
    * @param sAddress
    *        The email address string. May be <code>null</code>.
@@ -131,8 +130,7 @@ public class EmailAddress implements IEmailAddress
   }
 
   /**
-   * Factory method that creates an {@link EmailAddress} only if the provided
-   * address is non-empty.
+   * Factory method that creates an {@link EmailAddress} only if the provided address is non-empty.
    *
    * @param sAddress
    *        The email address string. May be <code>null</code>.

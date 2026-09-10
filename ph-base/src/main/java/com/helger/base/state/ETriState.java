@@ -24,8 +24,8 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Represents an object that has one of 3 different states compared to a boolean
- * that has only 2 different states.
+ * Represents an object that has one of 3 different states compared to a boolean that has only 2
+ * different states.
  *
  * @author Philip Helger
  */
@@ -102,8 +102,7 @@ public enum ETriState implements IHasID <String>, ITriState
    * Convert a boolean value to the corresponding {@link ETriState} enum value.
    *
    * @param bValue
-   *        <code>true</code> for {@link #TRUE}, <code>false</code> for
-   *        {@link #FALSE}.
+   *        <code>true</code> for {@link #TRUE}, <code>false</code> for {@link #FALSE}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -113,8 +112,7 @@ public enum ETriState implements IHasID <String>, ITriState
   }
 
   /**
-   * Convert a {@link Boolean} value to the corresponding {@link ETriState} enum
-   * value.
+   * Convert a {@link Boolean} value to the corresponding {@link ETriState} enum value.
    *
    * @param aValue
    *        The Boolean value. May be <code>null</code> for {@link #UNDEFINED}.
@@ -127,8 +125,7 @@ public enum ETriState implements IHasID <String>, ITriState
   }
 
   /**
-   * Convert an {@link ITriState} to the corresponding {@link ETriState} enum
-   * value.
+   * Convert an {@link ITriState} to the corresponding {@link ETriState} enum value.
    *
    * @param aTriState
    *        The tri state to convert. May not be <code>null</code>.
@@ -154,8 +151,8 @@ public enum ETriState implements IHasID <String>, ITriState
   }
 
   /**
-   * Get the {@link ETriState} enum value matching the provided ID, defaulting
-   * to {@link #UNDEFINED}.
+   * Get the {@link ETriState} enum value matching the provided ID, defaulting to
+   * {@link #UNDEFINED}.
    *
    * @param sID
    *        The ID to search. May be <code>null</code>.
@@ -168,14 +165,12 @@ public enum ETriState implements IHasID <String>, ITriState
   }
 
   /**
-   * Get the {@link ETriState} enum value matching the provided ID, with a
-   * custom default.
+   * Get the {@link ETriState} enum value matching the provided ID, with a custom default.
    *
    * @param sID
    *        The ID to search. May be <code>null</code>.
    * @param eDefault
-   *        The default value to return if no match is found. May be
-   *        <code>null</code>.
+   *        The default value to return if no match is found. May be <code>null</code>.
    * @return The matching enum value or the provided default.
    */
   @Nullable

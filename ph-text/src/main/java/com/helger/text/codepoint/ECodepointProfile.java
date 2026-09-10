@@ -39,7 +39,9 @@ public enum ECodepointProfile
   SCHEME (codepoint -> !CodepointHelper.isScheme (codepoint)),
   PATHNODELIMS (codepoint -> !CodepointHelper.isPathNoDelims (codepoint)),
   IPATHNODELIMS (codepoint -> !CodepointHelper.is_ipathnodelims (codepoint)),
-  IPATHNODELIMS_SEG (codepoint -> !CodepointHelper.is_ipathnodelims (codepoint) && codepoint != '@' && codepoint != ':'),
+  IPATHNODELIMS_SEG (codepoint -> !CodepointHelper.is_ipathnodelims (codepoint) &&
+                                  codepoint != '@' &&
+                                  codepoint != ':'),
   IREGNAME (codepoint -> !CodepointHelper.is_iregname (codepoint)),
   IHOST (codepoint -> !CodepointHelper.is_ihost (codepoint)),
   IPRIVATE (codepoint -> !CodepointHelper.is_iprivate (codepoint)),
@@ -54,7 +56,8 @@ public enum ECodepointProfile
   AUTHORITY (codepoint -> !CodepointHelper.is_regname (codepoint) &&
                           !CodepointHelper.isUserInfo (codepoint) &&
                           !CodepointHelper.isGenDelim (codepoint)),
-  ASCIISANSCRLF (codepoint -> !CodepointHelper.inRange (codepoint, 1, 9) && !CodepointHelper.inRange (codepoint, 14, 127)),
+  ASCIISANSCRLF (codepoint -> !CodepointHelper.inRange (codepoint, 1, 9) &&
+                              !CodepointHelper.inRange (codepoint, 14, 127)),
   PCT (codepoint -> !CodepointHelper.isPctEnc (codepoint)),
   STD3ASCIIRULES (codepoint -> !CodepointHelper.inRange (codepoint, 0x0000, 0x002C) &&
                                !CodepointHelper.inRange (codepoint, 0x002E, 0x002F) &&
@@ -71,8 +74,7 @@ public enum ECodepointProfile
   }
 
   /**
-   * @return The filter predicate associated with this profile. Never
-   *         <code>null</code>.
+   * @return The filter predicate associated with this profile. Never <code>null</code>.
    */
   @NonNull
   public IntPredicate getFilter ()
@@ -85,8 +87,7 @@ public enum ECodepointProfile
    *
    * @param nCodepoint
    *        The codepoint to check.
-   * @return <code>true</code> if the codepoint matches, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the codepoint matches, <code>false</code> otherwise.
    */
   public boolean check (final int nCodepoint)
   {

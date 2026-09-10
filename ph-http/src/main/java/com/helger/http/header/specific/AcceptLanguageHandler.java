@@ -46,11 +46,9 @@ public final class AcceptLanguageHandler
    * Parse the Accept-Language HTTP header value and return a structured list.
    *
    * @param sAcceptLanguage
-   *        The Accept-Language header value. May be <code>null</code> or
-   *        empty.
-   * @return A non-<code>null</code> {@link AcceptLanguageList} containing the
-   *         parsed languages. If the input is empty, all languages are
-   *         accepted.
+   *        The Accept-Language header value. May be <code>null</code> or empty.
+   * @return A non-<code>null</code> {@link AcceptLanguageList} containing the parsed languages. If
+   *         the input is empty, all languages are accepted.
    */
   @NonNull
   public static AcceptLanguageList getAcceptLanguages (@Nullable final String sAcceptLanguage)

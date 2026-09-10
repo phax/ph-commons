@@ -64,8 +64,8 @@ public final class Predicates
   /**
    * @param <DATATYPE>
    *        The data type to be checked.
-   * @return A predicate that returns <code>true</code> if the value is not <code>null</code>.
-   *         Never <code>null</code>.
+   * @return A predicate that returns <code>true</code> if the value is not <code>null</code>. Never
+   *         <code>null</code>.
    */
   @NonNull
   public static <DATATYPE> Predicate <DATATYPE> notNull ()

@@ -24,8 +24,7 @@ import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 
 /**
- * Enumeration with the different actions that can occur in a DAO. This is used
- * in the WAL DAO.
+ * Enumeration with the different actions that can occur in a DAO. This is used in the WAL DAO.
  *
  * @author Philip Helger
  */

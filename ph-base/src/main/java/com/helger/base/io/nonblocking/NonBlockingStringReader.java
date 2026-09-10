@@ -143,8 +143,9 @@ public class NonBlockingStringReader extends Reader
    */
   @Override
   @CheckForSigned
-  public int read (final char @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
-                                                                                                          throws IOException
+  public int read (final char @NonNull [] aBuf,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     _ensureOpen ();
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);

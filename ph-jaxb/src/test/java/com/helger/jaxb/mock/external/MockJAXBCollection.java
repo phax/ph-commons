@@ -33,8 +33,7 @@ import jakarta.xml.bind.annotation.XmlType;
  * <p>
  * Java class for CA_GEN_Collection complex type.
  * <p>
- * The following schema fragment specifies the expected content contained within
- * this class.
+ * The following schema fragment specifies the expected content contained within this class.
  *
  * <pre>
  * &lt;complexType name="CA_GEN_Collection">
@@ -68,10 +67,9 @@ public final class MockJAXBCollection
   /**
    * Gets the value of the issue property.
    * <p>
-   * This accessor method returns a reference to the live list, not a snapshot.
-   * Therefore any modification you make to the returned list will be present
-   * inside the JAXB object. This is why there is not a <CODE>set</CODE> method
-   * for the issue property.
+   * This accessor method returns a reference to the live list, not a snapshot. Therefore any
+   * modification you make to the returned list will be present inside the JAXB object. This is why
+   * there is not a <CODE>set</CODE> method for the issue property.
    * <p>
    * For example, to add a new item, do as follows:
    *
@@ -79,8 +77,7 @@ public final class MockJAXBCollection
    * getIssue ().add (newItem);
    * </pre>
    * <p>
-   * Objects of the following type(s) are allowed in the list
-   * {@link MockJAXBIssue }
+   * Objects of the following type(s) are allowed in the list {@link MockJAXBIssue }
    *
    * @return issue list
    */

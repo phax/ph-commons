@@ -37,8 +37,8 @@ public interface IWriteToStream
    * Write everything to the passed output stream.
    *
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code>. The
-   *        OutputStream must not closed by implementations of this class.
+   *        The output stream to write to. May not be <code>null</code>. The OutputStream must not
+   *        closed by implementations of this class.
    * @throws IOException
    *         In case of IO error
    */

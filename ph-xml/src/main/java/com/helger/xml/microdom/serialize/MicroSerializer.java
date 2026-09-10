@@ -289,8 +289,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
               else
               {
                 // Prefixed namespace declaration (xmlns:prefix="...")
-                aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, XMLConstants.XMLNS_ATTRIBUTE),
-                              sAttrValue);
+                aAttrMap.put (new QName (sAttrNamespaceURI, sAttrName, XMLConstants.XMLNS_ATTRIBUTE), sAttrValue);
                 m_aNSStack.addNamespaceMapping (sAttrName, sAttrValue);
               }
             }
@@ -358,9 +357,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
         {
           sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
           // Eventually adds a namespace attribute in the AttrMap
-          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI,
-                                                                        bIsRootElement,
-                                                                        aAttrMap);
+          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
         }
 
         // For all attributes

@@ -28,25 +28,21 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
  * Similar to the Quoted-Printable content-transfer-encoding defined in
- * <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and designed to
- * allow text containing mostly ASCII characters to be decipherable on an ASCII
- * terminal without decoding.
+ * <a href="http://www.ietf.org/rfc/rfc1521.txt">RFC 1521</a> and designed to allow text containing
+ * mostly ASCII characters to be decipherable on an ASCII terminal without decoding.
  * <p>
- * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes
- * techniques to allow the encoding of non-ASCII text in various portions of a
- * RFC 822 [2] message header, in a manner which is unlikely to confuse existing
- * message handling software.
+ * <a href="http://www.ietf.org/rfc/rfc1522.txt">RFC 1522</a> describes techniques to allow the
+ * encoding of non-ASCII text in various portions of a RFC 822 [2] message header, in a manner which
+ * is unlikely to confuse existing message handling software.
  * <p>
- * This class is conditionally thread-safe. The instance field m_bEncodeBlanks
- * is mutable {@link #setEncodeBlanks(boolean)} but is not volatile, and
- * accesses are not synchronised. If an instance of the class is shared between
- * threads, the caller needs to ensure that suitable synchronisation is used to
- * ensure safe publication of the value between threads, and must not invoke
- * {@link #setEncodeBlanks(boolean)} after initial setup.
+ * This class is conditionally thread-safe. The instance field m_bEncodeBlanks is mutable
+ * {@link #setEncodeBlanks(boolean)} but is not volatile, and accesses are not synchronised. If an
+ * instance of the class is shared between threads, the caller needs to ensure that suitable
+ * synchronisation is used to ensure safe publication of the value between threads, and must not
+ * invoke {@link #setEncodeBlanks(boolean)} after initial setup.
  *
- * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose
- *      Internet Mail Extensions) Part Two: Message Header Extensions for
- *      Non-ASCII Text</a>
+ * @see <a href="http://www.ietf.org/rfc/rfc1522.txt">MIME (Multipurpose Internet Mail Extensions)
+ *      Part Two: Message Header Extensions for Non-ASCII Text</a>
  */
 public class RFC1522QCodec extends AbstractRFC1522Codec
 {
@@ -143,8 +139,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
   /**
    * Tests if optional transformation of SPACE characters is to be used
    *
-   * @return {@code true} if SPACE characters are to be transformed,
-   *         {@code false} otherwise
+   * @return {@code true} if SPACE characters are to be transformed, {@code false} otherwise
    */
   public boolean isEncodeBlanks ()
   {
@@ -155,8 +150,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    * Defines whether optional transformation of SPACE characters is to be used
    *
    * @param bEncodeBlanks
-   *        {@code true} if SPACE characters are to be transformed,
-   *        {@code false} otherwise
+   *        {@code true} if SPACE characters are to be transformed, {@code false} otherwise
    */
   public void setEncodeBlanks (final boolean bEncodeBlanks)
   {
@@ -165,7 +159,9 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   @Override
   @ReturnsMutableCopy
-  protected byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  protected byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
+                                          @Nonnegative final int nOfs,
+                                          @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -180,7 +176,9 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
 
   @Override
   @ReturnsMutableCopy
-  protected byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  protected byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
+                                          @Nonnegative final int nOfs,
+                                          @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

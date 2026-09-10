@@ -34,8 +34,8 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.io.resource.IWritableResource;
 
 /**
- * Factory class to create the correct {@link javax.xml.transform.Result}
- * objects for different output types.
+ * Factory class to create the correct {@link javax.xml.transform.Result} objects for different
+ * output types.
  *
  * @author Philip Helger
  */

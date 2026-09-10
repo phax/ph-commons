@@ -91,7 +91,7 @@ public final class ScopeManager
   {
     ValueEnforcer.notNull (aGlobalScope, "GlobalScope");
 
-    RW_LOCK.writeLocked ( () -> {
+    RW_LOCK.writeLocked (() -> {
       if (s_aGlobalScope != null)
         throw new IllegalStateException ("Another global scope with ID '" +
                                          s_aGlobalScope.getID () +
@@ -125,16 +125,14 @@ public final class ScopeManager
   }
 
   /**
-   * This method is used to set the initial global scope using a custom
-   * factory.
+   * This method is used to set the initial global scope using a custom factory.
    *
    * @param <T>
    *        The global scope implementation type
    * @param sScopeID
    *        The scope ID to use. May neither be <code>null</code> nor empty.
    * @param aFactory
-   *        The factory to create the global scope. May not be
-   *        <code>null</code>.
+   *        The factory to create the global scope. May not be <code>null</code>.
    * @return The created global scope object. Never <code>null</code>.
    */
   @NonNull
@@ -147,13 +145,12 @@ public final class ScopeManager
   }
 
   /**
-   * @return The global scope or <code>null</code> if no valid global scope is
-   *         present.
+   * @return The global scope or <code>null</code> if no valid global scope is present.
    */
   @Nullable
   public static IGlobalScope getGlobalScopeOrNull ()
   {
-    final IGlobalScope ret = RW_LOCK.readLockedGet ( () -> s_aGlobalScope);
+    final IGlobalScope ret = RW_LOCK.readLockedGet (() -> s_aGlobalScope);
     if (ret != null && ret.isValid ())
       return ret;
     // Return null if it is not set, in destruction or already destroyed
@@ -161,8 +158,7 @@ public final class ScopeManager
   }
 
   /**
-   * @return <code>true</code> if a valid global scope is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a valid global scope is present, <code>false</code> otherwise.
    */
   public static boolean isGlobalScopePresent ()
   {
@@ -192,7 +188,7 @@ public final class ScopeManager
      * Global scope variable may be null if onGlobalBegin() was never called or if "onGlobalEnd" was
      * called a second time
      */
-    final IGlobalScope aGlobalScope = RW_LOCK.writeLockedGet ( () -> {
+    final IGlobalScope aGlobalScope = RW_LOCK.writeLockedGet (() -> {
       // Do only the minimum in writeLock
       final IGlobalScope ret = s_aGlobalScope;
       s_aGlobalScope = null;
@@ -253,19 +249,16 @@ public final class ScopeManager
   }
 
   /**
-   * Get the current session scope, based on the current request scope, using a
-   * custom session scope factory.
+   * Get the current session scope, based on the current request scope, using a custom session scope
+   * factory.
    *
    * @param bCreateIfNotExisting
-   *        <code>true</code> to create a new scope, if none is present yet,
-   *        <code>false</code> to return <code>null</code> if either no
-   *        request scope or no session scope is present.
+   *        <code>true</code> to create a new scope, if none is present yet, <code>false</code> to
+   *        return <code>null</code> if either no request scope or no session scope is present.
    * @param aFactory
-   *        The factory to create a new session scope. May not be
-   *        <code>null</code>.
-   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code>
-   *         and either no request scope or no session scope is present, the
-   *         {@link ISessionScope} otherwise.
+   *        The factory to create a new session scope. May not be <code>null</code>.
+   * @return <code>null</code> if bCreateIfNotExisting is <code>false</code> and either no request
+   *         scope or no session scope is present, the {@link ISessionScope} otherwise.
    */
   @Nullable
   public static ISessionScope getSessionScope (final boolean bCreateIfNotExisting,
@@ -371,8 +364,7 @@ public final class ScopeManager
   }
 
   /**
-   * To be called when a new request begins, using a custom request scope
-   * factory.
+   * To be called when a new request begins, using a custom request scope factory.
    *
    * @param <T>
    *        The request scope implementation type
@@ -381,8 +373,7 @@ public final class ScopeManager
    * @param sSessionID
    *        The session ID to use. May neither be <code>null</code> nor empty.
    * @param aFactory
-   *        The factory to create the request scope. May not be
-   *        <code>null</code>.
+   *        The factory to create the request scope. May not be <code>null</code>.
    * @return The created request scope. Never <code>null</code>.
    */
   @NonNull

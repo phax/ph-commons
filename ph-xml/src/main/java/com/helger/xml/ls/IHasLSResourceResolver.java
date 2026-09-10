@@ -28,8 +28,7 @@ import org.w3c.dom.ls.LSResourceResolver;
 public interface IHasLSResourceResolver
 {
   /**
-   * @return The {@link LSResourceResolver} to be used. May not be
-   *         <code>null</code>.
+   * @return The {@link LSResourceResolver} to be used. May not be <code>null</code>.
    */
   @NonNull
   LSResourceResolver getResourceResolver ();

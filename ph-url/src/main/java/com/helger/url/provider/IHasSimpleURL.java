@@ -23,8 +23,7 @@ import com.helger.url.ISimpleURL;
 
 /**
  * Interface for a simple URL provider.<br>
- * Note: cannot be a functional interface because it requires equals and
- * hashCode to be implemented!
+ * Note: cannot be a functional interface because it requires equals and hashCode to be implemented!
  *
  * @author Philip Helger
  */

@@ -50,8 +50,7 @@ public class ErrorTextProvider implements IErrorTextProvider, ICloneable <ErrorT
   public static final String PLACEHOLDER_STR = Character.toString (PLACEHOLDER);
 
   /**
-   * Defines the available placeholder fields that can be used in the error text
-   * layout pattern.
+   * Defines the available placeholder fields that can be used in the error text layout pattern.
    *
    * @author Philip Helger
    */

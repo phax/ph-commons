@@ -20,8 +20,8 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Represents the document type of a document. Instances of the class may only
- * be used as a direct child of an {@link IMicroDocument}.
+ * Represents the document type of a document. Instances of the class may only be used as a direct
+ * child of an {@link IMicroDocument}.
  *
  * @author Philip Helger
  */

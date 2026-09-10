@@ -36,15 +36,15 @@ public interface IMutableDirectedGraphRelationFactory
    * @return The created graph relation and never <code>null</code>.
    */
   @NonNull
-  IMutableDirectedGraphRelation createRelation (@NonNull IMutableDirectedGraphNode aFrom, @NonNull IMutableDirectedGraphNode aTo);
+  IMutableDirectedGraphRelation createRelation (@NonNull IMutableDirectedGraphNode aFrom,
+                                                @NonNull IMutableDirectedGraphNode aTo);
 
   /**
-   * Create a new relation from the passed from-node to the to-node using a
-   * previously known ID.
+   * Create a new relation from the passed from-node to the to-node using a previously known ID.
    *
    * @param sID
-   *        The ID of the relation to be created. If it is <code>null</code> or
-   *        empty a new unique ID is created.
+   *        The ID of the relation to be created. If it is <code>null</code> or empty a new unique
+   *        ID is created.
    * @param aFrom
    *        The from node. May not be <code>null</code>.
    * @param aTo

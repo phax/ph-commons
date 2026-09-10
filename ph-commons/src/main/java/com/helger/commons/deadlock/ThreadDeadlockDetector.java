@@ -45,13 +45,13 @@ public class ThreadDeadlockDetector
   private final CallbackList <IThreadDeadlockCallback> m_aCallbacks = new CallbackList <> ();
 
   /**
-   * This is the main method to be invoked to find deadlocked threads. In case a
-   * deadlock is found, all registered callbacks are invoked.
+   * This is the main method to be invoked to find deadlocked threads. In case a deadlock is found,
+   * all registered callbacks are invoked.
    */
   public void findDeadlockedThreads ()
   {
-    final long [] aThreadIDs = m_aMBean.isSynchronizerUsageSupported () ? m_aMBean.findDeadlockedThreads () : m_aMBean
-                                                                                                                      .findMonitorDeadlockedThreads ();
+    final long [] aThreadIDs = m_aMBean.isSynchronizerUsageSupported () ? m_aMBean.findDeadlockedThreads ()
+                                                                        : m_aMBean.findMonitorDeadlockedThreads ();
     if (ArrayHelper.isNotEmpty (aThreadIDs))
     {
       // Get all stack traces
@@ -95,8 +95,8 @@ public class ThreadDeadlockDetector
   }
 
   /**
-   * @return The mutable list of callbacks to be invoked when a deadlock is
-   *         detected. Never <code>null</code>.
+   * @return The mutable list of callbacks to be invoked when a deadlock is detected. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject

@@ -63,8 +63,7 @@ public interface IURLDownloader
   /**
    * @return The default URL downloader using {@link URL#openConnection()} with the default
    *         connection timeout of {@link #DEFAULT_CONNECT_TIMEOUT_MS} milliseconds and the default
-   *         read timeout of {@link #DEFAULT_READ_TIMEOUT_MS} milliseconds. Never
-   *         <code>null</code>.
+   *         read timeout of {@link #DEFAULT_READ_TIMEOUT_MS} milliseconds. Never <code>null</code>.
    */
   @NonNull
   static IURLDownloader createDefault ()
@@ -73,9 +72,9 @@ public interface IURLDownloader
   }
 
   /**
-   * Create a default URL downloader using {@link URL#openConnection()} with the provided
-   * connection and read timeouts. A timeout value of 0 means infinite (the JVM default), so this
-   * is strongly discouraged for downloads from the public Internet.
+   * Create a default URL downloader using {@link URL#openConnection()} with the provided connection
+   * and read timeouts. A timeout value of 0 means infinite (the JVM default), so this is strongly
+   * discouraged for downloads from the public Internet.
    *
    * @param nConnectTimeoutMS
    *        The connection timeout in milliseconds. Must be &ge; 0.

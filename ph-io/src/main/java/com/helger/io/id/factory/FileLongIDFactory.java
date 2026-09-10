@@ -80,8 +80,8 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
    * Constructor using the {@link #DEFAULT_RESERVE_COUNT}.
    *
    * @param aFile
-   *        The file to persist the ID counter to. May not be
-   *        <code>null</code>. Must be readable and writable.
+   *        The file to persist the ID counter to. May not be <code>null</code>. Must be readable
+   *        and writable.
    */
   public FileLongIDFactory (@NonNull final File aFile)
   {
@@ -92,11 +92,10 @@ public class FileLongIDFactory extends AbstractPersistingLongIDFactory
    * Constructor with explicit reserve count.
    *
    * @param aFile
-   *        The file to persist the ID counter to. May not be
-   *        <code>null</code>. Must be readable and writable.
+   *        The file to persist the ID counter to. May not be <code>null</code>. Must be readable
+   *        and writable.
    * @param nReserveCount
-   *        The number of IDs to reserve with a single IO action. Must be &gt;
-   *        0.
+   *        The number of IDs to reserve with a single IO action. Must be &gt; 0.
    */
   public FileLongIDFactory (@NonNull final File aFile, @Nonnegative final int nReserveCount)
   {

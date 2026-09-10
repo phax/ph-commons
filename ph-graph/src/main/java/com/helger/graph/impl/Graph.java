@@ -54,11 +54,9 @@ public class Graph extends AbstractBaseGraph <IMutableGraphNode, IMutableGraphRe
    * Constructor.
    *
    * @param sID
-   *        The unique graph ID. May be <code>null</code> to have one
-   *        generated automatically.
+   *        The unique graph ID. May be <code>null</code> to have one generated automatically.
    * @param aFactory
-   *        The factory to create graph nodes and relations. May not be
-   *        <code>null</code>.
+   *        The factory to create graph nodes and relations. May not be <code>null</code>.
    */
   public Graph (@Nullable final String sID, @NonNull final IMutableGraphObjectFactory aFactory)
   {

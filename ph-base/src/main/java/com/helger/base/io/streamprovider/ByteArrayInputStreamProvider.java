@@ -70,7 +70,9 @@ public class ByteArrayInputStreamProvider implements IHasByteArray
    * @param nLen
    *        Length of bytes to use. Must be &ge; 0.
    */
-  public ByteArrayInputStreamProvider (final byte @NonNull [] aData, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  public ByteArrayInputStreamProvider (final byte @NonNull [] aData,
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
   {
     this (aData, nOfs, nLen, DEFAULT_COPY_NEEDED);
   }

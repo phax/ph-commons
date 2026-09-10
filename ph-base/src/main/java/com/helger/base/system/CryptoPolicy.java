@@ -33,18 +33,17 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
- * Helper class to see if unlimited strength crypto is available. If it is not,
- * then symmetric encryption algorithms are restricted to 128-bit key size or
- * the encryption must provide key weakening or key escrow.
+ * Helper class to see if unlimited strength crypto is available. If it is not, then symmetric
+ * encryption algorithms are restricted to 128-bit key size or the encryption must provide key
+ * weakening or key escrow.
  * <p>
- * This program attempts to generate a 256-bit AES key and use it to do to a
- * simple encryption. If the encryption succeeds, the assumption is that the JVM
- * being used has the "unlimited" strength JCE jurisdiction policy files
- * installed.
+ * This program attempts to generate a 256-bit AES key and use it to do to a simple encryption. If
+ * the encryption succeeds, the assumption is that the JVM being used has the "unlimited" strength
+ * JCE jurisdiction policy files installed.
  * </p>
  * <p>
- * We use this for JUnit tests. If unlimited strength crypto is not available,
- * we simply skip certain JUnit tests that would require it.
+ * We use this for JUnit tests. If unlimited strength crypto is not available, we simply skip
+ * certain JUnit tests that would require it.
  * </p>
  * Based on owasp-esapi-java source.<br>
  * http://code.google.com/p/owasp-esapi-java/
@@ -113,12 +112,11 @@ public final class CryptoPolicy
   }
 
   /**
-   * Check to see if unlimited strength crypto is available. There is an
-   * implicit assumption that the JCE jurisdiction policy files are not going to
-   * be changing while this given JVM is running.
+   * Check to see if unlimited strength crypto is available. There is an implicit assumption that
+   * the JCE jurisdiction policy files are not going to be changing while this given JVM is running.
    *
-   * @return <code>true</code> if we can provide keys longer than 128 bits,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if we can provide keys longer than 128 bits, <code>false</code>
+   *         otherwise
    */
   public static boolean isUnlimitedStrengthCryptoAvailable ()
   {

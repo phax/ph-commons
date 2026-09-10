@@ -286,8 +286,9 @@ public final class MatrixIntTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) !=
-          avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b
+                                                                                                            .getColumnDimension () -
+                                                                                                           1])
       {
         fail ("MatrixInt entry (i,j) not successfully retreived");
       }

@@ -51,9 +51,8 @@ public class CSVIterator implements Iterator <ICommonsList <String>>
   }
 
   /**
-   * Returns <code>true</code> if the iteration has more elements. In other
-   * words, returns <code>true</code> if next() would return an element rather
-   * than throwing an exception.
+   * Returns <code>true</code> if the iteration has more elements. In other words, returns
+   * <code>true</code> if next() would return an element rather than throwing an exception.
    *
    * @return <code>true</code> if this {@link CSVIterator} has more elements.
    */

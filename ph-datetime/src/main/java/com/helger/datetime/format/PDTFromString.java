@@ -75,15 +75,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link ZonedDateTime} from the given string using the specified
-   * pattern.
+   * Parse a {@link ZonedDateTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -92,15 +90,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link ZonedDateTime} from the given string using the specified
-   * formatter.
+   * Parse a {@link ZonedDateTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static ZonedDateTime getZonedDateTimeFromString (@Nullable final String sValue,
@@ -121,15 +117,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetDateTime} from the given string using the specified
-   * pattern.
+   * Parse an {@link OffsetDateTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetDateTime getOffsetDateTimeFromString (@Nullable final String sValue,
@@ -139,15 +133,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetDateTime} from the given string using the specified
-   * formatter.
+   * Parse an {@link OffsetDateTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetDateTime getOffsetDateTimeFromString (@Nullable final String sValue,
@@ -168,15 +160,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetDateTime} from the given string using the
-   * specified pattern.
+   * Parse an {@link XMLOffsetDateTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetDateTime getXMLOffsetDateTimeFromString (@Nullable final String sValue,
@@ -186,15 +176,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetDateTime} from the given string using the
-   * specified formatter.
+   * Parse an {@link XMLOffsetDateTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetDateTime getXMLOffsetDateTimeFromString (@Nullable final String sValue,
@@ -215,16 +203,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDate} from the given string using a locale-specific
-   * default formatter.
+   * Parse a {@link LocalDate} from the given string using a locale-specific default formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aParseLocale
-   *        The locale to use for determining the date format. May be
-   *        <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   *        The locale to use for determining the date format. May be <code>null</code>.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
@@ -236,15 +221,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDate} from the given string using the specified
-   * formatter.
+   * Parse a {@link LocalDate} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
@@ -264,15 +247,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDate} from the given string using the specified
-   * pattern.
+   * Parse a {@link LocalDate} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDate getLocalDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -281,15 +262,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetDate} from the given string using the specified
-   * formatter.
+   * Parse an {@link OffsetDate} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
@@ -309,15 +288,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetDate} from the given string using the specified
-   * pattern.
+   * Parse an {@link OffsetDate} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetDate getOffsetDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -326,15 +303,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetDate} from the given string using the specified
-   * formatter.
+   * Parse an {@link XMLOffsetDate} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetDate getXMLOffsetDateFromString (@Nullable final String sValue,
@@ -355,15 +330,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetDate} from the given string using the specified
-   * pattern.
+   * Parse an {@link XMLOffsetDate} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetDate getXMLOffsetDateFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -372,16 +345,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDateTime} from the given string using a locale-specific
-   * default formatter.
+   * Parse a {@link LocalDateTime} from the given string using a locale-specific default formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aParseLocale
-   *        The locale to use for determining the date time format. May be
-   *        <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   *        The locale to use for determining the date time format. May be <code>null</code>.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
@@ -394,15 +364,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDateTime} from the given string using the specified
-   * formatter.
+   * Parse a {@link LocalDateTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue,
@@ -423,15 +391,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalDateTime} from the given string using the specified
-   * pattern.
+   * Parse a {@link LocalDateTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalDateTime getLocalDateTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -440,16 +406,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalTime} from the given string using a locale-specific
-   * default formatter.
+   * Parse a {@link LocalTime} from the given string using a locale-specific default formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aParseLocale
-   *        The locale to use for determining the time format. May be
-   *        <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   *        The locale to use for determining the time format. May be <code>null</code>.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
@@ -461,15 +424,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalTime} from the given string using the specified
-   * pattern.
+   * Parse a {@link LocalTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -478,15 +439,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse a {@link LocalTime} from the given string using the specified
-   * formatter.
+   * Parse a {@link LocalTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static LocalTime getLocalTimeFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
@@ -506,16 +465,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetTime} from the given string using a locale-specific
-   * default formatter.
+   * Parse an {@link OffsetTime} from the given string using a locale-specific default formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aParseLocale
-   *        The locale to use for determining the time format. May be
-   *        <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   *        The locale to use for determining the time format. May be <code>null</code>.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @Nullable final Locale aParseLocale)
@@ -527,15 +483,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetTime} from the given string using the specified
-   * formatter.
+   * Parse an {@link OffsetTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @NonNull final DateTimeFormatter aDF)
@@ -555,15 +509,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link OffsetTime} from the given string using the specified
-   * pattern.
+   * Parse an {@link OffsetTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static OffsetTime getOffsetTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -572,15 +524,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetTime} from the given string using the specified
-   * formatter.
+   * Parse an {@link XMLOffsetTime} from the given string using the specified formatter.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param aDF
    *        The formatter to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue,
@@ -601,15 +551,13 @@ public final class PDTFromString
   }
 
   /**
-   * Parse an {@link XMLOffsetTime} from the given string using the specified
-   * pattern.
+   * Parse an {@link XMLOffsetTime} from the given string using the specified pattern.
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
    * @param sPattern
    *        The pattern to use for parsing. May not be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code>, empty or
-   *         cannot be parsed.
+   * @return <code>null</code> if the value is <code>null</code>, empty or cannot be parsed.
    */
   @Nullable
   public static XMLOffsetTime getXMLOffsetTimeFromString (@Nullable final String sValue, @NonNull final String sPattern)
@@ -622,8 +570,7 @@ public final class PDTFromString
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code> or cannot be
-   *         parsed.
+   * @return <code>null</code> if the value is <code>null</code> or cannot be parsed.
    */
   @Nullable
   public static Duration getDurationFromString (@Nullable final String sValue)
@@ -644,8 +591,7 @@ public final class PDTFromString
    *
    * @param sValue
    *        The value to parse. May be <code>null</code>.
-   * @return <code>null</code> if the value is <code>null</code> or cannot be
-   *         parsed.
+   * @return <code>null</code> if the value is <code>null</code> or cannot be parsed.
    */
   @Nullable
   public static Period getPeriodFromString (@Nullable final String sValue)

@@ -17,10 +17,9 @@
 package com.helger.scope;
 
 /**
- * This is a marker interface for all objects that should survive a session
- * renewal. When renewing a session, all existing attributes will be checked for
- * this interface and if implementing it, they will be copied to the new
- * session.
+ * This is a marker interface for all objects that should survive a session renewal. When renewing a
+ * session, all existing attributes will be checked for this interface and if implementing it, they
+ * will be copied to the new session.
  *
  * @author Boris Gregorcic
  */

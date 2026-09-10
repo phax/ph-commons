@@ -21,14 +21,15 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.id.IHasID;
 
 /**
- * Simple version of the DAO callback that calls {@link #onChange(IHasID)} for
- * all actions on all items.
+ * Simple version of the DAO callback that calls {@link #onChange(IHasID)} for all actions on all
+ * items.
  *
  * @author Philip Helger
  * @param <INTERFACETYPE>
  *        The interface typed used by the DAO.
  */
-public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>> extends IDAOChangeCallback <INTERFACETYPE>
+public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>> extends
+                                          IDAOChangeCallback <INTERFACETYPE>
 {
   /**
    * Called after an item was created, deleted or changed.
@@ -75,8 +76,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
   }
 
   /**
-   * Called after an item was marked as deleted (but is still present - special
-   * case of update!).
+   * Called after an item was marked as deleted (but is still present - special case of update!).
    *
    * @param aItem
    *        The item that was marked as deleted. Never <code>null</code>.
@@ -91,8 +91,7 @@ public interface IDAOChangeSimpleCallback <INTERFACETYPE extends IHasID <String>
    * Called after an item was marked as undeleted.
    *
    * @param aItem
-   *        The item that was marked as not deleted anymore. Never
-   *        <code>null</code>.
+   *        The item that was marked as not deleted anymore. Never <code>null</code>.
    */
   @Override
   default void onMarkItemUndeleted (@NonNull final INTERFACETYPE aItem)

@@ -48,8 +48,7 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * Generic directory watching service using the default JDK {@link WatchService}
- * class.
+ * Generic directory watching service using the default JDK {@link WatchService} class.
  *
  * @author Philip Helger
  * @since 9.0.0
@@ -84,15 +83,13 @@ public class WatchDir implements AutoCloseable
                                             StandardWatchEventKinds.ENTRY_MODIFY };
 
     // throws exception when using with modifiers even if null
-    final WatchKey aKey = m_aModifiers != null ? aDir.register (m_aWatcher, aKinds, m_aModifiers) : aDir.register (
-                                                                                                                   m_aWatcher,
-                                                                                                                   aKinds);
+    final WatchKey aKey = m_aModifiers != null ? aDir.register (m_aWatcher, aKinds, m_aModifiers)
+                                               : aDir.register (m_aWatcher, aKinds);
     m_aKeys.put (aKey, aDir);
   }
 
   /**
-   * Register the given directory, and all its sub-directories, with the
-   * WatchService.
+   * Register the given directory, and all its sub-directories, with the WatchService.
    *
    * @param aStartDir
    *        The start directory to be iterated. May not be <code>null</code>.
@@ -117,8 +114,8 @@ public class WatchDir implements AutoCloseable
    * @param aDir
    *        The directory to be watched. May not be <code>null</code>.
    * @param bRecursive
-   *        <code>true</code> to watch the directory recursive,
-   *        <code>false</code> to watch just this directory.
+   *        <code>true</code> to watch the directory recursive, <code>false</code> to watch just
+   *        this directory.
    * @throws IOException
    *         In case something goes wrong.
    */
@@ -170,8 +167,7 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * @return The start directory as specified in the constructor. Never
-   *         <code>null</code>.
+   * @return The start directory as specified in the constructor. Never <code>null</code>.
    */
   @NonNull
   public Path getStartDirectory ()
@@ -180,8 +176,7 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * @return <code>true</code> if this is a recursive listener,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if this is a recursive listener, <code>false</code> if not.
    */
   public boolean isRecursive ()
   {
@@ -207,8 +202,8 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * Stop processing, if {@link #processEvents()} is active. This method is
-   * automatically called in {@link #close()}.
+   * Stop processing, if {@link #processEvents()} is active. This method is automatically called in
+   * {@link #close()}.
    */
   public void stopProcessing ()
   {
@@ -218,8 +213,7 @@ public class WatchDir implements AutoCloseable
   /**
    * Check if processing is active.
    *
-   * @return <code>true</code> if event processing is active, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if event processing is active, <code>false</code> if not.
    * @see #processEvents()
    * @see #stopProcessing()
    * @see #close()
@@ -230,10 +224,9 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * Process all events for keys queued to the watcher. Call
-   * {@link #stopProcessing()} or {@link #close()} to stop processing within a
-   * reasonable time. This method should run in a separate thread, as it
-   * contains an infinite loop! Usually you don't call this method manually.
+   * Process all events for keys queued to the watcher. Call {@link #stopProcessing()} or
+   * {@link #close()} to stop processing within a reasonable time. This method should run in a
+   * separate thread, as it contains an infinite loop! Usually you don't call this method manually.
    *
    * @see #runAsync()
    */
@@ -353,8 +346,8 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * Call this method to process events. This method creates a background thread
-   * than runs {@link #processEvents()} and performs the heavy lifting.
+   * Call this method to process events. This method creates a background thread than runs
+   * {@link #processEvents()} and performs the heavy lifting.
    */
   public void runAsync ()
   {
@@ -362,11 +355,10 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * Call this method to process events. This method creates a background thread
-   * than runs {@link #processEvents()} and performs the heavy lifting.
+   * Call this method to process events. This method creates a background thread than runs
+   * {@link #processEvents()} and performs the heavy lifting.
    *
-   * @return The created {@link Thread} that can also be stopped again if not
-   *         needed anymore.
+   * @return The created {@link Thread} that can also be stopped again if not needed anymore.
    * @since 10.1.5
    */
   @NonNull
@@ -380,20 +372,17 @@ public class WatchDir implements AutoCloseable
   }
 
   /**
-   * Static factory method to create a simple {@link WatchDir} instance that
-   * already spawned an Thread to listen. To close the thread call the
-   * {@link WatchDir#close()} method.
+   * Static factory method to create a simple {@link WatchDir} instance that already spawned an
+   * Thread to listen. To close the thread call the {@link WatchDir#close()} method.
    *
    * @param aDir
    *        The directory to be watched. May not be <code>null</code>.
    * @param bRecursive
-   *        <code>true</code> to watch the directory recursive,
-   *        <code>false</code> to watch just this directory.
+   *        <code>true</code> to watch the directory recursive, <code>false</code> to watch just
+   *        this directory.
    * @param aCallback
-   *        The callback to be invoked if something changed. May not be
-   *        <code>null</code>.
-   * @return The newly created {@link WatchDir} instance and never
-   *         <code>null</code>.
+   *        The callback to be invoked if something changed. May not be <code>null</code>.
+   * @return The newly created {@link WatchDir} instance and never <code>null</code>.
    * @throws IOException
    *         In case something goes wrong.
    */

@@ -65,7 +65,9 @@ public class FileIOError implements ISuccessIndicator
    * @param aFile1
    *        The first file relevant to this error. May not be <code>null</code>.
    */
-  public FileIOError (@NonNull final EFileIOOperation eOperation, @NonNull final EFileIOErrorCode eCode, @NonNull final File aFile1)
+  public FileIOError (@NonNull final EFileIOOperation eOperation,
+                      @NonNull final EFileIOErrorCode eCode,
+                      @NonNull final File aFile1)
   {
     this (eOperation, eCode, ValueEnforcer.notNull (aFile1, "File1"), null, null);
   }
@@ -172,8 +174,7 @@ public class FileIOError implements ISuccessIndicator
   }
 
   /**
-   * @return <code>true</code> if the first file is present, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if the first file is present, <code>false</code> if not.
    */
   public boolean hasFile1 ()
   {
@@ -181,8 +182,8 @@ public class FileIOError implements ISuccessIndicator
   }
 
   /**
-   * @return The second file relevant to this error. May be <code>null</code>.
-   *         This field can only be present, if {@link #getFile1()} is present.
+   * @return The second file relevant to this error. May be <code>null</code>. This field can only
+   *         be present, if {@link #getFile1()} is present.
    */
   @Nullable
   public File getFile2 ()
@@ -191,8 +192,7 @@ public class FileIOError implements ISuccessIndicator
   }
 
   /**
-   * @return <code>true</code> if the second file is present, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if the second file is present, <code>false</code> if not.
    */
   public boolean hasFile2 ()
   {
@@ -209,8 +209,7 @@ public class FileIOError implements ISuccessIndicator
   }
 
   /**
-   * @return <code>true</code> if an exception is present, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if an exception is present, <code>false</code> if not.
    */
   public boolean hasException ()
   {

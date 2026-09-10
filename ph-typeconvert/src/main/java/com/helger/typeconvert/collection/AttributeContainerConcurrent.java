@@ -30,8 +30,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsConcurrentHashMap;
 
 /**
- * Base class for all kind of any-any mapping container. This implementation is
- * thread-safe!
+ * Base class for all kind of any-any mapping container. This implementation is thread-safe!
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -40,7 +39,8 @@ import com.helger.collection.commons.CommonsConcurrentHashMap;
  *        Value type
  */
 @ThreadSafe
-public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsConcurrentHashMap <KEYTYPE, VALUETYPE> implements
+public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsConcurrentHashMap <KEYTYPE, VALUETYPE>
+                                          implements
                                           IAttributeContainer <KEYTYPE, VALUETYPE>
 {
   private final transient CallbackList <IBeforeSetValueCallback <KEYTYPE, VALUETYPE>> m_aBeforeCallbacks = new CallbackList <> ();
@@ -64,8 +64,8 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   }
 
   /**
-   * @return The mutable list of callbacks to be invoked before a value is set.
-   *         Never <code>null</code>.
+   * @return The mutable list of callbacks to be invoked before a value is set. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject
@@ -75,8 +75,8 @@ public class AttributeContainerConcurrent <KEYTYPE, VALUETYPE> extends CommonsCo
   }
 
   /**
-   * @return The mutable list of callbacks to be invoked after a value was set.
-   *         Never <code>null</code>.
+   * @return The mutable list of callbacks to be invoked after a value was set. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject

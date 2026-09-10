@@ -104,8 +104,7 @@ public final class Punycode
    *
    * @param s
    *        The string to encode. May be <code>null</code>.
-   * @return The encoded string, or <code>null</code> if the input was
-   *         <code>null</code>.
+   * @return The encoded string, or <code>null</code> if the input was <code>null</code>.
    */
   @Nullable
   public static String getEncoded (@Nullable final String s)
@@ -203,8 +202,7 @@ public final class Punycode
    *
    * @param s
    *        The string to decode. May be <code>null</code>.
-   * @return The decoded string, or <code>null</code> if the input was
-   *         <code>null</code>.
+   * @return The decoded string, or <code>null</code> if the input was <code>null</code>.
    */
   @Nullable
   public static String getDecoded (@Nullable final String s)

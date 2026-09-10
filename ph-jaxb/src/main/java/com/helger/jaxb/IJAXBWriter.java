@@ -489,8 +489,8 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS
-                                                                                                                       .getBuffer ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                         : aBBOS.getBuffer ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getBuffer ();
     }
@@ -510,8 +510,8 @@ public interface IJAXBWriter <JAXBTYPE>
     {
       if (USE_JAXB_CHARSET_FIX)
       {
-        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null : aBBOS
-                                                                                                                       .getAsByteArray ();
+        return write (aObject, SafeXMLStreamWriter.create (aBBOS, getXMLWriterSettings ())).isFailure () ? null
+                                                                                                         : aBBOS.getAsByteArray ();
       }
       return write (aObject, aBBOS).isFailure () ? null : aBBOS.getAsByteArray ();
     }

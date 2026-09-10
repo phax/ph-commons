@@ -299,8 +299,9 @@ public final class MatrixTest
     }
     try
     {
-      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) !=
-          avals[b.getRowDimension () - 1][b.getColumnDimension () - 1])
+      if (b.get (b.getRowDimension () - 1, b.getColumnDimension () - 1) != avals[b.getRowDimension () - 1][b
+                                                                                                            .getColumnDimension () -
+                                                                                                           1])
       {
         fail ("Matrix entry (i,j) not successfully retreived");
       }

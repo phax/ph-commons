@@ -126,8 +126,7 @@ public class URLParameter
    * @param aSB
    *        The StringBuilder to append to. May not be <code>null</code>.
    * @param aQueryParameterEncoder
-   *        An optional encoder for encoding the parameter name and value. May be
-   *        <code>null</code>.
+   *        An optional encoder for encoding the parameter name and value. May be <code>null</code>.
    */
   public void appendTo (@NonNull final StringBuilder aSB,
                         @Nullable final IEncoder <String, String> aQueryParameterEncoder)

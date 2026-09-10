@@ -36,8 +36,8 @@ public interface IMicroDocument extends IMicroNodeWithChildren
   ETriState getStandalone ();
 
   /**
-   * @return <code>true</code> if the document is standalone, <code>false</code>
-   *         if not. The default value is <code>false</code>.
+   * @return <code>true</code> if the document is standalone, <code>false</code> if not. The default
+   *         value is <code>false</code>.
    */
   default boolean isStandalone ()
   {
@@ -57,8 +57,7 @@ public interface IMicroDocument extends IMicroNodeWithChildren
    * Change the standalone state of this document.
    *
    * @param bIsStandalone
-   *        The new value. <code>true</code> for standalone, <code>false</code>
-   *        if not.
+   *        The new value. <code>true</code> for standalone, <code>false</code> if not.
    */
   default void setStandalone (final boolean bIsStandalone)
   {

@@ -30,9 +30,9 @@ import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
 
 /**
- * This is an extension around {@link ReentrantLock} that allows for easy usage
- * with Java 8 :) See {@link #locked(Runnable)} and {@link #locked(Runnable)}
- * method. Also methods for suppliers are available.
+ * This is an extension around {@link ReentrantLock} that allows for easy usage with Java 8 :) See
+ * {@link #locked(Runnable)} and {@link #locked(Runnable)} method. Also methods for suppliers are
+ * available.
  *
  * @author Philip Helger
  */
@@ -102,8 +102,7 @@ public class SimpleLock extends ReentrantLock
   }
 
   /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a read lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -127,8 +126,7 @@ public class SimpleLock extends ReentrantLock
   }
 
   /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a read lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.

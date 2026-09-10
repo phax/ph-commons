@@ -26,9 +26,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 
 /**
- * Interface used in writing XML to determine the real indentation and align (as
- * defined in {@link EXMLSerializeIndent}) that should be used for a single
- * element.
+ * Interface used in writing XML to determine the real indentation and align (as defined in
+ * {@link EXMLSerializeIndent}) that should be used for a single element.
  *
  * @author Philip Helger
  */
@@ -36,12 +35,10 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 public interface IXMLIndentDeterminator
 {
   /**
-   * Determine the outer indentation mode (before the start tag and after the
-   * closing tag).
+   * Determine the outer indentation mode (before the start tag and after the closing tag).
    *
    * @param sParentNamespaceURI
-   *        Optional namespace URI of the parent element (if any). May be
-   *        <code>null</code>.
+   *        Optional namespace URI of the parent element (if any). May be <code>null</code>.
    * @param sParentTagName
    *        Tag name of the parent element (if any). May be <code>null</code>.
    * @param sNamespaceURI
@@ -53,8 +50,8 @@ public interface IXMLIndentDeterminator
    * @param bHasChildren
    *        <code>true</code> if the current element has children
    * @param eDefaultIndent
-   *        The default indentation mode provided by the
-   *        {@link IXMLWriterSettings}. Never <code>null</code>.
+   *        The default indentation mode provided by the {@link IXMLWriterSettings}. Never
+   *        <code>null</code>.
    * @return The indentation mode to be used. May not be <code>null</code>.
    */
   @NonNull
@@ -67,12 +64,10 @@ public interface IXMLIndentDeterminator
                                       @NonNull EXMLSerializeIndent eDefaultIndent);
 
   /**
-   * Determine the outer indentation mode (after the start tag and before the
-   * closing tag).
+   * Determine the outer indentation mode (after the start tag and before the closing tag).
    *
    * @param sParentNamespaceURI
-   *        Optional namespace URI of the parent element (if any). May be
-   *        <code>null</code>.
+   *        Optional namespace URI of the parent element (if any). May be <code>null</code>.
    * @param sParentTagName
    *        Tag name of the parent element (if any). May be <code>null</code>.
    * @param sNamespaceURI
@@ -84,8 +79,8 @@ public interface IXMLIndentDeterminator
    * @param bHasChildren
    *        <code>true</code> if the current element has children
    * @param eDefaultIndent
-   *        The default indentation mode provided by the
-   *        {@link IXMLWriterSettings}. Never <code>null</code>.
+   *        The default indentation mode provided by the {@link IXMLWriterSettings}. Never
+   *        <code>null</code>.
    * @return The indentation mode to be used. May not be <code>null</code>.
    */
   @NonNull

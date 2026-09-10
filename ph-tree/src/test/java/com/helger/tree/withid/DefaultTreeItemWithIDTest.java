@@ -244,7 +244,7 @@ public final class DefaultTreeItemWithIDTest
     t2.getRootItem ().createChildItem ("dataid", "Data");
 
     TestHelper.testDefaultImplementationWithEqualContentObject (t.getRootItem (),
-                                                                       new DefaultTreeWithID <String, String> ().getRootItem ());
+                                                                new DefaultTreeWithID <String, String> ().getRootItem ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (t.getRootItem (), t2.getRootItem ());
   }
 

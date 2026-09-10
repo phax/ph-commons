@@ -99,11 +99,11 @@ public interface IJsonObject extends
   /**
    * Modify the value associated with the provided key by applying the supplied function to the
    * existing value and storing the result. The function receives the current value (which is
-   * <code>null</code> if the key is not present) and returns the new value. If the function
-   * returns <code>null</code>, no change is performed (so the function can opt out of the
-   * replacement). If the function returns a non-<code>null</code> value, that value is associated
-   * with the key. When the key already existed, its original insertion position is preserved.
-   * When the key did not exist, it is appended at the end.
+   * <code>null</code> if the key is not present) and returns the new value. If the function returns
+   * <code>null</code>, no change is performed (so the function can opt out of the replacement). If
+   * the function returns a non-<code>null</code> value, that value is associated with the key. When
+   * the key already existed, its original insertion position is preserved. When the key did not
+   * exist, it is appended at the end.
    *
    * @param sName
    *        The name of the key whose value should be modified. May be <code>null</code>.

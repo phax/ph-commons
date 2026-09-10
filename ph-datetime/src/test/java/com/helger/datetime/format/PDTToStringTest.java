@@ -48,15 +48,13 @@ public final class PDTToStringTest
                   PDTToString.getAsString (PDTFactory.createOffsetDate (2021,
                                                                         Month.FEBRUARY,
                                                                         3,
-                                                                        ZoneOffset.ofHours (1)),
-                                           aDisplayLocale));
+                                                                        ZoneOffset.ofHours (1)), aDisplayLocale));
 
     assertEquals ("Feb 3, 2021 +0100",
                   PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021,
                                                                            Month.FEBRUARY,
                                                                            3,
-                                                                           ZoneOffset.ofHours (1)),
-                                           aDisplayLocale));
+                                                                           ZoneOffset.ofHours (1)), aDisplayLocale));
     assertEquals ("Feb 3, 2021",
                   PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
 
@@ -70,15 +68,13 @@ public final class PDTToStringTest
                   PDTToString.getAsString (PDTFactory.createOffsetDate (2021,
                                                                         Month.FEBRUARY,
                                                                         3,
-                                                                        ZoneOffset.ofHours (1)),
-                                           aDisplayLocale));
+                                                                        ZoneOffset.ofHours (1)), aDisplayLocale));
 
     assertEquals ("03.02.2021 +0100",
                   PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021,
                                                                            Month.FEBRUARY,
                                                                            3,
-                                                                           ZoneOffset.ofHours (1)),
-                                           aDisplayLocale));
+                                                                           ZoneOffset.ofHours (1)), aDisplayLocale));
     assertEquals ("03.02.2021",
                   PDTToString.getAsString (PDTFactory.createXMLOffsetDate (2021, Month.FEBRUARY, 3), aDisplayLocale));
   }
@@ -144,8 +140,7 @@ public final class PDTToStringTest
                                                                               10,
                                                                               45,
                                                                               7,
-                                                                              ZoneOffset.ofHours (1)),
-                                             aDisplayLocale));
+                                                                              ZoneOffset.ofHours (1)), aDisplayLocale));
       assertEquals ("Feb 3, 2021" + sComma + " 10:45:07" + sAmPmSep + "AM +0100",
                     PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021,
                                                                                  Month.FEBRUARY,
@@ -175,8 +170,7 @@ public final class PDTToStringTest
                                                                               10,
                                                                               45,
                                                                               7,
-                                                                              ZoneOffset.ofHours (1)),
-                                             aDisplayLocale));
+                                                                              ZoneOffset.ofHours (1)), aDisplayLocale));
       assertEquals ("03.02.2021, 10:45:07 +0100",
                     PDTToString.getAsString (PDTFactory.createXMLOffsetDateTime (2021,
                                                                                  Month.FEBRUARY,

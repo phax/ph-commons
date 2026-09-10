@@ -64,8 +64,8 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   }
 
   /**
-   * @return The mutable list of callbacks to be invoked before a value is set.
-   *         Never <code>null</code>.
+   * @return The mutable list of callbacks to be invoked before a value is set. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject
@@ -75,8 +75,8 @@ public class AttributeContainer <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMa
   }
 
   /**
-   * @return The mutable list of callbacks to be invoked after a value was set.
-   *         Never <code>null</code>.
+   * @return The mutable list of callbacks to be invoked after a value was set. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject

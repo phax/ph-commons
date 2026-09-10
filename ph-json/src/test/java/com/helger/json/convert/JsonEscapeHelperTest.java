@@ -74,9 +74,7 @@ public final class JsonEscapeHelperTest
       final String sEscaped = JsonEscapeHelper.jsonEscape (sSource);
 
       // The escaped output must not contain the raw control character
-      assertEquals ("Control char 0x" + Integer.toHexString (i) + " was not escaped",
-                    -1,
-                    sEscaped.indexOf ((char) i));
+      assertEquals ("Control char 0x" + Integer.toHexString (i) + " was not escaped", -1, sEscaped.indexOf ((char) i));
 
       // The escaped output must be parseable as a JSON String by a strict-ish
       // reader and round-trip to the original value

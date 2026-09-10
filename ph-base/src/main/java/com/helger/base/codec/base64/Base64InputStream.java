@@ -26,9 +26,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.io.stream.WrappedInputStream;
 
 /**
- * A {@link Base64InputStream} will read data from another
- * <code>InputStream</code>, given in the constructor, and encode/decode to/from
- * Base64 notation on the fly.
+ * A {@link Base64InputStream} will read data from another <code>InputStream</code>, given in the
+ * constructor, and encode/decode to/from Base64 notation on the fly.
  *
  * @see Base64
  * @since 1.3
@@ -102,8 +101,7 @@ public class Base64InputStream extends WrappedInputStream
   }
 
   /**
-   * Reads enough of the input stream to convert to/from Base64 and returns the
-   * next byte.
+   * Reads enough of the input stream to convert to/from Base64 and returns the next byte.
    *
    * @return next byte
    * @since 1.3
@@ -218,9 +216,8 @@ public class Base64InputStream extends WrappedInputStream
   }
 
   /**
-   * Calls {@link #read()} repeatedly until the end of stream is reached or
-   * <em>len</em> bytes are read. Returns number of bytes read into array or -1
-   * if end of stream is encountered.
+   * Calls {@link #read()} repeatedly until the end of stream is reached or <em>len</em> bytes are
+   * read. Returns number of bytes read into array or -1 if end of stream is encountered.
    *
    * @param aDest
    *        array to hold values
@@ -232,7 +229,9 @@ public class Base64InputStream extends WrappedInputStream
    * @since 1.3
    */
   @Override
-  public int read (final byte @NonNull [] aDest, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final byte @NonNull [] aDest,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     int nIndex = 0;
     for (; nIndex < nLen; nIndex++)

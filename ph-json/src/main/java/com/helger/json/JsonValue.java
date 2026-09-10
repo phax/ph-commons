@@ -200,8 +200,7 @@ public class JsonValue implements IJsonValue
   }
 
   /**
-   * {@inheritDoc}
-   * Since {@link JsonValue} is immutable, this returns <code>this</code>.
+   * {@inheritDoc} Since {@link JsonValue} is immutable, this returns <code>this</code>.
    */
   @NonNull
   public JsonValue getClone ()

@@ -116,8 +116,8 @@ public final class SimpleFileIO
    *         if an I/O error occurs reading from the file or a malformed or unmappable byte sequence
    *         is read
    */
-  public static List <String> readAllLines (@NonNull final Path aPath, @NonNull final Charset aCharset)
-                                                                                                        throws IOException
+  public static List <String> readAllLines (@NonNull final Path aPath,
+                                            @NonNull final Charset aCharset) throws IOException
   {
     try (NonBlockingBufferedReader reader = PathHelper.getBufferedReader (aPath, aCharset))
     {

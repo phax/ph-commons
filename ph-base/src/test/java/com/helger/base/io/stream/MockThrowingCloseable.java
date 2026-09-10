@@ -22,8 +22,7 @@ import java.io.IOException;
 import com.helger.base.mock.exception.MockIOException;
 
 /**
- * Mock implementation of the {@link Closeable} interface just throwing a
- * {@link MockIOException}.
+ * Mock implementation of the {@link Closeable} interface just throwing a {@link MockIOException}.
  *
  * @author Philip Helger
  */

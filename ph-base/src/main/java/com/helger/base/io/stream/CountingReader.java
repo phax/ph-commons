@@ -104,8 +104,7 @@ public class CountingReader extends WrappedReader
   }
 
   /**
-   * @return The current position in the input stream (taking skip and
-   *         mark/reset into account)
+   * @return The current position in the input stream (taking skip and mark/reset into account)
    */
   @Nonnegative
   public final long getPosition ()

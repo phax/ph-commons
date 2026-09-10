@@ -34,25 +34,22 @@ import com.helger.datetime.helper.PDTFactory;
 public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
 {
   /**
-   * Check if the provided query date time is between start and end. A
-   * <code>null</code> start means "since forever". A <code>null</code> end
-   * means "until eternity and beyond".
+   * Check if the provided query date time is between start and end. A <code>null</code> start means
+   * "since forever". A <code>null</code> end means "until eternity and beyond".
    *
    * @param aStart
    *        Start date time. May be <code>null</code>.
    * @param bInclStart
-   *        <code>true</code> if "start date time" = "query date time" should be
-   *        a match, <code>false</code> if not.
+   *        <code>true</code> if "start date time" = "query date time" should be a match,
+   *        <code>false</code> if not.
    * @param aEnd
    *        End date time may be <code>null</code>.
    * @param bInclEnd
-   *        <code>true</code> if "end date time" = "query date time" should be a
-   *        match, <code>false</code> if not.
+   *        <code>true</code> if "end date time" = "query date time" should be a match,
+   *        <code>false</code> if not.
    * @param aQuery
-   *        Date time to query whether it is inside or not. May not be
-   *        <code>null</code>.
-   * @return <code>true</code> if query date time &ge; start date time and &le;
-   *         end date time
+   *        Date time to query whether it is inside or not. May not be <code>null</code>.
+   * @return <code>true</code> if query date time &ge; start date time and &le; end date time
    */
   static boolean isInside (@Nullable final LocalDateTime aStart,
                            final boolean bInclStart,
@@ -72,18 +69,16 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if the provided date time is inside this period, assuming that start
-   * and end are included in/part of the range.
+   * Check if the provided date time is inside this period, assuming that start and end are included
+   * in/part of the range.
    *
    * @param bInclBoundaries
-   *        <code>true</code> if "start date" = "query date" should be a match
-   *        i.e. if "end date" = "query date" should be a match,
-   *        <code>false</code> if this should not be a match.
+   *        <code>true</code> if "start date" = "query date" should be a match i.e. if "end date" =
+   *        "query date" should be a match, <code>false</code> if this should not be a match.
    * @param aDate
    *        time Date time to check. May not be <code>null</code>.
    * @return <code>true</code> if it is contained, <code>false</code> otherwise.
-   * @see #isInside(LocalDateTime, boolean, LocalDateTime, boolean,
-   *      LocalDateTime)
+   * @see #isInside(LocalDateTime, boolean, LocalDateTime, boolean, LocalDateTime)
    */
   default boolean isInPeriod (final boolean bInclBoundaries, @NonNull final LocalDateTime aDate)
   {
@@ -91,8 +86,8 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if the provided date time is inside this period, assuming that start
-   * and end are included in/part of the range.
+   * Check if the provided date time is inside this period, assuming that start and end are included
+   * in/part of the range.
    *
    * @param aDateTime
    *        Date time to check. May not be <code>null</code>.
@@ -106,11 +101,10 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if the current date time is inside this period, assuming that start
-   * and end are included in/part of the range.
+   * Check if the current date time is inside this period, assuming that start and end are included
+   * in/part of the range.
    *
-   * @return <code>true</code> if the current date is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the current date is contained, <code>false</code> otherwise.
    * @see #isInPeriod(boolean, LocalDateTime)
    * @see #isInPeriodIncl(LocalDateTime)
    */
@@ -120,8 +114,8 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if the provided date time is inside this period, assuming that start
-   * and end are excluded from/not part of the range.
+   * Check if the provided date time is inside this period, assuming that start and end are excluded
+   * from/not part of the range.
    *
    * @param aDateTime
    *        Date time to check. May not be <code>null</code>.
@@ -135,11 +129,10 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if the current date time is inside this period, assuming that start
-   * and end are excluded from/not part of the range.
+   * Check if the current date time is inside this period, assuming that start and end are excluded
+   * from/not part of the range.
    *
-   * @return <code>true</code> if the current date time is contained,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the current date time is contained, <code>false</code> otherwise.
    * @see #isInPeriod(boolean, LocalDateTime)
    * @see #isInPeriodExcl(LocalDateTime)
    */
@@ -154,19 +147,19 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
    * @param aStart1
    *        Start date of the first range. May be <code>null</code>.
    * @param aEnd1
-   *        End date of the first range. May be <code>null</code> meaning it's
-   *        validity is "until eternity and beyond".
+   *        End date of the first range. May be <code>null</code> meaning it's validity is "until
+   *        eternity and beyond".
    * @param aStart2
    *        Start date of the second range. May be <code>null</code>.
    * @param aEnd2
-   *        End date of the second range. May be <code>null</code> meaning it's
-   *        validity is "until eternity and beyond".
+   *        End date of the second range. May be <code>null</code> meaning it's validity is "until
+   *        eternity and beyond".
    * @param bInclBoundaries
-   *        <code>true</code> if "start date" = "query date" should be a match
-   *        i.e. if "end date time" = "query date time" should be a match,
-   *        <code>false</code> if this should not be a match.
-   * @return <code>true</code> if the 2 ranges have at least one point in time
-   *         (with duration 0) that they share.
+   *        <code>true</code> if "start date" = "query date" should be a match i.e. if "end date
+   *        time" = "query date time" should be a match, <code>false</code> if this should not be a
+   *        match.
+   * @return <code>true</code> if the 2 ranges have at least one point in time (with duration 0)
+   *         that they share.
    */
   static boolean hasOverlap (@Nullable final LocalDateTime aStart1,
                              @Nullable final LocalDateTime aEnd1,
@@ -203,10 +196,9 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
    * @param aPeriod
    *        The period to check against. May not be <code>null</code>.
    * @param bInclBoundaries
-   *        <code>true</code> if boundary matches should count as overlap,
-   *        <code>false</code> if not.
-   * @return <code>true</code> if the periods overlap, <code>false</code>
-   *         otherwise.
+   *        <code>true</code> if boundary matches should count as overlap, <code>false</code> if
+   *        not.
+   * @return <code>true</code> if the periods overlap, <code>false</code> otherwise.
    */
   default boolean isOverlappingWith (@NonNull final ILocalDateTimePeriod aPeriod, final boolean bInclBoundaries)
   {
@@ -214,13 +206,11 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if this period has an overlap with the provided period, including
-   * boundaries.
+   * Check if this period has an overlap with the provided period, including boundaries.
    *
    * @param aPeriod
    *        The period to check against. May not be <code>null</code>.
-   * @return <code>true</code> if the periods overlap, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the periods overlap, <code>false</code> otherwise.
    */
   default boolean isOverlappingWithIncl (@NonNull final ILocalDateTimePeriod aPeriod)
   {
@@ -228,13 +218,11 @@ public interface ILocalDateTimePeriod extends IHasStartAndEnd <LocalDateTime>
   }
 
   /**
-   * Check if this period has an overlap with the provided period, excluding
-   * boundaries.
+   * Check if this period has an overlap with the provided period, excluding boundaries.
    *
    * @param aPeriod
    *        The period to check against. May not be <code>null</code>.
-   * @return <code>true</code> if the periods overlap, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the periods overlap, <code>false</code> otherwise.
    */
   default boolean isOverlappingWithExcl (@NonNull final ILocalDateTimePeriod aPeriod)
   {

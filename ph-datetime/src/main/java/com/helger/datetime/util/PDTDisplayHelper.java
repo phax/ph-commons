@@ -284,15 +284,13 @@ public final class PDTDisplayHelper
   }
 
   /**
-   * Get the period between two local date times as a German human-readable
-   * text.
+   * Get the period between two local date times as a German human-readable text.
    *
    * @param aNowLDT
    *        The start date time. May not be <code>null</code>.
    * @param aNotAfter
    *        The end date time. May not be <code>null</code>.
-   * @return The formatted period text in German. Neither <code>null</code> nor
-   *         empty.
+   * @return The formatted period text in German. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -302,15 +300,13 @@ public final class PDTDisplayHelper
   }
 
   /**
-   * Get the period between two local date times as an English human-readable
-   * text.
+   * Get the period between two local date times as an English human-readable text.
    *
    * @param aNowLDT
    *        The start date time. May not be <code>null</code>.
    * @param aNotAfter
    *        The end date time. May not be <code>null</code>.
-   * @return The formatted period text in English. Neither <code>null</code> nor
-   *         empty.
+   * @return The formatted period text in English. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

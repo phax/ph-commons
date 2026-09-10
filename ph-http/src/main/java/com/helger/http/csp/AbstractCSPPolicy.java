@@ -48,8 +48,7 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   {}
 
   /**
-   * @return <code>true</code> if no directives have been added,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if no directives have been added, <code>false</code> otherwise.
    */
   public boolean isEmpty ()
   {
@@ -57,8 +56,8 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   }
 
   /**
-   * @return <code>true</code> if at least one directive has been added,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one directive has been added, <code>false</code>
+   *         otherwise.
    */
   public boolean isNotEmpty ()
   {
@@ -94,8 +93,8 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
    *
    * @param aDirective
    *        The directive to remove. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the directive was removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the directive was removed, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @NonNull
   public EChange removeDirective (@Nullable final T aDirective)
@@ -108,8 +107,8 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
    *
    * @param nIndex
    *        The index of the directive to remove.
-   * @return {@link EChange#CHANGED} if the directive was removed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the directive was removed, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @NonNull
   public EChange removeDirectiveAtIndex (final int nIndex)
@@ -120,8 +119,8 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   /**
    * Remove all directives from this policy.
    *
-   * @return {@link EChange#CHANGED} if any directives were removed,
-   *         {@link EChange#UNCHANGED} if the policy was already empty.
+   * @return {@link EChange#CHANGED} if any directives were removed, {@link EChange#UNCHANGED} if
+   *         the policy was already empty.
    */
   @NonNull
   public EChange removeAllDirectives ()
@@ -130,9 +129,8 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   }
 
   /**
-   * @return The string representation of this policy suitable for use in an
-   *         HTTP header. Directives are separated by semicolons. Never
-   *         <code>null</code>.
+   * @return The string representation of this policy suitable for use in an HTTP header. Directives
+   *         are separated by semicolons. Never <code>null</code>.
    */
   @NonNull
   public String getAsString ()

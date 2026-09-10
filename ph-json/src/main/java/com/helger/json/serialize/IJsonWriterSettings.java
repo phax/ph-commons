@@ -29,38 +29,37 @@ import com.helger.base.clone.ICloneable;
 public interface IJsonWriterSettings extends ICloneable <IJsonWriterSettings>
 {
   /**
-   * @return <code>true</code> if indentation should be enabled,
-   *         <code>false</code> if not. By default is is disabled.
+   * @return <code>true</code> if indentation should be enabled, <code>false</code> if not. By
+   *         default is is disabled.
    */
   boolean isIdentEnabled ();
 
   /**
-   * @return The string to be used to indent a single level, if indentation is
-   *         enabled. By default this is two spaces.
+   * @return The string to be used to indent a single level, if indentation is enabled. By default
+   *         this is two spaces.
    */
   @NonNull
   @Nonempty
   String getIndentString ();
 
   /**
-   * @return The string to be used as the newline separator. By default it is
-   *         the system newline string.
+   * @return The string to be used as the newline separator. By default it is the system newline
+   *         string.
    */
   @NonNull
   @Nonempty
   String getNewlineString ();
 
   /**
-   * @return <code>true</code> to write a newline at the end of the writing
-   *         process, <code>false</code> to end with the last Json character. By
-   *         default this is disabled.
+   * @return <code>true</code> to write a newline at the end of the writing process,
+   *         <code>false</code> to end with the last Json character. By default this is disabled.
    */
   boolean isWriteNewlineAtEnd ();
 
   /**
-   * @return <code>true</code> if names of objects should be quoted (e.g.
-   *         <code>{ "a" : 1 }</code> compare to <code>{ a : 1 }</code>),
-   *         <code>false</code> otherwise. Default is <code>true</code>.
+   * @return <code>true</code> if names of objects should be quoted (e.g. <code>{ "a" : 1 }</code>
+   *         compare to <code>{ a : 1 }</code>), <code>false</code> otherwise. Default is
+   *         <code>true</code>.
    */
   boolean isQuoteNames ();
 }

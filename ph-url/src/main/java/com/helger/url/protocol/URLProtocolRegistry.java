@@ -65,8 +65,8 @@ public final class URLProtocolRegistry
   }
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -97,7 +97,7 @@ public final class URLProtocolRegistry
     ValueEnforcer.notNull (aProtocol, "Protocol");
 
     final String sProtocol = aProtocol.getProtocol ();
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (m_aProtocols.containsKey (sProtocol))
         throw new IllegalArgumentException ("Another handler for protocol '" + sProtocol + "' is already registered!");
       m_aProtocols.put (sProtocol, aProtocol);
@@ -206,16 +206,15 @@ public final class URLProtocolRegistry
   }
 
   /**
-   * Get the URL with the passed protocol prepended, but only if no known
-   * protocol is already present.
+   * Get the URL with the passed protocol prepended, but only if no known protocol is already
+   * present.
    *
    * @param aProtocol
    *        The protocol to use. May not be <code>null</code>.
    * @param sURL
    *        The URL to check. May be <code>null</code>.
-   * @return <code>null</code> if the input URL is <code>null</code>, the
-   *         original URL if it already has a known protocol, or the URL
-   *         prefixed with the passed protocol.
+   * @return <code>null</code> if the input URL is <code>null</code>, the original URL if it already
+   *         has a known protocol, or the URL prefixed with the passed protocol.
    */
   @Nullable
   public String getWithProtocolIfNone (@NonNull final IURLProtocol aProtocol, @Nullable final String sURL)
@@ -232,7 +231,7 @@ public final class URLProtocolRegistry
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aProtocols.clear ();
 
       // Add all default protocols

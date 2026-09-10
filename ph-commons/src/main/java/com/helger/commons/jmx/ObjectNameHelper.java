@@ -64,7 +64,7 @@ public final class ObjectNameHelper
     ValueEnforcer.isFalse (sDefaultJMXDomain.indexOf (':') >= 0 || sDefaultJMXDomain.indexOf (' ') >= 0,
                            () -> "defaultJMXDomain contains invalid chars: " + sDefaultJMXDomain);
 
-    RW_LOCK.writeLocked ( () -> s_sDefaultJMXDomain = sDefaultJMXDomain);
+    RW_LOCK.writeLocked (() -> s_sDefaultJMXDomain = sDefaultJMXDomain);
   }
 
   /**
@@ -75,12 +75,11 @@ public final class ObjectNameHelper
   @Nonempty
   public static String getDefaultJMXDomain ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_sDefaultJMXDomain);
+    return RW_LOCK.readLockedGet (() -> s_sDefaultJMXDomain);
   }
 
   /**
-   * Create a new {@link ObjectName} using the default JMX domain and the
-   * provided parameters.
+   * Create a new {@link ObjectName} using the default JMX domain and the provided parameters.
    *
    * @param aParams
    *        The JMX properties. May neither be <code>null</code> nor empty.
@@ -102,8 +101,7 @@ public final class ObjectNameHelper
   }
 
   /**
-   * Create a new {@link ObjectName} using the default JMX domain and the
-   * provided parameters map.
+   * Create a new {@link ObjectName} using the default JMX domain and the provided parameters map.
    *
    * @param aParams
    *        The JMX properties. May neither be <code>null</code> nor empty.

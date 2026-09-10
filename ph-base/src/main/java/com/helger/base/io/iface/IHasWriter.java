@@ -31,8 +31,8 @@ import com.helger.base.io.stream.StreamHelper;
 public interface IHasWriter
 {
   /**
-   * Get the writer to write to an object. Each time this method is call, a new
-   * {@link Writer} needs to be created!
+   * Get the writer to write to an object. Each time this method is call, a new {@link Writer} needs
+   * to be created!
    *
    * @return <code>null</code> if resolving failed.
    */
@@ -40,8 +40,8 @@ public interface IHasWriter
   Writer getWriter ();
 
   /**
-   * Get a buffered writer to write to an object. Each time this method is call,
-   * a new {@link Writer} needs to be created!
+   * Get a buffered writer to write to an object. Each time this method is call, a new
+   * {@link Writer} needs to be created!
    *
    * @return <code>null</code> if resolving failed.
    * @since 9.1.8

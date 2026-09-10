@@ -40,8 +40,7 @@ public class LoggingOutputStream extends WrappedOutputStream
 
   /**
    * @param aSourceOS
-   *        The output stream that should be logged. May not be
-   *        <code>null</code>.
+   *        The output stream that should be logged. May not be <code>null</code>.
    */
   public LoggingOutputStream (@NonNull final OutputStream aSourceOS)
   {

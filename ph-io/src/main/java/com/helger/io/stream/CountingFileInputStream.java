@@ -28,17 +28,17 @@ import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.impl.StatisticsManager;
 
 /**
- * A special {@link FileInputStream} sub class that keeps track of all read
- * bytes for the statistics handler.
+ * A special {@link FileInputStream} sub class that keeps track of all read bytes for the statistics
+ * handler.
  *
  * @author Philip Helger
  */
 public class CountingFileInputStream extends FileInputStream
 {
   private static final IMutableStatisticsHandlerSize STATS_READ_SIZE = StatisticsManager.getSizeHandler (CountingFileInputStream.class.getName () +
-                                                                                                        "$read.bytes");
+                                                                                                         "$read.bytes");
   private static final IMutableStatisticsHandlerCounter STATS_READ_FILES = StatisticsManager.getCounterHandler (CountingFileInputStream.class.getName () +
-                                                                                                               "$read.files");
+                                                                                                                "$read.files");
 
   /**
    * Create a counting file input stream for the passed file.

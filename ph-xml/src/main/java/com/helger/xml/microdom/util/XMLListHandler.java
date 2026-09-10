@@ -80,8 +80,7 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aISP
-   *        The input stream provider to read from. May not be
-   *        <code>null</code>.
+   *        The input stream provider to read from. May not be <code>null</code>.
    * @return <code>null</code> if reading fails - all list items otherwise.
    */
   @Nullable
@@ -97,12 +96,10 @@ public final class XMLListHandler
    * Read a predefined XML file that contains list items.
    *
    * @param aISP
-   *        The input stream provider to read from. May not be
-   *        <code>null</code>.
+   *        The input stream provider to read from. May not be <code>null</code>.
    * @param aTargetList
    *        The target collection to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess readList (@NonNull final IHasInputStream aISP, @NonNull final Collection <String> aTargetList)
@@ -175,8 +172,7 @@ public final class XMLListHandler
    *        The parent element to read from. May not be <code>null</code>.
    * @param aTargetList
    *        The target collection to be filled. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if reading succeeded,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess readList (@NonNull final IMicroElement aParentElement,
@@ -234,8 +230,7 @@ public final class XMLListHandler
    *        The collection to be written. May not be <code>null</code>.
    * @param aOSP
    *        The output stream provider. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} when everything went well,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} when everything went well, {@link ESuccess#FAILURE} otherwise.
    */
   @NonNull
   public static ESuccess writeList (@NonNull final Collection <String> aCollection,

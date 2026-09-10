@@ -25,8 +25,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.UsedInGeneratedCode;
 
 /**
- * Helper class providing various methods for comparing objects by identity, by
- * value, and for arrays of all primitive types.
+ * Helper class providing various methods for comparing objects by identity, by value, and for
+ * arrays of all primitive types.
  *
  * @author Philip Helger
  */

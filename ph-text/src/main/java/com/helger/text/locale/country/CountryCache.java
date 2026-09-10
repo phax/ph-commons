@@ -94,8 +94,8 @@ public class CountryCache implements IHasConditionalLogger
   }
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -122,7 +122,7 @@ public class CountryCache implements IHasConditionalLogger
     ValueEnforcer.isTrue (sValidCountry != null, () -> "illegal country code '" + sCountry + "'");
     ValueEnforcer.isTrue (sCountry.equals (sValidCountry), () -> "invalid casing of '" + sCountry + "'");
 
-    return m_aRWLock.writeLockedGet ( () -> m_aCountries.addObject (sValidCountry));
+    return m_aRWLock.writeLockedGet (() -> m_aCountries.addObject (sValidCountry));
   }
 
   /**
@@ -192,8 +192,8 @@ public class CountryCache implements IHasConditionalLogger
       return null;
 
     final LocaleCache aLC = LocaleCache.getInstance ();
-    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler : aLC
-                                                                                      .getDefaultMissingLocaleHandler ();
+    final IMissingLocaleHandler aMLH = aMissingHandler != null ? aMissingHandler
+                                                               : aLC.getDefaultMissingLocaleHandler ();
 
     // Was something like "_AT" (e.g. the result of getCountry (...).toString
     // ()) passed in? -> indirect recursion
@@ -202,7 +202,7 @@ public class CountryCache implements IHasConditionalLogger
 
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (!containsCountry (sValidCountry))
-      CONDLOG.warn ( () -> "Trying to retrieve unsupported country '" + sCountry + "'");
+      CONDLOG.warn (() -> "Trying to retrieve unsupported country '" + sCountry + "'");
 
     // And use the locale cache
     return aLC.getLocale ("", sValidCountry, "", aMLH);
@@ -225,7 +225,7 @@ public class CountryCache implements IHasConditionalLogger
   @ReturnsMutableCopy
   public ICommonsSet <Locale> getAllCountryLocales ()
   {
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       final LocaleCache aLC = LocaleCache.getInstance ();
       return new CommonsHashSet <> (m_aCountries, sCountry -> aLC.getLocale ("", sCountry, ""));
     });
@@ -258,7 +258,7 @@ public class CountryCache implements IHasConditionalLogger
     final String sValidCountry = LocaleHelper.getValidCountryCode (sCountry);
     if (sValidCountry == null)
       return false;
-    return m_aRWLock.readLockedBoolean ( () -> m_aCountries.contains (sValidCountry));
+    return m_aRWLock.readLockedBoolean (() -> m_aCountries.contains (sValidCountry));
   }
 
   /**
@@ -273,6 +273,6 @@ public class CountryCache implements IHasConditionalLogger
       if (StringHelper.isNotEmpty (sCountry))
         addCountry (sCountry);
     }
-    CONDLOG.debug ( () -> "Reinitialized " + getClass ().getName ());
+    CONDLOG.debug (() -> "Reinitialized " + getClass ().getName ());
   }
 }

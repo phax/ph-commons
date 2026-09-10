@@ -103,13 +103,11 @@ public class AcceptLanguageList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed language is supported. Supported means the quality is
-   * &gt; 0.
+   * Check if the passed language is supported. Supported means the quality is &gt; 0.
    *
    * @param sLanguage
    *        The language to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the language is supported, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if the language is supported, <code>false</code> if not.
    */
   public boolean supportsLanguage (@NonNull final String sLanguage)
   {
@@ -117,13 +115,12 @@ public class AcceptLanguageList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed language is explicitly supported (without wildcard
-   * fallback). Supported means the quality is &gt; 0.
+   * Check if the passed language is explicitly supported (without wildcard fallback). Supported
+   * means the quality is &gt; 0.
    *
    * @param sLanguage
    *        The language to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the language is explicitly supported,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the language is explicitly supported, <code>false</code> if not.
    */
   public boolean explicitlySupportsLanguage (@NonNull final String sLanguage)
   {

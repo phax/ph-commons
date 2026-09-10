@@ -28,10 +28,9 @@ import com.helger.base.id.factory.GlobalIDFactory;
 import com.helger.base.id.factory.IIDFactory;
 
 /**
- * Factory class that handles the generation of graph object IDs. It allows to
- * provide another ID factory. If no custom ID factory is present (which is the
- * default), {@link GlobalIDFactory#getNewStringID()} is used to create Graph
- * object IDs.
+ * Factory class that handles the generation of graph object IDs. It allows to provide another ID
+ * factory. If no custom ID factory is present (which is the default),
+ * {@link GlobalIDFactory#getNewStringID()} is used to create Graph object IDs.
  *
  * @author Philip Helger
  */
@@ -49,31 +48,30 @@ public final class GraphObjectIDFactory
   {}
 
   /**
-   * @return The custom ID factory if defined. May be <code>null</code> if no
-   *         custom ID factory is set.
+   * @return The custom ID factory if defined. May be <code>null</code> if no custom ID factory is
+   *         set.
    */
   @Nullable
   public static IIDFactory <String> getIDFactory ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aIDFactory);
+    return RW_LOCK.readLockedGet (() -> s_aIDFactory);
   }
 
   /**
    * Set a custom ID factory.
    *
    * @param aIDFactory
-   *        The new ID factory to use. May be <code>null</code> to indicate that
-   *        the default should be used.
+   *        The new ID factory to use. May be <code>null</code> to indicate that the default should
+   *        be used.
    */
   public static void setIDFactory (@Nullable final IIDFactory <String> aIDFactory)
   {
-    RW_LOCK.writeLocked ( () -> s_aIDFactory = aIDFactory);
+    RW_LOCK.writeLocked (() -> s_aIDFactory = aIDFactory);
   }
 
   /**
-   * Get a new ID for a graph object. If a custom ID factory is defined, the ID
-   * is retrieved from there. Otherwise the ID is retrieved from
-   * {@link GlobalIDFactory}.
+   * Get a new ID for a graph object. If a custom ID factory is defined, the ID is retrieved from
+   * there. Otherwise the ID is retrieved from {@link GlobalIDFactory}.
    *
    * @return A new graph object ID. Never <code>null</code>.
    */
@@ -81,6 +79,7 @@ public final class GraphObjectIDFactory
   @Nonempty
   public static String createNewGraphObjectID ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aIDFactory != null ? s_aIDFactory.getNewID () : GlobalIDFactory.getNewStringID ());
+    return RW_LOCK.readLockedGet (() -> s_aIDFactory != null ? s_aIDFactory.getNewID ()
+                                                             : GlobalIDFactory.getNewStringID ());
   }
 }

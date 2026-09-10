@@ -81,7 +81,7 @@ public final class ConfigFactoryJsonTest
 
     // get all
     final ICommonsList <IConfigurationValueProvider> aCVPs = new CommonsArrayList <> ();
-    aConfig.forEachConfigurationValueProvider ( (cvp, prio) -> aCVPs.add (cvp));
+    aConfig.forEachConfigurationValueProvider ((cvp, prio) -> aCVPs.add (cvp));
     assertEquals (7, aCVPs.size ());
     assertTrue (aCVPs.get (0) instanceof ConfigurationSourceSystemProperty);
     assertTrue (aCVPs.get (1) instanceof ConfigurationSourceEnvVar);

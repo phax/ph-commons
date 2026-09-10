@@ -32,8 +32,8 @@ import com.helger.settings.ISettings;
 import com.helger.typeconvert.trait.IGetterByKeyTrait;
 
 /**
- * A configuration file that consists of a readable resource that backed the
- * settings and the main {@link ISettings} object.
+ * A configuration file that consists of a readable resource that backed the settings and the main
+ * {@link ISettings} object.
  *
  * @author Philip Helger
  */
@@ -60,8 +60,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * @return <code>true</code> if reading succeeded, <code>false</code> if
-   *         reading failed (warning was already logged)
+   * @return <code>true</code> if reading succeeded, <code>false</code> if reading failed (warning
+   *         was already logged)
    */
   public boolean isRead ()
   {
@@ -69,8 +69,8 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * @return The resource from which the config file was read. May be
-   *         <code>null</code> if reading failed.
+   * @return The resource from which the config file was read. May be <code>null</code> if reading
+   *         failed.
    */
   @Nullable
   public IReadableResource getReadResource ()
@@ -79,8 +79,7 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * @return The underlying {@link ISettings} object. May be <code>null</code>
-   *         if reading failed.
+   * @return The underlying {@link ISettings} object. May be <code>null</code> if reading failed.
    */
   @Nullable
   public ISettings getSettings ()
@@ -96,8 +95,7 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * @return A mutable copy of all entries contained in the configuration. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all entries contained in the configuration. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -109,10 +107,9 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * This is a utility method, that takes the provided property names, checks if
-   * they are defined in the configuration and if so, applies applies them as
-   * System properties. It does it only when the configuration file was read
-   * correctly.
+   * This is a utility method, that takes the provided property names, checks if they are defined in
+   * the configuration and if so, applies applies them as System properties. It does it only when
+   * the configuration file was read correctly.
    *
    * @param aPropertyNames
    *        The property names to consider.
@@ -133,9 +130,9 @@ public class ConfigFile implements IGetterByKeyTrait <String>
   }
 
   /**
-   * This is a utility method, that applies all Java network/proxy system
-   * properties which are present in this configuration file. It does it only
-   * when the configuration file was read correctly.
+   * This is a utility method, that applies all Java network/proxy system properties which are
+   * present in this configuration file. It does it only when the configuration file was read
+   * correctly.
    *
    * @see SystemProperties#getAllJavaNetSystemProperties()
    */

@@ -53,11 +53,11 @@ import com.helger.datetime.xml.XMLOffsetTime;
 import com.helger.datetime.zone.PDTConfig;
 
 /**
- * Philip's Date Time (PDT) factory. Create and convert different date and time
- * stuff into each other. Everything that creates a {@link ZonedDateTime},
- * {@link OffsetDateTime}, {@link OffsetDate} or {@link OffsetTime} uses the
- * default time zone from {@link PDTConfig} if necessary. The addition "UTC" to
- * the name of the method indicates the explicit usage of the UTC time zone.
+ * Philip's Date Time (PDT) factory. Create and convert different date and time stuff into each
+ * other. Everything that creates a {@link ZonedDateTime}, {@link OffsetDateTime},
+ * {@link OffsetDate} or {@link OffsetTime} uses the default time zone from {@link PDTConfig} if
+ * necessary. The addition "UTC" to the name of the method indicates the explicit usage of the UTC
+ * time zone.
  *
  * @author Philip Helger
  */
@@ -79,8 +79,7 @@ public final class PDTFactory
    *
    * @param a
    *        The date to use. May not be <code>null</code>.
-   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes
-   *         steps :)
+   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes steps :)
    */
   @SuppressWarnings ("deprecation")
   public static int getTimezoneOffsetInMinutes (@NonNull final Date a)
@@ -102,14 +101,12 @@ public final class PDTFactory
   }
 
   /**
-   * Get the standard timezone offset in minutes of the passed zone at the
-   * given instant.
+   * Get the standard timezone offset in minutes of the passed zone at the given instant.
    *
    * @param aZID
    *        The zone ID to use. May not be <code>null</code>.
    * @param aAt
-   *        The instant at which to determine the offset. May not be
-   *        <code>null</code>.
+   *        The instant at which to determine the offset. May not be <code>null</code>.
    * @return The timezone offset in minutes.
    */
   public static int getTimezoneOffsetInMinutes (@NonNull final ZoneId aZID, @NonNull final Instant aAt)
@@ -204,8 +201,7 @@ public final class PDTFactory
   // To ZonedDateTime
 
   /**
-   * @return The current {@link ZonedDateTime} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link ZonedDateTime} in the default time zone. Never <code>null</code>.
    */
   @NonNull
   public static ZonedDateTime getCurrentZonedDateTime ()
@@ -223,14 +219,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed date time but with micro and nanoseconds set to 0, so that
-   * only the milliseconds part is present. This is helpful for XSD
-   * serialization, where only milliseconds granularity is available.
+   * Get the passed date time but with micro and nanoseconds set to 0, so that only the milliseconds
+   * part is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source date time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local date time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    * @since 9.2.0
    */
   @Nullable
@@ -240,10 +236,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    * @since 9.2.0
    */
   @Nonnegative
@@ -253,10 +248,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static ZonedDateTime getCurrentZonedDateTimeMillisOnlyUTC ()
@@ -356,8 +350,9 @@ public final class PDTFactory
   @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final XMLOffsetDate aOD)
   {
-    return aOD == null ? null : ZonedDateTime.of (aOD.toLocalDate ().atStartOfDay (),
-                                                  aOD.hasOffset () ? aOD.getOffset () : _getZoneId ());
+    return aOD == null ? null
+                       : ZonedDateTime.of (aOD.toLocalDate ().atStartOfDay (),
+                                           aOD.hasOffset () ? aOD.getOffset () : _getZoneId ());
   }
 
   /**
@@ -684,8 +679,7 @@ public final class PDTFactory
   // To OffsetDateTime
 
   /**
-   * @return The current {@link OffsetDateTime} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link OffsetDateTime} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static OffsetDateTime getCurrentOffsetDateTime ()
@@ -703,14 +697,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed date time but with micro and nanoseconds set to 0, so that
-   * only the milliseconds part is present. This is helpful for XSD
-   * serialization, where only milliseconds granularity is available.
+   * Get the passed date time but with micro and nanoseconds set to 0, so that only the milliseconds
+   * part is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source date time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local date time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    * @since 9.2.0
    */
   @Nullable
@@ -720,10 +714,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    * @since 9.2.0
    */
   @Nonnegative
@@ -733,10 +726,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static OffsetDateTime getCurrentOffsetDateTimeMillisOnlyUTC ()
@@ -1201,8 +1193,8 @@ public final class PDTFactory
   // To XMLOffsetDateTime
 
   /**
-   * @return The current {@link XMLOffsetDateTime} in the default time zone.
-   *         Never <code>null</code>.
+   * @return The current {@link XMLOffsetDateTime} in the default time zone. Never
+   *         <code>null</code>.
    */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTime ()
@@ -1211,8 +1203,7 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current {@link XMLOffsetDateTime} in UTC. Never
-   *         <code>null</code>.
+   * @return The current {@link XMLOffsetDateTime} in UTC. Never <code>null</code>.
    */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeUTC ()
@@ -1221,14 +1212,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed date time but with micro and nanoseconds set to 0, so that
-   * only the milliseconds part is present. This is helpful for XSD
-   * serialization, where only milliseconds granularity is available.
+   * Get the passed date time but with micro and nanoseconds set to 0, so that only the milliseconds
+   * part is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source date time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local date time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    */
   @Nullable
   public static XMLOffsetDateTime getWithMillisOnly (@Nullable final XMLOffsetDateTime a)
@@ -1237,10 +1228,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeMillisOnly ()
@@ -1249,10 +1239,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeMillisOnlyUTC ()
@@ -1714,8 +1703,7 @@ public final class PDTFactory
   // To LocalDateTime
 
   /**
-   * @return The current {@link LocalDateTime} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link LocalDateTime} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static LocalDateTime getCurrentLocalDateTime ()
@@ -1733,14 +1721,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed date time but with micro and nanoseconds set to 0, so that
-   * only the milliseconds part is present. This is helpful for XSD
-   * serialization, where only milliseconds granularity is available.
+   * Get the passed date time but with micro and nanoseconds set to 0, so that only the milliseconds
+   * part is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source date time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         date time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local date time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    * @since 9.2.0
    */
   @Nullable
@@ -1750,10 +1738,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    * @since 9.2.0
    */
   @Nonnegative
@@ -1763,10 +1750,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local date and time but with micro and nanoseconds set
-   *         to 0, so that only the milliseconds part is present. This is
-   *         helpful for XSD serialization, where only milliseconds granularity
-   *         is available.
+   * @return The current local date and time but with micro and nanoseconds set to 0, so that only
+   *         the milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static LocalDateTime getCurrentLocalDateTimeMillisOnlyUTC ()
@@ -1868,8 +1854,7 @@ public final class PDTFactory
   }
 
   /**
-   * Create a {@link LocalDateTime} from the passed {@link Year}. Day is set to 1, time to
-   * midnight.
+   * Create a {@link LocalDateTime} from the passed {@link Year}. Day is set to 1, time to midnight.
    *
    * @param a
    *        The year to convert. May be <code>null</code>.
@@ -1888,8 +1873,8 @@ public final class PDTFactory
   }
 
   /**
-   * Create a {@link LocalDateTime} from the passed {@link LocalTime}. The date is set to epoch
-   * day 0.
+   * Create a {@link LocalDateTime} from the passed {@link LocalTime}. The date is set to epoch day
+   * 0.
    *
    * @param a
    *        The local time to convert. May be <code>null</code>.
@@ -1902,8 +1887,8 @@ public final class PDTFactory
   }
 
   /**
-   * Create a {@link LocalDateTime} from the passed {@link OffsetTime}. The date is set to epoch
-   * day 0.
+   * Create a {@link LocalDateTime} from the passed {@link OffsetTime}. The date is set to epoch day
+   * 0.
    *
    * @param a
    *        The offset time to convert. May be <code>null</code>.
@@ -2088,8 +2073,7 @@ public final class PDTFactory
   // To LocalDate
 
   /**
-   * @return The current {@link LocalDate} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link LocalDate} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static LocalDate getCurrentLocalDate ()
@@ -2284,8 +2268,7 @@ public final class PDTFactory
   // To OffsetDate
 
   /**
-   * @return The current {@link OffsetDate} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link OffsetDate} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static OffsetDate getCurrentOffsetDate ()
@@ -2559,8 +2542,7 @@ public final class PDTFactory
   // To XMLOffsetDate
 
   /**
-   * @return The current {@link XMLOffsetDate} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link XMLOffsetDate} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static XMLOffsetDate getCurrentXMLOffsetDate ()
@@ -2823,8 +2805,7 @@ public final class PDTFactory
   // LocalTime
 
   /**
-   * @return The current {@link LocalTime} in the default time zone. Never
-   *         <code>null</code>.
+   * @return The current {@link LocalTime} in the default time zone. Never <code>null</code>.
    */
   @Nonnegative
   public static LocalTime getCurrentLocalTime ()
@@ -2842,14 +2823,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed time but with micro and nanoseconds set to 0, so that only
-   * the milliseconds part is present. This is helpful for XSD serialization,
-   * where only milliseconds granularity is available.
+   * Get the passed time but with micro and nanoseconds set to 0, so that only the milliseconds part
+   * is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    * @since 9.4.7
    */
   @Nullable
@@ -2859,9 +2840,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    * @since 9.4.7
    */
   @Nonnegative
@@ -2871,9 +2852,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static LocalTime getCurrentLocalTimeMillisOnlyUTC ()
@@ -3011,14 +2992,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed time but with micro and nanoseconds set to 0, so that only
-   * the milliseconds part is present. This is helpful for XSD serialization,
-   * where only milliseconds granularity is available.
+   * Get the passed time but with micro and nanoseconds set to 0, so that only the milliseconds part
+   * is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    * @since 10.0.0
    */
   @Nullable
@@ -3028,9 +3009,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    * @since 9.4.7
    */
   @Nonnegative
@@ -3040,9 +3021,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static OffsetTime getCurrentOffsetTimeMillisOnlyUTC ()
@@ -3228,14 +3209,14 @@ public final class PDTFactory
   }
 
   /**
-   * Get the passed time but with micro and nanoseconds set to 0, so that only
-   * the milliseconds part is present. This is helpful for XSD serialization,
-   * where only milliseconds granularity is available.
+   * Get the passed time but with micro and nanoseconds set to 0, so that only the milliseconds part
+   * is present. This is helpful for XSD serialization, where only milliseconds granularity is
+   * available.
    *
    * @param a
    *        Source time. May be <code>null</code>.
-   * @return <code>null</code> if the parameter is <code>null</code>, the local
-   *         time with microseconds and nanoseconds set to 0 otherwise.
+   * @return <code>null</code> if the parameter is <code>null</code>, the local time with
+   *         microseconds and nanoseconds set to 0 otherwise.
    */
   @Nullable
   public static XMLOffsetTime getWithMillisOnly (@Nullable final XMLOffsetTime a)
@@ -3244,9 +3225,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static XMLOffsetTime getCurrentXMLOffsetTimeMillisOnly ()
@@ -3255,9 +3236,9 @@ public final class PDTFactory
   }
 
   /**
-   * @return The current local time but with micro and nanoseconds set to 0, so
-   *         that only the milliseconds part is present. This is helpful for XSD
-   *         serialization, where only milliseconds granularity is available.
+   * @return The current local time but with micro and nanoseconds set to 0, so that only the
+   *         milliseconds part is present. This is helpful for XSD serialization, where only
+   *         milliseconds granularity is available.
    */
   @Nonnegative
   public static XMLOffsetTime getCurrentXMLOffsetTimeMillisOnlyUTC ()

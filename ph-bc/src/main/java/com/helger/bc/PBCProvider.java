@@ -37,15 +37,14 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 public final class PBCProvider
 {
   /**
-   * Special provider name for the non-FIPS version of BouncyCastle. Certain
-   * APIs take the provider name instead of the object. The constant is here for
-   * the sake of completeness only.
+   * Special provider name for the non-FIPS version of BouncyCastle. Certain APIs take the provider
+   * name instead of the object. The constant is here for the sake of completeness only.
    */
   public static final String PROVIDER_NAME_BC = BouncyCastleProvider.PROVIDER_NAME;
 
   /**
-   * Special provider name for the FIPS version of BouncyCastle. As there is no
-   * Maven artefact, the constant is here for the sake of completeness only.
+   * Special provider name for the FIPS version of BouncyCastle. As there is no Maven artefact, the
+   * constant is here for the sake of completeness only.
    */
   public static final String PROVIDER_NAME_BC_FIPS = "BCFIPS";
 
@@ -84,8 +83,7 @@ public final class PBCProvider
   {}
 
   /**
-   * @return The non-<code>null</code> BouncyCastleProvider instance. Never
-   *         <code>null</code>.
+   * @return The non-<code>null</code> BouncyCastleProvider instance. Never <code>null</code>.
    */
   @NonNull
   public static Provider getProvider ()

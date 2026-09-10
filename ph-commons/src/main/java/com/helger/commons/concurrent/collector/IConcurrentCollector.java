@@ -26,8 +26,7 @@ import com.helger.annotation.Nonnegative;
 public interface IConcurrentCollector
 {
   /**
-   * @return <code>true</code> if the queue is empty, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the queue is empty, <code>false</code> otherwise.
    */
   boolean isQueueEmpty ();
 
@@ -40,8 +39,7 @@ public interface IConcurrentCollector
   /**
    * Check if this collector is already stopped.
    *
-   * @return <code>true</code> if the collector is stopped, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the collector is stopped, <code>false</code> otherwise.
    */
   boolean isStopped ();
 }

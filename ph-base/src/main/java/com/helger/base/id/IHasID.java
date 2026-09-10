@@ -31,9 +31,8 @@ import org.jspecify.annotations.NonNull;
 public interface IHasID <IDTYPE>
 {
   /**
-   * Get the unique ID of this object. If the type is {@link String} than the
-   * returned value must match an XML NMToken expression (so e.g. no ':' in the
-   * ID)!
+   * Get the unique ID of this object. If the type is {@link String} than the returned value must
+   * match an XML NMToken expression (so e.g. no ':' in the ID)!
    *
    * @return The ID of this object. May not be <code>null</code>.
    */

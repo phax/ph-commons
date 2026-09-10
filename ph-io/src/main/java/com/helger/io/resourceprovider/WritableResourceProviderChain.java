@@ -47,8 +47,8 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
    * Constructor with a varargs array of resource providers.
    *
    * @param aResProviders
-   *        The resource providers to use. May neither be <code>null</code> nor
-   *        empty. At least one must implement {@link IWritableResourceProvider}.
+   *        The resource providers to use. May neither be <code>null</code> nor empty. At least one
+   *        must implement {@link IWritableResourceProvider}.
    */
   public WritableResourceProviderChain (@NonNull final IReadableResourceProvider... aResProviders)
   {
@@ -66,8 +66,8 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
    * Constructor with an iterable of resource providers.
    *
    * @param aResProviders
-   *        The resource providers to use. May neither be <code>null</code> nor
-   *        empty. At least one must implement {@link IWritableResourceProvider}.
+   *        The resource providers to use. May neither be <code>null</code> nor empty. At least one
+   *        must implement {@link IWritableResourceProvider}.
    */
   public WritableResourceProviderChain (@NonNull final Iterable <? extends IReadableResourceProvider> aResProviders)
   {
@@ -82,8 +82,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   }
 
   /**
-   * @return A copy of all contained writable resource providers. Never
-   *         <code>null</code>.
+   * @return A copy of all contained writable resource providers. Never <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -125,8 +124,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
    * @param sName
    *        The name of the resource to resolve. May not be <code>null</code>.
    * @param aReturnFilter
-   *        The filter to apply on found resources. May not be
-   *        <code>null</code>.
+   *        The filter to apply on found resources. May not be <code>null</code>.
    * @return <code>null</code> if no matching resource was found.
    */
   @Nullable

@@ -33,14 +33,13 @@ import com.helger.io.resource.IReadableResource;
 public interface IReadableResourceProvider
 {
   /**
-   * Check if this resource provider can handle the resource with the passed
-   * name. If there is no real check on whether your resource provider can
-   * handle it, simply return <code>true</code>.
+   * Check if this resource provider can handle the resource with the passed name. If there is no
+   * real check on whether your resource provider can handle it, simply return <code>true</code>.
    *
    * @param sName
    *        The name to check. May be <code>null</code>.
-   * @return <code>true</code> if the name is not <code>null</code> and can be
-   *         handled by this provider, <code>false</code> otherwise.
+   * @return <code>true</code> if the name is not <code>null</code> and can be handled by this
+   *         provider, <code>false</code> otherwise.
    */
   boolean supportsReading (@Nullable String sName);
 
@@ -55,15 +54,13 @@ public interface IReadableResourceProvider
   IReadableResource getReadableResource (@NonNull String sName);
 
   /**
-   * Get the {@link InputStream} specified by the given name for reading. This
-   * method may be called without prior call to
-   * {@link #supportsReading(String)}.
+   * Get the {@link InputStream} specified by the given name for reading. This method may be called
+   * without prior call to {@link #supportsReading(String)}.
    *
    * @param sName
    *        The name of the resource to resolve.
-   * @return The {@link InputStream}. May be <code>null</code> if the underlying
-   *         resource does not exist or if {@link #supportsReading(String)}
-   *         returns <code>false</code>.
+   * @return The {@link InputStream}. May be <code>null</code> if the underlying resource does not
+   *         exist or if {@link #supportsReading(String)} returns <code>false</code>.
    */
   @Nullable
   default InputStream getInputStream (@NonNull final String sName)

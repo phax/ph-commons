@@ -34,8 +34,7 @@ import com.helger.collection.commons.ICommonsCollection;
 import com.helger.collection.commons.ICommonsIterable;
 
 /**
- * Root class for a simple tree. The elements of the tree are not sorted by any
- * means.
+ * Root class for a simple tree. The elements of the tree are not sorted by any means.
  *
  * @author Philip Helger
  * @param <DATATYPE>

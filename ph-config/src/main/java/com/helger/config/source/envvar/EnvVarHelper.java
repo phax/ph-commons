@@ -38,8 +38,7 @@ public final class EnvVarHelper
   {}
 
   /**
-   * Check if the provided character is a valid first character for an
-   * environment variable.
+   * Check if the provided character is a valid first character for an environment variable.
    *
    * @param c
    *        The character to check
@@ -51,8 +50,8 @@ public final class EnvVarHelper
   }
 
   /**
-   * Check if the provided character is a valid second or following character
-   * for an environment variable.
+   * Check if the provided character is a valid second or following character for an environment
+   * variable.
    *
    * @param c
    *        The character to check
@@ -64,18 +63,15 @@ public final class EnvVarHelper
   }
 
   /**
-   * Get a unified system environment variable name from the provided property
-   * name. This means uppercasing all characters and replacing invalid chars
-   * with a replacement character.
+   * Get a unified system environment variable name from the provided property name. This means
+   * uppercasing all characters and replacing invalid chars with a replacement character.
    *
    * @param sName
-   *        The property name to convert. May neither be <code>null</code> nor
-   *        empty.
+   *        The property name to convert. May neither be <code>null</code> nor empty.
    * @param cReplacement
    *        The character that should be used to replace invalid characters. See
-   *        {@link #DEFAULT_REPLACEMENT_CHAR}. If character `\u0000´ is used,
-   *        the invalid character is simply ignored. See
-   *        {@link #REPLACEMENT_CHAR_TO_SKIP}.
+   *        {@link #DEFAULT_REPLACEMENT_CHAR}. If character `\u0000´ is used, the invalid character
+   *        is simply ignored. See {@link #REPLACEMENT_CHAR_TO_SKIP}.
    * @return The
    */
   @NonNull

@@ -22,9 +22,8 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.state.EChange;
 
 /**
- * Read-only settings with default are a special kind of settings. The behave
- * like regular settings but offer the possibility to revert back to the default
- * value easily.
+ * Read-only settings with default are a special kind of settings. The behave like regular settings
+ * but offer the possibility to revert back to the default value easily.
  *
  * @author philip
  */
@@ -41,28 +40,27 @@ public interface ISettingsWithDefault extends ISettings
    *
    * @param sFieldName
    *        The name of the field to check. May not be <code>null</code>.
-   * @return <code>true</code> if the field value equals the default value or if
-   *         the field does neither exist in this settings nor in the default
-   *         settings.
+   * @return <code>true</code> if the field value equals the default value or if the field does
+   *         neither exist in this settings nor in the default settings.
    */
   boolean isSetToDefault (@NonNull String sFieldName);
 
   /**
-   * Change the preferences values of the given field name back to the default
-   * as it is present in the configuration.
+   * Change the preferences values of the given field name back to the default as it is present in
+   * the configuration.
    *
    * @param sFieldName
    *        The field name to be reset. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the value was changed by setting it to
-   *         default, {@link EChange#UNCHANGED} if nothing happened.
+   * @return {@link EChange#CHANGED} if the value was changed by setting it to default,
+   *         {@link EChange#UNCHANGED} if nothing happened.
    */
   @NonNull
   EChange setToDefault (@NonNull String sFieldName);
 
   /**
-   * Set all fields to default. This effects only fields that are present in the
-   * default settings. Fields that are present in these settings but are not
-   * present in the default settings are not altered by this method.
+   * Set all fields to default. This effects only fields that are present in the default settings.
+   * Fields that are present in these settings but are not present in the default settings are not
+   * altered by this method.
    *
    * @return {@link EChange#CHANGED} if at least one field value was changed.
    */
@@ -70,13 +68,11 @@ public interface ISettingsWithDefault extends ISettings
   EChange setAllToDefault ();
 
   /**
-   * Check if the key is contained in the settings and is not part of the
-   * default setting
+   * Check if the key is contained in the settings and is not part of the default setting
    *
    * @param sFieldName
    *        Field name to query. May be <code>null</code>.
-   * @return <code>true</code> if the key is directly in the settings,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if the key is directly in the settings, <code>false</code> otherwise
    */
   boolean containsKeyDirect (@Nullable String sFieldName);
 

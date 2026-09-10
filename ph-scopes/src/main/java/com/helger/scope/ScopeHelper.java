@@ -60,7 +60,7 @@ public final class ScopeHelper
    */
   public static void setLifeCycleDebuggingEnabled (final boolean bDebugLifeCycle)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugLifeCycle = bDebugLifeCycle);
+    RW_LOCK.writeLocked (() -> s_bDebugLifeCycle = bDebugLifeCycle);
   }
 
   /**
@@ -69,7 +69,7 @@ public final class ScopeHelper
    */
   public static boolean isLifeCycleDebuggingEnabled ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugLifeCycle);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugLifeCycle);
   }
 
   /**
@@ -81,7 +81,7 @@ public final class ScopeHelper
    */
   public static void setDebugGlobalScopeEnabled (final boolean bDebugScope)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugGlobalScope = bDebugScope);
+    RW_LOCK.writeLocked (() -> s_bDebugGlobalScope = bDebugScope);
   }
 
   /**
@@ -90,7 +90,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugGlobalScopeEnabled ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugGlobalScope);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugGlobalScope);
   }
 
   /**
@@ -102,7 +102,7 @@ public final class ScopeHelper
    */
   public static void setDebugSessionScopeEnabled (final boolean bDebugScope)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugSessionScope = bDebugScope);
+    RW_LOCK.writeLocked (() -> s_bDebugSessionScope = bDebugScope);
   }
 
   /**
@@ -111,7 +111,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugSessionScopeEnabled ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugSessionScope);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugSessionScope);
   }
 
   /**
@@ -123,7 +123,7 @@ public final class ScopeHelper
    */
   public static void setDebugRequestScopeEnabled (final boolean bDebugScope)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugRequestScope = bDebugScope);
+    RW_LOCK.writeLocked (() -> s_bDebugRequestScope = bDebugScope);
   }
 
   /**
@@ -153,7 +153,7 @@ public final class ScopeHelper
    */
   public static void setDebugWithStackTrace (final boolean bDebugWithStackTrace)
   {
-    RW_LOCK.writeLocked ( () -> s_bDebugWithStackTrace = bDebugWithStackTrace);
+    RW_LOCK.writeLocked (() -> s_bDebugWithStackTrace = bDebugWithStackTrace);
   }
 
   /**
@@ -162,7 +162,7 @@ public final class ScopeHelper
    */
   public static boolean isDebugWithStackTrace ()
   {
-    return RW_LOCK.readLockedBoolean ( () -> s_bDebugWithStackTrace);
+    return RW_LOCK.readLockedBoolean (() -> s_bDebugWithStackTrace);
   }
 
   /**

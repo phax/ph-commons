@@ -18,7 +18,8 @@ package com.helger.collection.hierarchy;
 
 import org.jspecify.annotations.Nullable;
 
-public final class MockChildrenProviderWithID extends MockChildrenProvider implements IChildrenProviderWithID <String, MockHasChildren>
+public final class MockChildrenProviderWithID extends MockChildrenProvider implements
+                                              IChildrenProviderWithID <String, MockHasChildren>
 {
   @Nullable
   public MockHasChildren getChildWithID (@Nullable final MockHasChildren aCurrent, final String aID)

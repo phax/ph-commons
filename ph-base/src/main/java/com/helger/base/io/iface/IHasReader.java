@@ -31,8 +31,8 @@ import com.helger.base.io.stream.StreamHelper;
 public interface IHasReader
 {
   /**
-   * Get the reader to read from the object. Each time this method is call, a
-   * new {@link Reader} needs to be created!
+   * Get the reader to read from the object. Each time this method is call, a new {@link Reader}
+   * needs to be created!
    *
    * @return <code>null</code> if resolving failed.
    */
@@ -40,8 +40,8 @@ public interface IHasReader
   Reader getReader ();
 
   /**
-   * Get a buffered reader to read from the object. Each time this method is
-   * call, a new {@link Reader} needs to be created!
+   * Get a buffered reader to read from the object. Each time this method is call, a new
+   * {@link Reader} needs to be created!
    *
    * @return <code>null</code> if resolving failed.
    * @since 9.1.8

@@ -73,8 +73,8 @@ public final class ScopeSPIManager
   }
 
   /**
-   * @return <code>true</code> if the singleton instance has been created,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton instance has been created, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -98,7 +98,7 @@ public final class ScopeSPIManager
   public void reinitialize ()
   {
     // Register all listeners
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aGlobalSPIs = ServiceLoaderHelper.getAllSPIImplementations (IGlobalScopeSPI.class);
       m_aSessionSPIs = ServiceLoaderHelper.getAllSPIImplementations (ISessionScopeSPI.class);
       m_aRequestSPIs = ServiceLoaderHelper.getAllSPIImplementations (IRequestScopeSPI.class);
@@ -115,7 +115,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <IGlobalScopeSPI> getAllGlobalScopeSPIs ()
   {
-    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aGlobalSPIs));
+    return m_aRWLock.readLockedGet (() -> new CommonsArrayList <> (m_aGlobalSPIs));
   }
 
   /**
@@ -125,7 +125,7 @@ public final class ScopeSPIManager
   @ReturnsMutableCopy
   public ICommonsList <ISessionScopeSPI> getAllSessionScopeSPIs ()
   {
-    return m_aRWLock.readLockedGet ( () -> new CommonsArrayList <> (m_aSessionSPIs));
+    return m_aRWLock.readLockedGet (() -> new CommonsArrayList <> (m_aSessionSPIs));
   }
 
   /**
@@ -177,8 +177,7 @@ public final class ScopeSPIManager
    * Invoke all registered global scope SPI listeners for scope end.
    *
    * @param aGlobalScope
-   *        The global scope that is about to end. May not be
-   *        <code>null</code>.
+   *        The global scope that is about to end. May not be <code>null</code>.
    */
   public void onGlobalScopeEnd (@NonNull final IGlobalScope aGlobalScope)
   {
@@ -218,8 +217,7 @@ public final class ScopeSPIManager
    * Invoke all registered session scope SPI listeners for scope end.
    *
    * @param aSessionScope
-   *        The session scope that is about to end. May not be
-   *        <code>null</code>.
+   *        The session scope that is about to end. May not be <code>null</code>.
    */
   public void onSessionScopeEnd (@NonNull final ISessionScope aSessionScope)
   {
@@ -259,8 +257,7 @@ public final class ScopeSPIManager
    * Invoke all registered request scope SPI listeners for scope end.
    *
    * @param aRequestScope
-   *        The request scope that is about to end. May not be
-   *        <code>null</code>.
+   *        The request scope that is about to end. May not be <code>null</code>.
    */
   public void onRequestScopeEnd (@NonNull final IRequestScope aRequestScope)
   {

@@ -103,10 +103,7 @@ public final class GenericReflectionTest
   }
 
   @Test
-  public void testInvokeStaticMethod () throws NoSuchMethodException,
-                                        IllegalAccessException,
-                                        InvocationTargetException,
-                                        ClassNotFoundException
+  public void testInvokeStaticMethod () throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, ClassNotFoundException
   {
     assertEquals (0, MockGenericInvoke.getStaticNoArgs ());
     assertEquals (0, MockGenericInvoke.getStaticTwoArgs ());
@@ -138,10 +135,7 @@ public final class GenericReflectionTest
   }
 
   @Test
-  public void testNewInstance () throws IllegalAccessException,
-                                 NoSuchMethodException,
-                                 InvocationTargetException,
-                                 InstantiationException
+  public void testNewInstance () throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException
   {
     final String s = GenericReflection.newInstance ("Hallo Welt");
     assertNotNull (s);

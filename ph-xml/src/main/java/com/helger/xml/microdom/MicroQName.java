@@ -67,8 +67,8 @@ public final class MicroQName implements IMicroQName
    * @param sNamespaceURI
    *        The namespace URI to use. May be <code>null</code> or empty.
    * @param sName
-   *        The local name. May neither be <code>null</code> nor empty. If a namespace prefix
-   *        is contained, it will be stripped.
+   *        The local name. May neither be <code>null</code> nor empty. If a namespace prefix is
+   *        contained, it will be stripped.
    */
   public MicroQName (@Nullable final String sNamespaceURI, @NonNull @Nonempty final String sName)
   {

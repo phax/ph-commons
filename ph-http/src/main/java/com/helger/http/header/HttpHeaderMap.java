@@ -863,7 +863,7 @@ public class HttpHeaderMap implements
   {
     final Map <String, List <String>> ret = new HashMap <> ();
     // Don't unify here
-    forEachSingleHeader ( (k, v) -> ret.computeIfAbsent (k, k2 -> new ArrayList <> ()).add (v), false, false);
+    forEachSingleHeader ((k, v) -> ret.computeIfAbsent (k, k2 -> new ArrayList <> ()).add (v), false, false);
     return ret;
   }
 

@@ -31,16 +31,15 @@ import com.helger.collection.commons.ICommonsList;
 public interface ITLSConfigurationMode
 {
   /**
-   * @return A list of supported TLS versions in the correct order. May not be
-   *         <code>null</code>.
+   * @return A list of supported TLS versions in the correct order. May not be <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <ETLSVersion> getAllTLSVersions ();
 
   /**
-   * @return A list of the IDs of the supported TLS versions in the correct
-   *         order. May not be <code>null</code>.
+   * @return A list of the IDs of the supported TLS versions in the correct order. May not be
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -50,8 +49,8 @@ public interface ITLSConfigurationMode
   }
 
   /**
-   * @return A list of the IDs of the supported TLS versions in the correct
-   *         order. May be <code>null</code> if no TLS versions are defined.
+   * @return A list of the IDs of the supported TLS versions in the correct order. May be
+   *         <code>null</code> if no TLS versions are defined.
    */
   @Nullable
   default String [] getAllTLSVersionIDsAsArray ()
@@ -61,16 +60,15 @@ public interface ITLSConfigurationMode
   }
 
   /**
-   * @return All cipher suites in the correct order. May not be
-   *         <code>null</code>.
+   * @return All cipher suites in the correct order. May not be <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <String> getAllCipherSuites ();
 
   /**
-   * @return All cipher suites in the correct order. May be <code>null</code> if
-   *         no cipher suite is defined.
+   * @return All cipher suites in the correct order. May be <code>null</code> if no cipher suite is
+   *         defined.
    */
   @Nullable
   default String [] getAllCipherSuitesAsArray ()

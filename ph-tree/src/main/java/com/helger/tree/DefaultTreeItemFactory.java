@@ -22,8 +22,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Implementation of the {@link ITreeItemFactory} for {@link DefaultTreeItem}
- * implementation
+ * Implementation of the {@link ITreeItemFactory} for {@link DefaultTreeItem} implementation
  *
  * @author Philip Helger
  * @param <DATATYPE>

@@ -24,8 +24,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * An implementation of {@link IIntIDFactory} using a single static
- * {@link AtomicInteger}.
+ * An implementation of {@link IIntIDFactory} using a single static {@link AtomicInteger}.
  *
  * @author Philip Helger
  */

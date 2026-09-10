@@ -186,7 +186,7 @@ public final class ConfigSubsetWithFallbackTest
   {
     final IConfigWithFallback aConfig = _createTestConfig ();
     final AtomicInteger aNotifyCount = new AtomicInteger (0);
-    ((ConfigWithFallback) aConfig).setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    ((ConfigWithFallback) aConfig).setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       // The notifier should receive the full prefixed keys
       assertEquals ("db.host", sOld);
       assertEquals ("db.hostname", sNew);

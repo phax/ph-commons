@@ -23,8 +23,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.callback.ICallback;
 
 /**
- * The callback interface to be implemented to get notified about changes in a
- * directory in the {@link WatchDir} class.
+ * The callback interface to be implemented to get notified about changes in a directory in the
+ * {@link WatchDir} class.
  *
  * @author Philip Helger
  * @since 8.6.6

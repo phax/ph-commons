@@ -30,8 +30,8 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.PropertyException;
 
 /**
- * This class contains utility methods for JAXB {@link Marshaller} objects. It
- * allows for setting type-safe properties.
+ * This class contains utility methods for JAXB {@link Marshaller} objects. It allows for setting
+ * type-safe properties.
  *
  * @author Philip Helger
  */
@@ -79,7 +79,8 @@ public final class JAXBMarshallerHelper
     }
   }
 
-  private static boolean _getBooleanProperty (@NonNull final Marshaller aMarshaller, @NonNull final String sPropertyName)
+  private static boolean _getBooleanProperty (@NonNull final Marshaller aMarshaller,
+                                              @NonNull final String sPropertyName)
   {
     return ((Boolean) _getProperty (aMarshaller, sPropertyName)).booleanValue ();
   }
@@ -201,7 +202,8 @@ public final class JAXBMarshallerHelper
    * @param sSchemaLocation
    *        the value to be set
    */
-  public static void setNoNamespaceSchemaLocation (@NonNull final Marshaller aMarshaller, @Nullable final String sSchemaLocation)
+  public static void setNoNamespaceSchemaLocation (@NonNull final Marshaller aMarshaller,
+                                                   @Nullable final String sSchemaLocation)
   {
     _setProperty (aMarshaller, Marshaller.JAXB_NO_NAMESPACE_SCHEMA_LOCATION, sSchemaLocation);
   }
@@ -252,7 +254,8 @@ public final class JAXBMarshallerHelper
    * @param sIndentString
    *        the value to be set
    */
-  public static void setJakartaIndentString (@NonNull final Marshaller aMarshaller, @Nullable final String sIndentString)
+  public static void setJakartaIndentString (@NonNull final Marshaller aMarshaller,
+                                             @Nullable final String sIndentString)
   {
     _setProperty (aMarshaller, JAKARTA_INDENT_STRING, sIndentString);
   }
@@ -279,7 +282,8 @@ public final class JAXBMarshallerHelper
    * @param aCharacterEscapeHandler
    *        the value to be set
    */
-  public static void setJakartaCharacterEscapeHandler (@NonNull final Marshaller aMarshaller, @NonNull final Object aCharacterEscapeHandler)
+  public static void setJakartaCharacterEscapeHandler (@NonNull final Marshaller aMarshaller,
+                                                       @NonNull final Object aCharacterEscapeHandler)
   {
     _setProperty (aMarshaller, JAKARTA_ENCODING_HANDLER2, aCharacterEscapeHandler);
   }
@@ -298,9 +302,8 @@ public final class JAXBMarshallerHelper
   }
 
   /**
-   * Set the Jakarta specific namespace prefix mapper based on a generic
-   * {@link NamespaceContext}. This method instantiates an
-   * {@link JAXBNamespacePrefixMapper}.
+   * Set the Jakarta specific namespace prefix mapper based on a generic {@link NamespaceContext}.
+   * This method instantiates an {@link JAXBNamespacePrefixMapper}.
    *
    * @param aMarshaller
    *        The marshaller to set the property. May not be <code>null</code>.
@@ -408,18 +411,19 @@ public final class JAXBMarshallerHelper
   public static void setJakartaObjectIdentityCycleDetection (@NonNull final Marshaller aMarshaller,
                                                              final boolean bObjectIdentityCycleDetection)
   {
-    _setProperty (aMarshaller, JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION, Boolean.valueOf (bObjectIdentityCycleDetection));
+    _setProperty (aMarshaller,
+                  JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION,
+                  Boolean.valueOf (bObjectIdentityCycleDetection));
   }
 
   /**
-   * Check if the passed Marshaller is a Jakarta JAXB marshaller. Use this
-   * method to determined, whether the Jakarta specific methods may be invoked
-   * or not.
+   * Check if the passed Marshaller is a Jakarta JAXB marshaller. Use this method to determined,
+   * whether the Jakarta specific methods may be invoked or not.
    *
    * @param aMarshaller
    *        The marshaller to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed marshaller is not <code>null</code>
-   *         and is of the Jakarta class.
+   * @return <code>true</code> if the passed marshaller is not <code>null</code> and is of the
+   *         Jakarta class.
    */
   public static boolean isJakartaJAXBMarshaller (@Nullable final Marshaller aMarshaller)
   {

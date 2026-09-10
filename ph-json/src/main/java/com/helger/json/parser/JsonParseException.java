@@ -60,7 +60,12 @@ public class JsonParseException extends Exception
                              @NonNull final IJsonParsePosition aErrorPos,
                              @NonNull final String sMessage)
   {
-    super ("Json parse error " + aErrorPos.getAsString () + " for token starting at " + aTokenStart.getAsString () + ": " + sMessage);
+    super ("Json parse error " +
+           aErrorPos.getAsString () +
+           " for token starting at " +
+           aTokenStart.getAsString () +
+           ": " +
+           sMessage);
     m_aTokenStart = aTokenStart;
     m_aErrorPos = aErrorPos;
     m_sMessage = sMessage;
@@ -77,8 +82,7 @@ public class JsonParseException extends Exception
   }
 
   /**
-   * @return The line number where the token started or -1 if position tracking
-   *         is disabled.
+   * @return The line number where the token started or -1 if position tracking is disabled.
    */
   @Nonnegative
   public final int getTokenStartLine ()
@@ -87,8 +91,7 @@ public class JsonParseException extends Exception
   }
 
   /**
-   * @return The column number where the token started or -1 if position
-   *         tracking is disabled.
+   * @return The column number where the token started or -1 if position tracking is disabled.
    */
   @Nonnegative
   public final int getTokenStartColumn ()
@@ -107,8 +110,7 @@ public class JsonParseException extends Exception
   }
 
   /**
-   * @return The line number where the error occurred or -1 if position tracking
-   *         is disabled.
+   * @return The line number where the error occurred or -1 if position tracking is disabled.
    */
   @Nonnegative
   public final int getErrorLine ()
@@ -117,8 +119,7 @@ public class JsonParseException extends Exception
   }
 
   /**
-   * @return The column number where the error occurred or -1 if position
-   *         tracking is disabled.
+   * @return The column number where the error occurred or -1 if position tracking is disabled.
    */
   @Nonnegative
   public final int getErrorColumn ()

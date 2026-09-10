@@ -21,8 +21,8 @@ import java.io.Reader;
 import org.jspecify.annotations.NonNull;
 
 /**
- * A special {@link Reader} that does not close the stream. This is e.g. helpful
- * for reading from streams within a ZIP file.
+ * A special {@link Reader} that does not close the stream. This is e.g. helpful for reading from
+ * streams within a ZIP file.
  *
  * @author Philip Helger
  */

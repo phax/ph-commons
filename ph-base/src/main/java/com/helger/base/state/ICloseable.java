@@ -20,8 +20,7 @@ import java.io.Closeable;
 import java.io.IOException;
 
 /**
- * Interface of an object, which may be closed and can be checked if it is
- * closed.
+ * Interface of an object, which may be closed and can be checked if it is closed.
  *
  * @author Philip Helger
  * @since 9.0.0
@@ -31,8 +30,7 @@ public interface ICloseable extends Closeable
   /**
    * Returns, whether the object is already closed.
    *
-   * @return <code>true</code>, if the object is closed, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code>, if the object is closed, <code>false</code> otherwise.
    * @throws IOException
    *         An I/O error occurred.
    */

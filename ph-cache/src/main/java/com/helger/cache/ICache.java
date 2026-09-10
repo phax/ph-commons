@@ -96,8 +96,8 @@ public interface ICache <KEYTYPE, VALUETYPE> extends IHasName, IHasSize
    * </p>
    *
    * @param aConsumer
-   *        The consumer to be invoked with each cache key and the respective cache value. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked with each cache key and the respective cache value. May not
+   *        be <code>null</code>.
    * @throws UnsupportedOperationException
    *         if this cache implementation cannot provide its cache keys.
    * @since 12.3.4

@@ -23,8 +23,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * An {@link IStringIDFactory} implementation that uses a constant prefix and an
- * int supplied from {@link GlobalIDFactory#getNewIntID()} to create unique IDs.
+ * An {@link IStringIDFactory} implementation that uses a constant prefix and an int supplied from
+ * {@link GlobalIDFactory#getNewIntID()} to create unique IDs.
  *
  * @author Philip Helger
  */
@@ -94,6 +94,8 @@ public class StringIDFactory implements IStringIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix).append ("BaseFactory", m_aBaseFactory).getToString ();
+    return new ToStringGenerator (this).append ("prefix", m_sPrefix)
+                                       .append ("BaseFactory", m_aBaseFactory)
+                                       .getToString ();
   }
 }

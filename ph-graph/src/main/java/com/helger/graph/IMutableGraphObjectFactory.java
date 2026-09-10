@@ -17,8 +17,7 @@
 package com.helger.graph;
 
 /**
- * Combined factory interface that encapsulates node and relation factory
- * methods.
+ * Combined factory interface that encapsulates node and relation factory methods.
  *
  * @author Philip Helger
  */

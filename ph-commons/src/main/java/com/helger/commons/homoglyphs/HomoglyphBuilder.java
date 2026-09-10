@@ -50,11 +50,9 @@ public final class HomoglyphBuilder
   {}
 
   /**
-   * Parses the bundled char_codes.txt file, and uses it to construct a
-   * populated Homoglyph object.
+   * Parses the bundled char_codes.txt file, and uses it to construct a populated Homoglyph object.
    *
-   * @return a Homoglyph object populated using the contents of the
-   *         char_codes.txt file
+   * @return a Homoglyph object populated using the contents of the char_codes.txt file
    * @throws MissingResourceException
    *         if the char_codes.txt file is missing
    * @throws IOException
@@ -67,14 +65,12 @@ public final class HomoglyphBuilder
   }
 
   /**
-   * Parses the specified resource and uses it to construct a populated
-   * Homoglyph object.
+   * Parses the specified resource and uses it to construct a populated Homoglyph object.
    *
    * @param aRes
-   *        the path to a file containing a list of homoglyphs (see the bundled
-   *        char_codes.txt file for an example of the required format)
-   * @return a Homoglyph object populated using the contents of the specified
-   *         file
+   *        the path to a file containing a list of homoglyphs (see the bundled char_codes.txt file
+   *        for an example of the required format)
+   * @return a Homoglyph object populated using the contents of the specified file
    * @throws IOException
    *         if the specified file cannot be read
    */
@@ -86,14 +82,12 @@ public final class HomoglyphBuilder
   }
 
   /**
-   * Consumes the supplied Reader and uses it to construct a populated Homoglyph
-   * object.
+   * Consumes the supplied Reader and uses it to construct a populated Homoglyph object.
    *
    * @param aReader
-   *        a Reader object that provides access to homoglyph data (see the
-   *        bundled char_codes.txt file for an example of the required format)
-   * @return a Homoglyph object populated using the data returned by the Reader
-   *         object
+   *        a Reader object that provides access to homoglyph data (see the bundled char_codes.txt
+   *        file for an example of the required format)
+   * @return a Homoglyph object populated using the data returned by the Reader object
    * @throws IOException
    *         if the specified Reader cannot be read
    */

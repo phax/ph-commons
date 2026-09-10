@@ -102,8 +102,7 @@ public enum EOperatingSystem implements IHasDisplayName
    * @param sDisplayName
    *        The human-readable name for the operating system.
    * @param bUnixBased
-   *        <code>true</code> if this OS is Unix based, <code>false</code> if
-   *        not
+   *        <code>true</code> if this OS is Unix based, <code>false</code> if not
    */
   EOperatingSystem (@NonNull @Nonempty final String sDisplayName, final boolean bUnixBased)
   {
@@ -120,8 +119,8 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
-   * Indicates whether the provided operating system is UNIX-based. UNIX-based
-   * operating systems include:
+   * Indicates whether the provided operating system is UNIX-based. UNIX-based operating systems
+   * include:
    * <ul>
    * <li>AIX</li>
    * <li>FreeBSD</li>
@@ -131,8 +130,8 @@ public enum EOperatingSystem implements IHasDisplayName
    * <li>Solaris</li>
    * </ul>
    *
-   * @return <code>true</code> if the provided operating system is UNIX-based,
-   *         or <code>false</code> if not.
+   * @return <code>true</code> if the provided operating system is UNIX-based, or <code>false</code>
+   *         if not.
    */
   public boolean isUnixBased ()
   {
@@ -140,14 +139,14 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
-   * Indicates whether the provided operating system is Windows-based.
-   * Windows-based operating systems include:
+   * Indicates whether the provided operating system is Windows-based. Windows-based operating
+   * systems include:
    * <ul>
    * <li>Windows</li>
    * </ul>
    *
-   * @return <code>true</code> if the provided operating system is
-   *         Windows-based, or <code>false</code> if not.
+   * @return <code>true</code> if the provided operating system is Windows-based, or
+   *         <code>false</code> if not.
    */
   public boolean isWindowsBased ()
   {
@@ -155,14 +154,14 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
-   * Indicates whether the provided operating system is MacOS-based. MacOS-based
-   * operating systems include:
+   * Indicates whether the provided operating system is MacOS-based. MacOS-based operating systems
+   * include:
    * <ul>
    * <li>MacOS</li>
    * </ul>
    *
-   * @return <code>true</code> if the provided operating system is MacOS-based,
-   *         or <code>false</code> if not.
+   * @return <code>true</code> if the provided operating system is MacOS-based, or
+   *         <code>false</code> if not.
    */
   public boolean isMacOSBased ()
   {
@@ -191,14 +190,13 @@ public enum EOperatingSystem implements IHasDisplayName
   }
 
   /**
-   * Retrieves the operating system for the provided name. The name provided
-   * should come from the <code>os.name</code> system property.
+   * Retrieves the operating system for the provided name. The name provided should come from the
+   * <code>os.name</code> system property.
    *
    * @param sOSName
    *        The name for which to retrieve the corresponding operating system.
-   * @return The operating system for the provided name. If the operating system
-   *         could not be determined, {@link #UNKNOWN} is returned and never
-   *         <code>null</code>.
+   * @return The operating system for the provided name. If the operating system could not be
+   *         determined, {@link #UNKNOWN} is returned and never <code>null</code>.
    */
   @NonNull
   public static EOperatingSystem forName (@Nullable final String sOSName)

@@ -32,8 +32,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
   /**
    * @param sKey
    *        The key to be queried.
-   * @return The sum of aggregated values. <code>null</code> if no such key
-   *         exists.
+   * @return The sum of aggregated values. <code>null</code> if no such key exists.
    */
   @Nullable
   BigInteger getSum (@Nullable String sKey);
@@ -41,9 +40,8 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
   /**
    * @param sKey
    *        The key to be queried.
-   * @return The smallest value. Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
-   *         exists.
+   * @return The smallest value. Returns {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such
+   *         key exists.
    */
   @CheckForSigned
   long getMin (@Nullable String sKey);
@@ -52,8 +50,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
    * @param sKey
    *        The key to be queried.
    * @return The average value (=sum/invocationCount). Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
-   *         exists.
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key exists.
    */
   @CheckForSigned
   long getAverage (@Nullable String sKey);
@@ -61,8 +58,7 @@ public interface IStatisticsHandlerKeyedNumeric extends IStatisticsHandlerKeyed
   /**
    * @param sKey
    *        The key to be queried.
-   * @return The biggest value. Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
+   * @return The biggest value. Returns {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key
    *         exists.
    */
   @CheckForSigned

@@ -93,8 +93,8 @@ public class Base64Codec implements IByteArrayCodec
   @ReturnsMutableCopy
   @Override
   public byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
   {
     return Base64.safeEncodeBytesToBytes (aDecodedBuffer, nOfs, nLen);
   }
@@ -147,8 +147,8 @@ public class Base64Codec implements IByteArrayCodec
   @ReturnsMutableCopy
   @Override
   public byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
-                             @Nonnegative final int nOfs,
-                             @Nonnegative final int nLen)
+                                       @Nonnegative final int nOfs,
+                                       @Nonnegative final int nLen)
   {
     return Base64.safeDecode (aEncodedBuffer, nOfs, nLen);
   }

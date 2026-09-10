@@ -35,8 +35,7 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
    * Set the first value.
    *
    * @param aFirst
-   *        The first value. May be <code>null</code> depending on the
-   *        implementation.
+   *        The first value. May be <code>null</code> depending on the implementation.
    * @return {@link EChange}
    */
   @NonNull
@@ -46,8 +45,7 @@ public interface IMutablePair <DATA1TYPE, DATA2TYPE> extends IPair <DATA1TYPE, D
    * Set the second value.
    *
    * @param aSecond
-   *        The second value. May be <code>null</code> depending on the
-   *        implementation.
+   *        The second value. May be <code>null</code> depending on the implementation.
    * @return {@link EChange}
    */
   @NonNull

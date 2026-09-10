@@ -50,10 +50,9 @@ public final class AcceptCharsetHandler
    * Parse the Accept-Charset HTTP header value and return a structured list.
    *
    * @param sAcceptCharset
-   *        The Accept-Charset header value. May be <code>null</code> or
-   *        empty.
-   * @return A non-<code>null</code> {@link AcceptCharsetList} containing the
-   *         parsed charsets. If the input is empty, all charsets are accepted.
+   *        The Accept-Charset header value. May be <code>null</code> or empty.
+   * @return A non-<code>null</code> {@link AcceptCharsetList} containing the parsed charsets. If
+   *         the input is empty, all charsets are accepted.
    */
   @NonNull
   public static AcceptCharsetList getAcceptCharsets (@Nullable final String sAcceptCharset)

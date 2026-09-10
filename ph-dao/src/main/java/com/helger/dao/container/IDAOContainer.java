@@ -34,8 +34,8 @@ import com.helger.dao.IDAO;
 public interface IDAOContainer extends IAutoSaveAware
 {
   /**
-   * @return A list of all contained DAOs. The returned list may not contain
-   *         <code>null</code> elements!
+   * @return A list of all contained DAOs. The returned list may not contain <code>null</code>
+   *         elements!
    */
   @NonNull
   @ReturnsMutableCopy
@@ -46,8 +46,7 @@ public interface IDAOContainer extends IAutoSaveAware
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
-   * @return <code>true</code> if at least one DAO matches, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if at least one DAO matches, <code>false</code> otherwise.
    */
   boolean containsAny (@Nullable Predicate <? super IDAO> aFilter);
 }

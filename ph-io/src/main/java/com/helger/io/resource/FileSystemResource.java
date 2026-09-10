@@ -39,10 +39,8 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FilenameHelper;
 
 /**
- * Implementation of the
- * {@link com.helger.io.resource.IReadableResource} and
- * {@link com.helger.io.resource.IWritableResource} interfaces for file
- * system objects.
+ * Implementation of the {@link com.helger.io.resource.IReadableResource} and
+ * {@link com.helger.io.resource.IWritableResource} interfaces for file system objects.
  *
  * @author Philip Helger
  */
@@ -277,12 +275,10 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   /**
-   * Tests whether the application can read the file denoted by this abstract
-   * pathname.
+   * Tests whether the application can read the file denoted by this abstract pathname.
    *
-   * @return <code>true</code> if and only if the file specified by this
-   *         abstract pathname exists <em>and</em> can be read by the
-   *         application; <code>false</code> otherwise
+   * @return <code>true</code> if and only if the file specified by this abstract pathname exists
+   *         <em>and</em> can be read by the application; <code>false</code> otherwise
    */
   public boolean canRead ()
   {
@@ -290,13 +286,11 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   /**
-   * Tests whether the application can modify the file denoted by this abstract
-   * pathname.
+   * Tests whether the application can modify the file denoted by this abstract pathname.
    *
-   * @return <code>true</code> if and only if the file system actually contains
-   *         a file denoted by this abstract pathname <em>and</em> the
-   *         application is allowed to write to the file; <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if and only if the file system actually contains a file denoted by
+   *         this abstract pathname <em>and</em> the application is allowed to write to the file;
+   *         <code>false</code> otherwise.
    */
   public boolean canWrite ()
   {
@@ -304,11 +298,10 @@ public class FileSystemResource implements IReadWriteResource
   }
 
   /**
-   * Tests whether the application can execute the file denoted by this abstract
-   * pathname.
+   * Tests whether the application can execute the file denoted by this abstract pathname.
    *
-   * @return <code>true</code> if and only if the abstract pathname exists
-   *         <em>and</em> the application is allowed to execute the file
+   * @return <code>true</code> if and only if the abstract pathname exists <em>and</em> the
+   *         application is allowed to execute the file
    */
   public boolean canExecute ()
   {

@@ -273,8 +273,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   }
 
   /**
-   * Obtains an instance of {@code XMLOffsetDateTime} from an
-   * {@link OffsetDateTime}.
+   * Obtains an instance of {@code XMLOffsetDateTime} from an {@link OffsetDateTime}.
    *
    * @param ofsDateTime
    *        The offset date-time to convert, not null
@@ -1579,8 +1578,8 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @NonNull
   public XMLOffsetDateTime minus (final long amountToSubtract, final TemporalUnit unit)
   {
-    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit) : plus (-amountToSubtract,
-                                                                                                   unit);
+    return amountToSubtract == Long.MIN_VALUE ? plus (Long.MAX_VALUE, unit).plus (1, unit)
+                                              : plus (-amountToSubtract, unit);
   }
 
   /**
@@ -1945,13 +1944,13 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @NonNull
   protected ZoneOffset getOffsetOrDefault ()
   {
-    return getOffsetOr ( () -> PDTConfig.getDefaultZoneId ().getRules ().getOffset (m_aDateTime));
+    return getOffsetOr (() -> PDTConfig.getDefaultZoneId ().getRules ().getOffset (m_aDateTime));
   }
 
   @NonNull
   protected ZoneOffset getOffsetOrUTC ()
   {
-    return getOffsetOr ( () -> ZoneOffset.UTC);
+    return getOffsetOr (() -> ZoneOffset.UTC);
   }
 
   /**

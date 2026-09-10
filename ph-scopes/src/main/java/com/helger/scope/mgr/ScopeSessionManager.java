@@ -109,7 +109,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     if (StringHelper.isEmpty (sScopeID))
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aSessionScopes.get (sScopeID));
+    return m_aRWLock.readLockedGet (() -> m_aSessionScopes.get (sScopeID));
   }
 
   /**
@@ -124,7 +124,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     ValueEnforcer.notNull (aSessionScope, "SessionScope");
 
     final String sSessionID = aSessionScope.getID ();
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (m_aSessionScopes.put (sSessionID, aSessionScope) != null)
         LOGGER.error ("Overwriting session scope with ID '" + sSessionID + "'");
     });
@@ -155,7 +155,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
     {
       final String sSessionID = aSessionScope.getID ();
 
-      final boolean bCanDestroyScope = m_aRWLock.writeLockedBoolean ( () -> {
+      final boolean bCanDestroyScope = m_aRWLock.writeLockedBoolean (() -> {
         boolean bWLCanDestroyScope = false;
         // Only if we're not just in destruction of exactly this session
         if (m_aSessionsInDestruction.add (sSessionID))
@@ -189,7 +189,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
         finally
         {
           // Remove from "in destruction" list
-          m_aRWLock.writeLockedBoolean ( () -> m_aSessionsInDestruction.remove (sSessionID));
+          m_aRWLock.writeLockedBoolean (() -> m_aSessionsInDestruction.remove (sSessionID));
         }
       }
     }
@@ -226,7 +226,7 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   {
     if (containsAnySession ())
     {
-      m_aRWLock.writeLocked ( () -> {
+      m_aRWLock.writeLocked (() -> {
         LOGGER.error ("The following " +
                       m_aSessionScopes.size () +
                       " session scopes are left over: " +
@@ -278,26 +278,25 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * @return <code>true</code> if all sessions should be destroyed when the
-   *         global scope ends, <code>false</code> otherwise.
+   * @return <code>true</code> if all sessions should be destroyed when the global scope ends,
+   *         <code>false</code> otherwise.
    */
   public final boolean isDestroyAllSessionsOnScopeEnd ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bDestroyAllSessionsOnScopeEnd);
+    return m_aRWLock.readLockedBoolean (() -> m_bDestroyAllSessionsOnScopeEnd);
   }
 
   /**
    * Set whether all sessions should be destroyed when the global scope ends.
    *
    * @param bDestroyAllSessionsOnScopeEnd
-   *        <code>true</code> to destroy all sessions on scope end,
-   *        <code>false</code> otherwise.
+   *        <code>true</code> to destroy all sessions on scope end, <code>false</code> otherwise.
    * @return {@link EChange}
    */
   @NonNull
   public final EChange setDestroyAllSessionsOnScopeEnd (final boolean bDestroyAllSessionsOnScopeEnd)
   {
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       if (m_bDestroyAllSessionsOnScopeEnd == bDestroyAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bDestroyAllSessionsOnScopeEnd = bDestroyAllSessionsOnScopeEnd;
@@ -306,26 +305,25 @@ public class ScopeSessionManager extends AbstractGlobalSingleton
   }
 
   /**
-   * @return <code>true</code> if all sessions should be ended when the global
-   *         scope ends, <code>false</code> otherwise.
+   * @return <code>true</code> if all sessions should be ended when the global scope ends,
+   *         <code>false</code> otherwise.
    */
   public final boolean isEndAllSessionsOnScopeEnd ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bEndAllSessionsOnScopeEnd);
+    return m_aRWLock.readLockedBoolean (() -> m_bEndAllSessionsOnScopeEnd);
   }
 
   /**
    * Set whether all sessions should be ended when the global scope ends.
    *
    * @param bEndAllSessionsOnScopeEnd
-   *        <code>true</code> to end all sessions on scope end,
-   *        <code>false</code> otherwise.
+   *        <code>true</code> to end all sessions on scope end, <code>false</code> otherwise.
    * @return {@link EChange}
    */
   @NonNull
   public final EChange setEndAllSessionsOnScopeEnd (final boolean bEndAllSessionsOnScopeEnd)
   {
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       if (m_bEndAllSessionsOnScopeEnd == bEndAllSessionsOnScopeEnd)
         return EChange.UNCHANGED;
       m_bEndAllSessionsOnScopeEnd = bEndAllSessionsOnScopeEnd;

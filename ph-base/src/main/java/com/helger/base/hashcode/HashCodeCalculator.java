@@ -120,8 +120,7 @@ public final class HashCodeCalculator
   /**
    * @param x
    *        The object to hash. May be <code>null</code>.
-   * @return The hash code for the object, or {@link #HASHCODE_NULL} if
-   *         <code>null</code>.
+   * @return The hash code for the object, or {@link #HASHCODE_NULL} if <code>null</code>.
    */
   @UsedInGeneratedCode
   public static int hashCode (@Nullable final Object x)

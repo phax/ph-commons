@@ -17,14 +17,15 @@
 package com.helger.tree.xml;
 
 /**
- * This interface collects both unidirectional converters and creates a
- * bidirectional converter.
+ * This interface collects both unidirectional converters and creates a bidirectional converter.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the tree item data
  */
-public interface IConverterTreeXML <DATATYPE> extends IConverterTreeItemToMicroNode <DATATYPE>, IConverterMicroNodeToTreeItem <DATATYPE>
+public interface IConverterTreeXML <DATATYPE> extends
+                                   IConverterTreeItemToMicroNode <DATATYPE>,
+                                   IConverterMicroNodeToTreeItem <DATATYPE>
 {
   /* empty */
 }

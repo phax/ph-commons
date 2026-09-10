@@ -42,14 +42,12 @@ public interface IMultilingualText extends IHasTextWithArgs
   ICommonsOrderedMap <Locale, String> texts ();
 
   /**
-   * Check if the passed locale is directly or by fallback contained. The
-   * implementation class MUST add locale-generalisation when resolving the text
-   * ("de_DE" =&gt; "de" =&gt; <i>default</i>).
+   * Check if the passed locale is directly or by fallback contained. The implementation class MUST
+   * add locale-generalisation when resolving the text ("de_DE" =&gt; "de" =&gt; <i>default</i>).
    *
    * @param aLocale
    *        The locale to check. May be <code>null</code>.
-   * @return <code>true</code> if the locale is contained, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if the locale is contained, <code>false</code> if not.
    */
   boolean containsLocaleWithFallback (@Nullable Locale aLocale);
 }

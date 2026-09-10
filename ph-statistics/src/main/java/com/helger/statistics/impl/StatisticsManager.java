@@ -87,8 +87,7 @@ public final class StatisticsManager
    * Get or create a cache statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -96,21 +95,19 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCache aHdl = RWL_CACHE.readLockedGet ( () -> HDL_CACHE.get (sName));
+    StatisticsHandlerCache aHdl = RWL_CACHE.readLockedGet (() -> HDL_CACHE.get (sName));
 
     if (aHdl == null)
     {
       // Try again in write lock
-      aHdl = RWL_CACHE.writeLockedGet ( () -> HDL_CACHE.computeIfAbsent (sName, k -> new StatisticsHandlerCache ()));
+      aHdl = RWL_CACHE.writeLockedGet (() -> HDL_CACHE.computeIfAbsent (sName, k -> new StatisticsHandlerCache ()));
     }
 
     return aHdl;
-
   }
 
   /**
-   * @return A copy of all registered cache handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered cache handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -138,8 +135,7 @@ public final class StatisticsManager
    * Get or create a timer statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -147,18 +143,17 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerTimer aHdl = RWL_TIMER.readLockedGet ( () -> HDL_TIMER.get (sName));
+    StatisticsHandlerTimer aHdl = RWL_TIMER.readLockedGet (() -> HDL_TIMER.get (sName));
     if (aHdl == null)
     {
-      aHdl = RWL_TIMER.writeLockedGet ( () -> HDL_TIMER.computeIfAbsent (sName, k -> new StatisticsHandlerTimer ()));
+      aHdl = RWL_TIMER.writeLockedGet (() -> HDL_TIMER.computeIfAbsent (sName, k -> new StatisticsHandlerTimer ()));
     }
 
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered timer handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered timer handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -186,8 +181,7 @@ public final class StatisticsManager
    * Get or create a keyed timer statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -195,18 +189,18 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedTimer aHdl = RWL_KEYED_TIMER.readLockedGet ( () -> HDL_KEYED_TIMER.get (sName));
+    StatisticsHandlerKeyedTimer aHdl = RWL_KEYED_TIMER.readLockedGet (() -> HDL_KEYED_TIMER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = RWL_KEYED_TIMER.writeLockedGet ( () -> HDL_KEYED_TIMER.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedTimer ()));
+      aHdl = RWL_KEYED_TIMER.writeLockedGet (() -> HDL_KEYED_TIMER.computeIfAbsent (sName,
+                                                                                    k -> new StatisticsHandlerKeyedTimer ()));
     }
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered keyed timer handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered keyed timer handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -234,8 +228,7 @@ public final class StatisticsManager
    * Get or create a size statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -243,18 +236,17 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerSize aHdl = RWL_SIZE.readLockedGet ( () -> HDL_SIZE.get (sName));
+    StatisticsHandlerSize aHdl = RWL_SIZE.readLockedGet (() -> HDL_SIZE.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = RWL_SIZE.writeLockedGet ( () -> HDL_SIZE.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
+      aHdl = RWL_SIZE.writeLockedGet (() -> HDL_SIZE.computeIfAbsent (sName, k -> new StatisticsHandlerSize ()));
     }
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered size handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered size handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -282,8 +274,7 @@ public final class StatisticsManager
    * Get or create a keyed size statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -291,18 +282,18 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedSize aHdl = RWL_KEYED_SIZE.readLockedGet ( () -> HDL_KEYED_SIZE.get (sName));
+    StatisticsHandlerKeyedSize aHdl = RWL_KEYED_SIZE.readLockedGet (() -> HDL_KEYED_SIZE.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = RWL_KEYED_SIZE.writeLockedGet ( () -> HDL_KEYED_SIZE.computeIfAbsent (sName, k -> new StatisticsHandlerKeyedSize ()));
+      aHdl = RWL_KEYED_SIZE.writeLockedGet (() -> HDL_KEYED_SIZE.computeIfAbsent (sName,
+                                                                                  k -> new StatisticsHandlerKeyedSize ()));
     }
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered keyed size handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered keyed size handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -330,8 +321,7 @@ public final class StatisticsManager
    * Get or create a counter statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -339,18 +329,18 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerCounter aHdl = RWL_COUNTER.readLockedGet ( () -> HDL_COUNTER.get (sName));
+    StatisticsHandlerCounter aHdl = RWL_COUNTER.readLockedGet (() -> HDL_COUNTER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = RWL_COUNTER.writeLockedGet ( () -> HDL_COUNTER.computeIfAbsent (sName, k -> new StatisticsHandlerCounter ()));
+      aHdl = RWL_COUNTER.writeLockedGet (() -> HDL_COUNTER.computeIfAbsent (sName,
+                                                                            k -> new StatisticsHandlerCounter ()));
     }
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered counter handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered counter handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -378,8 +368,7 @@ public final class StatisticsManager
    * Get or create a keyed counter statistics handler for the given name.
    *
    * @param sName
-   *        The name to get the handler for. May neither be <code>null</code>
-   *        nor empty.
+   *        The name to get the handler for. May neither be <code>null</code> nor empty.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -387,19 +376,18 @@ public final class StatisticsManager
   {
     ValueEnforcer.notEmpty (sName, "Name");
 
-    StatisticsHandlerKeyedCounter aHdl = RWL_KEYED_COUNTER.readLockedGet ( () -> HDL_KEYED_COUNTER.get (sName));
+    StatisticsHandlerKeyedCounter aHdl = RWL_KEYED_COUNTER.readLockedGet (() -> HDL_KEYED_COUNTER.get (sName));
 
     if (aHdl == null)
     {
-      aHdl = RWL_KEYED_COUNTER.writeLockedGet ( () -> HDL_KEYED_COUNTER.computeIfAbsent (sName,
-                                                                                              k -> new StatisticsHandlerKeyedCounter ()));
+      aHdl = RWL_KEYED_COUNTER.writeLockedGet (() -> HDL_KEYED_COUNTER.computeIfAbsent (sName,
+                                                                                        k -> new StatisticsHandlerKeyedCounter ()));
     }
     return aHdl;
   }
 
   /**
-   * @return A copy of all registered keyed counter handler names. Never
-   *         <code>null</code>.
+   * @return A copy of all registered keyed counter handler names. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

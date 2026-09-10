@@ -61,8 +61,8 @@ public final class MicroHelper
 
   /**
    * Append a child object to a micro node. The child can be an {@link IMicroNode}, a
-   * {@link String}, an {@link Iterable} or an array of objects. Nested collections are
-   * handled recursively.
+   * {@link String}, an {@link Iterable} or an array of objects. Nested collections are handled
+   * recursively.
    *
    * @param aSrcNode
    *        The node to append the child to. May not be <code>null</code>.
@@ -359,8 +359,8 @@ public final class MicroHelper
   /**
    * Helper method to extract the text content of the child element denoted by the parameters
    * sNamespaceURI and sChildElementName of the passed parent element. The read text content is
-   * converted via the {@link com.helger.typeconvert.impl.TypeConverter} to the desired
-   * destination type.
+   * converted via the {@link com.helger.typeconvert.impl.TypeConverter} to the desired destination
+   * type.
    *
    * @param <DSTTYPE>
    *        Destination type

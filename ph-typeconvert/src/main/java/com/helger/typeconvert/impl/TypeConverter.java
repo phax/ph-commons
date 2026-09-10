@@ -573,13 +573,13 @@ public final class TypeConverter implements IHasConditionalLogger
                                                                                                 aUsableDstClass);
     if (aConverter == null)
     {
-      CONDLOG.warn ( () -> "No type converter from '" +
-                           aSrcClass.getName () +
-                           "' to '" +
-                           aUsableDstClass.getName () +
-                           "' was found (using provider '" +
-                           aTypeConverterProvider.getClass ().getName () +
-                           "')");
+      CONDLOG.warn (() -> "No type converter from '" +
+                          aSrcClass.getName () +
+                          "' to '" +
+                          aUsableDstClass.getName () +
+                          "' was found (using provider '" +
+                          aTypeConverterProvider.getClass ().getName () +
+                          "')");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.NO_CONVERTER_FOUND);
     }
     // Okay, converter was found -> invoke it
@@ -595,15 +595,15 @@ public final class TypeConverter implements IHasConditionalLogger
     }
     if (aRetVal == null)
     {
-      CONDLOG.warn ( () -> "Type conversion from '" +
-                           aSrcValue +
-                           "' of class '" +
-                           aSrcClass.getName () +
-                           "' to '" +
-                           aUsableDstClass.getName () +
-                           "' with converter '" +
-                           aConverter.toString () +
-                           "' failed; null was returned from converter!");
+      CONDLOG.warn (() -> "Type conversion from '" +
+                          aSrcValue +
+                          "' of class '" +
+                          aSrcClass.getName () +
+                          "' to '" +
+                          aUsableDstClass.getName () +
+                          "' with converter '" +
+                          aConverter.toString () +
+                          "' failed; null was returned from converter!");
       throw new TypeConverterException (aSrcClass, aUsableDstClass, EReason.CONVERSION_FAILED);
     }
     return aRetVal;

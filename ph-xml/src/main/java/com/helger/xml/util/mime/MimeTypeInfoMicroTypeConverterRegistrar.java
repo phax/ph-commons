@@ -41,8 +41,7 @@ import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
 /**
- * {@link IMicroTypeConverterRegistrarSPI} implementation for
- * {@link MimeTypeInfo}.
+ * {@link IMicroTypeConverterRegistrarSPI} implementation for {@link MimeTypeInfo}.
  *
  * @author Philip Helger
  */

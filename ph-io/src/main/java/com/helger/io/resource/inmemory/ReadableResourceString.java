@@ -39,8 +39,7 @@ public class ReadableResourceString extends ReadableResourceByteArray
    * @param sString
    *        The string content. May not be <code>null</code>.
    * @param aCharset
-   *        The charset to use for converting the string to bytes. May not be
-   *        <code>null</code>.
+   *        The charset to use for converting the string to bytes. May not be <code>null</code>.
    */
   public ReadableResourceString (@NonNull final String sString, @NonNull final Charset aCharset)
   {
@@ -55,15 +54,15 @@ public class ReadableResourceString extends ReadableResourceByteArray
    * @param sString
    *        The string content. May not be <code>null</code>.
    * @param aCharset
-   *        The charset to use for converting the string to bytes. May not be
-   *        <code>null</code>.
+   *        The charset to use for converting the string to bytes. May not be <code>null</code>.
    */
   public ReadableResourceString (@Nullable final String sResourceID,
                                  @NonNull final String sString,
                                  @NonNull final Charset aCharset)
   {
     // No copy needed
-    super (StringHelper.isNotEmpty (sResourceID) ? sResourceID : "string-" + sString.length () + "-" + sString.hashCode (),
+    super (StringHelper.isNotEmpty (sResourceID) ? sResourceID
+                                                 : "string-" + sString.length () + "-" + sString.hashCode (),
            sString.getBytes (aCharset),
            false);
   }
@@ -73,8 +72,7 @@ public class ReadableResourceString extends ReadableResourceByteArray
    *
    * @param sString
    *        The string content. May not be <code>null</code>.
-   * @return A new {@link ReadableResourceString} instance. Never
-   *         <code>null</code>.
+   * @return A new {@link ReadableResourceString} instance. Never <code>null</code>.
    */
   @NonNull
   public static ReadableResourceString utf8 (@NonNull final String sString)
@@ -83,15 +81,13 @@ public class ReadableResourceString extends ReadableResourceByteArray
   }
 
   /**
-   * Factory method to create a UTF-8 encoded readable resource string with a
-   * custom resource ID.
+   * Factory method to create a UTF-8 encoded readable resource string with a custom resource ID.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
    * @param sString
    *        The string content. May not be <code>null</code>.
-   * @return A new {@link ReadableResourceString} instance. Never
-   *         <code>null</code>.
+   * @return A new {@link ReadableResourceString} instance. Never <code>null</code>.
    */
   @NonNull
   public static ReadableResourceString utf8 (@Nullable final String sResourceID, @NonNull final String sString)

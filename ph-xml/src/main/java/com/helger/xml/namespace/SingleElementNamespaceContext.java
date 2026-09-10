@@ -60,8 +60,7 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
    * @param sPrefix
    *        The prefix. May not be <code>null</code>.
    * @param sNamespaceURI
-   *        The namespace URI to use. May neither be <code>null</code> nor
-   *        empty.
+   *        The namespace URI to use. May neither be <code>null</code> nor empty.
    */
   public SingleElementNamespaceContext (@NonNull final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
   {

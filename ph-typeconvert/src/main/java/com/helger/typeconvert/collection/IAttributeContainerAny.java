@@ -22,9 +22,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.state.EChange;
 
 /**
- * This is the writable extension of the {@link IAttributeContainer &lt;String,
- * Object&gt;}. <code>null</code> values are not allowed in this attribute
- * containers.
+ * This is the writable extension of the {@link IAttributeContainer &lt;String, Object&gt;}.
+ * <code>null</code> values are not allowed in this attribute containers.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -40,8 +39,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param bValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final boolean bValue)
@@ -57,8 +55,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param nValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final int nValue)
@@ -74,8 +71,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param nValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final long nValue)
@@ -91,8 +87,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param nValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final short nValue)
@@ -108,8 +103,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param fValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final float fValue)
@@ -125,8 +119,7 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
    *        The name of the attribute. May not be <code>null</code>.
    * @param dValue
    *        The value of the attribute.
-   * @return {@link EChange#CHANGED} if something changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   default EChange putIn (@NonNull final KEYTYPE aName, final double dValue)
@@ -135,18 +128,17 @@ public interface IAttributeContainerAny <KEYTYPE> extends IAttributeContainer <K
   }
 
   /**
-   * Atomic operation to set a flag to <code>true</code> if it was previously
-   * set to <code>false</code> (meaning not existing). There is no possibility
-   * to define a value for this flag. The value used is {@link Boolean#TRUE}.
-   * {@link IAttributeContainer#containsKey(Object)} can be used to check if the
-   * attribute is already present.
+   * Atomic operation to set a flag to <code>true</code> if it was previously set to
+   * <code>false</code> (meaning not existing). There is no possibility to define a value for this
+   * flag. The value used is {@link Boolean#TRUE}. {@link IAttributeContainer#containsKey(Object)}
+   * can be used to check if the attribute is already present.
    *
    * @param aName
    *        The name of the flag to set.
-   * @return The old value of the flag. If the flag was not present previously,
-   *         than <code>false</code> is returned, whereas if the flag was
-   *         already present, <code>true</code> is returned. Any other than the
-   *         first call for the same flag is always returning <code>true</code>.
+   * @return The old value of the flag. If the flag was not present previously, than
+   *         <code>false</code> is returned, whereas if the flag was already present,
+   *         <code>true</code> is returned. Any other than the first call for the same flag is
+   *         always returning <code>true</code>.
    */
   default boolean getAndSetFlag (@NonNull final KEYTYPE aName)
   {

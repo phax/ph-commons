@@ -36,7 +36,8 @@ import com.helger.tree.withid.ITreeItemWithIDFactory;
  *        tree item type
  * @author Philip Helger
  */
-public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
+public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                              extends
                                               ITreeItemWithIDFactory <KEYTYPE, DATATYPE, ITEMTYPE>
 {
   /**
@@ -44,8 +45,7 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
    *
    * @param aDataID
    *        The data ID to look up.
-   * @return <code>true</code> if such an item is contained, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if such an item is contained, <code>false</code> otherwise.
    */
   boolean containsItemWithDataID (@Nullable KEYTYPE aDataID);
 
@@ -66,16 +66,14 @@ public interface ITreeItemWithUniqueIDFactory <KEYTYPE, DATATYPE, ITEMTYPE exten
   int getItemCount ();
 
   /**
-   * @return A collection that contains all items created by this factory
-   *         instance.
+   * @return A collection that contains all items created by this factory instance.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsCollection <ITEMTYPE> getAllItems ();
 
   /**
-   * @return A collection that contains all item datas created by this factory
-   *         instance.
+   * @return A collection that contains all item datas created by this factory instance.
    */
   @NonNull
   @ReturnsMutableCopy

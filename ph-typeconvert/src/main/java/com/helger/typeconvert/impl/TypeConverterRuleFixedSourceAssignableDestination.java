@@ -25,8 +25,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Abstract type converter than can convert from a base source class to a
- * destination class. Example from String.class to specific Enum.class
+ * Abstract type converter than can convert from a base source class to a destination class. Example
+ * from String.class to specific Enum.class
  *
  * @author Philip Helger
  * @param <SRC>
@@ -46,8 +46,7 @@ public class TypeConverterRuleFixedSourceAssignableDestination <SRC, DST> extend
    * @param aSrcClass
    *        The fixed source class. May not be <code>null</code>.
    * @param aDstClass
-   *        The destination class (including subclasses). May not be
-   *        <code>null</code>.
+   *        The destination class (including subclasses). May not be <code>null</code>.
    * @param aConverter
    *        The converter function. May not be <code>null</code>.
    */

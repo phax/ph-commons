@@ -21,8 +21,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.style.IsSPIInterface;
 
 /**
- * SPI interface to be implemented by other modules wishing to register their
- * own micro-type converters.
+ * SPI interface to be implemented by other modules wishing to register their own micro-type
+ * converters.
  *
  * @author Philip Helger
  */

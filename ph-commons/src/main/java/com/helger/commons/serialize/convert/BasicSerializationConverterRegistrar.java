@@ -60,8 +60,8 @@ public final class BasicSerializationConverterRegistrar implements ISerializatio
   private static final class SerializationConverterCharset implements ISerializationConverter <Charset>
   {
     /** {@inheritDoc} */
-    public void writeConvertedObject (@NonNull final Charset aSourceObject, @NonNull final ObjectOutputStream aOOS)
-                                                                                                                    throws IOException
+    public void writeConvertedObject (@NonNull final Charset aSourceObject,
+                                      @NonNull final ObjectOutputStream aOOS) throws IOException
     {
       StreamHelper.writeSafeUTF (aOOS, aSourceObject.name ());
     }

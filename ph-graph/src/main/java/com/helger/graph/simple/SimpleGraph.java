@@ -45,8 +45,7 @@ public class SimpleGraph extends Graph implements ISimpleGraph
    * Constructor using a custom graph object factory.
    *
    * @param aFactory
-   *        The factory to use for creating nodes and relations. May not be
-   *        <code>null</code>.
+   *        The factory to use for creating nodes and relations. May not be <code>null</code>.
    */
   public SimpleGraph (@NonNull final IMutableGraphObjectFactory aFactory)
   {

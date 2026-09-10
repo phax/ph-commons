@@ -107,7 +107,6 @@ public final class CSVParserTest
     assertEquals (3, aNextLine.size ());
 
     assertEquals ("123\"4\"567", aNextLine.get (1));
-
   }
 
   @Test
@@ -185,13 +184,11 @@ public final class CSVParserTest
     assertEquals (1, aNextLine.get (1).length ());
     assertEquals ("\"", aNextLine.get (1));
     assertEquals ("c", aNextLine.get (2));
-
   }
 
   @Test
   public void testEscapedDoubleQuoteAsDataElement () throws IOException
   {
-
     final ICommonsList <String> aNextLine = m_aParser.parseLine ("\"test\",\"this,test,is,good\",\"\\\"test\\\"\",\"\\\"quote\\\"\""); // "test","this,test,is,good","\"test\",\"quote\""
 
     assertEquals (4, aNextLine.size ());
@@ -200,7 +197,6 @@ public final class CSVParserTest
     assertEquals ("this,test,is,good", aNextLine.get (1));
     assertEquals ("\"test\"", aNextLine.get (2));
     assertEquals ("\"quote\"", aNextLine.get (3));
-
   }
 
   @Test
@@ -251,7 +247,6 @@ public final class CSVParserTest
   @Test
   public void testAMultiLineInsideQuotes () throws IOException
   {
-
     final String testString = _setUpMultiLineInsideQuotes ();
 
     final ICommonsList <String> aNextLine = m_aParser.parseLine (testString);
@@ -301,8 +296,8 @@ public final class CSVParserTest
   }
 
   /**
-   * Shows that without the strict quotes opencsv will read until the separator
-   * or the end of the line.
+   * Shows that without the strict quotes opencsv will read until the separator or the end of the
+   * line.
    *
    * @throws IOException
    *         never
@@ -365,14 +360,14 @@ public final class CSVParserTest
   }
 
   /**
-   * This is an interesting issue where the data does not use quotes but IS
-   * using a quote within the field as a inch symbol. So we want to keep that
-   * quote as part of the field and not as the start or end of a field.
+   * This is an interesting issue where the data does not use quotes but IS using a quote within the
+   * field as a inch symbol. So we want to keep that quote as part of the field and not as the start
+   * or end of a field.
    * <p/>
    * Test data is as follows.
    * <p/>
-   * RPO;2012;P; ; ; ;SDX;ACCESSORY WHEEL, 16", ALUMINUM, DESIGN 1 RPO;2012;P; ;
-   * ; ;SDZ;ACCESSORY WHEEL - 17" - ALLOY - DESIGN 1
+   * RPO;2012;P; ; ; ;SDX;ACCESSORY WHEEL, 16", ALUMINUM, DESIGN 1 RPO;2012;P; ; ; ;SDZ;ACCESSORY
+   * WHEEL - 17" - ALLOY - DESIGN 1
    *
    * @throws IOException
    *         never
@@ -420,8 +415,8 @@ public final class CSVParserTest
   }
 
   /**
-   * Test issue 2859181 where an escaped character before a character that did
-   * not need escaping was causing the parse to fail.
+   * Test issue 2859181 where an escaped character before a character that did not need escaping was
+   * causing the parse to fail.
    *
    * @throws IOException
    *         never

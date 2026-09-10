@@ -26,8 +26,8 @@ import com.helger.annotation.WillNotClose;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A {@link IJsonValueSerializer} implementation that uses "toString" to convert
- * the object to a {@link String}.
+ * A {@link IJsonValueSerializer} implementation that uses "toString" to convert the object to a
+ * {@link String}.
  *
  * @author Philip Helger
  */
@@ -48,7 +48,8 @@ public final class JsonValueSerializerToString implements IJsonValueSerializer
   }
 
   /** {@inheritDoc} */
-  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue,
+                                  @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write (String.valueOf (aValue));
   }

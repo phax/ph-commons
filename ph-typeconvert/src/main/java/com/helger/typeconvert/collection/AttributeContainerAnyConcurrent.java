@@ -25,8 +25,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 
 /**
- * Base class for all kind of string-object mapping container. This
- * implementation is thread-safe!
+ * Base class for all kind of string-object mapping container. This implementation is thread-safe!
  *
  * @author Philip Helger
  * @param <KEYTYPE>

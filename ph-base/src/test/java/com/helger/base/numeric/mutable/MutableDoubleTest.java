@@ -91,9 +91,9 @@ public final class MutableDoubleTest
     assertTrue (x.isGT0 ());
 
     BaseTestHelper.testDefaultImplementationWithEqualContentObject (new MutableDouble (3.1234),
-                                                                       new MutableDouble (3.1234));
+                                                                    new MutableDouble (3.1234));
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new MutableDouble (3.1234),
-                                                                           new MutableDouble (3.123));
+                                                                        new MutableDouble (3.123));
     BaseTestHelper.testGetClone (new MutableDouble (47.11));
   }
 }

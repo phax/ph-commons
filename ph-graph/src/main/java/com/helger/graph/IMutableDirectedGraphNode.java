@@ -45,8 +45,8 @@ public interface IMutableDirectedGraphNode extends
    *
    * @param aRelation
    *        The relation to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the passed relation was successfully
-   *         removed from the incoming relations.
+   * @return {@link EChange#CHANGED} if the passed relation was successfully removed from the
+   *         incoming relations.
    */
   @NonNull
   EChange removeIncomingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
@@ -54,8 +54,8 @@ public interface IMutableDirectedGraphNode extends
   /**
    * Remove all incoming relations.
    *
-   * @return {@link EChange#CHANGED} if the at least one relation was
-   *         successfully removed from the incoming relations.
+   * @return {@link EChange#CHANGED} if the at least one relation was successfully removed from the
+   *         incoming relations.
    */
   @NonNull
   EChange removeAllIncomingRelations ();
@@ -73,8 +73,8 @@ public interface IMutableDirectedGraphNode extends
    *
    * @param aRelation
    *        The relation to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the passed relation was successfully
-   *         removed from the outgoing relations.
+   * @return {@link EChange#CHANGED} if the passed relation was successfully removed from the
+   *         outgoing relations.
    */
   @NonNull
   EChange removeOutgoingRelation (@Nullable IMutableDirectedGraphRelation aRelation);
@@ -82,8 +82,8 @@ public interface IMutableDirectedGraphNode extends
   /**
    * Remove all outgoing relations.
    *
-   * @return {@link EChange#CHANGED} if the at least one relation was
-   *         successfully removed from the outgoing relations.
+   * @return {@link EChange#CHANGED} if the at least one relation was successfully removed from the
+   *         outgoing relations.
    */
   @NonNull
   EChange removeAllOutgoingRelations ();

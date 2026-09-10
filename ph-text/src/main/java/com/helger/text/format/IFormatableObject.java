@@ -38,8 +38,7 @@ public interface IFormatableObject <DATATYPE>
   DATATYPE getValue ();
 
   /**
-   * @return The formatter to be used for formatting this object. Never
-   *         <code>null</code>.
+   * @return The formatter to be used for formatting this object. Never <code>null</code>.
    */
   @Nullable
   Function <? super DATATYPE, ? extends String> getFormatter ();
@@ -47,8 +46,8 @@ public interface IFormatableObject <DATATYPE>
   /**
    * Get the value converted to a string with the specified formatter.
    *
-   * @return the string representation of the value. May be <code>null</code>
-   *         dependent on the semantics of the formatter.
+   * @return the string representation of the value. May be <code>null</code> dependent on the
+   *         semantics of the formatter.
    */
   @Nullable
   default String getAsString ()

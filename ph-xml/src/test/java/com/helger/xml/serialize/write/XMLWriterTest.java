@@ -770,9 +770,9 @@ public final class XMLWriterTest
                                                                                           false)
                                                                         .setFeatureValue (EXMLParserFeature.EXTERNAL_GENERAL_ENTITIES,
                                                                                           true)
-                                                                        .setEntityResolver ( (x, y) -> ("world.txt"
-                                                                                                                   .equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
-                                                                                                                                                     : new StringSAXInputSource (""))));
+                                                                        .setEntityResolver ((x, y) -> ("world.txt"
+                                                                                                                  .equals (new File (y).getName ()) ? new StringSAXInputSource ("world")
+                                                                                                                                                    : new StringSAXInputSource (""))));
     assertNotNull (aDoc);
 
     final MapBasedNamespaceContext aCtx = new MapBasedNamespaceContext ();
@@ -890,7 +890,8 @@ public final class XMLWriterTest
       eRoot.appendChild (aDoc.createComment ("first comment"));
       eRoot.appendChild (aDoc.createElement ("child"));
       final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
-      assertEquals ("<root>" + CRLF + "  <!--first comment-->" + CRLF + "  <child />" + CRLF + "</root>" + CRLF, sResult);
+      assertEquals ("<root>" + CRLF + "  <!--first comment-->" + CRLF + "  <child />" + CRLF + "</root>" + CRLF,
+                    sResult);
     }
 
     // Comment between elements
@@ -901,7 +902,16 @@ public final class XMLWriterTest
       eRoot.appendChild (aDoc.createComment ("between"));
       eRoot.appendChild (aDoc.createElement ("child2"));
       final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
-      assertEquals ("<root>" + CRLF + "  <child1 />" + CRLF + "  <!--between-->" + CRLF + "  <child2 />" + CRLF + "</root>" + CRLF,
+      assertEquals ("<root>" +
+                    CRLF +
+                    "  <child1 />" +
+                    CRLF +
+                    "  <!--between-->" +
+                    CRLF +
+                    "  <child2 />" +
+                    CRLF +
+                    "</root>" +
+                    CRLF,
                     sResult);
     }
 
@@ -934,12 +944,18 @@ public final class XMLWriterTest
       eChild.appendChild (aDoc.createComment ("nested"));
       eChild.appendChild (aDoc.createElement ("grandchild"));
       final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
-      assertEquals ("<root>" + CRLF +
-                    "  <child>" + CRLF +
-                    "    <!--nested-->" + CRLF +
-                    "    <grandchild />" + CRLF +
-                    "  </child>" + CRLF +
-                    "</root>" + CRLF,
+      assertEquals ("<root>" +
+                    CRLF +
+                    "  <child>" +
+                    CRLF +
+                    "    <!--nested-->" +
+                    CRLF +
+                    "    <grandchild />" +
+                    CRLF +
+                    "  </child>" +
+                    CRLF +
+                    "</root>" +
+                    CRLF,
                     sResult);
     }
   }
@@ -1007,7 +1023,16 @@ public final class XMLWriterTest
       eRoot.appendChild (aDoc.createComment ("between"));
       eRoot.appendChild (aDoc.createElement ("child2"));
       final String sResult = XMLWriter.getNodeAsString (eRoot, aSettings);
-      assertEquals ("<root>" + CRLF + "<child1 />" + CRLF + "<!--between-->" + CRLF + "<child2 />" + CRLF + "</root>" + CRLF,
+      assertEquals ("<root>" +
+                    CRLF +
+                    "<child1 />" +
+                    CRLF +
+                    "<!--between-->" +
+                    CRLF +
+                    "<child2 />" +
+                    CRLF +
+                    "</root>" +
+                    CRLF,
                     sResult);
     }
 
@@ -1073,14 +1098,14 @@ public final class XMLWriterTest
     // Simulate an XSLT-like document where namespace prefixes are referenced
     // inside attribute values (e.g. "xs:boolean", "u:gln")
     final String sXSLT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-                          "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"" +
-                          " xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"" +
-                          " xmlns:u=\"urn:my:utils\"" +
-                          " version=\"3.0\">" +
-                          "<xsl:function as=\"xs:boolean\" name=\"u:gln\">" +
-                          "<xsl:param as=\"xs:string\" name=\"val\" />" +
-                          "</xsl:function>" +
-                          "</xsl:stylesheet>";
+                         "<xsl:stylesheet xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\"" +
+                         " xmlns:xs=\"http://www.w3.org/2001/XMLSchema\"" +
+                         " xmlns:u=\"urn:my:utils\"" +
+                         " version=\"3.0\">" +
+                         "<xsl:function as=\"xs:boolean\" name=\"u:gln\">" +
+                         "<xsl:param as=\"xs:string\" name=\"val\" />" +
+                         "</xsl:function>" +
+                         "</xsl:stylesheet>";
 
     final Document aDoc = DOMReader.readXMLDOM (sXSLT);
     assertNotNull (aDoc);
@@ -1094,10 +1119,8 @@ public final class XMLWriterTest
     assertNotNull (sDefault);
     // The default output does NOT contain xmlns:xs or xmlns:u because the
     // namespace stack only tracks namespace URIs used by elements/attributes
-    assertTrue ("Default output should not contain xmlns:xs: " + sDefault,
-                !sDefault.contains ("xmlns:xs="));
-    assertTrue ("Default output should not contain xmlns:u: " + sDefault,
-                !sDefault.contains ("xmlns:u="));
+    assertTrue ("Default output should not contain xmlns:xs: " + sDefault, !sDefault.contains ("xmlns:xs="));
+    assertTrue ("Default output should not contain xmlns:u: " + sDefault, !sDefault.contains ("xmlns:u="));
 
     // With useExistingNamespaceDeclarations: all xmlns: attributes are preserved
     aSettings.setUseExistingNamespaceDeclarations (true);

@@ -68,8 +68,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   /**
-   * @return <code>true</code> if the singleton instance has been created,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton instance has been created, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -90,14 +90,15 @@ public final class SerializationConverterRegistry implements ISerializationConve
   /**
    * {@inheritDoc}
    */
-  public <T> void registerSerializationConverter (@NonNull final Class <T> aClass, @NonNull final ISerializationConverter <T> aConverter)
+  public <T> void registerSerializationConverter (@NonNull final Class <T> aClass,
+                                                  @NonNull final ISerializationConverter <T> aConverter)
   {
     ValueEnforcer.notNull (aClass, "Class");
     ValueEnforcer.notNull (aConverter, "Converter");
     ValueEnforcer.isFalse (Serializable.class.isAssignableFrom (aClass),
                            () -> "The provided " + aClass.toString () + " is already implementing Serializable!");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // The main class should not already be registered
       if (m_aMap.containsKey (aClass))
         throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
@@ -118,8 +119,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   /**
-   * Get the serialization converter for the specified class. If no exact
-   * match is found, a fuzzy match via the class hierarchy is attempted.
+   * Get the serialization converter for the specified class. If no exact match is found, a fuzzy
+   * match via the class hierarchy is attempted.
    *
    * @param aDstClass
    *        The class to find a converter for. May be <code>null</code>.
@@ -130,7 +131,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nullable
   public <T> ISerializationConverter <T> getConverter (@Nullable final Class <T> aDstClass)
   {
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       // Check for an exact match first
       ISerializationConverter <?> ret = m_aMap.get (aDstClass);
       if (ret == null)
@@ -145,7 +146,12 @@ public final class SerializationConverterRegistry implements ISerializationConve
             if (ret != null)
             {
               if (LOGGER.isDebugEnabled ())
-                LOGGER.debug ("Using serialization converter " + ret + " for class " + aDstClass + " based on " + aCurDstClass);
+                LOGGER.debug ("Using serialization converter " +
+                              ret +
+                              " for class " +
+                              aDstClass +
+                              " based on " +
+                              aCurDstClass);
               break;
             }
           }
@@ -156,8 +162,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   /**
-   * Iterate all registered serialization converters. For informational purposes
-   * only.
+   * Iterate all registered serialization converters. For informational purposes only.
    *
    * @param aCallback
    *        The callback invoked for all iterations.
@@ -165,7 +170,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@NonNull final ISerializationConverterCallback aCallback)
   {
     // Create a static (non weak) copy of the map
-    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLockedGet ( () -> new CommonsHashMap <> (m_aMap));
+    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLockedGet (() -> new CommonsHashMap <> (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, ISerializationConverter <?>> aEntry : aCopy.entrySet ())
@@ -174,8 +179,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   /**
-   * @return The number of currently registered serialization converters.
-   *         Always &ge; 0.
+   * @return The number of currently registered serialization converters. Always &ge; 0.
    */
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
@@ -184,8 +188,7 @@ public final class SerializationConverterRegistry implements ISerializationConve
   }
 
   /**
-   * Clear all registered converters and re-register them from the SPI
-   * implementations.
+   * Clear all registered converters and re-register them from the SPI implementations.
    */
   public void reinitialize ()
   {

@@ -57,17 +57,17 @@ public final class SAXReaderTest
   public void testMultithreadedSAX_CachingSAXInputSource ()
   {
     TestHelper.testInParallel (1000,
-                                      (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
-                                                                                                                 new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
-                                                                                                    .isSuccess ()));
+                               (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new CachingSAXInputSource (new ClassPathResource ("xml/buildinfo.xml")),
+                                                                                                          new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
+                                                                                             .isSuccess ()));
   }
 
   @Test
   public void testMultithreadedSAX_ReadableResourceSAXInputSource ()
   {
     TestHelper.testInParallel (1000,
-                                      (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
-                                                                                                                 new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
-                                                                                                    .isSuccess ()));
+                               (IThrowingRunnable <SAXException>) () -> assertTrue (SAXReader.readXMLSAX (new ClassPathResource ("xml/buildinfo.xml"),
+                                                                                                          new SAXReaderSettings ().setContentHandler (new DefaultHandler ()))
+                                                                                             .isSuccess ()));
   }
 }

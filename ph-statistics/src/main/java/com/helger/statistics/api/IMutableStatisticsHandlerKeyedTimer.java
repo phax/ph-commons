@@ -33,8 +33,7 @@ public interface IMutableStatisticsHandlerKeyedTimer extends IStatisticsHandlerK
    * @param sKey
    *        The key to be incremented.
    * @param nMillis
-   *        The milli seconds it took to execute something. Should not be
-   *        negative.
+   *        The milli seconds it took to execute something. Should not be negative.
    */
   void addTime (@Nullable String sKey, @Nonnegative long nMillis);
 }

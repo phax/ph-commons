@@ -105,7 +105,7 @@ public class LocaleCache implements IHasConditionalLogger
     // Insert in write lock
     if (StringHelper.isEmpty (sLocaleKey))
       return null;
-    return m_aRWLock.writeLockedGet ( () -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
+    return m_aRWLock.writeLockedGet (() -> m_aLocales.computeIfAbsent (sLocaleKey, k -> new Locale (l, c, v)));
   };
 
   protected LocaleCache ()
@@ -301,7 +301,7 @@ public class LocaleCache implements IHasConditionalLogger
     if (sLocaleKey.length () > 0)
     {
       // try to resolve locale
-      aLocale = m_aRWLock.readLockedGet ( () -> m_aLocales.get (sLocaleKey));
+      aLocale = m_aRWLock.readLockedGet (() -> m_aLocales.get (sLocaleKey));
     }
     if (aLocale == null && aMissingHandler != null)
       aLocale = aMissingHandler.onMissingLocale (sLocaleKey, sRealLanguage, sRealCountry, sRealVariant);
@@ -409,7 +409,7 @@ public class LocaleCache implements IHasConditionalLogger
     final String sLocaleKey = _createLocaleKey (sLanguage, sCountry, sVariant);
     if (sLocaleKey.length () == 0)
       return false;
-    return m_aRWLock.readLockedBoolean ( () -> m_aLocales.containsKey (sLocaleKey));
+    return m_aRWLock.readLockedBoolean (() -> m_aLocales.containsKey (sLocaleKey));
   }
 
   /**
@@ -456,12 +456,12 @@ public class LocaleCache implements IHasConditionalLogger
     final ICommonsOrderedSet <Locale> aDefLocales = getAllDefaultLocales ();
 
     // Update map
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aLocales.clear ();
       for (final Locale aLocale : aDefLocales)
         m_aLocales.put (aLocale.toString (), aLocale);
     });
 
-    CONDLOG.debug ( () -> "Reinitialized " + LocaleCache.class.getName ());
+    CONDLOG.debug (() -> "Reinitialized " + LocaleCache.class.getName ());
   }
 }

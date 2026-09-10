@@ -23,8 +23,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.config.source.IConfigurationSource;
 
 /**
- * This class represents a resolved configuration value. It contains the
- * configuration source where it was found and the actual value.
+ * This class represents a resolved configuration value. It contains the configuration source where
+ * it was found and the actual value.
  *
  * @author Philip Helger
  * @since 9.4.5
@@ -38,8 +38,7 @@ public class ConfiguredValue
    * Constructor
    *
    * @param aConfigSrc
-   *        The configuration source where the value was found. May not be
-   *        <code>null</code>.
+   *        The configuration source where the value was found. May not be <code>null</code>.
    * @param sValue
    *        The resolved configuration value. May not be <code>null</code>.
    */

@@ -314,8 +314,8 @@ public enum EXMLParserProperty implements IHasName
   }
 
   /**
-   * @return The expected value class for this property. May be
-   *         <code>null</code> if the class could not be resolved.
+   * @return The expected value class for this property. May be <code>null</code> if the class could
+   *         not be resolved.
    */
   @Nullable
   public Class <?> getValueClass ()
@@ -324,8 +324,8 @@ public enum EXMLParserProperty implements IHasName
   }
 
   /**
-   * @return The fully qualified class name of the expected value class. Never
-   *         <code>null</code> nor empty.
+   * @return The fully qualified class name of the expected value class. Never <code>null</code> nor
+   *         empty.
    */
   @NonNull
   @Nonempty
@@ -365,8 +365,7 @@ public enum EXMLParserProperty implements IHasName
    * @param aParser
    *        The XML reader to apply it onto. May not be <code>null</code>.
    * @param aValue
-   *        The value to use. May be <code>null</code> depending on the
-   *        context.
+   *        The value to use. May be <code>null</code> depending on the context.
    */
   public void applyTo (@NonNull final XMLReader aParser, final Object aValue)
   {
@@ -398,11 +397,9 @@ public enum EXMLParserProperty implements IHasName
    * Apply this property safely onto the passed {@link DocumentBuilderFactory}.
    *
    * @param aDocumentBuilderFactory
-   *        The document builder factory to apply it onto. May not be
-   *        <code>null</code>.
+   *        The document builder factory to apply it onto. May not be <code>null</code>.
    * @param aValue
-   *        The value to use. May be <code>null</code> depending on the
-   *        context.
+   *        The value to use. May be <code>null</code> depending on the context.
    */
   public void applyTo (@NonNull final DocumentBuilderFactory aDocumentBuilderFactory, final Object aValue)
   {

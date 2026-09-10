@@ -31,8 +31,8 @@ import com.helger.statistics.api.IMutableStatisticsHandlerSize;
 import com.helger.statistics.impl.StatisticsManager;
 
 /**
- * A special {@link FileOutputStream} sub class that keeps track of all written
- * bytes for the statistics handler.
+ * A special {@link FileOutputStream} sub class that keeps track of all written bytes for the
+ * statistics handler.
  *
  * @author Philip Helger
  */
@@ -69,7 +69,8 @@ public class CountingFileOutputStream extends FileOutputStream
    * @throws FileNotFoundException
    *         If the file cannot be opened for writing.
    */
-  public CountingFileOutputStream (@NonNull final File aFile, @NonNull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final File aFile,
+                                   @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (aFile, eAppend.isAppend ());
     STATS_WRITE_FILES.increment ();
@@ -98,7 +99,8 @@ public class CountingFileOutputStream extends FileOutputStream
    * @throws FileNotFoundException
    *         If the file cannot be opened for writing.
    */
-  public CountingFileOutputStream (@NonNull final String sFilename, @NonNull final EAppend eAppend) throws FileNotFoundException
+  public CountingFileOutputStream (@NonNull final String sFilename,
+                                   @NonNull final EAppend eAppend) throws FileNotFoundException
   {
     super (sFilename, eAppend.isAppend ());
     STATS_WRITE_FILES.increment ();

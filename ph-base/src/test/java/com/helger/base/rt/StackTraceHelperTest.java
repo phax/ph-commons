@@ -99,7 +99,7 @@ public final class StackTraceHelperTest
     }
     assertTrue (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
 
-    new Thread ( () -> {
+    new Thread (() -> {
       assertNotNull (StackTraceHelper.getCurrentThreadStackAsString ());
       assertFalse (StackTraceHelper.containsUnitTestElement (new Exception ().getStackTrace ()));
     }).start ();

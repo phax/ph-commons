@@ -245,8 +245,7 @@ public class ReadOnlyURL implements ISimpleURL
   }
 
   /**
-   * Create a new {@link ReadOnlyURL} by parsing the provided URL string with a
-   * specific charset.
+   * Create a new {@link ReadOnlyURL} by parsing the provided URL string with a specific charset.
    *
    * @param sHref
    *        The URL string to parse. May not be <code>null</code>.

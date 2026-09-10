@@ -117,30 +117,30 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
    * Add a configuration file path from a system property value.
    *
    * @param sSystemPropertyName
-   *        The system property name to read the path from. May neither be
-   *        <code>null</code> nor empty.
+   *        The system property name to read the path from. May neither be <code>null</code> nor
+   *        empty.
    * @return this for chaining
    */
   @NonNull
   public ConfigFileBuilder addPathFromSystemProperty (@NonNull @Nonempty final String sSystemPropertyName)
   {
     ValueEnforcer.notEmpty (sSystemPropertyName, "SystemPropertyName");
-    return addPath ( () -> SystemProperties.getPropertyValueOrNull (sSystemPropertyName));
+    return addPath (() -> SystemProperties.getPropertyValueOrNull (sSystemPropertyName));
   }
 
   /**
    * Add a configuration file path from an environment variable value.
    *
    * @param sEnvVarName
-   *        The environment variable name to read the path from. May neither be
-   *        <code>null</code> nor empty.
+   *        The environment variable name to read the path from. May neither be <code>null</code>
+   *        nor empty.
    * @return this for chaining
    */
   @NonNull
   public ConfigFileBuilder addPathFromEnvVar (@NonNull @Nonempty final String sEnvVarName)
   {
     ValueEnforcer.notEmpty (sEnvVarName, "EnvVarName");
-    return addPath ( () -> System.getenv ().get (sEnvVarName));
+    return addPath (() -> System.getenv ().get (sEnvVarName));
   }
 
   /**
@@ -161,8 +161,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
    * Add a configuration file path.
    *
    * @param sConfigPath
-   *        The path to add. May be <code>null</code> or empty in which case it
-   *        is ignored.
+   *        The path to add. May be <code>null</code> or empty in which case it is ignored.
    * @return this for chaining
    */
   @NonNull
@@ -251,8 +250,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   /**
-   * @return A mutable copy of all currently configured paths. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all currently configured paths. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -262,8 +260,7 @@ public class ConfigFileBuilder implements IBuilder <ConfigFile>
   }
 
   /**
-   * @return An immutable iterable over all currently configured paths. Never
-   *         <code>null</code>.
+   * @return An immutable iterable over all currently configured paths. Never <code>null</code>.
    */
   @NonNull
   @ReturnsImmutableObject

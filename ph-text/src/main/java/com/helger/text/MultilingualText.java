@@ -26,8 +26,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * This class represents a multilingual text. It is internally represented as a
- * {@link HashMap} from {@link Locale} to the language dependent name.
+ * This class represents a multilingual text. It is internally represented as a {@link HashMap} from
+ * {@link Locale} to the language dependent name.
  *
  * @author Philip Helger
  */

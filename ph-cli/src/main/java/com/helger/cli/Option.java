@@ -32,8 +32,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Represents a single command line option with short/long names, a description,
- * and multiplicity.
+ * Represents a single command line option with short/long names, a description, and multiplicity.
  *
  * @author Philip Helger
  */
@@ -476,8 +475,8 @@ public class Option implements IOptionBase
                                        .appendIfNotNull ("Description", m_sDescription)
                                        .appendIf ("MinArgs", m_nMinArgs, this::hasMinArgs)
                                        .appendIf ("MaxArgs",
-                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite" : Integer.toString (
-                                                                                                                 m_nMaxArgs),
+                                                  m_nMaxArgs == INFINITE_VALUES ? "infinite"
+                                                                                : Integer.toString (m_nMaxArgs),
                                                   this::canHaveArgs)
                                        .appendIfNotNull ("ArgName", m_sArgName)
                                        .append ("Multiplicity", m_eMultiplicity)

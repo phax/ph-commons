@@ -19,12 +19,10 @@ package com.helger.base.functional;
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts a float-valued argument and produces a
- * result. This is the {@code float}-consuming primitive specialization for
- * {@link Function}.
+ * Represents a function that accepts a float-valued argument and produces a result. This is the
+ * {@code float}-consuming primitive specialization for {@link Function}.
  * <p>
- * This is a functional interface whose functional method is
- * {@link #apply(float)}.
+ * This is a functional interface whose functional method is {@link #apply(float)}.
  *
  * @param <R>
  *        the type of the result of the function

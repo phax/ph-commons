@@ -28,8 +28,7 @@ import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Helper class for hexadecimal string encoding and decoding of byte arrays and
- * individual values.
+ * Helper class for hexadecimal string encoding and decoding of byte arrays and individual values.
  *
  * @author Philip Helger
  */
@@ -317,8 +316,7 @@ public class StringHex
   }
 
   /**
-   * Convert a byte value to a hex string with leading zeros up to the specified
-   * number of digits.
+   * Convert a byte value to a hex string with leading zeros up to the specified number of digits.
    *
    * @param nValue
    *        The byte value to convert.
@@ -333,9 +331,8 @@ public class StringHex
   }
 
   /**
-   * Convert a byte value to a hex string with a leading zero to ensure at least
-   * 2 digits. This is a optimized shortcut for
-   * <code>getHexStringLeadingZero(nValue, 2)</code>.
+   * Convert a byte value to a hex string with a leading zero to ensure at least 2 digits. This is a
+   * optimized shortcut for <code>getHexStringLeadingZero(nValue, 2)</code>.
    *
    * @param nValue
    *        The byte value to convert.
@@ -362,8 +359,8 @@ public class StringHex
   }
 
   /**
-   * Convert an int value to a hex string with leading zeros up to the specified
-   * number of digits. Negative values are prefixed with a minus sign.
+   * Convert an int value to a hex string with leading zeros up to the specified number of digits.
+   * Negative values are prefixed with a minus sign.
    *
    * @param nValue
    *        The int value to convert.
@@ -393,8 +390,8 @@ public class StringHex
   }
 
   /**
-   * Convert a long value to a hex string with leading zeros up to the specified
-   * number of digits. Negative values are prefixed with a minus sign.
+   * Convert a long value to a hex string with leading zeros up to the specified number of digits.
+   * Negative values are prefixed with a minus sign.
    *
    * @param nValue
    *        The long value to convert.
@@ -424,8 +421,8 @@ public class StringHex
   }
 
   /**
-   * Convert a short value to a hex string with leading zeros up to the specified
-   * number of digits. The short is handled as unsigned.
+   * Convert a short value to a hex string with leading zeros up to the specified number of digits.
+   * The short is handled as unsigned.
    *
    * @param nValue
    *        The short value to convert.

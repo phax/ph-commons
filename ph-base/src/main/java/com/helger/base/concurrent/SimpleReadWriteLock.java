@@ -29,12 +29,10 @@ import com.helger.base.functional.IThrowingSupplier;
 import com.helger.base.iface.IThrowingRunnable;
 
 /**
- * This is an extension around {@link ReentrantReadWriteLock} that allows for
- * easy usage with Java 8 :) See {@link #readLocked(Runnable)} and
- * {@link #writeLocked(Runnable)} method. For throwing versions see
- * {@link #readLockedThrowing(IThrowingRunnable)} and
- * {@link #writeLockedThrowing(IThrowingRunnable)}. Also methods for callables
- * are available.
+ * This is an extension around {@link ReentrantReadWriteLock} that allows for easy usage with Java 8
+ * :) See {@link #readLocked(Runnable)} and {@link #writeLocked(Runnable)} method. For throwing
+ * versions see {@link #readLockedThrowing(IThrowingRunnable)} and
+ * {@link #writeLockedThrowing(IThrowingRunnable)}. Also methods for callables are available.
  *
  * @author Philip Helger
  */
@@ -47,8 +45,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   {}
 
   /**
-   * Constructor creating a {@link ReentrantReadWriteLock} with the provided
-   * fairness
+   * Constructor creating a {@link ReentrantReadWriteLock} with the provided fairness
    *
    * @param bFair
    *        <code>true</code> if this lock should use a fair ordering policy
@@ -59,8 +56,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a read lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -124,8 +120,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a read lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a read lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.
@@ -273,8 +268,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a write lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a write lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aSupplier
    *        Callable to be executed. May not be <code>null</code>.
@@ -296,8 +290,7 @@ public class SimpleReadWriteLock extends ReentrantReadWriteLock
   }
 
   /**
-   * Execute the provided callable in a write lock. Note: no
-   * nullable/non-nullable can be assumed.
+   * Execute the provided callable in a write lock. Note: no nullable/non-nullable can be assumed.
    *
    * @param aCallable
    *        Callable to be executed. May not be <code>null</code>.

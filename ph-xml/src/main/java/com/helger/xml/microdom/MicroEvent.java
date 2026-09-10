@@ -45,7 +45,9 @@ public final class MicroEvent implements IMicroEvent
    * @param aTargetNode
    *        The target node. May be <code>null</code>.
    */
-  public MicroEvent (@NonNull final EMicroEvent eEventType, @Nullable final IMicroNode aSourceNode, @Nullable final IMicroNode aTargetNode)
+  public MicroEvent (@NonNull final EMicroEvent eEventType,
+                     @Nullable final IMicroNode aSourceNode,
+                     @Nullable final IMicroNode aTargetNode)
   {
     m_eEventType = ValueEnforcer.notNull (eEventType, "EventType");
     m_aSourceNode = aSourceNode;

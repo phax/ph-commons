@@ -149,12 +149,12 @@ public class CmdLineParser
    *        The command line arguments to parse. May be <code>null</code>.
    * @return The parsed command line result. Never <code>null</code>.
    * @throws CmdLineParseException
-   *         If a parsing error occurs, e.g. a required option is missing or
-   *         an option has too few values.
+   *         If a parsing error occurs, e.g. a required option is missing or an option has too few
+   *         values.
    */
   @NonNull
-  public static ParsedCmdLine parseStatic (@NonNull final Options aOptions, @Nullable final String [] aArgs)
-                                                                                                             throws CmdLineParseException
+  public static ParsedCmdLine parseStatic (@NonNull final Options aOptions,
+                                           @Nullable final String [] aArgs) throws CmdLineParseException
   {
     ValueEnforcer.notNull (aOptions, "Options");
 
@@ -314,8 +314,7 @@ public class CmdLineParser
   }
 
   /**
-   * Parse the given command line arguments using the options provided in the
-   * constructor.
+   * Parse the given command line arguments using the options provided in the constructor.
    *
    * @param aArgs
    *        The command line arguments to parse. May be <code>null</code>.
@@ -330,14 +329,12 @@ public class CmdLineParser
   }
 
   /**
-   * Parse the given command line arguments using the options provided in the
-   * constructor, returning <code>null</code> on error instead of throwing an
-   * exception.
+   * Parse the given command line arguments using the options provided in the constructor, returning
+   * <code>null</code> on error instead of throwing an exception.
    *
    * @param aArgs
    *        The command line arguments to parse. May be <code>null</code>.
-   * @return The parsed command line result, or <code>null</code> if parsing
-   *         failed.
+   * @return The parsed command line result, or <code>null</code> if parsing failed.
    */
   @Nullable
   public ParsedCmdLine parseOrNull (@Nullable final String [] aArgs)

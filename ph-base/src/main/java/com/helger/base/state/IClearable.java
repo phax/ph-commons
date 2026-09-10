@@ -19,8 +19,7 @@ package com.helger.base.state;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Basic interface for the common action of resetting an objects contents to the
- * initial state.
+ * Basic interface for the common action of resetting an objects contents to the initial state.
  *
  * @author Philip Helger
  */
@@ -29,8 +28,8 @@ public interface IClearable
   /**
    * Reset the contents of the element to the after-construction state.
    *
-   * @return {@link EChange#CHANGED} if at least one element was cleared,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if at least one element was cleared, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @NonNull
   EChange removeAll ();

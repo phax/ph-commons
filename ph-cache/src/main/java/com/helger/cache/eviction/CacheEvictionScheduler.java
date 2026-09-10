@@ -94,7 +94,7 @@ public final class CacheEvictionScheduler
    */
   public boolean isRunning ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aExecutor != null && !m_aExecutor.isShutdown ());
+    return m_aRWLock.readLockedBoolean (() -> m_aExecutor != null && !m_aExecutor.isShutdown ());
   }
 
   /**
@@ -160,10 +160,10 @@ public final class CacheEvictionScheduler
       }
 
       final long nIntervalMillis = aInterval.toMillis ();
-      final ScheduledFuture <?> aFuture = m_aExecutor.scheduleWithFixedDelay ( () -> _safeEvict (aCache),
-                                                                               nIntervalMillis,
-                                                                               nIntervalMillis,
-                                                                               TimeUnit.MILLISECONDS);
+      final ScheduledFuture <?> aFuture = m_aExecutor.scheduleWithFixedDelay (() -> _safeEvict (aCache),
+                                                                              nIntervalMillis,
+                                                                              nIntervalMillis,
+                                                                              TimeUnit.MILLISECONDS);
       m_aRegistrations.put (aCache, aFuture);
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Registered cache '" + aCache.getName () + "' with eviction interval " + aInterval);

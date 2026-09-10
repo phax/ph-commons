@@ -21,8 +21,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.style.IsSPIInterface;
 
 /**
- * SPI interface to be implemented by other modules wishing to register their
- * own {@link IJsonValueSerializer}.
+ * SPI interface to be implemented by other modules wishing to register their own
+ * {@link IJsonValueSerializer}.
  *
  * @author Philip Helger
  */
@@ -30,8 +30,7 @@ import com.helger.annotation.style.IsSPIInterface;
 public interface IJsonValueSerializerRegistrarSPI
 {
   /**
-   * Register all your dynamic {@link IJsonValueSerializer} in the passed
-   * interface
+   * Register all your dynamic {@link IJsonValueSerializer} in the passed interface
    *
    * @param aRegistry
    *        The registry to register your serializers. Never <code>null</code>.

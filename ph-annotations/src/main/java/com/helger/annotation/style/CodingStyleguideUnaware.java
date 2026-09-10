@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * This is an indicator, that an object is aware to break the style guide. This
- * may be evaluated in coding style guide checks.
+ * This is an indicator, that an object is aware to break the style guide. This may be evaluated in
+ * coding style guide checks.
  *
  * @author Philip Helger
  */

@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Just to indicate that an object is only present for code coverage reasons, to
- * create 100% coverage.
+ * Just to indicate that an object is only present for code coverage reasons, to create 100%
+ * coverage.
  *
  * @author Philip Helger
  */

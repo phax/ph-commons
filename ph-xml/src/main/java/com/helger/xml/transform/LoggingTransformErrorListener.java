@@ -44,8 +44,7 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
    * Constructor with a display locale.
    *
    * @param aDisplayLocale
-   *        The display locale to use for error messages. May not be
-   *        <code>null</code>.
+   *        The display locale to use for error messages. May not be <code>null</code>.
    */
   public LoggingTransformErrorListener (@NonNull final Locale aDisplayLocale)
   {
@@ -53,8 +52,7 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
   }
 
   /**
-   * @return The display locale used for error messages. Never
-   *         <code>null</code>.
+   * @return The display locale used for error messages. Never <code>null</code>.
    */
   @NonNull
   public Locale getDisplayLocale ()

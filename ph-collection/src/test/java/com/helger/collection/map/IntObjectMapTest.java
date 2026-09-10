@@ -155,7 +155,7 @@ public final class IntObjectMapTest
 
     final boolean [] aKeysFound = new boolean [map.size ()];
     final boolean [] aValuesFound = new boolean [map.size ()];
-    map.forEach ( (k, v) -> {
+    map.forEach ((k, v) -> {
       aKeysFound[k] = true;
       aValuesFound[Integer.parseInt (v.substring (3))] = true;
     });

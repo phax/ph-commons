@@ -32,18 +32,17 @@ import com.helger.datetime.helper.PDTFactory;
 public interface IExpirable
 {
   /**
-   * @return The date time when the object will expire/expired. May be
-   *         <code>null</code> if no expiration is defined.
+   * @return The date time when the object will expire/expired. May be <code>null</code> if no
+   *         expiration is defined.
    */
   @Nullable
   LocalDateTime getExpirationDateTime ();
 
   /**
-   * Check if the object has an expiration date defined. To check if the object
-   * is already expired, use {@link #isExpiredNow()} instead.
+   * Check if the object has an expiration date defined. To check if the object is already expired,
+   * use {@link #isExpiredNow()} instead.
    *
-   * @return <code>true</code> if an expiration date is defined,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date is defined, <code>false</code> otherwise.
    */
   default boolean isExpirationDefined ()
   {
@@ -51,11 +50,11 @@ public interface IExpirable
   }
 
   /**
-   * Check if this object is already expired. This is only possible if an
-   * expiration date is defined.
+   * Check if this object is already expired. This is only possible if an expiration date is
+   * defined.
    *
-   * @return <code>true</code> if an expiration date is defined and the
-   *         expiration date is in the past, <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date is defined and the expiration date is in the
+   *         past, <code>false</code> otherwise.
    * @see #isExpirationDefined()
    */
   default boolean isExpiredNow ()
@@ -64,13 +63,13 @@ public interface IExpirable
   }
 
   /**
-   * Check if this object is expired at the provided date time. This is only
-   * possible if an expiration date is defined.
+   * Check if this object is expired at the provided date time. This is only possible if an
+   * expiration date is defined.
    *
    * @param aDT
    *        The date time to check against. May not be <code>null</code>.
-   * @return <code>true</code> if an expiration date is defined and the
-   *         expiration date is in the past, <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date is defined and the expiration date is in the
+   *         past, <code>false</code> otherwise.
    * @see #isExpirationDefined()
    */
   default boolean isExpiredAt (@NonNull final LocalDateTime aDT)
@@ -79,14 +78,13 @@ public interface IExpirable
   }
 
   /**
-   * Check if this object is expired within now plus the provided duration. This
-   * is only possible if an expiration date is defined.
+   * Check if this object is expired within now plus the provided duration. This is only possible if
+   * an expiration date is defined.
    *
    * @param aDuration
    *        The duration to check against. May not be <code>null</code>.
-   * @return <code>true</code> if an expiration date is defined and the
-   *         expiration date is within now plus the provided duration,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if an expiration date is defined and the expiration date is within
+   *         now plus the provided duration, <code>false</code> otherwise.
    * @see #isExpirationDefined()
    * @see #isExpiredAt(LocalDateTime)
    * @since 11.2.0

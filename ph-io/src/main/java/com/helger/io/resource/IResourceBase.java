@@ -33,8 +33,7 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 public interface IResourceBase
 {
   /**
-   * @return A non-<code>null</code> resource ID used e.g. for system IDs in XML
-   *         resolving.
+   * @return A non-<code>null</code> resource ID used e.g. for system IDs in XML resolving.
    */
   @NonNull
   String getResourceID ();
@@ -46,21 +45,20 @@ public interface IResourceBase
   String getPath ();
 
   /**
-   * @return <code>true</code> if the resource exists, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the resource exists, <code>false</code> otherwise.
    */
   boolean exists ();
 
   /**
-   * @return the URL representation of this resource. May be <code>null</code>
-   *         if this resource cannot be represented as an URL.
+   * @return the URL representation of this resource. May be <code>null</code> if this resource
+   *         cannot be represented as an URL.
    */
   @Nullable
   URL getAsURL ();
 
   /**
-   * @return the File representation of this resource. May be <code>null</code>
-   *         if this resource cannot be represented as a file.
+   * @return the File representation of this resource. May be <code>null</code> if this resource
+   *         cannot be represented as a file.
    */
   @Nullable
   File getAsFile ();

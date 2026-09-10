@@ -29,9 +29,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.WrappedOutputStream;
 
 /**
- * A {@link Base64OutputStream} will write data to another
- * <code>OutputStream</code> , given in the constructor, and encode/decode
- * to/from Base64 notation on the fly.
+ * A {@link Base64OutputStream} will write data to another <code>OutputStream</code> , given in the
+ * constructor, and encode/decode to/from Base64 notation on the fly.
  *
  * @see Base64
  * @since 1.3
@@ -104,12 +103,10 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Set the newline bytes to be used, so that "\r\n" can be used instead of the
-   * default "\n"
+   * Set the newline bytes to be used, so that "\r\n" can be used instead of the default "\n"
    *
    * @param aNewLineBytes
-   *        The newline bytes to be used. May neither be <code>null</code> nor
-   *        empty.
+   *        The newline bytes to be used. May neither be <code>null</code> nor empty.
    * @since 9.3.4
    */
   public void setNewLineBytes (@Nonempty final byte @NonNull [] aNewLineBytes)
@@ -119,10 +116,9 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Writes the byte to the output stream after converting to/from Base64
-   * notation. When encoding, bytes are buffered three at a time before the
-   * output stream actually gets a write() call. When decoding, bytes are
-   * buffered four at a time.
+   * Writes the byte to the output stream after converting to/from Base64 notation. When encoding,
+   * bytes are buffered three at a time before the output stream actually gets a write() call. When
+   * decoding, bytes are buffered four at a time.
    *
    * @param theByte
    *        the byte to write
@@ -180,8 +176,7 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Calls {@link #write(int)} repeatedly until <var>len</var> bytes are
-   * written.
+   * Calls {@link #write(int)} repeatedly until <var>len</var> bytes are written.
    *
    * @param aBytes
    *        array from which to read bytes
@@ -192,7 +187,9 @@ public class Base64OutputStream extends WrappedOutputStream
    * @since 1.3
    */
   @Override
-  public void write (final byte @NonNull [] aBytes, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (final byte @NonNull [] aBytes,
+                     @Nonnegative final int nOfs,
+                     @Nonnegative final int nLen) throws IOException
   {
     // Encoding suspended?
     if (m_bSuspendEncoding)
@@ -206,8 +203,7 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Method added by PHIL. [Thanks, PHIL. -Rob] This pads the buffer without
-   * closing the stream.
+   * Method added by PHIL. [Thanks, PHIL. -Rob] This pads the buffer without closing the stream.
    *
    * @throws IOException
    *         if there's an error.
@@ -249,8 +245,8 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Suspends encoding of the stream. May be helpful if you need to embed a
-   * piece of base64-encoded data in a stream.
+   * Suspends encoding of the stream. May be helpful if you need to embed a piece of base64-encoded
+   * data in a stream.
    *
    * @throws IOException
    *         if there's an error flushing
@@ -263,8 +259,8 @@ public class Base64OutputStream extends WrappedOutputStream
   }
 
   /**
-   * Resumes encoding of the stream. May be helpful if you need to embed a piece
-   * of base64-encoded data in a stream.
+   * Resumes encoding of the stream. May be helpful if you need to embed a piece of base64-encoded
+   * data in a stream.
    *
    * @since 1.5.1
    */

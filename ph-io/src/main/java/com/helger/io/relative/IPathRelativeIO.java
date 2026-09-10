@@ -34,21 +34,19 @@ import com.helger.io.resource.IReadableResource;
 public interface IPathRelativeIO
 {
   /**
-   * @return The base path. May be a file path, a URL or whatever. Never
-   *         <code>null</code>.
+   * @return The base path. May be a file path, a URL or whatever. Never <code>null</code>.
    */
   @NonNull
   @Nonempty
   String getBasePath ();
 
   /**
-   * Get the file system resource relative to the base path. This method CAN NOT
-   * handle absolute paths!
+   * Get the file system resource relative to the base path. This method CAN NOT handle absolute
+   * paths!
    *
    * @param sRelativePath
    *        the relative path
-   * @return The "absolute" {@link IReadableResource} and never
-   *         <code>null</code>.
+   * @return The "absolute" {@link IReadableResource} and never <code>null</code>.
    */
   @NonNull
   IReadableResource getResource (@NonNull String sRelativePath);

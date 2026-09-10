@@ -66,8 +66,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
   }
 
   /**
-   * @return The mutable {@link StringBuilder} containing the data. Never
-   *         <code>null</code>.
+   * @return The mutable {@link StringBuilder} containing the data. Never <code>null</code>.
    */
   @NonNull
   public StringBuilder getData ()

@@ -85,13 +85,11 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   }
 
   /**
-   * Get the store value if this is a success. Otherwise the passed failure
-   * value is returned.
+   * Get the store value if this is a success. Otherwise the passed failure value is returned.
    *
    * @param aFailureValue
    *        The failure value to be used. May be <code>null</code>.
-   * @return Either the stored value or the failure value. May be
-   *         <code>null</code>.
+   * @return Either the stored value or the failure value. May be <code>null</code>.
    */
   @Nullable
   public DATATYPE getIfSuccess (@Nullable final DATATYPE aFailureValue)
@@ -100,8 +98,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   }
 
   /**
-   * Get the store value if this is a success. Otherwise <code>null</code> is
-   * returned.
+   * Get the store value if this is a success. Otherwise <code>null</code> is returned.
    *
    * @return Either the stored value or <code>null</code>.
    */
@@ -112,13 +109,11 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   }
 
   /**
-   * Get the store value if this is a failure. Otherwise the passed success
-   * value is returned.
+   * Get the store value if this is a failure. Otherwise the passed success value is returned.
    *
    * @param aSuccessValue
    *        The failure value to be used. May be <code>null</code>.
-   * @return Either the stored value or the failure value. May be
-   *         <code>null</code>.
+   * @return Either the stored value or the failure value. May be <code>null</code>.
    */
   @Nullable
   public DATATYPE getIfFailure (@Nullable final DATATYPE aSuccessValue)
@@ -127,8 +122,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   }
 
   /**
-   * Get the store value if this is a failure. Otherwise <code>null</code> is
-   * returned.
+   * Get the store value if this is a failure. Otherwise <code>null</code> is returned.
    *
    * @return Either the stored value or <code>null</code>.
    */

@@ -29,8 +29,8 @@ public enum ECSPMode
   CSP_ON;
 
   /**
-   * @return <code>true</code> if this mode is reporting only (violations are
-   *         reported but not enforced), <code>false</code> otherwise.
+   * @return <code>true</code> if this mode is reporting only (violations are reported but not
+   *         enforced), <code>false</code> otherwise.
    */
   public boolean isReportingOnly ()
   {
@@ -38,9 +38,8 @@ public enum ECSPMode
   }
 
   /**
-   * @return <code>true</code> if CSP reporting is active (either
-   *         reporting-only or fully enforced), <code>false</code> if CSP is
-   *         off.
+   * @return <code>true</code> if CSP reporting is active (either reporting-only or fully enforced),
+   *         <code>false</code> if CSP is off.
    */
   public boolean isReporting ()
   {

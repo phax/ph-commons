@@ -66,12 +66,11 @@ public final class ComparatorHelper
   }
 
   /**
-   * Get a collating comparator that extracts a string via the given mapper
-   * function and sorts using the provided locale.
+   * Get a collating comparator that extracts a string via the given mapper function and sorts using
+   * the provided locale.
    *
    * @param aMapper
-   *        The function to extract the string to compare. May not be
-   *        <code>null</code>.
+   *        The function to extract the string to compare. May not be <code>null</code>.
    * @param aSortLocale
    *        The locale to use for collation. May be <code>null</code>.
    * @param <T>
@@ -86,12 +85,11 @@ public final class ComparatorHelper
   }
 
   /**
-   * Get a collating comparator that extracts a string via the given mapper
-   * function and sorts using the provided collator.
+   * Get a collating comparator that extracts a string via the given mapper function and sorts using
+   * the provided collator.
    *
    * @param aMapper
-   *        The function to extract the string to compare. May not be
-   *        <code>null</code>.
+   *        The function to extract the string to compare. May not be <code>null</code>.
    * @param aCollator
    *        The collator to use. May not be <code>null</code>.
    * @param <T>
@@ -106,8 +104,8 @@ public final class ComparatorHelper
   }
 
   /**
-   * Get a comparator that sorts strings with the longest first. Uses the
-   * default null value handling.
+   * Get a comparator that sorts strings with the longest first. Uses the default null value
+   * handling.
    *
    * @return A non-<code>null</code> comparator.
    */
@@ -121,8 +119,8 @@ public final class ComparatorHelper
    * Get a comparator that sorts strings with the longest first.
    *
    * @param bNullValuesComeFirst
-   *        <code>true</code> if <code>null</code> values should come first,
-   *        <code>false</code> if they should come last.
+   *        <code>true</code> if <code>null</code> values should come first, <code>false</code> if
+   *        they should come last.
    * @return A non-<code>null</code> comparator.
    */
   @NonNull
@@ -135,8 +133,8 @@ public final class ComparatorHelper
   }
 
   /**
-   * Get a comparator that sorts strings with the shortest first. Uses the
-   * default null value handling.
+   * Get a comparator that sorts strings with the shortest first. Uses the default null value
+   * handling.
    *
    * @return A non-<code>null</code> comparator.
    */
@@ -150,8 +148,8 @@ public final class ComparatorHelper
    * Get a comparator that sorts strings with the shortest first.
    *
    * @param bNullValuesComeFirst
-   *        <code>true</code> if <code>null</code> values should come first,
-   *        <code>false</code> if they should come last.
+   *        <code>true</code> if <code>null</code> values should come first, <code>false</code> if
+   *        they should come last.
    * @return A non-<code>null</code> comparator.
    */
   @NonNull
@@ -164,8 +162,7 @@ public final class ComparatorHelper
   }
 
   /**
-   * Get a case-insensitive string comparator. Uses the default null value
-   * handling.
+   * Get a case-insensitive string comparator. Uses the default null value handling.
    *
    * @return A non-<code>null</code> comparator.
    */
@@ -179,8 +176,8 @@ public final class ComparatorHelper
    * Get a case-insensitive string comparator.
    *
    * @param bNullValuesComeFirst
-   *        <code>true</code> if <code>null</code> values should come first,
-   *        <code>false</code> if they should come last.
+   *        <code>true</code> if <code>null</code> values should come first, <code>false</code> if
+   *        they should come last.
    * @return A non-<code>null</code> comparator.
    */
   @NonNull

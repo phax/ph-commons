@@ -27,9 +27,8 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.level.EErrorLevel;
 
 /**
- * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
- * interface. It simply prints the messages to a logger before the original
- * handler handles them.
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler} interface. It
+ * simply prints the messages to a logger before the original handler handles them.
  *
  * @author Philip Helger
  */

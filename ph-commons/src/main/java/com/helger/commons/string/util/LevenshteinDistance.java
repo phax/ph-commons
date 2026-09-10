@@ -172,8 +172,8 @@ public final class LevenshteinDistance
   }
 
   /**
-   * Get the distance of the 2 character arrays, using custom costs for
-   * insertion, deletion and substitution.
+   * Get the distance of the 2 character arrays, using custom costs for insertion, deletion and
+   * substitution.
    *
    * @param aStr1
    *        First character array. May be <code>null</code>.
@@ -235,8 +235,7 @@ public final class LevenshteinDistance
   }
 
   /**
-   * Get the distance of the 2 strings, using custom costs for insertion,
-   * deletion and substitution.
+   * Get the distance of the 2 strings, using custom costs for insertion, deletion and substitution.
    *
    * @param sStr1
    *        First string. May be <code>null</code>.

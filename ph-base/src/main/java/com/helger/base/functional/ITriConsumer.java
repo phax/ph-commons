@@ -22,13 +22,12 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Represents an operation that accepts three input arguments and returns no
- * result. This is the three-arity specialization of {@link Consumer}. Unlike
- * most other functional interfaces, {@code ITriConsumer} is expected to operate
- * via side-effects.
+ * Represents an operation that accepts three input arguments and returns no result. This is the
+ * three-arity specialization of {@link Consumer}. Unlike most other functional interfaces,
+ * {@code ITriConsumer} is expected to operate via side-effects.
  * <p>
- * This is a <a href="package-summary.html">functional interface</a> whose
- * functional method is {@link #accept(Object, Object,Object)}.
+ * This is a <a href="package-summary.html">functional interface</a> whose functional method is
+ * {@link #accept(Object, Object,Object)}.
  *
  * @param <T>
  *        the type of the first argument to the operation
@@ -54,17 +53,15 @@ public interface ITriConsumer <T, U, V>
   void accept (T t, U u, V v);
 
   /**
-   * Returns a composed {@code ITriConsumer} that performs, in sequence, this
-   * operation followed by the {@code after} operation. If performing either
-   * operation throws an exception, it is relayed to the caller of the composed
-   * operation. If performing this operation throws an exception, the
+   * Returns a composed {@code ITriConsumer} that performs, in sequence, this operation followed by
+   * the {@code after} operation. If performing either operation throws an exception, it is relayed
+   * to the caller of the composed operation. If performing this operation throws an exception, the
    * {@code after} operation will not be performed.
    *
    * @param after
-   *        the operation to perform after this operation. May be
-   *        <code>null</code>.
-   * @return a composed {@code ITriConsumer} that performs in sequence this
-   *         operation followed by the {@code after} operation
+   *        the operation to perform after this operation. May be <code>null</code>.
+   * @return a composed {@code ITriConsumer} that performs in sequence this operation followed by
+   *         the {@code after} operation
    */
   @NonNull
   default ITriConsumer <T, U, V> andThen (@Nullable final ITriConsumer <? super T, ? super U, ? super V> after)

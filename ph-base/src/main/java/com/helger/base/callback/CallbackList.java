@@ -92,7 +92,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNull (rhs, "rhs");
 
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       // If something was present or something is to be set -> change
       final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty () || rhs.isNotEmpty ());
       m_aCallbacks.clear ();
@@ -113,7 +113,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty ());
       m_aCallbacks.clear ();
       m_aCallbacks.add (aCallback);
@@ -133,7 +133,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    return m_aRWLock.writeLockedGet ( () -> EChange.valueOf (m_aCallbacks.add (aCallback)));
+    return m_aRWLock.writeLockedGet (() -> EChange.valueOf (m_aCallbacks.add (aCallback)));
   }
 
   /**
@@ -149,7 +149,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNullNoNullValue (aCallbacks, "Callbacks");
 
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       EChange ret = EChange.UNCHANGED;
       for (final CALLBACKTYPE aItem : aCallbacks)
         if (m_aCallbacks.add (aItem))
@@ -171,7 +171,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     if (aCallback == null)
       return EChange.UNCHANGED;
 
-    return m_aRWLock.writeLockedGet ( () -> EChange.valueOf (m_aCallbacks.remove (aCallback)));
+    return m_aRWLock.writeLockedGet (() -> EChange.valueOf (m_aCallbacks.remove (aCallback)));
   }
 
   /**
@@ -182,7 +182,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @NonNull
   public EChange removeAll ()
   {
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty ());
       m_aCallbacks.clear ();
       return ret;
@@ -220,7 +220,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.isGE0 (nIndex, "Index");
 
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       int nCurIdx = 0;
       for (final CALLBACKTYPE aItem : m_aCallbacks)
       {
@@ -264,7 +264,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @NonNull
   public CallbackList <CALLBACKTYPE> getClone ()
   {
-    return m_aRWLock.readLockedGet ( () -> new CallbackList <> (this));
+    return m_aRWLock.readLockedGet (() -> new CallbackList <> (this));
   }
 
   /**

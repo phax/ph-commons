@@ -212,8 +212,8 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * @return <code>true</code> if the floor version is included in the range (i.e. &gt;= comparison),
-   *         <code>false</code> if not (i.e. &gt; comparison).
+   * @return <code>true</code> if the floor version is included in the range (i.e. &gt;=
+   *         comparison), <code>false</code> if not (i.e. &gt; comparison).
    */
   public boolean isIncludingFloor ()
   {

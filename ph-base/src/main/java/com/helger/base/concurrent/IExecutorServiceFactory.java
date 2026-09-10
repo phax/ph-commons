@@ -31,9 +31,9 @@ import com.helger.annotation.Nonnegative;
 public interface IExecutorServiceFactory
 {
   /**
-   * Get an {@link ExecutorService} for the given number of parallel tasks. It
-   * is up to the implementation to interpret the value or not. The number of
-   * parallel tasks can therefore considered a hint to the implementation.
+   * Get an {@link ExecutorService} for the given number of parallel tasks. It is up to the
+   * implementation to interpret the value or not. The number of parallel tasks can therefore
+   * considered a hint to the implementation.
    *
    * @param nParallelTasks
    *        The number of parallel tasks to perform. Needs to be &gt; 0.

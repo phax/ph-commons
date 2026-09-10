@@ -42,8 +42,7 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
    *
    * @param aFile
    *        The file to check. May be <code>null</code>.
-   * @return <code>true</code> if the file is accepted, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the file is accepted, <code>false</code> otherwise.
    */
   default boolean accept (@Nullable final File aFile)
   {
@@ -51,15 +50,13 @@ public interface IFileFilter extends FileFilter, FilenameFilter, Predicate <File
   }
 
   /**
-   * Accept a file based on directory and name. Delegates to
-   * {@link #test(Object)}.
+   * Accept a file based on directory and name. Delegates to {@link #test(Object)}.
    *
    * @param aDir
    *        The parent directory. May be <code>null</code>.
    * @param sName
    *        The filename. May be <code>null</code>.
-   * @return <code>true</code> if the file is accepted, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if the file is accepted, <code>false</code> otherwise.
    */
   default boolean accept (@Nullable final File aDir, @Nullable final String sName)
   {

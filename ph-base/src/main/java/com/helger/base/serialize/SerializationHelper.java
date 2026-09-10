@@ -74,7 +74,11 @@ public final class SerializationHelper
     }
     catch (final IOException ex)
     {
-      throw new IllegalArgumentException ("Failed to write serializable object " + aData + " of type " + aData.getClass ().getName (), ex);
+      throw new IllegalArgumentException ("Failed to write serializable object " +
+                                          aData +
+                                          " of type " +
+                                          aData.getClass ().getName (),
+                                          ex);
     }
   }
 
@@ -95,8 +99,7 @@ public final class SerializationHelper
    * @since 12.2.1
    */
   @NonNull
-  public static <T> T getDeserializedObject (final byte @NonNull [] aData,
-                                             @Nullable final ObjectInputFilter aFilter)
+  public static <T> T getDeserializedObject (final byte @NonNull [] aData, @Nullable final ObjectInputFilter aFilter)
   {
     ValueEnforcer.notNull (aData, "Data");
 

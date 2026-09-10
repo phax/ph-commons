@@ -36,25 +36,23 @@ public interface IStatisticsHandlerNumeric extends IStatisticsHandler
   BigInteger getSum ();
 
   /**
-   * @return The smallest value. Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
-   *         count is 0.
+   * @return The smallest value. Returns {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the
+   *         invocation count is 0.
    */
   @CheckForSigned
   long getMin ();
 
   /**
    * @return The average value (=sum/invocationCount). Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
-   *         count is 0 to avoid a division by 0.
+   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation count is 0 to avoid a
+   *         division by 0.
    */
   @CheckForSigned
   long getAverage ();
 
   /**
-   * @return The biggest value. Returns
-   *         {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the invocation
-   *         count is 0.
+   * @return The biggest value. Returns {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if the
+   *         invocation count is 0.
    */
   @CheckForSigned
   long getMax ();

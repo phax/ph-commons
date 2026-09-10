@@ -43,8 +43,7 @@ public interface IContinueIndicator
    *
    * @param aContinue
    *        The other continue indicator. May not be <code>null</code>.
-   * @return {@link EContinue#CONTINUE} if either this or the other indicator
-   *         indicates continue.
+   * @return {@link EContinue#CONTINUE} if either this or the other indicator indicates continue.
    */
   @NonNull
   default EContinue or (@NonNull final IContinueIndicator aContinue)
@@ -57,8 +56,7 @@ public interface IContinueIndicator
    *
    * @param aContinue
    *        The other continue indicator. May not be <code>null</code>.
-   * @return {@link EContinue#CONTINUE} if both this and the other indicator
-   *         indicate continue.
+   * @return {@link EContinue#CONTINUE} if both this and the other indicator indicate continue.
    */
   @NonNull
   default EContinue and (@NonNull final IContinueIndicator aContinue)

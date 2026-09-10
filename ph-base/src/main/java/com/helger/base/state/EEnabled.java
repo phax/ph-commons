@@ -38,8 +38,7 @@ public enum EEnabled implements IEnabledIndicator
    * Convert a boolean value to the corresponding {@link EEnabled} enum value.
    *
    * @param bEnabled
-   *        <code>true</code> for {@link #ENABLED}, <code>false</code> for
-   *        {@link #DISABLED}.
+   *        <code>true</code> for {@link #ENABLED}, <code>false</code> for {@link #DISABLED}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum EEnabled implements IEnabledIndicator
   }
 
   /**
-   * Convert an {@link IEnabledIndicator} to the corresponding
-   * {@link EEnabled} enum value.
+   * Convert an {@link IEnabledIndicator} to the corresponding {@link EEnabled} enum value.
    *
    * @param aEnabledIndicator
    *        The enabled indicator to convert. May not be <code>null</code>.

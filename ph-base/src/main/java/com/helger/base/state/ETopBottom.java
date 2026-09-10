@@ -35,8 +35,7 @@ public enum ETopBottom implements ITopBottomIndicator
   }
 
   /**
-   * Convert an {@link ITopBottomIndicator} to the corresponding
-   * {@link ETopBottom} enum value.
+   * Convert an {@link ITopBottomIndicator} to the corresponding {@link ETopBottom} enum value.
    *
    * @param aTopBottomIndicator
    *        The top/bottom indicator to convert. May not be <code>null</code>.

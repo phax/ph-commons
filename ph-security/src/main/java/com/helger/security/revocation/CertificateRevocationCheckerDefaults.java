@@ -126,7 +126,7 @@ public final class CertificateRevocationCheckerDefaults
   @NonNull
   public static ERevocationCheckMode getRevocationCheckMode ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_eRevocationCheckMode);
+    return RW_LOCK.readLockedGet (() -> s_eRevocationCheckMode);
   }
 
   /**
@@ -139,7 +139,7 @@ public final class CertificateRevocationCheckerDefaults
   {
     ValueEnforcer.notNull (eRevocationCheckMode, "RevocationCheckMode");
     _checkNotFrozen ("setRevocationCheckMode");
-    RW_LOCK.writeLocked ( () -> s_eRevocationCheckMode = eRevocationCheckMode);
+    RW_LOCK.writeLocked (() -> s_eRevocationCheckMode = eRevocationCheckMode);
     LOGGER.info ("Global CertificateRevocationChecker revocation mode was set to: " + eRevocationCheckMode);
   }
 
@@ -149,7 +149,7 @@ public final class CertificateRevocationCheckerDefaults
   @NonNull
   public static Consumer <? super GeneralSecurityException> getExceptionHdl ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aExceptionHdl);
+    return RW_LOCK.readLockedGet (() -> s_aExceptionHdl);
   }
 
   /**
@@ -162,7 +162,7 @@ public final class CertificateRevocationCheckerDefaults
   {
     ValueEnforcer.notNull (aExceptionHdl, "ExceptionHdl");
     _checkNotFrozen ("setExceptionHdl");
-    RW_LOCK.writeLocked ( () -> s_aExceptionHdl = aExceptionHdl);
+    RW_LOCK.writeLocked (() -> s_aExceptionHdl = aExceptionHdl);
   }
 
   /**
@@ -206,7 +206,7 @@ public final class CertificateRevocationCheckerDefaults
   @NonNull
   public static Consumer <? super List <CertPathValidatorException>> getSoftFailExceptionHdl ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aSoftFailExceptionHdl);
+    return RW_LOCK.readLockedGet (() -> s_aSoftFailExceptionHdl);
   }
 
   /**
@@ -220,7 +220,7 @@ public final class CertificateRevocationCheckerDefaults
   {
     ValueEnforcer.notNull (aSoftFailExceptionHdl, "SoftFailExceptionHdl");
     _checkNotFrozen ("setSoftFailExceptionHdl");
-    RW_LOCK.writeLocked ( () -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
+    RW_LOCK.writeLocked (() -> s_aSoftFailExceptionHdl = aSoftFailExceptionHdl);
   }
 
   /**
@@ -253,7 +253,7 @@ public final class CertificateRevocationCheckerDefaults
   @NonNull
   public static CRLCache getDefaultCRLCache ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultCRLCache);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultCRLCache);
   }
 
   /**
@@ -274,7 +274,7 @@ public final class CertificateRevocationCheckerDefaults
   {
     ValueEnforcer.notNull (aCRLCache, "CRLCache");
     _checkNotFrozen ("setDefaultCRLCache");
-    RW_LOCK.writeLocked ( () -> s_aDefaultCRLCache = aCRLCache);
+    RW_LOCK.writeLocked (() -> s_aDefaultCRLCache = aCRLCache);
     LOGGER.info ("Global default CRL Cache is set to: " + aCRLCache);
   }
 

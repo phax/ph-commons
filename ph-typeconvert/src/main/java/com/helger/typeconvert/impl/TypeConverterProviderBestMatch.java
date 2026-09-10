@@ -24,9 +24,8 @@ import com.helger.typeconvert.ITypeConverter;
 import com.helger.typeconvert.ITypeConverterProvider;
 
 /**
- * An type converter provider that tries to provide an exact match before trying
- * fuzzy matches. This should be the preferred type converter provider.
- * Implemented as a singleton.
+ * An type converter provider that tries to provide an exact match before trying fuzzy matches. This
+ * should be the preferred type converter provider. Implemented as a singleton.
  *
  * @author Philip Helger
  */
@@ -48,7 +47,8 @@ public final class TypeConverterProviderBestMatch implements ITypeConverterProvi
 
   /** {@inheritDoc} */
   @Nullable
-  public ITypeConverter <Object, Object> getTypeConverter (@NonNull final Class <?> aSrcClass, @NonNull final Class <?> aDstClass)
+  public ITypeConverter <Object, Object> getTypeConverter (@NonNull final Class <?> aSrcClass,
+                                                           @NonNull final Class <?> aDstClass)
   {
     final TypeConverterRegistry aTCR = TypeConverterRegistry.getInstance ();
 

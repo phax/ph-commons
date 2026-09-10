@@ -30,8 +30,8 @@ import com.helger.base.state.EChange;
 import com.helger.base.state.IStoppable;
 
 /**
- * A dead lock detection timer that checks for dead locks in a certain interval.
- * Uses {@link ThreadDeadlockDetector} internally.
+ * A dead lock detection timer that checks for dead locks in a certain interval. Uses
+ * {@link ThreadDeadlockDetector} internally.
  *
  * @author Philip Helger
  */
@@ -48,9 +48,8 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
   }
 
   /**
-   * The number of milliseconds between checking for deadlocks. It may be
-   * expensive to check for deadlocks, and it is not critical to know so
-   * quickly.
+   * The number of milliseconds between checking for deadlocks. It may be expensive to check for
+   * deadlocks, and it is not critical to know so quickly.
    */
   public static final long DEFAULT_DEADLOCK_CHECK_PERIOD = 10 * CGlobal.MILLISECONDS_PER_SECOND;
   public static final long INITIAL_DELAY_MS = 10;
@@ -60,8 +59,7 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
   private final Timer m_aThreadCheck = new Timer ("ThreadDeadlockDetector", true);
 
   /**
-   * Constructor using the {@link #DEFAULT_DEADLOCK_CHECK_PERIOD} as the check
-   * interval.
+   * Constructor using the {@link #DEFAULT_DEADLOCK_CHECK_PERIOD} as the check interval.
    */
   public ThreadDeadlockDetectionTimer ()
   {

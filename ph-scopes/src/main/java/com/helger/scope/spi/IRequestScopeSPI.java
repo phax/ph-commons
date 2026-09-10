@@ -22,8 +22,7 @@ import com.helger.annotation.style.IsSPIInterface;
 import com.helger.scope.IRequestScope;
 
 /**
- * SPI for handling the request scope lifecycle. Is invoked for non-web and web
- * scopes.
+ * SPI for handling the request scope lifecycle. Is invoked for non-web and web scopes.
  *
  * @author Philip Helger
  */

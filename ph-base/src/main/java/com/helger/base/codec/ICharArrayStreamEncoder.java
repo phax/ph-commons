@@ -48,8 +48,7 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    * @param aDecodedBuffer
    *        The char array to be encoded. May be <code>null</code>.
    * @param aWriter
-   *        The writer to write to. May not be <code>null</code> and is NOT
-   *        closed afterwards!
+   *        The writer to write to. May not be <code>null</code> and is NOT closed afterwards!
    * @throws EncodeException
    *         In case something goes wrong
    * @since 9.0.0
@@ -72,20 +71,21 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    * @param nLen
    *        Number of chars starting from offset to consider.
    * @param aWriter
-   *        The writer to write to. May not be <code>null</code> and is NOT
-   *        closed afterwards!
+   *        The writer to write to. May not be <code>null</code> and is NOT closed afterwards!
    * @throws EncodeException
    *         In case something goes wrong
    */
-  void encode (char @Nullable [] aDecodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
+  void encode (char @Nullable [] aDecodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @NonNull @WillNotClose Writer aWriter);
 
   /**
    * Encode a char array.
    *
    * @param aDecodedBuffer
    *        The char array to be encoded. May be <code>null</code>.
-   * @return The encoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
@@ -107,13 +107,14 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    *        Offset into the char array to start from.
    * @param nLen
    *        Number of chars starting from offset to consider.
-   * @return The encoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The encoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws EncodeException
    *         In case something goes wrong
    */
   @ReturnsMutableCopy
-  default char @Nullable [] getEncoded (final char @Nullable [] aDecodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default char @Nullable [] getEncoded (final char @Nullable [] aDecodedBuffer,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
   {
     if (aDecodedBuffer == null)
       return null;
@@ -177,7 +178,9 @@ public interface ICharArrayStreamEncoder extends ICharArrayEncoder
    *         In case something goes wrong
    */
   @Nullable
-  default String getEncodedAsString (final char @Nullable [] aDecodedBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default String getEncodedAsString (final char @Nullable [] aDecodedBuf,
+                                     @Nonnegative final int nOfs,
+                                     @Nonnegative final int nLen)
   {
     if (aDecodedBuf == null)
       return null;

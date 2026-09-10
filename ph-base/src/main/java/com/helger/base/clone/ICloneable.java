@@ -19,9 +19,8 @@ package com.helger.base.clone;
 import org.jspecify.annotations.NonNull;
 
 /**
- * This is a type-safe replacement interface for the default
- * {@link java.lang.Cloneable} interface since it contains the desired return
- * type and is accessible solely by the interface.
+ * This is a type-safe replacement interface for the default {@link java.lang.Cloneable} interface
+ * since it contains the desired return type and is accessible solely by the interface.
  *
  * @author Philip Helger
  * @param <DATATYPE>

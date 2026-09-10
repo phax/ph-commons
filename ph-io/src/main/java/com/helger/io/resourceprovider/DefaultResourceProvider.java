@@ -25,8 +25,7 @@ import com.helger.annotation.concurrent.Immutable;
  * <li>File</li>
  * <li>Classpath</li>
  * </ol>
- * This resource provider is very slow, as it tries many different resource
- * providers at once.
+ * This resource provider is very slow, as it tries many different resource providers at once.
  *
  * @author Philip Helger
  */
@@ -34,8 +33,7 @@ import com.helger.annotation.concurrent.Immutable;
 public class DefaultResourceProvider extends WritableResourceProviderChain
 {
   /**
-   * Constructor initializing the chain with URL, file system and classpath
-   * resource providers.
+   * Constructor initializing the chain with URL, file system and classpath resource providers.
    */
   public DefaultResourceProvider ()
   {

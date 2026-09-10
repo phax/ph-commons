@@ -62,8 +62,7 @@ public class ReadableResourceInputStream extends AbstractMemoryReadableResource
   }
 
   /**
-   * @return Always <code>false</code> since an input stream can only be read
-   *         once.
+   * @return Always <code>false</code> since an input stream can only be read once.
    */
   public final boolean isReadMultiple ()
   {

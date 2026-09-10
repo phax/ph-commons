@@ -667,8 +667,8 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
     return aSB.toString ();
   }
 
-  private static void _writeComments (@NonNull @WillNotClose final Writer aWriter, @NonNull final String sComments)
-                                                                                                                    throws IOException
+  private static void _writeComments (@NonNull @WillNotClose final Writer aWriter,
+                                      @NonNull final String sComments) throws IOException
   {
     aWriter.write ("#");
     final int nLen = sComments.length ();

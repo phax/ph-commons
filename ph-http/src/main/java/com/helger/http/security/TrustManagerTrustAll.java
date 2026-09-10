@@ -51,8 +51,7 @@ public class TrustManagerTrustAll implements X509TrustManager
    * Constructor with explicit debug flag.
    *
    * @param bDebug
-   *        <code>true</code> to enable debug logging, <code>false</code> to
-   *        disable it.
+   *        <code>true</code> to enable debug logging, <code>false</code> to disable it.
    */
   public TrustManagerTrustAll (final boolean bDebug)
   {
@@ -84,8 +83,7 @@ public class TrustManagerTrustAll implements X509TrustManager
    * @param aChain
    *        The peer certificate chain. May not be <code>null</code>.
    * @param sAuthType
-   *        The authentication type based on the server certificate. May not
-   *        be <code>null</code>.
+   *        The authentication type based on the server certificate. May not be <code>null</code>.
    */
   public void checkServerTrusted (final X509Certificate [] aChain, final String sAuthType)
   {

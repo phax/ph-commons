@@ -54,8 +54,7 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * @return A mutable copy of all key-quality value pairs. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all key-quality value pairs. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -65,8 +64,7 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * Get all entries with a quality value strictly lower than the specified
-   * threshold.
+   * Get all entries with a quality value strictly lower than the specified threshold.
    *
    * @param dQuality
    *        The quality threshold.
@@ -87,8 +85,7 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * Get all entries with a quality value lower than or equal to the specified
-   * threshold.
+   * Get all entries with a quality value lower than or equal to the specified threshold.
    *
    * @param dQuality
    *        The quality threshold.
@@ -109,8 +106,7 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * Get all entries with a quality value strictly greater than the specified
-   * threshold.
+   * Get all entries with a quality value strictly greater than the specified threshold.
    *
    * @param dQuality
    *        The quality threshold.
@@ -131,8 +127,7 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * Get all entries with a quality value greater than or equal to the
-   * specified threshold.
+   * Get all entries with a quality value greater than or equal to the specified threshold.
    *
    * @param dQuality
    *        The quality threshold.
@@ -153,22 +148,18 @@ public abstract class AbstractQValueList <KEYTYPE>
   }
 
   /**
-   * @return The string representation of this list e.g. for usage in HTTP
-   *         headers.
+   * @return The string representation of this list e.g. for usage in HTTP headers.
    * @since 9.3.5
    */
   @NonNull
   public abstract String getAsHttpHeaderValue ();
 
   /**
-   * Abstract implementation that requires a converter from the KEYTYPE generic
-   * parameter to String.
+   * Abstract implementation that requires a converter from the KEYTYPE generic parameter to String.
    *
    * @param aKeyTransformer
-   *        The transformer from KEYTYPE to String. May not be
-   *        <code>null</code>.
-   * @return The string representation of this list e.g. for usage in HTTP
-   *         headers.
+   *        The transformer from KEYTYPE to String. May not be <code>null</code>.
+   * @return The string representation of this list e.g. for usage in HTTP headers.
    * @since 9.3.5
    */
   @NonNull
@@ -184,8 +175,7 @@ public abstract class AbstractQValueList <KEYTYPE>
    *        The map to be converted. May not be <code>null</code>.
    * @param aKeyTransformer
    *        The transformer from T to String. May not be <code>null</code>.
-   * @return The string representation of this list e.g. for usage in HTTP
-   *         headers.
+   * @return The string representation of this list e.g. for usage in HTTP headers.
    * @param <T>
    *        Key type
    * @since 9.3.5

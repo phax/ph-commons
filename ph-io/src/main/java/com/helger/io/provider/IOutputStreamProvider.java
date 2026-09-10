@@ -24,8 +24,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.io.EAppend;
 
 /**
- * A callback interface to retrieve {@link OutputStream} objects from a given
- * name.
+ * A callback interface to retrieve {@link OutputStream} objects from a given name.
  *
  * @author Philip Helger
  */

@@ -22,8 +22,8 @@ import org.slf4j.LoggerFactory;
 import com.helger.base.concurrent.ThreadHelper;
 
 /**
- * Determine the maximum number of threads to be created. Warning: may
- * potentially crash your system :)
+ * Determine the maximum number of threads to be created. Warning: may potentially crash your system
+ * :)
  *
  * @author Philip Helger
  */

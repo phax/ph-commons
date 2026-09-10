@@ -39,8 +39,7 @@ public enum EHandled implements IHandledIndicator
    * Convert a boolean value to the corresponding {@link EHandled} enum value.
    *
    * @param bHandleded
-   *        <code>true</code> for {@link #HANDLED}, <code>false</code> for
-   *        {@link #UNHANDLED}.
+   *        <code>true</code> for {@link #HANDLED}, <code>false</code> for {@link #UNHANDLED}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -50,8 +49,7 @@ public enum EHandled implements IHandledIndicator
   }
 
   /**
-   * Convert an {@link IHandledIndicator} to the corresponding {@link EHandled}
-   * enum value.
+   * Convert an {@link IHandledIndicator} to the corresponding {@link EHandled} enum value.
    *
    * @param aHandledIndicator
    *        The handled indicator to convert. May not be <code>null</code>.

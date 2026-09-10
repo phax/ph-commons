@@ -39,8 +39,8 @@ import com.helger.diagnostics.error.text.IHasErrorText;
 public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, IHasErrorField
 {
   /**
-   * @return The date and time when the error occurred. Defaults to
-   *         <code>null</code> for backwards compatibility.
+   * @return The date and time when the error occurred. Defaults to <code>null</code> for backwards
+   *         compatibility.
    * @since 10.1.7
    */
   @Nullable
@@ -52,8 +52,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * Check if a error date time is present.
    *
-   * @return <code>true</code> if error date time information is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if error date time information is present, <code>false</code>
+   *         otherwise.
    * @see #getErrorDateTime()
    * @since 10.1.7
    */
@@ -80,9 +80,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return The non-<code>null</code> location of the error. Use
-   *         {@link SimpleLocation#NO_LOCATION} to indicate no location is
-   *         available.
+   * @return The non-<code>null</code> location of the error. Use {@link SimpleLocation#NO_LOCATION}
+   *         to indicate no location is available.
    * @see #hasErrorLocation()
    */
   @NonNull
@@ -94,8 +93,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   /**
    * Check if a reasonable error location is present.
    *
-   * @return <code>true</code> if location information is present,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if location information is present, <code>false</code> otherwise.
    * @see #getErrorLocation()
    */
   default boolean hasErrorLocation ()
@@ -117,10 +115,9 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
    * Get the error message of this error.
    *
    * @param aContentLocale
-   *        The locale to be used in case the error text is available in
-   *        multiple languages.
-   * @return The message of this form error. May be <code>null</code> in case no
-   *         error text is available or if the passed Locale is not supported.
+   *        The locale to be used in case the error text is available in multiple languages.
+   * @return The message of this form error. May be <code>null</code> in case no error text is
+   *         available or if the passed Locale is not supported.
    * @see #getErrorTexts()
    */
   @Nullable
@@ -131,8 +128,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return The linked exception or <code>null</code> if no such exception is
-   *         available.
+   * @return The linked exception or <code>null</code> if no such exception is available.
    * @see #hasLinkedException()
    * @see #getLinkedExceptionMessage()
    * @see #getLinkedExceptionStackTrace()
@@ -145,8 +141,7 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return <code>true</code> if a linked exception is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a linked exception is present, <code>false</code> if not.
    * @see #getLinkedException()
    */
   default boolean hasLinkedException ()
@@ -155,8 +150,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return The message of the linked exception or <code>null</code> if no such
-   *         exception is available.
+   * @return The message of the linked exception or <code>null</code> if no such exception is
+   *         available.
    * @see #getLinkedException()
    */
   @Nullable
@@ -167,8 +162,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return The stack trace of the linked exception or <code>null</code> if no
-   *         such exception is available.
+   * @return The stack trace of the linked exception or <code>null</code> if no such exception is
+   *         available.
    * @see #getLinkedException()
    */
   @Nullable
@@ -179,8 +174,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * @return The cause of the linked exception or <code>null</code> if no such
-   *         exception is available.
+   * @return The cause of the linked exception or <code>null</code> if no such exception is
+   *         available.
    * @see #getLinkedException()
    */
   @Nullable
@@ -191,8 +186,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * Get the error as a string representation, including error ID, error
-   * location, error text and the linked exception.
+   * Get the error as a string representation, including error ID, error location, error text and
+   * the linked exception.
    *
    * @param aContentLocale
    *        Locale to resolve the error text
@@ -208,8 +203,8 @@ public interface IError extends IHasErrorLevelComparable <IError>, IHasErrorID, 
   }
 
   /**
-   * Get the error as a string representation, including error ID, error
-   * location, error text and the linked exception.
+   * Get the error as a string representation, including error ID, error location, error text and
+   * the linked exception.
    *
    * @return The default string representation in the default locale.
    * @see ErrorTextProvider#DEFAULT

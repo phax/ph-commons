@@ -76,34 +76,33 @@ public final class XMLWriterSettingsTest
 
     TestHelper.testDefaultImplementationWithEqualContentObject (mws, new XMLWriterSettings ());
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE));
+                                                                    new XMLWriterSettings ().setSerializeXMLDeclaration (EXMLSerializeXMLDeclaration.IGNORE));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
+                                                                    new XMLWriterSettings ().setSerializeDocType (EXMLSerializeDocType.IGNORE));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setNewLineAfterXMLDeclaration (false));
+                                                                    new XMLWriterSettings ().setNewLineAfterXMLDeclaration (false));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
+                                                                    new XMLWriterSettings ().setSerializeComments (EXMLSerializeComments.IGNORE));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
+                                                                    new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setCharset (StandardCharsets.US_ASCII));
+                                                                    new XMLWriterSettings ().setCharset (StandardCharsets.US_ASCII));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
-                                                                                                                                                                     "uri")));
+                                                                    new XMLWriterSettings ().setNamespaceContext (new MapBasedNamespaceContext ().addMapping ("prefix",
+                                                                                                                                                              "uri")));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
+                                                                    new XMLWriterSettings ().setSpaceOnSelfClosedElement (false));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
+                                                                    new XMLWriterSettings ().setUseDoubleQuotesForAttributes (false));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT ==
-                                                                                                                    ENewLineMode.WINDOWS ? ENewLineMode.UNIX
-                                                                                                                                         : ENewLineMode.WINDOWS));
+                                                                    new XMLWriterSettings ().setNewLineMode (ENewLineMode.DEFAULT == ENewLineMode.WINDOWS ? ENewLineMode.UNIX
+                                                                                                                                                          : ENewLineMode.WINDOWS));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setIndentationString ("\t"));
+                                                                    new XMLWriterSettings ().setIndentationString ("\t"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setEmitNamespaces (false));
+                                                                    new XMLWriterSettings ().setEmitNamespaces (false));
     TestHelper.testDefaultImplementationWithDifferentContentObject (mws,
-                                                                           new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
+                                                                    new XMLWriterSettings ().setPutNamespaceContextPrefixesInRoot (true));
   }
 
   @Test

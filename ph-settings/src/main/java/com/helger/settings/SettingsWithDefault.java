@@ -52,8 +52,7 @@ public class SettingsWithDefault extends Settings implements ISettingsWithDefaul
    * Constructor with explicit name and default settings.
    *
    * @param sName
-   *        The name of the settings. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of the settings. May neither be <code>null</code> nor empty.
    * @param aDefaultSettings
    *        The default settings to use. May not be <code>null</code>.
    */

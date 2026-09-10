@@ -27,8 +27,7 @@ import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Special {@link StreamResult} implementation that writes to {@link String}
- * objects.
+ * Special {@link StreamResult} implementation that writes to {@link String} objects.
  *
  * @author Philip Helger
  */
@@ -88,6 +87,8 @@ public class StringStreamResult extends StreamResult
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("stringWriter", m_aSW).append ("systemID", getSystemId ()).getToString ();
+    return new ToStringGenerator (this).append ("stringWriter", m_aSW)
+                                       .append ("systemID", getSystemId ())
+                                       .getToString ();
   }
 }

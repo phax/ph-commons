@@ -19,8 +19,8 @@ package com.helger.xml.microdom;
 import org.jspecify.annotations.NonNull;
 
 /**
- * This interface is just a hull for a node that has no properties itself but
- * contains children. This is a node representing a list of nodes.
+ * This interface is just a hull for a node that has no properties itself but contains children.
+ * This is a node representing a list of nodes.
  *
  * @author Philip Helger
  */

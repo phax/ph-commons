@@ -27,8 +27,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A special StringBuilder implementation that supports conversion to numeric
- * values in a more efficient way.
+ * A special StringBuilder implementation that supports conversion to numeric values in a more
+ * efficient way.
  *
  * @author Philip Helger
  */

@@ -27,9 +27,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Implementation of {@link IXMLBracketModeDeterminator} for real XML (and
- * XHTML). Only the presence of children determine whether "open close" or "self
- * closed" is used.
+ * Implementation of {@link IXMLBracketModeDeterminator} for real XML (and XHTML). Only the presence
+ * of children determine whether "open close" or "self closed" is used.
  *
  * @author Philip Helger
  */

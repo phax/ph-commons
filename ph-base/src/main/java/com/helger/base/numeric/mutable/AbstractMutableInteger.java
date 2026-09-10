@@ -17,15 +17,15 @@
 package com.helger.base.numeric.mutable;
 
 /**
- * Base implementation class for {@link IMutableInteger} transitively extending
- * {@link Number} class.
+ * Base implementation class for {@link IMutableInteger} transitively extending {@link Number}
+ * class.
  *
  * @author Philip Helger
  * @param <IMPLTYPE>
  *        Real implementation type
  */
-public abstract class AbstractMutableInteger <IMPLTYPE extends AbstractMutableInteger <IMPLTYPE>> extends AbstractMutableNumeric <IMPLTYPE>
-                                             implements
+public abstract class AbstractMutableInteger <IMPLTYPE extends AbstractMutableInteger <IMPLTYPE>> extends
+                                             AbstractMutableNumeric <IMPLTYPE> implements
                                              IMutableInteger <IMPLTYPE>
 {
   /* empty */

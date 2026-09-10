@@ -154,8 +154,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if a max-age value has been set,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a max-age value has been set, <code>false</code> otherwise.
    */
   public boolean hasMaxAgeSeconds ()
   {
@@ -246,8 +245,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if a shared max-age value has been set,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a shared max-age value has been set, <code>false</code> otherwise.
    */
   public boolean hasSharedMaxAgeSeconds ()
   {
@@ -255,8 +253,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return The shared max-age value in seconds, or <code>null</code> if not
-   *         set.
+   * @return The shared max-age value in seconds, or <code>null</code> if not set.
    */
   @Nullable
   public Long getSharedMaxAgeSeconds ()
@@ -280,8 +277,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the public directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the public directive is enabled, <code>false</code> otherwise.
    */
   public boolean isPublic ()
   {
@@ -304,8 +300,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the private directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the private directive is enabled, <code>false</code> otherwise.
    */
   public boolean isPrivate ()
   {
@@ -330,8 +325,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the no-cache directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the no-cache directive is enabled, <code>false</code> otherwise.
    */
   public boolean isNoCache ()
   {
@@ -354,8 +348,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the no-store directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the no-store directive is enabled, <code>false</code> otherwise.
    */
   public boolean isNoStore ()
   {
@@ -384,8 +377,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the no-transform directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the no-transform directive is enabled, <code>false</code>
+   *         otherwise.
    */
   public boolean isNoTransform ()
   {
@@ -410,8 +403,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the must-revalidate directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the must-revalidate directive is enabled, <code>false</code>
+   *         otherwise.
    */
   public boolean isMustRevalidate ()
   {
@@ -434,8 +427,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return <code>true</code> if the proxy-revalidate directive is enabled,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the proxy-revalidate directive is enabled, <code>false</code>
+   *         otherwise.
    */
   public boolean isProxyRevalidate ()
   {
@@ -446,8 +439,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
    * Add a custom cache-control extension directive.
    *
    * @param sExtension
-   *        The extension string to add. May neither be <code>null</code> nor
-   *        empty and must not contain a comma.
+   *        The extension string to add. May neither be <code>null</code> nor empty and must not
+   *        contain a comma.
    * @return this for chaining
    */
   @NonNull
@@ -461,8 +454,7 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return A mutable copy of all extension directives. Never
-   *         <code>null</code>.
+   * @return A mutable copy of all extension directives. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -472,8 +464,8 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   }
 
   /**
-   * @return The Cache-Control header value string built from all configured
-   *         directives. Never <code>null</code>.
+   * @return The Cache-Control header value string built from all configured directives. Never
+   *         <code>null</code>.
    */
   @NonNull
   public String getAsHTTPHeaderValue ()

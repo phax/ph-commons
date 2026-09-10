@@ -92,13 +92,13 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
 
   @ReturnsMutableCopy
   protected abstract byte @Nullable [] getEncoded (final byte @Nullable [] aDecodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen);
+                                                   @Nonnegative final int nOfs,
+                                                   @Nonnegative final int nLen);
 
   @ReturnsMutableCopy
   protected abstract byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen);
+                                                   @Nonnegative final int nOfs,
+                                                   @Nonnegative final int nLen);
 
   /**
    * Applies an RFC 1522 compliant encoding scheme to the given string of text with the given

@@ -34,17 +34,15 @@ import com.helger.base.enforce.ValueEnforcer;
 public interface IHasCreationDateTime
 {
   /**
-   * @return The maybe <code>null</code> creation date time of the object.
-   *         Usually it is not <code>null</code> but in case this interface is
-   *         needed for legacy objects where the information was not yet stored,
-   *         it may be <code>null</code>.
+   * @return The maybe <code>null</code> creation date time of the object. Usually it is not
+   *         <code>null</code> but in case this interface is needed for legacy objects where the
+   *         information was not yet stored, it may be <code>null</code>.
    */
   @Nullable
   LocalDateTime getCreationDateTime ();
 
   /**
-   * @return <code>true</code> if a creation date time is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a creation date time is present, <code>false</code> if not.
    * @see #getCreationDateTime()
    */
   default boolean hasCreationDateTime ()
@@ -53,8 +51,8 @@ public interface IHasCreationDateTime
   }
 
   /**
-   * @return The extracted date from the creation date and time or
-   *         <code>null</code> if no creation date time is present.
+   * @return The extracted date from the creation date and time or <code>null</code> if no creation
+   *         date time is present.
    */
   @Nullable
   default LocalDate getCreationDate ()
@@ -64,8 +62,8 @@ public interface IHasCreationDateTime
   }
 
   /**
-   * @return The extracted time from the creation date and time or
-   *         <code>null</code> if no creation date time is present.
+   * @return The extracted time from the creation date and time or <code>null</code> if no creation
+   *         date time is present.
    */
   @Nullable
   default LocalTime getCreationTime ()
@@ -75,14 +73,12 @@ public interface IHasCreationDateTime
   }
 
   /**
-   * Check if the object was created at the specified local date time. This is
-   * <code>true</code>, if the creation time is &le; than the specified local
-   * date time.
+   * Check if the object was created at the specified local date time. This is <code>true</code>, if
+   * the creation time is &le; than the specified local date time.
    *
    * @param aDT
    *        The time to check for creation. May not be <code>null</code>.
-   * @return <code>true</code> if this object was created, <code>false</code> if
-   *         not.
+   * @return <code>true</code> if this object was created, <code>false</code> if not.
    * @since 9.1.6
    */
   default boolean isCreatedAt (@NonNull final LocalDateTime aDT)

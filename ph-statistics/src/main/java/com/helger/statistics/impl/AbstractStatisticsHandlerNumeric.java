@@ -45,7 +45,7 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @Nonnegative
   public final int getInvocationCount ()
   {
-    return m_aRWLock.readLockedInt ( () -> m_nInvocationCount);
+    return m_aRWLock.readLockedInt (() -> m_nInvocationCount);
   }
 
   protected final void addValue (final long nValue)
@@ -71,21 +71,21 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @NonNull
   public final BigInteger getSum ()
   {
-    return m_aRWLock.readLockedGet ( () -> m_aSum);
+    return m_aRWLock.readLockedGet (() -> m_aSum);
   }
 
   /** {@inheritDoc} */
   @CheckForSigned
   public final long getMin ()
   {
-    return m_aRWLock.readLockedLong ( () -> m_nMin);
+    return m_aRWLock.readLockedLong (() -> m_nMin);
   }
 
   /** {@inheritDoc} */
   @CheckForSigned
   public final long getAverage ()
   {
-    return m_aRWLock.readLockedLong ( () -> {
+    return m_aRWLock.readLockedLong (() -> {
       if (m_nInvocationCount == 0)
         return CGlobal.ILLEGAL_ULONG;
       return m_aSum.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
@@ -96,6 +96,6 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @CheckForSigned
   public long getMax ()
   {
-    return m_aRWLock.readLockedLong ( () -> m_nMax);
+    return m_aRWLock.readLockedLong (() -> m_nMax);
   }
 }

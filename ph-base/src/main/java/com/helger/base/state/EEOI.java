@@ -30,8 +30,7 @@ public enum EEOI
   NOT_EOI;
 
   /**
-   * @return <code>true</code> if end of input was reached, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if end of input was reached, <code>false</code> otherwise.
    */
   public boolean isEndOfInput ()
   {
@@ -39,8 +38,7 @@ public enum EEOI
   }
 
   /**
-   * @return <code>true</code> if end of input was not yet reached,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if end of input was not yet reached, <code>false</code> otherwise.
    */
   public boolean isNotEndOfInput ()
   {
@@ -51,8 +49,7 @@ public enum EEOI
    * Convert a boolean value to the corresponding {@link EEOI} enum value.
    *
    * @param bEOI
-   *        <code>true</code> for {@link #EOI}, <code>false</code> for
-   *        {@link #NOT_EOI}.
+   *        <code>true</code> for {@link #EOI}, <code>false</code> for {@link #NOT_EOI}.
    * @return Never <code>null</code>.
    */
   @NonNull

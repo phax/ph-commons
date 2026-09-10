@@ -37,10 +37,9 @@ import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
 
 /**
- * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to
- * resolve variable values used in XPath queries at runtime. The local part of
- * the QName to resolve is used as the key in the map. The namespace is ignored
- * in this class.
+ * Class is used in conjunction with {@link javax.xml.xpath.XPathExpression} to resolve variable
+ * values used in XPath queries at runtime. The local part of the QName to resolve is used as the
+ * key in the map. The namespace is ignored in this class.
  *
  * @author Philip Helger
  * @see MapBasedXPathVariableResolverQName
@@ -106,11 +105,10 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
    * Add all variables from the other variable resolver into this resolver.
    *
    * @param aOther
-   *        The variable resolver to import the variable from. May not be
-   *        <code>null</code>.
+   *        The variable resolver to import the variable from. May not be <code>null</code>.
    * @param bOverwrite
-   *        if <code>true</code> existing variables will be overwritten with the
-   *        new variables, otherwise the old variables are kept.
+   *        if <code>true</code> existing variables will be overwritten with the new variables,
+   *        otherwise the old variables are kept.
    * @return {@link EChange}
    */
   @NonNull
@@ -128,15 +126,14 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   }
 
   /**
-   * Add all variables from the other variable resolver into this resolver. This
-   * methods takes only the local part of the QName and loses the namespace URI.
+   * Add all variables from the other variable resolver into this resolver. This methods takes only
+   * the local part of the QName and loses the namespace URI.
    *
    * @param aOther
-   *        The variable resolver to import the variable from. May not be
-   *        <code>null</code>.
+   *        The variable resolver to import the variable from. May not be <code>null</code>.
    * @param bOverwrite
-   *        if <code>true</code> existing variables will be overwritten with the
-   *        new variables, otherwise the old variables are kept.
+   *        if <code>true</code> existing variables will be overwritten with the new variables,
+   *        otherwise the old variables are kept.
    * @return {@link EChange}
    */
   @NonNull
@@ -190,8 +187,7 @@ public class MapBasedXPathVariableResolver implements XPathVariableResolver, ICl
   }
 
   /**
-   * @return A mutable copy of all contained variables. Never <code>null</code>
-   *         but maybe empty.
+   * @return A mutable copy of all contained variables. Never <code>null</code> but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy

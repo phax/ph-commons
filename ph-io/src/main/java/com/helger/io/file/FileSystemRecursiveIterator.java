@@ -117,8 +117,7 @@ public class FileSystemRecursiveIterator implements ICommonsIterableIterator <Fi
   }
 
   /**
-   * @return The recursion filter as provided in the constructor. May be
-   *         <code>null</code>.
+   * @return The recursion filter as provided in the constructor. May be <code>null</code>.
    */
   @Nullable
   public Predicate <File> getRecursionFilter ()

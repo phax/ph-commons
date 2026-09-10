@@ -53,8 +53,7 @@ public class CodepointIteratorReadableByteChannel extends CodepointIteratorByteB
    * Constructor.
    *
    * @param aChannel
-   *        The readable byte channel to iterate. Will be closed. May not be
-   *        <code>null</code>.
+   *        The readable byte channel to iterate. Will be closed. May not be <code>null</code>.
    * @param aCharset
    *        The charset to decode the bytes. May not be <code>null</code>.
    * @throws IOException

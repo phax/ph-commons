@@ -52,8 +52,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Reset all saved durations, in case this stop watch is to be used in a loop.
-   * Does not change the start/stop state.
+   * Reset all saved durations, in case this stop watch is to be used in a loop. Does not change the
+   * start/stop state.
    *
    * @return {@link EChange}.
    */
@@ -92,9 +92,8 @@ public class StopWatch implements IStoppable
   /**
    * Stop the stop watch.
    *
-   * @return {@link EChange#CHANGED} if the stop watch was previously running
-   *         and is now stopped, and {@link EChange#UNCHANGED} if the stop watch
-   *         was already stopped.
+   * @return {@link EChange#CHANGED} if the stop watch was previously running and is now stopped,
+   *         and {@link EChange#UNCHANGED} if the stop watch was already stopped.
    */
   @NonNull
   public EChange stop ()
@@ -124,8 +123,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * @return <code>true</code> if the stop watch is currently started (running),
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the stop watch is currently started (running), <code>false</code>
+   *         otherwise.
    */
   public boolean isStarted ()
   {
@@ -133,8 +132,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * @return <code>true</code> if the stop watch is currently stopped (not
-   *         running), <code>false</code> otherwise.
+   * @return <code>true</code> if the stop watch is currently stopped (not running),
+   *         <code>false</code> otherwise.
    */
   public boolean isStopped ()
   {
@@ -169,9 +168,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Stop the stop watch and get the elapsed milliseconds since the start. If
-   * the stop watch was started and stopped multiple times, the duration is
-   * added.
+   * Stop the stop watch and get the elapsed milliseconds since the start. If the stop watch was
+   * started and stopped multiple times, the duration is added.
    *
    * @return The elapsed milli seconds or 0 if the stop watch was never started.
    */
@@ -183,8 +181,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Stop the stop watch and get the duration since the start. If the stop watch
-   * was started and stopped multiple times, the duration is added.
+   * Stop the stop watch and get the duration since the start. If the stop watch was started and
+   * stopped multiple times, the duration is added.
    *
    * @return The elapsed duration or 0 if the stop watch was never started.
    */
@@ -196,8 +194,7 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Create an intermediate time (lap time). It internally stops, takes the
-   * duration and restarts.
+   * Create an intermediate time (lap time). It internally stops, takes the duration and restarts.
    *
    * @return The elapsed duration or 0 if the stop watch was never started.
    * @since 10.0.0
@@ -220,8 +217,7 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * @return A new {@link StopWatch} object that is started. Never
-   *         <code>null</code>.
+   * @return A new {@link StopWatch} object that is started. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -231,8 +227,7 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * @return A new {@link StopWatch} object that is NOT started. Never
-   *         <code>null</code>.
+   * @return A new {@link StopWatch} object that is NOT started. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -242,8 +237,8 @@ public class StopWatch implements IStoppable
   }
 
   /**
-   * Run the passed runnable and measure the time. In v10 this was changed to
-   * return Duration instead of TimeValue.
+   * Run the passed runnable and measure the time. In v10 this was changed to return Duration
+   * instead of TimeValue.
    *
    * @param aRunnable
    *        The runnable to be executed. May not be <code>null</code>.

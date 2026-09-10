@@ -21,10 +21,9 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.style.IsSPIInterface;
 
 /**
- * This SPI needs to be implemented by all implementing application to validate
- * the specified credentials.<br>
- * Note: each class implementing this file needs to register itself in a file
- * called
+ * This SPI needs to be implemented by all implementing application to validate the specified
+ * credentials.<br>
+ * Note: each class implementing this file needs to register itself in a file called
  * <code>/META-INF/services/com.helger.photon.basic.auth.credentials.IAuthCredentialValidatorSPI</code>
  *
  * @author Philip Helger
@@ -37,15 +36,13 @@ public interface IAuthCredentialValidatorSPI
    *
    * @param aCredentials
    *        The credentials to be validated. May not be <code>null</code>.
-   * @return <code>true</code> if this implementation supports the specified
-   *         credentials.
+   * @return <code>true</code> if this implementation supports the specified credentials.
    */
   boolean supportsCredentials (@NonNull IAuthCredentials aCredentials);
 
   /**
-   * Validate the specified credentials. This method is only called if a
-   * previous call to {@link #supportsCredentials(IAuthCredentials)} returned
-   * <code>true</code> .
+   * Validate the specified credentials. This method is only called if a previous call to
+   * {@link #supportsCredentials(IAuthCredentials)} returned <code>true</code> .
    *
    * @param aCredentials
    *        The credentials to be validated. Never <code>null</code>.

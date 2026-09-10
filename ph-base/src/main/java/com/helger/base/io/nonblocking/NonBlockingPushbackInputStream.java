@@ -41,20 +41,19 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   protected byte [] m_aBuf;
 
   /**
-   * The position within the pushback buffer from which the next byte will be
-   * read. When the buffer is empty, <code>pos</code> is equal to
-   * <code>buf.length</code>; when the buffer is full, <code>pos</code> is equal
-   * to zero.
+   * The position within the pushback buffer from which the next byte will be read. When the buffer
+   * is empty, <code>pos</code> is equal to <code>buf.length</code>; when the buffer is full,
+   * <code>pos</code> is equal to zero.
    *
    * @since JDK1.1
    */
   protected int m_nBufPos;
 
   /**
-   * Creates a <code>PushbackInputStream</code> with a pushback buffer of the
-   * specified <code>size</code>, and saves its argument, the input stream
-   * <code>in</code>, for later use. Initially, there is no pushed-back byte
-   * (the field <code>pushBack</code> is initialized to <code>-1</code>).
+   * Creates a <code>PushbackInputStream</code> with a pushback buffer of the specified
+   * <code>size</code>, and saves its argument, the input stream <code>in</code>, for later use.
+   * Initially, there is no pushed-back byte (the field <code>pushBack</code> is initialized to
+   * <code>-1</code>).
    *
    * @param aIS
    *        the input stream from which bytes will be read.
@@ -73,10 +72,9 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Creates a <code>PushbackInputStream</code> and saves its argument, the
-   * input stream <code>in</code>, for later use. Initially, there is no
-   * pushed-back byte (the field <code>pushBack</code> is initialized to
-   * <code>-1</code>).
+   * Creates a <code>PushbackInputStream</code> and saves its argument, the input stream
+   * <code>in</code>, for later use. Initially, there is no pushed-back byte (the field
+   * <code>pushBack</code> is initialized to <code>-1</code>).
    *
    * @param aIS
    *        the input stream from which bytes will be read.
@@ -113,22 +111,20 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Reads the next byte of data from this input stream. The value byte is
-   * returned as an <code>int</code> in the range <code>0</code> to
-   * <code>255</code>. If no byte is available because the end of the stream has
-   * been reached, the value <code>-1</code> is returned. This method blocks
-   * until input data is available, the end of the stream is detected, or an
-   * exception is thrown.
+   * Reads the next byte of data from this input stream. The value byte is returned as an
+   * <code>int</code> in the range <code>0</code> to <code>255</code>. If no byte is available
+   * because the end of the stream has been reached, the value <code>-1</code> is returned. This
+   * method blocks until input data is available, the end of the stream is detected, or an exception
+   * is thrown.
    * <p>
-   * This method returns the most recently pushed-back byte, if there is one,
-   * and otherwise calls the <code>read</code> method of its underlying input
-   * stream and returns whatever value that method returns.
+   * This method returns the most recently pushed-back byte, if there is one, and otherwise calls
+   * the <code>read</code> method of its underlying input stream and returns whatever value that
+   * method returns.
    *
-   * @return the next byte of data, or <code>-1</code> if the end of the stream
-   *         has been reached.
+   * @return the next byte of data, or <code>-1</code> if the end of the stream has been reached.
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    * @see java.io.InputStream#read()
    */
   @Override
@@ -142,12 +138,11 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Reads up to <code>len</code> bytes of data from this input stream into an
-   * array of bytes. This method first reads any pushed-back bytes; after that,
-   * if fewer than <code>len</code> bytes have been read then it reads from the
-   * underlying input stream. If <code>len</code> is not zero, the method blocks
-   * until at least 1 byte of input is available; otherwise, no bytes are read
-   * and <code>0</code> is returned.
+   * Reads up to <code>len</code> bytes of data from this input stream into an array of bytes. This
+   * method first reads any pushed-back bytes; after that, if fewer than <code>len</code> bytes have
+   * been read then it reads from the underlying input stream. If <code>len</code> is not zero, the
+   * method blocks until at least 1 byte of input is available; otherwise, no bytes are read and
+   * <code>0</code> is returned.
    *
    * @param aBuf
    *        the buffer into which the data is read.
@@ -155,21 +150,22 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *        the start offset in the destination array <code>b</code>
    * @param nLen
    *        the maximum number of bytes read.
-   * @return the total number of bytes read into the buffer, or <code>-1</code>
-   *         if there is no more data because the end of the stream has been
-   *         reached.
+   * @return the total number of bytes read into the buffer, or <code>-1</code> if there is no more
+   *         data because the end of the stream has been reached.
    * @exception NullPointerException
    *            If <code>b</code> is <code>null</code>.
    * @exception IndexOutOfBoundsException
-   *            If <code>off</code> is negative, <code>len</code> is negative,
-   *            or <code>len</code> is greater than <code>b.length - off</code>
+   *            If <code>off</code> is negative, <code>len</code> is negative, or <code>len</code>
+   *            is greater than <code>b.length - off</code>
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    * @see java.io.InputStream#read(byte[], int, int)
    */
   @Override
-  public int read (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final byte @NonNull [] aBuf,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -201,17 +197,14 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Pushes back a byte by copying it to the front of the pushback buffer. After
-   * this method returns, the next byte to be read will have the value
-   * <code>(byte)b</code>.
+   * Pushes back a byte by copying it to the front of the pushback buffer. After this method
+   * returns, the next byte to be read will have the value <code>(byte)b</code>.
    *
    * @param b
-   *        the <code>int</code> value whose low-order byte is to be pushed
-   *        back.
+   *        the <code>int</code> value whose low-order byte is to be pushed back.
    * @exception IOException
-   *            If there is not enough room in the pushback buffer for the byte,
-   *            or this input stream has been closed by invoking its
-   *            {@link #close()} method.
+   *            If there is not enough room in the pushback buffer for the byte, or this input
+   *            stream has been closed by invoking its {@link #close()} method.
    */
   public void unread (final int b) throws IOException
   {
@@ -222,10 +215,9 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Pushes back a portion of an array of bytes by copying it to the front of
-   * the pushback buffer. After this method returns, the next byte to be read
-   * will have the value <code>b[off]</code>, the byte after that will have the
-   * value <code>b[off+1]</code>, and so forth.
+   * Pushes back a portion of an array of bytes by copying it to the front of the pushback buffer.
+   * After this method returns, the next byte to be read will have the value <code>b[off]</code>,
+   * the byte after that will have the value <code>b[off+1]</code>, and so forth.
    *
    * @param aBuf
    *        the byte array to push back.
@@ -234,12 +226,13 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    * @param nLen
    *        the number of bytes to push back.
    * @exception IOException
-   *            If there is not enough room in the pushback buffer for the
-   *            specified number of bytes, or this input stream has been closed
-   *            by invoking its {@link #close()} method.
+   *            If there is not enough room in the pushback buffer for the specified number of
+   *            bytes, or this input stream has been closed by invoking its {@link #close()} method.
    * @since JDK1.1
    */
-  public void unread (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void unread (final byte @NonNull [] aBuf,
+                      @Nonnegative final int nOfs,
+                      @Nonnegative final int nLen) throws IOException
   {
     ValueEnforcer.isArrayOfsLen (aBuf, nOfs, nLen);
     _ensureOpen ();
@@ -251,17 +244,15 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Pushes back an array of bytes by copying it to the front of the pushback
-   * buffer. After this method returns, the next byte to be read will have the
-   * value <code>b[0]</code>, the byte after that will have the value
-   * <code>b[1]</code>, and so forth.
+   * Pushes back an array of bytes by copying it to the front of the pushback buffer. After this
+   * method returns, the next byte to be read will have the value <code>b[0]</code>, the byte after
+   * that will have the value <code>b[1]</code>, and so forth.
    *
    * @param aBuf
    *        the byte array to push back
    * @exception IOException
-   *            If there is not enough room in the pushback buffer for the
-   *            specified number of bytes, or this input stream has been closed
-   *            by invoking its {@link #close()} method.
+   *            If there is not enough room in the pushback buffer for the specified number of
+   *            bytes, or this input stream has been closed by invoking its {@link #close()} method.
    * @since JDK1.1
    */
   public void unread (final byte @NonNull [] aBuf) throws IOException
@@ -270,21 +261,19 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Returns an estimate of the number of bytes that can be read (or skipped
-   * over) from this input stream without blocking by the next invocation of a
-   * method for this input stream. The next invocation might be the same thread
-   * or another thread. A single read or skip of this many bytes will not block,
-   * but may read or skip fewer bytes.
+   * Returns an estimate of the number of bytes that can be read (or skipped over) from this input
+   * stream without blocking by the next invocation of a method for this input stream. The next
+   * invocation might be the same thread or another thread. A single read or skip of this many bytes
+   * will not block, but may read or skip fewer bytes.
    * <p>
-   * The method returns the sum of the number of bytes that have been pushed
-   * back and the value returned by {@link java.io.FilterInputStream#available
-   * available}.
+   * The method returns the sum of the number of bytes that have been pushed back and the value
+   * returned by {@link java.io.FilterInputStream#available available}.
    *
-   * @return the number of bytes that can be read (or skipped over) from the
-   *         input stream without blocking.
+   * @return the number of bytes that can be read (or skipped over) from the input stream without
+   *         blocking.
    * @exception IOException
-   *            if this input stream has been closed by invoking its
-   *            {@link #close()} method, or an I/O error occurs.
+   *            if this input stream has been closed by invoking its {@link #close()} method, or an
+   *            I/O error occurs.
    * @see java.io.InputStream#available()
    */
   @Override
@@ -295,23 +284,20 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Skips over and discards <code>n</code> bytes of data from this input
-   * stream. The <code>skip</code> method may, for a variety of reasons, end up
-   * skipping over some smaller number of bytes, possibly zero. If
-   * <code>n</code> is negative, no bytes are skipped.
+   * Skips over and discards <code>n</code> bytes of data from this input stream. The
+   * <code>skip</code> method may, for a variety of reasons, end up skipping over some smaller
+   * number of bytes, possibly zero. If <code>n</code> is negative, no bytes are skipped.
    * <p>
-   * The <code>skip</code> method of <code>PushbackInputStream</code> first
-   * skips over the bytes in the pushback buffer, if any. It then calls the
-   * <code>skip</code> method of the underlying input stream if more bytes need
-   * to be skipped. The actual number of bytes skipped is returned.
+   * The <code>skip</code> method of <code>PushbackInputStream</code> first skips over the bytes in
+   * the pushback buffer, if any. It then calls the <code>skip</code> method of the underlying input
+   * stream if more bytes need to be skipped. The actual number of bytes skipped is returned.
    *
    * @param nSkip
    *        The number of bytes to skip. Must be &ge; 0.
    * @return The number of bytes actually skipped
    * @exception IOException
-   *            if the stream does not support seek, or the stream has been
-   *            closed by invoking its {@link #close()} method, or an I/O error
-   *            occurs.
+   *            if the stream does not support seek, or the stream has been closed by invoking its
+   *            {@link #close()} method, or an I/O error occurs.
    * @see java.io.InputStream#skip(long n)
    * @since 1.2
    */
@@ -341,11 +327,11 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Tests if this input stream supports the <code>mark</code> and
-   * <code>reset</code> methods, which it does not.
+   * Tests if this input stream supports the <code>mark</code> and <code>reset</code> methods, which
+   * it does not.
    *
-   * @return <code>false</code>, since this class does not support the
-   *         <code>mark</code> and <code>reset</code> methods.
+   * @return <code>false</code>, since this class does not support the <code>mark</code> and
+   *         <code>reset</code> methods.
    * @see java.io.InputStream#mark(int)
    * @see java.io.InputStream#reset()
    */
@@ -358,12 +344,10 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   /**
    * Marks the current position in this input stream.
    * <p>
-   * The <code>mark</code> method of <code>PushbackInputStream</code> does
-   * nothing.
+   * The <code>mark</code> method of <code>PushbackInputStream</code> does nothing.
    *
    * @param readlimit
-   *        the maximum limit of bytes that can be read before the mark position
-   *        becomes invalid.
+   *        the maximum limit of bytes that can be read before the mark position becomes invalid.
    * @see java.io.InputStream#reset()
    */
   @Override
@@ -372,11 +356,11 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   {}
 
   /**
-   * Repositions this stream to the position at the time the <code>mark</code>
-   * method was last called on this input stream.
+   * Repositions this stream to the position at the time the <code>mark</code> method was last
+   * called on this input stream.
    * <p>
-   * The method <code>reset</code> for class <code>PushbackInputStream</code>
-   * does nothing except throw an <code>IOException</code>.
+   * The method <code>reset</code> for class <code>PushbackInputStream</code> does nothing except
+   * throw an <code>IOException</code>.
    *
    * @exception IOException
    *            if this method is invoked.
@@ -391,10 +375,9 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   }
 
   /**
-   * Closes this input stream and releases any system resources associated with
-   * the stream. Once the stream has been closed, further read(), unread(),
-   * available(), reset(), or skip() invocations will throw an IOException.
-   * Closing a previously closed stream has no effect.
+   * Closes this input stream and releases any system resources associated with the stream. Once the
+   * stream has been closed, further read(), unread(), available(), reset(), or skip() invocations
+   * will throw an IOException. Closing a previously closed stream has no effect.
    *
    * @exception IOException
    *            if an I/O error occurs.

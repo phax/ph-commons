@@ -26,14 +26,12 @@ import org.jspecify.annotations.NonNull;
 public interface IMandatoryIndicator
 {
   /**
-   * @return <code>true</code> if mandatory and <code>false</code> if not
-   *         mandatory.
+   * @return <code>true</code> if mandatory and <code>false</code> if not mandatory.
    */
   boolean isMandatory ();
 
   /**
-   * @return <code>true</code> if optional and <code>false</code> if not
-   *         optional.
+   * @return <code>true</code> if optional and <code>false</code> if not optional.
    */
   default boolean isOptional ()
   {
@@ -45,8 +43,7 @@ public interface IMandatoryIndicator
    *
    * @param aMandatory
    *        The other mandatory indicator. May not be <code>null</code>.
-   * @return {@link EMandatory#MANDATORY} if either this or the other indicator
-   *         is mandatory.
+   * @return {@link EMandatory#MANDATORY} if either this or the other indicator is mandatory.
    */
   @NonNull
   default EMandatory or (@NonNull final IMandatoryIndicator aMandatory)
@@ -59,8 +56,7 @@ public interface IMandatoryIndicator
    *
    * @param aMandatory
    *        The other mandatory indicator. May not be <code>null</code>.
-   * @return {@link EMandatory#MANDATORY} if both this and the other indicator
-   *         are mandatory.
+   * @return {@link EMandatory#MANDATORY} if both this and the other indicator are mandatory.
    */
   @NonNull
   default EMandatory and (@NonNull final IMandatoryIndicator aMandatory)

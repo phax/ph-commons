@@ -41,15 +41,15 @@ public class MimeTypeParameter
    * Constructor.
    *
    * @param sAttribute
-   *        Parameter name. Must neither be <code>null</code> nor empty and must
-   *        match {@link MimeTypeParser#isToken(String)}.
+   *        Parameter name. Must neither be <code>null</code> nor empty and must match
+   *        {@link MimeTypeParser#isToken(String)}.
    * @param sValue
-   *        The value to use. May not be <code>null</code>. Must not be a valid
-   *        MIME token.
+   *        The value to use. May not be <code>null</code>. Must not be a valid MIME token.
    */
   public MimeTypeParameter (@NonNull @Nonempty final String sAttribute, @NonNull final String sValue)
   {
-    ValueEnforcer.isTrue (MimeTypeParser.isToken (sAttribute), () -> "MimeType parameter name is not a valid token: " + sAttribute);
+    ValueEnforcer.isTrue (MimeTypeParser.isToken (sAttribute),
+                          () -> "MimeType parameter name is not a valid token: " + sAttribute);
     ValueEnforcer.notNull (sValue, "Value");
 
     m_sAttribute = sAttribute;
@@ -58,8 +58,8 @@ public class MimeTypeParameter
   }
 
   /**
-   * @return The parameter name. Neither <code>null</code> nor empty and
-   *         confirmed to be a valid MIME token.
+   * @return The parameter name. Neither <code>null</code> nor empty and confirmed to be a valid
+   *         MIME token.
    */
   @NonNull
   @Nonempty
@@ -69,8 +69,8 @@ public class MimeTypeParameter
   }
 
   /**
-   * @return The value of the parameter. Never <code>null</code>. No quoting or
-   *         escaping is applied to this value!
+   * @return The value of the parameter. Never <code>null</code>. No quoting or escaping is applied
+   *         to this value!
    */
   @NonNull
   public String getValue ()
@@ -79,9 +79,8 @@ public class MimeTypeParameter
   }
 
   /**
-   * @return <code>true</code> if the value required quoting/escaping. This is
-   *         determined by checking, if the value is a valid MIME token in which
-   *         case no quoting is necessary.
+   * @return <code>true</code> if the value required quoting/escaping. This is determined by
+   *         checking, if the value is a valid MIME token in which case no quoting is necessary.
    */
   public boolean isValueRequiringQuoting ()
   {
@@ -91,8 +90,8 @@ public class MimeTypeParameter
   /**
    * @param eQuotingAlgorithm
    *        The quoting algorithm to be used. May not be <code>null</code>.
-   * @return The value of the parameter. Neither <code>null</code> nor empty. If
-   *         necessary, quoting is applied according to the passed algorithm.
+   * @return The value of the parameter. Neither <code>null</code> nor empty. If necessary, quoting
+   *         is applied according to the passed algorithm.
    */
   @NonNull
   @Nonempty

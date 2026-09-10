@@ -136,8 +136,8 @@ public final class RegExPattern
    * @param sRegEx
    *        The regular expression. May neither be <code>null</code> nor empty.
    * @param nOptions
-   *        The options to use for {@link java.util.regex.Pattern#compile(String, int)}. Must
-   *        be &ge; 0.
+   *        The options to use for {@link java.util.regex.Pattern#compile(String, int)}. Must be
+   *        &ge; 0.
    */
   public RegExPattern (@NonNull @Nonempty @RegEx final String sRegEx, @Nonnegative final int nOptions)
   {

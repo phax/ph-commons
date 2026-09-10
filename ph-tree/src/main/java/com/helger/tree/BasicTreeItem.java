@@ -95,8 +95,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return The tree item factory used for creating new tree items.
-   *         Never <code>null</code>.
+   * @return The tree item factory used for creating new tree items. Never <code>null</code>.
    */
   @NonNull
   public final ITreeItemFactory <DATATYPE, ITEMTYPE> getFactory ()
@@ -142,8 +141,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return <code>true</code> if this is the root item (i.e. has no parent),
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this is the root item (i.e. has no parent), <code>false</code>
+   *         otherwise.
    */
   public final boolean isRootItem ()
   {
@@ -160,8 +159,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return The data of the parent tree item or <code>null</code> if this is
-   *         the root item.
+   * @return The data of the parent tree item or <code>null</code> if this is the root item.
    */
   @Nullable
   public final DATATYPE getParentData ()
@@ -170,8 +168,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return The nesting level of this item. The root item has level 0, its
-   *         children have level 1 etc.
+   * @return The nesting level of this item. The root item has level 0, its children have level 1
+   *         etc.
    */
   @Nonnegative
   public final int getLevel ()
@@ -213,8 +211,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return A mutable copy of all children of this item, or <code>null</code>
-   *         if this item has no children.
+   * @return A mutable copy of all children of this item, or <code>null</code> if this item has no
+   *         children.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -224,8 +222,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return An iterable over the direct children of this item, or
-   *         <code>null</code> if this item has no children.
+   * @return An iterable over the direct children of this item, or <code>null</code> if this item
+   *         has no children.
    */
   @Nullable
   public final ICommonsIterable <ITEMTYPE> getChildren ()
@@ -267,8 +265,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
   }
 
   /**
-   * @return A mutable copy of the data of all direct children, or
-   *         <code>null</code> if this item has no children.
+   * @return A mutable copy of the data of all direct children, or <code>null</code> if this item
+   *         has no children.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -339,8 +337,8 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *
    * @param aParent
    *        The parent item to check against. May not be <code>null</code>.
-   * @return <code>true</code> if this item is the same as or a descendant of
-   *         the passed parent item, <code>false</code> otherwise.
+   * @return <code>true</code> if this item is the same as or a descendant of the passed parent
+   *         item, <code>false</code> otherwise.
    */
   public final boolean isSameOrChildOf (@NonNull final ITEMTYPE aParent)
   {
@@ -363,8 +361,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    * @param aNewParent
    *        The new parent item. May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if the parent was changed successfully,
-   *         {@link ESuccess#FAILURE} if the new parent is the same as or a
-   *         child of this item.
+   *         {@link ESuccess#FAILURE} if the new parent is the same as or a child of this item.
    */
   @NonNull
   public final ESuccess changeParent (@NonNull final ITEMTYPE aNewParent)

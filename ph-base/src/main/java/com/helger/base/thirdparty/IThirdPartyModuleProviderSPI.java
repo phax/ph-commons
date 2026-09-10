@@ -21,8 +21,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.style.IsSPIInterface;
 
 /**
- * Implement this SPI interface if your JAR file contains external third party
- * modules.
+ * Implement this SPI interface if your JAR file contains external third party modules.
  *
  * @author Philip Helger
  */
@@ -30,10 +29,9 @@ import com.helger.annotation.style.IsSPIInterface;
 public interface IThirdPartyModuleProviderSPI
 {
   /**
-   * @return A collection of all third party modules to be registered. May be
-   *         <code>null</code> or empty. Note: only modules that are required
-   *         for execution should be returned, and not modules only present for
-   *         testing.
+   * @return A collection of all third party modules to be registered. May be <code>null</code> or
+   *         empty. Note: only modules that are required for execution should be returned, and not
+   *         modules only present for testing.
    */
   @Nullable
   IThirdPartyModule [] getAllThirdPartyModules ();

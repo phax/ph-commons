@@ -46,8 +46,8 @@ public final class SerializationConverter
   {}
 
   /**
-   * Write the passed object to the provided {@link ObjectOutputStream} using
-   * a registered serialization converter.
+   * Write the passed object to the provided {@link ObjectOutputStream} using a registered
+   * serialization converter.
    *
    * @param aObject
    *        The object to be written. May be <code>null</code>.
@@ -58,7 +58,8 @@ public final class SerializationConverter
    * @throws IOException
    *         In case of a stream error
    */
-  public static <T> void writeConvertedObject (@Nullable final T aObject, @NonNull final ObjectOutputStream aOOS) throws IOException
+  public static <T> void writeConvertedObject (@Nullable final T aObject,
+                                               @NonNull final ObjectOutputStream aOOS) throws IOException
   {
     ValueEnforcer.notNull (aOOS, "ObjectOutputStream");
 
@@ -68,7 +69,8 @@ public final class SerializationConverter
     {
       // Lookup converter
       final Class <T> aSrcClass = GenericReflection.uncheckedCast (aObject.getClass ());
-      final ISerializationConverter <T> aConverter = SerializationConverterRegistry.getInstance ().getConverter (aSrcClass);
+      final ISerializationConverter <T> aConverter = SerializationConverterRegistry.getInstance ()
+                                                                                   .getConverter (aSrcClass);
       if (aConverter == null)
         throw new TypeConverterException (aSrcClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 
@@ -78,8 +80,8 @@ public final class SerializationConverter
   }
 
   /**
-   * Read an object of the specified class from the provided
-   * {@link ObjectInputStream} using a registered serialization converter.
+   * Read an object of the specified class from the provided {@link ObjectInputStream} using a
+   * registered serialization converter.
    *
    * @param aOIS
    *        The input stream to read from. May not be <code>null</code>.
@@ -87,8 +89,7 @@ public final class SerializationConverter
    *        The destination class to read. May not be <code>null</code>.
    * @param <DSTTYPE>
    *        The destination type
-   * @return The read object, or <code>null</code> if the written object was
-   *         <code>null</code>.
+   * @return The read object, or <code>null</code> if the written object was <code>null</code>.
    * @throws IOException
    *         In case of a stream error
    */
@@ -108,7 +109,8 @@ public final class SerializationConverter
     }
 
     // Lookup converter
-    final ISerializationConverter <DSTTYPE> aConverter = SerializationConverterRegistry.getInstance ().getConverter (aDstClass);
+    final ISerializationConverter <DSTTYPE> aConverter = SerializationConverterRegistry.getInstance ()
+                                                                                       .getConverter (aDstClass);
     if (aConverter == null)
       throw new TypeConverterException (aDstClass, EReason.NO_CONVERTER_FOUND_SINGLE);
 

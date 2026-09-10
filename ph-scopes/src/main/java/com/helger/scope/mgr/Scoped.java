@@ -22,8 +22,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.scope.IRequestScope;
 
 /**
- * Auto closable wrapper around
- * {@link ScopeManager#onRequestBegin( String, String)} and
+ * Auto closable wrapper around {@link ScopeManager#onRequestBegin( String, String)} and
  * {@link ScopeManager#onRequestEnd()}
  *
  * @author Philip Helger

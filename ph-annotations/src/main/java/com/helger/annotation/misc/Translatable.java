@@ -24,8 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * An informational annotation that indicates that something is meant to be
- * translated.
+ * An informational annotation that indicates that something is meant to be translated.
  *
  * @author Philip Helger
  */

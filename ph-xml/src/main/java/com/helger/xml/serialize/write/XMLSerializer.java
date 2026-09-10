@@ -283,9 +283,7 @@ public class XMLSerializer extends AbstractXMLSerializer <Node>
         {
           sElementNamespaceURI = StringHelper.getNotNull (aElement.getNamespaceURI ());
           // Eventually adds a namespace attribute in the AttrMap
-          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI,
-                                                                        bIsRootElement,
-                                                                        aAttrMap);
+          sElementNSPrefix = m_aNSStack.getElementNamespacePrefixToUse (sElementNamespaceURI, bIsRootElement, aAttrMap);
         }
         else
         {

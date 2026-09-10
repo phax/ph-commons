@@ -27,9 +27,8 @@ import com.helger.annotation.WillNotClose;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * This class was created for issue #106
- * (https://sourceforge.net/p/opencsv/bugs/106/) where carriage returns were
- * being removed. This class allows the user to determine if they wish to keep
+ * This class was created for issue #106 (https://sourceforge.net/p/opencsv/bugs/106/) where
+ * carriage returns were being removed. This class allows the user to determine if they wish to keep
  * or remove them from the data being read.
  *
  * @author scott on 2/19/15.
@@ -43,8 +42,8 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
    * Constructor.
    *
    * @param aReader
-   *        Reader that data will be read from. May not be <code>null</code>.
-   *        Will not be closed in this class.
+   *        Reader that data will be read from. May not be <code>null</code>. Will not be closed in
+   *        this class.
    */
   public CSVLineReaderKeepCR (@NonNull @WillNotClose final Reader aReader)
   {

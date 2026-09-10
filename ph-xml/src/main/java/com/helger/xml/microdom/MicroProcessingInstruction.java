@@ -40,8 +40,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
    * Constructor with target only.
    *
    * @param sTarget
-   *        The processing instruction target. May neither be
-   *        <code>null</code> nor empty.
+   *        The processing instruction target. May neither be <code>null</code> nor empty.
    */
   public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget)
   {
@@ -52,8 +51,7 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
    * Constructor with target and data.
    *
    * @param sTarget
-   *        The processing instruction target. May neither be
-   *        <code>null</code> nor empty.
+   *        The processing instruction target. May neither be <code>null</code> nor empty.
    * @param sData
    *        The processing instruction data. May be <code>null</code>.
    */
@@ -119,6 +117,9 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("target", m_sTarget).append ("data", m_sData).getToString ();
+    return ToStringGenerator.getDerived (super.toString ())
+                            .append ("target", m_sTarget)
+                            .append ("data", m_sData)
+                            .getToString ();
   }
 }

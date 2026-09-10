@@ -32,9 +32,8 @@ import com.helger.base.reflection.GenericReflection;
 import com.helger.base.string.StringHex;
 
 /**
- * An {@link InvocationHandler} that logs all method invocations on a proxied
- * object, including parameters and return values. Can optionally wrap return
- * values in logging proxies as well.
+ * An {@link InvocationHandler} that logs all method invocations on a proxied object, including
+ * parameters and return values. Can optionally wrap return values in logging proxies as well.
  *
  * @author Philip Helger
  */
@@ -51,8 +50,7 @@ public class LoggingInvocationHandler implements InvocationHandler
    * Constructor.
    *
    * @param aActualTarget
-   *        The actual target object to delegate method calls to. May not be
-   *        <code>null</code>.
+   *        The actual target object to delegate method calls to. May not be <code>null</code>.
    */
   public LoggingInvocationHandler (@NonNull final Object aActualTarget)
   {
@@ -113,8 +111,9 @@ public class LoggingInvocationHandler implements InvocationHandler
    * the return type is an interface, the return value is wrapped in a logging proxy as well.
    */
   @Nullable
-  public Object invoke (@NonNull final Object aProxy, @NonNull final Method aMethod, @NonNull final Object [] aArgs)
-                                                                                                                     throws Throwable
+  public Object invoke (@NonNull final Object aProxy,
+                        @NonNull final Method aMethod,
+                        @NonNull final Object [] aArgs) throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
     final String sMethod = m_sLogPrefix +

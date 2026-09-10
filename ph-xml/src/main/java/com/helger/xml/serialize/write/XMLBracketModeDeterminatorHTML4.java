@@ -30,8 +30,8 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 
 /**
- * Implementation of {@link IXMLBracketModeDeterminator} for HTML4. This is not
- * applicable for XHTML or HTML5.
+ * Implementation of {@link IXMLBracketModeDeterminator} for HTML4. This is not applicable for XHTML
+ * or HTML5.
  *
  * @author Philip Helger
  */

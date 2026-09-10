@@ -53,8 +53,7 @@ public final class FileSystemCharStreamProvider implements
    * Constructor using a base path string and a charset.
    *
    * @param sBasePath
-   *        The base path to use. May not be <code>null</code>. Must be an
-   *        existing directory.
+   *        The base path to use. May not be <code>null</code>. Must be an existing directory.
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    */
@@ -67,8 +66,7 @@ public final class FileSystemCharStreamProvider implements
    * Constructor using a base path file and a charset.
    *
    * @param aBasePath
-   *        The base path to use. May not be <code>null</code>. Must be an
-   *        existing directory.
+   *        The base path to use. May not be <code>null</code>. Must be an existing directory.
    * @param aCharset
    *        The charset to use. May not be <code>null</code>.
    */
@@ -79,8 +77,7 @@ public final class FileSystemCharStreamProvider implements
   }
 
   /**
-   * @return The base path as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The base path as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public File getBasePath ()
@@ -89,8 +86,7 @@ public final class FileSystemCharStreamProvider implements
   }
 
   /**
-   * @return The charset as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The charset as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public Charset getCharset ()

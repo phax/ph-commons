@@ -31,8 +31,8 @@ import com.helger.text.IHasText;
 import com.helger.text.display.IHasDisplayText;
 
 /**
- * A implementation of {@link IHasErrorText} based on {@link IHasText}. Cannot
- * be a lambda expression because equals/hashCode is required!
+ * A implementation of {@link IHasErrorText} based on {@link IHasText}. Cannot be a lambda
+ * expression because equals/hashCode is required!
  *
  * @author Philip Helger
  */

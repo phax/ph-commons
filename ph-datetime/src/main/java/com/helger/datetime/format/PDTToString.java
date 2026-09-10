@@ -50,8 +50,8 @@ public final class PDTToString
   {}
 
   /**
-   * Get the string representation of the passed {@link LocalDate} using the
-   * default date style for the given locale.
+   * Get the string representation of the passed {@link LocalDate} using the default date style for
+   * the given locale.
    *
    * @param aDate
    *        The date to be formatted. May be <code>null</code>.
@@ -65,13 +65,12 @@ public final class PDTToString
     return aDate == null ? null
                          : PDTFormatter.getFormatterDate (PDTFormatter.DEFAULT_STYLE,
                                                           aDisplayLocale,
-                                                          EDTFormatterMode.PRINT)
-                                       .format (aDate);
+                                                          EDTFormatterMode.PRINT).format (aDate);
   }
 
   /**
-   * Get the string representation of the passed {@link OffsetDate} using the
-   * default date style for the given locale.
+   * Get the string representation of the passed {@link OffsetDate} using the default date style for
+   * the given locale.
    *
    * @param aDate
    *        The date to be formatted. May be <code>null</code>.
@@ -85,13 +84,12 @@ public final class PDTToString
     return aDate == null ? null
                          : PDTFormatter.getFormatterOffsetDate (PDTFormatter.DEFAULT_STYLE,
                                                                 aDisplayLocale,
-                                                                EDTFormatterMode.PRINT)
-                                       .format (aDate);
+                                                                EDTFormatterMode.PRINT).format (aDate);
   }
 
   /**
-   * Get the string representation of the passed {@link XMLOffsetDate} using the
-   * default date style for the given locale.
+   * Get the string representation of the passed {@link XMLOffsetDate} using the default date style
+   * for the given locale.
    *
    * @param aDate
    *        The date to be formatted. May be <code>null</code>.
@@ -114,8 +112,8 @@ public final class PDTToString
   }
 
   /**
-   * Get the string representation of the passed {@link LocalTime} using the
-   * default time style for the given locale.
+   * Get the string representation of the passed {@link LocalTime} using the default time style for
+   * the given locale.
    *
    * @param aTime
    *        The time to be formatted. May be <code>null</code>.
@@ -129,13 +127,12 @@ public final class PDTToString
     return aTime == null ? null
                          : PDTFormatter.getFormatterTime (PDTFormatter.DEFAULT_STYLE,
                                                           aDisplayLocale,
-                                                          EDTFormatterMode.PRINT)
-                                       .format (aTime);
+                                                          EDTFormatterMode.PRINT).format (aTime);
   }
 
   /**
-   * Get the string representation of the passed {@link OffsetTime} using the
-   * default time style for the given locale.
+   * Get the string representation of the passed {@link OffsetTime} using the default time style for
+   * the given locale.
    *
    * @param aTime
    *        The time to be formatted. May be <code>null</code>.
@@ -149,13 +146,12 @@ public final class PDTToString
     return aTime == null ? null
                          : PDTFormatter.getFormatterOffsetTime (PDTFormatter.DEFAULT_STYLE,
                                                                 aDisplayLocale,
-                                                                EDTFormatterMode.PRINT)
-                                       .format (aTime);
+                                                                EDTFormatterMode.PRINT).format (aTime);
   }
 
   /**
-   * Get the string representation of the passed {@link XMLOffsetTime} using the
-   * default time style for the given locale.
+   * Get the string representation of the passed {@link XMLOffsetTime} using the default time style
+   * for the given locale.
    *
    * @param aTime
    *        The time to be formatted. May be <code>null</code>.
@@ -178,8 +174,8 @@ public final class PDTToString
   }
 
   /**
-   * Get the string representation of the passed {@link LocalDateTime} using the
-   * default date time style for the given locale.
+   * Get the string representation of the passed {@link LocalDateTime} using the default date time
+   * style for the given locale.
    *
    * @param aDateTime
    *        The date time to be formatted. May be <code>null</code>.
@@ -193,13 +189,12 @@ public final class PDTToString
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE,
                                                                   aDisplayLocale,
-                                                                  EDTFormatterMode.PRINT)
-                                           .format (aDateTime);
+                                                                  EDTFormatterMode.PRINT).format (aDateTime);
   }
 
   /**
-   * Get the string representation of the passed {@link ZonedDateTime} using the
-   * default date time style for the given locale.
+   * Get the string representation of the passed {@link ZonedDateTime} using the default date time
+   * style for the given locale.
    *
    * @param aDateTime
    *        The date time to be formatted. May be <code>null</code>.
@@ -213,13 +208,12 @@ public final class PDTToString
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterZonedDateTime (PDTFormatter.DEFAULT_STYLE,
                                                                        aDisplayLocale,
-                                                                       EDTFormatterMode.PRINT)
-                                           .format (aDateTime);
+                                                                       EDTFormatterMode.PRINT).format (aDateTime);
   }
 
   /**
-   * Get the string representation of the passed {@link OffsetDateTime} using
-   * the default date time style for the given locale.
+   * Get the string representation of the passed {@link OffsetDateTime} using the default date time
+   * style for the given locale.
    *
    * @param aDateTime
    *        The date time to be formatted. May be <code>null</code>.
@@ -233,13 +227,12 @@ public final class PDTToString
     return aDateTime == null ? null
                              : PDTFormatter.getFormatterOffsetDateTime (PDTFormatter.DEFAULT_STYLE,
                                                                         aDisplayLocale,
-                                                                        EDTFormatterMode.PRINT)
-                                           .format (aDateTime);
+                                                                        EDTFormatterMode.PRINT).format (aDateTime);
   }
 
   /**
-   * Get the string representation of the passed {@link XMLOffsetDateTime} using
-   * the default date time style for the given locale.
+   * Get the string representation of the passed {@link XMLOffsetDateTime} using the default date
+   * time style for the given locale.
    *
    * @param aDateTime
    *        The date time to be formatted. May be <code>null</code>.
@@ -256,15 +249,13 @@ public final class PDTToString
     if (aDateTime.hasOffset ())
       return PDTFormatter.getFormatterOffsetDateTime (PDTFormatter.DEFAULT_STYLE,
                                                       aDisplayLocale,
-                                                      EDTFormatterMode.PRINT)
-                         .format (aDateTime);
+                                                      EDTFormatterMode.PRINT).format (aDateTime);
     return PDTFormatter.getFormatterDateTime (PDTFormatter.DEFAULT_STYLE, aDisplayLocale, EDTFormatterMode.PRINT)
                        .format (aDateTime.toLocalDateTime ());
   }
 
   /**
-   * Get the string representation of the passed temporal using the specified
-   * format pattern.
+   * Get the string representation of the passed temporal using the specified format pattern.
    *
    * @param sFormatPattern
    *        The format pattern to use. May not be <code>null</code>.
@@ -279,8 +270,8 @@ public final class PDTToString
   }
 
   /**
-   * Get the string representation of the passed temporal using the specified
-   * format pattern and locale.
+   * Get the string representation of the passed temporal using the specified format pattern and
+   * locale.
    *
    * @param sFormatPattern
    *        The format pattern to use. May not be <code>null</code>.

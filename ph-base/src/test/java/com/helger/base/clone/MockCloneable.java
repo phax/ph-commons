@@ -17,8 +17,7 @@
 package com.helger.base.clone;
 
 /**
- * This class needs to be in the same package as {@link CloneHelper} so that the
- * test works!<br>
+ * This class needs to be in the same package as {@link CloneHelper} so that the test works!<br>
  * Should invoke the {@link #clone()} method.
  *
  * @author Philip Helger

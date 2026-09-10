@@ -26,8 +26,8 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
 
 /**
- * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler}
- * interface. It collects all events that occurred!
+ * An implementation of the JAXB {@link jakarta.xml.bind.ValidationEventHandler} interface. It
+ * collects all events that occurred!
  *
  * @author Philip Helger
  * @since 8.5.1
@@ -49,8 +49,7 @@ public class WrappedCollectingValidationEventHandler extends AbstractValidationE
   }
 
   /**
-   * @return The error list object passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The error list object passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject

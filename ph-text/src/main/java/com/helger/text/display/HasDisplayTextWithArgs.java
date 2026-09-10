@@ -47,8 +47,7 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
    * @param aParentText
    *        The parent display text provider. May not be <code>null</code>.
    * @param aArgs
-   *        The arguments to be used for formatting. May neither be
-   *        <code>null</code> nor empty.
+   *        The arguments to be used for formatting. May neither be <code>null</code> nor empty.
    */
   public HasDisplayTextWithArgs (@NonNull final IHasDisplayText aParentText, @NonNull @Nonempty final Object... aArgs)
   {
@@ -57,8 +56,7 @@ public class HasDisplayTextWithArgs implements IHasDisplayText
   }
 
   /**
-   * @return The parent display text provider as passed in the constructor.
-   *         Never <code>null</code>.
+   * @return The parent display text provider as passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public IHasDisplayText getParentText ()

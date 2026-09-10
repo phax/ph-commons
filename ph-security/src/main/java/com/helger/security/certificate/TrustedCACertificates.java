@@ -90,8 +90,8 @@ public class TrustedCACertificates
   }
 
   /**
-   * Explicitly remove all known trusted CA certificates so that different ones
-   * can be added. Handle this with care!
+   * Explicitly remove all known trusted CA certificates so that different ones can be added. Handle
+   * this with care!
    */
   public void clearTrustedCACertificates ()
   {
@@ -104,8 +104,7 @@ public class TrustedCACertificates
   }
 
   /**
-   * @return All the CA certificates currently contained. Never
-   *         <code>null</code>.
+   * @return All the CA certificates currently contained. Never <code>null</code>.
    */
   @NonNull
   @Nonempty
@@ -116,8 +115,7 @@ public class TrustedCACertificates
   }
 
   /**
-   * @return All the CA issuers currently valid. Neither <code>null</code> nor
-   *         empty.
+   * @return All the CA issuers currently valid. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

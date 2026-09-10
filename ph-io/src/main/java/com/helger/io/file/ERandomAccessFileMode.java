@@ -55,9 +55,8 @@ public enum ERandomAccessFileMode
   }
 
   /**
-   * @return The string mode identifier for use with
-   *         {@link java.io.RandomAccessFile}. Neither <code>null</code> nor
-   *         empty.
+   * @return The string mode identifier for use with {@link java.io.RandomAccessFile}. Neither
+   *         <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

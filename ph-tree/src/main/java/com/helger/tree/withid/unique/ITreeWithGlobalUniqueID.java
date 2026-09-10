@@ -27,19 +27,20 @@ import com.helger.tree.withid.ITreeItemWithID;
 import com.helger.tree.withid.ITreeWithID;
 
 /**
- * A specialized version of the tree, where each item is required to have a
- * unique ID so that item searching can be performed with little runtime effort.
+ * A specialized version of the tree, where each item is required to have a unique ID so that item
+ * searching can be performed with little runtime effort.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
  *        The type of the key elements for the tree. This is typically String.
  * @param <DATATYPE>
- *        The type of the elements contained in the tree. This is the generic
- *        type to be stored in the tree.
+ *        The type of the elements contained in the tree. This is the generic type to be stored in
+ *        the tree.
  * @param <ITEMTYPE>
  *        The type of the tree item that will be stored in this tree.
  */
-public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>> extends
+public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE>>
+                                         extends
                                          ITreeWithID <KEYTYPE, DATATYPE, ITEMTYPE>,
                                          IChildrenProviderWithID <KEYTYPE, ITEMTYPE>
 {
@@ -95,24 +96,23 @@ public interface ITreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
    *
    * @param aDataID
    *        The ID of the item to be removed
-   * @return {@link EChange#CHANGED} if the item was removed,
-   *         {@link EChange#UNCHANGED} otherwise. Never <code>null</code>.
+   * @return {@link EChange#CHANGED} if the item was removed, {@link EChange#UNCHANGED} otherwise.
+   *         Never <code>null</code>.
    */
   @NonNull
   EChange removeItemWithID (@Nullable KEYTYPE aDataID);
 
   /**
-   * Check if one item is equal or a child of the other item. This relationship
-   * is checked not only for direct children but for all levels.
+   * Check if one item is equal or a child of the other item. This relationship is checked not only
+   * for direct children but for all levels.
    *
    * @param aParentItemID
    *        The parent item ID to a validate.
    * @param aChildItemID
-   *        The item ID to check whether it is a child of the passed parent
-   *        folder.
-   * @return <code>true</code> if the child item is the same or a child of the
-   *         parent item, <code>false</code> if one of the IDs could not be
-   *         resolved or they are not in a parent-child-relationship.
+   *        The item ID to check whether it is a child of the passed parent folder.
+   * @return <code>true</code> if the child item is the same or a child of the parent item,
+   *         <code>false</code> if one of the IDs could not be resolved or they are not in a
+   *         parent-child-relationship.
    */
   boolean isItemSameOrDescendant (@Nullable KEYTYPE aParentItemID, @Nullable KEYTYPE aChildItemID);
 }

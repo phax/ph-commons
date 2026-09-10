@@ -27,9 +27,8 @@ import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.convert.MicroTypeConverter;
 
 /**
- * A special implementation of {@link IConverterTreeXML} that uses the
- * conversion rules stored in the
- * {@link com.helger.xml.microdom.convert.MicroTypeConverterRegistry}.
+ * A special implementation of {@link IConverterTreeXML} that uses the conversion rules stored in
+ * the {@link com.helger.xml.microdom.convert.MicroTypeConverterRegistry}.
  *
  * @author Philip Helger
  * @param <DATATYPE>
@@ -48,10 +47,10 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    * @param sElementName
    *        The element name to use. May neither be <code>null</code> nor empty
    * @param aNativeClass
-   *        The data type class - required for reading. May be in an interface
-   *        as well.
+   *        The data type class - required for reading. May be in an interface as well.
    */
-  public MicroTypeConverterTreeXML (@NonNull @Nonempty final String sElementName, @NonNull final Class <? extends DATATYPE> aNativeClass)
+  public MicroTypeConverterTreeXML (@NonNull @Nonempty final String sElementName,
+                                    @NonNull final Class <? extends DATATYPE> aNativeClass)
   {
     this (null, sElementName, aNativeClass);
   }
@@ -64,8 +63,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    * @param sElementName
    *        The element name to use. May neither be <code>null</code> nor empty
    * @param aNativeClass
-   *        The data type class - required for reading. May be in an interface
-   *        as well.
+   *        The data type class - required for reading. May be in an interface as well.
    */
   public MicroTypeConverterTreeXML (@Nullable final String sNamespaceURI,
                                     @NonNull @Nonempty final String sElementName,
@@ -140,8 +138,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    * @param sElementName
    *        The element name to use. May neither be <code>null</code> nor empty
    * @param aNativeClass
-   *        The data type class - required for reading. May be in an interface
-   *        as well.
+   *        The data type class - required for reading. May be in an interface as well.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -161,8 +158,7 @@ public final class MicroTypeConverterTreeXML <DATATYPE> implements IConverterTre
    * @param sElementName
    *        The element name to use. May neither be <code>null</code> nor empty
    * @param aNativeClass
-   *        The data type class - required for reading. May be in an interface
-   *        as well.
+   *        The data type class - required for reading. May be in an interface as well.
    * @return Never <code>null</code>.
    */
   @NonNull

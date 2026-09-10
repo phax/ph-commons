@@ -23,8 +23,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.xml.microdom.IMicroElement;
 
 /**
- * Interface to be implemented to marshal between IMicroElement and a native
- * object.
+ * Interface to be implemented to marshal between IMicroElement and a native object.
  *
  * @author Philip Helger
  * @param <T>
@@ -33,15 +32,15 @@ import com.helger.xml.microdom.IMicroElement;
 public interface IMicroTypeConverter <T>
 {
   /**
-   * Convert the passed object to a micro element using the specified tag name
-   * and a <code>null</code> namespace URI.
+   * Convert the passed object to a micro element using the specified tag name and a
+   * <code>null</code> namespace URI.
    *
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param sTagName
    *        The tag name to be used. May neither be <code>null</code> nor empty.
-   * @return <code>null</code> in case creation failed. A micro element with the
-   *         specified namespace and tag name otherwise.
+   * @return <code>null</code> in case creation failed. A micro element with the specified namespace
+   *         and tag name otherwise.
    */
   @Nullable
   default IMicroElement convertToMicroElement (@NonNull final T aObject, @NonNull @Nonempty final String sTagName)
@@ -55,15 +54,16 @@ public interface IMicroTypeConverter <T>
    * @param aObject
    *        The object to be converted. May not be <code>null</code>.
    * @param sNamespaceURI
-   *        The namespace URI for the element to be created. May be
-   *        <code>null</code>.
+   *        The namespace URI for the element to be created. May be <code>null</code>.
    * @param sTagName
    *        The tag name to be used. May neither be <code>null</code> nor empty.
-   * @return <code>null</code> in case creation failed. A micro element with the
-   *         specified namespace and tag name otherwise.
+   * @return <code>null</code> in case creation failed. A micro element with the specified namespace
+   *         and tag name otherwise.
    */
   @Nullable
-  IMicroElement convertToMicroElement (@NonNull T aObject, @Nullable String sNamespaceURI, @NonNull @Nonempty String sTagName);
+  IMicroElement convertToMicroElement (@NonNull T aObject,
+                                       @Nullable String sNamespaceURI,
+                                       @NonNull @Nonempty String sTagName);
 
   /**
    * Convert the passed object to a native element.

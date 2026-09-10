@@ -21,8 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
- * Default implementation of the {@link ITree} interface using
- * {@link DefaultTreeItem} tree items
+ * Default implementation of the {@link ITree} interface using {@link DefaultTreeItem} tree items
  *
  * @author Philip Helger
  * @param <DATATYPE>

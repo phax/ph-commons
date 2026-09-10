@@ -43,8 +43,7 @@ public interface ISuccessIndicator
    *
    * @param aSuccess
    *        The other success indicator. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if either this or the other indicator is
-   *         successful.
+   * @return {@link ESuccess#SUCCESS} if either this or the other indicator is successful.
    */
   @NonNull
   default ESuccess or (@NonNull final ISuccessIndicator aSuccess)
@@ -57,8 +56,7 @@ public interface ISuccessIndicator
    *
    * @param aSuccess
    *        The other success indicator. May not be <code>null</code>.
-   * @return {@link ESuccess#SUCCESS} if both this and the other indicator are
-   *         successful.
+   * @return {@link ESuccess#SUCCESS} if both this and the other indicator are successful.
    */
   @NonNull
   default ESuccess and (@NonNull final ISuccessIndicator aSuccess)

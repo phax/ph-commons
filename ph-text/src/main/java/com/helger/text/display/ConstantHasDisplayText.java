@@ -29,9 +29,9 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * An implementation of the {@link IHasDisplayText} interface that always
- * returns a constant string. Use this only for texts that never need to be
- * translated! Use this class if equals/hashCode is relevant
+ * An implementation of the {@link IHasDisplayText} interface that always returns a constant string.
+ * Use this only for texts that never need to be translated! Use this class if equals/hashCode is
+ * relevant
  *
  * @author Philip Helger
  */
@@ -45,8 +45,7 @@ public class ConstantHasDisplayText implements IHasDisplayText
    * Constructor.
    *
    * @param sFixedText
-   *        The fixed text to return for any locale. May not be
-   *        <code>null</code>.
+   *        The fixed text to return for any locale. May not be <code>null</code>.
    */
   public ConstantHasDisplayText (@NonNull final String sFixedText)
   {

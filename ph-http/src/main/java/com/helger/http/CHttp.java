@@ -517,8 +517,7 @@ public final class CHttp
   }
 
   /**
-   * Convert the given milliseconds to a {@link LocalDateTime}, rounded down
-   * to the nearest second.
+   * Convert the given milliseconds to a {@link LocalDateTime}, rounded down to the nearest second.
    *
    * @param nMillis
    *        The milliseconds to convert.

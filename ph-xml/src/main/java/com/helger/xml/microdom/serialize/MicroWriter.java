@@ -295,7 +295,8 @@ public final class MicroWriter
    * @return The byte array representation of the passed node.
    * @since 8.6.3
    */
-  public static byte @Nullable [] getNodeAsBytes (@NonNull final IMicroNode aNode, @NonNull final IXMLWriterSettings aSettings)
+  public static byte @Nullable [] getNodeAsBytes (@NonNull final IMicroNode aNode,
+                                                  @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");

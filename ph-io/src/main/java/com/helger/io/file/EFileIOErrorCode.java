@@ -71,8 +71,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   }
 
   /**
-   * An internal ID for easier referencing. {@link #NO_ERROR} has ID 0. All
-   * errors have positive numbers.
+   * An internal ID for easier referencing. {@link #NO_ERROR} has ID 0. All errors have positive
+   * numbers.
    */
   @Nonnegative
   public int getID ()
@@ -86,8 +86,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @param eOperation
    *        The operation carried out. May not be <code>null</code>.
    * @param aFile
-   *        The file on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The file on which operation was carried out. May not be <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @NonNull
@@ -102,8 +101,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @param eOperation
    *        The operation carried out. May not be <code>null</code>.
    * @param aPath
-   *        The path on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The path on which operation was carried out. May not be <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @NonNull
@@ -118,15 +116,15 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @param eOperation
    *        The operation carried out. May not be <code>null</code>.
    * @param aFile1
-   *        The first file on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The first file on which operation was carried out. May not be <code>null</code>.
    * @param aFile2
-   *        The second file on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The second file on which operation was carried out. May not be <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @NonNull
-  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final File aFile1, @NonNull final File aFile2)
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation,
+                                   @NonNull final File aFile1,
+                                   @NonNull final File aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -139,15 +137,15 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @param eOperation
    *        The operation carried out. May not be <code>null</code>.
    * @param aFile1
-   *        The first file on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The first file on which operation was carried out. May not be <code>null</code>.
    * @param aFile2
-   *        The second file on which operation was carried out. May not be
-   *        <code>null</code>.
+   *        The second file on which operation was carried out. May not be <code>null</code>.
    * @return The new {@link FileIOError} and never <code>null</code>.
    */
   @NonNull
-  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final Path aFile1, @NonNull final Path aFile2)
+  public FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation,
+                                   @NonNull final Path aFile1,
+                                   @NonNull final Path aFile2)
   {
     if (eOperation.getParamCount () < 2)
       throw new IllegalStateException ("The operation " + eOperation + " expects only one parameter!");
@@ -155,8 +153,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   }
 
   /**
-   * @return <code>true</code> if this is {@link #NO_ERROR}, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this is {@link #NO_ERROR}, <code>false</code> otherwise.
    */
   public boolean isSuccess ()
   {
@@ -164,8 +161,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   }
 
   /**
-   * Static method to create a {@link FileIOError} for a
-   * {@link SecurityException}.
+   * Static method to create a {@link FileIOError} for a {@link SecurityException}.
    *
    * @param eOperation
    *        The performed operation. May not be <code>null</code>.
@@ -174,7 +170,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The non-<code>null</code> {@link FileIOError}.
    */
   @NonNull
-  public static FileIOError getSecurityAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final SecurityException ex)
+  public static FileIOError getSecurityAsIOError (@NonNull final EFileIOOperation eOperation,
+                                                  @NonNull final SecurityException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.SECURITY_ERROR, ex);
   }
@@ -195,8 +192,7 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
   }
 
   /**
-   * Static method to create a {@link FileIOError} for an
-   * {@link UncheckedIOException}.
+   * Static method to create a {@link FileIOError} for an {@link UncheckedIOException}.
    *
    * @param eOperation
    *        The performed operation. May not be <code>null</code>.
@@ -205,7 +201,8 @@ public enum EFileIOErrorCode implements ISuccessIndicator, IHasIntID
    * @return The non-<code>null</code> {@link FileIOError}.
    */
   @NonNull
-  public static FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation, @NonNull final UncheckedIOException ex)
+  public static FileIOError getAsIOError (@NonNull final EFileIOOperation eOperation,
+                                          @NonNull final UncheckedIOException ex)
   {
     return new FileIOError (eOperation, EFileIOErrorCode.IO_ERROR, ex);
   }

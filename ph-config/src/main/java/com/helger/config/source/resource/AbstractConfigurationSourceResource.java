@@ -33,8 +33,7 @@ import com.helger.config.source.IConfigurationSource;
 import com.helger.io.resource.IReadableResource;
 
 /**
- * Abstract implementation of {@link IConfigurationSource} for file based
- * configuration sources.
+ * Abstract implementation of {@link IConfigurationSource} for file based configuration sources.
  *
  * @author Philip Helger
  */

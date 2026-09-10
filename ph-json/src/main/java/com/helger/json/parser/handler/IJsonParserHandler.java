@@ -21,16 +21,16 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonempty;
 
 /**
- * This interface is invoked during JSON parsing to perform different things
- * with the read JSON. See implementations of this class for potential usage.
+ * This interface is invoked during JSON parsing to perform different things with the read JSON. See
+ * implementations of this class for potential usage.
  *
  * @author Philip Helger
  */
 public interface IJsonParserHandler
 {
   /**
-   * Called when reading whitespace characters. If a comment is mixed within
-   * whitespaces this method is called for every whitespaces part.
+   * Called when reading whitespace characters. If a comment is mixed within whitespaces this method
+   * is called for every whitespaces part.
    *
    * @param sWhitespace
    *        Whitespaces string. Never <code>null</code> and never empty.
@@ -59,8 +59,7 @@ public interface IJsonParserHandler
    * Called for JSON numbers
    *
    * @param sNumber
-   *        The read string representation of the number. Never
-   *        <code>null</code>.
+   *        The read string representation of the number. Never <code>null</code>.
    * @param aNumber
    *        The parsed number. Never <code>null</code>.
    */
@@ -87,14 +86,13 @@ public interface IJsonParserHandler
   void onArrayStart ();
 
   /**
-   * Called after an array element when the next is about to start (','). This
-   * is only called after {@link #onArrayStart()} was called.
+   * Called after an array element when the next is about to start (','). This is only called after
+   * {@link #onArrayStart()} was called.
    */
   void onArrayNextElement ();
 
   /**
-   * Called upon array end (']'). This is only called after
-   * {@link #onArrayStart()} was called.
+   * Called upon array end (']'). This is only called after {@link #onArrayStart()} was called.
    */
   void onArrayEnd ();
 
@@ -115,20 +113,19 @@ public interface IJsonParserHandler
   void onObjectName (@NonNull String sString, @NonNull String sName);
 
   /**
-   * Called between the object element name and the object element value (':').
-   * This is only called after {@link #onObjectName(String,String)} was called.
+   * Called between the object element name and the object element value (':'). This is only called
+   * after {@link #onObjectName(String,String)} was called.
    */
   void onObjectColon ();
 
   /**
-   * Called after an object element when the next is about to start (','). This
-   * is only called after {@link #onObjectColon()} was called.
+   * Called after an object element when the next is about to start (','). This is only called after
+   * {@link #onObjectColon()} was called.
    */
   void onObjectNextElement ();
 
   /**
-   * Called upon object end ('}'). This is only called after
-   * {@link #onObjectStart()} was called.
+   * Called upon object end ('}'). This is only called after {@link #onObjectStart()} was called.
    */
   void onObjectEnd ();
 }

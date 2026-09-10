@@ -22,22 +22,22 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.state.EChange;
 
 /**
- * Interface for objects that can expire but offer a replacement once the object
- * expires.
+ * Interface for objects that can expire but offer a replacement once the object expires.
  *
  * @author Philip Helger
  * @param <DATATYPE>
  *        The type of the object use for defining a replacement.
  */
-public interface IMutableExpirableWithReplacement <DATATYPE> extends IMutableExpirable, IExpirableWithReplacement <DATATYPE>
+public interface IMutableExpirableWithReplacement <DATATYPE> extends
+                                                  IMutableExpirable,
+                                                  IExpirableWithReplacement <DATATYPE>
 {
   /**
    * Define a replacement in case this object expires.
    *
    * @param aReplacement
    *        The replacement object to use.
-   * @return {@link EChange#CHANGED} if something was changed,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if something was changed, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   EChange setReplacement (@Nullable DATATYPE aReplacement);

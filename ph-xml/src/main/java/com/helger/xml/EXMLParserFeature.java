@@ -522,8 +522,7 @@ public enum EXMLParserFeature implements IHasName
   }
 
   /**
-   * @return The name (URI) of this parser feature. Neither <code>null</code>
-   *         nor empty.
+   * @return The name (URI) of this parser feature. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -533,12 +532,10 @@ public enum EXMLParserFeature implements IHasName
   }
 
   /**
-   * Apply this feature with the specified value to the given
-   * {@link XMLReader}.
+   * Apply this feature with the specified value to the given {@link XMLReader}.
    *
    * @param aParser
-   *        The XML reader to apply the feature to. May not be
-   *        <code>null</code>.
+   *        The XML reader to apply the feature to. May not be <code>null</code>.
    * @param bValue
    *        The value to set for this feature.
    */
@@ -571,12 +568,10 @@ public enum EXMLParserFeature implements IHasName
   }
 
   /**
-   * Apply this feature with the specified value to the given
-   * {@link DocumentBuilderFactory}.
+   * Apply this feature with the specified value to the given {@link DocumentBuilderFactory}.
    *
    * @param aDocumentBuilderFactory
-   *        The document builder factory to apply the feature to. May not be
-   *        <code>null</code>.
+   *        The document builder factory to apply the feature to. May not be <code>null</code>.
    * @param bValue
    *        The value to set for this feature.
    */
@@ -598,12 +593,10 @@ public enum EXMLParserFeature implements IHasName
   }
 
   /**
-   * Apply this feature with the specified value to the given
-   * {@link XPathFactory}.
+   * Apply this feature with the specified value to the given {@link XPathFactory}.
    *
    * @param aXPathFactory
-   *        The XPath factory to apply the feature to. May not be
-   *        <code>null</code>.
+   *        The XPath factory to apply the feature to. May not be <code>null</code>.
    * @param bValue
    *        The value to set for this feature.
    */

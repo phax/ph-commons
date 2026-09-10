@@ -722,8 +722,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static boolean @Nullable [] getCopy (final boolean @Nullable [] aArray,
-                                    @Nonnegative final int nStartIndex,
-                                    @Nonnegative final int nLength)
+                                              @Nonnegative final int nStartIndex,
+                                              @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -783,8 +783,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] getCopy (final byte @Nullable [] aArray,
-                                 @Nonnegative final int nStartIndex,
-                                 @Nonnegative final int nLength)
+                                           @Nonnegative final int nStartIndex,
+                                           @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -844,8 +844,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static char @Nullable [] getCopy (final char @Nullable [] aArray,
-                                 @Nonnegative final int nStartIndex,
-                                 @Nonnegative final int nLength)
+                                           @Nonnegative final int nStartIndex,
+                                           @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -905,8 +905,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static double @Nullable [] getCopy (final double @Nullable [] aArray,
-                                   @Nonnegative final int nStartIndex,
-                                   @Nonnegative final int nLength)
+                                             @Nonnegative final int nStartIndex,
+                                             @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -966,8 +966,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static float @Nullable [] getCopy (final float @Nullable [] aArray,
-                                  @Nonnegative final int nStartIndex,
-                                  @Nonnegative final int nLength)
+                                            @Nonnegative final int nStartIndex,
+                                            @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1042,8 +1042,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static int @Nullable [] getCopy (final int @Nullable [] aArray,
-                                @Nonnegative final int nStartIndex,
-                                @Nonnegative final int nLength)
+                                          @Nonnegative final int nStartIndex,
+                                          @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1102,8 +1102,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static long @Nullable [] getCopy (final long @Nullable [] aArray,
-                                 @Nonnegative final int nStartIndex,
-                                 @Nonnegative final int nLength)
+                                           @Nonnegative final int nStartIndex,
+                                           @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -1163,8 +1163,8 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static short @Nullable [] getCopy (final short @Nullable [] aArray,
-                                  @Nonnegative final int nStartIndex,
-                                  @Nonnegative final int nLength)
+                                            @Nonnegative final int nStartIndex,
+                                            @Nonnegative final int nLength)
   {
     if (aArray == null)
       return null;
@@ -2399,7 +2399,7 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static boolean @Nullable [] getConcatenated (final boolean @Nullable [] aHeadArray,
-                                            final boolean... aTailArray)
+                                                      final boolean... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -2566,7 +2566,7 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static char @Nullable [] [] getConcatenated (final char @Nullable [] [] aHeadArray,
-                                            final char @Nullable []... aTailArray)
+                                                      final char @Nullable []... aTailArray)
   {
     // If first array is invalid, simply
     if (isEmpty (aHeadArray))
@@ -3136,7 +3136,7 @@ public final class ArrayHelper
    */
   @ReturnsMutableCopy
   public static boolean @Nullable [] getAllExcept (final boolean @Nullable [] aArray,
-                                         final boolean... aElementsToRemove)
+                                                   final boolean... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
       return aArray;
@@ -3350,7 +3350,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static boolean @Nullable [] getAllExceptFirst (final boolean @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static boolean @Nullable [] getAllExceptFirst (final boolean @Nullable [] aArray,
+                                                        @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3387,7 +3388,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static byte @Nullable [] getAllExceptFirst (final byte @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static byte @Nullable [] getAllExceptFirst (final byte @Nullable [] aArray,
+                                                     @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3424,7 +3426,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static char @Nullable [] getAllExceptFirst (final char @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static char @Nullable [] getAllExceptFirst (final char @Nullable [] aArray,
+                                                     @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3461,7 +3464,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static double @Nullable [] getAllExceptFirst (final double @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static double @Nullable [] getAllExceptFirst (final double @Nullable [] aArray,
+                                                       @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3498,7 +3502,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static float @Nullable [] getAllExceptFirst (final float @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static float @Nullable [] getAllExceptFirst (final float @Nullable [] aArray,
+                                                      @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3535,7 +3540,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static int @Nullable [] getAllExceptFirst (final int @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static int @Nullable [] getAllExceptFirst (final int @Nullable [] aArray,
+                                                    @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3572,7 +3578,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static long @Nullable [] getAllExceptFirst (final long @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static long @Nullable [] getAllExceptFirst (final long @Nullable [] aArray,
+                                                     @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3609,7 +3616,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static short @Nullable [] getAllExceptFirst (final short @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static short @Nullable [] getAllExceptFirst (final short @Nullable [] aArray,
+                                                      @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3691,7 +3699,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static boolean @Nullable [] getAllExceptLast (final boolean @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static boolean @Nullable [] getAllExceptLast (final boolean @Nullable [] aArray,
+                                                       @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3728,7 +3737,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static byte @Nullable [] getAllExceptLast (final byte @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static byte @Nullable [] getAllExceptLast (final byte @Nullable [] aArray,
+                                                    @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3765,7 +3775,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static char @Nullable [] getAllExceptLast (final char @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static char @Nullable [] getAllExceptLast (final char @Nullable [] aArray,
+                                                    @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3802,7 +3813,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static double @Nullable [] getAllExceptLast (final double @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static double @Nullable [] getAllExceptLast (final double @Nullable [] aArray,
+                                                      @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3839,7 +3851,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static float @Nullable [] getAllExceptLast (final float @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static float @Nullable [] getAllExceptLast (final float @Nullable [] aArray,
+                                                     @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3876,7 +3889,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static int @Nullable [] getAllExceptLast (final int @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static int @Nullable [] getAllExceptLast (final int @Nullable [] aArray,
+                                                   @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3913,7 +3927,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static long @Nullable [] getAllExceptLast (final long @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static long @Nullable [] getAllExceptLast (final long @Nullable [] aArray,
+                                                    @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3950,7 +3965,8 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @ReturnsMutableCopy
-  public static short @Nullable [] getAllExceptLast (final short @Nullable [] aArray, @Nonnegative final int nElementsToSkip)
+  public static short @Nullable [] getAllExceptLast (final short @Nullable [] aArray,
+                                                     @Nonnegative final int nElementsToSkip)
   {
     ValueEnforcer.isGE0 (nElementsToSkip, "ElementsToSkip");
 
@@ -3981,7 +3997,8 @@ public final class ArrayHelper
   }
 
   /**
-   * Get an element from the passed array without throwing an {@link ArrayIndexOutOfBoundsException}.
+   * Get an element from the passed array without throwing an
+   * {@link ArrayIndexOutOfBoundsException}.
    *
    * @param <ELEMENTTYPE>
    *        Array element type
@@ -3998,7 +4015,8 @@ public final class ArrayHelper
   }
 
   /**
-   * Get an element from the passed array without throwing an {@link ArrayIndexOutOfBoundsException}.
+   * Get an element from the passed array without throwing an
+   * {@link ArrayIndexOutOfBoundsException}.
    *
    * @param <ELEMENTTYPE>
    *        Array element type
@@ -4138,8 +4156,8 @@ public final class ArrayHelper
    * @param aFilter
    *        The filter to be applied. May be <code>null</code> in which case the first element is
    *        returned.
-   * @return <code>null</code> if no matching element was found or if the array is
-   *         <code>null</code> or empty.
+   * @return <code>null</code> if no matching element was found or if the array is <code>null</code>
+   *         or empty.
    */
   @Nullable
   public static <ELEMENTTYPE> ELEMENTTYPE findFirst (@Nullable final ELEMENTTYPE [] aArray,
@@ -4180,8 +4198,8 @@ public final class ArrayHelper
   }
 
   /**
-   * Find the first element in the array matching the provided filter and apply a mapping function to
-   * it.
+   * Find the first element in the array matching the provided filter and apply a mapping function
+   * to it.
    *
    * @param <ELEMENTTYPE>
    *        Array element type
@@ -4194,8 +4212,8 @@ public final class ArrayHelper
    *        used.
    * @param aMapper
    *        The mapping function to apply to the matching element. May not be <code>null</code>.
-   * @return <code>null</code> if no matching element was found or if the array is
-   *         <code>null</code> or empty.
+   * @return <code>null</code> if no matching element was found or if the array is <code>null</code>
+   *         or empty.
    */
   @Nullable
   public static <ELEMENTTYPE, RETTYPE> RETTYPE findFirstMapped (@Nullable final ELEMENTTYPE [] aArray,
@@ -4206,8 +4224,8 @@ public final class ArrayHelper
   }
 
   /**
-   * Find the first element in the array matching the provided filter and apply a mapping function to
-   * it.
+   * Find the first element in the array matching the provided filter and apply a mapping function
+   * to it.
    *
    * @param <ELEMENTTYPE>
    *        Array element type

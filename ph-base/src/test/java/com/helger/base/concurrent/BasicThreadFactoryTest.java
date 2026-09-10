@@ -42,7 +42,7 @@ public final class BasicThreadFactoryTest
                                                                  .build ();
     for (int i = 0; i < 2; ++i)
     {
-      final Thread t = x.newThread ( () -> {
+      final Thread t = x.newThread (() -> {
         // nada
         if (false)
           LOGGER.info ("In thread '" + Thread.currentThread ().getName () + "'");

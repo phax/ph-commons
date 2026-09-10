@@ -38,8 +38,7 @@ public enum ESuccess implements ISuccessIndicator
    * Convert a boolean value to the corresponding {@link ESuccess} enum value.
    *
    * @param bSuccess
-   *        <code>true</code> for {@link #SUCCESS}, <code>false</code> for
-   *        {@link #FAILURE}.
+   *        <code>true</code> for {@link #SUCCESS}, <code>false</code> for {@link #FAILURE}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum ESuccess implements ISuccessIndicator
   }
 
   /**
-   * Convert an {@link ISuccessIndicator} to the corresponding {@link ESuccess}
-   * enum value.
+   * Convert an {@link ISuccessIndicator} to the corresponding {@link ESuccess} enum value.
    *
    * @param aSuccessIndicator
    *        The success indicator to convert. May not be <code>null</code>.
@@ -63,8 +61,8 @@ public enum ESuccess implements ISuccessIndicator
   }
 
   /**
-   * Convert an {@link IChangeIndicator} to the corresponding {@link ESuccess}
-   * enum value where changed maps to success.
+   * Convert an {@link IChangeIndicator} to the corresponding {@link ESuccess} enum value where
+   * changed maps to success.
    *
    * @param aChange
    *        The change indicator to convert. May not be <code>null</code>.

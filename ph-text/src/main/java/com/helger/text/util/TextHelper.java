@@ -55,8 +55,8 @@ public final class TextHelper
    *
    * @param sDE
    *        The German text. May not be <code>null</code>.
-   * @return A new {@link MultilingualText} containing only the German text.
-   *         Never <code>null</code>.
+   * @return A new {@link MultilingualText} containing only the German text. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -72,8 +72,8 @@ public final class TextHelper
    *
    * @param sEN
    *        The English text. May not be <code>null</code>.
-   * @return A new {@link MultilingualText} containing only the English text.
-   *         Never <code>null</code>.
+   * @return A new {@link MultilingualText} containing only the English text. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -91,8 +91,7 @@ public final class TextHelper
    *        The German text. May not be <code>null</code>.
    * @param sEN
    *        The English text. May not be <code>null</code>.
-   * @return A new {@link MultilingualText} containing both texts. Never
-   *         <code>null</code>.
+   * @return A new {@link MultilingualText} containing both texts. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -126,13 +125,12 @@ public final class TextHelper
   }
 
   /**
-   * Create a multilingual text from a map where the keys are locale strings and
-   * the values are the respective texts.
+   * Create a multilingual text from a map where the keys are locale strings and the values are the
+   * respective texts.
    *
    * @param aMap
    *        The source map. May not be <code>null</code>.
-   * @return A new {@link MultilingualText} filled from the map. Never
-   *         <code>null</code>.
+   * @return A new {@link MultilingualText} filled from the map. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

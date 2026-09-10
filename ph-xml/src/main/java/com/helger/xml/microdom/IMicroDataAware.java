@@ -22,16 +22,15 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonnegative;
 
 /**
- * This is a helper interface that allows for setting character data. This is
- * required by text and comment nodes.
+ * This is a helper interface that allows for setting character data. This is required by text and
+ * comment nodes.
  *
  * @author Philip Helger
  */
 public interface IMicroDataAware
 {
   /**
-   * @return The currently assigned character data. May not be <code>null</code>
-   *         .
+   * @return The currently assigned character data. May not be <code>null</code> .
    */
   @NonNull
   CharSequence getData ();

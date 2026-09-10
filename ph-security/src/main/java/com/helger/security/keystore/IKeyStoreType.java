@@ -37,8 +37,7 @@ public interface IKeyStoreType extends IHasID <String>
   /**
    * @return A Key store object of this type. Never <code>null</code>.
    * @throws KeyStoreException
-   *         if no Provider supports a KeyStoreSpi implementation for the
-   *         specified type.
+   *         if no Provider supports a KeyStoreSpi implementation for the specified type.
    */
   @NonNull
   default KeyStore getKeyStore () throws KeyStoreException
@@ -47,8 +46,8 @@ public interface IKeyStoreType extends IHasID <String>
   }
 
   /**
-   * Determines, if a key store path is required for loading the key store.
-   * Note: the default value is only contained to be backwards compatible.
+   * Determines, if a key store path is required for loading the key store. Note: the default value
+   * is only contained to be backwards compatible.
    *
    * @return <code>true</code>, if a path must be present
    * @since 11.0.3
@@ -60,31 +59,26 @@ public interface IKeyStoreType extends IHasID <String>
 
   /**
    * @param sProvider
-   *        Security provider to be used. E.g. for BouncyCastle. May neither be
-   *        <code>null</code> nor empty.
+   *        Security provider to be used. E.g. for BouncyCastle. May neither be <code>null</code>
+   *        nor empty.
    * @return A Key store object of this type. Never <code>null</code>.
    * @throws KeyStoreException
-   *         if no Provider supports a KeyStoreSpi implementation for the
-   *         specified type.
+   *         if no Provider supports a KeyStoreSpi implementation for the specified type.
    * @exception NoSuchProviderException
-   *            if the specified provider is not registered in the security
-   *            provider list.
+   *            if the specified provider is not registered in the security provider list.
    */
   @NonNull
-  default KeyStore getKeyStore (@NonNull @Nonempty final String sProvider) throws KeyStoreException,
-                                                                           NoSuchProviderException
+  default KeyStore getKeyStore (@NonNull @Nonempty final String sProvider) throws KeyStoreException, NoSuchProviderException
   {
     return KeyStore.getInstance (getID (), sProvider);
   }
 
   /**
    * @param aProvider
-   *        Security provider to be used. E.g. for BouncyCastle. May not be
-   *        <code>null</code>.
+   *        Security provider to be used. E.g. for BouncyCastle. May not be <code>null</code>.
    * @return A Key store object of this type. Never <code>null</code>.
    * @throws KeyStoreException
-   *         if no Provider supports a KeyStoreSpi implementation for the
-   *         specified type.
+   *         if no Provider supports a KeyStoreSpi implementation for the specified type.
    */
   @NonNull
   default KeyStore getKeyStore (@NonNull final Provider aProvider) throws KeyStoreException

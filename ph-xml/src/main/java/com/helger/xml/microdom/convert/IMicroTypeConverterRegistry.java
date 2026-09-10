@@ -19,8 +19,8 @@ package com.helger.xml.microdom.convert;
 import org.jspecify.annotations.NonNull;
 
 /**
- * This is the callback interface implemented by
- * {@link MicroTypeConverterRegistry} for registration via the SPI interface.
+ * This is the callback interface implemented by {@link MicroTypeConverterRegistry} for registration
+ * via the SPI interface.
  *
  * @author Philip Helger
  */
@@ -30,8 +30,7 @@ public interface IMicroTypeConverterRegistry
    * Register a new type converter.
    *
    * @param aClass
-   *        The class for which the converter is meant. May not be
-   *        <code>null</code>.
+   *        The class for which the converter is meant. May not be <code>null</code>.
    * @param aConverter
    *        The converter to be registered. May not be <code>null</code>.
    * @param <T>

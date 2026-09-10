@@ -34,15 +34,15 @@ import com.helger.base.enforce.ValueEnforcer;
 public interface IHasLastModificationDateTime
 {
   /**
-   * @return The last modification date time or <code>null</code> if the object
-   *         has not been modified yet.
+   * @return The last modification date time or <code>null</code> if the object has not been
+   *         modified yet.
    */
   @Nullable
   LocalDateTime getLastModificationDateTime ();
 
   /**
-   * @return <code>true</code> if a last modification date time is present,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a last modification date time is present, <code>false</code> if
+   *         not.
    * @see #getLastModificationDateTime()
    */
   default boolean hasLastModificationDateTime ()
@@ -51,8 +51,8 @@ public interface IHasLastModificationDateTime
   }
 
   /**
-   * @return The extracted date from the last modification date and time or
-   *         <code>null</code> if no last modification date time is present.
+   * @return The extracted date from the last modification date and time or <code>null</code> if no
+   *         last modification date time is present.
    */
   @Nullable
   default LocalDate getLastModificationDate ()
@@ -62,8 +62,8 @@ public interface IHasLastModificationDateTime
   }
 
   /**
-   * @return The extracted time from the last modification date and time or
-   *         <code>null</code> if no last modification date time is present.
+   * @return The extracted time from the last modification date and time or <code>null</code> if no
+   *         last modification date time is present.
    */
   @Nullable
   default LocalTime getLastModificationTime ()
@@ -73,14 +73,12 @@ public interface IHasLastModificationDateTime
   }
 
   /**
-   * Check if the object was modified at the specified local date time. This is
-   * <code>true</code>, if the modified time is &le; than the specified local
-   * date time.
+   * Check if the object was modified at the specified local date time. This is <code>true</code>,
+   * if the modified time is &le; than the specified local date time.
    *
    * @param aDT
    *        The time to check for modification. May not be <code>null</code>.
-   * @return <code>true</code> if this object was modified, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if this object was modified, <code>false</code> if not.
    * @since 9.1.6
    */
   default boolean isLastModifiedAt (@NonNull final LocalDateTime aDT)

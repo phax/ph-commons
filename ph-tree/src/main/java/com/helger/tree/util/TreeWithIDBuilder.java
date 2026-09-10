@@ -66,7 +66,8 @@ public final class TreeWithIDBuilder
       if (aParent == null)
       {
         // it is a root item
-        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aNewItem = aTree.getRootItem ().createChildItem (aCurrentID, aCurrent);
+        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aNewItem = aTree.getRootItem ()
+                                                                        .createChildItem (aCurrentID, aCurrent);
         aIDMap.put (aCurrentID, aNewItem);
         nMovedToBackCount = 0;
       }
@@ -87,7 +88,8 @@ public final class TreeWithIDBuilder
           aOpen.add (aCurrent);
           nMovedToBackCount++;
           if (nMovedToBackCount == aOpen.size ())
-            throw new IllegalStateException ("The hierarchy is illegal. It contains elements that fit nowhere in the tree: " + aOpen);
+            throw new IllegalStateException ("The hierarchy is illegal. It contains elements that fit nowhere in the tree: " +
+                                             aOpen);
         }
       }
     }
@@ -102,15 +104,14 @@ public final class TreeWithIDBuilder
    * @param <DATATYPE>
    *        The tree item value type.
    * @param aAll
-   *        A linear list of objects to build the tree from. May not be
-   *        <code>null</code>.
+   *        A linear list of objects to build the tree from. May not be <code>null</code>.
    * @param aParentResolver
-   *        The callback method to determine the parental object of a given
-   *        object. May not be <code>null</code>.
+   *        The callback method to determine the parental object of a given object. May not be
+   *        <code>null</code>.
    * @return A tree with all the objects. Never <code>null</code>.
    * @throws IllegalStateException
-   *         if the hierarchy cannot be determined because an object references
-   *         a parent that is not in the list!
+   *         if the hierarchy cannot be determined because an object references a parent that is not
+   *         in the list!
    */
   @NonNull
   public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final Collection <? extends DATATYPE> aAll,
@@ -130,15 +131,14 @@ public final class TreeWithIDBuilder
    * @param <DATATYPE>
    *        The tree item value type.
    * @param aAll
-   *        A linear list of objects to build the tree from. May not be
-   *        <code>null</code>.
+   *        A linear list of objects to build the tree from. May not be <code>null</code>.
    * @param aParentResolver
-   *        The callback method to determine the parental object of a given
-   *        object. May not be <code>null</code>.
+   *        The callback method to determine the parental object of a given object. May not be
+   *        <code>null</code>.
    * @return A tree with all the objects. Never <code>null</code>.
    * @throws IllegalStateException
-   *         if the hierarchy cannot be determined because an object references
-   *         a parent that is not in the list!
+   *         if the hierarchy cannot be determined because an object references a parent that is not
+   *         in the list!
    */
   @NonNull
   public static <KEYTYPE, DATATYPE extends IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final DATATYPE [] aAll,
@@ -158,12 +158,11 @@ public final class TreeWithIDBuilder
    * @param <DATATYPE>
    *        The tree item value type.
    * @param aAll
-   *        A linear list of objects to build the tree from. May not be
-   *        <code>null</code>.
+   *        A linear list of objects to build the tree from. May not be <code>null</code>.
    * @return A tree with all the objects. Never <code>null</code>.
    * @throws IllegalStateException
-   *         if the hierarchy cannot be determined because an object references
-   *         a parent that is not in the list!
+   *         if the hierarchy cannot be determined because an object references a parent that is not
+   *         in the list!
    */
   @NonNull
   public static <KEYTYPE, DATATYPE extends IHasParent <DATATYPE> & IHasID <KEYTYPE>> DefaultTreeWithID <KEYTYPE, DATATYPE> buildTree (@NonNull final Collection <? extends DATATYPE> aAll)
@@ -196,8 +195,8 @@ public final class TreeWithIDBuilder
    * @param <DATATYPE>
    *        The tree item value type.
    * @param aChildrenResolver
-   *        The callback method to determine the children of a given object.
-   *        May not be <code>null</code>.
+   *        The callback method to determine the children of a given object. May not be
+   *        <code>null</code>.
    * @return A tree with all the objects. Never <code>null</code>.
    */
   @NonNull
@@ -212,7 +211,9 @@ public final class TreeWithIDBuilder
       for (final DATATYPE aRootObject : aChildrenResolver.getAllChildren (null))
       {
         // it is a root item
-        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ().createChildItem (aRootObject.getID (), aRootObject);
+        final DefaultTreeItemWithID <KEYTYPE, DATATYPE> aItem = aTree.getRootItem ()
+                                                                     .createChildItem (aRootObject.getID (),
+                                                                                       aRootObject);
         _buildTreeRecursive (aItem, aChildrenResolver);
       }
     return aTree;

@@ -198,13 +198,13 @@ public class XMLSchemaCache extends SchemaCache
 
     final String sKey = String.valueOf (aClassLoader);
 
-    XMLSchemaCache aCache = RW_LOCK.readLockedGet ( () -> PER_CL_CACHE.get (sKey));
+    XMLSchemaCache aCache = RW_LOCK.readLockedGet (() -> PER_CL_CACHE.get (sKey));
     if (aCache == null)
     {
       // Not found in read-lock
       // Try again in write lock
-      aCache = RW_LOCK.writeLockedGet ( () -> PER_CL_CACHE.computeIfAbsent (sKey,
-                                                                            x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
+      aCache = RW_LOCK.writeLockedGet (() -> PER_CL_CACHE.computeIfAbsent (sKey,
+                                                                           x -> new XMLSchemaCache (new SimpleLSResourceResolver (aClassLoader))));
     }
     return aCache;
   }

@@ -33,8 +33,7 @@ public interface IThreadDeadlockCallback extends ICallback
    * Callback to be invoked on a deadlock
    *
    * @param aDeadlockedThreads
-   *        Information on the dead-locked threads. Neither <code>null</code>
-   *        nor empty.
+   *        Information on the dead-locked threads. Neither <code>null</code> nor empty.
    */
   void onDeadlockDetected (@NonNull @Nonempty ThreadDeadlockInfo [] aDeadlockedThreads);
 }

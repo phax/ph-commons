@@ -41,8 +41,8 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @param aEncodedBuffer
    *        The char array to be decoded. May be <code>null</code>.
    * @param aWriter
-   *        The output stream to write to. May not be <code>null</code> and is
-   *        NOT closed afterwards!
+   *        The output stream to write to. May not be <code>null</code> and is NOT closed
+   *        afterwards!
    * @throws DecodeException
    *         in case something goes wrong
    * @since 9.0.0
@@ -65,12 +65,14 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    * @param nLen
    *        Number of chars starting from offset to consider.
    * @param aWriter
-   *        The writer to write to. May not be <code>null</code> and is NOT
-   *        closed afterwards!
+   *        The writer to write to. May not be <code>null</code> and is NOT closed afterwards!
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (char @Nullable [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose Writer aWriter);
+  void decode (char @Nullable [] aEncodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @NonNull @WillNotClose Writer aWriter);
 
   /**
    * Decode a char array.
@@ -81,13 +83,14 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    *        Offset into the char array to start from.
    * @param nLen
    *        Number of chars starting from offset to consider.
-   * @return The decoded char array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The decoded char array or <code>null</code> if the parameter was <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
    */
   @ReturnsMutableCopy
-  default char @Nullable [] getDecoded (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default char @Nullable [] getDecoded (final char @Nullable [] aEncodedBuffer,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -131,7 +134,9 @@ public interface ICharArrayStreamDecoder extends ICharArrayDecoder
    *         in case something goes wrong
    */
   @Nullable
-  default String getDecodedAsString (final char @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default String getDecodedAsString (final char @Nullable [] aEncodedBuffer,
+                                     @Nonnegative final int nOfs,
+                                     @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;

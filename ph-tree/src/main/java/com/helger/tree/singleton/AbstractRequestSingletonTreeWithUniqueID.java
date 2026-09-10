@@ -23,8 +23,8 @@ import com.helger.tree.withid.unique.DefaultTreeWithGlobalUniqueID;
 
 /**
  * Represents a global singleton tree with a unique ID. It basically is a
- * {@link AbstractRequestSingleton} wrapping a
- * {@link DefaultTreeWithGlobalUniqueID} with the same API.
+ * {@link AbstractRequestSingleton} wrapping a {@link DefaultTreeWithGlobalUniqueID} with the same
+ * API.
  *
  * @author Philip Helger
  * @param <KEYTYPE>

@@ -37,8 +37,8 @@ public interface IWrapper <DATATYPE> extends Supplier <DATATYPE>
   DATATYPE get ();
 
   /**
-   * @return <code>true</code> if the contained value is not <code>null</code>,
-   *         <code>false</code> if it is <code>null</code>.
+   * @return <code>true</code> if the contained value is not <code>null</code>, <code>false</code>
+   *         if it is <code>null</code>.
    */
   default boolean isSet ()
   {
@@ -46,8 +46,8 @@ public interface IWrapper <DATATYPE> extends Supplier <DATATYPE>
   }
 
   /**
-   * @return <code>true</code> if the contained value is <code>null</code>,
-   *         <code>false</code> if it is not <code>null</code>.
+   * @return <code>true</code> if the contained value is <code>null</code>, <code>false</code> if it
+   *         is not <code>null</code>.
    */
   default boolean isNotSet ()
   {

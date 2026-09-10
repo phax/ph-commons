@@ -52,8 +52,7 @@ public class AcceptEncodingList extends AbstractQValueList <String>
    * Add an encoding with the given quality.
    *
    * @param sEncoding
-   *        The encoding name to add. May neither be <code>null</code> nor
-   *        empty.
+   *        The encoding name to add. May neither be <code>null</code> nor empty.
    * @param dQuality
    *        The quality value between 0 and 1.
    * @return this for chaining
@@ -119,13 +118,12 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   /**
-   * Check if the passed encoding is explicitly supported (without wildcard
-   * fallback). Supported means the quality is &gt; 0.
+   * Check if the passed encoding is explicitly supported (without wildcard fallback). Supported
+   * means the quality is &gt; 0.
    *
    * @param sEncoding
    *        The encoding to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the encoding is explicitly supported,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the encoding is explicitly supported, <code>false</code> if not.
    */
   public boolean explicitlySupportsEncoding (@NonNull final String sEncoding)
   {
@@ -136,8 +134,8 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   /**
-   * @return <code>true</code> if GZIP encoding (gzip or x-gzip) is supported,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if GZIP encoding (gzip or x-gzip) is supported, <code>false</code>
+   *         otherwise.
    */
   public boolean supportsGZIP ()
   {
@@ -160,8 +158,7 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   /**
-   * @return <code>true</code> if deflate encoding is supported,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if deflate encoding is supported, <code>false</code> otherwise.
    */
   public boolean supportsDeflate ()
   {
@@ -181,8 +178,8 @@ public class AcceptEncodingList extends AbstractQValueList <String>
   }
 
   /**
-   * @return <code>true</code> if compress encoding (compress or x-compress) is
-   *         supported, <code>false</code> otherwise.
+   * @return <code>true</code> if compress encoding (compress or x-compress) is supported,
+   *         <code>false</code> otherwise.
    */
   public boolean supportsCompress ()
   {

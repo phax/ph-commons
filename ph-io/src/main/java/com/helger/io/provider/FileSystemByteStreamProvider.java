@@ -31,8 +31,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.io.file.FileHelper;
 
 /**
- * Implementation of the {@link IInputStreamProvider} and
- * {@link IOutputStreamProvider} interfaces for {@link File} objects.
+ * Implementation of the {@link IInputStreamProvider} and {@link IOutputStreamProvider} interfaces
+ * for {@link File} objects.
  *
  * @author Philip Helger
  */
@@ -45,8 +45,7 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
    * Constructor using a base path string.
    *
    * @param sBasePath
-   *        The base path to use. May not be <code>null</code>. Must be an
-   *        existing directory.
+   *        The base path to use. May not be <code>null</code>. Must be an existing directory.
    */
   public FileSystemByteStreamProvider (@NonNull final String sBasePath)
   {
@@ -57,8 +56,7 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
    * Constructor using a base path file.
    *
    * @param aBasePath
-   *        The base path to use. May not be <code>null</code>. Must be an
-   *        existing directory.
+   *        The base path to use. May not be <code>null</code>. Must be an existing directory.
    */
   public FileSystemByteStreamProvider (@NonNull final File aBasePath)
   {
@@ -69,8 +67,7 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
   }
 
   /**
-   * @return The base path as provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The base path as provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public File getBasePath ()

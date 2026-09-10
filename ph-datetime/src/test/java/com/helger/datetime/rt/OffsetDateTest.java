@@ -412,7 +412,7 @@ public final class OffsetDateTest
   // -----------------------------------------------------------------------
   public void testFactory_parse_validText ()
   {
-    data_sampleToString ( (y, m, d, offsetId, parsable) -> {
+    data_sampleToString ((y, m, d, offsetId, parsable) -> {
       final OffsetDate t = OffsetDate.parse (parsable);
       assertNotNull (parsable, t);
       assertEquals (parsable, y, t.getYear ());
@@ -524,7 +524,7 @@ public final class OffsetDateTest
   @Test
   public void testGet_OffsetDate ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final LocalDate localDate = LocalDate.of (y, m, d);
       final OffsetDate a = OffsetDate.of (localDate, offset);
 
@@ -680,7 +680,7 @@ public final class OffsetDateTest
   @Test
   public void testUntil ()
   {
-    data_until ( (expected, od1, od2, unit) -> {
+    data_until ((expected, od1, od2, unit) -> {
       assertEquals (expected, od1.until (od2, unit));
       assertEquals (-expected, od2.until (od1, unit));
     });
@@ -1966,7 +1966,7 @@ public final class OffsetDateTest
   // -----------------------------------------------------------------------
   public void testToLocalDate ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final LocalDate t = LocalDate.of (y, m, d);
       assertEquals (t, OffsetDate.of (LocalDate.of (y, m, d), offset).toLocalDate ());
     });
@@ -2162,7 +2162,7 @@ public final class OffsetDateTest
   @Test
   public void testEquals_true ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final OffsetDate a = OffsetDate.of (LocalDate.of (y, m, d), offset);
       final OffsetDate b = OffsetDate.of (LocalDate.of (y, m, d), offset);
       assertTrue (a.equals (b));
@@ -2173,7 +2173,7 @@ public final class OffsetDateTest
   @Test
   public void testEquals_false_year_differs ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final OffsetDate a = OffsetDate.of (LocalDate.of (y, m, d), offset);
       final OffsetDate b = OffsetDate.of (LocalDate.of (y + 1, m, d), offset);
       assertFalse (a.equals (b));
@@ -2183,7 +2183,7 @@ public final class OffsetDateTest
   @Test
   public void testEquals_false_month_differs ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final OffsetDate a = OffsetDate.of (LocalDate.of (y, m, d), offset);
       final OffsetDate b = OffsetDate.of (LocalDate.of (y, m + 1, d), offset);
       assertFalse (a.equals (b));
@@ -2193,7 +2193,7 @@ public final class OffsetDateTest
   @Test
   public void testEquals_false_day_differs ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final OffsetDate a = OffsetDate.of (LocalDate.of (y, m, d), offset);
       final OffsetDate b = OffsetDate.of (LocalDate.of (y, m, d + 1), offset);
       assertFalse (a.equals (b));
@@ -2203,7 +2203,7 @@ public final class OffsetDateTest
   @Test
   public void testEquals_false_offset_differs ()
   {
-    data_sampleDates ( (y, m, d, offset) -> {
+    data_sampleDates ((y, m, d, offset) -> {
       final OffsetDate a = OffsetDate.of (LocalDate.of (y, m, d), OFFSET_PONE);
       final OffsetDate b = OffsetDate.of (LocalDate.of (y, m, d), OFFSET_PTWO);
       assertFalse (a.equals (b));
@@ -2226,7 +2226,7 @@ public final class OffsetDateTest
   @Test
   public void testToString ()
   {
-    data_sampleToString ( (y, m, d, offsetId, expected) -> {
+    data_sampleToString ((y, m, d, offsetId, expected) -> {
       final OffsetDate t = OffsetDate.of (LocalDate.of (y, m, d), ZoneOffset.of (offsetId));
       final String str = t.toString ();
       assertEquals (expected, str);

@@ -34,14 +34,14 @@ public class CodepointIteratorInputStream extends CodepointIteratorReadableByteC
    * Constructor.
    *
    * @param aIS
-   *        The input stream to iterate. Will be closed. May not be
-   *        <code>null</code>.
+   *        The input stream to iterate. Will be closed. May not be <code>null</code>.
    * @param aCharset
    *        The charset to decode the bytes. May not be <code>null</code>.
    * @throws IOException
    *         In case of an I/O error reading from the stream.
    */
-  public CodepointIteratorInputStream (@NonNull @WillClose final InputStream aIS, @NonNull final Charset aCharset) throws IOException
+  public CodepointIteratorInputStream (@NonNull @WillClose final InputStream aIS,
+                                       @NonNull final Charset aCharset) throws IOException
   {
     super (Channels.newChannel (aIS), aCharset);
   }

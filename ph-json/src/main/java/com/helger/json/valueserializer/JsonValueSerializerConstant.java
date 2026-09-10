@@ -71,8 +71,8 @@ public final class JsonValueSerializerConstant implements IJsonValueSerializer
   /**
    * {@inheritDoc}
    */
-  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter)
-                                                                                                              throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue,
+                                  @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     aWriter.write (m_sValue);
   }

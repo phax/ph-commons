@@ -64,8 +64,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
    * Constructor with a base path string.
    *
    * @param sBasePath
-   *        The base path to use. May not be <code>null</code>. Must be an
-   *        existing directory.
+   *        The base path to use. May not be <code>null</code>. Must be an existing directory.
    */
   public FileSystemResourceProvider (@NonNull final String sBasePath)
   {
@@ -76,8 +75,8 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
    * Constructor with a base path file.
    *
    * @param aBasePath
-   *        The base path to use. May be <code>null</code>. If provided, must be
-   *        an existing directory.
+   *        The base path to use. May be <code>null</code>. If provided, must be an existing
+   *        directory.
    */
   public FileSystemResourceProvider (@Nullable final File aBasePath)
   {
@@ -96,8 +95,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
   }
 
   /**
-   * @return The base path as provided in the constructor. May be
-   *         <code>null</code>.
+   * @return The base path as provided in the constructor. May be <code>null</code>.
    */
   @Nullable
   public final File getBasePath ()
@@ -106,26 +104,26 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
   }
 
   /**
-   * @return <code>true</code> if relative paths can be read,
-   *         <code>false</code> if only absolute paths are supported.
+   * @return <code>true</code> if relative paths can be read, <code>false</code> if only absolute
+   *         paths are supported.
    */
   public final boolean isCanReadRelativePaths ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bCanReadRelativePaths);
+    return m_aRWLock.readLockedBoolean (() -> m_bCanReadRelativePaths);
   }
 
   /**
    * Enable or disable reading of relative paths.
    *
    * @param bCanReadRelativePaths
-   *        <code>true</code> to enable relative path reading,
-   *        <code>false</code> to restrict to absolute paths.
+   *        <code>true</code> to enable relative path reading, <code>false</code> to restrict to
+   *        absolute paths.
    * @return this for chaining
    */
   @NonNull
   public final FileSystemResourceProvider setCanReadRelativePaths (final boolean bCanReadRelativePaths)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_bCanReadRelativePaths = bCanReadRelativePaths);
+    m_aRWLock.writeLockedBoolean (() -> m_bCanReadRelativePaths = bCanReadRelativePaths);
     return this;
   }
 
@@ -198,8 +196,7 @@ public class FileSystemResourceProvider implements IWritableResourceProvider
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final FileSystemResourceProvider rhs = (FileSystemResourceProvider) o;
-    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath) &&
-           m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
+    return EqualsHelper.equals (m_aBasePath, rhs.m_aBasePath) && m_bCanReadRelativePaths == rhs.m_bCanReadRelativePaths;
   }
 
   @Override

@@ -241,7 +241,8 @@ public final class XMLWriter
    * @return The byte array representation of the passed node.
    * @since 8.6.3
    */
-  public static byte @Nullable [] getNodeAsBytes (@NonNull final Node aNode, @NonNull final IXMLWriterSettings aSettings)
+  public static byte @Nullable [] getNodeAsBytes (@NonNull final Node aNode,
+                                                  @NonNull final IXMLWriterSettings aSettings)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");

@@ -207,10 +207,8 @@ public final class SimpleDirectedGraphTest extends AbstractGraphTestCase
     assertTrue (sg.containsCycles ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (_buildDirectedGraph (), _buildDirectedGraph ());
-    TestHelper.testDefaultImplementationWithEqualContentObject (new SimpleDirectedGraph (),
-                                                                       new SimpleDirectedGraph ());
-    TestHelper.testDefaultImplementationWithDifferentContentObject (_buildDirectedGraph (),
-                                                                           new SimpleDirectedGraph ());
+    TestHelper.testDefaultImplementationWithEqualContentObject (new SimpleDirectedGraph (), new SimpleDirectedGraph ());
+    TestHelper.testDefaultImplementationWithDifferentContentObject (_buildDirectedGraph (), new SimpleDirectedGraph ());
   }
 
   @Test

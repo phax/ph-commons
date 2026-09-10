@@ -30,9 +30,8 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Manager class that loads all {@link IAuthCredentialValidatorSPI}
- * implementations via the SPI mechanism and provides methods to validate
- * authentication credentials.
+ * Manager class that loads all {@link IAuthCredentialValidatorSPI} implementations via the SPI
+ * mechanism and provides methods to validate authentication credentials.
  *
  * @author Philip Helger
  */

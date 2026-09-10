@@ -410,8 +410,8 @@ public final class CharsetHelper
   }
 
   /**
-   * Create an {@link InputStreamReader} that detects the charset from a potential Unicode BOM in the
-   * input stream.
+   * Create an {@link InputStreamReader} that detects the charset from a potential Unicode BOM in
+   * the input stream.
    *
    * @param aIS
    *        The input stream to read from. May not be <code>null</code>.

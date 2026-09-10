@@ -594,8 +594,7 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Parse a {@link ZonedDateTime} from an XSD date time string using the
-   * provided zone ID.
+   * Parse a {@link ZonedDateTime} from an XSD date time string using the provided zone ID.
    *
    * @param sValue
    *        The string value to parse. May be <code>null</code>.
@@ -623,8 +622,7 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * Format a {@link ZonedDateTime} as an XSD date time string using the
-   * provided zone ID.
+   * Format a {@link ZonedDateTime} as an XSD date time string using the provided zone ID.
    *
    * @param aZoneID
    *        The zone ID to use for formatting. May not be <code>null</code>.

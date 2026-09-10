@@ -29,17 +29,15 @@ import com.helger.base.io.stream.WrappedOutputStream;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A transparent stream that updates the associated Mac using the bits going
- * through the stream.
+ * A transparent stream that updates the associated Mac using the bits going through the stream.
  * <p>
- * To complete the Mac computation, call one of the <code>doFinal</code> methods
- * on the associated message digest after your calls to one of this digest
- * output stream's {@link #write(int) write} methods.
+ * To complete the Mac computation, call one of the <code>doFinal</code> methods on the associated
+ * message digest after your calls to one of this digest output stream's {@link #write(int) write}
+ * methods.
  * <p>
- * It is possible to turn this stream on or off (see {@link #setOn(boolean)
- * on}). When it is on, a call to one of the {@code write} methods results in an
- * update on the message digest. But when it is off, the message digest is not
- * updated. The default is for the stream to be on.
+ * It is possible to turn this stream on or off (see {@link #setOn(boolean) on}). When it is on, a
+ * call to one of the {@code write} methods results in an update on the message digest. But when it
+ * is off, the message digest is not updated. The default is for the stream to be on.
  *
  * @author Philip Helger
  * @since 9.1.7
@@ -85,8 +83,7 @@ public class MacOutputStream extends WrappedOutputStream
    * Associates the specified Mac with this stream.
    *
    * @param aMac
-   *        the Mac to be associated with this stream. May not be
-   *        <code>null</code>.
+   *        the Mac to be associated with this stream. May not be <code>null</code>.
    * @see #getMac()
    */
   public final void setMac (@NonNull final Mac aMac)
@@ -96,12 +93,11 @@ public class MacOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Updates the Mac (if the function is on) using the specified byte, and in
-   * any case writes the byte to the output stream. That is, if the digest
-   * function is on (see {@link #setOn(boolean) on}), this method calls
-   * <code>update</code> on the message digest associated with this stream,
-   * passing it the byte {@code b}. This method then writes the byte to the
-   * output stream, blocking until the byte is actually written.
+   * Updates the Mac (if the function is on) using the specified byte, and in any case writes the
+   * byte to the output stream. That is, if the digest function is on (see {@link #setOn(boolean)
+   * on}), this method calls <code>update</code> on the message digest associated with this stream,
+   * passing it the byte {@code b}. This method then writes the byte to the output stream, blocking
+   * until the byte is actually written.
    *
    * @param b
    *        the byte to be used for updating and writing to the output stream.
@@ -120,28 +116,28 @@ public class MacOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Updates the Mac (if the function is on) using the specified subarray, and
-   * in any case writes the subarray to the output stream. That is, if the
-   * digest function is on (see {@link #setOn(boolean) on}), this method calls
-   * <code>update</code> on the Mac associated with this stream, passing it the
-   * subarray specifications. This method then writes the subarray bytes to the
-   * output stream, blocking until the bytes are actually written.
+   * Updates the Mac (if the function is on) using the specified subarray, and in any case writes
+   * the subarray to the output stream. That is, if the digest function is on (see
+   * {@link #setOn(boolean) on}), this method calls <code>update</code> on the Mac associated with
+   * this stream, passing it the subarray specifications. This method then writes the subarray bytes
+   * to the output stream, blocking until the bytes are actually written.
    *
    * @param aBuf
-   *        the array containing the subarray to be used for updating and
-   *        writing to the output stream.
+   *        the array containing the subarray to be used for updating and writing to the output
+   *        stream.
    * @param nOfs
-   *        the offset into {@code b} of the first byte to be updated and
-   *        written.
+   *        the offset into {@code b} of the first byte to be updated and written.
    * @param nLen
-   *        the number of bytes of data to be updated and written from
-   *        {@code b}, starting at offset {@code off}.
+   *        the number of bytes of data to be updated and written from {@code b}, starting at offset
+   *        {@code off}.
    * @exception IOException
    *            if an I/O error occurs.
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public void write (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public void write (final byte @NonNull [] aBuf,
+                     @Nonnegative final int nOfs,
+                     @Nonnegative final int nLen) throws IOException
   {
     out.write (aBuf, nOfs, nLen);
     if (m_bOn)
@@ -151,13 +147,12 @@ public class MacOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Turns the function on or off. The default is on. When it is on, a call to
-   * one of the {@code write} methods results in an update on the Mac. But when
-   * it is off, the Mac is not updated.
+   * Turns the function on or off. The default is on. When it is on, a call to one of the
+   * {@code write} methods results in an update on the Mac. But when it is off, the Mac is not
+   * updated.
    *
    * @param bOn
-   *        <code>true</code> to turn the function on, <code>false</code> to
-   *        turn it off.
+   *        <code>true</code> to turn the function on, <code>false</code> to turn it off.
    */
   public final void setOn (final boolean bOn)
   {
@@ -165,8 +160,7 @@ public class MacOutputStream extends WrappedOutputStream
   }
 
   /**
-   * @return <code>true</code> if Mac processing is on, <code>false</code> if it
-   *         is off
+   * @return <code>true</code> if Mac processing is on, <code>false</code> if it is off
    */
   public final boolean isOn ()
   {

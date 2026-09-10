@@ -25,9 +25,8 @@ import com.helger.scope.IRequestScope;
 import com.helger.scope.mgr.ScopeManager;
 
 /**
- * This is the base class for singleton objects that reside in the request
- * scope. This class can be used for web scopes and non-web scopes as it handled
- * in the same object.
+ * This is the base class for singleton objects that reside in the request scope. This class can be
+ * used for web scopes and non-web scopes as it handled in the same object.
  *
  * @see com.helger.scope.mgr.EScope#REQUEST
  * @author Philip Helger
@@ -39,8 +38,8 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
 
   /**
    * @param bMustBePresent
-   *        <code>true</code> if a request scope must be present,
-   *        <code>false</code> if it is optional
+   *        <code>true</code> if a request scope must be present, <code>false</code> if it is
+   *        optional
    * @return The scope to be used for this type of singleton.
    */
   @Nullable
@@ -50,14 +49,14 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
   }
 
   /**
-   * Get the singleton object in the current request scope, using the passed
-   * class. If the singleton is not yet instantiated, a new instance is created.
+   * Get the singleton object in the current request scope, using the passed class. If the singleton
+   * is not yet instantiated, a new instance is created.
    *
    * @param <T>
    *        The type to be returned
    * @param aClass
-   *        The class to be used. May not be <code>null</code>. The class must
-   *        be public as needs to have a public no-argument constructor.
+   *        The class to be used. May not be <code>null</code>. The class must be public as needs to
+   *        have a public no-argument constructor.
    * @return The singleton object and never <code>null</code>.
    */
   @NonNull
@@ -67,15 +66,15 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
   }
 
   /**
-   * Get the singleton object if it is already instantiated inside the current
-   * request scope or <code>null</code> if it is not instantiated.
+   * Get the singleton object if it is already instantiated inside the current request scope or
+   * <code>null</code> if it is not instantiated.
    *
    * @param <T>
    *        The type to be returned
    * @param aClass
    *        The class to be checked. May not be <code>null</code>.
-   * @return The singleton for the specified class is already instantiated,
-   *         <code>null</code> otherwise.
+   * @return The singleton for the specified class is already instantiated, <code>null</code>
+   *         otherwise.
    */
   @Nullable
   public static final <T extends AbstractRequestSingleton> T getRequestSingletonIfInstantiated (@NonNull final Class <T> aClass)
@@ -84,13 +83,12 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
   }
 
   /**
-   * Check if a singleton is already instantiated inside the current request
-   * scope
+   * Check if a singleton is already instantiated inside the current request scope
    *
    * @param aClass
    *        The class to be checked. May not be <code>null</code>.
-   * @return <code>true</code> if the singleton for the specified class is
-   *         already instantiated, <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton for the specified class is already instantiated,
+   *         <code>false</code> otherwise.
    */
   public static final boolean isRequestSingletonInstantiated (@NonNull final Class <? extends AbstractRequestSingleton> aClass)
   {
@@ -98,11 +96,10 @@ public abstract class AbstractRequestSingleton extends AbstractSingleton
   }
 
   /**
-   * Get all instantiated singleton objects registered in the current request
-   * scope.
+   * Get all instantiated singleton objects registered in the current request scope.
    *
-   * @return A non-<code>null</code> list with all instances of this class in
-   *         the current request scope.
+   * @return A non-<code>null</code> list with all instances of this class in the current request
+   *         scope.
    */
   @NonNull
   @ReturnsMutableCopy

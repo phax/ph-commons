@@ -26,8 +26,7 @@ import com.helger.base.aggregate.IAggregator;
 import com.helger.collection.commons.ICommonsSet;
 
 /**
- * Root class for a simple tree. The elements of the tree are not sorted by any
- * means.
+ * Root class for a simple tree. The elements of the tree are not sorted by any means.
  *
  * @param <KEYTYPE>
  *        The type of the element keys.
@@ -42,8 +41,8 @@ public class DefaultFolderTree <KEYTYPE, DATATYPE, COLLTYPE extends Collection <
                                BasicFolderTree <KEYTYPE, DATATYPE, COLLTYPE, DefaultFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE>>
 {
   /**
-   * Constructor that creates a {@link DefaultFolderTreeItemFactory} using the
-   * passed key combinator.
+   * Constructor that creates a {@link DefaultFolderTreeItemFactory} using the passed key
+   * combinator.
    *
    * @param aKeyCombinator
    *        The key combinator to be used. May be <code>null</code>.

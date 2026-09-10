@@ -24,8 +24,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * An informational annotation that indicates that a type does not require
- * translation.
+ * An informational annotation that indicates that a type does not require translation.
  *
  * @author Philip Helger
  */

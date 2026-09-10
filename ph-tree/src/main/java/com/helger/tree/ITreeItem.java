@@ -32,7 +32,8 @@ import com.helger.base.state.EChange;
  * @param <ITEMTYPE>
  *        tree item implementation type
  */
-public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends IBasicTreeItem <DATATYPE, ITEMTYPE>
+public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEMTYPE>> extends
+                           IBasicTreeItem <DATATYPE, ITEMTYPE>
 {
   /**
    * @return The factory used to create instances of this interface.
@@ -45,8 +46,8 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *
    * @param aChild
    *        The child to be added. May not be <code>null</code>.
-   * @return {@link EChange#UNCHANGED} if the child is already contained,
-   *         {@link EChange#CHANGED} upon success.
+   * @return {@link EChange#UNCHANGED} if the child is already contained, {@link EChange#CHANGED}
+   *         upon success.
    */
   @NonNull
   EChange internalAddChild (@NonNull ITEMTYPE aChild);
@@ -66,8 +67,7 @@ public interface ITreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *
    * @param aChild
    *        The child to be removed. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the removal succeeded,
-   *         {@link EChange#UNCHANGED} otherwise
+   * @return {@link EChange#CHANGED} if the removal succeeded, {@link EChange#UNCHANGED} otherwise
    */
   @NonNull
   EChange removeChild (@NonNull ITEMTYPE aChild);

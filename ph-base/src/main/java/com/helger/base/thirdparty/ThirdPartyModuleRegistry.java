@@ -97,13 +97,13 @@ public final class ThirdPartyModuleRegistry
    *
    * @param aModule
    *        The module to register. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the module was successfully registered, {@link EChange#UNCHANGED}
-   *         if it was already registered.
+   * @return {@link EChange#CHANGED} if the module was successfully registered,
+   *         {@link EChange#UNCHANGED} if it was already registered.
    */
   @NonNull
   public EChange registerThirdPartyModule (@NonNull final IThirdPartyModule aModule)
   {
-    return m_aRWLock.writeLockedGet ( () -> _registerThirdPartyModule (aModule));
+    return m_aRWLock.writeLockedGet (() -> _registerThirdPartyModule (aModule));
   }
 
   /**
@@ -113,7 +113,7 @@ public final class ThirdPartyModuleRegistry
   @ReturnsMutableCopy
   public Set <IThirdPartyModule> getAllRegisteredThirdPartyModules ()
   {
-    return m_aRWLock.readLockedGet ( () -> new LinkedHashSet <> (m_aModules));
+    return m_aRWLock.readLockedGet (() -> new LinkedHashSet <> (m_aModules));
   }
 
   /**
@@ -130,7 +130,7 @@ public final class ThirdPartyModuleRegistry
    */
   public void reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aModules.clear ();
 
       // Load all SPI implementations

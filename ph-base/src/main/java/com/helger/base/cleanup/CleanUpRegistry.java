@@ -63,8 +63,8 @@ public final class CleanUpRegistry implements ICleanUpRegistry
      *
      * @param o
      *        The other item to compare to. May not be <code>null</code>.
-     * @return A negative integer, zero, or a positive integer as this item has
-     *         lower, equal, or higher priority than the specified item.
+     * @return A negative integer, zero, or a positive integer as this item has lower, equal, or
+     *         higher priority than the specified item.
      */
     public int compareTo (@NonNull final Item o)
     {
@@ -89,8 +89,8 @@ public final class CleanUpRegistry implements ICleanUpRegistry
   }
 
   /**
-   * @return <code>true</code> if the singleton instance has been created,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton instance has been created, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -110,7 +110,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
 
   private void _reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // Delete existing
       m_aActions.clear ();
 
@@ -142,7 +142,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
   {
     Objects.requireNonNull (aRunnable, "Runnable");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aActions.add (new Item (nPriority, aRunnable));
       Collections.sort (m_aActions);
     });
@@ -154,7 +154,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
   public void performCleanUp ()
   {
     // Make a copy
-    final List <Item> aActions = m_aRWLock.readLockedGet ( () -> new ArrayList <> (m_aActions));
+    final List <Item> aActions = m_aRWLock.readLockedGet (() -> new ArrayList <> (m_aActions));
 
     LOGGER.info ("Running " + aActions.size () + " cleanup actions");
 

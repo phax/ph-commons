@@ -324,8 +324,7 @@ public final class ConfigTest
 
     // Simple cases
     assertEquals (Duration.ofSeconds (5), aConfig.getAsConfigDuration ("timeout"));
-    assertEquals (Duration.ofDays (2).plusMinutes (5).plusMillis (23),
-                  aConfig.getAsConfigDuration ("retry"));
+    assertEquals (Duration.ofDays (2).plusMinutes (5).plusMillis (23), aConfig.getAsConfigDuration ("retry"));
 
     // Variable replacement is applied before parsing
     assertEquals (Duration.ofSeconds (30), aConfig.getAsConfigDuration ("ref"));

@@ -40,9 +40,8 @@ import com.helger.io.file.FileHelper;
 import com.helger.io.file.FileSystemIterator;
 
 /**
- * Helper class for testing SPI (Service Provider Interface) configurations,
- * verifying that all declared service files reference valid and correctly
- * annotated implementation classes.
+ * Helper class for testing SPI (Service Provider Interface) configurations, verifying that all
+ * declared service files reference valid and correctly annotated implementation classes.
  *
  * @author Philip Helger
  */

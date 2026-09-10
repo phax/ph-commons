@@ -90,7 +90,7 @@ public final class JsonReader
   @NonNull
   public static IJsonParseExceptionCallback getDefaultParseExceptionCallback ()
   {
-    return RW_LOCK.readLockedGet ( () -> s_aDefaultParseExceptionCallback);
+    return RW_LOCK.readLockedGet (() -> s_aDefaultParseExceptionCallback);
   }
 
   /**
@@ -103,7 +103,7 @@ public final class JsonReader
   {
     ValueEnforcer.notNull (aDefaultParseExceptionCallback, "DefaultParseExceptionCallback");
 
-    RW_LOCK.writeLocked ( () -> s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback);
+    RW_LOCK.writeLocked (() -> s_aDefaultParseExceptionCallback = aDefaultParseExceptionCallback);
   }
 
   /**

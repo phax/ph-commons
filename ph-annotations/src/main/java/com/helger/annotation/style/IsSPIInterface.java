@@ -24,10 +24,10 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Marker interface that claims that implementations of this interface are
- * loaded via the {@link java.util.ServiceLoader}. This implies that the package
- * and source file name should never change. SPI interfaces should also have the
- * suffix SPI in their name (e.g. <code>IServiceSPI</code>).
+ * Marker interface that claims that implementations of this interface are loaded via the
+ * {@link java.util.ServiceLoader}. This implies that the package and source file name should never
+ * change. SPI interfaces should also have the suffix SPI in their name (e.g.
+ * <code>IServiceSPI</code>).
  *
  * @author Philip Helger
  * @see IsSPIImplementation

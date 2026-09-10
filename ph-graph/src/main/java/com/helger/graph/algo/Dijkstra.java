@@ -220,8 +220,8 @@ public final class Dijkstra
   }
 
   /**
-   * The result of a Dijkstra shortest path computation, containing the ordered
-   * list of nodes and the total distance.
+   * The result of a Dijkstra shortest path computation, containing the ordered list of nodes and
+   * the total distance.
    *
    * @author Philip Helger
    * @param <N>
@@ -237,8 +237,8 @@ public final class Dijkstra
      * Constructor.
      *
      * @param aResultNodes
-     *        The ordered list of nodes forming the shortest path. May not be
-     *        <code>null</code> or empty.
+     *        The ordered list of nodes forming the shortest path. May not be <code>null</code> or
+     *        empty.
      * @param nResultDistance
      *        The total distance of the shortest path. Must be &ge; 0.
      */
@@ -251,8 +251,8 @@ public final class Dijkstra
     }
 
     /**
-     * @return A mutable copy of the ordered list of nodes forming the shortest
-     *         path. Never <code>null</code>.
+     * @return A mutable copy of the ordered list of nodes forming the shortest path. Never
+     *         <code>null</code>.
      */
     @NonNull
     @ReturnsMutableCopy
@@ -280,8 +280,8 @@ public final class Dijkstra
     }
 
     /**
-     * @return A human-readable string representation of this result containing
-     *         the distance and the route. Never <code>null</code>.
+     * @return A human-readable string representation of this result containing the distance and the
+     *         route. Never <code>null</code>.
      */
     @NonNull
     @Nonempty
@@ -324,8 +324,8 @@ public final class Dijkstra
   }
 
   /**
-   * Apply Dijkstra's shortest path algorithm to find the shortest path between
-   * two nodes in the provided graph.
+   * Apply Dijkstra's shortest path algorithm to find the shortest path between two nodes in the
+   * provided graph.
    *
    * @param <N>
    *        The graph node type.
@@ -338,10 +338,9 @@ public final class Dijkstra
    * @param sToID
    *        The ID of the end node. May not be <code>null</code>.
    * @param aRelationCostProvider
-   *        A function that provides the cost for each relation. May not be
-   *        <code>null</code>.
-   * @return The result containing the shortest path and its total distance.
-   *         Never <code>null</code>.
+   *        A function that provides the cost for each relation. May not be <code>null</code>.
+   * @return The result containing the shortest path and its total distance. Never
+   *         <code>null</code>.
    * @throws IllegalArgumentException
    *         If the from or to node ID cannot be resolved.
    */

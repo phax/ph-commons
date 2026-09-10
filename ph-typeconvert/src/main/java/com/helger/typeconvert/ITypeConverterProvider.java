@@ -20,8 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
- * Find the correct type converter provider from a source class to a destination
- * class.
+ * Find the correct type converter provider from a source class to a destination class.
  *
  * @author Philip Helger
  */

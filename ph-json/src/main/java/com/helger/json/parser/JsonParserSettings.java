@@ -180,8 +180,8 @@ public final class JsonParserSettings implements IJsonParserSettings
   }
 
   /**
-   * @return <code>true</code> if special characters are allowed in JSON strings,
-   *         <code>false</code> if not. Default is {@link #DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING}.
+   * @return <code>true</code> if special characters are allowed in JSON strings, <code>false</code>
+   *         if not. Default is {@link #DEFAULT_ALLOW_SPECIAL_CHARS_IN_STRING}.
    */
   public boolean isAllowSpecialCharsInStrings ()
   {
@@ -260,8 +260,8 @@ public final class JsonParserSettings implements IJsonParserSettings
   }
 
   /**
-   * Set the maximum allowed absolute value of a numeric exponent. This limits the amount of memory a
-   * single number token like <code>1e999999999</code> can force to be allocated.
+   * Set the maximum allowed absolute value of a numeric exponent. This limits the amount of memory
+   * a single number token like <code>1e999999999</code> can force to be allocated.
    *
    * @param nMaxExponent
    *        The maximum allowed absolute exponent value. Must be &gt; 0.

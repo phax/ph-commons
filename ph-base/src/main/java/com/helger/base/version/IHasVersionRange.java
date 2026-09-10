@@ -27,8 +27,7 @@ import org.jspecify.annotations.NonNull;
 public interface IHasVersionRange
 {
   /**
-   * @return The version range of the object. Should never be <code>null</code>
-   *         .
+   * @return The version range of the object. Should never be <code>null</code> .
    */
   @NonNull
   Version getVersionRange ();

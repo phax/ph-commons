@@ -31,8 +31,8 @@ import com.helger.diagnostics.error.level.IErrorLevel;
 import com.helger.diagnostics.error.level.IHasErrorLevel;
 
 /**
- * Some utility functions to help integrating the {@link IErrorLevel} enum in
- * this package with SLF4J logger.
+ * Some utility functions to help integrating the {@link IErrorLevel} enum in this package with
+ * SLF4J logger.
  *
  * @author Philip Helger
  */
@@ -40,8 +40,7 @@ import com.helger.diagnostics.error.level.IHasErrorLevel;
 public final class LogHelper
 {
   /**
-   * Abstraction interface for <code>logger.is...Enabled ()</code> depending on
-   * the error level.
+   * Abstraction interface for <code>logger.is...Enabled ()</code> depending on the error level.
    *
    * @author Philip Helger
    * @since 9.1.3
@@ -50,15 +49,15 @@ public final class LogHelper
   public interface IFuncIsLoggingEnabled
   {
     /**
-     * @return <code>true</code> if logging is enabled for the respective level,
-     *         <code>false</code> otherwise.
+     * @return <code>true</code> if logging is enabled for the respective level, <code>false</code>
+     *         otherwise.
      */
     boolean isEnabled ();
   }
 
   /**
-   * Abstraction interface for <code>logger.debug</code> or
-   * <code>logger.info</code> depending on the error level.
+   * Abstraction interface for <code>logger.debug</code> or <code>logger.info</code> depending on
+   * the error level.
    *
    * @author Philip Helger
    * @since 9.1.3
@@ -90,10 +89,12 @@ public final class LogHelper
    *        The logger to use. May not be <code>null</code>.
    * @param aErrorLevel
    *        The error level to check. May not be <code>null</code>.
-   * @return A function that returns <code>true</code> if logging is enabled. Never <code>null</code>.
+   * @return A function that returns <code>true</code> if logging is enabled. Never
+   *         <code>null</code>.
    */
   @NonNull
-  public static IFuncIsLoggingEnabled getFuncIsEnabled (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
+  public static IFuncIsLoggingEnabled getFuncIsEnabled (@NonNull final Logger aLogger,
+                                                        @NonNull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aLogger, "Logger");
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
@@ -132,32 +133,30 @@ public final class LogHelper
   }
 
   /**
-   * Check if logging is enabled for the passed class based on the error level
-   * provider by the passed object
+   * Check if logging is enabled for the passed class based on the error level provider by the
+   * passed object
    *
    * @param aLoggingClass
-   *        The class to determine the logger from. May not be <code>null</code>
-   *        .
+   *        The class to determine the logger from. May not be <code>null</code> .
    * @param aErrorLevelProvider
    *        The error level provider. May not be <code>null</code>.
-   * @return <code>true</code> if the respective log level is allowed,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the respective log level is allowed, <code>false</code> if not
    */
-  public static boolean isEnabled (@NonNull final Class <?> aLoggingClass, @NonNull final IHasErrorLevel aErrorLevelProvider)
+  public static boolean isEnabled (@NonNull final Class <?> aLoggingClass,
+                                   @NonNull final IHasErrorLevel aErrorLevelProvider)
   {
     return isEnabled (LoggerFactory.getLogger (aLoggingClass), aErrorLevelProvider.getErrorLevel ());
   }
 
   /**
-   * Check if logging is enabled for the passed logger based on the error level
-   * provider by the passed object
+   * Check if logging is enabled for the passed logger based on the error level provider by the
+   * passed object
    *
    * @param aLogger
    *        The logger. May not be <code>null</code>.
    * @param aErrorLevelProvider
    *        The error level provider. May not be <code>null</code>.
-   * @return <code>true</code> if the respective log level is allowed,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the respective log level is allowed, <code>false</code> if not
    */
   public static boolean isEnabled (@NonNull final Logger aLogger, @NonNull final IHasErrorLevel aErrorLevelProvider)
   {
@@ -165,16 +164,13 @@ public final class LogHelper
   }
 
   /**
-   * Check if logging is enabled for the passed class based on the error level
-   * provided
+   * Check if logging is enabled for the passed class based on the error level provided
    *
    * @param aLoggingClass
-   *        The class to determine the logger from. May not be <code>null</code>
-   *        .
+   *        The class to determine the logger from. May not be <code>null</code> .
    * @param aErrorLevel
    *        The error level. May not be <code>null</code>.
-   * @return <code>true</code> if the respective log level is allowed,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the respective log level is allowed, <code>false</code> if not
    */
   public static boolean isEnabled (@NonNull final Class <?> aLoggingClass, @NonNull final IErrorLevel aErrorLevel)
   {
@@ -182,15 +178,13 @@ public final class LogHelper
   }
 
   /**
-   * Check if logging is enabled for the passed logger based on the error level
-   * provided
+   * Check if logging is enabled for the passed logger based on the error level provided
    *
    * @param aLogger
    *        The logger. May not be <code>null</code>.
    * @param aErrorLevel
    *        The error level. May not be <code>null</code>.
-   * @return <code>true</code> if the respective log level is allowed,
-   *         <code>false</code> if not
+   * @return <code>true</code> if the respective log level is allowed, <code>false</code> if not
    */
   public static boolean isEnabled (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel)
   {
@@ -244,7 +238,9 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@NonNull final Logger aLogger, @NonNull final IHasErrorLevel aErrorLevelProvider, @NonNull final String sMsg)
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IHasErrorLevel aErrorLevelProvider,
+                          @NonNull final String sMsg)
   {
     log (aLogger, aErrorLevelProvider.getErrorLevel (), sMsg, null);
   }
@@ -279,7 +275,9 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@NonNull final Class <?> aLoggingClass, @NonNull final IErrorLevel aErrorLevel, @NonNull final String sMsg)
+  public static void log (@NonNull final Class <?> aLoggingClass,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final String sMsg)
   {
     log (aLoggingClass, aErrorLevel, sMsg, null);
   }
@@ -314,7 +312,9 @@ public final class LogHelper
    * @param sMsg
    *        The message to log. May not be <code>null</code>.
    */
-  public static void log (@NonNull final Logger aLogger, @NonNull final IErrorLevel aErrorLevel, @NonNull final String sMsg)
+  public static void log (@NonNull final Logger aLogger,
+                          @NonNull final IErrorLevel aErrorLevel,
+                          @NonNull final String sMsg)
   {
     log (aLogger, aErrorLevel, sMsg, null);
   }
@@ -352,9 +352,8 @@ public final class LogHelper
    * @param aErrorLevelProvider
    *        Error level provided to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @since 9.1.3
    */
   public static void log (@NonNull final Class <?> aLoggingClass,
@@ -372,9 +371,8 @@ public final class LogHelper
    * @param aErrorLevelProvider
    *        Error level provided to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
@@ -395,9 +393,8 @@ public final class LogHelper
    * @param aErrorLevelProvider
    *        Error level provider to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @since 9.1.3
    */
   public static void log (@NonNull final Logger aLogger,
@@ -415,9 +412,8 @@ public final class LogHelper
    * @param aErrorLevelProvider
    *        Error level provider to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
@@ -438,9 +434,8 @@ public final class LogHelper
    * @param aErrorLevel
    *        Error level to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @since 9.1.3
    */
   public static void log (@NonNull final Class <?> aLoggingClass,
@@ -458,9 +453,8 @@ public final class LogHelper
    * @param aErrorLevel
    *        Error level to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3
@@ -481,9 +475,8 @@ public final class LogHelper
    * @param aErrorLevel
    *        Error level to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @since 9.1.3
    */
   public static void log (@NonNull final Logger aLogger,
@@ -501,9 +494,8 @@ public final class LogHelper
    * @param aErrorLevel
    *        Error level to use. May not be <code>null</code>.
    * @param aMsgSupplier
-   *        Message supplier to use. The supplier is only invoked if the log
-   *        level is enabled on the provided logger. May not be
-   *        <code>null</code>.
+   *        Message supplier to use. The supplier is only invoked if the log level is enabled on the
+   *        provided logger. May not be <code>null</code>.
    * @param t
    *        Optional exception that occurred. May be <code>null</code>.
    * @since 9.1.3

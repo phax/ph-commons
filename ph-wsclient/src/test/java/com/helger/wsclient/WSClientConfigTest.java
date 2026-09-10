@@ -82,7 +82,9 @@ public final class WSClientConfigTest
     aCfg.applyWSSettingsToBindingProvider (aBP);
     assertEquals (3, aMap.size ());
     assertEquals ("http://www.example.org", aMap.get (BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS), aMap.get ("com.sun.xml.ws.connect.timeout"));
-    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS), aMap.get ("com.sun.xml.ws.request.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_CONNECTION_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.ws.connect.timeout"));
+    assertEquals (Integer.valueOf (WSClientConfig.DEFAULT_REQUEST_TIMEOUT_MS),
+                  aMap.get ("com.sun.xml.ws.request.timeout"));
   }
 }

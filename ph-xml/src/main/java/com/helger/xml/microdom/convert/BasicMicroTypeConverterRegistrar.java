@@ -59,8 +59,8 @@ import com.helger.datetime.xml.XMLOffsetDateTime;
 import com.helger.datetime.xml.XMLOffsetTime;
 
 /**
- * Implementation of {@link IMicroTypeConverterRegistrarSPI} for basic types
- * like Boolean, Byte, Integer, AtomicInteger etc.
+ * Implementation of {@link IMicroTypeConverterRegistrarSPI} for basic types like Boolean, Byte,
+ * Integer, AtomicInteger etc.
  *
  * @author Philip Helger
  */

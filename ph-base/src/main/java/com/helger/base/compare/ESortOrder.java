@@ -80,8 +80,7 @@ public enum ESortOrder implements ISortOrderIndicator
   }
 
   /**
-   * Get the {@link ESortOrder} matching the provided value, defaulting to
-   * {@link #DEFAULT}.
+   * Get the {@link ESortOrder} matching the provided value, defaulting to {@link #DEFAULT}.
    *
    * @param nValue
    *        The value to search for.
@@ -94,14 +93,12 @@ public enum ESortOrder implements ISortOrderIndicator
   }
 
   /**
-   * Get the {@link ESortOrder} matching the provided value, with a custom
-   * default.
+   * Get the {@link ESortOrder} matching the provided value, with a custom default.
    *
    * @param nValue
    *        The value to search for.
    * @param eDefault
-   *        The default value to return if no match is found. May be
-   *        <code>null</code>.
+   *        The default value to return if no match is found. May be <code>null</code>.
    * @return The matching enum value or the provided default.
    */
   @Nullable

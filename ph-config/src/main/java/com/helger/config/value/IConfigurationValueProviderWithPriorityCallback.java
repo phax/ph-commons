@@ -19,8 +19,7 @@ package com.helger.config.value;
 import org.jspecify.annotations.NonNull;
 
 /**
- * Callback interface for enumeration of available configuration value
- * providers.
+ * Callback interface for enumeration of available configuration value providers.
  *
  * @author Philip Helger
  */

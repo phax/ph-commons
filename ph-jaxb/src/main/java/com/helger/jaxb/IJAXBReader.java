@@ -319,7 +319,7 @@ public interface IJAXBReader <JAXBTYPE>
   {
     ValueEnforcer.notNull (aSource, "Source");
 
-    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aSource, aClass));
+    return read ((aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aSource, aClass));
   }
 
   /**
@@ -335,7 +335,7 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@NonNull final Node aNode)
   {
     ValueEnforcer.notNull (aNode, "Node");
-    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aNode, aClass));
+    return read ((aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aNode, aClass));
   }
 
   /**
@@ -349,7 +349,7 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@NonNull final XMLStreamReader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
-    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
+    return read ((aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
   }
 
   /**
@@ -363,6 +363,6 @@ public interface IJAXBReader <JAXBTYPE>
   default JAXBTYPE read (@NonNull final XMLEventReader aReader)
   {
     ValueEnforcer.notNull (aReader, "Reader");
-    return read ( (aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
+    return read ((aUnmarshaller, aClass) -> aUnmarshaller.unmarshal (aReader, aClass));
   }
 }

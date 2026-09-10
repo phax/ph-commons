@@ -38,21 +38,20 @@ public interface IConfigurationSourceResource extends IIterableConfigurationSour
   IReadableResource getResource ();
 
   /**
-   * Try to reload the configuration source from the configured resource. The
-   * reloading should be an atomic operation and be thread-safe.
+   * Try to reload the configuration source from the configured resource. The reloading should be an
+   * atomic operation and be thread-safe.
    *
-   * @return {@link ESuccess#SUCCESS} if the resource was found and loaded,
-   *         {@link ESuccess#FAILURE} otherwise.
+   * @return {@link ESuccess#SUCCESS} if the resource was found and loaded, {@link ESuccess#FAILURE}
+   *         otherwise.
    * @since 9.4.5
    */
   @NonNull
   ESuccess reload ();
 
   /**
-   * @return An ordered map of all contained keys and values in this resource.
-   *         The order of the items should follow the order of their declaration
-   *         in the underlying resource. Never <code>null</code> but maybe
-   *         empty.
+   * @return An ordered map of all contained keys and values in this resource. The order of the
+   *         items should follow the order of their declaration in the underlying resource. Never
+   *         <code>null</code> but maybe empty.
    * @since 9.4.3
    */
   @NonNull

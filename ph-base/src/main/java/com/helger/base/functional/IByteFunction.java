@@ -19,12 +19,10 @@ package com.helger.base.functional;
 import java.util.function.Function;
 
 /**
- * Represents a function that accepts a byte-valued argument and produces a
- * result. This is the {@code byte}-consuming primitive specialization for
- * {@link Function}.
+ * Represents a function that accepts a byte-valued argument and produces a result. This is the
+ * {@code byte}-consuming primitive specialization for {@link Function}.
  * <p>
- * This is a functional interface whose functional method is
- * {@link #apply(byte)}.
+ * This is a functional interface whose functional method is {@link #apply(byte)}.
  *
  * @param <R>
  *        the type of the result of the function

@@ -24,8 +24,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.diagnostics.error.list.ErrorList;
 
 /**
- * An error handler implementation that stores all warnings, errors and fatal
- * errors. Derived from {@link CollectingSAXErrorHandler} since v9.2.0.
+ * An error handler implementation that stores all warnings, errors and fatal errors. Derived from
+ * {@link CollectingSAXErrorHandler} since v9.2.0.
  *
  * @author Philip Helger
  * @since 8.5.1
@@ -41,12 +41,11 @@ public class WrappedCollectingSAXErrorHandler extends CollectingSAXErrorHandler
    */
   public WrappedCollectingSAXErrorHandler (@NonNull final ErrorList aErrorList)
   {
-    super ( () -> ValueEnforcer.notNull (aErrorList, "ErrorList"));
+    super (() -> ValueEnforcer.notNull (aErrorList, "ErrorList"));
   }
 
   /**
-   * @return The error list object passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The error list object passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableObject ("design")

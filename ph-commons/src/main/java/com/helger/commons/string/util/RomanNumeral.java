@@ -25,11 +25,10 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * An object of type RomanNumeral is an integer between 1 and 3999. It can be
- * constructed either from an integer or from a string that represents a Roman
- * numeral in this range. The function toString() will return a standardized
- * Roman numeral representation of the number. The function toInt() will return
- * the number as a value of type int.
+ * An object of type RomanNumeral is an integer between 1 and 3999. It can be constructed either
+ * from an integer or from a string that represents a Roman numeral in this range. The function
+ * toString() will return a standardized Roman numeral representation of the number. The function
+ * toInt() will return the number as a value of type int.
  *
  * @author Philip Helger
  */
@@ -42,21 +41,32 @@ public final class RomanNumeral
   public static final int MAX_VAL = 3999;
 
   /*
-   * The following arrays are used to construct the standard Roman numeral
-   * representation of the number. For each i, the number numbers[i] is
-   * represented by the corresponding string, letters[i].
+   * The following arrays are used to construct the standard Roman numeral representation of the
+   * number. For each i, the number numbers[i] is represented by the corresponding string,
+   * letters[i].
    */
   private static final int [] NUMBERS = { 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1 };
 
-  private static final String [] ROMAN_LETTERS = { "M", "CM", "D", "CD", "C", "XC", "L", "XL", "X", "IX", "V", "IV", "I" };
+  private static final String [] ROMAN_LETTERS = { "M",
+                                                   "CM",
+                                                   "D",
+                                                   "CD",
+                                                   "C",
+                                                   "XC",
+                                                   "L",
+                                                   "XL",
+                                                   "X",
+                                                   "IX",
+                                                   "V",
+                                                   "IV",
+                                                   "I" };
 
   /** The number represented by this Roman numeral. */
   private final int m_nValue;
 
   /**
-   * Constructor. Creates the Roman number with the int value specified by the
-   * parameter. Throws a IllegalArgumentException if arabic is not in the range
-   * 1 to 3999 inclusive.
+   * Constructor. Creates the Roman number with the int value specified by the parameter. Throws a
+   * IllegalArgumentException if arabic is not in the range 1 to 3999 inclusive.
    *
    * @param nValue
    *        The value to be converted
@@ -68,10 +78,9 @@ public final class RomanNumeral
   }
 
   /**
-   * Constructor. Creates the Roman number with the given representation. For
-   * example, RomanNumeral("xvii") is 17. If the parameter is not a legal Roman
-   * numeral, a NumberFormatException is thrown. Both upper and lower case
-   * letters are allowed.
+   * Constructor. Creates the Roman number with the given representation. For example,
+   * RomanNumeral("xvii") is 17. If the parameter is not a legal Roman numeral, a
+   * NumberFormatException is thrown. Both upper and lower case letters are allowed.
    *
    * @param sRoman
    *        the roman numeral to be converted to an int
@@ -198,8 +207,8 @@ public final class RomanNumeral
    * Convert a Roman numeral string to its integer value.
    *
    * @param sRoman
-   *        The Roman numeral string (e.g. "XVII"). May not be
-   *        <code>null</code>. Both upper and lower case are accepted.
+   *        The Roman numeral string (e.g. "XVII"). May not be <code>null</code>. Both upper and
+   *        lower case are accepted.
    * @return The integer value of the Roman numeral.
    */
   @Nonnegative
@@ -212,8 +221,8 @@ public final class RomanNumeral
    * Convert an integer value to its Roman numeral string representation.
    *
    * @param nValue
-   *        The integer value to convert. Must be between {@link #MIN_VAL}
-   *        and {@link #MAX_VAL} inclusive.
+   *        The integer value to convert. Must be between {@link #MIN_VAL} and {@link #MAX_VAL}
+   *        inclusive.
    * @return The Roman numeral string. Never <code>null</code>.
    */
   @NonNull

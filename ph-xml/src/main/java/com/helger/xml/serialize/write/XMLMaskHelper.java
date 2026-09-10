@@ -594,8 +594,7 @@ public final class XMLMaskHelper
    * @param eXMLVersion
    *        The XML serialization version. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode (text, attribute value, etc.). May not be
-   *        <code>null</code>.
+   *        The XML character mode (text, attribute value, etc.). May not be <code>null</code>.
    * @param eIncorrectCharHandling
    *        How to handle incorrect characters. May not be <code>null</code>.
    * @param s
@@ -725,8 +724,7 @@ public final class XMLMaskHelper
   }
 
   /**
-   * Mask (escape) the specified XML text and write it to the given
-   * {@link Writer}.
+   * Mask (escape) the specified XML text and write it to the given {@link Writer}.
    *
    * @param eXMLVersion
    *        The XML serialization version. May not be <code>null</code>.
@@ -752,8 +750,8 @@ public final class XMLMaskHelper
   }
 
   /**
-   * Mask (escape) the specified XML text from a char array and write it to
-   * the given {@link Writer}.
+   * Mask (escape) the specified XML text from a char array and write it to the given
+   * {@link Writer}.
    *
    * @param eXMLVersion
    *        The XML serialization version. May not be <code>null</code>.

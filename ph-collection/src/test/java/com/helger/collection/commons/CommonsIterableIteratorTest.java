@@ -42,9 +42,9 @@ public final class CommonsIterableIteratorTest
   {
     assertSame (CommonsIterableIterator.createEmpty (), CommonsIterableIterator.createEmpty ());
     ICommonsIterableIterator <String> iit = new CommonsIterableIterator <> (ArrayHelper.createArray ("Hallo",
-                                                                                                  "Welt",
-                                                                                                  "from",
-                                                                                                  "Copenhagen"));
+                                                                                                     "Welt",
+                                                                                                     "from",
+                                                                                                     "Copenhagen"));
     assertNotNull (iit);
     assertNotNull (iit.iterator ());
     assertTrue (iit.hasNext ());

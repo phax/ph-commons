@@ -45,8 +45,8 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
   /**
    * Check if this attribute has a specified namespace URI.
    *
-   * @return <code>true</code> if this attribute has a specified namespace URI,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this attribute has a specified namespace URI, <code>false</code>
+   *         otherwise
    */
   default boolean hasNamespaceURI ()
   {
@@ -56,8 +56,7 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
   /**
    * Check if this attribute has no namespace URI.
    *
-   * @return <code>true</code> if this attribute has no namespace URI,
-   *         <code>false</code> otherwise
+   * @return <code>true</code> if this attribute has no namespace URI, <code>false</code> otherwise
    */
   default boolean hasNoNamespaceURI ()
   {
@@ -69,8 +68,8 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
    *
    * @param sNamespaceURI
    *        The namespace URI to check. May not be <code>null</code>.
-   * @return <code>true</code> if this attribute has the specified namespace
-   *         URI, <code>false</code> otherwise
+   * @return <code>true</code> if this attribute has the specified namespace URI, <code>false</code>
+   *         otherwise
    */
   default boolean hasNamespaceURI (@Nullable final String sNamespaceURI)
   {
@@ -78,8 +77,7 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
   }
 
   /**
-   * Get the (local) name of the attribute. It never contains XML schema
-   * prefixes or the like.
+   * Get the (local) name of the attribute. It never contains XML schema prefixes or the like.
    *
    * @return The name of the attribute and never <code>null</code>.
    */
@@ -90,11 +88,10 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
   }
 
   /**
-   * Get the qualified name of the attribute. It never contains XML schema
-   * prefixes or the like.
+   * Get the qualified name of the attribute. It never contains XML schema prefixes or the like.
    *
-   * @return The qualified name (namespace URI + local name) of the attribute
-   *         and never <code>null</code>.
+   * @return The qualified name (namespace URI + local name) of the attribute and never
+   *         <code>null</code>.
    */
   @NonNull
   IMicroQName getAttributeQName ();
@@ -110,8 +107,8 @@ public interface IMicroAttribute extends ICloneable <IMicroAttribute>
 
   /**
    * @param sPrefix
-   *        the namespace prefix to be used in the resulting object. May not be
-   *        <code>null</code> but maybe empty.
+   *        the namespace prefix to be used in the resulting object. May not be <code>null</code>
+   *        but maybe empty.
    * @return The regular XML QName of this attribute using the provided prefix.
    */
   @NonNull

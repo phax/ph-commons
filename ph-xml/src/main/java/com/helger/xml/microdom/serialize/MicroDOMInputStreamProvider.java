@@ -26,8 +26,8 @@ import com.helger.xml.serialize.write.IXMLWriterSettings;
 import com.helger.xml.serialize.write.XMLWriterSettings;
 
 /**
- * A special input stream provider that takes an existing {@link IMicroNode} and
- * converts it to a byte array.
+ * A special input stream provider that takes an existing {@link IMicroNode} and converts it to a
+ * byte array.
  *
  * @author Philip Helger
  */

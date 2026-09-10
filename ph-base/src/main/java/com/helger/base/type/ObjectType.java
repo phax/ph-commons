@@ -29,10 +29,9 @@ import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * This class encapsulates an internal object type.<br>
- * Note: it is not based on an interface, because this may lead to difficulties
- * comparing different object type implementations of the same interface. By not
- * using an interface, implementers are forced to use exactly this
- * implementation class.
+ * Note: it is not based on an interface, because this may lead to difficulties comparing different
+ * object type implementations of the same interface. By not using an interface, implementers are
+ * forced to use exactly this implementation class.
  *
  * @author Philip Helger
  */
@@ -47,8 +46,7 @@ public class ObjectType implements IComparable <ObjectType>, IHasName
    * Constructor.
    *
    * @param sName
-   *        The name of this object type. May neither be <code>null</code> nor
-   *        empty.
+   *        The name of this object type. May neither be <code>null</code> nor empty.
    */
   public ObjectType (@NonNull @Nonempty final String sName)
   {

@@ -35,31 +35,27 @@ import com.helger.base.state.IClearable;
 public interface IMutableMultilingualText extends IMultilingualText, IClearable
 {
   /**
-   * Add a text in the specified locale. If a text with the same locale is
-   * already present, <code>false</code> is returned.
+   * Add a text in the specified locale. If a text with the same locale is already present,
+   * <code>false</code> is returned.
    *
    * @param aContentLocale
-   *        The locale in which the text should be set. May not be
-   *        <code>null</code>.
+   *        The locale in which the text should be set. May not be <code>null</code>.
    * @param sText
    *        The text to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was added,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the text was added, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   EChange addText (@NonNull Locale aContentLocale, @Nullable String sText);
 
   /**
-   * Set a text in the specified locale. If a text with the same locale is
-   * already present, the old value is overwritten.
+   * Set a text in the specified locale. If a text with the same locale is already present, the old
+   * value is overwritten.
    *
    * @param aContentLocale
-   *        The locale in which the text should be set. May not be
-   *        <code>null</code> .
+   *        The locale in which the text should be set. May not be <code>null</code> .
    * @param sText
    *        The text to be set. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was set,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the text was set, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   EChange setText (@NonNull Locale aContentLocale, @Nullable String sText);
@@ -69,8 +65,7 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    *
    * @param aContentLocale
    *        The locale to be removed. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the text was remove,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the text was remove, {@link EChange#UNCHANGED} otherwise.
    */
   @NonNull
   EChange removeText (@NonNull Locale aContentLocale);
@@ -80,8 +75,8 @@ public interface IMutableMultilingualText extends IMultilingualText, IClearable
    *
    * @param aMLT
    *        The object to read the content from. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the assignment changed anything,
-   *         {@link EChange#UNCHANGED} otherwise.
+   * @return {@link EChange#CHANGED} if the assignment changed anything, {@link EChange#UNCHANGED}
+   *         otherwise.
    */
   @NonNull
   EChange assignFrom (@NonNull IMultilingualText aMLT);

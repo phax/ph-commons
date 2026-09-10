@@ -26,8 +26,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.impl.TypeConverter;
 
 /**
- * Base implementation class of the {@link Function} interface that provides the
- * common functionality.
+ * Base implementation class of the {@link Function} interface that provides the common
+ * functionality.
  *
  * @author Philip Helger
  */
@@ -44,8 +44,7 @@ public abstract class AbstractFormatterString implements Function <Object, Strin
    *
    * @param aValue
    *        The value to be converted to a string
-   * @return The string representation of the object and never <code>null</code>
-   *         .
+   * @return The string representation of the object and never <code>null</code> .
    */
   @OverrideOnDemand
   @NonNull

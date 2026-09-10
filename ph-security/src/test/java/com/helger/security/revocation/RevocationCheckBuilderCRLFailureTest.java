@@ -85,7 +85,8 @@ public final class RevocationCheckBuilderCRLFailureTest
                                                           .allowSoftFail (false)
                                                           .crlCache (aCRLCache)
                                                           .exceptionHandler (ex -> {
-                                                            // swallow - we only care about the result
+                                                            // swallow - we only care about the
+                                                            // result
                                                           })
                                                           .build ();
     assertNotNull (eResult);
@@ -107,7 +108,8 @@ public final class RevocationCheckBuilderCRLFailureTest
     final AtomicInteger aDownloadAttempts = new AtomicInteger (0);
     final CRLCache aCRLCache = MockCertificateHelper.createAlwaysFailingCRLCache (aDownloadAttempts);
 
-    // Soft fail ON: PKIX would happily return success despite the missing CRL. The aCRLDownloadFailed
+    // Soft fail ON: PKIX would happily return success despite the missing CRL. The
+    // aCRLDownloadFailed
     // tracking flag must still flip the final result to UNKNOWN, otherwise the caller would think
     // the certificate was successfully verified as not-revoked.
     final ERevoked eResult = new RevocationCheckBuilder ().certificate (aEECert)
@@ -141,7 +143,8 @@ public final class RevocationCheckBuilderCRLFailureTest
                                                           .allowSoftFail (true)
                                                           .crlCache (aCRLCache)
                                                           .exceptionHandler (ex -> {
-                                                            // swallow - we only care about the result
+                                                            // swallow - we only care about the
+                                                            // result
                                                           })
                                                           .build ();
     assertSame (ERevoked.UNKNOWN, eResult);

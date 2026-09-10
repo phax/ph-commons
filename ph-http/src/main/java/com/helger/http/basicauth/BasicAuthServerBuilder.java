@@ -26,8 +26,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.http.RFC1945Helper;
 
 /**
- * Builder for creating HTTP Basic Authentication server challenge header
- * values.
+ * Builder for creating HTTP Basic Authentication server challenge header values.
  *
  * @author Philip Helger
  */
@@ -55,8 +54,7 @@ public class BasicAuthServerBuilder
    * Set the realm to be used.
    *
    * @param sRealm
-   *        The realm to be used. May not be <code>null</code> and should not be
-   *        empty.
+   *        The realm to be used. May not be <code>null</code> and should not be empty.
    * @return this
    */
   @NonNull

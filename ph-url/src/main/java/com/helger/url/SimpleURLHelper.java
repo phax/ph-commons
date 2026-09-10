@@ -48,8 +48,7 @@ import com.helger.url.protocol.IURLProtocol;
 import com.helger.url.protocol.URLProtocolRegistry;
 
 /**
- * Helper class for URL parsing, query string handling, and URL encoding/decoding
- * operations.
+ * Helper class for URL parsing, query string handling, and URL encoding/decoding operations.
  *
  * @author Philip Helger
  */

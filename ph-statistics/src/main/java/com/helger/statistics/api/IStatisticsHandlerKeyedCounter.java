@@ -30,8 +30,7 @@ public interface IStatisticsHandlerKeyedCounter extends IStatisticsHandlerKeyed
    *
    * @param sKey
    *        The key to retrieve the count from
-   * @return {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key is
-   *         present.
+   * @return {@link com.helger.base.CGlobal#ILLEGAL_ULONG} if no such key is present.
    */
   long getCount (@Nullable String sKey);
 }

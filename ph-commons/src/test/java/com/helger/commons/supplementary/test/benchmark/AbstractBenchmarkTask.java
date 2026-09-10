@@ -35,18 +35,16 @@ public abstract class AbstractBenchmarkTask
   protected static final Logger LOGGER = LoggerFactory.getLogger (AbstractBenchmarkTask.class);
 
   /**
-   * This constant specifies the minimum number of times that a task to be
-   * benchmarked must run before an actual timing measurement should be done.
-   * This is done both to load all relevant classes as well as to warm up
-   * hotspot before doing a measurement.
+   * This constant specifies the minimum number of times that a task to be benchmarked must run
+   * before an actual timing measurement should be done. This is done both to load all relevant
+   * classes as well as to warm up hotspot before doing a measurement.
    */
   private static final int MIN_WARMUP_CALLS = 100;
   /**
-   * This constant specifies the minimum time that a task to be benchmarked must
-   * run to assure accurate timing measurements. It must be set reasonably large
-   * to deal with the low resolution clocks present on many platforms (e.g.
-   * typical Windows machines have error around 10s of ms?). The units of this
-   * constant are nanoseconds.
+   * This constant specifies the minimum time that a task to be benchmarked must run to assure
+   * accurate timing measurements. It must be set reasonably large to deal with the low resolution
+   * clocks present on many platforms (e.g. typical Windows machines have error around 10s of ms?).
+   * The units of this constant are nanoseconds.
    */
   private static final long MIN_BENCHMARK_NANOSECS = 2 * CGlobal.NANOSECONDS_PER_SECOND;
 
@@ -70,21 +68,19 @@ public abstract class AbstractBenchmarkTask
   /**
    * Measures how long it takes to execute the run method of the task arg.
    * <p>
-   * This method uses the MIN_WARMUP_CALLS and MIN_BENCHMARK_TIME constants to
-   * obtain accurate results.
+   * This method uses the MIN_WARMUP_CALLS and MIN_BENCHMARK_TIME constants to obtain accurate
+   * results.
    * <p>
-   * This method explicitly requests garbage collection before doing each
-   * benchmark. Therefore, unless you actually want to include the effect of
-   * garbage collection in the benchmark, the JVM should use a "stop-the-world"
-   * garbage collector, if it is available. (Usually it is. With Sun's tools,
-   * this is, in fact, the default garbage collector type.) The type of garbage
-   * collectors to avoid are incremental, concurrent, or parallel ones.
+   * This method explicitly requests garbage collection before doing each benchmark. Therefore,
+   * unless you actually want to include the effect of garbage collection in the benchmark, the JVM
+   * should use a "stop-the-world" garbage collector, if it is available. (Usually it is. With Sun's
+   * tools, this is, in fact, the default garbage collector type.) The type of garbage collectors to
+   * avoid are incremental, concurrent, or parallel ones.
    * <p>
    *
    * @param aTask
    *        The task to be executed
-   * @return average execution time of a single invocation of task.run, in
-   *         microseconds
+   * @return average execution time of a single invocation of task.run, in microseconds
    */
   protected static final double benchmarkTask (final Runnable aTask)
   {

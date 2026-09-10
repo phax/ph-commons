@@ -76,8 +76,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
    * @param bCopyNeeded
-   *        <code>true</code> if a copy of the byte array should be made,
-   *        <code>false</code> to use it directly.
+   *        <code>true</code> if a copy of the byte array should be made, <code>false</code> to use
+   *        it directly.
    */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes, final boolean bCopyNeeded)
   {
@@ -85,8 +85,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor using a sub-range of the byte array with explicit copy
-   * behavior.
+   * Constructor using a sub-range of the byte array with explicit copy behavior.
    *
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
@@ -95,8 +94,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
    * @param nLen
    *        The number of bytes to use. Must be &ge; 0.
    * @param bCopyNeeded
-   *        <code>true</code> if a copy of the byte array should be made,
-   *        <code>false</code> to use it directly.
+   *        <code>true</code> if a copy of the byte array should be made, <code>false</code> to use
+   *        it directly.
    */
   public ReadableResourceByteArray (final byte @NonNull [] aBytes,
                                     @Nonnegative final int nOfs,
@@ -107,8 +106,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor with resource ID using the full byte array with default copy
-   * behavior.
+   * Constructor with resource ID using the full byte array with default copy behavior.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
@@ -141,16 +139,15 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor with resource ID using the full byte array with explicit copy
-   * behavior.
+   * Constructor with resource ID using the full byte array with explicit copy behavior.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
    * @param bCopyNeeded
-   *        <code>true</code> if a copy of the byte array should be made,
-   *        <code>false</code> to use it directly.
+   *        <code>true</code> if a copy of the byte array should be made, <code>false</code> to use
+   *        it directly.
    */
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     final byte @NonNull [] aBytes,
@@ -171,8 +168,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
    * @param nLen
    *        The number of bytes to use. Must be &ge; 0.
    * @param bCopyNeeded
-   *        <code>true</code> if a copy of the byte array should be made,
-   *        <code>false</code> to use it directly.
+   *        <code>true</code> if a copy of the byte array should be made, <code>false</code> to use
+   *        it directly.
    */
   public ReadableResourceByteArray (@Nullable final String sResourceID,
                                     final byte @NonNull [] aBytes,
@@ -188,8 +185,8 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * @return <code>true</code> if the internal byte array is a copy,
-   *         <code>false</code> if the original reference is used.
+   * @return <code>true</code> if the internal byte array is a copy, <code>false</code> if the
+   *         original reference is used.
    */
   public final boolean isCopy ()
   {

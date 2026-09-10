@@ -23,8 +23,8 @@ import org.jspecify.annotations.NonNull;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Small wrapper around {@link Lock} interface to be used in a
- * try-with-resources statement, so that the unlock happened.
+ * Small wrapper around {@link Lock} interface to be used in a try-with-resources statement, so that
+ * the unlock happened.
  *
  * @author Philip Helger
  * @since 9.0.0

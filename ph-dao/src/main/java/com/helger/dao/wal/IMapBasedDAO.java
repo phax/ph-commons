@@ -63,28 +63,25 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
   /**
    * @param aFilter
    *        Filter to be applied. May be <code>null</code>.
-   * @return A list of all contained items matching the filter. Never
-   *         <code>null</code>.
+   * @return A list of all contained items matching the filter. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <? extends INTERFACETYPE> getAll (@Nullable Predicate <? super INTERFACETYPE> aFilter);
 
   /**
-   * Find all items matching the filter and invoke the consumer on all matching
-   * entries.
+   * Find all items matching the filter and invoke the consumer on all matching entries.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @param aConsumer
-   *        The consumer to be invoked for all matches. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked for all matches. May not be <code>null</code>.
    */
-  void findAll (@Nullable Predicate <? super INTERFACETYPE> aFilter, @NonNull Consumer <? super INTERFACETYPE> aConsumer);
+  void findAll (@Nullable Predicate <? super INTERFACETYPE> aFilter,
+                @NonNull Consumer <? super INTERFACETYPE> aConsumer);
 
   /**
-   * Get all contained items matching the provided filter and map them to
-   * something else.
+   * Get all contained items matching the provided filter and map them to something else.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
@@ -100,16 +97,15 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
                                                  @NonNull Function <? super INTERFACETYPE, ? extends RETTYPE> aMapper);
 
   /**
-   * Find all contained items that match the filter, map them to a different
-   * type and invoke the consumer on all mapped items.
+   * Find all contained items that match the filter, map them to a different type and invoke the
+   * consumer on all mapped items.
    *
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @param aMapper
    *        The mapper to be invoked. May not be <code>null</code>.
    * @param aConsumer
-   *        The consumer to be invoked for all matches. May not be
-   *        <code>null</code>.
+   *        The consumer to be invoked for all matches. May not be <code>null</code>.
    * @param <RETTYPE>
    *        Return type to which is mapped
    */
@@ -183,8 +179,8 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    * Iterate each entry
    * 
    * @param aFilter
-   *        Optional filter to limit the entries for which the consumer is
-   *        called. May be <code>null</code>.
+   *        Optional filter to limit the entries for which the consumer is called. May be
+   *        <code>null</code>.
    * @param aConsumer
    *        Consumer to use. May be <code>null</code>.
    * @since 9.4.5 in the interface
@@ -205,8 +201,8 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    * Iterate each key
    * 
    * @param aFilter
-   *        Optional filter to limit the entries for which the consumer is
-   *        called. May be <code>null</code>.
+   *        Optional filter to limit the entries for which the consumer is called. May be
+   *        <code>null</code>.
    * @param aConsumer
    *        Consumer to use. May be <code>null</code>.
    * @since 9.4.5 in the interface
@@ -226,13 +222,14 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
    * Iterate each value
    * 
    * @param aFilter
-   *        Optional filter to limit the entries for which the consumer is
-   *        called. May be <code>null</code>.
+   *        Optional filter to limit the entries for which the consumer is called. May be
+   *        <code>null</code>.
    * @param aConsumer
    *        Consumer to use. May be <code>null</code>.
    * @since 9.4.5 in the interface
    */
-  void forEachValue (@Nullable Predicate <? super INTERFACETYPE> aFilter, @Nullable Consumer <? super INTERFACETYPE> aConsumer);
+  void forEachValue (@Nullable Predicate <? super INTERFACETYPE> aFilter,
+                     @Nullable Consumer <? super INTERFACETYPE> aConsumer);
 
   /**
    * Check if all IDs are contained
@@ -245,8 +242,7 @@ public interface IMapBasedDAO <INTERFACETYPE extends IHasID <String>> extends IH
   boolean containsAllIDs (@Nullable Iterable <String> aIDs);
 
   /**
-   * @return A set with the IDs of all contained items. Never <code>null</code>
-   *         but maybe empty.
+   * @return A set with the IDs of all contained items. Never <code>null</code> but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy

@@ -38,8 +38,7 @@ public enum EChange implements IChangeIndicator
    * Convert a boolean value to the corresponding {@link EChange} enum value.
    *
    * @param bChanged
-   *        <code>true</code> for {@link #CHANGED}, <code>false</code> for
-   *        {@link #UNCHANGED}.
+   *        <code>true</code> for {@link #CHANGED}, <code>false</code> for {@link #UNCHANGED}.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -49,8 +48,7 @@ public enum EChange implements IChangeIndicator
   }
 
   /**
-   * Convert an {@link IChangeIndicator} to the corresponding {@link EChange}
-   * enum value.
+   * Convert an {@link IChangeIndicator} to the corresponding {@link EChange} enum value.
    *
    * @param aChangeIndicator
    *        The change indicator to convert. May not be <code>null</code>.

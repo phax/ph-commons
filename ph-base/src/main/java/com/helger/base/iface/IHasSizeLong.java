@@ -33,16 +33,16 @@ public interface IHasSizeLong
   long size ();
 
   /**
-   * @return <code>true</code> if no items are present, <code>false</code> if at
-   *         least a single item is present.
+   * @return <code>true</code> if no items are present, <code>false</code> if at least a single item
+   *         is present.
    * @see #size()
    * @see #isNotEmpty()
    */
   boolean isEmpty ();
 
   /**
-   * @return <code>true</code> if at least one item is present,
-   *         <code>false</code> if no item is present.
+   * @return <code>true</code> if at least one item is present, <code>false</code> if no item is
+   *         present.
    * @see #size()
    * @see #isEmpty()
    */

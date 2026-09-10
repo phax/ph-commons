@@ -257,8 +257,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   /**
    * Check whether any properties have been set.
    *
-   * @return <code>true</code> if at least one property is set,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one property is set, <code>false</code> otherwise.
    */
   public boolean hasAnyProperties ()
   {
@@ -270,8 +269,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    *
    * @param eProperty
    *        The property to query. May be <code>null</code>.
-   * @return The property value or <code>null</code> if the property is not set
-   *         or the parameter is <code>null</code>.
+   * @return The property value or <code>null</code> if the property is not set or the parameter is
+   *         <code>null</code>.
    */
   @Nullable
   public Object getPropertyValue (@Nullable final EXMLParserProperty eProperty)
@@ -391,8 +390,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   /**
    * Check whether any features have been set.
    *
-   * @return <code>true</code> if at least one feature is set,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if at least one feature is set, <code>false</code> otherwise.
    */
   public boolean hasAnyFeature ()
   {
@@ -404,8 +402,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    *
    * @param eFeature
    *        The feature to query. May be <code>null</code>.
-   * @return The feature value or <code>null</code> if the feature is not set
-   *         or the parameter is <code>null</code>.
+   * @return The feature value or <code>null</code> if the feature is not set or the parameter is
+   *         <code>null</code>.
    */
   @Nullable
   public Boolean getFeatureValue (@Nullable final EXMLParserFeature eFeature)
@@ -526,8 +524,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   /**
    * Check whether a new XML parser is required based on the current settings.
    *
-   * @return <code>true</code> if a new XML parser needs to be created,
-   *         <code>false</code> if a pooled parser can be reused.
+   * @return <code>true</code> if a new XML parser needs to be created, <code>false</code> if a
+   *         pooled parser can be reused.
    */
   public boolean requiresNewXMLParser ()
   {
@@ -583,8 +581,8 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   /**
    * Check whether a new XML parser is explicitly required.
    *
-   * @return <code>true</code> if a new XML parser is explicitly required,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if a new XML parser is explicitly required, <code>false</code>
+   *         otherwise.
    */
   public boolean isRequiresNewXMLParserExplicitly ()
   {
@@ -592,12 +590,11 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   /**
-   * Set whether a new XML parser should be explicitly required, regardless of
-   * other settings.
+   * Set whether a new XML parser should be explicitly required, regardless of other settings.
    *
    * @param bRequiresNewXMLParserExplicitly
-   *        <code>true</code> to always create a new parser,
-   *        <code>false</code> to allow pooled parsers.
+   *        <code>true</code> to always create a new parser, <code>false</code> to allow pooled
+   *        parsers.
    * @return this for chaining
    */
   @NonNull
@@ -610,8 +607,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   /**
    * Create a clone of this settings object.
    *
-   * @return A new {@link SAXReaderSettings} object with the same settings.
-   *         Never <code>null</code>.
+   * @return A new {@link SAXReaderSettings} object with the same settings. Never <code>null</code>.
    */
   @NonNull
   public SAXReaderSettings getClone ()
@@ -623,8 +619,7 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
    * Apply all settings of this object to the provided SAX {@link XMLReader}.
    *
    * @param aParser
-   *        The SAX XMLReader to apply the settings to. May not be
-   *        <code>null</code>.
+   *        The SAX XMLReader to apply the settings to. May not be <code>null</code>.
    */
   public void applyToSAXReader (@NonNull final XMLReader aParser)
   {
@@ -662,9 +657,9 @@ public class SAXReaderSettings implements ISAXReaderSettings, ICloneable <SAXRea
   }
 
   /**
-   * Create a clone of the passed settings, depending on the parameter. If the
-   * parameter is <code>null</code> a new empty {@link SAXReaderSettings} object
-   * is created, otherwise a copy of the parameter is created.
+   * Create a clone of the passed settings, depending on the parameter. If the parameter is
+   * <code>null</code> a new empty {@link SAXReaderSettings} object is created, otherwise a copy of
+   * the parameter is created.
    *
    * @param aOther
    *        The parameter to be used. May be <code>null</code>.

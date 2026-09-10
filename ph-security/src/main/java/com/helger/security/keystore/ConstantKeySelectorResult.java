@@ -25,8 +25,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Special implements of {@link KeySelectorResult} with a constant, nullable
- * key.
+ * Special implements of {@link KeySelectorResult} with a constant, nullable key.
  *
  * @author Philip Helger
  */

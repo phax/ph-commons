@@ -45,8 +45,8 @@ public class NaturalNumericOrderComparator implements Comparator <String>
   }
 
   /**
-   * @return The fallback comparator used when no numeric comparison is needed.
-   *         Never <code>null</code>.
+   * @return The fallback comparator used when no numeric comparison is needed. Never
+   *         <code>null</code>.
    */
   @NonNull
   public final Comparator <? super String> getOtherComparator ()

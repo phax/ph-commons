@@ -35,8 +35,8 @@ public interface IValidationEventHandlerFactory extends Function <ValidationEven
    *
    * @param aOldEventHandler
    *        The previous event handler that optionally may be encapsulated.
-   * @return The created validation event handler. Maybe <code>null</code> to
-   *         indicate that the default event handler should be used.
+   * @return The created validation event handler. Maybe <code>null</code> to indicate that the
+   *         default event handler should be used.
    */
   @Nullable
   ValidationEventHandler apply (@Nullable ValidationEventHandler aOldEventHandler);

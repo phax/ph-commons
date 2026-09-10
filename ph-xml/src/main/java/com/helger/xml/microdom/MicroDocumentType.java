@@ -57,7 +57,9 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
    * @param sSystemID
    *        The system ID. May be <code>null</code>.
    */
-  public MicroDocumentType (@NonNull final String sQualifiedName, @Nullable final String sPublicID, @Nullable final String sSystemID)
+  public MicroDocumentType (@NonNull final String sQualifiedName,
+                            @Nullable final String sPublicID,
+                            @Nullable final String sSystemID)
   {
     ValueEnforcer.notEmpty (sQualifiedName, "QualifiedName");
     // publicID is null if an inline DTD is contained

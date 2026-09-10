@@ -43,8 +43,7 @@ public interface IChangeIndicator
    *
    * @param aChange
    *        The other change indicator. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if either this or the other indicator is
-   *         changed.
+   * @return {@link EChange#CHANGED} if either this or the other indicator is changed.
    */
   @NonNull
   default EChange or (@NonNull final IChangeIndicator aChange)
@@ -57,8 +56,8 @@ public interface IChangeIndicator
    *
    * @param bChange
    *        The other change value.
-   * @return {@link EChange#CHANGED} if either this indicator is changed or the
-   *         passed value is <code>true</code>.
+   * @return {@link EChange#CHANGED} if either this indicator is changed or the passed value is
+   *         <code>true</code>.
    */
   @NonNull
   default EChange or (final boolean bChange)
@@ -71,8 +70,7 @@ public interface IChangeIndicator
    *
    * @param aChange
    *        The other change indicator. May not be <code>null</code>.
-   * @return {@link EChange#CHANGED} if both this and the other indicator are
-   *         changed.
+   * @return {@link EChange#CHANGED} if both this and the other indicator are changed.
    */
   @NonNull
   default EChange and (@NonNull final IChangeIndicator aChange)
@@ -85,8 +83,8 @@ public interface IChangeIndicator
    *
    * @param bChange
    *        The other change value.
-   * @return {@link EChange#CHANGED} if both this indicator is changed and the
-   *         passed value is <code>true</code>.
+   * @return {@link EChange#CHANGED} if both this indicator is changed and the passed value is
+   *         <code>true</code>.
    */
   @NonNull
   default EChange and (final boolean bChange)

@@ -118,8 +118,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * @return The current XML entity expansion limit. The default value depends
-   *         on the JDK version (64000 before JDK 24, 2500 since JDK 24).
+   * @return The current XML entity expansion limit. The default value depends on the JDK version
+   *         (64000 before JDK 24, 2500 since JDK 24).
    */
   public static int getXMLEntityExpansionLimit ()
   {
@@ -195,8 +195,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * @return The current XML element attribute limit. The default value depends
-   *         on the JDK version (10000 before JDK 24, 200 since JDK 24).
+   * @return The current XML element attribute limit. The default value depends on the JDK version
+   *         (10000 before JDK 24, 200 since JDK 24).
    */
   public static int getXMLElementAttributeLimit ()
   {
@@ -344,8 +344,8 @@ public final class XMLSystemProperties
   }
 
   /**
-   * @return The current XML total entity size limit. The default value depends
-   *         on the JDK version (50000000 before JDK 24, 100000 since JDK 24).
+   * @return The current XML total entity size limit. The default value depends on the JDK version
+   *         (50000000 before JDK 24, 100000 since JDK 24).
    */
   public static int getXMLTotalEntitySizeLimit ()
   {
@@ -421,8 +421,7 @@ public final class XMLSystemProperties
   }
 
   /**
-   * @return The current XML max general entity size limit. The default value is
-   *         0 (no limit).
+   * @return The current XML max general entity size limit. The default value is 0 (no limit).
    */
   public static int getXMLMaxGeneralEntitySizeLimit ()
   {
@@ -495,8 +494,7 @@ public final class XMLSystemProperties
   }
 
   /**
-   * @return The current XML max parameter entity size limit. The default value
-   *         is 0 (no limit).
+   * @return The current XML max parameter entity size limit. The default value is 0 (no limit).
    */
   public static int getXMLMaxParameterEntitySizeLimit ()
   {

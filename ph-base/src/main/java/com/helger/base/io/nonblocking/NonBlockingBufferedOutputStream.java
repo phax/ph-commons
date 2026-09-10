@@ -39,16 +39,14 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
   protected byte [] m_aBuf;
 
   /**
-   * The number of valid bytes in the buffer. This value is always in the range
-   * <code>0</code> through <code>buf.length</code>; elements
-   * <code>buf[0]</code> through <code>buf[count-1]</code> contain valid byte
-   * data.
+   * The number of valid bytes in the buffer. This value is always in the range <code>0</code>
+   * through <code>buf.length</code>; elements <code>buf[0]</code> through <code>buf[count-1]</code>
+   * contain valid byte data.
    */
   protected int m_nCount;
 
   /**
-   * Creates a new buffered output stream to write data to the specified
-   * underlying output stream.
+   * Creates a new buffered output stream to write data to the specified underlying output stream.
    *
    * @param aOS
    *        the underlying output stream.
@@ -59,8 +57,8 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Creates a new buffered output stream to write data to the specified
-   * underlying output stream with the specified buffer size.
+   * Creates a new buffered output stream to write data to the specified underlying output stream
+   * with the specified buffer size.
    *
    * @param aOS
    *        the underlying output stream.
@@ -103,15 +101,14 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Writes <code>len</code> bytes from the specified byte array starting at
-   * offset <code>off</code> to this buffered output stream.
+   * Writes <code>len</code> bytes from the specified byte array starting at offset <code>off</code>
+   * to this buffered output stream.
    * <p>
-   * Ordinarily this method stores bytes from the given array into this stream's
-   * buffer, flushing the buffer to the underlying output stream as needed. If
-   * the requested length is at least as large as this stream's buffer, however,
-   * then this method will flush the buffer and write the bytes directly to the
-   * underlying output stream. Thus redundant <code>BufferedOutputStream</code>s
-   * will not copy data unnecessarily.
+   * Ordinarily this method stores bytes from the given array into this stream's buffer, flushing
+   * the buffer to the underlying output stream as needed. If the requested length is at least as
+   * large as this stream's buffer, however, then this method will flush the buffer and write the
+   * bytes directly to the underlying output stream. Thus redundant
+   * <code>BufferedOutputStream</code>s will not copy data unnecessarily.
    *
    * @param aBuf
    *        the data.
@@ -128,9 +125,8 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
     if (nLen >= m_aBuf.length)
     {
       /*
-       * If the request length exceeds the size of the output buffer, flush the
-       * output buffer and then write the data directly. In this way buffered
-       * streams will cascade harmlessly.
+       * If the request length exceeds the size of the output buffer, flush the output buffer and
+       * then write the data directly. In this way buffered streams will cascade harmlessly.
        */
       _flushBuffer ();
       out.write (aBuf, nOfs, nLen);
@@ -143,8 +139,8 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
   }
 
   /**
-   * Flushes this buffered output stream. This forces any buffered output bytes
-   * to be written out to the underlying output stream.
+   * Flushes this buffered output stream. This forces any buffered output bytes to be written out to
+   * the underlying output stream.
    *
    * @exception IOException
    *            if an I/O error occurs.

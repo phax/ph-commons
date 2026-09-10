@@ -26,8 +26,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A wrapper around another {@link FilterOutputStream} to make the wrapped
- * {@link OutputStream} accessible.
+ * A wrapper around another {@link FilterOutputStream} to make the wrapped {@link OutputStream}
+ * accessible.
  *
  * @author Philip Helger
  */
@@ -43,8 +43,7 @@ public class WrappedOutputStream extends FilterOutputStream
   }
 
   /**
-   * @return The output stream provided in the constructor. Never
-   *         <code>null</code>.
+   * @return The output stream provided in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final OutputStream getWrappedOutputStream ()

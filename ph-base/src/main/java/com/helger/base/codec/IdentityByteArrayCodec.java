@@ -26,8 +26,8 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 
 /**
- * Special implementation of {@link IByteArrayCodec} that does nothing. This is
- * a separate class to be able to identify it from non-identity codecs.
+ * Special implementation of {@link IByteArrayCodec} that does nothing. This is a separate class to
+ * be able to identify it from non-identity codecs.
  *
  * @author Philip Helger
  * @since 9.1.7

@@ -164,13 +164,13 @@ public class JAXBContextCacheKey
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
-    aCondLog.info ( () -> "Creating JAXB context for packages " +
-                          StringImplode.imploder ()
-                                       .source (m_aPackages, x -> '\'' + x.getName () + '\'')
-                                       .separator (", ")
-                                       .build () +
-                          " using ClassLoader " +
-                          aClassLoader.toString ());
+    aCondLog.info (() -> "Creating JAXB context for packages " +
+                         StringImplode.imploder ()
+                                      .source (m_aPackages, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
+                         " using ClassLoader " +
+                         aClassLoader.toString ());
 
     try
     {
@@ -197,12 +197,12 @@ public class JAXBContextCacheKey
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
     // E.g. an internal class - try anyway!
-    aCondLog.info ( () -> "Creating JAXB context for classes " +
-                          StringImplode.imploder ()
-                                       .source (aClasses, x -> '\'' + x.getName () + '\'')
-                                       .separator (", ")
-                                       .build () +
-                          (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
+    aCondLog.info (() -> "Creating JAXB context for classes " +
+                         StringImplode.imploder ()
+                                      .source (aClasses, x -> '\'' + x.getName () + '\'')
+                                      .separator (", ")
+                                      .build () +
+                         (m_aProperties.isEmpty () ? "" : " with properties " + m_aProperties.keySet ()));
 
     try
     {

@@ -148,7 +148,7 @@ public class MimeTypeInfoManager
   @NonNull
   public EChange clearCache ()
   {
-    return m_aRWLock.writeLockedGet ( () -> {
+    return m_aRWLock.writeLockedGet (() -> {
       EChange ret = m_aList.removeAll ();
       if (!m_aMapExt.isEmpty ())
       {
@@ -183,7 +183,7 @@ public class MimeTypeInfoManager
     final IMicroDocument aDoc = new MicroDocument ();
     final IMicroElement eRoot = aDoc.addElement ("mime-type-info");
 
-    m_aRWLock.readLocked ( () -> {
+    m_aRWLock.readLocked (() -> {
       for (final MimeTypeInfo aInfo : m_aList.getSorted (Comparator.comparing (MimeTypeInfo::getPrimaryMimeTypeString)))
         eRoot.addChild (MicroTypeConverter.convertToMicroElement (aInfo, "item"));
     });
@@ -208,7 +208,7 @@ public class MimeTypeInfoManager
 
     // Check if MimeType is unique
     // Note: Extension must not be unique
-    m_aRWLock.readLocked ( () -> {
+    m_aRWLock.readLocked (() -> {
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
       {
         final ICommonsList <MimeTypeInfo> aExisting = m_aMapMimeType.get (aMimeType.getMimeType ());
@@ -223,7 +223,7 @@ public class MimeTypeInfoManager
     });
 
     // Perform changes
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aList.add (aInfo);
       for (final MimeTypeWithSource aMimeType : aMimeTypes)
         m_aMapMimeType.computeIfAbsent (aMimeType.getMimeType (), k -> new CommonsArrayList <> ()).add (aInfo);
@@ -246,7 +246,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aExt, "Ext");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aMapExt.computeIfAbsent (aExt.getExtension (), k -> new CommonsArrayList <> ()).add (aInfo);
       aInfo.addExtension (aExt);
     });
@@ -266,7 +266,7 @@ public class MimeTypeInfoManager
     ValueEnforcer.notNull (aInfo, "Info");
     ValueEnforcer.notNull (aMimeType, "MimeType");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       m_aMapMimeType.computeIfAbsent (aMimeType.getMimeType (), k -> new CommonsArrayList <> ()).add (aInfo);
       aInfo.addMimeType (aMimeType);
     });
@@ -326,7 +326,7 @@ public class MimeTypeInfoManager
     if (sExtension == null)
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> {
+    return m_aRWLock.readLockedGet (() -> {
       ICommonsList <MimeTypeInfo> ret = m_aMapExt.get (sExtension);
       if (ret == null)
       {
@@ -355,7 +355,7 @@ public class MimeTypeInfoManager
     if (aMimeType == null)
       return null;
 
-    final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLockedGet ( () -> m_aMapMimeType.get (aMimeType));
+    final ICommonsList <MimeTypeInfo> ret = m_aRWLock.readLockedGet (() -> m_aMapMimeType.get (aMimeType));
 
     // Create a copy if present
     return ret == null ? null : ret.getClone ();
@@ -379,7 +379,7 @@ public class MimeTypeInfoManager
   public ICommonsOrderedSet <IMimeType> getAllMimeTypes ()
   {
     final ICommonsOrderedSet <IMimeType> ret = new CommonsLinkedHashSet <> ();
-    m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypes ())));
+    m_aRWLock.readLocked (() -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypes ())));
     return ret;
   }
 
@@ -391,7 +391,7 @@ public class MimeTypeInfoManager
   public ICommonsOrderedSet <String> getAllMimeTypeStrings ()
   {
     final ICommonsOrderedSet <String> ret = new CommonsLinkedHashSet <> ();
-    m_aRWLock.readLocked ( () -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypeStrings ())));
+    m_aRWLock.readLocked (() -> m_aList.forEach (i -> ret.addAll (i.getAllMimeTypeStrings ())));
     return ret;
   }
 

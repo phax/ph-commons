@@ -82,7 +82,7 @@ public class LoggingExceptionCallback implements IExceptionCallback <Throwable>,
   public final LoggingExceptionCallback setErrorLevel (@NonNull final IErrorLevel aErrorLevel)
   {
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
-    m_aRWLock.writeLocked ( () -> m_aErrorLevel = aErrorLevel);
+    m_aRWLock.writeLocked (() -> m_aErrorLevel = aErrorLevel);
     return this;
   }
 

@@ -232,8 +232,8 @@ public class DigestAuthServerBuilder
   }
 
   /**
-   * @return <code>true</code> if both realm and nonce are set, making this
-   *         builder valid for building.
+   * @return <code>true</code> if both realm and nonce are set, making this builder valid for
+   *         building.
    */
   public boolean isValid ()
   {
@@ -243,8 +243,7 @@ public class DigestAuthServerBuilder
   /**
    * Build the WWW-Authenticate header value for Digest authentication.
    *
-   * @return The complete header value string. Neither <code>null</code> nor
-   *         empty.
+   * @return The complete header value string. Neither <code>null</code> nor empty.
    * @throws IllegalStateException
    *         If the builder is not valid (realm or nonce missing).
    */
@@ -260,8 +259,7 @@ public class DigestAuthServerBuilder
     ret.append (" realm=").append (RFC1945Helper.getQuotedTextString (m_sRealm));
     if (m_aDomains.isNotEmpty ())
     {
-      ret.append (", domain=")
-         .append (RFC1945Helper.getQuotedTextString (StringImplode.getImploded (' ', m_aDomains)));
+      ret.append (", domain=").append (RFC1945Helper.getQuotedTextString (StringImplode.getImploded (' ', m_aDomains)));
     }
     // Nonce is required
     ret.append (", nonce=").append (RFC1945Helper.getQuotedTextString (m_sNonce));

@@ -25,8 +25,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Default dummy implementation of the {@link IAuthSubject} interface that has
- * no logic at all.
+ * Default dummy implementation of the {@link IAuthSubject} interface that has no logic at all.
  *
  * @author Philip Helger
  */

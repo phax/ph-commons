@@ -82,8 +82,8 @@ public enum EXMLSerializeVersion implements IHasID <String>
    *
    * @param eDefault
    *        The default value to use. May be <code>null</code>.
-   * @return The XML version or the provided default if this is not an XML
-   *         version. May be <code>null</code>.
+   * @return The XML version or the provided default if this is not an XML version. May be
+   *         <code>null</code>.
    */
   @Nullable
   public EXMLVersion getXMLVersionOrDefault (@Nullable final EXMLVersion eDefault)

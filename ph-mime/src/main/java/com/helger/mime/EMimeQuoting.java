@@ -34,8 +34,8 @@ import com.helger.mime.parse.MimeTypeParser;
 public enum EMimeQuoting
 {
   /**
-   * Create a quoted string according to RFC 822 (surrounding everything in
-   * double-quotes and masking using backslash).<br>
+   * Create a quoted string according to RFC 822 (surrounding everything in double-quotes and
+   * masking using backslash).<br>
    * Example: <code>foo bar</code> results in <code>"foo bar"</code>
    */
   QUOTED_STRING
@@ -69,8 +69,8 @@ public enum EMimeQuoting
   },
 
   /**
-   * Create a quoted printable String. Replace all non-printable characters with
-   * =XY where XY is the hex encoding of the char.<br>
+   * Create a quoted printable String. Replace all non-printable characters with =XY where XY is the
+   * hex encoding of the char.<br>
    * Example: <code>foo bar</code> results in <code>foo=20bar</code>
    */
   QUOTED_PRINTABLE
@@ -81,7 +81,8 @@ public enum EMimeQuoting
     public String getQuotedString (@NonNull @Nonempty final String sUnquotedString)
     {
       // Use a special BitSet
-      return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString, StandardCharsets.UTF_8);
+      return new QuotedPrintableCodec (PRINTABLE_QUOTED_PRINTABLE).getEncodedAsString (sUnquotedString,
+                                                                                       StandardCharsets.UTF_8);
     }
 
     @Override
@@ -95,9 +96,9 @@ public enum EMimeQuoting
   },
 
   /**
-   * Create a URL escaped String. Replace all non-printable characters with %XY
-   * where XY is the hex encoding of the char. Special note: space (ASCII 20)
-   * should be escaped as "%20" and not as "+".<br>
+   * Create a URL escaped String. Replace all non-printable characters with %XY where XY is the hex
+   * encoding of the char. Special note: space (ASCII 20) should be escaped as "%20" and not as
+   * "+".<br>
    * Example: <code>foo bar</code> results in <code>foo%20bar</code>
    */
   URL_ESCAPE
@@ -163,8 +164,7 @@ public enum EMimeQuoting
   public abstract String getUnquotedString (@NonNull @Nonempty String sQuotedString);
 
   /**
-   * @return <code>true</code> if this == {@link #QUOTED_STRING},
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this == {@link #QUOTED_STRING}, <code>false</code> otherwise.
    */
   public boolean isQuotedString ()
   {

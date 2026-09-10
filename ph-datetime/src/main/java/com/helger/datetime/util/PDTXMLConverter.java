@@ -89,8 +89,7 @@ public final class PDTXMLConverter
    *
    * @param nOffsetInMillis
    *        The offset in milliseconds to use. May not be <code>null</code>.
-   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes
-   *         steps :)
+   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes steps :)
    */
   public static int getTimezoneOffsetInMinutes (final int nOffsetInMillis)
   {
@@ -98,13 +97,12 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the time zone offset to UTC of the passed calendar in minutes to be
-   * used in {@link XMLGregorianCalendar}.
+   * Get the time zone offset to UTC of the passed calendar in minutes to be used in
+   * {@link XMLGregorianCalendar}.
    *
    * @param aCalendar
    *        The calendar to use. May not be <code>null</code>.
-   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes
-   *         steps :)
+   * @return 0 for no offset to UTC, the minutes otherwise. Usually in 60minutes steps :)
    */
   public static int getTimezoneOffsetInMinutes (@NonNull final Calendar aCalendar)
   {
@@ -113,8 +111,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed date as {@link GregorianCalendar} using the default time
-   * zone.
+   * Get the passed date as {@link GregorianCalendar} using the default time zone.
    *
    * @param aDate
    *        The source date. May be <code>null</code>.
@@ -123,7 +120,8 @@ public final class PDTXMLConverter
   @NonNull
   public static GregorianCalendar getCalendar (@NonNull final Date aDate)
   {
-    final GregorianCalendar aCalendar = new GregorianCalendar (PDTFactory.getTimeZone (aDate), Locale.getDefault (Locale.Category.FORMAT));
+    final GregorianCalendar aCalendar = new GregorianCalendar (PDTFactory.getTimeZone (aDate),
+                                                               Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTime (aDate);
     return aCalendar;
   }
@@ -139,7 +137,8 @@ public final class PDTXMLConverter
   @NonNull
   public static GregorianCalendar getCalendarDefaultTimeZone (final long nMillis)
   {
-    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getDefaultTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
+    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getDefaultTimeZone (),
+                                                               Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTimeInMillis (nMillis);
     return aCalendar;
   }
@@ -155,14 +154,14 @@ public final class PDTXMLConverter
   @NonNull
   public static GregorianCalendar getCalendarUTC (final long nMillis)
   {
-    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getUTCTimeZone (), Locale.getDefault (Locale.Category.FORMAT));
+    final GregorianCalendar aCalendar = new GregorianCalendar (PDTConfig.getUTCTimeZone (),
+                                                               Locale.getDefault (Locale.Category.FORMAT));
     aCalendar.setTimeInMillis (nMillis);
     return aCalendar;
   }
 
   /**
-   * @return A new XML calendar instance, with all fields uninitialized. Never
-   *         <code>null</code>.
+   * @return A new XML calendar instance, with all fields uninitialized. Never <code>null</code>.
    */
   @NonNull
   public static XMLGregorianCalendar createNewCalendar ()
@@ -182,8 +181,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} date (without a
-   * time).
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a time).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -196,19 +194,19 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} date (without a
-   * time).
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a time).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
    * @param nTimezoneOffsetInMinutes
-   *        Timezone offset in minutes. Use
-   *        {@link DatatypeConstants#FIELD_UNDEFINED} if none is to be used.
+   *        Timezone offset in minutes. Use {@link DatatypeConstants#FIELD_UNDEFINED} if none is to
+   *        be used.
    * @return <code>null</code> if the parameter is <code>null</code>.
    * @since 9.3.5
    */
   @Nullable
-  public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final LocalDate aBase, final int nTimezoneOffsetInMinutes)
+  public static XMLGregorianCalendar getXMLCalendarDate (@Nullable final LocalDate aBase,
+                                                         final int nTimezoneOffsetInMinutes)
   {
     if (aBase == null)
       return null;
@@ -219,8 +217,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} date (without a
-   * time).
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a time).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -235,8 +232,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} date (without a
-   * time).
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a time).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -255,8 +251,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} date (without a
-   * time).
+   * Get the passed object as {@link XMLGregorianCalendar} date (without a time).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -270,22 +265,22 @@ public final class PDTXMLConverter
     return DT_FACTORY.newXMLGregorianCalendarDate (aBase.getYear (),
                                                    aBase.getMonth (),
                                                    aBase.getDay (),
-                                                   aBase.getTimezone () == 0 ? DatatypeConstants.FIELD_UNDEFINED : aBase.getTimezone ());
+                                                   aBase.getTimezone () == 0 ? DatatypeConstants.FIELD_UNDEFINED
+                                                                             : aBase.getTimezone ());
   }
 
   /**
    * <p>
-   * Create a Java representation of XML Schema builtin datatype
-   * <code>date</code> or <code>g*</code>.
+   * Create a Java representation of XML Schema builtin datatype <code>date</code> or
+   * <code>g*</code>.
    * </p>
    * <p>
-   * For example, an instance of <code>gYear</code> can be created invoking this
-   * factory with <code>month</code> and <code>day</code> parameters set to
+   * For example, an instance of <code>gYear</code> can be created invoking this factory with
+   * <code>month</code> and <code>day</code> parameters set to
    * {@link DatatypeConstants#FIELD_UNDEFINED}.
    * </p>
    * <p>
-   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is
-   * not set.
+   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is not set.
    * </p>
    *
    * @param nYear
@@ -297,10 +292,9 @@ public final class PDTXMLConverter
    * @return <code>XMLGregorianCalendar</code> created from parameter values.
    * @see DatatypeConstants#FIELD_UNDEFINED
    * @throws IllegalArgumentException
-   *         If any individual parameter's value is outside the maximum value
-   *         constraint for the field as determined by the Date/Time Data
-   *         Mapping table in {@link XMLGregorianCalendar} or if the composite
-   *         values constitute an invalid <code>XMLGregorianCalendar</code>
+   *         If any individual parameter's value is outside the maximum value constraint for the
+   *         field as determined by the Date/Time Data Mapping table in {@link XMLGregorianCalendar}
+   *         or if the composite values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
   @NonNull
@@ -311,17 +305,16 @@ public final class PDTXMLConverter
 
   /**
    * <p>
-   * Create a Java representation of XML Schema builtin datatype
-   * <code>date</code> or <code>g*</code>.
+   * Create a Java representation of XML Schema builtin datatype <code>date</code> or
+   * <code>g*</code>.
    * </p>
    * <p>
-   * For example, an instance of <code>gYear</code> can be created invoking this
-   * factory with <code>month</code> and <code>day</code> parameters set to
+   * For example, an instance of <code>gYear</code> can be created invoking this factory with
+   * <code>month</code> and <code>day</code> parameters set to
    * {@link DatatypeConstants#FIELD_UNDEFINED}.
    * </p>
    * <p>
-   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is
-   * not set.
+   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is not set.
    * </p>
    *
    * @param nYear
@@ -331,19 +324,21 @@ public final class PDTXMLConverter
    * @param nDay
    *        Day to be created.
    * @param nTimezone
-   *        Offset in minutes. {@link DatatypeConstants#FIELD_UNDEFINED}
-   *        indicates optional field is not set.
+   *        Offset in minutes. {@link DatatypeConstants#FIELD_UNDEFINED} indicates optional field is
+   *        not set.
    * @return <code>XMLGregorianCalendar</code> created from parameter values.
    * @see DatatypeConstants#FIELD_UNDEFINED
    * @throws IllegalArgumentException
-   *         If any individual parameter's value is outside the maximum value
-   *         constraint for the field as determined by the Date/Time Data
-   *         Mapping table in {@link XMLGregorianCalendar} or if the composite
-   *         values constitute an invalid <code>XMLGregorianCalendar</code>
+   *         If any individual parameter's value is outside the maximum value constraint for the
+   *         field as determined by the Date/Time Data Mapping table in {@link XMLGregorianCalendar}
+   *         or if the composite values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
   @NonNull
-  public static XMLGregorianCalendar getXMLCalendarDate (final int nYear, final int nMonth, final int nDay, final int nTimezone)
+  public static XMLGregorianCalendar getXMLCalendarDate (final int nYear,
+                                                         final int nMonth,
+                                                         final int nDay,
+                                                         final int nTimezone)
   {
     return DT_FACTORY.newXMLGregorianCalendarDate (nYear, nMonth, nDay, nTimezone);
   }
@@ -360,8 +355,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} time (without a
-   * date).
+   * Get the passed object as {@link XMLGregorianCalendar} time (without a date).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -380,8 +374,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} time (without a
-   * date).
+   * Get the passed object as {@link XMLGregorianCalendar} time (without a date).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -396,8 +389,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} time (without a
-   * date).
+   * Get the passed object as {@link XMLGregorianCalendar} time (without a date).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -416,8 +408,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the passed object as {@link XMLGregorianCalendar} time (without a
-   * date).
+   * Get the passed object as {@link XMLGregorianCalendar} time (without a date).
    *
    * @param aBase
    *        The source object. May be <code>null</code>.
@@ -437,17 +428,16 @@ public final class PDTXMLConverter
 
   /**
    * <p>
-   * Create a Java representation of XML Schema builtin datatype
-   * <code>date</code> or <code>g*</code>.
+   * Create a Java representation of XML Schema builtin datatype <code>date</code> or
+   * <code>g*</code>.
    * </p>
    * <p>
-   * For example, an instance of <code>gYear</code> can be created invoking this
-   * factory with <code>month</code> and <code>day</code> parameters set to
+   * For example, an instance of <code>gYear</code> can be created invoking this factory with
+   * <code>month</code> and <code>day</code> parameters set to
    * {@link DatatypeConstants#FIELD_UNDEFINED}.
    * </p>
    * <p>
-   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is
-   * not set.
+   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is not set.
    * </p>
    *
    * @param nHour
@@ -461,31 +451,32 @@ public final class PDTXMLConverter
    * @return <code>XMLGregorianCalendar</code> created from parameter values.
    * @see DatatypeConstants#FIELD_UNDEFINED
    * @throws IllegalArgumentException
-   *         If any individual parameter's value is outside the maximum value
-   *         constraint for the field as determined by the Date/Time Data
-   *         Mapping table in {@link XMLGregorianCalendar} or if the composite
-   *         values constitute an invalid <code>XMLGregorianCalendar</code>
+   *         If any individual parameter's value is outside the maximum value constraint for the
+   *         field as determined by the Date/Time Data Mapping table in {@link XMLGregorianCalendar}
+   *         or if the composite values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
   @NonNull
-  public static XMLGregorianCalendar getXMLCalendarTime (final int nHour, final int nMinute, final int nSecond, final int nMilliSecond)
+  public static XMLGregorianCalendar getXMLCalendarTime (final int nHour,
+                                                         final int nMinute,
+                                                         final int nSecond,
+                                                         final int nMilliSecond)
   {
     return getXMLCalendarTime (nHour, nMinute, nSecond, nMilliSecond, DatatypeConstants.FIELD_UNDEFINED);
   }
 
   /**
    * <p>
-   * Create a Java representation of XML Schema builtin datatype
-   * <code>date</code> or <code>g*</code>.
+   * Create a Java representation of XML Schema builtin datatype <code>date</code> or
+   * <code>g*</code>.
    * </p>
    * <p>
-   * For example, an instance of <code>gYear</code> can be created invoking this
-   * factory with <code>month</code> and <code>day</code> parameters set to
+   * For example, an instance of <code>gYear</code> can be created invoking this factory with
+   * <code>month</code> and <code>day</code> parameters set to
    * {@link DatatypeConstants#FIELD_UNDEFINED}.
    * </p>
    * <p>
-   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is
-   * not set.
+   * A {@link DatatypeConstants#FIELD_UNDEFINED} value indicates that field is not set.
    * </p>
    *
    * @param nHour
@@ -497,15 +488,14 @@ public final class PDTXMLConverter
    * @param nMilliSecond
    *        Milli second to be created.
    * @param nTimezone
-   *        Offset in minutes. {@link DatatypeConstants#FIELD_UNDEFINED}
-   *        indicates optional field is not set.
+   *        Offset in minutes. {@link DatatypeConstants#FIELD_UNDEFINED} indicates optional field is
+   *        not set.
    * @return <code>XMLGregorianCalendar</code> created from parameter values.
    * @see DatatypeConstants#FIELD_UNDEFINED
    * @throws IllegalArgumentException
-   *         If any individual parameter's value is outside the maximum value
-   *         constraint for the field as determined by the Date/Time Data
-   *         Mapping table in {@link XMLGregorianCalendar} or if the composite
-   *         values constitute an invalid <code>XMLGregorianCalendar</code>
+   *         If any individual parameter's value is outside the maximum value constraint for the
+   *         field as determined by the Date/Time Data Mapping table in {@link XMLGregorianCalendar}
+   *         or if the composite values constitute an invalid <code>XMLGregorianCalendar</code>
    *         instance as determined by {@link XMLGregorianCalendar#isValid()}.
    */
   @NonNull
@@ -519,8 +509,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Get the current date and time as {@link XMLGregorianCalendar} in the
-   * default time zone.
+   * Get the current date and time as {@link XMLGregorianCalendar} in the default time zone.
    *
    * @return Never <code>null</code>.
    */
@@ -594,25 +583,31 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Create a new {@link XMLGregorianCalendar} using separate objects for date
-   * and time.
+   * Create a new {@link XMLGregorianCalendar} using separate objects for date and time.
    *
    * @param aDate
    *        Source date. May be <code>null</code>.
    * @param aTime
    *        Source time. May be <code>null</code>.
-   * @return <code>null</code> if the passed date and time are <code>null</code>
-   *         .
+   * @return <code>null</code> if the passed date and time are <code>null</code> .
    */
   @Nullable
-  public static XMLGregorianCalendar getXMLCalendar (@Nullable final XMLGregorianCalendar aDate, @Nullable final XMLGregorianCalendar aTime)
+  public static XMLGregorianCalendar getXMLCalendar (@Nullable final XMLGregorianCalendar aDate,
+                                                     @Nullable final XMLGregorianCalendar aTime)
   {
     if (aDate == null && aTime == null)
       return null;
     if (aTime == null)
     {
       // Date only
-      return DT_FACTORY.newXMLGregorianCalendar (aDate.getYear (), aDate.getMonth (), aDate.getDay (), 0, 0, 0, 0, aDate.getTimezone ());
+      return DT_FACTORY.newXMLGregorianCalendar (aDate.getYear (),
+                                                 aDate.getMonth (),
+                                                 aDate.getDay (),
+                                                 0,
+                                                 0,
+                                                 0,
+                                                 0,
+                                                 aDate.getTimezone ());
     }
     if (aDate == null)
     {
@@ -682,8 +677,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * Convert the passed {@link XMLGregorianCalendar} to a
-   * {@link GregorianCalendar}.
+   * Convert the passed {@link XMLGregorianCalendar} to a {@link GregorianCalendar}.
    *
    * @param aCal
    *        Source calendar. May be <code>null</code>.
@@ -694,7 +688,9 @@ public final class PDTXMLConverter
   {
     if (aCal == null)
       return null;
-    return aCal.toGregorianCalendar (aCal.getTimeZone (aCal.getTimezone ()), Locale.getDefault (Locale.Category.FORMAT), null);
+    return aCal.toGregorianCalendar (aCal.getTimeZone (aCal.getTimezone ()),
+                                     Locale.getDefault (Locale.Category.FORMAT),
+                                     null);
   }
 
   /**
@@ -776,8 +772,7 @@ public final class PDTXMLConverter
    *
    * @param aCal
    *        The source {@link XMLGregorianCalendar}. May be <code>null</code>.
-   * @return <code>{@link CGlobal#ILLEGAL_ULONG}</code> if the parameter is
-   *         <code>null</code>.
+   * @return <code>{@link CGlobal#ILLEGAL_ULONG}</code> if the parameter is <code>null</code>.
    */
   @CheckForSigned
   public static long getMillis (@Nullable final XMLGregorianCalendar aCal)

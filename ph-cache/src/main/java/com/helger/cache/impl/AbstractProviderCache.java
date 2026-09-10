@@ -114,7 +114,8 @@ public abstract class AbstractProviderCache <KEYTYPE, KEYSTORETYPE, VALUETYPE> i
   }
 
   /**
-   * @return The internal cache that stores the values by their storage key. Never <code>null</code>.
+   * @return The internal cache that stores the values by their storage key. Never
+   *         <code>null</code>.
    */
   @NonNull
   final ManualCache <KEYSTORETYPE, VALUETYPE> internalGetCache ()

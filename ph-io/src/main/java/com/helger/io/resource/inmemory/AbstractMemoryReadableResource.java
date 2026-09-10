@@ -83,8 +83,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   }
 
   /**
-   * @return Always <code>null</code> since in-memory resources cannot be
-   *         represented as a URL.
+   * @return Always <code>null</code> since in-memory resources cannot be represented as a URL.
    */
   @Nullable
   public URL getAsURL ()
@@ -93,8 +92,7 @@ public abstract class AbstractMemoryReadableResource implements IMemoryReadableR
   }
 
   /**
-   * @return Always <code>null</code> since in-memory resources cannot be
-   *         represented as a file.
+   * @return Always <code>null</code> since in-memory resources cannot be represented as a file.
    */
   @Nullable
   public File getAsFile ()

@@ -60,16 +60,14 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
   NODETYPE getNodeOfID (@Nullable String sID);
 
   /**
-   * @return A non-<code>null</code> collection of the nodes in this graph, in
-   *         arbitrary order!
+   * @return A non-<code>null</code> collection of the nodes in this graph, in arbitrary order!
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, NODETYPE> getAllNodes ();
 
   /**
-   * @return A non-<code>null</code> set of all the node IDs in this graph, in
-   *         arbitrary order!
+   * @return A non-<code>null</code> set of all the node IDs in this graph, in arbitrary order!
    */
   @NonNull
   @ReturnsMutableCopy
@@ -79,72 +77,65 @@ public interface IBaseGraph <NODETYPE extends IBaseGraphNode <NODETYPE, RELATION
    * Iterate each node calling the provided consumer with the node object.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        operations!
    */
   void forEachNode (@NonNull Consumer <? super NODETYPE> aConsumer);
 
   /**
-   * @return A non-<code>null</code> map of the relations in this graph, in
-   *         arbitrary order!
+   * @return A non-<code>null</code> map of the relations in this graph, in arbitrary order!
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedMap <String, RELATIONTYPE> getAllRelations ();
 
   /**
-   * @return A non-<code>null</code> list of the relations in this graph, in
-   *         arbitrary order!
+   * @return A non-<code>null</code> list of the relations in this graph, in arbitrary order!
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <RELATIONTYPE> getAllRelationObjs ();
 
   /**
-   * @return A non-<code>null</code> set of all the relation IDs in this graph,
-   *         in arbitrary order!
+   * @return A non-<code>null</code> set of all the relation IDs in this graph, in arbitrary order!
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllRelationIDs ();
 
   /**
-   * Iterate each relation calling the provided consumer with the relation
-   * object.
+   * Iterate each relation calling the provided consumer with the relation object.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        operations!
    */
   void forEachRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
-   * Check if this graph contains cycles. An example for a cycle is e.g. if
-   * <code>NodeA</code> has an outgoing relation to <code>NodeB</code>,
-   * <code>NodeB</code> has an outgoing relation to <code>NodeC</code> and
-   * finally <code>NodeC</code> has an outgoing relation to <code>NodeA</code>.
+   * Check if this graph contains cycles. An example for a cycle is e.g. if <code>NodeA</code> has
+   * an outgoing relation to <code>NodeB</code>, <code>NodeB</code> has an outgoing relation to
+   * <code>NodeC</code> and finally <code>NodeC</code> has an outgoing relation to
+   * <code>NodeA</code>.
    *
-   * @return <code>true</code> if this graph contains at least one cycle,
-   *         <code>false</code> if this graph is cycle-free.
+   * @return <code>true</code> if this graph contains at least one cycle, <code>false</code> if this
+   *         graph is cycle-free.
    */
   boolean containsCycles ();
 
   /**
-   * Check if this graph is completely self contained. As relations between
-   * nodes do not check whether both nodes belong to the same graph it is
-   * possible to link different graphs together with relations. This method
-   * returns true, if all nodes referenced from all relations link to objects
-   * inside this graph.
+   * Check if this graph is completely self contained. As relations between nodes do not check
+   * whether both nodes belong to the same graph it is possible to link different graphs together
+   * with relations. This method returns true, if all nodes referenced from all relations link to
+   * objects inside this graph.
    *
-   * @return <code>true</code> if this graph is self contained,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if this graph is self contained, <code>false</code> if not.
    */
   boolean isSelfContained ();
 
   /**
-   * @return A new incidence matrix (Symmetric matrix where 1/-1 is set if a
-   *         relation is present, 0 if no relation is present; Number of rows
-   *         and columns is equal to the number of nodes).
+   * @return A new incidence matrix (Symmetric matrix where 1/-1 is set if a relation is present, 0
+   *         if no relation is present; Number of rows and columns is equal to the number of nodes).
    * @throws IllegalArgumentException
    *         If this graph contains no node
    */

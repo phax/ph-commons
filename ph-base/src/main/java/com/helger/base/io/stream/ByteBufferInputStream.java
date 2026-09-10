@@ -63,8 +63,8 @@ public final class ByteBufferInputStream extends InputStream
   }
 
   /**
-   * @return The contained {@link ByteBuffer}. Handle with care! May be
-   *         <code>null</code> if the stream is closed!
+   * @return The contained {@link ByteBuffer}. Handle with care! May be <code>null</code> if the
+   *         stream is closed!
    */
   @Nullable
   public ByteBuffer getBuffer ()
@@ -74,8 +74,8 @@ public final class ByteBufferInputStream extends InputStream
   }
 
   /**
-   * @return <code>true</code> if there is at least one byte remaining to be
-   *         read, <code>false</code> otherwise.
+   * @return <code>true</code> if there is at least one byte remaining to be read,
+   *         <code>false</code> otherwise.
    */
   public boolean isAnythingAvailable ()
   {

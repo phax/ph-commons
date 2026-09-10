@@ -93,7 +93,9 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
     public String toString ()
     {
       // No object needed for ctor
-      return new ToStringGenerator (null).append ("invocations", m_nInvocationCount).append ("count", m_nCount).getToString ();
+      return new ToStringGenerator (null).append ("invocations", m_nInvocationCount)
+                                         .append ("count", m_nCount)
+                                         .getToString ();
     }
   }
 
@@ -112,7 +114,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   public void increment (@Nullable final String sKey, final long nByHowMany)
   {
     m_aInvocationCount.incrementAndGet ();
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       final Value aPerKey = m_aMap.get (sKey);
       if (aPerKey == null)
         m_aMap.put (sKey, new Value (nByHowMany));
@@ -133,7 +135,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @CheckForSigned
   public long getCount (@Nullable final String sKey)
   {
-    return m_aRWLock.readLockedLong ( () -> {
+    return m_aRWLock.readLockedLong (() -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_ULONG : aCount.getCount ();
     });
@@ -143,7 +145,7 @@ public class StatisticsHandlerKeyedCounter implements IMutableStatisticsHandlerK
   @CheckForSigned
   public int getInvocationCount (@Nullable final String sKey)
   {
-    return m_aRWLock.readLockedInt ( () -> {
+    return m_aRWLock.readLockedInt (() -> {
       final Value aCount = m_aMap.get (sKey);
       return aCount == null ? CGlobal.ILLEGAL_UINT : aCount.getInvocationCount ();
     });

@@ -37,14 +37,14 @@ public interface IBaseGraphObject extends IHasID <String>
   IAttributeContainerAny <String> attrs ();
 
   /**
-   * Check if the object is directed or undirected. Directed nodes must
-   * implement {@link IMutableDirectedGraphNode} whereas undirected relations
-   * must implement {@link IMutableGraphNode}. Directed relations must implement
-   * {@link IMutableDirectedGraphRelation} whereas undirected relations must
-   * implement {@link IMutableGraphRelation}.
+   * Check if the object is directed or undirected. Directed nodes must implement
+   * {@link IMutableDirectedGraphNode} whereas undirected relations must implement
+   * {@link IMutableGraphNode}. Directed relations must implement
+   * {@link IMutableDirectedGraphRelation} whereas undirected relations must implement
+   * {@link IMutableGraphRelation}.
    *
-   * @return <code>true</code> if it is a directed object "from" and "to"),
-   *         <code>false</code> if it is an undirected object.
+   * @return <code>true</code> if it is a directed object "from" and "to"), <code>false</code> if it
+   *         is an undirected object.
    */
   boolean isDirected ();
 }

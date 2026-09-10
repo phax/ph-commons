@@ -156,7 +156,7 @@ public final class JsonMapper
     final String sClassName = aObj.getAsString (JsonMapper.JSON_CLASS);
     final String sMessage = aObj.getAsString (JsonMapper.JSON_MESSAGE);
     final List <String> aStackTraceLines = StringHelper.getExploded (StackTraceHelper.DEFAULT_LINE_SEPARATOR,
-                                                                aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
+                                                                     aObj.getAsString (JsonMapper.JSON_STACK_TRACE));
     if (sClassName == null)
       return null;
 

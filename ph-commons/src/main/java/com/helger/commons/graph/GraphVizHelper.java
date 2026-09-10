@@ -52,8 +52,8 @@ public final class GraphVizHelper
   {}
 
   /**
-   * Create a GraphViz DOT attribute string in the form
-   * <code>name=&lt;value&gt;</code> with XML-escaped value.
+   * Create a GraphViz DOT attribute string in the form <code>name=&lt;value&gt;</code> with
+   * XML-escaped value.
    *
    * @param sName
    *        The attribute name. May neither be <code>null</code> nor empty.
@@ -210,8 +210,7 @@ public final class GraphVizHelper
    */
   @NonNull
   public static NonBlockingByteArrayOutputStream getGraphAsImageWithGraphVizNeato (@NonNull @Nonempty final String sFileType,
-                                                                                   @NonNull final String sDOT) throws IOException,
-                                                                                                               InterruptedException
+                                                                                   @NonNull final String sDOT) throws IOException, InterruptedException
   {
     ValueEnforcer.notEmpty (sFileType, "FileType");
     ValueEnforcer.notEmpty (sDOT, "DOT");

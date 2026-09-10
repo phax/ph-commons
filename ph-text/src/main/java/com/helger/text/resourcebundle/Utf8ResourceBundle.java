@@ -49,8 +49,7 @@ public final class Utf8ResourceBundle
   }
 
   /**
-   * Get a UTF-8 resource bundle for the given base name using the default
-   * locale.
+   * Get a UTF-8 resource bundle for the given base name using the default locale.
    *
    * @param sBaseName
    *        The base name of the resource bundle. May not be <code>null</code>.
@@ -78,8 +77,7 @@ public final class Utf8ResourceBundle
   }
 
   /**
-   * Get a UTF-8 resource bundle for the given base name, locale and class
-   * loader.
+   * Get a UTF-8 resource bundle for the given base name, locale and class loader.
    *
    * @param sBaseName
    *        The base name of the resource bundle. May not be <code>null</code>.

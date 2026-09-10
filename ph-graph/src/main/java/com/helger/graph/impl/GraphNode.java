@@ -56,8 +56,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this graph node. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this graph node. If <code>null</code> or empty a new ID is generated.
    */
   public GraphNode (@Nullable final String sID)
   {

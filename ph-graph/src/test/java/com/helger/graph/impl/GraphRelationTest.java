@@ -72,13 +72,11 @@ public final class GraphRelationTest
     assertTrue (gr.getAllConnectedNodes ().contains (nt));
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new GraphRelation ("id1", nf, nt),
-                                                                       new GraphRelation ("id1", nf, nt));
+                                                                new GraphRelation ("id1", nf, nt));
     // different IDs
     TestHelper.testDefaultImplementationWithDifferentContentObject (new GraphRelation (nf, nt),
-                                                                           new GraphRelation (nf, nt));
+                                                                    new GraphRelation (nf, nt));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new GraphRelation ("id1", nf, nt),
-                                                                           new GraphRelation ("id1",
-                                                                                              nf,
-                                                                                              new GraphNode ()));
+                                                                    new GraphRelation ("id1", nf, new GraphNode ()));
   }
 }

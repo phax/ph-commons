@@ -35,7 +35,7 @@ public final class ExecutorServiceHelperTest
   public void testAll ()
   {
     final ExecutorService aExecSvc = Executors.newFixedThreadPool (3);
-    aExecSvc.submit ( () -> {
+    aExecSvc.submit (() -> {
       // empty
     });
     assertTrue (ExecutorServiceHelper.shutdownAndWaitUntilAllTasksAreFinished (aExecSvc).isNotInterrupted ());

@@ -80,7 +80,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   public boolean isUseResourceBundleCache ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_bUseResourceBundleCache);
+    return m_aRWLock.readLockedBoolean (() -> m_bUseResourceBundleCache);
   }
 
   /**
@@ -91,7 +91,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
    */
   public void setUseResourceBundleCache (final boolean bUseResourceBundleCache)
   {
-    m_aRWLock.writeLocked ( () -> m_bUseResourceBundleCache = bUseResourceBundleCache);
+    m_aRWLock.writeLocked (() -> m_bUseResourceBundleCache = bUseResourceBundleCache);
   }
 
   /**
@@ -107,7 +107,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   @Nullable
   private ResourceBundle _getResourceBundle (@NonNull @Nonempty final String sBundleName, @NonNull final Locale aLocale)
   {
-    ResourceBundle ret = m_aRWLock.readLockedGet ( () -> {
+    ResourceBundle ret = m_aRWLock.readLockedGet (() -> {
       if (!m_bUseResourceBundleCache)
       {
         // Do not use the cache!
@@ -121,7 +121,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
 
     if (ret == null)
     {
-      ret = m_aRWLock.writeLockedGet ( () -> {
+      ret = m_aRWLock.writeLockedGet (() -> {
         // Re-check in write lock
         if (m_aResourceBundleCache.containsKey (sBundleName))
           return m_aResourceBundleCache.get (sBundleName);
@@ -150,7 +150,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       if (ret != null)
       {
         // Match!
-        m_aRWLock.writeLocked ( () -> m_aUsedOverrideBundles.add (sBundleName));
+        m_aRWLock.writeLocked (() -> m_aUsedOverrideBundles.add (sBundleName));
         return ret;
       }
     }
@@ -171,7 +171,7 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
       final String ret = ResourceBundleHelper.getString (_getResourceBundle (sBundleName, aLocale), sID);
       if (ret != null)
       {
-        m_aRWLock.writeLocked ( () -> m_aUsedFallbackBundles.add (sBundleName));
+        m_aRWLock.writeLocked (() -> m_aUsedFallbackBundles.add (sBundleName));
         return ret;
       }
     }
@@ -208,12 +208,12 @@ public class EnumTextResolverWithPropertiesOverrideAndFallback extends AbstractE
   }
 
   /**
-   * Clear all internal caches including the resource bundle cache and the used
-   * override/fallback bundle name caches.
+   * Clear all internal caches including the resource bundle cache and the used override/fallback
+   * bundle name caches.
    */
   public void clearCache ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       ResourceBundleHelper.clearCache ();
       m_aUsedOverrideBundles.clear ();
       m_aUsedFallbackBundles.clear ();

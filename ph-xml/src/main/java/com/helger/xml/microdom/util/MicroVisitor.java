@@ -27,8 +27,7 @@ import com.helger.collection.hierarchy.visit.IHierarchyVisitorCallback;
 import com.helger.xml.microdom.IMicroNode;
 
 /**
- * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a
- * callback.
+ * Helper class that visits a {@link com.helger.xml.microdom.IMicroNode} with a callback.
  *
  * @author Philip Helger
  */
@@ -42,23 +41,24 @@ public final class MicroVisitor
   {}
 
   /**
-   * Iterate the passed node and invoke the callback for all child nodes. The
-   * callback is not invoked for the passed node itself!
+   * Iterate the passed node and invoke the callback for all child nodes. The callback is not
+   * invoked for the passed node itself!
    *
    * @param aNode
    *        The node to iterate. May not be <code>null</code>.
    * @param aCallback
    *        The callback to call. May not be <code>null</code>.
    */
-  public static void visit (@NonNull final IMicroNode aNode, @NonNull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
+  public static void visit (@NonNull final IMicroNode aNode,
+                            @NonNull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);
   }
 
   /**
-   * Iterate the passed node and invoke the callback for all child nodes. The
-   * callback is not invoked for the passed node itself!
+   * Iterate the passed node and invoke the callback for all child nodes. The callback is not
+   * invoked for the passed node itself!
    *
    * @param <T>
    *        The node type to be visited

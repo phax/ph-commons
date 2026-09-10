@@ -61,8 +61,8 @@ public final class ConfigurationSourceResourceTypeRegistry
   }
 
   /**
-   * @return <code>true</code> if the singleton has already been instantiated,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the singleton has already been instantiated, <code>false</code>
+   *         otherwise.
    */
   public static boolean isInstantiated ()
   {
@@ -82,7 +82,7 @@ public final class ConfigurationSourceResourceTypeRegistry
 
   private void _reinitialize ()
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       // Register all custom resource types.
       // Must be in writeLock to ensure no reads happen during initialization
       for (final IConfigurationSourceResourceTypeRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IConfigurationSourceResourceTypeRegistrarSPI.class))
@@ -98,25 +98,24 @@ public final class ConfigurationSourceResourceTypeRegistry
   }
 
   /**
-   * Register a new configuration source resource type factory for the given
-   * file extension.
+   * Register a new configuration source resource type factory for the given file extension.
    *
    * @param sFileExt
-   *        The file extension to register for. May neither be <code>null</code>
-   *        nor empty and must not start with a dot.
+   *        The file extension to register for. May neither be <code>null</code> nor empty and must
+   *        not start with a dot.
    * @param aFactory
-   *        The factory to create configuration sources from a readable resource.
-   *        May not be <code>null</code>.
+   *        The factory to create configuration sources from a readable resource. May not be
+   *        <code>null</code>.
    */
   public void register (@NonNull @Nonempty final String sFileExt,
                         @NonNull final Function <IReadableResource, AbstractConfigurationSourceResource> aFactory)
   {
     ValueEnforcer.notEmpty (sFileExt, "FileExt");
-    ValueEnforcer.isFalse ( () -> sFileExt.startsWith ("."),
-                            () -> "The file extension '" + sFileExt + "' must not start with a dot");
+    ValueEnforcer.isFalse (() -> sFileExt.startsWith ("."),
+                           () -> "The file extension '" + sFileExt + "' must not start with a dot");
     ValueEnforcer.notNull (aFactory, "Factory");
 
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       if (m_aMap.containsKey (sFileExt))
         throw new IllegalStateException ("The configuration source file extension '" +
                                          sFileExt +
@@ -130,8 +129,7 @@ public final class ConfigurationSourceResourceTypeRegistry
    *
    * @param sFileExt
    *        The file extension to look up. May be <code>null</code>.
-   * @return <code>null</code> if no factory is registered for the provided
-   *         file extension.
+   * @return <code>null</code> if no factory is registered for the provided file extension.
    */
   @Nullable
   public Function <IReadableResource, AbstractConfigurationSourceResource> getFactoryOfFileExtension (@Nullable final String sFileExt)
@@ -139,12 +137,12 @@ public final class ConfigurationSourceResourceTypeRegistry
     if (StringHelper.isEmpty (sFileExt))
       return null;
 
-    return m_aRWLock.readLockedGet ( () -> m_aMap.get (sFileExt));
+    return m_aRWLock.readLockedGet (() -> m_aMap.get (sFileExt));
   }
 
   /**
-   * Get the factory for the given file extension, falling back to a second
-   * file extension if the first one is not found.
+   * Get the factory for the given file extension, falling back to a second file extension if the
+   * first one is not found.
    *
    * @param sFileExt
    *        The primary file extension to look up. May be <code>null</code>.
@@ -152,8 +150,7 @@ public final class ConfigurationSourceResourceTypeRegistry
    *        The fallback file extension to look up. May be <code>null</code>.
    * @return Never <code>null</code>.
    * @throws IllegalStateException
-   *         if neither the primary nor the fallback file extension could be
-   *         resolved.
+   *         if neither the primary nor the fallback file extension could be resolved.
    */
   @NonNull
   public Function <IReadableResource, AbstractConfigurationSourceResource> getFactoryOfFileExtensionOrFallback (@Nullable final String sFileExt,

@@ -25,8 +25,8 @@ import com.helger.base.hashcode.IHashCodeGenerator;
 import com.helger.graph.IMutableGraphNode;
 
 /**
- * Implementation of {@link com.helger.graph.IMutableGraphRelation} interface
- * with quick and dirty equals and hashCode (on ID only)
+ * Implementation of {@link com.helger.graph.IMutableGraphRelation} interface with quick and dirty
+ * equals and hashCode (on ID only)
  *
  * @author Philip Helger
  */
@@ -53,14 +53,15 @@ public class GraphRelationFast extends GraphRelation
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this relation. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this relation. If <code>null</code> or empty a new ID is generated.
    * @param aFrom
    *        The first node. May not be <code>null</code>.
    * @param aTo
    *        The second node. May not be <code>null</code>.
    */
-  public GraphRelationFast (@Nullable final String sID, @NonNull final IMutableGraphNode aFrom, @NonNull final IMutableGraphNode aTo)
+  public GraphRelationFast (@Nullable final String sID,
+                            @NonNull final IMutableGraphNode aFrom,
+                            @NonNull final IMutableGraphNode aTo)
   {
     super (sID, aFrom, aTo);
   }

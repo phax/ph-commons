@@ -51,10 +51,10 @@ public final class FileSystemByteStreamProviderTest
     assertTrue (FileOperations.deleteFile (new File ("$deleteme.txt")).isSuccess ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
-                                                                       new FileSystemByteStreamProvider (new File (".")));
+                                                                new FileSystemByteStreamProvider (new File (".")));
     TestHelper.testDefaultImplementationWithEqualContentObject (new FileSystemByteStreamProvider (new File (".")),
-                                                                       new FileSystemByteStreamProvider ("."));
+                                                                new FileSystemByteStreamProvider ("."));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new FileSystemByteStreamProvider (new File (".")),
-                                                                           new FileSystemByteStreamProvider (new File ("..")));
+                                                                    new FileSystemByteStreamProvider (new File ("..")));
   }
 }

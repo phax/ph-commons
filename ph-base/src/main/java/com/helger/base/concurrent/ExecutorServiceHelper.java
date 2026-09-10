@@ -45,10 +45,9 @@ public final class ExecutorServiceHelper
    * Wait indefinitely on the {@link ExecutorService} until it terminates.
    *
    * @param aES
-   *        The {@link ExecutorService} to operate on. May not be
-   *        <code>null</code>.
-   * @return {@link EInterrupt#INTERRUPTED} if the executor service was
-   *         interrupted while awaiting termination. Never <code>null</code>.
+   *        The {@link ExecutorService} to operate on. May not be <code>null</code>.
+   * @return {@link EInterrupt#INTERRUPTED} if the executor service was interrupted while awaiting
+   *         termination. Never <code>null</code>.
    */
   @NonNull
   public static EInterrupt waitUntilAllTasksAreFinished (@NonNull final ExecutorService aES)
@@ -60,15 +59,13 @@ public final class ExecutorServiceHelper
    * Wait indefinitely on the {@link ExecutorService} until it terminates.
    *
    * @param aES
-   *        The {@link ExecutorService} to operate on. May not be
-   *        <code>null</code>.
+   *        The {@link ExecutorService} to operate on. May not be <code>null</code>.
    * @param nTimeout
    *        the maximum time to wait. Must be &gt; 0.
    * @param eUnit
-   *        the time unit of the timeout argument. Must not be <code>null</code>
-   *        .
-   * @return {@link EInterrupt#INTERRUPTED} if the executor service was
-   *         interrupted while awaiting termination. Never <code>null</code>.
+   *        the time unit of the timeout argument. Must not be <code>null</code> .
+   * @return {@link EInterrupt#INTERRUPTED} if the executor service was interrupted while awaiting
+   *         termination. Never <code>null</code>.
    */
   @NonNull
   public static EInterrupt waitUntilAllTasksAreFinished (@NonNull final ExecutorService aES,
@@ -94,14 +91,12 @@ public final class ExecutorServiceHelper
   }
 
   /**
-   * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
-   * terminated.
+   * Call shutdown on the {@link ExecutorService} and wait indefinitely until it terminated.
    *
    * @param aES
-   *        The {@link ExecutorService} to operate on. May not be
-   *        <code>null</code>.
-   * @return {@link EInterrupt#INTERRUPTED} if the executor service was
-   *         interrupted while awaiting termination. Never <code>null</code>.
+   *        The {@link ExecutorService} to operate on. May not be <code>null</code>.
+   * @return {@link EInterrupt#INTERRUPTED} if the executor service was interrupted while awaiting
+   *         termination. Never <code>null</code>.
    */
   @NonNull
   public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@NonNull final ExecutorService aES)
@@ -110,19 +105,16 @@ public final class ExecutorServiceHelper
   }
 
   /**
-   * Call shutdown on the {@link ExecutorService} and wait indefinitely until it
-   * terminated.
+   * Call shutdown on the {@link ExecutorService} and wait indefinitely until it terminated.
    *
    * @param aES
-   *        The {@link ExecutorService} to operate on. May not be
-   *        <code>null</code>.
+   *        The {@link ExecutorService} to operate on. May not be <code>null</code>.
    * @param nTimeout
    *        the maximum time to wait. Must be &gt; 0.
    * @param eUnit
-   *        the time unit of the timeout argument. Must not be <code>null</code>
-   *        .
-   * @return {@link EInterrupt#INTERRUPTED} if the executor service was
-   *         interrupted while awaiting termination. Never <code>null</code>.
+   *        the time unit of the timeout argument. Must not be <code>null</code> .
+   * @return {@link EInterrupt#INTERRUPTED} if the executor service was interrupted while awaiting
+   *         termination. Never <code>null</code>.
    */
   @NonNull
   public static EInterrupt shutdownAndWaitUntilAllTasksAreFinished (@NonNull final ExecutorService aES,

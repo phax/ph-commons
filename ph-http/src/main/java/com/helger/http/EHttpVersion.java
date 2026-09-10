@@ -52,8 +52,7 @@ public enum EHttpVersion implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this is HTTP/1.0, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this is HTTP/1.0, <code>false</code> otherwise.
    */
   public boolean is10 ()
   {
@@ -61,8 +60,7 @@ public enum EHttpVersion implements IHasName
   }
 
   /**
-   * @return <code>true</code> if this is HTTP/1.1 or later, <code>false</code>
-   *         otherwise.
+   * @return <code>true</code> if this is HTTP/1.1 or later, <code>false</code> otherwise.
    */
   public boolean isAtLeast11 ()
   {

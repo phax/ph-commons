@@ -17,8 +17,8 @@
 package com.helger.base.mock.exception;
 
 /**
- * This is a marker interface for mock exceptions. It should be used to easily
- * identify mock exceptions from regular exceptions.
+ * This is a marker interface for mock exceptions. It should be used to easily identify mock
+ * exceptions from regular exceptions.
  *
  * @author Philip Helger
  */

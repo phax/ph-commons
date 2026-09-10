@@ -63,8 +63,8 @@ public final class BenchmarkLevenshteinDistance extends AbstractBenchmarkTask
     findWhetherSynchronizedOrLockAreFaster ();
   }
 
-  private static ICommonsList <String> _readWordList (final IReadableResource aRes, final Charset aCharset)
-                                                                                                            throws IOException
+  private static ICommonsList <String> _readWordList (final IReadableResource aRes,
+                                                      final Charset aCharset) throws IOException
   {
     final ICommonsList <String> ret = new CommonsArrayList <> ();
     try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (new InputStreamReader (aRes.getInputStream (),

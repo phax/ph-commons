@@ -25,8 +25,7 @@ package com.helger.cli;
 public interface IOptionBase
 {
   /**
-   * @return <code>true</code> if this element is required, <code>false</code>
-   *         if not.
+   * @return <code>true</code> if this element is required, <code>false</code> if not.
    */
   boolean isRequired ();
 }

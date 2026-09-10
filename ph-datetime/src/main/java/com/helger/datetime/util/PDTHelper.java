@@ -55,13 +55,12 @@ public final class PDTHelper
   {}
 
   /**
-   * Check if the provided {@link LocalDate} is <code>null</code> or represents
-   * the predefined null date constant.
+   * Check if the provided {@link LocalDate} is <code>null</code> or represents the predefined null
+   * date constant.
    *
    * @param aDate
    *        The date to check. May be <code>null</code>.
-   * @return <code>true</code> if the date is <code>null</code> or equals the
-   *         null date constant.
+   * @return <code>true</code> if the date is <code>null</code> or equals the null date constant.
    */
   public static boolean isNullValue (@Nullable final LocalDate aDate)
   {
@@ -69,13 +68,12 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the provided {@link LocalTime} is <code>null</code> or represents
-   * the predefined null time constant.
+   * Check if the provided {@link LocalTime} is <code>null</code> or represents the predefined null
+   * time constant.
    *
    * @param aTime
    *        The time to check. May be <code>null</code>.
-   * @return <code>true</code> if the time is <code>null</code> or equals the
-   *         null time constant.
+   * @return <code>true</code> if the time is <code>null</code> or equals the null time constant.
    */
   public static boolean isNullValue (@Nullable final LocalTime aTime)
   {
@@ -83,13 +81,13 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the provided {@link LocalDateTime} is <code>null</code> or
-   * represents the predefined null date time constant.
+   * Check if the provided {@link LocalDateTime} is <code>null</code> or represents the predefined
+   * null date time constant.
    *
    * @param aDateTime
    *        The date time to check. May be <code>null</code>.
-   * @return <code>true</code> if the date time is <code>null</code> or equals
-   *         the null date time constant.
+   * @return <code>true</code> if the date time is <code>null</code> or equals the null date time
+   *         constant.
    */
   public static boolean isNullValue (@Nullable final LocalDateTime aDateTime)
   {
@@ -97,13 +95,13 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the provided {@link ZonedDateTime} is <code>null</code> or
-   * represents the predefined null date time constant.
+   * Check if the provided {@link ZonedDateTime} is <code>null</code> or represents the predefined
+   * null date time constant.
    *
    * @param aDateTime
    *        The zoned date time to check. May be <code>null</code>.
-   * @return <code>true</code> if the zoned date time is <code>null</code> or
-   *         equals the null date time constant.
+   * @return <code>true</code> if the zoned date time is <code>null</code> or equals the null date
+   *         time constant.
    */
   public static boolean isNullValue (@Nullable final ZonedDateTime aDateTime)
   {
@@ -151,8 +149,7 @@ public final class PDTHelper
    *
    * @param nDayOfWeek
    *        The day of week to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured start of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured start of week day.
    */
   public static boolean isFirstDayOfWeek (final DayOfWeek nDayOfWeek)
   {
@@ -164,8 +161,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The zoned date time to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured start of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured start of week day.
    */
   public static boolean isFirstDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
@@ -177,8 +173,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The date time to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured start of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured start of week day.
    */
   public static boolean isFirstDayOfWeek (@NonNull final LocalDateTime aDT)
   {
@@ -190,8 +185,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The date to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured start of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured start of week day.
    */
   public static boolean isFirstDayOfWeek (@NonNull final LocalDate aDT)
   {
@@ -203,8 +197,7 @@ public final class PDTHelper
    *
    * @param nDayOfWeek
    *        The day of week to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured end of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured end of week day.
    */
   public static boolean isLastDayOfWeek (final DayOfWeek nDayOfWeek)
   {
@@ -216,8 +209,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The zoned date time to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured end of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured end of week day.
    */
   public static boolean isLastDayOfWeek (@NonNull final ZonedDateTime aDT)
   {
@@ -229,8 +221,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The date time to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured end of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured end of week day.
    */
   public static boolean isLastDayOfWeek (@NonNull final LocalDateTime aDT)
   {
@@ -242,8 +233,7 @@ public final class PDTHelper
    *
    * @param aDT
    *        The date to check. May not be <code>null</code>.
-   * @return <code>true</code> if the day matches the configured end of week
-   *         day.
+   * @return <code>true</code> if the day matches the configured end of week day.
    */
   public static boolean isLastDayOfWeek (@NonNull final LocalDate aDT)
   {
@@ -251,8 +241,7 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the provided date is a work day (not a weekend day). Does not
-   * consider holidays.
+   * Check if the provided date is a work day (not a weekend day). Does not consider holidays.
    *
    * @param aDate
    *        The date to check. May not be <code>null</code>.
@@ -315,8 +304,7 @@ public final class PDTHelper
    * @param y
    *        Second date. May not be <code>null</code>.
    * @param aLocale
-   *        Locale to use for determining the week fields. May not be
-   *        <code>null</code>.
+   *        Locale to use for determining the week fields. May not be <code>null</code>.
    * @return <code>true</code> if year and week of week-based year are equal.
    */
   public static boolean isSameYearAndWeek (@NonNull final LocalDate x,
@@ -341,8 +329,7 @@ public final class PDTHelper
   }
 
   /**
-   * Check if the provided date is between the lower and upper bound
-   * (inclusive).
+   * Check if the provided date is between the lower and upper bound (inclusive).
    *
    * @param aDate
    *        The date to check. May be <code>null</code>.
@@ -350,8 +337,8 @@ public final class PDTHelper
    *        The lower bound (inclusive). May be <code>null</code>.
    * @param aUpperBound
    *        The upper bound (inclusive). May be <code>null</code>.
-   * @return <code>true</code> if all parameters are non-<code>null</code> and
-   *         the date is between the bounds (inclusive).
+   * @return <code>true</code> if all parameters are non-<code>null</code> and the date is between
+   *         the bounds (inclusive).
    */
   public static boolean isBetweenIncl (@Nullable final LocalDate aDate,
                                        @Nullable final LocalDate aLowerBound,
@@ -363,15 +350,12 @@ public final class PDTHelper
   }
 
   /**
-   * Get the week of week-based year for the provided temporal accessor and
-   * locale.
+   * Get the week of week-based year for the provided temporal accessor and locale.
    *
    * @param aDT
-   *        The temporal accessor to get the week from. May not be
-   *        <code>null</code>.
+   *        The temporal accessor to get the week from. May not be <code>null</code>.
    * @param aLocale
-   *        Locale to use for determining the week fields. May not be
-   *        <code>null</code>.
+   *        Locale to use for determining the week fields. May not be <code>null</code>.
    * @return The week of week-based year.
    */
   public static int getWeekOfWeekBasedYear (@NonNull final TemporalAccessor aDT, @NonNull final Locale aLocale)
@@ -482,8 +466,8 @@ public final class PDTHelper
   }
 
   /**
-   * Get the current or next weekday based on today's date. If today is a week
-   * day, today is returned.
+   * Get the current or next weekday based on today's date. If today is a week day, today is
+   * returned.
    *
    * @return The current or next matching weekday. Never <code>null</code>.
    */

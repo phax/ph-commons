@@ -25,8 +25,7 @@ import com.helger.annotation.Nonnegative;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A wrapper around an {@link OutputStream} that counts the number of read
- * bytes.
+ * A wrapper around an {@link OutputStream} that counts the number of read bytes.
  *
  * @author Philip Helger
  */

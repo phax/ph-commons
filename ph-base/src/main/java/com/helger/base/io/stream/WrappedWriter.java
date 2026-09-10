@@ -25,8 +25,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A wrapper around another {@link FilterWriter} to make the wrapped
- * {@link Writer} accessible.
+ * A wrapper around another {@link FilterWriter} to make the wrapped {@link Writer} accessible.
  *
  * @author Philip Helger
  */
@@ -42,8 +41,7 @@ public class WrappedWriter extends FilterWriter
   }
 
   /**
-   * @return The wrapped writer passed in the constructor. Never
-   *         <code>null</code>.
+   * @return The wrapped writer passed in the constructor. Never <code>null</code>.
    */
   @NonNull
   public final Writer getWrappedWriter ()

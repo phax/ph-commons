@@ -25,8 +25,8 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Type converter than can convert from a base source class to a destination
- * class. Example from Object.class to String.class
+ * Type converter than can convert from a base source class to a destination class. Example from
+ * Object.class to String.class
  *
  * @author Philip Helger
  * @param <DST>

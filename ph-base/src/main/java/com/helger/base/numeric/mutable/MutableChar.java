@@ -26,8 +26,7 @@ import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Object wrapper around a char so that it can be passed a final object but is
- * mutable.
+ * Object wrapper around a char so that it can be passed a final object but is mutable.
  *
  * @author Philip Helger
  */
@@ -37,8 +36,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   private char m_cValue;
 
   /**
-   * Initialize with a certain int value. If the value does not fit into a char,
-   * the value is cut!
+   * Initialize with a certain int value. If the value does not fit into a char, the value is cut!
    *
    * @param cValue
    *        The value to be used.

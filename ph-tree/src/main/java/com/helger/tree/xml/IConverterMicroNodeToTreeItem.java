@@ -22,8 +22,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.xml.microdom.IMicroElement;
 
 /**
- * Interface used to convert a single micro element into a value used as tree
- * item data value.
+ * Interface used to convert a single micro element into a value used as tree item data value.
  *
  * @author Philip Helger
  * @param <DATATYPE>

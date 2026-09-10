@@ -171,8 +171,7 @@ public class SettingsPersistenceXML <T extends ISettings> implements ISettingsPe
   }
 
   /**
-   * @return A new default instance with the default settings factory. Never
-   *         <code>null</code>.
+   * @return A new default instance with the default settings factory. Never <code>null</code>.
    */
   @NonNull
   public static SettingsPersistenceXML <Settings> createDefault ()

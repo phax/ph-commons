@@ -92,8 +92,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    * @throws ClassNotFoundException
    *         In case reading failed
    */
-  protected final void readAbstractSingletonFields (@NonNull final ObjectInputStream aOIS) throws IOException,
-                                                                                           ClassNotFoundException
+  protected final void readAbstractSingletonFields (@NonNull final ObjectInputStream aOIS) throws IOException, ClassNotFoundException
   {
     m_aStatus = (BitSet) aOIS.readObject ();
   }
@@ -153,7 +152,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
 
   protected final void setInInstantiation (final boolean bInInstantiation)
   {
-    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_INSTANTIATION, bInInstantiation));
+    m_aRWLock.writeLocked (() -> m_aStatus.set (STATUS_IN_INSTANTIATION, bInInstantiation));
   }
 
   /**
@@ -162,12 +161,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInInstantiation ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_INSTANTIATION));
+    return m_aRWLock.readLockedBoolean (() -> m_aStatus.get (STATUS_IN_INSTANTIATION));
   }
 
   protected final void setInstantiated (final boolean bInstantiated)
   {
-    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_INSTANTIATED, bInstantiated));
+    m_aRWLock.writeLocked (() -> m_aStatus.set (STATUS_INSTANTIATED, bInstantiated));
   }
 
   /**
@@ -176,12 +175,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInstantiated ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_INSTANTIATED));
+    return m_aRWLock.readLockedBoolean (() -> m_aStatus.get (STATUS_INSTANTIATED));
   }
 
   protected final void setInPreDestruction (final boolean bInPreDestruction)
   {
-    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_PRE_DESTRUCTION, bInPreDestruction));
+    m_aRWLock.writeLocked (() -> m_aStatus.set (STATUS_IN_PRE_DESTRUCTION, bInPreDestruction));
   }
 
   /**
@@ -190,12 +189,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInPreDestruction ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_PRE_DESTRUCTION));
+    return m_aRWLock.readLockedBoolean (() -> m_aStatus.get (STATUS_IN_PRE_DESTRUCTION));
   }
 
   protected final void setInDestruction (final boolean bInDestruction)
   {
-    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_IN_DESTRUCTION, bInDestruction));
+    m_aRWLock.writeLocked (() -> m_aStatus.set (STATUS_IN_DESTRUCTION, bInDestruction));
   }
 
   /**
@@ -204,12 +203,12 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isInDestruction ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_IN_DESTRUCTION));
+    return m_aRWLock.readLockedBoolean (() -> m_aStatus.get (STATUS_IN_DESTRUCTION));
   }
 
   protected final void setDestroyed (final boolean bDestroyed)
   {
-    m_aRWLock.writeLocked ( () -> m_aStatus.set (STATUS_DESTROYED, bDestroyed));
+    m_aRWLock.writeLocked (() -> m_aStatus.set (STATUS_DESTROYED, bDestroyed));
   }
 
   /**
@@ -218,7 +217,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
    */
   public final boolean isDestroyed ()
   {
-    return m_aRWLock.readLockedBoolean ( () -> m_aStatus.get (STATUS_DESTROYED));
+    return m_aRWLock.readLockedBoolean (() -> m_aStatus.get (STATUS_DESTROYED));
   }
 
   /**
@@ -373,7 +372,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     if (aScope != null)
     {
       final String sSingletonScopeKey = getSingletonScopeKey (aClass);
-      final Object aObject = RW_LOCK.readLockedGet ( () -> aScope.attrs ().get (sSingletonScopeKey));
+      final Object aObject = RW_LOCK.readLockedGet (() -> aScope.attrs ().get (sSingletonScopeKey));
       if (aObject != null)
       {
         // Object is in the scope
@@ -490,7 +489,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
     final String sSingletonScopeKey = getSingletonScopeKey (aClass);
 
     // check if already contained in passed scope
-    T aInstance = RW_LOCK.readLockedGet ( () -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
+    T aInstance = RW_LOCK.readLockedGet (() -> aScope.attrs ().getCastedValue (sSingletonScopeKey));
     if (aInstance == null || aInstance.isInInstantiation ())
     {
       // Not yet present or just in instantiation

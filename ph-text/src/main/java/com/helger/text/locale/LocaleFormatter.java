@@ -43,9 +43,8 @@ public final class LocaleFormatter
   {}
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All calls to {@link Double#toString(double)} that are displayed to
-   * the user should instead use this method.
+   * Format the passed value according to the rules specified by the given locale. All calls to
+   * {@link Double#toString(double)} that are displayed to the user should instead use this method.
    *
    * @param dValue
    *        The value to be formatted.
@@ -62,9 +61,8 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All calls to {@link Integer#toString(int)} that are displayed to
-   * the user should instead use this method.
+   * Format the passed value according to the rules specified by the given locale. All calls to
+   * {@link Integer#toString(int)} that are displayed to the user should instead use this method.
    *
    * @param nValue
    *        The value to be formatted.
@@ -81,9 +79,8 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All calls to {@link Long#toString(long)} that are displayed to the
-   * user should instead use this method.
+   * Format the passed value according to the rules specified by the given locale. All calls to
+   * {@link Long#toString(long)} that are displayed to the user should instead use this method.
    *
    * @param nValue
    *        The value to be formatted.
@@ -100,9 +97,8 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All calls to {@link BigInteger#toString()} that are displayed to
-   * the user should instead use this method.
+   * Format the passed value according to the rules specified by the given locale. All calls to
+   * {@link BigInteger#toString()} that are displayed to the user should instead use this method.
    *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
@@ -120,10 +116,9 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All calls to {@link BigDecimal#toString()} that are displayed to
-   * the user should instead use this method. By default a maximum of 3 fraction
-   * digits are shown.
+   * Format the passed value according to the rules specified by the given locale. All calls to
+   * {@link BigDecimal#toString()} that are displayed to the user should instead use this method. By
+   * default a maximum of 3 fraction digits are shown.
    *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
@@ -141,8 +136,7 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale.
+   * Format the passed value according to the rules specified by the given locale.
    *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
@@ -167,8 +161,8 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the passed value according to the rules specified by the given
-   * locale. All fraction digits of the passed value are displayed.
+   * Format the passed value according to the rules specified by the given locale. All fraction
+   * digits of the passed value are displayed.
    *
    * @param aValue
    *        The value to be formatted. May not be <code>null</code>.
@@ -177,7 +171,8 @@ public final class LocaleFormatter
    * @return The formatted string.
    */
   @NonNull
-  public static String getFormattedWithAllFractionDigits (@NonNull final BigDecimal aValue, @NonNull final Locale aDisplayLocale)
+  public static String getFormattedWithAllFractionDigits (@NonNull final BigDecimal aValue,
+                                                          @NonNull final Locale aDisplayLocale)
   {
     ValueEnforcer.notNull (aValue, "Value");
     ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
@@ -188,13 +183,11 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the given value as percentage. The "%" sign is automatically
-   * appended according to the requested locale. The number of fractional digits
-   * depend on the locale.
+   * Format the given value as percentage. The "%" sign is automatically appended according to the
+   * requested locale. The number of fractional digits depend on the locale.
    *
    * @param dValue
-   *        The value to be used. E.g. "0.125" will result in something like
-   *        "12.5%"
+   *        The value to be used. E.g. "0.125" will result in something like "12.5%"
    * @param aDisplayLocale
    *        The locale to use.
    * @return The non-<code>null</code> formatted string.
@@ -208,12 +201,11 @@ public final class LocaleFormatter
   }
 
   /**
-   * Format the given value as percentage. The "%" sign is automatically
-   * appended according to the requested locale.
+   * Format the given value as percentage. The "%" sign is automatically appended according to the
+   * requested locale.
    *
    * @param dValue
-   *        The value to be used. E.g. "0.125" will result in something like
-   *        "12.5%"
+   *        The value to be used. E.g. "0.125" will result in something like "12.5%"
    * @param nFractionDigits
    *        The number of fractional digits to use. Must be &ge; 0.
    * @param aDisplayLocale

@@ -30,8 +30,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * A special string decoder that can be used to convert a byte source to a
- * String in a certain charset. This class is not thread-safe!
+ * A special string decoder that can be used to convert a byte source to a String in a certain
+ * charset. This class is not thread-safe!
  *
  * @author Philip Helger
  */
@@ -63,8 +63,8 @@ public final class StringDecoder
   }
 
   /**
-   * Reserve space for the next string that will be &le; expectedLength
-   * characters long. Must only be called when the buffer is empty.
+   * Reserve space for the next string that will be &le; expectedLength characters long. Must only
+   * be called when the buffer is empty.
    *
    * @param nExpectedLength
    *        The number of chars to reserve. Must be &ge; 0.
@@ -125,9 +125,8 @@ public final class StringDecoder
   }
 
   /**
-   * Decode the provided byte array, appending the decoded characters to the
-   * internal buffer. Call {@link #finish(ByteBuffer)} when done to retrieve
-   * the final string.
+   * Decode the provided byte array, appending the decoded characters to the internal buffer. Call
+   * {@link #finish(ByteBuffer)} when done to retrieve the final string.
    *
    * @param aBuf
    *        The byte array to decode. May not be <code>null</code>.
@@ -140,8 +139,8 @@ public final class StringDecoder
   }
 
   /**
-   * Decode a portion of the provided byte array, appending the decoded
-   * characters to the internal buffer.
+   * Decode a portion of the provided byte array, appending the decoded characters to the internal
+   * buffer.
    *
    * @param aBuffer
    *        The byte array to decode. May not be <code>null</code>.
@@ -158,8 +157,8 @@ public final class StringDecoder
   }
 
   /**
-   * Decode the provided {@link ByteBuffer}, appending the decoded characters
-   * to the internal buffer.
+   * Decode the provided {@link ByteBuffer}, appending the decoded characters to the internal
+   * buffer.
    *
    * @param aByteBuffer
    *        The byte buffer to decode. May not be <code>null</code>.
@@ -172,8 +171,8 @@ public final class StringDecoder
   }
 
   /**
-   * Decode the remaining bytes from the provided array and finish the
-   * decoding process, returning the final decoded string.
+   * Decode the remaining bytes from the provided array and finish the decoding process, returning
+   * the final decoded string.
    *
    * @param aBuf
    *        The byte array containing the final bytes. May not be <code>null</code>.
@@ -190,9 +189,9 @@ public final class StringDecoder
   }
 
   /**
-   * Decode the remaining bytes from the provided {@link ByteBuffer} and
-   * finish the decoding process, returning the final decoded string. After
-   * calling this method, the decoder is reset and ready for the next string.
+   * Decode the remaining bytes from the provided {@link ByteBuffer} and finish the decoding
+   * process, returning the final decoded string. After calling this method, the decoder is reset
+   * and ready for the next string.
    *
    * @param aByteBuffer
    *        The byte buffer containing the final bytes. May not be <code>null</code>.

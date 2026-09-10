@@ -76,16 +76,15 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
   }
 
   /**
-   * Check if the provided cipher suite is supported in the SSL context for any
-   * of the provided TLS versions.
+   * Check if the provided cipher suite is supported in the SSL context for any of the provided TLS
+   * versions.
    *
    * @param aTLSVersions
    *        The TLS versions to check against. May not be <code>null</code>.
    * @param sCipherSuite
-   *        The cipher suite name to check. May neither be <code>null</code>
-   *        nor empty.
-   * @return <code>true</code> if the cipher suite is supported in at least one
-   *         of the provided TLS versions, <code>false</code> otherwise.
+   *        The cipher suite name to check. May neither be <code>null</code> nor empty.
+   * @return <code>true</code> if the cipher suite is supported in at least one of the provided TLS
+   *         versions, <code>false</code> otherwise.
    */
   public static boolean isSupportedCipherSuiteInSSLContext (@NonNull final ETLSVersion [] aTLSVersions,
                                                             @NonNull @Nonempty final String sCipherSuite)
@@ -116,16 +115,15 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
   private final ICommonsList <String> m_aCipherSuites;
 
   /**
-   * Constructor. The constructor uses only the cipher suites that are supported
-   * by the underlying operating system and TLS version.
-   * {@link #getAllCipherSuites()} returns the filtered list.
+   * Constructor. The constructor uses only the cipher suites that are supported by the underlying
+   * operating system and TLS version. {@link #getAllCipherSuites()} returns the filtered list.
    *
    * @param aTLSVersions
-   *        The supported TLS versions. Order is important and maintained. MAy
-   *        neither be <code>null</code> nor empty.
+   *        The supported TLS versions. Order is important and maintained. MAy neither be
+   *        <code>null</code> nor empty.
    * @param aCipherSuites
-   *        The cipher suites to be used. May not be <code>null</code> and may
-   *        not contain <code>null</code> values.
+   *        The cipher suites to be used. May not be <code>null</code> and may not contain
+   *        <code>null</code> values.
    */
   public TLSConfigurationMode (@NonNull @Nonempty final ETLSVersion [] aTLSVersions,
                                @NonNull final String [] aCipherSuites)

@@ -308,8 +308,9 @@ public final class FilenameHelper
    */
   public static int getIndexOfLastSeparator (@Nullable final String sFilename)
   {
-    return sFilename == null ? CGlobal.ILLEGAL_UINT : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
-                                                                sFilename.lastIndexOf (WINDOWS_SEPARATOR));
+    return sFilename == null ? CGlobal.ILLEGAL_UINT
+                             : Math.max (sFilename.lastIndexOf (UNIX_SEPARATOR),
+                                         sFilename.lastIndexOf (WINDOWS_SEPARATOR));
   }
 
   /**
@@ -433,9 +434,8 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingUnixSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : StringReplace.replaceAll (sAbsoluteFilename,
-                                                                        WINDOWS_SEPARATOR,
-                                                                        UNIX_SEPARATOR);
+    return sAbsoluteFilename == null ? null
+                                     : StringReplace.replaceAll (sAbsoluteFilename, WINDOWS_SEPARATOR, UNIX_SEPARATOR);
   }
 
   /**
@@ -465,9 +465,8 @@ public final class FilenameHelper
   @Nullable
   public static String getPathUsingWindowsSeparator (@Nullable final String sAbsoluteFilename)
   {
-    return sAbsoluteFilename == null ? null : StringReplace.replaceAll (sAbsoluteFilename,
-                                                                        UNIX_SEPARATOR,
-                                                                        WINDOWS_SEPARATOR);
+    return sAbsoluteFilename == null ? null
+                                     : StringReplace.replaceAll (sAbsoluteFilename, UNIX_SEPARATOR, WINDOWS_SEPARATOR);
   }
 
   /**

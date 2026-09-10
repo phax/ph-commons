@@ -29,9 +29,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * An implementation of the {@link com.helger.text.IHasText} interface
- * that always returns a constant string. Use this only for texts that never
- * need to be translated!
+ * An implementation of the {@link com.helger.text.IHasText} interface that always returns a
+ * constant string. Use this only for texts that never need to be translated!
  *
  * @author Philip Helger
  */
@@ -45,8 +44,7 @@ public class ConstantHasText extends AbstractHasText
    * Constructor.
    *
    * @param sFixedText
-   *        The fixed text to return for any locale. May not be
-   *        <code>null</code>.
+   *        The fixed text to return for any locale. May not be <code>null</code>.
    */
   public ConstantHasText (@NonNull final String sFixedText)
   {

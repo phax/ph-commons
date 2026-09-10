@@ -28,8 +28,8 @@ import com.helger.diagnostics.error.IError;
 import com.helger.diagnostics.error.list.ErrorList;
 
 /**
- * This implementation of {@link javax.xml.transform.ErrorListener} saves all
- * occurred warnings/errors/fatals in a list for later evaluation.
+ * This implementation of {@link javax.xml.transform.ErrorListener} saves all occurred
+ * warnings/errors/fatals in a list for later evaluation.
  *
  * @author Philip Helger
  */
@@ -51,7 +51,7 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Override
   protected void internalLog (@NonNull final IError aResError)
   {
-    m_aRWLock.writeLockedBoolean ( () -> m_aErrors.add (aResError));
+    m_aRWLock.writeLockedBoolean (() -> m_aErrors.add (aResError));
   }
 
   /**

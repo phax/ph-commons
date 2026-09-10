@@ -53,8 +53,7 @@ public final class GraphIterator implements ICommonsIterableIterator <IMutableGr
   private boolean m_bHasCycles = false;
 
   /**
-   * Constructor performing a depth-first traversal starting from the given
-   * node.
+   * Constructor performing a depth-first traversal starting from the given node.
    *
    * @param aStartNode
    *        The node to start iterating from. May not be <code>null</code>.

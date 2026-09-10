@@ -20,8 +20,8 @@ import com.helger.base.callback.exception.IExceptionCallback;
 import com.helger.json.parser.JsonParseException;
 
 /**
- * Special JSON exception handler. It is called in case of an unrecoverable
- * error while parsing a JSON.
+ * Special JSON exception handler. It is called in case of an unrecoverable error while parsing a
+ * JSON.
  *
  * @author Philip Helger
  */

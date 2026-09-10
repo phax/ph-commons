@@ -43,9 +43,8 @@ public interface IThirdPartyModule extends IHasDisplayName, IHasVersion
   ILicense getLicense ();
 
   /**
-   * @return The optional version of this product. May be <code>null</code>
-   *         because this means another place where the version number needs to
-   *         be maintained.
+   * @return The optional version of this product. May be <code>null</code> because this means
+   *         another place where the version number needs to be maintained.
    */
   @Nullable
   Version getVersion ();
@@ -57,21 +56,21 @@ public interface IThirdPartyModule extends IHasDisplayName, IHasVersion
   String getWebSiteURL ();
 
   /**
-   * @return <code>true</code> if this is an optional thirdparty module,
-   *         <code>false</code> if it is required.
+   * @return <code>true</code> if this is an optional thirdparty module, <code>false</code> if it is
+   *         required.
    */
   boolean isOptional ();
 
   /**
-   * @return A copy of this module but being optional. If this module is already
-   *         optional, <code>this</code> is returned.
+   * @return A copy of this module but being optional. If this module is already optional,
+   *         <code>this</code> is returned.
    */
   @NonNull
   IThirdPartyModule getAsOptionalCopy ();
 
   /**
-   * @return A copy of this module but without being optional. If this module is
-   *         not optional, <code>this</code> is returned.
+   * @return A copy of this module but without being optional. If this module is not optional,
+   *         <code>this</code> is returned.
    */
   @NonNull
   IThirdPartyModule getAsNonOptionalCopy ();

@@ -51,8 +51,8 @@ public class QValue implements Comparable <QValue>
   private final double m_dQuality;
 
   /**
-   * Constructor with quality value. The value will be clamped to the range
-   * [{@link #MIN_QUALITY}, {@link #MAX_QUALITY}].
+   * Constructor with quality value. The value will be clamped to the range [{@link #MIN_QUALITY},
+   * {@link #MAX_QUALITY}].
    *
    * @param dQuality
    *        The quality value. Should be between 0 and 1.
@@ -68,13 +68,11 @@ public class QValue implements Comparable <QValue>
   }
 
   /**
-   * Get the passed value in the range {@link #MIN_QUALITY} and
-   * {@link #MAX_QUALITY}.
+   * Get the passed value in the range {@link #MIN_QUALITY} and {@link #MAX_QUALITY}.
    *
    * @param dQuality
    *        Source value
-   * @return Aligned value &ge; {@link #MIN_QUALITY} and &le;
-   *         {@link #MAX_QUALITY}.
+   * @return Aligned value &ge; {@link #MIN_QUALITY} and &le; {@link #MAX_QUALITY}.
    */
   public static double getValueInRange (final double dQuality)
   {
@@ -86,8 +84,7 @@ public class QValue implements Comparable <QValue>
   }
 
   /**
-   * @return The quality value in the range [{@link #MIN_QUALITY},
-   *         {@link #MAX_QUALITY}].
+   * @return The quality value in the range [{@link #MIN_QUALITY}, {@link #MAX_QUALITY}].
    */
   @Nonnegative
   public double getQuality ()
@@ -146,8 +143,8 @@ public class QValue implements Comparable <QValue>
   }
 
   /**
-   * @return <code>true</code> if the quality is &gt; {@link #MIN_QUALITY} and
-   *         &lt; {@link #MAX_QUALITY}.
+   * @return <code>true</code> if the quality is &gt; {@link #MIN_QUALITY} and &lt;
+   *         {@link #MAX_QUALITY}.
    * @see #isAboveMinimumQuality()
    * @see #isBelowMaximumQuality()
    */

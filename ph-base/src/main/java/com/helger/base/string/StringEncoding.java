@@ -34,9 +34,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
- * Helper class for encoding char arrays to byte arrays and decoding byte arrays
- * to char arrays using NIO charset codecs, avoiding intermediate String
- * objects.
+ * Helper class for encoding char arrays to byte arrays and decoding byte arrays to char arrays
+ * using NIO charset codecs, avoiding intermediate String objects.
  *
  * @author Philip Helger
  */
@@ -80,9 +79,9 @@ public final class StringEncoding
    */
   @ReturnsMutableCopy
   public static byte @NonNull [] encodeCharToBytes (final char @NonNull [] aCharArray,
-                                           @Nonnegative final int nOfs,
-                                           @Nonnegative final int nLen,
-                                           @NonNull final Charset aCharset)
+                                                    @Nonnegative final int nOfs,
+                                                    @Nonnegative final int nLen,
+                                                    @NonNull final Charset aCharset)
   {
     ValueEnforcer.isArrayOfsLen (aCharArray, nOfs, nLen);
 
@@ -149,9 +148,9 @@ public final class StringEncoding
    * @since 8.6.4
    */
   public static char @NonNull [] decodeBytesToChars (final byte @NonNull [] aByteArray,
-                                            @Nonnegative final int nOfs,
-                                            @Nonnegative final int nLen,
-                                            @NonNull final Charset aCharset)
+                                                     @Nonnegative final int nOfs,
+                                                     @Nonnegative final int nLen,
+                                                     @NonNull final Charset aCharset)
   {
     final CharsetDecoder aDecoder = aCharset.newDecoder ();
     final int nDecodedLen = (int) (nLen * (double) aDecoder.maxCharsPerByte ());

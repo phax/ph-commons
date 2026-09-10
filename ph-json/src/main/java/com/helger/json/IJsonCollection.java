@@ -19,8 +19,8 @@ package com.helger.json;
 import com.helger.base.iface.IHasSize;
 
 /**
- * Base interface for all JSON arrays and objects. So the base interface for
- * JSON objects having other JSON child objects.
+ * Base interface for all JSON arrays and objects. So the base interface for JSON objects having
+ * other JSON child objects.
  *
  * @author Philip Helger
  */

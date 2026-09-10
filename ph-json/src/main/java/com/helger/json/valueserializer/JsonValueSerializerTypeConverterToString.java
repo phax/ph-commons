@@ -28,8 +28,8 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.typeconvert.impl.TypeConverter;
 
 /**
- * A {@link IJsonValueSerializer} implementation that uses {@link TypeConverter}
- * to convert the value to a {@link String}.
+ * A {@link IJsonValueSerializer} implementation that uses {@link TypeConverter} to convert the
+ * value to a {@link String}.
  *
  * @author Philip Helger
  */
@@ -50,7 +50,8 @@ public final class JsonValueSerializerTypeConverterToString implements IJsonValu
   }
 
   /** {@inheritDoc} */
-  public void appendAsJsonString (@Nullable final Object aValue, @NonNull @WillNotClose final Writer aWriter) throws IOException
+  public void appendAsJsonString (@Nullable final Object aValue,
+                                  @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
     ValueEnforcer.notNull (aWriter, "Writer");
 

@@ -23,8 +23,8 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.hashcode.IHashCodeGenerator;
 
 /**
- * Implementation of {@link com.helger.graph.IMutableGraphNode} interface with
- * quick and dirty equals and hashCode (on ID only)
+ * Implementation of {@link com.helger.graph.IMutableGraphNode} interface with quick and dirty
+ * equals and hashCode (on ID only)
  *
  * @author Philip Helger
  */
@@ -46,8 +46,7 @@ public class GraphNodeFast extends GraphNode
    * Constructor with an existing ID.
    *
    * @param sID
-   *        The ID of this graph node. If <code>null</code> or empty a new ID is
-   *        generated.
+   *        The ID of this graph node. If <code>null</code> or empty a new ID is generated.
    */
   public GraphNodeFast (@Nullable final String sID)
   {

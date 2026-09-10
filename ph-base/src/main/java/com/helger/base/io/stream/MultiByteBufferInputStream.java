@@ -30,8 +30,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.ByteBufferHelper;
 
 /**
- * {@link java.io.InputStream} wrapped around one or more
- * {@link java.nio.ByteBuffer} objects.
+ * {@link java.io.InputStream} wrapped around one or more {@link java.nio.ByteBuffer} objects.
  *
  * @author Philip Helger
  */
@@ -46,8 +45,8 @@ public final class MultiByteBufferInputStream extends InputStream
    * Constructor
    *
    * @param aBuffers
-   *        Array of {@link ByteBuffer}. May neither be <code>null</code> nor
-   *        empty and may not contain <code>null</code> elements.
+   *        Array of {@link ByteBuffer}. May neither be <code>null</code> nor empty and may not
+   *        contain <code>null</code> elements.
    */
   public MultiByteBufferInputStream (@NonNull @Nonempty final ByteBuffer... aBuffers)
   {

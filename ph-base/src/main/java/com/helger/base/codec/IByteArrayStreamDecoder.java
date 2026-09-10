@@ -41,8 +41,8 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @param aEncodedBuffer
    *        The byte array to be decoded. May be <code>null</code>.
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code> and is
-   *        NOT closed afterwards!
+   *        The output stream to write to. May not be <code>null</code> and is NOT closed
+   *        afterwards!
    * @throws DecodeException
    *         in case something goes wrong
    * @since 9.0.0
@@ -65,12 +65,15 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @param nLen
    *        Number of bytes starting from offset to consider.
    * @param aOS
-   *        The output stream to write to. May not be <code>null</code> and is
-   *        NOT closed afterwards!
+   *        The output stream to write to. May not be <code>null</code> and is NOT closed
+   *        afterwards!
    * @throws DecodeException
    *         in case something goes wrong
    */
-  void decode (byte @Nullable [] aEncodedBuffer, @Nonnegative int nOfs, @Nonnegative int nLen, @NonNull @WillNotClose OutputStream aOS);
+  void decode (byte @Nullable [] aEncodedBuffer,
+               @Nonnegative int nOfs,
+               @Nonnegative int nLen,
+               @NonNull @WillNotClose OutputStream aOS);
 
   /**
    * Decode a byte array.
@@ -81,13 +84,14 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    *        Offset into the byte array to start from.
    * @param nLen
    *        Number of bytes starting from offset to consider.
-   * @return The decoded byte array or <code>null</code> if the parameter was
-   *         <code>null</code>.
+   * @return The decoded byte array or <code>null</code> if the parameter was <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
    */
   @ReturnsMutableCopy
-  default byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  default byte @Nullable [] getDecoded (final byte @Nullable [] aEncodedBuffer,
+                                        @Nonnegative final int nOfs,
+                                        @Nonnegative final int nLen)
   {
     if (aEncodedBuffer == null)
       return null;
@@ -156,8 +160,7 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @param sEncoded
    *        The string to be decoded. May be <code>null</code>.
    * @param aCharset
-   *        The charset to be used for encoding AND decoding. May not be
-   *        <code>null</code>.
+   *        The charset to be used for encoding AND decoding. May not be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong
@@ -174,11 +177,9 @@ public interface IByteArrayStreamDecoder extends IByteArrayDecoder
    * @param sEncoded
    *        The string to be decoded. May be <code>null</code>.
    * @param aEncodedCharset
-   *        The charset to be used for the encoded string. May not be
-   *        <code>null</code>.
+   *        The charset to be used for the encoded string. May not be <code>null</code>.
    * @param aDecodedCharset
-   *        The charset to be used for the decoded result string. May not be
-   *        <code>null</code>.
+   *        The charset to be used for the decoded result string. May not be <code>null</code>.
    * @return <code>null</code> if the input string is <code>null</code>.
    * @throws DecodeException
    *         in case something goes wrong

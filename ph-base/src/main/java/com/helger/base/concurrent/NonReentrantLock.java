@@ -70,8 +70,7 @@ public class NonReentrantLock extends AbstractQueuedSynchronizer implements Lock
   }
 
   /**
-   * @return <code>true</code> if the current thread holds this lock,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the current thread holds this lock, <code>false</code> otherwise.
    */
   public boolean isHeldByCurrentThread ()
   {

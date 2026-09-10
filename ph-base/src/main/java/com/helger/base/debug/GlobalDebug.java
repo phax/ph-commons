@@ -58,8 +58,7 @@ public class GlobalDebug
   {}
 
   /**
-   * Set the debug mode via dependency injection. Delegates to
-   * {@link #setDebugModeDirect(boolean)}.
+   * Set the debug mode via dependency injection. Delegates to {@link #setDebugModeDirect(boolean)}.
    *
    * @param bDebugMode
    *        <code>true</code> to enable debug mode, <code>false</code> to disable it

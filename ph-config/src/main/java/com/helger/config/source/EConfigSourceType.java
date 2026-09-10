@@ -65,8 +65,7 @@ public enum EConfigSourceType implements IHasID <String>, IHasDisplayText
   }
 
   /**
-   * @return The unique ID of this configuration source type. Neither
-   *         <code>null</code> nor empty.
+   * @return The unique ID of this configuration source type. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty

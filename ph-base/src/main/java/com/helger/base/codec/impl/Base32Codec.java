@@ -31,13 +31,11 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.numeric.MathHelper;
 
 /**
- * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in
- * RFC 4648. BASE32 characters are 5 bits in length. They are formed by taking a
- * block of five octets to form a 40-bit string, which is converted into eight
- * BASE32 characters.<br>
- * RFC 3548 and defines only the "regular encoding". RFC 4648 adds the "hex
- * encoding". So when using the "regular encoding" it is compliant to both
- * RFCs.<br>
+ * Base32 encoder and decoder based on Apache Commons Codec Base32. Defined in RFC 4648. BASE32
+ * characters are 5 bits in length. They are formed by taking a block of five octets to form a
+ * 40-bit string, which is converted into eight BASE32 characters.<br>
+ * RFC 3548 and defines only the "regular encoding". RFC 4648 adds the "hex encoding". So when using
+ * the "regular encoding" it is compliant to both RFCs.<br>
  * Source: https://tools.ietf.org/html/rfc4648<br>
  * Source: https://tools.ietf.org/html/rfc3548
  *
@@ -46,10 +44,10 @@ import com.helger.base.numeric.MathHelper;
 public class Base32Codec implements IByteArrayCodec
 {
   /**
-   * This array is a lookup table that translates Unicode characters drawn from
-   * the "Base32 Alphabet" (as specified in Table 3 of RFC 4648) into their
-   * 5-bit positive integer equivalents. Characters that are not in the Base32
-   * alphabet but fall within the bounds of the array are translated to -1.
+   * This array is a lookup table that translates Unicode characters drawn from the "Base32
+   * Alphabet" (as specified in Table 3 of RFC 4648) into their 5-bit positive integer equivalents.
+   * Characters that are not in the Base32 alphabet but fall within the bounds of the array are
+   * translated to -1.
    */
   private static final byte [] DECODE_TABLE = { // 00-0f
                                                 -1,
@@ -150,9 +148,8 @@ public class Base32Codec implements IByteArrayCodec
                                                 25 };
 
   /**
-   * This array is a lookup table that translates 5-bit positive integer index
-   * values into their "Base32 Alphabet" equivalents as specified in Table 3 of
-   * RFC 4648.
+   * This array is a lookup table that translates 5-bit positive integer index values into their
+   * "Base32 Alphabet" equivalents as specified in Table 3 of RFC 4648.
    */
   private static final byte [] ENCODE_TABLE = { 'A',
                                                 'B',
@@ -188,10 +185,10 @@ public class Base32Codec implements IByteArrayCodec
                                                 '7' };
 
   /**
-   * This array is a lookup table that translates Unicode characters drawn from
-   * the "Base32 |Hex Alphabet" (as specified in Table 3 of RFC 4648) into their
-   * 5-bit positive integer equivalents. Characters that are not in the Base32
-   * Hex alphabet but fall within the bounds of the array are translated to -1.
+   * This array is a lookup table that translates Unicode characters drawn from the "Base32 |Hex
+   * Alphabet" (as specified in Table 3 of RFC 4648) into their 5-bit positive integer equivalents.
+   * Characters that are not in the Base32 Hex alphabet but fall within the bounds of the array are
+   * translated to -1.
    */
   private static final byte [] HEX_DECODE_TABLE = { // 00-0f
                                                     -1,
@@ -291,9 +288,8 @@ public class Base32Codec implements IByteArrayCodec
   };
 
   /**
-   * This array is a lookup table that translates 5-bit positive integer index
-   * values into their "Base32 Hex Alphabet" equivalents as specified in Table 3
-   * of RFC 4648.
+   * This array is a lookup table that translates 5-bit positive integer index values into their
+   * "Base32 Hex Alphabet" equivalents as specified in Table 3 of RFC 4648.
    */
   private static final byte [] HEX_ENCODE_TABLE = { '0',
                                                     '1',
@@ -369,8 +365,7 @@ public class Base32Codec implements IByteArrayCodec
    * Creates a Base32 codec used for decoding and encoding.
    *
    * @param bUseHex
-   *        <code>true</code> to use hex encoding, <code>false</code> to use
-   *        regular encoding.
+   *        <code>true</code> to use hex encoding, <code>false</code> to use regular encoding.
    */
   public Base32Codec (final boolean bUseHex)
   {
@@ -408,8 +403,8 @@ public class Base32Codec implements IByteArrayCodec
    *
    * @param nOctet
    *        The value to test
-   * @return {@code true} if the value is defined in the the Base32 alphabet
-   *         {@code false} otherwise.
+   * @return {@code true} if the value is defined in the the Base32 alphabet {@code false}
+   *         otherwise.
    */
   private boolean _isInAlphabet (final byte nOctet)
   {
@@ -417,13 +412,11 @@ public class Base32Codec implements IByteArrayCodec
   }
 
   /**
-   * Checks if a byte value is whitespace or not. Whitespace is taken to mean:
-   * space, tab, CR, LF
+   * Checks if a byte value is whitespace or not. Whitespace is taken to mean: space, tab, CR, LF
    *
    * @param nByte
    *        the byte to check
-   * @return <code>true</code> if byte is whitespace, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if byte is whitespace, <code>false</code> otherwise
    */
   private static boolean _isWhiteSpace (final byte nByte)
   {

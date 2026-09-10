@@ -36,7 +36,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsConfiguredValueOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("element0", sOld);
       assertEquals ("element0-new", sNew);
     });
@@ -51,7 +51,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsStringOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("element0", sOld);
       assertEquals ("element0-new", sNew);
     });
@@ -64,7 +64,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsBigDecimalOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("dbl", sOld);
       assertEquals ("dbl-new", sNew);
     });
@@ -77,7 +77,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsIntOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("int", sOld);
       assertEquals ("int-new", sNew);
     });
@@ -90,7 +90,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsLongOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("int", sOld);
       assertEquals ("int-new", sNew);
     });
@@ -103,7 +103,7 @@ public final class ConfigWithFallbackJsonFuncTest
   public void testGetAsCharArrayOrFallback ()
   {
     final ConfigWithFallback aConfig = new ConfigWithFallback (CS1);
-    aConfig.setOutdatedNotifier ( (aOldConfigSrc, sOld, sNew) -> {
+    aConfig.setOutdatedNotifier ((aOldConfigSrc, sOld, sNew) -> {
       assertEquals ("chararray", sOld);
       assertEquals ("chararray-new", sNew);
     });

@@ -37,8 +37,9 @@ public interface IDAOWriteExceptionCallback extends ICallback
    * @param aResource
    *        The resource that failed to be written to. Never <code>null</code>.
    * @param aFileContent
-   *        the content that should be written to the file. Never
-   *        <code>null</code>.
+   *        the content that should be written to the file. Never <code>null</code>.
    */
-  void onDAOWriteException (@NonNull Throwable t, @NonNull IReadableResource aResource, @NonNull CharSequence aFileContent);
+  void onDAOWriteException (@NonNull Throwable t,
+                            @NonNull IReadableResource aResource,
+                            @NonNull CharSequence aFileContent);
 }

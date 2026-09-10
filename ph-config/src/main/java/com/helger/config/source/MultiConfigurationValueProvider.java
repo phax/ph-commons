@@ -192,7 +192,7 @@ public class MultiConfigurationValueProvider implements
 
       m_aSources.add (new ConfigValueProviderWithPrio (aCVP, nPriority));
       // Ensure entry with highest priority comes first
-      m_aSources.sort ( (x, y) -> y.m_nPriority - x.m_nPriority);
+      m_aSources.sort ((x, y) -> y.m_nPriority - x.m_nPriority);
     }
     return this;
   }

@@ -33,8 +33,8 @@ import com.helger.base.state.ESuccess;
 import com.helger.datetime.helper.PDTFactory;
 
 /**
- * This class provides the most basic settings for date time operating: the
- * date-time-zone and the chronology to use.
+ * This class provides the most basic settings for date time operating: the date-time-zone and the
+ * chronology to use.
  *
  * @author Philip Helger
  */
@@ -52,8 +52,8 @@ public final class PDTConfig
   {}
 
   /**
-   * Set the default date time zone to use. This effects all objects created via
-   * {@link PDTFactory} as well as the default JDK TimeZone.
+   * Set the default date time zone to use. This effects all objects created via {@link PDTFactory}
+   * as well as the default JDK TimeZone.
    *
    * @param sDateTimeZoneID
    *        Must be a valid, non-<code>null</code> time zone.
@@ -85,8 +85,8 @@ public final class PDTConfig
   }
 
   /**
-   * @return The default date time zone to use. Never <code>null</code>. The
-   *         default is defined by the system.
+   * @return The default date time zone to use. Never <code>null</code>. The default is defined by
+   *         the system.
    */
   @NonNull
   public static ZoneId getDefaultZoneId ()
@@ -104,8 +104,8 @@ public final class PDTConfig
   }
 
   /**
-   * @return The default time zone to use. Never <code>null</code>. The default
-   *         is is defined by the system.
+   * @return The default time zone to use. Never <code>null</code>. The default is is defined by the
+   *         system.
    */
   @NonNull
   public static TimeZone getDefaultTimeZone ()

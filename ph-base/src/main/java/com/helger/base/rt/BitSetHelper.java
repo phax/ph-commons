@@ -104,20 +104,21 @@ public final class BitSetHelper
   }
 
   /**
-   * Extract the int representation of the passed bit set. To avoid loss of
-   * data, the bit set may not have more than 32 bits.
+   * Extract the int representation of the passed bit set. To avoid loss of data, the bit set may
+   * not have more than 32 bits.
    *
    * @param aBS
    *        The bit set to extract the value from. May not be <code>null</code>.
-   * @return The extracted value. May be negative if the bit set has 32
-   *         elements, the highest order bit is set.
+   * @return The extracted value. May be negative if the bit set has 32 elements, the highest order
+   *         bit is set.
    */
   public static int getExtractedIntValue (@NonNull final BitSet aBS)
   {
     ValueEnforcer.notNull (aBS, "BitSet");
 
     final int nMax = aBS.length ();
-    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_INT, () -> "Can extract only up to " + CGlobal.BITS_PER_INT + " bits");
+    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_INT,
+                          () -> "Can extract only up to " + CGlobal.BITS_PER_INT + " bits");
 
     int ret = 0;
     for (int i = nMax - 1; i >= 0; --i)
@@ -130,20 +131,21 @@ public final class BitSetHelper
   }
 
   /**
-   * Extract the long representation of the passed bit set. To avoid loss of
-   * data, the bit set may not have more than 64 bits.
+   * Extract the long representation of the passed bit set. To avoid loss of data, the bit set may
+   * not have more than 64 bits.
    *
    * @param aBS
    *        The bit set to extract the value from. May not be <code>null</code>.
-   * @return The extracted value. May be negative if the bit set has 64
-   *         elements, the highest order bit is set.
+   * @return The extracted value. May be negative if the bit set has 64 elements, the highest order
+   *         bit is set.
    */
   public static long getExtractedLongValue (@NonNull final BitSet aBS)
   {
     ValueEnforcer.notNull (aBS, "BitSet");
 
     final int nMax = aBS.length ();
-    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_LONG, () -> "Can extract only up to " + CGlobal.BITS_PER_LONG + " bits");
+    ValueEnforcer.isTrue (nMax <= CGlobal.BITS_PER_LONG,
+                          () -> "Can extract only up to " + CGlobal.BITS_PER_LONG + " bits");
 
     long ret = 0;
     for (int i = nMax - 1; i >= 0; --i)

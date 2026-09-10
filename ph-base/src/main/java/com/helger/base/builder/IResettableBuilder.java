@@ -29,8 +29,7 @@ import org.jspecify.annotations.NonNull;
 public interface IResettableBuilder <T> extends IBuilder <T>
 {
   /**
-   * Reset the builder, so that a second object may be build with the same
-   * builder.
+   * Reset the builder, so that a second object may be build with the same builder.
    */
   void reset ();
 
@@ -38,8 +37,8 @@ public interface IResettableBuilder <T> extends IBuilder <T>
    * Build the object
    *
    * @param bReset
-   *        <code>true</code> if the builder should be reset after building,
-   *        <code>false</code> if not.
+   *        <code>true</code> if the builder should be reset after building, <code>false</code> if
+   *        not.
    * @return The built object. May not be <code>null</code>.
    */
   @NonNull

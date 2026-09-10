@@ -123,18 +123,17 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBaseURIWithoutPrefix).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
-                                                                                         '/' +
-                                                                                         sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
 
     final ClassPathResource ret = new ClassPathResource (sNewPath, aClassLoader);
-    CONDLOG.info ( () -> "  [ClassPath] resolved base + system to " + ret);
+    CONDLOG.info (() -> "  [ClassPath] resolved base + system to " + ret);
     return ret;
   }
 
   @NonNull
-  private static URLResource _resolveJarFileResource (@NonNull final String sSystemId, @NonNull final String sBaseURI)
-                                                                                                                       throws MalformedURLException
+  private static URLResource _resolveJarFileResource (@NonNull final String sSystemId,
+                                                      @NonNull final String sBaseURI) throws MalformedURLException
   {
     // Base URI is inside a jar file? Skip the JAR file
     // See issue #8 - use lastIndexOf here
@@ -159,9 +158,8 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     final File aBaseFile = new File (sBasePath).getParentFile ();
 
     // Concatenate the path with the URI to search
-    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId : aBaseFile.getPath () +
-                                                                                         '/' +
-                                                                                         sSystemId);
+    final String sNewPath = FilenameHelper.getCleanPath (aBaseFile == null ? sSystemId
+                                                                           : aBaseFile.getPath () + '/' + sSystemId);
 
     final String sAggregatedPath;
     if (sPrefix.endsWith ("/") && sNewPath.startsWith ("/"))
@@ -172,13 +170,13 @@ public class DefaultResourceResolver implements IHasConditionalLogger
     else
       sAggregatedPath = sPrefix + sNewPath;
     final URLResource ret = new URLResource (sAggregatedPath);
-    CONDLOG.info ( () -> "  [JarFile] resolved base + system to " + ret);
+    CONDLOG.info (() -> "  [JarFile] resolved base + system to " + ret);
     return ret;
   }
 
   @NonNull
-  private static URLResource _resolveURLResource (final String sSystemId, @NonNull final URL aBaseURL)
-                                                                                                       throws MalformedURLException
+  private static URLResource _resolveURLResource (final String sSystemId,
+                                                  @NonNull final URL aBaseURL) throws MalformedURLException
   {
     // Take only the path
     String sBasePath = aBaseURL.getPath ();
@@ -204,7 +202,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
                                  aBaseURL.getPort (),
                                  URLHelper.getURLString (sNewPath, aBaseURL.getQuery (), aBaseURL.getRef ()));
     final URLResource ret = new URLResource (aNewURL);
-    CONDLOG.info ( () -> "  [URL] resolved base + system to " + ret);
+    CONDLOG.info (() -> "  [URL] resolved base + system to " + ret);
     return ret;
   }
 
@@ -251,7 +249,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
                     sBaseURI +
                     (aClassLoader == null ? "'" : "' with ClassLoader " + aClassLoader));
 
-    CONDLOG.info ( () -> "doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
+    CONDLOG.info (() -> "doStandardResourceResolving ('" + sSystemId + "', '" + sBaseURI + "', " + aClassLoader + ")");
 
     // It happens quite often that some resolution does not work here
     final URL aSystemURL = URLHelper.getAsURL (sSystemId, false);
@@ -264,7 +262,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
       if (!aSystemURL.getProtocol ().equals (CURL.PROTOCOL_FILE))
       {
         final URLResource ret = new URLResource (aSystemURL);
-        CONDLOG.info ( () -> "  resolved system URL to " + ret);
+        CONDLOG.info (() -> "  resolved system URL to " + ret);
         return ret;
       }
     }
@@ -311,7 +309,7 @@ public class DefaultResourceResolver implements IHasConditionalLogger
       // Nothing to resolve
       // Note: BaseFile should always be set here!
       final FileSystemResource ret = new FileSystemResource (aBaseFile);
-      CONDLOG.info ( () -> "  resolved base URL to " + ret);
+      CONDLOG.info (() -> "  resolved base URL to " + ret);
       return ret;
     }
     // Get the system ID file
@@ -333,17 +331,17 @@ public class DefaultResourceResolver implements IHasConditionalLogger
         final FileSystemResource aMerged = _getChildResource (aBaseFile, aSystemFile);
         if (aMerged.exists ())
         {
-          CONDLOG.info ( () -> "  resolved base + system URL to " + aMerged);
+          CONDLOG.info (() -> "  resolved base + system URL to " + aMerged);
           return aMerged;
         }
       }
       // If the absolute version exists, or if both the absolute and the merged
       // version do NOT exist, return the absolute version anyway.
-      CONDLOG.info ( () -> "  resolved system URL to " + aAbsFile);
+      CONDLOG.info (() -> "  resolved system URL to " + aAbsFile);
       return aAbsFile;
     }
     final FileSystemResource ret = _getChildResource (aBaseFile, aSystemFile);
-    CONDLOG.info ( () -> "  resolved base + system URL to " + ret);
+    CONDLOG.info (() -> "  resolved base + system URL to " + ret);
     return ret;
   }
 }

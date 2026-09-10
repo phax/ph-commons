@@ -25,8 +25,7 @@ package com.helger.base.version;
 public interface IHasVersion
 {
   /**
-   * @return The version number of the object. No assumption on nullable can be
-   *         done.
+   * @return The version number of the object. No assumption on nullable can be done.
    */
   Version getVersion ();
 }

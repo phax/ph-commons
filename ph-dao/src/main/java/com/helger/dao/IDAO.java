@@ -23,11 +23,10 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonnegative;
 
 /**
- * Base DAO interface. DAO = Data Access Object. A DAO implementation usually
- * has 3 basic operations:
+ * Base DAO interface. DAO = Data Access Object. A DAO implementation usually has 3 basic
+ * operations:
  * <ul>
- * <li>Initialization - when no file exists and an initial setup can be
- * performed.</li>
+ * <li>Initialization - when no file exists and an initial setup can be performed.</li>
  * <li>Reading - read existing data from a file</li>
  * <li>Write - write modified data to a file</li>
  * </ul>
@@ -48,69 +47,65 @@ public interface IDAO extends IAutoSaveAware
   }
 
   /**
-   * @return <code>true</code> if there are pending changes, <code>false</code>
-   *         if the content is unchanged.
+   * @return <code>true</code> if there are pending changes, <code>false</code> if the content is
+   *         unchanged.
    */
   boolean hasPendingChanges ();
 
   /**
-   * This method is called to persist the content in disk in case there are
-   * pending changes. If no pending changes are present, nothing happens. In
-   * case the implementation is thread-safe, this method must be thread-safe!
+   * This method is called to persist the content in disk in case there are pending changes. If no
+   * pending changes are present, nothing happens. In case the implementation is thread-safe, this
+   * method must be thread-safe!
    */
   void writeToFileOnPendingChanges ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0.
-   *         Usually this field is not persistent and only is valid until the
-   *         application ends.
+   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   *         persistent and only is valid until the application ends.
    */
   @Nonnegative
   int getInitCount ();
 
   /**
-   * @return The last time this DAO was initialized (without error). May be
-   *         <code>null</code> if it wasn't read before. Usually this field is
-   *         not persistent and only is valid until the application ends.
+   * @return The last time this DAO was initialized (without error). May be <code>null</code> if it
+   *         wasn't read before. Usually this field is not persistent and only is valid until the
+   *         application ends.
    */
   @Nullable
   LocalDateTime getLastInitDateTime ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0.
-   *         Usually this field is not persistent and only is valid until the
-   *         application ends.
+   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   *         persistent and only is valid until the application ends.
    */
   @Nonnegative
   int getReadCount ();
 
   /**
-   * @return The last time this DAO was read (without error). May be
-   *         <code>null</code> if it wasn't read before. Usually this field is
-   *         not persistent and only is valid until the application ends.
+   * @return The last time this DAO was read (without error). May be <code>null</code> if it wasn't
+   *         read before. Usually this field is not persistent and only is valid until the
+   *         application ends.
    */
   @Nullable
   LocalDateTime getLastReadDateTime ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0.
-   *         Usually this field is not persistent and only is valid until the
-   *         application ends.
+   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   *         persistent and only is valid until the application ends.
    */
   @Nonnegative
   int getWriteCount ();
 
   /**
-   * @return The last time this DAO was written (without error). May be
-   *         <code>null</code> if it wasn't written before. Usually this field
-   *         is not persistent and only is valid until the application ends.
+   * @return The last time this DAO was written (without error). May be <code>null</code> if it
+   *         wasn't written before. Usually this field is not persistent and only is valid until the
+   *         application ends.
    */
   @Nullable
   LocalDateTime getLastWriteDateTime ();
 
   /**
-   * @return <code>true</code> if this DAO support re-loading,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if this DAO support re-loading, <code>false</code> otherwise.
    * @see #reload()
    */
   default boolean isReloadable ()
@@ -119,9 +114,8 @@ public interface IDAO extends IAutoSaveAware
   }
 
   /**
-   * The method that is invoke if a DAO is reloaded. This method is only
-   * triggered if this DAO indicates that it is reloadable via
-   * {@link #isReloadable()}.
+   * The method that is invoke if a DAO is reloaded. This method is only triggered if this DAO
+   * indicates that it is reloadable via {@link #isReloadable()}.
    *
    * @throws DAOException
    *         In case reloading fails

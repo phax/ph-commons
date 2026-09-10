@@ -37,14 +37,14 @@ public interface ITriState
   boolean isFalse ();
 
   /**
-   * @return <code>true</code> if the value is not undefined (if it is either
-   *         <code>true</code> or <code>false</code>)
+   * @return <code>true</code> if the value is not undefined (if it is either <code>true</code> or
+   *         <code>false</code>)
    */
   boolean isDefined ();
 
   /**
-   * @return <code>true</code> if the value is undefined (if it is neither
-   *         <code>true</code> nor <code>false</code>)
+   * @return <code>true</code> if the value is undefined (if it is neither <code>true</code> nor
+   *         <code>false</code>)
    */
   default boolean isUndefined ()
   {
@@ -55,8 +55,8 @@ public interface ITriState
    * Convert the tri state value into a boolean value. If it is undefined, an
    * {@link IllegalStateException} is thrown.
    *
-   * @return <code>true</code> if {@link #isTrue()} is true, <code>false</code>
-   *         if {@link #isFalse()} is true, or an exception otherwise!
+   * @return <code>true</code> if {@link #isTrue()} is true, <code>false</code> if
+   *         {@link #isFalse()} is true, or an exception otherwise!
    * @throws IllegalStateException
    *         If this is undefined
    * @see #getAsBooleanValue(boolean)
@@ -64,37 +64,32 @@ public interface ITriState
   boolean getAsBooleanValue ();
 
   /**
-   * Convert the tri state value into a boolean value, depending on what
-   * "undefined" means.
+   * Convert the tri state value into a boolean value, depending on what "undefined" means.
    *
    * @param bUndefinedValue
    *        The boolean representation of undefined.
-   * @return <code>true</code> if {@link #isTrue()} is true, <code>false</code>
-   *         if {@link #isFalse()} is true, or otherwise the passed parameter!
+   * @return <code>true</code> if {@link #isTrue()} is true, <code>false</code> if
+   *         {@link #isFalse()} is true, or otherwise the passed parameter!
    * @see #getAsBooleanValue()
    */
   boolean getAsBooleanValue (boolean bUndefinedValue);
 
   /**
-   * Convert the tri state value into a {@link Boolean} value, depending on what
-   * "undefined" means.
+   * Convert the tri state value into a {@link Boolean} value, depending on what "undefined" means.
    *
-   * @return {@link Boolean#TRUE} if {@link #isTrue()} is <code>true</code>,
-   *         {@link Boolean#FALSE} if {@link #isFalse()} is <code>true</code>,
-   *         or <code>null</code>!
+   * @return {@link Boolean#TRUE} if {@link #isTrue()} is <code>true</code>, {@link Boolean#FALSE}
+   *         if {@link #isFalse()} is <code>true</code>, or <code>null</code>!
    */
   @Nullable
   Boolean getAsBooleanObj ();
 
   /**
-   * Convert the tri state value into a {@link Boolean} value, depending on what
-   * "undefined" means.
+   * Convert the tri state value into a {@link Boolean} value, depending on what "undefined" means.
    *
    * @param bUndefinedValue
    *        The {@link boolean} representation of undefined.
-   * @return {@link Boolean#TRUE} if {@link #isTrue()} is true,
-   *         {@link Boolean#FALSE} if {@link #isFalse()} is true, or otherwise
-   *         the passed parameter!
+   * @return {@link Boolean#TRUE} if {@link #isTrue()} is true, {@link Boolean#FALSE} if
+   *         {@link #isFalse()} is true, or otherwise the passed parameter!
    */
   @NonNull
   default Boolean getAsBooleanObj (final boolean bUndefinedValue)
@@ -103,14 +98,12 @@ public interface ITriState
   }
 
   /**
-   * Convert the tri state value into a {@link Boolean} value, depending on what
-   * "undefined" means.
+   * Convert the tri state value into a {@link Boolean} value, depending on what "undefined" means.
    *
    * @param aUndefinedValue
    *        The {@link Boolean} representation of undefined.
-   * @return {@link Boolean#TRUE} if {@link #isTrue()} is true,
-   *         {@link Boolean#FALSE} if {@link #isFalse()} is true, or otherwise
-   *         the passed parameter!
+   * @return {@link Boolean#TRUE} if {@link #isTrue()} is true, {@link Boolean#FALSE} if
+   *         {@link #isFalse()} is true, or otherwise the passed parameter!
    */
   @Nullable
   Boolean getAsBooleanObj (@Nullable Boolean aUndefinedValue);

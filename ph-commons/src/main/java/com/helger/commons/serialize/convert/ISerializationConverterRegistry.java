@@ -19,9 +19,8 @@ package com.helger.commons.serialize.convert;
 import org.jspecify.annotations.NonNull;
 
 /**
- * This is the callback interface implemented by
- * {@link SerializationConverterRegistry} for registration via the SPI
- * interface.
+ * This is the callback interface implemented by {@link SerializationConverterRegistry} for
+ * registration via the SPI interface.
  *
  * @author Philip Helger
  */
@@ -31,13 +30,11 @@ public interface ISerializationConverterRegistry
    * Register a new serialization converter.
    *
    * @param aClass
-   *        The class for which the converter is meant. May not be
-   *        <code>null</code>.
+   *        The class for which the converter is meant. May not be <code>null</code>.
    * @param aConverter
    *        The converter to be registered. May not be <code>null</code>.
    * @throws IllegalArgumentException
-   *         If the passed class already implements the java.io.Serializable
-   *         interface.
+   *         If the passed class already implements the java.io.Serializable interface.
    * @param <T>
    *        Type for which a converter should be registered
    */

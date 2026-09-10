@@ -42,8 +42,8 @@ public interface IBaseGraphRelation <NODETYPE extends IBaseGraphNode <NODETYPE, 
    *
    * @param aNode
    *        The node to be checked. May be <code>null</code>.
-   * @return <code>true</code> if the passed node is related via this relation,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the passed node is related via this relation, <code>false</code>
+   *         if not.
    */
   boolean isRelatedTo (@Nullable NODETYPE aNode);
 

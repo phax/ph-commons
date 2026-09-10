@@ -20,8 +20,8 @@ import com.helger.annotation.style.MustImplementEqualsAndHashcode;
 import com.helger.text.display.IHasDisplayText;
 
 /**
- * Base interface for objects having an error text. Compared to
- * {@link IHasDisplayText} it is required to implement equals and hashCode.
+ * Base interface for objects having an error text. Compared to {@link IHasDisplayText} it is
+ * required to implement equals and hashCode.
  *
  * @author Philip Helger
  */
@@ -29,8 +29,7 @@ import com.helger.text.display.IHasDisplayText;
 public interface IHasErrorText extends IHasDisplayText
 {
   /**
-   * @return <code>true</code> if the error text is multilingual,
-   *         <code>false</code> otherwise.
+   * @return <code>true</code> if the error text is multilingual, <code>false</code> otherwise.
    */
   boolean isMultiLingual ();
 }

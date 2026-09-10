@@ -30,8 +30,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.ICommonsIterableIterator;
 
 /**
- * Special {@link Iterator} for {@link Node} objects based on
- * {@link NamedNodeMap} objects.
+ * Special {@link Iterator} for {@link Node} objects based on {@link NamedNodeMap} objects.
  *
  * @author Philip Helger
  */
@@ -74,17 +73,19 @@ public class NamedNodeMapIterator implements ICommonsIterableIterator <Node>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("NamedNodeMap", m_aNL).append ("Max", m_nMax).append ("Index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("NamedNodeMap", m_aNL)
+                                       .append ("Max", m_nMax)
+                                       .append ("Index", m_nIndex)
+                                       .getToString ();
   }
 
   /**
    * Create an iterator over all attributes of the passed element.
    *
    * @param aElement
-   *        The element whose attributes are iterated. May be
-   *        <code>null</code>.
-   * @return A non-<code>null</code> iterator. If the element is
-   *         <code>null</code>, an empty iterator is returned.
+   *        The element whose attributes are iterated. May be <code>null</code>.
+   * @return A non-<code>null</code> iterator. If the element is <code>null</code>, an empty
+   *         iterator is returned.
    */
   @NonNull
   @ReturnsMutableCopy

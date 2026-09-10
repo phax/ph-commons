@@ -31,88 +31,76 @@ import org.jspecify.annotations.Nullable;
 public interface IDOMReaderSettings extends IBaseXMLReaderSettings
 {
   /**
-   * @return <code>true</code> if the parser should be namespace aware,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should be namespace aware, <code>false</code> if not.
    */
   boolean isNamespaceAware ();
 
   /**
-   * @return <code>true</code> if the parser should be validating,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should be validating, <code>false</code> if not.
    */
   boolean isValidating ();
 
   /**
-   * @return <code>true</code> if the parser should be element content
-   *         whitespace ignoring, <code>false</code> if not.
+   * @return <code>true</code> if the parser should be element content whitespace ignoring,
+   *         <code>false</code> if not.
    */
   boolean isIgnoringElementContentWhitespace ();
 
   /**
-   * @return <code>true</code> if the parser should expand entity references,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should expand entity references, <code>false</code> if
+   *         not.
    */
   boolean isExpandEntityReferences ();
 
   /**
-   * @return <code>true</code> if the parser should ignore comments,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should ignore comments, <code>false</code> if not.
    */
   boolean isIgnoringComments ();
 
   /**
-   * @return <code>true</code> if the parser should read CDATA as text,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should read CDATA as text, <code>false</code> if not.
    */
   boolean isCoalescing ();
 
   /**
-   * @return A special XML schema to be used or <code>null</code> if none should
-   *         be used.
+   * @return A special XML schema to be used or <code>null</code> if none should be used.
    */
   @Nullable
   Schema getSchema ();
 
   /**
-   * @return <code>true</code> if the parser should be XInclude aware,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if the parser should be XInclude aware, <code>false</code> if not.
    */
   boolean isXIncludeAware ();
 
   /**
-   * @return <code>true</code> if a new XML parser is explicitly required for
-   *         this instance.
+   * @return <code>true</code> if a new XML parser is explicitly required for this instance.
    */
   boolean isRequiresNewXMLParserExplicitly ();
 
   /**
    * Check if the current settings require a separate
-   * {@link javax.xml.parsers.DocumentBuilderFactory} or if a pooled default
-   * object can be used.
+   * {@link javax.xml.parsers.DocumentBuilderFactory} or if a pooled default object can be used.
    *
-   * @return <code>true</code> if a separate
-   *         {@link javax.xml.parsers.DocumentBuilderFactory} is required,
-   *         <code>false</code> if not.
+   * @return <code>true</code> if a separate {@link javax.xml.parsers.DocumentBuilderFactory} is
+   *         required, <code>false</code> if not.
    */
   boolean requiresNewXMLParser ();
 
   /**
-   * Apply settings of this object onto the specified
-   * {@link DocumentBuilderFactory} object.
+   * Apply settings of this object onto the specified {@link DocumentBuilderFactory} object.
    *
    * @param aDBF
-   *        The {@link DocumentBuilderFactory} to apply the settings onto. May
-   *        not be <code>null</code>.
+   *        The {@link DocumentBuilderFactory} to apply the settings onto. May not be
+   *        <code>null</code>.
    */
   void applyToDocumentBuilderFactory (@NonNull DocumentBuilderFactory aDBF);
 
   /**
-   * Apply settings of this object onto the specified {@link DocumentBuilder}
-   * object.
+   * Apply settings of this object onto the specified {@link DocumentBuilder} object.
    *
    * @param aDB
-   *        The {@link DocumentBuilder} to apply the settings onto. May not be
-   *        <code>null</code>.
+   *        The {@link DocumentBuilder} to apply the settings onto. May not be <code>null</code>.
    */
   void applyToDocumentBuilder (@NonNull DocumentBuilder aDB);
 }

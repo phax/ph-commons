@@ -26,9 +26,8 @@ import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.value.ConfiguredValue;
 
 /**
- * Interface for a configuration source that provides all its possible keys.
- * This is an optional interface to be implemented by configuration sources
- * supporting it.
+ * Interface for a configuration source that provides all its possible keys. This is an optional
+ * interface to be implemented by configuration sources supporting it.
  *
  * @author Philip Helger
  * @since 11.0.0
@@ -36,20 +35,18 @@ import com.helger.config.value.ConfiguredValue;
 public interface IIterableConfigurationSource extends IConfigurationSource
 {
   /**
-   * @return A map of all contained keys with their values in this configuration
-   *         source. If the underlying source uses some kind of ordering (e.g.
-   *         in files), this order should be maintained. Never <code>null</code>
-   *         but maybe empty.
+   * @return A map of all contained keys with their values in this configuration source. If the
+   *         underlying source uses some kind of ordering (e.g. in files), this order should be
+   *         maintained. Never <code>null</code> but maybe empty.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsMap <String, String> getAllConfigItems ();
 
   /**
-   * @return A map of all contained keys and {@link ConfiguredValue} in this
-   *         configuration source. If the underlying source uses some kind of
-   *         ordering (e.g. in files), this order should be maintained. Never
-   *         <code>null</code> but maybe empty.
+   * @return A map of all contained keys and {@link ConfiguredValue} in this configuration source.
+   *         If the underlying source uses some kind of ordering (e.g. in files), this order should
+   *         be maintained. Never <code>null</code> but maybe empty.
    * @see #getAllConfigItems()
    */
   @NonNull

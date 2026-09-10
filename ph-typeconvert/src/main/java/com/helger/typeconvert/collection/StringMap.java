@@ -27,8 +27,8 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.typeconvert.impl.TypeConverter;
 
 /**
- * Base class for all kind of string-string mapping container. This
- * implementation is not thread-safe!
+ * Base class for all kind of string-string mapping container. This implementation is not
+ * thread-safe!
  *
  * @author Philip Helger
  */

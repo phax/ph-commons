@@ -774,8 +774,7 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the string contains at least one invalid XML
-   *         name character.
+   * @return <code>true</code> if the string contains at least one invalid XML name character.
    */
   public static boolean containsInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final String s)
@@ -790,8 +789,7 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>true</code> if the array contains at least one invalid XML
-   *         name character.
+   * @return <code>true</code> if the array contains at least one invalid XML name character.
    */
   public static boolean containsInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     final char @Nullable [] aChars)
@@ -800,8 +798,8 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML name character
-   * within the specified range.
+   * Check if the passed character array contains an invalid XML name character within the specified
+   * range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -811,8 +809,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>true</code> if the specified range contains at least one
-   *         invalid XML name character.
+   * @return <code>true</code> if the specified range contains at least one invalid XML name
+   *         character.
    */
   public static boolean containsInvalidXMLNameChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     final char @Nullable [] aChars,
@@ -825,9 +823,8 @@ public final class XMLCharHelper
       for (int i = 0; i < nLen; ++i)
       {
         final char c = aChars[nOfs + i];
-        final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c) : isInvalidXMLNameChar (
-                                                                                                                  eXMLVersion,
-                                                                                                                  c);
+        final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
+                                             : isInvalidXMLNameChar (eXMLVersion, c);
         if (bInvalid)
           return true;
         ++nIndex;
@@ -843,8 +840,8 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -861,23 +858,20 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLNameChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                           final char @Nullable [] aChars)
   {
-    return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLNameChars (eXMLVersion,
-                                                                                    aChars,
-                                                                                    0,
-                                                                                    aChars.length);
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLNameChars (eXMLVersion, aChars, 0, aChars.length);
   }
 
   /**
-   * Get all invalid XML name characters from the passed character array within
-   * the specified range.
+   * Get all invalid XML name characters from the passed character array within the specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -887,8 +881,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -905,9 +899,8 @@ public final class XMLCharHelper
     for (int i = 0; i < nLen; ++i)
     {
       final char c = aChars[nOfs + i];
-      final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c) : isInvalidXMLNameChar (
-                                                                                                                eXMLVersion,
-                                                                                                                c);
+      final boolean bInvalid = nIndex == 0 ? isInvalidXMLNameStartChar (eXMLVersion, c)
+                                           : isInvalidXMLNameChar (eXMLVersion, c);
       if (bInvalid)
         ret.add (Character.valueOf (c));
       ++nIndex;
@@ -943,8 +936,7 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the string contains at least one invalid XML
-   *         text character.
+   * @return <code>true</code> if the string contains at least one invalid XML text character.
    */
   public static boolean containsInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     @Nullable final String s)
@@ -959,8 +951,7 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>true</code> if the array contains at least one invalid XML
-   *         text character.
+   * @return <code>true</code> if the array contains at least one invalid XML text character.
    */
   public static boolean containsInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     final char @Nullable [] aChars)
@@ -969,8 +960,8 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML text character
-   * within the specified range.
+   * Check if the passed character array contains an invalid XML text character within the specified
+   * range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -980,8 +971,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>true</code> if the specified range contains at least one
-   *         invalid XML text character.
+   * @return <code>true</code> if the specified range contains at least one invalid XML text
+   *         character.
    */
   public static boolean containsInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                     final char @Nullable [] aChars,
@@ -1005,18 +996,16 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                           @Nullable final String s)
   {
-    return s == null || s.length () == 0 ? null : getAllInvalidXMLTextChars (eXMLVersion,
-                                                                             s.toCharArray (),
-                                                                             0,
-                                                                             s.length ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLTextChars (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   /**
@@ -1026,23 +1015,20 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLTextChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                           final char @Nullable [] aChars)
   {
-    return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLTextChars (eXMLVersion,
-                                                                                    aChars,
-                                                                                    0,
-                                                                                    aChars.length);
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLTextChars (eXMLVersion, aChars, 0, aChars.length);
   }
 
   /**
-   * Get all invalid XML text characters from the passed character array within
-   * the specified range.
+   * Get all invalid XML text characters from the passed character array within the specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -1052,8 +1038,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1103,8 +1089,7 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the string contains at least one invalid XML
-   *         CDATA character.
+   * @return <code>true</code> if the string contains at least one invalid XML CDATA character.
    */
   public static boolean containsInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                      @Nullable final String s)
@@ -1113,15 +1098,13 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML CDATA
-   * character.
+   * Check if the passed character array contains an invalid XML CDATA character.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>true</code> if the array contains at least one invalid XML
-   *         CDATA character.
+   * @return <code>true</code> if the array contains at least one invalid XML CDATA character.
    */
   public static boolean containsInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                      final char @Nullable [] aChars)
@@ -1130,8 +1113,8 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML CDATA character
-   * within the specified range.
+   * Check if the passed character array contains an invalid XML CDATA character within the
+   * specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -1141,8 +1124,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>true</code> if the specified range contains at least one
-   *         invalid XML CDATA character.
+   * @return <code>true</code> if the specified range contains at least one invalid XML CDATA
+   *         character.
    */
   public static boolean containsInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                      final char @Nullable [] aChars,
@@ -1166,18 +1149,16 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                            @Nullable final String s)
   {
-    return s == null || s.length () == 0 ? null : getAllInvalidXMLCDATAChars (eXMLVersion,
-                                                                              s.toCharArray (),
-                                                                              0,
-                                                                              s.length ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLCDATAChars (eXMLVersion, s.toCharArray (), 0, s.length ());
   }
 
   /**
@@ -1187,23 +1168,21 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLCDATAChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                            final char @Nullable [] aChars)
   {
-    return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLCDATAChars (eXMLVersion,
-                                                                                     aChars,
-                                                                                     0,
-                                                                                     aChars.length);
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLCDATAChars (eXMLVersion, aChars, 0, aChars.length);
   }
 
   /**
-   * Get all invalid XML CDATA characters from the passed character array within
-   * the specified range.
+   * Get all invalid XML CDATA characters from the passed character array within the specified
+   * range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -1213,8 +1192,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1258,15 +1237,14 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed string contains an invalid XML attribute value
-   * character.
+   * Check if the passed string contains an invalid XML attribute value character.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the string contains at least one invalid XML
-   *         attribute value character.
+   * @return <code>true</code> if the string contains at least one invalid XML attribute value
+   *         character.
    */
   public static boolean containsInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                               @Nullable final String s)
@@ -1277,15 +1255,14 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML attribute value
-   * character.
+   * Check if the passed character array contains an invalid XML attribute value character.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>true</code> if the array contains at least one invalid XML
-   *         attribute value character.
+   * @return <code>true</code> if the array contains at least one invalid XML attribute value
+   *         character.
    */
   public static boolean containsInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                               final char @Nullable [] aChars)
@@ -1296,8 +1273,8 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML attribute value
-   * character within the specified range.
+   * Check if the passed character array contains an invalid XML attribute value character within
+   * the specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -1307,8 +1284,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>true</code> if the specified range contains at least one
-   *         invalid XML attribute value character.
+   * @return <code>true</code> if the specified range contains at least one invalid XML attribute
+   *         value character.
    */
   public static boolean containsInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                               final char @Nullable [] aChars,
@@ -1332,45 +1309,46 @@ public final class XMLCharHelper
    *        XML version to be used. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                                     @Nullable final String s)
   {
-    return s == null || s.length () == 0 ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion,
-                                                                                       s.toCharArray (),
-                                                                                       0,
-                                                                                       s.length ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLAttributeValueChars (eXMLVersion,
+                                                                                s.toCharArray (),
+                                                                                0,
+                                                                                s.length ());
   }
 
   /**
-   * Get all invalid XML attribute value characters from the passed character
-   * array.
+   * Get all invalid XML attribute value characters from the passed character array.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
   public static ICommonsOrderedSet <Character> getAllInvalidXMLAttributeValueChars (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                                                     final char @Nullable [] aChars)
   {
-    return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLAttributeValueChars (eXMLVersion,
-                                                                                              aChars,
-                                                                                              0,
-                                                                                              aChars.length);
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLAttributeValueChars (eXMLVersion,
+                                                                                       aChars,
+                                                                                       0,
+                                                                                       aChars.length);
   }
 
   /**
-   * Get all invalid XML attribute value characters from the passed character
-   * array within the specified range.
+   * Get all invalid XML attribute value characters from the passed character array within the
+   * specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
@@ -1380,8 +1358,8 @@ public final class XMLCharHelper
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1404,18 +1382,16 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed string contains an invalid XML character for the given
-   * character mode.
+   * Check if the passed string contains an invalid XML character for the given character mode.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>true</code> if the string contains at least one invalid XML
-   *         character for the given mode.
+   * @return <code>true</code> if the string contains at least one invalid XML character for the
+   *         given mode.
    */
   public static boolean containsInvalidXMLChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                 @NonNull final EXMLCharMode eXMLCharMode,
@@ -1427,18 +1403,17 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML character for
-   * the given character mode.
+   * Check if the passed character array contains an invalid XML character for the given character
+   * mode.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>true</code> if the array contains at least one invalid XML
-   *         character for the given mode.
+   * @return <code>true</code> if the array contains at least one invalid XML character for the
+   *         given mode.
    */
   public static boolean containsInvalidXMLChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                 @NonNull final EXMLCharMode eXMLCharMode,
@@ -1450,22 +1425,21 @@ public final class XMLCharHelper
   }
 
   /**
-   * Check if the passed character array contains an invalid XML character for
-   * the given character mode within the specified range.
+   * Check if the passed character array contains an invalid XML character for the given character
+   * mode within the specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
    * @param nOfs
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>true</code> if the specified range contains at least one
-   *         invalid XML character for the given mode.
+   * @return <code>true</code> if the specified range contains at least one invalid XML character
+   *         for the given mode.
    */
   public static boolean containsInvalidXMLChar (@NonNull final EXMLSerializeVersion eXMLVersion,
                                                 @NonNull final EXMLCharMode eXMLCharMode,
@@ -1487,18 +1461,16 @@ public final class XMLCharHelper
   }
 
   /**
-   * Get all invalid XML characters for the given character mode from the passed
-   * string.
+   * Get all invalid XML characters for the given character mode from the passed string.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param s
    *        The string to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1506,26 +1478,25 @@ public final class XMLCharHelper
                                                                       @NonNull final EXMLCharMode eXMLCharMode,
                                                                       @Nullable final String s)
   {
-    return s == null || s.length () == 0 ? null : getAllInvalidXMLChars (eXMLVersion,
-                                                                         eXMLCharMode,
-                                                                         s.toCharArray (),
-                                                                         0,
-                                                                         s.length ());
+    return s == null || s.length () == 0 ? null
+                                         : getAllInvalidXMLChars (eXMLVersion,
+                                                                  eXMLCharMode,
+                                                                  s.toCharArray (),
+                                                                  0,
+                                                                  s.length ());
   }
 
   /**
-   * Get all invalid XML characters for the given character mode from the passed
-   * character array.
+   * Get all invalid XML characters for the given character mode from the passed character array.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1533,30 +1504,30 @@ public final class XMLCharHelper
                                                                       @NonNull final EXMLCharMode eXMLCharMode,
                                                                       final char @Nullable [] aChars)
   {
-    return aChars == null || aChars.length == 0 ? null : getAllInvalidXMLChars (eXMLVersion,
-                                                                                eXMLCharMode,
-                                                                                aChars,
-                                                                                0,
-                                                                                aChars.length);
+    return aChars == null || aChars.length == 0 ? null
+                                                : getAllInvalidXMLChars (eXMLVersion,
+                                                                         eXMLCharMode,
+                                                                         aChars,
+                                                                         0,
+                                                                         aChars.length);
   }
 
   /**
-   * Get all invalid XML characters for the given character mode from the passed
-   * character array within the specified range.
+   * Get all invalid XML characters for the given character mode from the passed character array
+   * within the specified range.
    *
    * @param eXMLVersion
    *        XML version to be used. May not be <code>null</code>.
    * @param eXMLCharMode
-   *        The XML character mode to check against. May not be
-   *        <code>null</code>.
+   *        The XML character mode to check against. May not be <code>null</code>.
    * @param aChars
    *        The character array to check. May be <code>null</code>.
    * @param nOfs
    *        The offset into the array to start checking. Must be &ge; 0.
    * @param nLen
    *        The number of characters to check. Must be &ge; 0.
-   * @return <code>null</code> if the input is <code>null</code> or empty, a
-   *         non-<code>null</code> set of all invalid characters otherwise.
+   * @return <code>null</code> if the input is <code>null</code> or empty, a non-<code>null</code>
+   *         set of all invalid characters otherwise.
    */
   @Nullable
   @ReturnsMutableCopy

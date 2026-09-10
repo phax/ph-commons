@@ -29,22 +29,18 @@ import com.helger.base.io.stream.WrappedInputStream;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * A transparent stream that updates the associated Mac using the bits going
- * through the stream.
+ * A transparent stream that updates the associated Mac using the bits going through the stream.
  * <p>
- * To complete the Mac computation, call one of the <code>doFinal</code> methods
- * on the associated Mac after your calls to one of this Mac input stream's
- * {@link #read() read} methods.
+ * To complete the Mac computation, call one of the <code>doFinal</code> methods on the associated
+ * Mac after your calls to one of this Mac input stream's {@link #read() read} methods.
  * <p>
- * It is possible to turn this stream on or off (see {@link #setOn(boolean)
- * on}). When it is on, a call to one of the {@code read} methods results in an
- * update on the Mac. But when it is off, the Mac is not updated. The default is
- * for the stream to be on.
+ * It is possible to turn this stream on or off (see {@link #setOn(boolean) on}). When it is on, a
+ * call to one of the {@code read} methods results in an update on the Mac. But when it is off, the
+ * Mac is not updated. The default is for the stream to be on.
  * <p>
- * Note that Mac objects can compute only one digest (see {@link Mac}), so that
- * in order to compute intermediate digests, a caller should retain a handle
- * onto the Mac object, and clone it for each digest to be computed, leaving the
- * original digest untouched.
+ * Note that Mac objects can compute only one digest (see {@link Mac}), so that in order to compute
+ * intermediate digests, a caller should retain a handle onto the Mac object, and clone it for each
+ * digest to be computed, leaving the original digest untouched.
  *
  * @author Philip Helger
  * @since 9.1.7
@@ -100,13 +96,12 @@ public class MacInputStream extends WrappedInputStream
   }
 
   /**
-   * Turns the function on or off. The default is on. When it is on, a call to
-   * one of the {@code read} methods results in an update on the Mac. But when
-   * it is off, the Mac is not updated.
+   * Turns the function on or off. The default is on. When it is on, a call to one of the
+   * {@code read} methods results in an update on the Mac. But when it is off, the Mac is not
+   * updated.
    *
    * @param bOn
-   *        <code>true</code> to turn the function on, <code>false</code> to
-   *        turn it off.
+   *        <code>true</code> to turn the function on, <code>false</code> to turn it off.
    */
   public final void setOn (final boolean bOn)
   {
@@ -114,8 +109,7 @@ public class MacInputStream extends WrappedInputStream
   }
 
   /**
-   * @return <code>true</code> if Mac processing is on, <code>false</code> if it
-   *         is off
+   * @return <code>true</code> if Mac processing is on, <code>false</code> if it is off
    */
   public final boolean isOn ()
   {
@@ -123,11 +117,10 @@ public class MacInputStream extends WrappedInputStream
   }
 
   /**
-   * Reads a byte, and updates the Mac (if the function is on). That is, this
-   * method reads a byte from the input stream, blocking until the byte is
-   * actually read. If the function is on (see {@link #setOn(boolean) on}), this
-   * method will then call {@code update} on the Mac associated with this
-   * stream, passing it the byte read.
+   * Reads a byte, and updates the Mac (if the function is on). That is, this method reads a byte
+   * from the input stream, blocking until the byte is actually read. If the function is on (see
+   * {@link #setOn(boolean) on}), this method will then call {@code update} on the Mac associated
+   * with this stream, passing it the byte read.
    *
    * @return the byte read.
    * @exception IOException
@@ -146,31 +139,30 @@ public class MacInputStream extends WrappedInputStream
   }
 
   /**
-   * Reads into a byte array, and updates the Mac (if the function is on). That
-   * is, this method reads up to {@code len} bytes from the input stream into
-   * the array {@code b}, starting at offset {@code off}. This method blocks
-   * until the data is actually read. If the function is on (see
-   * {@link #setOn(boolean) on}), this method will then call {@code update} on
-   * the Mac associated with this stream, passing it the data.
+   * Reads into a byte array, and updates the Mac (if the function is on). That is, this method
+   * reads up to {@code len} bytes from the input stream into the array {@code b}, starting at
+   * offset {@code off}. This method blocks until the data is actually read. If the function is on
+   * (see {@link #setOn(boolean) on}), this method will then call {@code update} on the Mac
+   * associated with this stream, passing it the data.
    *
    * @param aBuf
    *        the array into which the data is read.
    * @param nOfs
-   *        the starting offset into {@code b} of where the data should be
-   *        placed.
+   *        the starting offset into {@code b} of where the data should be placed.
    * @param nLen
-   *        the maximum number of bytes to be read from the input stream into b,
-   *        starting at offset {@code off}.
-   * @return the actual number of bytes read. This is less than {@code len} if
-   *         the end of the stream is reached prior to reading {@code len}
-   *         bytes. -1 is returned if no bytes were read because the end of the
-   *         stream had already been reached when the call was made.
+   *        the maximum number of bytes to be read from the input stream into b, starting at offset
+   *        {@code off}.
+   * @return the actual number of bytes read. This is less than {@code len} if the end of the stream
+   *         is reached prior to reading {@code len} bytes. -1 is returned if no bytes were read
+   *         because the end of the stream had already been reached when the call was made.
    * @exception IOException
    *            if an I/O error occurs.
    * @see Mac#update(byte[], int, int)
    */
   @Override
-  public int read (final byte @NonNull [] aBuf, @Nonnegative final int nOfs, @Nonnegative final int nLen) throws IOException
+  public int read (final byte @NonNull [] aBuf,
+                   @Nonnegative final int nOfs,
+                   @Nonnegative final int nLen) throws IOException
   {
     final int result = in.read (aBuf, nOfs, nLen);
     if (m_bOn && result != -1)

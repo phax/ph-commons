@@ -22,8 +22,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.base.name.IHasName;
 
 /**
- * Represents the reference to an entity. An example entity is e.g.
- * <code>&euro;</code>.
+ * Represents the reference to an entity. An example entity is e.g. <code>&euro;</code>.
  *
  * @author Philip Helger
  */

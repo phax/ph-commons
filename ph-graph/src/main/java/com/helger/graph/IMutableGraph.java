@@ -26,23 +26,23 @@ import com.helger.base.state.EChange;
  *
  * @author Philip Helger
  */
-public interface IMutableGraph extends IMutableBaseGraph <IMutableGraphNode, IMutableGraphRelation>, IMutableGraphObjectFactory
+public interface IMutableGraph extends
+                               IMutableBaseGraph <IMutableGraphNode, IMutableGraphRelation>,
+                               IMutableGraphObjectFactory
 {
   /**
    * Allow or disallow that {@link #addNode(IMutableGraphNode)} and
-   * {@link #removeNode(IMutableGraphNode)} can handle graph nodes that are
-   * already connected.
+   * {@link #removeNode(IMutableGraphNode)} can handle graph nodes that are already connected.
    *
    * @param bAllow
-   *        if <code>true</code> it is allowed to add and remove nodes that
-   *        already have incoming or outgoing relations.
+   *        if <code>true</code> it is allowed to add and remove nodes that already have incoming or
+   *        outgoing relations.
    */
   void setChangingConnectedObjectsAllowed (boolean bAllow);
 
   /**
-   * @return The current state, whether changing connected objects is allowed or
-   *         not. The default value should be <code>true</code> for backward
-   *         compatibility.
+   * @return The current state, whether changing connected objects is allowed or not. The default
+   *         value should be <code>true</code> for backward compatibility.
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   boolean isChangingConnectedObjectsAllowed ();
@@ -54,9 +54,8 @@ public interface IMutableGraph extends IMutableBaseGraph <IMutableGraphNode, IMu
    *        The node to be added. May not be <code>null</code>.
    * @return {@link EChange}
    * @throws IllegalArgumentException
-   *         If the node to be added already has incoming or outgoing relations,
-   *         and {@link #isChangingConnectedObjectsAllowed()} returned
-   *         <code>false</code>
+   *         If the node to be added already has incoming or outgoing relations, and
+   *         {@link #isChangingConnectedObjectsAllowed()} returned <code>false</code>
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @NonNull
@@ -64,17 +63,16 @@ public interface IMutableGraph extends IMutableBaseGraph <IMutableGraphNode, IMu
 
   /**
    * Remove an existing node from the graph. <br>
-   * Important note: existing relations are not altered when this method is
-   * called, so it may be possible that existing relations pointing to that
-   * object therefore reference a node that is no longer in the graph!
+   * Important note: existing relations are not altered when this method is called, so it may be
+   * possible that existing relations pointing to that object therefore reference a node that is no
+   * longer in the graph!
    *
    * @param aNode
    *        The node to be removed. May not be <code>null</code>.
    * @return {@link EChange}
    * @throws IllegalArgumentException
-   *         If the node to be removed already has incoming or outgoing
-   *         relations, and {@link #isChangingConnectedObjectsAllowed()}
-   *         returned <code>false</code>
+   *         If the node to be removed already has incoming or outgoing relations, and
+   *         {@link #isChangingConnectedObjectsAllowed()} returned <code>false</code>
    * @see #setChangingConnectedObjectsAllowed(boolean)
    */
   @NonNull
@@ -85,8 +83,8 @@ public interface IMutableGraph extends IMutableBaseGraph <IMutableGraphNode, IMu
    *
    * @param aRelation
    *        The relation to be removed. May be <code>null</code>.
-   * @return {@link EChange#CHANGED} if the relation was at least removed from
-   *         the from- or the to-node
+   * @return {@link EChange#CHANGED} if the relation was at least removed from the from- or the
+   *         to-node
    */
   @NonNull
   EChange removeRelation (@Nullable IMutableGraphRelation aRelation);

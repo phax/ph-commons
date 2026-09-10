@@ -51,8 +51,7 @@ public final class JMXHelper
    * @param aObject
    *        The MBean object to register. May not be <code>null</code>.
    * @param aObjectName
-   *        The object name to register the MBean with. May not be
-   *        <code>null</code>.
+   *        The object name to register the MBean with. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @NonNull
@@ -74,8 +73,7 @@ public final class JMXHelper
   }
 
   /**
-   * Register an MBean with an automatically generated object name based on
-   * the object's class.
+   * Register an MBean with an automatically generated object name based on the object's class.
    *
    * @param aObj
    *        The MBean object to register. May not be <code>null</code>.
@@ -88,14 +86,13 @@ public final class JMXHelper
   }
 
   /**
-   * Register an MBean with an automatically generated object name based on
-   * the object's class and the provided name.
+   * Register an MBean with an automatically generated object name based on the object's class and
+   * the provided name.
    *
    * @param aObj
    *        The MBean object to register. May not be <code>null</code>.
    * @param sName
-   *        The value of the "name" JMX property. May not be
-   *        <code>null</code>.
+   *        The value of the "name" JMX property. May not be <code>null</code>.
    * @return {@link ESuccess}
    */
   @NonNull

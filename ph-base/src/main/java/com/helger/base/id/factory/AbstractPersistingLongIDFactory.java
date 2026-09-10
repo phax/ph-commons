@@ -62,7 +62,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
   @Nonnegative
   public final int getReserveCount ()
   {
-    return m_aLock.lockedInt ( () -> m_nReserveCount);
+    return m_aLock.lockedInt (() -> m_nReserveCount);
   }
 
   /**
@@ -87,7 +87,7 @@ public abstract class AbstractPersistingLongIDFactory implements ILongIDFactory
   public final void setReserveCount (@Nonnegative final int nReserveCount)
   {
     ValueEnforcer.isGT0 (nReserveCount, "ReserveCount");
-    m_aLock.locked ( () -> m_nReserveCount = nReserveCount);
+    m_aLock.locked (() -> m_nReserveCount = nReserveCount);
   }
 
   /**

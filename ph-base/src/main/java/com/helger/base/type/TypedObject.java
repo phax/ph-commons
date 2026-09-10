@@ -24,8 +24,7 @@ import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
- * Base implementation of an object that has an {@link ObjectType} and an ID.
- * <br>
+ * Base implementation of an object that has an {@link ObjectType} and an ID. <br>
  * This class is immutable if the type of the ID is immutable.
  *
  * @author Philip Helger
@@ -40,8 +39,7 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
 
   /**
    * @param aObj
-   *        The typed object to copy the stuff from. May not be
-   *        <code>null</code>.
+   *        The typed object to copy the stuff from. May not be <code>null</code>.
    */
   public TypedObject (@NonNull final ITypedObject <IDTYPE> aObj)
   {
@@ -105,8 +103,7 @@ public final class TypedObject <IDTYPE> implements ITypedObject <IDTYPE>
    * @param <IDTYPE>
    *        The type of the ID.
    * @param aObj
-   *        The typed object to copy the stuff from. May not be
-   *        <code>null</code>.
+   *        The typed object to copy the stuff from. May not be <code>null</code>.
    * @return new {@link TypedObject}
    */
   @NonNull

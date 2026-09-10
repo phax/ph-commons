@@ -164,8 +164,8 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   }
 
   /**
-   * Drain all objects currently in the queue and return them as a list.
-   * Stop queue objects are re-added to the queue automatically.
+   * Drain all objects currently in the queue and return them as a list. Stop queue objects are
+   * re-added to the queue automatically.
    *
    * @return A mutable copy of all drained objects. Never <code>null</code>.
    */

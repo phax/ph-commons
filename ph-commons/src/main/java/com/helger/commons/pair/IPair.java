@@ -28,8 +28,7 @@ package com.helger.commons.pair;
 public interface IPair <DATA1TYPE, DATA2TYPE>
 {
   /**
-   * @return The first element. May be <code>null</code> depending on the
-   *         implementation.
+   * @return The first element. May be <code>null</code> depending on the implementation.
    */
   DATA1TYPE getFirst ();
 
@@ -42,8 +41,7 @@ public interface IPair <DATA1TYPE, DATA2TYPE>
   }
 
   /**
-   * @return The second element. May be <code>null</code> depending on the
-   *         implementation.
+   * @return The second element. May be <code>null</code> depending on the implementation.
    */
   DATA2TYPE getSecond ();
 

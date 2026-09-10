@@ -46,8 +46,8 @@ public class FileRelativeIO implements IFileRelativeIO
   private final File m_aBasePath;
 
   /**
-   * Check read/write/execute access rights for the given base path and all
-   * contained files and directories.
+   * Check read/write/execute access rights for the given base path and all contained files and
+   * directories.
    *
    * @param aBasePath
    *        The base path to check. May not be <code>null</code>.
@@ -98,8 +98,7 @@ public class FileRelativeIO implements IFileRelativeIO
    * Constructor.
    *
    * @param aBasePath
-   *        The absolute base path to use. May not be <code>null</code>. Must be
-   *        an absolute path.
+   *        The absolute base path to use. May not be <code>null</code>. Must be an absolute path.
    */
   public FileRelativeIO (@NonNull final File aBasePath)
   {

@@ -204,8 +204,8 @@ public class PermissionsPolicyDirective implements IPermissionsPolicyDirective
       return false;
     final PermissionsPolicyDirective rhs = (PermissionsPolicyDirective) o;
     return m_sName.equals (rhs.m_sName) &&
-      EqualsHelper.equals (m_sValue, rhs.m_sValue) &&
-      EqualsHelper.equals (m_sReportTo, rhs.m_sReportTo);
+           EqualsHelper.equals (m_sValue, rhs.m_sValue) &&
+           EqualsHelper.equals (m_sReportTo, rhs.m_sReportTo);
   }
 
   @Override

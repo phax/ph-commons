@@ -41,10 +41,9 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
                                 IBaseGraphObject
 {
   /**
-   * Check if this graph node is directly connected to the passed node, either
-   * via an incoming or via an outgoing relation.<br>
-   * This is the same as calling
-   * <code>isFromNode(aNode) || isToNode(aNode)</code>
+   * Check if this graph node is directly connected to the passed node, either via an incoming or
+   * via an outgoing relation.<br>
+   * This is the same as calling <code>isFromNode(aNode) || isToNode(aNode)</code>
    *
    * @param aNode
    *        The node to be checked. May be <code>null</code>.
@@ -57,8 +56,7 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
    *
    * @param aNode
    *        The to node to use. May be <code>null</code>.
-   * @return <code>null</code> if there exists no relation between this node and
-   *         the passed node.
+   * @return <code>null</code> if there exists no relation between this node and the passed node.
    */
   @Nullable
   RELATIONTYPE getRelation (@Nullable NODETYPE aNode);
@@ -66,55 +64,51 @@ public interface IBaseGraphNode <NODETYPE extends IBaseGraphNode <NODETYPE, RELA
   /**
    * Check if this node has any relations.
    *
-   * @return <code>true</code> if this node has at least one incoming or
-   *         outgoing relation.
+   * @return <code>true</code> if this node has at least one incoming or outgoing relation.
    */
   boolean hasRelations ();
 
   /**
-   * @return A non-negative amount of all incoming and outgoing relations.
-   *         Always &ge; 0.
+   * @return A non-negative amount of all incoming and outgoing relations. Always &ge; 0.
    */
   @Nonnegative
   int getRelationCount ();
 
   /**
-   * @return A container with all incoming and outgoing relations. Never
-   *         <code>null</code>.
+   * @return A container with all incoming and outgoing relations. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <RELATIONTYPE> getAllRelations ();
 
   /**
-   * @return A container with the IDs of all incoming and outgoing relations.
-   *         Never <code>null</code>.
+   * @return A container with the IDs of all incoming and outgoing relations. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <String> getAllRelationIDs ();
 
   /**
-   * Iterate each relation calling the provided consumer with the relation
-   * object.
+   * Iterate each relation calling the provided consumer with the relation object.
    *
    * @param aConsumer
-   *        The consumer to be invoked. May not be <code>null</code>. May only
-   *        perform reading operations!
+   *        The consumer to be invoked. May not be <code>null</code>. May only perform reading
+   *        operations!
    */
   void forEachRelation (@NonNull Consumer <? super RELATIONTYPE> aConsumer);
 
   /**
-   * @return A container with all nodes directly connected to this node's
-   *         relations. Never <code>null</code>.
+   * @return A container with all nodes directly connected to this node's relations. Never
+   *         <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   ICommonsOrderedSet <NODETYPE> getAllRelatedNodes ();
 
   /**
-   * @return A container with the IDs of all nodes directly connected to this
-   *         node's relations. Never <code>null</code>.
+   * @return A container with the IDs of all nodes directly connected to this node's relations.
+   *         Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy

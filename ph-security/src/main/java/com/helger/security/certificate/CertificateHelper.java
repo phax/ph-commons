@@ -596,8 +596,8 @@ public final class CertificateHelper
    *         If the principal string cannot be parsed as an LDAP name.
    */
   @Nullable
-  public static String getPrincipalTypeValue (@Nullable final String sPrincipal, @NonNull final String sType)
-                                                                                                              throws InvalidNameException
+  public static String getPrincipalTypeValue (@Nullable final String sPrincipal,
+                                              @NonNull final String sType) throws InvalidNameException
   {
     ValueEnforcer.notNull (sType, "Type");
     if (sPrincipal != null)
@@ -644,8 +644,8 @@ public final class CertificateHelper
    *         If the principal name cannot be parsed as an LDAP name.
    */
   @Nullable
-  public static String getPrincipalTypeValue (@Nullable final X500Principal aPrincipal, @NonNull final String sType)
-                                                                                                                     throws InvalidNameException
+  public static String getPrincipalTypeValue (@Nullable final X500Principal aPrincipal,
+                                              @NonNull final String sType) throws InvalidNameException
   {
     ValueEnforcer.notNull (sType, "Type");
     if (aPrincipal == null)
