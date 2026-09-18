@@ -20,13 +20,23 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
+import org.xml.sax.SAXParseException;
 
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.diagnostics.error.list.IErrorList;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
@@ -182,5 +192,58 @@ public final class XMLSchemaValidationHelperTest
     }
     catch (final NullPointerException ex)
     {}
+  }
+
+  @Test
+  public void testMakeValidatorSecure () throws Exception
+  {
+    final Path aSecret = Files.createTempFile ("phcommons-secret", ".txt");
+    try
+    {
+      Files.write (aSecret, "SECRET-CONTENT".getBytes (StandardCharsets.UTF_8));
+      final String sXSD = "<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'>" +
+                          "<xs:element name='root' type='xs:string'/></xs:schema>";
+      final String sXML = "<?xml version='1.0'?>" +
+                          "<!DOCTYPE root [<!ENTITY xxe SYSTEM '" +
+                          aSecret.toUri () +
+                          "'>]><root>&xxe;</root>";
+
+      // Deliberately an unsecured SchemaFactory - a caller may hand one in, and the JAXP contract
+      // does not propagate its settings onto the Validator
+      final SchemaFactory aSF = SchemaFactory.newInstance (XMLConstants.W3C_XML_SCHEMA_NS_URI);
+      final Schema aSchema = aSF.newSchema (new StreamSource (new NonBlockingStringReader (sXSD)));
+
+      // Without the securing the external entity is read
+      aSchema.newValidator ().validate (new StreamSource (new NonBlockingStringReader (sXML)));
+
+      // With the securing it is refused
+      final Validator aValidator = aSchema.newValidator ();
+      XMLSchemaValidationHelper.makeValidatorSecure (aValidator);
+      try
+      {
+        aValidator.validate (new StreamSource (new NonBlockingStringReader (sXML)));
+        fail ("The external entity must not be read");
+      }
+      catch (final SAXParseException ex)
+      {
+        // Expected - "file" access is not allowed
+      }
+
+      // The Validator used internally is secured as well. Note that a fatal parse error is
+      // wrapped in an IllegalArgumentException instead of being collected in the error list.
+      try
+      {
+        XMLSchemaValidationHelper.validate (aSchema, new StreamSource (new NonBlockingStringReader (sXML)));
+        fail ("The external entity must not be read");
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // Expected
+      }
+    }
+    finally
+    {
+      Files.deleteIfExists (aSecret);
+    }
   }
 }

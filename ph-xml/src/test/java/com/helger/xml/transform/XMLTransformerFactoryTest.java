@@ -148,7 +148,7 @@ public final class XMLTransformerFactoryTest
   public void testCustomFactory ()
   {
     final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (new CollectingTransformErrorListener (),
-                                                                                   new LoggingTransformURIResolver ());
+                                                                                   new LoggingTransformURIResolver (new DefaultTransformURIResolver ()));
     assertNotNull (fac);
 
     // Read valid XSLT

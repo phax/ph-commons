@@ -20,6 +20,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParserFactory;
+import javax.xml.stream.FactoryConfigurationError;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -41,6 +43,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.base.system.SystemProperties;
 import com.helger.xml.serialize.read.DOMReaderDefaultSettings;
+import com.helger.xml.stax.EmptyXMLResolver;
 
 /**
  * Utility class for creating XML DOM documents.
@@ -72,6 +75,26 @@ public final class XMLFactory
   public static final boolean DEFAULT_SAX_VALIDATING = DEFAULT_DOM_VALIDATING;
   /** SAXParserFactory is by default not XInclude aware */
   public static final boolean DEFAULT_SAX_XINCLUDE_AWARE = DEFAULT_DOM_XINCLUDE_AWARE;
+
+  /**
+   * XMLInputFactory is by default not supporting DTDs
+   *
+   * @since 12.4.1
+   */
+  public static final boolean DEFAULT_STAX_SUPPORT_DTD = false;
+  /**
+   * XMLInputFactory is by default not supporting external entities
+   *
+   * @since 12.4.1
+   */
+  public static final boolean DEFAULT_STAX_SUPPORTING_EXTERNAL_ENTITIES = false;
+  /**
+   * XMLInputFactory is by default coalescing, so that adjacent character data is reported in a
+   * single event
+   *
+   * @since 12.4.1
+   */
+  public static final boolean DEFAULT_STAX_COALESCING = DEFAULT_DOM_COALESCING;
 
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLFactory.class);
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
@@ -549,19 +572,24 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link TransformerFactory}. This includes
-   * disallowing DOCTYPE declarations and disabling external entities.
+   * Apply the default customization to the passed {@link TransformerFactory}. This includes setting
+   * secure processing, disallowing DOCTYPE declarations and disabling external entities. To
+   * additionally restrict the external DTD and stylesheet access to specific URL schemes, use
+   * {@link com.helger.xml.transform.XMLTransformerFactory#makeTransformerFactorySecure(TransformerFactory, String...)}.
    *
    * @param aFactory
    *        The transformer factory to customize. May not be <code>null</code>.
    */
   public static void defaultCustomizeTransformerFactory (@NonNull final TransformerFactory aFactory)
   {
-    if (false)
-    {
-      // This prevents to use XSLT includes
-      setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
-    }
+    /*
+     * Secure processing must be enabled, as it is the only setting that limits the runtime
+     * evaluation of XSLTC and that blocks the remote resource access of "document()", "xsl:import"
+     * and "xsl:include" that an URIResolver did not resolve itself. Note that an XSLT include
+     * resolved by an URIResolver (as by com.helger.xml.transform.DefaultTransformURIResolver) keeps
+     * working.
+     */
+    setFeature (aFactory, EXMLParserFeature.SECURE_PROCESSING, true, true);
     /*
      * The following properties might not be applied - e.g. default JDK does not support them. But
      * as other implementations might allow it...
@@ -591,6 +619,90 @@ public final class XMLFactory
     catch (final TransformerFactoryConfigurationError ex)
     {
       throw new InitializationException ("Failed to create XML TransformerFactory", ex);
+    }
+  }
+
+  /**
+   * Set a property on an {@link XMLInputFactory}, logging a warning if the property is not
+   * supported.
+   *
+   * @param aFactory
+   *        The XML input factory to set the property on. May not be <code>null</code>.
+   * @param sProperty
+   *        The property name to set. May not be <code>null</code>.
+   * @param aValue
+   *        The value to set for the property.
+   * @since 12.4.1
+   */
+  public static void setProperty (@NonNull final XMLInputFactory aFactory,
+                                  @NonNull final String sProperty,
+                                  final Object aValue)
+  {
+    try
+    {
+      aFactory.setProperty (sProperty, aValue);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      LOGGER.warn ("Failed to set property " +
+                   sProperty +
+                   " to " +
+                   aValue +
+                   " on XMLInputFactory: " +
+                   ex.getMessage ());
+    }
+  }
+
+  /**
+   * Apply the default customization to the passed {@link XMLInputFactory}. This includes
+   * disallowing DTDs and external entities.
+   * <p>
+   * Contrary to DOM, SAX, TrAX, XPath and XML Schema the StAX API defines no
+   * {@link javax.xml.XMLConstants#FEATURE_SECURE_PROCESSING} counterpart, so the limits on the
+   * internal entity expansion are the ones the implementation applies on its own (see
+   * {@link XMLSystemProperties} for the JDK ones). Additionally an {@link EmptyXMLResolver} is
+   * installed, so that an implementation that ignores {@link XMLInputFactory#SUPPORT_DTD} cannot
+   * fetch an external resource either.
+   * </p>
+   *
+   * @param aFactory
+   *        The XML input factory to customize. May not be <code>null</code>.
+   * @since 12.4.1
+   */
+  public static void defaultCustomizeXMLInputFactory (@NonNull final XMLInputFactory aFactory)
+  {
+    ValueEnforcer.notNull (aFactory, "Factory");
+
+    // No DTD at all - this is the StAX counterpart of "disallow-doctype-decl"
+    setProperty (aFactory, XMLInputFactory.SUPPORT_DTD, Boolean.valueOf (DEFAULT_STAX_SUPPORT_DTD));
+    setProperty (aFactory,
+                 XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES,
+                 Boolean.valueOf (DEFAULT_STAX_SUPPORTING_EXTERNAL_ENTITIES));
+    setProperty (aFactory, XMLInputFactory.IS_COALESCING, Boolean.valueOf (DEFAULT_STAX_COALESCING));
+    // Last line of defense, in case an implementation ignores SUPPORT_DTD
+    aFactory.setXMLResolver (new EmptyXMLResolver ());
+  }
+
+  /**
+   * Create a new {@link XMLInputFactory} with the default customization applied.
+   *
+   * @return A new, customized {@link XMLInputFactory}. Never <code>null</code>.
+   * @throws InitializationException
+   *         In case the factory cannot be created
+   * @since 12.4.1
+   */
+  @NonNull
+  public static XMLInputFactory createDefaultXMLInputFactory ()
+  {
+    try
+    {
+      final XMLInputFactory aFactory = XMLInputFactory.newInstance ();
+      defaultCustomizeXMLInputFactory (aFactory);
+      return aFactory;
+    }
+    catch (final FactoryConfigurationError ex)
+    {
+      throw new InitializationException ("Failed to create XML XMLInputFactory", ex);
     }
   }
 }

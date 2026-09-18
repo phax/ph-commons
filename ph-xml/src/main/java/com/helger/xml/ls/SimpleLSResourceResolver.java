@@ -28,7 +28,9 @@ import org.w3c.dom.ls.LSInput;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.style.OverrideOnDemand;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.CGlobal;
 import com.helger.base.classloader.IHasClassLoader;
+import com.helger.base.io.stream.HasInputStream;
 import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
@@ -113,6 +115,20 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
         if (StringHelper.isNotEmpty (sScheme))
           m_aAllowedRemoteSchemes.add (sScheme.toLowerCase (Locale.ROOT));
     return this;
+  }
+
+  /**
+   * @param sSystemId
+   *        The system ID of the blocked resource. May be <code>null</code>.
+   * @return The {@link LSInput} to be used for a resource that must not be accessed. This is an
+   *         empty document delivered as a byte stream - an {@link LSInput} that only carries an
+   *         empty string data is treated like "no content at all" by Xerces, which then opens the
+   *         system ID itself.
+   */
+  @NonNull
+  private static LSInput _createBlockedLSInput (@Nullable final String sSystemId)
+  {
+    return new ResourceLSInput (HasInputStream.create (CGlobal.EMPTY_BYTE_ARRAY), sSystemId);
   }
 
   /**
@@ -229,8 +245,13 @@ public class SimpleLSResourceResolver extends AbstractLSResourceResolver impleme
                      sBaseURI +
                      "') because its URL scheme is not in the list of allowed remote schemes " +
                      m_aAllowedRemoteSchemes);
-        // Returning null lets the parser apply its own (restricted) default resolution
-        return null;
+        /*
+         * Deliberately not "null": a SchemaFactory that does not restrict "accessExternalSchema"
+         * itself treats "null" as "not handled" and opens the system ID itself. An empty document
+         * ends the resolution instead, so that the schema load fails with an XML parsing error
+         * rather than silently fetching the remote resource.
+         */
+        return _createBlockedLSInput (sSystemId);
       }
 
       return new ResourceLSInput (aResolvedResource);

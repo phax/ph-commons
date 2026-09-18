@@ -50,7 +50,7 @@ public final class CollectingTransformErrorListenerTest
   {
     final CollectingTransformErrorListener el = new CollectingTransformErrorListener ();
     final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (el.andThen (new LoggingTransformErrorListener (L_EN)),
-                                                                                   new LoggingTransformURIResolver ());
+                                                                                   new LoggingTransformURIResolver (new DefaultTransformURIResolver ()));
     assertNotNull (fac);
 
     // Read valid XSLT

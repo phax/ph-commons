@@ -29,6 +29,7 @@ import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.StringImplode;
 import com.helger.diagnostics.error.list.ErrorList;
 import com.helger.diagnostics.error.list.IErrorList;
 import com.helger.io.resource.IReadableResource;
@@ -49,6 +50,38 @@ public final class XMLSchemaValidationHelper
 
   private XMLSchemaValidationHelper ()
   {}
+
+  /**
+   * Restrict the external DTD and schema access of the passed {@link Validator} to the explicitly
+   * allowed URL schemes.
+   * <p>
+   * This is needed because - contrary to what one might expect - the JAXP contract of
+   * {@link javax.xml.validation.SchemaFactory#setResourceResolver(org.w3c.dom.ls.LSResourceResolver)}
+   * states that neither the resolver nor the properties of a {@link javax.xml.validation.SchemaFactory}
+   * are inherited by the {@link Schema}, {@link Validator} and
+   * {@link javax.xml.validation.ValidatorHandler} objects it creates. Every {@link Validator} must
+   * therefore be secured on its own, or the external DTD of an instance document and the schema
+   * referenced by an <code>xsi:schemaLocation</code> hint may be fetched during validation.
+   * </p>
+   *
+   * @param aValidator
+   *        The validator to secure. May not be <code>null</code>.
+   * @param aAllowedExternalSchemes
+   *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http").
+   *        If none is provided, all external DTD and schema access is denied to prevent Server Side
+   *        Request Forgery (SSRF) and the reading of local files.
+   * @since 12.4.1
+   */
+  public static void makeValidatorSecure (@NonNull final Validator aValidator,
+                                          @Nullable final String... aAllowedExternalSchemes)
+  {
+    ValueEnforcer.notNull (aValidator, "Validator");
+
+    // An empty String (no scheme provided) denies all external access
+    final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+    EXMLParserProperty.ACCESS_EXTERNAL_DTD.applyTo (aValidator, sCombinedSchemes);
+    EXMLParserProperty.ACCESS_EXTERNAL_SCHEMA.applyTo (aValidator, sCombinedSchemes);
+  }
 
   /**
    * Validate the passed XML resource against the passed XSD resource.
@@ -195,6 +228,7 @@ public final class XMLSchemaValidationHelper
 
     // Build the validator
     final Validator aValidator = aSchema.newValidator ();
+    makeValidatorSecure (aValidator);
     if (aLocale != null)
       EXMLParserProperty.GENERAL_LOCALE.applyTo (aValidator, aLocale);
     aValidator.setErrorHandler (new WrappedCollectingSAXErrorHandler (aErrorList));

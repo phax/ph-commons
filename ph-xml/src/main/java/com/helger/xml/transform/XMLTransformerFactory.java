@@ -56,7 +56,6 @@ public final class XMLTransformerFactory
   {
     DEFAULT_FACTORY = createTransformerFactory (new LoggingTransformErrorListener (Locale.ROOT),
                                                 new DefaultTransformURIResolver ());
-    makeTransformerFactorySecure (DEFAULT_FACTORY);
   }
 
   @PresentForCodeCoverage
@@ -66,7 +65,11 @@ public final class XMLTransformerFactory
   {}
 
   /**
-   * Create a new {@link TransformerFactory} with the passed error listener and URI resolver.
+   * Create a new {@link TransformerFactory} with the passed error listener and URI resolver. The
+   * returned factory is secured via
+   * {@link #makeTransformerFactorySecure(TransformerFactory, String...)} without any allowed
+   * external scheme, so all external DTD and stylesheet access is denied. To allow specific
+   * schemes, call that method again on the returned factory.
    *
    * @param aErrorListener
    *        The error listener to use. May be <code>null</code>.
@@ -85,6 +88,9 @@ public final class XMLTransformerFactory
         aFactory.setErrorListener (aErrorListener);
       if (aURIResolver != null)
         aFactory.setURIResolver (aURIResolver);
+      // Deny all external DTD and stylesheet access - a factory that is handed out unsecured
+      // lets XSLTC fetch every URI that the URIResolver did not resolve itself (SSRF)
+      makeTransformerFactorySecure (aFactory);
       return aFactory;
     }
     catch (final TransformerFactoryConfigurationError ex)

@@ -23,15 +23,22 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.validation.Schema;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
 
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.xml.schema.XMLSchemaCache;
+import com.helger.xml.stax.EmptyXMLResolver;
 
 /**
  * Test class for class {@link XMLFactory}.
@@ -48,6 +55,48 @@ public final class XMLFactoryTest
     assertTrue (dbf.isCoalescing ());
     assertTrue (dbf.isIgnoringComments ());
     assertTrue (dbf.isNamespaceAware ());
+  }
+
+  @Test
+  public void testCreateDefaultTransformerFactorySecure ()
+  {
+    final TransformerFactory tf = XMLFactory.createDefaultTransformerFactory ();
+    assertNotNull (tf);
+    // Without secure processing XSLTC fetches every URI that the URIResolver leaves unresolved
+    assertTrue (tf.getFeature (XMLConstants.FEATURE_SECURE_PROCESSING));
+  }
+
+  @Test
+  public void testCreateDefaultXMLInputFactory ()
+  {
+    final XMLInputFactory aFactory = XMLFactory.createDefaultXMLInputFactory ();
+    assertNotNull (aFactory);
+    assertEquals (Boolean.valueOf (XMLFactory.DEFAULT_STAX_SUPPORT_DTD),
+                  aFactory.getProperty (XMLInputFactory.SUPPORT_DTD));
+    assertEquals (Boolean.valueOf (XMLFactory.DEFAULT_STAX_SUPPORTING_EXTERNAL_ENTITIES),
+                  aFactory.getProperty (XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES));
+    // The floor must be present, so that an implementation ignoring SUPPORT_DTD cannot fetch
+    assertTrue (aFactory.getXMLResolver () instanceof EmptyXMLResolver);
+  }
+
+  @Test
+  public void testCreateDefaultXMLInputFactoryNoDoctype () throws XMLStreamException
+  {
+    final XMLInputFactory aFactory = XMLFactory.createDefaultXMLInputFactory ();
+    final String sXML = "<?xml version='1.0'?>" +
+                        "<!DOCTYPE root [<!ENTITY xxe SYSTEM 'http://127.0.0.1:1/evil.xml'>]>" +
+                        "<root>&xxe;</root>";
+    final XMLStreamReader aReader = aFactory.createXMLStreamReader (new NonBlockingStringReader (sXML));
+    try
+    {
+      while (aReader.hasNext ())
+        aReader.next ();
+      fail ("A DOCTYPE declaration must be rejected");
+    }
+    catch (final XMLStreamException ex)
+    {
+      // Expected - DTDs are not supported at all
+    }
   }
 
   @Test

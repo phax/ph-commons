@@ -21,6 +21,7 @@ import java.util.Locale;
 import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.URIResolver;
+import javax.xml.transform.dom.DOMSource;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -34,6 +35,7 @@ import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsSet;
 import com.helger.io.resource.IReadableResource;
 import com.helger.io.resourceresolver.DefaultResourceResolver;
+import com.helger.xml.XMLFactory;
 import com.helger.xml.XMLResourceSchemeHelper;
 import com.helger.xml.ls.SimpleLSResourceResolver;
 
@@ -133,6 +135,17 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
     return this;
   }
 
+  /**
+   * @return The {@link Source} to be used for a resource that must not be accessed. This is an
+   *         empty DOM document, so that the resolution ends here and the calling implementation
+   *         does not fall back to fetching the URI itself.
+   */
+  @NonNull
+  private static Source _createBlockedSource ()
+  {
+    return new DOMSource (XMLFactory.newDocument ());
+  }
+
   @Override
   @Nullable
   protected Source internalResolve (final String sHref, final String sBase) throws TransformerException
@@ -171,7 +184,13 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
                      sRealBase +
                      "') because its URL scheme is not in the list of allowed remote schemes " +
                      m_aAllowedRemoteSchemes);
-        return null;
+        /*
+         * Deliberately not "null": a TransformerFactory that honours neither secure processing nor
+         * the "accessExternalDTD"/"accessExternalStylesheet" attributes treats "null" as "not
+         * handled" and opens the URI itself. An empty document ends the resolution instead, so
+         * that "document()" evaluates to an empty node set and "xsl:import"/"xsl:include" fail.
+         */
+        return _createBlockedSource ();
       }
       if (aRes.exists ())
         return TransformSourceFactory.create (aRes);

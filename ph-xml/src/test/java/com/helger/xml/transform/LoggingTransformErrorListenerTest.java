@@ -43,7 +43,7 @@ public final class LoggingTransformErrorListenerTest
   {
     final LoggingTransformErrorListener el = new LoggingTransformErrorListener (L_EN);
     final TransformerFactory fac = XMLTransformerFactory.createTransformerFactory (el,
-                                                                                   new LoggingTransformURIResolver ());
+                                                                                   new LoggingTransformURIResolver (new DefaultTransformURIResolver ()));
     assertNotNull (fac);
 
     // Read valid XSLT

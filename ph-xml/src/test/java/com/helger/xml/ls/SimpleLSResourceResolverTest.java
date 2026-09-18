@@ -20,6 +20,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.xml.XMLConstants;
@@ -80,5 +81,45 @@ public final class SimpleLSResourceResolverTest
     {
       aOSGI.stop ();
     }
+  }
+
+  @Test
+  public void testRemoteSchemeBlocked () throws IOException
+  {
+    final SimpleLSResourceResolver aRR = new SimpleLSResourceResolver ();
+    assertTrue (aRR.getAllAllowedRemoteSchemes ().isEmpty ());
+
+    // Port 1 is never listening - the test must not even try to connect
+    final LSInput aRes = aRR.resolveResource (XMLConstants.W3C_XML_SCHEMA_NS_URI,
+                                              "urn:example",
+                                              null,
+                                              "http://127.0.0.1:1/evil.xsd",
+                                              null);
+    /*
+     * Must not be null: a SchemaFactory that does not restrict "accessExternalSchema" itself
+     * treats null as "not handled" and opens the system ID. An empty byte stream ends the
+     * resolution - note that an LSInput with an empty string data only is treated like "no
+     * content at all" by Xerces, which then opens the system ID as well.
+     */
+    assertNotNull (aRes);
+    assertNotNull (aRes.getByteStream ());
+    assertEquals (-1, aRes.getByteStream ().read ());
+  }
+
+  @Test
+  public void testRemoteSchemeAllowed ()
+  {
+    final SimpleLSResourceResolver aRR = new SimpleLSResourceResolver ();
+    aRR.setAllowedRemoteSchemes ("http");
+    assertTrue (aRR.getAllAllowedRemoteSchemes ().contains ("http"));
+
+    final LSInput aRes = aRR.resolveResource (XMLConstants.W3C_XML_SCHEMA_NS_URI,
+                                              "urn:example",
+                                              null,
+                                              "http://127.0.0.1:1/evil.xsd",
+                                              null);
+    // Resolved as a regular URL resource - it is not read here, so no connection is opened
+    assertTrue (aRes instanceof ResourceLSInput);
+    assertTrue (((ResourceLSInput) aRes).getInputStreamProvider () instanceof URLResource);
   }
 }
