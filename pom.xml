@@ -26,7 +26,7 @@
   </parent>
   <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-parent-pom</artifactId>
-  <version>12.4.1-SNAPSHOT</version>
+  <version>12.5.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-commons-parent-pom</name>
   <description>Base POM to build the ph-commons projects</description>
@@ -82,8 +82,8 @@
   <properties>
     <!-- For surefire plugin (use property for JaCoCo integration) -->
     <argLine>-Xmx1024m</argLine>
-    <bc.version>1.85</bc.version>
-    <bcprov.version>1.85.2</bcprov.version>
+    <bc.version>1.86</bc.version>
+    <bcprov.version>1.86</bcprov.version>
     <bcpg.version>${bc.version}</bcpg.version>
   </properties>
   
