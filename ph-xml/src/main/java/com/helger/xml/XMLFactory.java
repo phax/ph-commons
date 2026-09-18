@@ -79,20 +79,20 @@ public final class XMLFactory
   /**
    * XMLInputFactory is by default not supporting DTDs
    *
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static final boolean DEFAULT_STAX_SUPPORT_DTD = false;
   /**
    * XMLInputFactory is by default not supporting external entities
    *
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static final boolean DEFAULT_STAX_SUPPORTING_EXTERNAL_ENTITIES = false;
   /**
    * XMLInputFactory is by default coalescing, so that adjacent character data is reported in a
    * single event
    *
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static final boolean DEFAULT_STAX_COALESCING = DEFAULT_DOM_COALESCING;
 
@@ -632,7 +632,7 @@ public final class XMLFactory
    *        The property name to set. May not be <code>null</code>.
    * @param aValue
    *        The value to set for the property.
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static void setProperty (@NonNull final XMLInputFactory aFactory,
                                   @NonNull final String sProperty,
@@ -667,7 +667,7 @@ public final class XMLFactory
    *
    * @param aFactory
    *        The XML input factory to customize. May not be <code>null</code>.
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static void defaultCustomizeXMLInputFactory (@NonNull final XMLInputFactory aFactory)
   {
@@ -689,7 +689,7 @@ public final class XMLFactory
    * @return A new, customized {@link XMLInputFactory}. Never <code>null</code>.
    * @throws InitializationException
    *         In case the factory cannot be created
-   * @since 12.4.1
+   * @since 12.5.0
    */
   @NonNull
   public static XMLInputFactory createDefaultXMLInputFactory ()

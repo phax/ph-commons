@@ -100,7 +100,7 @@ public class StringHelper
    *         whitespaces, <code>false</code> otherwise
    * @since 10.1.8
    */
-  @Deprecated (forRemoval = true, since = "12.4.1")
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static boolean isEmptyAfterTrim (@Nullable final String s)
   {
     return isBlank (s);
@@ -113,7 +113,7 @@ public class StringHelper
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the string is <code>null</code> or empty or consists only of
    *         whitespaces, <code>false</code> otherwise
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static boolean isBlank (@Nullable final String s)
   {
@@ -156,7 +156,7 @@ public class StringHelper
    *         only of whitespaces, <code>false</code> otherwise
    * @since 10.1.8
    */
-  @Deprecated (forRemoval = true, since = "12.4.1")
+  @Deprecated (forRemoval = true, since = "12.5.0")
   public static boolean isNotEmptyAfterTrim (@Nullable final String s)
   {
     return isNotBlank (s);
@@ -169,7 +169,7 @@ public class StringHelper
    *        The string to check. May be <code>null</code>.
    * @return <code>true</code> if the string is neither <code>null</code> nor empty nor consists
    *         only of whitespaces, <code>false</code> otherwise
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static boolean isNotBlank (@Nullable final String s)
   {

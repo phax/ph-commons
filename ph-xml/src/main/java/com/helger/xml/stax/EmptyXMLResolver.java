@@ -33,7 +33,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
  * no external resource can be fetched.
  *
  * @author Philip Helger
- * @since 12.4.1
+ * @since 12.5.0
  */
 public class EmptyXMLResolver implements XMLResolver
 {

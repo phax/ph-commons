@@ -98,7 +98,7 @@ public class DefaultEntityResolver implements EntityResolver
    * @return A mutable copy of the set of remote URL schemes (all lower case, e.g. "http") that are
    *         allowed to be resolved. Empty by default, meaning that only local (class path or
    *         <code>file</code> based) resources may be resolved. Never <code>null</code>.
-   * @since 12.4.1
+   * @since 12.5.0
    */
   @NonNull
   @ReturnsMutableCopy
@@ -116,7 +116,7 @@ public class DefaultEntityResolver implements EntityResolver
    *        The remote schemes to allow (e.g. "http", "https"). May be <code>null</code> or empty to
    *        deny all remote schemes.
    * @return this for chaining
-   * @since 12.4.1
+   * @since 12.5.0
    */
   @NonNull
   public final DefaultEntityResolver setAllowedRemoteSchemes (@Nullable final String... aAllowedRemoteSchemes)

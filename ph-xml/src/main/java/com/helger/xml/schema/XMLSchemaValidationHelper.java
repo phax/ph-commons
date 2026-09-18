@@ -70,7 +70,7 @@ public final class XMLSchemaValidationHelper
    *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http").
    *        If none is provided, all external DTD and schema access is denied to prevent Server Side
    *        Request Forgery (SSRF) and the reading of local files.
-   * @since 12.4.1
+   * @since 12.5.0
    */
   public static void makeValidatorSecure (@NonNull final Validator aValidator,
                                           @Nullable final String... aAllowedExternalSchemes)
