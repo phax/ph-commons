@@ -119,11 +119,15 @@ public class ThreadDescriptorList implements IHasMicroNodeRepresentation
   {
     // Group threads by state
     final ICommonsMap <State, ICommonsNavigableSet <Long>> aStateMap = new CommonsEnumMap <> (State.class);
+    // Ensure that every state is contained, even if no thread is in it
+    for (final State eState : State.values ())
+      aStateMap.put (eState, new CommonsTreeSet <> ());
     for (final ThreadDescriptor aDescriptor : m_aList)
     {
       final State eState = aDescriptor.getThreadState ();
-      final ICommonsNavigableSet <Long> aThreadIDs = aStateMap.computeIfAbsent (eState, k -> new CommonsTreeSet <> ());
-      aThreadIDs.add (Long.valueOf (aDescriptor.getThreadID ()));
+      // A thread that died in the meantime has no state anymore
+      if (eState != null)
+        aStateMap.get (eState).add (Long.valueOf (aDescriptor.getThreadID ()));
     }
     return aStateMap;
   }
