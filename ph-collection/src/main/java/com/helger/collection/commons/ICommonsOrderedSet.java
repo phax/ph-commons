@@ -88,24 +88,68 @@ public interface ICommonsOrderedSet <ELEMENTTYPE> extends ICommonsSet <ELEMENTTY
     return ret;
   }
 
+  /**
+   * @return The first element of the set or <code>null</code> if the set is empty.
+   * @deprecated Use {@link #getFirstOrNull()} instead
+   */
   @Nullable
+  @Deprecated (forRemoval = true, since = "12.5.0")
   default ELEMENTTYPE getFirst ()
   {
     return getFirst (null);
   }
 
+  /**
+   * @return The first element of the set or <code>null</code> if the set is empty.
+   * @see #getFirst(Object)
+   * @since 12.5.0
+   */
+  @Nullable
+  default ELEMENTTYPE getFirstOrNull ()
+  {
+    return getFirst (null);
+  }
+
+  /**
+   * @param aDefault
+   *        The default value to be returned if this set is empty. May be <code>null</code>.
+   * @return The first element of the set or the provided default value if the set is empty.
+   * @see #getFirstOrNull()
+   */
   @Nullable
   default ELEMENTTYPE getFirst (@Nullable final ELEMENTTYPE aDefault)
   {
     return isEmpty () ? aDefault : iterator ().next ();
   }
 
+  /**
+   * @return The last element of the set or <code>null</code> if the set is empty.
+   * @deprecated Use {@link #getLastOrNull()} instead
+   */
   @Nullable
+  @Deprecated (forRemoval = true, since = "12.5.0")
   default ELEMENTTYPE getLast ()
   {
     return getLast (null);
   }
 
+  /**
+   * @return The last element of the set or <code>null</code> if the set is empty.
+   * @see #getLast(Object)
+   * @since 12.5.0
+   */
+  @Nullable
+  default ELEMENTTYPE getLastOrNull ()
+  {
+    return getLast (null);
+  }
+
+  /**
+   * @param aDefault
+   *        The default value to be returned if this set is empty. May be <code>null</code>.
+   * @return The last element of the set or the provided default value if the set is empty.
+   * @see #getLastOrNull()
+   */
   @Nullable
   default ELEMENTTYPE getLast (@Nullable final ELEMENTTYPE aDefault)
   {
