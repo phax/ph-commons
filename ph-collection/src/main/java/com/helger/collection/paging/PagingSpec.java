@@ -75,7 +75,7 @@ public class PagingSpec implements IPagingSpec
                      @Nullable final SortField... aSortFields)
   {
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");
-    ValueEnforcer.notNullNoNullValue (aSortFields, "SortFields");
+    ValueEnforcer.noNullValue (aSortFields, "SortFields");
 
     m_nStartIndex = nStartIndex;
     // Normalize all negative values to the same one, so that equals works as expected
@@ -98,7 +98,7 @@ public class PagingSpec implements IPagingSpec
                      @Nullable final Iterable <? extends SortField> aSortFields)
   {
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");
-    ValueEnforcer.notNullNoNullValue (aSortFields, "SortFields");
+    ValueEnforcer.noNullValue (aSortFields, "SortFields");
 
     m_nStartIndex = nStartIndex;
     // Normalize all negative values to the same one, so that equals works as expected
