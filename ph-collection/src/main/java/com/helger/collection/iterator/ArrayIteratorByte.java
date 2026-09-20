@@ -115,7 +115,8 @@ public final class ArrayIteratorByte
   {
     if (!hasNext ())
       throw new NoSuchElementException ();
-    return m_aBytes.bytes ()[m_nIndex++];
+    // Note: the offset is only non-0 if the source array was not copied
+    return m_aBytes.bytes ()[m_aBytes.getOffset () + m_nIndex++];
   }
 
   @Override
