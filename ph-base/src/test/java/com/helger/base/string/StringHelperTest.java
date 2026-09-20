@@ -26,8 +26,6 @@ import static org.junit.Assert.fail;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -39,6 +37,7 @@ import com.helger.base.CGlobal;
 import com.helger.base.functional.ICharPredicate;
 import com.helger.base.functional.IThrowingFunction;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.base.numeric.mutable.MutableInt;
 
 /**
  * Test class for class {@link StringHelper}.
@@ -49,6 +48,7 @@ public final class StringHelperTest
 {
   private static final Locale L_DE = new Locale ("de");
 
+  @SuppressWarnings ("removal")
   @Test
   public void testHasTextAndHasNoText ()
   {
@@ -57,20 +57,47 @@ public final class StringHelperTest
     assertFalse (StringHelper.isNotEmpty (""));
     assertFalse (StringHelper.isNotEmpty ((String) null));
 
+    assertTrue (StringHelper.hasText ("any"));
+    assertTrue (StringHelper.hasText (" "));
+    assertFalse (StringHelper.hasText (""));
+    assertFalse (StringHelper.hasText ((String) null));
+    assertFalse (StringHelper.hasText ((CharSequence) null));
+
     assertTrue (StringHelper.isNotBlank ("any"));
     assertFalse (StringHelper.isNotBlank (" "));
     assertFalse (StringHelper.isNotBlank (""));
     assertFalse (StringHelper.isNotBlank (null));
+
+    assertTrue (StringHelper.isNotEmptyAfterTrim ("any"));
+    assertFalse (StringHelper.isNotEmptyAfterTrim (" "));
+    assertFalse (StringHelper.isNotEmptyAfterTrim (""));
+    assertFalse (StringHelper.isNotEmptyAfterTrim (null));
+
+    assertTrue (StringHelper.hasTextAfterTrim ("any"));
+    assertFalse (StringHelper.hasTextAfterTrim (" "));
+    assertFalse (StringHelper.hasTextAfterTrim (""));
+    assertFalse (StringHelper.hasTextAfterTrim (null));
 
     assertFalse (StringHelper.isEmpty ("any"));
     assertFalse (StringHelper.isEmpty (" "));
     assertTrue (StringHelper.isEmpty (""));
     assertTrue (StringHelper.isEmpty (null));
 
+    assertFalse (StringHelper.hasNoText ("any"));
+    assertFalse (StringHelper.hasNoText (" "));
+    assertTrue (StringHelper.hasNoText (""));
+    assertTrue (StringHelper.hasNoText ((String) null));
+    assertTrue (StringHelper.hasNoText ((CharSequence) null));
+
     assertFalse (StringHelper.isBlank ("any"));
     assertTrue (StringHelper.isBlank (" "));
     assertTrue (StringHelper.isBlank (""));
     assertTrue (StringHelper.isBlank (null));
+
+    assertFalse (StringHelper.isEmptyAfterTrim ("any"));
+    assertTrue (StringHelper.isEmptyAfterTrim (" "));
+    assertTrue (StringHelper.isEmptyAfterTrim (""));
+    assertTrue (StringHelper.isEmptyAfterTrim (null));
   }
 
   @Test
@@ -246,18 +273,18 @@ public final class StringHelperTest
     assertEquals (-1, StringHelper.getIndexOf ("bla fob", "z"));
     assertEquals (0, StringHelper.getIndexOf ("bla fob", "b"));
     assertEquals (2, StringHelper.getIndexOf ("bla fob", "a"));
-  }
 
-  @Test
-  public void testGetLastIndexOfString ()
-  {
-    assertEquals (-1, StringHelper.getLastIndexOf (null, null));
-    assertEquals (-1, StringHelper.getLastIndexOf (null, "a"));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", null));
-    assertEquals (-1, StringHelper.getLastIndexOf ("b", "cd"));
-    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", "z"));
-    assertEquals (6, StringHelper.getLastIndexOf ("bla fob", "b"));
-    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", "a"));
+    assertEquals (-1, StringHelper.getIndexOf (null, 0, null));
+    assertEquals (-1, StringHelper.getIndexOf (null, 0, "a"));
+    assertEquals (-1, StringHelper.getIndexOf ("b", 0, null));
+    assertEquals (-1, StringHelper.getIndexOf ("b", 0, "cd"));
+    assertEquals (-1, StringHelper.getIndexOf ("bla fob", 0, "z"));
+    assertEquals (0, StringHelper.getIndexOf ("bla fob", 0, "b"));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 0, "a"));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", -1, "a"));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 1, "a"));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 2, "a"));
+    assertEquals (-1, StringHelper.getIndexOf ("bla fob", 3, "a"));
   }
 
   @Test
@@ -270,6 +297,42 @@ public final class StringHelperTest
     assertEquals (-1, StringHelper.getIndexOf ("bla fob", 'z'));
     assertEquals (0, StringHelper.getIndexOf ("bla fob", 'b'));
     assertEquals (2, StringHelper.getIndexOf ("bla fob", 'a'));
+
+    assertEquals (-1, StringHelper.getIndexOf (null, 0, '\0'));
+    assertEquals (-1, StringHelper.getIndexOf (null, 0, 'a'));
+    assertEquals (-1, StringHelper.getIndexOf ("b", 0, '\0'));
+    assertEquals (-1, StringHelper.getIndexOf ("b", 0, 'c'));
+    assertEquals (-1, StringHelper.getIndexOf ("bla fob", 0, 'z'));
+    assertEquals (0, StringHelper.getIndexOf ("bla fob", 0, 'b'));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 0, 'a'));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", -1, 'a'));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 1, 'a'));
+    assertEquals (2, StringHelper.getIndexOf ("bla fob", 2, 'a'));
+    assertEquals (-1, StringHelper.getIndexOf ("bla fob", 3, 'a'));
+  }
+
+  @Test
+  public void testGetLastIndexOfString ()
+  {
+    assertEquals (-1, StringHelper.getLastIndexOf (null, null));
+    assertEquals (-1, StringHelper.getLastIndexOf (null, "a"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", null));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", "cd"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", "z"));
+    assertEquals (6, StringHelper.getLastIndexOf ("bla fob", "b"));
+    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", "a"));
+
+    assertEquals (-1, StringHelper.getLastIndexOf (null, 0, null));
+    assertEquals (-1, StringHelper.getLastIndexOf (null, 0, "a"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", 0, null));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", 0, "cd"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 0, "z"));
+    assertEquals (0, StringHelper.getLastIndexOf ("bla fob", 0, "b"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 0, "a"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", -1, "a"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 1, "a"));
+    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 2, "a"));
+    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 3, "a"));
   }
 
   @Test
@@ -282,6 +345,18 @@ public final class StringHelperTest
     assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 'z'));
     assertEquals (6, StringHelper.getLastIndexOf ("bla fob", 'b'));
     assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 'a'));
+
+    assertEquals (-1, StringHelper.getLastIndexOf (null, 0, '\0'));
+    assertEquals (-1, StringHelper.getLastIndexOf (null, 0, 'a'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", 0, '\0'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("b", 0, 'c'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 0, 'z'));
+    assertEquals (0, StringHelper.getLastIndexOf ("bla fob", 0, 'b'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 0, 'a'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", -1, 'a'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("bla fob", 1, 'a'));
+    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 2, 'a'));
+    assertEquals (2, StringHelper.getLastIndexOf ("bla fob", 3, 'a'));
   }
 
   @Test
@@ -320,13 +395,55 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testMultiContains ()
+  public void testContainsAnyString ()
+  {
+    final String sIn = "abcde";
+    assertTrue (StringHelper.containsAny (sIn, "a".toCharArray ()));
+    assertFalse (StringHelper.containsAny (sIn, "z".toCharArray ()));
+    assertFalse (StringHelper.containsAny (sIn, new char [0]));
+    assertFalse (StringHelper.containsAny (new char [0], "a".toCharArray ()));
+  }
+
+  @Test
+  public void testContainsAnyCharArray ()
   {
     final char [] aIn = "abcde".toCharArray ();
     assertTrue (StringHelper.containsAny (aIn, "a".toCharArray ()));
     assertFalse (StringHelper.containsAny (aIn, "z".toCharArray ()));
     assertFalse (StringHelper.containsAny (aIn, new char [0]));
     assertFalse (StringHelper.containsAny (new char [0], "a".toCharArray ()));
+  }
+
+  @Test
+  public void testIterateChars ()
+  {
+    final String sIn = "abcde";
+    final MutableInt aCnt = new MutableInt (0);
+    StringHelper.iterateChars (sIn, value -> aCnt.inc ());
+    assertEquals (sIn.length (), aCnt.intValue ());
+
+    aCnt.set (0);
+    StringHelper.iterateChars (null, value -> aCnt.inc ());
+    assertEquals (0, aCnt.intValue ());
+
+    StringHelper.iterateChars ("", value -> aCnt.inc ());
+    assertEquals (0, aCnt.intValue ());
+  }
+
+  @Test
+  public void testIterateCodePoints ()
+  {
+    final String sIn = "abcde";
+    final MutableInt aCnt = new MutableInt (0);
+    StringHelper.iterateCodePoints (sIn, value -> aCnt.inc ());
+    assertEquals (sIn.length (), aCnt.intValue ());
+
+    aCnt.set (0);
+    StringHelper.iterateCodePoints (null, value -> aCnt.inc ());
+    assertEquals (0, aCnt.intValue ());
+
+    StringHelper.iterateCodePoints ("", value -> aCnt.inc ());
+    assertEquals (0, aCnt.intValue ());
   }
 
   @Test
@@ -499,16 +616,28 @@ public final class StringHelperTest
     assertTrue (StringHelper.startsWith ("abc", "abc"));
     assertFalse (StringHelper.startsWith ("abc", "b"));
     assertTrue (StringHelper.startsWith ("a", "a"));
+    assertTrue (StringHelper.startsWith ("a", ""));
     assertFalse (StringHelper.startsWith ("", "a"));
     assertFalse (StringHelper.startsWith (null, "a"));
     assertFalse (StringHelper.startsWith ("a", null));
 
-    assertTrue (StringHelper.startsWith ("abc", ""));
+    assertTrue (StringHelper.startsWith ((CharSequence) "abc", "a"));
+    assertTrue (StringHelper.startsWith ((CharSequence) "abc", "ab"));
+    assertTrue (StringHelper.startsWith ((CharSequence) "abc", "abc"));
+    assertFalse (StringHelper.startsWith ((CharSequence) "abc", "b"));
+    assertTrue (StringHelper.startsWith ((CharSequence) "a", "a"));
+    assertTrue (StringHelper.startsWith ((CharSequence) "a", ""));
+    assertFalse (StringHelper.startsWith ((CharSequence) "", "a"));
+    assertFalse (StringHelper.startsWith (null, (CharSequence) "a"));
+    assertFalse (StringHelper.startsWith ((CharSequence) "a", null));
+
     assertTrue (StringHelper.startsWith ("", ""));
     assertFalse (StringHelper.startsWith (null, ""));
+    assertFalse (StringHelper.startsWith ((String) null, null));
 
-    assertFalse (StringHelper.startsWith (null, null));
-    assertTrue (StringHelper.startsWith ("", ""));
+    assertTrue (StringHelper.startsWith ((CharSequence) "", ""));
+    assertFalse (StringHelper.startsWith (null, (CharSequence) ""));
+    assertFalse (StringHelper.startsWith ((CharSequence) null, null));
 
     assertFalse (StringHelper.startsWithIgnoreCase (null, null));
     assertTrue (StringHelper.startsWithIgnoreCase ("", ""));
@@ -548,8 +677,8 @@ public final class StringHelperTest
     assertFalse (StringHelper.endsWith ("abc", 'b'));
     assertTrue (StringHelper.endsWith ("a", 'a'));
     assertFalse (StringHelper.endsWith ("", 'a'));
-    assertFalse (StringHelper.endsWith (null, 'a'));
-    assertFalse (StringHelper.endsWith (null, null));
+    assertFalse (StringHelper.endsWith ((String) null, 'a'));
+    assertFalse (StringHelper.endsWith ((String) null, null));
     assertTrue (StringHelper.endsWith ("", ""));
 
     final char [] aEnd = { 'a', 'b', 'c' };
@@ -563,7 +692,7 @@ public final class StringHelperTest
     assertFalse (StringHelper.endsWithAny ("a", (char []) null));
     assertFalse (StringHelper.endsWithAny ("a", new char [0]));
 
-    assertFalse (StringHelper.endsWithIgnoreCase (null, null));
+    assertFalse (StringHelper.endsWithIgnoreCase ((String) null, null));
     assertTrue (StringHelper.endsWithIgnoreCase ("", ""));
 
     assertTrue (StringHelper.endsWithIgnoreCase ("abc", 'c'));
@@ -593,15 +722,27 @@ public final class StringHelperTest
     assertTrue (StringHelper.endsWith ("abc", "abc"));
     assertFalse (StringHelper.endsWith ("abc", "b"));
     assertTrue (StringHelper.endsWith ("a", "a"));
+    assertTrue (StringHelper.endsWith ("a", ""));
     assertFalse (StringHelper.endsWith ("", "a"));
     assertFalse (StringHelper.endsWith (null, "a"));
     assertFalse (StringHelper.endsWith ("a", null));
+
+    assertTrue (StringHelper.endsWith ((CharSequence) "abc", "c"));
+    assertTrue (StringHelper.endsWith ((CharSequence) "abc", "bc"));
+    assertTrue (StringHelper.endsWith ((CharSequence) "abc", "abc"));
+    assertFalse (StringHelper.endsWith ((CharSequence) "abc", "b"));
+    assertTrue (StringHelper.endsWith ((CharSequence) "a", "a"));
+    assertTrue (StringHelper.endsWith ((CharSequence) "a", ""));
+    assertFalse (StringHelper.endsWith ((CharSequence) "", "a"));
+    assertFalse (StringHelper.endsWith (null, (CharSequence) "a"));
+    assertFalse (StringHelper.endsWith ((CharSequence) "a", null));
 
     assertTrue (StringHelper.endsWithIgnoreCase ("abc", "c"));
     assertTrue (StringHelper.endsWithIgnoreCase ("abc", "bc"));
     assertTrue (StringHelper.endsWithIgnoreCase ("abc", "abc"));
     assertFalse (StringHelper.endsWithIgnoreCase ("abc", "b"));
     assertTrue (StringHelper.endsWithIgnoreCase ("a", "a"));
+    assertTrue (StringHelper.endsWithIgnoreCase ("a", ""));
     assertFalse (StringHelper.endsWithIgnoreCase ("", "a"));
     assertFalse (StringHelper.endsWithIgnoreCase (null, "a"));
     assertFalse (StringHelper.endsWithIgnoreCase ("a", null));
@@ -654,7 +795,15 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testGetExplodedToListWithMax ()
+  public void testGetExplodedToListString ()
+  {
+    assertEquals (Arrays.asList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c"));
+    assertEquals (Arrays.asList ("", "b", ""), StringHelper.getExploded ("@", "@b@"));
+    assertTrue (StringHelper.getExploded ("@", null).isEmpty ());
+  }
+
+  @Test
+  public void testGetExplodedToListStringWithMax ()
   {
     assertEquals (Arrays.asList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 5));
     assertEquals (Arrays.asList ("a", "b", "", "c"), StringHelper.getExploded ("@", "a@b@@c", 4));
@@ -669,42 +818,43 @@ public final class StringHelperTest
   }
 
   @Test
-  public void testGetExplodedArray ()
+  public void testGetExplodedToArrayChar ()
+  {
+    assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c"));
+    assertArrayEquals (new String [] { "", "", "", "" }, StringHelper.getExplodedArray ('@', "@@@"));
+    assertArrayEquals (new String [] { "abc" }, StringHelper.getExplodedArray ('@', "abc"));
+    assertArrayEquals (new String [] { "", "b", "" }, StringHelper.getExplodedArray ('@', "@b@"));
+    assertArrayEquals (CGlobal.EMPTY_STRING_ARRAY, StringHelper.getExplodedArray ('@', null));
+  }
+
+  @Test
+  public void testGetExplodedToArrayCharWithMax ()
   {
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 5));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 4));
     assertArrayEquals (new String [] { "a", "b", "@c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 3));
     assertArrayEquals (new String [] { "a", "b@@c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 2));
     assertArrayEquals (new String [] { "a@b@@c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 1));
+    assertArrayEquals (new String [] { "@@@" }, StringHelper.getExplodedArray ('@', "@@@", 1));
+    assertArrayEquals (new String [] { "abc" }, StringHelper.getExplodedArray ('@', "abc", 1));
+    assertArrayEquals (new String [] { "abc" }, StringHelper.getExplodedArray ('@', "abc", 2));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", 0));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", -1));
     assertArrayEquals (new String [] { "a", "b", "", "c" }, StringHelper.getExplodedArray ('@', "a@b@@c", -2));
     assertArrayEquals (new String [] { "", "b", "" }, StringHelper.getExplodedArray ('@', "@b@", -2));
-    assertTrue (StringHelper.getExplodedArray ('@', null, 5).length == 0);
-  }
-
-  private static Set <String> _hashSet (final String... a)
-  {
-    return new HashSet <> (Arrays.asList (a));
+    assertArrayEquals (CGlobal.EMPTY_STRING_ARRAY, StringHelper.getExplodedArray ('@', null, 5));
   }
 
   @Test
   public void testExplodeToSet ()
   {
-    Set <String> ret = StringHelper.getExplodedToSet ("@", "a@b@@c");
-    assertEquals (_hashSet ("a", "b", "", "c"), ret);
-    ret = StringHelper.getExplodedToSet ("uu", "auubuuuuuuc");
-    assertEquals (_hashSet ("a", "b", "", "", "c"), ret);
-    ret = StringHelper.getExplodedToSet (".", "a.b...c");
-    assertEquals (_hashSet ("a", "b", "", "", "c"), ret);
-    ret = StringHelper.getExplodedToSet ("o", "boo:and:foo");
-    assertEquals (_hashSet ("b", "", ":and:f", "", ""), ret);
-    ret = StringHelper.getExplodedToSet ("@", "@a@b@@c");
-    assertEquals (_hashSet ("", "a", "b", "", "c"), ret);
-    ret = StringHelper.getExplodedToSet ("@", "a@b@@c@");
-    assertEquals (_hashSet ("a", "b", "", "c", ""), ret);
-    ret = StringHelper.getExplodedToSet ("@", "@a@b@@c@");
-    assertEquals (_hashSet ("", "a", "b", "", "c", ""), ret);
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToSet ("@", "a@b@@c"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToSet ("uu", "auubuuuuuuc"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToSet (".", "a.b...c"));
+    assertEquals (Set.of ("b", "", ":and:f"), StringHelper.getExplodedToSet ("o", "boo:and:foo"));
+    assertEquals (Set.of ("", "a", "b", "c"), StringHelper.getExplodedToSet ("@", "@a@b@@c"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToSet ("@", "a@b@@c@"));
+    assertEquals (Set.of ("", "a", "b", "c"), StringHelper.getExplodedToSet ("@", "@a@b@@c@"));
     assertTrue (StringHelper.getExplodedToSet ("@", null).isEmpty ());
 
     try
@@ -719,26 +869,13 @@ public final class StringHelperTest
   @Test
   public void testExplodeToOrderedSet ()
   {
-    LinkedHashSet <String> ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c");
-    assertEquals (_hashSet ("a", "b", "", "c"), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet ("uu", "auubuuuuuuc");
-    assertEquals (_hashSet ("a", "b", "", "", "c"), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet (".", "a.b...c");
-    assertEquals (_hashSet ("a", "b", "", "", "c"), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet ("o", "boo:and:foo");
-    assertEquals (_hashSet ("b", "", ":and:f", "", ""), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c");
-    assertEquals (_hashSet ("", "a", "b", "", "c"), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet ("@", "a@b@@c@");
-    assertEquals (_hashSet ("a", "b", "", "c", ""), ret);
-
-    ret = StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c@");
-    assertEquals (_hashSet ("", "a", "b", "", "c", ""), ret);
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToOrderedSet ("@", "a@b@@c"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToOrderedSet ("uu", "auubuuuuuuc"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToOrderedSet (".", "a.b...c"));
+    assertEquals (Set.of ("b", "", ":and:f"), StringHelper.getExplodedToOrderedSet ("o", "boo:and:foo"));
+    assertEquals (Set.of ("", "a", "b", "c"), StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c"));
+    assertEquals (Set.of ("a", "b", "", "c"), StringHelper.getExplodedToOrderedSet ("@", "a@b@@c@"));
+    assertEquals (Set.of ("", "a", "b", "c"), StringHelper.getExplodedToOrderedSet ("@", "@a@b@@c@"));
 
     assertTrue (StringHelper.getExplodedToOrderedSet ("@", null).isEmpty ());
 

@@ -18,72 +18,169 @@ package com.helger.base.functional;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.function.DoublePredicate;
+import java.util.function.IntPredicate;
+import java.util.function.LongPredicate;
 import java.util.function.Predicate;
 
 import org.junit.Test;
 
 /**
- * Test class for class {@link Predicate}
+ * Test class for class {@link Predicates}.
  *
  * @author Philip Helger
  */
 public final class PredicatesTest
 {
   @Test
-  public void testAll ()
+  public void testAllAndNone ()
   {
-    final Predicate <String> aFilter = Predicates.all ();
-    assertNotNull (aFilter);
-    assertTrue (aFilter.test (null));
-    assertTrue (aFilter.test (""));
-    assertTrue (aFilter.test ("bla bla bla"));
+    final Predicate <String> aAll = Predicates.all ();
+    assertTrue (aAll.test ("any"));
+    assertTrue (aAll.test (null));
+
+    final Predicate <String> aNone = Predicates.none ();
+    assertFalse (aNone.test ("any"));
+    assertFalse (aNone.test (null));
+
+    assertTrue (Predicates.notNull ().test ("any"));
+    assertFalse (Predicates.notNull ().test (null));
+
+    assertFalse (Predicates.isNull ().test ("any"));
+    assertTrue (Predicates.isNull ().test (null));
   }
 
   @Test
-  public void testNone ()
+  public void testCharPredicates ()
   {
-    final Predicate <String> aFilter = Predicates.none ();
-    assertNotNull (aFilter);
-    assertFalse (aFilter.test (null));
-    assertFalse (aFilter.test (""));
-    assertFalse (aFilter.test ("bla bla bla"));
+    assertTrue (Predicates.charIsEQ0 ().test ((char) 0));
+    assertFalse (Predicates.charIsEQ0 ().test ('a'));
+
+    assertFalse (Predicates.charIsNE0 ().test ((char) 0));
+    assertTrue (Predicates.charIsNE0 ().test ('a'));
+
+    assertFalse (Predicates.charIsGT0 ().test ((char) 0));
+    assertTrue (Predicates.charIsGT0 ().test ('a'));
   }
 
   @Test
-  public void testNotNull ()
+  public void testDoublePredicates ()
   {
-    final Predicate <String> aFilter = Predicates.notNull ();
-    assertNotNull (aFilter);
-    assertFalse (aFilter.test (null));
-    assertTrue (aFilter.test (""));
-    assertTrue (aFilter.test ("bla bla bla"));
+    final DoublePredicate [] aAll = { Predicates.doubleIsLT0 (),
+                                      Predicates.doubleIsLE0 (),
+                                      Predicates.doubleIsEQ0 (),
+                                      Predicates.doubleIsNE0 (),
+                                      Predicates.doubleIsGE0 (),
+                                      Predicates.doubleIsGT0 () };
+    for (final DoublePredicate a : aAll)
+      assertNotNull (a);
+
+    assertTrue (Predicates.doubleIsLT0 ().test (-1));
+    assertFalse (Predicates.doubleIsLT0 ().test (0));
+    assertTrue (Predicates.doubleIsLE0 ().test (0));
+    assertFalse (Predicates.doubleIsLE0 ().test (1));
+    assertTrue (Predicates.doubleIsEQ0 ().test (0));
+    assertFalse (Predicates.doubleIsEQ0 ().test (1));
+    assertTrue (Predicates.doubleIsNE0 ().test (1));
+    assertFalse (Predicates.doubleIsNE0 ().test (0));
+    assertTrue (Predicates.doubleIsGE0 ().test (0));
+    assertFalse (Predicates.doubleIsGE0 ().test (-1));
+    assertTrue (Predicates.doubleIsGT0 ().test (1));
+    assertFalse (Predicates.doubleIsGT0 ().test (0));
   }
 
   @Test
-  public void testIsNull ()
+  public void testIntPredicates ()
   {
-    final Predicate <String> aFilter = Predicates.isNull ();
-    assertNotNull (aFilter);
-    assertTrue (aFilter.test (null));
-    assertFalse (aFilter.test (""));
-    assertFalse (aFilter.test ("bla bla bla"));
+    final IntPredicate [] aAll = { Predicates.intIsLT0 (),
+                                   Predicates.intIsLE0 (),
+                                   Predicates.intIsEQ0 (),
+                                   Predicates.intIsNE0 (),
+                                   Predicates.intIsGE0 (),
+                                   Predicates.intIsGT0 () };
+    for (final IntPredicate a : aAll)
+      assertNotNull (a);
+
+    assertTrue (Predicates.intIsLT0 ().test (-1));
+    assertFalse (Predicates.intIsLT0 ().test (0));
+    assertTrue (Predicates.intIsLE0 ().test (0));
+    assertFalse (Predicates.intIsLE0 ().test (1));
+    assertTrue (Predicates.intIsEQ0 ().test (0));
+    assertFalse (Predicates.intIsEQ0 ().test (1));
+    assertTrue (Predicates.intIsNE0 ().test (1));
+    assertFalse (Predicates.intIsNE0 ().test (0));
+    assertTrue (Predicates.intIsGE0 ().test (0));
+    assertFalse (Predicates.intIsGE0 ().test (-1));
+    assertTrue (Predicates.intIsGT0 ().test (1));
+    assertFalse (Predicates.intIsGT0 ().test (0));
   }
 
   @Test
-  public void testNegate ()
+  public void testLongPredicates ()
   {
-    Predicate <String> aFilter = Predicates.<String> notNull ().negate ();
-    assertNotNull (aFilter);
-    assertTrue (aFilter.test (null));
-    assertFalse (aFilter.test (""));
-    assertFalse (aFilter.test ("bla bla bla"));
+    final LongPredicate [] aAll = { Predicates.longIsLT0 (),
+                                    Predicates.longIsLE0 (),
+                                    Predicates.longIsEQ0 (),
+                                    Predicates.longIsNE0 (),
+                                    Predicates.longIsGE0 (),
+                                    Predicates.longIsGT0 () };
+    for (final LongPredicate a : aAll)
+      assertNotNull (a);
 
-    aFilter = Predicates.<String> isNull ().negate ();
-    assertNotNull (aFilter);
-    assertFalse (aFilter.test (null));
-    assertTrue (aFilter.test (""));
-    assertTrue (aFilter.test ("bla bla bla"));
+    assertTrue (Predicates.longIsLT0 ().test (-1L));
+    assertFalse (Predicates.longIsLT0 ().test (0L));
+    assertTrue (Predicates.longIsLE0 ().test (0L));
+    assertFalse (Predicates.longIsLE0 ().test (1L));
+    assertTrue (Predicates.longIsEQ0 ().test (0L));
+    assertFalse (Predicates.longIsEQ0 ().test (1L));
+    assertTrue (Predicates.longIsNE0 ().test (1L));
+    assertFalse (Predicates.longIsNE0 ().test (0L));
+    assertTrue (Predicates.longIsGE0 ().test (0L));
+    assertFalse (Predicates.longIsGE0 ().test (-1L));
+    assertTrue (Predicates.longIsGT0 ().test (1L));
+    assertFalse (Predicates.longIsGT0 ().test (0L));
+  }
+
+  @Test
+  public void testAnd ()
+  {
+    final Predicate <String> aNotNull = Predicates.notNull ();
+    final Predicate <String> aLong = x -> x != null && x.length () > 3;
+
+    // Both null returns null
+    assertNull (Predicates.and (null, null));
+    // Only one present delegates to that one
+    assertTrue (Predicates.and (aNotNull, null).test ("any"));
+    assertFalse (Predicates.and (aNotNull, null).test (null));
+    assertTrue (Predicates.and (null, aLong).test ("abcd"));
+    assertFalse (Predicates.and (null, aLong).test ("ab"));
+
+    final Predicate <String> aBoth = Predicates.and (aNotNull, aLong);
+    assertNotNull (aBoth);
+    assertTrue (aBoth.test ("abcd"));
+    assertFalse (aBoth.test ("ab"));
+    assertFalse (aBoth.test (null));
+  }
+
+  @Test
+  public void testOr ()
+  {
+    final Predicate <String> aIsA = "a"::equals;
+    final Predicate <String> aIsB = "b"::equals;
+
+    assertNull (Predicates.or (null, null));
+    assertTrue (Predicates.or (aIsA, null).test ("a"));
+    assertFalse (Predicates.or (aIsA, null).test ("b"));
+    assertTrue (Predicates.or (null, aIsB).test ("b"));
+    assertFalse (Predicates.or (null, aIsB).test ("a"));
+
+    final Predicate <String> aEither = Predicates.or (aIsA, aIsB);
+    assertNotNull (aEither);
+    assertTrue (aEither.test ("a"));
+    assertTrue (aEither.test ("b"));
+    assertFalse (aEither.test ("c"));
   }
 }

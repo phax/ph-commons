@@ -17,8 +17,14 @@
 package com.helger.collection.commons;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.Enumeration;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
@@ -80,5 +86,58 @@ public final class CommonsHashSetTest
                                                                                Integer.valueOf (4)),
                                    x -> x.toString ());
     assertEquals (3, aTest.size ());
+  }
+
+  @Test
+  public void testCtorExt ()
+  {
+    // Enumeration
+    CommonsHashSet <String> aTest = new CommonsHashSet <> (new CommonsVector <> ("a", "b").elements ());
+    assertEquals (2, aTest.size ());
+
+    // Mapped from an array
+    aTest = new CommonsHashSet <> (new Integer [] { Integer.valueOf (1), Integer.valueOf (2) }, x -> x.toString ());
+    assertEquals (2, aTest.size ());
+
+    // null values are allowed everywhere
+    assertTrue (new CommonsHashSet <> ((Collection <String>) null).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((Iterable <String>) null).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((Enumeration <String>) null).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((String []) null).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((Collection <Integer>) null, x -> x.toString ()).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((Iterable <Integer>) null, x -> x.toString ()).isEmpty ());
+    assertTrue (new CommonsHashSet <> ((Integer []) null, x -> x.toString ()).isEmpty ());
+
+    assertNotNull (new CommonsHashSet <> ().<Integer> createInstance ());
+    assertTrue (new CommonsHashSet <> ("a").getClone ().contains ("a"));
+  }
+
+  @Test
+  public void testCreateFiltered ()
+  {
+    final Predicate <String> aSrcFilter = x -> x.equals ("a");
+    final Function <Integer, String> aMapper = x -> x.toString ();
+    final Predicate <String> aDstFilter = x -> x.equals ("1");
+    final ICommonsList <Integer> aSrcInts = new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2));
+
+    assertEquals (1,
+                  CommonsHashSet.createFiltered ((Iterable <String>) new CommonsArrayList <> ("a", "b"), aSrcFilter)
+                                .size ());
+    assertEquals (1, CommonsHashSet.createFiltered (new String [] { "a", "b" }, aSrcFilter).size ());
+
+    assertEquals (1,
+                  CommonsHashSet.createFiltered ((Iterable <Integer>) aSrcInts,
+                                                 (Predicate <Integer>) x -> x.intValue () == 1,
+                                                 aMapper).size ());
+    assertEquals (1,
+                  CommonsHashSet.createFiltered (new Integer [] { Integer.valueOf (1), Integer.valueOf (2) },
+                                                 (Predicate <Integer>) x -> x.intValue () == 1,
+                                                 aMapper).size ());
+
+    assertEquals (1, CommonsHashSet.createFiltered (aSrcInts, aMapper, aDstFilter).size ());
+    assertEquals (1,
+                  CommonsHashSet.createFiltered (new Integer [] { Integer.valueOf (1), Integer.valueOf (2) },
+                                                 aMapper,
+                                                 aDstFilter).size ());
   }
 }

@@ -69,5 +69,11 @@
       <artifactId>ph-unittest-support</artifactId>
       <scope>test</scope>
     </dependency>
+    <!-- Required by the MicroTypeConverterRegistry SPI of ph-xml -->
+    <dependency>
+      <groupId>com.helger.commons</groupId>
+      <artifactId>ph-datetime</artifactId>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>

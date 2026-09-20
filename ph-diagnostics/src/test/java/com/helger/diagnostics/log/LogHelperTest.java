@@ -16,11 +16,15 @@
  */
 package com.helger.diagnostics.log;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.diagnostics.error.level.EErrorLevel;
+import com.helger.diagnostics.error.level.IHasErrorLevel;
 
 /**
  * Test class for class {@link LogHelper}.
@@ -38,6 +42,66 @@ public final class LogHelperTest
       LogHelper.log (aLogger, eLevel, "my message");
       LogHelper.log (aLogger, eLevel, "my message with exception", new Exception ());
       LogHelper.log (aLogger, eLevel, "my message with exception", new RuntimeException ());
+    }
+  }
+
+  @Test
+  public void testAllWithClass ()
+  {
+    for (final EErrorLevel eLevel : EErrorLevel.values ())
+    {
+      LogHelper.log (LogHelperTest.class, eLevel, "my message");
+      LogHelper.log (LogHelperTest.class, eLevel, "my message with exception", new Exception ());
+    }
+  }
+
+  @Test
+  public void testAllWithErrorLevelProvider ()
+  {
+    final Logger aLogger = LoggerFactory.getLogger (LogHelperTest.class);
+    for (final EErrorLevel eLevel : EErrorLevel.values ())
+    {
+      final IHasErrorLevel aProvider = () -> eLevel;
+      LogHelper.log (aLogger, aProvider, "my message");
+      LogHelper.log (aLogger, aProvider, "my message with exception", new Exception ());
+      LogHelper.log (LogHelperTest.class, aProvider, "my message");
+      LogHelper.log (LogHelperTest.class, aProvider, "my message with exception", new Exception ());
+    }
+  }
+
+  @Test
+  public void testAllWithSupplier ()
+  {
+    final Logger aLogger = LoggerFactory.getLogger (LogHelperTest.class);
+    for (final EErrorLevel eLevel : EErrorLevel.values ())
+    {
+      final IHasErrorLevel aProvider = () -> eLevel;
+      LogHelper.log (aLogger, eLevel, () -> "my message");
+      LogHelper.log (aLogger, eLevel, () -> "my message with exception", new Exception ());
+      LogHelper.log (LogHelperTest.class, eLevel, () -> "my message");
+      LogHelper.log (LogHelperTest.class, eLevel, () -> "my message with exception", new Exception ());
+      LogHelper.log (aLogger, aProvider, () -> "my message");
+      LogHelper.log (aLogger, aProvider, () -> "my message with exception", new Exception ());
+      LogHelper.log (LogHelperTest.class, aProvider, () -> "my message");
+      LogHelper.log (LogHelperTest.class, aProvider, () -> "my message with exception", new Exception ());
+    }
+  }
+
+  @Test
+  public void testIsEnabled ()
+  {
+    final Logger aLogger = LoggerFactory.getLogger (LogHelperTest.class);
+    for (final EErrorLevel eLevel : EErrorLevel.values ())
+    {
+      final IHasErrorLevel aProvider = () -> eLevel;
+      final boolean bEnabled = LogHelper.isEnabled (aLogger, eLevel);
+      assertEquals (Boolean.valueOf (bEnabled), Boolean.valueOf (LogHelper.isEnabled (LogHelperTest.class, eLevel)));
+      assertEquals (Boolean.valueOf (bEnabled), Boolean.valueOf (LogHelper.isEnabled (aLogger, aProvider)));
+      assertEquals (Boolean.valueOf (bEnabled), Boolean.valueOf (LogHelper.isEnabled (LogHelperTest.class, aProvider)));
+      assertEquals (Boolean.valueOf (bEnabled),
+                    Boolean.valueOf (LogHelper.getFuncIsEnabled (aLogger, eLevel).isEnabled ()));
+
+      assertNotNull (LogHelper.getFuncLogger (aLogger, eLevel));
     }
   }
 }

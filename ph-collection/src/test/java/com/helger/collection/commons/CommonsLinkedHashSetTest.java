@@ -17,8 +17,13 @@
 package com.helger.collection.commons;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
@@ -80,5 +85,47 @@ public final class CommonsLinkedHashSetTest
                                                                                            Integer.valueOf (4)),
                                          x -> x.toString ());
     assertEquals (3, aTest.size ());
+  }
+
+  @Test
+  public void testCtorExt ()
+  {
+    // null values are allowed everywhere
+    assertTrue (new CommonsLinkedHashSet <> ((Collection <String>) null).isEmpty ());
+    assertTrue (new CommonsLinkedHashSet <> ((Iterable <String>) null).isEmpty ());
+    assertTrue (new CommonsLinkedHashSet <> ((String []) null).isEmpty ());
+    assertTrue (new CommonsLinkedHashSet <> (5, 0.75f).isEmpty ());
+
+    assertNotNull (new CommonsLinkedHashSet <> ().<Integer> createInstance ());
+    assertTrue (new CommonsLinkedHashSet <> ("a").getClone ().contains ("a"));
+  }
+
+  @Test
+  public void testCreateFiltered ()
+  {
+    final Predicate <String> aSrcFilter = x -> x.equals ("a");
+    final Function <Integer, String> aMapper = x -> x.toString ();
+    final Predicate <String> aDstFilter = x -> x.equals ("1");
+    final ICommonsList <Integer> aSrcInts = new CommonsArrayList <> (Integer.valueOf (1), Integer.valueOf (2));
+
+    assertEquals (1,
+                  CommonsLinkedHashSet.createFiltered ((Iterable <String>) new CommonsArrayList <> ("a", "b"),
+                                                       aSrcFilter).size ());
+    assertEquals (1, CommonsLinkedHashSet.createFiltered (new String [] { "a", "b" }, aSrcFilter).size ());
+
+    assertEquals (1,
+                  CommonsLinkedHashSet.createFiltered ((Iterable <Integer>) aSrcInts,
+                                                       (Predicate <Integer>) x -> x.intValue () == 1,
+                                                       aMapper).size ());
+    assertEquals (1,
+                  CommonsLinkedHashSet.createFiltered (new Integer [] { Integer.valueOf (1), Integer.valueOf (2) },
+                                                       (Predicate <Integer>) x -> x.intValue () == 1,
+                                                       aMapper).size ());
+
+    assertEquals (1, CommonsLinkedHashSet.createFiltered (aSrcInts, aMapper, aDstFilter).size ());
+    assertEquals (1,
+                  CommonsLinkedHashSet.createFiltered (new Integer [] { Integer.valueOf (1), Integer.valueOf (2) },
+                                                       aMapper,
+                                                       aDstFilter).size ());
   }
 }

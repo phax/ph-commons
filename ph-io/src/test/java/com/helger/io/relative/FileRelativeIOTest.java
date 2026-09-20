@@ -20,73 +20,186 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.File;
 import java.io.OutputStream;
+import java.io.Writer;
 import java.nio.charset.StandardCharsets;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
+import com.helger.base.io.EAppend;
 import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringReplace;
+import com.helger.io.file.FileOperations;
+import com.helger.io.file.SimpleFileIO;
+import com.helger.unittest.support.TestHelper;
 
 /**
- * Test class for class {@link FileRelativeIO}
+ * Test class for class {@link FileRelativeIO} and the default methods of {@link IFileRelativeIO}.
  *
  * @author Philip Helger
  */
 public final class FileRelativeIOTest
 {
-  @Test
-  public void testBasePath () throws IOException
+  private static final File BASE_PATH = new File ("target/junittest-relativeio").getAbsoluteFile ();
+
+  private FileRelativeIO m_aIO;
+
+  @Before
+  public void createBasePath ()
   {
-    final IFileRelativeIO aIO = FileRelativeIO.createForCurrentDir ();
-    final String sTestFile = "testfile";
-    final String sTestContent = "This is the test file content";
-    final String sTestFile2 = "testfile2";
+    m_aIO = new FileRelativeIO (BASE_PATH);
+  }
 
-    // may not exist
-    assertFalse (aIO.existsFile (sTestFile));
+  @After
+  public void deleteBasePath ()
+  {
+    FileOperations.deleteDirRecursiveIfExisting (BASE_PATH);
+  }
 
+  @Test
+  public void testBasePath ()
+  {
+    assertEquals (BASE_PATH, m_aIO.getBasePathFile ());
+    assertEquals (BASE_PATH.getAbsolutePath (), m_aIO.getBasePath ());
+    assertTrue (BASE_PATH.isDirectory ());
+    assertNotNull (m_aIO.toString ());
+
+    TestHelper.testDefaultImplementationWithEqualContentObject (m_aIO, new FileRelativeIO (BASE_PATH));
+    TestHelper.testDefaultImplementationWithDifferentContentObject (m_aIO,
+                                                                    new FileRelativeIO (new File ("target/junittest-relativeio2").getAbsoluteFile ()));
+    FileOperations.deleteDirRecursiveIfExisting (new File ("target/junittest-relativeio2").getAbsoluteFile ());
+  }
+
+  @Test
+  public void testGetFileAndResource ()
+  {
+    final File aFile = m_aIO.getFile ("sub/file.txt");
+    assertEquals (new File (BASE_PATH, "sub/file.txt"), aFile);
+    assertNotNull (m_aIO.getResource ("sub/file.txt"));
+    assertEquals (StringReplace.replaceAll ("sub/file.txt", '/', File.separatorChar),
+                  StringReplace.replaceAll (m_aIO.getRelativeFilename (aFile), '/', File.separatorChar));
+  }
+
+  @Test
+  public void testExists ()
+  {
+    assertFalse (m_aIO.existsFile ("file.txt"));
+    assertFalse (m_aIO.existsDir ("sub"));
+
+    assertTrue (m_aIO.saveFile ("file.txt", "content", StandardCharsets.ISO_8859_1).isSuccess ());
+    assertTrue (m_aIO.existsFile ("file.txt"));
+    assertFalse (m_aIO.existsDir ("file.txt"));
+
+    assertTrue (m_aIO.createDirectory ("sub", false).isSuccess ());
+    assertTrue (m_aIO.existsDir ("sub"));
+    assertFalse (m_aIO.existsFile ("sub"));
+  }
+
+  @Test
+  public void testStreamsAndWriters ()
+  {
+    try (final OutputStream aOS = m_aIO.getOutputStream ("os.txt"))
+    {
+      assertNotNull (aOS);
+    }
+    catch (final java.io.IOException ex)
+    {
+      fail (ex.getMessage ());
+    }
+    assertNotNull (m_aIO.getOutputStream ("os.txt", EAppend.APPEND));
+
+    final Writer aW = m_aIO.getWriter ("w.txt", StandardCharsets.ISO_8859_1);
+    assertNotNull (aW);
+    StreamHelper.close (aW);
+
+    final Writer aW2 = m_aIO.getWriter ("w.txt", StandardCharsets.ISO_8859_1, EAppend.APPEND);
+    assertNotNull (aW2);
+    StreamHelper.close (aW2);
+  }
+
+  @Test
+  public void testWriteSaveAppend ()
+  {
+    assertTrue (m_aIO.writeFile ("f1.txt", EAppend.TRUNCATE, "abc".getBytes (StandardCharsets.ISO_8859_1))
+                     .isSuccess ());
+    assertEquals ("abc", SimpleFileIO.getFileAsString (m_aIO.getFile ("f1.txt"), StandardCharsets.ISO_8859_1));
+
+    assertTrue (m_aIO.saveFile ("f2.txt", "abc", StandardCharsets.ISO_8859_1).isSuccess ());
+    assertTrue (m_aIO.saveFile ("f3.txt", "abc".getBytes (StandardCharsets.ISO_8859_1)).isSuccess ());
+
+    assertTrue (m_aIO.appendFile ("f2.txt", "def", StandardCharsets.ISO_8859_1).isSuccess ());
+    assertEquals ("abcdef", SimpleFileIO.getFileAsString (m_aIO.getFile ("f2.txt"), StandardCharsets.ISO_8859_1));
+
+    assertTrue (m_aIO.appendFile ("f3.txt", "def".getBytes (StandardCharsets.ISO_8859_1)).isSuccess ());
+    assertEquals ("abcdef", SimpleFileIO.getFileAsString (m_aIO.getFile ("f3.txt"), StandardCharsets.ISO_8859_1));
+  }
+
+  @Test
+  public void testDirectoryAndFileOperations ()
+  {
+    assertTrue (m_aIO.createDirectory ("d1/d2", true).isSuccess ());
+    assertTrue (m_aIO.existsDir ("d1/d2"));
+
+    assertTrue (m_aIO.renameDir ("d1/d2", "d1/d3").isSuccess ());
+    assertTrue (m_aIO.existsDir ("d1/d3"));
+
+    assertTrue (m_aIO.deleteDirectory ("d1/d3", false).isSuccess ());
+    assertFalse (m_aIO.existsDir ("d1/d3"));
+    assertTrue (m_aIO.deleteDirectoryIfExisting ("d1/d3", false).isSuccess ());
+    assertTrue (m_aIO.deleteDirectory ("d1", true).isSuccess ());
+
+    assertTrue (m_aIO.saveFile ("old.txt", "abc", StandardCharsets.ISO_8859_1).isSuccess ());
+    assertTrue (m_aIO.renameFile ("old.txt", "new.txt").isSuccess ());
+    assertTrue (m_aIO.existsFile ("new.txt"));
+
+    assertTrue (m_aIO.deleteFile ("new.txt").isSuccess ());
+    assertFalse (m_aIO.existsFile ("new.txt"));
+    assertTrue (m_aIO.deleteFileIfExisting ("new.txt").isSuccess ());
+  }
+
+  @Test
+  public void testCreateForCurrentDir ()
+  {
+    final FileRelativeIO aIO = FileRelativeIO.createForCurrentDir ();
+    assertNotNull (aIO);
+    assertTrue (aIO.getBasePathFile ().isAbsolute ());
+  }
+
+  @Test
+  public void testInvalidParams ()
+  {
     try
     {
-      // write file
-      final OutputStream aOS = aIO.getOutputStream (sTestFile);
-      assertNotNull (aOS);
-      aOS.write (sTestContent.getBytes (StandardCharsets.ISO_8859_1));
-      assertTrue (StreamHelper.close (aOS).isSuccess ());
-
-      // rename a to b
-      assertTrue (aIO.existsFile (sTestFile));
-      assertTrue (aIO.renameFile (sTestFile, sTestFile2).isSuccess ());
-
-      // ensure only b is present
-      assertFalse (aIO.existsFile (sTestFile));
-      assertTrue (aIO.existsFile (sTestFile2));
-
-      // rename back from b to a
-      assertTrue (aIO.renameFile (sTestFile2, sTestFile).isSuccess ());
-
-      // ensure only a is present
-      assertTrue (aIO.existsFile (sTestFile));
-      assertFalse (aIO.existsFile (sTestFile2));
-
-      // read file
-      try (final InputStream aIS = aIO.getResource (sTestFile).getInputStream ())
-      {
-        assertNotNull (aIS);
-        final String sReadContent = StreamHelper.getAllBytesAsString (aIS, StandardCharsets.ISO_8859_1);
-        assertEquals (sTestContent, sReadContent);
-      }
+      new FileRelativeIO (null);
+      fail ();
     }
-    finally
+    catch (final NullPointerException | IllegalArgumentException ex)
     {
-      // ensure all files are gone :)
-      if (aIO.existsFile (sTestFile))
-        assertTrue (aIO.deleteFile (sTestFile).isSuccess ());
-      if (aIO.existsFile (sTestFile2))
-        assertTrue (aIO.deleteFile (sTestFile2).isSuccess ());
-      assertFalse (aIO.existsFile (sTestFile));
+      // expected
     }
+    try
+    {
+      // Must be absolute
+      new FileRelativeIO (new File ("target/relative"));
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testInternalCheckAccessRights ()
+  {
+    assertTrue (m_aIO.saveFile ("f1.txt", "abc", StandardCharsets.ISO_8859_1).isSuccess ());
+    assertTrue (m_aIO.createDirectory ("sub", false).isSuccess ());
+    // Must not throw
+    FileRelativeIO.internalCheckAccessRights (BASE_PATH);
   }
 }

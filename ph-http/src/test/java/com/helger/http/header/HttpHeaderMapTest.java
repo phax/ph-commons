@@ -70,7 +70,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val1", h.getAllHeaderLines (false).getFirstOrNull ());
     assertNotNull (h.getAllHeaderNames ());
     assertEquals (1, h.getAllHeaderNames ().size ());
-    assertEquals ("key1", h.getAllHeaderNames ().getFirst ());
+    assertEquals ("key1", h.getAllHeaderNames ().getFirstOrNull ());
     assertNotNull (h.getAllHeaders ());
     assertEquals (1, h.getAllHeaders ().size ());
     assertEquals ("key1", h.getAllHeaders ().getFirstKey ());
@@ -151,7 +151,7 @@ public final class HttpHeaderMapTest
     assertEquals ("key1: val3", h.getAllHeaderLines (false).get (2));
     assertNotNull (h.getAllHeaderNames ());
     assertEquals (1, h.getAllHeaderNames ().size ());
-    assertEquals ("key1", h.getAllHeaderNames ().getFirst ());
+    assertEquals ("key1", h.getAllHeaderNames ().getFirstOrNull ());
     assertNotNull (h.getAllHeaders ());
     assertEquals (1, h.getAllHeaders ().size ());
     assertEquals ("key1", h.getAllHeaders ().getFirstKey ());

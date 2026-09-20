@@ -17,7 +17,10 @@
 package com.helger.commons.system;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.Test;
 
@@ -140,5 +143,105 @@ public final class JavaVersionHelperTest
     assertEquals (11, aParts[0]);
     assertEquals (0, aParts[1]);
     assertEquals (16, aParts[2]);
+  }
+
+  @Test
+  public void testAdoptOpenJDK ()
+  {
+    // The well known build 172
+    int [] aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk",
+                                                           "1.8.0-adoptopenjdk-_2018_05_19_00_59-b00",
+                                                           true);
+    assertEquals (8, aParts[0]);
+    assertEquals (172, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    // Another build - the minutes since the reference date (2018-01-01) are
+    // used
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk",
+                                                    "1.8.0-adoptopenjdk-_2018_05_19_01_59-b00",
+                                                    true);
+    assertEquals (8, aParts[0]);
+    assertEquals (198839, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    // An unparsable date
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "1.8.0-adoptopenjdk-whatsoever", true);
+    assertEquals (8, aParts[0]);
+    assertEquals (-1, aParts[1]);
+    assertEquals (-1, aParts[2]);
+
+    // A runtime version not matching the Java version
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", "something else", true);
+    assertEquals (8, aParts[0]);
+    assertEquals (-1, aParts[1]);
+    assertEquals (-1, aParts[2]);
+  }
+
+  @Test
+  public void testErrorsWithoutException ()
+  {
+    // No second dot
+    int [] aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8", null, false);
+    assertEquals (0, aParts[0]);
+    assertEquals (0, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    // Unparsable major version
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.x.0_144", null, false);
+    assertEquals (0, aParts[0]);
+
+    // Unparsable minor version
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0_x", null, false);
+    assertEquals (8, aParts[0]);
+    assertEquals (0, aParts[1]);
+
+    // Neither "_" nor "-" present
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0", null, false);
+    assertEquals (0, aParts[0]);
+    assertEquals (0, aParts[1]);
+    assertEquals (0, aParts[2]);
+
+    // Unparsable major version (new scheme)
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("x.1.2", null, false);
+    assertEquals (0, aParts[0]);
+
+    // Unparsable minor version (new scheme)
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("9.x.2", null, false);
+    assertEquals (9, aParts[0]);
+    assertEquals (0, aParts[1]);
+
+    // Unparsable micro version (new scheme)
+    aParts = JavaVersionHelper.getAsUnifiedVersion ("9.1.x", null, false);
+    assertEquals (9, aParts[0]);
+    assertEquals (1, aParts[1]);
+    assertEquals (0, aParts[2]);
+  }
+
+  @Test
+  public void testErrorsWithException ()
+  {
+    for (final String sVersion : new String [] { "1.8", "1.x.0_144", "1.8.0_x", "1.8.0", "x.1.2", "9.x.2", "9.1.x" })
+      try
+      {
+        JavaVersionHelper.getAsUnifiedVersion (sVersion, null, true);
+        fail (sVersion);
+      }
+      catch (final IllegalStateException ex)
+      {
+        // expected
+      }
+  }
+
+  @Test
+  public void testIsAtLeast ()
+  {
+    // This library requires at least Java 17
+    assertTrue (JavaVersionHelper.isAtLeast (17, 0));
+    assertTrue (JavaVersionHelper.JAVA_MAJOR_VERSION >= 17);
+    assertTrue (JavaVersionHelper.JAVA_MINOR_VERSION >= 0);
+    assertFalse (JavaVersionHelper.isAtLeast (JavaVersionHelper.JAVA_MAJOR_VERSION + 1, 0));
+    assertFalse (JavaVersionHelper.isAtLeast (JavaVersionHelper.JAVA_MAJOR_VERSION,
+                                              JavaVersionHelper.JAVA_MINOR_VERSION + 1));
   }
 }
