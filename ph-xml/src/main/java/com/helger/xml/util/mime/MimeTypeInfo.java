@@ -373,7 +373,7 @@ public final class MimeTypeInfo
   @NonNull
   public MimeTypeWithSource getPrimaryMimeTypeWithSource ()
   {
-    return m_aMimeTypes.getFirst ();
+    return m_aMimeTypes.getFirstOrNull ();
   }
 
   /**
@@ -445,7 +445,7 @@ public final class MimeTypeInfo
   @Nullable
   public String getPrimaryGlob ()
   {
-    return m_aGlobs.getFirst ();
+    return m_aGlobs.getFirstOrNull ();
   }
 
   /**
@@ -485,7 +485,7 @@ public final class MimeTypeInfo
   @Nullable
   public ExtensionWithSource getPrimaryExtensionWithSource ()
   {
-    return m_aExtensions.getFirst ();
+    return m_aExtensions.getFirstOrNull ();
   }
 
   /**
