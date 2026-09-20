@@ -63,6 +63,29 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
     return m_aSrc;
   }
 
+  /**
+   * Unwrap the passed object, if it is one of the facades of this package. This is needed, so that
+   * the <code>equals</code> implementations of the facades compare the wrapped collections and not
+   * the facades themselves - otherwise two facades around equal collections would not be equal.
+   *
+   * @param o
+   *        The object to be unwrapped. May be <code>null</code>.
+   * @return The wrapped collection, if the passed object is a facade, and the passed object
+   *         otherwise.
+   * @since 12.5.0
+   */
+  @Nullable
+  static Object getUnwrapped (@Nullable final Object o)
+  {
+    if (o instanceof final WrappedCollection <?> rhs)
+      return rhs.m_aSrc;
+    if (o instanceof final WrappedList <?> rhs)
+      return rhs.directGetSource ();
+    if (o instanceof final WrappedSet <?> rhs)
+      return rhs.directGetSource ();
+    return o;
+  }
+
   /** {@inheritDoc} */
   public boolean add (@Nullable final ELEMENTTYPE aElement)
   {
@@ -145,7 +168,10 @@ public class WrappedCollection <ELEMENTTYPE> implements ICommonsCollection <ELEM
   @Override
   public boolean equals (final Object o)
   {
-    return m_aSrc.equals (o);
+    if (o == this)
+      return true;
+    // Compare the wrapped collections and not the facades
+    return m_aSrc.equals (getUnwrapped (o));
   }
 
   @Override

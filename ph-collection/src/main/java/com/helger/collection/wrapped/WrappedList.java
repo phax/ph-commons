@@ -57,7 +57,12 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
     m_aSrc = ValueEnforcer.notNull (aList, "List");
   }
 
-  /** {@inheritDoc} */
+  /**
+   * {@inheritDoc}<br>
+   * Note: only the facade is new - the returned object wraps the <b>same</b> list as this object. So
+   * modifications of the clone are visible in this object and vice versa. To create an independent
+   * copy, the wrapped list must be copied instead.
+   */
   @NonNull
   @ReturnsMutableCopy
   public WrappedList <ELEMENTTYPE> getClone ()
@@ -217,7 +222,10 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
   @Override
   public boolean equals (final Object o)
   {
-    return m_aSrc.equals (o);
+    if (o == this)
+      return true;
+    // Compare the wrapped collections and not the facades
+    return m_aSrc.equals (WrappedCollection.getUnwrapped (o));
   }
 
   @Override
