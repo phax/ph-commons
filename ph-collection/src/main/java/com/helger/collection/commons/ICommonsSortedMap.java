@@ -17,6 +17,7 @@
 package com.helger.collection.commons;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.function.Predicate;
@@ -26,6 +27,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.CollectionFind;
 
 /**
@@ -58,7 +60,11 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSortedSet <KEYTYPE> copyOfKeySet ()
   {
-    return new CommonsTreeSet <> (keySet ());
+    // Use the comparator of this map, so that the copy has the same ordering, and so that a map
+    // with non-Comparable keys can be copied as well
+    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet <> (comparator ());
+    ret.addAll (keySet ());
+    return ret;
   }
 
   @Override
@@ -68,7 +74,8 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   {
     if (aFilter == null)
       return copyOfKeySet ();
-    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet <> ();
+
+    final CommonsTreeSet <KEYTYPE> ret = new CommonsTreeSet <> (comparator ());
     CollectionFind.findAll (keySet (), aFilter, ret::add);
     return ret;
   }
@@ -78,10 +85,27 @@ public interface ICommonsSortedMap <KEYTYPE, VALUETYPE> extends
   @ReturnsMutableCopy
   default ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
-    // This is contained, because "Map.Entry" instance may get reused internally
-    final ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsTreeSet <> ();
+    // Note: "Map.Entry" is not Comparable, so the entries must be sorted by key
+    final Comparator <? super KEYTYPE> aKeyComparator = comparator ();
+    final Comparator <Map.Entry <KEYTYPE, VALUETYPE>> aEntryComparator;
+    if (aKeyComparator != null)
+      aEntryComparator = (x, y) -> aKeyComparator.compare (x.getKey (), y.getKey ());
+    else
+    {
+      // Natural ordering of the keys - so the keys must be Comparable, the same way this map
+      // requires it
+      aEntryComparator = (x, y) -> {
+        final Comparable <KEYTYPE> aKey = GenericReflection.uncheckedCast (x.getKey ());
+        return aKey.compareTo (y.getKey ());
+      };
+    }
+
+    final ICommonsSortedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsTreeSet <> (aEntryComparator);
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
+    {
+      // A copy is needed, because a "Map.Entry" instance may get reused internally
       ret.add (new MapEntry <> (aEntry));
+    }
     return ret;
   }
 
