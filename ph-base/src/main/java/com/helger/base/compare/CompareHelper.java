@@ -57,11 +57,11 @@ public class CompareHelper
   {
     if (b1 == b2)
       return 0;
-    return b1 ? +1 : -1;
+    return b1 ? -1 : +1;
   }
 
   /**
-   * Special version for boolean, <code>true</code> before <code>false</code>
+   * Special version for boolean, <code>false</code> before <code>true</code>
    *
    * @param b1
    *        First value
@@ -73,7 +73,7 @@ public class CompareHelper
   {
     if (b1 == b2)
       return 0;
-    return b1 ? -1 : +1;
+    return b1 ? +1 : -1;
   }
 
   /**
