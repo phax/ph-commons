@@ -247,7 +247,7 @@ public class StringHelper
   @Deprecated (forRemoval = true, since = "12.0.0")
   public static boolean hasTextAfterTrim (@Nullable final String s)
   {
-    return isNotEmptyAfterTrim (s);
+    return isNotBlank (s);
   }
 
   /**
@@ -1287,21 +1287,6 @@ public class StringHelper
   }
 
   /**
-   * Check if any of the passed searched characters in contained in the input string.
-   *
-   * @param sInput
-   *        The input string. May be <code>null</code>.
-   * @param aSearchChars
-   *        The char array to search. May not be <code>null</code>.
-   * @return <code>true</code> if at least any of the search char is contained in the input char
-   *         array, <code>false</code> otherwise.
-   */
-  public static boolean containsAny (@Nullable final String sInput, final char @NonNull [] aSearchChars)
-  {
-    return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
-  }
-
-  /**
    * Iterate all characters and pass them to the provided consumer.
    *
    * @param sInputString
@@ -1319,6 +1304,21 @@ public class StringHelper
       for (final char cInput : aInput)
         aConsumer.accept (cInput);
     }
+  }
+
+  /**
+   * Check if any of the passed searched characters in contained in the input string.
+   *
+   * @param sInput
+   *        The input string. May be <code>null</code>.
+   * @param aSearchChars
+   *        The char array to search. May not be <code>null</code>.
+   * @return <code>true</code> if at least any of the search char is contained in the input char
+   *         array, <code>false</code> otherwise.
+   */
+  public static boolean containsAny (@Nullable final String sInput, final char @NonNull [] aSearchChars)
+  {
+    return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
   }
 
   /**
@@ -1965,8 +1965,7 @@ public class StringHelper
       }
     }
     ret[nItemsAdded++] = sElements.substring (nStartIndex);
-    if (nItemsAdded != ret.length)
-      throw new IllegalStateException ("Added " + nItemsAdded + " but expected " + ret.length);
+    assert nItemsAdded == ret.length : "Added " + nItemsAdded + " but expected " + ret.length;
     return ret;
   }
 
@@ -2110,7 +2109,8 @@ public class StringHelper
 
   /**
    * Take a concatenated String and return a {@link List} of all elements in the passed string,
-   * using specified separator string.
+   * using specified separator string. This method returns an {@link ArrayList} and not a
+   * CommonsArrayList due to module dependencies.
    *
    * @param sSep
    *        The separator to use. May not be <code>null</code>.
