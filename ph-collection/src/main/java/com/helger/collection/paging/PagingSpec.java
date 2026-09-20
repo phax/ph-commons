@@ -75,11 +75,12 @@ public class PagingSpec implements IPagingSpec
                      @Nullable final SortField... aSortFields)
   {
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");
+    ValueEnforcer.notNullNoNullValue (aSortFields, "SortFields");
+
     m_nStartIndex = nStartIndex;
     // Normalize all negative values to the same one, so that equals works as expected
     m_nMaxCount = nMaxCount < 0 ? CGlobal.ILLEGAL_ULONG : nMaxCount;
     m_aSortFields = new CommonsArrayList <> (aSortFields);
-    ValueEnforcer.notNullNoNullValue (m_aSortFields, "SortFields");
   }
 
   /**
@@ -97,17 +98,23 @@ public class PagingSpec implements IPagingSpec
                      @Nullable final Iterable <? extends SortField> aSortFields)
   {
     ValueEnforcer.isGE0 (nStartIndex, "StartIndex");
+    ValueEnforcer.notNullNoNullValue (aSortFields, "SortFields");
+
     m_nStartIndex = nStartIndex;
     // Normalize all negative values to the same one, so that equals works as expected
     m_nMaxCount = nMaxCount < 0 ? CGlobal.ILLEGAL_ULONG : nMaxCount;
     m_aSortFields = new CommonsArrayList <> (aSortFields);
-    ValueEnforcer.notNullNoNullValue (m_aSortFields, "SortFields");
   }
 
   @Nonnegative
   public long getStartIndex ()
   {
     return m_nStartIndex;
+  }
+
+  public boolean hasStartIndex ()
+  {
+    return m_nStartIndex > 0;
   }
 
   public long getMaxCount ()
@@ -126,6 +133,11 @@ public class PagingSpec implements IPagingSpec
   public int getSortFieldCount ()
   {
     return m_aSortFields.size ();
+  }
+
+  public boolean hasSortFields ()
+  {
+    return m_aSortFields.isNotEmpty ();
   }
 
   public void forEachSortField (@NonNull final Consumer <? super SortField> aConsumer)

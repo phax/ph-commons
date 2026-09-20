@@ -59,6 +59,15 @@ public interface IPagingSpec
   }
 
   /**
+   * @return <code>true</code> if a start index is present, <code>false</code> if not.
+   * @since 12.5.0
+   */
+  default boolean hasStartIndex ()
+  {
+    return getStartIndex () > 0;
+  }
+
+  /**
    * @return The maximum number of elements to be returned. A value &lt; 0 means "no limit", a value
    *         of 0 means "no elements".
    * @see #getMaxCountAsInt()
