@@ -40,16 +40,55 @@ public interface IPagingSpec
 {
   /**
    * @return The 0-based index of the first element to be returned. Always &ge; 0.
+   * @see #getStartIndexAsInt()
    */
   @Nonnegative
   long getStartIndex ();
 
   /**
+   * @return The 0-based index of the first element to be returned. Always &ge; 0. Long values are
+   *         forced to int range.
+   * @see #getStartIndex()
+   * @since 12.5.0
+   */
+  @Nonnegative
+  default int getStartIndexAsInt ()
+  {
+    // Limit to Integer bounds
+    return (int) Math.min (getStartIndex (), Integer.MAX_VALUE);
+  }
+
+  /**
    * @return The maximum number of elements to be returned. A value &lt; 0 means "no limit", a value
    *         of 0 means "no elements".
+   * @see #getMaxCountAsInt()
+   * @see #isLimited()
    * @see #isUnlimited()
    */
   long getMaxCount ();
+
+  /**
+   * @return The maximum number of elements to be returned. A value &lt; 0 means "no limit", a value
+   *         of 0 means "no elements".Long values are forced to int range.
+   * @see #getMaxCount()
+   * @see #isLimited()
+   * @see #isUnlimited()
+   */
+  default int getMaxCountAsInt ()
+  {
+    // Limit to Integer bounds
+    return (int) Math.min (getMaxCount (), Integer.MAX_VALUE);
+  }
+
+  /**
+   * @return <code>false</code> if all elements starting from the start index are to be returned,
+   *         <code>true</code> if the number of elements is limited.
+   * @since 12.5.0
+   */
+  default boolean isLimited ()
+  {
+    return getMaxCount () >= 0;
+  }
 
   /**
    * @return <code>true</code> if all elements starting from the start index are to be returned,
