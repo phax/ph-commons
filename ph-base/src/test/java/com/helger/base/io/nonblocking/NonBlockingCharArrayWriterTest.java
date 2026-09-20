@@ -97,4 +97,20 @@ public final class NonBlockingCharArrayWriterTest
     catch (final IllegalArgumentException ex)
     {}
   }
+
+  @Test
+  public void testGetAsStringAndStartsWith ()
+  {
+    try (final NonBlockingCharArrayWriter aWriter = new NonBlockingCharArrayWriter ())
+    {
+      aWriter.write ("abcdef");
+      assertEquals ("abcdef", aWriter.getAsString ());
+      assertEquals ("bcd", aWriter.getAsString (1, 3));
+      assertEquals (6, aWriter.getSize ());
+
+      assertTrue (aWriter.startsWith ("abc".toCharArray ()));
+      assertFalse (aWriter.startsWith ("bcd".toCharArray ()));
+      assertFalse (aWriter.startsWith ("abcdefg".toCharArray ()));
+    }
+  }
 }

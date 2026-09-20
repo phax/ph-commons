@@ -225,8 +225,8 @@ public class SchemaCache extends ProviderCache <ICommonsList <? extends IReadabl
     aValidator.setErrorHandler (m_aSchemaFactory.getErrorHandler ());
     /*
      * Neither the resource resolver nor the external access properties of the SchemaFactory are
-     * inherited by the Validator - see XMLSchemaValidationHelper.makeValidatorSecure - so both
-     * need to be applied explicitly here.
+     * inherited by the Validator - see XMLSchemaValidationHelper.makeValidatorSecure - so both need
+     * to be applied explicitly here.
      */
     aValidator.setResourceResolver (m_aSchemaFactory.getResourceResolver ());
     XMLSchemaValidationHelper.makeValidatorSecure (aValidator);

@@ -141,8 +141,7 @@ public final class PersistingIDFactoryTest
   @Test
   public void testIntFactoryEqualsHashcode ()
   {
-    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new MockIntIDFactory (5),
-                                                                    new MockIntIDFactory (5));
+    BaseTestHelper.testDefaultImplementationWithEqualContentObject (new MockIntIDFactory (5), new MockIntIDFactory (5));
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new MockIntIDFactory (5),
                                                                         new MockIntIDFactory (6));
   }

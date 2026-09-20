@@ -91,9 +91,7 @@ public final class PasswordHashTest
     try
     {
       // Algorithm name is too long
-      new PasswordHash (StringHelper.getRepeated ('a', PasswordHash.ALGORITHM_NAME_MAX_LENGTH + 1),
-                        null,
-                        "hashvalue");
+      new PasswordHash (StringHelper.getRepeated ('a', PasswordHash.ALGORITHM_NAME_MAX_LENGTH + 1), null, "hashvalue");
       fail ();
     }
     catch (final IllegalArgumentException ex)

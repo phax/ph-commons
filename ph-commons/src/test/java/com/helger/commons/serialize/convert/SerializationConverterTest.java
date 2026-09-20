@@ -38,8 +38,7 @@ import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EContinue;
 
 /**
- * Test class for class {@link SerializationConverter} and
- * {@link SerializationConverterRegistry}.
+ * Test class for class {@link SerializationConverter} and {@link SerializationConverterRegistry}.
  *
  * @author Philip Helger
  */
@@ -68,7 +67,7 @@ public final class SerializationConverterTest
     assertNotNull (aRegistry.getConverter (MockNotSerializable.class));
 
     final MutableInt aCount = new MutableInt (0);
-    aRegistry.iterateAllRegisteredSerializationConverters ( (aClass, aConverter) -> {
+    aRegistry.iterateAllRegisteredSerializationConverters ((aClass, aConverter) -> {
       aCount.inc ();
       return EContinue.CONTINUE;
     });
@@ -76,7 +75,7 @@ public final class SerializationConverterTest
 
     // Break after the first one
     final MutableInt aCount2 = new MutableInt (0);
-    aRegistry.iterateAllRegisteredSerializationConverters ( (aClass, aConverter) -> {
+    aRegistry.iterateAllRegisteredSerializationConverters ((aClass, aConverter) -> {
       aCount2.inc ();
       return EContinue.BREAK;
     });
@@ -87,8 +86,7 @@ public final class SerializationConverterTest
     {
       aRegistry.registerSerializationConverter (String.class, new ISerializationConverter <String> ()
       {
-        public void writeConvertedObject (@NonNull final String aSourceObject,
-                                          @NonNull final ObjectOutputStream aOOS)
+        public void writeConvertedObject (@NonNull final String aSourceObject, @NonNull final ObjectOutputStream aOOS)
         {}
 
         public String readConvertedObject (@NonNull final ObjectInputStream aOIS)
@@ -108,8 +106,7 @@ public final class SerializationConverterTest
     {
       aRegistry.registerSerializationConverter (Charset.class, new ISerializationConverter <Charset> ()
       {
-        public void writeConvertedObject (@NonNull final Charset aSourceObject,
-                                          @NonNull final ObjectOutputStream aOOS)
+        public void writeConvertedObject (@NonNull final Charset aSourceObject, @NonNull final ObjectOutputStream aOOS)
         {}
 
         public Charset readConvertedObject (@NonNull final ObjectInputStream aOIS)

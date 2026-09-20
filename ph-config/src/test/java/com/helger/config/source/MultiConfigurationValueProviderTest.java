@@ -86,7 +86,8 @@ public final class MultiConfigurationValueProviderTest
   @Test
   public void testCtorList ()
   {
-    assertEquals (0, new MultiConfigurationValueProvider ((List <IConfigurationSource>) null).getConfigurationSourceCount ());
+    assertEquals (0,
+                  new MultiConfigurationValueProvider ((List <IConfigurationSource>) null).getConfigurationSourceCount ());
 
     final ICommonsMap <String, String> aMap1 = new CommonsHashMap <> ();
     aMap1.put ("key1", "value1");
@@ -106,7 +107,8 @@ public final class MultiConfigurationValueProviderTest
   @Test
   public void testCtorArray ()
   {
-    assertEquals (0, new MultiConfigurationValueProvider ((IConfigurationSource []) null).getConfigurationSourceCount ());
+    assertEquals (0,
+                  new MultiConfigurationValueProvider ((IConfigurationSource []) null).getConfigurationSourceCount ());
 
     final ICommonsMap <String, String> aMap1 = new CommonsHashMap <> ();
     aMap1.put ("key1", "value1");
@@ -189,7 +191,7 @@ public final class MultiConfigurationValueProviderTest
     aMCSVP.addConfigurationSource (new ConfigurationSourceFunction (111, aMap::get));
 
     final ICommonsList <Integer> aPrios = new CommonsArrayList <> ();
-    aMCSVP.forEachConfigurationValueProvider ( (aCVP, nPrio) -> {
+    aMCSVP.forEachConfigurationValueProvider ((aCVP, nPrio) -> {
       assertNotNull (aCVP);
       aPrios.add (Integer.valueOf (nPrio));
     });

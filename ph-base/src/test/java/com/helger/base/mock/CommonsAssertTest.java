@@ -50,8 +50,8 @@ public final class CommonsAssertTest
   @Test
   public void testFail ()
   {
-    _assertFails ( () -> CommonsAssert.fail ());
-    _assertFails ( () -> CommonsAssert.fail ("any message"));
+    _assertFails (() -> CommonsAssert.fail ());
+    _assertFails (() -> CommonsAssert.fail ("any message"));
   }
 
   @Test
@@ -64,12 +64,12 @@ public final class CommonsAssertTest
     CommonsAssert.assertNotEquals (true, Boolean.FALSE);
     CommonsAssert.assertNotEquals ("msg", true, false);
 
-    _assertFails ( () -> CommonsAssert.assertEquals (true, false));
-    _assertFails ( () -> CommonsAssert.assertEquals (true, Boolean.FALSE));
-    _assertFails ( () -> CommonsAssert.assertEquals ("msg", true, false));
-    _assertFails ( () -> CommonsAssert.assertNotEquals (true, true));
-    _assertFails ( () -> CommonsAssert.assertNotEquals (true, Boolean.TRUE));
-    _assertFails ( () -> CommonsAssert.assertNotEquals ("msg", true, true));
+    _assertFails (() -> CommonsAssert.assertEquals (true, false));
+    _assertFails (() -> CommonsAssert.assertEquals (true, Boolean.FALSE));
+    _assertFails (() -> CommonsAssert.assertEquals ("msg", true, false));
+    _assertFails (() -> CommonsAssert.assertNotEquals (true, true));
+    _assertFails (() -> CommonsAssert.assertNotEquals (true, Boolean.TRUE));
+    _assertFails (() -> CommonsAssert.assertNotEquals ("msg", true, true));
   }
 
   @Test
@@ -81,9 +81,9 @@ public final class CommonsAssertTest
     // Within the allowed rounding difference
     CommonsAssert.assertEquals (1.0, 1.0 + CommonsAssert.DOUBLE_ALLOWED_ROUNDING_DIFFERENCE / 2);
 
-    _assertFails ( () -> CommonsAssert.assertEquals (1.0, 2.0));
-    _assertFails ( () -> CommonsAssert.assertEquals (1.0, Double.valueOf (2.0)));
-    _assertFails ( () -> CommonsAssert.assertEquals ("msg", 1.0, 2.0));
+    _assertFails (() -> CommonsAssert.assertEquals (1.0, 2.0));
+    _assertFails (() -> CommonsAssert.assertEquals (1.0, Double.valueOf (2.0)));
+    _assertFails (() -> CommonsAssert.assertEquals ("msg", 1.0, 2.0));
   }
 
   @Test
@@ -94,9 +94,9 @@ public final class CommonsAssertTest
     CommonsAssert.assertEquals ("msg", 1.0f, 1.0f);
     CommonsAssert.assertEquals (1.0f, 1.0f + CommonsAssert.FLOAT_ALLOWED_ROUNDING_DIFFERENCE / 2);
 
-    _assertFails ( () -> CommonsAssert.assertEquals (1.0f, 2.0f));
-    _assertFails ( () -> CommonsAssert.assertEquals (1.0f, Float.valueOf (2.0f)));
-    _assertFails ( () -> CommonsAssert.assertEquals ("msg", 1.0f, 2.0f));
+    _assertFails (() -> CommonsAssert.assertEquals (1.0f, 2.0f));
+    _assertFails (() -> CommonsAssert.assertEquals (1.0f, Float.valueOf (2.0f)));
+    _assertFails (() -> CommonsAssert.assertEquals ("msg", 1.0f, 2.0f));
   }
 
   @Test
@@ -108,10 +108,10 @@ public final class CommonsAssertTest
     CommonsAssert.assertNotEquals ("a", "b");
     CommonsAssert.assertNotEquals ("msg", "a", "b");
 
-    _assertFails ( () -> CommonsAssert.assertEquals ("a", "b"));
-    _assertFails ( () -> CommonsAssert.assertEquals ("msg", "a", "b"));
-    _assertFails ( () -> CommonsAssert.assertNotEquals ("a", "a"));
-    _assertFails ( () -> CommonsAssert.assertNotEquals ("msg", "a", "a"));
+    _assertFails (() -> CommonsAssert.assertEquals ("a", "b"));
+    _assertFails (() -> CommonsAssert.assertEquals ("msg", "a", "b"));
+    _assertFails (() -> CommonsAssert.assertNotEquals ("a", "a"));
+    _assertFails (() -> CommonsAssert.assertNotEquals ("msg", "a", "a"));
   }
 
   @Test
@@ -120,10 +120,10 @@ public final class CommonsAssertTest
     CommonsAssert.assertEquals ((float []) null, (float []) null);
     CommonsAssert.assertEquals (new float [] { 1f, 2f }, new float [] { 1f, 2f });
 
-    _assertFails ( () -> CommonsAssert.assertEquals (new float [] { 1f }, (float []) null));
-    _assertFails ( () -> CommonsAssert.assertEquals ((float []) null, new float [] { 1f }));
-    _assertFails ( () -> CommonsAssert.assertEquals (new float [] { 1f }, new float [] { 1f, 2f }));
-    _assertFails ( () -> CommonsAssert.assertEquals (new float [] { 1f }, new float [] { 2f }));
+    _assertFails (() -> CommonsAssert.assertEquals (new float [] { 1f }, (float []) null));
+    _assertFails (() -> CommonsAssert.assertEquals ((float []) null, new float [] { 1f }));
+    _assertFails (() -> CommonsAssert.assertEquals (new float [] { 1f }, new float [] { 1f, 2f }));
+    _assertFails (() -> CommonsAssert.assertEquals (new float [] { 1f }, new float [] { 2f }));
   }
 
   @Test
@@ -132,9 +132,9 @@ public final class CommonsAssertTest
     CommonsAssert.assertEquals ((double []) null, (double []) null);
     CommonsAssert.assertEquals (new double [] { 1, 2 }, new double [] { 1, 2 });
 
-    _assertFails ( () -> CommonsAssert.assertEquals (new double [] { 1 }, (double []) null));
-    _assertFails ( () -> CommonsAssert.assertEquals ((double []) null, new double [] { 1 }));
-    _assertFails ( () -> CommonsAssert.assertEquals (new double [] { 1 }, new double [] { 1, 2 }));
-    _assertFails ( () -> CommonsAssert.assertEquals (new double [] { 1 }, new double [] { 2 }));
+    _assertFails (() -> CommonsAssert.assertEquals (new double [] { 1 }, (double []) null));
+    _assertFails (() -> CommonsAssert.assertEquals ((double []) null, new double [] { 1 }));
+    _assertFails (() -> CommonsAssert.assertEquals (new double [] { 1 }, new double [] { 1, 2 }));
+    _assertFails (() -> CommonsAssert.assertEquals (new double [] { 1 }, new double [] { 2 }));
   }
 }

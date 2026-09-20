@@ -187,8 +187,8 @@ public class DefaultTransformURIResolver extends AbstractTransformURIResolver
         /*
          * Deliberately not "null": a TransformerFactory that honours neither secure processing nor
          * the "accessExternalDTD"/"accessExternalStylesheet" attributes treats "null" as "not
-         * handled" and opens the URI itself. An empty document ends the resolution instead, so
-         * that "document()" evaluates to an empty node set and "xsl:import"/"xsl:include" fail.
+         * handled" and opens the URI itself. An empty document ends the resolution instead, so that
+         * "document()" evaluates to an empty node set and "xsl:import"/"xsl:include" fail.
          */
         return _createBlockedSource ();
       }

@@ -19,9 +19,12 @@ package com.helger.base.lang;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.List;
 import java.util.Locale;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.Test;
@@ -29,6 +32,7 @@ import org.junit.Test;
 import com.helger.base.compare.ESortOrder;
 import com.helger.base.id.IHasID;
 import com.helger.base.id.IHasIntID;
+import com.helger.base.state.EChange;
 
 /**
  * Test class for class {@link EnumHelper}.
@@ -172,5 +176,18 @@ public final class EnumHelperTest
     }
     catch (final IllegalArgumentException ex)
     {}
+  }
+
+  @Test
+  public void testGetAll ()
+  {
+    final List <EChange> aAll = EnumHelper.getAll (EChange.class, null);
+    assertEquals (EChange.values ().length, aAll.size ());
+
+    final List <EChange> aFiltered = EnumHelper.getAll (EChange.class, EChange::isChanged);
+    assertEquals (1, aFiltered.size ());
+    assertEquals (EChange.CHANGED, aFiltered.get (0));
+
+    assertTrue (EnumHelper.getAll (EChange.class, (Predicate <EChange>) x -> false).isEmpty ());
   }
 }

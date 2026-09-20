@@ -42,8 +42,7 @@ public final class UserNamePasswordCredentialsTest
     assertNotNull (aCred.toString ());
     assertFalse (aCred.toString ().contains ("pw"));
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (aCred,
-                                                                new UserNamePasswordCredentials ("user", "pw"));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aCred, new UserNamePasswordCredentials ("user", "pw"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aCred,
                                                                     new UserNamePasswordCredentials ("user2", "pw"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aCred,
@@ -58,8 +57,7 @@ public final class UserNamePasswordCredentialsTest
     assertNull (aCred.getPassword ());
     assertNotNull (aCred.toString ());
 
-    TestHelper.testDefaultImplementationWithEqualContentObject (aCred,
-                                                                new UserNamePasswordCredentials (null, null));
+    TestHelper.testDefaultImplementationWithEqualContentObject (aCred, new UserNamePasswordCredentials (null, null));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aCred,
                                                                     new UserNamePasswordCredentials ("user", null));
   }

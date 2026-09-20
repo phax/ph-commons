@@ -32,8 +32,7 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHelper;
 
 /**
- * Test class for class {@link Base64InputStream} and
- * {@link Base64OutputStream}.
+ * Test class for class {@link Base64InputStream} and {@link Base64OutputStream}.
  *
  * @author Philip Helger
  */

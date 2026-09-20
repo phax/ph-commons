@@ -123,7 +123,8 @@ public final class JsonVisitorTest
   public void testDefaultCallbackDoesNothing ()
   {
     // All methods of IJsonVisitorCallback have an empty default implementation
-    final IJsonVisitorCallback aCB = new IJsonVisitorCallback () {};
+    final IJsonVisitorCallback aCB = new IJsonVisitorCallback ()
+    {};
     JsonVisitor.visit (new JsonObject ().add ("arr", new JsonArray ().add (1).add ("x")), aCB);
     assertNotNull (aCB);
   }

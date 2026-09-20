@@ -271,4 +271,16 @@ public final class MathHelperTest
       }
     }
   }
+
+  @Test
+  public void testHypot ()
+  {
+    CommonsAssert.assertEquals (5, MathHelper.hypot (3, 4));
+    CommonsAssert.assertEquals (5, MathHelper.hypot (4, 3));
+    CommonsAssert.assertEquals (5, MathHelper.hypot (-3, -4));
+    // One of the values is 0
+    CommonsAssert.assertEquals (4, MathHelper.hypot (0, 4));
+    CommonsAssert.assertEquals (3, MathHelper.hypot (3, 0));
+    CommonsAssert.assertEquals (0, MathHelper.hypot (0, 0));
+  }
 }

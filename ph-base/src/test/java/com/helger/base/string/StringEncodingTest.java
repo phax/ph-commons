@@ -57,14 +57,12 @@ public final class StringEncodingTest
   {
     final byte [] aBytes = TEXT.getBytes (StandardCharsets.ISO_8859_1);
 
-    assertArrayEquals (TEXT.toCharArray (),
-                       StringEncoding.decodeBytesToChars (aBytes, StandardCharsets.ISO_8859_1));
+    assertArrayEquals (TEXT.toCharArray (), StringEncoding.decodeBytesToChars (aBytes, StandardCharsets.ISO_8859_1));
     assertArrayEquals ("Hello".toCharArray (),
                        StringEncoding.decodeBytesToChars (aBytes, 0, 5, StandardCharsets.ISO_8859_1));
     assertEquals (0, StringEncoding.decodeBytesToChars (aBytes, 0, 0, StandardCharsets.ISO_8859_1).length);
 
-    assertNotNull (StringEncoding.decodeBytesToChars ("äöü".getBytes (StandardCharsets.UTF_8),
-                                                       StandardCharsets.UTF_8));
+    assertNotNull (StringEncoding.decodeBytesToChars ("äöü".getBytes (StandardCharsets.UTF_8), StandardCharsets.UTF_8));
   }
 
   @Test
@@ -93,9 +91,9 @@ public final class StringEncodingTest
     try
     {
       StringEncoding.decodeBytesToChars (TEXT.getBytes (StandardCharsets.ISO_8859_1),
-                                          0,
-                                          1000,
-                                          StandardCharsets.ISO_8859_1);
+                                         0,
+                                         1000,
+                                         StandardCharsets.ISO_8859_1);
       fail ();
     }
     catch (final IllegalArgumentException | IndexOutOfBoundsException ex)

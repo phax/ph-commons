@@ -59,9 +59,9 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
 
   /**
    * {@inheritDoc}<br>
-   * Note: only the facade is new - the returned object wraps the <b>same</b> list as this object. So
-   * modifications of the clone are visible in this object and vice versa. To create an independent
-   * copy, the wrapped list must be copied instead.
+   * Note: only the facade is new - the returned object wraps the <b>same</b> list as this object.
+   * So modifications of the clone are visible in this object and vice versa. To create an
+   * independent copy, the wrapped list must be copied instead.
    */
   @NonNull
   @ReturnsMutableCopy

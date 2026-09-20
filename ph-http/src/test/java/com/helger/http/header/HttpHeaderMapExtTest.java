@@ -159,11 +159,11 @@ public final class HttpHeaderMapExtTest
     aMap.addHeader ("b", "line1\tline2");
 
     final MutableInt aCount = new MutableInt (0);
-    aMap.forEachSingleHeader ( (n, v) -> aCount.inc (), false);
+    aMap.forEachSingleHeader ((n, v) -> aCount.inc (), false);
     assertEquals (3, aCount.intValue ());
 
     aCount.set (0);
-    aMap.forEachSingleHeader ( (n, v) -> aCount.inc (), true, true);
+    aMap.forEachSingleHeader ((n, v) -> aCount.inc (), true, true);
     assertEquals (3, aCount.intValue ());
 
     final ICommonsList <String> aLines = new CommonsArrayList <> ();

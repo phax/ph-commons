@@ -176,7 +176,7 @@ public final class DefaultDAOContainerTest
     final MockDAO aDAO = new MockDAO ();
     final DefaultDAOContainer aCont = _create (aDAO);
 
-    aCont.performWithoutAutoSave ( () -> assertFalse (aDAO.isAutoSaveEnabled ()));
+    aCont.performWithoutAutoSave (() -> assertFalse (aDAO.isAutoSaveEnabled ()));
     assertTrue (aDAO.isAutoSaveEnabled ());
   }
 

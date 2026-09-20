@@ -115,11 +115,11 @@ public final class ConfigFileBuilderTest
   public void testAddPathFromSupplier ()
   {
     final ConfigFileBuilder aBuilder = new ConfigFileBuilder ();
-    aBuilder.addPath ( () -> "from-supplier");
+    aBuilder.addPath (() -> "from-supplier");
     assertEquals (new CommonsArrayList <> ("from-supplier"), aBuilder.getAllPaths ());
 
     // A supplier returning null adds nothing
-    aBuilder.addPath ( () -> null);
+    aBuilder.addPath (() -> null);
     assertEquals (1, aBuilder.getAllPaths ().size ());
   }
 

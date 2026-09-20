@@ -82,7 +82,7 @@ public final class DefaultTransformURIResolverTest
     assertNotNull (aSource);
     assertTrue (aSource instanceof DOMSource);
     // An empty document - "document()" evaluates to an empty node set
-    assertNull ( ((DOMSource) aSource).getNode ().getFirstChild ());
+    assertNull (((DOMSource) aSource).getNode ().getFirstChild ());
   }
 
   @Test

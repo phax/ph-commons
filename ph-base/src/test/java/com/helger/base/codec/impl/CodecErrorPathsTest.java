@@ -31,8 +31,7 @@ import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayCodec;
 
 /**
- * Test class for the error paths and the special cases of the byte array
- * codecs.
+ * Test class for the error paths and the special cases of the byte array codecs.
  *
  * @author Philip Helger
  */
@@ -75,8 +74,8 @@ public final class CodecErrorPathsTest
   public void testBase16Invalid ()
   {
     final Base16Codec c = new Base16Codec ();
-    assertEquals ("48656c6c6f", c.getEncodedAsString ("Hello".getBytes (StandardCharsets.ISO_8859_1),
-                                                      StandardCharsets.ISO_8859_1));
+    assertEquals ("48656c6c6f",
+                  c.getEncodedAsString ("Hello".getBytes (StandardCharsets.ISO_8859_1), StandardCharsets.ISO_8859_1));
 
     // An odd number of characters
     try

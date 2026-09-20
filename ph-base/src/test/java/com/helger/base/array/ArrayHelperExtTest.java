@@ -202,10 +202,7 @@ public final class ArrayHelperExtTest
                                                x -> Integer.toString (x.length ()),
                                                "x"));
     assertEquals ("x",
-                  ArrayHelper.findFirstMapped ((String []) null,
-                                               aFilter,
-                                               x -> Integer.toString (x.length ()),
-                                               "x"));
+                  ArrayHelper.findFirstMapped ((String []) null, aFilter, x -> Integer.toString (x.length ()), "x"));
 
     assertEquals (2, ArrayHelper.getCount (aArray, aFilter));
     assertEquals (3, ArrayHelper.getCount (aArray, (Predicate <String>) null));

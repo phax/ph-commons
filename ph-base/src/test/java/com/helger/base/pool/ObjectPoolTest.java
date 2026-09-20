@@ -17,6 +17,8 @@
 package com.helger.base.pool;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -80,5 +82,34 @@ public final class ObjectPoolTest
     Thread.sleep (100);
     aThread.interrupt ();
     aThread.join ();
+  }
+
+  @Test
+  public void testBorrowAndReturn ()
+  {
+    final ObjectPool <StringBuilder> aPool = new ObjectPool <> (2, StringBuilder::new);
+    assertEquals (2, aPool.getPoolSize ());
+    assertEquals (0, aPool.getBorrowedObjectCount ());
+
+    final StringBuilder aSB1 = aPool.borrowObject ();
+    assertNotNull (aSB1);
+    assertEquals (1, aPool.getBorrowedObjectCount ());
+
+    final StringBuilder aSB2 = aPool.borrowObject ();
+    assertNotNull (aSB2);
+    assertEquals (2, aPool.getBorrowedObjectCount ());
+    assertNotNull (aPool.toString ());
+
+    assertTrue (aPool.returnObject (aSB1).isSuccess ());
+    assertTrue (aPool.returnObject (aSB2).isSuccess ());
+    assertEquals (0, aPool.getBorrowedObjectCount ());
+
+    // Returning an object that was not borrowed fails
+    assertTrue (aPool.returnObject (new StringBuilder ()).isFailure ());
+
+    // All unused items are removed
+    aPool.clearUnusedItems ();
+    assertEquals (2, aPool.getPoolSize ());
+    assertNotNull (aPool.borrowObject ());
   }
 }

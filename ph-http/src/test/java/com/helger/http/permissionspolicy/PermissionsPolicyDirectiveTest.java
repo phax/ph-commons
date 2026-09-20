@@ -99,9 +99,8 @@ public final class PermissionsPolicyDirectiveTest
 
     // A null allow list is allowed
     assertNull (new PermissionsPolicyDirective ("camera", (AbstractPermissionsPolicyAllowList <?>) null).getValue ());
-    assertNull (new PermissionsPolicyDirective ("camera",
-                                                (AbstractPermissionsPolicyAllowList <?>) null,
-                                                null).getValue ());
+    assertNull (new PermissionsPolicyDirective ("camera", (AbstractPermissionsPolicyAllowList <?>) null, null)
+                                                                                                              .getValue ());
   }
 
   @Test

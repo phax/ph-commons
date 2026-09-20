@@ -32,8 +32,8 @@ import org.junit.Test;
 
 /**
  * Test class for the functional interfaces {@link IBooleanPredicate}, {@link ICharPredicate},
- * {@link IBooleanConsumer}, {@link ICharConsumer}, {@link ITriConsumer},
- * {@link IThrowingConsumer} and {@link IThrowingFunction}.
+ * {@link IBooleanConsumer}, {@link ICharConsumer}, {@link ITriConsumer}, {@link IThrowingConsumer}
+ * and {@link IThrowingFunction}.
  *
  * @author Philip Helger
  */
@@ -166,9 +166,7 @@ public final class FunctionalInterfacesTest
     assertSame (a1, a1.andThen (null));
 
     // An exception is propagated
-    final IThrowingConsumer <String, Exception> aEx = x -> {
-      throw new IllegalStateException ("mock");
-    };
+    final IThrowingConsumer <String, Exception> aEx = x -> { throw new IllegalStateException ("mock"); };
     try
     {
       aEx.accept ("v");

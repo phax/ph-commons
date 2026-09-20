@@ -28,8 +28,7 @@ import com.helger.base.mock.CommonsAssert;
 import com.helger.http.header.QValue;
 
 /**
- * Test class for class {@link AcceptLanguageHandler} and
- * {@link AcceptLanguageList}.
+ * Test class for class {@link AcceptLanguageHandler} and {@link AcceptLanguageList}.
  *
  * @author Philip Helger
  */
@@ -46,7 +45,8 @@ public final class AcceptLanguageHandlerTest
     assertTrue (aList.explicitlySupportsLanguage (AcceptLanguageHandler.ANY_LANGUAGE));
     CommonsAssert.assertEquals (QValue.MAX_QUALITY, aList.getQualityOfLanguage ("de"));
 
-    assertEquals (aList.getAsHttpHeaderValue (), AcceptLanguageHandler.getAcceptLanguages (null).getAsHttpHeaderValue ());
+    assertEquals (aList.getAsHttpHeaderValue (),
+                  AcceptLanguageHandler.getAcceptLanguages (null).getAsHttpHeaderValue ());
   }
 
   @Test

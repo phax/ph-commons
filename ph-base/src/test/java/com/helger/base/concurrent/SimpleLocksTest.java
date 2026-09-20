@@ -46,11 +46,11 @@ public final class SimpleLocksTest
     assertEquals (1, aCount.get ());
     assertFalse (a.isLocked ());
 
-    assertEquals ("v", a.lockedGet ( () -> "v"));
-    assertTrue (a.lockedBoolean ( () -> true));
-    assertEquals (1.5, a.lockedDouble ( () -> 1.5), 0.0001);
-    assertEquals (3, a.lockedInt ( () -> 3));
-    assertEquals (4L, a.lockedLong ( () -> 4L));
+    assertEquals ("v", a.lockedGet (() -> "v"));
+    assertTrue (a.lockedBoolean (() -> true));
+    assertEquals (1.5, a.lockedDouble (() -> 1.5), 0.0001);
+    assertEquals (3, a.lockedInt (() -> 3));
+    assertEquals (4L, a.lockedLong (() -> 4L));
     assertFalse (a.isLocked ());
   }
 
@@ -60,15 +60,13 @@ public final class SimpleLocksTest
     final SimpleLock a = new SimpleLock (true);
     assertTrue (a.isFair ());
 
-    a.lockedThrowing ( () -> { /* empty */ });
-    assertEquals ("v", a.lockedGetThrowing ( () -> "v"));
+    a.lockedThrowing (() -> { /* empty */ });
+    assertEquals ("v", a.lockedGetThrowing (() -> "v"));
 
     // The lock is released even if the action throws
     try
     {
-      a.lockedThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.lockedThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)
@@ -79,9 +77,7 @@ public final class SimpleLocksTest
 
     try
     {
-      a.lockedGetThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.lockedGetThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)
@@ -100,20 +96,18 @@ public final class SimpleLocksTest
     a.readLocked (aCount::incrementAndGet);
     assertEquals (1, aCount.get ());
 
-    assertEquals ("v", a.readLockedGet ( () -> "v"));
-    assertTrue (a.readLockedBoolean ( () -> true));
-    assertEquals (1.5, a.readLockedDouble ( () -> 1.5), 0.0001);
-    assertEquals (3, a.readLockedInt ( () -> 3));
-    assertEquals (4L, a.readLockedLong ( () -> 4L));
+    assertEquals ("v", a.readLockedGet (() -> "v"));
+    assertTrue (a.readLockedBoolean (() -> true));
+    assertEquals (1.5, a.readLockedDouble (() -> 1.5), 0.0001);
+    assertEquals (3, a.readLockedInt (() -> 3));
+    assertEquals (4L, a.readLockedLong (() -> 4L));
 
-    a.readLockedThrowing ( () -> { /* empty */ });
-    assertEquals ("v", a.readLockedGetThrowing ( () -> "v"));
+    a.readLockedThrowing (() -> { /* empty */ });
+    assertEquals ("v", a.readLockedGetThrowing (() -> "v"));
 
     try
     {
-      a.readLockedThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.readLockedThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)
@@ -122,9 +116,7 @@ public final class SimpleLocksTest
     }
     try
     {
-      a.readLockedGetThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.readLockedGetThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)
@@ -143,20 +135,18 @@ public final class SimpleLocksTest
     a.writeLocked (aCount::incrementAndGet);
     assertEquals (1, aCount.get ());
 
-    assertEquals ("v", a.writeLockedGet ( () -> "v"));
-    assertTrue (a.writeLockedBoolean ( () -> true));
-    assertEquals (1.5, a.writeLockedDouble ( () -> 1.5), 0.0001);
-    assertEquals (3, a.writeLockedInt ( () -> 3));
-    assertEquals (4L, a.writeLockedLong ( () -> 4L));
+    assertEquals ("v", a.writeLockedGet (() -> "v"));
+    assertTrue (a.writeLockedBoolean (() -> true));
+    assertEquals (1.5, a.writeLockedDouble (() -> 1.5), 0.0001);
+    assertEquals (3, a.writeLockedInt (() -> 3));
+    assertEquals (4L, a.writeLockedLong (() -> 4L));
 
-    a.writeLockedThrowing ( () -> { /* empty */ });
-    assertEquals ("v", a.writeLockedGetThrowing ( () -> "v"));
+    a.writeLockedThrowing (() -> { /* empty */ });
+    assertEquals ("v", a.writeLockedGetThrowing (() -> "v"));
 
     try
     {
-      a.writeLockedThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.writeLockedThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)
@@ -167,9 +157,7 @@ public final class SimpleLocksTest
 
     try
     {
-      a.writeLockedGetThrowing ( () -> {
-        throw new IOException ("mock");
-      });
+      a.writeLockedGetThrowing (() -> { throw new IOException ("mock"); });
       fail ();
     }
     catch (final IOException ex)

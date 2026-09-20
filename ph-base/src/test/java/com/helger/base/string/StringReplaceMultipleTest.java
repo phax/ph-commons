@@ -26,8 +26,7 @@ import org.junit.Test;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
- * Test class for the "multiple" methods of {@link StringReplace} and
- * {@link StringRemove}.
+ * Test class for the "multiple" methods of {@link StringReplace} and {@link StringRemove}.
  *
  * @author Philip Helger
  */
@@ -48,8 +47,7 @@ public final class StringReplaceMultipleTest
     assertArrayEquals (new char [0], StringReplace.replaceMultiple ("", SEARCH, REPLACEMENT));
     assertArrayEquals (new char [0], StringReplace.replaceMultiple ((String) null, SEARCH, REPLACEMENT));
     // Nothing to search for
-    assertArrayEquals ("<a>".toCharArray (),
-                       StringReplace.replaceMultiple ("<a>", new char [0], new char [0] []));
+    assertArrayEquals ("<a>".toCharArray (), StringReplace.replaceMultiple ("<a>", new char [0], new char [0] []));
   }
 
   @Test
@@ -57,8 +55,7 @@ public final class StringReplaceMultipleTest
   {
     assertArrayEquals ("&lt;a&gt;&amp;".toCharArray (),
                        StringReplace.replaceMultiple ("<a>&".toCharArray (), SEARCH, REPLACEMENT));
-    assertArrayEquals ("abc".toCharArray (),
-                       StringReplace.replaceMultiple ("abc".toCharArray (), SEARCH, REPLACEMENT));
+    assertArrayEquals ("abc".toCharArray (), StringReplace.replaceMultiple ("abc".toCharArray (), SEARCH, REPLACEMENT));
     assertArrayEquals (new char [0], StringReplace.replaceMultiple (new char [0], SEARCH, REPLACEMENT));
     assertArrayEquals (new char [0], StringReplace.replaceMultiple ((char []) null, SEARCH, REPLACEMENT));
   }

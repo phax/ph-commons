@@ -62,7 +62,7 @@ public final class NonBlockingPushbackStreamsTest
   public void testReaderBuffer () throws IOException
   {
     try (final NonBlockingPushbackReader aReader = new NonBlockingPushbackReader (new NonBlockingStringReader (TEXT),
-                                                                                   16))
+                                                                                  16))
     {
       final char [] aBuf = new char [5];
       assertEquals (5, aReader.read (aBuf, 0, 5));
@@ -88,7 +88,7 @@ public final class NonBlockingPushbackStreamsTest
   public void testReaderSkipAndOverflow () throws IOException
   {
     try (final NonBlockingPushbackReader aReader = new NonBlockingPushbackReader (new NonBlockingStringReader (TEXT),
-                                                                                   2))
+                                                                                  2))
     {
       assertEquals (2, aReader.skip (2));
 
@@ -172,7 +172,7 @@ public final class NonBlockingPushbackStreamsTest
   public void testInputStreamBuffer () throws IOException
   {
     try (final NonBlockingPushbackInputStream aIS = new NonBlockingPushbackInputStream (new NonBlockingByteArrayInputStream (PAYLOAD),
-                                                                                         16))
+                                                                                        16))
     {
       final byte [] aBuf = new byte [5];
       assertEquals (5, aIS.read (aBuf, 0, 5));
@@ -196,7 +196,7 @@ public final class NonBlockingPushbackStreamsTest
   public void testInputStreamSkipAndOverflow () throws IOException
   {
     try (final NonBlockingPushbackInputStream aIS = new NonBlockingPushbackInputStream (new NonBlockingByteArrayInputStream (PAYLOAD),
-                                                                                         2))
+                                                                                        2))
     {
       assertEquals (2, aIS.skip (2));
 

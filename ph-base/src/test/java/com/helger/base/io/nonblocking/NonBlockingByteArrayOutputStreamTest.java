@@ -16,9 +16,14 @@
  */
 package com.helger.base.io.nonblocking;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 
 import org.junit.Test;
@@ -99,5 +104,24 @@ public final class NonBlockingByteArrayOutputStreamTest
     }
     catch (final NullPointerException ex)
     {}
+  }
+
+  @Test
+  public void testReadFromAndGetAsString () throws IOException
+  {
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    {
+      // Read from an InputStream
+      try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream ("abc".getBytes (StandardCharsets.ISO_8859_1)))
+      {
+        aBAOS.readFrom (aBAIS);
+      }
+      assertEquals ("abc", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
+      assertEquals ("bc", aBAOS.getAsString (1, 2, StandardCharsets.ISO_8859_1));
+      assertEquals (3, aBAOS.size ());
+      assertFalse (aBAOS.isEmpty ());
+      assertTrue (aBAOS.isNotEmpty ());
+      assertNotNull (aBAOS.toString ());
+    }
   }
 }

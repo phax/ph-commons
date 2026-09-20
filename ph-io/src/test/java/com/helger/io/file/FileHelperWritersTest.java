@@ -106,8 +106,7 @@ public final class FileHelperWritersTest
     assertNotNull (aRAF);
     StreamHelper.close (aRAF);
 
-    final RandomAccessFile aRAF2 = FileHelper.getRandomAccessFile (FILE.getPath (),
-                                                                   ERandomAccessFileMode.READ_ONLY);
+    final RandomAccessFile aRAF2 = FileHelper.getRandomAccessFile (FILE.getPath (), ERandomAccessFileMode.READ_ONLY);
     assertNotNull (aRAF2);
     StreamHelper.close (aRAF2);
 

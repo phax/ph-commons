@@ -56,13 +56,13 @@ public final class MockMapBasedWALDAO extends AbstractMapBasedWALDAO <MockDAOIte
   @NonNull
   public MockDAOItem createItem (@NonNull final MockDAOItem aItem)
   {
-    m_aRWLock.writeLocked ( () -> internalCreateItem (aItem));
+    m_aRWLock.writeLocked (() -> internalCreateItem (aItem));
     return aItem;
   }
 
   public void updateItem (@NonNull final String sID, @NonNull final String sNewName)
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       final MockDAOItem aItem = internalGetOfID (sID);
       aItem.setName (sNewName);
       internalUpdateItem (aItem);
@@ -72,7 +72,7 @@ public final class MockMapBasedWALDAO extends AbstractMapBasedWALDAO <MockDAOIte
   @Nullable
   public MockDAOItem deleteItem (@Nullable final String sID)
   {
-    return m_aRWLock.writeLockedGet ( () -> internalDeleteItem (sID));
+    return m_aRWLock.writeLockedGet (() -> internalDeleteItem (sID));
   }
 
   @NonNull
@@ -89,12 +89,12 @@ public final class MockMapBasedWALDAO extends AbstractMapBasedWALDAO <MockDAOIte
 
   public void markItemDeleted (@NonNull final String sID)
   {
-    m_aRWLock.writeLocked ( () -> internalMarkItemDeleted (internalGetOfID (sID)));
+    m_aRWLock.writeLocked (() -> internalMarkItemDeleted (internalGetOfID (sID)));
   }
 
   public void markItemUndeleted (@NonNull final String sID)
   {
-    m_aRWLock.writeLocked ( () -> internalMarkItemUndeleted (internalGetOfID (sID)));
+    m_aRWLock.writeLocked (() -> internalMarkItemUndeleted (internalGetOfID (sID)));
   }
 
   @Nullable
@@ -105,19 +105,19 @@ public final class MockMapBasedWALDAO extends AbstractMapBasedWALDAO <MockDAOIte
 
   public boolean containsID (@Nullable final String sID)
   {
-    return m_aRWLock.readLockedBoolean ( () -> internalContainsWithID (sID));
+    return m_aRWLock.readLockedBoolean (() -> internalContainsWithID (sID));
   }
 
   @NonNull
   public MockDAOItem createItemNoCallback (@NonNull final MockDAOItem aItem)
   {
-    m_aRWLock.writeLocked ( () -> internalCreateItem (aItem, false));
+    m_aRWLock.writeLocked (() -> internalCreateItem (aItem, false));
     return aItem;
   }
 
   public void updateItemNoCallback (@NonNull final String sID, @NonNull final String sNewName)
   {
-    m_aRWLock.writeLocked ( () -> {
+    m_aRWLock.writeLocked (() -> {
       final MockDAOItem aItem = internalGetOfID (sID);
       aItem.setName (sNewName);
       internalUpdateItem (aItem, false);
@@ -127,28 +127,28 @@ public final class MockMapBasedWALDAO extends AbstractMapBasedWALDAO <MockDAOIte
   @Nullable
   public MockDAOItem deleteItemNoCallback (@Nullable final String sID)
   {
-    return m_aRWLock.writeLockedGet ( () -> internalDeleteItem (sID, false));
+    return m_aRWLock.writeLockedGet (() -> internalDeleteItem (sID, false));
   }
 
   public void markItemDeletedNoCallback (@NonNull final String sID)
   {
-    m_aRWLock.writeLocked ( () -> internalMarkItemDeleted (internalGetOfID (sID), false));
+    m_aRWLock.writeLocked (() -> internalMarkItemDeleted (internalGetOfID (sID), false));
   }
 
   public void markItemUndeletedNoCallback (@NonNull final String sID)
   {
-    m_aRWLock.writeLocked ( () -> internalMarkItemUndeleted (internalGetOfID (sID), false));
+    m_aRWLock.writeLocked (() -> internalMarkItemUndeleted (internalGetOfID (sID), false));
   }
 
   @NonNull
   public ICommonsList <MockDAOItem> getAllFilteredImpl (@Nullable final Predicate <? super MockDAOItem> aFilter)
   {
-    return m_aRWLock.readLockedGet ( () -> internalGetAll (aFilter));
+    return m_aRWLock.readLockedGet (() -> internalGetAll (aFilter));
   }
 
   public int countDirect ()
   {
-    return m_aRWLock.readLockedInt ( () -> {
+    return m_aRWLock.readLockedInt (() -> {
       int n = 0;
       for (final MockDAOItem aItem : internalDirectGetAll ())
       {

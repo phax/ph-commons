@@ -201,12 +201,12 @@ public final class LoggingAndCountingStreamsTest
   @Test
   public void testHasInputStream () throws IOException
   {
-    final HasInputStream aMultiple = HasInputStream.multiple ( () -> new NonBlockingByteArrayInputStream (PAYLOAD));
+    final HasInputStream aMultiple = HasInputStream.multiple (() -> new NonBlockingByteArrayInputStream (PAYLOAD));
     assertTrue (aMultiple.isReadMultiple ());
     assertNotNull (aMultiple.getInputStream ());
     assertNotNull (aMultiple.toString ());
 
-    final HasInputStream aOnce = HasInputStream.once ( () -> new NonBlockingByteArrayInputStream (PAYLOAD));
+    final HasInputStream aOnce = HasInputStream.once (() -> new NonBlockingByteArrayInputStream (PAYLOAD));
     assertEquals (false, aOnce.isReadMultiple ());
     assertNotNull (aOnce.getInputStream ());
 

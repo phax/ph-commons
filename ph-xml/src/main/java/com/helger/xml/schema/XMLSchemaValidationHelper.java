@@ -57,11 +57,12 @@ public final class XMLSchemaValidationHelper
    * <p>
    * This is needed because - contrary to what one might expect - the JAXP contract of
    * {@link javax.xml.validation.SchemaFactory#setResourceResolver(org.w3c.dom.ls.LSResourceResolver)}
-   * states that neither the resolver nor the properties of a {@link javax.xml.validation.SchemaFactory}
-   * are inherited by the {@link Schema}, {@link Validator} and
-   * {@link javax.xml.validation.ValidatorHandler} objects it creates. Every {@link Validator} must
-   * therefore be secured on its own, or the external DTD of an instance document and the schema
-   * referenced by an <code>xsi:schemaLocation</code> hint may be fetched during validation.
+   * states that neither the resolver nor the properties of a
+   * {@link javax.xml.validation.SchemaFactory} are inherited by the {@link Schema},
+   * {@link Validator} and {@link javax.xml.validation.ValidatorHandler} objects it creates. Every
+   * {@link Validator} must therefore be secured on its own, or the external DTD of an instance
+   * document and the schema referenced by an <code>xsi:schemaLocation</code> hint may be fetched
+   * during validation.
    * </p>
    *
    * @param aValidator

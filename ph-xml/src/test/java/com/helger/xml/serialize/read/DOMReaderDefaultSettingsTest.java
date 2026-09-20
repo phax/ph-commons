@@ -145,8 +145,7 @@ public final class DOMReaderDefaultSettingsTest
     assertTrue (DOMReaderDefaultSettings.hasAnyProperties ());
 
     assertSame (EChange.UNCHANGED, DOMReaderDefaultSettings.removePropertyValue (null));
-    assertSame (EChange.CHANGED,
-                DOMReaderDefaultSettings.removePropertyValue (EXMLParserProperty.GENERAL_XML_STRING));
+    assertSame (EChange.CHANGED, DOMReaderDefaultSettings.removePropertyValue (EXMLParserProperty.GENERAL_XML_STRING));
     assertSame (EChange.UNCHANGED,
                 DOMReaderDefaultSettings.removePropertyValue (EXMLParserProperty.GENERAL_XML_STRING));
     assertSame (EChange.UNCHANGED, DOMReaderDefaultSettings.removeAllPropertyValues ());
@@ -197,7 +196,7 @@ public final class DOMReaderDefaultSettingsTest
 
     // An entity resolver forces a new XML parser
     assertFalse (DOMReaderDefaultSettings.requiresNewXMLParser ());
-    DOMReaderDefaultSettings.setEntityResolver ( (sPublicId, sSystemId) -> null);
+    DOMReaderDefaultSettings.setEntityResolver ((sPublicId, sSystemId) -> null);
     assertNotNull (DOMReaderDefaultSettings.getEntityResolver ());
     assertTrue (DOMReaderDefaultSettings.requiresNewXMLParser ());
   }

@@ -182,7 +182,7 @@ public final class AbstractMapBasedWALDAOTest
     assertEquals (3, aIDs.size ());
 
     final ICommonsList <String> aBoth = new CommonsArrayList <> ();
-    aDAO.forEach ( (sID, aItem) -> aBoth.add (sID));
+    aDAO.forEach ((sID, aItem) -> aBoth.add (sID));
     assertEquals (3, aBoth.size ());
 
     aDAO.findAll (x -> "alpha".equals (x.getName ()), x -> aBoth.add (x.getID ()));
@@ -190,7 +190,7 @@ public final class AbstractMapBasedWALDAOTest
 
     // The filtered overloads
     final ICommonsList <String> aFiltered = new CommonsArrayList <> ();
-    aDAO.forEach ( (sID, aItem) -> "alpha".equals (aItem.getName ()), (sID, aItem) -> aFiltered.add (sID));
+    aDAO.forEach ((sID, aItem) -> "alpha".equals (aItem.getName ()), (sID, aItem) -> aFiltered.add (sID));
     assertEquals (2, aFiltered.size ());
 
     aFiltered.clear ();
@@ -284,7 +284,7 @@ public final class AbstractMapBasedWALDAOTest
     assertTrue (aDAO.isAutoSaveEnabled ());
     assertFalse (aDAO.hasPendingChanges ());
 
-    aDAO.performWithoutAutoSave ( () -> {
+    aDAO.performWithoutAutoSave (() -> {
       assertFalse (aDAO.isAutoSaveEnabled ());
       aDAO.createItem (new MockDAOItem ("id1", "name1"));
       assertTrue (aDAO.hasPendingChanges ());

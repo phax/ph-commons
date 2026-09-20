@@ -56,22 +56,22 @@ public final class ConditionalLoggerTest
   {
     final ConditionalLogger a = new ConditionalLogger (LOGGER, true);
 
-    a.trace ( () -> "trace");
-    a.trace ( () -> "trace", EX);
-    a.debug ( () -> "debug");
-    a.debug ( () -> "debug", EX);
+    a.trace (() -> "trace");
+    a.trace (() -> "trace", EX);
+    a.debug (() -> "debug");
+    a.debug (() -> "debug", EX);
     a.info ("info");
-    a.info ( () -> "info");
+    a.info (() -> "info");
     a.info ("info", EX);
-    a.info ( () -> "info", EX);
+    a.info (() -> "info", EX);
     a.warn ("warn");
-    a.warn ( () -> "warn");
+    a.warn (() -> "warn");
     a.warn ("warn", EX);
-    a.warn ( () -> "warn", EX);
+    a.warn (() -> "warn", EX);
     a.error ("error");
-    a.error ( () -> "error");
+    a.error (() -> "error");
     a.error ("error", EX);
-    a.error ( () -> "error", EX);
+    a.error (() -> "error", EX);
     assertTrue (a.isEnabled ());
   }
 
@@ -81,26 +81,16 @@ public final class ConditionalLoggerTest
     // Nothing must be logged and no supplier must be evaluated
     final ConditionalLogger a = new ConditionalLogger (LOGGER, false);
 
-    a.trace ( () -> {
-      throw new IllegalStateException ("must not be evaluated");
-    });
-    a.debug ( () -> {
-      throw new IllegalStateException ("must not be evaluated");
-    });
+    a.trace (() -> { throw new IllegalStateException ("must not be evaluated"); });
+    a.debug (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.info ("info");
-    a.info ( () -> {
-      throw new IllegalStateException ("must not be evaluated");
-    });
+    a.info (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.info ("info", EX);
     a.warn ("warn");
-    a.warn ( () -> {
-      throw new IllegalStateException ("must not be evaluated");
-    });
+    a.warn (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.warn ("warn", EX);
     a.error ("error");
-    a.error ( () -> {
-      throw new IllegalStateException ("must not be evaluated");
-    });
+    a.error (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.error ("error", EX);
     assertFalse (a.isEnabled ());
   }

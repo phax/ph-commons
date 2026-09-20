@@ -60,8 +60,7 @@ public final class ICommonsMapTest
     assertEquals (3, aMap.copyOfValues (null).size ());
 
     assertEquals (new CommonsArrayList <> ("#v1", "#v2", "#v3"), aMap.copyOfValuesMapped (x -> "#" + x));
-    assertEquals (new CommonsArrayList <> ("#v1"),
-                  aMap.copyOfValuesMapped (x -> x.equals ("v1"), x -> "#" + x));
+    assertEquals (new CommonsArrayList <> ("#v1"), aMap.copyOfValuesMapped (x -> x.equals ("v1"), x -> "#" + x));
     assertEquals (3, aMap.copyOfValuesMapped (null, x -> "#" + x).size ());
 
     assertEquals (3, aMap.copyOfEntrySet ().size ());
@@ -125,7 +124,7 @@ public final class ICommonsMapTest
     assertEquals (3, aCount.intValue ());
 
     aCount.set (0);
-    aMap.forEach ( (k, v) -> k.equals ("k1"), (k, v) -> aCount.inc ());
+    aMap.forEach ((k, v) -> k.equals ("k1"), (k, v) -> aCount.inc ());
     assertEquals (1, aCount.intValue ());
 
     aCount.set (0);

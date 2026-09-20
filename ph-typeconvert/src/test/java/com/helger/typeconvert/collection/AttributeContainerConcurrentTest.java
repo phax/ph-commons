@@ -100,12 +100,12 @@ public final class AttributeContainerConcurrentTest
     assertNotNull (x.afterSetValueCallbacks ());
 
     final AtomicInteger aAfterCount = new AtomicInteger (0);
-    x.afterSetValueCallbacks ().add ( (sName, sOld, sNew) -> aAfterCount.incrementAndGet ());
+    x.afterSetValueCallbacks ().add ((sName, sOld, sNew) -> aAfterCount.incrementAndGet ());
     assertTrue (x.putIn ("key", "value").isChanged ());
     assertEquals (1, aAfterCount.get ());
 
     // A "break" in the before callback prevents the change
-    x.beforeSetValueCallbacks ().add ( (sName, sNew) -> EContinue.BREAK);
+    x.beforeSetValueCallbacks ().add ((sName, sNew) -> EContinue.BREAK);
     assertFalse (x.putIn ("key2", "value2").isChanged ());
     assertFalse (x.containsKey ("key2"));
     assertEquals (1, aAfterCount.get ());

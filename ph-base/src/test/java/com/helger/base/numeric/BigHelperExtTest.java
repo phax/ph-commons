@@ -182,13 +182,11 @@ public final class BigHelperExtTest
   @Test
   public void testPercent ()
   {
-    assertEquals (0,
-                  BigDecimal.valueOf (110).compareTo (BigHelper.addPercent (BD100, BigDecimal.TEN)));
+    assertEquals (0, BigDecimal.valueOf (110).compareTo (BigHelper.addPercent (BD100, BigDecimal.TEN)));
     assertEquals (0,
                   BigDecimal.valueOf (110)
                             .compareTo (BigHelper.addPercent (BD100, BigDecimal.TEN, 2, RoundingMode.HALF_UP)));
-    assertEquals (0,
-                  BigDecimal.valueOf (90).compareTo (BigHelper.subtractPercent (BD100, BigDecimal.TEN)));
+    assertEquals (0, BigDecimal.valueOf (90).compareTo (BigHelper.subtractPercent (BD100, BigDecimal.TEN)));
     assertEquals (0,
                   BigDecimal.valueOf (90)
                             .compareTo (BigHelper.subtractPercent (BD100, BigDecimal.TEN, 2, RoundingMode.HALF_UP)));

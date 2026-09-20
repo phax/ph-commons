@@ -114,7 +114,7 @@ public final class HierarchyVisitorCallbackWithConversionTest
     try
     {
       new TreeVisitor.HierarchyVisitorCallbackWithConversion <DefaultTreeItem <String>, String> (null,
-                                                                                                  DefaultTreeItem::getData);
+                                                                                                 DefaultTreeItem::getData);
       fail ();
     }
     catch (final NullPointerException | IllegalArgumentException ex)
@@ -124,7 +124,7 @@ public final class HierarchyVisitorCallbackWithConversionTest
     try
     {
       new TreeVisitor.HierarchyVisitorCallbackWithConversion <DefaultTreeItem <String>, String> (new MockDataCallback (),
-                                                                                                  null);
+                                                                                                 null);
       fail ();
     }
     catch (final NullPointerException | IllegalArgumentException ex)

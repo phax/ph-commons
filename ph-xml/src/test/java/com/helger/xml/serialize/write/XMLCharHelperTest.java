@@ -132,8 +132,8 @@ public final class XMLCharHelperTest
   /**
    * @param eVersion
    *        XML version to use
-   * @return A string that contains at least one character that is invalid as an XML attribute
-   *         value in the provided version. Never <code>null</code>.
+   * @return A string that contains at least one character that is invalid as an XML attribute value
+   *         in the provided version. Never <code>null</code>.
    */
   private static String _getInvalidAttributeValueString (final EXMLSerializeVersion eVersion)
   {
@@ -161,10 +161,7 @@ public final class XMLCharHelperTest
       assertFalse (XMLCharHelper.containsInvalidXMLTextChar (eVersion, sValid.toCharArray (), 0, 0));
       assertTrue (XMLCharHelper.containsInvalidXMLTextChar (eVersion, sInvalid));
       assertTrue (XMLCharHelper.containsInvalidXMLTextChar (eVersion, sInvalid.toCharArray ()));
-      assertTrue (XMLCharHelper.containsInvalidXMLTextChar (eVersion,
-                                                            sInvalid.toCharArray (),
-                                                            0,
-                                                            sInvalid.length ()));
+      assertTrue (XMLCharHelper.containsInvalidXMLTextChar (eVersion, sInvalid.toCharArray (), 0, sInvalid.length ()));
 
       assertNull (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, (String) null));
       assertNull (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, (char []) null));
@@ -173,10 +170,8 @@ public final class XMLCharHelperTest
       assertTrue (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, sValid).isEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, sInvalid).isNotEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, sInvalid.toCharArray ()).isNotEmpty ());
-      assertTrue (XMLCharHelper.getAllInvalidXMLTextChars (eVersion,
-                                                           sInvalid.toCharArray (),
-                                                           0,
-                                                           sInvalid.length ()).isNotEmpty ());
+      assertTrue (XMLCharHelper.getAllInvalidXMLTextChars (eVersion, sInvalid.toCharArray (), 0, sInvalid.length ())
+                               .isNotEmpty ());
     }
   }
 
@@ -205,10 +200,7 @@ public final class XMLCharHelperTest
       assertFalse (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, sValid.toCharArray (), 0, 0));
       assertTrue (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, sInvalid));
       assertTrue (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, sInvalid.toCharArray ()));
-      assertTrue (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion,
-                                                             sInvalid.toCharArray (),
-                                                             0,
-                                                             sInvalid.length ()));
+      assertTrue (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, sInvalid.toCharArray (), 0, sInvalid.length ()));
 
       assertNull (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, (String) null));
       assertNull (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, (char []) null));
@@ -217,10 +209,8 @@ public final class XMLCharHelperTest
       assertTrue (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, sValid).isEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, sInvalid).isNotEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, sInvalid.toCharArray ()).isNotEmpty ());
-      assertTrue (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion,
-                                                            sInvalid.toCharArray (),
-                                                            0,
-                                                            sInvalid.length ()).isNotEmpty ());
+      assertTrue (XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, sInvalid.toCharArray (), 0, sInvalid.length ())
+                               .isNotEmpty ());
     }
   }
 
@@ -253,8 +243,7 @@ public final class XMLCharHelperTest
       assertNull (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, sValid.toCharArray (), 0, 0));
       assertTrue (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, sValid).isEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, sInvalid).isNotEmpty ());
-      assertTrue (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, sInvalid.toCharArray ())
-                               .isNotEmpty ());
+      assertTrue (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, sInvalid.toCharArray ()).isNotEmpty ());
       assertTrue (XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion,
                                                                      sInvalid.toCharArray (),
                                                                      0,

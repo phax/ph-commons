@@ -177,8 +177,7 @@ public final class PDTHelperNullAndMinMaxTest
     assertEquals (LD1, PDTHelper.getCurrentOrNextWeekday (LD1));
     assertTrue (PDTHelper.isWorkDay (PDTHelper.getCurrentOrNextWeekday ()));
 
-    assertEquals (LocalDate.of (2020, Month.JANUARY, 4),
-                  PDTHelper.getCurrentOrNextWeekendkDay (LD1));
+    assertEquals (LocalDate.of (2020, Month.JANUARY, 4), PDTHelper.getCurrentOrNextWeekendkDay (LD1));
     assertTrue (PDTHelper.isWeekend (PDTHelper.getCurrentOrNextWeekendkDay ()));
   }
 

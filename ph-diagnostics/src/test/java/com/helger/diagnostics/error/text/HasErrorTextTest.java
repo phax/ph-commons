@@ -81,7 +81,7 @@ public final class HasErrorTextTest
     assertEquals (a.hashCode (), new DynamicHasErrorText (TEXT).hashCode ());
     assertNotEquals (a, null);
     assertNotEquals (a, "any other type");
-    assertNotEquals (a, new DynamicHasErrorText ( (IHasText) aLocale -> "other"));
+    assertNotEquals (a, new DynamicHasErrorText ((IHasText) aLocale -> "other"));
 
     // Constructor with IHasDisplayText
     assertEquals ("Display", new DynamicHasErrorText ((IHasDisplayText) aLocale -> "Display").getDisplayText (L));
@@ -110,9 +110,8 @@ public final class HasErrorTextTest
 
     // Constructor with IHasDisplayText
     assertEquals ("Hello Peter and Paul",
-                  new DynamicHasErrorTextWithArgs ((IHasDisplayText) aLocale -> "Hello {0} and {1}",
-                                                                   "Peter",
-                                                                   "Paul").getDisplayText (L));
+                  new DynamicHasErrorTextWithArgs ((IHasDisplayText) aLocale -> "Hello {0} and {1}", "Peter", "Paul")
+                                                                                                                     .getDisplayText (L));
 
     try
     {

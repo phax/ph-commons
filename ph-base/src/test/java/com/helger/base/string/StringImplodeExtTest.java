@@ -62,22 +62,16 @@ public final class StringImplodeExtTest
   public void testImploderBuilderOffsetAndLength ()
   {
     assertEquals ("b,c", StringImplode.imploder ().source (ELEMENTS).separator (',').offset (1).build ());
-    assertEquals ("a,b",
-                  StringImplode.imploder ().source (ELEMENTS).separator (',').offset (0).length (2).build ());
+    assertEquals ("a,b", StringImplode.imploder ().source (ELEMENTS).separator (',').offset (0).length (2).build ());
   }
 
   @Test
   public void testImploderBuilderFilter ()
   {
     final List <String> aWithEmpty = Arrays.asList ("a", "", "c");
+    assertEquals ("a,c", StringImplode.imploder ().source (aWithEmpty).separator (',').filterNonEmpty ().build ());
     assertEquals ("a,c",
-                  StringImplode.imploder ().source (aWithEmpty).separator (',').filterNonEmpty ().build ());
-    assertEquals ("a,c",
-                  StringImplode.imploder ()
-                               .source (ELEMENTS)
-                               .separator (',')
-                               .filter (x -> !"b".equals (x))
-                               .build ());
+                  StringImplode.imploder ().source (ELEMENTS).separator (',').filter (x -> !"b".equals (x)).build ());
     // A null filter keeps everything
     assertEquals ("a,b,c", StringImplode.imploder ().source (ELEMENTS).separator (',').filter (null).build ());
   }
@@ -90,10 +84,8 @@ public final class StringImplodeExtTest
     assertEquals ("a::b::c", StringImplode.getImploded ("::", ELEMENTS));
     assertEquals ("", StringImplode.getImploded ((List <String>) null));
 
-    assertEquals ("A,B,C",
-                  StringImplode.getImplodedMapped (',', ELEMENTS, x -> x.toUpperCase (Locale.ROOT)));
-    assertEquals ("A::B::C",
-                  StringImplode.getImplodedMapped ("::", ELEMENTS, x -> x.toUpperCase (Locale.ROOT)));
+    assertEquals ("A,B,C", StringImplode.getImplodedMapped (',', ELEMENTS, x -> x.toUpperCase (Locale.ROOT)));
+    assertEquals ("A::B::C", StringImplode.getImplodedMapped ("::", ELEMENTS, x -> x.toUpperCase (Locale.ROOT)));
     assertEquals ("ABC", StringImplode.getImplodedMapped (ELEMENTS, x -> x.toUpperCase (Locale.ROOT)));
   }
 
@@ -128,10 +120,8 @@ public final class StringImplodeExtTest
     assertEquals ("a,c", StringImplode.getImplodedNonEmpty (',', aArr));
     assertEquals ("a::c", StringImplode.getImplodedNonEmpty ("::", aArr));
 
-    assertEquals ("A,C",
-                  StringImplode.getImplodedMappedNonEmpty (',', aWithEmpty, x -> x.toUpperCase (Locale.ROOT)));
-    assertEquals ("A::C",
-                  StringImplode.getImplodedMappedNonEmpty ("::", aWithEmpty, x -> x.toUpperCase (Locale.ROOT)));
+    assertEquals ("A,C", StringImplode.getImplodedMappedNonEmpty (',', aWithEmpty, x -> x.toUpperCase (Locale.ROOT)));
+    assertEquals ("A::C", StringImplode.getImplodedMappedNonEmpty ("::", aWithEmpty, x -> x.toUpperCase (Locale.ROOT)));
     assertEquals ("AC", StringImplode.getImplodedMappedNonEmpty (aWithEmpty, x -> x.toUpperCase (Locale.ROOT)));
     assertEquals ("AC", StringImplode.getImplodedMappedNonEmpty (aArr, x -> x.toUpperCase (Locale.ROOT)));
   }
@@ -140,17 +130,9 @@ public final class StringImplodeExtTest
   public void testImploderMapBuilder ()
   {
     assertEquals ("k1=v1&k2=v2",
-                  StringImplode.imploderMap ()
-                               .source (_map ())
-                               .separatorOuter ('&')
-                               .separatorInner ('=')
-                               .build ());
+                  StringImplode.imploderMap ().source (_map ()).separatorOuter ('&').separatorInner ('=').build ());
     assertEquals ("k1=v1::k2=v2",
-                  StringImplode.imploderMap ()
-                               .source (_map ())
-                               .separatorOuter ("::")
-                               .separatorInner ("=")
-                               .build ());
+                  StringImplode.imploderMap ().source (_map ()).separatorOuter ("::").separatorInner ("=").build ());
 
     // A null source gives an empty result
     assertEquals ("", StringImplode.imploderMap ().source ((Map <?, ?>) null).build ());
@@ -158,9 +140,7 @@ public final class StringImplodeExtTest
     // The mapped source
     assertEquals ("K1=V1&K2=V2",
                   StringImplode.imploderMap ()
-                               .source (_map (),
-                                        x -> x.toUpperCase (Locale.ROOT),
-                                        x -> x.toUpperCase (Locale.ROOT))
+                               .source (_map (), x -> x.toUpperCase (Locale.ROOT), x -> x.toUpperCase (Locale.ROOT))
                                .separatorOuter ('&')
                                .separatorInner ('=')
                                .build ());
@@ -205,15 +185,15 @@ public final class StringImplodeExtTest
 
     assertEquals ("K1=V1&K2=V2",
                   StringImplode.getImplodedMapped ('&',
-                                                    '=',
-                                                    _map (),
-                                                    x -> x.toUpperCase (Locale.ROOT),
-                                                    x -> x.toUpperCase (Locale.ROOT)));
+                                                   '=',
+                                                   _map (),
+                                                   x -> x.toUpperCase (Locale.ROOT),
+                                                   x -> x.toUpperCase (Locale.ROOT)));
     assertEquals ("K1=V1::K2=V2",
                   StringImplode.getImplodedMapped ("::",
-                                                    "=",
-                                                    _map (),
-                                                    x -> x.toUpperCase (Locale.ROOT),
-                                                    x -> x.toUpperCase (Locale.ROOT)));
+                                                   "=",
+                                                   _map (),
+                                                   x -> x.toUpperCase (Locale.ROOT),
+                                                   x -> x.toUpperCase (Locale.ROOT)));
   }
 }

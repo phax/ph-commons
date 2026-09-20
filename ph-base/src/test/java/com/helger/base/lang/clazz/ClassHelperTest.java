@@ -424,4 +424,15 @@ public final class ClassHelperTest
     assertNull (ClassHelper.getClassFromPath ((String) null));
   }
 
+  @Test
+  public void testAreConvertibleClasses ()
+  {
+    assertTrue (ClassHelper.areConvertibleClasses (String.class, String.class));
+    assertTrue (ClassHelper.areConvertibleClasses (String.class, CharSequence.class));
+    assertFalse (ClassHelper.areConvertibleClasses (CharSequence.class, String.class));
+    // Primitive and wrapper
+    assertTrue (ClassHelper.areConvertibleClasses (int.class, Integer.class));
+    assertTrue (ClassHelper.areConvertibleClasses (Integer.class, int.class));
+    assertFalse (ClassHelper.areConvertibleClasses (String.class, Integer.class));
+  }
 }

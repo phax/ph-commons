@@ -56,8 +56,7 @@ public final class CharsetHelperBOMTest
       assertNull (aISAC.getCharset ());
       assertFalse (aISAC.isReadMultiple ());
       // Nothing was consumed
-      assertEquals (TEXT, new String (StreamHelper.getAllBytes (aISAC.getInputStream ()),
-                                      StandardCharsets.ISO_8859_1));
+      assertEquals (TEXT, new String (StreamHelper.getAllBytes (aISAC.getInputStream ()), StandardCharsets.ISO_8859_1));
     }
   }
 

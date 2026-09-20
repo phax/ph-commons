@@ -96,10 +96,10 @@ public final class SimpleLSResourceResolverTest
                                               "http://127.0.0.1:1/evil.xsd",
                                               null);
     /*
-     * Must not be null: a SchemaFactory that does not restrict "accessExternalSchema" itself
-     * treats null as "not handled" and opens the system ID. An empty byte stream ends the
-     * resolution - note that an LSInput with an empty string data only is treated like "no
-     * content at all" by Xerces, which then opens the system ID as well.
+     * Must not be null: a SchemaFactory that does not restrict "accessExternalSchema" itself treats
+     * null as "not handled" and opens the system ID. An empty byte stream ends the resolution -
+     * note that an LSInput with an empty string data only is treated like "no content at all" by
+     * Xerces, which then opens the system ID as well.
      */
     assertNotNull (aRes);
     assertNotNull (aRes.getByteStream ());

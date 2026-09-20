@@ -183,10 +183,8 @@ public final class CodecInterfacesTest
 
     assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1), c.getEncoded (BYTES));
     assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1), c.getDecoded (BYTES));
-    assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1),
-                       c.getEncoded ("abc", StandardCharsets.ISO_8859_1));
-    assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1),
-                       c.getDecoded ("abc", StandardCharsets.ISO_8859_1));
+    assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1), c.getEncoded ("abc", StandardCharsets.ISO_8859_1));
+    assertArrayEquals ("cba".getBytes (StandardCharsets.ISO_8859_1), c.getDecoded ("abc", StandardCharsets.ISO_8859_1));
 
     assertEquals ("cba", c.getEncodedAsString (BYTES, StandardCharsets.ISO_8859_1));
     assertEquals ("cba", c.getEncodedAsString (BYTES, 0, BYTES.length, StandardCharsets.ISO_8859_1));

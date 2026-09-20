@@ -30,8 +30,7 @@ import org.junit.Test;
 import com.helger.base.CGlobal;
 
 /**
- * Test class for the remaining methods of {@link StringHelper} and
- * {@link StringParser}.
+ * Test class for the remaining methods of {@link StringHelper} and {@link StringParser}.
  *
  * @author Philip Helger
  */

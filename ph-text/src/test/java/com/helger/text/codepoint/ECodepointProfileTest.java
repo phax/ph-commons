@@ -53,8 +53,7 @@ public final class ECodepointProfileTest
     // branches of the underlying CodepointHelper methods are hit
     for (final ECodepointProfile e : ECodepointProfile.values ())
       for (int nCodepoint = 0; nCodepoint < MAX_CODEPOINT; ++nCodepoint)
-        assertEquals (Boolean.valueOf (e.getFilter ().test (nCodepoint)),
-                      Boolean.valueOf (e.check (nCodepoint)));
+        assertEquals (Boolean.valueOf (e.getFilter ().test (nCodepoint)), Boolean.valueOf (e.check (nCodepoint)));
   }
 
   @Test

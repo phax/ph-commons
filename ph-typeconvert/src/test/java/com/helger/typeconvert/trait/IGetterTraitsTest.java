@@ -43,8 +43,8 @@ import com.helger.typeconvert.trait.MockGetterTraits.ByKey;
 import com.helger.typeconvert.trait.MockGetterTraits.Direct;
 
 /**
- * Test class for the default methods of {@link IGetterDirectTrait},
- * {@link IGetterByIndexTrait} and {@link IGetterByKeyTrait}.
+ * Test class for the default methods of {@link IGetterDirectTrait}, {@link IGetterByIndexTrait} and
+ * {@link IGetterByKeyTrait}.
  *
  * @author Philip Helger
  */

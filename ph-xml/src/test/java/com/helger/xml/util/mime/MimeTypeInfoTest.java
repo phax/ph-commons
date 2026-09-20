@@ -79,8 +79,7 @@ public final class MimeTypeInfoTest
     assertEquals (CMimeType.TEXT_PLAIN, aFromString.getMimeType ());
 
     TestHelper.testDefaultImplementationWithEqualContentObject (aMTS,
-                                                                new MimeTypeWithSource (CMimeType.TEXT_PLAIN,
-                                                                                        "src1"));
+                                                                new MimeTypeWithSource (CMimeType.TEXT_PLAIN, "src1"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (aMTS,
                                                                     new MimeTypeWithSource (CMimeType.TEXT_HTML,
                                                                                             "src1"));
@@ -141,7 +140,6 @@ public final class MimeTypeInfoTest
     assertEquals (1, aInfo.getAllGlobs ().size ());
     assertEquals ("*.txt", aInfo.getPrimaryGlob ());
     assertTrue (aInfo.hasAnyGlob ());
-
 
     assertEquals ("the source", aInfo.getSource ());
     assertTrue (aInfo.hasSource ());
@@ -221,7 +219,12 @@ public final class MimeTypeInfoTest
     }
     try
     {
-      new MimeTypeInfo (_mimeTypes (), null, null, new CommonsLinkedHashSet <> (), new CommonsLinkedHashSet <> (), null);
+      new MimeTypeInfo (_mimeTypes (),
+                        null,
+                        null,
+                        new CommonsLinkedHashSet <> (),
+                        new CommonsLinkedHashSet <> (),
+                        null);
       fail ();
     }
     catch (final NullPointerException | IllegalArgumentException ex)

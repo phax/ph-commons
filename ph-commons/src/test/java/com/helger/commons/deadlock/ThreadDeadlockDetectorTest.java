@@ -65,7 +65,7 @@ public final class ThreadDeadlockDetectorTest
   {
     // Just ensure that nothing goes wrong
     new LoggingThreadDeadlockCallback ().onDeadlockDetected (new ThreadDeadlockInfo [] { _createInfo (Thread.currentThread ()
-                                                                                                           .getStackTrace ()) });
+                                                                                                            .getStackTrace ()) });
     new LoggingThreadDeadlockCallback ().onDeadlockDetected (new ThreadDeadlockInfo [0]);
   }
 

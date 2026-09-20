@@ -86,7 +86,7 @@ public final class CleanUpRegistryTest
   {
     // The SPI registers its action on the passed registry
     final List <String> aRegistered = new ArrayList <> ();
-    new BaseCleanUpRegistrarSPI ().registerCleanUpAction ( (nPriority, aRunnable) -> {
+    new BaseCleanUpRegistrarSPI ().registerCleanUpAction ((nPriority, aRunnable) -> {
       aRegistered.add ("prio=" + nPriority);
       // Run it, so that the contained actions are executed as well
       aRunnable.run ();

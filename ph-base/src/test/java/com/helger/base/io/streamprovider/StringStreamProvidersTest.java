@@ -48,13 +48,12 @@ public final class StringStreamProvidersTest
     assertTrue (a.isReadMultiple ());
     assertNotNull (a.toString ());
 
-    assertEquals (TEXT,
-                  new StringInputStreamProvider (TEXT.toCharArray (), StandardCharsets.ISO_8859_1).getData ());
+    assertEquals (TEXT, new StringInputStreamProvider (TEXT.toCharArray (), StandardCharsets.ISO_8859_1).getData ());
     assertEquals ("Hello",
                   new StringInputStreamProvider (TEXT.toCharArray (), 0, 5, StandardCharsets.ISO_8859_1).getData ());
     assertEquals (TEXT,
-                  new StringInputStreamProvider ((CharSequence) new StringBuilder (TEXT),
-                                                  StandardCharsets.ISO_8859_1).getData ());
+                  new StringInputStreamProvider ((CharSequence) new StringBuilder (TEXT), StandardCharsets.ISO_8859_1)
+                                                                                                                      .getData ());
   }
 
   @Test
