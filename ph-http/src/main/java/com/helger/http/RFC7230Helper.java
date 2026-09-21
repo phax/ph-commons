@@ -25,7 +25,7 @@ import com.helger.base.codec.RFC5234Helper;
 import com.helger.base.string.StringHelper;
 
 /**
- * Helper class for RFC 7230
+ * Helper class for RFC 7230 (Hypertext Transfer Protocol (HTTP/1.1): Message Syntax and Routing)
  *
  * @author Philip Helger
  * @since 10.5.1

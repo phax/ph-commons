@@ -25,7 +25,8 @@ import com.helger.base.exception.InitializationException;
 import com.helger.base.string.StringHelper;
 
 /**
- * HTTP string helper. Based on RFC 1945 (HTTP/1.0) http://tools.ietf.org/html/rfc1945
+ * HTTP string helper. Based on RFC 1945 (Hypertext Transfer Protocol -- HTTP/1.0)
+ * http://tools.ietf.org/html/rfc1945
  *
  * @author Philip Helger
  */
@@ -71,141 +72,76 @@ public final class RFC1945Helper
                                             // 0x00
                                             CTL |
                                             NON_TEXT |
-                                            UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TOKEN | UNSAFE | LWS,
-                                            CTL | UNSAFE | LWS,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | UNSAFE | LWS,
-                                            CTL | NON_TEXT | UNSAFE,
+                                            UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL |
+                                                                                                      NON_TEXT |
+                                                                                                      UNSAFE, CTL |
+                                                                                                              NON_TEXT |
+                                                                                                              UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TOKEN | UNSAFE | LWS, CTL | UNSAFE | LWS,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | UNSAFE | LWS, CTL |
+                                                                                                                  NON_TEXT |
+                                                                                                                  UNSAFE,
                                             CTL | NON_TEXT | UNSAFE,
                                             // 0x10
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
-                                            CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
+                                            CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE, CTL | NON_TEXT | UNSAFE,
                                             CTL | NON_TEXT | UNSAFE,
                                             // 0x20
-                                            NON_TOKEN | UNSAFE | LWS,
-                                            EXTRA,
-                                            NON_TOKEN | NON_QUOTEDTEXT | UNSAFE,
-                                            UNSAFE,
-                                            SAFE,
-                                            UNSAFE,
-                                            RESERVED,
-                                            EXTRA,
-                                            NON_TOKEN | NON_COMMENT | EXTRA,
-                                            NON_TOKEN | NON_COMMENT | EXTRA,
-                                            EXTRA,
-                                            RESERVED,
-                                            NON_TOKEN | EXTRA,
-                                            SAFE,
-                                            SAFE,
-                                            NON_TOKEN | RESERVED,
+                                            NON_TOKEN | UNSAFE | LWS, EXTRA, NON_TOKEN | NON_QUOTEDTEXT | UNSAFE,
+                                            UNSAFE, SAFE, UNSAFE, RESERVED, EXTRA, NON_TOKEN | NON_COMMENT | EXTRA,
+                                            NON_TOKEN | NON_COMMENT | EXTRA, EXTRA, RESERVED, NON_TOKEN | EXTRA, SAFE,
+                                            SAFE, NON_TOKEN | RESERVED,
                                             // 0x30
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            DIGIT | HEX | LHEX,
-                                            NON_TOKEN | RESERVED,
-                                            NON_TOKEN | RESERVED,
-                                            NON_TOKEN | UNSAFE,
-                                            NON_TOKEN | RESERVED,
-                                            NON_TOKEN | UNSAFE,
-                                            NON_TOKEN | RESERVED,
+                                            DIGIT | HEX | LHEX, DIGIT | HEX | LHEX, DIGIT | HEX | LHEX, DIGIT |
+                                                                                                        HEX |
+                                                                                                        LHEX, DIGIT |
+                                                                                                              HEX |
+                                                                                                              LHEX,
+                                            DIGIT | HEX | LHEX, DIGIT | HEX | LHEX, DIGIT | HEX | LHEX, DIGIT |
+                                                                                                        HEX |
+                                                                                                        LHEX, DIGIT |
+                                                                                                              HEX |
+                                                                                                              LHEX,
+                                            NON_TOKEN | RESERVED, NON_TOKEN | RESERVED, NON_TOKEN | UNSAFE, NON_TOKEN |
+                                                                                                            RESERVED,
+                                            NON_TOKEN | UNSAFE, NON_TOKEN | RESERVED,
                                             // 0x40
-                                            NON_TOKEN | RESERVED,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA | HEX,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
+                                            NON_TOKEN | RESERVED, UALPHA | ALPHA | HEX, UALPHA | ALPHA | HEX, UALPHA |
+                                                                                                              ALPHA |
+                                                                                                              HEX,
+                                            UALPHA | ALPHA | HEX, UALPHA | ALPHA | HEX, UALPHA | ALPHA | HEX, UALPHA |
+                                                                                                              ALPHA,
+                                            UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA |
+                                                                                                            ALPHA,
+                                            UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA,
                                             // 0x50
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            UALPHA | ALPHA,
-                                            NON_TOKEN,
-                                            NON_TOKEN,
-                                            NON_TOKEN,
-                                            0,
-                                            SAFE,
+                                            UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA |
+                                                                                                            ALPHA,
+                                            UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA | ALPHA, UALPHA |
+                                                                                                            ALPHA,
+                                            UALPHA | ALPHA, NON_TOKEN, NON_TOKEN, NON_TOKEN, 0, SAFE,
                                             // 0x60
-                                            0,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA | HEX | LHEX,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
+                                            0, LALPHA | ALPHA | HEX | LHEX, LALPHA | ALPHA | HEX | LHEX, LALPHA |
+                                                                                                         ALPHA |
+                                                                                                         HEX |
+                                                                                                         LHEX, LALPHA |
+                                                                                                               ALPHA |
+                                                                                                               HEX |
+                                                                                                               LHEX,
+                                            LALPHA | ALPHA | HEX | LHEX, LALPHA | ALPHA | HEX | LHEX, LALPHA | ALPHA,
+                                            LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA |
+                                                                                                            ALPHA,
+                                            LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA,
                                             // 0x70
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            LALPHA | ALPHA,
-                                            NON_TOKEN,
-                                            0,
-                                            NON_TOKEN,
-                                            0,
-                                            CTL | NON_TEXT | UNSAFE };
+                                            LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA |
+                                                                                                            ALPHA,
+                                            LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA | ALPHA, LALPHA |
+                                                                                                            ALPHA,
+                                            LALPHA | ALPHA, NON_TOKEN, 0, NON_TOKEN, 0, CTL | NON_TEXT | UNSAFE };
 
   static
   {
