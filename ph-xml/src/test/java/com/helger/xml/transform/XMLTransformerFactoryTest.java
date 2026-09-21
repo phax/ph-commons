@@ -16,24 +16,29 @@
  */
 package com.helger.xml.transform;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import javax.xml.XMLConstants;
 import javax.xml.transform.Source;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
@@ -54,6 +59,56 @@ import com.helger.xml.serialize.write.XMLWriterSettings;
  */
 public final class XMLTransformerFactoryTest
 {
+  @Test
+  public void testMakeTransformerFactorySecureDeniesAllByDefault ()
+  {
+    final TransformerFactory aFactory = TransformerFactory.newInstance ();
+    XMLTransformerFactory.makeTransformerFactorySecure (aFactory);
+
+    /*
+     * Deliberately not the empty String: the JAXP specification uses it to deny all external
+     * access, but Saxon maps ACCESS_EXTERNAL_STYLESHEET onto its own "allowedProtocols" feature,
+     * where the empty String is ignored and falls back to "all".
+     */
+    assertEquals (XMLTransformerFactory.ACCESS_EXTERNAL_DENY_ALL,
+                  aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_DTD));
+    assertEquals (XMLTransformerFactory.ACCESS_EXTERNAL_DENY_ALL,
+                  aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET));
+  }
+
+  @Test
+  public void testMakeTransformerFactorySecureWithAllowedSchemes ()
+  {
+    final TransformerFactory aFactory = TransformerFactory.newInstance ();
+    XMLTransformerFactory.makeTransformerFactorySecure (aFactory, "file", null, "", "http");
+
+    assertEquals ("file,http", aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_DTD));
+    assertEquals ("file,http", aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET));
+  }
+
+  @Test
+  public void testRemoteStylesheetImportIsDenied ()
+  {
+    final TransformerFactory aFactory = TransformerFactory.newInstance ();
+    XMLTransformerFactory.makeTransformerFactorySecure (aFactory);
+
+    // No connection is attempted - the access is refused before that
+    final String sXSLT = "<?xml version='1.0'?>" +
+                         "<xsl:stylesheet xmlns:xsl='http://www.w3.org/1999/XSL/Transform' version='1.0'>" +
+                         "<xsl:import href='http://localhost:1/nothing.xsl' />" +
+                         "<xsl:template match='/'><x /></xsl:template>" +
+                         "</xsl:stylesheet>";
+    try
+    {
+      aFactory.newTemplates (new StreamSource (new NonBlockingStringReader (sXSLT), "file:/dummy.xsl"));
+      fail ("The remote xsl:import must not be resolved");
+    }
+    catch (final TransformerConfigurationException ex)
+    {
+      // Expected
+    }
+  }
+
   @Test
   public void testGetDefaultTransformerFactory ()
   {

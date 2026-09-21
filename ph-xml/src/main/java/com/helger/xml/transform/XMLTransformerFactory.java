@@ -37,6 +37,7 @@ import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
+import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringImplode;
 import com.helger.io.resource.IReadableResource;
 import com.helger.xml.XMLFactory;
@@ -49,6 +50,21 @@ import com.helger.xml.XMLFactory;
 @Immutable
 public final class XMLTransformerFactory
 {
+  /**
+   * The value for {@link XMLConstants#ACCESS_EXTERNAL_DTD} and
+   * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} that denies all external access.
+   * <p>
+   * The JAXP specification uses the empty String for that purpose, but Saxon maps
+   * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} onto its own "allowedProtocols" feature, where
+   * the empty String is explicitly documented to be ignored, falling back to the default "all" - an
+   * empty String therefore silently allows everything there. <code>#none</code> is not a valid URL
+   * scheme, so it matches nothing and denies all access in both worlds.
+   * </p>
+   *
+   * @since 12.5.1
+   */
+  public static final String ACCESS_EXTERNAL_DENY_ALL = "#none";
+
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLTransformerFactory.class);
   private static final TransformerFactory DEFAULT_FACTORY;
 
@@ -127,9 +143,9 @@ public final class XMLTransformerFactory
    *        The factory to secure. May not be <code>null</code>.
    * @param aAllowedExternalSchemes
    *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http").
-   *        If none is provided, all external DTD and stylesheet access is denied to prevent Server
-   *        Side Request Forgery (SSRF) via <code>document()</code>, <code>xsl:import</code> or
-   *        <code>xsl:include</code>.
+   *        If none is provided, {@link #ACCESS_EXTERNAL_DENY_ALL} is applied, so that all external
+   *        DTD and stylesheet access is denied to prevent Server Side Request Forgery (SSRF) via
+   *        <code>document()</code>, <code>xsl:import</code> or <code>xsl:include</code>.
    * @since 9.1.2
    */
   public static void makeTransformerFactorySecure (@NonNull final TransformerFactory aFactory,
@@ -147,8 +163,11 @@ public final class XMLTransformerFactory
     }
 
     // Restrict external DTD and stylesheet access to the explicitly allowed schemes.
-    // An empty String (no scheme provided) denies all external access.
-    final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+    // If no scheme is provided, deny all external access - see ACCESS_EXTERNAL_DENY_ALL on why
+    // that is not the empty String.
+    String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
+    if (StringHelper.isEmpty (sCombinedSchemes))
+      sCombinedSchemes = ACCESS_EXTERNAL_DENY_ALL;
     _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
     _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
     // external schema is unknown
