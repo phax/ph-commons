@@ -87,8 +87,8 @@ public class StringStreamResult extends StreamResult
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("stringWriter", m_aSW)
-                                       .append ("systemID", getSystemId ())
+    return new ToStringGenerator (this).append ("StringWriter", m_aSW)
+                                       .append ("SystemID", getSystemId ())
                                        .getToString ();
   }
 }

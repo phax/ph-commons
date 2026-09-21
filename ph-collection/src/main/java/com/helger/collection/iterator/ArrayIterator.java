@@ -110,8 +110,8 @@ public final class ArrayIterator <ELEMENTTYPE> implements IIterableIterator <ELE
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", Arrays.toString (m_aArray))
-                                       .append ("index", m_nIndex)
+    return new ToStringGenerator (this).append ("Array", Arrays.toString (m_aArray))
+                                       .append ("Index", m_nIndex)
                                        .getToString ();
   }
 }

@@ -216,7 +216,7 @@ public class GraphNode extends AbstractBaseGraphObject implements IMutableGraphN
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("relationIDs", m_aRelations == null ? null : m_aRelations.keySet ())
+                            .append ("RelationIDs", m_aRelations == null ? null : m_aRelations.keySet ())
                             .getToString ();
   }
 }

@@ -540,14 +540,14 @@ public class CSVParser
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("m_cSeparatorChar", m_cSeparatorChar)
-                                       .append ("m_cQuoteChar", m_cQuoteChar)
-                                       .append ("m_cEscapeChar", m_cEscapeChar)
-                                       .append ("m_bStrictQuotes", m_bStrictQuotes)
-                                       .append ("m_bIgnoreLeadingWhiteSpace", m_bIgnoreLeadingWhiteSpace)
-                                       .append ("m_bIgnoreQuotations", m_bIgnoreQuotations)
-                                       .append ("m_sPending", m_sPending)
-                                       .append ("m_bInField", m_bInField)
+    return new ToStringGenerator (null).append ("M_cSeparatorChar", m_cSeparatorChar)
+                                       .append ("M_cQuoteChar", m_cQuoteChar)
+                                       .append ("M_cEscapeChar", m_cEscapeChar)
+                                       .append ("M_bStrictQuotes", m_bStrictQuotes)
+                                       .append ("M_bIgnoreLeadingWhiteSpace", m_bIgnoreLeadingWhiteSpace)
+                                       .append ("M_bIgnoreQuotations", m_bIgnoreQuotations)
+                                       .append ("M_sPending", m_sPending)
+                                       .append ("M_bInField", m_bInField)
                                        .getToString ();
   }
 }

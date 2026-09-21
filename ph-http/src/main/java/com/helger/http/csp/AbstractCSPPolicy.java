@@ -159,6 +159,6 @@ public abstract class AbstractCSPPolicy <T extends ICSPDirective>
   @NonNull
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("list", m_aList).getToString ();
+    return new ToStringGenerator (this).append ("List", m_aList).getToString ();
   }
 }

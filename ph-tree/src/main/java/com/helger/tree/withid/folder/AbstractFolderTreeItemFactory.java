@@ -108,7 +108,7 @@ public abstract class AbstractFolderTreeItemFactory <KEYTYPE, DATATYPE, COLLTYPE
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .appendIfNotNull ("keyCombinator", m_aKeyCombinator)
+                            .appendIfNotNull ("KeyCombinator", m_aKeyCombinator)
                             .getToString ();
   }
 }

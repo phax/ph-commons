@@ -109,6 +109,6 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("name", m_aFunctionName).append ("arity", m_nArity).getToString ();
+    return new ToStringGenerator (this).append ("Name", m_aFunctionName).append ("Arity", m_nArity).getToString ();
   }
 }

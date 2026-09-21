@@ -397,7 +397,7 @@ public final class SizeHelper
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("dfs", m_aDFS).getToString ();
+    return new ToStringGenerator (this).append ("Dfs", m_aDFS).getToString ();
   }
 
   /**

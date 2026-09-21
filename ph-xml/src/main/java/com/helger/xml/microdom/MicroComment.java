@@ -155,6 +155,6 @@ public final class MicroComment extends AbstractMicroNode implements IMicroComme
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("text", getData ()).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Text", getData ()).getToString ();
   }
 }

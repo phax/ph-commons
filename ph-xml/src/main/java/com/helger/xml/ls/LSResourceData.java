@@ -138,11 +138,11 @@ public class LSResourceData
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("type", m_sType)
-                                       .append ("namespaceURI", m_sNamespaceURI)
-                                       .append ("publicId", m_sPublicID)
-                                       .append ("systemId", m_sSystemID)
-                                       .append ("baseURI", m_sBaseURI)
+    return new ToStringGenerator (this).append ("Type", m_sType)
+                                       .append ("NamespaceURI", m_sNamespaceURI)
+                                       .append ("PublicId", m_sPublicID)
+                                       .append ("SystemId", m_sSystemID)
+                                       .append ("BaseURI", m_sBaseURI)
                                        .getToString ();
   }
 }

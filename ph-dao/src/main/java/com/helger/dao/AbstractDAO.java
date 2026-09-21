@@ -259,9 +259,9 @@ public abstract class AbstractDAO implements IDAO, IHasConditionalLogger
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("autoSaveStack", m_aAutoSaveStack)
-                                       .append ("pendingChanges", m_bPendingChanges)
-                                       .append ("autoSaveEnabled", m_bAutoSaveEnabled)
+    return new ToStringGenerator (this).append ("AutoSaveStack", m_aAutoSaveStack)
+                                       .append ("PendingChanges", m_bPendingChanges)
+                                       .append ("AutoSaveEnabled", m_bAutoSaveEnabled)
                                        .getToString ();
   }
 }

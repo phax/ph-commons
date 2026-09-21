@@ -64,6 +64,6 @@ public class ChildElementIterator implements ICommonsIterableIterator <Element>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter", m_aIter).getToString ();
+    return new ToStringGenerator (this).append ("Iter", m_aIter).getToString ();
   }
 }

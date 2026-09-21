@@ -62,6 +62,6 @@ public final class MockHasParent implements IHasParent <MockHasParent>, IHasID <
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("id", m_sID).getToString ();
+    return new ToStringGenerator (null).append ("Id", m_sID).getToString ();
   }
 }

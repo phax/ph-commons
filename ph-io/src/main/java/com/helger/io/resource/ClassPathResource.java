@@ -508,9 +508,9 @@ public class ClassPathResource implements IReadableResource, IHasClassLoader
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("cpPath", m_sPath)
-                                       .appendIfNotNull ("classLoader", getClassLoader ())
-                                       .append ("urlResolved", m_bURLResolved)
+    return new ToStringGenerator (null).append ("CpPath", m_sPath)
+                                       .appendIfNotNull ("ClassLoader", getClassLoader ())
+                                       .append ("UrlResolved", m_bURLResolved)
                                        .append ("URL", m_aURL)
                                        .getToString ();
   }

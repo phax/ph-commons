@@ -452,9 +452,9 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .appendIfNotNull ("namespace", m_sNamespaceURI)
-                            .append ("tagname", m_sTagName)
-                            .appendIfNotNull ("attrs", m_aAttrs)
+                            .appendIfNotNull ("Namespace", m_sNamespaceURI)
+                            .append ("Tagname", m_sTagName)
+                            .appendIfNotNull ("Attrs", m_aAttrs)
                             .getToString ();
   }
 }

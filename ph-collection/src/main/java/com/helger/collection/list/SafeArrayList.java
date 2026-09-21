@@ -144,6 +144,6 @@ public class SafeArrayList <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYPE>
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Factory", m_aFactory).getToString ();
   }
 }

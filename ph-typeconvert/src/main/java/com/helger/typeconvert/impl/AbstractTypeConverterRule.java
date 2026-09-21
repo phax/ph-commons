@@ -52,6 +52,6 @@ public abstract class AbstractTypeConverterRule <SRC, DST> implements ITypeConve
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("subType", m_eSubType).getToString ();
+    return new ToStringGenerator (this).append ("SubType", m_eSubType).getToString ();
   }
 }

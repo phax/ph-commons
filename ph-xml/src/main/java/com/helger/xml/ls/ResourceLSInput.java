@@ -189,12 +189,12 @@ public class ResourceLSInput implements LSInput
   public String toString ()
   {
     return new ToStringGenerator (this).append ("ISP", m_aISP)
-                                       .appendIfNotNull ("encoding", m_aEncoding)
-                                       .appendIfNotNull ("publicId", m_sPublicId)
-                                       .appendIfNotNull ("systemId", m_sSystemId)
-                                       .append ("certifiedText", m_bCertifiedText)
-                                       .appendIfNotNull ("baseURI", m_sBaseURI)
-                                       .appendIfNotNull ("stringData", m_sStringData)
+                                       .appendIfNotNull ("Encoding", m_aEncoding)
+                                       .appendIfNotNull ("PublicId", m_sPublicId)
+                                       .appendIfNotNull ("SystemId", m_sSystemId)
+                                       .append ("CertifiedText", m_bCertifiedText)
+                                       .appendIfNotNull ("BaseURI", m_sBaseURI)
+                                       .appendIfNotNull ("StringData", m_sStringData)
                                        .getToString ();
   }
 }

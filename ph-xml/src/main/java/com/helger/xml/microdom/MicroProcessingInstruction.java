@@ -118,8 +118,8 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("target", m_sTarget)
-                            .append ("data", m_sData)
+                            .append ("Target", m_sTarget)
+                            .append ("Data", m_sData)
                             .getToString ();
   }
 }

@@ -88,6 +88,6 @@ public class ReadableResourceSAXInputSource extends InputSource
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("resource", m_aISP).append ("systemID", getSystemId ()).getToString ();
+    return new ToStringGenerator (this).append ("Resource", m_aISP).append ("SystemID", getSystemId ()).getToString ();
   }
 }

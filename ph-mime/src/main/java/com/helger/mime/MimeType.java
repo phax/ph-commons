@@ -361,9 +361,9 @@ public class MimeType implements IMimeType, IComparable <MimeType>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("contentType", m_eContentType)
-                                       .append ("subType", m_sContentSubType)
-                                       .appendIfNotNull ("parameters", m_aParameters)
+    return new ToStringGenerator (this).append ("ContentType", m_eContentType)
+                                       .append ("SubType", m_sContentSubType)
+                                       .appendIfNotNull ("Parameters", m_aParameters)
                                        .getToString ();
   }
 }

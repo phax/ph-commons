@@ -97,6 +97,6 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("name", m_sName).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Name", m_sName).getToString ();
   }
 }

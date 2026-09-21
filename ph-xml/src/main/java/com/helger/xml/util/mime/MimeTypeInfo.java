@@ -148,8 +148,8 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("mimeType", m_aMimeType)
-                                         .appendIfNotNull ("source", m_sSource)
+      return new ToStringGenerator (this).append ("MimeType", m_aMimeType)
+                                         .appendIfNotNull ("Source", m_sSource)
                                          .getToString ();
     }
   }
@@ -253,8 +253,8 @@ public final class MimeTypeInfo
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("extension", m_sExt)
-                                         .appendIfNotNull ("source", m_sSource)
+      return new ToStringGenerator (this).append ("Extension", m_sExt)
+                                         .appendIfNotNull ("Source", m_sSource)
                                          .getToString ();
     }
   }
@@ -574,12 +574,12 @@ public final class MimeTypeInfo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("mimeTypes", m_aMimeTypes)
-                                       .appendIfNotNull ("comment", m_sComment)
-                                       .appendIf ("parentTypes", m_aParentTypes, CollectionHelper::isNotEmpty)
-                                       .appendIf ("globs", m_aGlobs, CollectionHelper::isNotEmpty)
-                                       .appendIf ("extensions", m_aExtensions, CollectionHelper::isNotEmpty)
-                                       .appendIfNotNull ("source", m_sSource)
+    return new ToStringGenerator (this).append ("MimeTypes", m_aMimeTypes)
+                                       .appendIfNotNull ("Comment", m_sComment)
+                                       .appendIf ("ParentTypes", m_aParentTypes, CollectionHelper::isNotEmpty)
+                                       .appendIf ("Globs", m_aGlobs, CollectionHelper::isNotEmpty)
+                                       .appendIf ("Extensions", m_aExtensions, CollectionHelper::isNotEmpty)
+                                       .appendIfNotNull ("Source", m_sSource)
                                        .getToString ();
   }
 }

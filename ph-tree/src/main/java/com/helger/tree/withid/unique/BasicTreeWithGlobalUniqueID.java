@@ -212,6 +212,6 @@ public class BasicTreeWithGlobalUniqueID <KEYTYPE, DATATYPE, ITEMTYPE extends IT
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("factory", m_aFactory).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Factory", m_aFactory).getToString ();
   }
 }

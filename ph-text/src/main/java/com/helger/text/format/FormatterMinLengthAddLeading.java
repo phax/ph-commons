@@ -97,8 +97,8 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("minLength", m_nMinLength)
-                            .append ("fill", m_cFill)
+                            .append ("MinLength", m_nMinLength)
+                            .append ("Fill", m_cFill)
                             .getToString ();
   }
 }

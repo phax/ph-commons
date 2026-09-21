@@ -293,6 +293,6 @@ public class SchemaCache extends ProviderCache <ICommonsList <? extends IReadabl
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("schemaTypeName", m_sSchemaTypeName).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("SchemaTypeName", m_sSchemaTypeName).getToString ();
   }
 }

@@ -260,11 +260,11 @@ public class FileIOError implements ISuccessIndicator
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("operation", m_eOperation)
-                                       .append ("ecode", m_eCode)
-                                       .appendIfNotNull ("file1", m_aFile1)
-                                       .appendIfNotNull ("file2", m_aFile2)
-                                       .appendIfNotNull ("exception", m_aException)
+    return new ToStringGenerator (this).append ("Operation", m_eOperation)
+                                       .append ("Ecode", m_eCode)
+                                       .appendIfNotNull ("File1", m_aFile1)
+                                       .appendIfNotNull ("File2", m_aFile2)
+                                       .appendIfNotNull ("Exception", m_aException)
                                        .getToString ();
   }
 }

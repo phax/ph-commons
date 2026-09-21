@@ -503,16 +503,16 @@ public class CacheControlBuilder implements ICloneable <CacheControlBuilder>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("maxAgeSecs", m_aMaxAgeSeconds)
-                                       .appendIfNotNull ("sharedMaxAgeSecs", m_aSharedMaxAgeSeconds)
-                                       .append ("public", m_bPublic)
-                                       .append ("private", m_bPrivate)
-                                       .append ("noCache", m_bNoCache)
-                                       .append ("noStore", m_bNoStore)
-                                       .append ("noTransform", m_bNoTransform)
-                                       .append ("mustRevalidate", m_bMustRevalidate)
-                                       .append ("proxyRevalidate", m_bProxyRevalidate)
-                                       .append ("extensions", m_aExtensions)
+    return new ToStringGenerator (this).appendIfNotNull ("MaxAgeSecs", m_aMaxAgeSeconds)
+                                       .appendIfNotNull ("SharedMaxAgeSecs", m_aSharedMaxAgeSeconds)
+                                       .append ("Public", m_bPublic)
+                                       .append ("Private", m_bPrivate)
+                                       .append ("NoCache", m_bNoCache)
+                                       .append ("NoStore", m_bNoStore)
+                                       .append ("NoTransform", m_bNoTransform)
+                                       .append ("MustRevalidate", m_bMustRevalidate)
+                                       .append ("ProxyRevalidate", m_bProxyRevalidate)
+                                       .append ("Extensions", m_aExtensions)
                                        .getToString ();
   }
 }

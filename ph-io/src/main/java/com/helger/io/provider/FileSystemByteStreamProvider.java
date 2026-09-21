@@ -113,6 +113,6 @@ public class FileSystemByteStreamProvider implements IInputStreamProvider, IOutp
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("basePath", m_aBasePath).getToString ();
+    return new ToStringGenerator (this).appendIfNotNull ("BasePath", m_aBasePath).getToString ();
   }
 }

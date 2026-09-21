@@ -190,8 +190,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("defaultNSURI", m_sDefaultNamespaceURI)
-                                         .append ("url2prefix", m_aURL2PrefixMap)
+      return new ToStringGenerator (this).append ("DefaultNSURI", m_sDefaultNamespaceURI)
+                                         .append ("Url2prefix", m_aURL2PrefixMap)
                                          .getToString ();
     }
   }

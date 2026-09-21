@@ -106,6 +106,6 @@ public final class ClassPathResourceProvider implements IReadableResourceProvide
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("prefix", m_sPrefix).getToString ();
+    return new ToStringGenerator (this).appendIfNotNull ("Prefix", m_sPrefix).getToString ();
   }
 }

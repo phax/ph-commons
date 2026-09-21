@@ -133,8 +133,8 @@ public abstract class AbstractBaseGraph <NODETYPE extends IMutableBaseGraphNode 
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("nodes", m_aNodes)
-                            .append ("isChangingConnectedObjectsAllowed", m_bIsChangingConnectedObjectsAllowed)
+                            .append ("Nodes", m_aNodes)
+                            .append ("IsChangingConnectedObjectsAllowed", m_bIsChangingConnectedObjectsAllowed)
                             .getToString ();
   }
 }

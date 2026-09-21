@@ -134,6 +134,6 @@ public class ArrayEnumeration <ELEMENTTYPE> implements Enumeration <ELEMENTTYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("array", m_aArray).append ("index", m_nIndex).getToString ();
+    return new ToStringGenerator (this).append ("Array", m_aArray).append ("Index", m_nIndex).getToString ();
   }
 }

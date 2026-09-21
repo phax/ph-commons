@@ -203,12 +203,12 @@ public final class AuthToken implements IAuthToken
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("id", m_sID)
-                                       .append ("identification", m_aIdentification)
-                                       .append ("creationDT", m_aCreationDT)
-                                       .append ("lastAccessDT", m_aLastAccessDT)
-                                       .append ("expired", m_bExpired)
-                                       .append ("expirationSeconds", m_nExpirationSeconds)
+    return new ToStringGenerator (this).append ("Id", m_sID)
+                                       .append ("Identification", m_aIdentification)
+                                       .append ("CreationDT", m_aCreationDT)
+                                       .append ("LastAccessDT", m_aLastAccessDT)
+                                       .append ("Expired", m_bExpired)
+                                       .append ("ExpirationSeconds", m_nExpirationSeconds)
                                        .getToString ();
   }
 }

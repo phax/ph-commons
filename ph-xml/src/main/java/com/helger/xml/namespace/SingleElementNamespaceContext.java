@@ -107,8 +107,8 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix)
-                                       .append ("namespaceURI", m_sNamespaceURI)
+    return new ToStringGenerator (this).append ("Prefix", m_sPrefix)
+                                       .append ("NamespaceURI", m_sNamespaceURI)
                                        .getToString ();
   }
 }

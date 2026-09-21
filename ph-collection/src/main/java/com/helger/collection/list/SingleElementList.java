@@ -342,8 +342,8 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
-                                       .append ("element", m_aElement)
+    return new ToStringGenerator (this).append ("HasElement", m_bHasElement)
+                                       .append ("Element", m_aElement)
                                        .getToString ();
   }
 }

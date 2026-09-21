@@ -131,6 +131,6 @@ public class BasicFolderTreeItem <KEYTYPE, DATATYPE, COLLTYPE extends Collection
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("keyCombinator", m_aKeyCombinator).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("KeyCombinator", m_aKeyCombinator).getToString ();
   }
 }

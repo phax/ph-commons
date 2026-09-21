@@ -129,9 +129,9 @@ public final class MicroDocumentType extends AbstractMicroNode implements IMicro
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("qualifiedName", m_sQualifiedName)
-                            .append ("publicID", m_sPublicID)
-                            .append ("systemID", m_sSystemID)
+                            .append ("QualifiedName", m_sQualifiedName)
+                            .append ("PublicID", m_sPublicID)
+                            .append ("SystemID", m_sSystemID)
                             .getToString ();
   }
 }

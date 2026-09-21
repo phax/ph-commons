@@ -135,7 +135,7 @@ public final class ClassHierarchyCache
     @Override
     public String toString ()
     {
-      return new ToStringGenerator (this).append ("list", m_aList).getToString ();
+      return new ToStringGenerator (this).append ("List", m_aList).getToString ();
     }
   }
 

@@ -78,6 +78,6 @@ public class CollectingTransformErrorListener extends AbstractTransformErrorList
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("errors", m_aErrors).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Errors", m_aErrors).getToString ();
   }
 }

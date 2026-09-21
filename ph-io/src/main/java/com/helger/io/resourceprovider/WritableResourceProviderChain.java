@@ -178,7 +178,7 @@ public class WritableResourceProviderChain extends ReadableResourceProviderChain
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("writableResProviders", m_aWritableResourceProviders)
+                            .append ("WritableResProviders", m_aWritableResourceProviders)
                             .getToString ();
   }
 }

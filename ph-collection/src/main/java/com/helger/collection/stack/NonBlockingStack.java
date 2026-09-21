@@ -212,6 +212,6 @@ public class NonBlockingStack <ELEMENTTYPE> extends CommonsArrayList <ELEMENTTYP
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("list", super.toString ()).getToString ();
+    return new ToStringGenerator (this).append ("List", super.toString ()).getToString ();
   }
 }

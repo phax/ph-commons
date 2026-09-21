@@ -78,9 +78,9 @@ public final class MicroEvent implements IMicroEvent
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("eventType", m_eEventType)
-                                       .appendIfNotNull ("sourceNode", m_aSourceNode)
-                                       .appendIfNotNull ("targetNode", m_aTargetNode)
+    return new ToStringGenerator (this).append ("EventType", m_eEventType)
+                                       .appendIfNotNull ("SourceNode", m_aSourceNode)
+                                       .appendIfNotNull ("TargetNode", m_aTargetNode)
                                        .getToString ();
   }
 }

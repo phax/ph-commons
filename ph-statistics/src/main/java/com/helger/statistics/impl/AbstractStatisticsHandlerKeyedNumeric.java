@@ -129,10 +129,10 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     public String toString ()
     {
       // No object ID needed for toString
-      return new ToStringGenerator (null).append ("invocations", m_nInvocationCount)
-                                         .append ("min", m_nMin)
-                                         .append ("max", m_nMax)
-                                         .append ("sum", m_aSum)
+      return new ToStringGenerator (null).append ("Invocations", m_nInvocationCount)
+                                         .append ("Min", m_nMin)
+                                         .append ("Max", m_nMax)
+                                         .append ("Sum", m_aSum)
                                          .getToString ();
     }
   }

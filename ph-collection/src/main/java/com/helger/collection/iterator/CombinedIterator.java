@@ -97,7 +97,7 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("iter1", m_aIter1).append ("iter2", m_aIter2).getToString ();
+    return new ToStringGenerator (this).append ("Iter1", m_aIter1).append ("Iter2", m_aIter2).getToString ();
   }
 
   /**

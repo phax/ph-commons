@@ -150,8 +150,8 @@ public final class FileSystemCharStreamProvider implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("byteStreamResolver", m_aByteStreamResolver)
-                                       .append ("charset", m_aCharset)
+    return new ToStringGenerator (this).append ("ByteStreamResolver", m_aByteStreamResolver)
+                                       .append ("Charset", m_aCharset)
                                        .getToString ();
   }
 }

@@ -113,6 +113,6 @@ public class DynamicHasErrorTextWithArgs implements IHasErrorText
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("parentText", m_aParentText).append ("args", m_aArgs).getToString ();
+    return new ToStringGenerator (this).append ("ParentText", m_aParentText).append ("Args", m_aArgs).getToString ();
   }
 }

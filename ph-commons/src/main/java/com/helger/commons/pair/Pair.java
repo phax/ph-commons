@@ -159,7 +159,7 @@ public final class Pair <DATA1TYPE, DATA2TYPE> implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("first", m_aFirst).append ("second", m_aSecond).getToString ();
+    return new ToStringGenerator (null).append ("First", m_aFirst).append ("Second", m_aSecond).getToString ();
   }
 
   /**

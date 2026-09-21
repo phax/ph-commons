@@ -215,9 +215,9 @@ public final class MicroText extends AbstractMicroNode implements IMicroText
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("text", getData ())
-                            .append ("ignorableWhitspace", m_bIgnorableWhitespace)
-                            .append ("escape", m_bEscape)
+                            .append ("Text", getData ())
+                            .append ("IgnorableWhitspace", m_bIgnorableWhitespace)
+                            .append ("Escape", m_bEscape)
                             .getToString ();
   }
 }

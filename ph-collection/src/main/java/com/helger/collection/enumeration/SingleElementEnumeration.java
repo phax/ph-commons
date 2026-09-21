@@ -91,8 +91,8 @@ public class SingleElementEnumeration <ELEMENTTYPE> implements Enumeration <ELEM
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasMoreElements", m_bHasMoreElements)
-                                       .append ("element", m_aElement)
+    return new ToStringGenerator (this).append ("HasMoreElements", m_bHasMoreElements)
+                                       .append ("Element", m_aElement)
                                        .getToString ();
   }
 }

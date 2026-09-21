@@ -666,9 +666,9 @@ public class BasicTreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("dataID", m_aDataID)
-                                       .append ("data", m_aData)
-                                       .append ("children", m_aChildMap)
+    return new ToStringGenerator (this).append ("DataID", m_aDataID)
+                                       .append ("Data", m_aData)
+                                       .append ("Children", m_aChildMap)
                                        .getToString ();
   }
 }

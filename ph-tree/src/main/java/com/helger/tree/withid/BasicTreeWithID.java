@@ -165,6 +165,6 @@ public class BasicTreeWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemWithI
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("root", m_aRootItem).getToString ();
+    return new ToStringGenerator (this).append ("Root", m_aRootItem).getToString ();
   }
 }

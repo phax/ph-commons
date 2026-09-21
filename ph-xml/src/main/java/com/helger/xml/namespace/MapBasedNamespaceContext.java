@@ -409,9 +409,9 @@ public class MapBasedNamespaceContext extends AbstractNamespaceContext implement
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).appendIfNotNull ("defaultNS", m_sDefaultNamespaceURI)
-                                       .append ("prefix2NS", m_aPrefix2NS)
-                                       .append ("ns2Prefix2", m_aNS2Prefix)
+    return new ToStringGenerator (this).appendIfNotNull ("DefaultNS", m_sDefaultNamespaceURI)
+                                       .append ("Prefix2NS", m_aPrefix2NS)
+                                       .append ("Ns2Prefix2", m_aNS2Prefix)
                                        .getToString ();
   }
 }

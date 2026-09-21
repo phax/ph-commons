@@ -293,16 +293,16 @@ public class DigestAuthClientCredentials
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("userName", m_sUserName)
-                                       .append ("realm", m_sRealm)
-                                       .append ("serverNonce", m_sServerNonce)
-                                       .append ("digestUri", m_sDigestURI)
-                                       .append ("response", m_sResponse)
-                                       .appendIfNotNull ("algorithm", m_sAlgorithm)
-                                       .appendIfNotNull ("clientNonce", m_sClientNonce)
-                                       .appendIfNotNull ("opaque", m_sOpaque)
-                                       .appendIfNotNull ("messageQop", m_sMessageQOP)
-                                       .append ("noncecount", m_nNonceCount)
+    return new ToStringGenerator (this).append ("UserName", m_sUserName)
+                                       .append ("Realm", m_sRealm)
+                                       .append ("ServerNonce", m_sServerNonce)
+                                       .append ("DigestUri", m_sDigestURI)
+                                       .append ("Response", m_sResponse)
+                                       .appendIfNotNull ("Algorithm", m_sAlgorithm)
+                                       .appendIfNotNull ("ClientNonce", m_sClientNonce)
+                                       .appendIfNotNull ("Opaque", m_sOpaque)
+                                       .appendIfNotNull ("MessageQop", m_sMessageQOP)
+                                       .append ("Noncecount", m_nNonceCount)
                                        .getToString ();
   }
 }

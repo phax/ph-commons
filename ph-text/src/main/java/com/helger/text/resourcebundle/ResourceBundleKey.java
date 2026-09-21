@@ -151,6 +151,6 @@ public class ResourceBundleKey
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("bundleName", m_sBundleName).append ("key", m_sKey).getToString ();
+    return new ToStringGenerator (this).append ("BundleName", m_sBundleName).append ("Key", m_sKey).getToString ();
   }
 }

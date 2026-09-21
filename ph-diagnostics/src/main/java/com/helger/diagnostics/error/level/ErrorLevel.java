@@ -85,6 +85,6 @@ public class ErrorLevel implements IErrorLevel
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("ID", m_sID).append ("numericLevel", m_nNumericLevel).getToString ();
+    return new ToStringGenerator (this).append ("ID", m_sID).append ("NumericLevel", m_nNumericLevel).getToString ();
   }
 }

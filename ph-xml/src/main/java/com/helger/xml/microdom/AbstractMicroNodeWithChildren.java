@@ -365,7 +365,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("childrenCount", m_aChildren == null ? 0 : m_aChildren.size ())
+                            .append ("ChildrenCount", m_aChildren == null ? 0 : m_aChildren.size ())
                             .getToString ();
   }
 }

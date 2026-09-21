@@ -266,6 +266,6 @@ public class InMemoryLogger implements IHasErrorLevels <LogMessage>, IClearable
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("messages", m_aMessages).getToString ();
+    return new ToStringGenerator (this).append ("Messages", m_aMessages).getToString ();
   }
 }

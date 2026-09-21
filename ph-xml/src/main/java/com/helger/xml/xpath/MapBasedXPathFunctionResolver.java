@@ -271,6 +271,6 @@ public class MapBasedXPathFunctionResolver implements XPathFunctionResolver, ICl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("map", m_aMap).getToString ();
+    return new ToStringGenerator (this).append ("Map", m_aMap).getToString ();
   }
 }

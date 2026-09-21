@@ -222,9 +222,9 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("hasElement", m_bHasElement)
-                                       .append ("key", m_aKey)
-                                       .append ("value", m_aValue)
+    return new ToStringGenerator (this).append ("HasElement", m_bHasElement)
+                                       .append ("Key", m_aKey)
+                                       .append ("Value", m_aValue)
                                        .getToString ();
   }
 }

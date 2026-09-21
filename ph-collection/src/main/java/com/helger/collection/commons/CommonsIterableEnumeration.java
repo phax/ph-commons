@@ -65,6 +65,6 @@ public class CommonsIterableEnumeration <ELEMENTTYPE> implements ICommonsIterabl
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("enum", m_aEnum).getToString ();
+    return new ToStringGenerator (this).append ("Enum", m_aEnum).getToString ();
   }
 }

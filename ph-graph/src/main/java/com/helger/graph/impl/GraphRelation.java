@@ -137,8 +137,8 @@ public class GraphRelation extends AbstractBaseGraphObject implements IMutableGr
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("node1", m_aNode1)
-                            .append ("node2", m_aNode2)
+                            .append ("Node1", m_aNode1)
+                            .append ("Node2", m_aNode2)
                             .getToString ();
   }
 }

@@ -94,8 +94,8 @@ public class FormatableObject <DATATYPE> implements IFormatableObject <DATATYPE>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_aValue)
-                                       .appendIfNotNull ("formatter", m_aFormatter)
+    return new ToStringGenerator (this).append ("Value", m_aValue)
+                                       .appendIfNotNull ("Formatter", m_aFormatter)
                                        .getToString ();
   }
 }

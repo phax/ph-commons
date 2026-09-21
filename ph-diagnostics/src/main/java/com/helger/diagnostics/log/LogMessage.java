@@ -101,10 +101,10 @@ public class LogMessage implements IHasErrorLevelComparable <LogMessage>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("issueDT", m_aIssueDT)
-                                       .append ("errorLevel", m_aErrorLevel)
-                                       .append ("msg", m_aMsg)
-                                       .appendIfNotNull ("throwable", m_aThrowable)
+    return new ToStringGenerator (this).append ("IssueDT", m_aIssueDT)
+                                       .append ("ErrorLevel", m_aErrorLevel)
+                                       .append ("Msg", m_aMsg)
+                                       .appendIfNotNull ("Throwable", m_aThrowable)
                                        .getToString ();
   }
 }

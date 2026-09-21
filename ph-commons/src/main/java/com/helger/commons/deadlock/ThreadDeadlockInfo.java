@@ -99,9 +99,9 @@ public class ThreadDeadlockInfo
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("threadInfo", m_aThreadInfo)
-                                       .append ("thread", m_aThread)
-                                       .appendIfNotNull ("stackTrace", m_aStackTrace)
+    return new ToStringGenerator (this).append ("ThreadInfo", m_aThreadInfo)
+                                       .append ("Thread", m_aThread)
+                                       .appendIfNotNull ("StackTrace", m_aStackTrace)
                                        .getToString ();
   }
 }

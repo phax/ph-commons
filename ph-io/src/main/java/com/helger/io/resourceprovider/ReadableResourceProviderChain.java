@@ -173,6 +173,6 @@ public class ReadableResourceProviderChain implements IReadableResourceProvider
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("readableResProviders", m_aReadingResourceProviders).getToString ();
+    return new ToStringGenerator (this).append ("ReadableResProviders", m_aReadingResourceProviders).getToString ();
   }
 }
