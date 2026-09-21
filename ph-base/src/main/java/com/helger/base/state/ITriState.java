@@ -87,7 +87,7 @@ public interface ITriState
    * Convert the tri state value into a {@link Boolean} value, depending on what "undefined" means.
    *
    * @param bUndefinedValue
-   *        The {@link boolean} representation of undefined.
+   *        The boolean representation of undefined.
    * @return {@link Boolean#TRUE} if {@link #isTrue()} is true, {@link Boolean#FALSE} if
    *         {@link #isFalse()} is true, or otherwise the passed parameter!
    */
