@@ -223,8 +223,8 @@ public final class ByteArrayWrapperTest
     final ByteArrayWrapper wrapper = new ByteArrayWrapper (TEST_DATA, 2, 5, true);
     final String result = wrapper.toString ();
 
-    // Let's check the actual format - it might be "byte[]#5" rather than "byte[]#=5"
-    assertTrue ("Result: " + result, result.contains ("byte[]#5") || result.contains ("byte[]#=5"));
+    // Let's check the actual format - it might be "Byte[]#5" rather than "Byte[]#=5"
+    assertTrue ("Result: " + result, result.contains ("Byte[]#5") || result.contains ("Byte[]#=5"));
     assertTrue ("Result: " + result, result.contains ("Offset=0")); // 0 because it's a copy
     assertTrue ("Result: " + result, result.contains ("Length=5"));
     assertTrue ("Result: " + result, result.contains ("IsCopy=true"));

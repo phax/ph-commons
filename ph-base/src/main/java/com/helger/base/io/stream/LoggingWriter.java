@@ -96,7 +96,7 @@ public class LoggingWriter extends WrappedWriter
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("totalBytesWritten", m_nTotalBytesWritten)
+                            .append ("TotalBytesWritten", m_nTotalBytesWritten)
                             .getToString ();
   }
 }

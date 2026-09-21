@@ -52,6 +52,6 @@ public class WrappedReader extends FilterReader
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedReader", in).getToString ();
+    return new ToStringGenerator (this).append ("WrappedReader", in).getToString ();
   }
 }

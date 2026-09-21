@@ -17,6 +17,7 @@
 package com.helger.base.io.stream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -199,7 +200,7 @@ public final class LoggingAndCountingStreamsTest
   }
 
   @Test
-  public void testHasInputStream () throws IOException
+  public void testHasInputStream ()
   {
     final HasInputStream aMultiple = HasInputStream.multiple (() -> new NonBlockingByteArrayInputStream (PAYLOAD));
     assertTrue (aMultiple.isReadMultiple ());
@@ -207,7 +208,7 @@ public final class LoggingAndCountingStreamsTest
     assertNotNull (aMultiple.toString ());
 
     final HasInputStream aOnce = HasInputStream.once (() -> new NonBlockingByteArrayInputStream (PAYLOAD));
-    assertEquals (false, aOnce.isReadMultiple ());
+    assertFalse (aOnce.isReadMultiple ());
     assertNotNull (aOnce.getInputStream ());
 
     // The byte array based variant

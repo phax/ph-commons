@@ -55,7 +55,7 @@ public final class RFC1522QCodecTest
   {
     final RFC1522QCodec a = new RFC1522QCodec ();
     assertSame (StandardCharsets.UTF_8, a.getCharset ());
-    assertEquals (RFC1522QCodec.DEFAULT_ENCODE_BLANKS, a.isEncodeBlanks ());
+    assertTrue (RFC1522QCodec.DEFAULT_ENCODE_BLANKS == a.isEncodeBlanks ());
     assertFalse (a.isEncodeBlanks ());
 
     a.setEncodeBlanks (true);

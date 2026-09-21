@@ -121,6 +121,6 @@ public class StringReaderProvider implements IHasReader
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("data", m_sData).getToString ();
+    return new ToStringGenerator (null).append ("Data", m_sData).getToString ();
   }
 }

@@ -152,7 +152,7 @@ public class SuccessWithValue <DATATYPE> implements ISuccessIndicator, IWrapper 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("success", m_eSuccess).append ("obj", m_aObj).getToString ();
+    return new ToStringGenerator (this).append ("Success", m_eSuccess).append ("Obj", m_aObj).getToString ();
   }
 
   /**

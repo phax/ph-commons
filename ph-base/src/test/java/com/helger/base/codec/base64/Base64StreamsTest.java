@@ -127,9 +127,10 @@ public final class Base64StreamsTest
     try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
       // "QUJD" is "ABC" - a single character cannot be decoded
-      final Base64OutputStream aOS = new Base64OutputStream (aBAOS, Base64.DECODE);
-      aOS.write ('Q');
-      aOS.close ();
+      try (final Base64OutputStream aOS = new Base64OutputStream (aBAOS, Base64.DECODE))
+      {
+        aOS.write ('Q');
+      }
       fail ();
     }
     catch (final IOException ex)

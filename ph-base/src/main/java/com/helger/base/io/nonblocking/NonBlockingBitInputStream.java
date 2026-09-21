@@ -150,9 +150,9 @@ public class NonBlockingBitInputStream implements Closeable
   public String toString ()
   {
     return new ToStringGenerator (this).append ("IS", m_aIS)
-                                       .append ("highOrderBitFirst", m_bHighOrderBitFirst)
-                                       .append ("nextBitIndex", m_nNextBitIndex)
-                                       .append ("buffer", m_nBuffer)
+                                       .append ("HighOrderBitFirst", m_bHighOrderBitFirst)
+                                       .append ("NextBitIndex", m_nNextBitIndex)
+                                       .append ("Buffer", m_nBuffer)
                                        .getToString ();
   }
 }

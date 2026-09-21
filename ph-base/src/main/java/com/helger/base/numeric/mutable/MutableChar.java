@@ -321,6 +321,6 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_cValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_cValue).getToString ();
   }
 }

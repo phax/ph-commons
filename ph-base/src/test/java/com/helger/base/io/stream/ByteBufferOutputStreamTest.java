@@ -47,7 +47,7 @@ public final class ByteBufferOutputStreamTest
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {
       assertTrue (aBBOS.canGrow ());
-      assertEquals (ByteBufferOutputStream.DEFAULT_CAN_GROW, aBBOS.canGrow ());
+      assertTrue (ByteBufferOutputStream.DEFAULT_CAN_GROW == aBBOS.canGrow ());
       assertEquals (0, aBBOS.size ());
       assertNotNull (aBBOS.getBuffer ());
       assertNotNull (aBBOS.toString ());
@@ -91,7 +91,7 @@ public final class ByteBufferOutputStreamTest
   }
 
   @Test
-  public void testWriteAndRead () throws IOException
+  public void testWriteAndRead ()
   {
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {
@@ -122,7 +122,7 @@ public final class ByteBufferOutputStreamTest
   }
 
   @Test
-  public void testGetAsByteArrayInputStream () throws IOException
+  public void testGetAsByteArrayInputStream ()
   {
     try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream ())
     {

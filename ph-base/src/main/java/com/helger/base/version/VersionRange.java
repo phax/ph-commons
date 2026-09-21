@@ -398,10 +398,10 @@ public final class VersionRange implements IComparable <VersionRange>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("floorVersion", m_aFloorVersion)
-                                       .append ("inclFloor", m_bIncludeFloor)
-                                       .append ("ceilVersion", m_aCeilVersion)
-                                       .append ("inclCeil", m_bIncludeCeil)
+    return new ToStringGenerator (this).append ("FloorVersion", m_aFloorVersion)
+                                       .append ("InclFloor", m_bIncludeFloor)
+                                       .append ("CeilVersion", m_aCeilVersion)
+                                       .append ("InclCeil", m_bIncludeCeil)
                                        .getToString ();
   }
 }

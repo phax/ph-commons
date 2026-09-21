@@ -151,7 +151,7 @@ public final class ByteArrayWrapper implements IHasByteArray
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("byte[]#", m_aBytes.length)
+    return new ToStringGenerator (this).append ("Byte[]#", m_aBytes.length)
                                        .append ("Offset", m_nOffset)
                                        .append ("Length", m_nLength)
                                        .append ("IsCopy", m_bIsCopy)

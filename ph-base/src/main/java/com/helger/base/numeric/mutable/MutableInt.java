@@ -330,6 +330,6 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_nValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_nValue).getToString ();
   }
 }

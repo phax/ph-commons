@@ -400,10 +400,10 @@ public class Version implements IComparable <Version>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("major", m_nMajor)
-                                       .append ("minor", m_nMinor)
-                                       .append ("micro", m_nMicro)
-                                       .appendIfNotNull ("qualifier", m_sQualifier)
+    return new ToStringGenerator (this).append ("Major", m_nMajor)
+                                       .append ("Minor", m_nMinor)
+                                       .append ("Micro", m_nMicro)
+                                       .appendIfNotNull ("Qualifier", m_sQualifier)
                                        .getToString ();
   }
 

@@ -51,9 +51,8 @@ public final class StringStreamProvidersTest
     assertEquals (TEXT, new StringInputStreamProvider (TEXT.toCharArray (), StandardCharsets.ISO_8859_1).getData ());
     assertEquals ("Hello",
                   new StringInputStreamProvider (TEXT.toCharArray (), 0, 5, StandardCharsets.ISO_8859_1).getData ());
-    assertEquals (TEXT,
-                  new StringInputStreamProvider ((CharSequence) new StringBuilder (TEXT), StandardCharsets.ISO_8859_1)
-                                                                                                                      .getData ());
+    final CharSequence aCS = new StringBuilder (TEXT);
+    assertEquals (TEXT, new StringInputStreamProvider (aCS, StandardCharsets.ISO_8859_1).getData ());
   }
 
   @Test
@@ -93,7 +92,7 @@ public final class StringStreamProvidersTest
 
     assertEquals (TEXT, new StringReaderProvider (TEXT.toCharArray ()).getData ());
     assertEquals ("Hello", new StringReaderProvider (TEXT.toCharArray (), 0, 5).getData ());
-    assertEquals (TEXT, new StringReaderProvider ((CharSequence) new StringBuilder (TEXT)).getData ());
+    assertEquals (TEXT, new StringReaderProvider (new StringBuilder (TEXT)).getData ());
 
     BaseTestHelper.testDefaultImplementationWithEqualContentObject (a, new StringReaderProvider (TEXT));
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (a, new StringReaderProvider ("other"));

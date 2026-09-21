@@ -252,6 +252,6 @@ public class SizeFloat implements IHasDimensionFloat
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("width", m_dWidth).append ("height", m_dHeight).getToString ();
+    return new ToStringGenerator (this).append ("Width", m_dWidth).append ("Height", m_dHeight).getToString ();
   }
 }

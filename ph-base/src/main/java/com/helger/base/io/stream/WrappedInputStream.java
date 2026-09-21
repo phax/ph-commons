@@ -53,6 +53,6 @@ public class WrappedInputStream extends FilterInputStream
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("wrappedIS", in).getToString ();
+    return new ToStringGenerator (this).append ("WrappedIS", in).getToString ();
   }
 }

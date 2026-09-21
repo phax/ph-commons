@@ -325,6 +325,6 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_fValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_fValue).getToString ();
   }
 }

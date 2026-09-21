@@ -112,7 +112,8 @@ public final class StringHelperGapsTest
 
     assertTrue (StringParser.parseBool ((Object) "true"));
     assertFalse (StringParser.parseBool ((Object) null));
-    assertTrue (StringParser.parseBool ((Object) Boolean.TRUE));
+    final Object o = Boolean.TRUE;
+    assertTrue (StringParser.parseBool (o));
     assertTrue (StringParser.parseBool ((Object) null, true));
   }
 

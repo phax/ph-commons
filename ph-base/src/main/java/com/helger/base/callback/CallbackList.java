@@ -319,6 +319,6 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("callbacks", m_aCallbacks).getToString ();
+    return new ToStringGenerator (this).append ("Callbacks", m_aCallbacks).getToString ();
   }
 }

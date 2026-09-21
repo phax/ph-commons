@@ -61,7 +61,8 @@ public final class IGenericMapAdderTraitTest
   public void testAddObject ()
   {
     final MockMapAdderTrait a = new MockMapAdderTrait ();
-    a.add ("o", (Object) "any");
+    final Object o = "any";
+    a.add ("o", o);
     a.add ("n", (Object) null);
     assertEquals (_map ("o", "any", "n", null), a.getAllAsString ());
   }
@@ -94,7 +95,7 @@ public final class IGenericMapAdderTraitTest
     final MockMapAdderTrait a = new MockMapAdderTrait ();
     a.addIfNotNull ("v", new MockStringValue ("value"));
     a.addIfNotNull ("n", (MockStringValue) null);
-    a.addIfNotNull ("o", (Object) "obj");
+    a.addIfNotNull ("o", "obj");
     a.addIfNotNull ("on", (Object) null);
     assertEquals (_map ("v", "value", "o", "obj"), a.getAllAsString ());
 
@@ -154,14 +155,14 @@ public final class IGenericMapAdderTraitTest
   {
     final MockMapAdderTrait a = new MockMapAdderTrait ();
     a.addAllMapped (_map ("a", "x"), x -> new MockStringValue (x.toUpperCase (Locale.ROOT)));
-    a.addAllMapped ((Map <String, String>) null, x -> new MockStringValue (x));
+    a.addAllMapped ((Map <String, String>) null, MockStringValue::new);
     assertEquals (_map ("a", "X"), a.getAllAsString ());
 
     final MockMapAdderTrait a2 = new MockMapAdderTrait ();
     a2.addAllMapped (_map ("b", "y"),
                      x -> x.toUpperCase (Locale.ROOT),
                      x -> new MockStringValue (x.toUpperCase (Locale.ROOT)));
-    a2.addAllMapped ((Map <String, String>) null, x -> x, x -> new MockStringValue (x));
+    a2.addAllMapped ((Map <String, String>) null, x -> x, MockStringValue::new);
     assertEquals (_map ("B", "Y"), a2.getAllAsString ());
   }
 }

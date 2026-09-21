@@ -94,7 +94,7 @@ public class StringIDFactory implements IStringIDFactory
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("prefix", m_sPrefix)
+    return new ToStringGenerator (this).append ("Prefix", m_sPrefix)
                                        .append ("BaseFactory", m_aBaseFactory)
                                        .getToString ();
   }

@@ -95,7 +95,7 @@ public class LoggingOutputStream extends WrappedOutputStream
   public String toString ()
   {
     return ToStringGenerator.getDerived (super.toString ())
-                            .append ("totalBytesWritten", m_nTotalBytesWritten)
+                            .append ("TotalBytesWritten", m_nTotalBytesWritten)
                             .getToString ();
   }
 }

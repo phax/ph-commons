@@ -145,6 +145,6 @@ public class LoggingInputStream extends WrappedInputStream
   @Override
   public String toString ()
   {
-    return ToStringGenerator.getDerived (super.toString ()).append ("position", m_nPosition).getToString ();
+    return ToStringGenerator.getDerived (super.toString ()).append ("Position", m_nPosition).getToString ();
   }
 }

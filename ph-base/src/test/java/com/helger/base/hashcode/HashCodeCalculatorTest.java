@@ -41,7 +41,8 @@ public final class HashCodeCalculatorTest
     assertEquals (HashCodeCalculator.hashCode ((short) 5), HashCodeCalculator.hashCode ((short) 5));
 
     assertEquals (HashCodeCalculator.HASHCODE_NULL, HashCodeCalculator.hashCode ((Object) null));
-    assertEquals ("abc".hashCode (), HashCodeCalculator.hashCode ((Object) "abc"));
+    final Object o = "abc";
+    assertEquals ("abc".hashCode (), HashCodeCalculator.hashCode (o));
   }
 
   @Test
@@ -55,7 +56,7 @@ public final class HashCodeCalculatorTest
     assertEquals (HashCodeCalculator.append (P, 5), HashCodeCalculator.append (P, 5));
     assertEquals (HashCodeCalculator.append (P, 5L), HashCodeCalculator.append (P, 5L));
     assertEquals (HashCodeCalculator.append (P, (short) 5), HashCodeCalculator.append (P, (short) 5));
-    assertEquals (HashCodeCalculator.append (P, (Object) "abc"), HashCodeCalculator.append (P, (Object) "abc"));
+    assertEquals (HashCodeCalculator.append (P, "abc"), HashCodeCalculator.append (P, "abc"));
     assertEquals (HashCodeCalculator.append (P, (Object) null), HashCodeCalculator.append (P, (Object) null));
   }
 

@@ -40,11 +40,11 @@ public final class ToStringGeneratorTest
 {
   private void _testNullable (@Nullable final Object o)
   {
-    final String s1 = new ToStringGenerator (null).append ("o", o).getToString ();
+    final String s1 = new ToStringGenerator (null).append ("O", o).getToString ();
     assertNotNull (s1);
-    final String s2 = new ToStringGenerator (null).append ("o", o).getToString ();
+    final String s2 = new ToStringGenerator (null).append ("O", o).getToString ();
     assertNotNull (s2);
-    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).getToString ();
+    final String s3 = new ToStringGenerator (null).appendIfNotNull ("O", o).getToString ();
     assertNotNull (s3);
     assertEquals (s1, s2);
     assertFalse (s2.equals (s3));
@@ -52,11 +52,11 @@ public final class ToStringGeneratorTest
 
   private <T> void _test (@Nullable final T o)
   {
-    final String s1 = new ToStringGenerator (null).append ("o", o).getToString ();
+    final String s1 = new ToStringGenerator (null).append ("O", o).getToString ();
     assertNotNull (s1);
-    final String s2 = new ToStringGenerator (null).append ("o", o).getToString ();
+    final String s2 = new ToStringGenerator (null).append ("O", o).getToString ();
     assertNotNull (s2);
-    final String s3 = new ToStringGenerator (null).appendIfNotNull ("o", o).getToString ();
+    final String s3 = new ToStringGenerator (null).appendIfNotNull ("O", o).getToString ();
     assertNotNull (s3);
     assertEquals (s1, s2);
     assertEquals (s2, s3);
@@ -102,21 +102,21 @@ public final class ToStringGeneratorTest
   @Test
   public void testCommon ()
   {
-    new ToStringGenerator (this).append ("boolean", true)
-                                .append ("byte", (byte) 1)
-                                .append ("char", 'x')
-                                .append ("double", 31.4)
-                                .append ("float", 47.11f)
-                                .append ("int", 4711)
-                                .append ("long", 12345678901234L)
-                                .append ("short", (short) 0xff)
-                                .append ("enum", ESortOrder.ASCENDING)
-                                .appendPassword ("pwfield")
-                                .append ("boolean[]", new boolean [] { true, false, true })
-                                .append ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .append ("char[]",
+    new ToStringGenerator (this).append ("Boolean", true)
+                                .append ("Byte", (byte) 1)
+                                .append ("Char", 'x')
+                                .append ("Double", 31.4)
+                                .append ("Float", 47.11f)
+                                .append ("Int", 4711)
+                                .append ("Long", 12345678901234L)
+                                .append ("Short", (short) 0xff)
+                                .append ("Enum", ESortOrder.ASCENDING)
+                                .appendPassword ("Pwfield")
+                                .append ("Boolean[]", new boolean [] { true, false, true })
+                                .append ("Byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
+                                .append ("Char[]",
                                          new char [] { Character.MIN_VALUE, 'x', 'y', 'Z', Character.MAX_VALUE })
-                                .append ("double[]",
+                                .append ("Double[]",
                                          new double [] { Double.MIN_VALUE,
                                                          1,
                                                          2,
@@ -125,7 +125,7 @@ public final class ToStringGeneratorTest
                                                          Double.NaN,
                                                          Double.POSITIVE_INFINITY,
                                                          Double.NEGATIVE_INFINITY })
-                                .append ("float[]",
+                                .append ("Float[]",
                                          new float [] { Float.MIN_VALUE,
                                                         1,
                                                         2,
@@ -134,19 +134,19 @@ public final class ToStringGeneratorTest
                                                         Float.NaN,
                                                         Float.POSITIVE_INFINITY,
                                                         Float.NEGATIVE_INFINITY })
-                                .append ("int[]", new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
-                                .append ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
-                                .append ("short[]", new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
+                                .append ("Int[]", new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
+                                .append ("Long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
+                                .append ("Short[]", new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
                                 .append ("String[]", new String [] { "a", "b", "c" })
-                                .appendIfNotNull ("boolean[]", new boolean [] { true, false, true })
-                                .appendIfNotNull ("byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
-                                .appendIfNotNull ("char[]",
+                                .appendIfNotNull ("Boolean[]", new boolean [] { true, false, true })
+                                .appendIfNotNull ("Byte[]", new byte [] { Byte.MIN_VALUE, 1, 2, 3, Byte.MAX_VALUE })
+                                .appendIfNotNull ("Char[]",
                                                   new char [] { Character.MIN_VALUE,
                                                                 'x',
                                                                 'y',
                                                                 'Z',
                                                                 Character.MAX_VALUE })
-                                .appendIfNotNull ("double[]",
+                                .appendIfNotNull ("Double[]",
                                                   new double [] { Double.MIN_VALUE,
                                                                   1,
                                                                   2,
@@ -155,7 +155,7 @@ public final class ToStringGeneratorTest
                                                                   Double.NaN,
                                                                   Double.POSITIVE_INFINITY,
                                                                   Double.NEGATIVE_INFINITY })
-                                .appendIfNotNull ("float[]",
+                                .appendIfNotNull ("Float[]",
                                                   new float [] { Float.MIN_VALUE,
                                                                  1,
                                                                  2,
@@ -164,20 +164,20 @@ public final class ToStringGeneratorTest
                                                                  Float.NaN,
                                                                  Float.POSITIVE_INFINITY,
                                                                  Float.NEGATIVE_INFINITY })
-                                .appendIfNotNull ("int[]",
+                                .appendIfNotNull ("Int[]",
                                                   new int [] { Integer.MIN_VALUE, 1, 2, 1415, Integer.MAX_VALUE })
-                                .appendIfNotNull ("long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
-                                .appendIfNotNull ("short[]",
+                                .appendIfNotNull ("Long[]", new long [] { Long.MIN_VALUE, 1, 2, 1415, Long.MAX_VALUE })
+                                .appendIfNotNull ("Short[]",
                                                   new short [] { Short.MIN_VALUE, 1, 2, 1415, Short.MAX_VALUE })
                                 .appendIfNotNull ("String[]", new String [] { "a", "b", "c" })
-                                .appendIfNotNull ("boolean[]", (boolean []) null)
-                                .appendIfNotNull ("byte[]", (byte []) null)
-                                .appendIfNotNull ("char[]", (char []) null)
-                                .appendIfNotNull ("double[]", (double []) null)
-                                .appendIfNotNull ("float[]", (float []) null)
-                                .appendIfNotNull ("int[]", (int []) null)
-                                .appendIfNotNull ("long[]", (long []) null)
-                                .appendIfNotNull ("short[]", (short []) null)
+                                .appendIfNotNull ("Boolean[]", (boolean []) null)
+                                .appendIfNotNull ("Byte[]", (byte []) null)
+                                .appendIfNotNull ("Char[]", (char []) null)
+                                .appendIfNotNull ("Double[]", (double []) null)
+                                .appendIfNotNull ("Float[]", (float []) null)
+                                .appendIfNotNull ("Int[]", (int []) null)
+                                .appendIfNotNull ("Long[]", (long []) null)
+                                .appendIfNotNull ("Short[]", (short []) null)
                                 .appendIfNotNull ("String[]", (String []) null)
                                 .getToString ();
   }
@@ -186,8 +186,8 @@ public final class ToStringGeneratorTest
   public void testCircularReference ()
   {
     final ToStringGenerator aTSG = new ToStringGenerator (this);
-    aTSG.append ("anything", "else");
-    aTSG.append ("meMyselfAndI", this);
-    assertTrue (aTSG.getToString ().endsWith (": anything=else; meMyselfAndI=this]"));
+    aTSG.append ("Anything", "else");
+    aTSG.append ("MeMyselfAndI", this);
+    assertTrue (aTSG.getToString ().endsWith (": Anything=else; MeMyselfAndI=this]"));
   }
 }

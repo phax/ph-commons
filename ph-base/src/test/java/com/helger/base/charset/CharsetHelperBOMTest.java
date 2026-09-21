@@ -44,7 +44,7 @@ public final class CharsetHelperBOMTest
   private static final String TEXT = "Hällö";
 
   @Test
-  public void testWithoutBOM () throws IOException
+  public void testWithoutBOM ()
   {
     final byte [] aBytes = TEXT.getBytes (StandardCharsets.ISO_8859_1);
     try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aBytes))
@@ -61,7 +61,7 @@ public final class CharsetHelperBOMTest
   }
 
   @Test
-  public void testWithUTF8BOM () throws IOException
+  public void testWithUTF8BOM ()
   {
     final byte [] aBytes = ArrayHelper.getConcatenated (EUnicodeBOM.BOM_UTF_8.getAllBytes (),
                                                         TEXT.getBytes (StandardCharsets.UTF_8));
@@ -77,7 +77,7 @@ public final class CharsetHelperBOMTest
   }
 
   @Test
-  public void testWithUTF16BOM () throws IOException
+  public void testWithUTF16BOM ()
   {
     final byte [] aBytes = ArrayHelper.getConcatenated (EUnicodeBOM.BOM_UTF_16_BIG_ENDIAN.getAllBytes (),
                                                         TEXT.getBytes (StandardCharsets.UTF_16BE));
@@ -91,7 +91,7 @@ public final class CharsetHelperBOMTest
   }
 
   @Test
-  public void testEmptyStream () throws IOException
+  public void testEmptyStream ()
   {
     try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (new byte [0]))
     {

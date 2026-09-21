@@ -79,6 +79,6 @@ public class ByteArrayOutputStreamProvider implements IHasOutputStreamAndWriter
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("os", m_aOS).getToString ();
+    return new ToStringGenerator (this).append ("Os", m_aOS).getToString ();
   }
 }

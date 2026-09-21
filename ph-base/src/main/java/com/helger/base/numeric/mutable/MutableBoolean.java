@@ -211,6 +211,6 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("value", m_bValue).getToString ();
+    return new ToStringGenerator (this).append ("Value", m_bValue).getToString ();
   }
 }

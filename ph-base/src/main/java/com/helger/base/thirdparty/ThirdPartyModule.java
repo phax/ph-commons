@@ -264,12 +264,12 @@ public final class ThirdPartyModule implements IThirdPartyModule
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("displayName", m_sDisplayName)
-                                       .append ("copyrightOwner", m_sCopyrightOwner)
-                                       .append ("license", m_aLicense)
-                                       .appendIfNotNull ("version", m_aVersion)
-                                       .appendIfNotNull ("website", m_sWebSiteURL)
-                                       .append ("optional", m_bOptional)
+    return new ToStringGenerator (this).append ("DisplayName", m_sDisplayName)
+                                       .append ("CopyrightOwner", m_sCopyrightOwner)
+                                       .append ("License", m_aLicense)
+                                       .appendIfNotNull ("Version", m_aVersion)
+                                       .appendIfNotNull ("Website", m_sWebSiteURL)
+                                       .append ("Optional", m_bOptional)
                                        .getToString ();
   }
 }

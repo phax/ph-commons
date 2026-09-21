@@ -168,6 +168,6 @@ public class StringInputStreamProvider implements IHasInputStreamAndReader, IHas
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (null).append ("data", m_sData).append ("charset", m_aCharset).getToString ();
+    return new ToStringGenerator (null).append ("Data", m_sData).append ("Charset", m_aCharset).getToString ();
   }
 }

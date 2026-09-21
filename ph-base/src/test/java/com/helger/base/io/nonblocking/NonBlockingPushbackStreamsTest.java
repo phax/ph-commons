@@ -136,6 +136,7 @@ public final class NonBlockingPushbackStreamsTest
   @Test
   public void testReaderClosed () throws IOException
   {
+    @SuppressWarnings ("resource")
     final NonBlockingPushbackReader aReader = new NonBlockingPushbackReader (new NonBlockingStringReader (TEXT));
     aReader.close ();
     try
@@ -236,6 +237,7 @@ public final class NonBlockingPushbackStreamsTest
   @Test
   public void testInputStreamClosed () throws IOException
   {
+    @SuppressWarnings ("resource")
     final NonBlockingPushbackInputStream aIS = new NonBlockingPushbackInputStream (new NonBlockingByteArrayInputStream (PAYLOAD));
     aIS.close ();
     try

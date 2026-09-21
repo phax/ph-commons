@@ -172,9 +172,9 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
   public String toString ()
   {
     return new ToStringGenerator (this).append ("OS", m_aOS)
-                                       .append ("highOrderBitFirst", m_bHighOrderBitFirst)
-                                       .append ("buffer", m_nBuffer)
-                                       .append ("bitCount", m_nBufferedBitCount)
+                                       .append ("HighOrderBitFirst", m_bHighOrderBitFirst)
+                                       .append ("Buffer", m_nBuffer)
+                                       .append ("BitCount", m_nBufferedBitCount)
                                        .getToString ();
   }
 }

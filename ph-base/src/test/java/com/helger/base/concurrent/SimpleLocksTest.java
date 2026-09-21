@@ -55,7 +55,7 @@ public final class SimpleLocksTest
   }
 
   @Test
-  public void testSimpleLockThrowing () throws IOException
+  public void testSimpleLockThrowing ()
   {
     final SimpleLock a = new SimpleLock (true);
     assertTrue (a.isFair ());
@@ -88,7 +88,7 @@ public final class SimpleLocksTest
   }
 
   @Test
-  public void testReadWriteLockRead () throws IOException
+  public void testReadWriteLockRead ()
   {
     final SimpleReadWriteLock a = new SimpleReadWriteLock ();
     final AtomicInteger aCount = new AtomicInteger (0);
@@ -126,7 +126,7 @@ public final class SimpleLocksTest
   }
 
   @Test
-  public void testReadWriteLockWrite () throws IOException
+  public void testReadWriteLockWrite ()
   {
     final SimpleReadWriteLock a = new SimpleReadWriteLock (true);
     assertTrue (a.isFair ());
@@ -192,7 +192,7 @@ public final class SimpleLocksTest
   }
 
   @Test
-  public void testNonReentrantLockIsNotReentrant () throws InterruptedException
+  public void testNonReentrantLockIsNotReentrant ()
   {
     final NonReentrantLock a = new NonReentrantLock ();
     a.lock ();

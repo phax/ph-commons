@@ -18,8 +18,10 @@ package com.helger.base.codec.impl;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.nio.charset.StandardCharsets;
@@ -105,8 +107,8 @@ public final class CodecErrorPathsTest
   {
     final Base32Codec c = new Base32Codec ();
     assertEquals ('=', c.getPad ());
-    assertEquals (true, c.isAddPadding ());
-    assertEquals (false, c.isHexEncoding ());
+    assertTrue (c.isAddPadding ());
+    assertFalse (c.isHexEncoding ());
 
     // Without padding
     c.setAddPaddding (false);
@@ -133,7 +135,7 @@ public final class CodecErrorPathsTest
 
     // Hex encoding
     final Base32Codec cHex = new Base32Codec (true);
-    assertEquals (true, cHex.isHexEncoding ());
+    assertTrue (cHex.isHexEncoding ());
     assertArrayEquals (BYTES, cHex.getDecoded (cHex.getEncoded (BYTES)));
   }
 
@@ -167,7 +169,7 @@ public final class CodecErrorPathsTest
     assertNull (c.getDecoded ((byte []) null));
 
     // 2 literal bytes ("ab"), then 3 times "c" (257-254) and the EOD marker
-    final byte [] aEncoded = new byte [] { 2, 'a', 'b', (byte) 254, 'c', (byte) 0x80 };
+    final byte [] aEncoded = { 2, 'a', 'b', (byte) 254, 'c', (byte) 0x80 };
     assertArrayEquals ("abccc".getBytes (StandardCharsets.ISO_8859_1), c.getDecoded (aEncoded));
 
     // Premature end in a literal run
@@ -196,9 +198,9 @@ public final class CodecErrorPathsTest
   @Test
   public void testFlateInvalid ()
   {
-    assertEquals (false, FlateCodec.isZlibHead (BYTES, 0, BYTES.length));
+    assertFalse (FlateCodec.isZlibHead (BYTES, 0, BYTES.length));
     final byte [] aEncoded = new FlateCodec ().getEncoded (BYTES);
-    assertEquals (true, FlateCodec.isZlibHead (aEncoded, 0, aEncoded.length));
+    assertTrue (FlateCodec.isZlibHead (aEncoded, 0, aEncoded.length));
 
     // Not deflated at all
     try
@@ -359,13 +361,13 @@ public final class CodecErrorPathsTest
       // expected
     }
 
-    assertEquals (true, RFC2616Codec.isToken ("abc"));
-    assertEquals (false, RFC2616Codec.isToken ("a b"));
-    assertEquals (false, RFC2616Codec.isToken ((String) null));
-    assertEquals (false, RFC2616Codec.isToken ((char []) null));
-    assertEquals (true, RFC2616Codec.isMaybeEncoded ("\"abc\""));
-    assertEquals (false, RFC2616Codec.isMaybeEncoded ("abc"));
-    assertEquals (false, RFC2616Codec.isMaybeEncoded ((String) null));
-    assertEquals (false, RFC2616Codec.isMaybeEncoded ((char []) null));
+    assertTrue (RFC2616Codec.isToken ("abc"));
+    assertFalse (RFC2616Codec.isToken ("a b"));
+    assertFalse (RFC2616Codec.isToken ((String) null));
+    assertFalse (RFC2616Codec.isToken ((char []) null));
+    assertTrue (RFC2616Codec.isMaybeEncoded ("\"abc\""));
+    assertFalse (RFC2616Codec.isMaybeEncoded ("abc"));
+    assertFalse (RFC2616Codec.isMaybeEncoded ((String) null));
+    assertFalse (RFC2616Codec.isMaybeEncoded ((char []) null));
   }
 }

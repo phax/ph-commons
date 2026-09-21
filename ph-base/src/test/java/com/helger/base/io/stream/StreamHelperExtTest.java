@@ -65,7 +65,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testCreateReaderAndWriter () throws IOException
+  public void testCreateReaderAndWriter ()
   {
     assertNotNull (StreamHelper.createReader (TEXT));
     assertNotNull (StreamHelper.createReader (TEXT.toCharArray ()));
@@ -93,7 +93,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testCloseAndFlush () throws IOException
+  public void testCloseAndFlush ()
   {
     assertSame (ESuccess.FAILURE, StreamHelper.close (null));
     assertSame (ESuccess.FAILURE, StreamHelper.closeWithoutFlush (null));
@@ -108,7 +108,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testIsBufferedAndGetBuffered () throws IOException
+  public void testIsBufferedAndGetBuffered ()
   {
     assertFalse (StreamHelper.isBuffered ((InputStream) null));
     assertNull (StreamHelper.getBuffered ((InputStream) null));
@@ -147,7 +147,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testCopyByteStreamBuilder () throws IOException
+  public void testCopyByteStreamBuilder ()
   {
     // The full builder API
     final MutableLong aCount = new MutableLong (0);
@@ -201,7 +201,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testCopyCharStreamBuilder () throws IOException
+  public void testCopyCharStreamBuilder ()
   {
     final MutableLong aCount = new MutableLong (0);
     final AtomicLong aProgress = new AtomicLong (0);
@@ -248,7 +248,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testGetCopyAndLimits () throws IOException
+  public void testGetCopyAndLimits ()
   {
     try (final NonBlockingByteArrayOutputStream aCopy = StreamHelper.getCopy (new NonBlockingByteArrayInputStream (PAYLOAD)))
     {
@@ -287,7 +287,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testGetAvailable () throws IOException
+  public void testGetAvailable ()
   {
     assertEquals (0, StreamHelper.getAvailable (null));
     try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (PAYLOAD))
@@ -297,7 +297,7 @@ public final class StreamHelperExtTest
   }
 
   @Test
-  public void testWriteStream () throws IOException
+  public void testWriteStream ()
   {
     try (final NonBlockingByteArrayOutputStream aOS = new NonBlockingByteArrayOutputStream ())
     {

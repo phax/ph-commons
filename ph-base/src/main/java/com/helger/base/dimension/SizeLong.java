@@ -209,6 +209,6 @@ public class SizeLong implements IHasDimensionLong
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("width", m_nWidth).append ("height", m_nHeight).getToString ();
+    return new ToStringGenerator (this).append ("Width", m_nWidth).append ("Height", m_nHeight).getToString ();
   }
 }
