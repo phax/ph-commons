@@ -51,19 +51,15 @@ import com.helger.xml.XMLFactory;
 public final class XMLTransformerFactory
 {
   /**
-   * The value for {@link XMLConstants#ACCESS_EXTERNAL_DTD} and
-   * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} that denies all external access.
-   * <p>
-   * The JAXP specification uses the empty String for that purpose, but Saxon maps
-   * {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} onto its own "allowedProtocols" feature, where
-   * the empty String is explicitly documented to be ignored, falling back to the default "all" - an
-   * empty String therefore silently allows everything there. <code>#none</code> is not a valid URL
-   * scheme, so it matches nothing and denies all access in both worlds.
-   * </p>
-   *
-   * @since 12.5.1
+   * The Saxon specific feature that constrains the URL schemes Saxon is willing to dereference.
+   * Saxon maps {@link XMLConstants#ACCESS_EXTERNAL_STYLESHEET} onto it, but - contrary to the JAXP
+   * specification - it documents the empty String to be ignored there, falling back to the default
+   * "all". The JAXP way of denying all external access is therefore a no-op on Saxon, and the Saxon
+   * keyword {@link #SAXON_ALLOWED_PROTOCOLS_NONE} has to be applied in addition.
    */
-  public static final String ACCESS_EXTERNAL_DENY_ALL = "#none";
+  private static final String SAXON_FEATURE_ALLOWED_PROTOCOLS = "http://saxon.sf.net/feature/allowedProtocols";
+  /** The Saxon specific keyword for "no URL scheme may be dereferenced at all" */
+  private static final String SAXON_ALLOWED_PROTOCOLS_NONE = "#none";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (XMLTransformerFactory.class);
   private static final TransformerFactory DEFAULT_FACTORY;
@@ -135,6 +131,22 @@ public final class XMLTransformerFactory
     }
   }
 
+  private static void _setOptionalAttribute (@NonNull final TransformerFactory aFactory,
+                                            @NonNull final String sAttribute,
+                                            @NonNull final String sValue)
+  {
+    try
+    {
+      aFactory.setAttribute (sAttribute, sValue);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // Implementation specific attribute - not knowing it is the normal case and no problem
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("XML TransformerFactory does not support the attribute " + sAttribute);
+    }
+  }
+
   /**
    * Set the secure processing feature to a {@link TransformerFactory}. See
    * https://docs.oracle.com/javase/tutorial/jaxp/properties/properties.html for details.
@@ -143,9 +155,9 @@ public final class XMLTransformerFactory
    *        The factory to secure. May not be <code>null</code>.
    * @param aAllowedExternalSchemes
    *        Optional external URL schemes that are allowed to be accessed (as in "file" or "http").
-   *        If none is provided, {@link #ACCESS_EXTERNAL_DENY_ALL} is applied, so that all external
-   *        DTD and stylesheet access is denied to prevent Server Side Request Forgery (SSRF) via
-   *        <code>document()</code>, <code>xsl:import</code> or <code>xsl:include</code>.
+   *        If none is provided, all external DTD and stylesheet access is denied to prevent Server
+   *        Side Request Forgery (SSRF) via <code>document()</code>, <code>xsl:import</code> or
+   *        <code>xsl:include</code>.
    * @since 9.1.2
    */
   public static void makeTransformerFactorySecure (@NonNull final TransformerFactory aFactory,
@@ -162,15 +174,27 @@ public final class XMLTransformerFactory
       throw new InitializationException ("Failed to secure XML TransformerFactory", ex);
     }
 
-    // Restrict external DTD and stylesheet access to the explicitly allowed schemes.
-    // If no scheme is provided, deny all external access - see ACCESS_EXTERNAL_DENY_ALL on why
-    // that is not the empty String.
-    String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
-    if (StringHelper.isEmpty (sCombinedSchemes))
-      sCombinedSchemes = ACCESS_EXTERNAL_DENY_ALL;
+    /*
+     * Restrict external DTD and stylesheet access to the explicitly allowed schemes. Per the JAXP
+     * specification the value is a comma separated list of URL schemes, where the empty String
+     * denies all external access and the keyword "all" grants it.
+     */
+    final String sCombinedSchemes = StringImplode.getImplodedNonEmpty (',', aAllowedExternalSchemes);
     _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_DTD, sCombinedSchemes);
     _setSecureAttribute (aFactory, XMLConstants.ACCESS_EXTERNAL_STYLESHEET, sCombinedSchemes);
     // external schema is unknown
+
+    if (StringHelper.isEmpty (sCombinedSchemes))
+    {
+      /*
+       * Deny all external access on Saxon as well - see SAXON_FEATURE_ALLOWED_PROTOCOLS on why the
+       * empty String above is not enough there. Deliberately applied as an additional,
+       * implementation specific attribute instead of using the Saxon keyword as the value of the
+       * two JAXP properties: "#none" is not a valid value according to the JAXP grammar, so an
+       * implementation that validates the value would reject it and end up unrestricted.
+       */
+      _setOptionalAttribute (aFactory, SAXON_FEATURE_ALLOWED_PROTOCOLS, SAXON_ALLOWED_PROTOCOLS_NONE);
+    }
   }
 
   /**

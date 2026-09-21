@@ -65,15 +65,9 @@ public final class XMLTransformerFactoryTest
     final TransformerFactory aFactory = TransformerFactory.newInstance ();
     XMLTransformerFactory.makeTransformerFactorySecure (aFactory);
 
-    /*
-     * Deliberately not the empty String: the JAXP specification uses it to deny all external
-     * access, but Saxon maps ACCESS_EXTERNAL_STYLESHEET onto its own "allowedProtocols" feature,
-     * where the empty String is ignored and falls back to "all".
-     */
-    assertEquals (XMLTransformerFactory.ACCESS_EXTERNAL_DENY_ALL,
-                  aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_DTD));
-    assertEquals (XMLTransformerFactory.ACCESS_EXTERNAL_DENY_ALL,
-                  aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET));
+    // The empty String is what the JAXP specification defines for "deny all external access"
+    assertEquals ("", aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_DTD));
+    assertEquals ("", aFactory.getAttribute (XMLConstants.ACCESS_EXTERNAL_STYLESHEET));
   }
 
   @Test
