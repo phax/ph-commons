@@ -25,6 +25,7 @@ import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
 import com.helger.xml.XMLFactory;
 
@@ -72,6 +73,8 @@ public final class SAXReaderFactory implements Supplier <XMLReader>
   @NonNull
   public static XMLReader createXMLReader (@NonNull final SAXParserFactory aFactory)
   {
+    ValueEnforcer.notNull (aFactory, "Factory");
+    
     try
     {
       return aFactory.newSAXParser ().getXMLReader ();

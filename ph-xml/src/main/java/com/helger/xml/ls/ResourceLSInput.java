@@ -67,7 +67,8 @@ public class ResourceLSInput implements LSInput
    */
   public ResourceLSInput (@NonNull final IHasInputStream aISP, @Nullable final String sSystemID)
   {
-    m_aISP = ValueEnforcer.notNull (aISP, "InputStreamProvider");
+    ValueEnforcer.notNull (aISP, "InputStreamProvider");
+    m_aISP = aISP;
     m_sSystemId = sSystemID;
   }
 

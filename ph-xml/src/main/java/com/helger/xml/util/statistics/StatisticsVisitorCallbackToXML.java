@@ -48,7 +48,8 @@ public class StatisticsVisitorCallbackToXML implements IStatisticsVisitorCallbac
    */
   public StatisticsVisitorCallbackToXML (@NonNull final IMicroElement eRoot)
   {
-    m_eRoot = ValueEnforcer.notNull (eRoot, "Root");
+    ValueEnforcer.notNull (eRoot, "Root");
+    m_eRoot = eRoot;
   }
 
   /**

@@ -31,6 +31,7 @@ import org.w3c.dom.Node;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.io.resource.IWritableResource;
 
 /**
@@ -58,6 +59,7 @@ public final class TransformResultFactory
   @NonNull
   public static StreamResult create (@NonNull final File aFile)
   {
+    ValueEnforcer.notNull (aFile, "File");
     return new StreamResult (aFile);
   }
 
@@ -71,6 +73,7 @@ public final class TransformResultFactory
   @NonNull
   public static StreamResult create (@NonNull final Path aPath)
   {
+    ValueEnforcer.notNull (aPath, "Path");
     return new StreamResult (aPath.toFile ());
   }
 
@@ -84,6 +87,7 @@ public final class TransformResultFactory
   @NonNull
   public static StreamResult create (@NonNull final IWritableResource aResource)
   {
+    ValueEnforcer.notNull (aResource, "Resource");
     return new StreamResult (aResource.getAsFile ());
   }
 

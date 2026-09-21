@@ -366,14 +366,14 @@ public final class XMLHelperTest
       XMLHelper.getPathToNode (null);
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final NullPointerException ex)
     {}
     try
     {
       XMLHelper.getPathToNode (e, null);
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final NullPointerException ex)
     {}
   }
 
@@ -412,14 +412,14 @@ public final class XMLHelperTest
       XMLHelper.getPathToNode2 (null);
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final NullPointerException ex)
     {}
     try
     {
       XMLHelper.getPathToNode2 (e, null);
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final NullPointerException ex)
     {}
   }
 

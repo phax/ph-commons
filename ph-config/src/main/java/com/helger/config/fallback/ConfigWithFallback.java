@@ -105,6 +105,8 @@ public class ConfigWithFallback extends Config implements IConfigWithFallback
   public ConfiguredValue getConfiguredValueOrFallback (@NonNull final String sPrimary,
                                                        @NonNull @Nonempty final String @NonNull... aOldOnes)
   {
+    ValueEnforcer.notNull (sPrimary, "Primary");
+    ValueEnforcer.notNullNoNullValue (aOldOnes, "OldOnes");
     ConfiguredValue ret = getConfiguredValue (sPrimary);
     if (ret == null)
     {

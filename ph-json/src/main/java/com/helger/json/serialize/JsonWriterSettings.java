@@ -123,7 +123,8 @@ public class JsonWriterSettings implements IJsonWriterSettings
   @NonNull
   public final JsonWriterSettings setIndentString (@NonNull @Nonempty final String sIndentString)
   {
-    m_sIndentString = ValueEnforcer.notEmpty (sIndentString, "IndentString");
+    ValueEnforcer.notEmpty (sIndentString, "IndentString");
+    m_sIndentString = sIndentString;
     return this;
   }
 
@@ -148,7 +149,8 @@ public class JsonWriterSettings implements IJsonWriterSettings
   @NonNull
   public final JsonWriterSettings setNewlineString (@NonNull @Nonempty final String sNewlineString)
   {
-    m_sNewlineString = ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
+    ValueEnforcer.notEmpty (sNewlineString, "NewlineString");
+    m_sNewlineString = sNewlineString;
     return this;
   }
 

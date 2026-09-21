@@ -81,7 +81,8 @@ public class DefaultEntityResolver implements EntityResolver
    */
   public DefaultEntityResolver (@NonNull final String sBaseURI)
   {
-    m_sBaseURI = ValueEnforcer.notNull (sBaseURI, "BaseURI");
+    ValueEnforcer.notNull (sBaseURI, "BaseURI");
+    m_sBaseURI = sBaseURI;
   }
 
   /**
@@ -162,6 +163,8 @@ public class DefaultEntityResolver implements EntityResolver
   @Nullable
   public static DefaultEntityResolver createOnDemand (@NonNull final IReadableResource aBaseResource)
   {
+    ValueEnforcer.notNull (aBaseResource, "BaseResource");
+    
     final URL aURL = aBaseResource.getAsURL ();
     return aURL == null ? null : new DefaultEntityResolver (aURL);
   }

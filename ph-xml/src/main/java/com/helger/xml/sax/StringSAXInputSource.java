@@ -94,7 +94,8 @@ public class StringSAXInputSource extends InputSource
    */
   public StringSAXInputSource (@NonNull final String sText, @Nullable final String sSystemID)
   {
-    m_sText = ValueEnforcer.notNull (sText, "Text");
+    ValueEnforcer.notNull (sText, "Text");
+    m_sText = sText;
     setSystemId (sSystemID);
   }
 

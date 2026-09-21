@@ -117,6 +117,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   public final <NODETYPE extends IMicroNode> NODETYPE insertBefore (@Nullable final NODETYPE aChildNode,
                                                                     @NonNull final IMicroNode aSuccessor)
   {
+    ValueEnforcer.notNull (aSuccessor, "Successor");
     if (aChildNode != null)
       onInsertBefore ((AbstractMicroNode) aChildNode, aSuccessor);
     return aChildNode;
@@ -127,6 +128,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   public final <NODETYPE extends IMicroNode> NODETYPE insertAfter (@Nullable final NODETYPE aChildNode,
                                                                    @NonNull final IMicroNode aPredecessor)
   {
+    ValueEnforcer.notNull (aPredecessor, "Predecessor");
     if (aChildNode != null)
       onInsertAfter ((AbstractMicroNode) aChildNode, aPredecessor);
     return aChildNode;
@@ -137,6 +139,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   public final <NODETYPE extends IMicroNode> NODETYPE insertAtIndex (@Nonnegative final int nIndex,
                                                                      @Nullable final NODETYPE aChildNode)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     if (aChildNode != null)
       onInsertAtIndex (nIndex, (AbstractMicroNode) aChildNode);
     return aChildNode;
@@ -183,6 +186,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @NonNull
   public final EChange removeChildAtIndex (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return onRemoveChildAtIndex (nIndex);
   }
 
@@ -230,6 +234,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Override
   public void forAllChildren (@NonNull final Consumer <? super IMicroNode> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     // empty
   }
 
@@ -237,6 +242,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @NonNull
   public EContinue forAllChildrenBreakable (@NonNull final Function <? super IMicroNode, EContinue> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     return EContinue.CONTINUE;
   }
 
@@ -244,6 +250,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   public void forAllChildren (@NonNull final Predicate <? super IMicroNode> aFilter,
                               @NonNull final Consumer <? super IMicroNode> aConsumer)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     // empty
   }
 
@@ -252,6 +260,9 @@ public abstract class AbstractMicroNode implements IMicroNode
                                               @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
                                               @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     // empty
   }
 
@@ -259,6 +270,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Nullable
   public IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return null;
   }
 
@@ -280,6 +292,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Nullable
   public IMicroNode findFirstChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
     return null;
   }
 
@@ -288,6 +301,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   public <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
                                                  @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
     return null;
   }
 
@@ -348,8 +363,7 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   protected final void internalSetParentNode (@NonNull final AbstractMicroNodeWithChildren aParentNode)
   {
-    if (aParentNode == null)
-      throw new MicroException ("No parent node passed!");
+    ValueEnforcer.notNull (aParentNode, "ParentNode");
     if (aParentNode == this)
       throw new MicroException ("Node cannot have itself as parent: " + toString ());
     if (m_aParentNode != null)
@@ -374,6 +388,8 @@ public abstract class AbstractMicroNode implements IMicroNode
   @Nullable
   public IMicroElement findParentElement (@NonNull final Predicate <? super IMicroElement> aFilter)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    
     IMicroNode aParent = m_aParentNode;
     while (aParent != null && aParent.isElement ())
     {
@@ -447,6 +463,9 @@ public abstract class AbstractMicroNode implements IMicroNode
 
   protected final void internalTriggerEvent (@NonNull final EMicroEvent eEventType, @NonNull final IMicroEvent aEvent)
   {
+    ValueEnforcer.notNull (eEventType, "EventType");
+    ValueEnforcer.notNull (aEvent, "Event");
+    
     // Any event targets present?
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
     {

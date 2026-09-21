@@ -21,6 +21,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.id.IHasID;
 import com.helger.base.lang.EnumHelper;
 import com.helger.xml.EXMLVersion;
@@ -113,6 +114,8 @@ public enum EXMLSerializeVersion implements IHasID <String>
   @NonNull
   public static EXMLSerializeVersion getFromXMLVersionOrThrow (@NonNull final EXMLVersion eXMLVersion)
   {
+    ValueEnforcer.notNull (eXMLVersion, "XMLVersion");
+    
     return switch (eXMLVersion)
     {
       case XML_10 -> EXMLSerializeVersion.XML_10;

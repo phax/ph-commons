@@ -26,6 +26,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.text.IMultilingualText;
 import com.helger.text.MultilingualText;
 import com.helger.text.ReadOnlyMultilingualText;
@@ -118,6 +119,8 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
+    
     // Register the read-only version first!
     aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class,
                                                  new ReadOnlyMultilingualTextConverter ());

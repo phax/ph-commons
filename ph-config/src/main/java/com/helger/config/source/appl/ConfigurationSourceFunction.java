@@ -91,6 +91,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     return m_aValueProvider.apply (sKey) != null;
   }
 
@@ -98,6 +99,7 @@ public class ConfigurationSourceFunction extends AbstractConfigurationSource
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     final String sValue = m_aValueProvider.apply (sKey);
     if (sValue == null)
       return null;

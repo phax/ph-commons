@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.json.parser.JsonParseException;
 
 /**
@@ -52,6 +53,7 @@ public class LoggingJsonParseExceptionCallback implements IJsonParseExceptionCal
   @Nonempty
   public static String createLoggingStringParseError (@NonNull final JsonParseException ex)
   {
+    ValueEnforcer.notNull (ex, "Exception");
     // Is null if the constructor with String only was used
     return ex.getMessage ();
   }

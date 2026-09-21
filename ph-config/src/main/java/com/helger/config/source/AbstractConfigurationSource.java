@@ -84,6 +84,7 @@ public abstract class AbstractConfigurationSource implements IConfigurationSourc
    */
   public static boolean isSecretKey (@NonNull final String sKey)
   {
+    ValueEnforcer.notNull (sKey, "Key");
     final String sRealKey = sKey.toLowerCase (Locale.ROOT);
     return sRealKey.contains ("password") ||
            sRealKey.contains ("passwd") ||

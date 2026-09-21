@@ -96,6 +96,7 @@ public class ConfigSubset implements IConfig
   @NonNull
   protected final String getPrefixed (@NonNull final String sKey)
   {
+    ValueEnforcer.notNull (sKey, "Key");
     return m_sPrefix + sKey;
   }
 
@@ -129,6 +130,7 @@ public class ConfigSubset implements IConfig
   @Override
   public void forEachConfigurationValueProvider (@NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
+    ValueEnforcer.notNull (aCallback, "Callback");
     m_aParent.forEachConfigurationValueProvider (aCallback);
   }
 

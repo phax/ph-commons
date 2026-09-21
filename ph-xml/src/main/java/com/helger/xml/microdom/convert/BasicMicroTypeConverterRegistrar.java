@@ -41,6 +41,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.state.EContinue;
 import com.helger.base.state.EEOI;
@@ -71,6 +72,8 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
   /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
+    
     // String converter
     aRegistry.registerMicroElementTypeConverter (String.class, StringMicroTypeConverter.getInstance ());
 

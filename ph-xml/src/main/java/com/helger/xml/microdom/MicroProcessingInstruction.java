@@ -57,7 +57,8 @@ public final class MicroProcessingInstruction extends AbstractMicroNode implemen
    */
   public MicroProcessingInstruction (@NonNull @Nonempty final String sTarget, @Nullable final String sData)
   {
-    m_sTarget = ValueEnforcer.notEmpty (sTarget, "Target");
+    ValueEnforcer.notEmpty (sTarget, "Target");
+    m_sTarget = sTarget;
     m_sData = sData;
   }
 

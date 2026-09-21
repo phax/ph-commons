@@ -93,7 +93,8 @@ public final class MimeTypeInfo
      */
     public MimeTypeWithSource (@NonNull final IMimeType aMimeType, @Nullable final String sSource)
     {
-      m_aMimeType = ValueEnforcer.notNull (aMimeType, "MimeType");
+      ValueEnforcer.notNull (aMimeType, "MimeType");
+      m_aMimeType = aMimeType;
       m_sSource = sSource;
     }
 
@@ -188,7 +189,8 @@ public final class MimeTypeInfo
      */
     public ExtensionWithSource (@NonNull final String sExt, @Nullable final String sSource)
     {
-      m_sExt = ValueEnforcer.notNull (sExt, "Extension");
+      ValueEnforcer.notNull (sExt, "Extension");
+      m_sExt = sExt;
       m_sSource = sSource;
     }
 
@@ -219,6 +221,8 @@ public final class MimeTypeInfo
      */
     public boolean matches (@NonNull @Nonempty final String sExtension)
     {
+      ValueEnforcer.notEmpty (sExtension, "Extension");
+      
       if (m_sExt.contains (sExtension))
         return true;
 

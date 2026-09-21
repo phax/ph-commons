@@ -22,6 +22,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import com.helger.annotation.Nonempty;
+import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Abstract {@link LSResourceResolver} base implementation.
@@ -135,6 +136,8 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
                                         @Nullable final String sSystemId,
                                         @Nullable final String sBaseURI)
   {
+    ValueEnforcer.notEmpty (sType, "Type");
+    
     final LSInput ret = mainResolveResource (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     if (ret != null)
       return ret;

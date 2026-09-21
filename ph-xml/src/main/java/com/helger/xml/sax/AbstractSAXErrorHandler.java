@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.diagnostics.error.IError;
@@ -52,6 +53,9 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   @NonNull
   public static IError getSaxParseError (@NonNull final IErrorLevel aErrorLevel, @NonNull final SAXParseException ex)
   {
+    ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
+    ValueEnforcer.notNull (ex, "Exception");
+    
     return SingleError.builder ()
                       .errorLevel (aErrorLevel)
                       .errorLocation (SimpleLocation.create (ex))

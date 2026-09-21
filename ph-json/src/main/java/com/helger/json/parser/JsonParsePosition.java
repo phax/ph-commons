@@ -21,6 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
@@ -55,6 +56,7 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
    */
   public JsonParsePosition (@NonNull final JsonParsePosition aOther)
   {
+    ValueEnforcer.notNull (aOther, "Other");
     m_nLine = aOther.m_nLine;
     m_nColumn = aOther.m_nColumn;
   }

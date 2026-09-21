@@ -63,7 +63,8 @@ public final class ChildrenProviderElementWithName implements IChildrenProvider 
                                           @NonNull @Nonempty final String sTagName)
   {
     m_sNamespaceURI = sNamespaceURI;
-    m_sTagName = ValueEnforcer.notEmpty (sTagName, "TagName");
+    ValueEnforcer.notEmpty (sTagName, "TagName");
+    m_sTagName = sTagName;
   }
 
   @Override

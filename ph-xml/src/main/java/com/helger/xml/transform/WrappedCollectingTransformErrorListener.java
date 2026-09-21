@@ -45,7 +45,8 @@ public class WrappedCollectingTransformErrorListener extends AbstractTransformEr
    */
   public WrappedCollectingTransformErrorListener (@NonNull final ErrorList aErrorList)
   {
-    m_aErrorList = ValueEnforcer.notNull (aErrorList, "ErrorList");
+    ValueEnforcer.notNull (aErrorList, "ErrorList");
+    m_aErrorList = aErrorList;
   }
 
   /**

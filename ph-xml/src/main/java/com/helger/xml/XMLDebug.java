@@ -26,6 +26,7 @@ import org.w3c.dom.DOMImplementation;
 
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsEnumMap;
 import com.helger.collection.commons.ICommonsList;
@@ -109,6 +110,8 @@ public final class XMLDebug
   @ReturnsMutableCopy
   public static ICommonsList <String> getAllSupportedFeatures (@NonNull final EXMLDOMFeatureVersion eFeatureVersion)
   {
+    ValueEnforcer.notNull (eFeatureVersion, "FeatureVersion");
+    
     final ICommonsList <String> ret = SUPPORTED_FEATURES.get (eFeatureVersion);
     return ret == null ? null : ret.getClone ();
   }

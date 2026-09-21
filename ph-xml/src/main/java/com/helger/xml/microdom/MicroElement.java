@@ -188,6 +188,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final Consumer <? super IMicroAttribute> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (aConsumer);
   }
@@ -195,6 +196,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final BiConsumer <? super IMicroQName, ? super String> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (a -> aConsumer.accept (a.getAttributeQName (), a.getAttributeValue ()));
   }
@@ -202,6 +204,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   /** {@inheritDoc} */
   public void forAllAttributes (@NonNull final ITriConsumer <? super String, ? super String, ? super String> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aAttrs != null)
       m_aAttrs.forEachValue (x -> aConsumer.accept (x.getNamespaceURI (),
                                                     x.getAttributeName (),
@@ -231,6 +234,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public <DSTTYPE> DSTTYPE getAttributeValueWithConversion (@Nullable final IMicroQName aAttrName,
                                                             @NonNull final Class <DSTTYPE> aDstClass)
   {
+    ValueEnforcer.notNull (aDstClass, "DstClass");
     final String sAttrValue = getAttributeValue (aAttrName);
     return _getConvertedToType (sAttrValue, aDstClass);
   }
@@ -407,6 +411,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public void forAllChildElements (@Nullable final Predicate <? super IMicroElement> aFilter,
                                    @NonNull final Consumer <? super IMicroElement> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     _forAllChildElements (this, aFilter, aConsumer);
   }
 
@@ -415,6 +420,7 @@ public final class MicroElement extends AbstractMicroNodeWithChildren implements
   public EContinue forAllChildElementsBreakable (@Nullable final Predicate <? super IMicroElement> aFilter,
                                                  @NonNull final Function <? super IMicroElement, EContinue> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     return _forAllChildElementsBreakable (this, aFilter, aConsumer);
   }
 

@@ -152,6 +152,9 @@ public final class XMLFactory
                                  @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
   {
+    ValueEnforcer.notNull (aFactory, "Factory");
+    ValueEnforcer.notNull (eFeature, "Feature");
+    
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -455,6 +458,7 @@ public final class XMLFactory
                                       @Nullable final String sSystemId)
   {
     ValueEnforcer.notNull (aDocBuilder, "DocBuilder");
+    ValueEnforcer.notNull (sQualifiedName, "QualifiedName");
 
     final DOMImplementation aDomImpl = aDocBuilder.getDOMImplementation ();
     final DocumentType aDocType = aDomImpl.createDocumentType (sQualifiedName, sPublicId, sSystemId);
@@ -478,6 +482,9 @@ public final class XMLFactory
                                  @NonNull final EXMLParserFeature eFeature,
                                  final boolean bValue)
   {
+    ValueEnforcer.notNull (aFactory, "Factory");
+    ValueEnforcer.notNull (eFeature, "Feature");
+    
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -555,6 +562,9 @@ public final class XMLFactory
                                  final boolean bValue,
                                  final boolean bLogOnError)
   {
+    ValueEnforcer.notNull (aFactory, "Factory");
+    ValueEnforcer.notNull (eFeature, "Feature");
+    
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -638,6 +648,9 @@ public final class XMLFactory
                                   @NonNull final String sProperty,
                                   final Object aValue)
   {
+    ValueEnforcer.notNull (aFactory, "Factory");
+    ValueEnforcer.notNull (sProperty, "Property");
+    
     try
     {
       aFactory.setProperty (sProperty, aValue);

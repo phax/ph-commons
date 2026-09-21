@@ -52,6 +52,7 @@ public final class MicroVisitor
   public static void visit (@NonNull final IMicroNode aNode,
                             @NonNull final IHierarchyVisitorCallback <? super IMicroNode> aCallback)
   {
+    ValueEnforcer.notNull (aCallback, "Callback");
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aCallback, false);
   }
@@ -73,6 +74,8 @@ public final class MicroVisitor
                                                    @NonNull final IChildrenProvider <T> aChildrenProvider,
                                                    @NonNull final IHierarchyVisitorCallback <? super T> aCallback)
   {
+    ValueEnforcer.notNull (aChildrenProvider, "ChildrenProvider");
+    ValueEnforcer.notNull (aCallback, "Callback");
     ValueEnforcer.notNull (aNode, "Node");
     ChildrenProviderHierarchyVisitor.visitFrom (aNode, aChildrenProvider, aCallback, false);
   }

@@ -130,6 +130,7 @@ public final class XMLHelper
   @NonNull
   public static String getLocalNameOrTagName (@NonNull final Element aElement)
   {
+    ValueEnforcer.notNull (aElement, "Element");
     String ret = aElement.getLocalName ();
     if (ret == null)
       ret = aElement.getTagName ();
@@ -146,6 +147,7 @@ public final class XMLHelper
   @NonNull
   public static String getLocalNameOrName (@NonNull final Attr aAttr)
   {
+    ValueEnforcer.notNull (aAttr, "Attr");
     String ret = aAttr.getLocalName ();
     if (ret == null)
       ret = aAttr.getName ();
@@ -184,6 +186,7 @@ public final class XMLHelper
    */
   public static boolean hasNoNamespaceURI (@NonNull final Node aNode)
   {
+    ValueEnforcer.notNull (aNode, "Node");
     return StringHelper.isEmpty (aNode.getNamespaceURI ());
   }
 
@@ -373,6 +376,7 @@ public final class XMLHelper
   public static Element getFirstChildElementOfName (@Nullable final Node aStartNode,
                                                     @NonNull @Nonempty final String sTagName)
   {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
     if (aStartNode == null)
       return null;
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithTagName (sTagName));
@@ -394,6 +398,7 @@ public final class XMLHelper
                                                     @Nullable final String sNamespaceURI,
                                                     @NonNull @Nonempty final String sLocalName)
   {
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
     if (aStartNode == null)
       return null;
     return new ChildElementIterator (aStartNode).findFirst (filterElementWithNamespaceAndLocalName (sNamespaceURI,
@@ -510,6 +515,7 @@ public final class XMLHelper
    */
   public static void append (@NonNull final Node aParentNode, @NonNull final Iterable <?> aNodesToAppend)
   {
+    ValueEnforcer.notNull (aNodesToAppend, "NodesToAppend");
     ValueEnforcer.notNull (aParentNode, "ParentNode");
     for (final Object aNode : aNodesToAppend)
       append (aParentNode, aNode);
@@ -554,6 +560,7 @@ public final class XMLHelper
   public static int getDirectChildElementCount (@Nullable final Element aParent,
                                                 @NonNull @Nonempty final String sTagName)
   {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIterator (aParent, sTagName));
   }
 
@@ -570,6 +577,7 @@ public final class XMLHelper
   public static int getDirectChildElementCountNoNS (@Nullable final Element aParent,
                                                     @NonNull @Nonempty final String sTagName)
   {
+    ValueEnforcer.notEmpty (sTagName, "TagName");
     return aParent == null ? 0 : CollectionHelper.getSize (getChildElementIteratorNoNS (aParent, sTagName));
   }
 
@@ -604,6 +612,7 @@ public final class XMLHelper
                                                   @Nullable final String sNamespaceURI,
                                                   @NonNull @Nonempty final String sLocalName)
   {
+    ValueEnforcer.notEmpty (sLocalName, "LocalName");
     return aParent == null ? 0
                            : CollectionHelper.getSize (getChildElementIteratorNS (aParent, sNamespaceURI, sLocalName));
   }
@@ -719,6 +728,9 @@ public final class XMLHelper
    */
   public static boolean hasSameElementName (@NonNull final Element aFirst, @NonNull final Element aSecond)
   {
+    ValueEnforcer.notNull (aFirst, "First");
+    ValueEnforcer.notNull (aSecond, "Second");
+    
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
     if (StringHelper.isNotEmpty (sFirstNS))
@@ -1127,6 +1139,9 @@ public final class XMLHelper
   @NonNull
   public static String getPathToNode (@NonNull final Node aNode, @NonNull final String sSep)
   {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (sSep, "Separator");
+    
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
                                .includeDocumentNode ()
@@ -1163,6 +1178,9 @@ public final class XMLHelper
   @NonNull
   public static String getPathToNode2 (@NonNull final Node aNode, @NonNull final String sSep)
   {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (sSep, "Separator");
+    
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
                                .excludeDocumentNode ()
@@ -1237,6 +1255,9 @@ public final class XMLHelper
                                           @NonNull final String sAttrName,
                                           @Nullable final String sDefault)
   {
+    ValueEnforcer.notNull (aElement, "Element");
+    ValueEnforcer.notNull (sAttrName, "AttrName");
+    
     final Attr aAttr = aElement.getAttributeNode (sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
@@ -1283,6 +1304,9 @@ public final class XMLHelper
                                             @NonNull final String sAttrName,
                                             @Nullable final String sDefault)
   {
+    ValueEnforcer.notNull (aElement, "Element");
+    ValueEnforcer.notNull (sAttrName, "AttrName");
+    
     final Attr aAttr = aElement.getAttributeNodeNS (sNamespaceURI, sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
@@ -1332,6 +1356,7 @@ public final class XMLHelper
   public static void forAllAttributes (@Nullable final Element aSrcNode,
                                        @NonNull final Consumer <? super Attr> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     NamedNodeMapIterator.createAttributeIterator (aSrcNode).forEach (x -> aConsumer.accept ((Attr) x));
   }
 
@@ -1403,6 +1428,7 @@ public final class XMLHelper
   @NonNull
   public static QName getQName (@NonNull final Element aElement)
   {
+    ValueEnforcer.notNull (aElement, "Element");
     final String sNamespaceURI = aElement.getNamespaceURI ();
     if (sNamespaceURI == null)
       return new QName (aElement.getTagName ());

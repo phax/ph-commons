@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.config.json.source.ConfigurationSourceJson;
 import com.helger.config.source.resource.type.ConfigurationSourceResourceTypeRegistry;
 import com.helger.config.source.resource.type.IConfigurationSourceResourceTypeRegistrarSPI;
@@ -36,6 +37,7 @@ public class JsonConfigurationSourceResourceTypeRegistrarSPI implements IConfigu
   /** {@inheritDoc} */
   public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
     aRegistry.register (ConfigurationSourceJson.FILE_EXT, x -> new ConfigurationSourceJson (x, StandardCharsets.UTF_8));
   }
 }

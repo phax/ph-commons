@@ -199,6 +199,9 @@ public final class XMLWriter
   @Nullable
   public static String getNodeAsString (@NonNull final Node aNode, @NonNull final IXMLWriterSettings aSettings)
   {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (aSettings, "Settings");
+    
     // start serializing
     try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
     {

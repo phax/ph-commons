@@ -42,7 +42,8 @@ public final class MicroEntityReference extends AbstractMicroNode implements IMi
    */
   public MicroEntityReference (@NonNull @Nonempty final String sName)
   {
-    m_sName = ValueEnforcer.notEmpty (sName, "EntityReferenceName");
+    ValueEnforcer.notEmpty (sName, "EntityReferenceName");
+    m_sName = sName;
   }
 
   /** {@inheritDoc} */

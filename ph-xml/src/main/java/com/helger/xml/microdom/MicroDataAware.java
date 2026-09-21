@@ -109,6 +109,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
    */
   public void appendData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
+    ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aSB.append (aChars, nOfs, nLen);
   }
 
@@ -146,6 +147,7 @@ final class MicroDataAware implements IMicroDataAware, ICloneable <MicroDataAwar
    */
   public void prependData (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {
+    ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aSB.insert (0, aChars, nOfs, nLen);
   }
 

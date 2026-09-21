@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.base.classloader.ClassLoaderHelper;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.config.ConfigFactory;
 import com.helger.config.json.source.ConfigurationSourceJson;
 import com.helger.config.source.EConfigSourceType;
@@ -54,6 +55,8 @@ public final class ConfigFactoryJson
    */
   public static void addDefaultJsonConfiguration (@NonNull final MultiConfigurationValueProvider aMVP)
   {
+    ValueEnforcer.notNull (aMVP, "MVP");
+    
     final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
 
     // Prio 195, incl. files

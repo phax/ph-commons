@@ -49,8 +49,10 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
    */
   public XPathFunctionKey (@NonNull final QName aFunctionName, @Nonnegative final int nArity)
   {
-    m_aFunctionName = ValueEnforcer.notNull (aFunctionName, "FunctionName");
-    m_nArity = ValueEnforcer.isGE0 (nArity, "Arity");
+    ValueEnforcer.notNull (aFunctionName, "FunctionName");
+    m_aFunctionName = aFunctionName;
+    ValueEnforcer.isGE0 (nArity, "Arity");
+    m_nArity = nArity;
   }
 
   /**
@@ -74,6 +76,8 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
   /** {@inheritDoc} */
   public int compareTo (@NonNull final XPathFunctionKey o)
   {
+    ValueEnforcer.notNull (o, "Other");
+    
     // 1st namespace URI
     int ret = CompareHelper.compare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
     if (ret == 0)

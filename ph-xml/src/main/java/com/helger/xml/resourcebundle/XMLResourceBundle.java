@@ -65,6 +65,8 @@ public final class XMLResourceBundle extends ResourceBundle
   @ReturnsMutableCopy
   public static ICommonsOrderedMap <String, String> readFromPropertiesXML (@NonNull @WillClose final InputStream aIS)
   {
+    ValueEnforcer.notNull (aIS, "InputStream");
+    
     final ICommonsOrderedMap <String, String> ret = new CommonsLinkedHashMap <> ();
     final IMicroDocument aDoc = MicroReader.readMicroXML (aIS);
     if (aDoc != null)
@@ -83,6 +85,8 @@ public final class XMLResourceBundle extends ResourceBundle
   @NonNull
   public static IMicroDocument getAsPropertiesXML (@NonNull final Map <String, String> aMap)
   {
+    ValueEnforcer.notNull (aMap, "Map");
+    
     final IMicroDocument ret = new MicroDocument ();
     final IMicroElement eRoot = ret.addElement ("properties");
     for (final Map.Entry <String, String> aEntry : aMap.entrySet ())

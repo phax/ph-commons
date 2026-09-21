@@ -24,6 +24,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
@@ -56,6 +57,7 @@ public class JsonStringBuilder
    */
   public JsonStringBuilder (@Nonnegative final int nCapacity)
   {
+    ValueEnforcer.isGE0 (nCapacity, "Capacity");
     m_aBuf = new char [nCapacity];
     m_nLen = 0;
   }

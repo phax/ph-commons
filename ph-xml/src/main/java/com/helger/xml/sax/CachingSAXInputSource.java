@@ -24,6 +24,7 @@ import org.xml.sax.InputSource;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
@@ -41,6 +42,7 @@ public class CachingSAXInputSource extends InputSource
   @NonNull
   private static NonBlockingByteArrayInputStream _getCachedInputStream (@NonNull @WillClose final InputStream aIS)
   {
+    ValueEnforcer.notNull (aIS, "InputStream");
     return new NonBlockingByteArrayInputStream (StreamHelper.getAllBytes (aIS));
   }
 

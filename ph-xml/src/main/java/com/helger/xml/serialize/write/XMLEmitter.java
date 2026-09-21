@@ -101,8 +101,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public XMLEmitter (@NonNull @WillNotClose final Writer aWriter, @NonNull final IXMLWriterSettings aSettings)
   {
-    m_aWriter = ValueEnforcer.notNull (aWriter, "Writer");
-    m_aXMLWriterSettings = ValueEnforcer.notNull (aSettings, "Settings");
+    ValueEnforcer.notNull (aWriter, "Writer");
+    m_aWriter = aWriter;
+    ValueEnforcer.notNull (aSettings, "Settings");
+    m_aXMLWriterSettings = aSettings;
     m_eXMLVersion = aSettings.getSerializeVersion ();
     m_cAttrValueBoundary = aSettings.isUseDoubleQuotesForAttributes () ? '"' : '\'';
     m_eAttrValueCharMode = aSettings.isUseDoubleQuotesForAttributes () ? EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES
@@ -242,6 +244,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
                                 @NonNull final ETriState eStandalone,
                                 final boolean bWithNewLine)
   {
+    ValueEnforcer.notNull (eStandalone, "Standalone");
+    
     if (eXMLVersion != null)
     {
       // Maybe switch from 1.0 to 1.1 or vice versa at the very beginning of the
@@ -276,6 +280,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onDTD (@NonNull final String sDTD)
   {
+    ValueEnforcer.notNull (sDTD, "DTD");
+    
     _append (sDTD);
     newLine ();
   }
@@ -296,6 +302,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
                                                      @NonNull final EXMLIncorrectCharacterHandling eIncorrectCharHandling,
                                                      @NonNull final IMicroDocumentType aDocType)
   {
+    ValueEnforcer.notNull (aDocType, "DocType");
+    
     return getDocTypeXMLRepresentation (eXMLVersion,
                                         eIncorrectCharHandling,
                                         aDocType.getQualifiedName (),
@@ -326,6 +334,10 @@ public class XMLEmitter implements AutoCloseable, Flushable
                                                     @Nullable final String sPublicID,
                                                     @Nullable final String sSystemID)
   {
+    ValueEnforcer.notNull (eXMLVersion, "XMLVersion");
+    ValueEnforcer.notNull (eIncorrectCharHandling, "IncorrectCharHandling");
+    ValueEnforcer.notNull (sQualifiedName, "QualifiedName");
+    
     // do not return a line break at the end! (JS variable assignment)
     final StringBuilder aSB = new StringBuilder (128);
     aSB.append ("<!DOCTYPE ").append (sQualifiedName);
@@ -393,6 +405,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onProcessingInstruction (@NonNull final String sTarget, @Nullable final String sData)
   {
+    ValueEnforcer.notNull (sTarget, "Target");
+    
     // Neither target nor data may contain the PI end marker "?>" as that would
     // allow breaking out of the processing instruction (XML injection)
     if (sTarget.contains (PI_END))
@@ -417,6 +431,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void onEntityReference (@NonNull final String sEntityRef)
   {
+    ValueEnforcer.notNull (sEntityRef, "EntityRef");
+    
     _append (ER_START)._append (sEntityRef)._append (ER_END);
   }
 
@@ -513,6 +529,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
                       @Nonnegative final int nLen,
                       final boolean bEscape)
   {
+    ValueEnforcer.isArrayOfsLen (aText, nOfs, nLen);
+    
     if (bEscape)
       _appendMasked (EXMLCharMode.TEXT, aText, nOfs, nLen);
     else
@@ -563,6 +581,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void elementStartOpen (@Nullable final String sNamespacePrefix, @NonNull final String sTagName)
   {
+    ValueEnforcer.notNull (sTagName, "TagName");
+    
     _append ('<');
     if (StringHelper.isNotEmpty (sNamespacePrefix))
     {
@@ -586,6 +606,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
                            @NonNull final String sAttrName,
                            @NonNull final String sAttrValue)
   {
+    ValueEnforcer.notNull (sAttrName, "AttrName");
+    ValueEnforcer.notNull (sAttrValue, "AttrValue");
+    
     _append (' ');
     if (StringHelper.isNotEmpty (sAttrNamespacePrefix))
     {
@@ -603,6 +626,8 @@ public class XMLEmitter implements AutoCloseable, Flushable
    */
   public void elementStartClose (@NonNull final EXMLSerializeBracketMode eBracketMode)
   {
+    ValueEnforcer.notNull (eBracketMode, "BracketMode");
+    
     if (eBracketMode.isSelfClosed ())
     {
       // Note: according to HTML compatibility guideline a space should be added
@@ -693,6 +718,9 @@ public class XMLEmitter implements AutoCloseable, Flushable
                             @NonNull final String sTagName,
                             @NonNull final EXMLSerializeBracketMode eBracketMode)
   {
+    ValueEnforcer.notNull (sTagName, "TagName");
+    ValueEnforcer.notNull (eBracketMode, "BracketMode");
+    
     if (eBracketMode.isOpenClose ())
     {
       _append ("</");

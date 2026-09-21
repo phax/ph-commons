@@ -595,7 +595,8 @@ public abstract class AbstractXMLSerializer <NODETYPE>
 
   protected AbstractXMLSerializer (@NonNull final IXMLWriterSettings aSettings)
   {
-    m_aSettings = ValueEnforcer.notNull (aSettings, "Settings");
+    ValueEnforcer.notNull (aSettings, "Settings");
+    m_aSettings = aSettings;
 
     final NamespaceContext aNC = aSettings.getNamespaceContext ();
     m_aNSStack = new NamespaceStack (aNC);
@@ -672,6 +673,9 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   public final void write (@NonNull final NODETYPE aNode, @NonNull final XMLEmitter aXMLEmitter)
   {
+    ValueEnforcer.notNull (aNode, "Node");
+    ValueEnforcer.notNull (aXMLEmitter, "XMLEmitter");
+    
     // No parent node
     // No previous and no next sibling
     emitNode (aXMLEmitter, null, null, aNode, null);
@@ -708,6 +712,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
    */
   public final void write (@NonNull final NODETYPE aNode, @NonNull @WillNotClose final Writer aWriter)
   {
+    ValueEnforcer.notNull (aNode, "Node");
     final XMLEmitter aXMLWriter = createXMLEmitter (aWriter, m_aSettings);
     // No parent node
     // No previous and no next sibling

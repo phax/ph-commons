@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.system.SystemProperties;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.ICommonsMap;
@@ -74,6 +75,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     return SystemProperties.getPropertyValueOrNull (sKey) != null;
   }
 
@@ -81,6 +83,7 @@ public class ConfigurationSourceSystemProperty extends AbstractConfigurationSour
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Querying configuration property '" + sKey + "' as SystemProperty");
 

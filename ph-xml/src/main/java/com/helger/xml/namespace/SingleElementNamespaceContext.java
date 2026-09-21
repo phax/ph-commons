@@ -64,8 +64,10 @@ public class SingleElementNamespaceContext extends AbstractNamespaceContext
    */
   public SingleElementNamespaceContext (@NonNull final String sPrefix, @NonNull @Nonempty final String sNamespaceURI)
   {
-    m_sPrefix = ValueEnforcer.notNull (sPrefix, "Prefix");
-    m_sNamespaceURI = ValueEnforcer.notEmpty (sNamespaceURI, "NamespaceURI");
+    ValueEnforcer.notNull (sPrefix, "Prefix");
+    m_sPrefix = sPrefix;
+    ValueEnforcer.notEmpty (sNamespaceURI, "NamespaceURI");
+    m_sNamespaceURI = sNamespaceURI;
   }
 
   @Override

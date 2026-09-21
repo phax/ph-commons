@@ -202,7 +202,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setSerializeVersion (@NonNull final EXMLSerializeVersion eSerializeVersion)
   {
-    m_eSerializeVersion = ValueEnforcer.notNull (eSerializeVersion, "Version");
+    ValueEnforcer.notNull (eSerializeVersion, "Version");
+    m_eSerializeVersion = eSerializeVersion;
     return this;
   }
 
@@ -227,7 +228,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setSerializeXMLDeclaration (@NonNull final EXMLSerializeXMLDeclaration eSerializeXMLDecl)
   {
-    m_eSerializeXMLDecl = ValueEnforcer.notNull (eSerializeXMLDecl, "SerializeXMLDecl");
+    ValueEnforcer.notNull (eSerializeXMLDecl, "SerializeXMLDecl");
+    m_eSerializeXMLDecl = eSerializeXMLDecl;
     return this;
   }
 
@@ -277,7 +279,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setSerializeDocType (@NonNull final EXMLSerializeDocType eSerializeDocType)
   {
-    m_eSerializeDocType = ValueEnforcer.notNull (eSerializeDocType, "SerializeDocType");
+    ValueEnforcer.notNull (eSerializeDocType, "SerializeDocType");
+    m_eSerializeDocType = eSerializeDocType;
     return this;
   }
 
@@ -302,7 +305,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setSerializeComments (@NonNull final EXMLSerializeComments eSerializeComments)
   {
-    m_eSerializeComments = ValueEnforcer.notNull (eSerializeComments, "SerializeComments");
+    ValueEnforcer.notNull (eSerializeComments, "SerializeComments");
+    m_eSerializeComments = eSerializeComments;
     return this;
   }
 
@@ -327,7 +331,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setIndent (@NonNull final EXMLSerializeIndent eIndent)
   {
-    m_eIndent = ValueEnforcer.notNull (eIndent, "Indent");
+    ValueEnforcer.notNull (eIndent, "Indent");
+    m_eIndent = eIndent;
     return this;
   }
 
@@ -352,7 +357,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setIndentDeterminator (@NonNull final IXMLIndentDeterminator aIndentDeterminator)
   {
-    m_aIndentDeterminator = ValueEnforcer.notNull (aIndentDeterminator, "IndentDeterminator");
+    ValueEnforcer.notNull (aIndentDeterminator, "IndentDeterminator");
+    m_aIndentDeterminator = aIndentDeterminator;
     return this;
   }
 
@@ -377,7 +383,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setIncorrectCharacterHandling (@NonNull final EXMLIncorrectCharacterHandling eIncorrectCharacterHandling)
   {
-    m_eIncorrectCharacterHandling = ValueEnforcer.notNull (eIncorrectCharacterHandling, "IncorrectCharacterHandling");
+    ValueEnforcer.notNull (eIncorrectCharacterHandling, "IncorrectCharacterHandling");
+    m_eIncorrectCharacterHandling = eIncorrectCharacterHandling;
     return this;
   }
 
@@ -402,7 +409,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setCharset (@NonNull final Charset aCharset)
   {
-    m_aCharset = ValueEnforcer.notNull (aCharset, "Charset");
+    ValueEnforcer.notNull (aCharset, "Charset");
+    m_aCharset = aCharset;
     return this;
   }
 
@@ -529,7 +537,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setNewLineMode (@NonNull final ENewLineMode eNewLineMode)
   {
-    m_eNewLineMode = ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
+    ValueEnforcer.notNull (eNewLineMode, "NewLineMode");
+    m_eNewLineMode = eNewLineMode;
     return this;
   }
 
@@ -555,7 +564,8 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
   @NonNull
   public final XMLWriterSettings setIndentationString (@NonNull @Nonempty final String sIndentationString)
   {
-    m_sIndentationString = ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
+    ValueEnforcer.notEmpty (sIndentationString, "IndentationString");
+    m_sIndentationString = sIndentationString;
     m_sIndentationStringToString = null;
     return this;
   }

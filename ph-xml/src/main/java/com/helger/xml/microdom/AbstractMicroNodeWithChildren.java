@@ -203,6 +203,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Override
   public final void forAllChildren (@NonNull final Consumer <? super IMicroNode> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.forEach (aConsumer);
   }
@@ -211,6 +212,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @NonNull
   public EContinue forAllChildrenBreakable (@NonNull final Function <? super IMicroNode, EContinue> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       return m_aChildren.forEachBreakable (aConsumer);
     return EContinue.CONTINUE;
@@ -220,6 +222,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public final void forAllChildren (@NonNull final Predicate <? super IMicroNode> aFilter,
                                     @NonNull final Consumer <? super IMicroNode> aConsumer)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.findAll (aFilter, aConsumer);
   }
@@ -229,6 +233,9 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
                                                     @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper,
                                                     @NonNull final Consumer <? super DSTTYPE> aConsumer)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     if (m_aChildren != null)
       m_aChildren.findAllMapped (aFilter, aMapper, aConsumer);
   }
@@ -246,6 +253,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode getChildAtIndex (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return m_aChildren == null ? null : m_aChildren.getAtIndex (nIndex);
   }
 
@@ -266,6 +274,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public final IMicroNode findFirstChild (@NonNull final Predicate <? super IMicroNode> aFilter)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
     return m_aChildren == null ? null : m_aChildren.findFirst (aFilter);
   }
 
@@ -274,6 +283,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public final <DSTTYPE> DSTTYPE findFirstChildMapped (@NonNull final Predicate <? super IMicroNode> aFilter,
                                                        @NonNull final Function <? super IMicroNode, ? extends DSTTYPE> aMapper)
   {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    ValueEnforcer.notNull (aMapper, "Mapper");
     return m_aChildren == null ? null : m_aChildren.findFirstMapped (aFilter, aMapper);
   }
 
@@ -324,6 +335,8 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   @Nullable
   public <DSTTYPE> DSTTYPE getTextContentWithConversion (@NonNull final Class <DSTTYPE> aDstClass)
   {
+    ValueEnforcer.notNull (aDstClass, "DstClass");
+    
     // Get the regular content
     final String sTextContent = getTextContent ();
 

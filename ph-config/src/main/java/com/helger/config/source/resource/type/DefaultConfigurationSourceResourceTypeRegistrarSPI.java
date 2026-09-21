@@ -21,6 +21,7 @@ import java.nio.charset.StandardCharsets;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.config.source.resource.properties.ConfigurationSourceProperties;
 
 /**
@@ -34,6 +35,7 @@ public class DefaultConfigurationSourceResourceTypeRegistrarSPI implements IConf
   /** {@inheritDoc} */
   public void registerResourceType (@NonNull final ConfigurationSourceResourceTypeRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
     aRegistry.register (ConfigurationSourceProperties.FILE_EXT,
                         x -> new ConfigurationSourceProperties (x, StandardCharsets.UTF_8));
   }

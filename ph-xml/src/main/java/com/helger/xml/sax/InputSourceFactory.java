@@ -31,6 +31,7 @@ import org.xml.sax.InputSource;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.ByteBufferInputStream;
@@ -64,6 +65,7 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@NonNull final File aFile)
   {
+    ValueEnforcer.notNull (aFile, "File");
     return create (new FileSystemResource (aFile));
   }
 
@@ -77,6 +79,7 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@NonNull final Path aPath)
   {
+    ValueEnforcer.notNull (aPath, "Path");
     return create (new FileSystemResource (aPath));
   }
 
@@ -90,6 +93,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (@NonNull final URI aURI)
   {
+    ValueEnforcer.notNull (aURI, "URI");
     return create (URLHelper.getAsURL (aURI));
   }
 
@@ -103,6 +107,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (@NonNull final URL aURL)
   {
+    ValueEnforcer.notNull (aURL, "URL");
     return create (new URLResource (aURL));
   }
 
@@ -116,6 +121,7 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@NonNull final IHasInputStream aISP)
   {
+    ValueEnforcer.notNull (aISP, "InputStreamProvider");
     if (aISP instanceof final IReadableResource aRes)
       return create (aRes);
     return create (aISP.getInputStream ());
@@ -131,6 +137,7 @@ public final class InputSourceFactory
   @Nullable
   public static InputSource create (@NonNull final IReadableResource aResource)
   {
+    ValueEnforcer.notNull (aResource, "Resource");
     if (aResource instanceof FileSystemResource)
     {
       final File aFile = aResource.getAsFile ();
@@ -162,6 +169,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (@NonNull final CharSequence aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return new StringSAXInputSource (aXML);
   }
 
@@ -175,6 +183,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (@NonNull final String sXML)
   {
+    ValueEnforcer.notNull (sXML, "XML");
     return new StringSAXInputSource (sXML);
   }
 
@@ -188,6 +197,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (final char @NonNull [] aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return new StringSAXInputSource (aXML);
   }
 
@@ -207,6 +217,7 @@ public final class InputSourceFactory
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
+    ValueEnforcer.isArrayOfsLen (aXML, nOfs, nLen);
     return new StringSAXInputSource (aXML, nOfs, nLen);
   }
 
@@ -220,6 +231,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (final byte @NonNull [] aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
@@ -239,6 +251,7 @@ public final class InputSourceFactory
                                     @Nonnegative final int nOfs,
                                     @Nonnegative final int nLen)
   {
+    ValueEnforcer.isArrayOfsLen (aXML, nOfs, nLen);
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLen));
   }
 
@@ -252,6 +265,7 @@ public final class InputSourceFactory
   @NonNull
   public static InputSource create (@NonNull final ByteBuffer aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return create (new ByteBufferInputStream (aXML));
   }
 

@@ -28,6 +28,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
@@ -196,6 +197,7 @@ public class JsonValue implements IJsonValue
    */
   public void appendAsJsonString (@NonNull @WillNotClose final Writer aWriter) throws IOException
   {
+    ValueEnforcer.notNull (aWriter, "Writer");
     getValueSerializer ().appendAsJsonString (m_aValue, aWriter);
   }
 

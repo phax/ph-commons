@@ -23,6 +23,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.WillNotClose;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
@@ -51,6 +52,7 @@ public final class JsonValueSerializerToString implements IJsonValueSerializer
   public void appendAsJsonString (@Nullable final Object aValue,
                                   @NonNull @WillNotClose final Writer aWriter) throws IOException
   {
+    ValueEnforcer.notNull (aWriter, "Writer");
     aWriter.write (String.valueOf (aValue));
   }
 

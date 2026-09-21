@@ -52,12 +52,13 @@ public class ConfigSubsetWithFallback extends ConfigSubset implements IConfigWit
   public ConfigSubsetWithFallback (@NonNull final IConfigWithFallback aParent, @NonNull @Nonempty final String sPrefix)
   {
     super (aParent, sPrefix);
-    m_aFallbackParent = ValueEnforcer.notNull (aParent, "Parent");
+    m_aFallbackParent = aParent;
   }
 
   @NonNull
   private String [] _getAllPrefixed (@NonNull final String @NonNull [] aKeys)
   {
+    ValueEnforcer.notNullNoNullValue (aKeys, "Keys");
     final String [] ret = new String [aKeys.length];
     for (int i = 0; i < aKeys.length; i++)
       ret[i] = getPrefixed (aKeys[i]);

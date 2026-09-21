@@ -21,6 +21,7 @@ import javax.xml.transform.TransformerException;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.tostring.ToStringGenerator;
@@ -45,6 +46,8 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
                                      @NonNull final IErrorLevel aErrorLevel,
                                      @NonNull final IMultilingualText aErrorMsg)
   {
+    ValueEnforcer.notNull (ex, "Exception");
+    
     final ILocation aLocation = SimpleLocation.create (ex.getLocator ());
     return SingleError.builder ()
                       .errorLevel (aErrorLevel)

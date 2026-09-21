@@ -69,6 +69,7 @@ public class MultiConfigurationValueProvider implements
      */
     public ConfigValueProviderWithPrio (@NonNull final IConfigurationValueProvider aCVP, final int nPrio)
     {
+      ValueEnforcer.notNull (aCVP, "ConfigValueProvider");
       m_aCVP = aCVP;
       m_nPriority = nPrio;
     }
@@ -209,6 +210,7 @@ public class MultiConfigurationValueProvider implements
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     for (final ConfigValueProviderWithPrio aSource : m_aSources)
       if (aSource.m_aCVP.containsConfigurationValue (sKey))
         return true;
@@ -219,6 +221,7 @@ public class MultiConfigurationValueProvider implements
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     if (LOGGER.isTraceEnabled ())
       LOGGER.trace ("Trying to resolve configuration value of key '" +
                     sKey +

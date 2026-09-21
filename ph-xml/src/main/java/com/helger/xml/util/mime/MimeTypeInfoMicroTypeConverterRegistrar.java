@@ -37,6 +37,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistrarSPI;
 import com.helger.xml.microdom.convert.IMicroTypeConverterRegistry;
 
@@ -52,6 +53,8 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
   /** {@inheritDoc} */
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
+    
     aRegistry.registerMicroElementTypeConverter (MimeTypeInfo.class, new MimeTypeInfoMicroTypeConverter ());
   }
 }

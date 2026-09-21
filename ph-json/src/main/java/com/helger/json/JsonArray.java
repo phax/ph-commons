@@ -64,6 +64,7 @@ public class JsonArray implements IJsonArray
    */
   public JsonArray (@Nonnegative final int nInitialCapacity)
   {
+    ValueEnforcer.isGE0 (nInitialCapacity, "InitialCapacity");
     m_aValues = new CommonsArrayList <> (nInitialCapacity);
   }
 
@@ -187,6 +188,7 @@ public class JsonArray implements IJsonArray
   @NonNull
   public JsonArray addAt (@Nonnegative final int nIndex, @NonNull final IJson aValue)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     ValueEnforcer.notNull (aValue, "Value");
 
     m_aValues.add (nIndex, aValue);
@@ -199,6 +201,7 @@ public class JsonArray implements IJsonArray
   @NonNull
   public IJson removeAndReturnAtIndex (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return m_aValues.removeAndReturnElementAtIndex (nIndex);
   }
 
@@ -208,6 +211,7 @@ public class JsonArray implements IJsonArray
   @NonNull
   public EChange removeAtIndex (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return m_aValues.removeAtIndex (nIndex);
   }
 
@@ -217,6 +221,7 @@ public class JsonArray implements IJsonArray
   @Nullable
   public IJson get (@Nonnegative final int nIndex)
   {
+    ValueEnforcer.isGE0 (nIndex, "Index");
     return m_aValues.getAtIndex (nIndex);
   }
 
@@ -249,6 +254,7 @@ public class JsonArray implements IJsonArray
   @Override
   public void forEach (@NonNull final Consumer <? super IJson> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aValues.forEach (aConsumer);
   }
 
@@ -257,6 +263,7 @@ public class JsonArray implements IJsonArray
    */
   public void forEachByIndex (@NonNull final ObjIntConsumer <? super IJson> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aValues.forEachByIndex (aConsumer);
   }
 

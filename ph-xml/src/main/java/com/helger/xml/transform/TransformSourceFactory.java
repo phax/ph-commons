@@ -34,6 +34,7 @@ import org.w3c.dom.Node;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.iface.IHasInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.ByteBufferInputStream;
@@ -66,6 +67,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final File aFile)
   {
+    ValueEnforcer.notNull (aFile, "File");
     return new StreamSource (aFile);
   }
 
@@ -79,6 +81,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final Path aPath)
   {
+    ValueEnforcer.notNull (aPath, "Path");
     return new StreamSource (aPath.toFile ());
   }
 
@@ -92,6 +95,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final URI aURI)
   {
+    ValueEnforcer.notNull (aURI, "URI");
     return create (URLHelper.getAsURL (aURI));
   }
 
@@ -105,6 +109,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final URL aURL)
   {
+    ValueEnforcer.notNull (aURL, "URL");
     return create (new URLResource (aURL));
   }
 
@@ -118,6 +123,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final IHasInputStream aISP)
   {
+    ValueEnforcer.notNull (aISP, "InputStreamProvider");
     if (aISP instanceof final IReadableResource aRes)
       return create (aRes);
     return create (aISP.getInputStream ());
@@ -134,6 +140,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final IReadableResource aResource)
   {
+    ValueEnforcer.notNull (aResource, "Resource");
     // Read into memory
     return new CachingTransformStreamSource (aResource);
   }
@@ -148,6 +155,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StringStreamSource create (@NonNull final CharSequence aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return new StringStreamSource (aXML);
   }
 
@@ -161,6 +169,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StringStreamSource create (@NonNull final String sXML)
   {
+    ValueEnforcer.notNull (sXML, "XML");
     return new StringStreamSource (sXML);
   }
 
@@ -174,6 +183,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StringStreamSource create (final char @NonNull [] aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return new StringStreamSource (aXML);
   }
 
@@ -193,6 +203,7 @@ public final class TransformSourceFactory
                                            @Nonnegative final int nOfs,
                                            @Nonnegative final int nLength)
   {
+    ValueEnforcer.isArrayOfsLen (aXML, nOfs, nLength);
     return new StringStreamSource (aXML, nOfs, nLength);
   }
 
@@ -206,6 +217,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (final byte @NonNull [] aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return create (new NonBlockingByteArrayInputStream (aXML));
   }
 
@@ -225,6 +237,7 @@ public final class TransformSourceFactory
                                      @Nonnegative final int nOfs,
                                      @Nonnegative final int nLength)
   {
+    ValueEnforcer.isArrayOfsLen (aXML, nOfs, nLength);
     return create (new NonBlockingByteArrayInputStream (aXML, nOfs, nLength));
   }
 
@@ -238,6 +251,7 @@ public final class TransformSourceFactory
   @NonNull
   public static StreamSource create (@NonNull final ByteBuffer aXML)
   {
+    ValueEnforcer.notNull (aXML, "XML");
     return create (new ByteBufferInputStream (aXML));
   }
 

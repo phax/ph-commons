@@ -22,6 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.misc.Translatable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.text.IMultilingualText;
 import com.helger.text.display.IHasDisplayText;
 import com.helger.text.resolve.DefaultTextResolver;
@@ -50,6 +51,7 @@ public enum EXMLTransformTexts implements IHasDisplayText
   @Nullable
   public String getDisplayText (@NonNull final Locale aContentLocale)
   {
+    ValueEnforcer.notNull (aContentLocale, "ContentLocale");
     return DefaultTextResolver.getTextStatic (this, m_aTP, aContentLocale);
   }
 

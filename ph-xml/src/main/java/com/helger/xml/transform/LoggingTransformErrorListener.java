@@ -48,7 +48,8 @@ public class LoggingTransformErrorListener extends AbstractTransformErrorListene
    */
   public LoggingTransformErrorListener (@NonNull final Locale aDisplayLocale)
   {
-    m_aDisplayLocale = ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
+    ValueEnforcer.notNull (aDisplayLocale, "DisplayLocale");
+    m_aDisplayLocale = aDisplayLocale;
   }
 
   /**

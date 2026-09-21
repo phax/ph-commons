@@ -393,6 +393,8 @@ public class Config implements IConfig
   public static void forEachConfigurationValueProviderRecursive (@NonNull final IConfigurationValueProvider aValueProvider,
                                                                  @NonNull final IConfigurationValueProviderWithPriorityCallback aCallback)
   {
+    ValueEnforcer.notNull (aValueProvider, "ValueProvider");
+    ValueEnforcer.notNull (aCallback, "Callback");
     _forEachConfigurationValueProviderRecursive (aValueProvider, -1, aCallback);
   }
 

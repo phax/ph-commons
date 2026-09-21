@@ -77,8 +77,10 @@ public class MicroAttribute implements IMicroAttribute
    */
   public MicroAttribute (@NonNull final IMicroQName aQName, @NonNull final String sAttributeValue)
   {
-    m_aQName = ValueEnforcer.notNull (aQName, "QName");
-    m_sAttributeValue = ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
+    ValueEnforcer.notNull (aQName, "QName");
+    m_aQName = aQName;
+    ValueEnforcer.notNull (sAttributeValue, "AttributeValue");
+    m_sAttributeValue = sAttributeValue;
   }
 
   /** {@inheritDoc} */

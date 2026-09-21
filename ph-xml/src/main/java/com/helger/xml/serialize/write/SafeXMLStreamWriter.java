@@ -382,6 +382,9 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
    */
   public void writeStartDocument (@NonNull final Charset aEncoding, @NonNull final EXMLVersion eVersion)
   {
+    ValueEnforcer.notNull (aEncoding, "Encoding");
+    ValueEnforcer.notNull (eVersion, "Version");
+    
     debug (() -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
 
     if (m_aEmitter.getXMLWriterSettings ().getSerializeXMLDeclaration ().isEmit ())
@@ -741,6 +744,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   public static SafeXMLStreamWriter create (@NonNull @WillCloseWhenClosed final OutputStream aOS,
                                             @NonNull final IXMLWriterSettings aSettings)
   {
+    ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aOS, "OutputStream");
     return create (new OutputStreamWriter (aOS, aSettings.getCharset ()), aSettings);
   }

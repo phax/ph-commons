@@ -26,6 +26,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.numeric.mutable.MutableBigDecimal;
 import com.helger.base.numeric.mutable.MutableBigInteger;
 import com.helger.base.numeric.mutable.MutableBoolean;
@@ -50,6 +51,8 @@ public final class DefaultJsonValueSerializerRegistrarSPI implements IJsonValueS
   /** {@inheritDoc} */
   public void registerJsonValueSerializer (@NonNull final IJsonValueSerializerRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
+    
     aRegistry.registerJsonValueSerializer (AtomicBoolean.class, JsonValueSerializerToString.getInstance ());
     aRegistry.registerJsonValueSerializer (AtomicInteger.class, JsonValueSerializerToString.getInstance ());
     aRegistry.registerJsonValueSerializer (AtomicLong.class, JsonValueSerializerToString.getInstance ());

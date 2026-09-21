@@ -68,6 +68,7 @@ public class JsonObject implements IJsonObject
    */
   public JsonObject (@Nonnegative final int nInitialCapacity)
   {
+    ValueEnforcer.isGE0 (nInitialCapacity, "InitialCapacity");
     m_aValues = new CommonsLinkedHashMap <> (nInitialCapacity);
   }
 
@@ -254,6 +255,7 @@ public class JsonObject implements IJsonObject
    */
   public void forEach (@NonNull final BiConsumer <? super String, ? super IJson> aConsumer)
   {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aValues.forEach (aConsumer);
   }
 

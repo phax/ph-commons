@@ -21,6 +21,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.base.cleanup.ICleanUpRegistrarSPI;
 import com.helger.base.cleanup.ICleanUpRegistry;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.xml.microdom.convert.MicroTypeConverterRegistry;
 import com.helger.xml.schema.XMLSchemaCache;
 import com.helger.xml.util.mime.MimeTypeInfoManager;
@@ -36,6 +37,8 @@ public final class XMLCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
   /** {@inheritDoc} */
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
+    ValueEnforcer.notNull (aRegistry, "Registry");
+    
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 700, () -> {
       if (MimeTypeInfoManager.isDefaultInstantiated ())
         MimeTypeInfoManager.getDefaultInstance ().reinitializeToDefault ();

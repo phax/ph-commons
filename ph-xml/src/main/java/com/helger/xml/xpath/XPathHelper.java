@@ -410,7 +410,7 @@ public final class XPathHelper
                                                           @NonNull @Nonempty final String sXPath)
   {
     ValueEnforcer.notNull (aXPath, "XPath");
-    ValueEnforcer.notNull (sXPath, "XPathExpression");
+    ValueEnforcer.notEmpty (sXPath, "XPathExpression");
 
     try
     {

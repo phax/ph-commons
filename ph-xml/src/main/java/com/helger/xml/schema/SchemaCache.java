@@ -136,6 +136,7 @@ public class SchemaCache extends ProviderCache <ICommonsList <? extends IReadabl
                                      @NonNull @Nonempty final ICommonsList <? extends IReadableResource> aResources)
   {
     ValueEnforcer.notNull (aSchemaFactory, "SchemaFactory");
+    ValueEnforcer.notNull (sSchemaTypeName, "SchemaTypeName");
     ValueEnforcer.notEmptyNoNullValue (aResources, "Resources");
 
     // Collect all sources
@@ -287,6 +288,7 @@ public class SchemaCache extends ProviderCache <ICommonsList <? extends IReadabl
   @NonNull
   public EChange removeFromCache (@NonNull final IReadableResource aKey)
   {
+    ValueEnforcer.notNull (aKey, "Key");
     return removeFromCache (new CommonsArrayList <> (aKey));
   }
 

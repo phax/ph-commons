@@ -29,6 +29,7 @@ import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.concurrent.SimpleReadWriteLock;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.commons.CommonsLinkedHashMap;
@@ -205,6 +206,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     return m_aRWLock.readLockedBoolean (() -> m_aProps == null ? false : m_aProps.containsKey (sKey));
   }
 
@@ -212,6 +214,7 @@ public class ConfigurationSourceJson extends AbstractConfigurationSourceResource
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     final String sValue = m_aRWLock.readLockedGet (() -> m_aProps == null ? null : m_aProps.get (sKey));
     return sValue == null ? null : new ConfiguredValue (this, sValue);
   }

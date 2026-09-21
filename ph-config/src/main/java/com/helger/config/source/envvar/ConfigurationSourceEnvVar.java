@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.commons.CommonsTreeMap;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.config.source.AbstractConfigurationSource;
@@ -73,6 +74,7 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
   /** {@inheritDoc} */
   public boolean containsConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
     try
     {
@@ -90,6 +92,7 @@ public class ConfigurationSourceEnvVar extends AbstractConfigurationSource imple
   @Nullable
   public ConfiguredValue getConfigurationValue (@NonNull @Nonempty final String sKey)
   {
+    ValueEnforcer.notEmpty (sKey, "Key");
     // Unify the naming to the environment conventions
     final String sRealName = EnvVarHelper.getUnifiedSysEnvName (sKey, EnvVarHelper.DEFAULT_REPLACEMENT_CHAR);
 
