@@ -25,6 +25,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 
 import org.jspecify.annotations.NonNull;
 import org.junit.After;
@@ -241,6 +242,27 @@ public final class AbstractSimpleDAOTest
     assertEquals (1, aDAO2.getReadCount ());
     assertNotNull (aDAO2.getLastReadDateTime ());
     assertEquals (0, aDAO2.getInitCount ());
+  }
+
+  @Test
+  public void testReadInvalidXMLFails ()
+  {
+    // The file exists, but cannot be read as XML
+    final File aFile = new File (BASE_PATH, FILENAME);
+    SimpleFileIO.writeFile (aFile, "this is not XML", StandardCharsets.ISO_8859_1);
+
+    try
+    {
+      new MockValueDAO (m_aIO, FILENAME).initWithDefault (true);
+      fail ();
+    }
+    catch (final DAOException ex)
+    {
+      // expected - the default must not be created for a broken file
+    }
+
+    // The broken file must be left untouched
+    assertEquals ("this is not XML", SimpleFileIO.getFileAsString (aFile, StandardCharsets.ISO_8859_1));
   }
 
   @Test

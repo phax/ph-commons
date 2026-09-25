@@ -302,32 +302,33 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
           final IMicroDocument aDoc = MicroReader.readMicroXML (aFinalFile);
           if (aDoc == null)
           {
-            LOGGER.error ("Failed to read XML document from file '" + aFinalFile + "'");
+            // Do not continue with an empty DAO, because the next write would replace the
+            // existing file and delete the only copy of the data
+            final String sMsg = "Failed to read XML document from file '" + aFinalFile + "'";
+            LOGGER.error (sMsg);
+            throw new DAOException (sMsg);
           }
-          else
+          // Valid XML - start interpreting
+          beginWithoutAutoSave ();
+          try
           {
-            // Valid XML - start interpreting
-            beginWithoutAutoSave ();
-            try
-            {
-              final StopWatch aSW = StopWatch.createdStarted ();
+            final StopWatch aSW = StopWatch.createdStarted ();
 
-              if (onRead (aDoc).isChanged ())
-                eWriteSuccess = _writeToFile ();
+            if (onRead (aDoc).isChanged ())
+              eWriteSuccess = _writeToFile ();
 
-              m_aStatsCounterReadTimer.addTime (aSW.stopAndGetMillis ());
-              m_aStatsCounterReadSuccess.increment ();
-              m_nReadCount++;
-              m_aLastReadDT = PDTFactory.getCurrentLocalDateTime ();
-            }
-            finally
-            {
-              endWithoutAutoSave ();
-              // reset any pending changes, because the initialization should
-              // be read-only. If the implementing class changed something,
-              // the return value of onRead() is what counts
-              internalSetPendingChanges (false);
-            }
+            m_aStatsCounterReadTimer.addTime (aSW.stopAndGetMillis ());
+            m_aStatsCounterReadSuccess.increment ();
+            m_nReadCount++;
+            m_aLastReadDT = PDTFactory.getCurrentLocalDateTime ();
+          }
+          finally
+          {
+            endWithoutAutoSave ();
+            // reset any pending changes, because the initialization should
+            // be read-only. If the implementing class changed something,
+            // the return value of onRead() is what counts
+            internalSetPendingChanges (false);
           }
         }
         // Check if writing was successful on any of the 2 branches

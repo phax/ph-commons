@@ -90,19 +90,30 @@ public final class AbstractWALDAOErrorsTest
   }
 
   @Test
-  public void testReadInvalidXML () throws DAOException
+  public void testReadInvalidXML ()
   {
     // Not valid XML at all
-    SimpleFileIO.writeFile (new File (BASE_PATH, FILENAME), "this is not XML", StandardCharsets.ISO_8859_1);
+    final File aFile = new File (BASE_PATH, FILENAME);
+    SimpleFileIO.writeFile (aFile, "this is not XML", StandardCharsets.ISO_8859_1);
 
     final AtomicInteger aExCount = new AtomicInteger (0);
-    AbstractDAO.exceptionHandlersRead ().add ((t, bInit, aFile) -> aExCount.incrementAndGet ());
+    AbstractDAO.exceptionHandlersRead ().add ((t, bInit, aRes) -> aExCount.incrementAndGet ());
 
-    // The DAO is created, but nothing was read
-    final MockMapBasedWALDAO aDAO = new MockMapBasedWALDAO (m_aIO, FILENAME);
-    aDAO.setWaitingTime (Duration.ZERO);
-    assertTrue (aDAO.isEmpty ());
-    assertEquals (0, aDAO.getReadCount ());
+    // An existing but unreadable file must not lead to an empty DAO
+    try
+    {
+      new MockMapBasedWALDAO (m_aIO, FILENAME);
+      fail ();
+    }
+    catch (final DAOException | IllegalStateException ex)
+    {
+      // expected
+    }
+    assertEquals (1, aExCount.get ());
+
+    // The broken file must still be there
+    assertTrue (aFile.exists ());
+    assertEquals ("this is not XML", SimpleFileIO.getFileAsString (aFile, StandardCharsets.ISO_8859_1));
   }
 
   @Test
