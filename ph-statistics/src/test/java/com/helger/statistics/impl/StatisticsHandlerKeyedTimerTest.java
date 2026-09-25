@@ -77,4 +77,25 @@ public final class StatisticsHandlerKeyedTimerTest
 
     assertEquals (2, sh.getAllKeys ().size ());
   }
+
+  @Test
+  public void testSumOverflow ()
+  {
+    final StatisticsHandlerKeyedTimer sh = new StatisticsHandlerKeyedTimer ();
+    sh.addTime ("key1", Long.MAX_VALUE);
+    assertEquals (BigInteger.valueOf (Long.MAX_VALUE), sh.getSum ("key1"));
+    assertEquals (Long.MAX_VALUE, sh.getAverage ("key1"));
+
+    // This exceeds the value range of a long
+    sh.addTime ("key1", Long.MAX_VALUE);
+    assertEquals (BigInteger.valueOf (Long.MAX_VALUE).shiftLeft (1), sh.getSum ("key1"));
+    assertEquals (Long.MAX_VALUE, sh.getAverage ("key1"));
+    assertEquals (Long.MAX_VALUE, sh.getMin ("key1"));
+    assertEquals (Long.MAX_VALUE, sh.getMax ("key1"));
+
+    // A different key is unaffected
+    sh.addTime ("key2", 100);
+    assertEquals (BigInteger.valueOf (100), sh.getSum ("key2"));
+    assertEquals (100L, sh.getAverage ("key2"));
+  }
 }

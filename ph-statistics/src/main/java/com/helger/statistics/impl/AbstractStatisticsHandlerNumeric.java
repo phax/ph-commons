@@ -39,7 +39,9 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   private int m_nInvocationCount = 0;
   private long m_nMin = CGlobal.ILLEGAL_ULONG;
   private long m_nMax = CGlobal.ILLEGAL_ULONG;
-  private BigInteger m_aSum = BigInteger.ZERO;
+  private long m_nSum = 0;
+  // Only non-null if "m_nSum" overflowed at least once
+  private BigInteger m_aSumOverflow;
 
   /** {@inheritDoc} */
   @Nonnegative
@@ -59,7 +61,19 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
         m_nMin = nValue;
       if (m_nMax == CGlobal.ILLEGAL_ULONG || nValue > m_nMax)
         m_nMax = nValue;
-      m_aSum = m_aSum.add (BigInteger.valueOf (nValue));
+      if (m_aSumOverflow != null)
+        m_aSumOverflow = m_aSumOverflow.add (BigInteger.valueOf (nValue));
+      else
+        try
+        {
+          // This is the common case, and it creates no object at all
+          m_nSum = Math.addExact (m_nSum, nValue);
+        }
+        catch (final ArithmeticException ex)
+        {
+          // Happens at most once per handler
+          m_aSumOverflow = BigInteger.valueOf (m_nSum).add (BigInteger.valueOf (nValue));
+        }
     }
     finally
     {
@@ -71,7 +85,8 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @NonNull
   public final BigInteger getSum ()
   {
-    return m_aRWLock.readLockedGet (() -> m_aSum);
+    return m_aRWLock.readLockedGet (() -> m_aSumOverflow != null ? m_aSumOverflow
+                                                                  : BigInteger.valueOf (m_nSum));
   }
 
   /** {@inheritDoc} */
@@ -88,7 +103,9 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
     return m_aRWLock.readLockedLong (() -> {
       if (m_nInvocationCount == 0)
         return CGlobal.ILLEGAL_ULONG;
-      return m_aSum.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
+      if (m_aSumOverflow != null)
+        return m_aSumOverflow.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
+      return m_nSum / m_nInvocationCount;
     });
   }
 

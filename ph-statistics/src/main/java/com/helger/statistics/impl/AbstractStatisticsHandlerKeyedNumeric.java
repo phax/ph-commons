@@ -48,7 +48,9 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     private int m_nInvocationCount;
     private long m_nMin;
     private long m_nMax;
-    private BigInteger m_aSum;
+    private long m_nSum;
+    // Only non-null if "m_nSum" overflowed at least once
+    private BigInteger m_aSumOverflow;
 
     /**
      * Constructor with an initial value.
@@ -61,7 +63,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
       m_nInvocationCount = 1;
       m_nMin = nValue;
       m_nMax = nValue;
-      m_aSum = BigInteger.valueOf (nValue);
+      m_nSum = nValue;
     }
 
     /**
@@ -77,7 +79,19 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
         m_nMin = nValue;
       if (nValue > m_nMax)
         m_nMax = nValue;
-      m_aSum = m_aSum.add (BigInteger.valueOf (nValue));
+      if (m_aSumOverflow != null)
+        m_aSumOverflow = m_aSumOverflow.add (BigInteger.valueOf (nValue));
+      else
+        try
+        {
+          // This is the common case, and it creates no object at all
+          m_nSum = Math.addExact (m_nSum, nValue);
+        }
+        catch (final ArithmeticException ex)
+        {
+          // Happens at most once per key
+          m_aSumOverflow = BigInteger.valueOf (m_nSum).add (BigInteger.valueOf (nValue));
+        }
     }
 
     /**
@@ -113,7 +127,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     @NonNull
     public BigInteger getSum ()
     {
-      return m_aSum;
+      return m_aSumOverflow != null ? m_aSumOverflow : BigInteger.valueOf (m_nSum);
     }
 
     /**
@@ -122,7 +136,9 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
     @CheckForSigned
     public long getAverage ()
     {
-      return m_aSum.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
+      if (m_aSumOverflow != null)
+        return m_aSumOverflow.divide (BigInteger.valueOf (m_nInvocationCount)).longValue ();
+      return m_nSum / m_nInvocationCount;
     }
 
     @Override
@@ -132,7 +148,7 @@ public abstract class AbstractStatisticsHandlerKeyedNumeric implements IStatisti
       return new ToStringGenerator (null).append ("Invocations", m_nInvocationCount)
                                          .append ("Min", m_nMin)
                                          .append ("Max", m_nMax)
-                                         .append ("Sum", m_aSum)
+                                         .append ("Sum", getSum ())
                                          .getToString ();
     }
   }

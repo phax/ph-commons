@@ -60,4 +60,25 @@ public final class StatisticsHandlerSizeTest
     assertEquals (BigInteger.valueOf (75), sh.getSum ());
     sh.addSize (-1);
   }
+
+  @Test
+  public void testSumOverflow ()
+  {
+    final StatisticsHandlerSize sh = new StatisticsHandlerSize ();
+    sh.addSize (Long.MAX_VALUE);
+    assertEquals (BigInteger.valueOf (Long.MAX_VALUE), sh.getSum ());
+    assertEquals (Long.MAX_VALUE, sh.getAverage ());
+
+    // This exceeds the value range of a long
+    sh.addSize (Long.MAX_VALUE);
+    assertEquals (BigInteger.valueOf (Long.MAX_VALUE).shiftLeft (1), sh.getSum ());
+    assertEquals (Long.MAX_VALUE, sh.getAverage ());
+
+    sh.addSize (2);
+    assertEquals (BigInteger.valueOf (Long.MAX_VALUE).shiftLeft (1).add (BigInteger.valueOf (2)), sh.getSum ());
+    assertEquals (6148914691236517205L, sh.getAverage ());
+    assertEquals (3, sh.getInvocationCount ());
+    assertEquals (2, sh.getMin ());
+    assertEquals (Long.MAX_VALUE, sh.getMax ());
+  }
 }
