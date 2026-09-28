@@ -22,6 +22,7 @@ import java.io.ObjectOutputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -257,6 +258,16 @@ public class JsonObject implements IJsonObject
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
     m_aValues.forEach (aConsumer);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public void forEachJson (@NonNull final Consumer <? super IJson> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    m_aValues.values ().forEach (aConsumer);
   }
 
   /**

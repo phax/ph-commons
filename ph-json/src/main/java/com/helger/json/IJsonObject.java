@@ -18,6 +18,7 @@ package com.helger.json;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import org.jspecify.annotations.NonNull;
@@ -25,6 +26,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EChange;
 import com.helger.base.trait.IGenericMapAdderTrait;
 import com.helger.base.trait.ITypeConverterTo;
@@ -142,6 +144,21 @@ public interface IJsonObject extends
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <IJson> values ();
+
+  /**
+   * Invoke the provided consumer on all values of this object.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked for each value. May not be <code>null</code>.
+   * @since 12.5.1
+   */
+  default void forEachJson (@NonNull final Consumer <? super IJson> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+
+    for (final Map.Entry <String, IJson> aEntry : this)
+      aConsumer.accept (aEntry.getValue ());
+  }
 
   /**
    * Get the element with the specified key.

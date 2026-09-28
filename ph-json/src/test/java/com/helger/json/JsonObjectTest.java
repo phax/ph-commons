@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 import com.helger.base.state.EChange;
+import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
@@ -216,5 +217,78 @@ public final class JsonObjectTest
       return null;
     }));
     assertFalse (aObject.containsKey ("stillMissing"));
+  }
+
+  @Test
+  public void testForEachJson ()
+  {
+    final JsonObject aObject = new JsonObject ();
+    aObject.add ("a", 5);
+    aObject.add ("b", "foo");
+    aObject.add ("c", new JsonArray ().add ("nested"));
+
+    final ICommonsList <IJson> aAll = new CommonsArrayList <> ();
+    aObject.forEachJson (aAll::add);
+    assertEquals (aObject.values (), aAll);
+
+    final ICommonsList <IJson> aEmpty = new CommonsArrayList <> ();
+    new JsonObject ().forEachJson (aEmpty::add);
+    assertTrue (aEmpty.isEmpty ());
+  }
+
+  @Test
+  public void testForEachMapped ()
+  {
+    final JsonObject aObject = new JsonObject ();
+    aObject.add ("a", 5);
+    aObject.add ("b", "foo");
+    aObject.add ("c", new JsonArray ().add ("nested"));
+
+    final ICommonsList <String> a1 = new CommonsArrayList <> ();
+    aObject.forEachMapped (IJson::getAsJsonString, a1::add);
+    assertEquals (new CommonsArrayList <> ("5", "\"foo\"", "[\"nested\"]"), a1);
+
+    final ICommonsList <String> a2 = new CommonsArrayList <> ();
+    aObject.forEachMapped (IJson::isValue, IJson::getAsJsonString, a2::add);
+    assertEquals (new CommonsArrayList <> ("5", "\"foo\""), a2);
+
+    // No filter is the same as the two argument version
+    final ICommonsList <String> a3 = new CommonsArrayList <> ();
+    aObject.forEachMapped (null, IJson::getAsJsonString, a3::add);
+    assertEquals (a1, a3);
+  }
+
+  @Test
+  public void testGetAllMapped ()
+  {
+    final JsonObject aObject = new JsonObject ();
+    aObject.add ("a", 5);
+    aObject.add ("b", "foo");
+    aObject.add ("c", new JsonArray ().add ("nested"));
+
+    final ICommonsList <String> a1 = aObject.getAllMapped (IJson::getAsJsonString);
+    assertEquals (3, a1.size ());
+    assertEquals ("5", a1.get (0));
+    assertEquals ("\"foo\"", a1.get (1));
+    assertEquals ("[\"nested\"]", a1.get (2));
+
+    assertTrue (new JsonObject ().getAllMapped (IJson::getAsJsonString).isEmpty ());
+  }
+
+  @Test
+  public void testGetAllMappedWithFilter ()
+  {
+    final JsonObject aObject = new JsonObject ();
+    aObject.add ("a", 5);
+    aObject.add ("b", "foo");
+    aObject.add ("c", new JsonArray ().add ("nested"));
+
+    final ICommonsList <String> a1 = aObject.getAllMapped (IJson::isValue, IJson::getAsJsonString);
+    assertEquals (2, a1.size ());
+    assertEquals ("5", a1.get (0));
+    assertEquals ("\"foo\"", a1.get (1));
+
+    // No filter is the same as the single argument version
+    assertEquals (aObject.getAllMapped (IJson::getAsJsonString), aObject.getAllMapped (null, IJson::getAsJsonString));
   }
 }

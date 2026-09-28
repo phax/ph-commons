@@ -411,4 +411,77 @@ public final class JsonArrayTest
     assertEquals (JsonValue.create (5), a1.get (0));
     assertEquals (JsonValue.create ("foo"), a1.get (1));
   }
+
+  @Test
+  public void testForEachJson ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key", "value"));
+
+    final ICommonsList <IJson> aAll = new CommonsArrayList <> ();
+    aArray.forEachJson (aAll::add);
+    assertEquals (aArray.getAll (), aAll);
+
+    final ICommonsList <IJson> aEmpty = new CommonsArrayList <> ();
+    new JsonArray ().forEachJson (aEmpty::add);
+    assertTrue (aEmpty.isEmpty ());
+  }
+
+  @Test
+  public void testForEachMapped ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key", "value"));
+
+    final ICommonsList <String> a1 = new CommonsArrayList <> ();
+    aArray.forEachMapped (IJson::getAsJsonString, a1::add);
+    assertEquals (new CommonsArrayList <> ("5", "\"foo\"", "{\"key\":\"value\"}"), a1);
+
+    final ICommonsList <String> a2 = new CommonsArrayList <> ();
+    aArray.forEachMapped (IJson::isValue, IJson::getAsJsonString, a2::add);
+    assertEquals (new CommonsArrayList <> ("5", "\"foo\""), a2);
+
+    // No filter is the same as the two argument version
+    final ICommonsList <String> a3 = new CommonsArrayList <> ();
+    aArray.forEachMapped (null, IJson::getAsJsonString, a3::add);
+    assertEquals (a1, a3);
+  }
+
+  @Test
+  public void testGetAllMapped ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key", "value"));
+
+    final ICommonsList <String> a1 = aArray.getAllMapped (IJson::getAsJsonString);
+    assertEquals (3, a1.size ());
+    assertEquals ("5", a1.get (0));
+    assertEquals ("\"foo\"", a1.get (1));
+    assertEquals ("{\"key\":\"value\"}", a1.get (2));
+
+    assertTrue (new JsonArray ().getAllMapped (IJson::getAsJsonString).isEmpty ());
+  }
+
+  @Test
+  public void testGetAllMappedWithFilter ()
+  {
+    final JsonArray aArray = new JsonArray ();
+    aArray.add (5);
+    aArray.add ("foo");
+    aArray.add (new JsonObject ().add ("key", "value"));
+
+    final ICommonsList <String> a1 = aArray.getAllMapped (IJson::isValue, IJson::getAsJsonString);
+    assertEquals (2, a1.size ());
+    assertEquals ("5", a1.get (0));
+    assertEquals ("\"foo\"", a1.get (1));
+
+    // No filter is the same as the single argument version
+    assertEquals (aArray.getAllMapped (IJson::getAsJsonString), aArray.getAllMapped (null, IJson::getAsJsonString));
+  }
 }

@@ -16,6 +16,7 @@
  */
 package com.helger.json;
 
+import java.util.function.Consumer;
 import java.util.function.ObjIntConsumer;
 
 import org.jspecify.annotations.NonNull;
@@ -159,6 +160,18 @@ public interface IJsonArray extends
   @NonNull
   @ReturnsMutableCopy
   ICommonsList <IJson> getAll ();
+
+  /**
+   * Invoke the provided consumer on all elements of this array.
+   *
+   * @param aConsumer
+   *        The consumer to be invoked for each element. May not be <code>null</code>.
+   * @since 12.5.1
+   */
+  default void forEachJson (@NonNull final Consumer <? super IJson> aConsumer)
+  {
+    forEach (aConsumer);
+  }
 
   /**
    * Invoke the passed consumer on all entries of this array.
