@@ -384,7 +384,7 @@ public class SafeXMLStreamWriter implements XMLStreamWriter, AutoCloseable, IHas
   {
     ValueEnforcer.notNull (aEncoding, "Encoding");
     ValueEnforcer.notNull (eVersion, "Version");
-    
+
     debug (() -> "writeStartDocument (" + aEncoding + ", " + eVersion + ")");
 
     if (m_aEmitter.getXMLWriterSettings ().getSerializeXMLDeclaration ().isEmit ())

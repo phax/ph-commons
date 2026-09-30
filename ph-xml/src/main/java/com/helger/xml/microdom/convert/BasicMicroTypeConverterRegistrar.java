@@ -73,7 +73,7 @@ public final class BasicMicroTypeConverterRegistrar implements IMicroTypeConvert
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     ValueEnforcer.notNull (aRegistry, "Registry");
-    
+
     // String converter
     aRegistry.registerMicroElementTypeConverter (String.class, StringMicroTypeConverter.getInstance ());
 

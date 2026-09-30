@@ -38,7 +38,7 @@ public final class XMLCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     ValueEnforcer.notNull (aRegistry, "Registry");
-    
+
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 700, () -> {
       if (MimeTypeInfoManager.isDefaultInstantiated ())
         MimeTypeInfoManager.getDefaultInstance ().reinitializeToDefault ();

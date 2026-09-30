@@ -47,7 +47,7 @@ public abstract class AbstractTransformErrorListener implements ITransformErrorL
                                      @NonNull final IMultilingualText aErrorMsg)
   {
     ValueEnforcer.notNull (ex, "Exception");
-    
+
     final ILocation aLocation = SimpleLocation.create (ex.getLocator ());
     return SingleError.builder ()
                       .errorLevel (aErrorLevel)

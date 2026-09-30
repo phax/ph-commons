@@ -132,8 +132,8 @@ public final class XMLTransformerFactory
   }
 
   private static void _setOptionalAttribute (@NonNull final TransformerFactory aFactory,
-                                            @NonNull final String sAttribute,
-                                            @NonNull final String sValue)
+                                             @NonNull final String sAttribute,
+                                             @NonNull final String sValue)
   {
     try
     {

@@ -56,7 +56,7 @@ public final class ConfigFactoryJson
   public static void addDefaultJsonConfiguration (@NonNull final MultiConfigurationValueProvider aMVP)
   {
     ValueEnforcer.notNull (aMVP, "MVP");
-    
+
     final ClassLoader aCL = ClassLoaderHelper.getDefaultClassLoader ();
 
     // Prio 195, incl. files

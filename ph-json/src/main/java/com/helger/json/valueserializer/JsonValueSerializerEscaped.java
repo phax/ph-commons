@@ -64,7 +64,7 @@ public final class JsonValueSerializerEscaped implements IJsonValueSerializer
   {
     ValueEnforcer.notNull (sValue, "Value");
     ValueEnforcer.notNull (aWriter, "Writer");
-    
+
     aWriter.write ('"');
     JsonEscapeHelper.jsonEscapeToWriter (sValue, aWriter);
     aWriter.write ('"');

@@ -222,7 +222,7 @@ public final class MimeTypeInfo
     public boolean matches (@NonNull @Nonempty final String sExtension)
     {
       ValueEnforcer.notEmpty (sExtension, "Extension");
-      
+
       if (m_sExt.contains (sExtension))
         return true;
 

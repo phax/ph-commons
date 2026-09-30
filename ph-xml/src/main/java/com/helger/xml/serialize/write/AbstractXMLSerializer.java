@@ -675,7 +675,7 @@ public abstract class AbstractXMLSerializer <NODETYPE>
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aXMLEmitter, "XMLEmitter");
-    
+
     // No parent node
     // No previous and no next sibling
     emitNode (aXMLEmitter, null, null, aNode, null);

@@ -263,7 +263,7 @@ public final class MicroHelper
                                             @NonNull final String sChildElementName)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
   }
@@ -285,7 +285,7 @@ public final class MicroHelper
                                                    @NonNull final String sChildElementName)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;
   }
@@ -312,7 +312,7 @@ public final class MicroHelper
                                                                      @NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentWithConversion (aDstClass) : null;
   }
@@ -336,7 +336,7 @@ public final class MicroHelper
                                             @NonNull final String sChildElementName)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContent () : null;
   }
@@ -361,7 +361,7 @@ public final class MicroHelper
                                                    @NonNull final String sChildElementName)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentTrimmed () : null;
   }
@@ -392,7 +392,7 @@ public final class MicroHelper
                                                                      @NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (eParentElement, "ParentElement");
-    
+
     final IMicroElement eChildElement = eParentElement.getFirstChildElement (sNamespaceURI, sChildElementName);
     return eChildElement != null ? eChildElement.getTextContentWithConversion (aDstClass) : null;
   }
@@ -411,7 +411,7 @@ public final class MicroHelper
   public static IMicroContainer getAllChildrenAsContainer (@NonNull final IMicroNode aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
-    
+
     final IMicroContainer ret = new MicroContainer ();
     aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.getClone ()));
     return ret;
@@ -432,7 +432,7 @@ public final class MicroHelper
   public static IMicroContainer getAllOriginalChildrenAsContainer (@NonNull final IMicroNode aParent)
   {
     ValueEnforcer.notNull (aParent, "Parent");
-    
+
     final IMicroContainer ret = new MicroContainer ();
     aParent.forAllChildren (aChildNode -> ret.addChild (aChildNode.detachFromParent ()));
     return ret;

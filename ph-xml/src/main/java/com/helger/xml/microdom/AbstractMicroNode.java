@@ -389,7 +389,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   public IMicroElement findParentElement (@NonNull final Predicate <? super IMicroElement> aFilter)
   {
     ValueEnforcer.notNull (aFilter, "Filter");
-    
+
     IMicroNode aParent = m_aParentNode;
     while (aParent != null && aParent.isElement ())
     {
@@ -465,7 +465,7 @@ public abstract class AbstractMicroNode implements IMicroNode
   {
     ValueEnforcer.notNull (eEventType, "EventType");
     ValueEnforcer.notNull (aEvent, "Event");
-    
+
     // Any event targets present?
     if (m_aEventTargets != null && m_aEventTargets.isNotEmpty ())
     {

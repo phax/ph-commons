@@ -74,7 +74,7 @@ public final class SAXReaderFactory implements Supplier <XMLReader>
   public static XMLReader createXMLReader (@NonNull final SAXParserFactory aFactory)
   {
     ValueEnforcer.notNull (aFactory, "Factory");
-    
+
     try
     {
       return aFactory.newSAXParser ().getXMLReader ();

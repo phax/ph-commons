@@ -120,7 +120,7 @@ public final class MultilingualTextMicroTypeConverterRegistrar implements IMicro
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     ValueEnforcer.notNull (aRegistry, "Registry");
-    
+
     // Register the read-only version first!
     aRegistry.registerMicroElementTypeConverter (ReadOnlyMultilingualText.class,
                                                  new ReadOnlyMultilingualTextConverter ());

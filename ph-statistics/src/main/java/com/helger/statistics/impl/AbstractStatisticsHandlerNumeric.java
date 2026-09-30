@@ -85,8 +85,7 @@ public abstract class AbstractStatisticsHandlerNumeric implements IStatisticsHan
   @NonNull
   public final BigInteger getSum ()
   {
-    return m_aRWLock.readLockedGet (() -> m_aSumOverflow != null ? m_aSumOverflow
-                                                                  : BigInteger.valueOf (m_nSum));
+    return m_aRWLock.readLockedGet (() -> m_aSumOverflow != null ? m_aSumOverflow : BigInteger.valueOf (m_nSum));
   }
 
   /** {@inheritDoc} */

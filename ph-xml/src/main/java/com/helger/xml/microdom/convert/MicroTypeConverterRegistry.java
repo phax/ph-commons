@@ -240,7 +240,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   public void iterateAllRegisteredMicroTypeConverters (@NonNull final IMicroTypeConverterCallback aCallback)
   {
     ValueEnforcer.notNull (aCallback, "Callback");
-    
+
     // Create a static copy of the map (HashMap not weak!)
     final ICommonsMap <Class <?>, IMicroTypeConverter <?>> aCopy = m_aRWLock.readLockedGet (m_aMap::getClone);
 

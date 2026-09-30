@@ -201,7 +201,7 @@ public final class XMLWriter
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (aSettings, "Settings");
-    
+
     // start serializing
     try (final NonBlockingStringWriter aWriter = new NonBlockingStringWriter (50 * CGlobal.BYTES_PER_KILOBYTE))
     {

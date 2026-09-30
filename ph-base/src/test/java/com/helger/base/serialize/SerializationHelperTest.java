@@ -111,9 +111,12 @@ public final class SerializationHelperTest
   @Test
   public void testSerializeDifferentTypes ()
   {
-    for (final Serializable aSrc : new Serializable [] { "any String", Integer.valueOf (17), Boolean.TRUE,
-                                                         new BigDecimal ("1.5"), LocalDate.of (2020, 1, 2), "any bytes"
-                                                                                                                       .getBytes (StandardCharsets.ISO_8859_1),
+    for (final Serializable aSrc : new Serializable [] { "any String",
+                                                         Integer.valueOf (17),
+                                                         Boolean.TRUE,
+                                                         new BigDecimal ("1.5"),
+                                                         LocalDate.of (2020, 1, 2),
+                                                         "any bytes".getBytes (StandardCharsets.ISO_8859_1),
                                                          new MockData ("text", 17) })
     {
       final byte [] aBytes = SerializationHelper.getSerializedByteArray (aSrc);

@@ -137,7 +137,7 @@ public abstract class AbstractLSResourceResolver implements LSResourceResolver
                                         @Nullable final String sBaseURI)
   {
     ValueEnforcer.notEmpty (sType, "Type");
-    
+
     final LSInput ret = mainResolveResource (sType, sNamespaceURI, sPublicId, sSystemId, sBaseURI);
     if (ret != null)
       return ret;

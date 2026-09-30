@@ -164,7 +164,7 @@ public class DefaultEntityResolver implements EntityResolver
   public static DefaultEntityResolver createOnDemand (@NonNull final IReadableResource aBaseResource)
   {
     ValueEnforcer.notNull (aBaseResource, "BaseResource");
-    
+
     final URL aURL = aBaseResource.getAsURL ();
     return aURL == null ? null : new DefaultEntityResolver (aURL);
   }

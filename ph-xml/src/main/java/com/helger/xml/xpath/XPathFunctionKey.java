@@ -77,7 +77,7 @@ public final class XPathFunctionKey implements IComparable <XPathFunctionKey>
   public int compareTo (@NonNull final XPathFunctionKey o)
   {
     ValueEnforcer.notNull (o, "Other");
-    
+
     // 1st namespace URI
     int ret = CompareHelper.compare (m_aFunctionName.getNamespaceURI (), o.m_aFunctionName.getNamespaceURI ());
     if (ret == 0)

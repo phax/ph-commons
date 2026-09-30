@@ -336,7 +336,7 @@ public abstract class AbstractMicroNodeWithChildren extends AbstractMicroNode im
   public <DSTTYPE> DSTTYPE getTextContentWithConversion (@NonNull final Class <DSTTYPE> aDstClass)
   {
     ValueEnforcer.notNull (aDstClass, "DstClass");
-    
+
     // Get the regular content
     final String sTextContent = getTextContent ();
 

@@ -115,7 +115,7 @@ public enum EXMLSerializeVersion implements IHasID <String>
   public static EXMLSerializeVersion getFromXMLVersionOrThrow (@NonNull final EXMLVersion eXMLVersion)
   {
     ValueEnforcer.notNull (eXMLVersion, "XMLVersion");
-    
+
     return switch (eXMLVersion)
     {
       case XML_10 -> EXMLSerializeVersion.XML_10;

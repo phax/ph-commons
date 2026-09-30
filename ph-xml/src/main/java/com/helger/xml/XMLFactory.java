@@ -154,7 +154,7 @@ public final class XMLFactory
   {
     ValueEnforcer.notNull (aFactory, "Factory");
     ValueEnforcer.notNull (eFeature, "Feature");
-    
+
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -484,7 +484,7 @@ public final class XMLFactory
   {
     ValueEnforcer.notNull (aFactory, "Factory");
     ValueEnforcer.notNull (eFeature, "Feature");
-    
+
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -564,7 +564,7 @@ public final class XMLFactory
   {
     ValueEnforcer.notNull (aFactory, "Factory");
     ValueEnforcer.notNull (eFeature, "Feature");
-    
+
     try
     {
       aFactory.setFeature (eFeature.getName (), bValue);
@@ -650,7 +650,7 @@ public final class XMLFactory
   {
     ValueEnforcer.notNull (aFactory, "Factory");
     ValueEnforcer.notNull (sProperty, "Property");
-    
+
     try
     {
       aFactory.setProperty (sProperty, aValue);

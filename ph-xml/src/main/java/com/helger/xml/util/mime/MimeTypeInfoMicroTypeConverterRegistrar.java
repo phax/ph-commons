@@ -54,7 +54,7 @@ public final class MimeTypeInfoMicroTypeConverterRegistrar implements IMicroType
   public void registerMicroTypeConverter (@NonNull final IMicroTypeConverterRegistry aRegistry)
   {
     ValueEnforcer.notNull (aRegistry, "Registry");
-    
+
     aRegistry.registerMicroElementTypeConverter (MimeTypeInfo.class, new MimeTypeInfoMicroTypeConverter ());
   }
 }

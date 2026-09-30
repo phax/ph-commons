@@ -730,7 +730,7 @@ public final class XMLHelper
   {
     ValueEnforcer.notNull (aFirst, "First");
     ValueEnforcer.notNull (aSecond, "Second");
-    
+
     final String sFirstNS = aFirst.getNamespaceURI ();
     final String sSecondNS = aSecond.getNamespaceURI ();
     if (StringHelper.isNotEmpty (sFirstNS))
@@ -1141,7 +1141,7 @@ public final class XMLHelper
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (sSep, "Separator");
-    
+
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
                                .includeDocumentNode ()
@@ -1180,7 +1180,7 @@ public final class XMLHelper
   {
     ValueEnforcer.notNull (aNode, "Node");
     ValueEnforcer.notNull (sSep, "Separator");
-    
+
     return pathToNodeBuilder ().node (aNode)
                                .separator (sSep)
                                .excludeDocumentNode ()
@@ -1257,7 +1257,7 @@ public final class XMLHelper
   {
     ValueEnforcer.notNull (aElement, "Element");
     ValueEnforcer.notNull (sAttrName, "AttrName");
-    
+
     final Attr aAttr = aElement.getAttributeNode (sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
   }
@@ -1306,7 +1306,7 @@ public final class XMLHelper
   {
     ValueEnforcer.notNull (aElement, "Element");
     ValueEnforcer.notNull (sAttrName, "AttrName");
-    
+
     final Attr aAttr = aElement.getAttributeNodeNS (sNamespaceURI, sAttrName);
     return aAttr == null ? sDefault : aAttr.getValue ();
   }

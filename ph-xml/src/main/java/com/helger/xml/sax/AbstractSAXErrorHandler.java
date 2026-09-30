@@ -55,7 +55,7 @@ public abstract class AbstractSAXErrorHandler implements ISAXErrorHandler
   {
     ValueEnforcer.notNull (aErrorLevel, "ErrorLevel");
     ValueEnforcer.notNull (ex, "Exception");
-    
+
     return SingleError.builder ()
                       .errorLevel (aErrorLevel)
                       .errorLocation (SimpleLocation.create (ex))

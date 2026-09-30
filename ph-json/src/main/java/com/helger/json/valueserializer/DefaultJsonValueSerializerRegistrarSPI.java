@@ -52,7 +52,7 @@ public final class DefaultJsonValueSerializerRegistrarSPI implements IJsonValueS
   public void registerJsonValueSerializer (@NonNull final IJsonValueSerializerRegistry aRegistry)
   {
     ValueEnforcer.notNull (aRegistry, "Registry");
-    
+
     aRegistry.registerJsonValueSerializer (AtomicBoolean.class, JsonValueSerializerToString.getInstance ());
     aRegistry.registerJsonValueSerializer (AtomicInteger.class, JsonValueSerializerToString.getInstance ());
     aRegistry.registerJsonValueSerializer (AtomicLong.class, JsonValueSerializerToString.getInstance ());
