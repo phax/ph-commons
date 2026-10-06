@@ -26,6 +26,7 @@ import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.http.IHttpClientCredentials;
 
 /**
  * Credentials for HTTP basic authentication
@@ -33,7 +34,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * @author Philip Helger
  */
 @Immutable
-public class BasicAuthClientCredentials
+public class BasicAuthClientCredentials implements IHttpClientCredentials
 {
   private final String m_sUserName;
   private final String m_sPassword;
