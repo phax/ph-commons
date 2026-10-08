@@ -33,6 +33,7 @@ import org.xml.sax.SAXNotSupportedException;
 import org.xml.sax.XMLReader;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
@@ -496,7 +497,11 @@ public enum EXMLParserFeature implements IHasName
    * When false: The parser supports only XML 1.0.<br>
    * Read-only!<br>
    * (http://xml.org/sax/features/xml-1.1)
+   *
+   * @deprecated XML 1.1 is deprecated
    */
+  @Deprecated (since = "12.5.1")
+  @DevelopersNote ("See https://github.com/w3ctag/obsoletion/issues/6 for details")
   SAX_IS_XML11_PARSER (EXMLParserFeatureType.SAX, "http://xml.org/sax/features/xml-1.1");
 
   private static final Logger LOGGER = LoggerFactory.getLogger (EXMLParserFeature.class);

@@ -25,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.misc.DevelopersNote;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
@@ -379,7 +380,10 @@ public final class XMLMaskHelper
    * @param c
    *        Character to use.
    * @return The entity reference string. Never <code>null</code> nor empty.
+   * @deprecated XML 1.1 is deprecated
    */
+  @Deprecated (since = "12.5.1")
+  @DevelopersNote ("See https://github.com/w3ctag/obsoletion/issues/6 for details")
   @NonNull
   @Nonempty
   public static String getXML11EntityReferenceString (final char c)
