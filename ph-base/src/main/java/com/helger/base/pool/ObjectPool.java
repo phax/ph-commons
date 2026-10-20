@@ -177,7 +177,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     catch (final InterruptedException ex)
     {
       // In case of acquisition interruption -> return null
-      CONDLOG.error ("ObjectPool interrupted", ex);
+      CONDLOG.error ("ObjectPool interrupted", (Throwable) ex);
       Thread.currentThread ().interrupt ();
       return null;
     }

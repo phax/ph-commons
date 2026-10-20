@@ -618,7 +618,7 @@ public final class FileHelper
     catch (final IllegalStateException ex)
     {
       // Happens e.g. when the parent directory is " "
-      CONDLOG.warn ("Failed to create parent directory of '" + aFile + "'", ex);
+      CONDLOG.warn ("Failed to create parent directory of '" + aFile + "'", (Throwable) ex);
       return EValidity.INVALID;
     }
     // Check if parent directory is writable, to avoid catching the
@@ -950,7 +950,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      CONDLOG.warn ("Failed to convert file to URL: " + aFile, ex);
+      CONDLOG.warn ("Failed to convert file to URL: " + aFile, (Throwable) ex);
       return null;
     }
   }
@@ -972,7 +972,7 @@ public final class FileHelper
     }
     catch (final MalformedURLException ex)
     {
-      CONDLOG.warn ("Failed to convert file to URL: " + aFile, ex);
+      CONDLOG.warn ("Failed to convert file to URL: " + aFile, (Throwable) ex);
       return null;
     }
   }

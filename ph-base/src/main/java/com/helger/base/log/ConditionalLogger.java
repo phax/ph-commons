@@ -35,8 +35,9 @@ import com.helger.base.tostring.ToStringGenerator;
  * @author Philip Helger
  * @since 11.0.4
  */
+@SuppressWarnings ("deprecation")
 @ThreadSafe
-public final class ConditionalLogger implements IConditionalLogger, IEnabledIndicator
+public final class ConditionalLogger implements IConditionalLogger, ILogHandler, IEnabledIndicator
 {
   public static final boolean DEFAULT_ENABLED = !GlobalDebug.DEFAULT_SILENT_MODE;
 
@@ -93,6 +94,24 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
+  public void trace (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
+  {
+    if (isEnabled () && m_aLogger.isTraceEnabled ())
+      m_aLogger.trace (sMsg, aThrowable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void trace (@NonNull final String sMsg)
+  {
+    if (isEnabled () && m_aLogger.isTraceEnabled ())
+      m_aLogger.trace (sMsg);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
   public void trace (@NonNull final Supplier <String> aMsgSupplier)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
@@ -102,10 +121,28 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
-  public void trace (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void trace (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
     if (isEnabled () && m_aLogger.isTraceEnabled ())
-      m_aLogger.trace (aMsgSupplier.get (), ex);
+      m_aLogger.trace (aMsgSupplier.get (), aThrowable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void debug (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
+  {
+    if (isEnabled () && m_aLogger.isDebugEnabled ())
+      m_aLogger.debug (sMsg, aThrowable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void debug (@NonNull final String sMsg)
+  {
+    if (isEnabled () && m_aLogger.isDebugEnabled ())
+      m_aLogger.debug (sMsg);
   }
 
   /**
@@ -120,10 +157,19 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
-  public void debug (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void debug (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
     if (isEnabled () && m_aLogger.isDebugEnabled ())
-      m_aLogger.debug (aMsgSupplier.get (), ex);
+      m_aLogger.debug (aMsgSupplier.get (), aThrowable);
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  public void info (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
+  {
+    if (isEnabled ())
+      m_aLogger.info (sMsg, aThrowable);
   }
 
   /**
@@ -147,19 +193,19 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
-  public void info (@NonNull final String sMsg, @Nullable final Exception ex)
+  public void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
     if (isEnabled ())
-      m_aLogger.info (sMsg, ex);
+      m_aLogger.info (aMsgSupplier.get (), aThrowable);
   }
 
   /**
    * {@inheritDoc}
    */
-  public void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void warn (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
   {
     if (isEnabled ())
-      m_aLogger.info (aMsgSupplier.get (), ex);
+      m_aLogger.warn (sMsg, aThrowable);
   }
 
   /**
@@ -183,19 +229,19 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
-  public void warn (@NonNull final String sMsg, @Nullable final Exception ex)
+  public void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
     if (isEnabled ())
-      m_aLogger.warn (sMsg, ex);
+      m_aLogger.warn (aMsgSupplier.get (), aThrowable);
   }
 
   /**
    * {@inheritDoc}
    */
-  public void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  public void error (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
   {
     if (isEnabled ())
-      m_aLogger.warn (aMsgSupplier.get (), ex);
+      m_aLogger.error (sMsg, aThrowable);
   }
 
   /**
@@ -219,19 +265,10 @@ public final class ConditionalLogger implements IConditionalLogger, IEnabledIndi
   /**
    * {@inheritDoc}
    */
-  public void error (@NonNull final String sMsg, @Nullable final Exception ex)
+  public void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
     if (isEnabled ())
-      m_aLogger.error (sMsg, ex);
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  public void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
-  {
-    if (isEnabled ())
-      m_aLogger.error (aMsgSupplier.get (), ex);
+      m_aLogger.error (aMsgSupplier.get (), aThrowable);
   }
 
   @Override

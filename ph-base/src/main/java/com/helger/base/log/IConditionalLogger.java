@@ -21,43 +21,88 @@ import java.util.function.Supplier;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.misc.ChangeNextMajorRelease;
+import com.helger.annotation.misc.DevelopersNote;
+
 /**
- * Conditional logger activity interface
+ * Conditional logger activity interface. It combines all five log levels and is therefore also an
+ * {@link ILogHandler}. The methods taking an {@link Exception} are kept for binary compatibility
+ * and delegate to the methods taking a {@link Throwable}.
  *
  * @author Philip Helger
  * @since 11.1.4
  */
-public interface IConditionalLogger
+@ChangeNextMajorRelease ("Remove interface")
+@Deprecated (since = "12.5.2")
+public interface IConditionalLogger extends ILogHandler
 {
-  void trace (@NonNull Supplier <String> aMsgSupplier);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void trace (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    trace (aMsgSupplier, (Throwable) ex);
+  }
 
-  void trace (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void trace (@NonNull final String sMsg, @Nullable final Exception ex)
+  {
+    trace (sMsg, (Throwable) ex);
+  }
 
-  void debug (@NonNull Supplier <String> aMsgSupplier);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void debug (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    debug (aMsgSupplier, (Throwable) ex);
+  }
 
-  void debug (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void debug (@NonNull final String sMsg, @Nullable final Exception ex)
+  {
+    debug (sMsg, (Throwable) ex);
+  }
 
-  void info (@NonNull String sMsg);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    info (aMsgSupplier, (Throwable) ex);
+  }
 
-  void info (@NonNull Supplier <String> aMsgSupplier);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void info (@NonNull final String sMsg, @Nullable final Exception ex)
+  {
+    info (sMsg, (Throwable) ex);
+  }
 
-  void info (@NonNull String sMsg, @Nullable Exception ex);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    warn (aMsgSupplier, (Throwable) ex);
+  }
 
-  void info (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void warn (@NonNull final String sMsg, @Nullable final Exception ex)
+  {
+    warn (sMsg, (Throwable) ex);
+  }
 
-  void warn (@NonNull String sMsg);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Exception ex)
+  {
+    error (aMsgSupplier, (Throwable) ex);
+  }
 
-  void warn (@NonNull Supplier <String> aMsgSupplier);
-
-  void warn (@NonNull String sMsg, @Nullable Exception ex);
-
-  void warn (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
-
-  void error (@NonNull String sMsg);
-
-  void error (@NonNull Supplier <String> aMsgSupplier);
-
-  void error (@NonNull String sMsg, @Nullable Exception ex);
-
-  void error (@NonNull Supplier <String> aMsgSupplier, @Nullable Exception ex);
+  @Deprecated (since = "12.5.2")
+  @DevelopersNote ("No need to do anything - in the next major release, this will be removed and the Throwable version will be used")
+  default void error (@NonNull final String sMsg, @Nullable final Exception ex)
+  {
+    error (sMsg, (Throwable) ex);
+  }
 }

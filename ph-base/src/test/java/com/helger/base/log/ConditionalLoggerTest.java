@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
 public final class ConditionalLoggerTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConditionalLoggerTest.class);
-  private static final Exception EX = new IllegalStateException ("mock");
+  private static final Throwable T = new IllegalStateException ("mock");
 
   @Test
   public void testEnabledState ()
@@ -57,21 +57,21 @@ public final class ConditionalLoggerTest
     final ConditionalLogger a = new ConditionalLogger (LOGGER, true);
 
     a.trace (() -> "trace");
-    a.trace (() -> "trace", EX);
+    a.trace (() -> "trace", T);
     a.debug (() -> "debug");
-    a.debug (() -> "debug", EX);
+    a.debug (() -> "debug", T);
     a.info ("info");
     a.info (() -> "info");
-    a.info ("info", EX);
-    a.info (() -> "info", EX);
+    a.info ("info", T);
+    a.info (() -> "info", T);
     a.warn ("warn");
     a.warn (() -> "warn");
-    a.warn ("warn", EX);
-    a.warn (() -> "warn", EX);
+    a.warn ("warn", T);
+    a.warn (() -> "warn", T);
     a.error ("error");
     a.error (() -> "error");
-    a.error ("error", EX);
-    a.error (() -> "error", EX);
+    a.error ("error", T);
+    a.error (() -> "error", T);
     assertTrue (a.isEnabled ());
   }
 
@@ -85,13 +85,13 @@ public final class ConditionalLoggerTest
     a.debug (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.info ("info");
     a.info (() -> { throw new IllegalStateException ("must not be evaluated"); });
-    a.info ("info", EX);
+    a.info ("info", T);
     a.warn ("warn");
     a.warn (() -> { throw new IllegalStateException ("must not be evaluated"); });
-    a.warn ("warn", EX);
+    a.warn ("warn", T);
     a.error ("error");
     a.error (() -> { throw new IllegalStateException ("must not be evaluated"); });
-    a.error ("error", EX);
+    a.error ("error", T);
     assertFalse (a.isEnabled ());
   }
 }

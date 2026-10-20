@@ -24,6 +24,7 @@ import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.misc.Singleton;
 import com.helger.base.log.ConditionalLogger;
 import com.helger.base.log.IHasConditionalLogger;
+import com.helger.base.log.ILogHandler;
 import com.helger.cache.impl.ProviderCache;
 
 import jakarta.xml.bind.JAXBContext;
@@ -78,7 +79,7 @@ public final class JAXBContextCache extends ProviderCache <JAXBContextCacheKey, 
            DEFAULT_ALLOW_NULL_VALUES,
            null,
            DEFAULT_CLOCK_SUPPLIER,
-           aCacheKey -> aCacheKey.createJAXBContext (CONDLOG));
+           aCacheKey -> aCacheKey.createJAXBContext ((ILogHandler) CONDLOG));
   }
 
   /**

@@ -27,6 +27,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.log.ConditionalLogger;
+import com.helger.base.log.ILogHandler;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashMap;
 import com.helger.collection.commons.ICommonsMap;
@@ -41,7 +42,7 @@ import com.helger.jaxb.mock.external.MockJAXBIssue;
 public final class JAXBContextCacheKeyTest
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JAXBContextCacheKeyTest.class);
-  private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER, true);
+  private static final ILogHandler CONDLOG = new ConditionalLogger (LOGGER, true);
 
   @Test
   public void testCreateForPackage ()

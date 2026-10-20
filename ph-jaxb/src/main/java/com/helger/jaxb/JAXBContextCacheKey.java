@@ -33,6 +33,7 @@ import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.log.IConditionalLogger;
+import com.helger.base.log.ILogHandler;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.base.string.StringImplode;
 import com.helger.base.tostring.ToStringGenerator;
@@ -160,7 +161,7 @@ public class JAXBContextCacheKey
   }
 
   @NonNull
-  private JAXBContext _createFromPackageAndClassLoader (@NonNull final IConditionalLogger aCondLog)
+  private JAXBContext _createFromPackageAndClassLoader (@NonNull final ILogHandler aCondLog)
   {
     final ClassLoader aClassLoader = _getClassLoader ();
 
@@ -192,7 +193,7 @@ public class JAXBContextCacheKey
   }
 
   @NonNull
-  private JAXBContext _createFromClassesAndProperties (@NonNull final IConditionalLogger aCondLog)
+  private JAXBContext _createFromClassesAndProperties (@NonNull final ILogHandler aCondLog)
   {
     final ICommonsList <Class <?>> aClasses = _getAllClasses ();
 
@@ -232,13 +233,32 @@ public class JAXBContextCacheKey
    * @return The created {@link JAXBContext}. Never <code>null</code>.
    * @throws IllegalArgumentException
    *         In case creation fails.
+   * @deprecated Use the overload with ILogHandler instead
    */
   @NonNull
+  @Deprecated (forRemoval = true, since = "12.5.2")
   public JAXBContext createJAXBContext (@NonNull final IConditionalLogger aCondLog)
   {
     if (m_aPackages != null)
       return _createFromPackageAndClassLoader (aCondLog);
     return _createFromClassesAndProperties (aCondLog);
+  }
+
+  /**
+   * Create the {@link JAXBContext} based on the data provided in the constructor.
+   *
+   * @param aLogHandler
+   *        The log handler to use for logging. May not be <code>null</code>.
+   * @return The created {@link JAXBContext}. Never <code>null</code>.
+   * @throws IllegalArgumentException
+   *         In case creation fails.
+   */
+  @NonNull
+  public JAXBContext createJAXBContext (@NonNull final ILogHandler aLogHandler)
+  {
+    if (m_aPackages != null)
+      return _createFromPackageAndClassLoader (aLogHandler);
+    return _createFromClassesAndProperties (aLogHandler);
   }
 
   @Override
