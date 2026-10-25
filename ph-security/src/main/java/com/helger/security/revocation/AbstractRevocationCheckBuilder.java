@@ -630,6 +630,10 @@ public abstract class AbstractRevocationCheckBuilder <IMPLTYPE extends AbstractR
           if (LOGGER.isDebugEnabled ())
             LOGGER.debug ("OCSP/CRL effective options = " + aOptions);
           aRevChecker.setOptions (aOptions);
+          // The options only take effect if the checker is registered. Otherwise PKIX silently
+          // uses its own default revocation checker, which prefers OCSP and ignores all of the
+          // options above.
+          aPKIXParams.addCertPathChecker (aRevChecker);
 
           // If this takes forever, then OCSP call is invoked that e.g. can't
           // reach the server (default is 15 secs)

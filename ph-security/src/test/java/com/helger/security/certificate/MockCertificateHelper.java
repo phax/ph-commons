@@ -21,6 +21,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.cert.X509CRL;
 import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.Date;
@@ -30,7 +31,10 @@ import javax.security.auth.x500.X500Principal;
 
 import org.bouncycastle.asn1.ASN1Encodable;
 import org.bouncycastle.asn1.DEROctetString;
+import org.bouncycastle.asn1.x509.AccessDescription;
+import org.bouncycastle.asn1.x509.AuthorityInformationAccess;
 import org.bouncycastle.asn1.x509.BasicConstraints;
+import org.bouncycastle.asn1.x509.CRLReason;
 import org.bouncycastle.asn1.x509.CRLDistPoint;
 import org.bouncycastle.asn1.x509.DistributionPoint;
 import org.bouncycastle.asn1.x509.DistributionPointName;
@@ -39,8 +43,10 @@ import org.bouncycastle.asn1.x509.GeneralName;
 import org.bouncycastle.asn1.x509.GeneralNames;
 import org.bouncycastle.asn1.x509.KeyUsage;
 import org.bouncycastle.cert.X509CertificateHolder;
+import org.bouncycastle.cert.jcajce.JcaX509CRLConverter;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.cert.jcajce.JcaX509ExtensionUtils;
+import org.bouncycastle.cert.jcajce.JcaX509v2CRLBuilder;
 import org.bouncycastle.cert.jcajce.JcaX509v3CertificateBuilder;
 import org.bouncycastle.operator.ContentSigner;
 import org.bouncycastle.operator.jcajce.JcaContentSignerBuilder;
@@ -133,7 +139,8 @@ public final class MockCertificateHelper
   private static X509Certificate _createEndEntity (@NonNull final X509Certificate aIssuerCert,
                                                    @NonNull final PrivateKey aIssuerKey,
                                                    @NonNull final PublicKey aSubjectKey,
-                                                   @NonNull final ASN1Encodable aCRLDPExtensionValue) throws Exception
+                                                   @NonNull final ASN1Encodable aCRLDPExtensionValue,
+                                                   @Nullable final String sOCSPURL) throws Exception
   {
     final X500Principal aSubject = new X500Principal ("CN=End Entity,O=ph-commons,C=AT");
     final long nNow = System.currentTimeMillis ();
@@ -147,6 +154,12 @@ public final class MockCertificateHelper
                                                                                   aSubject,
                                                                                   aSubjectKey);
     aBuilder.addExtension (Extension.cRLDistributionPoints, false, aCRLDPExtensionValue);
+    if (sOCSPURL != null)
+      aBuilder.addExtension (Extension.authorityInfoAccess,
+                             false,
+                             new AuthorityInformationAccess (AccessDescription.id_ad_ocsp,
+                                                             new GeneralName (GeneralName.uniformResourceIdentifier,
+                                                                              sOCSPURL)));
     final JcaX509ExtensionUtils aExtUtils = new JcaX509ExtensionUtils ();
     aBuilder.addExtension (Extension.subjectKeyIdentifier, false, aExtUtils.createSubjectKeyIdentifier (aSubjectKey));
     aBuilder.addExtension (Extension.authorityKeyIdentifier,
@@ -189,7 +202,11 @@ public final class MockCertificateHelper
                                                                      new GeneralNames (new GeneralName (GeneralName.uniformResourceIdentifier,
                                                                                                         sCRLURL)));
     final DistributionPoint aDP = new DistributionPoint (aDPName, null, null);
-    return _createEndEntity (aIssuerCert, aIssuerKey, aSubjectKey, new CRLDistPoint (new DistributionPoint [] { aDP }));
+    return _createEndEntity (aIssuerCert,
+                             aIssuerKey,
+                             aSubjectKey,
+                             new CRLDistPoint (new DistributionPoint [] { aDP }),
+                             null);
   }
 
   /**
@@ -212,7 +229,92 @@ public final class MockCertificateHelper
                                                                 @NonNull final PublicKey aSubjectKey) throws Exception
   {
     // An OCTET STRING where a SEQUENCE OF DistributionPoint is required
-    return _createEndEntity (aIssuerCert, aIssuerKey, aSubjectKey, new DEROctetString (new byte [] { 1, 2, 3 }));
+    return _createEndEntity (aIssuerCert, aIssuerKey, aSubjectKey, new DEROctetString (new byte [] { 1, 2, 3 }), null);
+  }
+
+  /**
+   * Build an end-entity certificate signed by the provided issuer, carrying a CRL Distribution
+   * Points extension and an Authority Information Access extension with an OCSP responder URL. The
+   * certificate is valid from 10 minutes ago to 1 day from now.
+   *
+   * @param aIssuerCert
+   *        Issuer (CA) certificate. May not be <code>null</code>.
+   * @param aIssuerKey
+   *        Issuer's private key used for signing. May not be <code>null</code>.
+   * @param aSubjectKey
+   *        Public key to embed in the new certificate. May not be <code>null</code>.
+   * @param sCRLURL
+   *        The CRL distribution point URL. Neither <code>null</code> nor empty.
+   * @param sOCSPURL
+   *        The OCSP responder URL. Neither <code>null</code> nor empty.
+   * @return The generated end-entity certificate. Never <code>null</code>.
+   * @throws Exception
+   *         on any signing/encoding failure.
+   */
+  @NonNull
+  public static X509Certificate createEndEntityWithCRLDPAndOCSP (@NonNull final X509Certificate aIssuerCert,
+                                                                 @NonNull final PrivateKey aIssuerKey,
+                                                                 @NonNull final PublicKey aSubjectKey,
+                                                                 @NonNull @Nonempty final String sCRLURL,
+                                                                 @NonNull @Nonempty final String sOCSPURL) throws Exception
+  {
+    final DistributionPointName aDPName = new DistributionPointName (DistributionPointName.FULL_NAME,
+                                                                     new GeneralNames (new GeneralName (GeneralName.uniformResourceIdentifier,
+                                                                                                        sCRLURL)));
+    final DistributionPoint aDP = new DistributionPoint (aDPName, null, null);
+    return _createEndEntity (aIssuerCert,
+                             aIssuerKey,
+                             aSubjectKey,
+                             new CRLDistPoint (new DistributionPoint [] { aDP }),
+                             sOCSPURL);
+  }
+
+  /**
+   * Build a CRL issued by the provided CA, valid from 10 minutes ago to 1 day from now.
+   *
+   * @param aIssuerCert
+   *        Issuer (CA) certificate. May not be <code>null</code>.
+   * @param aIssuerKey
+   *        Issuer's private key used for signing. May not be <code>null</code>.
+   * @param aRevokedCerts
+   *        The certificates to list as revoked. May not be <code>null</code> but may be empty.
+   * @return The generated CRL. Never <code>null</code>.
+   * @throws Exception
+   *         on any signing/encoding failure.
+   */
+  @NonNull
+  public static X509CRL createCRL (@NonNull final X509Certificate aIssuerCert,
+                                   @NonNull final PrivateKey aIssuerKey,
+                                   @NonNull final X509Certificate... aRevokedCerts) throws Exception
+  {
+    final long nNow = System.currentTimeMillis ();
+    final Date aThisUpdate = new Date (nNow - Duration.ofMinutes (10).toMillis ());
+    final JcaX509v2CRLBuilder aBuilder = new JcaX509v2CRLBuilder (aIssuerCert, aThisUpdate);
+    aBuilder.setNextUpdate (new Date (nNow + Duration.ofDays (1).toMillis ()));
+    for (final X509Certificate aRevokedCert : aRevokedCerts)
+      aBuilder.addCRLEntry (aRevokedCert.getSerialNumber (), aThisUpdate, CRLReason.keyCompromise);
+    aBuilder.addExtension (Extension.authorityKeyIdentifier,
+                           false,
+                           new JcaX509ExtensionUtils ().createAuthorityKeyIdentifier (aIssuerCert.getPublicKey ()));
+
+    final ContentSigner aSigner = new JcaContentSignerBuilder ("SHA256WithRSA").setProvider (PBCProvider.getProvider ())
+                                                                               .build (aIssuerKey);
+    return new JcaX509CRLConverter ().setProvider (PBCProvider.getProvider ()).getCRL (aBuilder.build (aSigner));
+  }
+
+  /**
+   * Build a {@link CRLCache} whose underlying URL downloader always returns the provided CRL,
+   * without any network access.
+   *
+   * @param aCRL
+   *        The CRL to return for every URL. May not be <code>null</code>.
+   * @return Never <code>null</code>.
+   */
+  @NonNull
+  public static CRLCache createFixedCRLCache (@NonNull final X509CRL aCRL)
+  {
+    final CRLDownloader aDownloader = new CRLDownloader (sURL -> aCRL.getEncoded ());
+    return new CRLCache (aDownloader, Duration.ofMinutes (1));
   }
 
   /**
