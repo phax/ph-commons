@@ -120,6 +120,9 @@ public final class CMimeType
   /** PNG image. */
   public static final IMimeType IMAGE_PNG = EMimeContentType.IMAGE.buildMimeType ("png");
 
+  /** SVG image. */
+  public static final IMimeType IMAGE_SVG_XML = EMimeContentType.IMAGE.buildMimeType ("svg+xml");
+
   /** TIFF image. */
   public static final IMimeType IMAGE_TIFF = EMimeContentType.IMAGE.buildMimeType ("tiff");
 
