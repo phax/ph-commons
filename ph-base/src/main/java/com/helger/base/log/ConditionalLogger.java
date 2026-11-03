@@ -35,7 +35,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * @author Philip Helger
  * @since 11.0.4
  */
-@SuppressWarnings ("deprecation")
+@SuppressWarnings ({ "deprecation", "unused" })
 @ThreadSafe
 public final class ConditionalLogger implements IConditionalLogger, ILogHandler, IEnabledIndicator
 {
