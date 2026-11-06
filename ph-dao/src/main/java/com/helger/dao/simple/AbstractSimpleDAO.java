@@ -128,7 +128,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   }
 
   /**
-   * Custom initialization routine. Called only if the underlying file does not exist yet. This
+   * Custom initialization routine. Called only if the underlying file does not exist yet or is empty (0 bytes). This
    * method is only called within a write lock!
    *
    * @return {@link EChange#CHANGED} if something was modified inside this method
@@ -260,7 +260,11 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
     }
     final File aFinalFile = aFile;
     m_aRWLock.writeLockedThrowing (() -> {
-      final boolean bIsInitialization = aFinalFile == null || !aFinalFile.exists ();
+      // A 0 byte file is treated like a non-existing file
+      final boolean bIsEmptyFile = aFinalFile != null && aFinalFile.exists () && aFinalFile.length () == 0;
+      if (bIsEmptyFile)
+        CONDLOG.info (() -> "DAO XML file '" + aFinalFile + "' is empty and is therefore ignored");
+      final boolean bIsInitialization = aFinalFile == null || !aFinalFile.exists () || bIsEmptyFile;
       try
       {
         ESuccess eWriteSuccess = ESuccess.SUCCESS;

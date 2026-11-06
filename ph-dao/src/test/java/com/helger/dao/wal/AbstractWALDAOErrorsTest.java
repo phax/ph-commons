@@ -117,6 +117,29 @@ public final class AbstractWALDAOErrorsTest
   }
 
   @Test
+  public void testReadEmptyFileIsTreatedAsInit () throws DAOException
+  {
+    // A 0 byte file is treated like a non-existing file
+    final File aFile = new File (BASE_PATH, FILENAME);
+    SimpleFileIO.writeFile (aFile, new byte [0]);
+    assertTrue (aFile.exists ());
+    assertEquals (0, aFile.length ());
+
+    final AtomicInteger aExCount = new AtomicInteger (0);
+    AbstractDAO.exceptionHandlersRead ().add ((t, bInit, aRes) -> aExCount.incrementAndGet ());
+
+    final MockMapBasedWALDAO aDAO = new MockMapBasedWALDAO (m_aIO, FILENAME);
+    aDAO.setWaitingTime (Duration.ZERO);
+    assertTrue (aDAO.isEmpty ());
+    assertEquals (1, aDAO.getInitCount ());
+    assertEquals (0, aDAO.getReadCount ());
+    assertEquals (0, aExCount.get ());
+
+    aDAO.createItem (new MockDAOItem ("id1", "name1"));
+    assertEquals (1, aDAO.size ());
+  }
+
+  @Test
   public void testGetSafeFileOnDirectory ()
   {
     FileOperations.createDirRecursiveIfNotExisting (new File (BASE_PATH, "adir"));

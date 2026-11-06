@@ -266,6 +266,28 @@ public final class AbstractSimpleDAOTest
   }
 
   @Test
+  public void testReadEmptyFileIsTreatedAsInit () throws DAOException
+  {
+    // A 0 byte file is treated like a non-existing file
+    final File aFile = new File (BASE_PATH, FILENAME);
+    SimpleFileIO.writeFile (aFile, new byte [0]);
+    assertTrue (aFile.exists ());
+    assertEquals (0, aFile.length ());
+
+    final MockValueDAO aDAO = new MockValueDAO (m_aIO, FILENAME).initWithDefault (true);
+    assertEquals (new CommonsArrayList <> ("default"), aDAO.getAllValues ());
+    assertEquals (1, aDAO.getInitCount ());
+    assertEquals (0, aDAO.getReadCount ());
+    assertEquals (1, aDAO.getWriteCount ());
+    assertTrue (aFile.length () > 0);
+
+    // Read it again
+    final MockValueDAO aDAO2 = new MockValueDAO (m_aIO, FILENAME).initWithDefault (false);
+    assertEquals (new CommonsArrayList <> ("default"), aDAO2.getAllValues ());
+    assertEquals (1, aDAO2.getReadCount ());
+  }
+
+  @Test
   public void testWithoutFilename () throws DAOException
   {
     // A null filename means "no persistence" - this is used for testing

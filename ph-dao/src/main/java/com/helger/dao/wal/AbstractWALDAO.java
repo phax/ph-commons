@@ -232,7 +232,7 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
   }
 
   /**
-   * Custom initialization routine. Called only if the underlying file does not exist yet. This
+   * Custom initialization routine. Called only if the underlying file does not exist yet or is empty (0 bytes). This
    * method is only called within a write lock!
    *
    * @return {@link EChange#CHANGED} if something was modified inside this method
@@ -424,7 +424,11 @@ public abstract class AbstractWALDAO <DATATYPE> extends AbstractDAO
 
       CONDLOG.info (() -> "This DAO of class " + getClass ().getName () + " is initially read from file ");
     }
-    final boolean bIsInitialization = aFile == null || !aFile.exists ();
+    // A 0 byte file is treated like a non-existing file
+    final boolean bIsEmptyFile = aFile != null && aFile.exists () && aFile.length () == 0;
+    if (bIsEmptyFile)
+      CONDLOG.info (() -> "WAL DAO XML file '" + aFile.getAbsolutePath () + "' is empty and is therefore ignored");
+    final boolean bIsInitialization = aFile == null || !aFile.exists () || bIsEmptyFile;
 
     m_aRWLock.writeLock ().lock ();
     try
