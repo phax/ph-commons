@@ -20,11 +20,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 
 import org.junit.Test;
 
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.base.string.StringHex;
 import com.helger.json.serialize.JsonReader;
 
@@ -119,6 +121,61 @@ public final class JsonEscapeHelperTest
 
     // An unknown escape sequence must throw
     assertThrows (IllegalArgumentException.class, () -> JsonEscapeHelper.jsonUnescape ("\\x"));
+  }
+
+  @Test
+  public void testStringAndCharArrayConsistency () throws IOException
+  {
+    for (final String s : new String [] { "a",
+                                          "abc",
+                                          "a\u0000b",
+                                          "\u001f",
+                                          "\u00e4\u20ac",
+                                          STRING_UNESCAPED,
+                                          STRING_ESCAPED })
+    {
+      final char [] aChars = s.toCharArray ();
+
+      // Escape
+      final String sEscaped = JsonEscapeHelper.jsonEscape (s);
+      assertEquals (sEscaped, JsonEscapeHelper.jsonEscape (aChars));
+
+      StringBuilder aSB = new StringBuilder ();
+      JsonEscapeHelper.jsonEscape (s, aSB);
+      assertEquals (sEscaped, aSB.toString ());
+
+      aSB = new StringBuilder ();
+      JsonEscapeHelper.jsonEscapeToStringBuilder (aChars, aSB);
+      assertEquals (sEscaped, aSB.toString ());
+
+      try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+      {
+        JsonEscapeHelper.jsonEscapeToWriter (s, aSW);
+        assertEquals (sEscaped, aSW.getAsString ());
+      }
+      try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+      {
+        JsonEscapeHelper.jsonEscapeToWriter (aChars, aSW);
+        assertEquals (sEscaped, aSW.getAsString ());
+      }
+
+      // Unescape
+      final String sUnescaped = JsonEscapeHelper.jsonUnescape (sEscaped);
+      assertEquals (s, sUnescaped);
+      assertEquals (sUnescaped, JsonEscapeHelper.jsonUnescape (sEscaped.toCharArray ()));
+
+      aSB = new StringBuilder ();
+      JsonEscapeHelper.jsonUnescapeToStringBuilder (sEscaped.toCharArray (), aSB);
+      assertEquals (sUnescaped, aSB.toString ());
+    }
+
+    // Same error message for String and char array
+    final IllegalArgumentException ex1 = assertThrows (IllegalArgumentException.class,
+                                                       () -> JsonEscapeHelper.jsonUnescape ("ab\\u12"));
+    final IllegalArgumentException ex2 = assertThrows (IllegalArgumentException.class,
+                                                       () -> JsonEscapeHelper.jsonUnescape ("ab\\u12".toCharArray ()));
+    assertEquals ("JSON unicode escape sequence \\uXXXX is incomplete: \\u12", ex1.getMessage ());
+    assertEquals (ex1.getMessage (), ex2.getMessage ());
   }
 
   @Test

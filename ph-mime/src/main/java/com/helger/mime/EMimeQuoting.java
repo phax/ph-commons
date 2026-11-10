@@ -47,8 +47,10 @@ public enum EMimeQuoting
     {
       final StringBuilder aSB = new StringBuilder (sUnquotedString.length () * 2);
       aSB.append (QUOTED_STRING_SEPARATOR_CHAR);
-      final char [] aChars = sUnquotedString.toCharArray ();
-      for (final char c : aChars)
+      final int nLen = sUnquotedString.length ();
+      for (int i = 0; i < nLen; ++i)
+      {
+        final char c = sUnquotedString.charAt (i);
         if (c == QUOTED_STRING_SEPARATOR_CHAR || c == QUOTED_STRING_MASK_CHAR)
         {
           // Mask char
@@ -56,6 +58,7 @@ public enum EMimeQuoting
         }
         else
           aSB.append (c);
+      }
       return aSB.append (QUOTED_STRING_SEPARATOR_CHAR).toString ();
     }
 

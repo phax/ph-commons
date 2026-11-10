@@ -16,6 +16,7 @@
  */
 package com.helger.xml.serialize.write;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -304,6 +305,82 @@ public final class XMLCharHelperTest
       assertTrue (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a\uD800"));
       assertNotNull (XMLCharHelper.getAllInvalidXMLNameChars (eVersion, "a\uDB80\uDC00"));
       assertTrue (XMLCharHelper.getAllInvalidXMLNameChars (eVersion, "a\uDB80\uDC00").contains (Character.valueOf ('\uDB80')));
+    }
+  }
+
+  @Test
+  public void testStringAndCharArrayConsistency ()
+  {
+    final String [] aTexts = { "a",
+                               "abc",
+                               "1abc",
+                               "a:b",
+                               "a b",
+                               "a<b>&\"'",
+                               "ab\u0000cd",
+                               "\u0001\u007f\u0085",
+                               "a\u0132b",
+                               "a\uD800\uDC00",
+                               "a\uDB80\uDC00",
+                               "a\uD800",
+                               "\uDC00a" };
+    for (final EXMLSerializeVersion eVersion : EXMLSerializeVersion.values ())
+    {
+      for (final String s : aTexts)
+      {
+        final String sMsg = eVersion + "/" + s;
+        final char [] aChars = s.toCharArray ();
+        // Use an offset and a limit, to ensure they are considered
+        final char [] aPadded = ("\uD800" + s + "\uDC00").toCharArray ();
+        final int nLen = s.length ();
+
+        assertEquals (sMsg,
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLNameChar (eVersion, s)),
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLNameChar (eVersion, aChars)));
+        assertEquals (sMsg,
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLNameChar (eVersion, s)),
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLNameChar (eVersion, aPadded, 1, nLen)));
+        assertEquals (sMsg,
+                      XMLCharHelper.getAllInvalidXMLNameChars (eVersion, s),
+                      XMLCharHelper.getAllInvalidXMLNameChars (eVersion, aChars));
+        assertEquals (sMsg,
+                      XMLCharHelper.getAllInvalidXMLNameChars (eVersion, s),
+                      XMLCharHelper.getAllInvalidXMLNameChars (eVersion, aPadded, 1, nLen));
+
+        assertEquals (sMsg,
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLTextChar (eVersion, s)),
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLTextChar (eVersion, aPadded, 1, nLen)));
+        assertEquals (sMsg,
+                      XMLCharHelper.getAllInvalidXMLTextChars (eVersion, s),
+                      XMLCharHelper.getAllInvalidXMLTextChars (eVersion, aPadded, 1, nLen));
+
+        assertEquals (sMsg,
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, s)),
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLCDATAChar (eVersion, aPadded, 1, nLen)));
+        assertEquals (sMsg,
+                      XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, s),
+                      XMLCharHelper.getAllInvalidXMLCDATAChars (eVersion, aPadded, 1, nLen));
+
+        assertEquals (sMsg,
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLAttributeValueChar (eVersion, s)),
+                      Boolean.valueOf (XMLCharHelper.containsInvalidXMLAttributeValueChar (eVersion,
+                                                                                           aPadded,
+                                                                                           1,
+                                                                                           nLen)));
+        assertEquals (sMsg,
+                      XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, s),
+                      XMLCharHelper.getAllInvalidXMLAttributeValueChars (eVersion, aPadded, 1, nLen));
+
+        for (final EXMLCharMode eCharMode : EXMLCharMode.values ())
+        {
+          assertEquals (sMsg + "/" + eCharMode,
+                        Boolean.valueOf (XMLCharHelper.containsInvalidXMLChar (eVersion, eCharMode, s)),
+                        Boolean.valueOf (XMLCharHelper.containsInvalidXMLChar (eVersion, eCharMode, aPadded, 1, nLen)));
+          assertEquals (sMsg + "/" + eCharMode,
+                        XMLCharHelper.getAllInvalidXMLChars (eVersion, eCharMode, s),
+                        XMLCharHelper.getAllInvalidXMLChars (eVersion, eCharMode, aPadded, 1, nLen));
+        }
+      }
     }
   }
 }

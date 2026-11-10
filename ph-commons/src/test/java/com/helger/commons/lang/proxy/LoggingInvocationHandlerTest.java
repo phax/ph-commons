@@ -16,6 +16,11 @@
  */
 package com.helger.commons.lang.proxy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
@@ -64,5 +69,50 @@ public final class LoggingInvocationHandlerTest
   {
     LoggingInvocationHandler.proxying (ITest.class, new TestImpl ()).foo ();
     LoggingInvocationHandler.proxying (ITest.class, new TestImpl2 ()).foo ();
+  }
+
+  public interface IThrowing
+  {
+    void runUnchecked ();
+
+    void runChecked () throws IOException;
+  }
+
+  public static class ThrowingImpl implements IThrowing
+  {
+    public void runUnchecked ()
+    {
+      throw new IllegalArgumentException ("unchecked");
+    }
+
+    public void runChecked () throws IOException
+    {
+      throw new IOException ("checked");
+    }
+  }
+
+  @Test
+  public void testExceptionIsNotWrapped ()
+  {
+    final IThrowing aProxy = LoggingInvocationHandler.proxying (IThrowing.class, new ThrowingImpl ());
+    try
+    {
+      aProxy.runUnchecked ();
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // The original exception reaches the caller
+      assertEquals ("unchecked", ex.getMessage ());
+    }
+    try
+    {
+      aProxy.runChecked ();
+      fail ();
+    }
+    catch (final IOException ex)
+    {
+      assertEquals ("checked", ex.getMessage ());
+    }
   }
 }

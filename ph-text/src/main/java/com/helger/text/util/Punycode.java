@@ -16,6 +16,8 @@
  */
 package com.helger.text.util;
 
+import java.nio.CharBuffer;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -198,22 +200,7 @@ public final class Punycode
   }
 
   /**
-   * Decode the provided Punycode encoded string.
-   *
-   * @param s
-   *        The string to decode. May be <code>null</code>.
-   * @return The decoded string, or <code>null</code> if the input was <code>null</code>.
-   */
-  @Nullable
-  public static String getDecoded (@Nullable final String s)
-  {
-    if (s == null)
-      return null;
-    return getDecoded (s.toCharArray (), null);
-  }
-
-  /**
-   * Decode the provided Punycode encoded char array.
+   * Decode the provided Punycode encoded character sequence.
    *
    * @param aChars
    *        The characters to decode. May not be <code>null</code>.
@@ -222,35 +209,36 @@ public final class Punycode
    * @return The decoded string. Never <code>null</code>.
    */
   @NonNull
-  public static String getDecoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
+  private static String _getDecoded (@NonNull final CharSequence aChars, final boolean @Nullable [] aCaseFlags)
   {
+    final int nLen = aChars.length ();
     final StringBuilder aSB = new StringBuilder ();
     int n = INITIAL_N;
     int out = 0;
     int i = 0;
     int bias = INITIAL_BIAS;
     int b = 0;
-    for (int j = 0; j < aChars.length; ++j)
-      if (_delim (aChars[j]))
+    for (int j = 0; j < nLen; ++j)
+      if (_delim (aChars.charAt (j)))
         b = j;
     for (int j = 0; j < b; ++j)
     {
       if (aCaseFlags != null)
-        aCaseFlags[out] = _flagged (aChars[j]);
-      if (!_basic (aChars[j]))
+        aCaseFlags[out] = _flagged (aChars.charAt (j));
+      if (!_basic (aChars.charAt (j)))
         throw new DecodeException ("Bad Input");
-      aSB.append (aChars[j]);
+      aSB.append (aChars.charAt (j));
     }
     out = aSB.length ();
-    for (int in = (b > 0) ? b + 1 : 0; in < aChars.length; ++out)
+    for (int in = (b > 0) ? b + 1 : 0; in < nLen; ++out)
     {
       final int oldi = i;
       int w = 1;
       for (int k = BASE;; k += BASE)
       {
-        if (in >= aChars.length)
+        if (in >= nLen)
           throw new DecodeException ("Bad input");
-        final int digit = _decode_digit (aChars[in]);
+        final int digit = _decode_digit (aChars.charAt (in));
         in++;
         if (digit >= BASE)
           throw new DecodeException ("Bad input");
@@ -284,5 +272,35 @@ public final class Punycode
       CodepointHelper.insert (aSB, i++, n);
     }
     return aSB.toString ();
+  }
+
+  /**
+   * Decode the provided Punycode encoded string.
+   *
+   * @param s
+   *        The string to decode. May be <code>null</code>.
+   * @return The decoded string, or <code>null</code> if the input was <code>null</code>.
+   */
+  @Nullable
+  public static String getDecoded (@Nullable final String s)
+  {
+    if (s == null)
+      return null;
+    return _getDecoded (s, null);
+  }
+
+  /**
+   * Decode the provided Punycode encoded char array.
+   *
+   * @param aChars
+   *        The characters to decode. May not be <code>null</code>.
+   * @param aCaseFlags
+   *        Optional case flags for the decoding. May be <code>null</code>.
+   * @return The decoded string. Never <code>null</code>.
+   */
+  @NonNull
+  public static String getDecoded (final char @NonNull [] aChars, final boolean @Nullable [] aCaseFlags)
+  {
+    return _getDecoded (CharBuffer.wrap (aChars), aCaseFlags);
   }
 }

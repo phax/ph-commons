@@ -241,7 +241,7 @@ public final class PDTFactory
    *         milliseconds granularity is available.
    * @since 9.2.0
    */
-  @Nonnegative
+  @NonNull
   public static ZonedDateTime getCurrentZonedDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentZonedDateTime ());
@@ -252,7 +252,7 @@ public final class PDTFactory
    *         the milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static ZonedDateTime getCurrentZonedDateTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentZonedDateTimeUTC ());
@@ -681,7 +681,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetDateTime} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDateTime getCurrentOffsetDateTime ()
   {
     return OffsetDateTime.now (_getZoneId ());
@@ -690,7 +690,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetDateTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDateTime getCurrentOffsetDateTimeUTC ()
   {
     return OffsetDateTime.now (ZoneOffset.UTC);
@@ -719,7 +719,7 @@ public final class PDTFactory
    *         milliseconds granularity is available.
    * @since 9.2.0
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDateTime getCurrentOffsetDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentOffsetDateTime ());
@@ -730,7 +730,7 @@ public final class PDTFactory
    *         the milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDateTime getCurrentOffsetDateTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentOffsetDateTimeUTC ());
@@ -1196,7 +1196,7 @@ public final class PDTFactory
    * @return The current {@link XMLOffsetDateTime} in the default time zone. Never
    *         <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTime ()
   {
     return XMLOffsetDateTime.now (_getZoneId ());
@@ -1205,7 +1205,7 @@ public final class PDTFactory
   /**
    * @return The current {@link XMLOffsetDateTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeUTC ()
   {
     return XMLOffsetDateTime.now (ZoneOffset.UTC);
@@ -1232,7 +1232,7 @@ public final class PDTFactory
    *         the milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentXMLOffsetDateTime ());
@@ -1243,7 +1243,7 @@ public final class PDTFactory
    *         the milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDateTime getCurrentXMLOffsetDateTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentXMLOffsetDateTimeUTC ());
@@ -1705,7 +1705,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalDateTime} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalDateTime getCurrentLocalDateTime ()
   {
     return LocalDateTime.now (_getZoneId ());
@@ -1714,7 +1714,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalDateTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalDateTime getCurrentLocalDateTimeUTC ()
   {
     return LocalDateTime.now (ZoneOffset.UTC);
@@ -1743,7 +1743,7 @@ public final class PDTFactory
    *         milliseconds granularity is available.
    * @since 9.2.0
    */
-  @Nonnegative
+  @NonNull
   public static LocalDateTime getCurrentLocalDateTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentLocalDateTime ());
@@ -1754,7 +1754,7 @@ public final class PDTFactory
    *         the milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static LocalDateTime getCurrentLocalDateTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentLocalDateTimeUTC ());
@@ -2075,7 +2075,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalDate} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalDate getCurrentLocalDate ()
   {
     return LocalDate.now (_getZoneId ());
@@ -2084,7 +2084,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalDate} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalDate getCurrentLocalDateUTC ()
   {
     return LocalDate.now (ZoneOffset.UTC);
@@ -2270,7 +2270,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetDate} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDate getCurrentOffsetDate ()
   {
     return OffsetDate.now (_getZoneId ());
@@ -2279,7 +2279,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetDate} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetDate getCurrentOffsetDateUTC ()
   {
     return OffsetDate.now (ZoneOffset.UTC);
@@ -2544,7 +2544,7 @@ public final class PDTFactory
   /**
    * @return The current {@link XMLOffsetDate} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDate getCurrentXMLOffsetDate ()
   {
     return XMLOffsetDate.now (_getZoneId ());
@@ -2553,7 +2553,7 @@ public final class PDTFactory
   /**
    * @return The current {@link XMLOffsetDate} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetDate getCurrentXMLOffsetDateUTC ()
   {
     return XMLOffsetDate.now (ZoneOffset.UTC);
@@ -2807,7 +2807,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalTime} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalTime getCurrentLocalTime ()
   {
     return LocalTime.now (_getZoneId ());
@@ -2816,7 +2816,7 @@ public final class PDTFactory
   /**
    * @return The current {@link LocalTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static LocalTime getCurrentLocalTimeUTC ()
   {
     return LocalTime.now (ZoneOffset.UTC);
@@ -2845,7 +2845,7 @@ public final class PDTFactory
    *         milliseconds granularity is available.
    * @since 9.4.7
    */
-  @Nonnegative
+  @NonNull
   public static LocalTime getCurrentLocalTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentLocalTime ());
@@ -2856,7 +2856,7 @@ public final class PDTFactory
    *         milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static LocalTime getCurrentLocalTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentLocalTimeUTC ());
@@ -2976,7 +2976,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetTime} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetTime getCurrentOffsetTime ()
   {
     return OffsetTime.now (_getZoneId ());
@@ -2985,7 +2985,7 @@ public final class PDTFactory
   /**
    * @return The current {@link OffsetTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetTime getCurrentOffsetTimeUTC ()
   {
     return OffsetTime.now (ZoneOffset.UTC);
@@ -3014,7 +3014,7 @@ public final class PDTFactory
    *         milliseconds granularity is available.
    * @since 9.4.7
    */
-  @Nonnegative
+  @NonNull
   public static OffsetTime getCurrentOffsetTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentOffsetTime ());
@@ -3025,7 +3025,7 @@ public final class PDTFactory
    *         milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static OffsetTime getCurrentOffsetTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentOffsetTimeUTC ());
@@ -3193,7 +3193,7 @@ public final class PDTFactory
   /**
    * @return The current {@link XMLOffsetTime} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetTime getCurrentXMLOffsetTime ()
   {
     return XMLOffsetTime.now (_getZoneId ());
@@ -3202,7 +3202,7 @@ public final class PDTFactory
   /**
    * @return The current {@link XMLOffsetTime} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetTime getCurrentXMLOffsetTimeUTC ()
   {
     return XMLOffsetTime.now (ZoneOffset.UTC);
@@ -3229,7 +3229,7 @@ public final class PDTFactory
    *         milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetTime getCurrentXMLOffsetTimeMillisOnly ()
   {
     return getWithMillisOnly (getCurrentXMLOffsetTime ());
@@ -3240,7 +3240,7 @@ public final class PDTFactory
    *         milliseconds part is present. This is helpful for XSD serialization, where only
    *         milliseconds granularity is available.
    */
-  @Nonnegative
+  @NonNull
   public static XMLOffsetTime getCurrentXMLOffsetTimeMillisOnlyUTC ()
   {
     return getWithMillisOnly (getCurrentXMLOffsetTimeUTC ());
@@ -3676,7 +3676,7 @@ public final class PDTFactory
   /**
    * @return The current {@link YearMonth} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static YearMonth getCurrentYearMonth ()
   {
     return YearMonth.now (_getZoneId ());
@@ -3685,7 +3685,7 @@ public final class PDTFactory
   /**
    * @return The current {@link YearMonth} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static YearMonth getCurrentYearMonthUTC ()
   {
     return YearMonth.now (ZoneOffset.UTC);
@@ -3694,7 +3694,7 @@ public final class PDTFactory
   /**
    * @return The current {@link Instant} in the default time zone. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static Instant getCurrentInstant ()
   {
     return Instant.now (Clock.system (_getZoneId ()));
@@ -3703,7 +3703,7 @@ public final class PDTFactory
   /**
    * @return The current {@link Instant} in UTC. Never <code>null</code>.
    */
-  @Nonnegative
+  @NonNull
   public static Instant getCurrentInstantUTC ()
   {
     return Instant.now (Clock.system (ZoneOffset.UTC));

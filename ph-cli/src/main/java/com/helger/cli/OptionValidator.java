@@ -89,9 +89,13 @@ final class OptionValidator
     else
     {
       // handle the multi character opt
-      for (final char ch : sOpt.toCharArray ())
+      final int nLen = sOpt.length ();
+      for (int i = 0; i < nLen; ++i)
+      {
+        final char ch = sOpt.charAt (i);
         if (!_isValidChar (ch))
           throw new IllegalArgumentException ("The option '" + sOpt + "' contains the illegal character '" + ch + "'");
+      }
     }
   }
 }

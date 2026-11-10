@@ -16,6 +16,7 @@
  */
 package com.helger.http;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -357,6 +358,57 @@ public final class RFC1945HelperTest
     assertTrue (RFC1945Helper.isQuotedTextContent ("bla "));
     assertTrue (RFC1945Helper.isQuotedTextContent ("bla"));
     assertTrue (RFC1945Helper.isQuotedTextContent ("bla foo fasel"));
+  }
+
+  @Test
+  public void testStringAndCharArrayConsistency ()
+  {
+    for (final String s : new String [] { "",
+                                          " ",
+                                          "a",
+                                          "0123456789abcdef",
+                                          "0123456789ABCDEF",
+                                          "abcdeg",
+                                          "bla",
+                                          "bla bla",
+                                          "bl(a",
+                                          "()",
+                                          "(bla)",
+                                          "(bl(a)",
+                                          "(bla",
+                                          "\"\"",
+                                          "\"bla\"",
+                                          "\"bl\"a\"",
+                                          "\"bla",
+                                          "bl\u0000a",
+                                          "bl\u00e4" })
+    {
+      final char [] aChars = s.toCharArray ();
+      assertEquals (s,
+                    Boolean.valueOf (RFC1945Helper.isHexNotEmpty (aChars)),
+                    Boolean.valueOf (RFC1945Helper.isHexNotEmpty (s)));
+      assertEquals (s,
+                    Boolean.valueOf (RFC1945Helper.isLowerHexNotEmpty (aChars)),
+                    Boolean.valueOf (RFC1945Helper.isLowerHexNotEmpty (s)));
+      assertEquals (s, Boolean.valueOf (RFC1945Helper.isToken (aChars)), Boolean.valueOf (RFC1945Helper.isToken (s)));
+      assertEquals (s,
+                    Boolean.valueOf (RFC1945Helper.isComment (aChars)),
+                    Boolean.valueOf (RFC1945Helper.isComment (s)));
+      assertEquals (s,
+                    Boolean.valueOf (RFC1945Helper.isQuotedText (aChars)),
+                    Boolean.valueOf (RFC1945Helper.isQuotedText (s)));
+      assertEquals (s,
+                    Boolean.valueOf (RFC1945Helper.isQuotedTextContent (aChars)),
+                    Boolean.valueOf (RFC1945Helper.isQuotedTextContent (s)));
+      assertEquals (s, Boolean.valueOf (RFC1945Helper.isWord (aChars)), Boolean.valueOf (RFC1945Helper.isWord (s)));
+    }
+    assertTrue (RFC1945Helper.isHexNotEmpty ("0123456789abcdefABCDEF"));
+    assertFalse (RFC1945Helper.isHexNotEmpty ("abcg"));
+    assertTrue (RFC1945Helper.isLowerHexNotEmpty ("0123456789abcdef"));
+    assertFalse (RFC1945Helper.isLowerHexNotEmpty ("abcD"));
+    assertTrue (RFC1945Helper.isWord ("bla"));
+    assertTrue (RFC1945Helper.isWord ("\"bla bla\""));
+    assertFalse (RFC1945Helper.isWord ("bla bla"));
   }
 
   @Test

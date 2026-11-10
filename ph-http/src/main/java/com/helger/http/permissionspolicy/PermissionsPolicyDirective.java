@@ -56,10 +56,13 @@ public class PermissionsPolicyDirective implements IPermissionsPolicyDirective
       return false;
     }
 
-    final char [] aChars = sName.toCharArray ();
-    for (final char c : aChars)
+    final int nLen = sName.length ();
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sName.charAt (i);
       if (!RFC5234Helper.isAlpha (c) && !RFC5234Helper.isDigit (c) && c != '-')
         return false;
+    }
 
     return true;
   }
@@ -81,10 +84,13 @@ public class PermissionsPolicyDirective implements IPermissionsPolicyDirective
       return true;
     }
 
-    final char [] aChars = sValue.toCharArray ();
-    for (final char c : aChars)
+    final int nLen = sValue.length ();
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sValue.charAt (i);
       if (!RFC5234Helper.isWSP (c) && (!RFC5234Helper.isVChar (c) || c == ';' || c == ','))
         return false;
+    }
 
     return true;
   }

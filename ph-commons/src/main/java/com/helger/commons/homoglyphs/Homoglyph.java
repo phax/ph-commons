@@ -74,7 +74,7 @@ public class Homoglyph
    * @deprecated Use {@link #Homoglyph(Iterable)} with {@link IntHashSet} instead
    */
   @Deprecated (forRemoval = true, since = "12.6.0")
-  public Homoglyph (@NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
+  public Homoglyph (@SuppressWarnings ("removal") @NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
   {
     this (_convert (aHomoglyphs));
   }
@@ -126,14 +126,16 @@ public class Homoglyph
     final int nLastIndex = aText.getLength () - aTargetWord.getLength ();
     for (int i = 0; i <= nLastIndex; i++)
       if (_hasWordAtIndex (aText, aTargetWord, i))
-        ret.add (new HomoglyphSearchResult (i, aText.subStringAt (i, aTargetWord.getLength ()), aTargetWord.getText ()));
+        ret.add (new HomoglyphSearchResult (i,
+                                            aText.subStringAt (i, aTargetWord.getLength ()),
+                                            aTargetWord.getText ()));
     return ret;
   }
 
   /**
    * Search the String {@code sText} to locate all occurrences of the words contained in
-   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty target
-   * words are ignored.
+   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty
+   * target words are ignored.
    *
    * @param sText
    *        text to be searched. May not be <code>null</code>.
@@ -160,8 +162,8 @@ public class Homoglyph
 
   /**
    * Search the String {@code sText} to locate all occurrences of the words contained in
-   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty target
-   * words are ignored.
+   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty
+   * target words are ignored.
    *
    * @param sText
    *        text to be searched. May not be <code>null</code>.

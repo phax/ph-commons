@@ -444,9 +444,11 @@ public class CSVWriter implements Closeable, Flushable
     if (m_cEscapeChar == NO_ESCAPE_CHARACTER)
       return new StringBuilder (sNextElement);
 
-    final StringBuilder aSB = new StringBuilder (sNextElement.length () * 2);
-    for (final char c : sNextElement.toCharArray ())
+    final int nLen = sNextElement.length ();
+    final StringBuilder aSB = new StringBuilder (nLen * 2);
+    for (int i = 0; i < nLen; ++i)
     {
+      final char c = sNextElement.charAt (i);
       if (c == m_cQuoteChar || c == m_cEscapeChar)
         aSB.append (m_cEscapeChar);
       aSB.append (c);

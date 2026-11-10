@@ -98,6 +98,10 @@ public final class PunycodeTest
       final String sDecoded = Punycode.getDecoded (sEncoded);
       assertEquals (e.m_sName, e.m_sEncoded, sEncoded);
       assertEquals (e.m_sName, e.m_sDecoded, sDecoded);
+
+      // String and char array variants must behave identically
+      assertEquals (e.m_sName, sEncoded, Punycode.getEncoded (e.m_sDecoded.toCharArray (), null));
+      assertEquals (e.m_sName, sDecoded, Punycode.getDecoded (sEncoded.toCharArray (), null));
     }
   }
 }

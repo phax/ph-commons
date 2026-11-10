@@ -23,6 +23,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import com.helger.base.CGlobal;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
@@ -97,6 +98,46 @@ public final class StringReplaceMultipleTest
     {
       assertEquals (0, StringReplace.replaceMultipleTo ("<a>", new char [0], new char [0] [], aSW));
       assertEquals ("<a>", aSW.getAsString ());
+    }
+  }
+
+  @Test
+  public void testStringAndCharArrayIdentical () throws IOException
+  {
+    for (final String s : new String [] { "<a>&", "abc", "<", "&&", "x<\u20ac>x", "\u20ac" })
+    {
+      final char [] aChars = s.toCharArray ();
+      final char [] aResult = StringReplace.replaceMultiple (s, SEARCH, REPLACEMENT);
+      final int nResultLen = StringReplace.getReplaceMultipleResultLength (aChars, SEARCH, REPLACEMENT);
+      // The String overload gives the same result
+      assertEquals (nResultLen, StringReplace.getReplaceMultipleResultLength (s, SEARCH, REPLACEMENT));
+      if (nResultLen == CGlobal.ILLEGAL_UINT)
+        assertArrayEquals (aChars, aResult);
+      else
+        assertEquals (nResultLen, aResult.length);
+      assertArrayEquals (StringReplace.replaceMultiple (aChars, SEARCH, REPLACEMENT), aResult);
+
+      try (final NonBlockingStringWriter aSW1 = new NonBlockingStringWriter ();
+           final NonBlockingStringWriter aSW2 = new NonBlockingStringWriter ())
+      {
+        assertEquals (StringReplace.replaceMultipleTo (s, SEARCH, REPLACEMENT, aSW1),
+                      StringReplace.replaceMultipleTo (aChars, SEARCH, REPLACEMENT, aSW2));
+        assertEquals (aSW1.getAsString (), aSW2.getAsString ());
+      }
+
+      // char array with offset and length
+      try (final NonBlockingStringWriter aSW1 = new NonBlockingStringWriter ();
+           final NonBlockingStringWriter aSW2 = new NonBlockingStringWriter ())
+      {
+        assertEquals (StringReplace.replaceMultipleTo (s, SEARCH, REPLACEMENT, aSW1),
+                      StringReplace.replaceMultipleTo (("<" + s + ">").toCharArray (),
+                                                       1,
+                                                       s.length (),
+                                                       SEARCH,
+                                                       REPLACEMENT,
+                                                       aSW2));
+        assertEquals (aSW1.getAsString (), aSW2.getAsString ());
+      }
     }
   }
 

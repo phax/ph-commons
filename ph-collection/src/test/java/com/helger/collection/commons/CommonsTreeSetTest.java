@@ -32,6 +32,7 @@ import org.junit.Test;
  */
 public final class CommonsTreeSetTest
 {
+  @SuppressWarnings ("unchecked")
   @Test
   public void testGetAllKeepsComparator ()
   {

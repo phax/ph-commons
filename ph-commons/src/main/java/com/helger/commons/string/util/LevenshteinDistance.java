@@ -16,6 +16,8 @@
  */
 package com.helger.commons.string.util;
 
+import java.nio.CharBuffer;
+
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
@@ -52,9 +54,9 @@ public final class LevenshteinDistance
    *        &gt; 0
    * @return non negative distance
    */
-  private static int _getDistance111 (final char @NonNull [] aStr1,
+  private static int _getDistance111 (@NonNull final CharSequence aStr1,
                                       @Nonnegative final int nLen1,
-                                      final char @NonNull [] aStr2,
+                                      @NonNull final CharSequence aStr2,
                                       @Nonnegative final int nLen2)
   {
     // previous cost array, horizontally
@@ -69,12 +71,12 @@ public final class LevenshteinDistance
 
     for (int j = 0; j < nLen2; j++)
     {
-      final int nChar2 = aStr2[j];
+      final int nChar2 = aStr2.charAt (j);
       aCurRow[0] = j + 1;
 
       for (int i = 0; i < nLen1; i++)
       {
-        final int nSubstVal = aStr1[i] == nChar2 ? 0 : 1;
+        final int nSubstVal = aStr1.charAt (i) == nChar2 ? 0 : 1;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + 1, aPrevRow[i + 1] + 1), aPrevRow[i] + nSubstVal);
       }
 
@@ -108,9 +110,9 @@ public final class LevenshteinDistance
    *        &ge; 0
    * @return non negative distance
    */
-  private static int _getDistance (final char @NonNull [] aStr1,
+  private static int _getDistance (@NonNull final CharSequence aStr1,
                                    @Nonnegative final int nLen1,
-                                   final char @NonNull [] aStr2,
+                                   @NonNull final CharSequence aStr2,
                                    @Nonnegative final int nLen2,
                                    @Nonnegative final int nCostInsert,
                                    @Nonnegative final int nCostDelete,
@@ -128,12 +130,12 @@ public final class LevenshteinDistance
 
     for (int j = 0; j < nLen2; j++)
     {
-      final int nChar2 = aStr2[j];
+      final int nChar2 = aStr2.charAt (j);
       aCurRow[0] = (j + 1) * nCostDelete;
 
       for (int i = 0; i < nLen1; i++)
       {
-        final int nSubstCost = aStr1[i] == nChar2 ? 0 : nCostSubstitution;
+        final int nSubstCost = aStr1.charAt (i) == nChar2 ? 0 : nCostSubstitution;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
                                    aPrevRow[i] + nSubstCost);
       }
@@ -168,7 +170,7 @@ public final class LevenshteinDistance
     if (nLen2 == 0)
       return nLen1;
 
-    return _getDistance111 (aStr1, nLen1, aStr2, nLen2);
+    return _getDistance111 (CharBuffer.wrap (aStr1), nLen1, CharBuffer.wrap (aStr2), nLen2);
   }
 
   /**
@@ -209,9 +211,15 @@ public final class LevenshteinDistance
 
     // Fallback to more efficient variant?
     if (nCostInsert == 1 && nCostDelete == 1 && nCostSubstitution == 1)
-      return _getDistance111 (aStr1, nLen1, aStr2, nLen2);
+      return _getDistance111 (CharBuffer.wrap (aStr1), nLen1, CharBuffer.wrap (aStr2), nLen2);
 
-    return _getDistance (aStr1, nLen1, aStr2, nLen2, nCostInsert, nCostDelete, nCostSubstitution);
+    return _getDistance (CharBuffer.wrap (aStr1),
+                         nLen1,
+                         CharBuffer.wrap (aStr2),
+                         nLen2,
+                         nCostInsert,
+                         nCostDelete,
+                         nCostSubstitution);
   }
 
   /**
@@ -233,7 +241,7 @@ public final class LevenshteinDistance
     if (nLen2 == 0)
       return nLen1;
 
-    return _getDistance111 (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2);
+    return _getDistance111 (sStr1, nLen1, sStr2, nLen2);
   }
 
   /**
@@ -273,11 +281,11 @@ public final class LevenshteinDistance
 
     // Fallback to more efficient variant?
     if (nCostInsert == 1 && nCostDelete == 1 && nCostSubstitution == 1)
-      return _getDistance111 (sStr1.toCharArray (), nLen1, sStr2.toCharArray (), nLen2);
+      return _getDistance111 (sStr1, nLen1, sStr2, nLen2);
 
-    return _getDistance (sStr1.toCharArray (),
+    return _getDistance (sStr1,
                          nLen1,
-                         sStr2.toCharArray (),
+                         sStr2,
                          nLen2,
                          nCostInsert,
                          nCostDelete,

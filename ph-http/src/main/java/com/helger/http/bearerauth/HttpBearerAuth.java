@@ -59,9 +59,13 @@ public final class HttpBearerAuth
   {
     if (StringHelper.isEmpty (sToken))
       return false;
-    for (final char c : sToken.toCharArray ())
+    final int nLen = sToken.length ();
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sToken.charAt (i);
       if (Character.isWhitespace (c) || Character.isISOControl (c))
         return false;
+    }
     return true;
   }
 

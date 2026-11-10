@@ -17,6 +17,7 @@
 package com.helger.base.string;
 
 import java.io.IOException;
+import java.nio.CharBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -790,16 +791,16 @@ public class StringHelper
     if (sStr == null)
       return null;
 
-    final char [] aChars = sStr.toCharArray ();
-    if (aChars.length <= 1)
+    final int nLen = sStr.length ();
+    if (nLen <= 1)
       return sStr;
 
-    final char [] ret = new char [aChars.length];
-    int nSrc = aChars.length - 1;
+    final char [] ret = new char [nLen];
+    int nSrc = nLen - 1;
     int nDst = 0;
     while (nSrc >= 0)
     {
-      ret[nDst] = aChars[nSrc];
+      ret[nDst] = sStr.charAt (nSrc);
       nSrc--;
       nDst++;
     }
@@ -1361,6 +1362,15 @@ public class StringHelper
     return getIndexOfIgnoreCase (sText, cSearch, aSortLocale) != CGlobal.STRING_NOT_FOUND;
   }
 
+  private static boolean _containsAny (@NonNull final CharSequence aInput, final char @NonNull [] aSearchChars)
+  {
+    final int nLen = aInput.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (ArrayHelper.contains (aSearchChars, aInput.charAt (i)))
+        return true;
+    return false;
+  }
+
   /**
    * Check if any of the passed searched characters is contained in the input char array.
    *
@@ -1375,11 +1385,7 @@ public class StringHelper
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
-    if (aInput != null)
-      for (final char cIn : aInput)
-        if (ArrayHelper.contains (aSearchChars, cIn))
-          return true;
-    return false;
+    return aInput != null && _containsAny (CharBuffer.wrap (aInput), aSearchChars);
   }
 
   /**
@@ -1396,9 +1402,9 @@ public class StringHelper
 
     if (sInputString != null)
     {
-      final char [] aInput = sInputString.toCharArray ();
-      for (final char cInput : aInput)
-        aConsumer.accept (cInput);
+      final int nLen = sInputString.length ();
+      for (int i = 0; i < nLen; ++i)
+        aConsumer.accept (sInputString.charAt (i));
     }
   }
 
@@ -1414,7 +1420,12 @@ public class StringHelper
    */
   public static boolean containsAny (@Nullable final String sInput, final char @NonNull [] aSearchChars)
   {
-    return sInput != null && containsAny (sInput.toCharArray (), aSearchChars);
+    if (sInput == null)
+      return false;
+
+    ValueEnforcer.notNull (aSearchChars, "SearchChars");
+
+    return _containsAny (sInput, aSearchChars);
   }
 
   /**
@@ -1460,10 +1471,9 @@ public class StringHelper
     if (aFilter == null)
       return nLen > 0;
 
-    if (nLen > 0)
-      for (final char c : sStr.toCharArray ())
-        if (aFilter.test (c))
-          return true;
+    for (int i = 0; i < nLen; ++i)
+      if (aFilter.test (sStr.charAt (i)))
+        return true;
     return false;
   }
 
@@ -1509,10 +1519,9 @@ public class StringHelper
     if (aFilter == null)
       return nLen == 0;
 
-    if (nLen > 0)
-      for (final char c : sStr.toCharArray ())
-        if (aFilter.test (c))
-          return false;
+    for (int i = 0; i < nLen; ++i)
+      if (aFilter.test (sStr.charAt (i)))
+        return false;
     return true;
   }
 
@@ -1566,8 +1575,8 @@ public class StringHelper
     if (aFilter == null)
       return true;
 
-    for (final char c : sStr.toCharArray ())
-      if (!aFilter.test (c))
+    for (int i = 0; i < nLen; ++i)
+      if (!aFilter.test (sStr.charAt (i)))
         return false;
     return true;
   }
@@ -2997,11 +3006,15 @@ public class StringHelper
       return "";
 
     // Trim first
-    final char [] aChars = sStr.trim ().toCharArray ();
-    final StringBuilder aResult = new StringBuilder (aChars.length);
-    for (final char c : aChars)
+    final String sTrimmed = sStr.trim ();
+    final int nLen = sTrimmed.length ();
+    final StringBuilder aResult = new StringBuilder (nLen);
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sTrimmed.charAt (i);
       if (!Character.isWhitespace (c) && !Character.isSpaceChar (c))
         aResult.append (c);
+    }
     return aResult.toString ();
   }
 

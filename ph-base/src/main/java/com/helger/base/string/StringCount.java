@@ -16,6 +16,7 @@
  */
 package com.helger.base.string;
 
+import java.nio.CharBuffer;
 import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
@@ -73,6 +74,17 @@ public final class StringCount
   private StringCount ()
   {}
 
+  @Nonnegative
+  private static int _getCharCount (@NonNull final CharSequence aChars, final char cSearch)
+  {
+    int ret = 0;
+    final int nLen = aChars.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (aChars.charAt (i) == cSearch)
+        ++ret;
+    return ret;
+  }
+
   /**
    * Count the number of occurrences of a character in a String.
    *
@@ -86,7 +98,7 @@ public final class StringCount
   @UsedInGeneratedCode
   public static int getCharCount (@Nullable final String s, final char cSearch)
   {
-    return s == null ? 0 : getCharCount (s.toCharArray (), cSearch);
+    return s == null ? 0 : _getCharCount (s, cSearch);
   }
 
   /**
@@ -101,12 +113,7 @@ public final class StringCount
   @Nonnegative
   public static int getCharCount (final char @Nullable [] aChars, final char cSearch)
   {
-    int ret = 0;
-    if (aChars != null)
-      for (final char c : aChars)
-        if (c == cSearch)
-          ++ret;
-    return ret;
+    return aChars == null ? 0 : _getCharCount (CharBuffer.wrap (aChars), cSearch);
   }
 
   /**

@@ -16,6 +16,7 @@
  */
 package com.helger.base.string;
 
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 import org.jspecify.annotations.NonNull;
@@ -261,6 +262,27 @@ public class StringHex
     return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
   }
 
+  @ReturnsMutableCopy
+  private static byte @NonNull [] _getHexDecoded (@NonNull final CharSequence aInput,
+                                                  @Nonnegative final int nOfs,
+                                                  @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
+
+    final byte [] ret = new byte [nLen / 2];
+    int nRetIdx = 0;
+    for (int i = 0; i < nLen; i += 2)
+    {
+      final char c0 = aInput.charAt (nOfs + i);
+      final char c1 = aInput.charAt (nOfs + i + 1);
+      final int nHexByte = getHexByte (c0, c1);
+      if (nHexByte == -1)
+        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' and '" + c1 + "' to a hex value!");
+      ret[nRetIdx++] = (byte) nHexByte;
+    }
+    return ret;
+  }
+
   /**
    * Decode a hex encoded string to a byte array.
    *
@@ -273,7 +295,7 @@ public class StringHex
   {
     ValueEnforcer.notNull (sInput, "Input");
 
-    return getHexDecoded (sInput.toCharArray (), 0, sInput.length ());
+    return _getHexDecoded (sInput, 0, sInput.length ());
   }
 
   /**
@@ -308,20 +330,8 @@ public class StringHex
                                                 @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
-    ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
 
-    final byte [] ret = new byte [nLen / 2];
-    int nRetIdx = 0;
-    for (int i = 0; i < nLen; i += 2)
-    {
-      final char c0 = aInput[nOfs + i];
-      final char c1 = aInput[nOfs + i + 1];
-      final int nHexByte = getHexByte (c0, c1);
-      if (nHexByte == -1)
-        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' and '" + c1 + "' to a hex value!");
-      ret[nRetIdx++] = (byte) nHexByte;
-    }
-    return ret;
+    return _getHexDecoded (CharBuffer.wrap (aInput), nOfs, nLen);
   }
 
   /**

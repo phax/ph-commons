@@ -203,11 +203,13 @@ public final class JAXBBuilderDefaultSettings
   {
     if (s == null)
       return null;
-    final char [] aChars = s.toCharArray ();
-    if (aChars.length == 0)
+    final int nLen = s.length ();
+    if (nLen == 0)
       return "";
-    final StringBuilder ret = new StringBuilder (aChars.length * 3);
-    for (final char c : aChars)
+    final StringBuilder ret = new StringBuilder (nLen * 3);
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = s.charAt (i);
       if (c == '\f')
         ret.append ("\\f");
       else
@@ -221,6 +223,7 @@ public final class JAXBBuilderDefaultSettings
               ret.append ("\\t");
             else
               ret.append (c);
+    }
     return ret.toString ();
   }
 

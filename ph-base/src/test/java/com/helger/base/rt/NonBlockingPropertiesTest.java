@@ -364,6 +364,12 @@ public final class NonBlockingPropertiesTest
 
     // Test different class inequality
     assertNotEquals (props1, "string");
+
+    // Symmetric equality with other maps (Map contract)
+    final Map <String, String> aHashMap = new HashMap <> (props1);
+    assertEquals (aHashMap, props1);
+    assertEquals (props1, aHashMap);
+    assertEquals (aHashMap.hashCode (), props1.hashCode ());
   }
 
   @Test

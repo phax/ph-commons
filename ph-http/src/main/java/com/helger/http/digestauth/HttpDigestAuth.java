@@ -91,9 +91,9 @@ public final class HttpDigestAuth
       LOGGER.error ("String does not start with '" + HEADER_VALUE_PREFIX_DIGEST + "'");
       return null;
     }
-    final char [] aChars = sRealHeader.toCharArray ();
+    final int nLen = sRealHeader.length ();
     int nIndex = HEADER_VALUE_PREFIX_DIGEST.length ();
-    if (nIndex >= aChars.length || !RFC1945Helper.isLinearWhitespaceChar (aChars[nIndex]))
+    if (nIndex >= nLen || !RFC1945Helper.isLinearWhitespaceChar (sRealHeader.charAt (nIndex)))
     {
       LOGGER.error ("No whitespace after '" + HEADER_VALUE_PREFIX_DIGEST + "'");
       return null;
@@ -104,24 +104,24 @@ public final class HttpDigestAuth
     while (true)
     {
       // Skip all spaces
-      while (nIndex < aChars.length && RFC1945Helper.isLinearWhitespaceChar (aChars[nIndex]))
+      while (nIndex < nLen && RFC1945Helper.isLinearWhitespaceChar (sRealHeader.charAt (nIndex)))
         nIndex++;
 
       // Find token name
       int nStartIndex = nIndex;
-      while (nIndex < aChars.length && RFC1945Helper.isTokenChar (aChars[nIndex]))
+      while (nIndex < nLen && RFC1945Helper.isTokenChar (sRealHeader.charAt (nIndex)))
         nIndex++;
       if (nStartIndex == nIndex)
       {
-        LOGGER.error ("No token and no whitespace found for auth-param name: '" + aChars[nIndex] + "'");
+        LOGGER.error ("No token and no whitespace found for auth-param name: '" + sRealHeader.charAt (nIndex) + "'");
         return null;
       }
       final String sToken = sRealHeader.substring (nStartIndex, nIndex);
 
       // Skip all spaces
-      while (nIndex < aChars.length && RFC1945Helper.isLinearWhitespaceChar (aChars[nIndex]))
+      while (nIndex < nLen && RFC1945Helper.isLinearWhitespaceChar (sRealHeader.charAt (nIndex)))
         nIndex++;
-      if (nIndex >= aChars.length || aChars[nIndex] != '=')
+      if (nIndex >= nLen || sRealHeader.charAt (nIndex) != '=')
       {
         LOGGER.error ("No separator char '=' found after '" + sToken + "'");
         return null;
@@ -129,32 +129,32 @@ public final class HttpDigestAuth
       nIndex++;
 
       // Skip all spaces
-      while (nIndex < aChars.length && RFC1945Helper.isLinearWhitespaceChar (aChars[nIndex]))
+      while (nIndex < nLen && RFC1945Helper.isLinearWhitespaceChar (sRealHeader.charAt (nIndex)))
         nIndex++;
-      if (nIndex >= aChars.length)
+      if (nIndex >= nLen)
       {
         LOGGER.error ("Found nothing after '=' of '" + sToken + "'");
         return null;
       }
       String sValue;
-      if (aChars[nIndex] == RFC1945Helper.QUOTEDTEXT_BEGIN)
+      if (sRealHeader.charAt (nIndex) == RFC1945Helper.QUOTEDTEXT_BEGIN)
       {
         // Quoted string
         ++nIndex;
         nStartIndex = nIndex;
-        while (nIndex < aChars.length && RFC1945Helper.isQuotedTextChar (aChars[nIndex]))
+        while (nIndex < nLen && RFC1945Helper.isQuotedTextChar (sRealHeader.charAt (nIndex)))
           nIndex++;
-        if (nIndex >= aChars.length)
+        if (nIndex >= nLen)
         {
           LOGGER.error ("Unexpected EOF in quoted text for '" + sToken + "'");
           return null;
         }
-        if (aChars[nIndex] != RFC1945Helper.QUOTEDTEXT_END)
+        if (sRealHeader.charAt (nIndex) != RFC1945Helper.QUOTEDTEXT_END)
         {
           LOGGER.error ("Quoted string of token '" +
                         sToken +
                         "' is not terminated correctly: '" +
-                        aChars[nIndex] +
+                        sRealHeader.charAt (nIndex) +
                         "'");
           return null;
         }
@@ -167,14 +167,14 @@ public final class HttpDigestAuth
       {
         // Token
         nStartIndex = nIndex;
-        while (nIndex < aChars.length && RFC1945Helper.isTokenChar (aChars[nIndex]))
+        while (nIndex < nLen && RFC1945Helper.isTokenChar (sRealHeader.charAt (nIndex)))
           nIndex++;
         if (nStartIndex == nIndex)
         {
           LOGGER.error ("No token and no whitespace found for auth-param value of '" +
                         sToken +
                         "': '" +
-                        aChars[nIndex] +
+                        sRealHeader.charAt (nIndex) +
                         "'");
           return null;
         }
@@ -184,23 +184,23 @@ public final class HttpDigestAuth
       aParams.put (sToken, sValue);
 
       // Skip all spaces
-      while (nIndex < aChars.length && RFC1945Helper.isLinearWhitespaceChar (aChars[nIndex]))
+      while (nIndex < nLen && RFC1945Helper.isLinearWhitespaceChar (sRealHeader.charAt (nIndex)))
         nIndex++;
 
       // Check if there are any additional parameters
-      if (nIndex >= aChars.length)
+      if (nIndex >= nLen)
       {
         // No more tokens - we're done
         break;
       }
       // If there is a comma, another parameter is expected
-      if (aChars[nIndex] != ',')
+      if (sRealHeader.charAt (nIndex) != ',')
       {
-        LOGGER.error ("Illegal character after auth-param '" + sToken + "': '" + aChars[nIndex] + "'");
+        LOGGER.error ("Illegal character after auth-param '" + sToken + "': '" + sRealHeader.charAt (nIndex) + "'");
         return null;
       }
       ++nIndex;
-      if (nIndex >= aChars.length)
+      if (nIndex >= nLen)
       {
         LOGGER.error ("Found nothing after continuation of auth-param '" + sToken + "'");
         return null;

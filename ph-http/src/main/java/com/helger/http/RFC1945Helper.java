@@ -16,6 +16,9 @@
  */
 package com.helger.http;
 
+import java.nio.CharBuffer;
+
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -391,6 +394,22 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if all characters of the passed character sequence are hex characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are hex characters.
+   */
+  private static boolean _isHex (@NonNull final CharSequence aCS)
+  {
+    final int nLen = aCS.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isHexChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array is non-empty and consists only of hex characters.
    *
    * @param aChars
@@ -401,10 +420,7 @@ public final class RFC1945Helper
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
-    for (final char c : aChars)
-      if (!isHexChar (c))
-        return false;
-    return true;
+    return _isHex (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -418,7 +434,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.isEmpty (sStr))
       return false;
-    return isHexNotEmpty (sStr.toCharArray ());
+    return _isHex (sStr);
   }
 
   /**
@@ -434,6 +450,22 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if all characters of the passed character sequence are lower-case hex characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are lower-case hex characters.
+   */
+  private static boolean _isLowerHex (@NonNull final CharSequence aCS)
+  {
+    final int nLen = aCS.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isLowerHexChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array is non-empty and consists only of lower-case hex
    * characters.
    *
@@ -446,10 +478,7 @@ public final class RFC1945Helper
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
-    for (final char c : aChars)
-      if (!isLowerHexChar (c))
-        return false;
-    return true;
+    return _isLowerHex (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -464,7 +493,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.isEmpty (sStr))
       return false;
-    return isLowerHexNotEmpty (sStr.toCharArray ());
+    return _isLowerHex (sStr);
   }
 
   /**
@@ -492,6 +521,22 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if all characters of the passed character sequence are valid token characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are valid token characters.
+   */
+  private static boolean _isToken (@NonNull final CharSequence aCS)
+  {
+    final int nLen = aCS.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isTokenChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array represents a valid token as defined in RFC 1945.
    *
    * @param aChars
@@ -503,10 +548,7 @@ public final class RFC1945Helper
   {
     if (ArrayHelper.isEmpty (aChars))
       return false;
-    for (final char c : aChars)
-      if (!isTokenChar (c))
-        return false;
-    return true;
+    return _isToken (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -521,7 +563,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.isEmpty (sStr))
       return false;
-    return isToken (sStr.toCharArray ());
+    return _isToken (sStr);
   }
 
   /**
@@ -559,6 +601,25 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if the passed character sequence represents a valid comment as defined in RFC 1945.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code> and must have at least 2
+   *        characters.
+   * @return <code>true</code> if the character sequence represents a valid comment.
+   */
+  private static boolean _isComment (@NonNull final CharSequence aCS)
+  {
+    final int nLast = aCS.length () - 1;
+    if (aCS.charAt (0) != COMMENT_BEGIN || aCS.charAt (nLast) != COMMENT_END)
+      return false;
+    for (int i = 1; i < nLast; ++i)
+      if (!isCommentChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array represents a valid comment as defined in RFC 1945. A
    * comment is enclosed in parentheses.
    *
@@ -568,12 +629,9 @@ public final class RFC1945Helper
    */
   public static boolean isComment (final char @Nullable [] aChars)
   {
-    if (ArrayHelper.getSize (aChars) < 2 || aChars[0] != COMMENT_BEGIN || aChars[aChars.length - 1] != COMMENT_END)
+    if (ArrayHelper.getSize (aChars) < 2)
       return false;
-    for (int i = 1; i < aChars.length - 1; ++i)
-      if (!isCommentChar (aChars[i]))
-        return false;
-    return true;
+    return _isComment (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -588,7 +646,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.getLength (sStr) < 2)
       return false;
-    return isComment (sStr.toCharArray ());
+    return _isComment (sStr);
   }
 
   /**
@@ -604,6 +662,25 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if the passed character sequence represents a valid quoted-text as defined in RFC 1945.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code> and must have at least 2
+   *        characters.
+   * @return <code>true</code> if the character sequence represents a valid quoted-text.
+   */
+  private static boolean _isQuotedText (@NonNull final CharSequence aCS)
+  {
+    final int nLast = aCS.length () - 1;
+    if (aCS.charAt (0) != QUOTEDTEXT_BEGIN || aCS.charAt (nLast) != QUOTEDTEXT_END)
+      return false;
+    for (int i = 1; i < nLast; ++i)
+      if (!isQuotedTextChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array represents a valid quoted-text as defined in RFC 1945.
    * Quoted text is enclosed in double-quote characters.
    *
@@ -613,14 +690,9 @@ public final class RFC1945Helper
    */
   public static boolean isQuotedText (final char @Nullable [] aChars)
   {
-    if (ArrayHelper.getSize (aChars) < 2 ||
-        aChars[0] != QUOTEDTEXT_BEGIN ||
-        aChars[aChars.length - 1] != QUOTEDTEXT_END)
+    if (ArrayHelper.getSize (aChars) < 2)
       return false;
-    for (int i = 1; i < aChars.length - 1; ++i)
-      if (!isQuotedTextChar (aChars[i]))
-        return false;
-    return true;
+    return _isQuotedText (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -635,7 +707,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.getLength (sStr) < 2)
       return false;
-    return isQuotedText (sStr.toCharArray ());
+    return _isQuotedText (sStr);
   }
 
   /**
@@ -654,6 +726,22 @@ public final class RFC1945Helper
   }
 
   /**
+   * Check if all characters of the passed character sequence are valid quoted-text content characters.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are valid quoted-text content characters.
+   */
+  private static boolean _isQuotedTextContent (@NonNull final CharSequence aCS)
+  {
+    final int nLen = aCS.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isQuotedTextChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the passed character array consists only of valid quoted-text content characters
    * (without the enclosing double-quotes).
    *
@@ -665,10 +753,7 @@ public final class RFC1945Helper
   {
     if (aChars == null)
       return false;
-    for (final char c : aChars)
-      if (!isQuotedTextChar (c))
-        return false;
-    return true;
+    return _isQuotedTextContent (CharBuffer.wrap (aChars));
   }
 
   /**
@@ -683,7 +768,7 @@ public final class RFC1945Helper
   {
     if (sStr == null)
       return false;
-    return isQuotedTextContent (sStr.toCharArray ());
+    return _isQuotedTextContent (sStr);
   }
 
   /**
@@ -709,7 +794,7 @@ public final class RFC1945Helper
   {
     if (StringHelper.isEmpty (sStr))
       return false;
-    return isWord (sStr.toCharArray ());
+    return isToken (sStr) || isQuotedText (sStr);
   }
 
   /**

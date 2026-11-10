@@ -189,7 +189,6 @@ public final class ConfigDurationParser
     if (nLen == 0)
       return null;
 
-    final char [] aTrimmed = sTrimmed.toCharArray ();
     Duration ret = Duration.ZERO;
     boolean bSawAny = false;
     int nIdx = 0;
@@ -197,21 +196,21 @@ public final class ConfigDurationParser
     while (nIdx < nLen)
     {
       // Skip whitespace before the next segment
-      while (nIdx < nLen && Character.isWhitespace (aTrimmed[nIdx]))
+      while (nIdx < nLen && Character.isWhitespace (sTrimmed.charAt (nIdx)))
         nIdx++;
       if (nIdx >= nLen)
         break;
 
       // Optional per-segment sign
       boolean bNegate = false;
-      final char cSign = aTrimmed[nIdx];
+      final char cSign = sTrimmed.charAt (nIdx);
       if (cSign == '-' || cSign == '+')
       {
         bNegate = cSign == '-';
         nIdx++;
 
         // Optional whitespace between sign and number
-        while (nIdx < nLen && Character.isWhitespace (aTrimmed[nIdx]))
+        while (nIdx < nLen && Character.isWhitespace (sTrimmed.charAt (nIdx)))
           nIdx++;
 
         if (nIdx >= nLen)
@@ -223,13 +222,13 @@ public final class ConfigDurationParser
 
       // Read the numeric part — digits only
       final int nNumStart = nIdx;
-      while (nIdx < nLen && Character.isDigit (aTrimmed[nIdx]))
+      while (nIdx < nLen && Character.isDigit (sTrimmed.charAt (nIdx)))
         nIdx++;
 
       if (nIdx == nNumStart)
       {
         _onError (aParseErrorHdl,
-                  "Expected a digit at position " + nIdx + " but found '" + aTrimmed[nIdx] + "' in '" + sValue + "'");
+                  "Expected a digit at position " + nIdx + " but found '" + sTrimmed.charAt (nIdx) + "' in '" + sValue + "'");
         return null;
       }
 
@@ -246,12 +245,12 @@ public final class ConfigDurationParser
       }
 
       // Optional whitespace between number and unit
-      while (nIdx < nLen && Character.isWhitespace (aTrimmed[nIdx]))
+      while (nIdx < nLen && Character.isWhitespace (sTrimmed.charAt (nIdx)))
         nIdx++;
 
       // Read the unit (1-2 ASCII letters)
       final int nUnitStart = nIdx;
-      while (nIdx < nLen && Character.isLetter (aTrimmed[nIdx]))
+      while (nIdx < nLen && Character.isLetter (sTrimmed.charAt (nIdx)))
         nIdx++;
 
       if (nIdx == nUnitStart)

@@ -745,8 +745,10 @@ public class JsonParser
   {
     final IJsonParsePosition aStartPos = _getCurrentParsePosClone ();
 
-    for (final char cExpected : sKeyword.toCharArray ())
+    final int nLen = sKeyword.length ();
+    for (int i = 0; i < nLen; ++i)
     {
+      final char cExpected = sKeyword.charAt (i);
       final int c = _readChar ();
       if (c != cExpected)
         throw _parseEx (aStartPos,

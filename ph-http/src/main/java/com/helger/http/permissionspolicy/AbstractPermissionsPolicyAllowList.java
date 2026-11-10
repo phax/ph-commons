@@ -90,10 +90,13 @@ public abstract class AbstractPermissionsPolicyAllowList <IMPLTYPE extends Abstr
       return false;
     }
 
-    final char [] aChars = sOrigin.toCharArray ();
-    for (final char c : aChars)
+    final int nLen = sOrigin.length ();
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sOrigin.charAt (i);
       if (c <= 0x20 || c == '"' || c == '(' || c == ')' || c == ',' || c == ';')
         return false;
+    }
 
     return true;
   }

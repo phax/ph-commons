@@ -117,7 +117,36 @@ public final class HashCodeCalculator
     return x;
   }
 
+  private static int _getArrayHashCode (@NonNull final Object aArray)
+  {
+    // Hash the content, consistent with EqualsHelper.equals (Object, Object) which uses
+    // Objects.deepEquals
+    if (aArray instanceof final Object [] aObjects)
+      return Arrays.deepHashCode (aObjects);
+    if (aArray instanceof final boolean [] aBooleans)
+      return Arrays.hashCode (aBooleans);
+    if (aArray instanceof final byte [] aBytes)
+      return Arrays.hashCode (aBytes);
+    if (aArray instanceof final char [] aChars)
+      return Arrays.hashCode (aChars);
+    if (aArray instanceof final double [] aDoubles)
+      return Arrays.hashCode (aDoubles);
+    if (aArray instanceof final float [] aFloats)
+      return Arrays.hashCode (aFloats);
+    if (aArray instanceof final int [] aInts)
+      return Arrays.hashCode (aInts);
+    if (aArray instanceof final long [] aLongs)
+      return Arrays.hashCode (aLongs);
+    if (aArray instanceof final short [] aShorts)
+      return Arrays.hashCode (aShorts);
+    throw new IllegalStateException ("Unsupported array type " + aArray.getClass ().getName ());
+  }
+
   /**
+   * Get the hash code of the passed object. For arrays the hash code is calculated from the content
+   * (also of nested arrays), so that it is consistent with
+   * {@link com.helger.base.equals.EqualsHelper#equals(Object, Object)}.
+   *
    * @param x
    *        The object to hash. May be <code>null</code>.
    * @return The hash code for the object, or {@link #HASHCODE_NULL} if <code>null</code>.
@@ -125,7 +154,11 @@ public final class HashCodeCalculator
   @UsedInGeneratedCode
   public static int hashCode (@Nullable final Object x)
   {
-    return x == null ? HASHCODE_NULL : x.hashCode ();
+    if (x == null)
+      return HASHCODE_NULL;
+    if (x.getClass ().isArray ())
+      return _getArrayHashCode (x);
+    return x.hashCode ();
   }
 
   /**
@@ -735,7 +768,8 @@ public final class HashCodeCalculator
    */
   public static int append (final int nPrevHashCode, @Nullable final Object [] x)
   {
-    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.hashCode (x));
+    // Deep, so that nested arrays are hashed by content
+    return append (nPrevHashCode, x == null ? HASHCODE_NULL : Arrays.deepHashCode (x));
   }
 
   /**

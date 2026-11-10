@@ -17,6 +17,7 @@
 package com.helger.commons.lang.proxy;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.lang.reflect.Proxy;
@@ -126,7 +127,20 @@ public class LoggingInvocationHandler implements InvocationHandler
                            _getParameters (aMethod.getParameters (), aArgs) +
                            ")";
     LOGGER.info (sMethod + " - invoke");
-    final Object ret = aMethod.invoke (m_aActualTarget, aArgs);
+    final Object ret;
+    try
+    {
+      ret = aMethod.invoke (m_aActualTarget, aArgs);
+    }
+    catch (final InvocationTargetException ex)
+    {
+      // Reflection wraps everything thrown by the target method. Rethrow the original exception, so
+      // that the proxy behaves like the target itself - otherwise the caller would receive an
+      // UndeclaredThrowableException wrapping the InvocationTargetException
+      final Throwable aCause = ex.getCause ();
+      LOGGER.info (sMethod + " - exception " + aCause);
+      throw aCause;
+    }
 
     if (aReturnType == Void.TYPE)
     {

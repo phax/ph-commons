@@ -718,7 +718,10 @@ public final class CollectionHelperExt extends CollectionHelper
                                                                                                                                                                               @NonNull final Function <? super SRCKEYTYPE, DSTKEYTYPE> aKeyMapper,
                                                                                                                                                                               @NonNull final Function <? super SRCVALUETYPE, DSTVALUETYPE> aValueMapper)
   {
-    return new CommonsTreeMap <> (aMap, aKeyMapper, aValueMapper);
+    // Same comparator as the other createSortedMap methods, so that null keys are supported
+    final CommonsTreeMap <DSTKEYTYPE, DSTVALUETYPE> ret = createSortedMap ();
+    ret.putAllMapped (aMap, aKeyMapper, aValueMapper);
+    return ret;
   }
 
   /** @see #createMap(Map, Predicate) */

@@ -104,6 +104,11 @@ public final class RFC2616CodecTest
     assertTrue (RFC2616Codec.isToken ("abc123"));
     assertTrue (RFC2616Codec.isToken ("123"));
     assertTrue (RFC2616Codec.isToken ("123abc"));
+
+    // String and char array must behave identically
+    assertFalse (RFC2616Codec.isToken (new char [0]));
+    for (final String s : new String [] { "abc ", " abc", "ab c", "ab[c", "(", "\\", "\"", "abc", "abc123", "123" })
+      assertEquals (Boolean.valueOf (RFC2616Codec.isToken (s)), Boolean.valueOf (RFC2616Codec.isToken (s.toCharArray ())));
   }
 
   @Test

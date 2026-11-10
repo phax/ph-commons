@@ -18,6 +18,7 @@ package com.helger.base.codec.impl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.CharBuffer;
 import java.util.BitSet;
 
 import org.jspecify.annotations.NonNull;
@@ -69,6 +70,20 @@ public class RFC2616Codec implements ICharArrayCodec
     NON_TOKEN_RFC2616.set ('}');
   }
 
+  private static boolean _isToken (@NonNull final CharSequence aChars)
+  {
+    // May not be empty
+    final int nLen = aChars.length ();
+    if (nLen == 0)
+      return false;
+
+    // No forbidden chars may be present
+    for (int i = 0; i < nLen; ++i)
+      if (NON_TOKEN_RFC2616.get (aChars.charAt (i)))
+        return false;
+    return true;
+  }
+
   /**
    * Check if the passed string is a valid RFC 2616 token (i.e. contains no non-token characters).
    *
@@ -82,7 +97,7 @@ public class RFC2616Codec implements ICharArrayCodec
     if (s == null)
       return false;
 
-    return isToken (s.toCharArray ());
+    return _isToken (s);
   }
 
   /**
@@ -95,14 +110,10 @@ public class RFC2616Codec implements ICharArrayCodec
   public static boolean isToken (final char @Nullable [] aChars)
   {
     // May not be empty
-    if (aChars == null || aChars.length == 0)
+    if (aChars == null)
       return false;
 
-    // No forbidden chars may be present
-    for (final char c : aChars)
-      if (NON_TOKEN_RFC2616.get (c))
-        return false;
-    return true;
+    return _isToken (CharBuffer.wrap (aChars));
   }
 
   /**

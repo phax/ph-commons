@@ -136,6 +136,11 @@ public final class StringCountTest
     assertEquals (0, StringCount.getCharCount ("", 'x'));
     for (int i = 0; i < 1000; ++i)
       assertEquals (i, StringCount.getCharCount (StringHelper.getRepeated ('x', i), 'x'));
+
+    // String and char array must behave identically
+    assertEquals (0, StringCount.getCharCount (new char [0], 'x'));
+    for (final String s : new String [] { "abc", "xabc", "abxc", "abcx", "xxaxx", "\u20acx\u20ac" })
+      assertEquals (StringCount.getCharCount (s, 'x'), StringCount.getCharCount (s.toCharArray (), 'x'));
   }
 
   @Test

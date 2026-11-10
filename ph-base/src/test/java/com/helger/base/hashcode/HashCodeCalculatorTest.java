@@ -18,8 +18,11 @@ package com.helger.base.hashcode;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
+
+import com.helger.base.equals.EqualsHelper;
 
 /**
  * Test class for class {@link HashCodeCalculator}.
@@ -137,5 +140,48 @@ public final class HashCodeCalculatorTest
                   HashCodeCalculator.append (P, new short [] { 1, 2 }, 0, 1));
     assertEquals (HashCodeCalculator.append (P, new Object [] { "a", "b" }, 0, 1),
                   HashCodeCalculator.append (P, new Object [] { "a", "b" }, 0, 1));
+  }
+
+  @Test
+  public void testArraysConsistentWithEqualsHelper ()
+  {
+    // Equal by EqualsHelper (deep equals) must give equal hash codes
+    final Object [] aPairs = { new int [] { 1, 2 },
+                               new int [] { 1, 2 },
+                               new String [] { "a", "b" },
+                               new String [] { "a", "b" },
+                               new Object [] { new int [] { 1 }, "x" },
+                               new Object [] { new int [] { 1 }, "x" },
+                               new byte [] { 1 },
+                               new byte [] { 1 },
+                               new char [] { 'a' },
+                               new char [] { 'a' },
+                               new boolean [] { true },
+                               new boolean [] { true },
+                               new double [] { 1.5 },
+                               new double [] { 1.5 },
+                               new float [] { 1.5f },
+                               new float [] { 1.5f },
+                               new long [] { 7 },
+                               new long [] { 7 },
+                               new short [] { 3 },
+                               new short [] { 3 } };
+    for (int i = 0; i < aPairs.length; i += 2)
+    {
+      final Object aObj1 = aPairs[i];
+      final Object aObj2 = aPairs[i + 1];
+      assertTrue (EqualsHelper.equals (aObj1, aObj2));
+      assertEquals (HashCodeCalculator.hashCode (aObj1), HashCodeCalculator.hashCode (aObj2));
+      assertEquals (HashCodeCalculator.append (17, aObj1), HashCodeCalculator.append (17, aObj2));
+    }
+
+    // Nested arrays in Object arrays
+    final Object [] aNested1 = { new int [] { 1 } };
+    final Object [] aNested2 = { new int [] { 1 } };
+    assertEquals (HashCodeCalculator.append (17, aNested1), HashCodeCalculator.append (17, aNested2));
+
+    // The HashCodeGenerator varargs helper treats array members by content as well
+    assertEquals (HashCodeGenerator.getHashCode (this, new int [] { 4 }),
+                  HashCodeGenerator.getHashCode (this, new int [] { 4 }));
   }
 }

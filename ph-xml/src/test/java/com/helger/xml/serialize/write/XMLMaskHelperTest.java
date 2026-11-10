@@ -20,9 +20,12 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.helger.base.CGlobal;
+import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 
 /**
  * Test class for class {@link XMLMaskHelper}.
@@ -277,5 +280,61 @@ public final class XMLMaskHelperTest
                                                         EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
                                                         EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
                                                         "1 & \u0001"));
+  }
+
+  @Test
+  public void testMaskXMLTextToStringAndCharArray () throws IOException
+  {
+    final String [] aTexts = { "a",
+                               "abc",
+                               "1 & 2 < 3 > 0",
+                               "'single' and \"double\"",
+                               "line\nbreak\ttab\r",
+                               "ab\u0000cd\u0000ef",
+                               "\u0000",
+                               "\u0001 & \u0002",
+                               "\u00e4\u20ac\ud83d\ude00",
+                               "\ud800x",
+                               "1abc" };
+    final EXMLIncorrectCharacterHandling [] aHandlings = { EXMLIncorrectCharacterHandling.WRITE_TO_FILE_NO_LOG,
+                                                           EXMLIncorrectCharacterHandling.DO_NOT_WRITE_NO_LOG,
+                                                           EXMLIncorrectCharacterHandling.THROW_EXCEPTION };
+    for (final EXMLSerializeVersion eXMLVersion : EXMLSerializeVersion.values ())
+      for (final EXMLCharMode eXMLCharMode : EXMLCharMode.values ())
+        for (final EXMLIncorrectCharacterHandling eHandling : aHandlings)
+          for (final String sText : aTexts)
+          {
+            final String sMsg = eXMLVersion + "/" + eXMLCharMode + "/" + eHandling + "/" + sText;
+
+            String sStringResult;
+            try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+            {
+              XMLMaskHelper.maskXMLTextTo (eXMLVersion, eXMLCharMode, eHandling, sText, aSW);
+              sStringResult = aSW.getAsString ();
+            }
+            catch (final IllegalArgumentException ex)
+            {
+              sStringResult = "Exception: " + ex.getMessage ();
+            }
+
+            // Use an offset, to ensure it is considered
+            final char [] aChars = ("xx" + sText + "yy").toCharArray ();
+            String sCharArrayResult;
+            try (final NonBlockingStringWriter aSW = new NonBlockingStringWriter ())
+            {
+              XMLMaskHelper.maskXMLTextTo (eXMLVersion, eXMLCharMode, eHandling, aChars, 2, sText.length (), aSW);
+              sCharArrayResult = aSW.getAsString ();
+            }
+            catch (final IllegalArgumentException ex)
+            {
+              sCharArrayResult = "Exception: " + ex.getMessage ();
+            }
+
+            assertEquals (sMsg, sCharArrayResult, sStringResult);
+            if (!sStringResult.startsWith ("Exception: "))
+              assertEquals (sMsg,
+                            new String (XMLMaskHelper.getMaskedXMLText (eXMLVersion, eXMLCharMode, eHandling, sText)),
+                            sStringResult);
+          }
   }
 }

@@ -29,21 +29,27 @@ import com.helger.base.version.Version;
 @IsSPIImplementation
 public final class ThirdPartyModuleProvider_ph_base implements IThirdPartyModuleProviderSPI
 {
-  public static final IThirdPartyModule JSPECIFY = new ThirdPartyModule ("JSpecify",
-                                                                         "JSpecify Authors",
-                                                                         ELicense.APACHE2,
-                                                                         new Version (1, 0, 1),
-                                                                         "https://jspecify.dev/");
-  public static final IThirdPartyModule SLF4J = new ThirdPartyModule ("SLF4J API",
-                                                                      "QOS.ch",
-                                                                      ELicense.MIT,
-                                                                      new Version (2, 0, 17),
-                                                                      "http://www.slf4j.org/");
-  public static final IThirdPartyModule BASE64 = new ThirdPartyModule ("Base64",
-                                                                       "Robert Harder",
-                                                                       ELicense.PUBLIC_DOMAIN,
-                                                                       new Version (2, 3, 7),
-                                                                       "http://iharder.net/base64");
+  public static final IThirdPartyModule JSPECIFY = ThirdPartyModule.builder ()
+                                                                   .displayName ("JSpecify")
+                                                                   .copyrightOwner ("JSpecify Authors")
+                                                                   .license (ELicense.APACHE2)
+                                                                   .version (new Version (1, 0, 1))
+                                                                   .webSiteUrl ("https://jspecify.dev/")
+                                                                   .build ();
+  public static final IThirdPartyModule SLF4J = ThirdPartyModule.builder ()
+                                                                .displayName ("SLF4J API")
+                                                                .copyrightOwner ("QOS.ch")
+                                                                .license (ELicense.MIT)
+                                                                .version (new Version (2, 0, 20))
+                                                                .webSiteUrl ("http://www.slf4j.org/")
+                                                                .build ();
+  public static final IThirdPartyModule BASE64 = ThirdPartyModule.builder ()
+                                                                 .displayName ("Base64")
+                                                                 .copyrightOwner ("Robert Harder")
+                                                                 .license (ELicense.PUBLIC_DOMAIN)
+                                                                 .version (new Version (2, 3, 7))
+                                                                 .webSiteUrl ("http://iharder.net/base64")
+                                                                 .build ();
 
   /** {@inheritDoc} */
   @Nullable

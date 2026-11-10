@@ -59,7 +59,7 @@ public final class TextVariableHelper
   {}
 
   @CheckForSigned
-  private static int _nextCharConsiderMasking (final char @NonNull [] aChars,
+  private static int _nextCharConsiderMasking (@NonNull final String sText,
                                                @Nonnegative final int nOfs,
                                                @Nonnegative final int nLen,
                                                @Nonnegative final char cSearch,
@@ -68,7 +68,7 @@ public final class TextVariableHelper
     boolean bLastCharWasMask = false;
     for (int nIndex = nOfs; nIndex < nOfs + nLen; ++nIndex)
     {
-      final char c = aChars[nIndex];
+      final char c = sText.charAt (nIndex);
       if (c == MASKING_CHAR)
       {
         // in "\\" the first "\" switches to true and the second again to
@@ -106,7 +106,7 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _nextCharConsiderMaskingBalancedBrackets (final char @NonNull [] aChars,
+  private static int _nextCharConsiderMaskingBalancedBrackets (@NonNull final String sText,
                                                                @Nonnegative final int nOfs,
                                                                @Nonnegative final int nLen,
                                                                @Nonnegative final char cClosingBracket,
@@ -117,7 +117,7 @@ public final class TextVariableHelper
     int nLevel = 0;
     for (int nIndex = nOfs; nIndex < nOfs + nLen; ++nIndex)
     {
-      final char c = aChars[nIndex];
+      final char c = sText.charAt (nIndex);
       if (c == MASKING_CHAR)
       {
         // in "\\" the first "\" switches to true and the second again to
@@ -160,19 +160,19 @@ public final class TextVariableHelper
   }
 
   @CheckForSigned
-  private static int _findStartOfVarName (final char @NonNull [] aChars,
+  private static int _findStartOfVarName (@NonNull final String sText,
                                           @Nonnegative final int nOfs,
                                           @Nonnegative final int nLen,
                                           @NonNull final StringBuilder aSB)
   {
     final int nStartOfs = nOfs;
     // Find start of variable with "$"
-    int nAbsOfs = _nextCharConsiderMasking (aChars, nOfs, nLen, DOLLAR, aSB);
+    int nAbsOfs = _nextCharConsiderMasking (sText, nOfs, nLen, DOLLAR, aSB);
     while (nAbsOfs >= nOfs && nAbsOfs <= nOfs + nLen - 1)
     {
       // "$" may be the last char of the string
       final boolean bIsLastChar = nAbsOfs == nOfs + nLen - 1;
-      if (!bIsLastChar && aChars[nAbsOfs + 1] == OPENING_BRACKET)
+      if (!bIsLastChar && sText.charAt (nAbsOfs + 1) == OPENING_BRACKET)
       {
         // It's a variable start if the "$" is followed by a "{"
         return nAbsOfs + 2;
@@ -185,7 +185,7 @@ public final class TextVariableHelper
         return -1;
       }
       // Find next "$" starting from where we are atm
-      nAbsOfs = _nextCharConsiderMasking (aChars, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, aSB);
+      nAbsOfs = _nextCharConsiderMasking (sText, nAbsOfs + 1, nLen - (nAbsOfs - nStartOfs + 1), DOLLAR, aSB);
     }
     return nAbsOfs;
   }
@@ -213,8 +213,7 @@ public final class TextVariableHelper
   {
     ValueEnforcer.notEmpty (sText, "Text");
 
-    final char [] aTextChars = sText.toCharArray ();
-    final int nTextLen = aTextChars.length;
+    final int nTextLen = sText.length ();
 
     final List <String> ret = new ArrayList <> ();
     int nStart = 0;
@@ -223,7 +222,7 @@ public final class TextVariableHelper
     final StringBuilder aTarget = new StringBuilder (nTextLen);
 
     // Find the beginning of the next variable starting outside of a variable
-    int nNextVar = _findStartOfVarName (aTextChars, nStart, nTextLen - nStart, aTarget);
+    int nNextVar = _findStartOfVarName (sText, nStart, nTextLen - nStart, aTarget);
     while (nNextVar >= 0)
     {
       // Add the stuff before the variable
@@ -233,7 +232,7 @@ public final class TextVariableHelper
       aTarget.setLength (0);
 
       // Search for unmasked end of variable
-      final int nEndOfVar = _nextCharConsiderMaskingBalancedBrackets (aTextChars,
+      final int nEndOfVar = _nextCharConsiderMaskingBalancedBrackets (sText,
                                                                       nNextVar,
                                                                       nTextLen - nNextVar,
                                                                       CLOSING_BRACKET,
@@ -266,7 +265,7 @@ public final class TextVariableHelper
 
       // Next round - search for next variable
       nStart = nEndOfVar + 1;
-      nNextVar = _findStartOfVarName (aTextChars, nStart, nTextLen - nStart, aTarget);
+      nNextVar = _findStartOfVarName (sText, nStart, nTextLen - nStart, aTarget);
     }
     // Take whatever is left
     if (aTarget.length () > 0)

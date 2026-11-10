@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UncheckedIOException;
+import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.IllegalCharsetNameException;
 import java.nio.charset.UnsupportedCharsetException;
@@ -177,6 +178,16 @@ public final class CharsetHelper
     return new String (sText.getBytes (aCurrentCharset), aNewCharset);
   }
 
+  @Nonnegative
+  private static int _getUTF8ByteCount (@NonNull final CharSequence aChars)
+  {
+    int nCount = 0;
+    final int nLen = aChars.length ();
+    for (int i = 0; i < nLen; ++i)
+      nCount += getUTF8ByteCount (aChars.charAt (i));
+    return nCount;
+  }
+
   /**
    * Get the number of bytes necessary to represent the passed string as an UTF-8 string.
    *
@@ -187,7 +198,7 @@ public final class CharsetHelper
   @Nonnegative
   public static int getUTF8ByteCount (@Nullable final String s)
   {
-    return s == null ? 0 : getUTF8ByteCount (s.toCharArray ());
+    return s == null ? 0 : _getUTF8ByteCount (s);
   }
 
   /**
@@ -200,11 +211,7 @@ public final class CharsetHelper
   @Nonnegative
   public static int getUTF8ByteCount (final char @Nullable [] aChars)
   {
-    int nCount = 0;
-    if (aChars != null)
-      for (final char c : aChars)
-        nCount += getUTF8ByteCount (c);
-    return nCount;
+    return aChars == null ? 0 : _getUTF8ByteCount (CharBuffer.wrap (aChars));
   }
 
   /**

@@ -836,22 +836,6 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
     return sValue == null ? sDefaultValue : sValue;
   }
 
-  @Override
-  public boolean equals (final Object o)
-  {
-    if (o == this)
-      return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
-      return false;
-    return super.equals (o);
-  }
-
-  @Override
-  public int hashCode ()
-  {
-    return super.hashCode ();
-  }
-
   /**
    * Create {@link NonBlockingProperties} from an existing {@link Properties} object.
    *

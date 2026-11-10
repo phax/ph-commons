@@ -694,12 +694,16 @@ public final class FilenameHelper
       return null;
 
     // Start replacing all non-ASCII characters with '_'
-    final StringBuilder ret = new StringBuilder (sValid.length ());
-    for (final char c : sValid.toCharArray ())
+    final int nLen = sValid.length ();
+    final StringBuilder ret = new StringBuilder (nLen);
+    for (int i = 0; i < nLen; ++i)
+    {
+      final char c = sValid.charAt (i);
       if (isSecureFilenameCharacter (c))
         ret.append (c);
       else
         ret.append (cReplacementChar);
+    }
     return ret.toString ();
   }
 

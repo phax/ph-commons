@@ -1567,4 +1567,20 @@ public final class CollectionHelperTest
     assertEquals (new CommonsArrayList <> ("b", "c"), getSubList (aList, 1, 2));
     assertEquals (new CommonsArrayList <> ("d"), getSubList (aList, 3, Integer.MAX_VALUE));
   }
+
+  @Test
+  public void testCreateSortedMapMappedNullKey ()
+  {
+    final Map <String, String> aSrc = new CommonsHashMap <> ();
+    aSrc.put ("a", "1");
+    aSrc.put ("", "2");
+    // The key mapper maps the empty key to null, which must be supported like in the other
+    // createSortedMap methods
+    final SortedMap <String, Integer> aMap = createSortedMapMapped (aSrc,
+                                                                    x -> x.isEmpty () ? null : x,
+                                                                    Integer::valueOf);
+    assertEquals (2, aMap.size ());
+    assertNull (aMap.firstKey ());
+    assertEquals (Integer.valueOf (2), aMap.get (null));
+  }
 }

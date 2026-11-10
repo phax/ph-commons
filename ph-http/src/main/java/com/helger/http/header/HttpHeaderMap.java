@@ -141,10 +141,12 @@ public class HttpHeaderMap implements
     {
       // First replace special characters with space
       // Make sure to merge all consecutive chars to a single space
-      aOneLiner = new char [sValue.length ()];
+      final int nLen = sValue.length ();
+      aOneLiner = new char [nLen];
       boolean bLastWasSpace = false;
-      for (final char c : sValue.toCharArray ())
+      for (int i = 0; i < nLen; ++i)
       {
+        final char c = sValue.charAt (i);
         if (Character.isWhitespace (c))
         {
           // Only merge whitespaces outside of values

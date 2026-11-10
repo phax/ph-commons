@@ -119,9 +119,9 @@ public final class MimeTypeParser
       return false;
 
     // Check that all chars are token chars
-    final char [] aChars = sToken.toCharArray ();
-    for (final char c : aChars)
-      if (!isTokenChar (c))
+    final int nLen = sToken.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isTokenChar (sToken.charAt (i)))
         return false;
     return true;
   }
@@ -134,13 +134,12 @@ public final class MimeTypeParser
     {
       final char cSep = EMimeQuoting.QUOTED_STRING_SEPARATOR_CHAR;
       final char cMask = EMimeQuoting.QUOTED_STRING_MASK_CHAR;
-      final char [] aParamChars = sParameters.toCharArray ();
-      final int nMax = aParamChars.length;
+      final int nMax = sParameters.length ();
       int nIndex = 0;
       while (true)
       {
         final int nNameStartIndex = nIndex;
-        while (nIndex < nMax && MimeTypeParser.isTokenChar (aParamChars[nIndex]))
+        while (nIndex < nMax && MimeTypeParser.isTokenChar (sParameters.charAt (nIndex)))
           ++nIndex;
 
         final String sParameterName = sParameters.substring (nNameStartIndex, nIndex);
@@ -148,7 +147,7 @@ public final class MimeTypeParser
           break;
 
         // Search separator char
-        while (nIndex < nMax && aParamChars[nIndex] != CMimeType.SEPARATOR_PARAMETER_NAME_VALUE)
+        while (nIndex < nMax && sParameters.charAt (nIndex) != CMimeType.SEPARATOR_PARAMETER_NAME_VALUE)
           ++nIndex;
 
         if (nIndex == nMax)
@@ -158,13 +157,13 @@ public final class MimeTypeParser
         ++nIndex;
 
         // Search the start of the value
-        while (nIndex < nMax && aParamChars[nIndex] != cSep && !isTokenChar (aParamChars[nIndex]))
+        while (nIndex < nMax && sParameters.charAt (nIndex) != cSep && !isTokenChar (sParameters.charAt (nIndex)))
           ++nIndex;
 
         final StringBuilder aSB = new StringBuilder ();
         if (nIndex < nMax)
         {
-          if (aParamChars[nIndex] == cSep)
+          if (sParameters.charAt (nIndex) == cSep)
           {
             // Quoted string!
 
@@ -172,7 +171,7 @@ public final class MimeTypeParser
             ++nIndex;
             for (; nIndex < nMax; ++nIndex)
             {
-              final char c = aParamChars[nIndex];
+              final char c = sParameters.charAt (nIndex);
               if (c == cSep)
               {
                 // End of quoted string
@@ -183,7 +182,7 @@ public final class MimeTypeParser
                 // Unmask char
                 if (nIndex == nMax - 1)
                   throw new MimeTypeParserException ("Illegal masking found at end of: " + sParameters);
-                aSB.append (aParamChars[++nIndex]);
+                aSB.append (sParameters.charAt (++nIndex));
               }
               else
                 aSB.append (c);
@@ -196,9 +195,9 @@ public final class MimeTypeParser
           else
           {
             // Token-only parameter value
-            while (nIndex < nMax && MimeTypeParser.isTokenChar (aParamChars[nIndex]))
+            while (nIndex < nMax && MimeTypeParser.isTokenChar (sParameters.charAt (nIndex)))
             {
-              aSB.append (aParamChars[nIndex]);
+              aSB.append (sParameters.charAt (nIndex));
               ++nIndex;
             }
           }
@@ -218,7 +217,7 @@ public final class MimeTypeParser
                                              ex);
         }
         // Search for separator of next parameter
-        while (nIndex < nMax && aParamChars[nIndex] != CMimeType.SEPARATOR_PARAMETER)
+        while (nIndex < nMax && sParameters.charAt (nIndex) != CMimeType.SEPARATOR_PARAMETER)
           ++nIndex;
         if (nIndex == nMax)
         {
@@ -229,7 +228,7 @@ public final class MimeTypeParser
         ++nIndex;
 
         // Skip until next name
-        while (nIndex < nMax && !MimeTypeParser.isTokenChar (aParamChars[nIndex]))
+        while (nIndex < nMax && !MimeTypeParser.isTokenChar (sParameters.charAt (nIndex)))
           ++nIndex;
 
         // Semicolon at the end - resilience

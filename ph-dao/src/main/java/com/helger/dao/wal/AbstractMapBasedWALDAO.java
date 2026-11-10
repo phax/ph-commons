@@ -610,7 +610,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
       return new CommonsArrayList <> ();
 
     // getAll is already a copy
-    return PagingHelper.getPage (getAll (aFilter), false, aPagingSpec, aComparator);
+    return PagingHelper.getPage (getAll (aFilter), aPagingSpec, aComparator);
   }
 
   @NonNull

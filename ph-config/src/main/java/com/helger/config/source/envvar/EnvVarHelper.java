@@ -84,18 +84,17 @@ public final class EnvVarHelper
     ValueEnforcer.notEmpty (sName, "Name");
 
     final StringBuilder ret = new StringBuilder (sName.length ());
-    int nIndex = 0;
-    for (final char c : sName.toCharArray ())
+    final int nLen = sName.length ();
+    for (int nIndex = 0; nIndex < nLen; ++nIndex)
     {
       // Manually upper case for quicker tests afterwards
-      final char cUpper = Character.toUpperCase (c);
+      final char cUpper = Character.toUpperCase (sName.charAt (nIndex));
       final boolean bIsValid = nIndex == 0 ? isValidFirstChar (cUpper) : isValidFollowingChar (cUpper);
       if (bIsValid)
         ret.append (cUpper);
       else
         if (cReplacement != REPLACEMENT_CHAR_TO_SKIP)
           ret.append (cReplacement);
-      nIndex++;
     }
     return ret.toString ();
   }

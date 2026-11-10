@@ -63,16 +63,15 @@ public final class StringRemove
       return sInputString;
 
     // build output buffer
-    final char [] aChars = sInputString.toCharArray ();
-    final int nMax = aChars.length;
+    final int nMax = sInputString.length ();
     final StringBuilder aSB = new StringBuilder (nMax);
     // Copy the first chars where we know it is not contained
-    aSB.append (aChars, 0, nFirstIndex);
+    aSB.append (sInputString, 0, nFirstIndex);
     // Start searching after the first occurrence because we know that this is a
     // char to be removed
     for (int i = nFirstIndex; i < nMax; ++i)
     {
-      final char c = aChars[i];
+      final char c = sInputString.charAt (i);
       if (c != cRemoveChar)
         aSB.append (c);
     }

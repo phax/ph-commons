@@ -16,8 +16,10 @@
  */
 package com.helger.http;
 
+import java.nio.CharBuffer;
 import java.util.BitSet;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
@@ -77,6 +79,22 @@ public final class RFC7230Helper
   }
 
   /**
+   * Check if all characters of the provided character sequence are valid token chars.
+   *
+   * @param aCS
+   *        Character sequence to check. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are valid token chars, <code>false</code> if not.
+   */
+  private static boolean _isValidToken (@NonNull final CharSequence aCS)
+  {
+    final int nLen = aCS.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (!isValidTokenChar (aCS.charAt (i)))
+        return false;
+    return true;
+  }
+
+  /**
    * Check if the provided String is a valid token.
    *
    * @param s
@@ -88,7 +106,7 @@ public final class RFC7230Helper
     if (StringHelper.isEmpty (s))
       return false;
 
-    return isValidToken (s.toCharArray ());
+    return _isValidToken (s);
   }
 
   /**
@@ -103,10 +121,7 @@ public final class RFC7230Helper
     if (a == null || a.length == 0)
       return false;
 
-    for (final char c : a)
-      if (!isValidTokenChar (c))
-        return false;
-    return true;
+    return _isValidToken (CharBuffer.wrap (a));
   }
 
   /**

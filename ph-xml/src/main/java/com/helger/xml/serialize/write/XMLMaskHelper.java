@@ -691,40 +691,85 @@ public final class XMLMaskHelper
     if (StringHelper.isEmpty (s))
       return 0;
 
-    char [] aChars = s.toCharArray ();
+    // Only set, if invalid characters were removed - otherwise the String is used without a copy
+    char [] aCleanedChars = null;
 
     // 1. do incorrect character handling
-    if (eIncorrectCharHandling.isTestRequired () &&
-        XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars))
+    if (eIncorrectCharHandling.isTestRequired () && XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, s))
     {
       final ICommonsSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
                                                                                             eXMLCharMode,
-                                                                                            aChars);
+                                                                                            s);
       eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
       if (eIncorrectCharHandling.isReplaceWithNothing ())
       {
         final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
         final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-        aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
+        aCleanedChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
       }
     }
 
     // 2. perform entity replacements if necessary
+    final int nInputLen = aCleanedChars != null ? aCleanedChars.length : s.length ();
     final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
     final int ret;
     if (aSrcMap != null)
     {
       final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      final int nResLen = StringReplace.getReplaceMultipleResultLength (aChars, aSrcMap, aDstMap);
-      ret = nResLen == CGlobal.ILLEGAL_UINT ? aChars.length : nResLen;
+      final int nResLen = aCleanedChars != null ? StringReplace.getReplaceMultipleResultLength (aCleanedChars,
+                                                                                                 aSrcMap,
+                                                                                                 aDstMap)
+                                                : StringReplace.getReplaceMultipleResultLength (s, aSrcMap, aDstMap);
+      ret = nResLen == CGlobal.ILLEGAL_UINT ? nInputLen : nResLen;
     }
     else
     {
       // Nothing to replace
-      ret = aChars.length;
+      ret = nInputLen;
     }
     // Reminder: Surrogate characters count as 2
     return ret;
+  }
+
+  /**
+   * Perform the entity replacements of the specified XML text from a char array and write it to the
+   * given {@link Writer}. Invalid characters must have been handled before.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param aChars
+   *        The source text as a char array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array to start reading.
+   * @param nLen
+   *        The number of chars to read from the char array.
+   * @param aWriter
+   *        The writer to write to. May not be <code>null</code>.
+   * @throws IOException
+   *         In case of a write error
+   */
+  private static void _maskXMLTextTo (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                      @NonNull final EXMLCharMode eXMLCharMode,
+                                      final char @NonNull [] aChars,
+                                      @Nonnegative final int nOfs,
+                                      @Nonnegative final int nLen,
+                                      @NonNull final Writer aWriter) throws IOException
+  {
+    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
+    if (aSrcMap == null)
+    {
+      // Nothing to replace
+      // TODO write code points as XML entities
+      aWriter.write (aChars, nOfs, nLen);
+    }
+    else
+    {
+      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
+      // TODO write code points as XML entities
+      StringReplace.replaceMultipleTo (aChars, nOfs, nLen, aSrcMap, aDstMap, aWriter);
+    }
   }
 
   /**
@@ -749,8 +794,42 @@ public final class XMLMaskHelper
                                     @Nullable final String s,
                                     @NonNull final Writer aWriter) throws IOException
   {
-    if (StringHelper.isNotEmpty (s))
-      maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, s.toCharArray (), 0, s.length (), aWriter);
+    if (StringHelper.isEmpty (s))
+      return;
+
+    // 1. do incorrect character handling
+    if (eIncorrectCharHandling.isTestRequired () && XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, s))
+    {
+      final ICommonsOrderedSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                                   eXMLCharMode,
+                                                                                                   s);
+      eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
+      if (eIncorrectCharHandling.isReplaceWithNothing ())
+      {
+        final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
+        final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
+
+        final char [] aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
+        if (aChars.length > 0)
+          _maskXMLTextTo (eXMLVersion, eXMLCharMode, aChars, 0, aChars.length, aWriter);
+        return;
+      }
+    }
+
+    // 2. perform entity replacements if necessary
+    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
+    if (aSrcMap == null)
+    {
+      // Nothing to replace
+      // TODO write code points as XML entities
+      aWriter.write (s);
+    }
+    else
+    {
+      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
+      // TODO write code points as XML entities
+      StringReplace.replaceMultipleTo (s, aSrcMap, aDstMap, aWriter);
+    }
   }
 
   /**
@@ -821,18 +900,6 @@ public final class XMLMaskHelper
     }
 
     // 2. perform entity replacements if necessary
-    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
-    if (aSrcMap == null)
-    {
-      // Nothing to replace
-      // TODO write code points as XML entities
-      aWriter.write (aChars, nRealOfs, nRealLen);
-    }
-    else
-    {
-      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      // TODO write code points as XML entities
-      StringReplace.replaceMultipleTo (aChars, nRealOfs, nRealLen, aSrcMap, aDstMap, aWriter);
-    }
+    _maskXMLTextTo (eXMLVersion, eXMLCharMode, aChars, nRealOfs, nRealLen, aWriter);
   }
 }
