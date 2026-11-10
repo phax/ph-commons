@@ -16,14 +16,17 @@
  */
 package com.helger.collection.queue;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Objects;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsIterableIterator;
+import com.helger.collection.commons.ICommonsIterableIterator;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.enumeration.EnumerationHelper;
 import com.helger.collection.helper.CollectionEqualsHelper;
@@ -62,5 +65,24 @@ public final class QueueHelperTest
                                                          EnumerationHelper.getEnumeration (QueueHelper.newQueue (aCont))));
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), aCont));
     assertTrue (CollectionEqualsHelper.equalsCollection (QueueHelper.newQueue (aCont), QueueHelper.newQueue (aCont)));
+  }
+
+  @Test
+  public void testNewEmpty ()
+  {
+    // Must not throw an IllegalArgumentException because of the initial capacity 0
+    assertNotNull (QueueHelper.newQueue (0));
+    assertTrue (QueueHelper.newQueue (0).isEmpty ());
+    assertTrue (QueueHelper.newQueueMapped ((ICommonsList <String>) null, Object::toString).isEmpty ());
+    assertTrue (QueueHelper.newQueueMapped (new CommonsArrayList <String> (), Object::toString).isEmpty ());
+    assertTrue (QueueHelper.newQueueMapped ((Object []) null, Object::toString).isEmpty ());
+    assertTrue (QueueHelper.newQueueMapped (new Object [0], Object::toString).isEmpty ());
+    assertTrue (QueueHelper.newQueue ((String []) null).isEmpty ());
+    assertTrue (QueueHelper.newQueue (new String [0]).isEmpty ());
+    assertTrue (QueueHelper.newQueue ((ICommonsList <String>) null).isEmpty ());
+    assertTrue (QueueHelper.newQueue (new CommonsArrayList <String> ()).isEmpty ());
+    assertTrue (QueueHelper.newQueue ((ICommonsList <String>) null, (Predicate <String>) Objects::nonNull).isEmpty ());
+    assertTrue (QueueHelper.newQueue (new CommonsArrayList <String> (), Objects::nonNull).isEmpty ());
+    assertTrue (QueueHelper.newQueue ((ICommonsIterableIterator <String>) null).isEmpty ());
   }
 }

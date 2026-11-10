@@ -24,6 +24,7 @@ import java.nio.charset.CoderResult;
 import java.nio.charset.CodingErrorAction;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
@@ -45,6 +46,9 @@ public final class StringDecoder
 
   private final CharsetDecoder m_aDecoder;
   private CharBuffer m_aBuffer = CharBuffer.allocate (INITIAL_BUFFER_SIZE);
+  // The bytes of an incomplete multi-byte sequence left over from the last decode call
+  @Nullable
+  private byte [] m_aRemainingBytes;
 
   /**
    * Constructor.
@@ -96,37 +100,59 @@ public final class StringDecoder
 
   private void _decode (@NonNull final ByteBuffer aByteBuffer, final boolean bEndOfInput)
   {
-    // Call decode at least once to pass the endOfInput signal through
-    do
+    ByteBuffer aSrcBuffer = aByteBuffer;
+    if (m_aRemainingBytes != null)
     {
-      final CoderResult aResult = m_aDecoder.decode (aByteBuffer, m_aBuffer, bEndOfInput);
-      if (aResult != CoderResult.UNDERFLOW)
+      // Prepend the incomplete sequence from the previous call
+      aSrcBuffer = ByteBuffer.allocate (m_aRemainingBytes.length + aByteBuffer.remaining ());
+      aSrcBuffer.put (m_aRemainingBytes);
+      aSrcBuffer.put (aByteBuffer);
+      aSrcBuffer.flip ();
+      m_aRemainingBytes = null;
+    }
+
+    // Call decode at least once to pass the endOfInput signal through
+    while (true)
+    {
+      final CoderResult aResult = m_aDecoder.decode (aSrcBuffer, m_aBuffer, bEndOfInput);
+      if (aResult == CoderResult.UNDERFLOW)
       {
-        // Error handling
-        if (aResult == CoderResult.OVERFLOW)
-        {
-          // double the buffer size and retry
-          final CharBuffer aNewBuffer = CharBuffer.allocate (m_aBuffer.capacity () * 2);
-          System.arraycopy (m_aBuffer.array (), 0, aNewBuffer.array (), 0, m_aBuffer.position ());
-          aNewBuffer.position (m_aBuffer.position ());
-          assert aNewBuffer.remaining () >= m_aBuffer.capacity ();
-          m_aBuffer = aNewBuffer;
-        }
-        else
-        {
-          // We disable errors in the constructor (replace instead)
-          assert false;
-          // TODO: Are there any unmappable sequences for UTF-8?
-          assert aResult.isMalformed ();
-        }
+        // All input consumed, or an incomplete multi-byte sequence is left
+        break;
       }
-    } while (aByteBuffer.hasRemaining ());
-    assert !aByteBuffer.hasRemaining ();
+
+      // Error handling
+      if (aResult == CoderResult.OVERFLOW)
+      {
+        // double the buffer size and retry
+        final CharBuffer aNewBuffer = CharBuffer.allocate (m_aBuffer.capacity () * 2);
+        System.arraycopy (m_aBuffer.array (), 0, aNewBuffer.array (), 0, m_aBuffer.position ());
+        aNewBuffer.position (m_aBuffer.position ());
+        assert aNewBuffer.remaining () >= m_aBuffer.capacity ();
+        m_aBuffer = aNewBuffer;
+      }
+      else
+      {
+        // We disable errors in the constructor (replace instead)
+        assert false;
+        // TODO: Are there any unmappable sequences for UTF-8?
+        assert aResult.isMalformed ();
+      }
+    }
+
+    if (aSrcBuffer.hasRemaining ())
+    {
+      // Remember the incomplete multi-byte sequence for the next call
+      assert !bEndOfInput;
+      m_aRemainingBytes = new byte [aSrcBuffer.remaining ()];
+      aSrcBuffer.get (m_aRemainingBytes);
+    }
   }
 
   /**
    * Decode the provided byte array, appending the decoded characters to the internal buffer. Call
-   * {@link #finish(ByteBuffer)} when done to retrieve the final string.
+   * {@link #finish(ByteBuffer)} when done to retrieve the final string. An incomplete multi-byte
+   * sequence at the end of the input is kept and completed by the next call.
    *
    * @param aBuf
    *        The byte array to decode. May not be <code>null</code>.
@@ -216,6 +242,7 @@ public final class StringDecoder
     // Reset for the next string
     m_aBuffer.clear ();
     m_aDecoder.reset ();
+    m_aRemainingBytes = null;
 
     return sRet;
   }

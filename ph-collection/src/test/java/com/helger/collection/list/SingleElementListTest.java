@@ -23,6 +23,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.ListIterator;
 
 import org.junit.Test;
 
@@ -232,6 +233,9 @@ public final class SingleElementListTest
     assertTrue (aList.listIterator (0).hasNext ());
     assertEquals ("Hallo", aList.listIterator (0).next ());
     assertEquals ("Hallo", aList.remove (0));
+    aList.add ("Hallo");
+    assertEquals ("Hallo", aList.set (0, "Welt"));
+    assertEquals ("Welt", aList.get (0));
     aList.set (0, "Hallo");
     assertTrue (aList.remove ("Hallo"));
     assertFalse (aList.remove ("Hallo"));
@@ -242,14 +246,13 @@ public final class SingleElementListTest
     assertFalse (aList.listIterator ().hasNext ());
     assertFalse (aList.removeAll (new CommonsArrayList <> ("Hallo", "Welt")));
     assertTrue (aList.isEmpty ());
-    aList.set (0, "Hallo");
+    aList.add ("Hallo");
     assertTrue (aList.removeAll (new CommonsArrayList <> ("Hallo")));
     assertTrue (aList.isEmpty ());
-    aList.set (0, "Hallo");
-    assertTrue (aList.removeAll (new CommonsArrayList <> ("Hallo")));
-    assertTrue (aList.isEmpty ());
-    aList.set (0, "Hallo");
-    assertFalse (aList.removeAll (new CommonsArrayList <> ("Hallo", "Welt")));
+    aList.add ("Hallo");
+    assertFalse (aList.removeAll (new CommonsArrayList <> ("Welt")));
+    assertFalse (aList.isEmpty ());
+    assertTrue (aList.removeAll (new CommonsArrayList <> ("Hallo", "Welt")));
     assertTrue (aList.isEmpty ());
     aList.add (0, "Hallo");
     aList.remove (0);
@@ -266,14 +269,22 @@ public final class SingleElementListTest
       aList.set (-1, "xyz");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final IndexOutOfBoundsException ex)
     {}
     try
     {
       aList.set (1, "xyz");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final IndexOutOfBoundsException ex)
+    {}
+    try
+    {
+      // List is empty
+      aList.set (0, "xyz");
+      fail ();
+    }
+    catch (final IndexOutOfBoundsException ex)
     {}
     try
     {
@@ -299,12 +310,50 @@ public final class SingleElementListTest
   }
 
   @Test
+  public void testListIteratorWithIndex ()
+  {
+    SingleElementList <String> aList = new SingleElementList <> ("Hallo");
+    ListIterator <String> it = aList.listIterator (1);
+    assertFalse (it.hasNext ());
+    assertTrue (it.hasPrevious ());
+    assertEquals ("Hallo", it.previous ());
+    try
+    {
+      aList.listIterator (2);
+      fail ();
+    }
+    catch (final IndexOutOfBoundsException ex)
+    {}
+    try
+    {
+      aList.listIterator (-1);
+      fail ();
+    }
+    catch (final IndexOutOfBoundsException ex)
+    {}
+
+    aList = new SingleElementList <> ();
+    it = aList.listIterator (0);
+    assertFalse (it.hasNext ());
+    assertFalse (it.hasPrevious ());
+    try
+    {
+      aList.listIterator (1);
+      fail ();
+    }
+    catch (final IndexOutOfBoundsException ex)
+    {}
+  }
+
+  @Test
   public void testRetainAll ()
   {
     final SingleElementList <String> aList = new SingleElementList <> ("init");
-    assertTrue (aList.retainAll (new CommonsArrayList <> ("init", "all")));
+    // Nothing changed
+    assertFalse (aList.retainAll (new CommonsArrayList <> ("init", "all")));
     assertTrue (aList.contains ("init"));
-    assertFalse (aList.retainAll (new CommonsArrayList <> ("all")));
+    // Element removed
+    assertTrue (aList.retainAll (new CommonsArrayList <> ("all")));
     assertFalse (aList.contains ("init"));
     assertFalse (aList.retainAll (new CommonsArrayList <> ("init")));
     assertFalse (aList.contains ("init"));

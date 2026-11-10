@@ -81,6 +81,15 @@ public final class PagingHelperTest
   }
 
   @Test
+  public void testSourceIsNotModifiedWithoutCopy ()
+  {
+    final ICommonsList <String> aSource = new CommonsArrayList <> ("d", "b", "e", "a", "c");
+    assertEquals (new CommonsArrayList <> ("a", "b"),
+                  PagingHelper.getPage (aSource, false, new PagingSpec (0, 2), Comparator.naturalOrder ()));
+    assertEquals (new CommonsArrayList <> ("d", "b", "e", "a", "c"), aSource);
+  }
+
+  @Test
   public void testEmptySource ()
   {
     assertTrue (PagingHelper.getPage (new CommonsArrayList <String> (), true, new PagingSpec (0, 25)).isEmpty ());

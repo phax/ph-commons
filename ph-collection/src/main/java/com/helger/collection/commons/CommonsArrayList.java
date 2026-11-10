@@ -255,7 +255,9 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
                                                                                       @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                       @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsArrayList <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsArrayList <> (aColl.size ())
+                                                                                             : new CommonsArrayList <> ();
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
@@ -288,7 +290,9 @@ public class CommonsArrayList <ELEMENTTYPE> extends ArrayList <ELEMENTTYPE> impl
                                                                                       @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                       @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsArrayList <ELEMENTTYPE> ret = new CommonsArrayList <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsArrayList <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsArrayList <> (aColl.size ())
+                                                                                             : new CommonsArrayList <> ();
     ret.addAllMapped (aValues, aMapper, aFilter);
     return ret;
   }

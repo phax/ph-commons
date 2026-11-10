@@ -165,9 +165,19 @@ public final class CharsetHelperTest
     assertEquals (9, CharsetHelper.getUTF8ByteCount ("abcäöü"));
     assertEquals (3, CharsetHelper.getUTF8ByteCount ("\ud7ff"));
 
-    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\udfff"));
-    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\ue000"));
-    assertEquals (0, CharsetHelper.getUTF8ByteCount ("\uffff"));
+    // Each surrogate half counts 2, so a surrogate pair is 4 bytes
+    assertEquals (2, CharsetHelper.getUTF8ByteCount ("\ud800"));
+    assertEquals (2, CharsetHelper.getUTF8ByteCount ("\udfff"));
+    assertEquals (3, CharsetHelper.getUTF8ByteCount ("\ue000"));
+    assertEquals (3, CharsetHelper.getUTF8ByteCount ("\uffff"));
+    assertEquals (3, CharsetHelper.getUTF8ByteCount ('\ue000'));
+
+    // Compare with the real UTF-8 encoding
+    for (final String s : new String [] { "\ud83d\ude00", "a\ud83d\ude00b", "\ue000\uffff\u20ac", "x\u00e4\u20ac\ud834\udd1e" })
+    {
+      assertEquals (s.getBytes (StandardCharsets.UTF_8).length, CharsetHelper.getUTF8ByteCount (s));
+      assertEquals (s.getBytes (StandardCharsets.UTF_8).length, CharsetHelper.getUTF8ByteCount (s.toCharArray ()));
+    }
     try
     {
       CharsetHelper.getUTF8ByteCount (0x110000);

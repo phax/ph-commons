@@ -53,14 +53,15 @@ public final class QueueHelper
    * @param <ELEMENTTYPE>
    *        Queue element type
    * @param nInitialCapacity
-   *        The initial capacity.
+   *        The initial capacity. A value of 0 is treated as 1, because {@link PriorityQueue}
+   *        requires a capacity of at least 1.
    * @return A new empty priority queue. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nonnegative final int nInitialCapacity)
   {
-    return new PriorityQueue <> (nInitialCapacity);
+    return new PriorityQueue <> (Math.max (nInitialCapacity, 1));
   }
 
   /**
@@ -96,7 +97,7 @@ public final class QueueHelper
                                                                            @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (CollectionHelper.isEmpty (aCollection))
-      return newQueue (0);
+      return newQueue ();
     final PriorityQueue <DSTTYPE> ret = newQueue (aCollection.size ());
     for (final SRCTYPE aValue : aCollection)
       ret.add (aMapper.apply (aValue));
@@ -122,7 +123,7 @@ public final class QueueHelper
                                                                            @NonNull final Function <? super SRCTYPE, DSTTYPE> aMapper)
   {
     if (ArrayHelper.isEmpty (aArray))
-      return newQueue (0);
+      return newQueue ();
     final PriorityQueue <DSTTYPE> ret = newQueue (aArray.length);
     for (final SRCTYPE aValue : aArray)
       ret.add (aMapper.apply (aValue));
@@ -163,7 +164,7 @@ public final class QueueHelper
   {
     // Don't user Arrays.asQueue since aIter returns an unmodifiable list!
     if (ArrayHelper.isEmpty (aValues))
-      return newQueue (0);
+      return newQueue ();
 
     final PriorityQueue <ELEMENTTYPE> ret = newQueue (aValues.length);
     Collections.addAll (ret, aValues);
@@ -246,7 +247,7 @@ public final class QueueHelper
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
     if (CollectionHelper.isEmpty (aCont))
-      return newQueue (0);
+      return newQueue ();
     return new PriorityQueue <> (aCont);
   }
 
@@ -267,7 +268,7 @@ public final class QueueHelper
                                                                     @NonNull final Predicate <? super ELEMENTTYPE> aFilter)
   {
     if (CollectionHelper.isEmpty (aCollection))
-      return newQueue (0);
+      return newQueue ();
     final PriorityQueue <ELEMENTTYPE> ret = newQueue (aCollection.size ());
     CollectionFind.findAll (aCollection, aFilter, ret::add);
     return ret;
@@ -287,7 +288,7 @@ public final class QueueHelper
   public static <ELEMENTTYPE> PriorityQueue <ELEMENTTYPE> newQueue (@Nullable final ICommonsIterableIterator <? extends ELEMENTTYPE> aIter)
   {
     if (aIter == null)
-      return newQueue (0);
+      return newQueue ();
     return newQueue (aIter.iterator ());
   }
 }

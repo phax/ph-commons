@@ -37,6 +37,8 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
   private final Iterator <? extends ELEMENTTYPE> m_aIter1;
   private final Iterator <? extends ELEMENTTYPE> m_aIter2;
   private boolean m_bFirstIter;
+  // The iterator that returned the last element
+  private Iterator <? extends ELEMENTTYPE> m_aLastIter;
 
   /**
    * Constructor.
@@ -75,23 +77,33 @@ public final class CombinedIterator <ELEMENTTYPE> implements Iterator <ELEMENTTY
   @Nullable
   public ELEMENTTYPE next ()
   {
+    if (m_bFirstIter && !m_aIter1.hasNext ())
+      m_bFirstIter = false;
     if (m_bFirstIter)
-      return m_aIter1.next ();
+    {
+      final ELEMENTTYPE ret = m_aIter1.next ();
+      m_aLastIter = m_aIter1;
+      return ret;
+    }
     if (m_aIter2 == null)
       throw new NoSuchElementException ();
-    return m_aIter2.next ();
+    final ELEMENTTYPE ret = m_aIter2.next ();
+    m_aLastIter = m_aIter2;
+    return ret;
   }
 
+  /**
+   * Removes the last element from the iterator that returned it.
+   *
+   * @throws IllegalStateException
+   *         if {@link #next()} was not yet called
+   */
   @Override
   public void remove ()
   {
-    if (m_bFirstIter)
-      m_aIter1.remove ();
-    else
-      if (m_aIter2 == null)
-        throw new UnsupportedOperationException ();
-      else
-        m_aIter2.remove ();
+    if (m_aLastIter == null)
+      throw new IllegalStateException ("next was not yet called");
+    m_aLastIter.remove ();
   }
 
   @Override

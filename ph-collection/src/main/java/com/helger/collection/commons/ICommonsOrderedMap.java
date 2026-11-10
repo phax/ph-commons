@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.CollectionFind;
+import com.helger.collection.CollectionHelper;
 
 /**
  * A special {@link Map} interface for ordered maps (like {@link CommonsLinkedHashMap}) based on
@@ -69,7 +70,7 @@ public interface ICommonsOrderedMap <KEYTYPE, VALUETYPE> extends ICommonsMap <KE
   default ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
     // This is contained, because "Map.Entry" instance may get reused internally
-    final ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsLinkedHashSet <> (size ());
+    final ICommonsOrderedSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (size ()));
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.add (new MapEntry <> (aEntry));
     return ret;

@@ -25,8 +25,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
@@ -61,7 +63,16 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   // All Java BlockingQueues are thread safe
   protected final BlockingQueue <Object> m_aQueue;
 
+  /*
+   * Producers hold the read lock while checking the stopped state and putting an object into the
+   * queue. Stopping holds the write lock while setting the stopped state and putting the stop
+   * object. That ensures that no object is queued after the stop object. The consumer never needs
+   * this lock, so a producer blocked on a full queue cannot deadlock with stopping.
+   */
+  private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
+
   // Is the queue stopped?
+  @GuardedBy ("m_aRWLock")
   private final AtomicBoolean m_aStopTakingNewObjects = new AtomicBoolean (false);
 
   /**
@@ -94,11 +105,13 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   public final ESuccess queueObject (@NonNull final DATATYPE aObject)
   {
     ValueEnforcer.notNull (aObject, "Object");
-    if (isStopped ())
-      throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
 
+    m_aRWLock.readLock ().lock ();
     try
     {
+      if (isStopped ())
+        throw new IllegalStateException ("The queue is already stopped and does not take any more elements");
+
       m_aQueue.put (aObject);
       return ESuccess.SUCCESS;
     }
@@ -107,6 +120,10 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       LOGGER.error ("Failed to submit object to queue", ex);
       Thread.currentThread ().interrupt ();
       return ESuccess.FAILURE;
+    }
+    finally
+    {
+      m_aRWLock.readLock ().unlock ();
     }
   }
 
@@ -133,14 +150,15 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
   @NonNull
   public final ESuccess stopQueuingNewObjects ()
   {
-    if (m_aStopTakingNewObjects.getAndSet (true))
-    {
-      // Already stooped
-      return ESuccess.FAILURE;
-    }
-
+    m_aRWLock.writeLock ().lock ();
     try
     {
+      if (m_aStopTakingNewObjects.getAndSet (true))
+      {
+        // Already stopped
+        return ESuccess.FAILURE;
+      }
+
       // put specific stop queue object
       m_aQueue.put (STOP_QUEUE_OBJECT);
       return ESuccess.SUCCESS;
@@ -152,6 +170,10 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       // Set to false again
       m_aStopTakingNewObjects.set (false);
       return ESuccess.FAILURE;
+    }
+    finally
+    {
+      m_aRWLock.writeLock ().unlock ();
     }
   }
 
@@ -183,8 +205,20 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
       if (EqualsHelper.identityEqual (aObj, STOP_QUEUE_OBJECT))
       {
         // Re-add the stop object, because loops in derived classes rely on this
-        // object
-        m_aQueue.add (aObj);
+        // object. Use "offer" first, as it neither throws on a full queue nor checks the interrupted
+        // state of the current thread
+        if (!m_aQueue.offer (aObj))
+        {
+          try
+          {
+            m_aQueue.put (aObj);
+          }
+          catch (final InterruptedException ex)
+          {
+            LOGGER.error ("Error re-adding the stop object to the queue", ex);
+            Thread.currentThread ().interrupt ();
+          }
+        }
       }
       else
         ret.add (GenericReflection.uncheckedCast (aObj));

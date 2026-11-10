@@ -17,6 +17,7 @@
 package com.helger.collection.commons;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Comparator;
 
@@ -77,5 +78,27 @@ public final class CommonsCopyOnWriteArraySetTest
                                                                                              Integer.valueOf (4)),
                                                x -> x.toString ());
     assertEquals (3, aTest.size ());
+  }
+
+  @Test
+  public void testBulkCreation ()
+  {
+    // An Iterable that is not a Collection, with duplicates
+    final Iterable <String> aIterable = () -> new CommonsArrayList <> ("a", "bb", "a", "c").iterator ();
+    CommonsCopyOnWriteArraySet <String> aSet = new CommonsCopyOnWriteArraySet <> (aIterable);
+    assertEquals (new CommonsArrayList <> ("a", "bb", "c"), new CommonsArrayList <> (aSet));
+
+    aSet = new CommonsCopyOnWriteArraySet <> (aIterable, x -> Integer.toString (x.length ()));
+    assertEquals (new CommonsArrayList <> ("1", "2"), new CommonsArrayList <> (aSet));
+
+    aSet = new CommonsCopyOnWriteArraySet <> (new String [] { "a", "bb", "c" }, x -> Integer.toString (x.length ()));
+    assertEquals (new CommonsArrayList <> ("1", "2"), new CommonsArrayList <> (aSet));
+
+    aSet = new CommonsCopyOnWriteArraySet <> ("x", "y", "x");
+    assertEquals (new CommonsArrayList <> ("x", "y"), new CommonsArrayList <> (aSet));
+
+    assertTrue (new CommonsCopyOnWriteArraySet <> ((String []) null).isEmpty ());
+    assertTrue (new CommonsCopyOnWriteArraySet <> ((Iterable <String>) null).isEmpty ());
+    assertTrue (new CommonsCopyOnWriteArraySet <> ((Iterable <String>) null, x -> x).isEmpty ());
   }
 }

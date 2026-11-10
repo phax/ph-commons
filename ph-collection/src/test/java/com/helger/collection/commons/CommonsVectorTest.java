@@ -19,6 +19,9 @@ package com.helger.collection.commons;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 import org.junit.Test;
 
 import com.helger.unittest.support.TestHelper;
@@ -70,5 +73,18 @@ public final class CommonsVectorTest
                                                                              Integer.valueOf (2),
                                                                              Integer.valueOf (4)), x -> x.toString ());
     assertEquals (3, aTest.size ());
+  }
+
+  @Test
+  public void testCreateFilteredPlainIterable ()
+  {
+    // An Iterable that is not a Collection
+    final Iterable <String> aIterable = () -> new CommonsArrayList <> ("a", "bb", "c").iterator ();
+    final Predicate <String> aLen1 = x -> x.length () == 1;
+    final Predicate <String> aLenGT1 = x -> x.length () > 1;
+    final Function <String, String> aLenMapper = x -> Integer.toString (x.length ());
+    assertEquals (new CommonsArrayList <> ("a", "c"), CommonsVector.createFiltered (aIterable, aLen1));
+    assertEquals (new CommonsArrayList <> ("2"), CommonsVector.createFiltered (aIterable, aLenGT1, aLenMapper));
+    assertEquals (0, CommonsVector.createFiltered ((Iterable <String>) null, x -> true).size ());
   }
 }

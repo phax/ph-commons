@@ -69,7 +69,7 @@ public class NonBlockingStringReader extends Reader
   {
     ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
     m_aChars = aChars;
-    m_nLength = nLen;
+    m_nLength = nOfs + nLen;
     m_nNext = m_nMark = nOfs;
   }
 

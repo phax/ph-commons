@@ -17,6 +17,7 @@
 package com.helger.collection;
 
 import static com.helger.collection.CollectionHelper.getAtIndex;
+import static com.helger.collection.CollectionHelper.getAtIndexMapped;
 import static com.helger.collection.CollectionHelper.getReverseInlineList;
 import static com.helger.collection.CollectionHelper.getReverseList;
 import static com.helger.collection.CollectionHelper.getSize;
@@ -76,6 +77,28 @@ public final class CollectionHelperTest
   private static final Integer I3 = Integer.valueOf (3);
   private static final Integer I4 = Integer.valueOf (4);
   private static final Integer I5 = Integer.valueOf (5);
+
+  @Test
+  public void testGetHashCapacity ()
+  {
+    assertEquals (1, CollectionHelper.getHashCapacity (0));
+    assertEquals (2, CollectionHelper.getHashCapacity (1));
+    assertEquals (17, CollectionHelper.getHashCapacity (12));
+    assertEquals (134, CollectionHelper.getHashCapacity (100));
+    // No overflow
+    assertEquals (Integer.MAX_VALUE, CollectionHelper.getHashCapacity (Integer.MAX_VALUE));
+    assertEquals (Integer.MAX_VALUE, CollectionHelper.getHashCapacity (Integer.MAX_VALUE / 4 * 3 + 100));
+    assertTrue (CollectionHelper.getHashCapacity (Integer.MAX_VALUE / 2) > 0);
+    try
+    {
+      CollectionHelper.getHashCapacity (-1);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
 
   @Test
   public void testGetDifference ()
@@ -1463,6 +1486,28 @@ public final class CollectionHelperTest
     assertEquals ("x", getAtIndex (aList, -1, "x"));
     assertEquals ("a", getAtIndex (aList, 0, "x"));
     assertEquals ("x", getAtIndex (aList, 2, "x"));
+  }
+
+  @Test
+  public void testGetAtIndexIterableNull ()
+  {
+    final Iterable <String> aNull = null;
+    assertNull (getAtIndex (aNull, 0));
+    assertEquals ("x", getAtIndex (aNull, 0, "x"));
+    assertNull (getAtIndex (aNull, Objects::nonNull, 0));
+    assertEquals ("x", getAtIndex (aNull, Objects::nonNull, 0, "x"));
+    assertNull (getAtIndexMapped (aNull, 0, String::length));
+    assertEquals (Integer.valueOf (-1), getAtIndexMapped (aNull, 0, String::length, Integer.valueOf (-1)));
+    assertNull (getAtIndexMapped (aNull, Objects::nonNull, 0, String::length));
+    assertEquals (Integer.valueOf (-1),
+                  getAtIndexMapped (aNull, Objects::nonNull, 0, String::length, Integer.valueOf (-1)));
+
+    final Iterable <String> aIterable = createList ("a", "bb");
+    assertEquals ("bb", getAtIndex (aIterable, 1, "x"));
+    assertEquals ("bb", getAtIndex (aIterable, "bb"::equals, 0, "x"));
+    assertEquals (Integer.valueOf (2), getAtIndexMapped (aIterable, 1, String::length, Integer.valueOf (-1)));
+    assertEquals (Integer.valueOf (2),
+                  getAtIndexMapped (aIterable, "bb"::equals, 0, String::length, Integer.valueOf (-1)));
   }
 
   /**

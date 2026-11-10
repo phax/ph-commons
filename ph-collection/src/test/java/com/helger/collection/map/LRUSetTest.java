@@ -92,4 +92,41 @@ public final class LRUSetTest
     TestHelper.testDefaultImplementationWithDifferentContentObject (ret, new LRUSet <> (4));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new LRUSet <> (3), new LRUSet <> (4));
   }
+
+  @Test
+  public void testDelegatedMethods ()
+  {
+    final LRUSet <String> aSet = new LRUSet <> (3);
+    assertTrue (aSet.isEmpty ());
+    assertFalse (aSet.contains ("a"));
+    assertFalse (aSet.contains (null));
+    assertFalse (aSet.remove ("a"));
+
+    aSet.add ("a");
+    aSet.add ("b");
+    aSet.add ("c");
+    assertFalse (aSet.isEmpty ());
+    assertTrue (aSet.contains ("a"));
+
+    // contains does not change the access order, so "a" is evicted first
+    aSet.add ("d");
+    assertFalse (aSet.contains ("a"));
+    assertTrue (aSet.contains ("b"));
+    assertEquals (3, aSet.size ());
+
+    assertTrue (aSet.remove ("b"));
+    assertFalse (aSet.remove ("b"));
+    assertFalse (aSet.contains ("b"));
+    assertEquals (2, aSet.size ());
+
+    // null is a valid element
+    assertTrue (aSet.add (null));
+    assertTrue (aSet.contains (null));
+    assertTrue (aSet.remove (null));
+
+    aSet.clear ();
+    assertTrue (aSet.isEmpty ());
+    assertEquals (0, aSet.size ());
+    assertFalse (aSet.contains ("c"));
+  }
 }

@@ -407,7 +407,7 @@ public class NonBlockingCharArrayWriter extends Writer implements IWriteToWriter
   public String getAsString (@Nonnegative final int nOfs, @Nonnegative final int nLength)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");
-    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
+    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount - nOfs);
     return new String (m_aBuf, nOfs, nLength);
   }
 

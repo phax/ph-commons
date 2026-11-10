@@ -124,4 +124,48 @@ public final class NonBlockingByteArrayOutputStreamTest
       assertNotNull (aBAOS.toString ());
     }
   }
+
+  @Test
+  public void testReadFromWithEmptyBuffer () throws IOException
+  {
+    final byte [] aSrc = "Hello world".getBytes (StandardCharsets.ISO_8859_1);
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (0);
+         final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aSrc))
+    {
+      aBAOS.readFrom (aBAIS);
+      assertEquals ("Hello world", aBAOS.getAsString (StandardCharsets.ISO_8859_1));
+    }
+  }
+
+  @Test
+  public void testGetAsStringOfsLenOutOfBounds ()
+  {
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream (100))
+    {
+      aBAOS.write ('a');
+      aBAOS.write ('b');
+      aBAOS.write ('c');
+      assertEquals ("c", aBAOS.getAsString (2, 1, StandardCharsets.ISO_8859_1));
+      assertEquals ("", aBAOS.getAsString (3, 0, StandardCharsets.ISO_8859_1));
+      try
+      {
+        // Would read beyond the written bytes
+        aBAOS.getAsString (2, 2, StandardCharsets.ISO_8859_1);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // expected
+      }
+      try
+      {
+        aBAOS.getAsString (Integer.MAX_VALUE, 2, StandardCharsets.ISO_8859_1);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // expected
+      }
+    }
+  }
 }

@@ -245,4 +245,21 @@ public final class FilterIteratorTest
     catch (final NoSuchElementException ex)
     {}
   }
+
+  @Test
+  public void testRemoveIsNotSupported ()
+  {
+    final ICommonsList <String> aList = new CommonsArrayList <> ("s1", "s2", "s3");
+    final FilterIterator <String> it = new FilterIterator <> (aList, Objects::nonNull);
+    assertEquals ("s1", it.next ());
+    try
+    {
+      // Would remove "s2" because the base iterator is already advanced
+      it.remove ();
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+    assertEquals (3, aList.size ());
+  }
 }

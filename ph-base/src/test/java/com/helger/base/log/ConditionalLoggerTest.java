@@ -21,9 +21,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.Proxy;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.helger.base.numeric.mutable.MutableInt;
 
 /**
  * Test class for class {@link ConditionalLogger}.
@@ -93,5 +97,46 @@ public final class ConditionalLoggerTest
     a.error (() -> { throw new IllegalStateException ("must not be evaluated"); });
     a.error ("error", T);
     assertFalse (a.isEnabled ());
+  }
+
+  @Test
+  public void testLevelOffDoesNotEvaluateSupplier ()
+  {
+    // A logger with all levels disabled that counts the log calls
+    final MutableInt aLogCalls = new MutableInt (0);
+    final Logger aOffLogger = (Logger) Proxy.newProxyInstance (Logger.class.getClassLoader (),
+                                                               new Class <?> [] { Logger.class },
+                                                               (aProxy, aMethod, aArgs) -> {
+                                                                 final String sName = aMethod.getName ();
+                                                                 if (sName.startsWith ("is") &&
+                                                                     sName.endsWith ("Enabled"))
+                                                                   return Boolean.FALSE;
+                                                                 if (sName.equals ("getName"))
+                                                                   return "off";
+                                                                 aLogCalls.inc ();
+                                                                 return null;
+                                                               });
+    final ConditionalLogger a = new ConditionalLogger (aOffLogger, true);
+    final MutableInt aSupplierCalls = new MutableInt (0);
+
+    a.trace ( () -> "trace" + aSupplierCalls.inc ());
+    a.trace ( () -> "trace" + aSupplierCalls.inc (), T);
+    a.debug ( () -> "debug" + aSupplierCalls.inc ());
+    a.debug ( () -> "debug" + aSupplierCalls.inc (), T);
+    a.info ( () -> "info" + aSupplierCalls.inc ());
+    a.info ( () -> "info" + aSupplierCalls.inc (), T);
+    a.warn ( () -> "warn" + aSupplierCalls.inc ());
+    a.warn ( () -> "warn" + aSupplierCalls.inc (), T);
+    a.error ( () -> "error" + aSupplierCalls.inc ());
+    a.error ( () -> "error" + aSupplierCalls.inc (), T);
+    a.info ("info");
+    a.info ("info", T);
+    a.warn ("warn");
+    a.warn ("warn", T);
+    a.error ("error");
+    a.error ("error", T);
+
+    assertEquals (0, aSupplierCalls.intValue ());
+    assertEquals (0, aLogCalls.intValue ());
   }
 }

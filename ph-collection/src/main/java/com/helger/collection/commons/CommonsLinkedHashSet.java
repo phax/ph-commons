@@ -76,7 +76,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    */
   public CommonsLinkedHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (CollectionHelper.getSize (aCont));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aCont)));
     if (aCont != null)
       addAll (aCont);
   }
@@ -106,7 +106,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    super (CollectionHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aValues)));
     addAllMapped (aValues, aMapper);
   }
 
@@ -137,7 +137,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
    */
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE aValue)
   {
-    super (1);
+    super (CollectionHelper.getHashCapacity (1));
     add (aValue);
   }
 
@@ -150,7 +150,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   @SafeVarargs
   public CommonsLinkedHashSet (@Nullable final ELEMENTTYPE... aValues)
   {
-    super (ArrayHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     addAll (aValues);
   }
 
@@ -168,7 +168,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   public <SRCTYPE> CommonsLinkedHashSet (@Nullable final SRCTYPE [] aValues,
                                          @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    super (ArrayHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     addAllMapped (aValues, aMapper);
   }
 
@@ -243,7 +243,9 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
                                                                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                           @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (aColl.size ()))
+                                                                                                 : new CommonsLinkedHashSet <> ();
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
@@ -275,7 +277,9 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
                                                                                           @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (aColl.size ()))
+                                                                                                 : new CommonsLinkedHashSet <> ();
     ret.addAllMapped (aValues, aMapper, aFilter);
     return ret;
   }
@@ -299,7 +303,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
   public static <ELEMENTTYPE> CommonsLinkedHashSet <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAll (aValues, aFilter);
     return ret;
   }
@@ -330,7 +334,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
                                                                                           @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                           @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
@@ -362,7 +366,7 @@ public class CommonsLinkedHashSet <ELEMENTTYPE> extends LinkedHashSet <ELEMENTTY
                                                                                           @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                           @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsLinkedHashSet <ELEMENTTYPE> ret = new CommonsLinkedHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAllMapped (aValues, aMapper, aFilter);
     return ret;
   }

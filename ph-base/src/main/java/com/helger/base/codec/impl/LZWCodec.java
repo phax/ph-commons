@@ -30,7 +30,6 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.annotation.style.ReturnsMutableObject;
-import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.EncodeException;
@@ -350,6 +349,15 @@ public class LZWCodec implements IByteArrayCodec
   public LZWCodec ()
   {}
 
+  @NonNull
+  private static LZWNode _createRootNode ()
+  {
+    final LZWNode ret = new LZWNode ();
+    for (int i = 0; i < 256; ++i)
+      ret.setChildNode ((byte) i, new LZWNode (i));
+    return ret;
+  }
+
   /**
    * Encode the passed buffer using LZW compression and write it to the output stream.
    *
@@ -374,27 +382,53 @@ public class LZWCodec implements IByteArrayCodec
 
     final NonBlockingBitOutputStream aBOS = new NonBlockingBitOutputStream (aOS, ByteOrder.LITTLE_ENDIAN);
 
-    final LZWEncodeDictionary aDict = new LZWEncodeDictionary ();
-    aDict.reset ();
+    // The dictionary is maintained here directly as a tree, so that each input byte is handled in
+    // constant time. The output is identical to the one created with LZWEncodeDictionary.
+    LZWNode aRoot = _createRootNode ();
+    int nFreeCode = AbstractLZWDictionary.CODE_EOF + 1;
+    int nCodeBits = 9;
 
     try
     {
       // Always the same
-      aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, aDict.getCodeLength ());
-      byte [] aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+      aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeBits);
+
+      // The node of the current byte sequence (null if the sequence is empty)
+      LZWNode aCurNode = null;
+      int nCurLen = 0;
+      // The node of the last written byte sequence, that gets a new child for the next byte
+      LZWNode aPendingNode = null;
       for (int nIndex = 0; nIndex < nLen; ++nIndex)
       {
-        // Append current byte
         final byte nByteToEncode = aBuffer[nOfs + nIndex];
-        aByteSeq = ArrayHelper.getConcatenated (aByteSeq, nByteToEncode);
-        aDict.visit (nByteToEncode);
-        final int nCodeLength = aDict.getCodeLength ();
+        if (aPendingNode != null)
+        {
+          // Add the last written byte sequence plus the current byte to the dictionary
+          aPendingNode.setChildNode (nByteToEncode, new LZWNode (nFreeCode));
+          aPendingNode = null;
+          ++nFreeCode;
+          if (nFreeCode == 512)
+            nCodeBits = 10;
+          else
+            if (nFreeCode == 1024)
+              nCodeBits = 11;
+            else
+              if (nFreeCode == 2048)
+                nCodeBits = 12;
+        }
 
-        final LZWNode aCurNode = aDict.getNode (aByteSeq);
+        // Append current byte - the node always exists: the root has all single bytes, and a
+        // sequence is only extended if the following byte was found as a child before
+        final LZWNode aNextNode = (aCurNode == null ? aRoot : aCurNode).getChildNode (nByteToEncode);
+        if (aNextNode == null)
+          throw new IllegalStateException ("Internal error: no LZW node found for the current byte sequence");
+        aCurNode = aNextNode;
+        ++nCurLen;
+
         if (nIndex + 1 == nLen)
         {
           // last byte
-          aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
+          aBOS.writeBits (aCurNode.getTableIndex (), nCodeBits);
           break;
         }
 
@@ -402,27 +436,34 @@ public class LZWCodec implements IByteArrayCodec
         if (aCurNode.getChildNode (aBuffer[nOfs + nIndex + 1]) == null)
         {
           // No -> write down
-          aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
-          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+          aBOS.writeBits (aCurNode.getTableIndex (), nCodeBits);
+          aPendingNode = aCurNode;
+          aCurNode = null;
+          nCurLen = 0;
         }
 
-        if (aDict.getNextFreeCode () == AbstractLZWDictionary.MAX_CODE - 1)
+        if (nFreeCode == AbstractLZWDictionary.MAX_CODE - 1)
         {
           if (LOGGER.isTraceEnabled ())
             LOGGER.trace ("Table overflow in encoding -> resetting (codelength=" +
-                          nCodeLength +
+                          nCodeBits +
                           ";byteseq#=" +
-                          aByteSeq.length +
+                          nCurLen +
                           ")");
-          aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
-          aDict.reset ();
-          nIndex -= aByteSeq.length;
-          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+          aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeBits);
+          aRoot = _createRootNode ();
+          nFreeCode = AbstractLZWDictionary.CODE_EOF + 1;
+          nCodeBits = 9;
+          aPendingNode = null;
+          // Re-encode the bytes of the current sequence with the new dictionary
+          nIndex -= nCurLen;
+          aCurNode = null;
+          nCurLen = 0;
         }
       }
 
-      int nCodeLength = aDict.getCodeLength ();
-      switch (aDict.getNextFreeCode ())
+      int nCodeLength = nCodeBits;
+      switch (nFreeCode)
       {
         case 511:
         case 1023:
@@ -437,7 +478,7 @@ public class LZWCodec implements IByteArrayCodec
 
       aBOS.writeBits (AbstractLZWDictionary.CODE_EOF, nCodeLength);
     }
-    catch (final Exception ex)
+    catch (final IOException | RuntimeException ex)
     {
       throw new EncodeException ("Failed to encode LZW", ex);
     }

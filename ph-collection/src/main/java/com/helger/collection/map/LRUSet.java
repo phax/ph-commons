@@ -144,6 +144,32 @@ public class LRUSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements I
   }
 
   @Override
+  public boolean isEmpty ()
+  {
+    return m_aMap.isEmpty ();
+  }
+
+  @Override
+  public boolean contains (@Nullable final Object aItem)
+  {
+    // Does not change the access order
+    return m_aMap.containsKey (aItem);
+  }
+
+  @Override
+  public boolean remove (@Nullable final Object aItem)
+  {
+    // The values are always Boolean.TRUE, so null means "not contained"
+    return m_aMap.remove (aItem) != null;
+  }
+
+  @Override
+  public void clear ()
+  {
+    m_aMap.clear ();
+  }
+
+  @Override
   public boolean equals (final Object o)
   {
     if (o == this)

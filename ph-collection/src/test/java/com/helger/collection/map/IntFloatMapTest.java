@@ -16,8 +16,12 @@
  */
 package com.helger.collection.map;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
 
@@ -137,5 +141,66 @@ public final class IntFloatMapTest
     }
     for (int i = removeCnt; i < addCnt; ++i)
       assertEquals (i, map.get (i), DELTA);
+  }
+
+  @Test
+  public void testContainsKeyClearGetAllKeysClone ()
+  {
+    final IntFloatMap aMap = new IntFloatMap ();
+    assertFalse (aMap.containsKey (0));
+    assertFalse (aMap.containsKey (1));
+    assertEquals (0, aMap.getAllKeys ().length);
+
+    // Free key and regular keys
+    aMap.put (0, 5.5f);
+    aMap.put (1, 6.5f);
+    aMap.put (-1, 7.5f);
+    assertTrue (aMap.containsKey (0));
+    assertTrue (aMap.containsKey (1));
+    assertTrue (aMap.containsKey (-1));
+    assertFalse (aMap.containsKey (2));
+
+    final int [] aKeys = aMap.getAllKeys ();
+    Arrays.sort (aKeys);
+    assertArrayEquals (new int [] { -1, 0, 1 }, aKeys);
+
+    // Clone is independent
+    final IntFloatMap aClone = aMap.getClone ();
+    assertEquals (3, aClone.size ());
+    assertEquals (5.5f, aClone.get (0), 0.0001f);
+    assertEquals (7.5f, aClone.get (-1), 0.0001f);
+    aClone.put (2, 5.5f);
+    aClone.remove (0);
+    assertFalse (aMap.containsKey (2));
+    assertTrue (aMap.containsKey (0));
+    assertEquals (3, aMap.size ());
+    assertEquals (3, aClone.size ());
+
+    aMap.remove (1);
+    assertFalse (aMap.containsKey (1));
+    assertTrue (aClone.containsKey (1));
+
+    aMap.clear ();
+    assertTrue (aMap.isEmpty ());
+    assertEquals (0, aMap.size ());
+    assertFalse (aMap.containsKey (0));
+    assertFalse (aMap.containsKey (-1));
+    assertEquals (0, aMap.getAllKeys ().length);
+    // Still usable after clear
+    aMap.put (5, 5.5f);
+    assertEquals (5.5f, aMap.get (5), 0.0001f);
+    assertEquals (1, aMap.getAllKeys ().length);
+
+    // Many keys incl. rehashing
+    final IntFloatMap aBig = new IntFloatMap (1);
+    for (int i = 0; i < 10_000; ++i)
+      aBig.put (i * 3, 6.5f);
+    assertEquals (10_000, aBig.getAllKeys ().length);
+    final IntFloatMap aBigClone = aBig.getClone ();
+    for (int i = 0; i < 10_000; ++i)
+    {
+      assertTrue (aBigClone.containsKey (i * 3));
+      assertFalse (aBigClone.containsKey (i * 3 + 1));
+    }
   }
 }

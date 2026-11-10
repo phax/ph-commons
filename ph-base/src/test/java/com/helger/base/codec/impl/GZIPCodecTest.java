@@ -19,6 +19,7 @@ package com.helger.base.codec.impl;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -26,6 +27,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
 import org.junit.Test;
+
+import com.helger.base.codec.DecodeException;
 
 /**
  * Test class for class {@link GZIPCodec}
@@ -69,6 +72,21 @@ public final class GZIPCodecTest
       final String sDecoded = aCodec.getDecodedAsString (aEncoded, StandardCharsets.UTF_8);
       assertNotNull (sDecoded);
       assertEquals (sRandom, sDecoded);
+    }
+  }
+
+  @Test
+  public void testDecodeInvalid ()
+  {
+    final byte [] aNotGZIP = "This is not GZIP".getBytes (CHARSET);
+    try
+    {
+      new GZIPCodec ().getDecoded (aNotGZIP);
+      fail ();
+    }
+    catch (final DecodeException ex)
+    {
+      assertEquals ("Failed to GZIP decode", ex.getMessage ());
     }
   }
 }

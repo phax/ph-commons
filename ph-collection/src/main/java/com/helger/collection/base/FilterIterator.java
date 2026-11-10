@@ -133,10 +133,17 @@ public class FilterIterator <ELEMENTTYPE> implements IIterableIterator <ELEMENTT
     return aRet;
   }
 
+  /**
+   * This operation is not supported, because the base iterator is already advanced to the next
+   * matching element when {@link #next()} returns, so the wrong element would be removed.
+   *
+   * @throws UnsupportedOperationException
+   *         always
+   */
   @Override
   public void remove ()
   {
-    m_aBaseIter.remove ();
+    throw new UnsupportedOperationException ("remove is not supported by a filtering iterator");
   }
 
   // equals and hashCode wont work, because standard Java iterators don't

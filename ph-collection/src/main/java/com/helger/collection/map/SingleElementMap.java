@@ -19,6 +19,8 @@ package com.helger.collection.map;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -28,9 +30,12 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsImmutableObject;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.state.EChange;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.CollectionHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
 import com.helger.collection.commons.ICommonsMap;
@@ -175,7 +180,8 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @CodingStyleguideUnaware
   public Set <KEYTYPE> keySet ()
   {
-    return m_bHasElement ? new CommonsHashSet <> (m_aKey) : new CommonsHashSet <> ();
+    final CommonsHashSet <KEYTYPE> ret = m_bHasElement ? new CommonsHashSet <> (m_aKey) : new CommonsHashSet <> ();
+    return ret.getAsUnmodifiable ();
   }
 
   /** {@inheritDoc} */
@@ -183,19 +189,48 @@ public class SingleElementMap <KEYTYPE, VALUETYPE> implements ICommonsMap <KEYTY
   @NonNull
   public Collection <VALUETYPE> values ()
   {
-    return m_bHasElement ? new CommonsArrayList <> (m_aValue) : new CommonsArrayList <> ();
+    final CommonsArrayList <VALUETYPE> ret = m_bHasElement ? new CommonsArrayList <> (m_aValue)
+                                                           : new CommonsArrayList <> ();
+    return ret.getAsUnmodifiable ();
   }
 
   /** {@inheritDoc} */
   @NonNull
-  @ReturnsMutableCopy
+  @ReturnsImmutableObject
   @CodingStyleguideUnaware
   public Set <Map.Entry <KEYTYPE, VALUETYPE>> entrySet ()
   {
-    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (size ());
+    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> aSet = new CommonsHashSet <> (CollectionHelper.getHashCapacity (size ()));
     if (m_bHasElement)
       aSet.add (new MapEntry <> (m_aKey, m_aValue));
-    return aSet;
+    return aSet.getAsUnmodifiable ();
+  }
+
+  /**
+   * {@inheritDoc} Overridden, because the views of this map are unmodifiable.
+   */
+  @Override
+  @NonNull
+  public EChange removeIf (@NonNull final Predicate <? super Map.Entry <? extends KEYTYPE, ? extends VALUETYPE>> aFilter)
+  {
+    ValueEnforcer.notNull (aFilter, "Filter");
+    if (m_bHasElement && aFilter.test (new MapEntry <> (m_aKey, m_aValue)))
+    {
+      clear ();
+      return EChange.CHANGED;
+    }
+    return EChange.UNCHANGED;
+  }
+
+  /**
+   * {@inheritDoc} Overridden, because the views of this map are unmodifiable.
+   */
+  @Override
+  public void replaceAll (@NonNull final BiFunction <? super KEYTYPE, ? super VALUETYPE, ? extends VALUETYPE> aFunction)
+  {
+    ValueEnforcer.notNull (aFunction, "Function");
+    if (m_bHasElement)
+      m_aValue = aFunction.apply (m_aKey, m_aValue);
   }
 
   @Override

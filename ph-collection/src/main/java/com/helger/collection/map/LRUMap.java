@@ -56,8 +56,22 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
    */
   public LRUMap (@Nonnegative final int nMaxSize)
   {
+    this (nMaxSize, nMaxSize);
+  }
+
+  /**
+   * Create a new object with the specified max size.
+   *
+   * @param nInitialCapacity
+   *        The initial capacity for which memory is reserved. Must be &gt; 0.
+   * @param nMaxSize
+   *        The maximum number of elements in this cache. May not be &lt; 0.
+   * @since 12.5.4
+   */
+  public LRUMap (@Nonnegative final int nInitialCapacity, @Nonnegative final int nMaxSize)
+  {
     // We need the special constructor with access ordering!
-    super (nMaxSize, DEFAULT_LOAD_FACTOR, true);
+    super (nInitialCapacity, DEFAULT_LOAD_FACTOR, true);
     m_nMaxSize = nMaxSize;
   }
 
@@ -132,11 +146,9 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
   @Override
   public int hashCode ()
   {
-    // Special case because base implementation is a bit bogus
-    final HashCodeGenerator aHCG = new HashCodeGenerator (this).append (m_nMaxSize);
-    for (final var aEntry : entrySet ())
-      aHCG.append (aEntry.getKey ()).append (aEntry.getValue ());
-    return aHCG.getHashCode ();
+    // The map hash code is the sum of the entry hash codes and therefore independent of the access
+    // order, consistent with equals
+    return new HashCodeGenerator (this).append (m_nMaxSize).append (super.hashCode ()).getHashCode ();
   }
 
   @Override

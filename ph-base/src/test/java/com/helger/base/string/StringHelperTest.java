@@ -1555,4 +1555,58 @@ public final class StringHelperTest
     assertEquals ("x____", StringHelper.getWithTrailing ("x", 5, '_'));
     assertEquals ("end||", StringHelper.getWithTrailing ("end", 5, '|'));
   }
+
+  @Test
+  public void testGetLastIndexOfFromIndex ()
+  {
+    assertEquals (3, StringHelper.getLastIndexOf ("abcabc", 5, "abc"));
+    assertEquals (3, StringHelper.getLastIndexOf ("abcabc", 3, "abc"));
+    assertEquals (0, StringHelper.getLastIndexOf ("abcabc", 2, "abc"));
+    assertEquals (3, StringHelper.getLastIndexOf ("abcabc", 100, "abc"));
+    assertEquals (-1, StringHelper.getLastIndexOf ("abcabc", -1, "abc"));
+    assertEquals (6, StringHelper.getLastIndexOf ("abcabc", 6, ""));
+
+    assertEquals (3, StringHelper.getLastIndexOf ("abcabc", 6, 'a'));
+    assertEquals (3, StringHelper.getLastIndexOf ("abcabc", 100, 'a'));
+    assertEquals (-1, StringHelper.getLastIndexOf ("abcabc", -1, 'a'));
+
+    assertEquals (3, StringHelper.getLastIndexOfIgnoreCase ("abcABC", 5, "abc", Locale.ROOT));
+    assertEquals (3, StringHelper.getLastIndexOfIgnoreCase ("abcABC", 100, "ABC", Locale.ROOT));
+    assertEquals (-1, StringHelper.getLastIndexOfIgnoreCase ("abcABC", -1, "abc", Locale.ROOT));
+    assertEquals (-1, StringHelper.getLastIndexOfIgnoreCase (null, 5, "abc", Locale.ROOT));
+    assertEquals (-1, StringHelper.getLastIndexOfIgnoreCase ("abc", 5, null, Locale.ROOT));
+
+    assertEquals (3, StringHelper.getLastIndexOfIgnoreCase ("abcABC", 6, 'a', Locale.ROOT));
+    assertEquals (3, StringHelper.getLastIndexOfIgnoreCase ("abcABC", 100, 'A', Locale.ROOT));
+    assertEquals (-1, StringHelper.getLastIndexOfIgnoreCase ("abcABC", -1, 'a', Locale.ROOT));
+  }
+
+  @Test
+  public void testGetCodePoints ()
+  {
+    assertEquals (0, StringHelper.getCodePoints (null).length);
+    assertEquals (0, StringHelper.getCodePoints ("").length);
+    assertEquals (0, StringHelper.getCodePointCount (null));
+    assertEquals (0, StringHelper.getCodePointCount (""));
+
+    final String s10000 = new String (Character.toChars (0x10000));
+    final String [] aSamples = { "a",
+                                 "abc",
+                                 "\u00e4\uFFFF",
+                                 s10000,
+                                 "a" + s10000 + "b",
+                                 s10000 + s10000,
+                                 "\uD800",
+                                 "\uDC00",
+                                 "\uDC00\uD800",
+                                 "a\uD800",
+                                 "\uD800\uD800\uDC00",
+                                 new String (Character.toChars (0x10FFFF)) + "x" };
+    for (final String s : aSamples)
+    {
+      assertArrayEquals (s, s.codePoints ().toArray (), StringHelper.getCodePoints (s));
+      assertEquals (s, s.codePoints ().count (), StringHelper.getCodePointCount (s));
+      assertEquals (s, s.codePoints ().count (), StringHelper.getCodePointCount (new StringBuilder (s)));
+    }
+  }
 }

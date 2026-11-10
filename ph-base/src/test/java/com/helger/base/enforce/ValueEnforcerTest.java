@@ -18,15 +18,20 @@ package com.helger.base.enforce;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Vector;
 
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 import org.junit.Test;
 
 /**
@@ -1731,5 +1736,105 @@ public final class ValueEnforcerTest
     final short [] aArray = { (short) 1, (short) 2 };
     // 0 + 3 = 3 > 2
     ValueEnforcer.isArrayOfsLen (aArray, 0, 3);
+  }
+
+  @Test (expected = IllegalArgumentException.class)
+  public void testIsArrayOfsLenOverflow ()
+  {
+    final byte [] aArray = { 1, 2, 3 };
+    // 1 + Integer.MAX_VALUE overflows
+    ValueEnforcer.isArrayOfsLen (aArray, 1, Integer.MAX_VALUE);
+  }
+  @Nullable
+  private static String _getMessage (@NonNull final Runnable aRunnable)
+  {
+    try
+    {
+      aRunnable.run ();
+      return null;
+    }
+    catch (final RuntimeException ex)
+    {
+      return ex.getClass ().getName () + ": " + ex.getMessage ();
+    }
+  }
+
+  private static void _assertSameMessage (@NonNull final Runnable aStringVersion,
+                                          @NonNull final Runnable aSupplierVersion)
+  {
+    final String sStringMsg = _getMessage (aStringVersion);
+    assertNotNull (sStringMsg);
+    assertEquals (_getMessage (aSupplierVersion), sStringMsg);
+  }
+
+  @Test
+  public void testStringAndSupplierMessagesAreIdentical ()
+  {
+    _assertSameMessage ( () -> ValueEnforcer.isTrue (false, "x"), () -> ValueEnforcer.isTrue (false, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isTrue ( () -> false, "x"),
+                         () -> ValueEnforcer.isTrue ( () -> false, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isFalse ( () -> true, "x"),
+                         () -> ValueEnforcer.isFalse ( () -> true, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isInstanceOf ("s", Integer.class, "x"),
+                         () -> ValueEnforcer.isInstanceOf ("s", Integer.class, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isInstanceOf (null, null, "x"),
+                         () -> ValueEnforcer.isInstanceOf (null, null, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isNull ("a", "x"), () -> ValueEnforcer.isNull ("a", () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.notEmpty ("", "x"), () -> ValueEnforcer.notEmpty ("", () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.notEmpty (new int [0], "x"),
+                         () -> ValueEnforcer.notEmpty (new int [0], () -> "x"));
+    final Iterable <String> aEmptyIterable = new ArrayList <String> ()::iterator;
+    _assertSameMessage ( () -> ValueEnforcer.notEmpty (aEmptyIterable, "x"),
+                         () -> ValueEnforcer.notEmpty (aEmptyIterable, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.noNullValue (new String [] { "a", null }, "x"),
+                         () -> ValueEnforcer.noNullValue (new String [] { "a", null }, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.noNullValue (Arrays.asList ("a", null), "x"),
+                         () -> ValueEnforcer.noNullValue (Arrays.asList ("a", null), () -> "x"));
+    final HashMap <String, String> aMapNullKey = new HashMap <> ();
+    aMapNullKey.put (null, "v");
+    _assertSameMessage ( () -> ValueEnforcer.noNullValue (aMapNullKey, "x"),
+                         () -> ValueEnforcer.noNullValue (aMapNullKey, () -> "x"));
+    final HashMap <String, String> aMapNullValue = new HashMap <> ();
+    aMapNullValue.put ("k", null);
+    _assertSameMessage ( () -> ValueEnforcer.noNullValue (aMapNullValue, "x"),
+                         () -> ValueEnforcer.noNullValue (aMapNullValue, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.notNullNoNullValue ((String []) null, "x"),
+                         () -> ValueEnforcer.notNullNoNullValue ((String []) null, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.notEmptyNoNullValue (new ArrayList <String> (), "x"),
+                         () -> ValueEnforcer.notEmptyNoNullValue (new ArrayList <String> (), () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.notNullNotEquals ("a", "x", null),
+                         () -> ValueEnforcer.notNullNotEquals ("a", () -> "x", null));
+    _assertSameMessage ( () -> ValueEnforcer.notNullNotEquals ("a", "x", "a"),
+                         () -> ValueEnforcer.notNullNotEquals ("a", () -> "x", "a"));
+    _assertSameMessage ( () -> ValueEnforcer.isEqual (1.5, 2.5, "x"),
+                         () -> ValueEnforcer.isEqual (1.5, 2.5, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isGT0 (BigDecimal.ZERO, "x"),
+                         () -> ValueEnforcer.isGT0 (BigDecimal.ZERO, () -> "x"));
+    _assertSameMessage ( () -> ValueEnforcer.isBetweenInclusive (BigInteger.ONE, "x", null, BigInteger.TEN),
+                         () -> ValueEnforcer.isBetweenInclusive (BigInteger.ONE, () -> "x", null, BigInteger.TEN));
+    _assertSameMessage ( () -> ValueEnforcer.isBetweenExclusive (5, "x", 5, 10),
+                         () -> ValueEnforcer.isBetweenExclusive (5, () -> "x", 5, 10));
+  }
+
+  @Test
+  public void testDisabledDoesNotDereferenceNull ()
+  {
+    final boolean bOriginal = ValueEnforcer.isEnabled ();
+    try
+    {
+      ValueEnforcer.setEnabled (false);
+      assertNull (ValueEnforcer.notEmpty ((int []) null, "x"));
+      assertNull (ValueEnforcer.notEmpty ((String) null, "x"));
+      assertNull (ValueEnforcer.isGE0 ((BigDecimal) null, "x"));
+      assertNull (ValueEnforcer.isBetweenInclusive ((BigInteger) null, "x", null, null));
+      assertNull (ValueEnforcer.notNullNoNullValue ((String []) null, "x"));
+      ValueEnforcer.isInstanceOf ("s", null, "x");
+      ValueEnforcer.isTrue (false, "x");
+      ValueEnforcer.isNull ("a", "x");
+    }
+    finally
+    {
+      ValueEnforcer.setEnabled (bOriginal);
+    }
   }
 }

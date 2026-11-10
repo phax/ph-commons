@@ -19,6 +19,9 @@ package com.helger.base.pool;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -111,5 +114,48 @@ public final class ObjectPoolTest
     aPool.clearUnusedItems ();
     assertEquals (2, aPool.getPoolSize ());
     assertNotNull (aPool.borrowObject ());
+  }
+
+  @Test
+  public void testFactoryFailureReleasesPermit ()
+  {
+    final AtomicBoolean aFail = new AtomicBoolean (true);
+    final ObjectPool <String> aPool = new ObjectPool <> (1, () -> {
+      if (aFail.get ())
+        throw new IllegalStateException ("Creation failed");
+      return "any";
+    });
+    for (int i = 0; i < 3; ++i)
+    {
+      try
+      {
+        aPool.borrowObject ();
+        fail ();
+      }
+      catch (final IllegalStateException ex)
+      {
+        // expected
+      }
+      assertEquals (0, aPool.getBorrowedObjectCount ());
+    }
+
+    final ObjectPool <String> aNullPool = new ObjectPool <> (1, () -> null);
+    try
+    {
+      aNullPool.borrowObject ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    assertEquals (0, aNullPool.getBorrowedObjectCount ());
+
+    // Now the factory works and the only permit is still available
+    aFail.set (false);
+    assertEquals ("any", aPool.borrowObject ());
+    assertEquals (1, aPool.getBorrowedObjectCount ());
+    assertTrue (aPool.returnObject ("any").isSuccess ());
+    assertEquals (0, aPool.getBorrowedObjectCount ());
   }
 }

@@ -74,6 +74,32 @@ public final class StringDecoderTest
   }
 
   @Test
+  public void testDecodeSplitMultiByteChar ()
+  {
+    final StringDecoder aDecoder = new StringDecoder (StandardCharsets.UTF_8);
+
+    // 2-byte sequence split between two decode calls
+    final byte [] aUmlauts = ("a" + UMLAUTS).getBytes (StandardCharsets.UTF_8);
+    aDecoder.decode (aUmlauts, 0, 2);
+    aDecoder.decode (aUmlauts, 2, 1);
+    assertEquals ("a" + UMLAUTS, aDecoder.finish (aUmlauts, 3, aUmlauts.length - 3));
+
+    // 4-byte sequence split into single bytes
+    final byte [] aSurrogate = "a😀b".getBytes (StandardCharsets.UTF_8);
+    for (final byte nByte : aSurrogate)
+      aDecoder.decode (new byte [] { nByte });
+    assertEquals ("a😀b", aDecoder.finish (new byte [0], 0, 0));
+
+    // Incomplete sequence completed by finish
+    aDecoder.decode (new byte [] { 'a', (byte) 0xC3 });
+    assertEquals ("aä", aDecoder.finish (ByteBuffer.wrap (new byte [] { (byte) 0xA4 })));
+
+    // Incomplete sequence at the end of input is replaced
+    aDecoder.decode (new byte [] { 'a', (byte) 0xC3 });
+    assertEquals ("a\uFFFD", aDecoder.finish (new byte [0], 0, 0));
+  }
+
+  @Test
   public void testLargeInput ()
   {
     final StringDecoder aDecoder = new StringDecoder (StandardCharsets.UTF_8);

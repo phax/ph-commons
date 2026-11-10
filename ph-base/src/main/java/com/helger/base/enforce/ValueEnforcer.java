@@ -89,7 +89,7 @@ public final class ValueEnforcer
    */
   public static void isTrue (final boolean bValue, @NonNull final String sMsg)
   {
-    if (isEnabled ())
+    if (!bValue && isEnabled ())
       isTrue (bValue, () -> sMsg);
   }
 
@@ -105,9 +105,8 @@ public final class ValueEnforcer
    */
   public static void isTrue (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
-    if (isEnabled ())
-      if (!bValue)
-        throw new IllegalArgumentException ("The expression must be true but it is not: " + aMsg.get ());
+    if (!bValue && isEnabled ())
+      throw new IllegalArgumentException ("The expression must be true but it is not: " + aMsg.get ());
   }
 
   /**
@@ -123,7 +122,8 @@ public final class ValueEnforcer
   public static void isTrue (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
-      isTrue (aValue, () -> sMsg);
+      if (!aValue.getAsBoolean ())
+        throw new IllegalArgumentException ("The expression must be true but it is not: " + sMsg);
   }
 
   /**
@@ -155,7 +155,7 @@ public final class ValueEnforcer
    */
   public static void isFalse (final boolean bValue, @NonNull final String sMsg)
   {
-    if (isEnabled ())
+    if (bValue && isEnabled ())
       isFalse (bValue, () -> sMsg);
   }
 
@@ -171,9 +171,8 @@ public final class ValueEnforcer
    */
   public static void isFalse (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
-    if (isEnabled ())
-      if (bValue)
-        throw new IllegalArgumentException ("The expression must be false but it is not: " + aMsg.get ());
+    if (bValue && isEnabled ())
+      throw new IllegalArgumentException ("The expression must be false but it is not: " + aMsg.get ());
   }
 
   /**
@@ -189,7 +188,8 @@ public final class ValueEnforcer
   public static void isFalse (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
     if (isEnabled ())
-      isFalse (aValue, () -> sMsg);
+      if (aValue.getAsBoolean ())
+        throw new IllegalArgumentException ("The expression must be false but it is not: " + sMsg);
   }
 
   /**
@@ -227,7 +227,8 @@ public final class ValueEnforcer
                                        @NonNull final Class <? extends T> aClass,
                                        @NonNull final String sMsg)
   {
-    if (isEnabled ())
+    notNull (aClass, "Class");
+    if (aValue != null && isEnabled () && !aClass.isInstance (aValue))
       isInstanceOf (aValue, aClass, () -> sMsg);
   }
 
@@ -250,13 +251,12 @@ public final class ValueEnforcer
                                        @NonNull final Supplier <? extends String> aMsg)
   {
     notNull (aClass, "Class");
-    if (isEnabled ())
-      if (aValue != null && !aClass.isInstance (aValue))
-        throw new IllegalArgumentException (aMsg.get () +
-                                            " must be of class " +
-                                            aClass.getName () +
-                                            " but is of type " +
-                                            aValue.getClass ().getName ());
+    if (aValue != null && isEnabled () && !aClass.isInstance (aValue))
+      throw new IllegalArgumentException (aMsg.get () +
+                                          " must be of class " +
+                                          aClass.getName () +
+                                          " but is of type " +
+                                          aValue.getClass ().getName ());
   }
 
   /**
@@ -274,9 +274,8 @@ public final class ValueEnforcer
    */
   public static <T> T notNull (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      if (aValue == null)
-        throw new NullPointerException ("The value of '" + sName + "' may not be null!");
+    if (aValue == null && isEnabled ())
+      throw new NullPointerException ("The value of '" + sName + "' may not be null!");
     return aValue;
   }
 
@@ -295,9 +294,8 @@ public final class ValueEnforcer
    */
   public static <T> T notNull (@NonNull final T aValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (aValue == null)
-        throw new NullPointerException ("The value of '" + aName.get () + "' may not be null!");
+    if (aValue == null && isEnabled ())
+      throw new NullPointerException ("The value of '" + aName.get () + "' may not be null!");
     return aValue;
   }
 
@@ -313,7 +311,7 @@ public final class ValueEnforcer
    */
   public static void isNull (@Nullable final Object aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (aValue != null && isEnabled ())
       isNull (aValue, () -> sName);
   }
 
@@ -329,9 +327,8 @@ public final class ValueEnforcer
    */
   public static void isNull (@Nullable final Object aValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (aValue != null)
-        throw new IllegalArgumentException ("The value of '" + aName.get () + "' must be null but is " + aValue);
+    if (aValue != null && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" + aName.get () + "' must be null but is " + aValue);
   }
 
   /**
@@ -349,7 +346,7 @@ public final class ValueEnforcer
    */
   public static <T extends CharSequence> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length () == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -392,7 +389,9 @@ public final class ValueEnforcer
    */
   public static <T> T [] notEmpty (@NonNull final T [] aValue, @NonNull final String sName)
   {
-    return notEmpty (aValue, () -> sName);
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
+      return notEmpty (aValue, () -> sName);
+    return aValue;
   }
 
   /**
@@ -430,7 +429,7 @@ public final class ValueEnforcer
    */
   public static boolean [] notEmpty (final boolean @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -468,7 +467,7 @@ public final class ValueEnforcer
    */
   public static byte [] notEmpty (final byte @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -506,7 +505,7 @@ public final class ValueEnforcer
    */
   public static char [] notEmpty (final char @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -544,7 +543,7 @@ public final class ValueEnforcer
    */
   public static double [] notEmpty (final double @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -582,7 +581,7 @@ public final class ValueEnforcer
    */
   public static float [] notEmpty (final float @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -620,7 +619,7 @@ public final class ValueEnforcer
    */
   public static int [] notEmpty (final int @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -658,7 +657,7 @@ public final class ValueEnforcer
    */
   public static long [] notEmpty (final long @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -696,7 +695,7 @@ public final class ValueEnforcer
    */
   public static short [] notEmpty (final short @NonNull [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.length == 0) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -737,7 +736,7 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Collection <?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.isEmpty ()) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -782,8 +781,10 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Iterable <?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
+    notNull (aValue, sName);
     if (isEnabled ())
-      return notEmpty (aValue, () -> sName);
+      if (!aValue.iterator ().hasNext ())
+        throw new IllegalArgumentException ("The value of the iterable '" + sName + "' may not be empty!");
     return aValue;
   }
 
@@ -827,7 +828,7 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notEmpty (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if ((aValue == null || aValue.isEmpty ()) && isEnabled ())
       return notEmpty (aValue, () -> sName);
     return aValue;
   }
@@ -873,8 +874,16 @@ public final class ValueEnforcer
   @Nullable
   public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return noNullValue (aValue, () -> sName);
+    if (aValue != null && isEnabled ())
+    {
+      int nIndex = 0;
+      for (final T aItem : aValue)
+      {
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " + nIndex + " of array '" + sName + "' may not be null!");
+        ++nIndex;
+      }
+    }
     return aValue;
   }
 
@@ -895,17 +904,16 @@ public final class ValueEnforcer
   @Nullable
   public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (aValue != null)
+    if (aValue != null && isEnabled ())
+    {
+      int nIndex = 0;
+      for (final T aItem : aValue)
       {
-        int nIndex = 0;
-        for (final T aItem : aValue)
-        {
-          if (aItem == null)
-            throw new IllegalArgumentException ("Item " + nIndex + " of array '" + aName.get () + "' may not be null!");
-          ++nIndex;
-        }
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " + nIndex + " of array '" + aName.get () + "' may not be null!");
+        ++nIndex;
       }
+    }
     return aValue;
   }
 
@@ -926,8 +934,16 @@ public final class ValueEnforcer
   @Nullable
   public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return noNullValue (aValue, () -> sName);
+    if (aValue != null && isEnabled ())
+    {
+      int nIndex = 0;
+      for (final Object aItem : aValue)
+      {
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " + nIndex + " of iterable '" + sName + "' may not be null!");
+        ++nIndex;
+      }
+    }
     return aValue;
   }
 
@@ -949,21 +965,20 @@ public final class ValueEnforcer
   public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue,
                                                         @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (aValue != null)
+    if (aValue != null && isEnabled ())
+    {
+      int nIndex = 0;
+      for (final Object aItem : aValue)
       {
-        int nIndex = 0;
-        for (final Object aItem : aValue)
-        {
-          if (aItem == null)
-            throw new IllegalArgumentException ("Item " +
-                                                nIndex +
-                                                " of iterable '" +
-                                                aName.get () +
-                                                "' may not be null!");
-          ++nIndex;
-        }
+        if (aItem == null)
+          throw new IllegalArgumentException ("Item " +
+                                              nIndex +
+                                              " of iterable '" +
+                                              aName.get () +
+                                              "' may not be null!");
+        ++nIndex;
       }
+    }
     return aValue;
   }
 
@@ -986,8 +1001,16 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return noNullValue (aValue, () -> sName);
+    if (aValue != null && isEnabled ())
+    {
+      for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
+      {
+        if (aEntry.getKey () == null)
+          throw new IllegalArgumentException ("A key of map '" + sName + "' may not be null!");
+        if (aEntry.getValue () == null)
+          throw new IllegalArgumentException ("A value of map '" + sName + "' may not be null!");
+      }
+    }
     return aValue;
   }
 
@@ -1011,17 +1034,16 @@ public final class ValueEnforcer
   public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue,
                                                       @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (aValue != null)
+    if (aValue != null && isEnabled ())
+    {
+      for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
       {
-        for (final Map.Entry <?, ?> aEntry : aValue.entrySet ())
-        {
-          if (aEntry.getKey () == null)
-            throw new IllegalArgumentException ("A key of map '" + aName.get () + "' may not be null!");
-          if (aEntry.getValue () == null)
-            throw new IllegalArgumentException ("A value of map '" + aName.get () + "' may not be null!");
-        }
+        if (aEntry.getKey () == null)
+          throw new IllegalArgumentException ("A key of map '" + aName.get () + "' may not be null!");
+        if (aEntry.getValue () == null)
+          throw new IllegalArgumentException ("A value of map '" + aName.get () + "' may not be null!");
       }
+    }
     return aValue;
   }
 
@@ -1041,8 +1063,8 @@ public final class ValueEnforcer
    */
   public static <T> T [] notNullNoNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notNullNoNullValue (aValue, () -> sName);
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1084,8 +1106,8 @@ public final class ValueEnforcer
    */
   public static <T extends Iterable <?>> T notNullNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notNullNoNullValue (aValue, () -> sName);
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1128,8 +1150,8 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notNullNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notNullNoNullValue (aValue, () -> sName);
+    notNull (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1172,8 +1194,8 @@ public final class ValueEnforcer
    */
   public static <T> T [] notEmptyNoNullValue (@NonNull final T [] aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notEmptyNoNullValue (aValue, () -> sName);
+    notEmpty (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1215,8 +1237,8 @@ public final class ValueEnforcer
    */
   public static <T extends Iterable <?>> T notEmptyNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notEmptyNoNullValue (aValue, () -> sName);
+    notEmpty (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1259,8 +1281,8 @@ public final class ValueEnforcer
   @CodingStyleguideUnaware
   public static <T extends Map <?, ?>> T notEmptyNoNullValue (@NonNull final T aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
-      return notEmptyNoNullValue (aValue, () -> sName);
+    notEmpty (aValue, sName);
+    noNullValue (aValue, sName);
     return aValue;
   }
 
@@ -1304,7 +1326,7 @@ public final class ValueEnforcer
                                         @NonNull final String sName,
                                         @NonNull final T aUnexpectedValue)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aUnexpectedValue == null || aValue.equals (aUnexpectedValue)))
       return notNullNotEquals (aValue, () -> sName, aUnexpectedValue);
     return aValue;
   }
@@ -1357,7 +1379,7 @@ public final class ValueEnforcer
                                         @NonNull final String sName,
                                         @NonNull final T aExpectedValue)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || !aValue.equals (aExpectedValue)))
       return notNullAndEquals (aValue, () -> sName, aExpectedValue);
     return aValue;
   }
@@ -1411,7 +1433,7 @@ public final class ValueEnforcer
    */
   public static <T> T isSame (@Nullable final T aValue, @NonNull final String sName, @Nullable final T aExpectedValue)
   {
-    if (isEnabled ())
+    if (EqualsHelper.identityDifferent (aValue, aExpectedValue) && isEnabled ())
       return isSame (aValue, () -> sName, aExpectedValue);
     return aValue;
   }
@@ -1437,14 +1459,13 @@ public final class ValueEnforcer
                               @NonNull final Supplier <? extends String> aName,
                               @Nullable final T aExpectedValue)
   {
-    if (isEnabled ())
-      if (EqualsHelper.identityDifferent (aValue, aExpectedValue))
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' does not match the expected value. Passed value: " +
-                                            aValue +
-                                            " -- Expected value: " +
-                                            aExpectedValue);
+    if (EqualsHelper.identityDifferent (aValue, aExpectedValue) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' does not match the expected value. Passed value: " +
+                                          aValue +
+                                          " -- Expected value: " +
+                                          aExpectedValue);
     return aValue;
   }
 
@@ -1466,7 +1487,7 @@ public final class ValueEnforcer
    */
   public static <T> T isEqual (final T aValue, @Nullable final T aExpectedValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && !EqualsHelper.equals (aValue, aExpectedValue))
       return isEqual (aValue, aExpectedValue, () -> sName);
     return aValue;
   }
@@ -1517,7 +1538,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final int nValue, final int nExpectedValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue != nExpectedValue && isEnabled ())
       isEqual (nValue, nExpectedValue, () -> sName);
   }
 
@@ -1538,14 +1559,13 @@ public final class ValueEnforcer
                               final int nExpectedValue,
                               @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue != nExpectedValue)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' does not match the expected value. Passed value: " +
-                                            nValue +
-                                            " -- Expected value: " +
-                                            nExpectedValue);
+    if (nValue != nExpectedValue && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' does not match the expected value. Passed value: " +
+                                          nValue +
+                                          " -- Expected value: " +
+                                          nExpectedValue);
   }
 
   /**
@@ -1563,7 +1583,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final long nValue, final long nExpectedValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue != nExpectedValue && isEnabled ())
       isEqual (nValue, nExpectedValue, () -> sName);
   }
 
@@ -1584,14 +1604,13 @@ public final class ValueEnforcer
                               final long nExpectedValue,
                               @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue != nExpectedValue)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' does not match the expected value. Passed value: " +
-                                            nValue +
-                                            " -- Expected value: " +
-                                            nExpectedValue);
+    if (nValue != nExpectedValue && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' does not match the expected value. Passed value: " +
+                                          nValue +
+                                          " -- Expected value: " +
+                                          nExpectedValue);
   }
 
   /**
@@ -1609,7 +1628,7 @@ public final class ValueEnforcer
    */
   public static void isEqual (final double dValue, final double dExpectedValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (!EqualsHelper.equals (dValue, dExpectedValue) && isEnabled ())
       isEqual (dValue, dExpectedValue, () -> sName);
   }
 
@@ -1630,14 +1649,13 @@ public final class ValueEnforcer
                               final double dExpectedValue,
                               @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (!EqualsHelper.equals (dValue, dExpectedValue))
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' does not match the expected value. Passed value: " +
-                                            dValue +
-                                            " -- Expected value: " +
-                                            dExpectedValue);
+    if (!EqualsHelper.equals (dValue, dExpectedValue) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' does not match the expected value. Passed value: " +
+                                          dValue +
+                                          " -- Expected value: " +
+                                          dExpectedValue);
   }
 
   /**
@@ -1653,7 +1671,7 @@ public final class ValueEnforcer
    */
   public static int isGE0 (final int nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue < 0 && isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
@@ -1671,12 +1689,11 @@ public final class ValueEnforcer
    */
   public static int isGE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue < 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= 0! The current value is: " +
-                                            nValue);
+    if (nValue < 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -1693,7 +1710,7 @@ public final class ValueEnforcer
    */
   public static long isGE0 (final long nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue < 0 && isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
@@ -1711,12 +1728,11 @@ public final class ValueEnforcer
    */
   public static long isGE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue < 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= 0! The current value is: " +
-                                            nValue);
+    if (nValue < 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -1733,7 +1749,7 @@ public final class ValueEnforcer
    */
   public static short isGE0 (final short nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue < 0 && isEnabled ())
       return isGE0 (nValue, () -> sName);
     return nValue;
   }
@@ -1751,12 +1767,11 @@ public final class ValueEnforcer
    */
   public static short isGE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue < 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= 0! The current value is: " +
-                                            nValue);
+    if (nValue < 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -1773,7 +1788,7 @@ public final class ValueEnforcer
    */
   public static double isGE0 (final double dValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (dValue < 0 && isEnabled ())
       return isGE0 (dValue, () -> sName);
     return dValue;
   }
@@ -1791,12 +1806,11 @@ public final class ValueEnforcer
    */
   public static double isGE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (dValue < 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= 0! The current value is: " +
-                                            dValue);
+    if (dValue < 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= 0! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -1813,7 +1827,7 @@ public final class ValueEnforcer
    */
   public static float isGE0 (final float fValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (fValue < 0 && isEnabled ())
       return isGE0 (fValue, () -> sName);
     return fValue;
   }
@@ -1831,12 +1845,11 @@ public final class ValueEnforcer
    */
   public static float isGE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (fValue < 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= 0! The current value is: " +
-                                            fValue);
+    if (fValue < 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= 0! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -1853,7 +1866,7 @@ public final class ValueEnforcer
    */
   public static BigDecimal isGE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigDecimal.ZERO) < 0))
       return isGE0 (aValue, () -> sName);
     return aValue;
   }
@@ -1894,7 +1907,7 @@ public final class ValueEnforcer
    */
   public static BigInteger isGE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigInteger.ZERO) < 0))
       return isGE0 (aValue, () -> sName);
     return aValue;
   }
@@ -1935,7 +1948,7 @@ public final class ValueEnforcer
    */
   public static int isGT0 (final int nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue <= 0 && isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
@@ -1953,12 +1966,11 @@ public final class ValueEnforcer
    */
   public static int isGT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue <= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > 0! The current value is: " +
-                                            nValue);
+    if (nValue <= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -1975,7 +1987,7 @@ public final class ValueEnforcer
    */
   public static long isGT0 (final long nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue <= 0 && isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
@@ -1993,12 +2005,11 @@ public final class ValueEnforcer
    */
   public static long isGT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue <= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > 0! The current value is: " +
-                                            nValue);
+    if (nValue <= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2015,7 +2026,7 @@ public final class ValueEnforcer
    */
   public static short isGT0 (final short nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue <= 0 && isEnabled ())
       return isGT0 (nValue, () -> sName);
     return nValue;
   }
@@ -2033,12 +2044,11 @@ public final class ValueEnforcer
    */
   public static short isGT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue <= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > 0! The current value is: " +
-                                            nValue);
+    if (nValue <= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2055,7 +2065,7 @@ public final class ValueEnforcer
    */
   public static double isGT0 (final double dValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (dValue <= 0 && isEnabled ())
       return isGT0 (dValue, () -> sName);
     return dValue;
   }
@@ -2073,12 +2083,11 @@ public final class ValueEnforcer
    */
   public static double isGT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (dValue <= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > 0! The current value is: " +
-                                            dValue);
+    if (dValue <= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > 0! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -2095,7 +2104,7 @@ public final class ValueEnforcer
    */
   public static float isGT0 (final float fValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (fValue <= 0 && isEnabled ())
       return isGT0 (fValue, () -> sName);
     return fValue;
   }
@@ -2113,12 +2122,11 @@ public final class ValueEnforcer
    */
   public static float isGT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (fValue <= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > 0! The current value is: " +
-                                            fValue);
+    if (fValue <= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > 0! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -2135,7 +2143,7 @@ public final class ValueEnforcer
    */
   public static BigDecimal isGT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigDecimal.ZERO) <= 0))
       return isGT0 (aValue, () -> sName);
     return aValue;
   }
@@ -2176,7 +2184,7 @@ public final class ValueEnforcer
    */
   public static BigInteger isGT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigInteger.ZERO) <= 0))
       return isGT0 (aValue, () -> sName);
     return aValue;
   }
@@ -2217,7 +2225,7 @@ public final class ValueEnforcer
    */
   public static int isNE0 (final int nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue == 0 && isEnabled ())
       return isNE0 (nValue, () -> sName);
     return nValue;
   }
@@ -2235,12 +2243,11 @@ public final class ValueEnforcer
    */
   public static int isNE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue == 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must not be 0! The current value is: " +
-                                            nValue);
+    if (nValue == 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must not be 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2257,7 +2264,7 @@ public final class ValueEnforcer
    */
   public static long isNE0 (final long nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue == 0 && isEnabled ())
       return isNE0 (nValue, () -> sName);
     return nValue;
   }
@@ -2275,12 +2282,11 @@ public final class ValueEnforcer
    */
   public static long isNE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue == 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must not be 0! The current value is: " +
-                                            nValue);
+    if (nValue == 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must not be 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2297,7 +2303,7 @@ public final class ValueEnforcer
    */
   public static double isNE0 (final double dValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (dValue == 0 && isEnabled ())
       return isNE0 (dValue, () -> sName);
     return dValue;
   }
@@ -2315,12 +2321,11 @@ public final class ValueEnforcer
    */
   public static double isNE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (dValue == 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must not be 0! The current value is: " +
-                                            dValue);
+    if (dValue == 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must not be 0! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -2337,7 +2342,7 @@ public final class ValueEnforcer
    */
   public static BigDecimal isNE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigDecimal.ZERO) == 0))
       return isNE0 (aValue, () -> sName);
     return aValue;
   }
@@ -2378,7 +2383,7 @@ public final class ValueEnforcer
    */
   public static BigInteger isNE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigInteger.ZERO) == 0))
       return isNE0 (aValue, () -> sName);
     return aValue;
   }
@@ -2419,7 +2424,7 @@ public final class ValueEnforcer
    */
   public static int isLE0 (final int nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue > 0 && isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
@@ -2437,12 +2442,11 @@ public final class ValueEnforcer
    */
   public static int isLE0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue > 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be <= 0! The current value is: " +
-                                            nValue);
+    if (nValue > 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be <= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2459,7 +2463,7 @@ public final class ValueEnforcer
    */
   public static long isLE0 (final long nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue > 0 && isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
@@ -2477,12 +2481,11 @@ public final class ValueEnforcer
    */
   public static long isLE0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue > 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be <= 0! The current value is: " +
-                                            nValue);
+    if (nValue > 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be <= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2499,7 +2502,7 @@ public final class ValueEnforcer
    */
   public static short isLE0 (final short nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue > 0 && isEnabled ())
       return isLE0 (nValue, () -> sName);
     return nValue;
   }
@@ -2517,12 +2520,11 @@ public final class ValueEnforcer
    */
   public static short isLE0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue > 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be <= 0! The current value is: " +
-                                            nValue);
+    if (nValue > 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be <= 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2539,7 +2541,7 @@ public final class ValueEnforcer
    */
   public static double isLE0 (final double dValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (dValue > 0 && isEnabled ())
       return isLE0 (dValue, () -> sName);
     return dValue;
   }
@@ -2557,12 +2559,11 @@ public final class ValueEnforcer
    */
   public static double isLE0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (dValue > 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be <= 0! The current value is: " +
-                                            dValue);
+    if (dValue > 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be <= 0! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -2579,7 +2580,7 @@ public final class ValueEnforcer
    */
   public static float isLE0 (final float fValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (fValue > 0 && isEnabled ())
       return isLE0 (fValue, () -> sName);
     return fValue;
   }
@@ -2597,12 +2598,11 @@ public final class ValueEnforcer
    */
   public static float isLE0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (fValue > 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be <= 0! The current value is: " +
-                                            fValue);
+    if (fValue > 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be <= 0! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -2619,7 +2619,7 @@ public final class ValueEnforcer
    */
   public static BigDecimal isLE0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigDecimal.ZERO) > 0))
       return isLE0 (aValue, () -> sName);
     return aValue;
   }
@@ -2660,7 +2660,7 @@ public final class ValueEnforcer
    */
   public static BigInteger isLE0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigInteger.ZERO) > 0))
       return isLE0 (aValue, () -> sName);
     return aValue;
   }
@@ -2701,7 +2701,7 @@ public final class ValueEnforcer
    */
   public static int isLT0 (final int nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue >= 0 && isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
@@ -2719,12 +2719,11 @@ public final class ValueEnforcer
    */
   public static int isLT0 (final int nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue >= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be < 0! The current value is: " +
-                                            nValue);
+    if (nValue >= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be < 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2741,7 +2740,7 @@ public final class ValueEnforcer
    */
   public static long isLT0 (final long nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue >= 0 && isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
@@ -2759,12 +2758,11 @@ public final class ValueEnforcer
    */
   public static long isLT0 (final long nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue >= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be < 0! The current value is: " +
-                                            nValue);
+    if (nValue >= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be < 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2781,7 +2779,7 @@ public final class ValueEnforcer
    */
   public static short isLT0 (final short nValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (nValue >= 0 && isEnabled ())
       return isLT0 (nValue, () -> sName);
     return nValue;
   }
@@ -2799,12 +2797,11 @@ public final class ValueEnforcer
    */
   public static short isLT0 (final short nValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (nValue >= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be < 0! The current value is: " +
-                                            nValue);
+    if (nValue >= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be < 0! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -2821,7 +2818,7 @@ public final class ValueEnforcer
    */
   public static double isLT0 (final double dValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (dValue >= 0 && isEnabled ())
       return isLT0 (dValue, () -> sName);
     return dValue;
   }
@@ -2839,12 +2836,11 @@ public final class ValueEnforcer
    */
   public static double isLT0 (final double dValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (dValue >= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be < 0! The current value is: " +
-                                            dValue);
+    if (dValue >= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be < 0! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -2861,7 +2857,7 @@ public final class ValueEnforcer
    */
   public static float isLT0 (final float fValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (fValue >= 0 && isEnabled ())
       return isLT0 (fValue, () -> sName);
     return fValue;
   }
@@ -2879,12 +2875,11 @@ public final class ValueEnforcer
    */
   public static float isLT0 (final float fValue, @NonNull final Supplier <? extends String> aName)
   {
-    if (isEnabled ())
-      if (fValue >= 0)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be < 0! The current value is: " +
-                                            fValue);
+    if (fValue >= 0 && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be < 0! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -2901,7 +2896,7 @@ public final class ValueEnforcer
    */
   public static BigDecimal isLT0 (@NonNull final BigDecimal aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigDecimal.ZERO) >= 0))
       return isLT0 (aValue, () -> sName);
     return aValue;
   }
@@ -2942,7 +2937,7 @@ public final class ValueEnforcer
    */
   public static BigInteger isLT0 (@NonNull final BigInteger aValue, @NonNull final String sName)
   {
-    if (isEnabled ())
+    if (isEnabled () && (aValue == null || aValue.compareTo (BigInteger.ZERO) >= 0))
       return isLT0 (aValue, () -> sName);
     return aValue;
   }
@@ -2989,7 +2984,7 @@ public final class ValueEnforcer
                                         final int nLowerBoundInclusive,
                                         final int nUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
       return isBetweenInclusive (nValue, () -> sName, nLowerBoundInclusive, nUpperBoundInclusive);
     return nValue;
   }
@@ -3013,16 +3008,15 @@ public final class ValueEnforcer
                                         final int nLowerBoundInclusive,
                                         final int nUpperBoundInclusive)
   {
-    if (isEnabled ())
-      if (nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= " +
-                                            nLowerBoundInclusive +
-                                            " and <= " +
-                                            nUpperBoundInclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= " +
+                                          nLowerBoundInclusive +
+                                          " and <= " +
+                                          nUpperBoundInclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3045,7 +3039,7 @@ public final class ValueEnforcer
                                          final long nLowerBoundInclusive,
                                          final long nUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
       return isBetweenInclusive (nValue, () -> sName, nLowerBoundInclusive, nUpperBoundInclusive);
     return nValue;
   }
@@ -3069,16 +3063,15 @@ public final class ValueEnforcer
                                          final long nLowerBoundInclusive,
                                          final long nUpperBoundInclusive)
   {
-    if (isEnabled ())
-      if (nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= " +
-                                            nLowerBoundInclusive +
-                                            " and <= " +
-                                            nUpperBoundInclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= " +
+                                          nLowerBoundInclusive +
+                                          " and <= " +
+                                          nUpperBoundInclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3101,7 +3094,7 @@ public final class ValueEnforcer
                                           final short nLowerBoundInclusive,
                                           final short nUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
       return isBetweenInclusive (nValue, () -> sName, nLowerBoundInclusive, nUpperBoundInclusive);
     return nValue;
   }
@@ -3125,16 +3118,15 @@ public final class ValueEnforcer
                                           final short nLowerBoundInclusive,
                                           final short nUpperBoundInclusive)
   {
-    if (isEnabled ())
-      if (nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= " +
-                                            nLowerBoundInclusive +
-                                            " and <= " +
-                                            nUpperBoundInclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue < nLowerBoundInclusive || nValue > nUpperBoundInclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= " +
+                                          nLowerBoundInclusive +
+                                          " and <= " +
+                                          nUpperBoundInclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3157,7 +3149,7 @@ public final class ValueEnforcer
                                            final double dLowerBoundInclusive,
                                            final double dUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if ((dValue < dLowerBoundInclusive || dValue > dUpperBoundInclusive) && isEnabled ())
       return isBetweenInclusive (dValue, () -> sName, dLowerBoundInclusive, dUpperBoundInclusive);
     return dValue;
   }
@@ -3181,16 +3173,15 @@ public final class ValueEnforcer
                                            final double dLowerBoundInclusive,
                                            final double dUpperBoundInclusive)
   {
-    if (isEnabled ())
-      if (dValue < dLowerBoundInclusive || dValue > dUpperBoundInclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= " +
-                                            dLowerBoundInclusive +
-                                            " and <= " +
-                                            dUpperBoundInclusive +
-                                            "! The current value is: " +
-                                            dValue);
+    if ((dValue < dLowerBoundInclusive || dValue > dUpperBoundInclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= " +
+                                          dLowerBoundInclusive +
+                                          " and <= " +
+                                          dUpperBoundInclusive +
+                                          "! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -3213,7 +3204,7 @@ public final class ValueEnforcer
                                           final float fLowerBoundInclusive,
                                           final float fUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if ((fValue < fLowerBoundInclusive || fValue > fUpperBoundInclusive) && isEnabled ())
       return isBetweenInclusive (fValue, () -> sName, fLowerBoundInclusive, fUpperBoundInclusive);
     return fValue;
   }
@@ -3237,16 +3228,15 @@ public final class ValueEnforcer
                                           final float fLowerBoundInclusive,
                                           final float fUpperBoundInclusive)
   {
-    if (isEnabled ())
-      if (fValue < fLowerBoundInclusive || fValue > fUpperBoundInclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be >= " +
-                                            fLowerBoundInclusive +
-                                            " and <= " +
-                                            fUpperBoundInclusive +
-                                            "! The current value is: " +
-                                            fValue);
+    if ((fValue < fLowerBoundInclusive || fValue > fUpperBoundInclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be >= " +
+                                          fLowerBoundInclusive +
+                                          " and <= " +
+                                          fUpperBoundInclusive +
+                                          "! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -3269,7 +3259,12 @@ public final class ValueEnforcer
                                                @NonNull final BigDecimal aLowerBoundInclusive,
                                                @NonNull final BigDecimal aUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if (isEnabled () &&
+        (aValue == null ||
+         aLowerBoundInclusive == null ||
+         aUpperBoundInclusive == null ||
+         aValue.compareTo (aLowerBoundInclusive) < 0 ||
+         aValue.compareTo (aUpperBoundInclusive) > 0))
       return isBetweenInclusive (aValue, () -> sName, aLowerBoundInclusive, aUpperBoundInclusive);
     return aValue;
   }
@@ -3328,7 +3323,12 @@ public final class ValueEnforcer
                                                @NonNull final BigInteger aLowerBoundInclusive,
                                                @NonNull final BigInteger aUpperBoundInclusive)
   {
-    if (isEnabled ())
+    if (isEnabled () &&
+        (aValue == null ||
+         aLowerBoundInclusive == null ||
+         aUpperBoundInclusive == null ||
+         aValue.compareTo (aLowerBoundInclusive) < 0 ||
+         aValue.compareTo (aUpperBoundInclusive) > 0))
       return isBetweenInclusive (aValue, () -> sName, aLowerBoundInclusive, aUpperBoundInclusive);
     return aValue;
   }
@@ -3387,7 +3387,7 @@ public final class ValueEnforcer
                                         final int nLowerBoundExclusive,
                                         final int nUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
       return isBetweenExclusive (nValue, () -> sName, nLowerBoundExclusive, nUpperBoundExclusive);
     return nValue;
   }
@@ -3411,16 +3411,15 @@ public final class ValueEnforcer
                                         final int nLowerBoundExclusive,
                                         final int nUpperBoundExclusive)
   {
-    if (isEnabled ())
-      if (nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > " +
-                                            nLowerBoundExclusive +
-                                            " and < " +
-                                            nUpperBoundExclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > " +
+                                          nLowerBoundExclusive +
+                                          " and < " +
+                                          nUpperBoundExclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3443,7 +3442,7 @@ public final class ValueEnforcer
                                          final long nLowerBoundExclusive,
                                          final long nUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
       return isBetweenExclusive (nValue, () -> sName, nLowerBoundExclusive, nUpperBoundExclusive);
     return nValue;
   }
@@ -3467,16 +3466,15 @@ public final class ValueEnforcer
                                          final long nLowerBoundExclusive,
                                          final long nUpperBoundExclusive)
   {
-    if (isEnabled ())
-      if (nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > " +
-                                            nLowerBoundExclusive +
-                                            " and < " +
-                                            nUpperBoundExclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > " +
+                                          nLowerBoundExclusive +
+                                          " and < " +
+                                          nUpperBoundExclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3499,7 +3497,7 @@ public final class ValueEnforcer
                                           final short nLowerBoundExclusive,
                                           final short nUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
       return isBetweenExclusive (nValue, () -> sName, nLowerBoundExclusive, nUpperBoundExclusive);
     return nValue;
   }
@@ -3523,16 +3521,15 @@ public final class ValueEnforcer
                                           final short nLowerBoundExclusive,
                                           final short nUpperBoundExclusive)
   {
-    if (isEnabled ())
-      if (nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > " +
-                                            nLowerBoundExclusive +
-                                            " and < " +
-                                            nUpperBoundExclusive +
-                                            "! The current value is: " +
-                                            nValue);
+    if ((nValue <= nLowerBoundExclusive || nValue >= nUpperBoundExclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > " +
+                                          nLowerBoundExclusive +
+                                          " and < " +
+                                          nUpperBoundExclusive +
+                                          "! The current value is: " +
+                                          nValue);
     return nValue;
   }
 
@@ -3555,7 +3552,7 @@ public final class ValueEnforcer
                                            final double dLowerBoundExclusive,
                                            final double dUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if ((dValue <= dLowerBoundExclusive || dValue >= dUpperBoundExclusive) && isEnabled ())
       return isBetweenExclusive (dValue, () -> sName, dLowerBoundExclusive, dUpperBoundExclusive);
     return dValue;
   }
@@ -3579,16 +3576,15 @@ public final class ValueEnforcer
                                            final double dLowerBoundExclusive,
                                            final double dUpperBoundExclusive)
   {
-    if (isEnabled ())
-      if (dValue <= dLowerBoundExclusive || dValue >= dUpperBoundExclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > " +
-                                            dLowerBoundExclusive +
-                                            " and < " +
-                                            dUpperBoundExclusive +
-                                            "! The current value is: " +
-                                            dValue);
+    if ((dValue <= dLowerBoundExclusive || dValue >= dUpperBoundExclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > " +
+                                          dLowerBoundExclusive +
+                                          " and < " +
+                                          dUpperBoundExclusive +
+                                          "! The current value is: " +
+                                          dValue);
     return dValue;
   }
 
@@ -3611,7 +3607,7 @@ public final class ValueEnforcer
                                           final float fLowerBoundExclusive,
                                           final float fUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if ((fValue <= fLowerBoundExclusive || fValue >= fUpperBoundExclusive) && isEnabled ())
       return isBetweenExclusive (fValue, () -> sName, fLowerBoundExclusive, fUpperBoundExclusive);
     return fValue;
   }
@@ -3635,16 +3631,15 @@ public final class ValueEnforcer
                                           final float fLowerBoundExclusive,
                                           final float fUpperBoundExclusive)
   {
-    if (isEnabled ())
-      if (fValue <= fLowerBoundExclusive || fValue >= fUpperBoundExclusive)
-        throw new IllegalArgumentException ("The value of '" +
-                                            aName.get () +
-                                            "' must be > " +
-                                            fLowerBoundExclusive +
-                                            " and < " +
-                                            fUpperBoundExclusive +
-                                            "! The current value is: " +
-                                            fValue);
+    if ((fValue <= fLowerBoundExclusive || fValue >= fUpperBoundExclusive) && isEnabled ())
+      throw new IllegalArgumentException ("The value of '" +
+                                          aName.get () +
+                                          "' must be > " +
+                                          fLowerBoundExclusive +
+                                          " and < " +
+                                          fUpperBoundExclusive +
+                                          "! The current value is: " +
+                                          fValue);
     return fValue;
   }
 
@@ -3667,7 +3662,12 @@ public final class ValueEnforcer
                                                @NonNull final BigDecimal aLowerBoundExclusive,
                                                @NonNull final BigDecimal aUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if (isEnabled () &&
+        (aValue == null ||
+         aLowerBoundExclusive == null ||
+         aUpperBoundExclusive == null ||
+         aValue.compareTo (aLowerBoundExclusive) <= 0 ||
+         aValue.compareTo (aUpperBoundExclusive) >= 0))
       return isBetweenExclusive (aValue, () -> sName, aLowerBoundExclusive, aUpperBoundExclusive);
     return aValue;
   }
@@ -3726,7 +3726,12 @@ public final class ValueEnforcer
                                                @NonNull final BigInteger aLowerBoundExclusive,
                                                @NonNull final BigInteger aUpperBoundExclusive)
   {
-    if (isEnabled ())
+    if (isEnabled () &&
+        (aValue == null ||
+         aLowerBoundExclusive == null ||
+         aUpperBoundExclusive == null ||
+         aValue.compareTo (aLowerBoundExclusive) <= 0 ||
+         aValue.compareTo (aUpperBoundExclusive) >= 0))
       return isBetweenExclusive (aValue, () -> sName, aLowerBoundExclusive, aUpperBoundExclusive);
     return aValue;
   }
@@ -3772,15 +3777,14 @@ public final class ValueEnforcer
   {
     isGE0 (nOfs, "Offset");
     isGE0 (nLen, "Length");
-    if (isEnabled ())
-      if ((nOfs + nLen) > nArrayLen)
-        throw new IllegalArgumentException ("Offset (" +
-                                            nOfs +
-                                            ") + length (" +
-                                            nLen +
-                                            ") exceeds array length (" +
-                                            nArrayLen +
-                                            ")");
+    if (nOfs > nArrayLen - nLen && isEnabled ())
+      throw new IllegalArgumentException ("Offset (" +
+                                          nOfs +
+                                          ") + length (" +
+                                          nLen +
+                                          ") exceeds array length (" +
+                                          nArrayLen +
+                                          ")");
   }
 
   /**

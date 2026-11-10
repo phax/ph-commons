@@ -16,6 +16,7 @@
  */
 package com.helger.collection.commons;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Function;
@@ -64,8 +65,15 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
    */
   public CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends ELEMENTTYPE> aValues)
   {
-    // Uses a special overload of "addAll"!
-    addAll (aValues);
+    // Collect all elements first, so that the backing array is copied only once
+    if (aValues instanceof final Collection <? extends ELEMENTTYPE> aColl)
+      addAll (aColl);
+    else
+      if (aValues != null)
+      {
+        final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aValues);
+        addAll (aTmp);
+      }
   }
 
   /**
@@ -83,7 +91,9 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    addAllMapped (aValues, aMapper);
+    // Collect all elements first, so that the backing array is copied only once
+    final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aValues, aMapper);
+    addAll (aTmp);
   }
 
   /**
@@ -108,7 +118,9 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   @SafeVarargs
   public CommonsCopyOnWriteArrayList (@Nullable final ELEMENTTYPE... aValues)
   {
-    addAll (aValues);
+    // Add all elements at once, so that the backing array is copied only once
+    if (aValues != null)
+      addAll (Arrays.asList (aValues));
   }
 
   /**
@@ -126,7 +138,9 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public <SRCTYPE> CommonsCopyOnWriteArrayList (@Nullable final SRCTYPE [] aValues,
                                                 @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    addAllMapped (aValues, aMapper);
+    // Collect all elements first, so that the backing array is copied only once
+    final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aValues, aMapper);
+    addAll (aTmp);
   }
 
   @Override
@@ -167,9 +181,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public static <ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final Iterable <? extends ELEMENTTYPE> aValues,
                                                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAll (aValues, aFilter);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aFilter));
   }
 
   /**
@@ -199,9 +212,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
                                                                                                  @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                                  @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAllMapped (aValues, aFilter, aMapper);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aFilter, aMapper));
   }
 
   /**
@@ -232,9 +244,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
                                                                                                  @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAllMapped (aValues, aMapper, aFilter);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aMapper, aFilter));
   }
 
   /**
@@ -257,9 +268,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
   public static <ELEMENTTYPE> CommonsCopyOnWriteArrayList <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                                         @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAll (aValues, aFilter);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aFilter));
   }
 
   /**
@@ -289,9 +299,8 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
                                                                                                  @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                                  @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAllMapped (aValues, aFilter, aMapper);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aFilter, aMapper));
   }
 
   /**
@@ -322,8 +331,7 @@ public class CommonsCopyOnWriteArrayList <ELEMENTTYPE> extends CopyOnWriteArrayL
                                                                                                  @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                                  @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsCopyOnWriteArrayList <ELEMENTTYPE> ret = new CommonsCopyOnWriteArrayList <> ();
-    ret.addAllMapped (aValues, aMapper, aFilter);
-    return ret;
+    // Collect all elements first, so that the backing array is copied only once
+    return new CommonsCopyOnWriteArrayList <> (CommonsArrayList.createFiltered (aValues, aMapper, aFilter));
   }
 }

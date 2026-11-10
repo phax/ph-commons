@@ -182,6 +182,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
       return null;
     }
 
+    boolean bBorrowed = false;
     m_aLock.lock ();
     try
     {
@@ -225,6 +226,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
 
           // As the last activity
           m_aUsed[i] = true;
+          bBorrowed = true;
           return ret;
         }
 
@@ -233,6 +235,10 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
     finally
     {
       m_aLock.unlock ();
+
+      // If no object could be provided, give the permit back
+      if (!bBorrowed)
+        m_aAvailable.release ();
     }
   }
 

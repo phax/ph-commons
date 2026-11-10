@@ -47,14 +47,17 @@ import com.helger.base.string.StringParser;
 @ThreadSafe
 public final class SystemProperties implements IHasConditionalLogger
 {
-  /** The global Java class version as a double value. */
-  public static final double JAVA_CLASS_VERSION = StringParser.parseDouble (getJavaClassVersion (),
-                                                                            CGlobal.ILLEGAL_DOUBLE);
-
   private static final Logger LOGGER = LoggerFactory.getLogger (SystemProperties.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
   @CodingStyleguideUnaware
   private static final Set <String> WARNED_PROP_NAMES = new CopyOnWriteArraySet <> ();
+
+  /**
+   * The global Java class version as a double value. Must be declared after the fields used by
+   * {@link #getPropertyValue(String)}.
+   */
+  public static final double JAVA_CLASS_VERSION = StringParser.parseDouble (getJavaClassVersion (),
+                                                                            CGlobal.ILLEGAL_DOUBLE);
 
   @PresentForCodeCoverage
   private static final SystemProperties INSTANCE = new SystemProperties ();
@@ -208,7 +211,7 @@ public final class SystemProperties implements IHasConditionalLogger
     else
     {
       final String sOld = System.setProperty (sKey, sValue);
-      bChanged = sOld != null && !sValue.equals (sOld);
+      bChanged = !sValue.equals (sOld);
       if (bChanged)
         CONDLOG.info (() -> "Set system property '" + sKey + "' to '" + sValue + "'");
     }

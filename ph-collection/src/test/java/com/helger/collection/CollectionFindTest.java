@@ -17,6 +17,7 @@
 package com.helger.collection;
 
 import static com.helger.collection.CollectionFind.containsAnyNullElement;
+import static com.helger.collection.CollectionFind.containsNone;
 import static com.helger.collection.CollectionFind.containsOnly;
 import static com.helger.collection.CollectionFind.getFirstElement;
 import static com.helger.collection.CollectionFind.getLastElement;
@@ -67,6 +68,19 @@ public final class CollectionFindTest
     // Type required here
     assertFalse (containsOnly (new CommonsArrayList <String> (), StringHelper::isNotEmpty));
     assertFalse (containsOnly (new CommonsArrayList <> (), null));
+  }
+
+  @Test
+  public void testContainsNone ()
+  {
+    assertTrue (containsNone (new CommonsArrayList <> ("a", "b"), "c"::equals));
+    assertFalse (containsNone (new CommonsArrayList <> ("a", "b"), "b"::equals));
+    assertTrue (containsNone (new CommonsArrayList <String> (), "b"::equals));
+    // null collection with a filter behaves like an empty collection
+    assertTrue (containsNone ((ICommonsList <String>) null, "b"::equals));
+    assertTrue (containsNone ((ICommonsList <String>) null, null));
+    assertTrue (containsNone (new CommonsArrayList <String> (), null));
+    assertFalse (containsNone (new CommonsArrayList <> ("a"), null));
   }
 
   @Test

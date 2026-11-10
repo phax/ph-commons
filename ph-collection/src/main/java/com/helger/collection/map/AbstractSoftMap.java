@@ -22,7 +22,9 @@ import java.util.AbstractMap;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -35,6 +37,8 @@ import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.commons.ICommonsMap;
 import com.helger.collection.commons.MapEntry;
 
@@ -47,9 +51,10 @@ import com.helger.collection.commons.MapEntry;
  * operation of this map is truly read-only: garbage collected entries are removed on access, and
  * access-ordered source maps (like in {@link SoftLinkedHashMap}) reorder their entries on every
  * read.<br>
- * Attention: iterators (via {@link #entrySet()}, {@link #keySet()} or {@link #values()}) are NOT
- * thread-safe. As with {@link java.util.Collections#synchronizedMap(Map)} the caller must ensure
- * that the map is not modified concurrently while iterating. Compound default operations (like
+ * Iterators (via {@link #entrySet()}, {@link #keySet()} or {@link #values()}) work on a snapshot
+ * of the entries that is created while holding the internal lock. Creating an iterator removes the
+ * entries whose value was garbage collected, and an iterator does not reflect modifications made
+ * after its creation. Compound default operations (like
  * <code>putIfAbsent</code> or <code>computeIfAbsent</code>) are thread-safe but not atomic.
  *
  * @author Philip Helger
@@ -85,42 +90,78 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   {
     private static final class SoftIterator <K, V> implements Iterator <Map.Entry <K, V>>
     {
-      private final Iterator <Entry <K, SoftValue <K, V>>> m_aSrcIter;
+      @CodingStyleguideUnaware
+      private final Set <Map.Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
+      private final SimpleReadWriteLock m_aRWLock;
+      private final ICommonsList <SoftValue <K, V>> m_aSoftValues;
+      // The strong references keep the values alive while iterating
+      private final ICommonsList <V> m_aValues;
+      private int m_nIndex = 0;
+      private int m_nLastIndex = -1;
 
-      private SoftIterator (@NonNull final Iterator <Entry <K, SoftValue <K, V>>> aSrcIter)
+      private SoftIterator (@NonNull final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet,
+                            @NonNull final SimpleReadWriteLock aRWLock,
+                            @NonNull final ICommonsList <SoftValue <K, V>> aSoftValues,
+                            @NonNull final ICommonsList <V> aValues)
       {
-        m_aSrcIter = aSrcIter;
+        m_aSrcEntrySet = aSrcEntrySet;
+        m_aRWLock = aRWLock;
+        m_aSoftValues = aSoftValues;
+        m_aValues = aValues;
       }
 
       /** {@inheritDoc} */
       public boolean hasNext ()
       {
-        return m_aSrcIter.hasNext ();
+        return m_nIndex < m_aSoftValues.size ();
       }
 
       /** {@inheritDoc} */
       public Map.@NonNull Entry <K, V> next ()
       {
-        final Map.Entry <K, SoftValue <K, V>> e = m_aSrcIter.next ();
-        return new MapEntry <> (e.getKey (), e.getValue ().get ());
+        if (!hasNext ())
+          throw new NoSuchElementException ();
+        m_nLastIndex = m_nIndex++;
+        return new MapEntry <> (m_aSoftValues.get (m_nLastIndex).m_aKey, m_aValues.get (m_nLastIndex));
       }
 
+      /**
+       * {@inheritDoc} Removes the entry from the map, unless the value of the key was replaced in the
+       * meantime.
+       */
       @Override
       public void remove ()
       {
-        m_aSrcIter.remove ();
+        if (m_nLastIndex < 0)
+          throw new IllegalStateException ();
+        final SoftValue <K, V> aSoftValue = m_aSoftValues.get (m_nLastIndex);
+        m_nLastIndex = -1;
+
+        m_aRWLock.writeLock ().lock ();
+        try
+        {
+          // SoftValue uses identity equality, so only the original entry is removed
+          m_aSrcEntrySet.remove (new MapEntry <> (aSoftValue.m_aKey, aSoftValue));
+        }
+        finally
+        {
+          m_aRWLock.writeLock ().unlock ();
+        }
       }
     }
 
     @CodingStyleguideUnaware
     private final Set <Map.Entry <K, SoftValue <K, V>>> m_aSrcEntrySet;
     private final SimpleReadWriteLock m_aRWLock;
+    private final Consumer <K> m_aOnEntryRemoved;
 
     private SoftEntrySet (@NonNull final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet,
-                          @NonNull final SimpleReadWriteLock aRWLock)
+                          @NonNull final SimpleReadWriteLock aRWLock,
+                          @NonNull final Consumer <K> aOnEntryRemoved)
     {
       m_aSrcEntrySet = aSrcEntrySet;
       m_aRWLock = aRWLock;
+      m_aOnEntryRemoved = aOnEntryRemoved;
     }
 
     /**
@@ -207,14 +248,43 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     }
 
     /**
-     * {@inheritDoc} Attention: the returned iterator is NOT thread-safe - the caller must ensure
-     * that the map is not modified concurrently while iterating.
+     * {@inheritDoc} The returned iterator works on a snapshot of the entries that is created while
+     * holding the internal lock, so it never throws a {@link java.util.ConcurrentModificationException}
+     * and does not reflect modifications made after its creation. Consistent with
+     * {@link AbstractSoftMap#get(Object)}, entries whose value was garbage collected are removed
+     * from the map, so the iterator never returns a <code>null</code> value.
      */
     @NonNull
     public Iterator <Map.Entry <K, V>> iterator ()
     {
-      final Iterator <Map.Entry <K, SoftValue <K, V>>> aSrcIter = m_aSrcEntrySet.iterator ();
-      return new SoftIterator <> (aSrcIter);
+      final ICommonsList <SoftValue <K, V>> aSoftValues = new CommonsArrayList <> ();
+      final ICommonsList <V> aValues = new CommonsArrayList <> ();
+      // Write lock, because garbage collected entries are removed
+      m_aRWLock.writeLock ().lock ();
+      try
+      {
+        final Iterator <Map.Entry <K, SoftValue <K, V>>> aSrcIter = m_aSrcEntrySet.iterator ();
+        while (aSrcIter.hasNext ())
+        {
+          final SoftValue <K, V> aSoftValue = aSrcIter.next ().getValue ();
+          final V aValue = aSoftValue.get ();
+          if (aValue != null)
+          {
+            aSoftValues.add (aSoftValue);
+            aValues.add (aValue);
+          }
+          else
+          {
+            aSrcIter.remove ();
+            m_aOnEntryRemoved.accept (aSoftValue.m_aKey);
+          }
+        }
+      }
+      finally
+      {
+        m_aRWLock.writeLock ().unlock ();
+      }
+      return new SoftIterator <> (m_aSrcEntrySet, m_aRWLock, aSoftValues, aValues);
     }
 
     /**
@@ -429,7 +499,8 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
     SoftValue <K, V> aSoftValue;
     while ((aSoftValue = GenericReflection.uncheckedCast (m_aQueue.poll ())) != null)
     {
-      m_aSrcMap.remove (aSoftValue.m_aKey);
+      // Only remove the entry if it still contains the collected value
+      m_aSrcMap.remove (aSoftValue.m_aKey, aSoftValue);
     }
   }
 
@@ -504,8 +575,8 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   }
 
   /**
-   * {@inheritDoc} Attention: iterators created from the returned Set are NOT thread-safe - the
-   * caller must ensure that the map is not modified concurrently while iterating.
+   * {@inheritDoc} Iterators created from the returned Set work on a snapshot of the entries that is
+   * created while holding the internal lock.
    */
   @Override
   @ReturnsMutableObject ("design")
@@ -513,7 +584,7 @@ public abstract class AbstractSoftMap <K, V> extends AbstractMap <K, V> implemen
   public Set <Map.Entry <K, V>> entrySet ()
   {
     final Set <Map.Entry <K, SoftValue <K, V>>> aSrcEntrySet = m_aSrcMap.entrySet ();
-    return new SoftEntrySet <> (aSrcEntrySet, m_aRWLock);
+    return new SoftEntrySet <> (aSrcEntrySet, m_aRWLock, this::onEntryRemoved);
   }
 
   @Override

@@ -52,6 +52,24 @@ public final class EnumHelperTest
     }
   }
 
+  private enum EHasGapID implements IHasIntID
+  {
+    A (0),
+    C (2);
+
+    private final int m_nID;
+
+    EHasGapID (final int nID)
+    {
+      m_nID = nID;
+    }
+
+    public int getID ()
+    {
+      return m_nID;
+    }
+  }
+
   private enum EMockEL implements IHasID <String>
   {
     INFO,
@@ -189,5 +207,15 @@ public final class EnumHelperTest
     assertEquals (EChange.CHANGED, aFiltered.get (0));
 
     assertTrue (EnumHelper.getAll (EChange.class, (Predicate <EChange>) x -> false).isEmpty ());
+  }
+
+  @Test
+  public void testGetFromIDIntUnusedID ()
+  {
+    // ID 1 is within the cached range but not used
+    assertSame (EHasGapID.C, EnumHelper.getFromIDOrDefault (EHasGapID.class, 1, EHasGapID.C));
+    assertNull (EnumHelper.getFromIDOrNull (EHasGapID.class, 1));
+    assertSame (EHasGapID.A, EnumHelper.getFromIDOrDefault (EHasGapID.class, 0, EHasGapID.C));
+    assertSame (EHasGapID.C, EnumHelper.getFromIDOrDefault (EHasGapID.class, 2, EHasGapID.A));
   }
 }

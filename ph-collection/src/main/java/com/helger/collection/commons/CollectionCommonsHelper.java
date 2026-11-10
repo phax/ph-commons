@@ -27,6 +27,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.collection.CollectionHelper;
 
 /**
  * Package utility class to make sure the package dependencies stay clean
@@ -42,7 +43,7 @@ public final class CollectionCommonsHelper
   @ReturnsMutableCopy
   private static <KEYTYPE, VALUETYPE> CommonsLinkedHashMap <KEYTYPE, VALUETYPE> _newOrderedMap (@Nullable final List <? extends Map.Entry <KEYTYPE, VALUETYPE>> aList)
   {
-    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = new CommonsLinkedHashMap <> (aList.size ());
+    final CommonsLinkedHashMap <KEYTYPE, VALUETYPE> ret = new CommonsLinkedHashMap <> (CollectionHelper.getHashCapacity (aList.size ()));
     ret.putAll (aList);
     return ret;
   }

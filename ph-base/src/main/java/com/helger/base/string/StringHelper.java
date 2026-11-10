@@ -928,10 +928,7 @@ public class StringHelper
                                     @Nonnegative final int nFromIndex,
                                     @Nullable final String sSearch)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.lastIndexOf (
-                                                                                                                        sSearch,
-                                                                                                                        nFromIndex)
-                                                                                                   : CGlobal.STRING_NOT_FOUND;
+    return sText != null && sSearch != null ? sText.lastIndexOf (sSearch, nFromIndex) : CGlobal.STRING_NOT_FOUND;
   }
 
   /**
@@ -1000,8 +997,7 @@ public class StringHelper
    */
   public static int getLastIndexOf (@Nullable final String sText, @Nonnegative final int nFromIndex, final char cSearch)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.lastIndexOf (cSearch, nFromIndex)
-                                                                : CGlobal.STRING_NOT_FOUND;
+    return sText != null ? sText.lastIndexOf (cSearch, nFromIndex) : CGlobal.STRING_NOT_FOUND;
   }
 
   /**
@@ -1095,11 +1091,9 @@ public class StringHelper
                                               @Nullable final String sSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
-                                                                                                                        aSortLocale)
-                                                                                                          .lastIndexOf (sSearch.toLowerCase (aSortLocale),
-                                                                                                                        nFromIndex)
-                                                                                                   : CGlobal.STRING_NOT_FOUND;
+    return sText != null && sSearch != null ? sText.toLowerCase (aSortLocale)
+                                                   .lastIndexOf (sSearch.toLowerCase (aSortLocale), nFromIndex)
+                                            : CGlobal.STRING_NOT_FOUND;
   }
 
   /**
@@ -1191,10 +1185,8 @@ public class StringHelper
                                               final char cSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
-                                                                       .lastIndexOf (Character.toLowerCase (cSearch),
-                                                                                     nFromIndex)
-                                                                : CGlobal.STRING_NOT_FOUND;
+    return sText != null ? sText.toLowerCase (aSortLocale).lastIndexOf (Character.toLowerCase (cSearch), nFromIndex)
+                         : CGlobal.STRING_NOT_FOUND;
   }
 
   /**
@@ -1761,6 +1753,65 @@ public class StringHelper
         aConsumer.accept (nCodePoint);
       }
     }
+  }
+
+  /**
+   * Get the number of Unicode code points in the passed character sequence. A valid surrogate pair
+   * counts as one code point, an unpaired surrogate counts as one code point as well.
+   *
+   * @param aCS
+   *        The character sequence to check. May be <code>null</code>.
+   * @return 0 if the input is <code>null</code> or empty, the number of code points otherwise.
+   * @since 12.5.4
+   */
+  @Nonnegative
+  public static int getCodePointCount (@Nullable final CharSequence aCS)
+  {
+    if (aCS == null)
+      return 0;
+    return Character.codePointCount (aCS, 0, aCS.length ());
+  }
+
+  /**
+   * Get all Unicode code points of the passed string as an array. A valid surrogate pair results in
+   * one supplementary code point, an unpaired surrogate is returned as is. This is a faster
+   * alternative to <code>sStr.codePoints ().toArray ()</code>.
+   *
+   * @param sStr
+   *        The string to get the code points from. May be <code>null</code>.
+   * @return An empty array if the input is <code>null</code> or empty, the array of code points
+   *         otherwise. Never <code>null</code>.
+   * @since 12.5.4
+   */
+  @ReturnsMutableCopy
+  public static int @NonNull [] getCodePoints (@Nullable final String sStr)
+  {
+    if (sStr == null)
+      return CGlobal.EMPTY_INT_ARRAY;
+    final int nLen = sStr.length ();
+    if (nLen == 0)
+      return CGlobal.EMPTY_INT_ARRAY;
+
+    final int nCodePointCount = Character.codePointCount (sStr, 0, nLen);
+    final int [] ret = new int [nCodePointCount];
+    if (nCodePointCount == nLen)
+    {
+      // No surrogate pairs - every char is a code point
+      for (int i = 0; i < nLen; ++i)
+        ret[i] = sStr.charAt (i);
+    }
+    else
+    {
+      int nOfs = 0;
+      int nIdx = 0;
+      while (nOfs < nLen)
+      {
+        final int nCodePoint = sStr.codePointAt (nOfs);
+        nOfs += Character.charCount (nCodePoint);
+        ret[nIdx++] = nCodePoint;
+      }
+    }
+    return ret;
   }
 
   /**

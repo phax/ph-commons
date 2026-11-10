@@ -17,6 +17,7 @@
 package com.helger.commons.concurrent.collector;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
@@ -35,11 +37,12 @@ import com.helger.base.reflection.GenericReflection;
  * @param <DATATYPE>
  *        The type of the objects in the queue.
  */
+@ThreadSafe
 public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentCollector <DATATYPE>
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ConcurrentCollectorSingle.class);
 
-  private IConcurrentPerformer <DATATYPE> m_aPerformer;
+  private final AtomicReference <IConcurrentPerformer <DATATYPE>> m_aPerformer = new AtomicReference <> ();
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the maximum queue length.
@@ -77,7 +80,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   @Nullable
   public final IConcurrentPerformer <DATATYPE> getPerformer ()
   {
-    return m_aPerformer;
+    return m_aPerformer.get ();
   }
 
   /**
@@ -94,23 +97,24 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
   @NonNull
   public final ConcurrentCollectorSingle <DATATYPE> setPerformer (@NonNull final IConcurrentPerformer <DATATYPE> aPerformer)
   {
-    if (m_aPerformer != null)
+    ValueEnforcer.notNull (aPerformer, "Performer");
+    if (!m_aPerformer.compareAndSet (null, aPerformer))
       throw new IllegalStateException ("Another performer is already set!");
-    m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
     return this;
   }
 
   private void _perform (final DATATYPE aObject)
   {
+    final IConcurrentPerformer <DATATYPE> aPerformer = m_aPerformer.get ();
     try
     {
       // Perform the action on the objects, regardless of whether a
       // "stop queue message" was received or not
-      m_aPerformer.runAsync (aObject);
+      aPerformer.runAsync (aObject);
     }
     catch (final Exception ex)
     {
-      LOGGER.error ("Failed to perform actions on object with performer " + m_aPerformer + " - object has been lost!",
+      LOGGER.error ("Failed to perform actions on object with performer " + aPerformer + " - object has been lost!",
                     ex);
     }
   }
@@ -125,7 +129,7 @@ public class ConcurrentCollectorSingle <DATATYPE> extends AbstractConcurrentColl
    */
   public final void collect ()
   {
-    if (m_aPerformer == null)
+    if (m_aPerformer.get () == null)
       throw new IllegalStateException ("No performer set!");
 
     try

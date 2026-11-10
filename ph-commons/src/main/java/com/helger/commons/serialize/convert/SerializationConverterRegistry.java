@@ -58,7 +58,9 @@ public final class SerializationConverterRegistry implements ISerializationConve
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
-  // WeakHashMap because key is a class
+  // WeakHashMap because key is a class. Note: every access to a WeakHashMap (including get and
+  // size) may expunge stale entries and therefore structurally modify it - that is why all
+  // accesses must happen under the write lock
   @GuardedBy ("m_aRWLock")
   private final ICommonsMap <Class <?>, ISerializationConverter <?>> m_aMap = new CommonsWeakHashMap <> ();
 
@@ -99,28 +101,22 @@ public final class SerializationConverterRegistry implements ISerializationConve
                            () -> "The provided " + aClass.toString () + " is already implementing Serializable!");
 
     m_aRWLock.writeLocked (() -> {
-      // The main class should not already be registered
+      // The class should not already be registered
       if (m_aMap.containsKey (aClass))
-        throw new IllegalArgumentException ("A micro type converter for class " + aClass + " is already registered!");
+        throw new IllegalArgumentException ("A serialization converter for class " + aClass + " is already registered!");
 
-      // Automatically register the class, and all parent classes/interfaces
-      for (final WeakReference <Class <?>> aCurWRSrcClass : ClassHierarchyCache.getClassHierarchyIterator (aClass))
-      {
-        final Class <?> aCurSrcClass = aCurWRSrcClass.get ();
-        if (aCurSrcClass != null)
-          if (!m_aMap.containsKey (aCurSrcClass))
-          {
-            m_aMap.put (aCurSrcClass, aConverter);
-            if (LOGGER.isDebugEnabled ())
-              LOGGER.debug ("Registered serialization converter for '" + aCurSrcClass.toString () + "'");
-          }
-      }
+      // Only register the class itself - sub classes are found via the class hierarchy in
+      // getConverter
+      m_aMap.put (aClass, aConverter);
+      if (LOGGER.isDebugEnabled ())
+        LOGGER.debug ("Registered serialization converter for '" + aClass.toString () + "'");
     });
   }
 
   /**
-   * Get the serialization converter for the specified class. If no exact match is found, a fuzzy
-   * match via the class hierarchy is attempted.
+   * Get the serialization converter for the specified class. If no exact match is found, the
+   * converter of the closest registered super class or interface is used. Super classes have
+   * precedence over interfaces.
    *
    * @param aDstClass
    *        The class to find a converter for. May be <code>null</code>.
@@ -131,7 +127,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nullable
   public <T> ISerializationConverter <T> getConverter (@Nullable final Class <T> aDstClass)
   {
-    return m_aRWLock.readLockedGet (() -> {
+    // Write lock, because WeakHashMap.get modifies the map
+    return m_aRWLock.writeLockedGet (() -> {
       // Check for an exact match first
       ISerializationConverter <?> ret = m_aMap.get (aDstClass);
       if (ret == null)
@@ -170,7 +167,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   public void iterateAllRegisteredSerializationConverters (@NonNull final ISerializationConverterCallback aCallback)
   {
     // Create a static (non weak) copy of the map
-    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.readLockedGet (() -> new CommonsHashMap <> (m_aMap));
+    // Write lock, because copying the WeakHashMap modifies the map
+    final Map <Class <?>, ISerializationConverter <?>> aCopy = m_aRWLock.writeLockedGet (() -> new CommonsHashMap <> (m_aMap));
 
     // And iterate the copy
     for (final Map.Entry <Class <?>, ISerializationConverter <?>> aEntry : aCopy.entrySet ())
@@ -184,7 +182,8 @@ public final class SerializationConverterRegistry implements ISerializationConve
   @Nonnegative
   public int getRegisteredSerializationConverterCount ()
   {
-    return m_aRWLock.readLockedInt (m_aMap::size);
+    // Write lock, because WeakHashMap.size modifies the map
+    return m_aRWLock.writeLockedInt (m_aMap::size);
   }
 
   /**

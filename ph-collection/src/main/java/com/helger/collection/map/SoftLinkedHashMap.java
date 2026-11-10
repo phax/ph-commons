@@ -147,8 +147,9 @@ public class SoftLinkedHashMap <K, V> extends AbstractSoftMap <K, V>
   public SoftLinkedHashMap <K, V> getClone ()
   {
     final SoftLinkedHashMap <K, V> ret = new SoftLinkedHashMap <> (m_nMaxSize);
-    // Read lock to block concurrent modifications of this map while iterating it
-    m_aRWLock.readLocked (() -> ret.putAll (this));
+    // No external lock needed (and a read lock would deadlock): the iterator works on a snapshot
+    // that is created under the internal write lock
+    ret.putAll (this);
     return ret;
   }
 

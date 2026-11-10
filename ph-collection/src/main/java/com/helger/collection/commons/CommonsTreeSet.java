@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.TreeSet;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -143,6 +144,35 @@ public class CommonsTreeSet <ELEMENTTYPE> extends TreeSet <ELEMENTTYPE> implemen
   public <T> CommonsTreeSet <T> createInstance ()
   {
     return new CommonsTreeSet <> ();
+  }
+
+  /**
+   * {@inheritDoc} Overridden to preserve the comparator of this set.
+   */
+  @Override
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    if (aFilter == null)
+      return getClone ();
+
+    final CommonsTreeSet <ELEMENTTYPE> ret = new CommonsTreeSet <> (comparator ());
+    findAll (aFilter, ret::add);
+    return ret;
+  }
+
+  /**
+   * {@inheritDoc} Overridden to preserve the comparator of this set.
+   */
+  @Override
+  @NonNull
+  @ReturnsMutableCopy
+  public <DSTTYPE extends ELEMENTTYPE> ICommonsSet <DSTTYPE> getAllInstanceOf (@NonNull final Class <DSTTYPE> aDstClass)
+  {
+    final CommonsTreeSet <DSTTYPE> ret = new CommonsTreeSet <> (comparator ());
+    findAllInstanceOf (aDstClass, ret::add);
+    return ret;
   }
 
   /**

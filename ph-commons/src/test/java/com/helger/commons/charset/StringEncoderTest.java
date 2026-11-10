@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import org.junit.Test;
@@ -69,6 +70,19 @@ public final class StringEncoderTest
     // Larger than the internal char buffer with multi-byte characters
     final String sLongUmlauts = StringHelper.getRepeated (UMLAUTS, 1000);
     assertArrayEquals (sLongUmlauts.getBytes (StandardCharsets.UTF_8), aEncoder.getAsNewArray (sLongUmlauts));
+  }
+
+  @Test
+  public void testGetAsNewArrayFourBytesPerChar ()
+  {
+    // Larger than the internal array buffer, so the "worst case" path is used with more than 3
+    // bytes per char
+    final String sLong = StringHelper.getRepeated ("abcdefghij", 1000);
+    for (final Charset aCharset : new Charset [] { Charset.forName ("UTF-32"), StandardCharsets.UTF_16 })
+    {
+      final StringEncoder aEncoder = new StringEncoder (aCharset);
+      assertArrayEquals (sLong.getBytes (aCharset), aEncoder.getAsNewArray (sLong));
+    }
   }
 
   @Test

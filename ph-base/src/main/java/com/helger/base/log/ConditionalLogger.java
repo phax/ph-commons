@@ -168,7 +168,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void info (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isInfoEnabled ())
       m_aLogger.info (sMsg, aThrowable);
   }
 
@@ -177,7 +177,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void info (@NonNull final String sMsg)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isInfoEnabled ())
       m_aLogger.info (sMsg);
   }
 
@@ -186,7 +186,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void info (@NonNull final Supplier <String> aMsgSupplier)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isInfoEnabled ())
       m_aLogger.info (aMsgSupplier.get ());
   }
 
@@ -195,7 +195,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void info (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isInfoEnabled ())
       m_aLogger.info (aMsgSupplier.get (), aThrowable);
   }
 
@@ -204,7 +204,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void warn (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isWarnEnabled ())
       m_aLogger.warn (sMsg, aThrowable);
   }
 
@@ -213,7 +213,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void warn (@NonNull final String sMsg)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isWarnEnabled ())
       m_aLogger.warn (sMsg);
   }
 
@@ -222,7 +222,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void warn (@NonNull final Supplier <String> aMsgSupplier)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isWarnEnabled ())
       m_aLogger.warn (aMsgSupplier.get ());
   }
 
@@ -231,7 +231,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void warn (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isWarnEnabled ())
       m_aLogger.warn (aMsgSupplier.get (), aThrowable);
   }
 
@@ -240,7 +240,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void error (@NonNull final String sMsg, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isErrorEnabled ())
       m_aLogger.error (sMsg, aThrowable);
   }
 
@@ -249,7 +249,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void error (@NonNull final String sMsg)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isErrorEnabled ())
       m_aLogger.error (sMsg);
   }
 
@@ -258,7 +258,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void error (@NonNull final Supplier <String> aMsgSupplier)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isErrorEnabled ())
       m_aLogger.error (aMsgSupplier.get ());
   }
 
@@ -267,7 +267,7 @@ public final class ConditionalLogger implements IConditionalLogger, ILogHandler,
    */
   public void error (@NonNull final Supplier <String> aMsgSupplier, @Nullable final Throwable aThrowable)
   {
-    if (isEnabled ())
+    if (isEnabled () && m_aLogger.isErrorEnabled ())
       m_aLogger.error (aMsgSupplier.get (), aThrowable);
   }
 

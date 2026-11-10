@@ -27,7 +27,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.ReturnsMutableCopy;
-import com.helger.annotation.style.UnsupportedOperation;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -200,9 +199,15 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @NonNull
   public ListIterator <ELEMENTTYPE> listIterator (final int nIndex)
   {
-    if (!m_bHasElement || nIndex != 0)
-      throw new IndexOutOfBoundsException ();
-    return listIterator ();
+    if (nIndex < 0 || nIndex > size ())
+      throw new IndexOutOfBoundsException ("Invalid index " + nIndex);
+    final ListIterator <ELEMENTTYPE> ret = listIterator ();
+    if (nIndex > 0)
+    {
+      // Position after the element
+      ret.next ();
+    }
+    return ret;
   }
 
   /** {@inheritDoc} */
@@ -230,24 +235,24 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   /** {@inheritDoc} */
   public boolean removeAll (@Nullable final Collection <?> aElements)
   {
-    boolean bRemovedAll = true;
+    boolean bChanged = false;
     if (aElements != null)
       for (final Object aElement : aElements)
-        if (!remove (aElement))
-          bRemovedAll = false;
-    return bRemovedAll;
+        if (remove (aElement))
+          bChanged = true;
+    return bChanged;
   }
 
   /** {@inheritDoc} */
-  @UnsupportedOperation
   public boolean retainAll (@NonNull final Collection <?> aElements)
   {
     ValueEnforcer.notNull (aElements, "Elements");
     if (m_bHasElement)
     {
       if (aElements.contains (m_aElement))
-        return true;
+        return false;
       clear ();
+      return true;
     }
     return false;
   }
@@ -256,10 +261,9 @@ public class SingleElementList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYP
   @Nullable
   public ELEMENTTYPE set (@Nonnegative final int nIndex, @Nullable final ELEMENTTYPE aNewElement)
   {
-    if (nIndex != 0)
-      throw new IllegalArgumentException ("The passed index can onyl be 0!");
+    if (!m_bHasElement || nIndex != 0)
+      throw new IndexOutOfBoundsException ("Invalid index " + nIndex);
     final ELEMENTTYPE aOldElement = m_aElement;
-    m_bHasElement = true;
     m_aElement = aNewElement;
     return aOldElement;
   }

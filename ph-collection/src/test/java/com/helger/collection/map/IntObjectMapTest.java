@@ -16,10 +16,13 @@
  */
 package com.helger.collection.map;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import org.jspecify.annotations.NonNull;
@@ -170,5 +173,66 @@ public final class IntObjectMapTest
   {
     for (final float ff : FILL_FACTORS)
       _testForEachHelper (ff);
+  }
+
+  @Test
+  public void testContainsKeyClearGetAllKeysClone ()
+  {
+    final IntObjectMap <String> aMap = new IntObjectMap <> ();
+    assertFalse (aMap.containsKey (0));
+    assertFalse (aMap.containsKey (1));
+    assertEquals (0, aMap.getAllKeys ().length);
+
+    // Free key and regular keys
+    aMap.put (0, "a");
+    aMap.put (1, "b");
+    aMap.put (-1, "c");
+    assertTrue (aMap.containsKey (0));
+    assertTrue (aMap.containsKey (1));
+    assertTrue (aMap.containsKey (-1));
+    assertFalse (aMap.containsKey (2));
+
+    final int [] aKeys = aMap.getAllKeys ();
+    Arrays.sort (aKeys);
+    assertArrayEquals (new int [] { -1, 0, 1 }, aKeys);
+
+    // Clone is independent
+    final IntObjectMap <String> aClone = aMap.getClone ();
+    assertEquals (3, aClone.size ());
+    assertEquals ("a", aClone.get (0));
+    assertEquals ("c", aClone.get (-1));
+    aClone.put (2, "a");
+    aClone.remove (0);
+    assertFalse (aMap.containsKey (2));
+    assertTrue (aMap.containsKey (0));
+    assertEquals (3, aMap.size ());
+    assertEquals (3, aClone.size ());
+
+    aMap.remove (1);
+    assertFalse (aMap.containsKey (1));
+    assertTrue (aClone.containsKey (1));
+
+    aMap.clear ();
+    assertTrue (aMap.isEmpty ());
+    assertEquals (0, aMap.size ());
+    assertFalse (aMap.containsKey (0));
+    assertFalse (aMap.containsKey (-1));
+    assertEquals (0, aMap.getAllKeys ().length);
+    // Still usable after clear
+    aMap.put (5, "a");
+    assertEquals ("a", aMap.get (5));
+    assertEquals (1, aMap.getAllKeys ().length);
+
+    // Many keys incl. rehashing
+    final IntObjectMap <String> aBig = new IntObjectMap <> (1);
+    for (int i = 0; i < 10_000; ++i)
+      aBig.put (i * 3, "b");
+    assertEquals (10_000, aBig.getAllKeys ().length);
+    final IntObjectMap <String> aBigClone = aBig.getClone ();
+    for (int i = 0; i < 10_000; ++i)
+    {
+      assertTrue (aBigClone.containsKey (i * 3));
+      assertFalse (aBigClone.containsKey (i * 3 + 1));
+    }
   }
 }

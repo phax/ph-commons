@@ -30,6 +30,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.callback.CallbackList;
+import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * This is the main dead lock detector, based on JMX {@link ThreadMXBean}
@@ -61,29 +63,41 @@ public class ThreadDeadlockDetector
       Arrays.sort (aThreadIDs);
 
       // Extract the relevant information
-      final ThreadDeadlockInfo [] aThreadInfos = new ThreadDeadlockInfo [aThreadIDs.length];
-      for (int i = 0; i < aThreadInfos.length; i++)
+      final ICommonsList <ThreadDeadlockInfo> aThreadInfoList = new CommonsArrayList <> (aThreadIDs.length);
+      for (final long nThreadID : aThreadIDs)
       {
         // ThreadInfo
-        final ThreadInfo aThreadInfo = m_aMBean.getThreadInfo (aThreadIDs[i]);
+        final ThreadInfo aThreadInfo = m_aMBean.getThreadInfo (nThreadID);
+        if (aThreadInfo == null)
+        {
+          // The thread is no longer alive
+          continue;
+        }
 
         // Find matching thread and stack trace
         Thread aFoundThread = null;
         StackTraceElement [] aFoundStackTrace = null;
         // Sort ascending by thread ID for a consistent result
-        for (final Map.Entry <Thread, StackTraceElement []> aEnrty : aAllStackTraces.entrySet ())
-          if (aEnrty.getKey ().getId () == aThreadInfo.getThreadId ())
+        for (final Map.Entry <Thread, StackTraceElement []> aEntry : aAllStackTraces.entrySet ())
+          if (aEntry.getKey ().getId () == aThreadInfo.getThreadId ())
           {
-            aFoundThread = aEnrty.getKey ();
-            aFoundStackTrace = aEnrty.getValue ();
+            aFoundThread = aEntry.getKey ();
+            aFoundStackTrace = aEntry.getValue ();
             break;
           }
         if (aFoundThread == null)
           throw new IllegalStateException ("Deadlocked Thread not found as defined by " + aThreadInfo.toString ());
 
         // Remember
-        aThreadInfos[i] = new ThreadDeadlockInfo (aThreadInfo, aFoundThread, aFoundStackTrace);
+        aThreadInfoList.add (new ThreadDeadlockInfo (aThreadInfo, aFoundThread, aFoundStackTrace));
       }
+      if (aThreadInfoList.isEmpty ())
+      {
+        // All deadlocked threads are gone in the meantime
+        return;
+      }
+      final ThreadDeadlockInfo [] aThreadInfos = aThreadInfoList.toArray (new ThreadDeadlockInfo [0]);
+
       // Invoke all callbacks
       if (m_aCallbacks.isEmpty ())
       {

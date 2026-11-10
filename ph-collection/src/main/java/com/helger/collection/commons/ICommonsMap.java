@@ -34,6 +34,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.clone.ICloneable;
 import com.helger.base.state.EChange;
 import com.helger.collection.CollectionFind;
+import com.helger.collection.CollectionHelper;
 
 /**
  * A special {@link Map} interface with extended functionality
@@ -184,7 +185,7 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   default ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> copyOfEntrySet ()
   {
     // This is contained, because "Map.Entry" instance may get reused internally
-    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsHashSet <> (size ());
+    final ICommonsSet <Map.Entry <KEYTYPE, VALUETYPE>> ret = new CommonsHashSet <> (CollectionHelper.getHashCapacity (size ()));
     for (final Map.Entry <KEYTYPE, VALUETYPE> aEntry : entrySet ())
       ret.add (new MapEntry <> (aEntry));
     return ret;

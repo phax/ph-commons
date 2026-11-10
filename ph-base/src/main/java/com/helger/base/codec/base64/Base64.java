@@ -2263,7 +2263,7 @@ public final class Base64
         final byte [] aDecoded = decode (sEncoded, DONT_GUNZIP);
         return new String (aDecoded, aCharset);
       }
-      catch (final IOException ex)
+      catch (final IOException | IllegalArgumentException ex)
       {
         // Fall through
       }
@@ -2313,7 +2313,7 @@ public final class Base64
         final byte [] aDecoded = decode (aEncodedBytes, nOfs, nLength, DONT_GUNZIP);
         return new String (aDecoded, aCharset);
       }
-      catch (final IOException ex)
+      catch (final IOException | IllegalArgumentException ex)
       {
         // Fall through
       }

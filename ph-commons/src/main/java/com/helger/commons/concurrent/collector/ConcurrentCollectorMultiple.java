@@ -18,6 +18,7 @@ package com.helger.commons.concurrent.collector;
 
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -25,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.reflection.GenericReflection;
@@ -39,6 +41,7 @@ import com.helger.collection.commons.ICommonsList;
  * @param <DATATYPE>
  *        The type of the objects in the queue.
  */
+@ThreadSafe
 public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCollector <DATATYPE>
 {
   /** The default number of objects to be put in the queue for execution. */
@@ -48,7 +51,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   @Nonnegative
   private final int m_nMaxPerformCount;
 
-  private IConcurrentPerformer <List <DATATYPE>> m_aPerformer;
+  private final AtomicReference <IConcurrentPerformer <List <DATATYPE>>> m_aPerformer = new AtomicReference <> ();
 
   /**
    * Constructor that uses {@link #DEFAULT_MAX_QUEUE_SIZE} elements as the maximum queue length and
@@ -121,7 +124,7 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   @Nullable
   public final IConcurrentPerformer <List <DATATYPE>> getPerformer ()
   {
-    return m_aPerformer;
+    return m_aPerformer.get ();
   }
 
   /**
@@ -138,9 +141,9 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   @NonNull
   public final ConcurrentCollectorMultiple <DATATYPE> setPerformer (@NonNull final IConcurrentPerformer <List <DATATYPE>> aPerformer)
   {
-    if (m_aPerformer != null)
+    ValueEnforcer.notNull (aPerformer, "Performer");
+    if (!m_aPerformer.compareAndSet (null, aPerformer))
       throw new IllegalStateException ("Another performer is already set!");
-    m_aPerformer = ValueEnforcer.notNull (aPerformer, "Performer");
     return this;
   }
 
@@ -149,7 +152,8 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    *
    * @param aObjectsToPerform
    *        List of objects to be passed to the performer. Never <code>null</code>. The length is at
-   *        last {@link #getMaxPerformCount()}.
+   *        last {@link #getMaxPerformCount()}. The list is handed over to the performer and is not
+   *        used afterwards by this class.
    * @return {@link ESuccess}
    */
   @NonNull
@@ -157,25 +161,23 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
   {
     if (aObjectsToPerform.isNotEmpty ())
     {
+      final IConcurrentPerformer <List <DATATYPE>> aPerformer = m_aPerformer.get ();
       try
       {
         // Perform the action on the objects, regardless of whether a
         // "stop queue message" was received or not
-        m_aPerformer.runAsync (aObjectsToPerform);
+        aPerformer.runAsync (aObjectsToPerform);
       }
       catch (final Exception ex)
       {
         LOGGER.error ("Failed to perform actions on " +
                       aObjectsToPerform.size () +
                       " objects with performer " +
-                      m_aPerformer +
+                      aPerformer +
                       " - objects are lost!",
                       ex);
         return ESuccess.FAILURE;
       }
-
-      // clear perform-list anyway
-      aObjectsToPerform.clear ();
     }
 
     return ESuccess.SUCCESS;
@@ -191,13 +193,11 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
    */
   public final void collect ()
   {
-    if (m_aPerformer == null)
+    if (m_aPerformer.get () == null)
       throw new IllegalStateException ("No performer set!");
 
     try
     {
-      // The temporary list that contains all objects to be delivered
-      final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <> ();
       boolean bQueueIsStopped = false;
 
       while (true)
@@ -207,15 +207,24 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
         if (EqualsHelper.identityEqual (aCurrentObject, STOP_QUEUE_OBJECT))
           break;
 
+        // The temporary list that contains all objects to be delivered. A new list is used for every
+        // batch, because it is handed over to the performer
+        final ICommonsList <DATATYPE> aObjectsToPerform = new CommonsArrayList <> ();
+
         // add current object
         aObjectsToPerform.add (GenericReflection.uncheckedCast (aCurrentObject));
 
         // take all messages that are in the queue and handle them at once.
         // Handle at last m_nMaxPerformSize objects
-        while (aObjectsToPerform.size () < m_nMaxPerformCount && !m_aQueue.isEmpty ())
+        while (aObjectsToPerform.size () < m_nMaxPerformCount)
         {
           // Explicitly handle the "stop queue message" (using "=="!!!)
-          aCurrentObject = m_aQueue.take ();
+          aCurrentObject = m_aQueue.poll ();
+          if (aCurrentObject == null)
+          {
+            // Queue is empty
+            break;
+          }
           if (EqualsHelper.identityEqual (aCurrentObject, STOP_QUEUE_OBJECT))
           {
             bQueueIsStopped = true;
@@ -235,9 +244,6 @@ public class ConcurrentCollectorMultiple <DATATYPE> extends AbstractConcurrentCo
         if (bQueueIsStopped)
           break;
       }
-
-      // perform any remaining actions
-      _perform (aObjectsToPerform);
     }
     catch (final InterruptedException ex)
     {

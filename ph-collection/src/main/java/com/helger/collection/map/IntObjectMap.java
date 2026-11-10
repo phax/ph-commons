@@ -26,6 +26,7 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.NotThreadSafe;
 import com.helger.annotation.style.ReturnsMutableCopy;
+import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.iface.IHasSize;
@@ -40,7 +41,7 @@ import com.helger.base.reflection.GenericReflection;
  *        Element type
  */
 @NotThreadSafe
-public class IntObjectMap <T> implements IHasSize
+public class IntObjectMap <T> implements IHasSize, ICloneable <IntObjectMap <T>>
 {
   private static final int FREE_KEY = 0;
 
@@ -105,6 +106,24 @@ public class IntObjectMap <T> implements IHasSize
     m_aKeys = new int [nCapacity];
     m_aValues = _createValueArray (nCapacity);
     m_nThreshold = (int) (nCapacity * fFillFactor);
+  }
+
+  /**
+   * Copy constructor. The keys and values arrays are copied, the values themselves are not.
+   *
+   * @param aOther
+   *        The map to copy from. May not be <code>null</code>.
+   */
+  private IntObjectMap (@NonNull final IntObjectMap <T> aOther)
+  {
+    m_aKeys = aOther.m_aKeys.clone ();
+    m_aValues = aOther.m_aValues.clone ();
+    m_bHasFreeKey = aOther.m_bHasFreeKey;
+    m_aFreeValue = aOther.m_aFreeValue;
+    m_fFillFactor = aOther.m_fFillFactor;
+    m_nThreshold = aOther.m_nThreshold;
+    m_nSize = aOther.m_nSize;
+    m_nMask = aOther.m_nMask;
   }
 
   @NonNull
@@ -423,5 +442,74 @@ public class IntObjectMap <T> implements IHasSize
           aConsumer.accept (nKey, aValue);
       }
     }
+  }
+
+  /**
+   * Check if the passed key is contained in this map. Note: this also returns <code>true</code>
+   * if the key is mapped to {@link #NO_VALUE}.
+   *
+   * @param key
+   *        The key to check.
+   * @return <code>true</code> if the key is contained, <code>false</code> if not.
+   * @since 12.5.4
+   */
+  public boolean containsKey (final int key)
+  {
+    if (key == FREE_KEY)
+      return m_bHasFreeKey;
+    return _getReadIndex (key) != -1;
+  }
+
+  /**
+   * Remove all entries from this map. The capacity of the map is not reduced.
+   *
+   * @since 12.5.4
+   */
+  public void clear ()
+  {
+    if (m_nSize > 0)
+    {
+      Arrays.fill (m_aKeys, FREE_KEY);
+      Arrays.fill (m_aValues, m_aNoValue);
+      m_bHasFreeKey = false;
+      m_aFreeValue = m_aNoValue;
+      m_nSize = 0;
+    }
+  }
+
+  /**
+   * Get all keys contained in this map. The order of the returned keys is undefined. In contrast
+   * to {@link #forEach(IConsumer)} this also contains keys that are mapped to {@link #NO_VALUE},
+   * so the length of the returned array is always identical to {@link #size()}.
+   *
+   * @return A new array with all keys of this map in no particular order. Never
+   *         <code>null</code> but maybe empty.
+   * @since 12.5.4
+   */
+  @ReturnsMutableCopy
+  public int @NonNull [] getAllKeys ()
+  {
+    final int [] ret = new int [m_nSize];
+    int nIndex = 0;
+    if (m_bHasFreeKey)
+      ret[nIndex++] = FREE_KEY;
+    for (final int nKey : m_aKeys)
+      if (nKey != FREE_KEY)
+        ret[nIndex++] = nKey;
+    return ret;
+  }
+
+  /**
+   * Create a copy of this map. The internal arrays are copied, but the values itself are not
+   * cloned.
+   *
+   * @return A new map with the same entries as this map. Never <code>null</code>.
+   * @since 12.5.4
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public IntObjectMap <T> getClone ()
+  {
+    return new IntObjectMap <> (this);
   }
 }

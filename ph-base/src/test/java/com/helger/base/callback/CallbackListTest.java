@@ -228,4 +228,58 @@ public final class CallbackListTest
       // expected
     }
   }
+
+  @Test
+  public void testSetSameCallback ()
+  {
+    final CallbackList <MockCallback> a = new CallbackList <> ();
+    final MockCallback aCB = new MockCallback ("cb");
+    // Empty before
+    assertSame (EChange.CHANGED, a.set (aCB));
+    // Only the same callback before
+    assertSame (EChange.UNCHANGED, a.set (aCB));
+    assertEquals (1, a.size ());
+
+    // Other callback before
+    final MockCallback aCB2 = new MockCallback ("cb2");
+    assertSame (EChange.CHANGED, a.set (aCB2));
+    assertSame (aCB2, a.getCallbackAtIndex (0));
+
+    // More than one callback before
+    a.add (aCB);
+    assertSame (EChange.CHANGED, a.set (aCB));
+    assertEquals (1, a.size ());
+  }
+
+  @Test
+  public void testSetSelf ()
+  {
+    final CallbackList <MockCallback> a = new CallbackList <> ();
+    a.add (new MockCallback ("1"));
+    a.add (new MockCallback ("2"));
+    assertSame (EChange.UNCHANGED, a.set (a));
+    assertEquals (2, a.size ());
+
+    final CallbackList <MockCallback> aCopy = new CallbackList <> (a);
+    assertEquals (2, aCopy.size ());
+  }
+
+  @Test
+  public void testIteratorIsDetached ()
+  {
+    final CallbackList <MockCallback> a = new CallbackList <> ();
+    a.add (new MockCallback ("1"));
+    a.add (new MockCallback ("2"));
+
+    final Iterator <MockCallback> it = a.iterator ();
+    // Modifying the list while iterating must not fail
+    a.add (new MockCallback ("3"));
+    int nCount = 0;
+    while (it.hasNext ())
+    {
+      assertNotNull (it.next ());
+      nCount++;
+    }
+    assertEquals (2, nCount);
+  }
 }

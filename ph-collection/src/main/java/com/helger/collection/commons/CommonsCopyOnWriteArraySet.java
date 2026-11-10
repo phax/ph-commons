@@ -16,6 +16,7 @@
  */
 package com.helger.collection.commons;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.function.Function;
@@ -61,7 +62,15 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
    */
   public CommonsCopyOnWriteArraySet (@Nullable final Iterable <? extends ELEMENTTYPE> aIterable)
   {
-    addAll (aIterable);
+    // Collect all elements first, so that the backing array is copied only once
+    if (aIterable instanceof final Collection <? extends ELEMENTTYPE> aColl)
+      addAll (aColl);
+    else
+      if (aIterable != null)
+      {
+        final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aIterable);
+        addAll (aTmp);
+      }
   }
 
   /**
@@ -77,7 +86,9 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
   public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final Iterable <? extends SRCTYPE> aValues,
                                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    addAllMapped (aValues, aMapper);
+    // Collect all elements first, so that the backing array is copied only once
+    final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aValues, aMapper);
+    addAll (aTmp);
   }
 
   /**
@@ -100,7 +111,9 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
   @SafeVarargs
   public CommonsCopyOnWriteArraySet (@Nullable final ELEMENTTYPE... aValues)
   {
-    addAll (aValues);
+    // Add all elements at once, so that the backing array is copied only once
+    if (aValues != null)
+      addAll (Arrays.asList (aValues));
   }
 
   /**
@@ -116,7 +129,9 @@ public class CommonsCopyOnWriteArraySet <ELEMENTTYPE> extends CopyOnWriteArraySe
   public <SRCTYPE> CommonsCopyOnWriteArraySet (@Nullable final SRCTYPE [] aValues,
                                                @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    addAllMapped (aValues, aMapper);
+    // Collect all elements first, so that the backing array is copied only once
+    final CommonsArrayList <ELEMENTTYPE> aTmp = new CommonsArrayList <> (aValues, aMapper);
+    addAll (aTmp);
   }
 
   @Override

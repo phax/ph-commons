@@ -108,4 +108,24 @@ public final class SystemPropertiesTest
     assertNotSame (aData1, aData2);
     assertArrayEquals (aData1, aData2);
   }
+
+  @Test
+  public void testSetPropertyValueChange ()
+  {
+    final String sKey = "helger.setpropertyvalue.test";
+    assertFalse (SystemProperties.containsPropertyName (sKey));
+    try
+    {
+      // Previously not set
+      assertTrue (SystemProperties.setPropertyValue (sKey, "a").isChanged ());
+      assertTrue (SystemProperties.setPropertyValue (sKey, "a").isUnchanged ());
+      assertTrue (SystemProperties.setPropertyValue (sKey, "b").isChanged ());
+      assertTrue (SystemProperties.setPropertyValue (sKey, null).isChanged ());
+      assertTrue (SystemProperties.setPropertyValue (sKey, null).isUnchanged ());
+    }
+    finally
+    {
+      SystemProperties.removePropertyValue (sKey);
+    }
+  }
 }

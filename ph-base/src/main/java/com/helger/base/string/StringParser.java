@@ -93,7 +93,7 @@ public final class StringParser
     if (aObject instanceof final Boolean aBoolean)
       return aBoolean.booleanValue ();
     if (aObject instanceof final String sStr)
-      return parseBool (sStr);
+      return parseBool (sStr, bDefault);
     return bDefault;
   }
 

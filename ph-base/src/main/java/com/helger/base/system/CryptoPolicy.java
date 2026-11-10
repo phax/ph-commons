@@ -18,7 +18,6 @@ package com.helger.base.system;
 
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.crypto.Cipher;
 import javax.crypto.ExemptionMechanism;
@@ -54,8 +53,6 @@ import com.helger.annotation.style.PresentForCodeCoverage;
 public final class CryptoPolicy
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (CryptoPolicy.class);
-  private static final AtomicBoolean PERFORMED_TEST = new AtomicBoolean (false);
-  private static boolean s_bUnlimitedStrength;
 
   @PresentForCodeCoverage
   private static final CryptoPolicy INSTANCE = new CryptoPolicy ();
@@ -112,6 +109,15 @@ public final class CryptoPolicy
   }
 
   /**
+   * Holder class so that the test is performed lazily, exactly once and thread-safe, based on the
+   * class initialisation guarantees of the JVM.
+   */
+  private static final class UnlimitedStrengthHolder
+  {
+    static final boolean UNLIMITED_STRENGTH = _isUnlimitedStrengthAvailable ();
+  }
+
+  /**
    * Check to see if unlimited strength crypto is available. There is an implicit assumption that
    * the JCE jurisdiction policy files are not going to be changing while this given JVM is running.
    *
@@ -120,12 +126,6 @@ public final class CryptoPolicy
    */
   public static boolean isUnlimitedStrengthCryptoAvailable ()
   {
-    if (!PERFORMED_TEST.getAndSet (true))
-    {
-      // Double initialisation in case of parallel access is just a minor
-      // performance penalty
-      s_bUnlimitedStrength = _isUnlimitedStrengthAvailable ();
-    }
-    return s_bUnlimitedStrength;
+    return UnlimitedStrengthHolder.UNLIMITED_STRENGTH;
   }
 }

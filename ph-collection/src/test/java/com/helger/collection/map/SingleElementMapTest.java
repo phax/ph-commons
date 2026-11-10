@@ -29,6 +29,8 @@ import java.util.Map;
 
 import org.junit.Test;
 
+import com.helger.base.state.EChange;
+import com.helger.collection.commons.MapEntry;
 import com.helger.collection.helper.CollectionHelperExt;
 
 /**
@@ -170,5 +172,74 @@ public final class SingleElementMapTest
     assertTrue (aMap.containsKey ("other"));
     assertTrue (aMap.containsValue (I5));
     assertTrue (aMap.entrySet ().iterator ().next ().getKey ().equals ("other"));
+  }
+
+  @Test
+  public void testViewsAreUnmodifiable ()
+  {
+    final SingleElementMap <String, Integer> aMap = new SingleElementMap <> ("any", I1);
+    try
+    {
+      aMap.keySet ().remove ("any");
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+    try
+    {
+      aMap.values ().clear ();
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+    try
+    {
+      aMap.entrySet ().add (new MapEntry <> ("other", I2));
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+    try
+    {
+      aMap.entrySet ().iterator ().remove ();
+      fail ();
+    }
+    catch (final UnsupportedOperationException ex)
+    {}
+    assertEquals (1, aMap.size ());
+  }
+
+  @Test
+  public void testRemoveIf ()
+  {
+    final SingleElementMap <String, Integer> aMap = new SingleElementMap <> ("any", I1);
+    assertEquals (EChange.UNCHANGED, aMap.removeIf (e -> "other".equals (e.getKey ())));
+    assertEquals (1, aMap.size ());
+    assertEquals (EChange.CHANGED, aMap.removeIf (e -> "any".equals (e.getKey ())));
+    assertTrue (aMap.isEmpty ());
+    assertEquals (EChange.UNCHANGED, aMap.removeIf (e -> true));
+
+    aMap.put ("any", I1);
+    assertEquals (EChange.UNCHANGED, aMap.removeIfKey ("other"::equals));
+    assertEquals (EChange.CHANGED, aMap.removeIfKey ("any"::equals));
+    assertTrue (aMap.isEmpty ());
+
+    aMap.put ("any", I1);
+    assertEquals (EChange.UNCHANGED, aMap.removeIfValue (I2::equals));
+    assertEquals (EChange.CHANGED, aMap.removeIfValue (I1::equals));
+    assertTrue (aMap.isEmpty ());
+  }
+
+  @Test
+  public void testReplaceAll ()
+  {
+    final SingleElementMap <String, Integer> aMap = new SingleElementMap <> ();
+    aMap.replaceAll ( (k, v) -> I3);
+    assertTrue (aMap.isEmpty ());
+
+    aMap.put ("any", I1);
+    aMap.replaceAll ( (k, v) -> Integer.valueOf (v.intValue () + 1));
+    assertEquals (I2, aMap.get ("any"));
+    assertEquals (1, aMap.size ());
   }
 }

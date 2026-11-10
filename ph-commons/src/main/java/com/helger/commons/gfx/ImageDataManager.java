@@ -162,10 +162,11 @@ public final class ImageDataManager
       return null;
 
     /*
-     * Use containsKey here instead of "get () != null" in case an image is queried over and over
-     * but is not existing. The implementation inserts null values for all elements that are invalid
+     * Invalid images are not stored in the main cache but in the separate set of non-existing
+     * resources, so "get () != null" is sufficient here. The write lock is needed, because the main
+     * cache is an access-ordered LRU map, and "get" modifies the access order.
      */
-    m_aRWLock.readLock ().lock ();
+    m_aRWLock.writeLock ().lock ();
     try
     {
       // Valid image data?
@@ -184,7 +185,7 @@ public final class ImageDataManager
     }
     finally
     {
-      m_aRWLock.readLock ().unlock ();
+      m_aRWLock.writeLock ().unlock ();
     }
     // Main read data outside of lock!
     final SizeInt aData = _readImageData (aRes);

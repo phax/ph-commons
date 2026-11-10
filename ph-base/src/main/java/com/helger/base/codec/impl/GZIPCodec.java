@@ -75,7 +75,7 @@ public class GZIPCodec implements IByteArrayCodec
     }
     catch (final IOException ex)
     {
-      throw new DecodeException ("Failed to GZIP encode", ex);
+      throw new DecodeException ("Failed to GZIP decode", ex);
     }
   }
 

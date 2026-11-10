@@ -197,4 +197,14 @@ public final class Base64Test
     // Invalid input (1-3 chars fail)
     assertNull (Base64.safeDecode ("xyz"));
   }
+
+  @Test
+  public void testSafeDecodeAsStringInvalid ()
+  {
+    // Invalid Base64 characters
+    assertNull (Base64.safeDecodeAsString ("abc!def", StandardCharsets.ISO_8859_1));
+    final byte [] aInvalid = "abc!def".getBytes (StandardCharsets.ISO_8859_1);
+    assertNull (Base64.safeDecodeAsString (aInvalid, StandardCharsets.ISO_8859_1));
+    assertNull (Base64.safeDecodeAsString (aInvalid, 0, aInvalid.length, StandardCharsets.ISO_8859_1));
+  }
 }

@@ -22,11 +22,13 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
 import com.helger.collection.base.EmptyIterator;
+import com.helger.collection.commons.CommonsArrayList;
 
 /**
  * Test class for class {@link CombinedIterator}.
@@ -146,5 +148,53 @@ public final class CombinedIteratorTest
     }
     catch (final NoSuchElementException ex)
     {}
+  }
+
+  @Test
+  public void testNextWithoutHasNext ()
+  {
+    final Iterator <String> es = CombinedIterator.create (IteratorHelper.getIterator ("a"),
+                                                          IteratorHelper.getIterator ("b", "c"));
+    assertEquals ("a", es.next ());
+    assertEquals ("b", es.next ());
+    assertEquals ("c", es.next ());
+    try
+    {
+      es.next ();
+      fail ();
+    }
+    catch (final NoSuchElementException ex)
+    {}
+  }
+
+  @Test
+  public void testRemove ()
+  {
+    final List <String> aList1 = new CommonsArrayList <> ("a", "b");
+    final List <String> aList2 = new CommonsArrayList <> ("c", "d");
+    final Iterator <String> es = new CombinedIterator <> (aList1.iterator (), aList2.iterator ());
+    try
+    {
+      // next was not yet called
+      es.remove ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {}
+
+    assertEquals ("a", es.next ());
+    assertEquals ("b", es.next ());
+    // Switches to the second iterator
+    assertTrue (es.hasNext ());
+    // Must remove "b" from the first list
+    es.remove ();
+    assertEquals (new CommonsArrayList <> ("a"), aList1);
+    assertEquals (new CommonsArrayList <> ("c", "d"), aList2);
+
+    assertEquals ("c", es.next ());
+    es.remove ();
+    assertEquals (new CommonsArrayList <> ("d"), aList2);
+    assertEquals ("d", es.next ());
+    assertFalse (es.hasNext ());
   }
 }

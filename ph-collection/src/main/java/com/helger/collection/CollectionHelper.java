@@ -40,6 +40,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.clone.CloneHelper;
 import com.helger.base.clone.ICloneable;
+import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.lang.clazz.ClassHelper;
 import com.helger.base.state.EChange;
 import com.helger.collection.commons.CommonsArrayList;
@@ -292,6 +293,28 @@ public class CollectionHelper
   }
 
   /**
+   * Get the initial capacity to pass to a hash based collection (like {@link java.util.HashMap},
+   * {@link java.util.HashSet} or {@link java.util.WeakHashMap}) with the default load factor of
+   * 0.75, so that the passed number of elements can be added without rehashing. The JDK
+   * constructors interpret their argument as the table capacity and not as the number of
+   * elements, so passing the plain element count causes one rehash once 75% of the elements were
+   * added.
+   *
+   * @param nExpectedSize
+   *        The expected number of elements. Must be &ge; 0.
+   * @return The initial capacity to use. Always &gt; 0.
+   * @since 12.5.4
+   */
+  @Nonnegative
+  public static int getHashCapacity (@Nonnegative final int nExpectedSize)
+  {
+    ValueEnforcer.isGE0 (nExpectedSize, "ExpectedSize");
+    // Calculate in long to avoid an int overflow for very large sizes
+    final long nCapacity = (long) (nExpectedSize / 0.75d) + 1;
+    return nCapacity >= Integer.MAX_VALUE ? Integer.MAX_VALUE : (int) nCapacity;
+  }
+
+  /**
    * Count the number of elements in the passed iterable (collection) matching the provided filter.
    *
    * @param aCollection
@@ -311,7 +334,7 @@ public class CollectionHelper
       return getSize (aCollection);
 
     int ret = 0;
-    if (isNotEmpty (aCollection))
+    if (aCollection != null)
       for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           ret++;
@@ -420,7 +443,7 @@ public class CollectionHelper
                                                       @Nonnegative final int nIndex,
                                                       @Nullable final ELEMENTTYPE aDefault)
   {
-    if (nIndex >= 0)
+    if (aCollection != null && nIndex >= 0)
     {
       int nCurIndex = 0;
       for (final ELEMENTTYPE aElement : aCollection)
@@ -480,7 +503,7 @@ public class CollectionHelper
     if (aFilter == null)
       return getAtIndex (aCollection, nIndex, aDefault);
 
-    if (nIndex >= 0)
+    if (aCollection != null && nIndex >= 0)
     {
       int nCurIndex = 0;
       for (final ELEMENTTYPE aElement : aCollection)
@@ -542,7 +565,7 @@ public class CollectionHelper
                                                              @NonNull final Function <? super SRCTYPE, ? extends DSTTYPE> aMapper,
                                                              @Nullable final DSTTYPE aDefault)
   {
-    if (nIndex >= 0)
+    if (aCollection != null && nIndex >= 0)
     {
       int nCurIndex = 0;
       for (final SRCTYPE aElement : aCollection)
@@ -612,7 +635,7 @@ public class CollectionHelper
     if (aFilter == null)
       return getAtIndexMapped (aCollection, nIndex, aMapper, aDefault);
 
-    if (nIndex >= 0)
+    if (aCollection != null && nIndex >= 0)
     {
       int nCurIndex = 0;
       for (final SRCTYPE aElement : aCollection)

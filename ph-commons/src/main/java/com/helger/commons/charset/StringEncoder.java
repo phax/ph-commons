@@ -260,11 +260,13 @@ public final class StringEncoder
       return ret;
     }
 
-    // Worst case: assume max bytes per remaining character.
-    final int charsRemaining = sSource.length () - _getCharsConverted ();
-    final ByteBuffer aRestBuffer = ByteBuffer.allocate (charsRemaining * UTF8_MAX_BYTES_PER_CHAR);
+    // Worst case: assume max bytes per remaining character of the used charset.
+    final int nCharsRemaining = sSource.length () - _getCharsConverted ();
+    final int nMaxBytesPerChar = (int) Math.ceil (m_aEncoder.maxBytesPerChar ());
+    final ByteBuffer aRestBuffer = ByteBuffer.allocate (nCharsRemaining * nMaxBytesPerChar + BUFFER_EXTRA_BYTES);
     final EContinue eDone = encode (sSource, aRestBuffer);
-    assert eDone.isBreak ();
+    if (eDone.isContinue ())
+      throw new IllegalStateException ("The rest buffer is too small");
 
     // Combine everything and return it
     final byte [] ret = new byte [m_aArrayBuffer.position () + aRestBuffer.position ()];

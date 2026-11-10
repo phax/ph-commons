@@ -116,9 +116,10 @@ public class DCTCodec implements IByteArrayDecoder
     final byte [] ret = new byte [aPixels.length * 3];
     for (int i = 0; i < aPixels.length; ++i)
     {
-      ret[i * 3] = (byte) ((aPixels[i] >> 24) & 0xff);
-      ret[i * 3 + 1] = (byte) ((aPixels[i] >> 16) & 0xff);
-      ret[i * 3 + 2] = (byte) ((aPixels[i] >> 8) & 0xff);
+      // Pixels are in the default ARGB colour model - extract R, G and B
+      ret[i * 3] = (byte) ((aPixels[i] >> 16) & 0xff);
+      ret[i * 3 + 1] = (byte) ((aPixels[i] >> 8) & 0xff);
+      ret[i * 3 + 2] = (byte) (aPixels[i] & 0xff);
     }
 
     return ret;

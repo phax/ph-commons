@@ -76,7 +76,7 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   public CallbackList (@Nullable final CallbackList <CALLBACKTYPE> aOther)
   {
     if (aOther != null)
-      m_aCallbacks.addAll (aOther.m_aCallbacks);
+      m_aCallbacks.addAll (aOther.getAllCallbacks ());
   }
 
   /**
@@ -92,11 +92,17 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   {
     ValueEnforcer.notNull (rhs, "rhs");
 
+    // Setting to itself changes nothing
+    if (rhs == this)
+      return EChange.UNCHANGED;
+
+    // Read outside of the own lock
+    final List <CALLBACKTYPE> aOtherCallbacks = rhs.getAllCallbacks ();
     return m_aRWLock.writeLockedGet (() -> {
       // If something was present or something is to be set -> change
-      final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty () || rhs.isNotEmpty ());
+      final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty () || !aOtherCallbacks.isEmpty ());
       m_aCallbacks.clear ();
-      m_aCallbacks.addAll (rhs.m_aCallbacks);
+      m_aCallbacks.addAll (aOtherCallbacks);
       return ret;
     });
   }
@@ -114,7 +120,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
     ValueEnforcer.notNull (aCallback, "Callback");
 
     return m_aRWLock.writeLockedGet (() -> {
-      final EChange ret = EChange.valueOf (!m_aCallbacks.isEmpty ());
+      // Unchanged only if exactly this callback was already the only one
+      final EChange ret = EChange.valueOf (m_aCallbacks.size () != 1 || !m_aCallbacks.contains (aCallback));
       m_aCallbacks.clear ();
       m_aCallbacks.add (aCallback);
       return ret;
@@ -273,7 +280,8 @@ public class CallbackList <CALLBACKTYPE extends ICallback> implements
   @NonNull
   public Iterator <CALLBACKTYPE> iterator ()
   {
-    return m_aRWLock.readLockedGet (m_aCallbacks::iterator);
+    // Iterate over a copy
+    return getAllCallbacks ().iterator ();
   }
 
   @Override

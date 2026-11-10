@@ -352,7 +352,9 @@ public final class EnumHelper
     {
       if (nID < 0 || nID >= aCachedData.length)
         return eDefault;
-      return GenericReflection.uncheckedCast (aCachedData[nID]);
+      // The ID may be unused within the cached range
+      final ENUMTYPE eRet = GenericReflection.uncheckedCast (aCachedData[nID]);
+      return eRet != null ? eRet : eDefault;
     }
 
     // Object is not cachable - traverse as usual

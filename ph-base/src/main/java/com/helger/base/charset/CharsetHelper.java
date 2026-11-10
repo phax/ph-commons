@@ -246,8 +246,11 @@ public final class CharsetHelper
     if (c <= 0xd7ff)
       return 3;
 
-    // It's a surrogate...
-    return 0;
+    // It's a surrogate - a surrogate pair takes 4 bytes in UTF-8, so each half counts 2
+    if (c <= 0xdfff)
+      return 2;
+
+    return 3;
   }
 
   /**
@@ -371,7 +374,8 @@ public final class CharsetHelper
     {
       // Try to read as many bytes as necessary to determine all supported BOMs
       final byte [] aBOM = new byte [nMaxBOMBytes];
-      final int nReadBOMBytes = aPIS.read (aBOM);
+      // Read in a loop, because a single read may return fewer bytes than available
+      final int nReadBOMBytes = aPIS.readNBytes (aBOM, 0, nMaxBOMBytes);
       EUnicodeBOM eBOM = null;
       Charset aDeterminedCharset = null;
       if (nReadBOMBytes > 0)

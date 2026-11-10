@@ -629,4 +629,17 @@ public final class StringParserTest
     assertNull (StringParser.parseUnsignedIntObj ("100000000", 16, null));
     assertNull (StringParser.parseUnsignedIntObj ("-1"));
   }
+
+  @Test
+  public void testParseBoolObjectWithDefault ()
+  {
+    assertTrue (StringParser.parseBool ((Object) "true", false));
+    assertFalse (StringParser.parseBool ((Object) "false", true));
+    // Not interpretable -> default
+    assertTrue (StringParser.parseBool ((Object) "anything", true));
+    assertFalse (StringParser.parseBool ((Object) "anything", false));
+    assertTrue (StringParser.parseBool ((Object) "", true));
+    assertTrue (StringParser.parseBool (Integer.valueOf (1), true));
+    assertTrue (StringParser.parseBool ((Object) null, true));
+  }
 }

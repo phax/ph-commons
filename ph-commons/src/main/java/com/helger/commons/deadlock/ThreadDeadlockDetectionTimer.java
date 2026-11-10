@@ -43,7 +43,15 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
     @Override
     public void run ()
     {
-      ThreadDeadlockDetectionTimer.this.findDeadlockedThreads ();
+      try
+      {
+        ThreadDeadlockDetectionTimer.this.findDeadlockedThreads ();
+      }
+      catch (final RuntimeException ex)
+      {
+        // Catch, so that the timer thread is not terminated
+        LOGGER.error ("Error checking for deadlocked threads", ex);
+      }
     }
   }
 
@@ -89,6 +97,8 @@ public class ThreadDeadlockDetectionTimer extends ThreadDeadlockDetector impleme
   {
     if (!m_aTimerTask.cancel ())
       return EChange.UNCHANGED;
+    // Terminate the timer thread as well
+    m_aThreadCheck.cancel ();
     LOGGER.info ("Deadlock detector stopped!");
     return EChange.CHANGED;
   }

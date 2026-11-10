@@ -174,10 +174,10 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   {
     m_aWrappedFactory = null;
     m_aThreadGroup = null;
-    m_aUncaughtExceptionHandler = null;
+    m_aUncaughtExceptionHandler = BasicThreadFactory.getDefaultUncaughtExceptionHandler ();
     m_sNamingPattern = null;
     m_nPriority = null;
-    m_eDaemon = null;
+    m_eDaemon = ETriState.UNDEFINED;
   }
 
   /**

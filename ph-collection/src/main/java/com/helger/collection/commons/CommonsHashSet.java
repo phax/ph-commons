@@ -77,7 +77,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
    */
   public CommonsHashSet (@Nullable final Collection <? extends ELEMENTTYPE> aCont)
   {
-    super (CollectionHelper.getSize (aCont));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aCont)));
     if (aCont != null)
       addAll (aCont);
   }
@@ -119,7 +119,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   public <SRCTYPE> CommonsHashSet (@Nullable final Collection <? extends SRCTYPE> aValues,
                                    @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    super (CollectionHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aValues)));
     addAllMapped (aValues, aMapper);
   }
 
@@ -150,7 +150,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
    */
   public CommonsHashSet (@Nullable final ELEMENTTYPE aValue)
   {
-    super (1);
+    super (CollectionHelper.getHashCapacity (1));
     add (aValue);
   }
 
@@ -163,7 +163,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   @SafeVarargs
   public CommonsHashSet (@Nullable final ELEMENTTYPE... aValues)
   {
-    super (ArrayHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     addAll (aValues);
   }
 
@@ -181,7 +181,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   public <SRCTYPE> CommonsHashSet (@Nullable final SRCTYPE [] aValues,
                                    @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    super (ArrayHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     addAllMapped (aValues, aMapper);
   }
 
@@ -258,7 +258,9 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
                                                                                     @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsHashSet <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsHashSet <> (CollectionHelper.getHashCapacity (aColl.size ()))
+                                                                                           : new CommonsHashSet <> ();
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
@@ -291,7 +293,9 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
                                                                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (CollectionHelper.getSize (aValues));
+    // Presize only if the size is cheaply available
+    final CommonsHashSet <ELEMENTTYPE> ret = aValues instanceof final Collection <?> aColl ? new CommonsHashSet <> (CollectionHelper.getHashCapacity (aColl.size ()))
+                                                                                           : new CommonsHashSet <> ();
     ret.addAllMapped (aValues, aMapper, aFilter);
     return ret;
   }
@@ -316,7 +320,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
   public static <ELEMENTTYPE> CommonsHashSet <ELEMENTTYPE> createFiltered (@Nullable final ELEMENTTYPE [] aValues,
                                                                            @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAll (aValues, aFilter);
     return ret;
   }
@@ -348,7 +352,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
                                                                                     @Nullable final Predicate <? super SRCTYPE> aFilter,
                                                                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAllMapped (aValues, aFilter, aMapper);
     return ret;
   }
@@ -381,7 +385,7 @@ public class CommonsHashSet <ELEMENTTYPE> extends HashSet <ELEMENTTYPE> implemen
                                                                                     @NonNull final Function <? super SRCTYPE, ? extends ELEMENTTYPE> aMapper,
                                                                                     @Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
-    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (ArrayHelper.getSize (aValues));
+    final CommonsHashSet <ELEMENTTYPE> ret = new CommonsHashSet <> (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     ret.addAllMapped (aValues, aMapper, aFilter);
     return ret;
   }

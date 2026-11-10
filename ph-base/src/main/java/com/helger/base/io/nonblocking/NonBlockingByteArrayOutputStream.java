@@ -166,7 +166,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
       if (m_nCount == m_aBuf.length)
       {
         // reallocate
-        m_aBuf = _enlarge (m_aBuf, m_aBuf.length << 1);
+        m_aBuf = _enlarge (m_aBuf, Math.max (m_aBuf.length << 1, m_nCount + 1));
       }
 
       final int nBytesRead = aIS.read (m_aBuf, m_nCount, m_aBuf.length - m_nCount);
@@ -340,7 +340,7 @@ public class NonBlockingByteArrayOutputStream extends OutputStream implements IH
                              @NonNull final Charset aCharset)
   {
     ValueEnforcer.isGE0 (nOfs, "Index");
-    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount);
+    ValueEnforcer.isBetweenInclusive (nLength, "Length", 0, m_nCount - nOfs);
     return new String (m_aBuf, nOfs, nLength, aCharset);
   }
 

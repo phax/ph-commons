@@ -103,4 +103,19 @@ public final class DCTCodecTest
       // expected
     }
   }
+
+  @Test
+  public void testDecodedColours () throws IOException
+  {
+    // PNG is lossless, so the exact colour must be retrieved
+    final byte [] aEncoded = _createImage ("png");
+    final byte [] aDecoded = new DCTCodec ().getDecoded (aEncoded);
+    assertNotNull (aDecoded);
+    for (int i = 0; i < WIDTH * HEIGHT; ++i)
+    {
+      assertEquals (0x12, aDecoded[i * 3] & 0xff);
+      assertEquals (0x34, aDecoded[i * 3 + 1] & 0xff);
+      assertEquals (0x56, aDecoded[i * 3 + 2] & 0xff);
+    }
+  }
 }

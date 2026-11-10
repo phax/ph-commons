@@ -51,7 +51,7 @@ public final class PagingHelper
    *        The list to take the page from. May not be <code>null</code>.
    * @param bCopyList
    *        <code>true</code> if the operation should work on copy of the list, <code>false</code>
-   *        if the original list can be used.
+   *        if the original list can be used. If a comparator is provided, a copy is always used.
    * @param aPagingSpec
    *        The paging specification to be applied. May not be <code>null</code>.
    * @param aComparator
@@ -75,8 +75,8 @@ public final class PagingHelper
     if (aPagingSpec.isEmptyPage () || nStartIndex >= aList.size ())
       return new CommonsArrayList <> ();
 
-    // Always work on a copy, so that the source collection is not modified
-    final List <? extends T> aSorted = bCopyList ? new CommonsArrayList <> (aList) : aList;
+    // Always work on a copy when sorting, so that the source collection is not modified
+    final List <? extends T> aSorted = bCopyList || aComparator != null ? new CommonsArrayList <> (aList) : aList;
     if (aComparator != null)
       aSorted.sort (aComparator);
 

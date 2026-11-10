@@ -23,6 +23,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicReference;
@@ -137,16 +138,17 @@ public final class SoftMapConcurrencyTest
   }
 
   /**
-   * Documents that the entrySet() iterator can return entries whose value is <code>null</code>
-   * (garbage collected but not yet processed). Callers iterating the map and dereferencing the
-   * value (like AbstractMapBasedCache.evictExpired() does with
-   * <code>aMapEntry.getValue ().isExpiredAt (aNow)</code>) will throw a NullPointerException.
+   * Tests that the entrySet() iterator removes entries whose value was garbage collected but not
+   * yet processed, so that callers dereferencing the value (like AbstractMapBasedCache.evictExpired()
+   * does with <code>aMapEntry.getValue ().isExpiredAt (aNow)</code>) never see a <code>null</code>
+   * value.
    */
   @Test
-  public void testIteratorMayReturnNullValues ()
+  public void testIteratorRemovesCollectedValues ()
   {
     final SoftHashMap <Integer, String> aMap = new SoftHashMap <> ();
     aMap.put (Integer.valueOf (1), "value1");
+    aMap.put (Integer.valueOf (2), "value2");
 
     // Pretend the GC cleared the value but the queue was not yet processed
     _simulateGC (aMap, Integer.valueOf (1), false);
@@ -154,12 +156,101 @@ public final class SoftMapConcurrencyTest
     int nCount = 0;
     for (final Map.Entry <Integer, String> aEntry : aMap.entrySet ())
     {
-      assertEquals (Integer.valueOf (1), aEntry.getKey ());
-      // The value is null - every consumer must be prepared for that
-      assertNull (aEntry.getValue ());
+      assertEquals (Integer.valueOf (2), aEntry.getKey ());
+      assertEquals ("value2", aEntry.getValue ());
       nCount++;
     }
     assertEquals (1, nCount);
+    // The stale entry was removed from the underlying map
+    assertEquals (1, aMap.m_aSrcMap.size ());
+  }
+
+  /**
+   * Tests that the entrySet() iterator works on a snapshot (no ConcurrentModificationException) and
+   * that remove() removes the last returned entry from the map.
+   */
+  @Test
+  public void testIteratorRemove ()
+  {
+    final SoftHashMap <Integer, String> aMap = new SoftHashMap <> ();
+    aMap.put (Integer.valueOf (1), "value1");
+    aMap.put (Integer.valueOf (2), "value2");
+
+    final Iterator <Map.Entry <Integer, String>> it = aMap.entrySet ().iterator ();
+    try
+    {
+      // next was not yet called
+      it.remove ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+
+    while (it.hasNext ())
+    {
+      final Map.Entry <Integer, String> aEntry = it.next ();
+      // Modification while iterating must not throw a ConcurrentModificationException
+      aMap.put (Integer.valueOf (3), "value3");
+      if (aEntry.getKey ().intValue () == 1)
+        it.remove ();
+    }
+    assertNull (aMap.get (Integer.valueOf (1)));
+    assertEquals ("value2", aMap.get (Integer.valueOf (2)));
+    assertEquals ("value3", aMap.get (Integer.valueOf (3)));
+    assertEquals (2, aMap.size ());
+
+    // An entry whose value was replaced after the iterator was created is not removed
+    final Iterator <Map.Entry <Integer, String>> it2 = aMap.entrySet ().iterator ();
+    final Map.Entry <Integer, String> aEntry = it2.next ();
+    aMap.put (aEntry.getKey (), "new");
+    it2.remove ();
+    assertEquals ("new", aMap.get (aEntry.getKey ()));
+  }
+
+  /**
+   * Tests that getClone() works with the snapshot iterator and drops garbage collected entries.
+   */
+  @Test (timeout = 10_000)
+  public void testGetClone ()
+  {
+    final SoftHashMap <Integer, String> aMap = new SoftHashMap <> ();
+    aMap.put (Integer.valueOf (1), "value1");
+    aMap.put (Integer.valueOf (2), "value2");
+    _simulateGC (aMap, Integer.valueOf (1), false);
+    final SoftHashMap <Integer, String> aClone = aMap.getClone ();
+    assertEquals (1, aClone.size ());
+    assertEquals ("value2", aClone.get (Integer.valueOf (2)));
+
+    final SoftLinkedHashMap <Integer, String> aMap2 = new SoftLinkedHashMap <> (10);
+    aMap2.put (Integer.valueOf (1), "value1");
+    final SoftLinkedHashMap <Integer, String> aClone2 = aMap2.getClone ();
+    assertEquals ("value1", aClone2.get (Integer.valueOf (1)));
+  }
+
+  /**
+   * Regression test: processing the reference queue must not remove a key whose collected value
+   * was already replaced by a new, live value.
+   */
+  @Test
+  public void testProcessQueueKeepsReplacedValue ()
+  {
+    final SoftHashMap <Integer, String> aMap = new SoftHashMap <> ();
+    aMap.put (Integer.valueOf (1), "value1");
+    final AbstractSoftMap.SoftValue <Integer, String> aOldSoftValue = aMap.m_aSrcMap.get (Integer.valueOf (1));
+
+    // Replace the value
+    final String sNewValue = "value1new";
+    aMap.put (Integer.valueOf (1), sNewValue);
+
+    // Now the GC collects and enqueues the old value
+    aOldSoftValue.clear ();
+    aOldSoftValue.enqueue ();
+
+    // size() drains the queue - the new value must survive
+    assertEquals (1, aMap.size ());
+    assertEquals (sNewValue, aMap.get (Integer.valueOf (1)));
   }
 
   /**

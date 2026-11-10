@@ -95,6 +95,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aIntIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory int ID factory " + aFactory);
       s_aIntIDFactory = aFactory;
@@ -133,6 +134,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aPersistentIntIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent int ID factory " + aFactory);
       s_aPersistentIntIDFactory = aFactory;
@@ -172,6 +174,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aLongIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory long ID factory " + aFactory);
       s_aLongIDFactory = aFactory;
@@ -210,6 +213,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aPersistentLongIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent long ID factory " + aFactory);
       s_aPersistentLongIDFactory = aFactory;
@@ -249,6 +253,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aStringIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting in-memory string ID factory " + aFactory);
       s_aStringIDFactory = aFactory;
@@ -288,6 +293,7 @@ public final class GlobalIDFactory
       final Object aObj1 = s_aPersistentStringIDFactory;
       if (EqualsHelper.equals (aObj1, aFactory))
         return EChange.UNCHANGED;
+
       if (LOGGER.isDebugEnabled ())
         LOGGER.debug ("Setting persistent string ID factory " + aFactory);
       s_aPersistentStringIDFactory = aFactory;

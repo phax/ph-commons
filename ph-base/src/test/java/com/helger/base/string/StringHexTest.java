@@ -18,9 +18,12 @@ package com.helger.base.string;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
@@ -371,4 +374,141 @@ public final class StringHexTest
     assertEquals ("00ff", StringHex.getHexStringLeadingZero ((short) 255, 4));
   }
 
+  @Test
+  public void testGetHexCharTable ()
+  {
+    for (int i = -100; i < 100; ++i)
+    {
+      assertEquals (Character.forDigit (i, 16), StringHex.getHexChar (i));
+      assertEquals (Character.toUpperCase (Character.forDigit (i, 16)), StringHex.getHexCharUpperCase (i));
+    }
+    assertEquals ('\0', StringHex.getHexChar (Integer.MIN_VALUE));
+    assertEquals ('\0', StringHex.getHexChar (Integer.MAX_VALUE));
+    assertEquals ('\0', StringHex.getHexCharUpperCase (16));
+  }
+
+  @Test
+  public void testGetHexValueAsciiOnly ()
+  {
+    for (char c = 0; c < 128; ++c)
+      assertEquals (Character.digit (c, 16), StringHex.getHexValue (c));
+    // Fullwidth digits and letters are no hex chars
+    assertEquals (-1, StringHex.getHexValue ('\uFF10'));
+    assertEquals (-1, StringHex.getHexValue ('\uFF21'));
+    assertEquals (-1, StringHex.getHexValue ('\uFF41'));
+    // Arabic-indic digit zero
+    assertEquals (-1, StringHex.getHexValue ('\u0660'));
+    assertEquals (-1, StringHex.getHexValue ('\uFFFF'));
+  }
+
+  @Test
+  public void testGetHexEncodedUpperCase ()
+  {
+    assertEquals ("", StringHex.getHexEncodedUpperCase (new byte [0]));
+    assertEquals ("00010AFF", StringHex.getHexEncodedUpperCase (new byte [] { 0, 1, 10, (byte) 255 }));
+    assertEquals ("0A", StringHex.getHexEncodedUpperCase (new byte [] { 1, 10 }, 1, 1));
+    final byte [] aBytes = new byte [256];
+    for (int i = 0; i < 256; ++i)
+      aBytes[i] = (byte) i;
+    assertEquals (StringHex.getHexEncoded (aBytes).toUpperCase (Locale.ROOT),
+                  StringHex.getHexEncodedUpperCase (aBytes));
+    try
+    {
+      StringHex.getHexEncodedUpperCase (new byte [] { 1, 10 }, 1, 2);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {}
+  }
+
+  @Test
+  public void testGetHexDecodedOrNull ()
+  {
+    assertNull (StringHex.getHexDecodedOrNull (null));
+    assertArrayEquals (new byte [0], StringHex.getHexDecodedOrNull (""));
+    assertArrayEquals (new byte [] { 0, 1, 10, (byte) 255 }, StringHex.getHexDecodedOrNull ("00010aFF"));
+    assertArrayEquals (new byte [] { (byte) 0xab }, StringHex.getHexDecodedOrNull (new StringBuilder ("Ab")));
+    // Odd length
+    assertNull (StringHex.getHexDecodedOrNull ("abc"));
+    // Invalid chars
+    assertNull (StringHex.getHexDecodedOrNull ("0g"));
+    assertNull (StringHex.getHexDecodedOrNull ("g0"));
+    assertNull (StringHex.getHexDecodedOrNull ("\uFF10\uFF10"));
+
+    final byte [] aBytes = new byte [256];
+    for (int i = 0; i < 256; ++i)
+      aBytes[i] = (byte) i;
+    assertArrayEquals (aBytes, StringHex.getHexDecodedOrNull (StringHex.getHexEncoded (aBytes)));
+    assertArrayEquals (aBytes, StringHex.getHexDecodedOrNull (StringHex.getHexEncodedUpperCase (aBytes)));
+  }
+
+  @Test
+  public void testGetHexDecodedErrorMessage ()
+  {
+    try
+    {
+      StringHex.getHexDecoded (new byte [] { '0', 'x' });
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      assertEquals ("Failed to convert '0' and 'x' to a hex value!", ex.getMessage ());
+    }
+    try
+    {
+      StringHex.getHexDecoded (new char [] { 'z', '1' });
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      assertEquals ("Failed to convert 'z' and '1' to a hex value!", ex.getMessage ());
+    }
+  }
+
+  @Test
+  public void testHexStringLeadingZeroMinValue ()
+  {
+    assertEquals ("-80000000", StringHex.getHexStringLeadingZero (Integer.MIN_VALUE, 2));
+    assertEquals ("-080000000", StringHex.getHexStringLeadingZero (Integer.MIN_VALUE, 10));
+    assertEquals ("-7fffffff", StringHex.getHexStringLeadingZero (Integer.MIN_VALUE + 1, 2));
+    assertEquals ("-8000000000000000", StringHex.getHexStringLeadingZero (Long.MIN_VALUE, 2));
+    assertEquals ("-7fffffffffffffff", StringHex.getHexStringLeadingZero (Long.MIN_VALUE + 1, 2));
+  }
+
+  @Test
+  public void testAppendHexStringLeadingZero ()
+  {
+    final int [] aValues = { 0,
+                             1,
+                             9,
+                             10,
+                             15,
+                             16,
+                             255,
+                             256,
+                             0xffff,
+                             0x10000,
+                             0x10ffff,
+                             Integer.MAX_VALUE,
+                             -1,
+                             -15,
+                             -16,
+                             -255,
+                             Integer.MIN_VALUE + 1,
+                             Integer.MIN_VALUE };
+    for (final int nValue : aValues)
+      for (int nDigits = -1; nDigits <= 12; ++nDigits)
+      {
+        final String sExpected = StringHex.getHexStringLeadingZero (nValue, nDigits);
+        assertEquals (sExpected,
+                      StringHex.appendHexStringLeadingZero (new StringBuilder (), nValue, nDigits, false).toString ());
+        assertEquals (sExpected.toUpperCase (Locale.ROOT),
+                      StringHex.appendHexStringLeadingZero (new StringBuilder (), nValue, nDigits, true).toString ());
+      }
+
+    // Appends to existing content
+    final StringBuilder aSB = new StringBuilder ("&#x");
+    assertSame (aSB, StringHex.appendHexStringLeadingZero (aSB, 0xe9, 4, true));
+    assertEquals ("&#x00E9", aSB.toString ());
+  }
 }

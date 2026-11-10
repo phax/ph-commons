@@ -22,6 +22,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import org.junit.Test;
 
@@ -148,5 +150,20 @@ public final class CommonsArrayListTest
     {
       assertEquals ("a", ex.getMessage ());
     }
+  }
+
+  @Test
+  public void testCreateFilteredPlainIterable ()
+  {
+    // An Iterable that is not a Collection
+    final Iterable <String> aIterable = () -> new CommonsArrayList <> ("a", "bb", "c").iterator ();
+    final Predicate <String> aLen1 = x -> x.length () == 1;
+    final Predicate <String> aLenGT1 = x -> x.length () > 1;
+    final Function <String, String> aLenMapper = x -> Integer.toString (x.length ());
+    final Predicate <String> aIs1 = x -> x.equals ("1");
+    assertEquals (new CommonsArrayList <> ("a", "c"), CommonsArrayList.createFiltered (aIterable, aLen1));
+    assertEquals (new CommonsArrayList <> ("2"), CommonsArrayList.createFiltered (aIterable, aLenGT1, aLenMapper));
+    assertEquals (new CommonsArrayList <> ("1", "1"), CommonsArrayList.createFiltered (aIterable, aLenMapper, aIs1));
+    assertEquals (0, CommonsArrayList.createFiltered ((Iterable <String>) null, x -> true).size ());
   }
 }

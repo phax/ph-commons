@@ -79,7 +79,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
    */
   public CommonsLinkedHashMap (@Nullable final Map <? extends KEYTYPE, ? extends VALUETYPE> aMap)
   {
-    super (CollectionHelper.getSize (aMap));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aMap)));
     if (aMap != null)
       putAll (aMap);
   }
@@ -118,7 +118,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
                                           @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                           @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
-    super (ArrayHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (ArrayHelper.getSize (aValues)));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
@@ -138,7 +138,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
                                           @NonNull final Function <? super COLLTYPE, ? extends KEYTYPE> aKeyMapper,
                                           @NonNull final Function <? super COLLTYPE, ? extends VALUETYPE> aValueMapper)
   {
-    super (CollectionHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aValues)));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 
@@ -160,7 +160,7 @@ public class CommonsLinkedHashMap <KEYTYPE, VALUETYPE> extends LinkedHashMap <KE
                                                           @NonNull final Function <? super SRCKEYTYPE, ? extends KEYTYPE> aKeyMapper,
                                                           @NonNull final Function <? super SRCVALUETYPE, ? extends VALUETYPE> aValueMapper)
   {
-    super (CollectionHelper.getSize (aValues));
+    super (CollectionHelper.getHashCapacity (CollectionHelper.getSize (aValues)));
     putAllMapped (aValues, aKeyMapper, aValueMapper);
   }
 

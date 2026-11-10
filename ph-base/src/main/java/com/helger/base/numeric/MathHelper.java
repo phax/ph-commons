@@ -428,9 +428,9 @@ public final class MathHelper
   public static double hypot (final double a, final double b)
   {
     if (a == 0)
-      return b;
+      return abs (b);
     if (b == 0)
-      return a;
+      return abs (a);
 
     double r;
     final double dAbsA = abs (a);

@@ -21,11 +21,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.OutputStream;
+import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
 import org.junit.Test;
+
+import com.helger.base.CGlobal;
+import com.helger.base.array.ArrayHelper;
+import com.helger.base.codec.impl.LZWCodec.AbstractLZWDictionary;
+import com.helger.base.codec.impl.LZWCodec.LZWEncodeDictionary;
+import com.helger.base.codec.impl.LZWCodec.LZWNode;
+import com.helger.base.io.nonblocking.NonBlockingBitOutputStream;
+import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
+import com.helger.base.io.stream.StreamHelper;
+import com.helger.base.string.StringHex;
 
 /**
  * Test class for class {@link LZWCodec}.
@@ -4387,5 +4402,138 @@ public final class LZWCodecTest
       assertNotNull (sDecoded);
       assertEquals (sRandom, sDecoded);
     }
+  }
+
+  /**
+   * The LZW encoder as implemented up to and including v12.5.3. It is used as the reference to
+   * ensure the optimised encoder creates byte-identical output.
+   */
+  private static void _encodeReference (final byte [] aBuffer,
+                                        final int nOfs,
+                                        final int nLen,
+                                        final OutputStream aOS) throws Exception
+  {
+    final NonBlockingBitOutputStream aBOS = new NonBlockingBitOutputStream (aOS, ByteOrder.LITTLE_ENDIAN);
+    final LZWEncodeDictionary aDict = new LZWEncodeDictionary ();
+    aDict.reset ();
+    try
+    {
+      aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, aDict.getCodeLength ());
+      byte [] aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+      for (int nIndex = 0; nIndex < nLen; ++nIndex)
+      {
+        final byte nByteToEncode = aBuffer[nOfs + nIndex];
+        aByteSeq = ArrayHelper.getConcatenated (aByteSeq, nByteToEncode);
+        aDict.visit (nByteToEncode);
+        final int nCodeLength = aDict.getCodeLength ();
+
+        final LZWNode aCurNode = aDict.getNode (aByteSeq);
+        if (nIndex + 1 == nLen)
+        {
+          aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
+          break;
+        }
+        if (aCurNode.getChildNode (aBuffer[nOfs + nIndex + 1]) == null)
+        {
+          aBOS.writeBits (aCurNode.getTableIndex (), nCodeLength);
+          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+        }
+        if (aDict.getNextFreeCode () == AbstractLZWDictionary.MAX_CODE - 1)
+        {
+          aBOS.writeBits (AbstractLZWDictionary.CODE_CLEARTABLE, nCodeLength);
+          aDict.reset ();
+          nIndex -= aByteSeq.length;
+          aByteSeq = CGlobal.EMPTY_BYTE_ARRAY;
+        }
+      }
+
+      int nCodeLength = aDict.getCodeLength ();
+      switch (aDict.getNextFreeCode ())
+      {
+        case 511:
+        case 1023:
+        case 2047:
+          nCodeLength++;
+          break;
+        default:
+          break;
+      }
+      aBOS.writeBits (AbstractLZWDictionary.CODE_EOF, nCodeLength);
+    }
+    finally
+    {
+      StreamHelper.flush (aBOS);
+    }
+  }
+
+  private static void _assertSameAsReference (final byte [] aBuffer, final int nOfs, final int nLen) throws Exception
+  {
+    final byte [] aExpected;
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    {
+      _encodeReference (aBuffer, nOfs, nLen, aBAOS);
+      aExpected = aBAOS.toByteArray ();
+    }
+    final LZWCodec aCodec = new LZWCodec ();
+    final byte [] aEncoded = aCodec.getEncoded (aBuffer, nOfs, nLen);
+    assertArrayEquals ("Length " + nLen, aExpected, aEncoded);
+    assertArrayEquals (Arrays.copyOfRange (aBuffer, nOfs, nOfs + nLen), aCodec.getDecoded (aEncoded));
+  }
+
+  private static void _assertSha256 (final String sExpectedSha256, final byte [] aBuffer) throws Exception
+  {
+    final byte [] aEncoded = new LZWCodec ().getEncoded (aBuffer);
+    assertEquals (sExpectedSha256, StringHex.getHexEncoded (MessageDigest.getInstance ("SHA-256").digest (aEncoded)));
+  }
+
+  private static void _assertSameAsReference (final byte [] aBuffer) throws Exception
+  {
+    _assertSameAsReference (aBuffer, 0, aBuffer.length);
+  }
+
+  @Test
+  public void testEncodeSameAsReference () throws Exception
+  {
+    _assertSameAsReference (new byte [0]);
+    _assertSameAsReference (new byte [] { 0 });
+    _assertSameAsReference (new byte [] { -1, -1 });
+    _assertSameAsReference ("LZWLZ78LZ77LZCLZMWLZAP".getBytes (StandardCharsets.ISO_8859_1));
+
+    // Code length switches
+    for (int i = 0; i < 1000; ++i)
+    {
+      final byte [] buf = new byte [i];
+      for (int j = 0; j < i; ++j)
+        buf[j] = NON_RANDOM[j % NON_RANDOM.length];
+      _assertSameAsReference (buf);
+    }
+
+    // Random data with fixed seed - hits multiple dictionary resets
+    final Random aRandom = new Random (20261110);
+    final byte [] aRandomBytes = new byte [100 * CGlobal.BYTES_PER_KILOBYTE];
+    aRandom.nextBytes (aRandomBytes);
+    _assertSameAsReference (aRandomBytes);
+    _assertSameAsReference (aRandomBytes, 17, 50_000);
+    // SHA-256 of the output of the v12.5.3 implementation
+    _assertSha256 ("b3688350ed56d09cb5f8fa1336c5029f7869fa2b21a008ec45d2cb09532e3cfe", aRandomBytes);
+
+    // Random data from a small alphabet - long matches and many dictionary resets
+    final byte [] aSmallAlphabet = new byte [100 * CGlobal.BYTES_PER_KILOBYTE];
+    for (int i = 0; i < aSmallAlphabet.length; ++i)
+      aSmallAlphabet[i] = (byte) ('a' + aRandom.nextInt (3));
+    _assertSameAsReference (aSmallAlphabet);
+    _assertSha256 ("0d9c7eb00db2b026df5d684ed3bee04ee3eb0dbf69753aaa02b327dd91ba8773", aSmallAlphabet);
+
+    // Highly repetitive data
+    _assertSameAsReference (new byte [30_000]);
+    _assertSha256 ("2fdb18f12a7beaab83c3f0a3d2b8f59c3b22950eeb746e4f4d8744aa083cfa4e", new byte [30_000]);
+    final byte [] aRepeated = new byte [50_000];
+    for (int i = 0; i < aRepeated.length; ++i)
+      aRepeated[i] = (byte) ("abcabcabd".charAt (i % 9));
+    _assertSameAsReference (aRepeated);
+
+    // Lengths around the dictionary reset of random data
+    for (int nLen = 3000; nLen < 6000; nLen += 37)
+      _assertSameAsReference (aRandomBytes, 0, nLen);
   }
 }

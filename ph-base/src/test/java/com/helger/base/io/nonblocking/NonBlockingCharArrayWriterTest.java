@@ -113,4 +113,34 @@ public final class NonBlockingCharArrayWriterTest
       assertFalse (aWriter.startsWith ("abcdefg".toCharArray ()));
     }
   }
+
+  @Test
+  public void testGetAsStringOfsLenOutOfBounds ()
+  {
+    try (final NonBlockingCharArrayWriter aWriter = new NonBlockingCharArrayWriter (100))
+    {
+      aWriter.write ("abc");
+      assertEquals ("c", aWriter.getAsString (2, 1));
+      assertEquals ("", aWriter.getAsString (3, 0));
+      try
+      {
+        // Would read beyond the written chars
+        aWriter.getAsString (2, 2);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // expected
+      }
+      try
+      {
+        aWriter.getAsString (Integer.MAX_VALUE, 2);
+        fail ();
+      }
+      catch (final IllegalArgumentException ex)
+      {
+        // expected
+      }
+    }
+  }
 }

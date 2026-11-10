@@ -85,7 +85,7 @@ public final class CollectionFind
     if (aFilter == null)
       return isNotEmpty (aCollection);
 
-    if (isNotEmpty (aCollection))
+    if (aCollection != null)
       for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           return true;
@@ -110,9 +110,10 @@ public final class CollectionFind
     if (aFilter == null)
       return isEmpty (aCollection);
 
-    for (final ELEMENTTYPE aElement : aCollection)
-      if (aFilter.test (aElement))
-        return false;
+    if (aCollection != null)
+      for (final ELEMENTTYPE aElement : aCollection)
+        if (aFilter.test (aElement))
+          return false;
     return true;
   }
 
@@ -349,7 +350,7 @@ public final class CollectionFind
     if (aFilter == null)
       return getFirstElement (aCollection, aDefault);
 
-    if (isNotEmpty (aCollection))
+    if (aCollection != null)
       for (final ELEMENTTYPE aElement : aCollection)
         if (aFilter.test (aElement))
           return aElement;
@@ -439,7 +440,7 @@ public final class CollectionFind
   {
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
-    if (isNotEmpty (aSrc))
+    if (aSrc != null)
     {
       if (aFilter == null)
         aSrc.forEach (aConsumer);
@@ -473,7 +474,7 @@ public final class CollectionFind
     ValueEnforcer.notNull (aMapper, "Mapper");
     ValueEnforcer.notNull (aConsumer, "Consumer");
 
-    if (isNotEmpty (aSrc))
+    if (aSrc != null)
       for (final SRCTYPE aElement : aSrc)
         aConsumer.accept (aMapper.apply (aElement));
   }
@@ -505,7 +506,7 @@ public final class CollectionFind
     if (aFilter == null)
       findAllMapped (aSrc, aMapper, aConsumer);
     else
-      if (isNotEmpty (aSrc))
+      if (aSrc != null)
         for (final SRCTYPE aElement : aSrc)
           if (aFilter.test (aElement))
             aConsumer.accept (aMapper.apply (aElement));
@@ -539,7 +540,7 @@ public final class CollectionFind
     if (aFilter == null)
       findAllMapped (aSrc, aMapper, aConsumer);
     else
-      if (isNotEmpty (aSrc))
+      if (aSrc != null)
         for (final SRCTYPE aElement : aSrc)
         {
           final DSTTYPE aMapped = aMapper.apply (aElement);

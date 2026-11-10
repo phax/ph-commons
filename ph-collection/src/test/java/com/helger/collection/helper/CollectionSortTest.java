@@ -18,10 +18,15 @@ package com.helger.collection.helper;
 
 import static com.helger.collection.helper.CollectionHelperExt.createList;
 import static com.helger.collection.helper.CollectionSort.getSorted;
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Random;
 
 import org.junit.Test;
 
@@ -89,5 +94,136 @@ public final class CollectionSortTest
     assertEquals ("b", aSorted.get (1));
     assertEquals ("c", aSorted.get (2));
     assertEquals ("d", aSorted.get (3));
+  }
+
+  @Test
+  public void testGetSortedIndicesEmpty ()
+  {
+    assertEquals (0, CollectionSort.getSortedIndices (0, (a, b) -> {
+      fail ();
+      return 0;
+    }).length);
+    assertArrayEquals (new int [] { 0 }, CollectionSort.getSortedIndices (1, (a, b) -> {
+      fail ();
+      return 0;
+    }));
+
+    try
+    {
+      CollectionSort.getSortedIndices (-1, Integer::compare);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testGetSortedIndicesSmall ()
+  {
+    final String [] aValues = { "d", "b", "c", "a" };
+    final int [] aIndices = CollectionSort.getSortedIndices (aValues.length, (a, b) -> aValues[a].compareTo (aValues[b]));
+    assertArrayEquals (new int [] { 3, 1, 2, 0 }, aIndices);
+
+    // Descending
+    assertArrayEquals (new int [] { 0, 2, 1, 3 },
+                       CollectionSort.getSortedIndices (aValues.length, (a, b) -> aValues[b].compareTo (aValues[a])));
+  }
+
+  private static void _testStability (final int nCount, final int nDistinctKeys)
+  {
+    final Random aRandom = new Random (nCount * 31L + nDistinctKeys);
+    final int [] aKeys = new int [nCount];
+    for (int i = 0; i < nCount; ++i)
+      aKeys[i] = aRandom.nextInt (nDistinctKeys);
+
+    final int [] aIndices = CollectionSort.getSortedIndices (nCount, (a, b) -> Integer.compare (aKeys[a], aKeys[b]));
+    assertEquals (nCount, aIndices.length);
+
+    // Every index must be contained exactly once
+    final int [] aCopy = aIndices.clone ();
+    Arrays.sort (aCopy);
+    for (int i = 0; i < nCount; ++i)
+      assertEquals (i, aCopy[i]);
+
+    for (int i = 1; i < nCount; ++i)
+    {
+      final int nPrevKey = aKeys[aIndices[i - 1]];
+      final int nCurKey = aKeys[aIndices[i]];
+      // Sorted by key
+      assertTrue (nPrevKey <= nCurKey);
+      // Stable: equal keys keep the original (ascending) index order
+      if (nPrevKey == nCurKey)
+        assertTrue (aIndices[i - 1] < aIndices[i]);
+    }
+  }
+
+  @Test
+  public void testGetSortedIndicesStable ()
+  {
+    // Sizes below, at and above the insertion sort threshold, and some odd sizes for the merge
+    for (final int nCount : new int [] { 2, 3, 31, 32, 33, 63, 64, 65, 100, 1000, 1025, 10_000 })
+      for (final int nDistinctKeys : new int [] { 1, 2, 10, 1000 })
+        _testStability (nCount, nDistinctKeys);
+  }
+
+  @Test
+  public void testGetSortedIndicesPresorted ()
+  {
+    final int nCount = 1000;
+    // Already sorted
+    int [] aIndices = CollectionSort.getSortedIndices (nCount, Integer::compare);
+    for (int i = 0; i < nCount; ++i)
+      assertEquals (i, aIndices[i]);
+
+    // Reverse sorted
+    aIndices = CollectionSort.getSortedIndices (nCount, (a, b) -> Integer.compare (b, a));
+    for (int i = 0; i < nCount; ++i)
+      assertEquals (nCount - 1 - i, aIndices[i]);
+  }
+
+  @Test
+  public void testSortInlineStable ()
+  {
+    // Sort by "value / 10" - the last digit shows the stability
+    final int [] aValues = { 52, 11, 50, 13, 31, 12, 51, 30 };
+    CollectionSort.sortInlineStable (aValues, 0, aValues.length, (a, b) -> Integer.compare (a / 10, b / 10));
+    assertArrayEquals (new int [] { 11, 13, 12, 31, 30, 52, 50, 51 }, aValues);
+
+    // Only a part of the array
+    final int [] aPart = { 9, 52, 11, 50, 13, 0 };
+    CollectionSort.sortInlineStable (aPart, 1, 4, (a, b) -> Integer.compare (a / 10, b / 10));
+    assertArrayEquals (new int [] { 9, 11, 13, 52, 50, 0 }, aPart);
+
+    // Larger than the insertion sort threshold, compared with the JDK stable object sort
+    final Random aRandom = new Random (4711);
+    final int nCount = 5000;
+    final int [] aBig = new int [nCount + 2];
+    final Integer [] aExpected = new Integer [nCount];
+    for (int i = 0; i < nCount; ++i)
+    {
+      aBig[i + 1] = aRandom.nextInt (100_000);
+      aExpected[i] = Integer.valueOf (aBig[i + 1]);
+    }
+    aBig[0] = -1;
+    aBig[nCount + 1] = -2;
+    Arrays.sort (aExpected, (a, b) -> Integer.compare (a.intValue () % 97, b.intValue () % 97));
+    CollectionSort.sortInlineStable (aBig, 1, nCount, (a, b) -> Integer.compare (a % 97, b % 97));
+    assertEquals (-1, aBig[0]);
+    assertEquals (-2, aBig[nCount + 1]);
+    for (int i = 0; i < nCount; ++i)
+      assertEquals (aExpected[i].intValue (), aBig[i + 1]);
+
+    // Invalid ranges
+    try
+    {
+      CollectionSort.sortInlineStable (new int [3], 2, 2, Integer::compare);
+      fail ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // expected
+    }
   }
 }
