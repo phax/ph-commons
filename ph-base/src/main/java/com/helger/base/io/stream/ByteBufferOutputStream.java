@@ -101,7 +101,8 @@ public class ByteBufferOutputStream extends OutputStream implements IWriteToStre
                                  @Nonnegative final int nOfs,
                                  @Nonnegative final int nLen)
   {
-    this (ByteBuffer.wrap (aArray, nOfs, nLen), false);
+    // Slice, so that the buffer starts at the offset - wrap alone would only set the position
+    this (ByteBuffer.wrap (aArray, nOfs, nLen).slice (), false);
   }
 
   /**

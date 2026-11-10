@@ -423,4 +423,17 @@ public final class CollectionEqualsHelperTest
     assertFalse (CollectionEqualsHelper.equalsAsList (new CommonsArrayList <> (null, "b"),
                                                       ArrayHelper.createArray ("a", (String) null)));
   }
+
+  @Test
+  @SuppressWarnings ("removal")
+  public void testEqualsEnumeration ()
+  {
+    assertTrue (CollectionEqualsHelper.equalsEnumeration (Collections.enumeration (new CommonsArrayList <> ("a", "b")),
+                                                          Collections.enumeration (new CommonsArrayList <> ("a", "b"))));
+    assertFalse (CollectionEqualsHelper.equalsEnumeration (Collections.enumeration (new CommonsArrayList <> ("a", "b")),
+                                                           Collections.enumeration (new CommonsArrayList <> ("a"))));
+    // The deprecated name still works
+    assertTrue (CollectionEqualsHelper.equalsEumeration (Collections.enumeration (new CommonsArrayList <> ("a")),
+                                                         Collections.enumeration (new CommonsArrayList <> ("a"))));
+  }
 }

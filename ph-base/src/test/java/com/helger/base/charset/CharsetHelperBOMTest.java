@@ -33,6 +33,9 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.stream.StreamHelper;
+import java.io.FilterInputStream;
+import java.io.InputStream;
+import java.io.UncheckedIOException;
 
 /**
  * Test class for the BOM handling of {@link CharsetHelper}.
@@ -118,6 +121,37 @@ public final class CharsetHelperBOMTest
          final InputStreamReader aReader = CharsetHelper.getReaderByBOM (aBAIS, StandardCharsets.ISO_8859_1))
     {
       assertEquals (TEXT, StreamHelper.getAllCharactersAsString (aReader));
+    }
+  }
+
+  @Test
+  public void testShortReads ()
+  {
+    final byte [] aBytes = ArrayHelper.getConcatenated (EUnicodeBOM.BOM_UTF_32_LITTLE_ENDIAN.getAllBytes (),
+                                                        new byte [] { 'a', 0, 0, 0 });
+    // A stream that returns only one byte per read call and claims nothing is available
+    try (final InputStream aIS = new FilterInputStream (new NonBlockingByteArrayInputStream (aBytes))
+    {
+      @Override
+      public int read (final byte [] aBuf, final int nOfs, final int nLen) throws IOException
+      {
+        return super.read (aBuf, nOfs, Math.min (nLen, 1));
+      }
+
+      @Override
+      public int available ()
+      {
+        return 0;
+      }
+    })
+    {
+      final InputStreamAndCharset aISAC = CharsetHelper.getInputStreamAndCharsetFromBOM (aIS);
+      assertSame (EUnicodeBOM.BOM_UTF_32_LITTLE_ENDIAN, aISAC.getBOM ());
+      assertEquals (4, StreamHelper.getAllBytes (aISAC.getInputStream ()).length);
+    }
+    catch (final IOException ex)
+    {
+      throw new UncheckedIOException (ex);
     }
   }
 }

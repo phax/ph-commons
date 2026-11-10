@@ -195,8 +195,9 @@ public final class CollectionEqualsHelper
    *        The second enumeration. May not be <code>null</code>.
    * @return <code>true</code> if both enumerations have the same number of elements and all
    *         elements are equal in order.
+   * @since 12.5.4
    */
-  public static <T> boolean equalsEumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
+  public static <T> boolean equalsEnumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
   {
     while (aEnum1.hasMoreElements ())
     {
@@ -212,6 +213,26 @@ public final class CollectionEqualsHelper
     }
     // Second enumeration is longer?
     return !aEnum2.hasMoreElements ();
+  }
+
+  /**
+   * Check if the contents of two enumerations are equal in order.
+   *
+   * @param <T>
+   *        Enumeration element type
+   * @param aEnum1
+   *        The first enumeration. May not be <code>null</code>.
+   * @param aEnum2
+   *        The second enumeration. May not be <code>null</code>.
+   * @return <code>true</code> if both enumerations have the same number of elements and all
+   *         elements are equal in order.
+   * @deprecated Use {@link #equalsEnumeration(Enumeration, Enumeration)} instead - this name
+   *             contains a typo
+   */
+  @Deprecated (forRemoval = true, since = "12.5.4")
+  public static <T> boolean equalsEumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
+  {
+    return equalsEnumeration (aEnum1, aEnum2);
   }
 
   /**
@@ -316,7 +337,7 @@ public final class CollectionEqualsHelper
       {
         final Enumeration <?> aEnum1 = (Enumeration <?>) aObj1;
         final Enumeration <?> aEnum2 = (Enumeration <?>) aObj2;
-        return equalsEumeration (aEnum1, aEnum2);
+        return equalsEnumeration (aEnum1, aEnum2);
       }
       default:
         throw new IllegalStateException ("Unhandled container type " + eType1 + "!");

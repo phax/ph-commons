@@ -53,7 +53,8 @@ public final class GraphVizHelper
 
   /**
    * Create a GraphViz DOT attribute string in the form <code>name=&lt;value&gt;</code> with
-   * XML-escaped value.
+   * XML-escaped value. The value is an HTML-like label, so the characters <code>&lt;</code>,
+   * <code>&gt;</code> and <code>&amp;</code> are masked.
    *
    * @param sName
    *        The attribute name. May neither be <code>null</code> nor empty.
@@ -67,7 +68,7 @@ public final class GraphVizHelper
   {
     return new StringBuilder (sName).append ("=<")
                                     .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
-                                                                             EXMLCharMode.ELEMENT_NAME,
+                                                                             EXMLCharMode.TEXT,
                                                                              EXMLIncorrectCharacterHandling.DEFAULT,
                                                                              sValue))
                                     .append ('>')
@@ -101,7 +102,7 @@ public final class GraphVizHelper
     ValueEnforcer.notNull (aGraph, "Graph");
 
     final StringBuilder aSB = new StringBuilder ();
-    // It's a directed graph
+    // It's an undirected graph
     aSB.append ("graph ").append (aGraph.getID ()).append ("{\n");
     aSB.append ("node[shape=box];");
     aGraph.forEachNode (aGraphNode -> {
@@ -164,12 +165,7 @@ public final class GraphVizHelper
       if (StringHelper.isNotEmpty (sNodeLabelAttr))
       {
         final String sLabel = aGraphNode.attrs ().getAsString (sNodeLabelAttr);
-        aSB.append ("[label=<")
-           .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
-                                                    EXMLCharMode.ELEMENT_NAME,
-                                                    EXMLIncorrectCharacterHandling.DEFAULT,
-                                                    sLabel))
-           .append (">]");
+        aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (';');
     });
@@ -179,12 +175,7 @@ public final class GraphVizHelper
       if (StringHelper.isNotEmpty (sRelationLabelAttr))
       {
         final String sLabel = aGraphRelation.attrs ().getAsString (sRelationLabelAttr);
-        aSB.append ("[label=<")
-           .append (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_10,
-                                                    EXMLCharMode.ELEMENT_NAME,
-                                                    EXMLIncorrectCharacterHandling.DEFAULT,
-                                                    sLabel))
-           .append (">]");
+        aSB.append ('[').append (getAttribute ("label", sLabel)).append (']');
       }
       aSB.append (";\n");
     });

@@ -17,6 +17,7 @@
 package com.helger.commons.jmx;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
@@ -89,6 +90,15 @@ public final class ObjectNameHelperTest
     assertEquals ("a__b", ObjectNameHelper.getCleanPropertyValue ("a//b"));
     // Values with a blank are quoted
     assertEquals ("\"a b\"", ObjectNameHelper.getCleanPropertyValue ("a b"));
+    // Values with characters not allowed in unquoted values are quoted
+    assertEquals ("\"a=b\"", ObjectNameHelper.getCleanPropertyValue ("a=b"));
+    assertEquals ("\"a\\\"b\"", ObjectNameHelper.getCleanPropertyValue ("a\"b"));
+    assertEquals ("\"a\\*b\"", ObjectNameHelper.getCleanPropertyValue ("a*b"));
+    assertEquals ("\"a\\?b\"", ObjectNameHelper.getCleanPropertyValue ("a?b"));
+    assertEquals ("\"a\\nb\"", ObjectNameHelper.getCleanPropertyValue ("a\nb"));
+    // And they can be used to create an ObjectName
+    for (final String s : new String [] { "a=b", "a\"b", "a*b", "a?b", "a\nb", "a b" })
+      assertNotNull (ObjectNameHelper.createWithDefaultProperties ("x", s));
   }
 
   @Test

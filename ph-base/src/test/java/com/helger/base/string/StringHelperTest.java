@@ -1609,4 +1609,51 @@ public final class StringHelperTest
       assertEquals (s, s.codePoints ().count (), StringHelper.getCodePointCount (new StringBuilder (s)));
     }
   }
+
+  @Test
+  public void testGetLeadingZeroMinValue ()
+  {
+    assertEquals ("-2147483648", StringHelper.getLeadingZero (Integer.MIN_VALUE, 5));
+    assertEquals ("-002147483648", StringHelper.getLeadingZero (Integer.MIN_VALUE, 12));
+    assertEquals ("-9223372036854775808", StringHelper.getLeadingZero (Long.MIN_VALUE, 5));
+    assertEquals ("-09223372036854775808", StringHelper.getLeadingZero (Long.MIN_VALUE, 20));
+    assertEquals ("-0005", StringHelper.getLeadingZero (-5, 4));
+    assertEquals ("-0005", StringHelper.getLeadingZero (-5L, 4));
+  }
+
+  @Test
+  public void testIgnoreCaseLocale ()
+  {
+    final Locale aTR = new Locale ("tr");
+    // In Turkish, "I" is the upper case of the dotless "ı"
+    assertEquals (1, StringHelper.getIndexOfIgnoreCase ("xIx", 'I', aTR));
+    assertEquals (1, StringHelper.getIndexOfIgnoreCase ("xIx", 'ı', aTR));
+    assertEquals (1, StringHelper.getLastIndexOfIgnoreCase ("xIx", 'I', aTR));
+    assertEquals (1, StringHelper.getIndexOfIgnoreCase ("xIx", 1, 'I', aTR));
+    assertEquals (1, StringHelper.getLastIndexOfIgnoreCase ("xIx", 2, 'I', aTR));
+    assertTrue (StringHelper.containsIgnoreCase ("xIx", 'I', aTR));
+    assertEquals (CGlobal.STRING_NOT_FOUND, StringHelper.getIndexOfIgnoreCase ("xIx", 'i', aTR));
+  }
+
+  @Test
+  public void testIgnoreCaseIndexInOriginalText ()
+  {
+    // U+0130 becomes 2 characters when lower cased outside of Turkish locales, so the index in the
+    // lower cased text differs from the index in the original text
+    final String sText = "\u0130ab\u0130ab";
+    assertEquals (1, StringHelper.getIndexOfIgnoreCase (sText, "AB", Locale.ROOT));
+    assertEquals (4, StringHelper.getLastIndexOfIgnoreCase (sText, "AB", Locale.ROOT));
+    assertEquals (4, StringHelper.getIndexOfIgnoreCase (sText, 2, "AB", Locale.ROOT));
+    assertEquals (1, StringHelper.getLastIndexOfIgnoreCase (sText, 3, "AB", Locale.ROOT));
+    assertEquals (CGlobal.STRING_NOT_FOUND, StringHelper.getLastIndexOfIgnoreCase (sText, -1, "AB", Locale.ROOT));
+    assertEquals (CGlobal.STRING_NOT_FOUND, StringHelper.getIndexOfIgnoreCase (sText, 5, "AB", Locale.ROOT));
+    assertEquals (2, StringHelper.getIndexOfIgnoreCase (sText, 'B', Locale.ROOT));
+    assertEquals (5, StringHelper.getLastIndexOfIgnoreCase (sText, 'B', Locale.ROOT));
+    assertEquals (0, StringHelper.getIndexOfIgnoreCase (sText, "\u0130A", Locale.ROOT));
+    assertEquals (3, StringHelper.getLastIndexOfIgnoreCase (sText, "\u0130A", Locale.ROOT));
+    assertTrue (StringHelper.containsIgnoreCase (sText, "bİA", Locale.ROOT));
+    // The returned index matches the original text
+    final int nIndex = StringHelper.getIndexOfIgnoreCase (sText, "ab", Locale.ROOT);
+    assertEquals ("ab", sText.substring (nIndex, nIndex + 2));
+  }
 }

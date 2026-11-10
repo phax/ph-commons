@@ -129,4 +129,17 @@ public final class LevenshteinDistanceTest
     assertEquals (1, LevenshteinDistance.getDistance (abc, acc, 1, 2, 1));
     assertEquals (2, LevenshteinDistance.getDistance (abc, acc, 1, 1, 2));
   }
+
+  @Test
+  public void testCostsEmptyInput ()
+  {
+    // Turning the second argument into an empty first argument needs deletions
+    assertEquals (15, LevenshteinDistance.getDistance ("", "abc", 1, 5, 1));
+    assertEquals (15, LevenshteinDistance.getDistance (null, "abc", 1, 5, 1));
+    assertEquals (15, LevenshteinDistance.getDistance (new char [0], "abc".toCharArray (), 1, 5, 1));
+    // Consistent with a non-empty first argument
+    assertEquals (10, LevenshteinDistance.getDistance ("a", "abc", 1, 5, 1));
+    // Turning an empty second argument into the first argument needs insertions
+    assertEquals (3, LevenshteinDistance.getDistance ("abc", "", 1, 5, 1));
+  }
 }

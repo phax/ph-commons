@@ -57,7 +57,7 @@ public final class EnumHelper
   private static final SimpleReadWriteLock RW_LOCK_INTCACHE = new SimpleReadWriteLock ();
   @GuardedBy ("RW_LOCK_INTCACHE")
   @CodingStyleguideUnaware
-  private static final Map <String, Object []> INT_CACHE = new HashMap <> ();
+  private static final Map <Class <?>, Object []> INT_CACHE = new HashMap <> ();
 
   @PresentForCodeCoverage
   private static final EnumHelper INSTANCE = new EnumHelper ();
@@ -310,13 +310,14 @@ public final class EnumHelper
   {
     ValueEnforcer.notNull (aClass, "Class");
 
-    final String sCacheKey = aClass.getName ();
-    Object [] aCachedData = RW_LOCK_INTCACHE.readLockedGet (() -> INT_CACHE.get (sCacheKey));
+    // The class itself is the key, so that equally named enums from different class loaders are
+    // kept apart
+    Object [] aCachedData = RW_LOCK_INTCACHE.readLockedGet (() -> INT_CACHE.get (aClass));
     if (aCachedData == null)
     {
       aCachedData = RW_LOCK_INTCACHE.writeLockedGet (() -> {
         // Try again in write lock
-        Object [] aWLCachedData = INT_CACHE.get (sCacheKey);
+        Object [] aWLCachedData = INT_CACHE.get (aClass);
         if (aWLCachedData == null)
         {
           // Create new cache entry
@@ -342,7 +343,7 @@ public final class EnumHelper
             // Enum not cachable - too many items
             aWLCachedData = NOT_CACHABLE;
           }
-          INT_CACHE.put (sCacheKey, aWLCachedData);
+          INT_CACHE.put (aClass, aWLCachedData);
         }
         return aWLCachedData;
       });

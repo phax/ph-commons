@@ -97,6 +97,26 @@ public final class MathHelper
     return dDividend / dDivisor;
   }
 
+  private static int _getIntDividedCeil (final int nDividend, final int nDivisor)
+  {
+    // Same as Math.ceilDiv, which is only available from Java 18 on
+    final int nQuotient = nDividend / nDivisor;
+    // Round up if there is a remainder and the signs are equal (positive result)
+    if ((nDividend ^ nDivisor) >= 0 && nQuotient * nDivisor != nDividend)
+      return nQuotient + 1;
+    return nQuotient;
+  }
+
+  private static long _getLongDividedCeil (final long nDividend, final long nDivisor)
+  {
+    // Same as Math.ceilDiv, which is only available from Java 18 on
+    final long nQuotient = nDividend / nDivisor;
+    // Round up if there is a remainder and the signs are equal (positive result)
+    if ((nDividend ^ nDivisor) >= 0 && nQuotient * nDivisor != nDividend)
+      return nQuotient + 1;
+    return nQuotient;
+  }
+
   /**
    * Divide two integers and round up (ceiling).
    *
@@ -138,6 +158,18 @@ public final class MathHelper
    */
   public static int getIntDivided (final int nDividend, final int nDivisor, @NonNull final RoundingMode eRoundingMode)
   {
+    // Shortcuts without BigDecimal for the common rounding modes
+    switch (eRoundingMode)
+    {
+      case FLOOR:
+        return Math.floorDiv (nDividend, nDivisor);
+      case CEILING:
+        return _getIntDividedCeil (nDividend, nDivisor);
+      case DOWN:
+        return nDividend / nDivisor;
+      default:
+        break;
+    }
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).intValue ();
   }
 
@@ -184,6 +216,18 @@ public final class MathHelper
                                      final long nDivisor,
                                      @NonNull final RoundingMode eRoundingMode)
   {
+    // Shortcuts without BigDecimal for the common rounding modes
+    switch (eRoundingMode)
+    {
+      case FLOOR:
+        return Math.floorDiv (nDividend, nDivisor);
+      case CEILING:
+        return _getLongDividedCeil (nDividend, nDivisor);
+      case DOWN:
+        return nDividend / nDivisor;
+      default:
+        break;
+    }
     return BigHelper.toBigDecimal (nDividend).divide (BigHelper.toBigDecimal (nDivisor), eRoundingMode).longValue ();
   }
 

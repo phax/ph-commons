@@ -115,10 +115,28 @@ public final class ObjectNameHelper
     return create (new Hashtable <> (aParams));
   }
 
+  private static boolean _needsQuoting (@NonNull final String sPropertyValue)
+  {
+    final int nLen = sPropertyValue.length ();
+    for (int i = 0; i < nLen; ++i)
+      switch (sPropertyValue.charAt (i))
+      {
+        case ' ':
+        case '=':
+        case '"':
+        case '*':
+        case '?':
+        case '\n':
+          return true;
+      }
+    return false;
+  }
+
   /**
    * Create a clean property value applicable for an {@link ObjectName} property value by replacing
-   * the special chars ":" and "," with "." and "//" with "__". If the input value contains a blank,
-   * the quotes value is returned.
+   * the special chars ":" and "," with "." and "//" with "__". If the input value contains a blank or
+   * one of the characters "=", "\"", "*", "?" or a line feed (which are not allowed in an unquoted
+   * value, or would make it a pattern), the quoted value is returned.
    *
    * @param sPropertyValue
    *        The original property value. May not be <code>null</code>.
@@ -128,8 +146,9 @@ public final class ObjectNameHelper
   @NonNull
   public static String getCleanPropertyValue (@NonNull final String sPropertyValue)
   {
-    // If a blank is contained, simply quote it
-    if (sPropertyValue.indexOf (' ') != -1)
+    // If a blank or a character that is not allowed in an unquoted value is contained, simply quote
+    // it
+    if (_needsQuoting (sPropertyValue))
       return ObjectName.quote (sPropertyValue);
 
     // ":" is prohibited

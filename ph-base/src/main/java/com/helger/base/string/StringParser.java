@@ -1523,7 +1523,7 @@ public final class StringParser
   }
 
   /**
-   * Checks if the given string is a numeric string that can be converted to an unsigned long value
+   * Checks if the given string is a numeric string that can be converted to an unsigned int value
    * with radix {@value #DEFAULT_RADIX}.
    *
    * @param sStr
@@ -1558,8 +1558,8 @@ public final class StringParser
     if (sStr != null)
       try
       {
-        final long ret = Long.parseLong (sStr, DEFAULT_RADIX);
-        return ret >= 0;
+        Long.parseUnsignedLong (sStr, DEFAULT_RADIX);
+        return true;
       }
       catch (final NumberFormatException ex)
       {

@@ -37,8 +37,9 @@ public final class GraphVizHelperTest
   public void testGetAttribute ()
   {
     assertEquals ("label=<abc>", GraphVizHelper.getAttribute ("label", "abc"));
-    // The value is masked as an XML element name, so "&" is kept as is
-    assertEquals ("label=<a&b>", GraphVizHelper.getAttribute ("label", "a&b"));
+    // The value is an HTML-like label, so the special characters are masked
+    assertEquals ("label=<a&amp;b>", GraphVizHelper.getAttribute ("label", "a&b"));
+    assertEquals ("label=<a b &lt;c&gt; &amp; d>", GraphVizHelper.getAttribute ("label", "a b <c> & d"));
   }
 
   @Test
@@ -85,5 +86,10 @@ public final class GraphVizHelperTest
     final String sDot2 = GraphVizHelper.getAsGraphVizDot (aGraph, "text", "text");
     assertTrue (sDot2, sDot2.contains ("n1[label=<Node 1>];"));
     assertTrue (sDot2, sDot2.contains ("n1->n2[label=<Relation 1>];"));
+
+    // Special characters in labels are masked
+    n1.attrs ().putIn ("text", "a<b");
+    final String sDot3 = GraphVizHelper.getAsGraphVizDot (aGraph, "text", null);
+    assertTrue (sDot3, sDot3.contains ("n1[label=<a&lt;b>];"));
   }
 }

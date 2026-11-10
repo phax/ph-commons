@@ -21,6 +21,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import org.junit.Test;
 
 import com.helger.base.mock.CommonsAssert;
@@ -284,5 +287,35 @@ public final class MathHelperTest
     CommonsAssert.assertEquals (0, MathHelper.hypot (0, 0));
     CommonsAssert.assertEquals (3, MathHelper.hypot (0, -3));
     CommonsAssert.assertEquals (4, MathHelper.hypot (-4, 0));
+  }
+
+  @Test
+  public void testDividedShortcutsMatchBigDecimal ()
+  {
+    final int [] aInts = { Integer.MIN_VALUE, Integer.MIN_VALUE + 1, -7, -5, -4, -1, 0, 1, 4, 5, 7, Integer.MAX_VALUE };
+    final RoundingMode [] aModes = { RoundingMode.FLOOR, RoundingMode.CEILING, RoundingMode.DOWN };
+    for (final int nDividend : aInts)
+      for (final int nDivisor : aInts)
+        if (nDivisor != 0)
+          for (final RoundingMode eMode : aModes)
+          {
+            final int nExpected = BigDecimal.valueOf (nDividend)
+                                            .divide (BigDecimal.valueOf (nDivisor), eMode)
+                                            .intValue ();
+            assertEquals (nDividend + " / " + nDivisor + " " + eMode,
+                          nExpected,
+                          MathHelper.getIntDivided (nDividend, nDivisor, eMode));
+
+            final long nLongDividend = nDividend * 3_000_000_000L;
+            final long nLongDivisor = nDivisor;
+            final long nLongExpected = BigDecimal.valueOf (nLongDividend)
+                                                 .divide (BigDecimal.valueOf (nLongDivisor), eMode)
+                                                 .longValue ();
+            assertEquals (nLongDividend + " / " + nLongDivisor + " " + eMode,
+                          nLongExpected,
+                          MathHelper.getLongDivided (nLongDividend, nLongDivisor, eMode));
+          }
+    assertEquals (Long.MIN_VALUE, MathHelper.getLongDividedFloor (Long.MIN_VALUE, -1));
+    assertEquals (Long.MIN_VALUE, MathHelper.getLongDividedCeil (Long.MIN_VALUE, -1));
   }
 }

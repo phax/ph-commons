@@ -137,7 +137,7 @@ public final class JavaVersionHelper
             // 1.8.0-adoptopenjdk
 
             // 1.8.0-adoptopenjdk-_2018_05_19_00_59-b00 == b172
-            if (sJavaRuntimeVersion.startsWith (sOriginalJavaVersion))
+            if (sJavaRuntimeVersion != null && sJavaRuntimeVersion.startsWith (sOriginalJavaVersion))
             {
               // Use data as "minor"
               String sData = sJavaRuntimeVersion.substring (sOriginalJavaVersion.length ());

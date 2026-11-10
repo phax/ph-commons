@@ -125,7 +125,7 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
       switch (nEncodedCount)
       {
         case 1:
-          throw new IllegalStateException ("Unexpected end of ASCII85 encoded data!");
+          throw new DecodeException ("Unexpected end of ASCII85 encoded data!");
         case 2:
           nRest = (aBuffer[0] * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE) +
                   (aBuffer[1] * EIGHTY_FIVE * EIGHTY_FIVE * EIGHTY_FIVE) +

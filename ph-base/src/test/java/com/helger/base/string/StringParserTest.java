@@ -642,4 +642,18 @@ public final class StringParserTest
     assertTrue (StringParser.parseBool (Integer.valueOf (1), true));
     assertTrue (StringParser.parseBool ((Object) null, true));
   }
+
+  @Test
+  public void testIsUnsignedLongFullRange ()
+  {
+    assertTrue (StringParser.isUnsignedLong ("0"));
+    assertTrue (StringParser.isUnsignedLong ("9223372036854775807"));
+    // Values above Long.MAX_VALUE are valid unsigned long values
+    assertTrue (StringParser.isUnsignedLong ("9223372036854775808"));
+    assertTrue (StringParser.isUnsignedLong ("18446744073709551615"));
+    assertFalse (StringParser.isUnsignedLong ("18446744073709551616"));
+    assertFalse (StringParser.isUnsignedLong ("-1"));
+    assertFalse (StringParser.isUnsignedLong ("abc"));
+    assertFalse (StringParser.isUnsignedLong (null));
+  }
 }

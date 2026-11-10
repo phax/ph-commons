@@ -244,4 +244,21 @@ public final class ByteBufferOutputStreamTest
       assertArrayEquals (PAYLOAD, aBBOS.getAsByteArray ());
     }
   }
+
+  @Test
+  public void testWrapWithOffset ()
+  {
+    final byte [] aArray = { 1, 2, 3, 4, 5, 6 };
+    try (final ByteBufferOutputStream aBBOS = new ByteBufferOutputStream (aArray, 2, 3))
+    {
+      assertEquals (0, aBBOS.size ());
+      aBBOS.write (9);
+      aBBOS.write (8);
+      assertEquals (2, aBBOS.size ());
+      // Only the written bytes, not the bytes before the offset
+      assertArrayEquals (new byte [] { 9, 8 }, aBBOS.getAsByteArray ());
+      // Written at the offset
+      assertArrayEquals (new byte [] { 1, 2, 9, 8, 5, 6 }, aArray);
+    }
+  }
 }

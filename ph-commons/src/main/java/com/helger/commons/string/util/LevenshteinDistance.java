@@ -174,6 +174,8 @@ public final class LevenshteinDistance
   /**
    * Get the distance of the 2 character arrays, using custom costs for insertion, deletion and
    * substitution.
+   * The costs are those of transforming the second argument into the first one: an insertion adds a
+   * character of the first argument, a deletion removes a character of the second argument.
    *
    * @param aStr1
    *        First character array. May be <code>null</code>.
@@ -201,7 +203,7 @@ public final class LevenshteinDistance
     final int nLen2 = aStr2 == null ? 0 : aStr2.length;
 
     if (nLen1 == 0)
-      return nLen2 * nCostInsert;
+      return nLen2 * nCostDelete;
     if (nLen2 == 0)
       return nLen1 * nCostInsert;
 
@@ -236,6 +238,8 @@ public final class LevenshteinDistance
 
   /**
    * Get the distance of the 2 strings, using custom costs for insertion, deletion and substitution.
+   * The costs are those of transforming the second argument into the first one: an insertion adds a
+   * character of the first argument, a deletion removes a character of the second argument.
    *
    * @param sStr1
    *        First string. May be <code>null</code>.
@@ -263,7 +267,7 @@ public final class LevenshteinDistance
     final int nLen2 = StringHelper.getLength (sStr2);
 
     if (nLen1 == 0)
-      return nLen2 * nCostInsert;
+      return nLen2 * nCostDelete;
     if (nLen2 == 0)
       return nLen1 * nCostInsert;
 

@@ -1920,9 +1920,8 @@ public final class CollectionHelperExt extends CollectionHelper
     if (nSize == 0 || nStartIndex >= nSize)
       return createList (0);
 
-    int nEndIndex = nStartIndex + nSectionLength;
-    if (nEndIndex > nSize)
-      nEndIndex = nSize;
+    // Compare with the remaining size, as "nStartIndex + nSectionLength" may overflow
+    final int nEndIndex = nSectionLength > nSize - nStartIndex ? nSize : nStartIndex + nSectionLength;
 
     // Create a copy of the list because "subList" only returns a view of the
     // original list!

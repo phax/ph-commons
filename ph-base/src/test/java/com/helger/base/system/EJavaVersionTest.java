@@ -74,7 +74,8 @@ public final class EJavaVersionTest
     assertEquals (EJavaVersion.JDK_24, EJavaVersion.getFromVersionNumber (68.0));
     assertEquals (EJavaVersion.JDK_25, EJavaVersion.getFromVersionNumber (69.0));
     assertEquals (EJavaVersion.JDK_26, EJavaVersion.getFromVersionNumber (70.0));
-    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (71.0));
+    assertEquals (EJavaVersion.JDK_27, EJavaVersion.getFromVersionNumber (71.0));
+    assertEquals (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (72.0));
 
     // ph-commons requires Java 17, so all older versions must be supported
     for (final EJavaVersion e : EJavaVersion.values ())
@@ -188,5 +189,17 @@ public final class EJavaVersionTest
     assertFalse (EJavaVersion.JDK_24.isLTS ());
     assertTrue (EJavaVersion.JDK_25.isLTS ());
     assertFalse (EJavaVersion.JDK_26.isLTS ());
+  }
+
+  @Test
+  public void testRangesDoNotOverlap ()
+  {
+    assertSame (EJavaVersion.JDK_1_1, EJavaVersion.getFromVersionNumber (45.3));
+    assertSame (EJavaVersion.JDK_1_1, EJavaVersion.getFromVersionNumber (45.9));
+    assertSame (EJavaVersion.JDK_1_2, EJavaVersion.getFromVersionNumber (46.0));
+    assertSame (EJavaVersion.JDK_1_2, EJavaVersion.getFromVersionNumber (46.5));
+    assertSame (EJavaVersion.JDK_1_3, EJavaVersion.getFromVersionNumber (47.0));
+    assertSame (EJavaVersion.JDK_27, EJavaVersion.getFromVersionNumber (71.0));
+    assertSame (EJavaVersion.UNKNOWN, EJavaVersion.getFromVersionNumber (45.0));
   }
 }

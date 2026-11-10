@@ -46,7 +46,6 @@ import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.ICharConsumer;
 import com.helger.base.functional.ICharPredicate;
-import com.helger.base.numeric.MathHelper;
 
 /**
  * Simple string utility methods, originally in StringHelper.
@@ -717,7 +716,8 @@ public class StringHelper
   public static String getLeadingZero (final int nValue, final int nChars)
   {
     final boolean bNeg = nValue < 0;
-    final String sValue = Integer.toString (MathHelper.abs (nValue));
+    // Unsigned, so that the magnitude of Integer.MIN_VALUE is handled as well
+    final String sValue = bNeg ? Integer.toUnsignedString (-nValue) : Integer.toString (nValue);
     if (sValue.length () >= nChars)
       return bNeg ? '-' + sValue : sValue;
 
@@ -745,7 +745,8 @@ public class StringHelper
   public static String getLeadingZero (final long nValue, final int nChars)
   {
     final boolean bNeg = nValue < 0;
-    final String sValue = Long.toString (MathHelper.abs (nValue));
+    // Unsigned, so that the magnitude of Long.MIN_VALUE is handled as well
+    final String sValue = bNeg ? Long.toUnsignedString (-nValue) : Long.toString (nValue);
     if (sValue.length () >= nChars)
       return bNeg ? '-' + sValue : sValue;
 
@@ -1001,6 +1002,110 @@ public class StringHelper
   }
 
   /**
+   * Lower case each code point of the passed text separately with the passed locale. In contrast to
+   * {@link String#toLowerCase(Locale)} the source index of every created character is known.
+   *
+   * @param sText
+   *        The text to lower case. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to use. May not be <code>null</code>.
+   * @param aSrcIndex
+   *        Optional array that receives for each character of the result the index of the source
+   *        character it was created from. Must have at least 3 entries per source character if
+   *        present.
+   * @return The lower cased text. Never <code>null</code>.
+   */
+  @NonNull
+  private static String _getLowerCasePerCodePoint (@NonNull final String sText,
+                                                   @NonNull final Locale aLocale,
+                                                   final int @Nullable [] aSrcIndex)
+  {
+    final int nLen = sText.length ();
+    final StringBuilder aSB = new StringBuilder (nLen + 8);
+    int nIndex = 0;
+    while (nIndex < nLen)
+    {
+      final int nCP = sText.codePointAt (nIndex);
+      final String sLower = new String (Character.toChars (nCP)).toLowerCase (aLocale);
+      if (aSrcIndex != null)
+        for (int i = 0; i < sLower.length (); ++i)
+          aSrcIndex[aSB.length () + i] = nIndex;
+      aSB.append (sLower);
+      nIndex += Character.charCount (nCP);
+    }
+    return aSB.toString ();
+  }
+
+  /**
+   * Find sSearch within sText ignoring case, and return the index within the original text.
+   *
+   * @param sText
+   *        The text to search in. May not be <code>null</code>.
+   * @param nFromIndex
+   *        The index in the original text to start searching from, with the semantics of
+   *        {@link String#indexOf(String, int)} or {@link String#lastIndexOf(String, int)}.
+   * @param sSearch
+   *        The text to search for. May not be <code>null</code>.
+   * @param aLocale
+   *        The locale to be used for case unifying. May not be <code>null</code>.
+   * @param bLast
+   *        <code>true</code> to search for the last occurrence, <code>false</code> for the first.
+   * @return The index within the original text or {@value CGlobal#STRING_NOT_FOUND}.
+   */
+  private static int _getIndexOfIgnoreCase (@NonNull final String sText,
+                                            final int nFromIndex,
+                                            @NonNull final String sSearch,
+                                            @NonNull final Locale aLocale,
+                                            final boolean bLast)
+  {
+    final String sTextLC = sText.toLowerCase (aLocale);
+    if (sTextLC.length () == sText.length ())
+    {
+      // Lower casing never shortens a text, so the same length means that every character kept
+      // its index
+      final String sSearchLC = sSearch.toLowerCase (aLocale);
+      return bLast ? sTextLC.lastIndexOf (sSearchLC, nFromIndex) : sTextLC.indexOf (sSearchLC, nFromIndex);
+    }
+
+    // Lower casing changed the length (e.g. U+0130 outside of Turkish locales) - map the indices
+    // back to the original text. A code point creates at most 3 characters when lower cased.
+    final int nLen = sText.length ();
+    final int [] aSrcIndex = new int [nLen * 3];
+    final String sMappedLC = _getLowerCasePerCodePoint (sText, aLocale, aSrcIndex);
+    final int nMappedLen = sMappedLC.length ();
+    final String sSearchLC = _getLowerCasePerCodePoint (sSearch, aLocale, null);
+
+    final int nRet;
+    if (bLast)
+    {
+      if (nFromIndex < 0)
+        return CGlobal.STRING_NOT_FOUND;
+      // The last lower cased index that belongs to a source index <= nFromIndex
+      int nMappedFrom = nMappedLen;
+      if (nFromIndex < nLen)
+      {
+        nMappedFrom = 0;
+        while (nMappedFrom < nMappedLen && aSrcIndex[nMappedFrom] <= nFromIndex)
+          nMappedFrom++;
+        nMappedFrom--;
+      }
+      nRet = sMappedLC.lastIndexOf (sSearchLC, nMappedFrom);
+    }
+    else
+    {
+      // The first lower cased index that belongs to a source index >= nFromIndex
+      int nMappedFrom = 0;
+      if (nFromIndex > 0)
+        while (nMappedFrom < nMappedLen && aSrcIndex[nMappedFrom] < nFromIndex)
+          nMappedFrom++;
+      nRet = sMappedLC.indexOf (sSearchLC, nMappedFrom);
+    }
+    if (nRet < 0)
+      return CGlobal.STRING_NOT_FOUND;
+    return nRet < nMappedLen ? aSrcIndex[nRet] : nLen;
+  }
+
+  /**
    * Get the first index of sSearch within sText ignoring case.
    *
    * @param sText
@@ -1017,9 +1122,9 @@ public class StringHelper
                                           @Nullable final String sSearch,
                                           @NonNull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
-                                                                                           .indexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : CGlobal.STRING_NOT_FOUND;
+    if (sText == null || sSearch == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, 0, sSearch, aSortLocale, false);
   }
 
   /**
@@ -1042,11 +1147,9 @@ public class StringHelper
                                           @Nullable final String sSearch,
                                           @NonNull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && (sText.length () - nFromIndex) >= sSearch.length () ? sText.toLowerCase (
-                                                                                                                        aSortLocale)
-                                                                                                          .indexOf (sSearch.toLowerCase (aSortLocale),
-                                                                                                                    nFromIndex)
-                                                                                                   : CGlobal.STRING_NOT_FOUND;
+    if (sText == null || sSearch == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, nFromIndex, sSearch, aSortLocale, false);
   }
 
   /**
@@ -1066,9 +1169,9 @@ public class StringHelper
                                               @Nullable final String sSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null && sText.length () >= sSearch.length () ? sText.toLowerCase (aSortLocale)
-                                                                                           .lastIndexOf (sSearch.toLowerCase (aSortLocale))
-                                                                                    : CGlobal.STRING_NOT_FOUND;
+    if (sText == null || sSearch == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, Integer.MAX_VALUE, sSearch, aSortLocale, true);
   }
 
   /**
@@ -1091,9 +1194,9 @@ public class StringHelper
                                               @Nullable final String sSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null && sSearch != null ? sText.toLowerCase (aSortLocale)
-                                                   .lastIndexOf (sSearch.toLowerCase (aSortLocale), nFromIndex)
-                                            : CGlobal.STRING_NOT_FOUND;
+    if (sText == null || sSearch == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, nFromIndex, sSearch, aSortLocale, true);
   }
 
   /**
@@ -1113,9 +1216,9 @@ public class StringHelper
                                           final char cSearch,
                                           @NonNull final Locale aSortLocale)
   {
-    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
-                                                        .indexOf (Character.toLowerCase (cSearch))
-                                                 : CGlobal.STRING_NOT_FOUND;
+    if (sText == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, 0, String.valueOf (cSearch), aSortLocale, false);
   }
 
   /**
@@ -1138,9 +1241,9 @@ public class StringHelper
                                           final char cSearch,
                                           @NonNull final Locale aSortLocale)
   {
-    return sText != null && (sText.length () - nFromIndex) >= 1 ? sText.toLowerCase (aSortLocale)
-                                                                       .indexOf (Character.toLowerCase (cSearch),
-                                                                                 nFromIndex) : CGlobal.STRING_NOT_FOUND;
+    if (sText == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, nFromIndex, String.valueOf (cSearch), aSortLocale, false);
   }
 
   /**
@@ -1160,9 +1263,9 @@ public class StringHelper
                                               final char cSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null && sText.length () >= 1 ? sText.toLowerCase (aSortLocale)
-                                                        .lastIndexOf (Character.toLowerCase (cSearch))
-                                                 : CGlobal.STRING_NOT_FOUND;
+    if (sText == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, Integer.MAX_VALUE, String.valueOf (cSearch), aSortLocale, true);
   }
 
   /**
@@ -1185,8 +1288,9 @@ public class StringHelper
                                               final char cSearch,
                                               @NonNull final Locale aSortLocale)
   {
-    return sText != null ? sText.toLowerCase (aSortLocale).lastIndexOf (Character.toLowerCase (cSearch), nFromIndex)
-                         : CGlobal.STRING_NOT_FOUND;
+    if (sText == null)
+      return CGlobal.STRING_NOT_FOUND;
+    return _getIndexOfIgnoreCase (sText, nFromIndex, String.valueOf (cSearch), aSortLocale, true);
   }
 
   /**

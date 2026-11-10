@@ -59,4 +59,20 @@ public final class EJVMVendorTest
     assertTrue (EJVMVendor.ORACLE_SERVER.isOracle ());
     assertFalse (EJVMVendor.UNKNOWN.isOracle ());
   }
+
+  @Test
+  public void testCurrentVendorIsUnique ()
+  {
+    int nCount = 0;
+    for (final EJVMVendor e : EJVMVendor.values ())
+      if (e.isJVMVendor ())
+        nCount++;
+    // UNKNOWN is never determined as such
+    assertFalse (EJVMVendor.UNKNOWN.isJVMVendor ());
+    assertTrue (nCount <= 1);
+    if (nCount == 0)
+      assertSame (EJVMVendor.UNKNOWN, EJVMVendor.getCurrentVendor ());
+    else
+      assertTrue (EJVMVendor.getCurrentVendor ().isJVMVendor ());
+  }
 }

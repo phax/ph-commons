@@ -17,20 +17,18 @@
 package com.helger.collection.commons;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.NotThreadSafe;
-import com.helger.base.equals.EqualsHelper;
-import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.tostring.ToStringGenerator;
 
 /**
  * Simple implementation of Map.Entry.<br>
- * Important: The equals and hashCode implementation of this class is different from the Map.Entry
- * default implementation class! The default Map.Entry claims to be equal with instances of this
- * class, but this class is not equal to the Map.Entry implementation!
+ * The equals and hashCode implementation follow the contract of {@link Map.Entry}, so an instance of
+ * this class is equal to any other {@link Map.Entry} with the same key and value.
  *
  * @author Philip Helger
  * @param <KEYTYPE>
@@ -103,17 +101,17 @@ public class MapEntry <KEYTYPE, VALUETYPE> implements Map.Entry <KEYTYPE, VALUET
   {
     if (o == this)
       return true;
-    if (o == null || !getClass ().equals (o.getClass ()))
+    // As defined by the Map.Entry contract
+    if (!(o instanceof final Map.Entry <?, ?> rhs))
       return false;
-    final MapEntry <?, ?> rhs = (MapEntry <?, ?>) o;
-    final Object aObj1 = m_aValue;
-    return EqualsHelper.equals (m_aKey, rhs.m_aKey) && EqualsHelper.equals (aObj1, rhs.m_aValue);
+    return Objects.equals (m_aKey, rhs.getKey ()) && Objects.equals (m_aValue, rhs.getValue ());
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_aKey).append (m_aValue).getHashCode ();
+    // As defined by the Map.Entry contract
+    return Objects.hashCode (m_aKey) ^ Objects.hashCode (m_aValue);
   }
 
   @Override

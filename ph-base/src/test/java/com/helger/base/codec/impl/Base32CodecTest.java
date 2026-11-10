@@ -75,7 +75,7 @@ public final class Base32CodecTest
     assertEquals ("MZXW6YTBOI======", aBase32.getEncodedAsString ("foobar", CHARSET));
     assertEquals ("AAAAAAAA", aBase32.getEncodedAsString (new byte [] { 0, 0, 0, 0, 0 }, CHARSET));
 
-    aBase32.setAddPaddding (false);
+    aBase32.setAddPadding (false);
     assertEquals ("AA", aBase32.getEncodedAsString (new byte [] { 0 }, CHARSET));
     assertEquals ("74", aBase32.getEncodedAsString (new byte [] { (byte) 0xff }, CHARSET));
     assertEquals ("IE", aBase32.getEncodedAsString ("A", CHARSET));

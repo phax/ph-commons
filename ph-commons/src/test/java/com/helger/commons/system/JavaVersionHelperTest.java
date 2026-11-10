@@ -244,4 +244,13 @@ public final class JavaVersionHelperTest
     assertFalse (JavaVersionHelper.isAtLeast (JavaVersionHelper.JAVA_MAJOR_VERSION,
                                               JavaVersionHelper.JAVA_MINOR_VERSION + 1));
   }
+
+  @Test
+  public void testGetVersionWithoutRuntimeVersion ()
+  {
+    // No runtime version available must not lead to a NullPointerException
+    final int [] aParts = JavaVersionHelper.getAsUnifiedVersion ("1.8.0-adoptopenjdk", null, false);
+    assertNotNull (aParts);
+    assertEquals (8, aParts[0]);
+  }
 }

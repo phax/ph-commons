@@ -23,6 +23,8 @@ import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -36,6 +38,8 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.numeric.mutable.MutableInt;
 import com.helger.base.state.EContinue;
+import com.helger.typeconvert.TypeConverterException;
+import com.helger.typeconvert.TypeConverterException.EReason;
 
 /**
  * Test class for class {@link SerializationConverter} and {@link SerializationConverterRegistry}.
@@ -60,11 +64,17 @@ public final class SerializationConverterTest
 
     // Charset is registered by the default registrar
     assertNotNull (aRegistry.getConverter (Charset.class));
-    // The concrete Charset implementation class is registered as well
+    // The concrete Charset implementation class is found via its class hierarchy
     assertNotNull (aRegistry.getConverter (StandardCharsets.UTF_8.getClass ()));
-    // Note: because the class hierarchy of the registered classes contains
-    // Object, a converter is found for every class
-    assertNotNull (aRegistry.getConverter (MockNotSerializable.class));
+    // Only the registered classes and their sub classes have a converter, super classes and
+    // interfaces of the registered classes have none
+    assertNull (aRegistry.getConverter (MockNotSerializable.class));
+    assertNull (aRegistry.getConverter (Object.class));
+    assertNull (aRegistry.getConverter (Comparable.class));
+    assertNull (aRegistry.getConverter (Image.class));
+    assertNotNull (aRegistry.getConverter (BufferedImage.class));
+    // Exactly the 2 classes of the default registrar are registered
+    assertEquals (2, aRegistry.getRegisteredSerializationConverterCount ());
 
     final MutableInt aCount = new MutableInt (0);
     aRegistry.iterateAllRegisteredSerializationConverters ((aClass, aConverter) -> {
@@ -140,6 +150,22 @@ public final class SerializationConverterTest
         assertEquals (aCharset, SerializationConverter.readConvertedObject (aOIS, Charset.class));
         assertNull (SerializationConverter.readConvertedObject (aOIS, Charset.class));
       }
+    }
+  }
+
+  @Test
+  public void testWriteWithoutConverter () throws IOException
+  {
+    // No converter is present, so the dedicated exception must be thrown
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+         final ObjectOutputStream aOOS = new ObjectOutputStream (aBAOS))
+    {
+      SerializationConverter.writeConvertedObject (new MockNotSerializable (), aOOS);
+      fail ();
+    }
+    catch (final TypeConverterException ex)
+    {
+      assertEquals (EReason.NO_CONVERTER_FOUND_SINGLE, ex.getReason ());
     }
   }
 

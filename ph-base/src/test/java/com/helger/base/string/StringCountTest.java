@@ -230,4 +230,15 @@ public final class StringCountTest
     assertEquals (0, StringCount.getTrailingCharCount ("", 'x'));
     assertEquals (0, StringCount.getTrailingCharCount (null, 'x'));
   }
+
+  @Test
+  public void testGetCharacterCountMinValue ()
+  {
+    assertEquals (Integer.toString (Integer.MIN_VALUE).length (), StringCount.getCharacterCount (Integer.MIN_VALUE));
+    assertEquals (Long.toString (Long.MIN_VALUE).length (), StringCount.getCharacterCount (Long.MIN_VALUE));
+    for (final int n : new int [] { Integer.MIN_VALUE + 1, -1000, -1, 0, 1, 999, 1000, Integer.MAX_VALUE })
+      assertEquals (Integer.toString (n).length (), StringCount.getCharacterCount (n));
+    for (final long n : new long [] { Long.MIN_VALUE + 1, -1000, -1, 0, 1, 999, 1000, Long.MAX_VALUE })
+      assertEquals (Long.toString (n).length (), StringCount.getCharacterCount (n));
+  }
 }

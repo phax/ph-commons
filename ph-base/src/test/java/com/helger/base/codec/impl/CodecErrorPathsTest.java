@@ -111,7 +111,7 @@ public final class CodecErrorPathsTest
     assertFalse (c.isHexEncoding ());
 
     // Without padding
-    c.setAddPaddding (false);
+    c.setAddPadding (false);
     final byte [] aEncoded = c.getEncoded (BYTES);
     assertNotNull (aEncoded);
     assertArrayEquals (BYTES, c.getDecoded (aEncoded));
@@ -168,8 +168,8 @@ public final class CodecErrorPathsTest
     final RunLengthCodec c = new RunLengthCodec ();
     assertNull (c.getDecoded ((byte []) null));
 
-    // 2 literal bytes ("ab"), then 3 times "c" (257-254) and the EOD marker
-    final byte [] aEncoded = { 2, 'a', 'b', (byte) 254, 'c', (byte) 0x80 };
+    // 2 literal bytes ("ab", length byte 2 - 1), then 3 times "c" (257-254) and the EOD marker
+    final byte [] aEncoded = { 1, 'a', 'b', (byte) 254, 'c', (byte) 0x80 };
     assertArrayEquals ("abccc".getBytes (StandardCharsets.ISO_8859_1), c.getDecoded (aEncoded));
 
     // Premature end in a literal run

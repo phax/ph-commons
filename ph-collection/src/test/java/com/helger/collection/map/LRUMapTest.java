@@ -44,4 +44,22 @@ public final class LRUMapTest
     }
     assertEquals (MAX_SIZE, aCache.size ());
   }
+
+  @Test
+  public void testHashCodeIndependentOfAccessOrder ()
+  {
+    final LRUMap <String, String> aMap1 = new LRUMap <> (MAX_SIZE);
+    aMap1.put ("a", "1");
+    aMap1.put ("b", "2");
+    final LRUMap <String, String> aMap2 = new LRUMap <> (MAX_SIZE);
+    aMap2.put ("b", "2");
+    aMap2.put ("a", "1");
+    assertEquals (aMap1, aMap2);
+    assertEquals (aMap1.hashCode (), aMap2.hashCode ());
+
+    // Access changes the order, but neither equals nor the hash code
+    aMap1.get ("a");
+    assertEquals (aMap1, aMap2);
+    assertEquals (aMap1.hashCode (), aMap2.hashCode ());
+  }
 }

@@ -121,7 +121,7 @@ public final class ASCII85CodecTest
       _decode ("<~9jqo^9~>");
       fail ();
     }
-    catch (final IllegalStateException ex)
+    catch (final DecodeException ex)
     {
       // expected
     }

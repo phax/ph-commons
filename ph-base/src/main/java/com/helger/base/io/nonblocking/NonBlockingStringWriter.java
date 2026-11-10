@@ -117,7 +117,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   @Override
   public void write (@NonNull final String sStr, final int nOfs, final int nLen)
   {
-    m_aSB.append (sStr.substring (nOfs, nOfs + nLen));
+    // Append the range directly without an intermediate substring
+    m_aSB.append (sStr, nOfs, nOfs + nLen);
   }
 
   /**
@@ -191,7 +192,8 @@ public class NonBlockingStringWriter extends Writer implements IHasSize, IWriteT
   public NonBlockingStringWriter append (final CharSequence aCS, final int nStart, final int nEnd)
   {
     final CharSequence cs = (aCS == null ? "null" : aCS);
-    write (cs.subSequence (nStart, nEnd).toString ());
+    // Append the range directly without an intermediate String
+    m_aSB.append (cs, nStart, nEnd);
     return this;
   }
 

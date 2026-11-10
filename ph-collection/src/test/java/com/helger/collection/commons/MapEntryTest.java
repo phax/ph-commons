@@ -23,6 +23,9 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 
 import com.helger.unittest.support.TestHelper;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Test class for class {@link MapEntry}.
@@ -54,5 +57,19 @@ public final class MapEntryTest
                                                                     new MapEntry <> ("Key", "value2"));
     TestHelper.testDefaultImplementationWithDifferentContentObject (new MapEntry <> ("Key", "value"),
                                                                     new MapEntry <> ("Key2", "value"));
+  }
+
+  @Test
+  public void testMapEntryContract ()
+  {
+    final MapEntry <String, String> e = new MapEntry <> ("Key", "value");
+    final Map.Entry <String, String> aJdkEntry = new AbstractMap.SimpleImmutableEntry <> ("Key", "value");
+    // Symmetric equality with other Map.Entry implementations
+    assertEquals (e, aJdkEntry);
+    assertEquals (aJdkEntry, e);
+    assertEquals (aJdkEntry.hashCode (), e.hashCode ());
+    assertEquals (new AbstractMap.SimpleImmutableEntry <> (null, null).hashCode (),
+                  new MapEntry <> (null, null).hashCode ());
+    assertEquals (Map.of ("Key", "value").entrySet (), Set.of (e));
   }
 }

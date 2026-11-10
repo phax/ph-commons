@@ -65,6 +65,118 @@ public enum EJVMVendor
     }
   },
 
+  /**
+   * Eclipse Adoptium (Temurin)
+   *
+   * @since 12.5.4
+   */
+  ECLIPSE_ADOPTIUM
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("Adoptium") || _isVendorContaining ("Temurin");
+    }
+  },
+
+  /**
+   * Amazon Corretto
+   *
+   * @since 12.5.4
+   */
+  AMAZON
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("Amazon");
+    }
+  },
+
+  /**
+   * Azul Zulu
+   *
+   * @since 12.5.4
+   */
+  AZUL
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("Azul");
+    }
+  },
+
+  /**
+   * BellSoft Liberica
+   *
+   * @since 12.5.4
+   */
+  BELLSOFT
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("BellSoft");
+    }
+  },
+
+  /**
+   * IBM Semeru
+   *
+   * @since 12.5.4
+   */
+  IBM
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("IBM");
+    }
+  },
+
+  /**
+   * Microsoft Build of OpenJDK
+   *
+   * @since 12.5.4
+   */
+  MICROSOFT
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("Microsoft");
+    }
+  },
+
+  /**
+   * Red Hat build of OpenJDK
+   *
+   * @since 12.5.4
+   */
+  RED_HAT
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("Red Hat");
+    }
+  },
+
+  /**
+   * SAP Machine
+   *
+   * @since 12.5.4
+   */
+  SAP
+  {
+    @Override
+    protected boolean determineIfItIsCurrentJVMVendor ()
+    {
+      return _isVendorContaining ("SAP SE");
+    }
+  },
+
   UNKNOWN
   {
     @Override
@@ -80,16 +192,16 @@ public enum EJVMVendor
 
   private static boolean _isSunOrOracleServerJVM ()
   {
+    // E.g. "Java HotSpot(TM) Server VM", "Java HotSpot(TM) 64-Bit Server VM" or "OpenJDK 64-Bit
+    // Server VM" (OpenJDK builds by Oracle)
     final String sVM = SystemProperties.getJavaVmName ();
-    // Dev machine, Windows Vista 32-bit:
-    if ("Java HotSpot(TM) Server VM".equals (sVM))
-      return true;
+    return sVM != null && sVM.contains ("Server VM");
+  }
 
-    // Server machine, CentOS 64-bit:
-    if ("Java HotSpot(TM) 64-Bit Server VM".equals (sVM))
-      return true;
-
-    return false;
+  private static boolean _isVendorContaining (@NonNull final String sToken)
+  {
+    final String sVendor = SystemProperties.getJavaVmVendor ();
+    return sVendor != null && sVendor.contains (sToken);
   }
 
   /** The current vendor. */

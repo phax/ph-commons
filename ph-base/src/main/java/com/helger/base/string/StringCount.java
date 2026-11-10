@@ -146,6 +146,12 @@ public final class StringCount
   {
     // index is always one character less than the real size; that's why nPrefix
     // is 1 more!
+    if (nValue == Integer.MIN_VALUE)
+    {
+      // Has no positive counterpart
+      return getCharacterCount ((long) nValue);
+    }
+
     final int nPrefix = nValue < 0 ? 2 : 1;
     final int nRealValue = MathHelper.abs (nValue);
 
@@ -166,6 +172,12 @@ public final class StringCount
   {
     // index is always one character less than the real size; that's why nPrefix
     // is 1 more!
+    if (nValue == Long.MIN_VALUE)
+    {
+      // Has no positive counterpart: "-9223372036854775808"
+      return 20;
+    }
+
     final int nPrefix = nValue < 0 ? 2 : 1;
     final long nRealValue = MathHelper.abs (nValue);
 

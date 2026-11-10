@@ -1557,4 +1557,14 @@ public final class CollectionHelperTest
     createSortedSetMapped (new CommonsArrayList <> ("a"), Object::toString);
     createSortedSetMapped (new Object [] { "a" }, Object::toString);
   }
+
+  @Test
+  public void testGetSubListLargeLength ()
+  {
+    final CommonsArrayList <String> aList = new CommonsArrayList <> ("a", "b", "c", "d");
+    // "start + length" would overflow
+    assertEquals (new CommonsArrayList <> ("b", "c", "d"), getSubList (aList, 1, Integer.MAX_VALUE));
+    assertEquals (new CommonsArrayList <> ("b", "c"), getSubList (aList, 1, 2));
+    assertEquals (new CommonsArrayList <> ("d"), getSubList (aList, 3, Integer.MAX_VALUE));
+  }
 }

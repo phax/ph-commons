@@ -56,7 +56,8 @@ public enum EJavaVersion
   JDK_23 (67.0, false),
   JDK_24 (68.0, false),
   JDK_25 (69.0, true),
-  JDK_26 (70.0, false);
+  JDK_26 (70.0, false),
+  JDK_27 (71.0, false);
 
   /** The current version. */
   private static final EJavaVersion INSTANCE;
@@ -101,7 +102,8 @@ public enum EJavaVersion
   EJavaVersion (@Nonnegative final double dMinVersionIncl, final boolean bLTS)
   {
     m_dMinVersionIncl = dMinVersionIncl;
-    m_dMaxVersionExcl = dMinVersionIncl + 1.0;
+    // The next major class file version - JDK 1.1 starts at the minor version 45.3
+    m_dMaxVersionExcl = Math.floor (dMinVersionIncl) + 1.0;
     m_bLTS = bLTS;
     m_bIsIt = isMatchingVersion (SystemProperties.JAVA_CLASS_VERSION);
   }

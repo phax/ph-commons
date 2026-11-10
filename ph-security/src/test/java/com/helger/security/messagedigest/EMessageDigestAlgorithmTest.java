@@ -91,7 +91,7 @@ public final class EMessageDigestAlgorithmTest
   @Test
   public void testBase32 ()
   {
-    final Base32Codec aBase32 = new Base32Codec ().setAddPaddding (false);
+    final Base32Codec aBase32 = new Base32Codec ().setAddPadding (false);
     assertEquals ("4444WYPIXHSTJGGABKB7QMG63KJNR7IFMXRALGPORDXI6ZF64HUA",
                   aBase32.getEncodedAsString (MessageDigestValue.create ("urn:oasis:names:tc:ebcore:partyid-type:iso6523:0060:1234567890128".getBytes (CHARSET),
                                                                          EMessageDigestAlgorithm.SHA_256)
