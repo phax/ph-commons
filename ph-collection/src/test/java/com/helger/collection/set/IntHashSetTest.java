@@ -28,6 +28,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import com.helger.collection.list.IntArrayList;
 import com.helger.unittest.support.TestHelper;
 
 /**
@@ -131,6 +132,45 @@ public final class IntHashSetTest
     assertEquals (50_000, aSet.size ());
     for (int i = 0; i < 100_000; ++i)
       assertEquals (Boolean.valueOf ((i & 1) == 1), Boolean.valueOf (aSet.contains (i * 7)));
+  }
+
+  @Test
+  public void testAddAll ()
+  {
+    final IntHashSet aSet = new IntHashSet (1);
+    assertFalse (aSet.addAll ((int []) null));
+    assertFalse (aSet.addAll ());
+    assertFalse (aSet.addAll ((IntArrayList) null));
+    assertFalse (aSet.addAll (new IntArrayList ()));
+    assertTrue (aSet.isEmpty ());
+
+    assertTrue (aSet.addAll (3, 0, 1, 3, 0));
+    assertEquals (3, aSet.size ());
+    assertFalse (aSet.addAll (1, 0));
+    assertEquals (3, aSet.size ());
+
+    final IntArrayList aList = new IntArrayList ();
+    aList.addAll (1, -5, 7, -5);
+    assertTrue (aSet.addAll (aList));
+    assertEquals (5, aSet.size ());
+    assertFalse (aSet.addAll (aList));
+
+    final int [] aValues = aSet.toArray ();
+    Arrays.sort (aValues);
+    assertArrayEquals (new int [] { -5, 0, 1, 3, 7 }, aValues);
+
+    // Many values at once, including duplicates
+    for (final float ff : FILL_FACTORS)
+    {
+      final IntHashSet aBig = new IntHashSet (1, ff);
+      final int [] aMany = new int [100_000];
+      for (int i = 0; i < aMany.length; ++i)
+        aMany[i] = (i % 50_000) * 7;
+      assertTrue (aBig.addAll (aMany));
+      assertEquals (50_000, aBig.size ());
+      for (int i = 0; i < 50_000; ++i)
+        assertTrue (aBig.contains (i * 7));
+    }
   }
 
   @Test

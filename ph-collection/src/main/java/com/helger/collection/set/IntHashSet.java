@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.function.IntConsumer;
 
 import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
@@ -29,6 +30,7 @@ import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.iface.IHasSize;
 import com.helger.base.tostring.ToStringGenerator;
+import com.helger.collection.list.IntArrayList;
 
 /**
  * A hash set of primitive <code>int</code> values using open addressing with linear probing. No
@@ -212,6 +214,18 @@ public class IntHashSet implements IHasSize, ICloneable <IntHashSet>
         m_aKeys[_getFreeIndex (nKey)] = nKey;
   }
 
+  /**
+   * Grow the key array upfront so that the provided number of additional values fits without
+   * intermediate rehashing. Duplicates are not considered, so this may over-allocate. If the
+   * required capacity is too large, nothing happens and growing is left to {@link #add(int)}.
+   */
+  private void _ensureCapacityForAdditional (@Nonnegative final int nAdditional)
+  {
+    final long nNeeded = (long) Math.ceil (((long) m_nSize + nAdditional) / m_fFillFactor);
+    if (nNeeded > m_aKeys.length && nNeeded <= (1 << 30))
+      _rehash ((int) (Long.highestOneBit (nNeeded - 1) << 1));
+  }
+
   private void _shiftKeys (final int nPos)
   {
     // Shift entries with the same hash.
@@ -301,6 +315,49 @@ public class IntHashSet implements IHasSize, ICloneable <IntHashSet>
     if (m_nSize >= m_nThreshold)
       _rehash (m_aKeys.length * 2);
     return true;
+  }
+
+  /**
+   * Add all provided values to this set.
+   *
+   * @param aValues
+   *        The values to add. May be <code>null</code>.
+   * @return <code>true</code> if at least one value was added, <code>false</code> if all values
+   *         were already contained or nothing was provided.
+   */
+  public boolean addAll (final int @Nullable... aValues)
+  {
+    boolean ret = false;
+    if (aValues != null && aValues.length > 0)
+    {
+      _ensureCapacityForAdditional (aValues.length);
+      for (final int nValue : aValues)
+        if (add (nValue))
+          ret = true;
+    }
+    return ret;
+  }
+
+  /**
+   * Add all values of the provided list to this set.
+   *
+   * @param aValues
+   *        The list with the values to add. May be <code>null</code>.
+   * @return <code>true</code> if at least one value was added, <code>false</code> if all values
+   *         were already contained or nothing was provided.
+   */
+  public boolean addAll (@Nullable final IntArrayList aValues)
+  {
+    boolean ret = false;
+    if (aValues != null && aValues.isNotEmpty ())
+    {
+      final int nCount = aValues.size ();
+      _ensureCapacityForAdditional (nCount);
+      for (int i = 0; i < nCount; ++i)
+        if (add (aValues.get (i)))
+          ret = true;
+    }
+    return ret;
   }
 
   /**
