@@ -232,12 +232,6 @@ public final class CharsetHelper
   {
     ValueEnforcer.isBetweenInclusive (c, "c", Character.MIN_VALUE, Character.MAX_VALUE);
 
-    // see JVM spec 4.4.7, p 111
-    // http://java.sun.com/docs/books/jvms/second_edition/html/ClassFile.doc.html
-    // #1297
-    if (c == 0)
-      return 2;
-
     // Source: http://icu-project.org/apiref/icu4c/utf8_8h_source.html
     if (c <= 0x7f)
       return 1;

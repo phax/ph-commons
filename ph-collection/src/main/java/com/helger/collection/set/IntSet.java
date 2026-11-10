@@ -29,8 +29,10 @@ import com.helger.collection.map.IntObjectMap;
  *
  * @author Philip Helger
  * @since 9.0.0
+ * @deprecated Use {@link IntHashSet} instead, which stores the values without boxing
  */
 @NotThreadSafe
+@Deprecated (forRemoval = true, since = "12.6.0")
 public class IntSet implements IHasSize
 {
   private final IntObjectMap <Boolean> m_aMap;

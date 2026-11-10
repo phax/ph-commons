@@ -451,7 +451,7 @@ public class IntObjectMap <T> implements IHasSize, ICloneable <IntObjectMap <T>>
    * @param key
    *        The key to check.
    * @return <code>true</code> if the key is contained, <code>false</code> if not.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public boolean containsKey (final int key)
   {
@@ -463,7 +463,7 @@ public class IntObjectMap <T> implements IHasSize, ICloneable <IntObjectMap <T>>
   /**
    * Remove all entries from this map. The capacity of the map is not reduced.
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public void clear ()
   {
@@ -484,7 +484,7 @@ public class IntObjectMap <T> implements IHasSize, ICloneable <IntObjectMap <T>>
    *
    * @return A new array with all keys of this map in no particular order. Never
    *         <code>null</code> but maybe empty.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @ReturnsMutableCopy
   public int @NonNull [] getAllKeys ()
@@ -504,7 +504,7 @@ public class IntObjectMap <T> implements IHasSize, ICloneable <IntObjectMap <T>>
    * cloned.
    *
    * @return A new map with the same entries as this map. Never <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   @ReturnsMutableCopy

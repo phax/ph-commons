@@ -30,7 +30,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
  * All String returning methods return the same String instance if nothing needs to be changed.
  *
  * @author Philip Helger
- * @since 12.5.4
+ * @since 12.6.0
  */
 @Immutable
 public final class XmlWhitespace

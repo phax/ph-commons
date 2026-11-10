@@ -68,7 +68,7 @@ public enum EJVMVendor
   /**
    * Eclipse Adoptium (Temurin)
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   ECLIPSE_ADOPTIUM
   {
@@ -82,7 +82,7 @@ public enum EJVMVendor
   /**
    * Amazon Corretto
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   AMAZON
   {
@@ -96,7 +96,7 @@ public enum EJVMVendor
   /**
    * Azul Zulu
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   AZUL
   {
@@ -110,7 +110,7 @@ public enum EJVMVendor
   /**
    * BellSoft Liberica
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   BELLSOFT
   {
@@ -124,7 +124,7 @@ public enum EJVMVendor
   /**
    * IBM Semeru
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   IBM
   {
@@ -138,7 +138,7 @@ public enum EJVMVendor
   /**
    * Microsoft Build of OpenJDK
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   MICROSOFT
   {
@@ -152,7 +152,7 @@ public enum EJVMVendor
   /**
    * Red Hat build of OpenJDK
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   RED_HAT
   {
@@ -166,7 +166,7 @@ public enum EJVMVendor
   /**
    * SAP Machine
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   SAP
   {

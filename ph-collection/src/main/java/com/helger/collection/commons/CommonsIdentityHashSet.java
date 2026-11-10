@@ -42,7 +42,7 @@ import com.helger.collection.CollectionHelper;
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Set element type
- * @since 12.5.4
+ * @since 12.6.0
  */
 @NotThreadSafe
 public class CommonsIdentityHashSet <ELEMENTTYPE> extends AbstractSet <ELEMENTTYPE> implements

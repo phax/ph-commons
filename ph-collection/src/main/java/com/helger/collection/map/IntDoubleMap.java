@@ -446,7 +446,7 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
    * @param key
    *        The key to check.
    * @return <code>true</code> if the key is contained, <code>false</code> if not.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public boolean containsKey (final int key)
   {
@@ -458,7 +458,7 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
   /**
    * Remove all entries from this map. The capacity of the map is not reduced.
    *
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public void clear ()
   {
@@ -479,7 +479,7 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
    *
    * @return A new array with all keys of this map in no particular order. Never
    *         <code>null</code> but maybe empty.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @ReturnsMutableCopy
   public int @NonNull [] getAllKeys ()
@@ -498,7 +498,7 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
    * Create a copy of this map. The internal arrays are copied, so this is a deep copy.
    *
    * @return A new map with the same entries as this map. Never <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   @ReturnsMutableCopy

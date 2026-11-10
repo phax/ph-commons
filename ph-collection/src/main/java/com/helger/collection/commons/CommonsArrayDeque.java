@@ -38,7 +38,7 @@ import com.helger.collection.CollectionHelper;
  * @author Philip Helger
  * @param <ELEMENTTYPE>
  *        Deque element type
- * @since 12.5.4
+ * @since 12.6.0
  */
 @NotThreadSafe
 public class CommonsArrayDeque <ELEMENTTYPE> extends ArrayDeque <ELEMENTTYPE> implements

@@ -47,15 +47,13 @@ public final class PagingHelper
   {}
 
   /**
-   * Extract a single page out of the provided collection. The source collection is never modified.
+   * Extract a single page out of the provided collection. The source collection is never modified:
+   * if a comparator is provided, a copy of the list is sorted.
    *
    * @param <T>
    *        The collection element type
    * @param aList
    *        The list to take the page from. May not be <code>null</code>.
-   * @param bCopyList
-   *        <code>true</code> if the operation should work on copy of the list, <code>false</code>
-   *        if the original list can be used. If a comparator is provided, a copy is always used.
    * @param aPagingSpec
    *        The paging specification to be applied. May not be <code>null</code>.
    * @param aComparator
@@ -64,11 +62,11 @@ public final class PagingHelper
    *        up to the caller to resolve the sort fields onto a comparator, because only the caller
    *        knows the data model.
    * @return A non-<code>null</code> but maybe empty list.
+   * @since 12.6.0
    */
   @NonNull
   @ReturnsMutableCopy
   public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
-                                              final boolean bCopyList,
                                               @NonNull final IPagingSpec aPagingSpec,
                                               @Nullable final Comparator <? super T> aComparator)
   {
@@ -79,8 +77,8 @@ public final class PagingHelper
     if (aPagingSpec.isEmptyPage () || nStartIndex >= aList.size ())
       return new CommonsArrayList <> ();
 
-    // Always work on a copy when sorting, so that the source collection is not modified
-    final List <? extends T> aSorted = bCopyList || aComparator != null ? new CommonsArrayList <> (aList) : aList;
+    // Only work on a copy when sorting, so that the source collection is not modified
+    final List <? extends T> aSorted = aComparator != null ? new CommonsArrayList <> (aList) : aList;
     if (aComparator != null)
       aSorted.sort (aComparator);
 
@@ -100,6 +98,56 @@ public final class PagingHelper
   }
 
   /**
+   * Extract a single page out of the provided collection, keeping the existing order. The source
+   * collection is never modified.
+   *
+   * @param <T>
+   *        The collection element type
+   * @param aList
+   *        The list to take the page from. May not be <code>null</code>.
+   * @param aPagingSpec
+   *        The paging specification to be applied. May not be <code>null</code>.
+   * @return A non-<code>null</code> but maybe empty list.
+   * @since 12.6.0
+   */
+  @NonNull
+  @ReturnsMutableCopy
+  public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
+                                              @NonNull final IPagingSpec aPagingSpec)
+  {
+    return getPage (aList, aPagingSpec, (Comparator <? super T>) null);
+  }
+
+  /**
+   * Extract a single page out of the provided collection. The source collection is never modified.
+   *
+   * @param <T>
+   *        The collection element type
+   * @param aList
+   *        The list to take the page from. May not be <code>null</code>.
+   * @param bCopyList
+   *        Ignored - the source list is never modified.
+   * @param aPagingSpec
+   *        The paging specification to be applied. May not be <code>null</code>.
+   * @param aComparator
+   *        The comparator matching the sort fields of the paging specification. May be
+   *        <code>null</code> in which case the order of the source collection is used as is.
+   * @return A non-<code>null</code> but maybe empty list.
+   * @deprecated Use {@link #getPage(List, IPagingSpec, Comparator)} instead - the copy flag has no
+   *             effect
+   */
+  @Deprecated (forRemoval = true, since = "12.6.0")
+  @NonNull
+  @ReturnsMutableCopy
+  public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
+                                              final boolean bCopyList,
+                                              @NonNull final IPagingSpec aPagingSpec,
+                                              @Nullable final Comparator <? super T> aComparator)
+  {
+    return getPage (aList, aPagingSpec, aComparator);
+  }
+
+  /**
    * Extract a single page out of the provided collection, keeping the existing order.
    *
    * @param <T>
@@ -107,18 +155,19 @@ public final class PagingHelper
    * @param aList
    *        The list to take the page from. May not be <code>null</code>.
    * @param bCopyList
-   *        <code>true</code> if the operation should work on copy of the list, <code>false</code>
-   *        if the original list can be used.
+   *        Ignored - the source list is never modified.
    * @param aPagingSpec
    *        The paging specification to be applied. May not be <code>null</code>.
    * @return A non-<code>null</code> but maybe empty list.
+   * @deprecated Use {@link #getPage(List, IPagingSpec)} instead - the copy flag has no effect
    */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   @NonNull
   @ReturnsMutableCopy
   public static <T> ICommonsList <T> getPage (@NonNull final List <? extends T> aList,
                                               final boolean bCopyList,
                                               @NonNull final IPagingSpec aPagingSpec)
   {
-    return getPage (aList, bCopyList, aPagingSpec, (Comparator <? super T>) null);
+    return getPage (aList, aPagingSpec);
   }
 }

@@ -4408,6 +4408,7 @@ public final class LZWCodecTest
    * The LZW encoder as implemented up to and including v12.5.3. It is used as the reference to
    * ensure the optimised encoder creates byte-identical output.
    */
+  @SuppressWarnings ("removal")
   private static void _encodeReference (final byte [] aBuffer,
                                         final int nOfs,
                                         final int nLen,

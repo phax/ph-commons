@@ -28,6 +28,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 import com.helger.collection.map.IntObjectMap;
+import com.helger.collection.set.IntHashSet;
 import com.helger.collection.set.IntSet;
 
 /**
@@ -44,29 +45,60 @@ import com.helger.collection.set.IntSet;
 public class Homoglyph
 {
   // Map from char to all other chars that are homoglyphs
-  private final IntObjectMap <IntSet> m_aLookup = new IntObjectMap <> ();
+  private final IntObjectMap <IntHashSet> m_aLookup = new IntObjectMap <> ();
 
   /**
    * Supply a List of Sets, with each Set containing a group of Unicode codepoints that are
-   * homoglyphs. Codepoints must be represented using Integer rather than Character values because
-   * some are too large to be held by the 16-bit Character type.
+   * homoglyphs. Codepoints must be represented using int rather than char values because some are
+   * too large to be held by the 16-bit char type.
    *
    * @param aHomoglyphs
    *        a List of Sets, with each Set containing a group of Unicode codepoints that are
    *        homoglyphs
+   * @since 12.6.0
    */
-  public Homoglyph (@NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
+  public Homoglyph (@NonNull final Iterable <@NonNull IntHashSet> aHomoglyphs)
   {
     ValueEnforcer.notNull (aHomoglyphs, "Homoglyphs");
-    for (final IntSet aSet : aHomoglyphs)
+    for (final IntHashSet aSet : aHomoglyphs)
       aSet.forEach (nValue -> m_aLookup.put (nValue, aSet));
+  }
+
+  /**
+   * Supply a List of Sets, with each Set containing a group of Unicode codepoints that are
+   * homoglyphs.
+   *
+   * @param aHomoglyphs
+   *        a List of Sets, with each Set containing a group of Unicode codepoints that are
+   *        homoglyphs
+   * @deprecated Use {@link #Homoglyph(Iterable)} with {@link IntHashSet} instead
+   */
+  @Deprecated (forRemoval = true, since = "12.6.0")
+  public Homoglyph (@NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
+  {
+    this (_convert (aHomoglyphs));
+  }
+
+  @NonNull
+  @SuppressWarnings ("removal")
+  private static ICommonsList <IntHashSet> _convert (@NonNull final ICommonsList <@NonNull IntSet> aHomoglyphs)
+  {
+    ValueEnforcer.notNull (aHomoglyphs, "Homoglyphs");
+    final ICommonsList <IntHashSet> ret = new CommonsArrayList <> (aHomoglyphs.size ());
+    for (final IntSet aSet : aHomoglyphs)
+    {
+      final IntHashSet aNewSet = new IntHashSet (aSet.size ());
+      aSet.forEach (aNewSet::add);
+      ret.add (aNewSet);
+    }
+    return ret;
   }
 
   private boolean _checkForHomoglyphs (final int nCP1, final int nCP2)
   {
     if (nCP1 == nCP2)
       return true;
-    final IntSet aCP1Set = m_aLookup.get (nCP1);
+    final IntHashSet aCP1Set = m_aLookup.get (nCP1);
     return aCP1Set != null && aCP1Set.contains (nCP2);
   }
 

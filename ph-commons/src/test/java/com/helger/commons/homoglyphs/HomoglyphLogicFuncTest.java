@@ -24,7 +24,7 @@ import org.junit.Test;
 
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.set.IntSet;
+import com.helger.collection.set.IntHashSet;
 
 public final class HomoglyphLogicFuncTest
 {
@@ -41,9 +41,9 @@ public final class HomoglyphLogicFuncTest
   }
 
   @NonNull
-  private static IntSet _makeSet (final char @NonNull... aChars)
+  private static IntHashSet _makeSet (final char @NonNull... aChars)
   {
-    final IntSet s = new IntSet (aChars.length);
+    final IntHashSet s = new IntHashSet (aChars.length);
     for (final char c : aChars)
       s.add (c);
     return s;
@@ -52,7 +52,7 @@ public final class HomoglyphLogicFuncTest
   @Before
   public void beforeTest ()
   {
-    final ICommonsList <@NonNull IntSet> s = new CommonsArrayList <> (_makeSet ('1', 'I', 'l', '|'),
+    final ICommonsList <@NonNull IntHashSet> s = new CommonsArrayList <> (_makeSet ('1', 'I', 'l', '|'),
                                                                       _makeSet ('0', 'O'),
                                                                       _makeSet ('5', 'S'));
 

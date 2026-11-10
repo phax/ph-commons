@@ -166,9 +166,9 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   }
 
   /**
-   * Resets this builder. All configuration options are set to default values. Note: If the
-   * {@link #build()} method was called, it is not necessary to call {@code reset()} explicitly
-   * because this is done automatically.
+   * Resets this builder. All configuration options are set to default values. Note: {@link #build()}
+   * does not reset the builder, so it can be used to create multiple factories with the same
+   * configuration. Call this method explicitly to start over.
    */
   public void reset ()
   {
@@ -182,8 +182,9 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
 
   /**
    * Creates a new {@code BasicThreadFactory} with all configuration options that have been
-   * specified by calling methods on this builder. After creating the factory {@link #reset()} is
-   * called.
+   * specified by calling methods on this builder. The builder keeps its configuration, so that
+   * further factories with the same configuration can be created. Use {@link #reset()} to start
+   * over.
    *
    * @return the new {@code BasicThreadFactory}
    */

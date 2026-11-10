@@ -908,7 +908,8 @@ public final class BigHelper
   }
 
   /**
-   * Convert a float to a {@link BigDecimal}.
+   * Convert a float to a {@link BigDecimal}. The shortest decimal representation of the float is
+   * used, so <code>0.1f</code> becomes <code>0.1</code>.
    *
    * @param f
    *        The float value.
@@ -917,7 +918,8 @@ public final class BigHelper
   @NonNull
   public static BigDecimal toBigDecimal (final float f)
   {
-    return BigDecimal.valueOf (f);
+    // Float.toString avoids the binary noise of the float to double conversion
+    return new BigDecimal (Float.toString (f));
   }
 
   /**

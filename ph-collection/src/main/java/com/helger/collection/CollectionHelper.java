@@ -303,7 +303,7 @@ public class CollectionHelper
    * @param nExpectedSize
    *        The expected number of elements. Must be &ge; 0.
    * @return The initial capacity to use. Always &gt; 0.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @Nonnegative
   public static int getHashCapacity (@Nonnegative final int nExpectedSize)

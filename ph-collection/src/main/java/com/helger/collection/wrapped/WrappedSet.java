@@ -19,6 +19,7 @@ package com.helger.collection.wrapped;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -75,6 +76,24 @@ public class WrappedSet <ELEMENTTYPE> implements ICommonsSet <ELEMENTTYPE>
   public WrappedSet <ELEMENTTYPE> getClone ()
   {
     return new WrappedSet <> (m_aSrc);
+  }
+
+  /**
+   * {@inheritDoc}<br>
+   * Note: in contrast to {@link #getClone()} the result is always an independent copy, also if no
+   * filter is provided.
+   */
+  @Override
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsSet <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final ICommonsSet <ELEMENTTYPE> ret = createInstance ();
+    if (aFilter == null)
+      ret.addAll (m_aSrc);
+    else
+      findAll (aFilter, ret::add);
+    return ret;
   }
 
   /** {@inheritDoc} */

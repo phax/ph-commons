@@ -195,7 +195,7 @@ public final class CollectionEqualsHelper
    *        The second enumeration. May not be <code>null</code>.
    * @return <code>true</code> if both enumerations have the same number of elements and all
    *         elements are equal in order.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public static <T> boolean equalsEnumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
   {
@@ -229,7 +229,7 @@ public final class CollectionEqualsHelper
    * @deprecated Use {@link #equalsEnumeration(Enumeration, Enumeration)} instead - this name
    *             contains a typo
    */
-  @Deprecated (forRemoval = true, since = "12.5.4")
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public static <T> boolean equalsEumeration (@NonNull final Enumeration <T> aEnum1, final Enumeration <?> aEnum2)
   {
     return equalsEnumeration (aEnum1, aEnum2);

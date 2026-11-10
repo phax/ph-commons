@@ -83,12 +83,13 @@ public final class StringParserTest
 
     assertSame (Boolean.TRUE, StringParser.parseBoolObj ((Object) "true"));
     assertSame (Boolean.FALSE, StringParser.parseBoolObj ((Object) "false"));
-    assertSame (Boolean.FALSE, StringParser.parseBoolObj ((Object) "anything"));
+    // Not interpretable as a boolean
+    assertNull (StringParser.parseBoolObj ((Object) "anything"));
     assertSame (Boolean.TRUE, StringParser.parseBoolObj (Boolean.TRUE));
     assertSame (Boolean.FALSE, StringParser.parseBoolObj (Boolean.FALSE));
     assertNull (StringParser.parseBoolObj ((Object) null));
-    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0)));
-    assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1)));
+    assertNull (StringParser.parseBoolObj (Integer.valueOf (0)));
+    assertNull (StringParser.parseBoolObj (Integer.valueOf (1)));
     assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), Boolean.TRUE));
     assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (1), Boolean.TRUE));
     assertSame (Boolean.FALSE, StringParser.parseBoolObj (Integer.valueOf (0), null));

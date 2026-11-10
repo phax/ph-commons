@@ -1866,7 +1866,7 @@ public class StringHelper
    * @param aCS
    *        The character sequence to check. May be <code>null</code>.
    * @return 0 if the input is <code>null</code> or empty, the number of code points otherwise.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @Nonnegative
   public static int getCodePointCount (@Nullable final CharSequence aCS)
@@ -1885,7 +1885,7 @@ public class StringHelper
    *        The string to get the code points from. May be <code>null</code>.
    * @return An empty array if the input is <code>null</code> or empty, the array of code points
    *         otherwise. Never <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @ReturnsMutableCopy
   public static int @NonNull [] getCodePoints (@Nullable final String sStr)

@@ -66,7 +66,7 @@ public class LRUMap <KEYTYPE, VALUETYPE> extends CommonsLinkedHashMap <KEYTYPE, 
    *        The initial capacity for which memory is reserved. Must be &gt; 0.
    * @param nMaxSize
    *        The maximum number of elements in this cache. May not be &lt; 0.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public LRUMap (@Nonnegative final int nInitialCapacity, @Nonnegative final int nMaxSize)
   {

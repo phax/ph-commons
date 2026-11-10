@@ -453,7 +453,7 @@ public class Base32Codec implements IByteArrayCodec
    * @param bAddPadding
    *        <code>true</code> to add padding, <code>false</code> to omit it.
    * @return this for chaining
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   public Base32Codec setAddPadding (final boolean bAddPadding)
@@ -471,7 +471,7 @@ public class Base32Codec implements IByteArrayCodec
    * @deprecated Use {@link #setAddPadding(boolean)} instead - this name contains a typo
    */
   @NonNull
-  @Deprecated (forRemoval = true, since = "12.5.4")
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public Base32Codec setAddPaddding (final boolean bAddPadding)
   {
     return setAddPadding (bAddPadding);

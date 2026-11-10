@@ -160,7 +160,7 @@ public class StringHex
    * @param aInput
    *        The byte array to be converted to a String. May not be <code>null</code>.
    * @return The String representation of the byte array using the characters 0-9 and A-F.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   public static String getHexEncodedUpperCase (final byte @NonNull [] aInput)
@@ -180,7 +180,7 @@ public class StringHex
    * @param nLen
    *        Number of bytes to encode
    * @return The String representation of the byte array using the characters 0-9 and A-F.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   public static String getHexEncodedUpperCase (final byte @NonNull [] aInput, final int nOfs, final int nLen)
@@ -234,7 +234,7 @@ public class StringHex
 
   /**
    * Get the decimal value of the passed hex character. Only the ASCII characters 0-9, a-f and A-F
-   * are considered hex characters. Since 12.5.4 non-ASCII digits and letters (like fullwidth digits)
+   * are considered hex characters. Since 12.6.0 non-ASCII digits and letters (like fullwidth digits)
    * are no longer accepted.
    *
    * @param c
@@ -332,7 +332,7 @@ public class StringHex
    *        The hex encoded character sequence. May be <code>null</code>.
    * @return The decoded byte array or <code>null</code> if the input is <code>null</code>, has an
    *         odd length or contains a character that is not a hex char (0-9, a-f, A-F).
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @ReturnsMutableCopy
   public static byte @Nullable [] getHexDecodedOrNull (@Nullable final CharSequence aInput)
@@ -499,7 +499,7 @@ public class StringHex
    * @param bUpperCase
    *        <code>true</code> to use the characters A-F, <code>false</code> to use a-f.
    * @return The passed string builder. Never <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @NonNull
   public static StringBuilder appendHexStringLeadingZero (@NonNull final StringBuilder aSB,

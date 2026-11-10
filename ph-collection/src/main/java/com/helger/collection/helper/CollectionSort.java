@@ -149,7 +149,7 @@ public class CollectionSort
    * @param aCmp
    *        The comparator to use. It must return a negative value, 0 or a positive value, like
    *        {@link Comparator#compare(Object, Object)}. May not be <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public static void sortInlineStable (final int @NonNull [] aArray,
                                        @Nonnegative final int nOfs,
@@ -187,7 +187,7 @@ public class CollectionSort
    *        <code>null</code>.
    * @return A new array of length <code>nCount</code> with the sorted indices. Never
    *         <code>null</code>.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   @ReturnsMutableCopy
   public static int @NonNull [] getSortedIndices (@Nonnegative final int nCount, @NonNull final IntBinaryOperator aCmp)

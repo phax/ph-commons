@@ -52,7 +52,7 @@ import com.helger.base.tostring.ToStringGenerator;
  *        Cache key type
  * @param <VALUETYPE>
  *        Cache value type
- * @since 12.5.4
+ * @since 12.6.0
  */
 @ThreadSafe
 public class ConcurrentBoundedCache <KEYTYPE, VALUETYPE> implements IHasSize

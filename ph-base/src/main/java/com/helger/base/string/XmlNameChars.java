@@ -30,7 +30,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
  * characters.
  *
  * @author Philip Helger
- * @since 12.5.4
+ * @since 12.6.0
  */
 @Immutable
 public final class XmlNameChars

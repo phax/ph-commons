@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.function.Predicate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -68,6 +69,24 @@ public class WrappedList <ELEMENTTYPE> implements ICommonsList <ELEMENTTYPE>
   public WrappedList <ELEMENTTYPE> getClone ()
   {
     return new WrappedList <> (m_aSrc);
+  }
+
+  /**
+   * {@inheritDoc}<br>
+   * Note: in contrast to {@link #getClone()} the result is always an independent copy, also if no
+   * filter is provided.
+   */
+  @Override
+  @NonNull
+  @ReturnsMutableCopy
+  public ICommonsList <ELEMENTTYPE> getAll (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
+  {
+    final ICommonsList <ELEMENTTYPE> ret = createInstance ();
+    if (aFilter == null)
+      ret.addAll (m_aSrc);
+    else
+      findAll (aFilter, ret::add);
+    return ret;
   }
 
   @NonNull

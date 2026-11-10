@@ -38,7 +38,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * array is needed.
  *
  * @author Philip Helger
- * @since 12.5.4
+ * @since 12.6.0
  */
 @NotThreadSafe
 public class IntHashSet implements IHasSize, ICloneable <IntHashSet>

@@ -157,7 +157,9 @@ public final class CharsetHelperTest
     assertEquals (0, CharsetHelper.getUTF8ByteCount ((String) null));
     assertEquals (0, CharsetHelper.getUTF8ByteCount ((char []) null));
 
-    assertEquals (2, CharsetHelper.getUTF8ByteCount ("\0"));
+    // Standard UTF-8: U+0000 is 1 byte
+    assertEquals (1, CharsetHelper.getUTF8ByteCount ("\0"));
+    assertEquals ("\0".getBytes (StandardCharsets.UTF_8).length, CharsetHelper.getUTF8ByteCount ("\0"));
     assertEquals (2, CharsetHelper.getUTF8ByteCount ("ä"));
     assertEquals (2, CharsetHelper.getUTF8ByteCount ('ä'));
     assertEquals (0, CharsetHelper.getUTF8ByteCount (""));

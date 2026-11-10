@@ -312,12 +312,11 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
           bHasSep = true;
           break;
         }
-        else
-          if ((c == ' ' || c == '\t' || c == '\f') && !bPrecedingBackslash)
-          {
-            nValueStart = nKeyLen + 1;
-            break;
-          }
+        if ((c == ' ' || c == '\t' || c == '\f') && !bPrecedingBackslash)
+        {
+          nValueStart = nKeyLen + 1;
+          break;
+        }
         if (c == '\\')
           bPrecedingBackslash = !bPrecedingBackslash;
         else
@@ -329,10 +328,9 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
         c = aLineReader.m_aLineBuf[nValueStart];
         if (c != ' ' && c != '\t' && c != '\f')
         {
-          if (!bHasSep && (c == '=' || c == ':'))
-            bHasSep = true;
-          else
+          if (bHasSep || ((c != '=') && (c != ':')))
             break;
+          bHasSep = true;
         }
         nValueStart++;
       }
@@ -480,18 +478,15 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
             if (m_nInLimit <= 0)
               return nLen;
           }
-          if (bPrecedingBackslash)
-          {
-            nLen -= 1;
-            // skip the leading whitespace characters in following line
-            bSkipWhiteSpace = true;
-            bAppendedLineBegin = true;
-            bPrecedingBackslash = false;
-            if (c == '\r')
-              bSkipLF = true;
-          }
-          else
+          if (!bPrecedingBackslash)
             return nLen;
+          nLen -= 1;
+          // skip the leading whitespace characters in following line
+          bSkipWhiteSpace = true;
+          bAppendedLineBegin = true;
+          bPrecedingBackslash = false;
+          if (c == '\r')
+            bSkipLF = true;
         }
       }
     }
@@ -535,39 +530,13 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
           for (int i = 0; i < 4; i++)
           {
             cChar = aIn[nCurOfs++];
-            switch (cChar)
+            nValue = switch (cChar)
             {
-              case '0':
-              case '1':
-              case '2':
-              case '3':
-              case '4':
-              case '5':
-              case '6':
-              case '7':
-              case '8':
-              case '9':
-                nValue = (nValue << 4) + cChar - '0';
-                break;
-              case 'a':
-              case 'b':
-              case 'c':
-              case 'd':
-              case 'e':
-              case 'f':
-                nValue = (nValue << 4) + 10 + cChar - 'a';
-                break;
-              case 'A':
-              case 'B':
-              case 'C':
-              case 'D':
-              case 'E':
-              case 'F':
-                nValue = (nValue << 4) + 10 + cChar - 'A';
-                break;
-              default:
-                throw new IllegalArgumentException ("Malformed \\uxxxx encoding.");
-            }
+              case '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' -> (nValue << 4) + cChar - '0';
+              case 'a', 'b', 'c', 'd', 'e', 'f' -> (nValue << 4) + 10 + cChar - 'a';
+              case 'A', 'B', 'C', 'D', 'E', 'F' -> (nValue << 4) + 10 + cChar - 'A';
+              default -> throw new IllegalArgumentException ("Malformed \\uxxxx encoding.");
+            };
           }
           aOut[nOutLen++] = (char) nValue;
         }
@@ -755,7 +724,6 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    *            <code>Strings</code>.
    * @exception NullPointerException
    *            if <code>writer</code> is null.
-   * @since 1.6
    */
   public void store (@NonNull @WillNotClose final Writer aWriter, @Nullable final String sComments) throws IOException
   {
@@ -797,7 +765,6 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
    *            <code>Strings</code>.
    * @exception NullPointerException
    *            if <code>out</code> is null.
-   * @since 1.2
    */
   public void store (@NonNull @WillNotClose final OutputStream aOS, @Nullable final String sComments) throws IOException
   {

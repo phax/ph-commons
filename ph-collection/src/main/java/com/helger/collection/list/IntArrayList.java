@@ -41,7 +41,7 @@ import com.helger.collection.helper.CollectionSort;
  * contrast to a <code>List&lt;Integer&gt;</code> no value is ever boxed.
  *
  * @author Philip Helger
- * @since 12.5.4
+ * @since 12.6.0
  */
 @NotThreadSafe
 public class IntArrayList implements IHasSize, ICloneable <IntArrayList>

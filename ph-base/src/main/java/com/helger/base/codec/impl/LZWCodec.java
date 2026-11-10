@@ -264,6 +264,13 @@ public class LZWCodec implements IByteArrayCodec
     }
   }
 
+  /**
+   * The dictionary used by the encoder up to version 12.5.x.
+   *
+   * @deprecated The encoder no longer uses this class - it keeps its own node tree to run in linear
+   *             time
+   */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   protected static class LZWEncodeDictionary extends AbstractLZWDictionary
   {
     private final LZWNode m_aRoot = new LZWNode ();

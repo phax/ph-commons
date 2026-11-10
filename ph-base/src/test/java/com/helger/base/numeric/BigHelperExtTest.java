@@ -204,6 +204,8 @@ public final class BigHelperExtTest
     assertEquals (0, BigDecimal.valueOf (5).compareTo (BigHelper.toBigDecimal (5)));
     assertEquals (0, BigDecimal.valueOf (5).compareTo (BigHelper.toBigDecimal (5L)));
     assertEquals (0, BigDecimal.valueOf (5.5).compareTo (BigHelper.toBigDecimal (5.5f)));
+    // No binary noise from the float to double conversion
+    assertEquals (new BigDecimal ("0.1"), BigHelper.toBigDecimal (0.1f));
     assertEquals (0, BigDecimal.valueOf (5.5).compareTo (BigHelper.toBigDecimal (5.5d)));
     assertEquals (0, BigDecimal.valueOf (5).compareTo (BigHelper.toBigDecimal (Integer.valueOf (5))));
     assertEquals (0, BigDecimal.valueOf (5).compareTo (BigHelper.toBigDecimal ("5")));

@@ -41,7 +41,7 @@ import com.helger.collection.CollectionHelper;
  *        Map key type
  * @param <VALUETYPE>
  *        Map value type
- * @since 12.5.4
+ * @since 12.6.0
  */
 @NotThreadSafe
 public class CommonsIdentityHashMap <KEYTYPE, VALUETYPE> extends IdentityHashMap <KEYTYPE, VALUETYPE> implements

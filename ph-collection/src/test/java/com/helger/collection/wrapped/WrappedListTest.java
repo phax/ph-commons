@@ -33,6 +33,7 @@ import org.junit.Test;
 
 import com.helger.base.reflection.GenericReflection;
 import com.helger.collection.commons.CommonsArrayList;
+import com.helger.collection.commons.ICommonsList;
 
 /**
  * Test class for class {@link WrappedList}.
@@ -121,5 +122,18 @@ public final class WrappedListTest
   public void testList () throws Exception
   {
     _testList (new WrappedList <> (new CommonsArrayList <> ()), String.class);
+  }
+
+  @Test
+  public void testGetAllIsIndependentCopy ()
+  {
+    final CommonsArrayList <String> aSrc = new CommonsArrayList <> ("a", "b");
+    final WrappedList <String> aWrapped = new WrappedList <> (aSrc);
+    final ICommonsList <String> aAll = aWrapped.getAll (null);
+    assertEquals (aSrc, aAll);
+    aAll.clear ();
+    // The source is not affected
+    assertEquals (2, aSrc.size ());
+    assertEquals (1, aWrapped.getAll ("a"::equals).size ());
   }
 }

@@ -155,7 +155,10 @@ public final class StringParser
   @Nullable
   public static Boolean parseBoolObj (@Nullable final Object aObject)
   {
-    return parseBoolObj (aObject, null);
+    if (aObject instanceof final Boolean aBoolean)
+      return aBoolean;
+    // Only "true" and "false" (ignoring case) can be interpreted
+    return aObject == null ? null : parseBoolObjExact (aObject.toString ());
   }
 
   /**

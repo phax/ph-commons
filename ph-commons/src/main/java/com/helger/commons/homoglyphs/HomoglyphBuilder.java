@@ -32,7 +32,7 @@ import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
-import com.helger.collection.set.IntSet;
+import com.helger.collection.set.IntHashSet;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.resource.IReadableResource;
 
@@ -101,7 +101,7 @@ public final class HomoglyphBuilder
     ValueEnforcer.notNull (aReader, "reader");
     try (final NonBlockingBufferedReader aBR = new NonBlockingBufferedReader (aReader))
     {
-      final ICommonsList <IntSet> aList = new CommonsArrayList <> ();
+      final ICommonsList <IntHashSet> aList = new CommonsArrayList <> ();
       String sLine;
       while ((sLine = aBR.readLine ()) != null)
       {
@@ -109,7 +109,7 @@ public final class HomoglyphBuilder
         if (sLine.length () == 0 || sLine.charAt (0) == '#')
           continue;
 
-        final IntSet aSet = new IntSet (sLine.length () / 3);
+        final IntHashSet aSet = new IntHashSet (sLine.length () / 3);
         for (final String sCharCode : StringHelper.getExploded (',', sLine))
         {
           final int nVal = StringParser.parseInt (sCharCode, 16, -1);

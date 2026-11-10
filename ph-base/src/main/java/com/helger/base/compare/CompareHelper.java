@@ -404,7 +404,7 @@ public class CompareHelper
    *        Second string to compare. May be <code>null</code>.
    * @return 0 if they are equal (or both <code>null</code>), a value &lt; 0 if the first string is
    *         smaller, a value &gt; 0 if the first string is larger.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public static int compareByCodePoint (@Nullable final String sStr1, @Nullable final String sStr2)
   {
@@ -432,7 +432,7 @@ public class CompareHelper
    *        values
    * @return 0 if they are equal (or both <code>null</code>), a value &lt; 0 if the first string is
    *         smaller, a value &gt; 0 if the first string is larger.
-   * @since 12.5.4
+   * @since 12.6.0
    */
   public static int compareByCodePoint (@Nullable final String sStr1,
                                         @Nullable final String sStr2,
