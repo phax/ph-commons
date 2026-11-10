@@ -21,9 +21,12 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.concurrent.NotThreadSafe;
+import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.equals.EqualsHelper;
 import com.helger.base.hashcode.HashCodeGenerator;
+import com.helger.base.string.StringHelper;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.version.Version;
 
@@ -52,7 +55,9 @@ public final class ThirdPartyModule implements IThirdPartyModule
    *        The third party module to copy from. May not be <code>null</code>.
    * @param bOptional
    *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+   * @deprecated Use {@link #builder(IThirdPartyModule)} instead
    */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public ThirdPartyModule (@NonNull final IThirdPartyModule aOther, final boolean bOptional)
   {
     this (aOther.getDisplayName (),
@@ -72,12 +77,14 @@ public final class ThirdPartyModule implements IThirdPartyModule
    *        The copyright owner. Neither <code>null</code> nor empty.
    * @param aLicense
    *        The licence. May not be <code>null</code>.
+   * @deprecated Use {@link #builder()} instead
    */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense)
   {
-    this (sDisplayName, sCopyrightOwner, aLicense, DEFAULT_OPTIONAL);
+    this (sDisplayName, sCopyrightOwner, aLicense, (Version) null, (String) null, DEFAULT_OPTIONAL);
   }
 
   /**
@@ -91,7 +98,9 @@ public final class ThirdPartyModule implements IThirdPartyModule
    *        The licence. May not be <code>null</code>.
    * @param bOptional
    *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+   * @deprecated Use {@link #builder()} instead
    */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense,
@@ -113,7 +122,9 @@ public final class ThirdPartyModule implements IThirdPartyModule
    *        The version. May be <code>null</code>.
    * @param sWebsiteURL
    *        The website URL. May be <code>null</code>.
+   * @deprecated Use {@link #builder()} instead
    */
+  @Deprecated (forRemoval = true, since = "12.6.0")
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
                            @NonNull final ILicense aLicense,
@@ -218,7 +229,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
   {
     if (m_bOptional)
       return this;
-    return new ThirdPartyModule (this, true);
+    return builder (this).optional (true).build ();
   }
 
   /**
@@ -230,7 +241,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
   {
     if (!m_bOptional)
       return this;
-    return new ThirdPartyModule (this, false);
+    return builder (this).optional (false).build ();
   }
 
   @Override
@@ -271,5 +282,190 @@ public final class ThirdPartyModule implements IThirdPartyModule
                                        .appendIfNotNull ("Website", m_sWebSiteURL)
                                        .append ("Optional", m_bOptional)
                                        .getToString ();
+  }
+
+  /**
+   * Builder class for class {@link ThirdPartyModule}.
+   *
+   * @author Philip Helger
+   * @since 12.6.0
+   */
+  @NotThreadSafe
+  public static class ThirdPartyModuleBuilder implements IBuilder <ThirdPartyModule>
+  {
+    private String m_sDisplayName;
+    private String m_sCopyrightOwner;
+    private ILicense m_aLicense;
+    private Version m_aVersion;
+    private String m_sWebSiteUrl;
+    private boolean m_bOptional = DEFAULT_OPTIONAL;
+
+    /**
+     * Default constructor.
+     */
+    public ThirdPartyModuleBuilder ()
+    {}
+
+    /**
+     * Copy constructor from an existing third party module.
+     *
+     * @param aSrc
+     *        The source module to copy from. May not be <code>null</code>.
+     */
+    public ThirdPartyModuleBuilder (@NonNull final IThirdPartyModule aSrc)
+    {
+      ValueEnforcer.notNull (aSrc, "Source");
+      displayName (aSrc.getDisplayName ()).copyrightOwner (aSrc.getCopyrightOwner ())
+                                          .license (aSrc.getLicense ())
+                                          .version (aSrc.getVersion ())
+                                          .webSiteUrl (aSrc.getWebSiteURL ())
+                                          .optional (aSrc.isOptional ());
+    }
+
+    /**
+     * Set the display name.
+     *
+     * @param s
+     *        The display name. May be <code>null</code> but is required for building.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder displayName (@Nullable final String s)
+    {
+      m_sDisplayName = s;
+      return this;
+    }
+
+    /**
+     * Set the copyright owner.
+     *
+     * @param s
+     *        The copyright owner. May be <code>null</code> but is required for building.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder copyrightOwner (@Nullable final String s)
+    {
+      m_sCopyrightOwner = s;
+      return this;
+    }
+
+    /**
+     * Set the licence.
+     *
+     * @param a
+     *        The licence. May be <code>null</code> but is required for building.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder license (@Nullable final ILicense a)
+    {
+      m_aLicense = a;
+      return this;
+    }
+
+    /**
+     * Set the version.
+     *
+     * @param a
+     *        The version. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder version (@Nullable final Version a)
+    {
+      m_aVersion = a;
+      return this;
+    }
+
+    /**
+     * Set the version.
+     *
+     * @param s
+     *        The version string. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder version (@Nullable final String s)
+    {
+      return version (s == null ? null : Version.parse (s));
+    }
+
+    /**
+     * Set the website URL.
+     *
+     * @param s
+     *        The website URL. May be <code>null</code>.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder webSiteUrl (@Nullable final String s)
+    {
+      m_sWebSiteUrl = s;
+      return this;
+    }
+
+    /**
+     * Set whether the module is optional. Default is {@link ThirdPartyModule#DEFAULT_OPTIONAL}.
+     *
+     * @param b
+     *        <code>true</code> if the module is optional, <code>false</code> otherwise.
+     * @return this for chaining
+     */
+    @NonNull
+    public final ThirdPartyModuleBuilder optional (final boolean b)
+    {
+      m_bOptional = b;
+      return this;
+    }
+
+    /**
+     * Build the {@link ThirdPartyModule} from the provided parameters.
+     *
+     * @return A new {@link ThirdPartyModule} instance. Never <code>null</code>.
+     * @throws IllegalStateException
+     *         if any required parameter is missing.
+     */
+    @NonNull
+    public ThirdPartyModule build () throws IllegalStateException
+    {
+      if (StringHelper.isEmpty (m_sDisplayName))
+        throw new IllegalStateException ("DisplayName is missing");
+      if (StringHelper.isEmpty (m_sCopyrightOwner))
+        throw new IllegalStateException ("CopyrightOwner is missing");
+      if (m_aLicense == null)
+        throw new IllegalStateException ("Licence is missing");
+
+      return new ThirdPartyModule (m_sDisplayName,
+                                   m_sCopyrightOwner,
+                                   m_aLicense,
+                                   m_aVersion,
+                                   m_sWebSiteUrl,
+                                   m_bOptional);
+    }
+  }
+
+  /**
+   * @return A new builder for {@link ThirdPartyModule} objects. Never <code>null</code>.
+   * @since 12.6.0
+   */
+  @NonNull
+  public static ThirdPartyModuleBuilder builder ()
+  {
+    return new ThirdPartyModuleBuilder ();
+  }
+
+  /**
+   * Create a new builder that is pre-filled with the data of the provided module.
+   *
+   * @param aSrc
+   *        The source module to copy from. May not be <code>null</code>.
+   * @return A new builder for {@link ThirdPartyModule} objects. Never <code>null</code>.
+   * @since 12.6.0
+   */
+  @NonNull
+  public static ThirdPartyModuleBuilder builder (@NonNull final IThirdPartyModule aSrc)
+  {
+    return new ThirdPartyModuleBuilder (aSrc);
   }
 }

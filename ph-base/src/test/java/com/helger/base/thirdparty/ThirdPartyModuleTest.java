@@ -35,6 +35,7 @@ import com.helger.base.version.Version;
 public final class ThirdPartyModuleTest
 {
   @Test
+  @SuppressWarnings ("removal")
   public void testAll ()
   {
     ThirdPartyModule mod = new ThirdPartyModule ("displayname", "owner", ELicense.APACHE1);
@@ -93,6 +94,7 @@ public final class ThirdPartyModuleTest
   }
 
   @Test
+  @SuppressWarnings ("removal")
   public void testStd ()
   {
     BaseTestHelper.testDefaultImplementationWithEqualContentObject (new ThirdPartyModule ("displayname",
@@ -156,5 +158,76 @@ public final class ThirdPartyModuleTest
                                                                                               Version.parse ("1.1"),
                                                                                               "url",
                                                                                               false));
+  }
+
+  @Test
+  public void testBuilder ()
+  {
+    final ThirdPartyModule aMod = ThirdPartyModule.builder ()
+                                                  .displayName ("name")
+                                                  .copyrightOwner ("owner")
+                                                  .license (ELicense.APACHE2)
+                                                  .version (new Version (1, 2, 3))
+                                                  .webSiteUrl ("https://www.example.org")
+                                                  .build ();
+    assertEquals ("name", aMod.getDisplayName ());
+    assertEquals ("owner", aMod.getCopyrightOwner ());
+    assertEquals (ELicense.APACHE2, aMod.getLicense ());
+    assertEquals (new Version (1, 2, 3), aMod.getVersion ());
+    assertEquals ("https://www.example.org", aMod.getWebSiteURL ());
+    assertFalse (aMod.isOptional ());
+
+    // Same as the full constructor
+    assertEquals (new ThirdPartyModule ("name",
+                                        "owner",
+                                        ELicense.APACHE2,
+                                        new Version (1, 2, 3),
+                                        "https://www.example.org",
+                                        false),
+                  aMod);
+
+    // Copy from an existing module
+    final ThirdPartyModule aOptional = ThirdPartyModule.builder (aMod).optional (true).build ();
+    assertTrue (aOptional.isOptional ());
+    assertEquals (aOptional, aMod.getAsOptionalCopy ());
+    assertEquals (aMod, aOptional.getAsNonOptionalCopy ());
+
+    // Version and URL are optional
+    final ThirdPartyModule aMinimal = ThirdPartyModule.builder ()
+                                                      .displayName ("name")
+                                                      .copyrightOwner ("owner")
+                                                      .license (ELicense.MIT)
+                                                      .build ();
+    assertNull (aMinimal.getVersion ());
+    assertNull (aMinimal.getWebSiteURL ());
+
+    // Required fields
+    try
+    {
+      ThirdPartyModule.builder ().copyrightOwner ("owner").license (ELicense.MIT).build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      ThirdPartyModule.builder ().displayName ("name").license (ELicense.MIT).build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      ThirdPartyModule.builder ().displayName ("name").copyrightOwner ("owner").build ();
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
   }
 }
