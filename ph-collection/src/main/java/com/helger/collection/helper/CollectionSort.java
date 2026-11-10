@@ -55,6 +55,21 @@ public class CollectionSort
   private CollectionSort ()
   {}
 
+  /**
+   * Stable binary insertion sort of a range. Each element is first compared with its predecessor,
+   * so that an already sorted range needs only one comparison per element; an element out of place
+   * is inserted at the position found by binary search, which needs fewer comparisons than a linear
+   * search for comparators that are expensive.
+   *
+   * @param aArray
+   *        The array to sort. May not be <code>null</code>.
+   * @param nFromIndex
+   *        Start index of the range (inclusive).
+   * @param nToIndex
+   *        End index of the range (exclusive).
+   * @param aCmp
+   *        The comparator to use. May not be <code>null</code>.
+   */
   private static void _insertionSortStable (final int @NonNull [] aArray,
                                             @Nonnegative final int nFromIndex,
                                             @Nonnegative final int nToIndex,
@@ -63,14 +78,25 @@ public class CollectionSort
     for (int i = nFromIndex + 1; i < nToIndex; ++i)
     {
       final int nValue = aArray[i];
-      int j = i - 1;
-      // Strictly greater keeps equal elements in their original order
-      while (j >= nFromIndex && aCmp.applyAsInt (aArray[j], nValue) > 0)
+      // Fast path: not smaller than the predecessor - already in place
+      if (aCmp.applyAsInt (aArray[i - 1], nValue) <= 0)
+        continue;
+
+      // Find the first element of [nFromIndex, i - 1) that is strictly greater; aArray[i - 1] is
+      // known to be greater. Equal elements stay before the inserted one, which keeps the sort
+      // stable.
+      int nLow = nFromIndex;
+      int nHigh = i - 1;
+      while (nLow < nHigh)
       {
-        aArray[j + 1] = aArray[j];
-        j--;
+        final int nMid = (nLow + nHigh) >>> 1;
+        if (aCmp.applyAsInt (aArray[nMid], nValue) > 0)
+          nHigh = nMid;
+        else
+          nLow = nMid + 1;
       }
-      aArray[j + 1] = nValue;
+      System.arraycopy (aArray, nLow, aArray, nLow + 1, i - nLow);
+      aArray[nLow] = nValue;
     }
   }
 

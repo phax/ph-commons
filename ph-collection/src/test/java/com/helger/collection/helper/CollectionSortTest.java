@@ -27,6 +27,7 @@ import static org.junit.Assert.fail;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
@@ -181,6 +182,32 @@ public final class CollectionSortTest
     aIndices = CollectionSort.getSortedIndices (nCount, (a, b) -> Integer.compare (b, a));
     for (int i = 0; i < nCount; ++i)
       assertEquals (nCount - 1 - i, aIndices[i]);
+  }
+
+  @Test
+  public void testGetSortedIndicesComparisonCount ()
+  {
+    // One range of the insertion sort threshold
+    final int nCount = 32;
+    final AtomicInteger aCount = new AtomicInteger ();
+
+    // Already sorted: one comparison with the predecessor per element
+    CollectionSort.getSortedIndices (nCount, (a, b) -> {
+      aCount.incrementAndGet ();
+      return Integer.compare (a, b);
+    });
+    assertEquals (nCount - 1, aCount.get ());
+
+    // Reverse sorted: the binary search needs at most 1 + ceil(log2(i)) comparisons per element,
+    // a linear search would need 1 + 2 + ... + 31 = 496
+    aCount.set (0);
+    final int [] aIndices = CollectionSort.getSortedIndices (nCount, (a, b) -> {
+      aCount.incrementAndGet ();
+      return Integer.compare (b, a);
+    });
+    for (int i = 0; i < nCount; ++i)
+      assertEquals (nCount - 1 - i, aIndices[i]);
+    assertTrue (aCount.get () <= 6 * (nCount - 1));
   }
 
   @Test
