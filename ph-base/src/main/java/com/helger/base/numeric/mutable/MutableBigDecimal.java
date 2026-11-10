@@ -43,7 +43,7 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   private BigDecimal m_aValue;
 
   /**
-   * Initialize with a certain long value.
+   * Initialise with a certain long value.
    *
    * @param nValue
    *        The value to be used.
@@ -54,7 +54,7 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   }
 
   /**
-   * Initialize with a certain double value.
+   * Initialise with a certain double value.
    *
    * @param dValue
    *        The value to be used.
@@ -76,7 +76,7 @@ public class MutableBigDecimal extends AbstractMutableNumeric <MutableBigDecimal
   }
 
   /**
-   * Initialize with a certain {@link BigDecimal} value.
+   * Initialise with a certain {@link BigDecimal} value.
    *
    * @param aValue
    *        The value to be used. May not be <code>null</code>.

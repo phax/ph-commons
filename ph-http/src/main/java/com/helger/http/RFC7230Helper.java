@@ -21,6 +21,7 @@ import java.util.BitSet;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.codec.RFC5234Helper;
 import com.helger.base.string.StringHelper;
 
@@ -56,6 +57,9 @@ public final class RFC7230Helper
     TOKEN_CHARS.set ('|');
     TOKEN_CHARS.set ('~');
   }
+
+  @PresentForCodeCoverage
+  private static final RFC7230Helper INSTANCE = new RFC7230Helper ();
 
   private RFC7230Helper ()
   {}

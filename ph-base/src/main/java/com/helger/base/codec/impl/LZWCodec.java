@@ -171,7 +171,7 @@ public class LZWCodec implements IByteArrayCodec
     {}
 
     /**
-     * Reset this dictionary to its initial state, clearing all entries and re-initializing with the
+     * Reset this dictionary to its initial state, clearing all entries and re-initialising with the
      * 256 single-byte entries.
      */
     public void reset ()

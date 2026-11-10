@@ -24,6 +24,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.impl.RFC3986Codec;
 import com.helger.base.enforce.ValueEnforcer;
@@ -40,6 +41,9 @@ public final class URLCoder
   public static final Charset CHARSET_URL_OBJ = StandardCharsets.UTF_8;
 
   private static final RFC3986Codec URL_CODEC = new RFC3986Codec ();
+
+  @PresentForCodeCoverage
+  private static final URLCoder INSTANCE = new URLCoder ();
 
   private URLCoder ()
   {}

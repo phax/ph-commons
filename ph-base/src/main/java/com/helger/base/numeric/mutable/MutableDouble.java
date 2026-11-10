@@ -37,7 +37,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   private double m_dValue;
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -48,7 +48,7 @@ public class MutableDouble extends AbstractMutableNumeric <MutableDouble>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param dValue
    *        The value to be used.

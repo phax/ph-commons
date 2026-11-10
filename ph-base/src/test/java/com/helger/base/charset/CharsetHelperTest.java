@@ -249,7 +249,7 @@ public final class CharsetHelperTest
     assertEquals (2, s.length ());
     assertEquals ("Ö", s);
 
-    // Normalize to regular Ö
+    // Normalise to regular Ö
     final String sNormalized = Normalizer.normalize (s, Normalizer.Form.NFKC);
     assertEquals (1, sNormalized.length ());
     assertEquals ("Ö", sNormalized);

@@ -21,6 +21,7 @@ import java.nio.charset.Charset;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.charset.CharsetHelper;
 
 /**
@@ -31,6 +32,9 @@ import com.helger.base.charset.CharsetHelper;
 @Immutable
 public final class MimeTypeHelper
 {
+  @PresentForCodeCoverage
+  private static final MimeTypeHelper INSTANCE = new MimeTypeHelper ();
+
   private MimeTypeHelper ()
   {}
 

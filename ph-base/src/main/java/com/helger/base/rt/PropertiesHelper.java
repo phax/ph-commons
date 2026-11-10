@@ -30,6 +30,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.WillClose;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.stream.StreamHelper;
@@ -44,6 +45,9 @@ import com.helger.base.system.SystemProperties;
 public final class PropertiesHelper
 {
   // No logger here!
+
+  @PresentForCodeCoverage
+  private static final PropertiesHelper INSTANCE = new PropertiesHelper ();
 
   private PropertiesHelper ()
   {}

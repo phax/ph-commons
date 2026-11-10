@@ -40,7 +40,7 @@ public final class HashCodeCalculator
   public static final int INITIAL_HASHCODE = 17;
 
   /**
-   * Each value is multiplied with this value. 31 because it can easily be optimized to
+   * Each value is multiplied with this value. 31 because it can easily be optimised to
    * <code>(1 &lt;&lt; 5) - 1</code>.
    */
   public static final int MULTIPLIER = 31;

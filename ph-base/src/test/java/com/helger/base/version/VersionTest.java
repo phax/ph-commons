@@ -824,7 +824,7 @@ public final class VersionTest
     assertEquals (new Version (1, 4, 2), Version.parseStrictOrNull ("1.4.2"));
     assertEquals (new Version (0, 0, 0), Version.parseStrictOrNull ("0"));
 
-    // Trailing zero elements are accepted and normalized away
+    // Trailing zero elements are accepted and normalised away
     assertEquals (new Version (1, 0, 0), Version.parseStrictOrNull ("1.0"));
     assertEquals (new Version (1, 0, 0), Version.parseStrictOrNull ("1.0.0"));
 

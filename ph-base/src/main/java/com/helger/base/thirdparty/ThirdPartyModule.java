@@ -71,7 +71,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
    * @param sCopyrightOwner
    *        The copyright owner. Neither <code>null</code> nor empty.
    * @param aLicense
-   *        The license. May not be <code>null</code>.
+   *        The licence. May not be <code>null</code>.
    */
   public ThirdPartyModule (@NonNull @Nonempty final String sDisplayName,
                            @NonNull @Nonempty final String sCopyrightOwner,
@@ -88,7 +88,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
    * @param sCopyrightOwner
    *        The copyright owner. Neither <code>null</code> nor empty.
    * @param aLicense
-   *        The license. May not be <code>null</code>.
+   *        The licence. May not be <code>null</code>.
    * @param bOptional
    *        <code>true</code> if the module is optional, <code>false</code> otherwise.
    */
@@ -108,7 +108,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
    * @param sCopyrightOwner
    *        The copyright owner. Neither <code>null</code> nor empty.
    * @param aLicense
-   *        The license. May not be <code>null</code>.
+   *        The licence. May not be <code>null</code>.
    * @param aVersion
    *        The version. May be <code>null</code>.
    * @param sWebsiteURL
@@ -131,7 +131,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
    * @param sCopyrightOwner
    *        The copyright owner. Neither <code>null</code> nor empty.
    * @param aLicense
-   *        The license. May not be <code>null</code>.
+   *        The licence. May not be <code>null</code>.
    * @param aVersion
    *        The version. May be <code>null</code>.
    * @param sWebsiteURL
@@ -175,7 +175,7 @@ public final class ThirdPartyModule implements IThirdPartyModule
   }
 
   /**
-   * @return The license of this module. Never <code>null</code>.
+   * @return The licence of this module. Never <code>null</code>.
    */
   @NonNull
   public ILicense getLicense ()

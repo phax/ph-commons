@@ -27,6 +27,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.clone.CloneHelper;
 import com.helger.base.equals.EqualsHelper;
@@ -46,6 +47,9 @@ import jakarta.xml.bind.JAXBElement;
 @UsedInGeneratedCode
 public final class JAXBHelper
 {
+  @PresentForCodeCoverage
+  private static final JAXBHelper INSTANCE = new JAXBHelper ();
+
   private JAXBHelper ()
   {}
 

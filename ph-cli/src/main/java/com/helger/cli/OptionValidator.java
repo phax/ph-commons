@@ -20,6 +20,7 @@ package com.helger.cli;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Validates an Option string.
@@ -29,6 +30,9 @@ import com.helger.annotation.concurrent.Immutable;
 @Immutable
 final class OptionValidator
 {
+  @PresentForCodeCoverage
+  private static final OptionValidator INSTANCE = new OptionValidator ();
+
   private OptionValidator ()
   {}
 

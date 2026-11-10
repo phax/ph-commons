@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.RegEx;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHelper;
 
 /**
@@ -30,6 +31,9 @@ import com.helger.base.string.StringHelper;
  */
 public final class URNHelper
 {
+  @PresentForCodeCoverage
+  private static final URNHelper INSTANCE = new URNHelper ();
+
   private URNHelper ()
   {}
 

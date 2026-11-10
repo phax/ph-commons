@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.location.ILocation;
 import com.helger.base.location.SimpleLocation;
 import com.helger.base.rt.StackTraceHelper;
@@ -51,6 +52,9 @@ public final class JsonMapper
   public static final String JSON_RESOURCE_ID = "resource";
   public static final String JSON_LINE_NUM = "line";
   public static final String JSON_COLUMN_NUM = "col";
+
+  @PresentForCodeCoverage
+  private static final JsonMapper INSTANCE = new JsonMapper ();
 
   private JsonMapper ()
   {}

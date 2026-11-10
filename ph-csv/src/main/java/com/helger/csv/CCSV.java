@@ -18,6 +18,7 @@
 package com.helger.csv;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Constants for the CSV handling.
@@ -66,6 +67,9 @@ public final class CCSV
    * The default line to start reading.
    */
   public static final int DEFAULT_SKIP_LINES = 0;
+
+  @PresentForCodeCoverage
+  private static final CCSV INSTANCE = new CCSV ();
 
   private CCSV ()
   {}

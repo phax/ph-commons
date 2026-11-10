@@ -189,7 +189,7 @@ public class CompareHelper
   public static <DATATYPE extends Comparable <? super DATATYPE>> int compare (@Nullable final DATATYPE aObj1,
                                                                               @Nullable final DATATYPE aObj2)
   {
-    // Legacy behavior: null values come first
+    // Legacy behaviour: null values come first
     return compare (aObj1, aObj2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
@@ -240,7 +240,7 @@ public class CompareHelper
                                         @Nullable final DATATYPE aObj2,
                                         @NonNull final Comparator <? super DATATYPE> aComp)
   {
-    // Legacy behavior: null values come first
+    // Legacy behaviour: null values come first
     return compare (aObj1, aObj2, aComp, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
@@ -293,7 +293,7 @@ public class CompareHelper
                              @Nullable final String sStr2,
                              @NonNull final Collator aCollator)
   {
-    // Legacy behavior: null values come first
+    // Legacy behaviour: null values come first
     return compare (sStr1, sStr2, aCollator, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 
@@ -338,7 +338,7 @@ public class CompareHelper
    */
   public static int compareIgnoreCase (@Nullable final String sStr1, @Nullable final String sStr2)
   {
-    // Legacy behavior: null values come first
+    // Legacy behaviour: null values come first
     return compareIgnoreCase (sStr1, sStr2, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 

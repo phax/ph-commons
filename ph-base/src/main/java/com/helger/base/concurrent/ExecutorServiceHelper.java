@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.EInterrupt;
 
@@ -37,6 +38,9 @@ import com.helger.base.state.EInterrupt;
 public final class ExecutorServiceHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ExecutorServiceHelper.class);
+
+  @PresentForCodeCoverage
+  private static final ExecutorServiceHelper INSTANCE = new ExecutorServiceHelper ();
 
   private ExecutorServiceHelper ()
   {}

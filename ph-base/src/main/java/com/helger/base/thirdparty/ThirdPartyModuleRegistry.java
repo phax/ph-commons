@@ -126,7 +126,7 @@ public final class ThirdPartyModuleRegistry
   }
 
   /**
-   * Reinitialize this registry by clearing all modules and reloading from SPI.
+   * Reinitialise this registry by clearing all modules and reloading from SPI.
    */
   public void reinitialize ()
   {
@@ -144,6 +144,6 @@ public final class ThirdPartyModuleRegistry
     });
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + ThirdPartyModuleRegistry.class.getName ());
+      LOGGER.debug ("Reinitialised " + ThirdPartyModuleRegistry.class.getName ());
   }
 }

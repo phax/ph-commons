@@ -40,7 +40,7 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
   private boolean m_bValue;
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param bValue
    *        The value to be used.
@@ -51,7 +51,7 @@ public class MutableBoolean implements IMutableObject <MutableBoolean>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used. May not be <code>null</code>.

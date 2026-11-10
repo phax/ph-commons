@@ -223,7 +223,8 @@ public class NonBlockingByteArrayInputStream extends InputStream
   @Override
   public long skip (final long n)
   {
-    final long nSkip = m_nPos + n > m_nCount ? m_nCount - m_nPos : n;
+    // Compare with the remaining bytes, as "m_nPos + n" may overflow
+    final long nSkip = n > m_nCount - m_nPos ? m_nCount - m_nPos : n;
     if (nSkip <= 0)
       return 0;
     m_nPos += (int) nSkip;

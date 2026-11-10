@@ -404,7 +404,7 @@ public final class NonBlockingBufferedReaderTest
       }
       catch (final IOException ex)
       {
-        // Expected behavior
+        // Expected behaviour
         assertTrue (ex.getMessage ().contains ("invalid") || ex.getMessage ().contains ("Mark invalid"));
       }
     }

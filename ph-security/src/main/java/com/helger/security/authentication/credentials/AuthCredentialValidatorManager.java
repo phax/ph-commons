@@ -22,6 +22,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.exception.InitializationException;
@@ -47,6 +48,9 @@ public final class AuthCredentialValidatorManager
     if (HDL_LIST.isEmpty ())
       throw new InitializationException ("No class implementing " + IAuthCredentialValidatorSPI.class + " was found!");
   }
+
+  @PresentForCodeCoverage
+  private static final AuthCredentialValidatorManager INSTANCE = new AuthCredentialValidatorManager ();
 
   private AuthCredentialValidatorManager ()
   {}

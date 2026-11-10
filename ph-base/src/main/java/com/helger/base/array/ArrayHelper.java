@@ -3080,7 +3080,6 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @Nullable
-  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExceptFirst (@Nullable final ELEMENTTYPE [] aArray,
                                                                 @Nonnegative final int nElementsToSkip)
   {
@@ -3107,7 +3106,6 @@ public final class ArrayHelper
    *         passed elements otherwise.
    */
   @Nullable
-  @ReturnsMutableCopy
   @SafeVarargs
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExcept (@Nullable final ELEMENTTYPE [] aArray,
                                                            @Nullable final ELEMENTTYPE... aElementsToRemove)
@@ -3134,7 +3132,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static boolean @Nullable [] getAllExcept (final boolean @Nullable [] aArray,
                                                    final boolean... aElementsToRemove)
   {
@@ -3160,7 +3157,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static byte @Nullable [] getAllExcept (final byte @Nullable [] aArray, final byte... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3185,7 +3181,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static char @Nullable [] getAllExcept (final char @Nullable [] aArray, final char... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3210,7 +3205,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static double @Nullable [] getAllExcept (final double @Nullable [] aArray, final double... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3235,7 +3229,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static float @Nullable [] getAllExcept (final float @Nullable [] aArray, final float... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3260,7 +3253,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static int @Nullable [] getAllExcept (final int @Nullable [] aArray, final int... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3285,7 +3277,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static long @Nullable [] getAllExcept (final long @Nullable [] aArray, final long... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3310,7 +3301,6 @@ public final class ArrayHelper
    *         elements need to be skipped. A non- <code>null</code> copy of the array without the
    *         passed elements otherwise.
    */
-  @ReturnsMutableCopy
   public static short @Nullable [] getAllExcept (final short @Nullable [] aArray, final short... aElementsToRemove)
   {
     if (isEmpty (aArray) || isEmpty (aElementsToRemove))
@@ -3349,7 +3339,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static boolean @Nullable [] getAllExceptFirst (final boolean @Nullable [] aArray,
                                                         @Nonnegative final int nElementsToSkip)
   {
@@ -3387,7 +3376,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static byte @Nullable [] getAllExceptFirst (final byte @Nullable [] aArray,
                                                      @Nonnegative final int nElementsToSkip)
   {
@@ -3425,7 +3413,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static char @Nullable [] getAllExceptFirst (final char @Nullable [] aArray,
                                                      @Nonnegative final int nElementsToSkip)
   {
@@ -3463,7 +3450,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static double @Nullable [] getAllExceptFirst (final double @Nullable [] aArray,
                                                        @Nonnegative final int nElementsToSkip)
   {
@@ -3501,7 +3487,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static float @Nullable [] getAllExceptFirst (final float @Nullable [] aArray,
                                                       @Nonnegative final int nElementsToSkip)
   {
@@ -3539,7 +3524,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static int @Nullable [] getAllExceptFirst (final int @Nullable [] aArray,
                                                     @Nonnegative final int nElementsToSkip)
   {
@@ -3577,7 +3561,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static long @Nullable [] getAllExceptFirst (final long @Nullable [] aArray,
                                                      @Nonnegative final int nElementsToSkip)
   {
@@ -3615,7 +3598,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the first
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static short @Nullable [] getAllExceptFirst (final short @Nullable [] aArray,
                                                       @Nonnegative final int nElementsToSkip)
   {
@@ -3660,7 +3642,6 @@ public final class ArrayHelper
    *         elements otherwise.
    */
   @Nullable
-  @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] getAllExceptLast (@Nullable final ELEMENTTYPE [] aArray,
                                                                @Nonnegative final int nElementsToSkip)
   {
@@ -3698,7 +3679,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static boolean @Nullable [] getAllExceptLast (final boolean @Nullable [] aArray,
                                                        @Nonnegative final int nElementsToSkip)
   {
@@ -3736,7 +3716,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static byte @Nullable [] getAllExceptLast (final byte @Nullable [] aArray,
                                                     @Nonnegative final int nElementsToSkip)
   {
@@ -3774,7 +3753,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static char @Nullable [] getAllExceptLast (final char @Nullable [] aArray,
                                                     @Nonnegative final int nElementsToSkip)
   {
@@ -3812,7 +3790,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static double @Nullable [] getAllExceptLast (final double @Nullable [] aArray,
                                                       @Nonnegative final int nElementsToSkip)
   {
@@ -3850,7 +3827,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static float @Nullable [] getAllExceptLast (final float @Nullable [] aArray,
                                                      @Nonnegative final int nElementsToSkip)
   {
@@ -3888,7 +3864,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static int @Nullable [] getAllExceptLast (final int @Nullable [] aArray,
                                                    @Nonnegative final int nElementsToSkip)
   {
@@ -3926,7 +3901,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static long @Nullable [] getAllExceptLast (final long @Nullable [] aArray,
                                                     @Nonnegative final int nElementsToSkip)
   {
@@ -3964,7 +3938,6 @@ public final class ArrayHelper
    *         elements to be skipped. A non-<code>null</code> copy of the array without the last
    *         elements otherwise.
    */
-  @ReturnsMutableCopy
   public static short @Nullable [] getAllExceptLast (final short @Nullable [] aArray,
                                                      @Nonnegative final int nElementsToSkip)
   {

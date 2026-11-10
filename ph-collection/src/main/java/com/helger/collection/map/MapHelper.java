@@ -18,6 +18,7 @@ package com.helger.collection.map;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Primitive map common methods
@@ -28,6 +29,9 @@ import com.helger.annotation.concurrent.Immutable;
 @Immutable
 final class MapHelper
 {
+  @PresentForCodeCoverage
+  private static final MapHelper INSTANCE = new MapHelper ();
+
   private MapHelper ()
   {}
 

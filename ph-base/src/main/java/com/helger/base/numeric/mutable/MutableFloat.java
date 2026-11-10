@@ -37,7 +37,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   private float m_fValue;
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -48,7 +48,7 @@ public class MutableFloat extends AbstractMutableNumeric <MutableFloat>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param fValue
    *        The value to be used.

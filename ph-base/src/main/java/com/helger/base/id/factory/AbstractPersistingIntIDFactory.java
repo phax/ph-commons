@@ -91,7 +91,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
   }
 
   /**
-   * Read the current ID from the device. In case the method is called for a non-initialized device,
+   * Read the current ID from the device. In case the method is called for a non-initialised device,
    * 0 should be returned.<br>
    * The update should write the read value plus the passed reserve count back to the device. This
    * method should perform an atomic read and update to avoid that ID can be reused.<br>
@@ -108,7 +108,7 @@ public abstract class AbstractPersistingIntIDFactory implements IIntIDFactory
    *
    * @param nReserveCount
    *        the number that should be added to the read value. Always &gt; 0.
-   * @return 0 if this method is called for a non-initialized device, the value read from the device
+   * @return 0 if this method is called for a non-initialised device, the value read from the device
    *         otherwise or {@link com.helger.base.CGlobal#ILLEGAL_UINT} in case of an error.
    */
   @IsLocked (ELockType.WRITE)

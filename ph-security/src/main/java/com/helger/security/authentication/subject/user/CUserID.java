@@ -17,6 +17,7 @@
 package com.helger.security.authentication.subject.user;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Constants for user handling
@@ -28,6 +29,9 @@ public final class CUserID
 {
   /** The user ID to be used, if no user is logged in */
   public static final String USER_ID_GUEST = "$GUEST$";
+
+  @PresentForCodeCoverage
+  private static final CUserID INSTANCE = new CUserID ();
 
   private CUserID ()
   {}

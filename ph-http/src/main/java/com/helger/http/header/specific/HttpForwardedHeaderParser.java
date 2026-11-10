@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.codec.RFC5234Helper;
 import com.helger.base.debug.GlobalDebug;
@@ -99,6 +100,9 @@ public final class HttpForwardedHeaderParser
   public static final String HTTP_HEADER_FORWARDED = "Forwarded";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (HttpForwardedHeaderParser.class);
+
+  @PresentForCodeCoverage
+  private static final HttpForwardedHeaderParser INSTANCE = new HttpForwardedHeaderParser ();
 
   private HttpForwardedHeaderParser ()
   {}

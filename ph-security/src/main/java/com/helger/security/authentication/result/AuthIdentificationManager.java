@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.authentication.credentials.AuthCredentialToSubjectResolverManager;
 import com.helger.security.authentication.credentials.AuthCredentialValidatorManager;
@@ -37,6 +38,9 @@ import com.helger.security.authentication.subject.IAuthSubject;
 public final class AuthIdentificationManager
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (AuthIdentificationManager.class);
+
+  @PresentForCodeCoverage
+  private static final AuthIdentificationManager INSTANCE = new AuthIdentificationManager ();
 
   private AuthIdentificationManager ()
   {}

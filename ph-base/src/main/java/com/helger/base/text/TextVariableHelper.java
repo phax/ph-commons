@@ -30,6 +30,7 @@ import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.VisibleForTesting;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.string.StringHelper;
@@ -50,6 +51,9 @@ public final class TextVariableHelper
   private static final char DOLLAR = '$';
   private static final char OPENING_BRACKET = '{';
   private static final char CLOSING_BRACKET = '}';
+
+  @PresentForCodeCoverage
+  private static final TextVariableHelper INSTANCE = new TextVariableHelper ();
 
   private TextVariableHelper ()
   {}
@@ -288,7 +292,7 @@ public final class TextVariableHelper
    * invoke callbacks for either text fragments or variable names.
    *
    * @param sSourceString
-   *        The source string to parse and analyze. May be <code>null</code>.
+   *        The source string to parse and analyse. May be <code>null</code>.
    * @param aTextFragmentHandler
    *        The callback to be invoked for each text fragment. May not be <code>null</code>.
    * @param aVariableNameHandler

@@ -32,6 +32,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
@@ -42,6 +43,9 @@ import com.helger.base.enforce.ValueEnforcer;
 @Immutable
 public final class CollectionFind
 {
+  @PresentForCodeCoverage
+  private static final CollectionFind INSTANCE = new CollectionFind ();
+
   private CollectionFind ()
   {}
 

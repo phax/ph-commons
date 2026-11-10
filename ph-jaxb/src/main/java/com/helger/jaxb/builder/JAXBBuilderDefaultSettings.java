@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.jaxb.validation.LoggingValidationEventHandler;
 import com.helger.xml.serialize.write.XMLWriterSettings;
@@ -69,6 +70,9 @@ public final class JAXBBuilderDefaultSettings
   private static String s_sSchemaLocation;
   @GuardedBy ("RW_LOCK")
   private static String s_sNoNamespaceSchemaLocation;
+
+  @PresentForCodeCoverage
+  private static final JAXBBuilderDefaultSettings INSTANCE = new JAXBBuilderDefaultSettings ();
 
   private JAXBBuilderDefaultSettings ()
   {}

@@ -17,6 +17,7 @@
 package com.helger.base.url;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Constants for URL usage
@@ -44,6 +45,9 @@ public final class CURL
 
   /** The protocol for file resources */
   public static final String PROTOCOL_FILE = "file";
+
+  @PresentForCodeCoverage
+  private static final CURL INSTANCE = new CURL ();
 
   private CURL ()
   {}

@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
@@ -43,6 +44,9 @@ public final class AuthTokenRegistry
 {
   private static final SimpleReadWriteLock RW_LOCK = new SimpleReadWriteLock ();
   private static final ICommonsMap <String, AuthToken> MAP = new CommonsHashMap <> ();
+
+  @PresentForCodeCoverage
+  private static final AuthTokenRegistry INSTANCE = new AuthTokenRegistry ();
 
   private AuthTokenRegistry ()
   {}

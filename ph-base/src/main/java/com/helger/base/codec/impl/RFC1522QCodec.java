@@ -53,7 +53,7 @@ public class RFC1522QCodec extends AbstractRFC1522Codec
    */
   private static final BitSet PRINTABLE_CHARS = new BitSet (256);
 
-  // Static initializer for printable chars collection
+  // Static initialiser for printable chars collection
   static
   {
     // alpha characters

@@ -23,6 +23,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.Nonnegative;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.xml.microdom.IMicroDocument;
 import com.helger.xml.microdom.IMicroElement;
 import com.helger.xml.microdom.serialize.MicroReader;
@@ -39,6 +40,9 @@ public final class WSTestHelper
   public static final String SUN_JAXWS_XML = "sun-jaxws.xml";
 
   private static final Logger LOGGER = LoggerFactory.getLogger (WSTestHelper.class);
+
+  @PresentForCodeCoverage
+  private static final WSTestHelper INSTANCE = new WSTestHelper ();
 
   private WSTestHelper ()
   {}

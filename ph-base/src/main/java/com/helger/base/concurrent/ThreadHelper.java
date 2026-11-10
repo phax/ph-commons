@@ -24,6 +24,7 @@ import org.jspecify.annotations.NonNull;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
@@ -37,6 +38,9 @@ import com.helger.base.state.ESuccess;
 @ThreadSafe
 public final class ThreadHelper
 {
+  @PresentForCodeCoverage
+  private static final ThreadHelper INSTANCE = new ThreadHelper ();
+
   private ThreadHelper ()
   {}
 

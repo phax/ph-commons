@@ -25,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
@@ -48,6 +49,9 @@ import com.helger.xml.serialize.write.XMLMaskHelper;
 @Immutable
 public final class GraphVizHelper
 {
+  @PresentForCodeCoverage
+  private static final GraphVizHelper INSTANCE = new GraphVizHelper ();
+
   private GraphVizHelper ()
   {}
 

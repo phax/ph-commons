@@ -136,12 +136,16 @@ public class SizeFloat implements IHasDimensionFloat
    * @param dNewWidth
    *        The new width. Must be &gt; 0.
    * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current width is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToWidth (@Nonnegative final float dNewWidth)
   {
     ValueEnforcer.isGT0 (dNewWidth, "NewWidth");
+    if (m_dWidth == 0)
+      throw new IllegalStateException ("The width is 0, so the aspect ratio cannot be kept");
 
     if (m_dWidth == dNewWidth)
       return this;
@@ -155,12 +159,16 @@ public class SizeFloat implements IHasDimensionFloat
    * @param dNewHeight
    *        The new height. Must be &gt; 0.
    * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current height is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeFloat getScaledToHeight (@Nonnegative final float dNewHeight)
   {
     ValueEnforcer.isGT0 (dNewHeight, "NewHeight");
+    if (m_dHeight == 0)
+      throw new IllegalStateException ("The height is 0, so the aspect ratio cannot be kept");
 
     if (m_dHeight == dNewHeight)
       return this;

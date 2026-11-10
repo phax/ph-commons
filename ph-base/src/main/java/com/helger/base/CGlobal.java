@@ -20,6 +20,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * A class declaring system wide constants. Its main use is giving a semantic meaning to constant
@@ -454,6 +455,9 @@ public final class CGlobal
    * The constant to be returned if an String.indexOf call did not find a match!
    */
   public static final int STRING_NOT_FOUND = -1;
+
+  @PresentForCodeCoverage
+  private static final CGlobal INSTANCE = new CGlobal ();
 
   private CGlobal ()
   {}

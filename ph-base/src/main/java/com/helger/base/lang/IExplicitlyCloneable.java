@@ -73,7 +73,7 @@ public interface IExplicitlyCloneable extends Cloneable
    * {@code CloneNotSupportedException} is thrown. Note that all arrays are considered to implement
    * the interface {@code Cloneable} and that the return type of the {@code clone} method of an
    * array type {@code T[]} is {@code T[]} where T is any reference or primitive type. Otherwise,
-   * this method creates a new instance of the class of this object and initializes all its fields
+   * this method creates a new instance of the class of this object and initialises all its fields
    * with exactly the contents of the corresponding fields of this object, as if by assignment; the
    * contents of the fields are not themselves cloned. Thus, this method performs a "shallow copy"
    * of this object, not a "deep copy" operation.

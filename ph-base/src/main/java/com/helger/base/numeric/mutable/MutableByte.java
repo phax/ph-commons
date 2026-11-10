@@ -36,7 +36,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   private byte m_nValue;
 
   /**
-   * Initialize with a certain int value. If the value does not fit into a byte, the value is cut!
+   * Initialise with a certain int value. If the value does not fit into a byte, the value is cut!
    *
    * @param nValue
    *        The value to be used.
@@ -47,7 +47,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -58,7 +58,7 @@ public class MutableByte extends AbstractMutableInteger <MutableByte>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param nValue
    *        The value to be used.

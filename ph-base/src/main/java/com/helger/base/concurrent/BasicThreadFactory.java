@@ -59,7 +59,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * {@code "My 1. worker thread"}, {@code
  * "My 2. worker thread"} and so on.</li>
  * <li>A flag whether the threads created by this factory should be daemon threads. This can impact
- * the exit behavior of the current Java application because the JVM shuts down if there are only
+ * the exit behaviour of the current Java application because the JVM shuts down if there are only
  * daemon threads running.</li>
  * <li>The priority of the thread. Here an integer value can be provided. The
  * {@code java.lang.Thread} class defines constants for valid ranges of priority values.</li>
@@ -272,12 +272,12 @@ public class BasicThreadFactory implements ThreadFactory
   }
 
   /**
-   * Initializes the specified thread. This method is called by {@link #newThread(Runnable)} after a
-   * new thread has been obtained from the wrapped thread factory. It initializes the thread
+   * Initialises the specified thread. This method is called by {@link #newThread(Runnable)} after a
+   * new thread has been obtained from the wrapped thread factory. It initialises the thread
    * according to the options set for this factory.
    *
    * @param aThread
-   *        the thread to be initialized
+   *        the thread to be initialised
    */
   @OverrideOnDemand
   protected void initializeThread (@NonNull final Thread aThread)

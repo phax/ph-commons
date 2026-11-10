@@ -138,4 +138,17 @@ public final class NonBlockingByteArrayInputStreamTest
     bais.mark (0);
     bais.reset ();
   }
+
+  @Test
+  public void testSkipHuge ()
+  {
+    try (final NonBlockingByteArrayInputStream aIS = new NonBlockingByteArrayInputStream (new byte [] { 1, 2, 3, 4 }))
+    {
+      assertEquals (1, aIS.read ());
+      // "position + n" would overflow
+      assertEquals (3, aIS.skip (Long.MAX_VALUE));
+      assertEquals (-1, aIS.read ());
+      assertEquals (0, aIS.skip (Long.MAX_VALUE));
+    }
+  }
 }

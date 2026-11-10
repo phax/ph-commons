@@ -31,7 +31,7 @@ import com.helger.base.state.ETriState;
  * BasicThreadFactory}.
  * </p>
  * <p>
- * Using this builder class instances of {@code BasicThreadFactory} can be created and initialized.
+ * Using this builder class instances of {@code BasicThreadFactory} can be created and initialised.
  * The class provides methods that correspond to the configuration options supported by
  * {@code BasicThreadFactory}. Method chaining is supported. Refer to the documentation of {@code
  * BasicThreadFactory} for a usage example.

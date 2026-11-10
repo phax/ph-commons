@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.spi.ServiceLoaderHelper;
 import com.helger.collection.commons.CommonsArrayList;
@@ -47,6 +48,9 @@ public final class AuthCredentialToSubjectResolverManager
     HDL_LIST = ServiceLoaderHelper.getAllSPIImplementations (IAuthCredentialToSubjectResolverSPI.class);
     // list may be empty...
   }
+
+  @PresentForCodeCoverage
+  private static final AuthCredentialToSubjectResolverManager INSTANCE = new AuthCredentialToSubjectResolverManager ();
 
   private AuthCredentialToSubjectResolverManager ()
   {}

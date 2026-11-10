@@ -23,7 +23,7 @@ import com.helger.base.name.IHasDisplayName;
 import com.helger.base.version.IHasVersion;
 
 /**
- * Represents a single license.
+ * Represents a single licence.
  *
  * @author Philip Helger
  */

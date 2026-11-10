@@ -24,7 +24,7 @@ import com.helger.base.lang.EnumHelper;
 import com.helger.base.version.Version;
 
 /**
- * Represents a bunch of Open Source licenses regularly used.
+ * Represents a bunch of Open Source licences regularly used.
  *
  * @author Philip Helger
  */
@@ -38,9 +38,9 @@ public enum ELicense implements ILicense
   MPL11 ("mpl11", "Mozilla Public License", new Version (1, 1), "https://www.mozilla.org/MPL/1.1/"),
   MPL20 ("mpl20", "Mozilla Public License", new Version (2, 0), "https://www.mozilla.org/MPL/2.0/"),
   // BSD/MIT
-  // BSD 2-Clause "Simplified" or "FreeBSD" license
+  // BSD 2-Clause "Simplified" or "FreeBSD" licence
   BSD ("bsd", "BSD 2-Clause License", null, "https://opensource.org/licenses/BSD-2-Clause"),
-  // BSD 3-Clause "New" or "Revised" license
+  // BSD 3-Clause "New" or "Revised" licence
   BSD3 ("bsd3", "BSD 3-Clause License", null, "https://opensource.org/licenses/BSD-3-Clause"),
   MIT ("mit", "MIT License", null, "https://opensource.org/licenses/MIT"),
   // GNU General Public License (GPL)
@@ -129,16 +129,16 @@ public enum ELicense implements ILicense
   private final String m_sURL;
 
   /**
-   * Create a custom license.
+   * Create a custom licence.
    *
    * @param sID
-   *        The ID of the license.
+   *        The ID of the licence.
    * @param sName
-   *        The name of the license.
+   *        The name of the licence.
    * @param aVersion
-   *        The version of the license.
+   *        The version of the licence.
    * @param sURL
-   *        The URL of the license.
+   *        The URL of the licence.
    */
   ELicense (@NonNull @Nonempty final String sID,
             @NonNull @Nonempty final String sName,
@@ -152,7 +152,7 @@ public enum ELicense implements ILicense
   }
 
   /**
-   * @return The unique ID of this license. Neither <code>null</code> nor empty.
+   * @return The unique ID of this licence. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -162,7 +162,7 @@ public enum ELicense implements ILicense
   }
 
   /**
-   * @return The display name of this license. Neither <code>null</code> nor empty.
+   * @return The display name of this licence. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -172,7 +172,7 @@ public enum ELicense implements ILicense
   }
 
   /**
-   * @return The version of this license. May be <code>null</code>.
+   * @return The version of this licence. May be <code>null</code>.
    */
   @Nullable
   public Version getVersion ()
@@ -181,7 +181,7 @@ public enum ELicense implements ILicense
   }
 
   /**
-   * @return The URL of this license. May be <code>null</code>.
+   * @return The URL of this licence. May be <code>null</code>.
    */
   @Nullable
   public String getURL ()
@@ -190,11 +190,11 @@ public enum ELicense implements ILicense
   }
 
   /**
-   * Find the license with the given ID.
+   * Find the licence with the given ID.
    *
    * @param sID
    *        The ID to search for. May be <code>null</code>.
-   * @return <code>null</code> if no such license exists.
+   * @return <code>null</code> if no such licence exists.
    */
   @Nullable
   public static ELicense getFromIDOrNull (@Nullable final String sID)

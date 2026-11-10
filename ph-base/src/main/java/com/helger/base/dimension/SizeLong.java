@@ -125,12 +125,16 @@ public class SizeLong implements IHasDimensionLong
    * @param nNewWidth
    *        The new width. Must be &gt; 0.
    * @return A new {@link SizeLong} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current width is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeLong getScaledToWidth (@Nonnegative final long nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
+    if (m_nWidth == 0)
+      throw new IllegalStateException ("The width is 0, so the aspect ratio cannot be kept");
 
     if (m_nWidth == nNewWidth)
       return this;
@@ -144,12 +148,16 @@ public class SizeLong implements IHasDimensionLong
    * @param nNewHeight
    *        The new height. Must be &gt; 0.
    * @return A new {@link SizeLong} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current height is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeLong getScaledToHeight (@Nonnegative final long nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
+    if (m_nHeight == 0)
+      throw new IllegalStateException ("The height is 0, so the aspect ratio cannot be kept");
 
     if (m_nHeight == nNewHeight)
       return this;

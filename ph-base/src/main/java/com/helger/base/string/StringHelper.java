@@ -2029,7 +2029,7 @@ public class StringHelper
     if (sSep.length () == 1)
     {
       // If the separator consists only of a single character, use the
-      // char-optimized version for better performance
+      // char-optimised version for better performance
       // Note: do it before the "hasText (sElements)" check, because the same
       // check is performed in the char version as well
       explode (sSep.charAt (0), sElements, nMaxItems, aConsumer);

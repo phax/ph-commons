@@ -114,12 +114,16 @@ public class SizeInt implements IHasDimensionInt
    * @param nNewWidth
    *        The new width. Must be &gt; 0.
    * @return A new {@link SizeInt} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current width is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
+    if (m_nWidth == 0)
+      throw new IllegalStateException ("The width is 0, so the aspect ratio cannot be kept");
 
     if (m_nWidth == nNewWidth)
       return this;
@@ -133,12 +137,16 @@ public class SizeInt implements IHasDimensionInt
    * @param nNewHeight
    *        The new height. Must be &gt; 0.
    * @return A new {@link SizeInt} with the scaled dimensions. Never <code>null</code>.
+   * @throws IllegalStateException
+   *         if the current height is 0
    */
   @NonNull
   @CheckReturnValue
   public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
+    if (m_nHeight == 0)
+      throw new IllegalStateException ("The height is 0, so the aspect ratio cannot be kept");
 
     if (m_nHeight == nNewHeight)
       return this;

@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.security.crl.CRLCache;
@@ -77,6 +78,9 @@ public final class CertificateRevocationCheckerDefaults
    * {@link #freezeDefaults()}.
    */
   private static final AtomicBoolean FROZEN = new AtomicBoolean (false);
+
+  @PresentForCodeCoverage
+  private static final CertificateRevocationCheckerDefaults INSTANCE = new CertificateRevocationCheckerDefaults ();
 
   private CertificateRevocationCheckerDefaults ()
   {}

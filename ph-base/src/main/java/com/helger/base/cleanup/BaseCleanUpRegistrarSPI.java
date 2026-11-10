@@ -41,7 +41,7 @@ public final class BaseCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
       EnumHelper.clearCache ();
       SystemProperties.clearWarnedPropertyNames ();
 
-      // Re-initialize itself ;-)
+      // Re-initialise itself ;-)
       CleanUpRegistry.getInstance ().reinitialize ();
     });
   }

@@ -22,6 +22,7 @@ import static org.junit.Assert.assertNotNull;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.reflection.GenericReflection;
 import com.helger.unittest.support.TestHelper;
 import com.helger.xml.microdom.IMicroElement;
@@ -36,6 +37,9 @@ import com.helger.xml.microdom.serialize.MicroWriter;
 @Immutable
 public final class XMLTestHelper
 {
+  @PresentForCodeCoverage
+  private static final XMLTestHelper INSTANCE = new XMLTestHelper ();
+
   private XMLTestHelper ()
   {}
 

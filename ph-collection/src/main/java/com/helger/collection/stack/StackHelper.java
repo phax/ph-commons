@@ -25,6 +25,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionFind;
@@ -38,6 +39,9 @@ import com.helger.collection.CollectionHelper;
 @Immutable
 public final class StackHelper
 {
+  @PresentForCodeCoverage
+  private static final StackHelper INSTANCE = new StackHelper ();
+
   private StackHelper ()
   {}
 

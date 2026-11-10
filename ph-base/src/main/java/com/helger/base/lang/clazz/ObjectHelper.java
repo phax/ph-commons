@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonempty;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.string.StringHex;
 
 /**
@@ -29,6 +30,9 @@ import com.helger.base.string.StringHex;
  */
 public final class ObjectHelper
 {
+  @PresentForCodeCoverage
+  private static final ObjectHelper INSTANCE = new ObjectHelper ();
+
   private ObjectHelper ()
   {}
 

@@ -107,4 +107,21 @@ public final class CleanUpRegistryTest
       // expected
     }
   }
+
+  @Test
+  public void testFailingActionDoesNotStopOthers ()
+  {
+    final CleanUpRegistry aRegistry = CleanUpRegistry.getInstance ();
+    final List <String> aCalls = new ArrayList <> ();
+
+    aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN, () -> {
+      throw new IllegalStateException ("Expected test exception");
+    });
+    aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MAX, () -> aCalls.add ("max"));
+
+    aRegistry.performCleanUp ();
+
+    // The action after the failing one was still run
+    assertTrue (aCalls.contains ("max"));
+  }
 }

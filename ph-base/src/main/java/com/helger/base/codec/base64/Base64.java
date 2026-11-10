@@ -58,7 +58,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
  * <p>
  * Note, according to <a href="http://www.faqs.org/rfcs/rfc3548.html">RFC3548</a>, Section 2.1,
  * implementations should not add line feeds unless explicitly told to do so. I've got Base64 set to
- * this behavior now, although earlier versions broke lines by default.
+ * this behaviour now, although earlier versions broke lines by default.
  * </p>
  * <p>
  * The constants defined in Base64 can be OR-ed together to combine options, so you might make a
@@ -110,7 +110,7 @@ import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
  * <a href="http://www.faqs.org/rfcs/rfc3548.html">RFC3548</a>.</li>
  * <li><em>Throws exceptions instead of returning null values.</em> Because some operations
  * (especially those that may permit the GZIP option) use IO streams, there is a possiblity of an
- * IOException being thrown. After some discussion and thought, I've changed the behavior of the
+ * IOException being thrown. After some discussion and thought, I've changed the behaviour of the
  * methods to throw IOExceptions rather than return null if ever there's an error. I think this is
  * more appropriate, though it will require some changes to your code. Sorry, it should have been
  * done this way to begin with.</li>

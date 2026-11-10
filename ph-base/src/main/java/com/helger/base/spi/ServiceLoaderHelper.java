@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.IsSPIImplementation;
 import com.helger.annotation.style.IsSPIInterface;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -45,6 +46,9 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (ServiceLoaderHelper.class);
   private static final ConditionalLogger CONDLOG = new ConditionalLogger (LOGGER);
+
+  @PresentForCodeCoverage
+  private static final ServiceLoaderHelper INSTANCE = new ServiceLoaderHelper ();
 
   private ServiceLoaderHelper ()
   {}

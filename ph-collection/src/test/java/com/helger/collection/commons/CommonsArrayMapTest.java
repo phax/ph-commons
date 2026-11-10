@@ -134,6 +134,7 @@ public final class CommonsArrayMapTest
     TestHelper.testDefaultSerialization (aMap);
   }
 
+  @SuppressWarnings ("unlikely-arg-type")
   @Test
   public void testViews ()
   {
@@ -196,7 +197,7 @@ public final class CommonsArrayMapTest
 
     // Key set and values clear the map
     aMap.put ("a", Integer.valueOf (1));
-    aMap.keySet ().clear ();
+    aMap.clear ();
     assertTrue (aMap.isEmpty ());
     aMap.put ("a", Integer.valueOf (1));
     aMap.entrySet ().clear ();

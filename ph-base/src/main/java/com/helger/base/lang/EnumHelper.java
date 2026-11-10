@@ -333,14 +333,14 @@ public final class EnumHelper
           }
           if (nMinID >= 0 && nMaxID <= CGlobal.MAX_BYTE_VALUE)
           {
-            // Cachable!
+            // Cacheable!
             aWLCachedData = new Object [nMaxID + 1];
             for (final ENUMTYPE aElement : aClass.getEnumConstants ())
               aWLCachedData[aElement.getID ()] = aElement;
           }
           else
           {
-            // Enum not cachable - too many items
+            // Enum not cacheable - too many items
             aWLCachedData = NOT_CACHABLE;
           }
           INT_CACHE.put (aClass, aWLCachedData);
@@ -358,7 +358,7 @@ public final class EnumHelper
       return eRet != null ? eRet : eDefault;
     }
 
-    // Object is not cachable - traverse as usual
+    // Object is not cacheable - traverse as usual
     return findFirst (aClass, x -> x.getID () == nID, eDefault);
   }
 

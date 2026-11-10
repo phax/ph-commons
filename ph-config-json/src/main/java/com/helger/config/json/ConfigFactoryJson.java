@@ -20,6 +20,7 @@ import java.nio.charset.StandardCharsets;
 
 import org.jspecify.annotations.NonNull;
 
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.classloader.ClassLoaderHelper;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.config.ConfigFactory;
@@ -41,6 +42,9 @@ public final class ConfigFactoryJson
 
   public static final String APPLICATION_JSON_NAME = "application.json";
   public static final int APPLICATION_JSON_PRIORITY = EConfigSourceType.RESOURCE.getDefaultPriority () - 15;
+
+  @PresentForCodeCoverage
+  private static final ConfigFactoryJson INSTANCE = new ConfigFactoryJson ();
 
   private ConfigFactoryJson ()
   {}

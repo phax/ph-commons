@@ -506,11 +506,11 @@ public final class NonBlockingPropertiesTest
     props.setProperty ("empty", "");
     props.setProperty ("null.like", null);
 
-    // Test getProperty behavior with empty/null values
+    // Test getProperty behaviour with empty/null values
     assertEquals ("", props.getProperty ("empty"));
     assertNull (props.getProperty ("null.like"));
 
-    // Test store/load behavior with empty values
+    // Test store/load behaviour with empty values
     try (final NonBlockingStringWriter writer = new NonBlockingStringWriter ())
     {
       props.store (writer, null);

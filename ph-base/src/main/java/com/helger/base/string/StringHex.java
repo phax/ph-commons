@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.CheckForSigned;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
@@ -53,6 +54,9 @@ public class StringHex
       HEX_VALUES['A' + i] = (byte) (10 + i);
     }
   }
+
+  @PresentForCodeCoverage
+  private static final StringHex INSTANCE = new StringHex ();
 
   private StringHex ()
   {}
@@ -432,7 +436,7 @@ public class StringHex
 
   /**
    * Convert a byte value to a hex string with a leading zero to ensure at least 2 digits. This is a
-   * optimized shortcut for <code>getHexStringLeadingZero(nValue, 2)</code>.
+   * optimised shortcut for <code>getHexStringLeadingZero(nValue, 2)</code>.
    *
    * @param nValue
    *        The byte value to convert.

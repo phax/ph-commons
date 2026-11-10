@@ -25,6 +25,7 @@ import java.util.Map;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.collection.CollectionHelper;
@@ -36,6 +37,9 @@ import com.helger.collection.CollectionHelper;
  */
 public final class CollectionCommonsHelper
 {
+  @PresentForCodeCoverage
+  private static final CollectionCommonsHelper INSTANCE = new CollectionCommonsHelper ();
+
   private CollectionCommonsHelper ()
   {}
 

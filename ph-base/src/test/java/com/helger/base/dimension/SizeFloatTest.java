@@ -179,4 +179,27 @@ public final class SizeFloatTest
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeFloat (320f, 240f),
                                                                         new SizeFloat (320f, 241f));
   }
+
+  @Test
+  public void testScaleZeroDimension ()
+  {
+    try
+    {
+      new SizeFloat (0, 5).getScaledToWidth (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      new SizeFloat (5, 0).getScaledToHeight (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
 }

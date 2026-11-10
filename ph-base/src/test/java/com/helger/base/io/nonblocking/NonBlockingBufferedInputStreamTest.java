@@ -329,12 +329,12 @@ public final class NonBlockingBufferedInputStreamTest
       {
         // Reset should fail because the mark was invalidated due to buffer management
         aBIS.reset ();
-        // If we reach here, the mark is still valid (which is also acceptable behavior)
+        // If we reach here, the mark is still valid (which is also acceptable behaviour)
         // The mark might still be valid if the buffer management didn't need to invalidate it
       }
       catch (final IOException ex)
       {
-        // Expected behavior - mark was invalidated
+        // Expected behaviour - mark was invalidated
         assertTrue (ex.getMessage ().contains ("invalid mark"));
       }
     }

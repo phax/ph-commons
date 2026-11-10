@@ -19,6 +19,7 @@ package com.helger.collection.helper;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.CommonsHashSet;
@@ -34,6 +35,9 @@ import com.helger.collection.stack.NonBlockingStack;
  */
 public final class PrimitiveCollectionHelper
 {
+  @PresentForCodeCoverage
+  private static final PrimitiveCollectionHelper INSTANCE = new PrimitiveCollectionHelper ();
+
   private PrimitiveCollectionHelper ()
   {}
 

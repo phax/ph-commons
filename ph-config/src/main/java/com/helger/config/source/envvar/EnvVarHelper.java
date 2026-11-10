@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
@@ -33,6 +34,9 @@ public final class EnvVarHelper
   public static final char DEFAULT_REPLACEMENT_CHAR = '_';
   // REGEX_ENV_VAR = "[a-zA-Z_]+[a-zA-Z0-9_]*";
   public static final char REPLACEMENT_CHAR_TO_SKIP = 0;
+
+  @PresentForCodeCoverage
+  private static final EnvVarHelper INSTANCE = new EnvVarHelper ();
 
   private EnvVarHelper ()
   {}

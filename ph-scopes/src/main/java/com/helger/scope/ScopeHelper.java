@@ -20,6 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 
 /**
@@ -47,6 +48,9 @@ public final class ScopeHelper
   private static boolean s_bDebugRequestScope = DEFAULT_DEBUG_REQUEST_SCOPE;
   @GuardedBy ("RW_LOCK")
   private static boolean s_bDebugWithStackTrace = DEFAULT_DEBUG_WITH_STACK_TRACE;
+
+  @PresentForCodeCoverage
+  private static final ScopeHelper INSTANCE = new ScopeHelper ();
 
   private ScopeHelper ()
   {}

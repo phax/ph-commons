@@ -37,7 +37,7 @@ public interface IThirdPartyModule extends IHasDisplayName, IHasVersion
   String getCopyrightOwner ();
 
   /**
-   * @return The license used by this module. May not be <code>null</code>.
+   * @return The licence used by this module. May not be <code>null</code>.
    */
   @NonNull
   ILicense getLicense ();

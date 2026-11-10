@@ -42,7 +42,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   private BigInteger m_aValue;
 
   /**
-   * Initialize with a certain long value.
+   * Initialise with a certain long value.
    *
    * @param nValue
    *        The value to be used.
@@ -64,7 +64,7 @@ public class MutableBigInteger extends AbstractMutableNumeric <MutableBigInteger
   }
 
   /**
-   * Initialize with a certain {@link BigInteger} value.
+   * Initialise with a certain {@link BigInteger} value.
    *
    * @param aValue
    *        The value to be used. May not be <code>null</code>.

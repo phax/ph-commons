@@ -27,6 +27,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.collection.CollectionHelper;
 import com.helger.collection.base.EmptyEnumeration;
 
@@ -39,6 +40,9 @@ import com.helger.collection.base.EmptyEnumeration;
 @Immutable
 public final class EnumerationHelper
 {
+  @PresentForCodeCoverage
+  private static final EnumerationHelper INSTANCE = new EnumerationHelper ();
+
   private EnumerationHelper ()
   {}
 

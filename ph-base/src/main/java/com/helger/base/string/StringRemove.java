@@ -20,6 +20,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
@@ -32,6 +33,9 @@ import com.helger.base.enforce.ValueEnforcer;
 @Immutable
 public final class StringRemove
 {
+  @PresentForCodeCoverage
+  private static final StringRemove INSTANCE = new StringRemove ();
+
   private StringRemove ()
   {}
 
@@ -126,7 +130,7 @@ public final class StringRemove
   }
 
   /**
-   * Optimized remove method that removes a set of characters from an input string!
+   * Optimised remove method that removes a set of characters from an input string!
    *
    * @param sInputString
    *        The input string.

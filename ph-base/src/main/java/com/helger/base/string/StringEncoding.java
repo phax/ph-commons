@@ -30,6 +30,7 @@ import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.enforce.ValueEnforcer;
 
@@ -42,6 +43,9 @@ import com.helger.base.enforce.ValueEnforcer;
 @Immutable
 public final class StringEncoding
 {
+  @PresentForCodeCoverage
+  private static final StringEncoding INSTANCE = new StringEncoding ();
+
   private StringEncoding ()
   {}
 

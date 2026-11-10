@@ -26,6 +26,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.rt.NonBlockingProperties;
 import com.helger.base.rt.PropertiesHelper;
@@ -41,6 +42,9 @@ import com.helger.io.resource.IReadableResource;
 public final class PropertiesLoader
 {
   // No logger here!
+
+  @PresentForCodeCoverage
+  private static final PropertiesLoader INSTANCE = new PropertiesLoader ();
 
   private PropertiesLoader ()
   {}

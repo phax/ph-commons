@@ -1663,7 +1663,8 @@ public class StreamHelper
    * @param sStr
    *        The string to be written. May be <code>null</code>.
    * @throws IOException
-   *         on write error
+   *         on write error or if the UTF-8 representation of the string exceeds
+   *         {@link #MAX_SAFE_UTF_BYTES} bytes
    * @see #readSafeUTF(DataInput)
    */
   public static void writeSafeUTF (@NonNull final DataOutput aDO, @Nullable final String sStr) throws IOException
@@ -1684,6 +1685,13 @@ public class StreamHelper
       aDO.writeByte (2);
 
       final byte [] aUTF8Bytes = sStr.getBytes (StandardCharsets.UTF_8);
+      // Don't write anything that readSafeUTF would reject
+      if (aUTF8Bytes.length > MAX_SAFE_UTF_BYTES)
+        throw new IOException ("The string is too long for SafeUTF: " +
+                               aUTF8Bytes.length +
+                               " bytes, but at most " +
+                               MAX_SAFE_UTF_BYTES +
+                               " bytes are supported");
 
       // Write number of bytes
       aDO.writeInt (aUTF8Bytes.length);

@@ -25,6 +25,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.PropertyException;
@@ -48,6 +49,9 @@ public final class JAXBMarshallerHelper
   private static final String JAKARTA_XML_HEADERS = "org.glassfish.jaxb.xmlHeaders";
   private static final String JAKARTA_C14N = JAXBRIContext.CANONICALIZATION_SUPPORT;
   private static final String JAKARTA_OBJECT_IDENTITY_CYCLE_DETECTION = "org.glassfish.jaxb.objectIdentitityCycleDetection";
+
+  @PresentForCodeCoverage
+  private static final JAXBMarshallerHelper INSTANCE = new JAXBMarshallerHelper ();
 
   private JAXBMarshallerHelper ()
   {}

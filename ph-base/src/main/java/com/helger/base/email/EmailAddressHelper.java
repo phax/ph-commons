@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Perform simple email address validation based on a regular expression.
@@ -45,6 +46,9 @@ public final class EmailAddressHelper
 
   /** Compile this pattern only once */
   private static final Pattern PATTERN_SIMPLE = Pattern.compile (EMAIL_ADDRESS_PATTERN_SIMPLE);
+
+  @PresentForCodeCoverage
+  private static final EmailAddressHelper INSTANCE = new EmailAddressHelper ();
 
   private EmailAddressHelper ()
   {}

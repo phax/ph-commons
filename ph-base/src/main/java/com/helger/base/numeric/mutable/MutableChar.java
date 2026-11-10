@@ -36,7 +36,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   private char m_cValue;
 
   /**
-   * Initialize with a certain int value. If the value does not fit into a char, the value is cut!
+   * Initialise with a certain int value. If the value does not fit into a char, the value is cut!
    *
    * @param cValue
    *        The value to be used.
@@ -47,7 +47,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -58,7 +58,7 @@ public class MutableChar extends AbstractMutableInteger <MutableChar>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param cValue
    *        The value to be used.

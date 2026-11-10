@@ -52,7 +52,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   /**
    * Creates a <code>PushbackInputStream</code> with a pushback buffer of the specified
    * <code>size</code>, and saves its argument, the input stream <code>in</code>, for later use.
-   * Initially, there is no pushed-back byte (the field <code>pushBack</code> is initialized to
+   * Initially, there is no pushed-back byte (the field <code>pushBack</code> is initialised to
    * <code>-1</code>).
    *
    * @param aIS
@@ -74,7 +74,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
   /**
    * Creates a <code>PushbackInputStream</code> and saves its argument, the input stream
    * <code>in</code>, for later use. Initially, there is no pushed-back byte (the field
-   * <code>pushBack</code> is initialized to <code>-1</code>).
+   * <code>pushBack</code> is initialised to <code>-1</code>).
    *
    * @param aIS
    *        the input stream from which bytes will be read.

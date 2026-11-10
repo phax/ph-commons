@@ -135,4 +135,27 @@ public final class SizeIntTest
     catch (final IllegalArgumentException ex)
     {}
   }
+
+  @Test
+  public void testScaleZeroDimension ()
+  {
+    try
+    {
+      new SizeInt (0, 5).getScaledToWidth (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      new SizeInt (5, 0).getScaledToHeight (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
 }

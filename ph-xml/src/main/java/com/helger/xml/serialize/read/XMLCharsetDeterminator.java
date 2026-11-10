@@ -28,6 +28,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.charset.CharsetHelper;
 import com.helger.base.charset.CharsetHelper.InputStreamAndCharset;
@@ -77,6 +78,9 @@ public final class XMLCharsetDeterminator
   private static final byte [] CS_UTF8 = new byte [] { 0x3c, 0x3f, 0x78, 0x6d };
   private static final byte [] CS_EBCDIC = new byte [] { 0x4c, 0x6f, (byte) 0xa7, (byte) 0x94 };
   private static final byte [] CS_IBM290 = new byte [] { 0x4c, 0x6f, (byte) 0xb7, (byte) 0x75 };
+
+  @PresentForCodeCoverage
+  private static final XMLCharsetDeterminator INSTANCE = new XMLCharsetDeterminator ();
 
   private XMLCharsetDeterminator ()
   {}

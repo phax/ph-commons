@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 import com.helger.annotation.Nonempty;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.debug.GlobalDebug;
 import com.helger.base.enforce.ValueEnforcer;
@@ -300,6 +301,9 @@ public final class Dijkstra
       return aSB.append ('}').toString ();
     }
   }
+
+  @PresentForCodeCoverage
+  private static final Dijkstra INSTANCE = new Dijkstra ();
 
   private Dijkstra ()
   {}

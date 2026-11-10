@@ -26,6 +26,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 
 /**
  * Some globally usable predicates.
@@ -36,6 +37,9 @@ import com.helger.annotation.concurrent.Immutable;
 @Immutable
 public final class Predicates
 {
+  @PresentForCodeCoverage
+  private static final Predicates INSTANCE = new Predicates ();
+
   private Predicates ()
   {}
 

@@ -78,7 +78,7 @@ public final class CleanUpRegistry implements ICleanUpRegistry
 
   private final SimpleReadWriteLock m_aRWLock = new SimpleReadWriteLock ();
 
-  // Use a weak hash map, because the key is a class
+  // Sorted by priority
   @GuardedBy ("m_aRWLock")
   @CodingStyleguideUnaware
   private final List <Item> m_aActions = new ArrayList <> ();
@@ -127,12 +127,12 @@ public final class CleanUpRegistry implements ICleanUpRegistry
   }
 
   /**
-   * Reinitialize the clean up registry by re-reading all SPI implementations.
+   * Reinitialise the clean up registry by re-reading all SPI implementations.
    */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitializing " + getClass ().getName ());
+      LOGGER.debug ("Reinitialising " + getClass ().getName ());
 
     _reinitialize ();
   }
@@ -159,6 +159,14 @@ public final class CleanUpRegistry implements ICleanUpRegistry
     LOGGER.info ("Running " + aActions.size () + " cleanup actions");
 
     for (final Item aItem : aActions)
-      aItem.m_aRunnable.run ();
+      try
+      {
+        aItem.m_aRunnable.run ();
+      }
+      catch (final RuntimeException ex)
+      {
+        // Continue with the other actions
+        LOGGER.error ("Failed to run cleanup action " + aItem.m_aRunnable, ex);
+      }
   }
 }

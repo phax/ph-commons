@@ -36,7 +36,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   private long m_nValue;
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -47,7 +47,7 @@ public class MutableLong extends AbstractMutableInteger <MutableLong>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param nValue
    *        The value to be used.

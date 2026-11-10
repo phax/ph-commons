@@ -22,6 +22,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.compare.CompareHelper;
 
 /**
@@ -33,6 +34,9 @@ import com.helger.base.compare.CompareHelper;
 @Immutable
 public final class CompareHelperExt extends CompareHelper
 {
+  @PresentForCodeCoverage
+  private static final CompareHelperExt INSTANCE = new CompareHelperExt ();
+
   private CompareHelperExt ()
   {}
 

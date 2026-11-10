@@ -76,7 +76,7 @@ public interface IHasByteArray extends IHasSize, IHasInputStreamAndReader, IWrit
 
   /**
    * @return <code>true</code> if this object deals with a partial array that either has an offset
-   *         or which is not completely used. Based on this method, some performance optimizations
+   *         or which is not completely used. Based on this method, some performance optimisations
    *         might be used to avoid copying data.
    * @since 11.1.5
    */

@@ -26,6 +26,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.state.ESuccess;
 
@@ -39,7 +40,7 @@ public final class JMXHelper
 {
   private static final Logger LOGGER = LoggerFactory.getLogger (JMXHelper.class);
 
-  @SuppressWarnings ("unused")
+  @PresentForCodeCoverage
   private static final JMXHelper INSTANCE = new JMXHelper ();
 
   private JMXHelper ()

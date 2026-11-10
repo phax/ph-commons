@@ -28,7 +28,7 @@ import com.helger.base.tostring.ToStringGenerator;
 import com.helger.base.version.Version;
 
 /**
- * Represents a custom license.
+ * Represents a custom licence.
  *
  * @author Philip Helger
  */
@@ -41,16 +41,16 @@ public class CustomLicense implements ILicense
   private final String m_sWebSiteURL;
 
   /**
-   * Create a custom license.
+   * Create a custom licence.
    *
    * @param sID
-   *        The ID of the license.
+   *        The ID of the licence.
    * @param sName
-   *        The name of the license.
+   *        The name of the licence.
    * @param aVersion
-   *        The version of the license.
+   *        The version of the licence.
    * @param sURL
-   *        The URL of the license.
+   *        The URL of the licence.
    */
   public CustomLicense (@NonNull @Nonempty final String sID,
                         @NonNull @Nonempty final String sName,
@@ -64,7 +64,7 @@ public class CustomLicense implements ILicense
   }
 
   /**
-   * @return The unique ID of this license. Neither <code>null</code> nor empty.
+   * @return The unique ID of this licence. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -74,7 +74,7 @@ public class CustomLicense implements ILicense
   }
 
   /**
-   * @return The display name of this license. Neither <code>null</code> nor empty.
+   * @return The display name of this licence. Neither <code>null</code> nor empty.
    */
   @NonNull
   @Nonempty
@@ -84,7 +84,7 @@ public class CustomLicense implements ILicense
   }
 
   /**
-   * @return The version of this license. May be <code>null</code>.
+   * @return The version of this licence. May be <code>null</code>.
    */
   @Nullable
   public Version getVersion ()
@@ -93,7 +93,7 @@ public class CustomLicense implements ILicense
   }
 
   /**
-   * @return The URL of this license. May be <code>null</code>.
+   * @return The URL of this licence. May be <code>null</code>.
    */
   @Nullable
   public String getURL ()

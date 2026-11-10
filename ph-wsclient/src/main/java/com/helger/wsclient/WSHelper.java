@@ -19,6 +19,7 @@ package com.helger.wsclient;
 import org.jspecify.annotations.NonNull;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
 import com.helger.base.system.SystemProperties;
 
@@ -32,6 +33,9 @@ import jakarta.xml.ws.handler.MessageContext;
 @Immutable
 public final class WSHelper
 {
+  @PresentForCodeCoverage
+  private static final WSHelper INSTANCE = new WSHelper ();
+
   private WSHelper ()
   {}
 

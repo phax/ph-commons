@@ -162,4 +162,27 @@ public final class SizeLongTest
     BaseTestHelper.testDefaultImplementationWithDifferentContentObject (new SizeLong (320L, 240L),
                                                                         new SizeLong (320L, 241L));
   }
+
+  @Test
+  public void testScaleZeroDimension ()
+  {
+    try
+    {
+      new SizeLong (0, 5).getScaledToWidth (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      new SizeLong (5, 0).getScaledToHeight (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
 }

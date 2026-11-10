@@ -25,6 +25,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.compare.CompareHelper;
 import com.helger.base.compare.IComparator;
 
@@ -36,6 +37,9 @@ import com.helger.base.compare.IComparator;
 @Immutable
 public final class ComparatorHelper
 {
+  @PresentForCodeCoverage
+  private static final ComparatorHelper INSTANCE = new ComparatorHelper ();
+
   private ComparatorHelper ()
   {}
 

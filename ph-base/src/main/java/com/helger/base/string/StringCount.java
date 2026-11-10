@@ -24,6 +24,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.misc.DevelopersNote;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.UsedInGeneratedCode;
 import com.helger.base.CGlobal;
 import com.helger.base.numeric.MathHelper;
@@ -65,6 +66,9 @@ public final class StringCount
                                                    99999999999999999L,
                                                    999999999999999999L,
                                                    Long.MAX_VALUE };
+
+  @PresentForCodeCoverage
+  private static final StringCount INSTANCE = new StringCount ();
 
   private StringCount ()
   {}

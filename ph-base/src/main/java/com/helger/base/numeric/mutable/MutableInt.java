@@ -36,7 +36,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   private int m_nValue;
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param aValue
    *        The value to be used.
@@ -47,7 +47,7 @@ public class MutableInt extends AbstractMutableInteger <MutableInt>
   }
 
   /**
-   * Initialize with a certain value.
+   * Initialise with a certain value.
    *
    * @param nValue
    *        The value to be used.

@@ -20,6 +20,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.GuardedBy;
 import com.helger.annotation.concurrent.ThreadSafe;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.concurrent.SimpleReadWriteLock;
 import com.helger.base.debug.GlobalDebug;
 
@@ -39,6 +40,9 @@ public final class SingletonHelper
   private static boolean s_bDebugConsistency = DEFAULT_DEBUG_CONSISTENCY;
   @GuardedBy ("RW_LOCK")
   private static boolean s_bDebugWithStackTrace = DEFAULT_DEBUG_WITH_STACK_TRACE;
+
+  @PresentForCodeCoverage
+  private static final SingletonHelper INSTANCE = new SingletonHelper ();
 
   private SingletonHelper ()
   {}

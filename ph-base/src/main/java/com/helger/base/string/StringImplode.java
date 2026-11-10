@@ -31,6 +31,7 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.CodingStyleguideUnaware;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.functional.Predicates;
@@ -44,11 +45,14 @@ import com.helger.base.functional.Predicates;
 @Immutable
 public final class StringImplode
 {
+  @PresentForCodeCoverage
+  private static final StringImplode INSTANCE = new StringImplode ();
+
   private StringImplode ()
   {}
 
   /**
-   * A simple builder that allows to implode collections of arguments with a lot of customization.
+   * A simple builder that allows to implode collections of arguments with a lot of customisation.
    * It used by all the "getImploded*" overloads and fulfills the requests of other use cases as
    * well.
    *
@@ -1072,7 +1076,7 @@ public final class StringImplode
   }
 
   /**
-   * A simple builder that allows to implode maps of arguments with a lot of customization. It used
+   * A simple builder that allows to implode maps of arguments with a lot of customisation. It used
    * by all the "getImploded*" overloads and fulfills the requests of other use cases as well.
    *
    * @author Philip Helger

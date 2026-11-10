@@ -27,6 +27,7 @@ import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayInputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
@@ -41,6 +42,9 @@ import com.helger.base.reflection.GenericReflection;
 @Immutable
 public final class SerializationHelper
 {
+  @PresentForCodeCoverage
+  private static final SerializationHelper INSTANCE = new SerializationHelper ();
+
   private SerializationHelper ()
   {}
 

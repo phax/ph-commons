@@ -139,4 +139,27 @@ public final class SizeDoubleTest
     catch (final IllegalArgumentException ex)
     {}
   }
+
+  @Test
+  public void testScaleZeroDimension ()
+  {
+    try
+    {
+      new SizeDouble (0, 5).getScaledToWidth (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+    try
+    {
+      new SizeDouble (5, 0).getScaledToHeight (1);
+      fail ();
+    }
+    catch (final IllegalStateException ex)
+    {
+      // expected
+    }
+  }
 }

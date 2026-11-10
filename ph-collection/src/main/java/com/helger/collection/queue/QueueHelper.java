@@ -29,6 +29,7 @@ import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
+import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.base.array.ArrayHelper;
 import com.helger.collection.CollectionFind;
@@ -44,6 +45,9 @@ import com.helger.collection.commons.ICommonsIterableIterator;
 @Immutable
 public final class QueueHelper
 {
+  @PresentForCodeCoverage
+  private static final QueueHelper INSTANCE = new QueueHelper ();
+
   private QueueHelper ()
   {}
 
