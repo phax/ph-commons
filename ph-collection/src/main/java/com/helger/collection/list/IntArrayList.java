@@ -21,6 +21,8 @@ import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.IntBinaryOperator;
 import java.util.function.IntConsumer;
+import java.util.function.IntFunction;
+import java.util.function.IntPredicate;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -33,6 +35,7 @@ import com.helger.base.clone.ICloneable;
 import com.helger.base.enforce.ValueEnforcer;
 import com.helger.base.hashcode.HashCodeGenerator;
 import com.helger.base.iface.IHasSize;
+import com.helger.base.state.EContinue;
 import com.helger.base.tostring.ToStringGenerator;
 import com.helger.collection.helper.CollectionSort;
 
@@ -109,6 +112,12 @@ public class IntArrayList implements IHasSize, ICloneable <IntArrayList>
   public boolean isEmpty ()
   {
     return m_nSize == 0;
+  }
+
+  /** {@inheritDoc} */
+  public boolean isNotEmpty ()
+  {
+    return m_nSize > 0;
   }
 
   /**
@@ -252,6 +261,74 @@ public class IntArrayList implements IHasSize, ICloneable <IntArrayList>
   }
 
   /**
+   * Invoke the provided consumer for each value in list order that matches the provided filter.
+   *
+   * @param aFilter
+   *        The filter to be applied. May be <code>null</code> in which case all values are passed to
+   *        the consumer.
+   * @param aConsumer
+   *        The consumer to invoke. May not be <code>null</code>.
+   * @see #forEach(IntConsumer)
+   */
+  public void forEach (@Nullable final IntPredicate aFilter, @NonNull final IntConsumer aConsumer)
+  {
+    if (aFilter == null)
+      forEach (aConsumer);
+    else
+    {
+      ValueEnforcer.notNull (aConsumer, "Consumer");
+      for (int i = 0; i < m_nSize; ++i)
+      {
+        final int nValue = m_aData[i];
+        if (aFilter.test (nValue))
+          aConsumer.accept (nValue);
+      }
+    }
+  }
+
+  /**
+   * A consumer for a value together with its index.
+   *
+   * @author Philip Helger
+   */
+  @FunctionalInterface
+  public interface IIndexedConsumer
+  {
+    void accept (int nValue, @Nonnegative int nIndex);
+  }
+
+  /**
+   * Invoke the provided consumer for each value in list order, providing the value AND the index.
+   *
+   * @param aConsumer
+   *        The consumer to invoke. May not be <code>null</code>.
+   */
+  public void forEachByIndex (@NonNull final IIndexedConsumer aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    for (int i = 0; i < m_nSize; ++i)
+      aConsumer.accept (m_aData[i], i);
+  }
+
+  /**
+   * A special version of {@link #forEach(IntConsumer)} that can break iteration if a certain
+   * requirement is fulfilled.
+   *
+   * @param aConsumer
+   *        The consumer to invoke. May not be <code>null</code>.
+   * @return {@link EContinue#BREAK} if iteration was stopped, {@link EContinue#CONTINUE} otherwise.
+   */
+  @NonNull
+  public EContinue forEachBreakable (@NonNull final IntFunction <EContinue> aConsumer)
+  {
+    ValueEnforcer.notNull (aConsumer, "Consumer");
+    for (int i = 0; i < m_nSize; ++i)
+      if (aConsumer.apply (m_aData[i]).isBreak ())
+        return EContinue.BREAK;
+    return EContinue.CONTINUE;
+  }
+
+  /**
    * Sort all values in ascending numerical order.
    */
   public void sort ()
@@ -260,8 +337,8 @@ public class IntArrayList implements IHasSize, ICloneable <IntArrayList>
   }
 
   /**
-   * Sort all values with the provided comparator. The sort is stable, so values that compare
-   * equal keep their relative order.
+   * Sort all values with the provided comparator. The sort is stable, so values that compare equal
+   * keep their relative order.
    *
    * @param aCmp
    *        The comparator to use. May not be <code>null</code>.

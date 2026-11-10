@@ -27,6 +27,7 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
+import com.helger.base.state.EContinue;
 import com.helger.unittest.support.TestHelper;
 
 /**
@@ -168,6 +169,53 @@ public final class IntArrayListTest
     final IntArrayList aTarget = new IntArrayList ();
     aList.forEach (aTarget::add);
     assertEquals (aList, aTarget);
+
+    // Filtered
+    aTarget.clear ();
+    aList.forEach (x -> x != 1, aTarget::add);
+    assertArrayEquals (new int [] { 3, 2 }, aTarget.toArray ());
+
+    // No filter
+    aTarget.clear ();
+    aList.forEach (null, aTarget::add);
+    assertEquals (aList, aTarget);
+  }
+
+  @Test
+  public void testForEachByIndex ()
+  {
+    final IntArrayList aList = new IntArrayList ();
+    aList.addAll (3, 1, 2);
+    final IntArrayList aValues = new IntArrayList ();
+    final IntArrayList aIndices = new IntArrayList ();
+    aList.forEachByIndex ( (nValue, nIndex) -> {
+      aValues.add (nValue);
+      aIndices.add (nIndex);
+    });
+    assertEquals (aList, aValues);
+    assertArrayEquals (new int [] { 0, 1, 2 }, aIndices.toArray ());
+  }
+
+  @Test
+  public void testForEachBreakable ()
+  {
+    final IntArrayList aList = new IntArrayList ();
+    aList.addAll (3, 1, 2);
+    final IntArrayList aTarget = new IntArrayList ();
+    assertEquals (EContinue.BREAK, aList.forEachBreakable (x -> {
+      aTarget.add (x);
+      return EContinue.valueOf (x != 1);
+    }));
+    assertArrayEquals (new int [] { 3, 1 }, aTarget.toArray ());
+
+    aTarget.clear ();
+    assertEquals (EContinue.CONTINUE, aList.forEachBreakable (x -> {
+      aTarget.add (x);
+      return EContinue.CONTINUE;
+    }));
+    assertEquals (aList, aTarget);
+
+    assertEquals (EContinue.CONTINUE, new IntArrayList ().forEachBreakable (x -> EContinue.BREAK));
   }
 
   @Test
