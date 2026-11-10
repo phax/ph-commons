@@ -751,7 +751,8 @@ public final class PathHelper
    * @param aDirectory
    *        The directory to be listed. May not be <code>null</code>.
    * @param aPathFilter
-   *        The path filter to be used. May not be <code>null</code>.
+   *        The path filter to be used. May be <code>null</code> in which case all entries are
+   *        returned.
    * @return Never <code>null</code>.
    */
   @NonNull

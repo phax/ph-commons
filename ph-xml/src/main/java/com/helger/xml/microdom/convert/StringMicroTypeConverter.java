@@ -48,12 +48,12 @@ public final class StringMicroTypeConverter implements IMicroTypeConverter <Stri
 
   /** {@inheritDoc} */
   @NonNull
-  public IMicroElement convertToMicroElement (@NonNull final String aObject,
+  public IMicroElement convertToMicroElement (@NonNull final String sObject,
                                               @Nullable final String sNamespaceURI,
                                               @NonNull @Nonempty final String sTagName)
   {
     final IMicroElement e = new MicroElement (sNamespaceURI, sTagName);
-    e.addText (aObject);
+    e.addText (sObject);
     return e;
   }
 

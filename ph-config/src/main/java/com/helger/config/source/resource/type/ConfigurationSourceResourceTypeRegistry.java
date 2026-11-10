@@ -84,7 +84,7 @@ public final class ConfigurationSourceResourceTypeRegistry
   {
     m_aRWLock.writeLocked (() -> {
       // Register all custom resource types.
-      // Must be in writeLock to ensure no reads happen during initialization
+      // Must be in writeLock to ensure no reads happen during initialisation
       for (final IConfigurationSourceResourceTypeRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IConfigurationSourceResourceTypeRegistrarSPI.class))
       {
         if (LOGGER.isDebugEnabled ())
@@ -169,12 +169,12 @@ public final class ConfigurationSourceResourceTypeRegistry
   }
 
   /**
-   * Reinitialize this registry by re-reading all SPI implementations.
+   * Reinitialise this registry by re-reading all SPI implementations.
    */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitializing " + getClass ().getName ());
+      LOGGER.debug ("Reinitialising " + getClass ().getName ());
 
     _reinitialize ();
   }

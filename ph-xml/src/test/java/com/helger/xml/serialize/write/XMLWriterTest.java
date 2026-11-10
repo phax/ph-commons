@@ -1113,7 +1113,7 @@ public final class XMLWriterTest
     final XMLWriterSettings aSettings = new XMLWriterSettings ().setIndent (EXMLSerializeIndent.NONE)
                                                                 .setCharset (StandardCharsets.UTF_8);
 
-    // Default behavior: xmlns:xs and xmlns:u are lost because they are only
+    // Default behaviour: xmlns:xs and xmlns:u are lost because they are only
     // referenced in attribute values, not in element/attribute namespace URIs
     final String sDefault = XMLWriter.getNodeAsString (aDoc, aSettings);
     assertNotNull (sDefault);

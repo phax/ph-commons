@@ -24,7 +24,7 @@ import com.helger.base.cleanup.CleanUpRegistry;
 import com.helger.scope.mgr.ScopeManager;
 
 /**
- * This class provides the initialization handling for scopes in unit tests. It is independent of
+ * This class provides the initialisation handling for scopes in unit tests. It is independent of
  * JUnit and can be used with any unit testing framework.
  *
  * @author Philip Helger
@@ -45,7 +45,7 @@ public final class ScopeAwareTestSetup
   {}
 
   /**
-   * Run this before tests are executed to initialize a global scope and a request.
+   * Run this before tests are executed to initialise a global scope and a request.
    */
   public static void setupScopeTests ()
   {

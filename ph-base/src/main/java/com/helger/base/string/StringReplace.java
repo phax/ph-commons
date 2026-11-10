@@ -381,7 +381,7 @@ public final class StringReplace
    * not length calculation needs to take place!
    *
    * @param aInput
-   *        The input char array. May not be <code>null</code>.
+   *        The input char array. May be <code>null</code> in which case nothing happens.
    * @param aSearchChars
    *        The characters to replace.
    * @param aReplacementStrings

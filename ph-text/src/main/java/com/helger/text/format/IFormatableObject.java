@@ -38,7 +38,8 @@ public interface IFormatableObject <DATATYPE>
   DATATYPE getValue ();
 
   /**
-   * @return The formatter to be used for formatting this object. Never <code>null</code>.
+   * @return The formatter to be used for formatting this object. May be <code>null</code>, in which
+   *         case {@link String#valueOf(Object)} is used.
    */
   @Nullable
   Function <? super DATATYPE, ? extends String> getFormatter ();

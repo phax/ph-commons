@@ -128,7 +128,7 @@ public class MultiConfigurationValueProvider implements
 
   /**
    * @return <code>true</code> if this multi value provider accepts only configuration sources that
-   *         were initialized and are usable. The default is
+   *         were initialised and are usable. The default is
    *         {@value #DEFAULT_USE_ONLY_INTIIALIZED_CONFIG_SOURCES}.
    * @see IConfigurationSource#isInitializedAndUsable()
    */
@@ -138,10 +138,10 @@ public class MultiConfigurationValueProvider implements
   }
 
   /**
-   * Enable or disable the usage of only initialized configuration sources.
+   * Enable or disable the usage of only initialised configuration sources.
    *
    * @param bUseOnlyInitializedConfigSources
-   *        <code>true</code> to only allow the usage of initialized configuration sources.
+   *        <code>true</code> to only allow the usage of initialised configuration sources.
    * @return this for chaining
    */
   @NonNull
@@ -165,7 +165,7 @@ public class MultiConfigurationValueProvider implements
     if (m_bUseOnlyInitializedConfigSources && !aSource.isInitializedAndUsable ())
     {
       // Don't add
-      LOGGER.warn ("Not adding the configuration source " + aSource + " because it is not yet initialized");
+      LOGGER.warn ("Not adding the configuration source " + aSource + " because it is not yet initialised");
       return this;
     }
     return addConfigurationSource (aSource, aSource.getPriority ());

@@ -146,7 +146,7 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * Set the default behavior for ignoring element content whitespace.
+   * Set the default behaviour for ignoring element content whitespace.
    *
    * @param bIgnoringElementContentWhitespace
    *        <code>true</code> if the parser should ignore element content whitespace.
@@ -165,7 +165,7 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * Set the default behavior for expanding entity references.
+   * Set the default behaviour for expanding entity references.
    *
    * @param bExpandEntityReferences
    *        <code>true</code> if the parser should expand entity references.
@@ -184,7 +184,7 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * Set the default behavior for ignoring comments.
+   * Set the default behaviour for ignoring comments.
    *
    * @param bIgnoringComments
    *        <code>true</code> if the parser should ignore comments.
@@ -203,7 +203,7 @@ public final class DOMReaderDefaultSettings
   }
 
   /**
-   * Set the default coalescing behavior (convert CDATA nodes to text nodes).
+   * Set the default coalescing behaviour (convert CDATA nodes to text nodes).
    *
    * @param bCoalescing
    *        <code>true</code> if the parser should be coalescing.

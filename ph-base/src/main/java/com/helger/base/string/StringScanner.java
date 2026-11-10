@@ -260,11 +260,11 @@ public class StringScanner
     int nLevel = nStartLevel;
     while (m_nCurIndex < m_nMaxIndex && nLevel > 0)
     {
-      final char aChar = getCurrentChar ();
-      if (aChar == cOpenChar)
+      final char cChar = getCurrentChar ();
+      if (cChar == cOpenChar)
         ++nLevel;
       else
-        if (aChar == cCloseChar)
+        if (cChar == cCloseChar)
           --nLevel;
       ++m_nCurIndex;
     }

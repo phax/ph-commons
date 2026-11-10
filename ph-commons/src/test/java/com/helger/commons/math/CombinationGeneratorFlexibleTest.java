@@ -66,9 +66,9 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     assertEquals (5, aResults.size ());
     assertFalse (aResults.contains (new CommonsArrayList <> ()));
 
+    // Without elements, only the empty combination exists, which is not allowed
     aResults = aGenerator.getCombinations (new CommonsArrayList <> ());
-    assertEquals (1, aResults.size ());
-    assertTrue (aResults.contains (new CommonsArrayList <> ()));
+    assertEquals (0, aResults.size ());
 
     try
     {
@@ -129,5 +129,21 @@ public final class CombinationGeneratorFlexibleTest extends AbstractCombinationG
     // generator are also contained in all permutations
     for (final ICommonsList <String> aList : aFlexiblePermutations)
       assertTrue (aList.toString (), aSimplePermutations.contains (aList));
+  }
+
+  @Test
+  public void testMoreSlotsThanElements ()
+  {
+    final ICommonsList <String> aElements = new CommonsArrayList <> ("A", "B");
+    // 5 slots, but only 2 elements: combinations with up to 2 elements and no exception
+    final ICommonsList <ICommonsList <String>> aAll = new CommonsArrayList <> ();
+    new CombinationGeneratorFlexible <String> (5, true).iterateAllCombinations (aElements, aAll::add);
+    // {}, {A}, {B}, {A, B}
+    assertEquals (4, aAll.size ());
+
+    // The empty combination is emitted only once
+    final ICommonsList <ICommonsList <String>> aEmpty = new CommonsArrayList <> ();
+    new CombinationGeneratorFlexible <String> (5, true).iterateAllCombinations (new CommonsArrayList <> (), aEmpty::add);
+    assertEquals (1, aEmpty.size ());
   }
 }

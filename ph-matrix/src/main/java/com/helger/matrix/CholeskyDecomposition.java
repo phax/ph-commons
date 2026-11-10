@@ -62,7 +62,7 @@ public class CholeskyDecomposition
    */
   public CholeskyDecomposition (@NonNull final Matrix aMatrix)
   {
-    // Initialize.
+    // Initialise.
     final double [] [] aArray = aMatrix.internalGetArray ();
     m_nDim = aMatrix.getRowDimension ();
     m_aData = new double [m_nDim] [m_nDim];
@@ -104,7 +104,7 @@ public class CholeskyDecomposition
    * @param A Square, symmetric matrix.
    * @param rightflag Actual value ignored.
    * @return Structure to access R and isspd flag.\ public CholeskyDecomposition (Matrix Arg, int
-   * rightflag) { // Initialize. double[][] A = Arg.getArray(); n = Arg.getColumnDimension(); R =
+   * rightflag) { // Initialise. double[][] A = Arg.getArray(); n = Arg.getColumnDimension(); R =
    * new double[n][n]; isspd = (Arg.getColumnDimension() == n); // Main loop. for (int j = 0; j < n;
    * j++) { double d = 0.0; for (int k = 0; k < j; k++) { double s = A[k][j]; for (int i = 0; i < k;
    * i++) { s = s - R[i][k]*R[i][j]; } R[k][j] = s = s/R[k][k]; d = d + s*s; isspd = isspd &

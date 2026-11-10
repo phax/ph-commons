@@ -438,7 +438,7 @@ public class StringHelper
    */
   @Nullable
   public static CharSequence getNotEmpty (@Nullable final CharSequence s,
-                                          @Nullable final Supplier <? extends CharSequence> aDefaultIfEmpty)
+                                          @NonNull final Supplier <? extends CharSequence> aDefaultIfEmpty)
   {
     return isEmpty (s) ? aDefaultIfEmpty.get () : s;
   }

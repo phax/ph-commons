@@ -539,9 +539,13 @@ public final class SystemProperties implements IHasConditionalLogger
    *        The name of the property.
    * @return <code>true</code> if such a system property is present, <code>false</code> otherwise
    */
-  public static boolean containsPropertyName (final String sPropertyName)
+  public static boolean containsPropertyName (@Nullable final String sPropertyName)
   {
-    return getAllProperties ().containsKey (sPropertyName);
+    if (sPropertyName == null)
+      return false;
+    // Check directly, without copying all system properties
+    final Properties aProperties = System.getProperties ();
+    return aProperties != null && aProperties.containsKey (sPropertyName);
   }
 
   /**

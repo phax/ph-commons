@@ -171,7 +171,7 @@ public final class URLProtocolRegistry
    * Check if the passed URL has any known protocol
    *
    * @param sURL
-   *        The URL to analyze
+   *        The URL to analyse
    * @return <code>true</code> if the protocol is known, <code>false</code> otherwise
    */
   public boolean hasKnownProtocol (@Nullable final String sURL)
@@ -183,7 +183,7 @@ public final class URLProtocolRegistry
    * Check if the passed URL has any known protocol
    *
    * @param aURL
-   *        The URL to analyze
+   *        The URL to analyse
    * @return <code>true</code> if the protocol is known, <code>false</code> otherwise
    */
   public boolean hasKnownProtocol (@Nullable final IURLData aURL)
@@ -226,7 +226,7 @@ public final class URLProtocolRegistry
   }
 
   /**
-   * Reinitialize all protocols. Adds all {@link EURLProtocol} values and invokes all SPI
+   * Reinitialise all protocols. Adds all {@link EURLProtocol} values and invokes all SPI
    * implementations.
    */
   public void reinitialize ()

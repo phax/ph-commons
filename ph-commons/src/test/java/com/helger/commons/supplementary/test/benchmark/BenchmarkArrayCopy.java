@@ -76,7 +76,7 @@ public final class BenchmarkArrayCopy extends AbstractBenchmarkTask
     }
   }
 
-  // 2002/11/10 result: linear behavior starts for array lengths around 512,
+  // 2002/11/10 result: linear behaviour starts for array lengths around 512,
   // give or take a factor of 2
 
   private static final class JavaArrayCopy implements Runnable

@@ -273,6 +273,6 @@ public class CountryCache implements IHasConditionalLogger
       if (StringHelper.isNotEmpty (sCountry))
         addCountry (sCountry);
     }
-    CONDLOG.debug (() -> "Reinitialized " + getClass ().getName ());
+    CONDLOG.debug (() -> "Reinitialised " + getClass ().getName ());
   }
 }

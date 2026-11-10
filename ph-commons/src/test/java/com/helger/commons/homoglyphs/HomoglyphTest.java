@@ -75,4 +75,14 @@ public final class HomoglyphTest
     _check ("get blue ᑭɪ|Ｌs", "pills");
     _check ("ℭaՏℎ prizes!!", "cash");
   }
+
+  @Test
+  public void testEmptyTargetWord ()
+  {
+    // Empty target words are ignored instead of failing
+    assertEquals (0, INSTANCE.search ("free credit", "").size ());
+    final ICommonsList <HomoglyphSearchResult> r = INSTANCE.search ("free credit", "", "credit");
+    assertEquals (1, r.size ());
+    assertEquals ("credit", r.get (0).getWord ());
+  }
 }

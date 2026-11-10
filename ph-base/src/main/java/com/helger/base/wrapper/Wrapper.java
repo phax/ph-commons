@@ -203,7 +203,7 @@ public class Wrapper <DATATYPE> implements IMutableWrapper <DATATYPE>, ICloneabl
    * {@inheritDoc}
    */
   @NonNull
-  public EChange update (@Nullable final Function <DATATYPE, DATATYPE> aUpdater)
+  public EChange update (@NonNull final Function <DATATYPE, DATATYPE> aUpdater)
   {
     ValueEnforcer.notNull (aUpdater, "Updater");
 

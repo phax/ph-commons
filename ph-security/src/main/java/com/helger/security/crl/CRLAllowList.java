@@ -46,7 +46,7 @@ import com.helger.collection.commons.ICommonsList;
  * <p>
  * Matching is case-insensitive (URL schemes and host names are case-insensitive per RFC 3986; the
  * path is technically case-sensitive but for an allow list a generous match is the safer default).
- * An allow list with no entries treats every URL as allowed (this matches the historical behavior).
+ * An allow list with no entries treats every URL as allowed (this matches the historical behaviour).
  * As soon as one or more prefixes are added, only URLs starting with one of those prefixes are
  * accepted.
  * </p>

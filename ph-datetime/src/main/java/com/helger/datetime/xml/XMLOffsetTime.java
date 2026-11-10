@@ -264,7 +264,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * instance of {@code XMLOffsetTime}.
    * <p>
    * The conversion extracts and combines the {@code ZoneOffset} and the {@code LocalTime} from the
-   * temporal object. Implementations are permitted to perform optimizations such as accessing those
+   * temporal object. Implementations are permitted to perform optimisations such as accessing those
    * fields that are equivalent to the relevant objects.
    * <p>
    * This method matches the signature of the functional interface {@link TemporalQuery} allowing it
@@ -731,7 +731,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
   @NonNull
   public XMLOffsetTime with (@NonNull final TemporalAdjuster adjuster)
   {
-    // optimizations
+    // optimisations
     if (adjuster instanceof final LocalTime aLT)
       return with (aLT, m_aOffset);
     if (adjuster instanceof final ZoneOffset aZO)
@@ -1237,8 +1237,8 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
       return (R) m_aTime;
     if (query == TemporalQueries.precision ())
       return (R) NANOS;
-    // inline TemporalAccessor.super.query(query) as an optimization
-    // non-JDK classes are not permitted to make this optimization
+    // inline TemporalAccessor.super.query(query) as an optimisation
+    // non-JDK classes are not permitted to make this optimisation
     return query.queryFrom (this);
   }
 
@@ -1288,7 +1288,7 @@ public class XMLOffsetTime implements Temporal, TemporalAdjuster, Comparable <XM
    * <p>
    * The {@code Temporal} passed to this method is converted to a {@code XMLOffsetTime} using
    * {@link #from(TemporalAccessor)}. If the offset differs between the two times, then the
-   * specified end time is normalized to have the same offset as this time.
+   * specified end time is normalised to have the same offset as this time.
    * <p>
    * The calculation returns a whole number, representing the number of complete units between the
    * two times. For example, the amount in hours between 11:30Z and 13:29Z will only be one hour as

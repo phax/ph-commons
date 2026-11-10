@@ -124,7 +124,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    * @return 0 means not accepted, 1 means fully accepted. If the passed MIME type is invalid, the
    *         "not accepted" quality is returned.
    */
-  public double getQualityOfMimeType (@NonNull final String sMimeType)
+  public double getQualityOfMimeType (@Nullable final String sMimeType)
   {
     return getQualityOfMimeType (MimeTypeParser.safeParseMimeType (sMimeType));
   }
@@ -207,7 +207,7 @@ public class AcceptMimeTypeList extends AbstractQValueList <IMimeType>
    * @see #getQValueOfMimeType(IMimeType)
    */
   @Nullable
-  public IMimeType getPreferredMimeType (@NonNull final IMimeType... aMimeTypes)
+  public IMimeType getPreferredMimeType (@Nullable final IMimeType... aMimeTypes)
   {
     IMimeType ret = null;
     QValue qret = null;

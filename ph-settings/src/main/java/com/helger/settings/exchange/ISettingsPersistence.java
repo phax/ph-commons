@@ -54,7 +54,7 @@ public interface ISettingsPersistence
    *        The settings string. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
-  @NonNull
+  @Nullable
   default ISettings readSettings (@NonNull final String sSettings)
   {
     ValueEnforcer.notNull (sSettings, "Settings");
@@ -69,7 +69,7 @@ public interface ISettingsPersistence
    *        The settings file. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
-  @NonNull
+  @Nullable
   default ISettings readSettings (@NonNull final File aFile)
   {
     ValueEnforcer.notNull (aFile, "File");
@@ -84,7 +84,7 @@ public interface ISettingsPersistence
    *        The InputStream provider to read from. May not be <code>null</code>.
    * @return <code>null</code> if reading failed, a non-<code>null</code> settings object otherwise.
    */
-  @NonNull
+  @Nullable
   default ISettings readSettings (@NonNull final IHasInputStream aISP)
   {
     ValueEnforcer.notNull (aISP, "InputStreamProvider");

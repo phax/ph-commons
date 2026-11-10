@@ -72,7 +72,7 @@ public class QRDecomposition
    */
   public QRDecomposition (@NonNull final Matrix aMatrix)
   {
-    // Initialize.
+    // Initialise.
     m_aQR = aMatrix.getArrayCopy ();
     m_nRows = aMatrix.getRowDimension ();
     m_nCols = aMatrix.getColumnDimension ();

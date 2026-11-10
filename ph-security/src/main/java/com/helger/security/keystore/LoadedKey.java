@@ -120,7 +120,7 @@ public class LoadedKey <T extends KeyStore.Entry> implements ISuccessIndicator
    * @return <code>null</code> if no error occurred or if the parameter is <code>null</code>.
    */
   @Nullable
-  public static String getLoadError (@NonNull final LoadedKey <?> aLK)
+  public static String getLoadError (@Nullable final LoadedKey <?> aLK)
   {
     // Cannot be Locale.ROOT
     return aLK == null ? null : aLK.getErrorText (TextHelper.EN);

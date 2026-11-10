@@ -17,6 +17,7 @@
 package com.helger.base.clone;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
 
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
@@ -52,8 +53,10 @@ public final class CloneHelper
       return GenericReflection.<DATATYPE, ICloneable <DATATYPE>> uncheckedCast (aObject).getClone ();
     try
     {
-      // 2. find Object.clone method
-      return GenericReflection.invokeMethod (aObject, "clone");
+      // 2. find a public clone method - getMethod also finds a clone method inherited from a super
+      // class
+      final Method aCloneMethod = aObject.getClass ().getMethod ("clone");
+      return GenericReflection.uncheckedCast (aCloneMethod.invoke (aObject));
     }
     catch (final Exception ex)
     {

@@ -119,7 +119,7 @@ public final class XMLFactory
   }
 
   /**
-   * Reinitialize the document builder factory. This may be necessary if the system properties
+   * Reinitialise the document builder factory. This may be necessary if the system properties
    * change!
    */
   public static void reinitialize ()
@@ -171,12 +171,12 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link DocumentBuilderFactory}. This includes
+   * Apply the default customisation to the passed {@link DocumentBuilderFactory}. This includes
    * setting secure processing, disallowing DOCTYPE declarations, and configuring namespace
    * awareness, validation, and other standard settings.
    *
    * @param aFactory
-   *        The document builder factory to customize. May not be <code>null</code>.
+   *        The document builder factory to customise. May not be <code>null</code>.
    */
   public static void defaultCustomizeDocumentBuilderFactory (@NonNull final DocumentBuilderFactory aFactory)
   {
@@ -313,7 +313,7 @@ public final class XMLFactory
    *        The document builder factory to be used. May not be <code>null</code>.
    * @return The created document builder. Never <code>null</code>.
    * @throws InitializationException
-   *         In case some DOM initialization goes wrong
+   *         In case some DOM initialisation goes wrong
    */
   @NonNull
   public static DocumentBuilder createDocumentBuilder (@NonNull final DocumentBuilderFactory aDocBuilderFactory)
@@ -501,12 +501,12 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link SAXParserFactory}. This includes setting
+   * Apply the default customisation to the passed {@link SAXParserFactory}. This includes setting
    * secure processing, disallowing DOCTYPE declarations, and configuring namespace awareness,
    * validation, and XInclude awareness.
    *
    * @param aFactory
-   *        The SAX parser factory to customize. May not be <code>null</code>.
+   *        The SAX parser factory to customise. May not be <code>null</code>.
    */
   public static void defaultCustomizeSAXParserFactory (@NonNull final SAXParserFactory aFactory)
   {
@@ -521,9 +521,9 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link SAXParserFactory} with the default customization applied.
+   * Create a new {@link SAXParserFactory} with the default customisation applied.
    *
-   * @return A new, customized {@link SAXParserFactory}. Never <code>null</code>.
+   * @return A new, customised {@link SAXParserFactory}. Never <code>null</code>.
    */
   @NonNull
   public static SAXParserFactory createDefaultSAXParserFactory ()
@@ -582,13 +582,13 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link TransformerFactory}. This includes setting
+   * Apply the default customisation to the passed {@link TransformerFactory}. This includes setting
    * secure processing, disallowing DOCTYPE declarations and disabling external entities. To
    * additionally restrict the external DTD and stylesheet access to specific URL schemes, use
    * {@link com.helger.xml.transform.XMLTransformerFactory#makeTransformerFactorySecure(TransformerFactory, String...)}.
    *
    * @param aFactory
-   *        The transformer factory to customize. May not be <code>null</code>.
+   *        The transformer factory to customise. May not be <code>null</code>.
    */
   public static void defaultCustomizeTransformerFactory (@NonNull final TransformerFactory aFactory)
   {
@@ -611,9 +611,9 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link TransformerFactory} with the default customization applied.
+   * Create a new {@link TransformerFactory} with the default customisation applied.
    *
-   * @return A new, customized {@link TransformerFactory}. Never <code>null</code>.
+   * @return A new, customised {@link TransformerFactory}. Never <code>null</code>.
    * @throws InitializationException
    *         In case the factory cannot be created
    */
@@ -667,7 +667,7 @@ public final class XMLFactory
   }
 
   /**
-   * Apply the default customization to the passed {@link XMLInputFactory}. This includes
+   * Apply the default customisation to the passed {@link XMLInputFactory}. This includes
    * disallowing DTDs and external entities.
    * <p>
    * Contrary to DOM, SAX, TrAX, XPath and XML Schema the StAX API defines no
@@ -679,7 +679,7 @@ public final class XMLFactory
    * </p>
    *
    * @param aFactory
-   *        The XML input factory to customize. May not be <code>null</code>.
+   *        The XML input factory to customise. May not be <code>null</code>.
    * @since 12.5.0
    */
   public static void defaultCustomizeXMLInputFactory (@NonNull final XMLInputFactory aFactory)
@@ -697,9 +697,9 @@ public final class XMLFactory
   }
 
   /**
-   * Create a new {@link XMLInputFactory} with the default customization applied.
+   * Create a new {@link XMLInputFactory} with the default customisation applied.
    *
-   * @return A new, customized {@link XMLInputFactory}. Never <code>null</code>.
+   * @return A new, customised {@link XMLInputFactory}. Never <code>null</code>.
    * @throws InitializationException
    *         In case the factory cannot be created
    * @since 12.5.0

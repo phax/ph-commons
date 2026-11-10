@@ -162,7 +162,7 @@ public class SingleError implements IError
 
   /**
    * Overridable implementation of Throwable for the Linked exception field. This can be overridden
-   * to implement a different algorithm. This is customizable because there is no default way of
+   * to implement a different algorithm. This is customisable because there is no default way of
    * comparing Exceptions in Java. If you override this method you must also override
    * {@link #hashCodeLinkedException(HashCodeGenerator, Throwable)}!
    *
@@ -201,7 +201,7 @@ public class SingleError implements IError
 
   /**
    * Overridable implementation of Throwable for the Linked exception field. This can be overridden
-   * to implement a different algorithm. This is customizable because there is no default way of
+   * to implement a different algorithm. This is customisable because there is no default way of
    * hashing Exceptions in Java. If you override this method you must also override
    * {@link #equalsLinkedException(Throwable, Throwable)}!
    *

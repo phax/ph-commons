@@ -41,7 +41,7 @@ public class KeyStoreAndKeyDescriptor implements IKeyStoreAndKeyDescriptor
   final Provider m_aProvider;
   final String m_sKeyAlias;
   final char [] m_aKeyPassword;
-  // Lazily initialized
+  // Lazily initialised
   private LoadedKeyStore m_aLKS;
   private LoadedKey <PrivateKeyEntry> m_aLK;
 

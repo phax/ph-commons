@@ -42,7 +42,7 @@ public final class TextCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 300, () -> {
-      // Reinitialize singletons to the default values
+      // Reinitialise singletons to the default values
       if (LocaleCache.isInstantiated ())
         LocaleCache.getInstance ().reinitialize ();
       if (CountryCache.isInstantiated ())

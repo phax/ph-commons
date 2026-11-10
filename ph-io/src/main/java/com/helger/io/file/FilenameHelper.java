@@ -657,7 +657,7 @@ public final class FilenameHelper
    * {@link #getAsSecureValidFilename(String)}.
    *
    * @param sFilename
-   *        Input file name. May not be <code>null</code>.
+   *        Input file name. May be <code>null</code>.
    * @return <code>null</code> if the input filename was <code>null</code>. The file name containing
    *         only ASCII characters. The returned value is never an empty String.
    * @see #getAsSecureValidASCIIFilename(String, char)
@@ -675,7 +675,7 @@ public final class FilenameHelper
    * {@link #getAsSecureValidFilename(String)}.
    *
    * @param sFilename
-   *        Input file name. May not be <code>null</code>.
+   *        Input file name. May be <code>null</code>.
    * @param cReplacementChar
    *        The replacement character to be used for insecure filenames.
    * @return <code>null</code> if the input filename was <code>null</code>. The file name containing
@@ -936,7 +936,7 @@ public final class FilenameHelper
       sPathToUse = sPathToUse.substring (2);
       bForceWindowsSeparator = sPrefix.startsWith (WINDOWS_SEPARATOR_STR);
     }
-    // Strip prefix from path to analyze, to not treat it as part of the
+    // Strip prefix from path to analyse, to not treat it as part of the
     // first path element. This is necessary to correctly parse paths like
     // "file://core/../core/io/Resource.class", where the ".." should just
     // strip the first "core" directory while keeping the "file:" prefix.

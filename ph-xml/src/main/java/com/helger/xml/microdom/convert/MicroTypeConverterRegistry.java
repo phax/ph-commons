@@ -109,7 +109,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
     if (m_bUseClassHierarchy != bUseClassHierarchy)
     {
       m_bUseClassHierarchy = bUseClassHierarchy;
-      // Must re-initialize so that all registrations are performed
+      // Must re-initialise so that all registrations are performed
       reinitialize ();
     }
   }
@@ -260,7 +260,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
   }
 
   /**
-   * Re-initialize the registry by clearing all existing registrations and re-reading all SPI
+   * Re-initialise the registry by clearing all existing registrations and re-reading all SPI
    * implementations.
    */
   public void reinitialize ()
@@ -269,7 +269,7 @@ public final class MicroTypeConverterRegistry implements IMicroTypeConverterRegi
       m_aMap.clear ();
 
       // Register all custom micro type converter
-      // Must be in writeLock to ensure no reads happen during initialization
+      // Must be in writeLock to ensure no reads happen during initialisation
       for (final IMicroTypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (IMicroTypeConverterRegistrarSPI.class))
       {
         if (LOGGER.isDebugEnabled ())

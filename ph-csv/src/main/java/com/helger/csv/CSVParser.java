@@ -29,7 +29,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * A very simple CSV parser released under a commercial-friendly license. This just implements
+ * A very simple CSV parser released under a commercial-friendly licence. This just implements
  * splitting a single line into fields.
  *
  * @author Glen Smith

@@ -89,21 +89,21 @@ public class NonBlockingBitInputStream implements Closeable
 
   /**
    * Read a specified number of bits and return them combined as an integer value. The bits are
-   * written to the integer starting at the highest bit ( &lt;&lt; aNumberOfBits ), going down to
+   * written to the integer starting at the highest bit ( &lt;&lt; nNumberOfBits ), going down to
    * the lowest bit ( &lt;&lt; 0 ), so the returned ByteOrder is always LITTLE_ENDIAN!
    *
-   * @param aNumberOfBits
+   * @param nNumberOfBits
    *        defines how many bits to read from the stream.
    * @return integer value containing the bits read from the stream.
    * @throws IOException
    *         In case EOF is reached
    */
-  public int readBits (@Nonnegative final int aNumberOfBits) throws IOException
+  public int readBits (@Nonnegative final int nNumberOfBits) throws IOException
   {
-    ValueEnforcer.isBetweenInclusive (aNumberOfBits, "NumberOfBits", 1, CGlobal.BITS_PER_INT);
+    ValueEnforcer.isBetweenInclusive (nNumberOfBits, "NumberOfBits", 1, CGlobal.BITS_PER_INT);
 
     int ret = 0;
-    for (int i = aNumberOfBits - 1; i >= 0; i--)
+    for (int i = nNumberOfBits - 1; i >= 0; i--)
       ret |= (readBit () << i);
     return ret;
   }

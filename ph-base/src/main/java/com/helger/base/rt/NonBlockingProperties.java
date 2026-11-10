@@ -518,24 +518,24 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
     }
     else
       aOut = aConvBuf;
-    char aChar;
+    char cChar;
     int nOutLen = 0;
     final int nEndOfs = nCurOfs + nLen;
 
     while (nCurOfs < nEndOfs)
     {
-      aChar = aIn[nCurOfs++];
-      if (aChar == '\\')
+      cChar = aIn[nCurOfs++];
+      if (cChar == '\\')
       {
-        aChar = aIn[nCurOfs++];
-        if (aChar == 'u')
+        cChar = aIn[nCurOfs++];
+        if (cChar == 'u')
         {
           // Read the xxxx
           int nValue = 0;
           for (int i = 0; i < 4; i++)
           {
-            aChar = aIn[nCurOfs++];
-            switch (aChar)
+            cChar = aIn[nCurOfs++];
+            switch (cChar)
             {
               case '0':
               case '1':
@@ -547,7 +547,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
               case '7':
               case '8':
               case '9':
-                nValue = (nValue << 4) + aChar - '0';
+                nValue = (nValue << 4) + cChar - '0';
                 break;
               case 'a':
               case 'b':
@@ -555,7 +555,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
               case 'd':
               case 'e':
               case 'f':
-                nValue = (nValue << 4) + 10 + aChar - 'a';
+                nValue = (nValue << 4) + 10 + cChar - 'a';
                 break;
               case 'A':
               case 'B':
@@ -563,7 +563,7 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
               case 'D':
               case 'E':
               case 'F':
-                nValue = (nValue << 4) + 10 + aChar - 'A';
+                nValue = (nValue << 4) + 10 + cChar - 'A';
                 break;
               default:
                 throw new IllegalArgumentException ("Malformed \\uxxxx encoding.");
@@ -573,23 +573,23 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
         }
         else
         {
-          if (aChar == 't')
-            aChar = '\t';
+          if (cChar == 't')
+            cChar = '\t';
           else
-            if (aChar == 'r')
-              aChar = '\r';
+            if (cChar == 'r')
+              cChar = '\r';
             else
-              if (aChar == 'n')
-                aChar = '\n';
+              if (cChar == 'n')
+                cChar = '\n';
               else
-                if (aChar == 'f')
-                  aChar = '\f';
-          aOut[nOutLen++] = aChar;
+                if (cChar == 'f')
+                  cChar = '\f';
+          aOut[nOutLen++] = cChar;
         }
       }
       else
       {
-        aOut[nOutLen++] = aChar;
+        aOut[nOutLen++] = cChar;
       }
     }
     return new String (aOut, 0, nOutLen);
@@ -609,21 +609,21 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
 
     for (int x = 0; x < nLen; x++)
     {
-      final char aChar = sStr.charAt (x);
+      final char cChar = sStr.charAt (x);
       // Handle common case first, selecting largest block that
       // avoids the specials below
       // 61 == '='
-      if (aChar > 61 && aChar < 127)
+      if (cChar > 61 && cChar < 127)
       {
-        if (aChar == '\\')
+        if (cChar == '\\')
         {
           aSB.append ('\\').append ('\\');
           continue;
         }
-        aSB.append (aChar);
+        aSB.append (cChar);
         continue;
       }
-      switch (aChar)
+      switch (cChar)
       {
         case ' ':
           if (x == 0 || bEscapeSpace)
@@ -646,21 +646,21 @@ public class NonBlockingProperties extends LinkedHashMap <String, String>
         case ':':
         case '#':
         case '!':
-          aSB.append ('\\').append (aChar);
+          aSB.append ('\\').append (cChar);
           break;
         default:
-          if ((aChar < 0x0020 || aChar > 0x007e) && bEscapeUnicode)
+          if ((cChar < 0x0020 || cChar > 0x007e) && bEscapeUnicode)
           {
             aSB.append ('\\')
                .append ('u')
-               .append (StringHex.getHexChar ((aChar >> 12) & 0xF))
-               .append (StringHex.getHexChar ((aChar >> 8) & 0xF))
-               .append (StringHex.getHexChar ((aChar >> 4) & 0xF))
-               .append (StringHex.getHexChar (aChar & 0xF));
+               .append (StringHex.getHexChar ((cChar >> 12) & 0xF))
+               .append (StringHex.getHexChar ((cChar >> 8) & 0xF))
+               .append (StringHex.getHexChar ((cChar >> 4) & 0xF))
+               .append (StringHex.getHexChar (cChar & 0xF));
           }
           else
           {
-            aSB.append (aChar);
+            aSB.append (cChar);
           }
       }
     }

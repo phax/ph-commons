@@ -49,13 +49,13 @@ public final class URLCleanser
 
   private static void _initCleanURL ()
   {
-    // This one cannot be in the static initializer of the class, because
+    // This one cannot be in the static initialiser of the class, because
     // ClassPathResource internally uses
-    // URLUtils.getInputStream and this static initialization code of this class
+    // URLUtils.getInputStream and this static initialisation code of this class
     // can therefore not use ClasspathResource because it would create a
     // recursive dependency!
     // Ever trickier is the when running multiple threads for reading XML (e.g.
-    // in the unit test) this code would wait forever in the static initializer
+    // in the unit test) this code would wait forever in the static initialiser
     // because XMLMapHandler internally also acquires an XML reader....
     final Map <String, String> aCleanURLMap = new LinkedHashMap <> ();
     StreamHelperExt.readStreamLines (ClassPathResource.getInputStream ("codelists/cleanurl-data.dat",

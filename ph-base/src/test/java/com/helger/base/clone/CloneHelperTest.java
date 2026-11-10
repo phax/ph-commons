@@ -17,6 +17,8 @@
 package com.helger.base.clone;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
@@ -28,6 +30,27 @@ import org.junit.Test;
  */
 public final class CloneHelperTest
 {
+  /** Has a public clone method */
+  public static class MockCloneableBase implements Cloneable
+  {
+    @Override
+    public MockCloneableBase clone ()
+    {
+      try
+      {
+        return (MockCloneableBase) super.clone ();
+      }
+      catch (final CloneNotSupportedException ex)
+      {
+        throw new IllegalStateException (ex);
+      }
+    }
+  }
+
+  /** Inherits the public clone method and has no copy constructor */
+  public static final class MockCloneableDerived extends MockCloneableBase
+  {}
+
   @Test
   public void testGetClonedValue () throws CloneNotSupportedException
   {
@@ -65,5 +88,14 @@ public final class CloneHelperTest
 
     // Clone the most basic object :)
     assertNull (CloneHelper.getClonedValue (new Object ()));
+  }
+
+  @Test
+  public void testInheritedCloneMethod ()
+  {
+    final MockCloneableDerived aObj = new MockCloneableDerived ();
+    final MockCloneableDerived aClone = CloneHelper.getClonedValue (aObj);
+    assertNotNull (aClone);
+    assertNotSame (aObj, aClone);
   }
 }

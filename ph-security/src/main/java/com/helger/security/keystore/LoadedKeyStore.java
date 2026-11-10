@@ -117,7 +117,7 @@ public class LoadedKeyStore implements ISuccessIndicator
    * @return <code>null</code> if no error occurred or if the parameter is <code>null</code>.
    */
   @Nullable
-  public static String getLoadError (@NonNull final LoadedKeyStore aLKS)
+  public static String getLoadError (@Nullable final LoadedKeyStore aLKS)
   {
     // Cannot be Locale.ROOT
     return aLKS == null ? null : aLKS.getErrorText (TextHelper.EN);

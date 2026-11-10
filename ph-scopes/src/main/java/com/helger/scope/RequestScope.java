@@ -49,7 +49,7 @@ public class RequestScope extends AbstractScope implements IRequestScope
     super (sScopeID);
     m_sSessionID = ValueEnforcer.notEmpty (sSessionID, "SessionID");
 
-    // done initialization
+    // done initialisation
     if (ScopeHelper.isDebugRequestScopeLifeCycle ())
       LOGGER.info ("Created request scope '" + sScopeID + "'", ScopeHelper.getDebugException ());
   }

@@ -52,5 +52,5 @@ public interface IMutableWrapper <DATATYPE> extends IWrapper <DATATYPE>
    * @since 12.3.0
    */
   @NonNull
-  EChange update (@Nullable Function <DATATYPE, DATATYPE> aUpdater);
+  EChange update (@NonNull Function <DATATYPE, DATATYPE> aUpdater);
 }

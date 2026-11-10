@@ -193,7 +193,7 @@ public class BasicThreadFactory implements ThreadFactory
       m_aWrappedFactory = aBuilder.m_aWrappedFactory;
 
     m_sNamingPattern = aBuilder.m_sNamingPattern;
-    m_aPriority = aBuilder.m_nPriority;
+    m_aPriority = aBuilder.m_aPriority;
     m_eDaemon = aBuilder.m_eDaemon;
     m_aUncaughtExceptionHandler = aBuilder.m_aUncaughtExceptionHandler;
   }
@@ -215,9 +215,9 @@ public class BasicThreadFactory implements ThreadFactory
    * Returns the naming pattern for naming newly created threads. Result can be <b>null</b> if no
    * naming pattern was provided.
    *
-   * @return the naming pattern
+   * @return the naming pattern. May be <code>null</code>.
    */
-  @NonNull
+  @Nullable
   public final String getNamingPattern ()
   {
     return m_sNamingPattern;

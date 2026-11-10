@@ -194,7 +194,7 @@ public final class URLCoder
   }
 
   /**
-   * URL-encode the passed value automatically handling charset issues. This is a ripped, optimized
+   * URL-encode the passed value automatically handling charset issues. This is a ripped, optimised
    * version of URLEncoder.encode but without the UnsupportedEncodingException.
    *
    * @param sValue

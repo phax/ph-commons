@@ -143,7 +143,7 @@ public class LUDecomposition
    * @param A Rectangular matrix
    * @param linpackflag Use Gaussian elimination. Actual value ignored.
    * @return Structure to access L, U and piv.\ public LUDecomposition (Matrix A, int linpackflag) {
-   * // Initialize. LU = A.getArrayCopy(); m = A.getRowDimension(); n = A.getColumnDimension(); piv
+   * // Initialise. LU = A.getArrayCopy(); m = A.getRowDimension(); n = A.getColumnDimension(); piv
    * = new int[m]; for (int i = 0; i < m; i++) { piv[i] = i; } pivsign = 1; // Main loop. for (int k
    * = 0; k < n; k++) { // Find pivot. int p = k; for (int i = k+1; i < m; i++) { if
    * (MathHelper.abs(LU[i][k]) > MathHelper.abs(LU[p][k])) { p = i; } } // Exchange if necessary. if

@@ -23,7 +23,7 @@ import org.junit.rules.ExternalResource;
 import com.helger.annotation.style.OverrideOnDemand;
 
 /**
- * Special JUnit test rule to initialize scopes correctly.
+ * Special JUnit test rule to initialise scopes correctly.
  *
  * @author Philip Helger
  */

@@ -191,7 +191,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The implementation type to be loaded
    * @param aSPIClass
    *        The SPI interface class. May not be <code>null</code>.
-   * @return A collection of all currently available plugins. Never <code>null</code>.
+   * @return The first available plugin. <code>null</code> if no implementation was found.
    */
   @Nullable
   public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass)
@@ -209,7 +209,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The SPI interface class. May not be <code>null</code>.
    * @param aClassLoader
    *        The class loader to use for the SPI loader. May not be <code>null</code>.
-   * @return A collection of all currently available plugins. Never <code>null</code>.
+   * @return The first available plugin. <code>null</code> if no implementation was found.
    */
   @Nullable
   public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass,
@@ -228,7 +228,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The SPI interface class. May not be <code>null</code>.
    * @param aLogger
    *        An optional logger to use. May be <code>null</code>.
-   * @return A collection of all currently available plugins. Never <code>null</code>.
+   * @return The first available plugin. <code>null</code> if no implementation was found.
    */
   @Nullable
   public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass, @Nullable final Logger aLogger)
@@ -248,7 +248,7 @@ public final class ServiceLoaderHelper implements IHasConditionalLogger
    *        The class loader to use for the SPI loader. May not be <code>null</code>.
    * @param aLogger
    *        An optional logger to use. May be <code>null</code>.
-   * @return A collection of all currently available plugins. Never <code>null</code>.
+   * @return The first available plugin. <code>null</code> if no implementation was found.
    */
   @Nullable
   public static <T> T getFirstSPIImplementation (@NonNull final Class <T> aSPIClass,

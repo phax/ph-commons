@@ -32,7 +32,7 @@ import com.helger.config.value.ConfiguredValue;
  * {@link ConfigSubset}.
  * <p>
  * All fallback methods prefix both the primary key and all alternative (old) keys before delegating
- * to the parent. This preserves the parent's outdated key notifier behavior.
+ * to the parent. This preserves the parent's outdated key notifier behaviour.
  *
  * @author Philip Helger
  * @since 12.2.0

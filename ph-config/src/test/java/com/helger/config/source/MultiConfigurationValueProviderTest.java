@@ -159,7 +159,7 @@ public final class MultiConfigurationValueProviderTest
   @Test
   public void testUseOnlyInitializedConfigSources ()
   {
-    // A resource that does not exist is not initialized and usable
+    // A resource that does not exist is not initialised and usable
     final ConfigurationSourceProperties aNotUsable = new ConfigurationSourceProperties (new FileSystemResource (new File ("does-not-exist.properties")));
     assertFalse (aNotUsable.isInitializedAndUsable ());
 

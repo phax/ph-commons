@@ -34,7 +34,7 @@ import com.helger.base.system.SystemProperties;
 import com.helger.base.timing.StopWatch;
 
 /**
- * A secure random generator initialized with another secure random generator.<br>
+ * A secure random generator initialised with another secure random generator.<br>
  * Using <code>/dev/random</code> may require waiting for the result as it uses so-called entropy
  * pool, where random data may not be available at the moment. <code>/dev/urandom</code> returns as
  * many bytes as user requested and thus it is less random than /dev/random.<br>
@@ -58,7 +58,7 @@ import com.helger.base.timing.StopWatch;
  * Find a good description that states how it is done this way:
  * https://www.cigital.com/blog/proper-use-of-javas-securerandom/ Updated to
  * https://www.synopsys.com/blogs/software-security/proper-use-of-javas-securerandom/ <br>
- * Initialize SecureRandom This is a lengthy operation, to be done only upon initialization of the
+ * Initialise SecureRandom This is a lengthy operation, to be done only upon initialisation of the
  * application. <br>
  * On Linux SecureRandom.getInstanceStrong () takes more or less forever (when using /dev/random) -
  * up to 30 minutes until enough entropy is present
@@ -99,7 +99,7 @@ public final class VerySecureRandom
    * Create a new {@link SecureRandom} instance. First the IBM secure random is tried, than the
    * SHA1PRNG secure random and finally if the previous ones failed, the default instance is used.
    * In certain circumstances (Linux + some Java version; most likely using the blocking
-   * '/dev/random') this initialization takes forever and that's why the debug statements are added.
+   * '/dev/random') this initialisation takes forever and that's why the debug statements are added.
    *
    * @return A new {@link SecureRandom} instance. Never <code>null</code>.
    */
@@ -169,7 +169,7 @@ public final class VerySecureRandom
     if (LOGGER.isDebugEnabled ())
       LOGGER.debug ("Finished generating intial seed for VerySecureRandom");
 
-    // Initialize main secure random
+    // Initialise main secure random
     SECURE_RANDOM = _createSecureRandomInstance ();
     try
     {

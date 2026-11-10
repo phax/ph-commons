@@ -199,7 +199,7 @@ public final class StringEncoder
   @NonNull
   public ByteBuffer getAsNewByteBuffer (@NonNull final String sSource)
   {
-    // Optimized for 1 byte per character strings (ASCII)
+    // Optimised for 1 byte per character strings (ASCII)
     ByteBuffer ret = ByteBuffer.allocate (sSource.length () + BUFFER_EXTRA_BYTES);
 
     while (encode (sSource, ret).isContinue ())
@@ -248,7 +248,7 @@ public final class StringEncoder
   @ReturnsMutableCopy
   public byte @NonNull [] getAsNewArray (@NonNull final String sSource)
   {
-    // Optimized for short strings
+    // Optimised for short strings
     assert m_aArrayBuffer.remaining () == m_aArrayBuffer.capacity ();
     if (encode (sSource, m_aArrayBuffer).isBreak ())
     {

@@ -41,11 +41,11 @@ public final class CCSV
    */
   public static final char DEFAULT_ESCAPE_CHARACTER = '\\';
   /**
-   * The default strict quote behavior to use if none is supplied to the constructor.
+   * The default strict quote behaviour to use if none is supplied to the constructor.
    */
   public static final boolean DEFAULT_STRICT_QUOTES = false;
   /**
-   * The default leading whitespace behavior to use if none is supplied to the constructor.
+   * The default leading whitespace behaviour to use if none is supplied to the constructor.
    */
   public static final boolean DEFAULT_IGNORE_LEADING_WHITESPACE = true;
   /**

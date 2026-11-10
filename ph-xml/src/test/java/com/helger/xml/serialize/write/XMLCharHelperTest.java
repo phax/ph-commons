@@ -284,4 +284,26 @@ public final class XMLCharHelperTest
                                               INVALID_NAME.length ());
       }
   }
+
+  @Test
+  public void testNameCharsFifthEdition ()
+  {
+    for (final EXMLSerializeVersion eVersion : new EXMLSerializeVersion [] { EXMLSerializeVersion.XML_10,
+                                                                            EXMLSerializeVersion.XML_11 })
+    {
+      // Valid since XML 1.0 5th edition (invalid in the 4th edition)
+      assertFalse (XMLCharHelper.isInvalidXMLNameStartChar (eVersion, 0x132));
+      assertFalse (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a\u0132b"));
+      // A colon is not allowed (NCName)
+      assertTrue (XMLCharHelper.isInvalidXMLNameStartChar (eVersion, ':'));
+      assertTrue (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a:b"));
+      // Supplementary characters are checked by code point
+      assertFalse (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a\uD800\uDC00"));
+      assertTrue (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a\uDB80\uDC00"));
+      // A lone surrogate is invalid
+      assertTrue (XMLCharHelper.containsInvalidXMLNameChar (eVersion, "a\uD800"));
+      assertNotNull (XMLCharHelper.getAllInvalidXMLNameChars (eVersion, "a\uDB80\uDC00"));
+      assertTrue (XMLCharHelper.getAllInvalidXMLNameChars (eVersion, "a\uDB80\uDC00").contains (Character.valueOf ('\uDB80')));
+    }
+  }
 }

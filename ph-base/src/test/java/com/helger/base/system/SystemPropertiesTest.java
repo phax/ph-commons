@@ -128,4 +128,12 @@ public final class SystemPropertiesTest
       SystemProperties.removePropertyValue (sKey);
     }
   }
+
+  @Test
+  public void testContainsPropertyName ()
+  {
+    assertTrue (SystemProperties.containsPropertyName ("java.version"));
+    assertFalse (SystemProperties.containsPropertyName ("ph.base.test.does.not.exist"));
+    assertFalse (SystemProperties.containsPropertyName (null));
+  }
 }

@@ -83,7 +83,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   }
 
   @NonNull
-  private static String _getParameters (@Nullable final Parameter [] aParams, @Nullable final Object [] aArgs)
+  private static String _getParameters (final Parameter @Nullable [] aParams, final Object @Nullable [] aArgs)
   {
     final StringBuilder aSB = new StringBuilder ();
     if (aParams != null)
@@ -113,7 +113,7 @@ public class LoggingInvocationHandler implements InvocationHandler
   @Nullable
   public Object invoke (@NonNull final Object aProxy,
                         @NonNull final Method aMethod,
-                        @NonNull final Object [] aArgs) throws Throwable
+                        final Object @Nullable [] aArgs) throws Throwable
   {
     final Class <?> aReturnType = aMethod.getReturnType ();
     final String sMethod = m_sLogPrefix +

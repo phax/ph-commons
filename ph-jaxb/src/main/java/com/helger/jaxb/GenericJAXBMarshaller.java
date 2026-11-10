@@ -564,10 +564,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * Customize the passed unmarshaller before unmarshalling (reading) something.
+   * Customise the passed unmarshaller before unmarshalling (reading) something.
    *
    * @param aUnmarshaller
-   *        The object to customize. Never <code>null</code>.
+   *        The object to customise. Never <code>null</code>.
    */
   @OverrideOnDemand
   protected void customizeUnmarshaller (@NonNull final Unmarshaller aUnmarshaller)
@@ -650,10 +650,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * Customize the passed marshaller before marshalling something.
+   * Customise the passed marshaller before marshalling something.
    *
    * @param aMarshaller
-   *        The object to customize. Never <code>null</code>.
+   *        The object to customise. Never <code>null</code>.
    */
   @OverrideOnDemand
   protected void customizeMarshaller (@NonNull final Marshaller aMarshaller)
@@ -688,10 +688,10 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
   }
 
   /**
-   * Customize the passed marshaller before marshalling something.
+   * Customise the passed marshaller before marshalling something.
    *
    * @param aMarshaller
-   *        The object to customize. Never <code>null</code>.
+   *        The object to customise. Never <code>null</code>.
    */
   @OverrideOnDemand
   protected void customizeMarshallerForValidation (@NonNull final Marshaller aMarshaller)
@@ -714,7 +714,7 @@ public class GenericJAXBMarshaller <JAXBTYPE> implements
       // Overwrite event handler
       aMarshaller.setEventHandler (aEventHandler);
 
-      // Customize on demand
+      // Customise on demand
       customizeMarshallerForValidation (aMarshaller);
 
       if (aMarshaller.getSchema () == null)

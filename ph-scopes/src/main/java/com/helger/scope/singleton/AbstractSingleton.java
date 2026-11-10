@@ -379,7 +379,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
         final T aCastedObject = aClass.cast (aObject);
         if (aCastedObject.isUsableObject ())
         {
-          // Object has finished initialization
+          // Object has finished initialisation
           return aCastedObject;
         }
       }
@@ -509,7 +509,7 @@ public abstract class AbstractSingleton implements IScopeDestructionAware
           // caught appropriately
           aScope.attrs ().putIn (sSingletonScopeKey, aInstance);
 
-          // Start the initialization process
+          // Start the initialisation process
           // Do this after the instance was added to the scope
           aInstance.setInInstantiation (true);
           try

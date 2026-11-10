@@ -72,7 +72,7 @@ public class TLSConfigurationMode implements ITLSConfigurationMode
       }
     }
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Initialized TLS ContextMap with " + TLS_CONTEXT_MAP.keySet () + " keys");
+      LOGGER.debug ("Initialised TLS ContextMap with " + TLS_CONTEXT_MAP.keySet () + " keys");
   }
 
   /**

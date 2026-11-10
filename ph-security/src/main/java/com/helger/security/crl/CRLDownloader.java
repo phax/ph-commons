@@ -74,7 +74,7 @@ public class CRLDownloader
 
   /**
    * @return The mutable allow list that restricts which CRL URLs may be downloaded. By default the
-   *         allow list is empty which means every HTTP/HTTPS URL is allowed (legacy behavior). Add
+   *         allow list is empty which means every HTTP/HTTPS URL is allowed (legacy behaviour). Add
    *         entries to opt in to URL filtering. Never <code>null</code>.
    * @since 12.2.4
    */

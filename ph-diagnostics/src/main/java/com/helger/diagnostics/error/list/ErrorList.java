@@ -68,7 +68,7 @@ public class ErrorList extends CommonsArrayList <IError> implements IErrorList
    * @param aErrorList
    *        The error list to copy from. May be <code>null</code>.
    */
-  public ErrorList (@NonNull final ErrorList aErrorList)
+  public ErrorList (@Nullable final ErrorList aErrorList)
   {
     super (aErrorList);
   }

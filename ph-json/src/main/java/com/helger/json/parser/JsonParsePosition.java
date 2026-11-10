@@ -40,7 +40,7 @@ public class JsonParsePosition implements ICloneable <JsonParsePosition>, IJsonP
   private boolean m_bPrevCharIsLF = false;
 
   /**
-   * Default constructor initializing line and column to 1.
+   * Default constructor initialising line and column to 1.
    */
   public JsonParsePosition ()
   {

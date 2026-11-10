@@ -70,7 +70,7 @@ public interface IMicroQName extends IComparable <IMicroQName>
    * Check if the specified namespace URI is present.
    *
    * @param sNamespaceURI
-   *        The namespace URI to check. May not be <code>null</code>.
+   *        The namespace URI to check. May be <code>null</code> to check for no namespace URI.
    * @return <code>true</code> if the specified namespace URI matches the URI of this name,
    *         <code>false</code> otherwise
    */

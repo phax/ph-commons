@@ -38,7 +38,7 @@ import com.helger.collection.commons.ICommonsIterable;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * A very simple CSV reader released under a commercial-friendly license.
+ * A very simple CSV reader released under a commercial-friendly licence.
  *
  * @author Glen Smith
  * @author Philip Helger

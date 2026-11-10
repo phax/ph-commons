@@ -327,7 +327,7 @@ public final class SAXReader
    *        <code>null</code>. {@link com.helger.xml.sax.InputSourceFactory} may be used to create
    *        {@link InputSource} objects from different input types.
    * @param aSettings
-   *        Reader settings. At least a content handler should be set. May be <code>null</code>.
+   *        Reader settings. At least a content handler should be set. May not be <code>null</code>.
    * @return {@link ESuccess#SUCCESS} if reading succeeded, {@link ESuccess#FAILURE} otherwise
    */
   @NonNull

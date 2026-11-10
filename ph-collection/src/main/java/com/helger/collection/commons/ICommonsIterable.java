@@ -321,7 +321,7 @@ public interface ICommonsIterable <ELEMENTTYPE> extends Iterable <ELEMENTTYPE>, 
    *         otherwise. If no filter is supplied the return value is identical to
    *         {@link ICommonsCollection#isNotEmpty()}.
    */
-  default boolean containsOnly (@NonNull final Predicate <? super ELEMENTTYPE> aFilter)
+  default boolean containsOnly (@Nullable final Predicate <? super ELEMENTTYPE> aFilter)
   {
     return CollectionFind.containsOnly (this, aFilter);
   }

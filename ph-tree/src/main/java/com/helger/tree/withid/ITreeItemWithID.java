@@ -134,7 +134,8 @@ public interface ITreeItemWithID <KEYTYPE, DATATYPE, ITEMTYPE extends ITreeItemW
    * Remove the passed node as a direct child node from this node.
    *
    * @param aDataID
-   *        The ID of the element to be removed. May not be <code>null</code>.
+   *        The ID of the element to be removed. May be <code>null</code>, in which case nothing is
+   *        removed.
    * @return {@link EChange}
    */
   @NonNull

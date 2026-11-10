@@ -318,7 +318,7 @@ public class CollectionHelper
    * Count the number of elements in the passed iterable (collection) matching the provided filter.
    *
    * @param aCollection
-   *        The collection to count. May not be <code>null</code>.
+   *        The collection to count. May be <code>null</code>.
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is provided this is the
@@ -345,7 +345,7 @@ public class CollectionHelper
    * Count the number of elements in the passed collection matching the provided filter.
    *
    * @param aCollection
-   *        The collection to count. May not be <code>null</code>.
+   *        The collection to count. May be <code>null</code>.
    * @param aFilter
    *        The filter to be applied. May be <code>null</code>.
    * @return The number of matching elements. Always &ge; 0. If no filter is provided this is the
@@ -1065,9 +1065,9 @@ public class CollectionHelper
    * @param aCollection
    *        The collection to reverse. May be <code>null</code>.
    * @return An empty list if the collection is <code>null</code> or empty, a new list with the
-   *         reversed elements otherwise.
+   *         reversed elements otherwise. Never <code>null</code>.
    */
-  @Nullable
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> CommonsArrayList <ELEMENTTYPE> getReverseList (@Nullable final Collection <? extends ELEMENTTYPE> aCollection)
   {

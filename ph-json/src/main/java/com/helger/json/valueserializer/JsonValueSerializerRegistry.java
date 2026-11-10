@@ -109,7 +109,7 @@ public final class JsonValueSerializerRegistry implements IJsonValueSerializerRe
   }
 
   /**
-   * Reinitialize the registry by clearing all existing registrations and re-reading all SPI
+   * Reinitialise the registry by clearing all existing registrations and re-reading all SPI
    * implementations.
    *
    * @param aClassLoader

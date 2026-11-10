@@ -114,7 +114,7 @@ public final class PDTXMLConverter
    * Get the passed date as {@link GregorianCalendar} using the default time zone.
    *
    * @param aDate
-   *        The source date. May be <code>null</code>.
+   *        The source date. May not be <code>null</code>.
    * @return Never <code>null</code>.
    */
   @NonNull
@@ -161,7 +161,7 @@ public final class PDTXMLConverter
   }
 
   /**
-   * @return A new XML calendar instance, with all fields uninitialized. Never <code>null</code>.
+   * @return A new XML calendar instance, with all fields uninitialised. Never <code>null</code>.
    */
   @NonNull
   public static XMLGregorianCalendar createNewCalendar ()

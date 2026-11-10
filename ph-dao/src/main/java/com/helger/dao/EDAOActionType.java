@@ -71,7 +71,7 @@ public enum EDAOActionType implements IHasID <String>
    * @throws IllegalArgumentException
    *         If no matching action type is found.
    */
-  @Nullable
+  @NonNull
   public static EDAOActionType getFromIDOrThrow (@Nullable final String sID)
   {
     return EnumHelper.getFromIDOrThrow (EDAOActionType.class, sID);

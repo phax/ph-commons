@@ -110,7 +110,7 @@ public final class PDTFormatter
   public static final class LocalizedDateFormatCache extends ProviderCache <CacheKey, DateTimeFormatter>
   {
     /**
-     * Default constructor initializing the cache with the pattern creation logic.
+     * Default constructor initialising the cache with the pattern creation logic.
      */
     public LocalizedDateFormatCache ()
     {

@@ -37,7 +37,7 @@ public final class CRLAllowListTest
     assertTrue (aList.isEmpty ());
     assertEquals (0, aList.getPrefixCount ());
 
-    // An empty allow list matches the legacy behavior - everything is allowed
+    // An empty allow list matches the legacy behaviour - everything is allowed
     assertTrue (aList.isAllowed ("http://crl.example.org/foo.crl"));
     assertTrue (aList.isAllowed ("https://anything.evil.example/x.crl"));
     assertTrue (aList.isAllowed ("ldap://example.org/cn=foo"));

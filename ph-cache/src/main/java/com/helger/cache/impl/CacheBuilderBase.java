@@ -138,7 +138,8 @@ class CacheBuilderBase <IMPLTYPE extends CacheBuilderBase <IMPLTYPE>> implements
    * Set the clock supplier to use. By default a UTC-based LocalDateTime is used.
    *
    * @param a
-   *        The supplier to use. May not be <code>null</code>.
+   *        The supplier to use. May be <code>null</code>, but in that case building the cache
+   *        fails.
    * @return this for chaining
    */
   @NonNull

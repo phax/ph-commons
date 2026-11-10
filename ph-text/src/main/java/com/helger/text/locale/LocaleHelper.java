@@ -393,7 +393,7 @@ public final class LocaleHelper
   }
 
   /**
-   * Validate and normalize a language code. Valid language codes consist of 2 to 8 ASCII letters,
+   * Validate and normalise a language code. Valid language codes consist of 2 to 8 ASCII letters,
    * or are special locale codes.
    *
    * @param sCode

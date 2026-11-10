@@ -73,7 +73,7 @@ public final class DOMReader
   {}
 
   /**
-   * Reinitialize the internal document builder pool by clearing all unused items.
+   * Reinitialise the internal document builder pool by clearing all unused items.
    */
   public static void reinitialize ()
   {

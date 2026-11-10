@@ -229,7 +229,7 @@ public abstract class AbstractSingleErrorBuilder <ERRTYPE extends SingleError, I
       {
         // If the multilingual text contains only a single locale, use it as a
         // constant value
-        // If you don't like this behavior directly call #setErrorText with a
+        // If you don't like this behaviour directly call #setErrorText with a
         // DynamicHasErrorText
         m_aErrorText = ConstantHasErrorText.createOnDemand (aMLT.texts ().getFirstValue ());
       }

@@ -75,18 +75,21 @@ public final class CombinationGeneratorFlexible <DATATYPE>
     ValueEnforcer.notNull (aElements, "Elements");
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    for (int nSlotCount = m_bAllowEmpty ? 0 : 1; nSlotCount <= m_nSlotCount; nSlotCount++)
+    if (aElements.isEmpty ())
     {
-      if (aElements.isEmpty ())
-      {
+      // The only possible combination is the empty one
+      if (m_bAllowEmpty)
         aCallback.accept (new CommonsArrayList <> ());
-      }
-      else
-      {
-        // Add all permutations for the current slot count
-        for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aElements, nSlotCount))
-          aCallback.accept (aPermutation);
-      }
+      return;
+    }
+
+    // More slots than elements cannot be filled
+    final int nMaxSlotCount = Math.min (m_nSlotCount, aElements.size ());
+    for (int nSlotCount = m_bAllowEmpty ? 0 : 1; nSlotCount <= nMaxSlotCount; nSlotCount++)
+    {
+      // Add all permutations for the current slot count
+      for (final ICommonsList <DATATYPE> aPermutation : new CombinationGenerator <> (aElements, nSlotCount))
+        aCallback.accept (aPermutation);
     }
   }
 

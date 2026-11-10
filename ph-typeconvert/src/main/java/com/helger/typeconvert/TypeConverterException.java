@@ -149,7 +149,8 @@ public final class TypeConverterException extends RuntimeException
   }
 
   /**
-   * @return The conversion source class. Never <code>null</code>.
+   * @return The conversion source class. May be <code>null</code> if the exception was created
+   *         without a source class.
    */
   @Nullable
   public Class <?> getSrcClass ()

@@ -462,6 +462,6 @@ public class LocaleCache implements IHasConditionalLogger
         m_aLocales.put (aLocale.toString (), aLocale);
     });
 
-    CONDLOG.debug (() -> "Reinitialized " + LocaleCache.class.getName ());
+    CONDLOG.debug (() -> "Reinitialised " + LocaleCache.class.getName ());
   }
 }

@@ -31,8 +31,8 @@ public interface IRequestScope extends IScope
   /**
    * Shortcut for <code>getSessionID(true)</code>
    *
-   * @return The session ID associated with this request. May be <code>null</code> if no session ID
-   *         is present and no session should be created.
+   * @return The session ID associated with this request. Never <code>null</code>, because a session
+   *         is created if none is present.
    */
   @NonNull
   @Nonempty

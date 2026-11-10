@@ -64,7 +64,7 @@ public final class StreamHelperExt extends StreamHelper
    * Get the content of the passed Spring resource as one big string in the passed character set.
    *
    * @param aISP
-   *        The resource to read. May not be <code>null</code>.
+   *        The resource to read. May be <code>null</code>.
    * @param aCharset
    *        The character set to use. May not be <code>null</code>.
    * @return <code>null</code> if the resolved input stream is <code>null</code> , the content

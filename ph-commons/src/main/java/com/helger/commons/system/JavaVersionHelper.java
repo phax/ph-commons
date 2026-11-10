@@ -36,7 +36,7 @@ import com.helger.datetime.helper.PDTFactory;
 
 /**
  * Helper class that holds the current class version. Must be a separate class to maintain the
- * correct initialization order.
+ * correct initialisation order.
  *
  * @author Philip Helger
  */

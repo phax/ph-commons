@@ -473,7 +473,8 @@ public class ClassHelper
    *
    * @param sClassName
    *        The fully qualified name of the class. May be <code>null</code>.
-   * @return The local name of the passed class. Never <code>null</code>.
+   * @return The local name of the passed class. <code>null</code> if the passed class name is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getClassLocalName (@Nullable final String sClassName)
@@ -502,8 +503,9 @@ public class ClassHelper
    * Get the name of the package the passed class resides in.
    *
    * @param aClass
-   *        The class to get the information from. May not be <code>null</code>.
-   * @return The package name of the passed class.
+   *        The class to get the information from. May be <code>null</code>.
+   * @return The package name of the passed class. <code>null</code> if the passed class is
+   *         <code>null</code>.
    */
   @Nullable
   public static String getClassPackageName (@Nullable final Class <?> aClass)
@@ -581,7 +583,7 @@ public class ClassHelper
    *
    * @param aClass
    *        The class of which the path is to be retrieved. May be <code>null</code>.
-   * @return The path representation. Never <code>null</code>.
+   * @return The path representation. <code>null</code> if the passed class is <code>null</code>.
    */
   @Nullable
   public static String getPathFromClass (@Nullable final Class <?> aClass)

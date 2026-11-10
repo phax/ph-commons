@@ -73,130 +73,130 @@ public class EqualsHelper
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param bObj1
    *        First value
-   * @param aObj2
+   * @param bObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final boolean aObj1, final boolean aObj2)
+  public static boolean equals (final boolean bObj1, final boolean bObj2)
   {
-    return aObj1 == aObj2;
+    return bObj1 == bObj2;
   }
 
   /**
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param nObj1
    *        First value
-   * @param aObj2
+   * @param nObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final byte aObj1, final byte aObj2)
+  public static boolean equals (final byte nObj1, final byte nObj2)
   {
-    return aObj1 == aObj2;
+    return nObj1 == nObj2;
   }
 
   /**
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param cObj1
    *        First value
-   * @param aObj2
+   * @param cObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final char aObj1, final char aObj2)
+  public static boolean equals (final char cObj1, final char cObj2)
   {
-    return aObj1 == aObj2;
+    return cObj1 == cObj2;
   }
 
   /**
    * Check if two double values are equal. This is necessary, because in some cases, the "=="
    * operator returns wrong results.
    *
-   * @param aObj1
+   * @param dObj1
    *        First double
-   * @param aObj2
+   * @param dObj2
    *        Second double
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final double aObj1, final double aObj2)
+  public static boolean equals (final double dObj1, final double dObj2)
   {
     // Special overload for "double" required!
-    return (aObj1 == aObj2) || (Double.doubleToLongBits (aObj1) == Double.doubleToLongBits (aObj2));
+    return (dObj1 == dObj2) || (Double.doubleToLongBits (dObj1) == Double.doubleToLongBits (dObj2));
   }
 
   /**
    * Check if two float values are equal. This is necessary, because in some cases, the "=="
    * operator returns wrong results.
    *
-   * @param aObj1
+   * @param fObj1
    *        First float
-   * @param aObj2
+   * @param fObj2
    *        Second float
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final float aObj1, final float aObj2)
+  public static boolean equals (final float fObj1, final float fObj2)
   {
     // Special overload for "float" required!
-    return (aObj1 == aObj2) || (Float.floatToIntBits (aObj1) == Float.floatToIntBits (aObj2));
+    return (fObj1 == fObj2) || (Float.floatToIntBits (fObj1) == Float.floatToIntBits (fObj2));
   }
 
   /**
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param nObj1
    *        First value
-   * @param aObj2
+   * @param nObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final int aObj1, final int aObj2)
+  public static boolean equals (final int nObj1, final int nObj2)
   {
-    return aObj1 == aObj2;
+    return nObj1 == nObj2;
   }
 
   /**
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param nObj1
    *        First value
-   * @param aObj2
+   * @param nObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final long aObj1, final long aObj2)
+  public static boolean equals (final long nObj1, final long nObj2)
   {
-    return aObj1 == aObj2;
+    return nObj1 == nObj2;
   }
 
   /**
    * Check if two values are equal. This method only exists, so that no type differentiation is
    * needed.
    *
-   * @param aObj1
+   * @param nObj1
    *        First value
-   * @param aObj2
+   * @param nObj2
    *        Second value
    * @return <code>true</code> if they are equal, <code>false</code> otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean equals (final short aObj1, final short aObj2)
+  public static boolean equals (final short nObj1, final short nObj2)
   {
-    return aObj1 == aObj2;
+    return nObj1 == nObj2;
   }
 
   /**

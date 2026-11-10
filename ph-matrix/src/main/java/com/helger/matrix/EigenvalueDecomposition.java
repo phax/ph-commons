@@ -497,7 +497,7 @@ public class EigenvalueDecomposition
     // Vol.ii-Linear Algebra, and the corresponding
     // Fortran subroutine in EISPACK.
 
-    // Initialize
+    // Initialise
 
     final int nn = m_nDim;
     int n = nn - 1;

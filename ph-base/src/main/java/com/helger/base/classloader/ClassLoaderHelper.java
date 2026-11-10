@@ -210,7 +210,8 @@ public class ClassLoaderHelper
    * @param sPath
    *        The path to be resolved. May neither be <code>null</code> nor empty. Internally it is
    *        ensured that the provided path does NOT start with a slash.
-   * @return <code>null</code> if the path could not be resolved using the specified class loader.
+   * @return The enumeration of all resolved URLs. Empty if the path could not be resolved using the
+   *         specified class loader. Never <code>null</code>.
    * @throws IOException
    *         In case an internal error occurs.
    */
@@ -224,7 +225,7 @@ public class ClassLoaderHelper
     // Ensure the path does NOT starts with a "/"
     final String sPathWithoutSlash = internalGetPathWithoutLeadingSlash (sPath);
 
-    // returns null if not found
+    // returns an empty enumeration if not found
     return aClassLoader.getResources (sPathWithoutSlash);
   }
 

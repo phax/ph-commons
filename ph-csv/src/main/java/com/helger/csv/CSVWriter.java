@@ -36,7 +36,7 @@ import com.helger.base.io.stream.StreamHelper;
 import com.helger.collection.iterator.ArrayIterator;
 
 /**
- * A very simple CSV writer released under a commercial-friendly license.
+ * A very simple CSV writer released under a commercial-friendly licence.
  *
  * @author Glen Smith
  * @author Philip Helger

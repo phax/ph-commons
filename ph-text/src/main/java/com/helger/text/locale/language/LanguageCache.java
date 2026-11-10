@@ -274,6 +274,6 @@ public final class LanguageCache implements IHasConditionalLogger
         addLanguage (sLanguage);
       }
     }
-    CONDLOG.debug (() -> "Reinitialized " + LanguageCache.class.getName ());
+    CONDLOG.debug (() -> "Reinitialised " + LanguageCache.class.getName ());
   }
 }

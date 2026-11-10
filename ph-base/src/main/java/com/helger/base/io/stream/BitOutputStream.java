@@ -57,19 +57,19 @@ public class BitOutputStream extends NonBlockingBitOutputStream
    * Write a single bit to the stream. It will only be flushed to the underlying OutputStream when a
    * byte has been completed or when flush() manually.
    *
-   * @param aBit
+   * @param nBit
    *        1 if the bit should be set, 0 if not
    * @throws IOException
    *         In case writing to the output stream failed
    */
   @Override
-  public void writeBit (final int aBit) throws IOException
+  public void writeBit (final int nBit) throws IOException
   {
     // Cannot used "locked" because there is not IThrowingIntSupplier interface
     m_aLock.lock ();
     try
     {
-      super.writeBit (aBit);
+      super.writeBit (nBit);
     }
     finally
     {

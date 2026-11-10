@@ -856,15 +856,15 @@ public class XMLWriterSettings implements IXMLWriterSettings, ICloneable <XMLWri
    * the method described in this specification. The changes are summarized in the following list:
    * <ul>
    * <li>The document is encoded in UTF-8</li>
-   * <li>Line breaks normalized to #xA on input, before parsing</li>
-   * <li>Attribute values are normalized, as if by a validating processor</li>
+   * <li>Line breaks normalised to #xA on input, before parsing</li>
+   * <li>Attribute values are normalised, as if by a validating processor</li>
    * <li>Character and parsed entity references are replaced</li>
    * <li>CDATA sections are replaced with their character content</li>
    * <li>The XML declaration and document type declaration are removed</li>
    * <li>Empty elements are converted to start-end tag pairs</li>
-   * <li>Whitespace outside of the document element and within start and end tags is normalized</li>
+   * <li>Whitespace outside of the document element and within start and end tags is normalised</li>
    * <li>All whitespace in character content is retained (excluding characters removed during line
-   * feed normalization)</li>
+   * feed normalisation)</li>
    * <li>Attribute value delimiters are set to quotation marks (double quotes)</li>
    * <li>Special characters in attribute values and character content are replaced by character
    * references</li>

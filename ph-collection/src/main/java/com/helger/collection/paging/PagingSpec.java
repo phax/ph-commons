@@ -78,7 +78,7 @@ public class PagingSpec implements IPagingSpec
     ValueEnforcer.noNullValue (aSortFields, "SortFields");
 
     m_nStartIndex = nStartIndex;
-    // Normalize all negative values to the same one, so that equals works as expected
+    // Normalise all negative values to the same one, so that equals works as expected
     m_nMaxCount = nMaxCount < 0 ? CGlobal.ILLEGAL_ULONG : nMaxCount;
     m_aSortFields = new CommonsArrayList <> (aSortFields);
   }
@@ -101,7 +101,7 @@ public class PagingSpec implements IPagingSpec
     ValueEnforcer.noNullValue (aSortFields, "SortFields");
 
     m_nStartIndex = nStartIndex;
-    // Normalize all negative values to the same one, so that equals works as expected
+    // Normalise all negative values to the same one, so that equals works as expected
     m_nMaxCount = nMaxCount < 0 ? CGlobal.ILLEGAL_ULONG : nMaxCount;
     m_aSortFields = new CommonsArrayList <> (aSortFields);
   }

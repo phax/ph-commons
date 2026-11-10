@@ -38,7 +38,7 @@ public final class TypeConvertCleanUpRegistrarSPI implements ICleanUpRegistrarSP
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 100, () -> {
-      // Reinitialize singletons to the default values
+      // Reinitialise singletons to the default values
       if (TypeConverterRegistry.isInstantiated ())
         TypeConverterRegistry.getInstance ().reinitialize ();
 

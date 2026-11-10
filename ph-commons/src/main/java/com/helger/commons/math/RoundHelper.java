@@ -101,15 +101,15 @@ public final class RoundHelper
     if (Double.isNaN (dValue) || Double.isInfinite (dValue))
       return dValue;
 
-    final BigDecimal bd = BigDecimal.valueOf (dValue);
+    final BigDecimal aBD = BigDecimal.valueOf (dValue);
     double ret;
     if (eType.isExponential ())
     {
-      final BigDecimal bc = new BigDecimal (bd.unscaledValue (), bd.precision () - 1);
-      ret = bc.setScale (nScale, eMode).scaleByPowerOfTen (bc.scale () - bd.scale ()).doubleValue ();
+      final BigDecimal aBC = new BigDecimal (aBD.unscaledValue (), aBD.precision () - 1);
+      ret = aBC.setScale (nScale, eMode).scaleByPowerOfTen (aBC.scale () - aBD.scale ()).doubleValue ();
     }
     else
-      ret = bd.setScale (nScale, eMode).doubleValue ();
+      ret = aBD.setScale (nScale, eMode).doubleValue ();
 
     return ret;
   }
@@ -204,10 +204,10 @@ public final class RoundHelper
 
     if (eType.isExponential ())
     {
-      StringBuilder sPattern = new StringBuilder ("0E0");
+      StringBuilder aPattern = new StringBuilder ("0E0");
       if (nScale > 0)
-        sPattern.append ('.').append (StringHelper.getRepeated ('0', nScale));
-      aDF.applyPattern (sPattern.toString ());
+        aPattern.append ('.').append (StringHelper.getRepeated ('0', nScale));
+      aDF.applyPattern (aPattern.toString ());
     }
     else
     {

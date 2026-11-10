@@ -126,7 +126,7 @@ public final class AESCryptFuncTest
     {
       try
       {
-        // Initialize the cipher for encryption
+        // Initialise the cipher for encryption
         m_aCipher.init (Cipher.ENCRYPT_MODE, m_aKey);
 
         // Encrypt the cleartext
@@ -142,7 +142,7 @@ public final class AESCryptFuncTest
     {
       try
       {
-        // Initialize the cipher for encryption
+        // Initialise the cipher for encryption
         m_aCipher.init (Cipher.DECRYPT_MODE, m_aKey);
 
         // Encrypt the cleartext

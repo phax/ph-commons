@@ -199,13 +199,13 @@ public class RunLengthCodec implements IByteArrayCodec
         else
         {
           // we have something duplicated
-          final int aDupByte = aBAIS.read ();
-          if (aDupByte == -1)
+          final int nDupByte = aBAIS.read ();
+          if (nDupByte == -1)
             throw new DecodeException ("Unexpected EOF in RunLengthCodec");
 
           // The char is repeated for 257-nDupAmount times
           for (int i = 0; i < 257 - nDupAmount; i++)
-            aOS.write (aDupByte);
+            aOS.write (nDupByte);
         }
       }
     }

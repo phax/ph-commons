@@ -96,23 +96,23 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
    * Write a single bit to the stream. It will only be flushed to the underlying OutputStream when a
    * byte has been completed or when flush() manually.
    *
-   * @param aBit
+   * @param nBit
    *        1 if the bit should be set, 0 if not
    * @throws IOException
    *         In case writing to the output stream failed
    */
-  public void writeBit (final int aBit) throws IOException
+  public void writeBit (final int nBit) throws IOException
   {
     if (m_aOS == null)
       throw new IllegalStateException ("BitOutputStream is already closed");
-    if (aBit != CGlobal.BIT_NOT_SET && aBit != CGlobal.BIT_SET)
-      throw new IllegalArgumentException (aBit + " is not a bit");
+    if (nBit != CGlobal.BIT_NOT_SET && nBit != CGlobal.BIT_SET)
+      throw new IllegalArgumentException (nBit + " is not a bit");
 
-    if (aBit == CGlobal.BIT_SET)
+    if (nBit == CGlobal.BIT_SET)
       if (m_bHighOrderBitFirst)
-        m_nBuffer |= (aBit << (7 - m_nBufferedBitCount));
+        m_nBuffer |= (nBit << (7 - m_nBufferedBitCount));
       else
-        m_nBuffer |= (aBit << m_nBufferedBitCount);
+        m_nBuffer |= (nBit << m_nBufferedBitCount);
 
     ++m_nBufferedBitCount;
     if (m_nBufferedBitCount == CGlobal.BITS_PER_BYTE)
@@ -124,19 +124,19 @@ public class NonBlockingBitOutputStream implements Closeable, Flushable
    * InputStream, the bits are written starting at the highest bit ( &gt;&gt; aNumberOfBits ), going
    * down to the lowest bit ( &gt;&gt; 0 ).
    *
-   * @param aValue
+   * @param nValue
    *        the int containing the bits that should be written to the stream.
    * @param nNumBits
    *        how many bits of the integer should be written to the stream.
    * @throws IOException
    *         In case writing to the output stream failed
    */
-  public void writeBits (final int aValue, @Nonnegative final int nNumBits) throws IOException
+  public void writeBits (final int nValue, @Nonnegative final int nNumBits) throws IOException
   {
     ValueEnforcer.isBetweenInclusive (nNumBits, "NumberOfBits", 1, CGlobal.BITS_PER_INT);
 
     for (int i = nNumBits - 1; i >= 0; i--)
-      writeBit ((aValue >> i) & 1);
+      writeBit ((nValue >> i) & 1);
   }
 
   /**

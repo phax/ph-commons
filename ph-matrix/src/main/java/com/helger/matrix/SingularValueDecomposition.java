@@ -82,7 +82,7 @@ public class SingularValueDecomposition
   public SingularValueDecomposition (@NonNull final Matrix aMatrix)
   {
     // Derived from LINPACK code.
-    // Initialize.
+    // Initialise.
     final double [] [] aArray = aMatrix.getArrayCopy ();
     m_nRows = aMatrix.getRowDimension ();
     m_nCols = aMatrix.getColumnDimension ();

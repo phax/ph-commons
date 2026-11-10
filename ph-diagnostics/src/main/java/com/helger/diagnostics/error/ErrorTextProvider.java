@@ -38,7 +38,7 @@ import com.helger.collection.commons.CommonsArrayList;
 import com.helger.collection.commons.ICommonsList;
 
 /**
- * Default implementation of {@link IErrorTextProvider} with a customizable layout.
+ * Default implementation of {@link IErrorTextProvider} with a customisable layout.
  *
  * @author Philip Helger
  * @since 8.5.1

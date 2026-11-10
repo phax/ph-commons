@@ -132,15 +132,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param bValue
    *        The boolean value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final boolean aValue)
+  public ToStringGenerator append (@NonNull final String sField, final boolean bValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (bValue);
     return this;
   }
 
@@ -166,15 +166,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param nValue
    *        The byte value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final byte aValue)
+  public ToStringGenerator append (@NonNull final String sField, final byte nValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (nValue);
     return this;
   }
 
@@ -200,15 +200,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param cValue
    *        The char value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final char aValue)
+  public ToStringGenerator append (@NonNull final String sField, final char cValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append ('\'').append (aValue).append ('\'');
+    m_aSB.append (sField).append ('=').append ('\'').append (cValue).append ('\'');
     return this;
   }
 
@@ -234,15 +234,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param dValue
    *        The double value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final double aValue)
+  public ToStringGenerator append (@NonNull final String sField, final double dValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (dValue);
     return this;
   }
 
@@ -268,15 +268,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param fValue
    *        The float value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final float aValue)
+  public ToStringGenerator append (@NonNull final String sField, final float fValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (fValue);
     return this;
   }
 
@@ -302,15 +302,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param nValue
    *        The int value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final int aValue)
+  public ToStringGenerator append (@NonNull final String sField, final int nValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (nValue);
     return this;
   }
 
@@ -336,15 +336,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param nValue
    *        The long value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final long aValue)
+  public ToStringGenerator append (@NonNull final String sField, final long nValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (nValue);
     return this;
   }
 
@@ -370,15 +370,15 @@ public final class ToStringGenerator
    *
    * @param sField
    *        The name of the field. May not be <code>null</code>.
-   * @param aValue
+   * @param nValue
    *        The short value.
    * @return this for chaining
    */
   @NonNull
-  public ToStringGenerator append (@NonNull final String sField, final short aValue)
+  public ToStringGenerator append (@NonNull final String sField, final short nValue)
   {
     _beforeAddField ();
-    m_aSB.append (sField).append ('=').append (aValue);
+    m_aSB.append (sField).append ('=').append (nValue);
     return this;
   }
 

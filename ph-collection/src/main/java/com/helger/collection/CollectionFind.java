@@ -129,7 +129,7 @@ public final class CollectionFind
    * @param aCollection
    *        The collection to check. May be <code>null</code>.
    * @param aFilter
-   *        Predicate to check against all elements. May not be <code>null</code>.
+   *        Predicate to check against all elements. May be <code>null</code>.
    * @return <code>true</code> only if the passed collection is neither <code>null</code> nor empty
    *         and if only matching elements are contained, or if no filter is provided and the
    *         collection is not empty.

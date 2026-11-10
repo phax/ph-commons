@@ -255,7 +255,7 @@ public final class Base64File
   /**
    * Reads <code>infile</code> and decodes it to <code>outfile</code>.
    *
-   * @param aInFile
+   * @param sInFile
    *        Input file
    * @param aOutFile
    *        Output file
@@ -263,9 +263,9 @@ public final class Base64File
    *         if there is an error
    * @since 2.2
    */
-  public static void decodeFileToFile (@NonNull final String aInFile, @NonNull final File aOutFile) throws IOException
+  public static void decodeFileToFile (@NonNull final String sInFile, @NonNull final File aOutFile) throws IOException
   {
-    final byte [] decoded = decodeFromFile (aInFile);
+    final byte [] decoded = decodeFromFile (sInFile);
     try (final OutputStream out = FileHelper.getBufferedOutputStream (aOutFile))
     {
       out.write (decoded);

@@ -199,7 +199,8 @@ public final class StringParser
    *
    * @param sStr
    *        The string to be parsed. May be <code>null</code>.
-   * @return the <code>Boolean</code> value represented by the string. Never <code>null</code>.
+   * @return the <code>Boolean</code> value represented by the string. <code>null</code> if the
+   *         string is neither "true" nor "false".
    */
   @Nullable
   public static Boolean parseBoolObjExact (@Nullable final String sStr)
@@ -220,7 +221,8 @@ public final class StringParser
    * @param aDefault
    *        The default value to be returned if the value is neither "true" nor "false". May be
    *        <code>null</code>.
-   * @return the <code>Boolean</code> value represented by the string. Never <code>null</code>.
+   * @return the <code>Boolean</code> value represented by the string or the passed default value.
+   *         May be <code>null</code> if the default value is <code>null</code>.
    */
   @Nullable
   public static Boolean parseBoolObjExact (@Nullable final String sStr, @Nullable final Boolean aDefault)

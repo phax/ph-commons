@@ -69,19 +69,19 @@ public final class LevenshteinDistance
 
     for (int j = 0; j < nLen2; j++)
     {
-      final int ch2 = aStr2[j];
+      final int nChar2 = aStr2[j];
       aCurRow[0] = j + 1;
 
       for (int i = 0; i < nLen1; i++)
       {
-        final int nSubstVal = aStr1[i] == ch2 ? 0 : 1;
+        final int nSubstVal = aStr1[i] == nChar2 ? 0 : 1;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + 1, aPrevRow[i + 1] + 1), aPrevRow[i] + nSubstVal);
       }
 
       // swap current distance counts to 'previous row' distance counts
-      final int [] tmp = aPrevRow;
+      final int [] aTmp = aPrevRow;
       aPrevRow = aCurRow;
-      aCurRow = tmp;
+      aCurRow = aTmp;
     }
 
     // our last action in the above loop was to switch d and p, so p now
@@ -128,20 +128,20 @@ public final class LevenshteinDistance
 
     for (int j = 0; j < nLen2; j++)
     {
-      final int ch2 = aStr2[j];
+      final int nChar2 = aStr2[j];
       aCurRow[0] = (j + 1) * nCostDelete;
 
       for (int i = 0; i < nLen1; i++)
       {
-        final int nSubstCost = aStr1[i] == ch2 ? 0 : nCostSubstitution;
+        final int nSubstCost = aStr1[i] == nChar2 ? 0 : nCostSubstitution;
         aCurRow[i + 1] = Math.min (Math.min (aCurRow[i] + nCostInsert, aPrevRow[i + 1] + nCostDelete),
                                    aPrevRow[i] + nSubstCost);
       }
 
       // swap current distance counts to 'previous row' distance counts
-      final int [] tmp = aPrevRow;
+      final int [] aTmp = aPrevRow;
       aPrevRow = aCurRow;
-      aCurRow = tmp;
+      aCurRow = aTmp;
     }
 
     // our last action in the above loop was to switch d and p, so p now

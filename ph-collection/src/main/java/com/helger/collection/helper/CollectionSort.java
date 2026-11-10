@@ -374,9 +374,9 @@ public class CollectionSort
    * Convert the given iterator to a sorted list.
    *
    * @param <ELEMENTTYPE>
-   *        The type of elements to iterate. May not be <code>null</code>.
+   *        The type of elements to iterate.
    * @param aIter
-   *        Input iterator. May not be <code>null</code>.
+   *        Input iterator. May be <code>null</code>.
    * @return a non-null {@link CommonsArrayList} based on the results of
    *         {@link Collections#sort(List)}.
    */

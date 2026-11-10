@@ -55,7 +55,7 @@ public final class TreeWithIDSearcher
    * @param aTree
    *        The tree to search. May not be <code>null</code>.
    * @param aSearchID
-   *        The ID to search. May not be <code>null</code>.
+   *        The ID to search. May be <code>null</code> in which case no item matches.
    * @return A non-<code>null</code> list with all matching items.
    */
   @NonNull
@@ -78,7 +78,7 @@ public final class TreeWithIDSearcher
    * @param aTreeItem
    *        The tree item to search. May not be <code>null</code>.
    * @param aSearchID
-   *        The ID to search. May not be <code>null</code>.
+   *        The ID to search. May be <code>null</code> in which case no item matches.
    * @return A non-<code>null</code> list with all matching items.
    */
   @NonNull

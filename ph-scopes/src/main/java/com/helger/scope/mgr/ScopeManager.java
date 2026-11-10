@@ -105,7 +105,7 @@ public final class ScopeManager
     // Outside of write lock
     aGlobalScope.initScope ();
     if (ScopeHelper.isDebugGlobalScopeLifeCycle ())
-      LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialized!", ScopeHelper.getDebugException ());
+      LOGGER.info ("Global scope '" + aGlobalScope.getID () + "' initialised!", ScopeHelper.getDebugException ());
 
     // Invoke SPIs
     ScopeSPIManager.getInstance ().onGlobalScopeBegin (aGlobalScope);
@@ -333,7 +333,7 @@ public final class ScopeManager
       {
         // The scope shall be destroyed here, as this is most probably a
         // programming error!
-        LOGGER.warn ("Destroying the old request scope before the new one gets initialized!");
+        LOGGER.warn ("Destroying the old request scope before the new one gets initialised!");
         _destroyRequestScope (aExistingRequestScope);
       }
     }

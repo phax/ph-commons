@@ -34,8 +34,8 @@ import com.helger.base.tostring.ToStringGenerator;
 @Immutable
 public class SizeFloat implements IHasDimensionFloat
 {
-  private final float m_dWidth;
-  private final float m_dHeight;
+  private final float m_fWidth;
+  private final float m_fHeight;
 
   /**
    * Constructor copying from an existing int dimension object.
@@ -73,59 +73,59 @@ public class SizeFloat implements IHasDimensionFloat
   /**
    * Constructor with width and height.
    *
-   * @param dWidth
+   * @param fWidth
    *        The width. Must be &ge; 0.
-   * @param dHeight
+   * @param fHeight
    *        The height. Must be &ge; 0.
    */
-  public SizeFloat (@Nonnegative final float dWidth, @Nonnegative final float dHeight)
+  public SizeFloat (@Nonnegative final float fWidth, @Nonnegative final float fHeight)
   {
-    m_dWidth = ValueEnforcer.isGE0 (dWidth, "Width");
-    m_dHeight = ValueEnforcer.isGE0 (dHeight, "Height");
+    m_fWidth = ValueEnforcer.isGE0 (fWidth, "Width");
+    m_fHeight = ValueEnforcer.isGE0 (fHeight, "Height");
   }
 
   /** {@inheritDoc} */
   @Nonnegative
   public float getWidth ()
   {
-    return m_dWidth;
+    return m_fWidth;
   }
 
   /** {@inheritDoc} */
   @Nonnegative
   public float getHeight ()
   {
-    return m_dHeight;
+    return m_fHeight;
   }
 
   /**
    * Return the scaled width and height relative to a maximum size.
    *
-   * @param dMaxWidth
+   * @param fMaxWidth
    *        Maximum width. Must be &gt; 0.
-   * @param dMaxHeight
+   * @param fMaxHeight
    *        Maximum height. Must be &gt; 0.
    * @return An array with 2 elements, where the first element is the width, and the second is the
    *         height.
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getBestMatchingSize (@Nonnegative final float dMaxWidth, @Nonnegative final float dMaxHeight)
+  public SizeFloat getBestMatchingSize (@Nonnegative final float fMaxWidth, @Nonnegative final float fMaxHeight)
   {
-    ValueEnforcer.isGT0 (dMaxWidth, "MaxWidth");
-    ValueEnforcer.isGT0 (dMaxHeight, "MaxHeight");
+    ValueEnforcer.isGT0 (fMaxWidth, "MaxWidth");
+    ValueEnforcer.isGT0 (fMaxHeight, "MaxHeight");
 
-    final float dRelWidth = m_dWidth / dMaxWidth;
-    final float dRelHeight = m_dHeight / dMaxHeight;
-    if (dRelWidth > dRelHeight)
+    final float fRelWidth = m_fWidth / fMaxWidth;
+    final float fRelHeight = m_fHeight / fMaxHeight;
+    if (fRelWidth > fRelHeight)
     {
-      if (m_dWidth > dMaxWidth)
-        return new SizeFloat (dMaxWidth, m_dHeight / dRelWidth);
+      if (m_fWidth > fMaxWidth)
+        return new SizeFloat (fMaxWidth, m_fHeight / fRelWidth);
     }
     else
     {
-      if (m_dHeight > dMaxHeight)
-        return new SizeFloat (m_dWidth / dRelHeight, dMaxHeight);
+      if (m_fHeight > fMaxHeight)
+        return new SizeFloat (m_fWidth / fRelHeight, fMaxHeight);
     }
     return this;
   }
@@ -133,7 +133,7 @@ public class SizeFloat implements IHasDimensionFloat
   /**
    * Get a new size that is scaled to the specified width, keeping the aspect ratio.
    *
-   * @param dNewWidth
+   * @param fNewWidth
    *        The new width. Must be &gt; 0.
    * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
    * @throws IllegalStateException
@@ -141,22 +141,22 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getScaledToWidth (@Nonnegative final float dNewWidth)
+  public SizeFloat getScaledToWidth (@Nonnegative final float fNewWidth)
   {
-    ValueEnforcer.isGT0 (dNewWidth, "NewWidth");
-    if (m_dWidth == 0)
+    ValueEnforcer.isGT0 (fNewWidth, "NewWidth");
+    if (m_fWidth == 0)
       throw new IllegalStateException ("The width is 0, so the aspect ratio cannot be kept");
 
-    if (m_dWidth == dNewWidth)
+    if (m_fWidth == fNewWidth)
       return this;
-    final float dMultFactory = dNewWidth / m_dWidth;
-    return new SizeFloat (dNewWidth, m_dHeight * dMultFactory);
+    final float fMultFactory = fNewWidth / m_fWidth;
+    return new SizeFloat (fNewWidth, m_fHeight * fMultFactory);
   }
 
   /**
    * Get a new size that is scaled to the specified height, keeping the aspect ratio.
    *
-   * @param dNewHeight
+   * @param fNewHeight
    *        The new height. Must be &gt; 0.
    * @return A new {@link SizeFloat} with the scaled dimensions. Never <code>null</code>.
    * @throws IllegalStateException
@@ -164,16 +164,16 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getScaledToHeight (@Nonnegative final float dNewHeight)
+  public SizeFloat getScaledToHeight (@Nonnegative final float fNewHeight)
   {
-    ValueEnforcer.isGT0 (dNewHeight, "NewHeight");
-    if (m_dHeight == 0)
+    ValueEnforcer.isGT0 (fNewHeight, "NewHeight");
+    if (m_fHeight == 0)
       throw new IllegalStateException ("The height is 0, so the aspect ratio cannot be kept");
 
-    if (m_dHeight == dNewHeight)
+    if (m_fHeight == fNewHeight)
       return this;
-    final float dMultFactory = dNewHeight / m_dHeight;
-    return new SizeFloat (m_dWidth * dMultFactory, dNewHeight);
+    final float fMultFactory = fNewHeight / m_fHeight;
+    return new SizeFloat (m_fWidth * fMultFactory, fNewHeight);
   }
 
   /**
@@ -189,7 +189,7 @@ public class SizeFloat implements IHasDimensionFloat
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
+    return new SizeFloat (m_fWidth + aToAdd.getWidth (), m_fHeight + aToAdd.getHeight ());
   }
 
   /**
@@ -205,7 +205,7 @@ public class SizeFloat implements IHasDimensionFloat
   {
     ValueEnforcer.notNull (aToAdd, "ToAdd");
 
-    return new SizeFloat (m_dWidth + aToAdd.getWidth (), m_dHeight + aToAdd.getHeight ());
+    return new SizeFloat (m_fWidth + aToAdd.getWidth (), m_fHeight + aToAdd.getHeight ());
   }
 
   /**
@@ -221,7 +221,7 @@ public class SizeFloat implements IHasDimensionFloat
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
-    return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+    return new SizeFloat (m_fWidth - aToSubtract.getWidth (), m_fHeight - aToSubtract.getHeight ());
   }
 
   /**
@@ -237,7 +237,7 @@ public class SizeFloat implements IHasDimensionFloat
   {
     ValueEnforcer.notNull (aToSubtract, "ToSubtract");
 
-    return new SizeFloat (m_dWidth - aToSubtract.getWidth (), m_dHeight - aToSubtract.getHeight ());
+    return new SizeFloat (m_fWidth - aToSubtract.getWidth (), m_fHeight - aToSubtract.getHeight ());
   }
 
   @Override
@@ -248,18 +248,18 @@ public class SizeFloat implements IHasDimensionFloat
     if (o == null || !getClass ().equals (o.getClass ()))
       return false;
     final SizeFloat rhs = (SizeFloat) o;
-    return EqualsHelper.equals (m_dWidth, rhs.m_dWidth) && EqualsHelper.equals (m_dHeight, rhs.m_dHeight);
+    return EqualsHelper.equals (m_fWidth, rhs.m_fWidth) && EqualsHelper.equals (m_fHeight, rhs.m_fHeight);
   }
 
   @Override
   public int hashCode ()
   {
-    return new HashCodeGenerator (this).append (m_dWidth).append (m_dHeight).getHashCode ();
+    return new HashCodeGenerator (this).append (m_fWidth).append (m_fHeight).getHashCode ();
   }
 
   @Override
   public String toString ()
   {
-    return new ToStringGenerator (this).append ("Width", m_dWidth).append ("Height", m_dHeight).getToString ();
+    return new ToStringGenerator (this).append ("Width", m_fWidth).append ("Height", m_fHeight).getToString ();
   }
 }

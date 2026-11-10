@@ -365,7 +365,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    * The conversion will first obtain a {@code ZoneOffset} from the temporal object. It will then
    * try to obtain a {@code LocalDateTime}, falling back to an {@code Instant} if necessary. The
    * result will be the combination of {@code ZoneOffset} with either with {@code LocalDateTime} or
-   * {@code Instant}. Implementations are permitted to perform optimizations such as accessing those
+   * {@code Instant}. Implementations are permitted to perform optimisations such as accessing those
    * fields that are equivalent to the relevant objects.
    * <p>
    * This method matches the signature of the functional interface {@link TemporalQuery} allowing it
@@ -1008,7 +1008,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
   @NonNull
   public XMLOffsetDateTime with (@NonNull final TemporalAdjuster adjuster)
   {
-    // optimizations
+    // optimisations
     if (adjuster instanceof LocalDate || adjuster instanceof LocalTime || adjuster instanceof LocalDateTime)
       return with (m_aDateTime.with (adjuster), m_aOffset);
 
@@ -1860,7 +1860,7 @@ public class XMLOffsetDateTime implements Temporal, TemporalAdjuster, Comparable
    * <p>
    * The {@code Temporal} passed to this method is converted to a {@code XMLOffsetDateTime} using
    * {@link #from(TemporalAccessor)}. If the offset differs between the two date-times, the
-   * specified end date-time is normalized to have the same offset as this date-time.
+   * specified end date-time is normalised to have the same offset as this date-time.
    * <p>
    * The calculation returns a whole number, representing the number of complete units between the
    * two date-times. For example, the amount in months between 2012-06-15T00:00Z and

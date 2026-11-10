@@ -134,7 +134,7 @@ public final class StackHelper
    *        The type of elements contained in the stack.
    * @param aValues
    *        The values that are to be pushed on the stack. The last element will be the top element
-   *        on the stack. May not be <code>null</code> .
+   *        on the stack. May be <code>null</code>.
    * @return A non-<code>null</code> stack object.
    */
   @NonNull
@@ -175,7 +175,7 @@ public final class StackHelper
    *        The type of elements contained in the stack.
    * @param aValues
    *        The values that are to be pushed on the stack. The last element will be the top element
-   *        on the stack. May not be <code>null</code> .
+   *        on the stack. May be <code>null</code>.
    * @return A non-<code>null</code> stack object.
    */
   @NonNull

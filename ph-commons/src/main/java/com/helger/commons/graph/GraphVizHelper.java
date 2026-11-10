@@ -17,6 +17,7 @@
 package com.helger.commons.graph;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 
@@ -199,7 +200,7 @@ public final class GraphVizHelper
    *        The DOT file to be converted to an image. May neither be <code>null</code> nor empty.
    * @return The byte buffer that keeps the converted image. Never <code>null</code>.
    * @throws IOException
-   *         In case some IO error occurs
+   *         In case some IO error occurs or if neato returns an exit code other than 0
    * @throws InterruptedException
    *         If the sub-process did not terminate correctly!
    */
@@ -211,14 +212,32 @@ public final class GraphVizHelper
     ValueEnforcer.notEmpty (sDOT, "DOT");
 
     final ProcessBuilder aPB = new ProcessBuilder ("neato", "-T" + sFileType).redirectErrorStream (false);
-    final Process p = aPB.start ();
+    final Process aProcess = aPB.start ();
+
+    // Read neato stderr in parallel, so that the process cannot block on a full error pipe
+    final NonBlockingByteArrayOutputStream aErrBAOS = new NonBlockingByteArrayOutputStream ();
+    final Thread aErrReader = new Thread ( () -> StreamHelper.copyInputStreamToOutputStream (aProcess.getErrorStream (),
+                                                                                            aErrBAOS),
+                                          "GraphVizHelper-neato-stderr");
+    aErrReader.setDaemon (true);
+    aErrReader.start ();
+
     // Set neato stdin
-    p.getOutputStream ().write (sDOT.getBytes (StandardCharsets.UTF_8));
-    p.getOutputStream ().close ();
+    try (final OutputStream aOS = aProcess.getOutputStream ())
+    {
+      aOS.write (sDOT.getBytes (StandardCharsets.UTF_8));
+    }
     // Read neato stdout
     final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    StreamHelper.copyInputStreamToOutputStream (p.getInputStream (), aBAOS);
-    p.waitFor ();
+    StreamHelper.copyInputStreamToOutputStream (aProcess.getInputStream (), aBAOS);
+    final int nExitCode = aProcess.waitFor ();
+    aErrReader.join ();
+
+    if (nExitCode != 0)
+      throw new IOException ("GraphViz neato failed with exit code " +
+                             nExitCode +
+                             ": " +
+                             aErrBAOS.getAsString (StandardCharsets.UTF_8).trim ());
     return aBAOS;
   }
 }

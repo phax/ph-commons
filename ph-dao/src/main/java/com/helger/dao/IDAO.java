@@ -26,7 +26,7 @@ import com.helger.annotation.Nonnegative;
  * Base DAO interface. DAO = Data Access Object. A DAO implementation usually has 3 basic
  * operations:
  * <ul>
- * <li>Initialization - when no file exists and an initial setup can be performed.</li>
+ * <li>Initialisation - when no file exists and an initial setup can be performed.</li>
  * <li>Reading - read existing data from a file</li>
  * <li>Write - write modified data to a file</li>
  * </ul>
@@ -60,14 +60,14 @@ public interface IDAO extends IAutoSaveAware
   void writeToFileOnPendingChanges ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   * @return The number of times this DAO was initialised. Always &ge; 0. Usually this field is not
    *         persistent and only is valid until the application ends.
    */
   @Nonnegative
   int getInitCount ();
 
   /**
-   * @return The last time this DAO was initialized (without error). May be <code>null</code> if it
+   * @return The last time this DAO was initialised (without error). May be <code>null</code> if it
    *         wasn't read before. Usually this field is not persistent and only is valid until the
    *         application ends.
    */
@@ -75,7 +75,7 @@ public interface IDAO extends IAutoSaveAware
   LocalDateTime getLastInitDateTime ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   * @return The number of times this DAO was initialised. Always &ge; 0. Usually this field is not
    *         persistent and only is valid until the application ends.
    */
   @Nonnegative
@@ -90,7 +90,7 @@ public interface IDAO extends IAutoSaveAware
   LocalDateTime getLastReadDateTime ();
 
   /**
-   * @return The number of times this DAO was initialized. Always &ge; 0. Usually this field is not
+   * @return The number of times this DAO was initialised. Always &ge; 0. Usually this field is not
    *         persistent and only is valid until the application ends.
    */
   @Nonnegative

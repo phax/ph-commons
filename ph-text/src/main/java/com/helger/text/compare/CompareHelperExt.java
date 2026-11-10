@@ -57,7 +57,7 @@ public final class CompareHelperExt extends CompareHelper
                              @Nullable final String sStr2,
                              @NonNull final Locale aSortLocale)
   {
-    // Legacy behavior: null values come first
+    // Legacy behaviour: null values come first
     return compare (sStr1, sStr2, aSortLocale, DEFAULT_NULL_VALUES_COME_FIRST);
   }
 

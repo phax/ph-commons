@@ -116,10 +116,10 @@ public enum EXMLParserFeature implements IHasName
                         "http://apache.org/xml/features/validation/schema-full-checking"),
 
   /**
-   * When true: Expose via SAX and DOM XML Schema normalized values for attributes and elements.<br>
+   * When true: Expose via SAX and DOM XML Schema normalised values for attributes and elements.<br>
    * When false: Expose the infoset values<br>
    * Default: true<br>
-   * XML Schema normalized values will be exposed only if both {@link #SCHEMA} and
+   * XML Schema normalised values will be exposed only if both {@link #SCHEMA} and
    * {@link #VALIDATION} features are set to true.<br>
    * (http://apache.org/xml/features/validation/schema/normalized-value)
    */
@@ -129,7 +129,7 @@ public enum EXMLParserFeature implements IHasName
    * When true: Send XML Schema element default values via characters()<br>
    * When false: Do not send XML Schema default values in XNI<br>
    * Default: true<br>
-   * XML Schema normalized values will be exposed only if both {@link #SCHEMA} and
+   * XML Schema normalised values will be exposed only if both {@link #SCHEMA} and
    * {@link #VALIDATION} features are set to true.<br>
    * (http://apache.org/xml/features/validation/schema/element-default)
    */
@@ -448,9 +448,9 @@ public enum EXMLParserFeature implements IHasName
   SAX_RESOLVE_DTD_URIS (EXMLParserFeatureType.SAX, "http://xml.org/sax/features/resolve-dtd-uris"),
 
   /**
-   * When true: Perform Unicode normalization checking (as described in section 2.13 and Appendix B
-   * of the XML 1.1 Recommendation) and report normalization errors.<br>
-   * When false: Do not report Unicode normalization errors.<br>
+   * When true: Perform Unicode normalisation checking (as described in section 2.13 and Appendix B
+   * of the XML 1.1 Recommendation) and report normalisation errors.<br>
+   * When false: Do not report Unicode normalisation errors.<br>
    * Default: false<br>
    * (http://xml.org/sax/features/unicode-normalization-checking)
    */

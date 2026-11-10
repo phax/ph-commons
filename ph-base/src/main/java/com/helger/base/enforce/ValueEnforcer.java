@@ -85,7 +85,7 @@ public final class ValueEnforcer
    * @param sMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>false</code>.
    */
   public static void isTrue (final boolean bValue, @NonNull final String sMsg)
   {
@@ -101,7 +101,7 @@ public final class ValueEnforcer
    * @param aMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>false</code>.
    */
   public static void isTrue (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
@@ -117,7 +117,7 @@ public final class ValueEnforcer
    * @param sMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>false</code>.
    */
   public static void isTrue (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
@@ -134,7 +134,7 @@ public final class ValueEnforcer
    * @param aMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>false</code>.
    */
   public static void isTrue (@NonNull final BooleanSupplier aValue, @NonNull final Supplier <? extends String> aMsg)
   {
@@ -151,7 +151,7 @@ public final class ValueEnforcer
    * @param sMsg
    *        The message to be emitted in case the value is <code>true</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>true</code>.
    */
   public static void isFalse (final boolean bValue, @NonNull final String sMsg)
   {
@@ -167,7 +167,7 @@ public final class ValueEnforcer
    * @param aMsg
    *        The message to be emitted in case the value is <code>true</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>true</code>.
    */
   public static void isFalse (final boolean bValue, @NonNull final Supplier <? extends String> aMsg)
   {
@@ -183,7 +183,7 @@ public final class ValueEnforcer
    * @param sMsg
    *        The message to be emitted in case the value is <code>true</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>true</code>.
    */
   public static void isFalse (@NonNull final BooleanSupplier aValue, @NonNull final String sMsg)
   {
@@ -200,7 +200,7 @@ public final class ValueEnforcer
    * @param aMsg
    *        The message to be emitted in case the value is <code>true</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is <code>true</code>.
    */
   public static void isFalse (@NonNull final BooleanSupplier aValue, @NonNull final Supplier <? extends String> aMsg)
   {
@@ -219,7 +219,7 @@ public final class ValueEnforcer
    * @param sMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not <code>null</code> and not an instance of the passed class.
    * @param <T>
    *        Type to check.
    */
@@ -242,7 +242,7 @@ public final class ValueEnforcer
    * @param aMsg
    *        The message to be emitted in case the value is <code>false</code>
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not <code>null</code> and not an instance of the passed class.
    * @param <T>
    *        Type to check.
    */
@@ -872,7 +872,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final String sName)
+  public static <T> T [] noNullValue (final T @Nullable [] aValue, @NonNull final String sName)
   {
     if (aValue != null && isEnabled ())
     {
@@ -902,7 +902,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T> T [] noNullValue (@NonNull final T [] aValue, @NonNull final Supplier <? extends String> aName)
+  public static <T> T [] noNullValue (final T @Nullable [] aValue, @NonNull final Supplier <? extends String> aName)
   {
     if (aValue != null && isEnabled ())
     {
@@ -932,7 +932,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
+  public static <T extends Iterable <?>> T noNullValue (@Nullable final T aValue, @NonNull final String sName)
   {
     if (aValue != null && isEnabled ())
     {
@@ -962,7 +962,7 @@ public final class ValueEnforcer
    *         if the passed value is not empty and a <code>null</code> value is contained
    */
   @Nullable
-  public static <T extends Iterable <?>> T noNullValue (@NonNull final T aValue,
+  public static <T extends Iterable <?>> T noNullValue (@Nullable final T aValue,
                                                         @NonNull final Supplier <? extends String> aName)
   {
     if (aValue != null && isEnabled ())
@@ -983,8 +983,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that no <code>null</code>
-   * key or value is contained.
+   * Check that the passed map contains no <code>null</code> key or value. But the whole map can be
+   * <code>null</code> or empty.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -999,7 +999,7 @@ public final class ValueEnforcer
    */
   @Nullable
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue, @NonNull final String sName)
+  public static <T extends Map <?, ?>> T noNullValue (@Nullable final T aValue, @NonNull final String sName)
   {
     if (aValue != null && isEnabled ())
     {
@@ -1015,8 +1015,8 @@ public final class ValueEnforcer
   }
 
   /**
-   * Check that the passed map is neither <code>null</code> nor empty and that no <code>null</code>
-   * key or value is contained.
+   * Check that the passed map contains no <code>null</code> key or value. But the whole map can be
+   * <code>null</code> or empty.
    *
    * @param <T>
    *        Type to be checked and returned
@@ -1031,7 +1031,7 @@ public final class ValueEnforcer
    */
   @Nullable
   @CodingStyleguideUnaware
-  public static <T extends Map <?, ?>> T noNullValue (@NonNull final T aValue,
+  public static <T extends Map <?, ?>> T noNullValue (@Nullable final T aValue,
                                                       @NonNull final Supplier <? extends String> aName)
   {
     if (aValue != null && isEnabled ())
@@ -1321,6 +1321,10 @@ public final class ValueEnforcer
    * @param aUnexpectedValue
    *        The value that may not be equal to aValue. May not be <code>null</code>.
    * @return The passed value.
+   * @throws NullPointerException
+   *         if the passed value or the unexpected value is <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is equal to the unexpected value.
    */
   public static <T> T notNullNotEquals (@NonNull final T aValue,
                                         @NonNull final String sName,
@@ -1343,6 +1347,10 @@ public final class ValueEnforcer
    * @param aUnexpectedValue
    *        The value that may not be equal to aValue. May not be <code>null</code>.
    * @return The passed value.
+   * @throws NullPointerException
+   *         if the passed value or the unexpected value is <code>null</code>.
+   * @throws IllegalArgumentException
+   *         if the passed value is equal to the unexpected value.
    */
   public static <T> T notNullNotEquals (@NonNull final T aValue,
                                         @NonNull final Supplier <? extends String> aName,
@@ -1372,8 +1380,10 @@ public final class ValueEnforcer
    * @param aExpectedValue
    *        The expected value. May not be <code>null</code>.
    * @return The passed value.
+   * @throws NullPointerException
+   *         if the passed value is <code>null</code>.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static <T> T notNullAndEquals (@NonNull final T aValue,
                                         @NonNull final String sName,
@@ -1396,8 +1406,10 @@ public final class ValueEnforcer
    * @param aExpectedValue
    *        The expected value. May not be <code>null</code>.
    * @return The passed value.
+   * @throws NullPointerException
+   *         if the passed value is <code>null</code>.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static <T> T notNullAndEquals (@NonNull final T aValue,
                                         @NonNull final Supplier <? extends String> aName,
@@ -1429,7 +1441,7 @@ public final class ValueEnforcer
    *        The expected value. May be <code>null</code>.
    * @return The passed value and maybe <code>null</code> if the expected value is null.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not the same as the expected value.
    */
   public static <T> T isSame (@Nullable final T aValue, @NonNull final String sName, @Nullable final T aExpectedValue)
   {
@@ -1453,7 +1465,7 @@ public final class ValueEnforcer
    * @return The passed value and maybe <code>null</code> if the expected value is
    *         <code>null</code>.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not the same as the expected value.
    */
   public static <T> T isSame (@Nullable final T aValue,
                               @NonNull final Supplier <? extends String> aName,
@@ -1483,7 +1495,7 @@ public final class ValueEnforcer
    *        The expected value. May be <code>null</code>.
    * @return The passed value and maybe <code>null</code> if the expected value is null.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static <T> T isEqual (final T aValue, @Nullable final T aExpectedValue, @NonNull final String sName)
   {
@@ -1506,7 +1518,7 @@ public final class ValueEnforcer
    *        The expected value. May be <code>null</code>.
    * @return The passed value and maybe <code>null</code> if the expected value is null.
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static <T> T isEqual (final T aValue,
                                @Nullable final T aExpectedValue,
@@ -1534,7 +1546,7 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final int nValue, final int nExpectedValue, @NonNull final String sName)
   {
@@ -1553,7 +1565,7 @@ public final class ValueEnforcer
    * @param aName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final int nValue,
                               final int nExpectedValue,
@@ -1579,7 +1591,7 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final long nValue, final long nExpectedValue, @NonNull final String sName)
   {
@@ -1598,7 +1610,7 @@ public final class ValueEnforcer
    * @param aName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final long nValue,
                               final long nExpectedValue,
@@ -1624,7 +1636,7 @@ public final class ValueEnforcer
    * @param sName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final double dValue, final double dExpectedValue, @NonNull final String sName)
   {
@@ -1643,7 +1655,7 @@ public final class ValueEnforcer
    * @param aName
    *        The name of the value (e.g. the parameter name)
    * @throws IllegalArgumentException
-   *         if the passed value is not <code>null</code>.
+   *         if the passed value is not equal to the expected value.
    */
   public static void isEqual (final double dValue,
                               final double dExpectedValue,

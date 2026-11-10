@@ -478,9 +478,10 @@ public interface ICommonsMap <KEYTYPE, VALUETYPE> extends
   /**
    * Get a map where keys and values are exchanged.
    *
-   * @return The swapped hash map based on the type returned by {@link #createInstance()}.
+   * @return The swapped hash map based on the type returned by {@link #createInstance()}. Never
+   *         <code>null</code>.
    */
-  @Nullable
+  @NonNull
   @ReturnsMutableCopy
   default ICommonsMap <VALUETYPE, KEYTYPE> getSwappedKeyValues ()
   {

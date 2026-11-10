@@ -161,17 +161,17 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
    *
    * @param key
    *        The key to look for.
-   * @param fDefault
+   * @param dDefault
    *        The default value to return if the key is not found.
    * @return The associated value or the default value if not found.
    */
-  public double get (final int key, final double fDefault)
+  public double get (final int key, final double dDefault)
   {
     if (key == FREE_KEY)
-      return m_bHasFreeKey ? m_dFreeValue : fDefault;
+      return m_bHasFreeKey ? m_dFreeValue : dDefault;
 
     final int idx = _getReadIndex (key);
-    return idx != -1 ? m_aValues[idx] : fDefault;
+    return idx != -1 ? m_aValues[idx] : dDefault;
   }
 
   /**

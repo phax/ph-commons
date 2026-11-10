@@ -206,9 +206,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * is applied.
    *
    * @param aSrcClass
-   *        Source class. May not be <code>null</code>.
+   *        Source class. May be <code>null</code>.
    * @param aDstClass
-   *        Destination class. May not be <code>null</code>.
+   *        Destination class. May be <code>null</code>.
    * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
@@ -225,9 +225,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * rules. The first match is returned.
    *
    * @param aSrcClass
-   *        Source class. May not be <code>null</code>.
+   *        Source class. May be <code>null</code>.
    * @param aDstClass
-   *        Destination class. May not be <code>null</code>.
+   *        Destination class. May be <code>null</code>.
    * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
@@ -292,9 +292,9 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
    * matching type converters. The first match is returned.
    *
    * @param aSrcClass
-   *        Source class. May not be <code>null</code>.
+   *        Source class. May be <code>null</code>.
    * @param aDstClass
-   *        Destination class. May not be <code>null</code>.
+   *        Destination class. May be <code>null</code>.
    * @return <code>null</code> if no such type converter exists, the converter object otherwise.
    */
   @Nullable
@@ -448,7 +448,7 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
       m_aRules.clear ();
 
       // Register all custom type converter.
-      // Must be in writeLock to ensure no reads happen during initialization
+      // Must be in writeLock to ensure no reads happen during initialisation
       for (final ITypeConverterRegistrarSPI aSPI : ServiceLoaderHelper.getAllSPIImplementations (ITypeConverterRegistrarSPI.class))
       {
         if (LOGGER.isDebugEnabled ())
@@ -465,13 +465,13 @@ public final class TypeConverterRegistry implements ITypeConverterRegistry
   }
 
   /**
-   * Reinitialize all type converters by clearing existing registrations and reloading all SPI
+   * Reinitialise all type converters by clearing existing registrations and reloading all SPI
    * implementations.
    */
   public void reinitialize ()
   {
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitializing " + getClass ().getName ());
+      LOGGER.debug ("Reinitialising " + getClass ().getName ());
 
     _reinitialize ();
   }

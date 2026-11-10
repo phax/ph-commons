@@ -74,7 +74,7 @@ public interface IJAXBReader <JAXBTYPE>
   @Nullable
   default JAXBTYPE read (@NonNull final InputSource aInputSource)
   {
-    // Initialize settings with defaults
+    // Initialise settings with defaults
     return read (new SAXReaderSettings (), aInputSource);
   }
 

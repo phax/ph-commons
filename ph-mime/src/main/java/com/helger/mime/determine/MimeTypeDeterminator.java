@@ -162,7 +162,7 @@ public final class MimeTypeDeterminator
    * Unregister an existing MIME content type.
    *
    * @param aMimeTypeContent
-   *        The content type to unregister. May not be <code>null</code>.
+   *        The content type to unregister. May be <code>null</code>.
    * @return {@link EChange#CHANGED} if the object was successfully unregistered.
    */
   @NonNull
@@ -274,6 +274,6 @@ public final class MimeTypeDeterminator
     });
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + MimeTypeDeterminator.class.getName ());
+      LOGGER.debug ("Reinitialised " + MimeTypeDeterminator.class.getName ());
   }
 }

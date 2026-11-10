@@ -28,7 +28,7 @@ import java.lang.annotation.Target;
  * seen to change by callers. Of necessity this means that all public fields are final, and that all
  * public final reference fields refer to other immutable objects, and that methods do not publish
  * references to any internal state which is mutable by implementation even if not by design.
- * Immutable objects may still have internal mutable state for purposes of performance optimization;
+ * Immutable objects may still have internal mutable state for purposes of performance optimisation;
  * some state variables may be lazily computed, so long as they are computed from immutable state
  * and that callers cannot tell the difference.
  * <p>

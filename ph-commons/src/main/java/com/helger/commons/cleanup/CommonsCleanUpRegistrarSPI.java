@@ -38,7 +38,7 @@ public final class CommonsCleanUpRegistrarSPI implements ICleanUpRegistrarSPI
   public void registerCleanUpAction (@NonNull final ICleanUpRegistry aRegistry)
   {
     aRegistry.registerCleanup (ICleanUpRegistry.PRIORITY_MIN + 500, () -> {
-      // Reinitialize singletons to the default values
+      // Reinitialise singletons to the default values
       SerializationConverterRegistry.getInstance ().reinitialize ();
 
       // Clear caches

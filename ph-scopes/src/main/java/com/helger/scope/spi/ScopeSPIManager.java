@@ -93,7 +93,7 @@ public final class ScopeSPIManager
   }
 
   /**
-   * Reinitialize all SPI listeners by reloading them from the service loader.
+   * Reinitialise all SPI listeners by reloading them from the service loader.
    */
   public void reinitialize ()
   {
@@ -105,7 +105,7 @@ public final class ScopeSPIManager
     });
 
     if (LOGGER.isDebugEnabled ())
-      LOGGER.debug ("Reinitialized " + ScopeSPIManager.class.getName ());
+      LOGGER.debug ("Reinitialised " + ScopeSPIManager.class.getName ());
   }
 
   /**

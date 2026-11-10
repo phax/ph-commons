@@ -71,7 +71,7 @@ public final class ConfigFactory
   /**
    * Use this configuration internally to resolve the properties used for the default instance. The
    * "system only" resolver considers system properties and environment variables only.<br>
-   * Initialization order is critical - this one must be first.
+   * Initialisation order is critical - this one must be first.
    */
   private static final IConfig SYSTEM_ONLY = Config.create (createValueProviderSystemOnly ());
   private static final IConfig DEFAULT_INSTANCE = Config.create (createDefaultValueProvider ());

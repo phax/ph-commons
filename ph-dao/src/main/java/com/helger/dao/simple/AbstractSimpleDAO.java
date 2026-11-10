@@ -128,7 +128,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
   }
 
   /**
-   * Custom initialization routine. Called only if the underlying file does not exist yet or is empty (0 bytes). This
+   * Custom initialisation routine. Called only if the underlying file does not exist yet or is empty (0 bytes). This
    * method is only called within a write lock!
    *
    * @return {@link EChange#CHANGED} if something was modified inside this method
@@ -217,7 +217,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    * @param t
    *        Thrown exception. Never <code>null</code>.
    * @param bIsInitialization
-   *        <code>true</code> if this happened during initialization of a new file,
+   *        <code>true</code> if this happened during initialisation of a new file,
    *        <code>false</code> if it happened during regular reading.
    * @param aFile
    *        The file that was read. May be <code>null</code> for in-memory DAOs.
@@ -239,7 +239,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
    * write locked!
    *
    * @throws DAOException
-   *         in case initialization or reading failed!
+   *         in case initialisation or reading failed!
    */
   @MustBeLocked (ELockType.WRITE)
   protected final void initialRead () throws DAOException
@@ -251,7 +251,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       // this branch is required for testing
       CONDLOG.info (() -> "This DAO of class " + getClass ().getName () + " will not be able to read from a file");
 
-      // do not return - run initialization anyway
+      // do not return - run initialisation anyway
     }
     else
     {
@@ -271,7 +271,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
         if (bIsInitialization)
         {
           // initial setup for non-existing file
-          CONDLOG.info (() -> "Trying to initialize DAO XML file '" + aFinalFile + "'");
+          CONDLOG.info (() -> "Trying to initialise DAO XML file '" + aFinalFile + "'");
 
           beginWithoutAutoSave ();
           try
@@ -291,7 +291,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
           finally
           {
             endWithoutAutoSave ();
-            // reset any pending changes, because the initialization should
+            // reset any pending changes, because the initialisation should
             // be read-only. If the implementing class changed something,
             // the return value of onInit() is what counts
             internalSetPendingChanges (false);
@@ -329,7 +329,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
           finally
           {
             endWithoutAutoSave ();
-            // reset any pending changes, because the initialization should
+            // reset any pending changes, because the initialisation should
             // be read-only. If the implementing class changed something,
             // the return value of onRead() is what counts
             internalSetPendingChanges (false);
@@ -347,7 +347,7 @@ public abstract class AbstractSimpleDAO extends AbstractDAO
       {
         triggerExceptionHandlersRead (ex, bIsInitialization, aFinalFile);
         throw new DAOException ("Error " +
-                                (bIsInitialization ? "initializing" : "reading") +
+                                (bIsInitialization ? "initialising" : "reading") +
                                 " the file '" +
                                 aFinalFile +
                                 "'",

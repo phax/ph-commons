@@ -773,7 +773,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
   @NonNull
   public OffsetDate with (@NonNull final TemporalAdjuster adjuster)
   {
-    // optimizations
+    // optimisations
     if (adjuster instanceof final LocalDate aLD)
       return _with (aLD, m_aOffset);
     if (adjuster instanceof final ZoneOffset aZO)
@@ -1288,7 +1288,7 @@ public class OffsetDate implements Temporal, TemporalAdjuster, Comparable <Offse
    * <p>
    * The {@code Temporal} passed to this method is converted to a {@code OffsetDate} using
    * {@link #from(TemporalAccessor)}. If the offset differs between the two times, then the
-   * specified end time is normalized to have the same offset as this time.
+   * specified end time is normalised to have the same offset as this time.
    * <p>
    * The calculation returns a whole number, representing the number of complete units between the
    * two dates. For example, the period in months between 2012-06-15Z and 2012-08-14Z will only be

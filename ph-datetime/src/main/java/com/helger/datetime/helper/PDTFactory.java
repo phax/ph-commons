@@ -656,7 +656,7 @@ public final class PDTFactory
    *        The number to convert. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>.
    */
-  @NonNull
+  @Nullable
   public static ZonedDateTime createZonedDateTime (@Nullable final Number a)
   {
     return a == null ? null : createZonedDateTime (a.longValue ());
@@ -670,7 +670,7 @@ public final class PDTFactory
    *        The number to convert. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>.
    */
-  @NonNull
+  @Nullable
   public static ZonedDateTime createZonedDateTimeUTC (@Nullable final Number a)
   {
     return a == null ? null : createZonedDateTimeUTC (a.longValue ());
@@ -2142,7 +2142,7 @@ public final class PDTFactory
    *        The number to convert. May be <code>null</code>.
    * @return <code>null</code> if the parameter is <code>null</code>.
    */
-  @NonNull
+  @Nullable
   public static LocalDate createLocalDate (@Nullable final Number a)
   {
     return a == null ? null : createLocalDateTime (a.longValue ()).toLocalDate ();

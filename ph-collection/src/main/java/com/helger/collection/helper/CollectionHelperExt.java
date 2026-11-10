@@ -160,7 +160,7 @@ public final class CollectionHelperExt extends CollectionHelper
    *         elements that are contained in both containers, if both containers are non-empty. The
    *         return value is never <code>null</code>.
    */
-  @Nullable
+  @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ICommonsSet <ELEMENTTYPE> getIntersected (@Nullable final Collection <? extends ELEMENTTYPE> aCollection1,
                                                                         @Nullable final Collection <? extends ELEMENTTYPE> aCollection2)
@@ -584,9 +584,9 @@ public final class CollectionHelperExt extends CollectionHelper
    * @param <VALUETYPE>
    *        The value type.
    * @param aKeys
-   *        The key array to use. May not be <code>null</code>.
+   *        The key array to use. May be <code>null</code>.
    * @param aValues
-   *        The value array to use. May not be <code>null</code>.
+   *        The value array to use. May be <code>null</code>.
    * @return A {@link CommonsLinkedHashMap} containing the passed key-value entries. Never
    *         <code>null</code>.
    */
@@ -1585,10 +1585,11 @@ public final class CollectionHelperExt extends CollectionHelper
    * @param <VALUE>
    *        Source map value type.
    * @param aValues
-   *        Source map to filter. May not be <code>null</code>.
+   *        Source map to filter. May be <code>null</code>.
    * @param aKeys
-   *        The filter set to filter the entries from. May not be <code>null</code>.
-   * @return A non-<code>null</code> map containing only the elements from the specified key set.
+   *        The filter set to filter the entries from. May be <code>null</code>.
+   * @return <code>null</code> if the source map or the key set is <code>null</code> or empty - a
+   *         map containing only the elements from the specified key set otherwise.
    */
   @Nullable
   @ReturnsMutableCopy
@@ -1898,7 +1899,7 @@ public final class CollectionHelperExt extends CollectionHelper
    * @param <ELEMENTTYPE>
    *        Type of elements in list
    * @param aCont
-   *        The backing list. May not be <code>null</code>.
+   *        The backing list. May be <code>null</code>.
    * @param nStartIndex
    *        The start index to use. Needs to be &ge; 0.
    * @param nSectionLength

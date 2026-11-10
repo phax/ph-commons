@@ -48,7 +48,7 @@ public final class SimpleLSResourceResolverTest
   {
     LSInput aRes;
 
-    // Initializing Apache Felix as OSGI container is required to get the
+    // Initialising Apache Felix as OSGI container is required to get the
     // "bundle" URL protocol installed correctly
     // Otherwise the first call would end up as a "file" resource ;-)
     final Framework aOSGI = new FrameworkFactory ().newFramework (new HashMap <> ());

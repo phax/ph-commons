@@ -515,8 +515,8 @@ public final class ArrayHelper
    *        The collection to be converted to an array. May be <code>null</code> .
    * @param aClass
    *        The class of the elements inside the collection. May not be <code>null</code>.
-   * @return <code>null</code> if the passed collection is empty, a non- <code>null</code> array
-   *         with all elements of the collection otherwise.
+   * @return An empty array if the passed collection is <code>null</code> or empty, an array with
+   *         all elements of the collection otherwise. Never <code>null</code>.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -594,7 +594,7 @@ public final class ArrayHelper
   @NonNull
   @ReturnsMutableCopy
   public static <ELEMENTTYPE> ELEMENTTYPE [] createArray (@Nonnegative final int nArraySize,
-                                                          @NonNull final ELEMENTTYPE aValue,
+                                                          @Nullable final ELEMENTTYPE aValue,
                                                           @NonNull final Class <ELEMENTTYPE> aClass)
   {
     ValueEnforcer.isGE0 (nArraySize, "ArraySize");
@@ -1510,16 +1510,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param bSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final boolean @Nullable [] aValues, final boolean aSearchValue)
+  public static int getFirstIndex (final boolean @Nullable [] aValues, final boolean bSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], bSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1529,16 +1529,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final byte @Nullable [] aValues, final byte aSearchValue)
+  public static int getFirstIndex (final byte @Nullable [] aValues, final byte nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1548,16 +1548,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param cSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final char @Nullable [] aValues, final char aSearchValue)
+  public static int getFirstIndex (final char @Nullable [] aValues, final char cSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], cSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1567,16 +1567,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param dSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final double @Nullable [] aValues, final double aSearchValue)
+  public static int getFirstIndex (final double @Nullable [] aValues, final double dSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], dSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1586,16 +1586,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param fSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final float @Nullable [] aValues, final float aSearchValue)
+  public static int getFirstIndex (final float @Nullable [] aValues, final float fSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], fSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1605,16 +1605,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final int @Nullable [] aValues, final int aSearchValue)
+  public static int getFirstIndex (final int @Nullable [] aValues, final int nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1624,16 +1624,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final long @Nullable [] aValues, final long aSearchValue)
+  public static int getFirstIndex (final long @Nullable [] aValues, final long nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1643,16 +1643,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getFirstIndex (final short @Nullable [] aValues, final short aSearchValue)
+  public static int getFirstIndex (final short @Nullable [] aValues, final short nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = 0; nIndex < nLength; ++nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1684,16 +1684,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param bSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final boolean @Nullable [] aValues, final boolean aSearchValue)
+  public static int getLastIndex (final boolean @Nullable [] aValues, final boolean bSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], bSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1703,16 +1703,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final byte @Nullable [] aValues, final byte aSearchValue)
+  public static int getLastIndex (final byte @Nullable [] aValues, final byte nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1722,16 +1722,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param cSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final char @Nullable [] aValues, final char aSearchValue)
+  public static int getLastIndex (final char @Nullable [] aValues, final char cSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], cSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1741,16 +1741,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param dSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final double @Nullable [] aValues, final double aSearchValue)
+  public static int getLastIndex (final double @Nullable [] aValues, final double dSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], dSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1760,16 +1760,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param fSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final float @Nullable [] aValues, final float aSearchValue)
+  public static int getLastIndex (final float @Nullable [] aValues, final float fSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], fSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1779,16 +1779,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final int @Nullable [] aValues, final int aSearchValue)
+  public static int getLastIndex (final int @Nullable [] aValues, final int nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1798,16 +1798,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final long @Nullable [] aValues, final long aSearchValue)
+  public static int getLastIndex (final long @Nullable [] aValues, final long nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1817,16 +1817,16 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>-1</code> if the searched value is not contained, a value &ge; 0 otherwise.
    */
-  public static int getLastIndex (final short @Nullable [] aValues, final short aSearchValue)
+  public static int getLastIndex (final short @Nullable [] aValues, final short nSearchValue)
   {
     final int nLength = getSize (aValues);
     if (nLength > 0)
       for (int nIndex = nLength - 1; nIndex >= 0; --nIndex)
-        if (EqualsHelper.equals (aValues[nIndex], aSearchValue))
+        if (EqualsHelper.equals (aValues[nIndex], nSearchValue))
           return nIndex;
     return CGlobal.ILLEGAL_UINT;
   }
@@ -1854,14 +1854,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param bSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final boolean @Nullable [] aValues, final boolean aSearchValue)
+  public static boolean contains (final boolean @Nullable [] aValues, final boolean bSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, bSearchValue) >= 0;
   }
 
   /**
@@ -1869,14 +1869,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final byte @Nullable [] aValues, final byte aSearchValue)
+  public static boolean contains (final byte @Nullable [] aValues, final byte nSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, nSearchValue) >= 0;
   }
 
   /**
@@ -1884,14 +1884,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param cSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final char @Nullable [] aValues, final char aSearchValue)
+  public static boolean contains (final char @Nullable [] aValues, final char cSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, cSearchValue) >= 0;
   }
 
   /**
@@ -1899,14 +1899,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param dSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final double @Nullable [] aValues, final double aSearchValue)
+  public static boolean contains (final double @Nullable [] aValues, final double dSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, dSearchValue) >= 0;
   }
 
   /**
@@ -1914,14 +1914,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param fSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final float @Nullable [] aValues, final float aSearchValue)
+  public static boolean contains (final float @Nullable [] aValues, final float fSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, fSearchValue) >= 0;
   }
 
   /**
@@ -1929,15 +1929,15 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
   @UsedInGeneratedCode
-  public static boolean contains (final int @Nullable [] aValues, final int aSearchValue)
+  public static boolean contains (final int @Nullable [] aValues, final int nSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, nSearchValue) >= 0;
   }
 
   /**
@@ -1945,14 +1945,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final long @Nullable [] aValues, final long aSearchValue)
+  public static boolean contains (final long @Nullable [] aValues, final long nSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, nSearchValue) >= 0;
   }
 
   /**
@@ -1960,14 +1960,14 @@ public final class ArrayHelper
    *
    * @param aValues
    *        The value array to be searched. May be <code>null</code>.
-   * @param aSearchValue
+   * @param nSearchValue
    *        The value to be searched. May be <code>null</code>.
    * @return <code>true</code> if the value array is not empty and the search value is contained -
    *         false otherwise.
    */
-  public static boolean contains (final short @Nullable [] aValues, final short aSearchValue)
+  public static boolean contains (final short @Nullable [] aValues, final short nSearchValue)
   {
-    return getFirstIndex (aValues, aSearchValue) >= 0;
+    return getFirstIndex (aValues, nSearchValue) >= 0;
   }
 
   /**
@@ -1975,14 +1975,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param bDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static boolean getFirst (final boolean @Nullable [] aArray, final boolean aDefaultValue)
+  public static boolean getFirst (final boolean @Nullable [] aArray, final boolean bDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? bDefaultValue : aArray[0];
   }
 
   /**
@@ -1990,14 +1990,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static byte getFirst (final byte @Nullable [] aArray, final byte aDefaultValue)
+  public static byte getFirst (final byte @Nullable [] aArray, final byte nDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? nDefaultValue : aArray[0];
   }
 
   /**
@@ -2005,14 +2005,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param cDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static char getFirst (final char @Nullable [] aArray, final char aDefaultValue)
+  public static char getFirst (final char @Nullable [] aArray, final char cDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? cDefaultValue : aArray[0];
   }
 
   /**
@@ -2020,14 +2020,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param dDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static double getFirst (final double @Nullable [] aArray, final double aDefaultValue)
+  public static double getFirst (final double @Nullable [] aArray, final double dDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? dDefaultValue : aArray[0];
   }
 
   /**
@@ -2035,14 +2035,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param fDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static float getFirst (final float @Nullable [] aArray, final float aDefaultValue)
+  public static float getFirst (final float @Nullable [] aArray, final float fDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? fDefaultValue : aArray[0];
   }
 
   /**
@@ -2050,14 +2050,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static int getFirst (final int @Nullable [] aArray, final int aDefaultValue)
+  public static int getFirst (final int @Nullable [] aArray, final int nDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? nDefaultValue : aArray[0];
   }
 
   /**
@@ -2065,14 +2065,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static long getFirst (final long @Nullable [] aArray, final long aDefaultValue)
+  public static long getFirst (final long @Nullable [] aArray, final long nDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? nDefaultValue : aArray[0];
   }
 
   /**
@@ -2080,14 +2080,14 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's first element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the first element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static short getFirst (final short @Nullable [] aArray, final short aDefaultValue)
+  public static short getFirst (final short @Nullable [] aArray, final short nDefaultValue)
   {
-    return isEmpty (aArray) ? aDefaultValue : aArray[0];
+    return isEmpty (aArray) ? nDefaultValue : aArray[0];
   }
 
   /**
@@ -2131,15 +2131,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param bDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static boolean getLast (final boolean @Nullable [] aArray, final boolean aDefaultValue)
+  public static boolean getLast (final boolean @Nullable [] aArray, final boolean bDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? bDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2147,15 +2147,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static byte getLast (final byte @Nullable [] aArray, final byte aDefaultValue)
+  public static byte getLast (final byte @Nullable [] aArray, final byte nDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? nDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2163,15 +2163,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param cDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static char getLast (final char @Nullable [] aArray, final char aDefaultValue)
+  public static char getLast (final char @Nullable [] aArray, final char cDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? cDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2179,15 +2179,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param dDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static double getLast (final double @Nullable [] aArray, final double aDefaultValue)
+  public static double getLast (final double @Nullable [] aArray, final double dDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? dDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2195,15 +2195,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param fDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static float getLast (final float @Nullable [] aArray, final float aDefaultValue)
+  public static float getLast (final float @Nullable [] aArray, final float fDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? fDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2211,15 +2211,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static int getLast (final int @Nullable [] aArray, final int aDefaultValue)
+  public static int getLast (final int @Nullable [] aArray, final int nDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? nDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2227,15 +2227,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static long getLast (final long @Nullable [] aArray, final long aDefaultValue)
+  public static long getLast (final long @Nullable [] aArray, final long nDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? nDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2243,15 +2243,15 @@ public final class ArrayHelper
    *
    * @param aArray
    *        The array who's last element is to be retrieved. May be <code>null</code> or empty.
-   * @param aDefaultValue
+   * @param nDefaultValue
    *        The default value to be returned if the array is empty
    * @return the last element if the passed array is not empty, the default value if the passed
    *         array is empty.
    */
-  public static short getLast (final short @Nullable [] aArray, final short aDefaultValue)
+  public static short getLast (final short @Nullable [] aArray, final short nDefaultValue)
   {
     final int nSize = getSize (aArray);
-    return nSize == 0 ? aDefaultValue : aArray[nSize - 1];
+    return nSize == 0 ? nDefaultValue : aArray[nSize - 1];
   }
 
   /**
@@ -2335,8 +2335,7 @@ public final class ArrayHelper
    * @param aClass
    *        The element class. Must be present, because in case both elements are <code>null</code>
    *        there would be no way to create a new array. May not be <code>null</code>.
-   * @return <code>null</code> if both array parameters are <code>null</code> - a
-   *         non-<code>null</code> array with all elements in the correct order otherwise.
+   * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -2368,8 +2367,7 @@ public final class ArrayHelper
    * @param aClass
    *        The element class. Must be present, because in case both elements are <code>null</code>
    *        there would be no way to create a new array. May not be <code>null</code>.
-   * @return <code>null</code> if both array parameters are <code>null</code> - a
-   *         non-<code>null</code> array with all elements in the correct order otherwise.
+   * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @NonNull
   @ReturnsMutableCopy
@@ -2418,20 +2416,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param bHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static boolean @NonNull [] getConcatenated (final boolean aHead, final boolean... aTailArray)
+  public static boolean @NonNull [] getConcatenated (final boolean bHead, final boolean... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new boolean [] { aHead };
+      return new boolean [] { bHead };
 
     final boolean [] ret = new boolean [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = bHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2442,19 +2440,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param bTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static boolean @NonNull [] getConcatenated (final boolean @Nullable [] aHeadArray, final boolean aTail)
+  public static boolean @NonNull [] getConcatenated (final boolean @Nullable [] aHeadArray, final boolean bTail)
   {
     if (isEmpty (aHeadArray))
-      return new boolean [] { aTail };
+      return new boolean [] { bTail };
 
     final boolean [] ret = new boolean [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = bTail;
     return ret;
   }
 
@@ -2488,20 +2486,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param nHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static byte @NonNull [] getConcatenated (final byte aHead, final byte... aTailArray)
+  public static byte @NonNull [] getConcatenated (final byte nHead, final byte... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new byte [] { aHead };
+      return new byte [] { nHead };
 
     final byte [] ret = new byte [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = nHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2512,19 +2510,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param nTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static byte @NonNull [] getConcatenated (final byte @Nullable [] aHeadArray, final byte aTail)
+  public static byte @NonNull [] getConcatenated (final byte @Nullable [] aHeadArray, final byte nTail)
   {
     if (isEmpty (aHeadArray))
-      return new byte [] { aTail };
+      return new byte [] { nTail };
 
     final byte [] ret = new byte [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = nTail;
     return ret;
   }
 
@@ -2585,20 +2583,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param cHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static char @NonNull [] getConcatenated (final char aHead, final char... aTailArray)
+  public static char @NonNull [] getConcatenated (final char cHead, final char... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new char [] { aHead };
+      return new char [] { cHead };
 
     final char [] ret = new char [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = cHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2609,19 +2607,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param cTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static char @NonNull [] getConcatenated (final char @Nullable [] aHeadArray, final char aTail)
+  public static char @NonNull [] getConcatenated (final char @Nullable [] aHeadArray, final char cTail)
   {
     if (isEmpty (aHeadArray))
-      return new char [] { aTail };
+      return new char [] { cTail };
 
     final char [] ret = new char [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = cTail;
     return ret;
   }
 
@@ -2655,20 +2653,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param dHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static double @NonNull [] getConcatenated (final double aHead, final double... aTailArray)
+  public static double @NonNull [] getConcatenated (final double dHead, final double... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new double [] { aHead };
+      return new double [] { dHead };
 
     final double [] ret = new double [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = dHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2679,19 +2677,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param dTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static double @NonNull [] getConcatenated (final double @Nullable [] aHeadArray, final double aTail)
+  public static double @NonNull [] getConcatenated (final double @Nullable [] aHeadArray, final double dTail)
   {
     if (isEmpty (aHeadArray))
-      return new double [] { aTail };
+      return new double [] { dTail };
 
     final double [] ret = new double [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = dTail;
     return ret;
   }
 
@@ -2725,20 +2723,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param fHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static float @NonNull [] getConcatenated (final float aHead, final float... aTailArray)
+  public static float @NonNull [] getConcatenated (final float fHead, final float... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new float [] { aHead };
+      return new float [] { fHead };
 
     final float [] ret = new float [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = fHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2749,19 +2747,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param fTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static float @NonNull [] getConcatenated (final float @Nullable [] aHeadArray, final float aTail)
+  public static float @NonNull [] getConcatenated (final float @Nullable [] aHeadArray, final float fTail)
   {
     if (isEmpty (aHeadArray))
-      return new float [] { aTail };
+      return new float [] { fTail };
 
     final float [] ret = new float [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = fTail;
     return ret;
   }
 
@@ -2795,20 +2793,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param nHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static int @NonNull [] getConcatenated (final int aHead, final int... aTailArray)
+  public static int @NonNull [] getConcatenated (final int nHead, final int... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new int [] { aHead };
+      return new int [] { nHead };
 
     final int [] ret = new int [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = nHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2819,19 +2817,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param nTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static int @NonNull [] getConcatenated (final int @Nullable [] aHeadArray, final int aTail)
+  public static int @NonNull [] getConcatenated (final int @Nullable [] aHeadArray, final int nTail)
   {
     if (isEmpty (aHeadArray))
-      return new int [] { aTail };
+      return new int [] { nTail };
 
     final int [] ret = new int [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = nTail;
     return ret;
   }
 
@@ -2865,20 +2863,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param nHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static long @NonNull [] getConcatenated (final long aHead, final long... aTailArray)
+  public static long @NonNull [] getConcatenated (final long nHead, final long... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new long [] { aHead };
+      return new long [] { nHead };
 
     final long [] ret = new long [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = nHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2889,19 +2887,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param nTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static long @NonNull [] getConcatenated (final long @Nullable [] aHeadArray, final long aTail)
+  public static long @NonNull [] getConcatenated (final long @Nullable [] aHeadArray, final long nTail)
   {
     if (isEmpty (aHeadArray))
-      return new long [] { aTail };
+      return new long [] { nTail };
 
     final long [] ret = new long [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = nTail;
     return ret;
   }
 
@@ -2935,20 +2933,20 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param nHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static short @NonNull [] getConcatenated (final short aHead, final short... aTailArray)
+  public static short @NonNull [] getConcatenated (final short nHead, final short... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new short [] { aHead };
+      return new short [] { nHead };
 
     final short [] ret = new short [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = nHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -2959,19 +2957,19 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param nTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @ReturnsMutableCopy
-  public static short @NonNull [] getConcatenated (final short @Nullable [] aHeadArray, final short aTail)
+  public static short @NonNull [] getConcatenated (final short @Nullable [] aHeadArray, final short nTail)
   {
     if (isEmpty (aHeadArray))
-      return new short [] { aTail };
+      return new short [] { nTail };
 
     final short [] ret = new short [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = nTail;
     return ret;
   }
 
@@ -2982,10 +2980,11 @@ public final class ArrayHelper
    *        The first array. May be <code>null</code>.
    * @param aTailArray
    *        The second array. May be <code>null</code>.
-   * @return <code>null</code> if both array parameters are <code>null</code> - a
-   *         non-<code>null</code> array with all elements in the correct order otherwise.
+   * @return <code>null</code> if the second array is <code>null</code> and the first array is
+   *         <code>null</code> or empty - a non-<code>null</code> array with all elements in the
+   *         correct order otherwise.
    */
-  @NonNull
+  @Nullable
   @ReturnsMutableCopy
   public static String [] getConcatenated (@Nullable final String [] aHeadArray, @Nullable final String... aTailArray)
   {
@@ -3006,7 +3005,7 @@ public final class ArrayHelper
    * Get a new array that combines the passed head element and the array. The head element will be
    * the first element of the created array.
    *
-   * @param aHead
+   * @param sHead
    *        The first element of the result array.
    * @param aTailArray
    *        The tail array. May be <code>null</code>.
@@ -3014,13 +3013,13 @@ public final class ArrayHelper
    */
   @NonNull
   @ReturnsMutableCopy
-  public static String [] getConcatenated (final String aHead, @Nullable final String... aTailArray)
+  public static String [] getConcatenated (final String sHead, @Nullable final String... aTailArray)
   {
     if (isEmpty (aTailArray))
-      return new String [] { aHead };
+      return new String [] { sHead };
 
     final String [] ret = new String [1 + aTailArray.length];
-    ret[0] = aHead;
+    ret[0] = sHead;
     System.arraycopy (aTailArray, 0, ret, 1, aTailArray.length);
     return ret;
   }
@@ -3031,20 +3030,20 @@ public final class ArrayHelper
    *
    * @param aHeadArray
    *        The head array. May be <code>null</code>.
-   * @param aTail
+   * @param sTail
    *        The last element of the result array.
    * @return A non-<code>null</code> array with all elements in the correct order.
    */
   @NonNull
   @ReturnsMutableCopy
-  public static String [] getConcatenated (@Nullable final String [] aHeadArray, final String aTail)
+  public static String [] getConcatenated (@Nullable final String [] aHeadArray, final String sTail)
   {
     if (isEmpty (aHeadArray))
-      return new String [] { aTail };
+      return new String [] { sTail };
 
     final String [] ret = new String [aHeadArray.length + 1];
     System.arraycopy (aHeadArray, 0, ret, 0, aHeadArray.length);
-    ret[aHeadArray.length] = aTail;
+    ret[aHeadArray.length] = sTail;
     return ret;
   }
 
@@ -3952,11 +3951,11 @@ public final class ArrayHelper
 
   /**
    * Get the passed collection as an array of Object. If the passed collection is <code>null</code>
-   * or empty, an empty array is returned.
+   * or empty, <code>null</code> is returned.
    *
    * @param aCollection
    *        The collection to be converted. May be <code>null</code>.
-   * @return Never <code>null</code>.
+   * @return <code>null</code> if the passed collection is <code>null</code> or empty.
    */
   @Nullable
   @ReturnsMutableCopy

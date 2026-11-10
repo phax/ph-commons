@@ -121,7 +121,7 @@ public class WSClientConfig
    * secure, production code!
    *
    * @throws KeyManagementException
-   *         if initializing the SSL context failed
+   *         if initialising the SSL context failed
    * @return this for chaining
    */
   @NonNull
@@ -138,7 +138,7 @@ public class WSClientConfig
    * @param bDebugMode
    *        <code>true</code> for extended debug logging, <code>false</code> for production.
    * @throws KeyManagementException
-   *         if initializing the SSL context failed
+   *         if initialising the SSL context failed
    * @return this for chaining
    * @since 9.1.5
    */

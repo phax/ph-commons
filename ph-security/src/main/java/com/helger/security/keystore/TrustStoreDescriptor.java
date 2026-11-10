@@ -38,7 +38,7 @@ public class TrustStoreDescriptor implements ITrustStoreDescriptor
   final String m_sPath;
   final char [] m_aPassword;
   final Provider m_aProvider;
-  // Lazily initialized
+  // Lazily initialised
   private LoadedKeyStore m_aLTS;
 
   /**

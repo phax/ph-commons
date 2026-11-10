@@ -189,8 +189,7 @@ public class BasicTreeItem <DATATYPE, ITEMTYPE extends ITreeItem <DATATYPE, ITEM
    *
    * @param aData
    *        the data associated with this item
-   * @return the created TreeItem object or <code>null</code> if the ID is already in use and
-   *         bAllowOverwrite is false
+   * @return the created TreeItem object. Never <code>null</code>.
    */
   @NonNull
   public final ITEMTYPE createChildItem (@Nullable final DATATYPE aData)

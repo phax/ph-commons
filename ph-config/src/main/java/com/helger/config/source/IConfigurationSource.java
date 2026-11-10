@@ -40,7 +40,7 @@ public interface IConfigurationSource extends IConfigurationValueProvider
   int getPriority ();
 
   /**
-   * @return <code>true</code> if the file was successfully initialized and can be used as a
+   * @return <code>true</code> if the file was successfully initialised and can be used as a
    *         configuration source.
    */
   boolean isInitializedAndUsable ();

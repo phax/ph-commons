@@ -43,7 +43,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   private final ByteArrayWrapper m_aBytes;
 
   /**
-   * Constructor using the full byte array with default copy behavior.
+   * Constructor using the full byte array with default copy behaviour.
    *
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
@@ -54,7 +54,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor using a sub-range of the byte array with default copy behavior.
+   * Constructor using a sub-range of the byte array with default copy behaviour.
    *
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
@@ -71,7 +71,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor using the full byte array with explicit copy behavior.
+   * Constructor using the full byte array with explicit copy behaviour.
    *
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
@@ -85,7 +85,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor using a sub-range of the byte array with explicit copy behavior.
+   * Constructor using a sub-range of the byte array with explicit copy behaviour.
    *
    * @param aBytes
    *        The byte array to use. May not be <code>null</code>.
@@ -106,7 +106,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor with resource ID using the full byte array with default copy behavior.
+   * Constructor with resource ID using the full byte array with default copy behaviour.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
@@ -119,7 +119,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor with resource ID using a sub-range with default copy behavior.
+   * Constructor with resource ID using a sub-range with default copy behaviour.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
@@ -139,7 +139,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Constructor with resource ID using the full byte array with explicit copy behavior.
+   * Constructor with resource ID using the full byte array with explicit copy behaviour.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.
@@ -157,7 +157,7 @@ public class ReadableResourceByteArray extends AbstractMemoryReadableResource im
   }
 
   /**
-   * Full constructor with resource ID, sub-range and explicit copy behavior.
+   * Full constructor with resource ID, sub-range and explicit copy behaviour.
    *
    * @param sResourceID
    *        The resource ID. May be <code>null</code>.

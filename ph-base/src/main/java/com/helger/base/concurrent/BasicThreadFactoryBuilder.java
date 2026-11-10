@@ -54,7 +54,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   String m_sNamingPattern;
 
   /** The priority. */
-  Integer m_nPriority;
+  Integer m_aPriority;
 
   /** The daemon flag. */
   ETriState m_eDaemon = ETriState.UNDEFINED;
@@ -146,7 +146,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
   @NonNull
   public final BasicThreadFactoryBuilder priority (final int nPriority)
   {
-    m_nPriority = Integer.valueOf (nPriority);
+    m_aPriority = Integer.valueOf (nPriority);
     return this;
   }
 
@@ -176,7 +176,7 @@ public class BasicThreadFactoryBuilder implements IResettableBuilder <BasicThrea
     m_aThreadGroup = null;
     m_aUncaughtExceptionHandler = BasicThreadFactory.getDefaultUncaughtExceptionHandler ();
     m_sNamingPattern = null;
-    m_nPriority = null;
+    m_aPriority = null;
     m_eDaemon = ETriState.UNDEFINED;
   }
 

@@ -62,77 +62,88 @@ public class Homoglyph
       aSet.forEach (nValue -> m_aLookup.put (nValue, aSet));
   }
 
-  private boolean _checkForHomoglyphs (final int cp1, final int cp2)
+  private boolean _checkForHomoglyphs (final int nCP1, final int nCP2)
   {
-    if (cp1 == cp2)
+    if (nCP1 == nCP2)
       return true;
-    final IntSet cp1Set = m_aLookup.get (cp1);
-    return cp1Set != null && cp1Set.contains (cp2);
+    final IntSet aCP1Set = m_aLookup.get (nCP1);
+    return aCP1Set != null && aCP1Set.contains (nCP2);
   }
 
-  private boolean _hasWordAtIndex (final CodePoints text, final CodePoints targetWord, final int index)
+  private boolean _hasWordAtIndex (@NonNull final CodePoints aText,
+                                   @NonNull final CodePoints aTargetWord,
+                                   final int nIndex)
   {
-    for (int i = 0; i < targetWord.getLength (); i++)
+    for (int i = 0; i < aTargetWord.getLength (); i++)
     {
-      final int nCP = targetWord.getValue (i);
-      final int targetCharLower = Character.toLowerCase (nCP);
-      final int targetCharUpper = Character.toUpperCase (nCP);
-      final int textChar = text.getValue (index + i);
-      if (!_checkForHomoglyphs (targetCharLower, textChar) && !_checkForHomoglyphs (targetCharUpper, textChar))
+      final int nCP = aTargetWord.getValue (i);
+      final int nTargetCharLower = Character.toLowerCase (nCP);
+      final int nTargetCharUpper = Character.toUpperCase (nCP);
+      final int nTextChar = aText.getValue (nIndex + i);
+      if (!_checkForHomoglyphs (nTargetCharLower, nTextChar) && !_checkForHomoglyphs (nTargetCharUpper, nTextChar))
         return false;
     }
     return true;
   }
 
   @NonNull
-  private ICommonsList <HomoglyphSearchResult> _checkForWord (final CodePoints text, final CodePoints targetWord)
+  private ICommonsList <HomoglyphSearchResult> _checkForWord (@NonNull final CodePoints aText,
+                                                              @NonNull final CodePoints aTargetWord)
   {
     final ICommonsList <HomoglyphSearchResult> ret = new CommonsArrayList <> ();
-    final int lastIndex = text.getLength () - targetWord.getLength ();
-    for (int i = 0; i <= lastIndex; i++)
-      if (_hasWordAtIndex (text, targetWord, i))
-        ret.add (new HomoglyphSearchResult (i, text.subStringAt (i, targetWord.getLength ()), targetWord.getText ()));
+    final int nLastIndex = aText.getLength () - aTargetWord.getLength ();
+    for (int i = 0; i <= nLastIndex; i++)
+      if (_hasWordAtIndex (aText, aTargetWord, i))
+        ret.add (new HomoglyphSearchResult (i, aText.subStringAt (i, aTargetWord.getLength ()), aTargetWord.getText ()));
     return ret;
   }
 
   /**
-   * Search the String {@code text} to locate all occurrences of the words contained in
-   * {@code targetWords}, accounting for homoglyph substitution and variations of case.
+   * Search the String {@code sText} to locate all occurrences of the words contained in
+   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty target
+   * words are ignored.
    *
-   * @param text
-   *        text to be searched
+   * @param sText
+   *        text to be searched. May not be <code>null</code>.
    * @param aTargetWords
-   *        words to be located
+   *        words to be located. May not be <code>null</code>.
    * @return a List containing the results of the search, if no matches were found an empty list
    *         will be returned
    */
   @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <HomoglyphSearchResult> search (final String text, final Iterable <String> aTargetWords)
+  public ICommonsList <HomoglyphSearchResult> search (@NonNull final String sText,
+                                                      @NonNull final Iterable <String> aTargetWords)
   {
-    final ICommonsList <HomoglyphSearchResult> allResults = new CommonsArrayList <> ();
-    final CodePoints textCodepoints = new CodePoints (text);
+    ValueEnforcer.notNull (sText, "Text");
+    ValueEnforcer.notNull (aTargetWords, "TargetWords");
+
+    final ICommonsList <HomoglyphSearchResult> aAllResults = new CommonsArrayList <> ();
+    final CodePoints aTextCodepoints = new CodePoints (sText);
     for (final String sTargetWord : aTargetWords)
-      allResults.addAll (_checkForWord (textCodepoints, new CodePoints (sTargetWord)));
-    return allResults;
+      if (StringHelper.isNotEmpty (sTargetWord))
+        aAllResults.addAll (_checkForWord (aTextCodepoints, new CodePoints (sTargetWord)));
+    return aAllResults;
   }
 
   /**
-   * Search the String {@code text} to locate all occurrences of the words contained in
-   * {@code targetWords}, accounting for homoglyph substitution and variations of case.
+   * Search the String {@code sText} to locate all occurrences of the words contained in
+   * {@code aTargetWords}, accounting for homoglyph substitution and variations of case. Empty target
+   * words are ignored.
    *
-   * @param text
-   *        text to be searched
-   * @param targetWords
-   *        words to be located
+   * @param sText
+   *        text to be searched. May not be <code>null</code>.
+   * @param aTargetWords
+   *        words to be located. May not be <code>null</code>.
    * @return a List containing the results of the search, if no matches were found an empty list
    *         will be returned
    */
   @NonNull
   @ReturnsMutableCopy
-  public ICommonsList <HomoglyphSearchResult> search (final String text, final String... targetWords)
+  public ICommonsList <HomoglyphSearchResult> search (@NonNull final String sText,
+                                                      @NonNull final String... aTargetWords)
   {
-    return search (text, new CommonsArrayList <> (targetWords));
+    return search (sText, new CommonsArrayList <> (aTargetWords));
   }
 
   private static final class CodePoints

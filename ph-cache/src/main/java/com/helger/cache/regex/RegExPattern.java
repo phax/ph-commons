@@ -179,7 +179,7 @@ public final class RegExPattern
     Pattern ret = m_aPattern;
     if (ret == null)
     {
-      // Lazily initialize
+      // Lazily initialise
       try
       {
         m_aPattern = ret = Pattern.compile (m_sRegEx, m_nOptions);

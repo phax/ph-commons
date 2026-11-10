@@ -96,7 +96,8 @@ public interface IErrorList extends ICommonsList <IError>, IHasErrorLevels <IErr
    * @param sSearchFieldName
    *        The field name to search.
    * @param aErrorLevel
-   *        The exact form error level to search. May not be <code>null</code>
+   *        The exact form error level to search. May be <code>null</code>, in which case
+   *         <code>false</code> is returned.
    * @return <code>true</code> if an entry for the specified field is present that has exactly the
    *         specified form error level
    */

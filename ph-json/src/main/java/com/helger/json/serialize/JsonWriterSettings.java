@@ -42,7 +42,7 @@ public class JsonWriterSettings implements IJsonWriterSettings
   public static final boolean DEFAULT_QUOTE_NAMES = true;
 
   // Must be after all default values!!
-  /** Default settings space optimized */
+  /** Default settings space optimised */
   public static final IJsonWriterSettings DEFAULT_SETTINGS = new JsonWriterSettings ();
   /**
    * Default settings using indentation.

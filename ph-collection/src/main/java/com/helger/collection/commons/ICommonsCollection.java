@@ -200,7 +200,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #getAtIndexMapped(Predicate, int, Function, Object)
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE getAtIndexMapped (@NonNull final Predicate <? super ELEMENTTYPE> aFilter,
+  default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                               @Nonnegative final int nIndex,
                                               @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper)
   {
@@ -226,7 +226,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @see #getAtIndexMapped(Predicate, int, Function)
    */
   @Nullable
-  default <DSTTYPE> DSTTYPE getAtIndexMapped (@NonNull final Predicate <? super ELEMENTTYPE> aFilter,
+  default <DSTTYPE> DSTTYPE getAtIndexMapped (@Nullable final Predicate <? super ELEMENTTYPE> aFilter,
                                               @Nonnegative final int nIndex,
                                               @NonNull final Function <? super ELEMENTTYPE, ? extends DSTTYPE> aMapper,
                                               @Nullable final DSTTYPE aDefault)
@@ -270,7 +270,8 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
    * @param aElement
    *        The element to be added. May be <code>null</code>.
    * @param aFilter
-   *        The predicate to be executed. May not be <code>null</code>.
+   *        The predicate to be executed. May be <code>null</code>, in which case the element is
+   *        always added.
    * @return {@link EChange#CHANGED} if the element was added, {@link EChange#UNCHANGED} otherwise.
    * @see #add(Object)
    */
@@ -283,7 +284,7 @@ public interface ICommonsCollection <ELEMENTTYPE> extends Collection <ELEMENTTYP
   }
 
   /**
-   * Add the passed element to this collection if it is non-<code>null</code>. This is an optimized
+   * Add the passed element to this collection if it is non-<code>null</code>. This is an optimised
    * version for {@link #addIf(Object, Predicate)} with the fixed predicate of <code>!= null</code>.
    *
    * @param aElement

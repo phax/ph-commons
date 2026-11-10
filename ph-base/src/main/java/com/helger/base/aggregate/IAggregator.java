@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.function.Function;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 /**
@@ -44,7 +45,7 @@ public interface IAggregator <SRCTYPE, DSTTYPE> extends Function <Collection <SR
   @Nullable
   @SuppressWarnings ("unchecked")
   // @SafeVarArgs does not work for default methods
-  default DSTTYPE apply (@Nullable final SRCTYPE... aObjects)
+  default DSTTYPE apply (@NonNull final SRCTYPE... aObjects)
   {
     return apply (Arrays.asList (aObjects));
   }

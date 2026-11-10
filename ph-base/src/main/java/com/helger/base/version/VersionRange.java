@@ -221,9 +221,9 @@ public final class VersionRange implements IComparable <VersionRange>
   }
 
   /**
-   * @return The floor version of this range. May be <code>null</code>.
+   * @return The floor version of this range. Never <code>null</code>.
    */
-  @Nullable
+  @NonNull
   public Version getFloorVersion ()
   {
     return m_aFloorVersion;

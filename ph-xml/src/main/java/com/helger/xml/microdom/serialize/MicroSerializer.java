@@ -129,7 +129,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
    * @param aXMLWriter
    *        The XML writer to use. May not be <code>null</code>.
    * @param aParentNode
-   *        The parent node to be used. May not be <code>null</code>.
+   *        The parent node to be used. May be <code>null</code>.
    * @param aChildren
    *        The node list to be serialized. May not be <code>null</code>.
    */
@@ -177,7 +177,7 @@ public class MicroSerializer extends AbstractXMLSerializer <IMicroNode>
   }
 
   private void _writeContainer (@NonNull final XMLEmitter aXMLWriter,
-                                @NonNull final IMicroNode aParentNode,
+                                @Nullable final IMicroNode aParentNode,
                                 @NonNull final IMicroContainer aContainer)
   {
     // A container has no own properties!

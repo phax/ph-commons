@@ -406,8 +406,9 @@ public final class PDTWebDateHelper
    * create a W3C Date Time representation of a date time using UTC date time zone.
    *
    * @param aDateTime
-   *        Date to print. May not be <code>null</code>.
-   * @return the W3C Date Time represented by the given Date.
+   *        Date to print. May be <code>null</code>.
+   * @return the W3C Date Time represented by the given Date. <code>null</code> if the passed date
+   *         is <code>null</code>.
    */
   @Nullable
   public static String getAsStringW3C (@Nullable final ZonedDateTime aDateTime)
@@ -422,8 +423,9 @@ public final class PDTWebDateHelper
    * create a W3C Date Time representation of a date time using UTC date time zone.
    *
    * @param aDateTime
-   *        Date to print. May not be <code>null</code>.
-   * @return the W3C Date Time represented by the given Date.
+   *        Date to print. May be <code>null</code>.
+   * @return the W3C Date Time represented by the given Date. <code>null</code> if the passed date
+   *         is <code>null</code>.
    */
   @Nullable
   public static String getAsStringW3C (@Nullable final OffsetDateTime aDateTime)
@@ -437,8 +439,9 @@ public final class PDTWebDateHelper
    * create a W3C Date Time representation of a date.
    *
    * @param aDateTime
-   *        Date to print. May not be <code>null</code>.
-   * @return the W3C Date Time represented by the given Date.
+   *        Date to print. May be <code>null</code>.
+   * @return the W3C Date Time represented by the given Date. <code>null</code> if the passed date
+   *         is <code>null</code>.
    */
   @Nullable
   public static String getAsStringW3C (@Nullable final LocalDateTime aDateTime)

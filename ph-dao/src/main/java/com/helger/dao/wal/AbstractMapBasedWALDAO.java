@@ -167,7 +167,7 @@ public abstract class AbstractMapBasedWALDAO <INTERFACETYPE extends IHasID <Stri
    * @param sFilename
    *        The filename to read and write.
    * @param aInitSettings
-   *        Optional initialization settings to be used. May not be <code>null</code>.
+   *        Optional initialisation settings to be used. May not be <code>null</code>.
    * @throws DAOException
    *         If reading and reading fails
    */
