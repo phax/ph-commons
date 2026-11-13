@@ -346,6 +346,7 @@
   </dependencies>
   
   <modules>
+    <module>ph-commons-bom</module>
     <module>ph-annotations</module>
     <module>ph-base</module>
     <module>ph-unittest-support</module>
