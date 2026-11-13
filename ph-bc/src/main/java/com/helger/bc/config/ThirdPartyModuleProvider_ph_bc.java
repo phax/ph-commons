@@ -37,7 +37,7 @@ public final class ThirdPartyModuleProvider_ph_bc implements IThirdPartyModulePr
                                                                         .displayName ("Bouncy Castle")
                                                                         .copyrightOwner ("Legion of the Bouncy Castle")
                                                                         .license (ELicense.MIT)
-                                                                        .version ("1.86")
+                                                                        .version ("1.87")
                                                                         .webSiteUrl ("https://www.bouncycastle.org/")
                                                                         .build ();
 
