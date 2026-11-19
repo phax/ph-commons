@@ -45,27 +45,8 @@ import com.helger.base.io.stream.NonClosingInputStream;
 @Immutable
 public final class ZipWalker
 {
-  /** The length of the ZIP header that is checked */
-  private static final int ZIP_HEADER_LENGTH = 4;
-
   @PresentForCodeCoverage
   private static final ZipWalker INSTANCE = new ZipWalker ();
-
-  /**
-   * The mutable state of one walk, shared by an archive and all its nested archives.
-   */
-  private static final class WalkState
-  {
-    private final ZipWalkerSettings m_aSettings;
-    private int m_nEntryCount;
-    private long m_nTotalUncompressedBytes;
-    private boolean m_bSizeExceeded;
-
-    WalkState (@NonNull final ZipWalkerSettings aSettings)
-    {
-      m_aSettings = aSettings;
-    }
-  }
 
   /**
    * The reason why a walk ended unsuccessfully.
@@ -88,31 +69,17 @@ public final class ZipWalker
 
   /**
    * An input stream that counts the read bytes against the allowed total uncompressed size and
-   * fails with an {@link IOException} if it is exceeded. Closing it does not close the archive.
+   * fails with an {@link InvalidZipException} if it is exceeded. Closing it does not close the
+   * archive.
    */
   private static final class LimitingInputStream extends FilterInputStream
   {
-    private final WalkState m_aState;
+    private final ZipLimitCounter m_aCounter;
 
-    LimitingInputStream (@NonNull final InputStream aIS, @NonNull final WalkState aState)
+    LimitingInputStream (@NonNull final InputStream aIS, @NonNull final ZipLimitCounter aCounter)
     {
       super (aIS);
-      m_aState = aState;
-    }
-
-    private void _consumed (final long nBytes) throws IOException
-    {
-      if (nBytes > 0)
-      {
-        m_aState.m_nTotalUncompressedBytes += nBytes;
-        if (m_aState.m_nTotalUncompressedBytes > m_aState.m_aSettings.getMaxTotalUncompressedBytes ())
-        {
-          m_aState.m_bSizeExceeded = true;
-          throw new IOException ("The total uncompressed size exceeds " +
-                                 m_aState.m_aSettings.getMaxTotalUncompressedBytes () +
-                                 " bytes");
-        }
-      }
+      m_aCounter = aCounter;
     }
 
     @Override
@@ -120,7 +87,7 @@ public final class ZipWalker
     {
       final int ret = super.read ();
       if (ret >= 0)
-        _consumed (1);
+        m_aCounter.onBytes (1);
       return ret;
     }
 
@@ -128,7 +95,7 @@ public final class ZipWalker
     public int read (final byte [] aBuf, final int nOfs, final int nLen) throws IOException
     {
       final int ret = super.read (aBuf, nOfs, nLen);
-      _consumed (ret);
+      m_aCounter.onBytes (ret);
       return ret;
     }
 
@@ -136,7 +103,7 @@ public final class ZipWalker
     public long skip (final long nCount) throws IOException
     {
       final long ret = super.skip (nCount);
-      _consumed (ret);
+      m_aCounter.onBytes (ret);
       return ret;
     }
 
@@ -149,22 +116,6 @@ public final class ZipWalker
 
   private ZipWalker ()
   {}
-
-  /**
-   * Check if the provided bytes are the start of a ZIP archive: a local file header or the end of
-   * central directory record of an empty archive.
-   *
-   * @param aHeader
-   *        The first bytes. May not be <code>null</code>.
-   * @return <code>true</code> if it is a ZIP header.
-   */
-  public static boolean isZipHeader (final byte @NonNull [] aHeader)
-  {
-    return aHeader.length >= ZIP_HEADER_LENGTH &&
-           aHeader[0] == 'P' &&
-           aHeader[1] == 'K' &&
-           ((aHeader[2] == 3 && aHeader[3] == 4) || (aHeader[2] == 5 && aHeader[3] == 6));
-  }
 
   /**
    * Read the rest of a stream, so that the limits are applied to the complete content.
@@ -183,26 +134,44 @@ public final class ZipWalker
     }
   }
 
+  /**
+   * Determine the result for an exception that ended the walk.
+   *
+   * @param ex
+   *        The exception. May not be <code>null</code>.
+   * @param aCounter
+   *        The counter of the walk. May not be <code>null</code>.
+   * @return The result. Never <code>null</code>.
+   */
+  @NonNull
+  private static EZipWalkResult _getResult (@NonNull final IOException ex, @NonNull final ZipLimitCounter aCounter)
+  {
+    // A limit may have been exceeded although the callback caught the exception
+    final EZipWalkResult eViolation = aCounter.getViolation ();
+    if (eViolation != null)
+      return eViolation;
+    if (ex instanceof final InvalidZipException aIZEx)
+      return aIZEx.getReason ();
+    return EZipWalkResult.BROKEN;
+  }
+
   @Nullable
   private static Failure _walkZipRecursive (@NonNull final InputStream aIS,
                                             @Nullable final String sArchivePath,
                                             @Nonnegative final int nDepth,
-                                            @NonNull final WalkState aState,
+                                            @NonNull final ZipLimitCounter aCounter,
                                             @NonNull final IZipWalkerCallback aCallback)
   {
     // Check header
-    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS, ZIP_HEADER_LENGTH);
+    final NonBlockingPushbackInputStream aPIS = new NonBlockingPushbackInputStream (aIS,
+                                                                                    ZipLimitCounter.ZIP_HEADER_LENGTH);
     try
     {
-      final byte [] aHeader = aPIS.readNBytes (ZIP_HEADER_LENGTH);
-      if (!isZipHeader (aHeader))
-        return new Failure (EZipWalkResult.NOT_A_ZIP, sArchivePath, null);
-      aPIS.unread (aHeader);
+      ZipLimitCounter.checkZipHeader (aPIS);
     }
     catch (final IOException ex)
     {
-      return new Failure (aState.m_bSizeExceeded ? EZipWalkResult.MAX_TOTAL_UNCOMPRESSED_BYTES_EXCEEDED
-                                                 : EZipWalkResult.BROKEN, sArchivePath, ex);
+      return new Failure (_getResult (ex, aCounter), sArchivePath, ex);
     }
 
     final String sPathPrefix = sArchivePath == null ? "" : sArchivePath + "/";
@@ -217,9 +186,7 @@ public final class ZipWalker
       while ((aEntry = aZIS.getNextEntry ()) != null)
       {
         sPath = sPathPrefix + aEntry.getName ();
-        aState.m_nEntryCount++;
-        if (aState.m_nEntryCount > aState.m_aSettings.getMaxEntryCount ())
-          return new Failure (EZipWalkResult.MAX_ENTRY_COUNT_EXCEEDED, sPath, null);
+        aCounter.onEntry ();
 
         if (aEntry.isDirectory ())
         {
@@ -230,29 +197,30 @@ public final class ZipWalker
 
         if (aCallback.isNestedArchive (sPath, aEntry))
         {
-          if (nDepth >= aState.m_aSettings.getMaxNestingDepth ())
+          if (nDepth >= aCounter.getSettings ().getMaxNestingDepth ())
             return new Failure (EZipWalkResult.MAX_NESTING_DEPTH_EXCEEDED, sPath, null);
 
           // The bytes of the nested archive are not counted - only the bytes of its entries
           final Failure aNestedFailure = _walkZipRecursive (new NonClosingInputStream (aZIS),
                                                             sPath,
                                                             nDepth + 1,
-                                                            aState,
+                                                            aCounter,
                                                             aCallback);
           if (aNestedFailure != null)
             return aNestedFailure;
 
           // Anything after the end of the nested archive is counted
-          _readRest (new LimitingInputStream (aZIS, aState));
+          _readRest (new LimitingInputStream (aZIS, aCounter));
         }
         else
         {
-          final InputStream aEntryIS = new LimitingInputStream (aZIS, aState);
+          final InputStream aEntryIS = new LimitingInputStream (aZIS, aCounter);
           final boolean bContinue = aCallback.onEntry (sPath, aEntry, nDepth, aEntryIS).isContinue ();
 
           // The callback may have caught the exception of the limiting stream
-          if (aState.m_bSizeExceeded)
-            return new Failure (EZipWalkResult.MAX_TOTAL_UNCOMPRESSED_BYTES_EXCEEDED, sPath, null);
+          final EZipWalkResult eViolation = aCounter.getViolation ();
+          if (eViolation != null)
+            return new Failure (eViolation, sPath, null);
           if (!bContinue)
             return new Failure (EZipWalkResult.STOPPED_BY_CALLBACK, sPath, null);
 
@@ -263,8 +231,7 @@ public final class ZipWalker
     }
     catch (final IOException ex)
     {
-      return new Failure (aState.m_bSizeExceeded ? EZipWalkResult.MAX_TOTAL_UNCOMPRESSED_BYTES_EXCEEDED
-                                                 : EZipWalkResult.BROKEN, sPath, ex);
+      return new Failure (_getResult (ex, aCounter), sPath, ex);
     }
     return null;
   }
@@ -290,11 +257,11 @@ public final class ZipWalker
     ValueEnforcer.notNull (aSettings, "Settings");
     ValueEnforcer.notNull (aCallback, "Callback");
 
-    final WalkState aState = new WalkState (aSettings);
+    final ZipLimitCounter aCounter = new ZipLimitCounter (aSettings);
     Failure aFailure;
     try (final InputStream aRealIS = aIS)
     {
-      aFailure = _walkZipRecursive (aRealIS, null, 0, aState, aCallback);
+      aFailure = _walkZipRecursive (aRealIS, null, 0, aCounter, aCallback);
     }
     catch (final IOException ex)
     {
@@ -308,13 +275,13 @@ public final class ZipWalker
       return new ZipWalkResult (EZipWalkResult.SUCCESS,
                                 null,
                                 null,
-                                aState.m_nEntryCount,
-                                aState.m_nTotalUncompressedBytes);
+                                aCounter.getEntryCount (),
+                                aCounter.getTotalUncompressedBytes ());
     }
     return new ZipWalkResult (aFailure.m_eResult,
                               aFailure.m_sEntryPath,
                               aFailure.m_aException,
-                              aState.m_nEntryCount,
-                              aState.m_nTotalUncompressedBytes);
+                              aCounter.getEntryCount (),
+                              aCounter.getTotalUncompressedBytes ());
   }
 }
