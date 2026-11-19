@@ -57,7 +57,7 @@ final class ZipLimitCounter
    *        The first bytes. May not be <code>null</code>.
    * @return <code>true</code> if it is a ZIP header.
    */
-  static boolean isZipHeader (final byte @NonNull [] aHeader)
+  public static boolean isZipHeader (final byte @NonNull [] aHeader)
   {
     return aHeader.length == ZIP_HEADER_LENGTH &&
            aHeader[0] == 'P' &&
@@ -69,8 +69,8 @@ final class ZipLimitCounter
    * Read the first bytes, check that they are a ZIP header and push them back.
    *
    * @param aPIS
-   *        The stream to check. Must allow to push back {@link #ZIP_HEADER_LENGTH} bytes. May not be
-   *        <code>null</code>.
+   *        The stream to check. Must allow to push back {@link #ZIP_HEADER_LENGTH} bytes. May not
+   *        be <code>null</code>.
    * @throws InvalidZipException
    *         If the content does not start with a ZIP header
    * @throws IOException
@@ -97,7 +97,9 @@ final class ZipLimitCounter
     {
       m_eViolation = EZipWalkResult.MAX_ENTRY_COUNT_EXCEEDED;
       throw new InvalidZipException (m_eViolation,
-                                     "The ZIP archive contains more than " + m_aSettings.getMaxEntryCount () + " entries");
+                                     "The ZIP archive contains more than " +
+                                                   m_aSettings.getMaxEntryCount () +
+                                                   " entries");
     }
   }
 
