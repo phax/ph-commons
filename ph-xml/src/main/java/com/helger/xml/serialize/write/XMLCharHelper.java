@@ -260,6 +260,66 @@ public final class XMLCharHelper
   }
 
   /**
+   * Check if the passed character sequence contains a character of the passed set within the
+   * specified range. Printable ASCII characters are valid in all XML versions and character modes,
+   * so the set is only looked up for other characters.
+   *
+   * @param aInvalidChars
+   *        The set of invalid characters. May not be <code>null</code>.
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the character sequence to start checking. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to check. Must be &ge; 0.
+   * @return <code>true</code> if the specified range contains at least one invalid character.
+   */
+  private static boolean _containsInvalidChar (@NonNull final BitSet aInvalidChars,
+                                               @NonNull final CharSequence aCS,
+                                               @Nonnegative final int nOfs,
+                                               @Nonnegative final int nLen)
+  {
+    final int nEnd = nOfs + nLen;
+    for (int i = nOfs; i < nEnd; ++i)
+    {
+      final char c = aCS.charAt (i);
+      if ((c < 0x20 || c > 0x7e) && aInvalidChars.get (c))
+        return true;
+    }
+    return false;
+  }
+
+  /**
+   * Check if the passed character array contains a character of the passed set within the
+   * specified range. This is the array counterpart of the {@link CharSequence} version, which avoids
+   * the slower access through a {@link CharBuffer}.
+   *
+   * @param aInvalidChars
+   *        The set of invalid characters. May not be <code>null</code>.
+   * @param aChars
+   *        The character array to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array to start checking. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to check. Must be &ge; 0.
+   * @return <code>true</code> if the specified range contains at least one invalid character.
+   */
+  private static boolean _containsInvalidChar (@NonNull final BitSet aInvalidChars,
+                                               final char @NonNull [] aChars,
+                                               @Nonnegative final int nOfs,
+                                               @Nonnegative final int nLen)
+  {
+    final int nEnd = nOfs + nLen;
+    for (int i = nOfs; i < nEnd; ++i)
+    {
+      final char c = aChars[i];
+      if ((c < 0x20 || c > 0x7e) && aInvalidChars.get (c))
+        return true;
+    }
+    return false;
+  }
+
+  /**
    * Check if the passed character sequence contains an invalid XML name character within the
    * specified range.
    *
@@ -501,12 +561,7 @@ public final class XMLCharHelper
                                                       @Nonnegative final int nOfs,
                                                       @Nonnegative final int nLen)
   {
-    // Resolve the character set once and not per character
-    final BitSet aInvalidChars = _getInvalidTextChars (eXMLVersion);
-    for (int i = 0; i < nLen; ++i)
-      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
-        return true;
-    return false;
+    return _containsInvalidChar (_getInvalidTextChars (eXMLVersion), aCS, nOfs, nLen);
   }
 
   /**
@@ -561,7 +616,7 @@ public final class XMLCharHelper
   {
     return aChars != null &&
            nLen > 0 &&
-           _containsInvalidXMLTextChar (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
+           _containsInvalidChar (_getInvalidTextChars (eXMLVersion), aChars, nOfs, nLen);
   }
 
   /**
@@ -707,12 +762,7 @@ public final class XMLCharHelper
                                                        @Nonnegative final int nOfs,
                                                        @Nonnegative final int nLen)
   {
-    // Resolve the character set once and not per character
-    final BitSet aInvalidChars = _getInvalidCDATAChars (eXMLVersion);
-    for (int i = 0; i < nLen; ++i)
-      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
-        return true;
-    return false;
+    return _containsInvalidChar (_getInvalidCDATAChars (eXMLVersion), aCS, nOfs, nLen);
   }
 
   /**
@@ -767,7 +817,7 @@ public final class XMLCharHelper
   {
     return aChars != null &&
            nLen > 0 &&
-           _containsInvalidXMLCDATAChar (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
+           _containsInvalidChar (_getInvalidCDATAChars (eXMLVersion), aChars, nOfs, nLen);
   }
 
   /**
@@ -914,12 +964,7 @@ public final class XMLCharHelper
                                                                 @Nonnegative final int nOfs,
                                                                 @Nonnegative final int nLen)
   {
-    // Resolve the character set once and not per character
-    final BitSet aInvalidChars = _getInvalidAttributeValueChars (eXMLVersion);
-    for (int i = 0; i < nLen; ++i)
-      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
-        return true;
-    return false;
+    return _containsInvalidChar (_getInvalidAttributeValueChars (eXMLVersion), aCS, nOfs, nLen);
   }
 
   /**
@@ -980,7 +1025,7 @@ public final class XMLCharHelper
   {
     return aChars != null &&
            nLen > 0 &&
-           _containsInvalidXMLAttributeValueChar (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
+           _containsInvalidChar (_getInvalidAttributeValueChars (eXMLVersion), aChars, nOfs, nLen);
   }
 
   /**

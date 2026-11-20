@@ -427,6 +427,31 @@ public final class StringReplace
         aTarget.append (aInput, nOfs, nOfs + nLen);
   }
 
+  /**
+   * Get the bit mask of all search characters below 256, so that an input character that is not
+   * searched for (the common case) is skipped without looping over all search characters.
+   *
+   * @param aSearchChars
+   *        The characters to search. May not be <code>null</code>.
+   * @return A new array of 4 longs with one bit per character.
+   */
+  private static long @NonNull [] _getLowSearchCharMask (final char @NonNull [] aSearchChars)
+  {
+    final long [] ret = new long [4];
+    for (final char cSearch : aSearchChars)
+      if (cSearch < 256)
+        ret[cSearch >> 6] |= 1L << cSearch;
+    return ret;
+  }
+
+  private static boolean _hasHighSearchChar (final char @NonNull [] aSearchChars)
+  {
+    for (final char cSearch : aSearchChars)
+      if (cSearch >= 256)
+        return true;
+    return false;
+  }
+
   @Nonnegative
   private static int _replaceMultipleTo (@NonNull final CharSequence aInput,
                                          @Nonnegative final int nOfs,
@@ -442,15 +467,8 @@ public final class StringReplace
       return 0;
     }
 
-    // Bit mask of all search characters below 256, so that an input character that is not
-    // searched for (the common case) is skipped without looping over all search characters
-    final long [] aLowSearchCharMask = new long [4];
-    boolean bHasHighSearchChar = false;
-    for (final char cSearch : aSearchChars)
-      if (cSearch < 256)
-        aLowSearchCharMask[cSearch >> 6] |= 1L << cSearch;
-      else
-        bHasHighSearchChar = true;
+    final long [] aLowSearchCharMask = _getLowSearchCharMask (aSearchChars);
+    final boolean bHasHighSearchChar = _hasHighSearchChar (aSearchChars);
 
     // for all input string characters
     int nFirstNonReplace = nOfs;
@@ -483,6 +501,54 @@ public final class StringReplace
     }
     if (nFirstNonReplace < nInputIndex)
       _write (aTarget, aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
+    return nTotalReplacements;
+  }
+
+  /**
+   * The array counterpart of the {@link CharSequence} version, which avoids the slower access
+   * through a {@link CharBuffer}.
+   */
+  @Nonnegative
+  private static int _replaceMultipleTo (final char @NonNull [] aInput,
+                                         @Nonnegative final int nOfs,
+                                         @Nonnegative final int nLen,
+                                         final char @NonNull [] aSearchChars,
+                                         final char @NonNull [] [] aReplacementStrings,
+                                         @NonNull final Writer aTarget) throws IOException
+  {
+    if (aSearchChars.length == 0)
+    {
+      // No modifications required
+      aTarget.write (aInput, nOfs, nLen);
+      return 0;
+    }
+
+    final long [] aLowSearchCharMask = _getLowSearchCharMask (aSearchChars);
+    final boolean bHasHighSearchChar = _hasHighSearchChar (aSearchChars);
+
+    final int nEnd = nOfs + nLen;
+    int nFirstNonReplace = nOfs;
+    int nTotalReplacements = 0;
+    final int nMaxSearchChars = aSearchChars.length;
+    for (int nInputIndex = nOfs; nInputIndex < nEnd; ++nInputIndex)
+    {
+      final char cInput = aInput[nInputIndex];
+      final boolean bMaybeSearched = cInput < 256 ? (aLowSearchCharMask[cInput >> 6] & (1L << cInput)) != 0
+                                                  : bHasHighSearchChar;
+      if (bMaybeSearched)
+        for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
+          if (cInput == aSearchChars[nPatternIndex])
+          {
+            if (nFirstNonReplace < nInputIndex)
+              aTarget.write (aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
+            nFirstNonReplace = nInputIndex + 1;
+            aTarget.write (aReplacementStrings[nPatternIndex]);
+            ++nTotalReplacements;
+            break;
+          }
+    }
+    if (nFirstNonReplace < nEnd)
+      aTarget.write (aInput, nFirstNonReplace, nEnd - nFirstNonReplace);
     return nTotalReplacements;
   }
 
@@ -591,7 +657,7 @@ public final class StringReplace
     if (aInput == null || aInput.length == 0 || nLen == 0)
       return 0;
 
-    return _replaceMultipleTo (CharBuffer.wrap (aInput), nOfs, nLen, aSearchChars, aReplacementStrings, aTarget);
+    return _replaceMultipleTo (aInput, nOfs, nLen, aSearchChars, aReplacementStrings, aTarget);
   }
 
   /**

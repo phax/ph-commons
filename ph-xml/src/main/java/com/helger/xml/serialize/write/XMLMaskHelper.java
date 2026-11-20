@@ -322,6 +322,13 @@ public final class XMLMaskHelper
   private static final char [] INT_HEX_UC = "0123456789ABCDEF".toCharArray ();
 
   /**
+   * Per XML version (first index) and character mode (second index): the ASCII characters that are
+   * valid and not masked, so that they can be written as they are. <code>null</code> for modes
+   * without a source map.
+   */
+  private static final boolean [] [] [] PLAIN_ASCII_CHARS = _createPlainASCIIChars ();
+
+  /**
    * Get the XML numeric character reference for the specified character (e.g.
    * <code>&amp;#xA;</code>).
    *
@@ -511,6 +518,74 @@ public final class XMLMaskHelper
         throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
     }
     return null;
+  }
+
+  @ReturnsMutableCopy
+  private static boolean @NonNull [] [] [] _createPlainASCIIChars ()
+  {
+    final EXMLSerializeVersion [] aVersions = EXMLSerializeVersion.values ();
+    final EXMLCharMode [] aModes = EXMLCharMode.values ();
+    final boolean [] [] [] ret = new boolean [aVersions.length] [aModes.length] [];
+    for (final EXMLSerializeVersion eVersion : aVersions)
+      for (final EXMLCharMode eMode : aModes)
+      {
+        final char [] aSrcMap = _findSourceMap (eVersion, eMode);
+        if (aSrcMap != null)
+        {
+          // Tab, line feed, carriage return and printable ASCII are valid in all XML versions and
+          // character modes
+          final boolean [] aPlain = new boolean [128];
+          aPlain[TAB] = true;
+          aPlain[LF] = true;
+          aPlain[CR] = true;
+          for (int c = 0x20; c <= 0x7e; ++c)
+            aPlain[c] = true;
+          for (final char c : aSrcMap)
+            if (c < aPlain.length)
+              aPlain[c] = false;
+          ret[eVersion.ordinal ()][eMode.ordinal ()] = aPlain;
+        }
+      }
+    return ret;
+  }
+
+  /**
+   * Get the number of leading characters that are neither invalid nor masked, so that they can be
+   * written as they are.
+   *
+   * @param eXMLVersion
+   *        The XML serialization version. May not be <code>null</code>.
+   * @param eXMLCharMode
+   *        The XML character mode. May not be <code>null</code>.
+   * @param aChars
+   *        The source text as a char array. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the char array to start reading.
+   * @param nLen
+   *        The number of chars to read from the char array.
+   * @return The number of plain leading characters. Always &ge; 0 and &le; nLen.
+   */
+  @Nonnegative
+  private static int _getPlainASCIILength (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                           @NonNull final EXMLCharMode eXMLCharMode,
+                                           final char @NonNull [] aChars,
+                                           @Nonnegative final int nOfs,
+                                           @Nonnegative final int nLen)
+  {
+    final boolean [] aPlain = PLAIN_ASCII_CHARS[eXMLVersion.ordinal ()][eXMLCharMode.ordinal ()];
+    if (aPlain == null)
+      return 0;
+
+    final int nEnd = nOfs + nLen;
+    int i = nOfs;
+    while (i < nEnd)
+    {
+      final char c = aChars[i];
+      if (c >= aPlain.length || !aPlain[c])
+        break;
+      ++i;
+    }
+    return i - nOfs;
   }
 
   @SuppressWarnings ("removal")
@@ -797,39 +872,10 @@ public final class XMLMaskHelper
     if (StringHelper.isEmpty (s))
       return;
 
-    // 1. do incorrect character handling
-    if (eIncorrectCharHandling.isTestRequired () && XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, s))
-    {
-      final ICommonsOrderedSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                                   eXMLCharMode,
-                                                                                                   s);
-      eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
-      if (eIncorrectCharHandling.isReplaceWithNothing ())
-      {
-        final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
-        final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
-
-        final char [] aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
-        if (aChars.length > 0)
-          _maskXMLTextTo (eXMLVersion, eXMLCharMode, aChars, 0, aChars.length, aWriter);
-        return;
-      }
-    }
-
-    // 2. perform entity replacements if necessary
-    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
-    if (aSrcMap == null)
-    {
-      // Nothing to replace
-      // TODO write code points as XML entities
-      aWriter.write (s);
-    }
-    else
-    {
-      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      // TODO write code points as XML entities
-      StringReplace.replaceMultipleTo (s, aSrcMap, aDstMap, aWriter);
-    }
+    // Copy the characters once, so that the character check and the replacement both work on an
+    // array, which is much faster than accessing the String char by char
+    final char [] aChars = s.toCharArray ();
+    maskXMLTextTo (eXMLVersion, eXMLCharMode, eIncorrectCharHandling, aChars, 0, aChars.length, aWriter);
   }
 
   /**
@@ -864,42 +910,48 @@ public final class XMLMaskHelper
     if (nLen == 0)
       return;
 
-    char [] aChars = aSrcText;
-    int nRealOfs = nOfs;
-    int nRealLen = nLen;
+    // Leading characters that are neither invalid nor masked (usually all of them) are written
+    // as they are, so they are scanned only once
+    final int nPlainLen = _getPlainASCIILength (eXMLVersion, eXMLCharMode, aSrcText, nOfs, nLen);
+    if (nPlainLen == nLen)
+    {
+      aWriter.write (aSrcText, nOfs, nLen);
+      return;
+    }
 
     // 1. do incorrect character handling
-    if (eIncorrectCharHandling.isTestRequired ())
+    if (eIncorrectCharHandling.isTestRequired () &&
+        XMLCharHelper.containsInvalidXMLChar (eXMLVersion,
+                                              eXMLCharMode,
+                                              aSrcText,
+                                              nOfs + nPlainLen,
+                                              nLen - nPlainLen))
     {
-      if (XMLCharHelper.containsInvalidXMLChar (eXMLVersion, eXMLCharMode, aChars, nRealOfs, nRealLen))
+      final ICommonsOrderedSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
+                                                                                                   eXMLCharMode,
+                                                                                                   aSrcText,
+                                                                                                   nOfs,
+                                                                                                   nLen);
+      // Here we can convert, because this part should not be called very
+      // often
+      final String s = new String (aSrcText, nOfs, nLen);
+      eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
+      if (eIncorrectCharHandling.isReplaceWithNothing ())
       {
-        final ICommonsOrderedSet <Character> aAllInvalidChars = XMLCharHelper.getAllInvalidXMLChars (eXMLVersion,
-                                                                                                     eXMLCharMode,
-                                                                                                     aChars,
-                                                                                                     nRealOfs,
-                                                                                                     nRealLen);
-        // Here we can convert, because this part should not be called very
-        // often
-        final String s = new String (aSrcText, nRealOfs, nRealLen);
-        eIncorrectCharHandling.notifyOnInvalidXMLCharacter (s, aAllInvalidChars);
-        if (eIncorrectCharHandling.isReplaceWithNothing ())
-        {
-          final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
-          final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
+        final char [] aSrcMap = _getAsCharArray (aAllInvalidChars);
+        final char [] [] aDstMap = _createEmptyReplacement (aSrcMap);
 
-          aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
-          nRealOfs = 0;
-          nRealLen = aChars.length;
-          if (nRealLen == 0)
-          {
-            // Nothing left after replacement
-            return;
-          }
-        }
+        final char [] aChars = StringReplace.replaceMultiple (s, aSrcMap, aDstMap);
+        // Something left after replacement?
+        if (aChars.length > 0)
+          _maskXMLTextTo (eXMLVersion, eXMLCharMode, aChars, 0, aChars.length, aWriter);
+        return;
       }
     }
 
     // 2. perform entity replacements if necessary
-    _maskXMLTextTo (eXMLVersion, eXMLCharMode, aChars, nRealOfs, nRealLen, aWriter);
+    if (nPlainLen > 0)
+      aWriter.write (aSrcText, nOfs, nPlainLen);
+    _maskXMLTextTo (eXMLVersion, eXMLCharMode, aSrcText, nOfs + nPlainLen, nLen - nPlainLen, aWriter);
   }
 }
