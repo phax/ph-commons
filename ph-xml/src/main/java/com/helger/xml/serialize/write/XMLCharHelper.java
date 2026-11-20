@@ -454,6 +454,19 @@ public final class XMLCharHelper
     return _getAllInvalidXMLNameChars (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
   }
 
+  @NonNull
+  @SuppressWarnings ("removal")
+  private static BitSet _getInvalidTextChars (@NonNull final EXMLSerializeVersion eXMLVersion)
+  {
+    return switch (eXMLVersion)
+    {
+      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar;
+      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidTextValueChar;
+      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar;
+      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
+    };
+  }
+
   /**
    * Check if the passed character is invalid for a text node.
    *
@@ -463,16 +476,9 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
-  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLTextChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
-    return switch (eXMLVersion)
-    {
-      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar.get (c);
-      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidTextValueChar.get (c);
-      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar.get (c);
-      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
-    };
+    return _getInvalidTextChars (eXMLVersion).get (c);
   }
 
   /**
@@ -495,12 +501,11 @@ public final class XMLCharHelper
                                                       @Nonnegative final int nOfs,
                                                       @Nonnegative final int nLen)
   {
+    // Resolve the character set once and not per character
+    final BitSet aInvalidChars = _getInvalidTextChars (eXMLVersion);
     for (int i = 0; i < nLen; ++i)
-    {
-      final char c = aCS.charAt (nOfs + i);
-      if (isInvalidXMLTextChar (eXMLVersion, c))
+      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
         return true;
-    }
     return false;
   }
 
@@ -655,6 +660,19 @@ public final class XMLCharHelper
     return _getAllInvalidXMLTextChars (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
   }
 
+  @NonNull
+  @SuppressWarnings ("removal")
+  private static BitSet _getInvalidCDATAChars (@NonNull final EXMLSerializeVersion eXMLVersion)
+  {
+    return switch (eXMLVersion)
+    {
+      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar;
+      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidCDATValueChar;
+      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar;
+      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
+    };
+  }
+
   /**
    * Check if the passed character is invalid for a CDATA node.
    *
@@ -664,16 +682,9 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
-  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLCDATAChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
-    return switch (eXMLVersion)
-    {
-      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar.get (c);
-      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidCDATValueChar.get (c);
-      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar.get (c);
-      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
-    };
+    return _getInvalidCDATAChars (eXMLVersion).get (c);
   }
 
   /**
@@ -696,12 +707,11 @@ public final class XMLCharHelper
                                                        @Nonnegative final int nOfs,
                                                        @Nonnegative final int nLen)
   {
+    // Resolve the character set once and not per character
+    final BitSet aInvalidChars = _getInvalidCDATAChars (eXMLVersion);
     for (int i = 0; i < nLen; ++i)
-    {
-      final char c = aCS.charAt (nOfs + i);
-      if (isInvalidXMLCDATAChar (eXMLVersion, c))
+      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
         return true;
-    }
     return false;
   }
 
@@ -857,6 +867,19 @@ public final class XMLCharHelper
     return _getAllInvalidXMLCDATAChars (eXMLVersion, CharBuffer.wrap (aChars), nOfs, nLen);
   }
 
+  @NonNull
+  @SuppressWarnings ("removal")
+  private static BitSet _getInvalidAttributeValueChars (@NonNull final EXMLSerializeVersion eXMLVersion)
+  {
+    return switch (eXMLVersion)
+    {
+      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar;
+      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidAttrValueChar;
+      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar;
+      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
+    };
+  }
+
   /**
    * Check if the passed character is invalid for a attribute value node.
    *
@@ -866,16 +889,9 @@ public final class XMLCharHelper
    *        char to check
    * @return <code>true</code> if the char is invalid
    */
-  @SuppressWarnings ("removal")
   public static boolean isInvalidXMLAttributeValueChar (@NonNull final EXMLSerializeVersion eXMLVersion, final int c)
   {
-    return switch (eXMLVersion)
-    {
-      case XML_10 -> XML10.Singleton.XML10_INSTANCE.m_aInvalidValueChar.get (c);
-      case XML_11 -> XML11.Singleton.XML11_INSTANCE.m_aInvalidAttrValueChar.get (c);
-      case HTML -> HTML.Singleton.HTML_INSTANCE.m_aInvalidChar.get (c);
-      default -> throw new IllegalArgumentException ("Unsupported XML version " + eXMLVersion + "!");
-    };
+    return _getInvalidAttributeValueChars (eXMLVersion).get (c);
   }
 
   /**
@@ -898,12 +914,11 @@ public final class XMLCharHelper
                                                                 @Nonnegative final int nOfs,
                                                                 @Nonnegative final int nLen)
   {
+    // Resolve the character set once and not per character
+    final BitSet aInvalidChars = _getInvalidAttributeValueChars (eXMLVersion);
     for (int i = 0; i < nLen; ++i)
-    {
-      final char c = aCS.charAt (nOfs + i);
-      if (isInvalidXMLAttributeValueChar (eXMLVersion, c))
+      if (aInvalidChars.get (aCS.charAt (nOfs + i)))
         return true;
-    }
     return false;
   }
 

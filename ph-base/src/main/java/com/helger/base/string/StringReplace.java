@@ -442,6 +442,16 @@ public final class StringReplace
       return 0;
     }
 
+    // Bit mask of all search characters below 256, so that an input character that is not
+    // searched for (the common case) is skipped without looping over all search characters
+    final long [] aLowSearchCharMask = new long [4];
+    boolean bHasHighSearchChar = false;
+    for (final char cSearch : aSearchChars)
+      if (cSearch < 256)
+        aLowSearchCharMask[cSearch >> 6] |= 1L << cSearch;
+      else
+        bHasHighSearchChar = true;
+
     // for all input string characters
     int nFirstNonReplace = nOfs;
     int nInputIndex = nOfs;
@@ -450,6 +460,13 @@ public final class StringReplace
     for (int i = 0; i < nLen; ++i)
     {
       final char cInput = aInput.charAt (nOfs + i);
+      final boolean bMaybeSearched = cInput < 256 ? (aLowSearchCharMask[cInput >> 6] & (1L << cInput)) != 0
+                                                  : bHasHighSearchChar;
+      if (!bMaybeSearched)
+      {
+        nInputIndex++;
+        continue;
+      }
       for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
       {
         if (cInput == aSearchChars[nPatternIndex])
