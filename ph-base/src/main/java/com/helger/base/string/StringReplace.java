@@ -437,11 +437,36 @@ public final class StringReplace
    */
   private static long @NonNull [] _getLowSearchCharMask (final char @NonNull [] aSearchChars)
   {
+    // 256 bits, one for each of the characters 0 to 255, in 4 longs of 64 bits each
     final long [] ret = new long [4];
     for (final char cSearch : aSearchChars)
       if (cSearch < 256)
-        ret[cSearch >> 6] |= 1L << cSearch;
+      {
+        // The long that holds the bit of the character: 0-63 in the 1st, 64-127 in the 2nd ...
+        final int nLongIndex = cSearch / 64;
+        // The position of the bit within that long, 0 to 63
+        final int nBitIndex = cSearch % 64;
+        // Set this bit, keeping the bits of the other characters
+        ret[nLongIndex] |= (1L << nBitIndex);
+      }
     return ret;
+  }
+
+  /**
+   * Check if a character is in the mask created by {@link #_getLowSearchCharMask(char[])}.
+   *
+   * @param aLowSearchCharMask
+   *        The mask. May not be <code>null</code>.
+   * @param c
+   *        The character. Must be below 256.
+   * @return <code>true</code> if the bit of the character is set.
+   */
+  private static boolean _isInLowSearchCharMask (final long @NonNull [] aLowSearchCharMask, final char c)
+  {
+    // The same long and bit position as when the mask was created
+    final int nLongIndex = c / 64;
+    final int nBitIndex = c % 64;
+    return (aLowSearchCharMask[nLongIndex] & (1L << nBitIndex)) != 0;
   }
 
   private static boolean _hasHighSearchChar (final char @NonNull [] aSearchChars)
@@ -478,7 +503,9 @@ public final class StringReplace
     for (int i = 0; i < nLen; ++i)
     {
       final char cInput = aInput.charAt (nOfs + i);
-      final boolean bMaybeSearched = cInput < 256 ? (aLowSearchCharMask[cInput >> 6] & (1L << cInput)) != 0
+      // Characters below 256 are looked up in the mask; for all others only the existence of such
+      // search characters is known
+      final boolean bMaybeSearched = cInput < 256 ? _isInLowSearchCharMask (aLowSearchCharMask, cInput)
                                                   : bHasHighSearchChar;
       if (!bMaybeSearched)
       {
@@ -533,7 +560,9 @@ public final class StringReplace
     for (int nInputIndex = nOfs; nInputIndex < nEnd; ++nInputIndex)
     {
       final char cInput = aInput[nInputIndex];
-      final boolean bMaybeSearched = cInput < 256 ? (aLowSearchCharMask[cInput >> 6] & (1L << cInput)) != 0
+      // Characters below 256 are looked up in the mask; for all others only the existence of such
+      // search characters is known
+      final boolean bMaybeSearched = cInput < 256 ? _isInLowSearchCharMask (aLowSearchCharMask, cInput)
                                                   : bHasHighSearchChar;
       if (bMaybeSearched)
         for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
@@ -583,12 +612,7 @@ public final class StringReplace
     ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
     ValueEnforcer.notNull (aTarget, "Target");
 
-    return _replaceMultipleTo (sInputString,
-                               0,
-                               sInputString.length (),
-                               aSearchChars,
-                               aReplacementStrings,
-                               aTarget);
+    return _replaceMultipleTo (sInputString, 0, sInputString.length (), aSearchChars, aReplacementStrings, aTarget);
   }
 
   /**
