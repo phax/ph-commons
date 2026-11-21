@@ -176,12 +176,13 @@ public final class XmlWhitespace
       nEnd--;
 
     // Find the first whitespace that is not a single space; sStr[nEnd - 1] is no whitespace, so
-    // i + 1 stays in range
+    // i + 1 stays in range. All XML whitespace is &le; space, so one comparison skips most
+    // characters
     int i = nStart;
     while (i < nEnd)
     {
       final char c = sStr.charAt (i);
-      if (isXmlWhitespace (c) && (c != ' ' || isXmlWhitespace (sStr.charAt (i + 1))))
+      if (c <= ' ' && isXmlWhitespace (c) && (c != ' ' || isXmlWhitespace (sStr.charAt (i + 1))))
         break;
       i++;
     }
