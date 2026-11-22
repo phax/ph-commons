@@ -41,6 +41,11 @@ import com.helger.json.parser.handler.IJsonParserHandler;
 /**
  * This is a generic JSON parser that invokes a custom callback for all found elements. This can be
  * used as the basis for a "SAX" like JSON parsing, if required.
+ * <p>
+ * If the end of input is checked (see {@link IJsonParserSettings#isCheckForEOI()}), the source
+ * reader is read chunk wise into an internal buffer. So in case of a parse error, the source reader
+ * may have been read further than the error position. If the end of input is not checked (e.g. to
+ * read multiple JSON values from the same reader), the source reader is read char by char.
  *
  * @author Philip Helger
  */
@@ -89,10 +94,21 @@ public class JsonParser
 
   private static final Logger LOGGER = LoggerFactory.getLogger (JsonParser.class);
   private static final int MAX_PUSH_BACK_CHARS = 2;
+  private static final int BUFFER_SIZE = 8192;
 
   // Constructor parameters
-  private final NonBlockingPushbackReader m_aReader;
+  private final Reader m_aSrcReader;
   private final IJsonParserHandler m_aCallback;
+
+  // Reading mode 1: char by char, if the end of input is not checked, to not read more chars from
+  // the source reader than needed
+  private NonBlockingPushbackReader m_aPushbackReader;
+  // Reading mode 2: chunk wise into an internal buffer, if the end of input is checked. The first
+  // MAX_PUSH_BACK_CHARS chars of the buffer are reserved for the chars kept for pushback on refill
+  private char [] m_aBuf;
+  private int m_nBufPos;
+  private int m_nBufLen;
+  private boolean m_bBufEOI = false;
 
   // Settings
   private final JsonParserSettings m_aSettings = new JsonParserSettings ();
@@ -119,8 +135,7 @@ public class JsonParser
   {
     ValueEnforcer.notNull (aReader, "Reader");
     ValueEnforcer.notNull (aCallback, "Callback");
-    // Maximum of 2 pushbacks
-    m_aReader = new NonBlockingPushbackReader (aReader, MAX_PUSH_BACK_CHARS);
+    m_aSrcReader = aReader;
     m_aCallback = aCallback;
   }
 
@@ -165,32 +180,104 @@ public class JsonParser
   }
 
   /**
+   * Create the effective reading mode, depending on the settings. This is done lazily, because
+   * the settings may be changed after construction.
+   */
+  private void _initReader ()
+  {
+    if (m_aBuf == null && m_aPushbackReader == null)
+    {
+      if (m_aSettings.isCheckForEOI ())
+      {
+        // The whole input is consumed anyway
+        m_aBuf = new char [MAX_PUSH_BACK_CHARS + BUFFER_SIZE];
+        m_nBufPos = MAX_PUSH_BACK_CHARS;
+        m_nBufLen = MAX_PUSH_BACK_CHARS;
+      }
+      else
+      {
+        // Maximum of 2 pushbacks
+        m_aPushbackReader = new NonBlockingPushbackReader (m_aSrcReader, MAX_PUSH_BACK_CHARS);
+      }
+    }
+  }
+
+  /**
+   * Refill the internal buffer from the source reader. The last {@link #MAX_PUSH_BACK_CHARS} chars
+   * of the buffer are moved to the beginning of the buffer, so that they can be pushed back.
+   *
+   * @return <code>true</code> if at least one char was read, <code>false</code> on end of input.
+   * @throws IOException
+   *         On read error
+   */
+  private boolean _fillBuffer () throws IOException
+  {
+    if (m_bBufEOI)
+      return false;
+
+    System.arraycopy (m_aBuf, m_nBufLen - MAX_PUSH_BACK_CHARS, m_aBuf, 0, MAX_PUSH_BACK_CHARS);
+    m_nBufPos = MAX_PUSH_BACK_CHARS;
+    m_nBufLen = MAX_PUSH_BACK_CHARS;
+
+    int nRead;
+    do
+    {
+      nRead = m_aSrcReader.read (m_aBuf, MAX_PUSH_BACK_CHARS, BUFFER_SIZE);
+    } while (nRead == 0);
+
+    if (nRead < 0)
+    {
+      m_bBufEOI = true;
+      return false;
+    }
+    m_nBufLen += nRead;
+    return true;
+  }
+
+  /**
+   * Read the next char if the internal buffer is not used or is exhausted. This is kept separate
+   * from {@link #_readChar()} to keep the hot path small.
+   *
+   * @return the char read or {@link #EOI_CHAR} (=-1) in case of EOF
+   */
+  private int _readCharSlow ()
+  {
+    try
+    {
+      if (m_aBuf != null)
+        return _fillBuffer () ? m_aBuf[m_nBufPos++] : EOI_CHAR;
+      return m_aPushbackReader.read ();
+    }
+    catch (final IOException ex)
+    {
+      return EOI_CHAR;
+    }
+  }
+
+  /**
    * Must return int to differentiate between the whole char range (0-0xffff) and EOF (-1).
    *
    * @return the char read or {@link #EOI_CHAR} (=-1) in case of EOF
    */
   private int _readChar ()
   {
-    try
-    {
-      final int c = m_aReader.read ();
+    final int c;
+    if (m_aBuf != null && m_nBufPos < m_nBufLen)
+      c = m_aBuf[m_nBufPos++];
+    else
+      c = _readCharSlow ();
 
-      if (m_aSettings.isTrackPosition ())
-      {
-        if (m_nBackupChars > 0)
-        {
-          // If previously a char was backed up, don't increase the position!
-          m_nBackupChars--;
-        }
-        else
-          m_aParsePos.updatePosition (c, m_aSettings.getTabSize ());
-      }
-      return c;
-    }
-    catch (final IOException ex)
+    if (m_aSettings.isTrackPosition ())
     {
-      return EOI_CHAR;
+      if (m_nBackupChars > 0)
+      {
+        // If previously a char was backed up, don't increase the position!
+        m_nBackupChars--;
+      }
+      else
+        m_aParsePos.updatePosition (c, m_aSettings.getTabSize ());
     }
+    return c;
   }
 
   /**
@@ -206,7 +293,13 @@ public class JsonParser
     if (c != EOI_CHAR)
       try
       {
-        m_aReader.unread (c);
+        if (m_aBuf != null)
+        {
+          // The read char is still in the buffer
+          m_nBufPos--;
+        }
+        else
+          m_aPushbackReader.unread (c);
         m_nBackupChars++;
       }
       catch (final IOException ex)
@@ -341,7 +434,7 @@ public class JsonParser
     return ret;
   }
 
-  private void _readStringEscapeChar (@NonNull final IJsonParsePosition aStartPos,
+  private void _readStringEscapeChar (@Nullable final IJsonParsePosition aStartPos,
                                       @NonNull final JsonStringBuilder aStrStringOriginalContent,
                                       @NonNull final JsonStringBuilder aStrStringUnescapedContent) throws JsonParseException
   {
@@ -406,6 +499,97 @@ public class JsonParser
   }
 
   /**
+   * Fast path for reading a quoted string from the internal buffer, if no position tracking is
+   * needed. Runs of regular characters are copied in one go and if the string contains no special
+   * characters at all, the result Strings are created directly from the buffer. The opening quote
+   * char must have been read already.
+   *
+   * @param aStartPos
+   *        Optional parsing start position
+   * @param cQuoteChar
+   *        The quote char in use
+   * @return A pair where the first string is the original read string whereas the second part is
+   *         the unescaped read string without leading and trailing quotes
+   * @throws JsonParseException
+   *         In case of a parse error
+   */
+  @NonNull
+  private TwoStrings _readQuotedStringFromBuffer (@Nullable final IJsonParsePosition aStartPos,
+                                                  final char cQuoteChar) throws JsonParseException
+  {
+    final JsonStringBuilder aStrStringOriginalContent = m_aSB1.reset ();
+    final JsonStringBuilder aStrStringUnescapedContent = m_aSB2.reset ();
+    boolean bFirstRun = true;
+
+    while (true)
+    {
+      // Find the end of the run of regular characters
+      final int nStart = m_nBufPos;
+      int nEnd = nStart;
+      while (nEnd < m_nBufLen)
+      {
+        final char c = m_aBuf[nEnd];
+        if (c == cQuoteChar || c == '\\' || c < 0x20)
+          break;
+        nEnd++;
+      }
+
+      if (bFirstRun && nEnd < m_nBufLen && m_aBuf[nEnd] == cQuoteChar)
+      {
+        // The whole string is in the buffer and contains no special chars.
+        // The opening quote is the char directly before the start.
+        m_nBufPos = nEnd + 1;
+        return new TwoStrings (new String (m_aBuf, nStart - 1, nEnd - nStart + 2),
+                               new String (m_aBuf, nStart, nEnd - nStart));
+      }
+
+      if (bFirstRun)
+      {
+        aStrStringOriginalContent.append (cQuoteChar);
+        bFirstRun = false;
+      }
+      aStrStringOriginalContent.append (m_aBuf, nStart, nEnd - nStart);
+      aStrStringUnescapedContent.append (m_aBuf, nStart, nEnd - nStart);
+      m_nBufPos = nEnd;
+
+      if (nEnd == m_nBufLen)
+      {
+        // End of buffer reached
+        try
+        {
+          if (!_fillBuffer ())
+            throw _parseEx (aStartPos, "Unclosed JSON String at end of input");
+        }
+        catch (final IOException ex)
+        {
+          // Same as in _readChar
+          throw _parseEx (aStartPos, "Unclosed JSON String at end of input");
+        }
+        continue;
+      }
+
+      final char c = m_aBuf[m_nBufPos++];
+      aStrStringOriginalContent.append (c);
+      if (c == cQuoteChar)
+      {
+        // End of string
+        return new TwoStrings (aStrStringOriginalContent.getAsString (), aStrStringUnescapedContent.getAsString ());
+      }
+
+      if (c == '\\')
+        _readStringEscapeChar (aStartPos, aStrStringOriginalContent, aStrStringUnescapedContent);
+      else
+      {
+        // Control character
+        if ((c == '\b' || c == '\f' || c == '\n' || c == '\r' || c == '\t') &&
+            !m_aSettings.isAllowSpecialCharsInStrings ())
+          throw _parseEx (aStartPos, "Invalid JSON String character " + _getPrintableChar (c));
+        aStrStringUnescapedContent.append (c);
+      }
+    }
+  }
+
+  /**
    * @param eQuoteMode
    *        The quoting mode used. May not be <code>null</code>.
    * @return A pair where the first string is the original read string whereas the second part is
@@ -425,6 +609,9 @@ public class JsonParser
     final boolean bStringIsQuoted = cStart == cQuoteChar;
     if (bStringIsQuoted)
     {
+      if (m_aBuf != null && !m_aSettings.isTrackPosition ())
+        return _readQuotedStringFromBuffer (aStartPos, (char) cQuoteChar);
+
       aStrStringOriginalContent.append ((char) cQuoteChar);
     }
     else
@@ -965,6 +1152,8 @@ public class JsonParser
   @NonNull
   public EEOI parse () throws JsonParseException
   {
+    _initReader ();
+
     final EEOI eEOI = _readValue ();
     if (eEOI.isNotEndOfInput () && m_aSettings.isCheckForEOI ())
     {

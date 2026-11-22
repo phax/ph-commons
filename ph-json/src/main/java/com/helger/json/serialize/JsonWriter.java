@@ -204,12 +204,16 @@ public class JsonWriter
     ValueEnforcer.notNull (aJson, "Json");
     ValueEnforcer.notNull (aWriter, "Writer");
 
-    _writeToWriter (aJson, aWriter, 0);
+    // Avoid many small writes on unbuffered writers (like OutputStreamWriter)
+    final Writer aBufferedWriter = StreamHelper.getBuffered (aWriter);
+
+    _writeToWriter (aJson, aBufferedWriter, 0);
 
     if (m_aSettings.isWriteNewlineAtEnd ())
-      aWriter.write (m_aSettings.getNewlineString ());
+      aBufferedWriter.write (m_aSettings.getNewlineString ());
 
-    aWriter.flush ();
+    // Also flushes the wrapped writer
+    aBufferedWriter.flush ();
   }
 
   /**

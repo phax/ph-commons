@@ -89,6 +89,31 @@ public class JsonStringBuilder
   }
 
   /**
+   * Append a portion of a character array.
+   *
+   * @param aChars
+   *        The characters to append. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into the array. Must be &ge; 0.
+   * @param nLen
+   *        The number of characters to append. Must be &ge; 0.
+   * @since v12.7.2
+   */
+  public void append (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
+  {
+    ValueEnforcer.isArrayOfsLen (aChars, nOfs, nLen);
+    if (nLen > 0)
+    {
+      m_sCache = null;
+      final int nNewLen = m_nLen + nLen;
+      if (nNewLen > m_aBuf.length)
+        _expandCapacity (nNewLen);
+      System.arraycopy (aChars, nOfs, m_aBuf, m_nLen, nLen);
+      m_nLen = nNewLen;
+    }
+  }
+
+  /**
    * @return <code>true</code> if this builder has content, <code>false</code> if it is empty.
    */
   public boolean hasContent ()

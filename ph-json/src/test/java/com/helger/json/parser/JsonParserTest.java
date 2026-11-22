@@ -17,12 +17,16 @@
 package com.helger.json.parser;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.FilterReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
@@ -40,7 +44,10 @@ import com.helger.base.io.stream.StringInputStream;
 import com.helger.json.IJson;
 import com.helger.json.IJsonObject;
 import com.helger.json.IJsonValue;
+import com.helger.json.JsonArray;
+import com.helger.json.JsonObject;
 import com.helger.json.parser.handler.CollectingJsonParserHandler;
+import com.helger.json.parser.handler.StringAssemblyJsonParserHandler;
 import com.helger.json.serialize.JsonReader;
 
 /**
@@ -249,6 +256,125 @@ public final class JsonParserTest
         }
       } while (aJson != null);
       assertEquals (2, nCount);
+    }
+  }
+
+  /**
+   * Create a reader that returns at most the provided number of chars per bulk read, to test the
+   * refill handling of the internal buffer.
+   */
+  @NonNull
+  private static Reader _createChunkedReader (@NonNull final String sJson, final int nMaxChars)
+  {
+    return new FilterReader (new NonBlockingStringReader (sJson))
+    {
+      @Override
+      public int read (final char [] aBuf, final int nOfs, final int nLen) throws IOException
+      {
+        return super.read (aBuf, nOfs, Math.min (nLen, nMaxChars));
+      }
+    };
+  }
+
+  @NonNull
+  private static String _createLargeJson ()
+  {
+    final StringBuilder aLongText = new StringBuilder ();
+    for (int i = 0; i < 1000; ++i)
+      aLongText.append ("Long text ").append (i).append (i % 7 == 0 ? " with \"quote\"\t\n" : " ");
+
+    final JsonArray aArray = new JsonArray ();
+    for (int i = 0; i < 500; ++i)
+    {
+      final JsonObject aObj = new JsonObject ();
+      aObj.add ("id", i);
+      aObj.add ("name", "Name " + i);
+      aObj.add ("escaped \"name\"", "Escaped\\ \"value\"\r\n\u0001 " + i);
+      aObj.add ("unicode", "\u00e4\u00f6\u00fc\u20ac " + i);
+      aObj.add ("double", i * 1.5);
+      aObj.add ("long", 10_000_000_000L + i);
+      aObj.add ("bool", (i & 1) == 0);
+      aObj.add ("array", new JsonArray ().add (i).add ("x").add (new JsonObject ()));
+      if (i % 50 == 0)
+        aObj.add ("long text", aLongText.toString ());
+      aArray.add (aObj);
+    }
+    return aArray.getAsJsonString ();
+  }
+
+  @Test
+  public void testReadLargeWithBufferBoundaries () throws JsonParseException
+  {
+    final String sJson = _createLargeJson ();
+    // Ensure the internal buffer must be refilled multiple times
+    assertTrue (sJson.length () > 100_000);
+    final IJson aExpected = _read (sJson, null);
+    assertNotNull (aExpected);
+
+    for (final int nMaxChars : new int [] { 1, 2, 3, 7, 100, 8191, 8192, 8193, Integer.MAX_VALUE })
+      for (final boolean bTrackPosition : new boolean [] { false, true })
+      {
+        // Read as object tree
+        final CollectingJsonParserHandler aHandler = new CollectingJsonParserHandler ();
+        final JsonParser aParser = new JsonParser (_createChunkedReader (sJson, nMaxChars), aHandler);
+        aParser.jsonParserSettings ().setTrackPosition (bTrackPosition);
+        aParser.parse ();
+        assertEquals ("MaxChars=" + nMaxChars, aExpected, aHandler.getJson ());
+
+        // Ensure the original strings are retained 1:1
+        final StringAssemblyJsonParserHandler aHandler2 = new StringAssemblyJsonParserHandler ();
+        final JsonParser aParser2 = new JsonParser (_createChunkedReader (sJson, nMaxChars), aHandler2);
+        aParser2.jsonParserSettings ().setTrackPosition (bTrackPosition);
+        aParser2.parse ();
+        assertEquals ("MaxChars=" + nMaxChars, sJson, aHandler2.getJsonString ());
+      }
+  }
+
+  @Test
+  public void testReadInvalidWithBufferBoundaries ()
+  {
+    final String sValid = _createLargeJson ();
+    // Unclosed string at the end
+    final String sUnclosed = sValid.substring (0, sValid.length () - 1) + ",\"abc";
+    // Tab character inside a string
+    final String sTab = sValid.substring (0, sValid.length () - 1) + ",\"a\tb\"]";
+
+    for (final String sJson : new String [] { sUnclosed, sTab })
+      for (final int nMaxChars : new int [] { 1, 3, 8192, Integer.MAX_VALUE })
+      {
+        final JsonParser aParser = new JsonParser (_createChunkedReader (sJson, nMaxChars),
+                                                   new CollectingJsonParserHandler ());
+        try
+        {
+          aParser.parse ();
+          fail ("MaxChars=" + nMaxChars);
+        }
+        catch (final JsonParseException ex)
+        {
+          // expected
+        }
+      }
+    assertFalse (JsonReader.builder ().source (sUnclosed).isValidJson ());
+    assertFalse (JsonReader.builder ().source (sTab).isValidJson ());
+  }
+
+  @Test
+  public void testDoublePushbackWithBufferBoundaries ()
+  {
+    // "/" followed by a non-"*" requires two pushback chars, also across a buffer refill
+    for (final int nMaxChars : new int [] { 1, 2, 3, 4, Integer.MAX_VALUE })
+    {
+      final JsonParser aParser = new JsonParser (_createChunkedReader ("[1 /x]", nMaxChars),
+                                                 new CollectingJsonParserHandler ());
+      try
+      {
+        aParser.parse ();
+        fail ("MaxChars=" + nMaxChars);
+      }
+      catch (final JsonParseException ex)
+      {
+        assertTrue (ex.getMessage (), ex.getMessage ().endsWith ("Unexpected character '/' in JSON array"));
+      }
     }
   }
 }
