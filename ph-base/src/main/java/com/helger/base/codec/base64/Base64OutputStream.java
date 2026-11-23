@@ -156,7 +156,7 @@ public class Base64OutputStream extends WrappedOutputStream
     {
       // Else, Decoding
       // Meaningful Base64 character?
-      if (m_aDecodabet[theByte & 0x7f] > Base64.WHITE_SPACE_ENC)
+      if (m_aDecodabet[theByte & 0xff] > Base64.WHITE_SPACE_ENC)
       {
         m_aBuffer[m_nPosition++] = (byte) theByte;
         if (m_nPosition >= m_nBufferLength)
@@ -168,7 +168,7 @@ public class Base64OutputStream extends WrappedOutputStream
         }
       }
       else
-        if (m_aDecodabet[theByte & 0x7f] != Base64.WHITE_SPACE_ENC)
+        if (m_aDecodabet[theByte & 0xff] != Base64.WHITE_SPACE_ENC)
         {
           throw new IOException ("Invalid character in Base64 data.");
         }
