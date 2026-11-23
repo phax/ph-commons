@@ -25,7 +25,8 @@ import com.helger.annotation.meta.TypeQualifierValidator;
 import com.helger.annotation.meta.When;
 
 /**
- * This annotation is used to annotate a value that should only contain nonnegative values (ge; 0).
+ * This annotation is used to annotate a value that should only contain nonnegative values (&ge; 0).
+ * With <code>zeroAllowed = false</code> the value must be positive (&gt; 0).
  * <p>
  * When this annotation is applied to a method it applies to the method return value.
  *
@@ -38,35 +39,45 @@ public @interface Nonnegative
 {
   When when() default When.ALWAYS;
 
+  /**
+   * @return <code>true</code> if 0 is a valid value (&ge; 0, the default), <code>false</code> if
+   *         the value must be positive (&gt; 0).
+   * @since 12.8.0
+   */
+  boolean zeroAllowed() default true;
+
   class Checker implements TypeQualifierValidator <Nonnegative>
   {
     /**
-     * Validate whether the provided constant value is nonnegative.
+     * Validate whether the provided constant value is nonnegative, or positive if zero is not
+     * allowed.
      *
      * @param annotation
      *        The {@link Nonnegative} annotation instance. Must not be <code>null</code>.
      * @param v
      *        The constant value to validate.
-     * @return {@link When#ALWAYS} if the value is nonnegative, {@link When#NEVER} otherwise.
+     * @return {@link When#ALWAYS} if the value is nonnegative (positive if zero is not allowed),
+     *         {@link When#NEVER} otherwise.
      */
     public When forConstantValue (final Nonnegative annotation, final Object v)
     {
       if (!(v instanceof Number))
         return When.NEVER;
-      boolean isNegative;
+      // The sign of the value: < 0, 0 or > 0
+      final int nSignum;
       final Number value = (Number) v;
       if (value instanceof Long)
-        isNegative = value.longValue () < 0;
+        nSignum = Long.signum (value.longValue ());
       else
         if (value instanceof Double)
-          isNegative = value.doubleValue () < 0;
+          nSignum = (int) Math.signum (value.doubleValue ());
         else
           if (value instanceof Float)
-            isNegative = value.floatValue () < 0;
+            nSignum = (int) Math.signum (value.floatValue ());
           else
-            isNegative = value.intValue () < 0;
+            nSignum = Integer.signum (value.intValue ());
 
-      if (isNegative)
+      if (nSignum < 0 || (nSignum == 0 && !annotation.zeroAllowed ()))
         return When.NEVER;
       return When.ALWAYS;
     }

@@ -92,7 +92,7 @@ public final class ZipWalkerSettings implements ICloneable <ZipWalkerSettings>
    * @return The maximum number of entries (files and directories), including all nested archives.
    *         Always &gt; 0. Default is {@link #DEFAULT_MAX_ENTRY_COUNT}.
    */
-  @Nonnegative
+  @Nonnegative (zeroAllowed = false)
   public int getMaxEntryCount ()
   {
     return m_nMaxEntryCount;
@@ -105,7 +105,7 @@ public final class ZipWalkerSettings implements ICloneable <ZipWalkerSettings>
    * @return this for chaining
    */
   @NonNull
-  public ZipWalkerSettings setMaxEntryCount (@Nonnegative final int nMaxEntryCount)
+  public ZipWalkerSettings setMaxEntryCount (@Nonnegative (zeroAllowed = false) final int nMaxEntryCount)
   {
     ValueEnforcer.isGT0 (nMaxEntryCount, "MaxEntryCount");
     m_nMaxEntryCount = nMaxEntryCount;
@@ -117,7 +117,7 @@ public final class ZipWalkerSettings implements ICloneable <ZipWalkerSettings>
    *         archives, including the entries of all nested archives. Always &gt; 0. Default is
    *         {@link #DEFAULT_MAX_TOTAL_UNCOMPRESSED_BYTES}.
    */
-  @Nonnegative
+  @Nonnegative (zeroAllowed = false)
   public long getMaxTotalUncompressedBytes ()
   {
     return m_nMaxTotalUncompressedBytes;
@@ -130,7 +130,7 @@ public final class ZipWalkerSettings implements ICloneable <ZipWalkerSettings>
    * @return this for chaining
    */
   @NonNull
-  public ZipWalkerSettings setMaxTotalUncompressedBytes (@Nonnegative final long nMaxTotalUncompressedBytes)
+  public ZipWalkerSettings setMaxTotalUncompressedBytes (@Nonnegative (zeroAllowed = false) final long nMaxTotalUncompressedBytes)
   {
     ValueEnforcer.isGT0 (nMaxTotalUncompressedBytes, "MaxTotalUncompressedBytes");
     m_nMaxTotalUncompressedBytes = nMaxTotalUncompressedBytes;
