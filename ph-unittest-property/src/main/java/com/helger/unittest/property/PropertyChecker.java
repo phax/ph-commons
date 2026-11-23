@@ -44,6 +44,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * tries system property sets the default, which {@link #setTries(int)} overrides. The system
  * property {@value #SYSTEM_PROPERTY_TRIES_FACTOR} multiplies the tries of all properties, including
  * the ones set in code - e.g. <code>-Dph.property.tries.factor=50</code> for a thorough nightly run.
+ * An invalid value of any of these system properties causes an {@link IllegalArgumentException}.
  *
  * @author Philip Helger
  * @since 12.8.0
@@ -86,12 +87,54 @@ public class PropertyChecker
   private int m_nMaxChoices = ChoiceSequence.DEFAULT_MAX_CHOICES;
 
   /**
+   * Read a numeric system property.
+   *
+   * @param sName
+   *        The name of the system property. May not be <code>null</code>.
+   * @param nMin
+   *        The minimum allowed value, inclusive.
+   * @param nMax
+   *        The maximum allowed value, inclusive.
+   * @return <code>null</code> if the system property is not set.
+   * @throws IllegalArgumentException
+   *         If the value is no number or outside the allowed range
+   */
+  @Nullable
+  private static Long _getLongSystemProperty (@NonNull final String sName, final long nMin, final long nMax)
+  {
+    final String sValue = System.getProperty (sName);
+    if (sValue == null)
+      return null;
+
+    final long nValue;
+    try
+    {
+      nValue = Long.parseLong (sValue.trim ());
+    }
+    catch (final NumberFormatException ex)
+    {
+      throw new IllegalArgumentException ("The system property '" + sName + "' must be a number, but is '" + sValue + "'",
+                                          ex);
+    }
+    if (nValue < nMin || nValue > nMax)
+      throw new IllegalArgumentException ("The system property '" +
+                                          sName +
+                                          "' must be between " +
+                                          nMin +
+                                          " and " +
+                                          nMax +
+                                          ", but is " +
+                                          nValue);
+    return Long.valueOf (nValue);
+  }
+
+  /**
    * Constructor using the system properties or the defaults.
    */
   public PropertyChecker ()
   {
-    final String sTries = System.getProperty (SYSTEM_PROPERTY_TRIES);
-    m_nTries = sTries != null ? Integer.parseInt (sTries.trim ()) : DEFAULT_TRIES;
+    final Long aTries = _getLongSystemProperty (SYSTEM_PROPERTY_TRIES, 1, Integer.MAX_VALUE);
+    m_nTries = aTries != null ? aTries.intValue () : DEFAULT_TRIES;
   }
 
   /**
@@ -160,20 +203,18 @@ public class PropertyChecker
 
   private int _getEffectiveTries ()
   {
-    final String sFactor = System.getProperty (SYSTEM_PROPERTY_TRIES_FACTOR);
-    if (sFactor == null)
+    final Long aFactor = _getLongSystemProperty (SYSTEM_PROPERTY_TRIES_FACTOR, 1, Integer.MAX_VALUE);
+    if (aFactor == null)
       return m_nTries;
-    final long nTries = m_nTries * Long.parseLong (sFactor.trim ());
-    if (nTries <= 0)
-      throw new IllegalArgumentException ("The tries factor must be > 0: " + sFactor);
-    return (int) Math.min (nTries, Integer.MAX_VALUE);
+    // Both values are at most Integer.MAX_VALUE, so the product cannot overflow a long
+    return (int) Math.min ((long) m_nTries * aFactor.longValue (), Integer.MAX_VALUE);
   }
 
   private long _getEffectiveSeed ()
   {
-    final String sSeed = System.getProperty (SYSTEM_PROPERTY_SEED);
-    if (sSeed != null)
-      return Long.parseLong (sSeed.trim ());
+    final Long aSeed = _getLongSystemProperty (SYSTEM_PROPERTY_SEED, Long.MIN_VALUE, Long.MAX_VALUE);
+    if (aSeed != null)
+      return aSeed.longValue ();
     if (m_aSeed != null)
       return m_aSeed.longValue ();
     return new Random ().nextLong ();
