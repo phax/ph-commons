@@ -43,6 +43,9 @@ import com.helger.base.io.nonblocking.NonBlockingBitOutputStream;
 import com.helger.base.io.nonblocking.NonBlockingByteArrayOutputStream;
 import com.helger.base.io.stream.StreamHelper;
 import com.helger.base.string.StringHex;
+import com.helger.unittest.property.Generators;
+import com.helger.unittest.property.IGenerator;
+import com.helger.unittest.property.PropertyChecker;
 
 /**
  * Test class for class {@link LZWCodec}.
@@ -4555,5 +4558,15 @@ public final class LZWCodecTest
       {
         // expected
       }
+  }
+
+  @Test
+  public void testEncodeSameAsReferenceProperty ()
+  {
+    // The linear time encoder must produce exactly the output of the reference encoder, for
+    // arbitrary input and for redundant input that fills the dictionary
+    final IGenerator <byte []> aRedundant = Generators.byteArrays (Generators.bytes ((byte) 0, (byte) 2), 0, 10_000);
+    new PropertyChecker ().forAll (Generators.oneOf (Generators.byteArrays (), aRedundant),
+                                   LZWCodecTest::_assertSameAsReference);
   }
 }

@@ -74,7 +74,7 @@ public final class URLCoderPropertyTest
   @Test
   public void testParameterRoundTrip ()
   {
-    new PropertyChecker ().forAll (Generators.strings ('\u0000', 'ÿ', 0, 50),
+    new PropertyChecker ().forAll (Generators.strings ('\u0000', '\u00ff', 0, 50),
                                    Generators.of (StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1),
                                    (sText, aCharset) -> assertEquals (sText,
                                                                       new URLParameterDecoder (aCharset).getDecoded (new URLParameterEncoder (aCharset).getEncoded (sText))));
@@ -87,7 +87,7 @@ public final class URLCoderPropertyTest
   @Test
   public void testDecodeArbitraryInput ()
   {
-    new PropertyChecker ().forAll (Generators.strings ("%+0123456789abcdefABCDEFxyzä€", 0, 30), sEncoded -> {
+    new PropertyChecker ().forAll (Generators.strings ("%+0123456789abcdefABCDEFxyz\u00e4\u20ac", 0, 30), sEncoded -> {
       URLCoder.urlDecodeOrNull (sEncoded);
       try
       {
