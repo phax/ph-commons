@@ -68,7 +68,7 @@ public class ConcurrentBoundedCache <KEYTYPE, VALUETYPE> implements IHasSize
    * @param nMaxSize
    *        The maximum number of entries in the cache. Must be &gt; 0.
    */
-  public ConcurrentBoundedCache (@Nonnegative final int nMaxSize)
+  public ConcurrentBoundedCache (@Nonnegative (zeroAllowed = false) final int nMaxSize)
   {
     ValueEnforcer.isGT0 (nMaxSize, "MaxSize");
     m_nMaxSize = nMaxSize;

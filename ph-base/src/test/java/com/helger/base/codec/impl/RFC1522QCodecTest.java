@@ -108,7 +108,7 @@ public final class RFC1522QCodecTest
       a.getDecoded ("abc?=");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final DecodeException ex)
     {
       // expected
     }
@@ -118,7 +118,7 @@ public final class RFC1522QCodecTest
       a.getDecoded ("=?abc");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final DecodeException ex)
     {
       // expected
     }

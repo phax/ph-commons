@@ -400,7 +400,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve. Must be &gt; 0.
    * @return An array of new int IDs
    */
-  public static int [] getBulkNewIntIDs (@Nonnegative final int nCount)
+  public static int [] getBulkNewIntIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 
@@ -421,7 +421,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve. Must be &gt; 0.
    * @return An array of new persistent int IDs
    */
-  public static int [] getBulkNewPersistentIntIDs (@Nonnegative final int nCount)
+  public static int [] getBulkNewPersistentIntIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 
@@ -442,7 +442,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve. Must be &gt; 0.
    * @return An array of new long IDs
    */
-  public static long [] getBulkNewLongIDs (@Nonnegative final int nCount)
+  public static long [] getBulkNewLongIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 
@@ -463,7 +463,7 @@ public final class GlobalIDFactory
    *        The number of IDs to retrieve. Must be &gt; 0.
    * @return An array of new persistent long IDs
    */
-  public static long [] getBulkNewPersistentLongIDs (@Nonnegative final int nCount)
+  public static long [] getBulkNewPersistentLongIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 
@@ -485,7 +485,7 @@ public final class GlobalIDFactory
    * @return An array of new String IDs
    */
   @NonNull
-  public static String [] getBulkNewStringIDs (@Nonnegative final int nCount)
+  public static String [] getBulkNewStringIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 
@@ -514,7 +514,7 @@ public final class GlobalIDFactory
    * @return An array of new persistent String IDs
    */
   @NonNull
-  public static String [] getBulkNewPersistentStringIDs (@Nonnegative final int nCount)
+  public static String [] getBulkNewPersistentStringIDs (@Nonnegative (zeroAllowed = false) final int nCount)
   {
     ValueEnforcer.isGT0 (nCount, "Count");
 

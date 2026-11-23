@@ -50,21 +50,13 @@ public final class CodecRobustnessPropertyTest
     }
   }
 
-  private static void _assertRobust (final IByteArrayDecoder aDecoder,
-                                     final IGenerator <byte []> aValidEncodings,
-                                     final int nMinLength)
-  {
-    new PropertyChecker ().forAll (Generators.byteArrays (nMinLength, Generators.DEFAULT_MAX_SIZE),
-                                   aBytes -> _decodeExpectingOnlyDecodeException (aDecoder, aBytes));
-    new PropertyChecker ().setTries (1000)
-                          .forAll (Generators.mutatedByteArrays (aValidEncodings)
-                                             .filter (aBytes -> aBytes.length >= nMinLength),
-                                   aBytes -> _decodeExpectingOnlyDecodeException (aDecoder, aBytes));
-  }
-
   private static void _assertRobust (final IByteArrayDecoder aDecoder, final IGenerator <byte []> aValidEncodings)
   {
-    _assertRobust (aDecoder, aValidEncodings, 0);
+    new PropertyChecker ().forAll (Generators.byteArrays (),
+                                   aBytes -> _decodeExpectingOnlyDecodeException (aDecoder, aBytes));
+    new PropertyChecker ().setTries (1000)
+                          .forAll (Generators.mutatedByteArrays (aValidEncodings),
+                                   aBytes -> _decodeExpectingOnlyDecodeException (aDecoder, aBytes));
   }
 
   private static void _assertRobust (final IByteArrayCodec aCodec)
@@ -111,9 +103,7 @@ public final class CodecRobustnessPropertyTest
   @Test
   public void testASCII85 ()
   {
-    // ASCII85Codec rejects input shorter than 4 bytes with an IllegalArgumentException by design - even
-    // "~>", the valid encoding of empty input
-    _assertRobust (new ASCII85Codec (), Generators.byteArrays ().map (ASCII85Reference::encode), 4);
+    _assertRobust (new ASCII85Codec (), Generators.byteArrays ().map (ASCII85Reference::encode));
   }
 
   @Test

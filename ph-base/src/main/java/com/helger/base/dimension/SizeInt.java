@@ -88,7 +88,7 @@ public class SizeInt implements IHasDimensionInt
    */
   @NonNull
   @CheckReturnValue
-  public SizeInt getBestMatchingSize (@Nonnegative final int nMaxWidth, @Nonnegative final int nMaxHeight)
+  public SizeInt getBestMatchingSize (@Nonnegative (zeroAllowed = false) final int nMaxWidth, @Nonnegative (zeroAllowed = false) final int nMaxHeight)
   {
     ValueEnforcer.isGT0 (nMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (nMaxHeight, "MaxHeight");
@@ -119,7 +119,7 @@ public class SizeInt implements IHasDimensionInt
    */
   @NonNull
   @CheckReturnValue
-  public SizeInt getScaledToWidth (@Nonnegative final int nNewWidth)
+  public SizeInt getScaledToWidth (@Nonnegative (zeroAllowed = false) final int nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
     if (m_nWidth == 0)
@@ -142,7 +142,7 @@ public class SizeInt implements IHasDimensionInt
    */
   @NonNull
   @CheckReturnValue
-  public SizeInt getScaledToHeight (@Nonnegative final int nNewHeight)
+  public SizeInt getScaledToHeight (@Nonnegative (zeroAllowed = false) final int nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
     if (m_nHeight == 0)

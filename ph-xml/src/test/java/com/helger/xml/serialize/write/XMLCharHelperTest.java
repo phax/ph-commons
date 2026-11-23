@@ -40,7 +40,9 @@ public final class XMLCharHelperTest
     assertFalse (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.HTML, '<'));
 
     assertTrue (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.XML_10, '\u0001'));
-    assertTrue (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.XML_11, '\u007f'));
+    // Restricted chars are valid in XML 1.1 attribute values as character references
+    assertFalse (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.XML_11, '\u007f'));
+    assertTrue (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.XML_11, '\u0000'));
     assertTrue (XMLCharHelper.isInvalidXMLAttributeValueChar (EXMLSerializeVersion.HTML, '\u007f'));
   }
 

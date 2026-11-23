@@ -153,10 +153,10 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     if (sEncodedText == null)
       return null;
 
-    ValueEnforcer.isTrue (sEncodedText.startsWith (PREFIX),
-                          "RFC 1522 violation: malformed encoded content. Prefix missing.");
-    ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX),
-                          "RFC 1522 violation: malformed encoded content. Postfix missing.");
+    if (!sEncodedText.startsWith (PREFIX))
+      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Prefix missing.");
+    if (!sEncodedText.endsWith (POSTFIX))
+      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Postfix missing.");
     // Prefix and postfix may overlap, as in "=?="
     if (sEncodedText.length () < PREFIX.length () + POSTFIX.length ())
       throw new DecodeException ("RFC 1522 violation: malformed encoded content. Content too short.");

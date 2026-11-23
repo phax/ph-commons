@@ -71,7 +71,7 @@ public final class FooHelper {
 - **Nullness**: `@NonNull` / `@Nullable` (from `org.jspecify`). Never annotate primitives with `@Nullable` — use wrapper types instead. Arrays of primitives can be `@Nullable`.
 - **Return types**: `@ReturnsMutableCopy` / `@ReturnsImmutableObject`
 - **Thread safety**: `@ThreadSafe` / `@NotThreadSafe` / `@Immutable` on every class
-- **Constraints**: `@Nonnegative`, `@Nonempty`
+- **Constraints**: `@Nonnegative` (>= 0; use `@Nonnegative (zeroAllowed = false)` for values that must be > 0, e.g. when `ValueEnforcer.isGT0` is used), `@Nonempty`
 
 ### Key Patterns
 

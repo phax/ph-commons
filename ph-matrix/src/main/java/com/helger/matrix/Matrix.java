@@ -115,7 +115,7 @@ public class Matrix implements ICloneable <Matrix>
    * @param nCols
    *        Number of columns.
    */
-  public Matrix (@Nonnegative final int nRows, @Nonnegative final int nCols)
+  public Matrix (@Nonnegative (zeroAllowed = false) final int nRows, @Nonnegative (zeroAllowed = false) final int nCols)
   {
     ValueEnforcer.isGT0 (nRows, "Rows");
     ValueEnforcer.isGT0 (nCols, "Cols");
@@ -174,7 +174,7 @@ public class Matrix implements ICloneable <Matrix>
    * @param nCols
    *        Number of columns.
    */
-  Matrix (final double @NonNull [] [] aOther, @Nonnegative final int nRows, @Nonnegative final int nCols)
+  Matrix (final double @NonNull [] [] aOther, @Nonnegative (zeroAllowed = false) final int nRows, @Nonnegative (zeroAllowed = false) final int nCols)
   {
     ValueEnforcer.notNull (aOther, "Other");
     ValueEnforcer.isGT0 (nRows, "rows");

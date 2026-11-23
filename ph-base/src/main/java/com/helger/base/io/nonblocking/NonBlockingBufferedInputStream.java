@@ -150,7 +150,7 @@ public class NonBlockingBufferedInputStream extends WrappedInputStream
    * @exception IllegalArgumentException
    *            if size &le; 0.
    */
-  public NonBlockingBufferedInputStream (@NonNull final InputStream aIS, @Nonnegative final int nSize)
+  public NonBlockingBufferedInputStream (@NonNull final InputStream aIS, @Nonnegative (zeroAllowed = false) final int nSize)
   {
     super (aIS);
     ValueEnforcer.isGT0 (nSize, "Size");

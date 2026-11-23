@@ -50,7 +50,7 @@ public class RingBufferFifo <ELEMENTTYPE>
    * @param bAllowOverwrite
    *        <code>true</code> if the oldest element gets overwritten when the next element is put.
    */
-  public RingBufferFifo (@Nonnegative final int nCapacity, final boolean bAllowOverwrite)
+  public RingBufferFifo (@Nonnegative (zeroAllowed = false) final int nCapacity, final boolean bAllowOverwrite)
   {
     ValueEnforcer.isGT0 (nCapacity, "Capacity");
     m_nCapacity = nCapacity;

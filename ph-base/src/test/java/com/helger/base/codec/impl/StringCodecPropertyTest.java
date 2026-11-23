@@ -79,9 +79,8 @@ public final class StringCodecPropertyTest
   }
 
   /**
-   * The RFC 1522 decoders must reject invalid input with a {@link DecodeException}. Valid encodings
-   * with a few random edits reach the deeper decoding logic. Known inconsistency: a missing "=?" prefix
-   * or "?=" postfix is reported with an {@link IllegalArgumentException} instead.
+   * The RFC 1522 decoders must reject invalid input with a {@link DecodeException} only. Valid
+   * encodings with a few random edits reach the deeper decoding logic.
    */
   @Test
   public void testRFC1522DecodeOnlyThrowsDecodeException ()
@@ -104,12 +103,6 @@ public final class StringCodecPropertyTest
                                      catch (final DecodeException ex)
                                      {
                                        // expected for invalid input
-                                     }
-                                     catch (final IllegalArgumentException ex)
-                                     {
-                                       assertTrue (ex.getMessage (),
-                                                   ex.getMessage ().contains ("Prefix missing") ||
-                                                                     ex.getMessage ().contains ("Postfix missing"));
                                      }
                                    });
   }
@@ -135,11 +128,6 @@ public final class StringCodecPropertyTest
       catch (final DecodeException ex)
       {
         // expected for invalid input
-      }
-      catch (final IllegalArgumentException ex)
-      {
-        assertTrue (ex.getMessage (),
-                    ex.getMessage ().contains ("Prefix missing") || ex.getMessage ().contains ("Postfix missing"));
       }
     });
   }

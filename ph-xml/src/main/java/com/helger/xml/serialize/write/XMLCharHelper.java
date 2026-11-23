@@ -105,7 +105,7 @@ public final class XMLCharHelper
     private final BitSet m_aInvalidTextValueChar = new BitSet (BIT_SET_LENGTH);
     /** This is used for XML 1.1 CDATA values */
     private final BitSet m_aInvalidCDATValueChar = new BitSet (BIT_SET_LENGTH);
-    /** This is used for XML 1.1 CDATA and attribute values */
+    /** This is used for XML 1.1 attribute values */
     private final BitSet m_aInvalidAttrValueChar = new BitSet (BIT_SET_LENGTH);
 
     private XML11 ()
@@ -127,13 +127,9 @@ public final class XMLCharHelper
                                         // (c >= 0xd800 && c <= 0xdfff)
                                         // ||
                                         (c >= 0xfffe && c <= 0xffff));
-        m_aInvalidAttrValueChar.set (c,
-                                     (c == 0x0) ||
-                                        (c >= 0x7f && c <= 0x84) ||
-                                        (c >= 0x86 && c <= 0x9f) ||
-                                        // Surrogate chars
-                                        // (c >= 0xd800 && c <= 0xdfff) ||
-                                        (c >= 0xfffe && c <= 0xffff));
+        // The restricted characters 0x7f-0x84 and 0x86-0x9f are valid as character references,
+        // which is how they are masked - same as in text
+        m_aInvalidAttrValueChar.set (c, (c == 0x0) || (c >= 0xfffe && c <= 0xffff));
       }
     }
   }

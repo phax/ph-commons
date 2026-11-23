@@ -20,6 +20,7 @@ import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
 import org.jspecify.annotations.NonNull;
@@ -135,6 +136,31 @@ public final class ZipWalker
   }
 
   /**
+   * Get the next entry. The JDK throws an {@link IllegalArgumentException} if an entry name is not
+   * valid in the charset of the archive - that is a broken archive like any other.
+   *
+   * @param aZIS
+   *        The stream to read from. May not be <code>null</code>.
+   * @return The next entry or <code>null</code> at the end of the archive.
+   * @throws IOException
+   *         On read error, including malformed entry names
+   */
+  @Nullable
+  private static ZipEntry _getNextEntry (@NonNull final ZipInputStream aZIS) throws IOException
+  {
+    try
+    {
+      return aZIS.getNextEntry ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      final ZipException ret = new ZipException ("Malformed ZIP entry: " + ex.getMessage ());
+      ret.initCause (ex);
+      throw ret;
+    }
+  }
+
+  /**
    * Determine the result for an exception that ended the walk.
    *
    * @param ex
@@ -183,7 +209,7 @@ public final class ZipWalker
     try
     {
       ZipEntry aEntry;
-      while ((aEntry = aZIS.getNextEntry ()) != null)
+      while ((aEntry = _getNextEntry (aZIS)) != null)
       {
         sPath = sPathPrefix + aEntry.getName ();
         aCounter.onEntry ();

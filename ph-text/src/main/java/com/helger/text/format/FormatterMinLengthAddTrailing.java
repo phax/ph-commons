@@ -43,7 +43,7 @@ public final class FormatterMinLengthAddTrailing extends AbstractFormatterString
    * @param cFill
    *        The character to use for filling at the end.
    */
-  public FormatterMinLengthAddTrailing (@Nonnegative final int nMinLength, final char cFill)
+  public FormatterMinLengthAddTrailing (@Nonnegative (zeroAllowed = false) final int nMinLength, final char cFill)
   {
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
     m_nMinLength = nMinLength;

@@ -159,7 +159,7 @@ public final class CodecRoundTripPropertyTest
   public void testASCII85DecodesReferenceEncoding ()
   {
     final ASCII85Codec aASCII85 = new ASCII85Codec ();
-    new PropertyChecker ().forAll (Generators.byteArrays (1, Generators.DEFAULT_MAX_SIZE),
+    new PropertyChecker ().forAll (Generators.byteArrays (),
                                    aBytes -> assertArrayEquals (aBytes, aASCII85.getDecoded (ASCII85Reference.encode (aBytes))));
   }
 

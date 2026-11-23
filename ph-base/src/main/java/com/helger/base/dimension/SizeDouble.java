@@ -121,7 +121,7 @@ public class SizeDouble implements IHasDimensionDouble
    */
   @NonNull
   @CheckReturnValue
-  public SizeDouble getBestMatchingSize (@Nonnegative final double dMaxWidth, @Nonnegative final double dMaxHeight)
+  public SizeDouble getBestMatchingSize (@Nonnegative (zeroAllowed = false) final double dMaxWidth, @Nonnegative (zeroAllowed = false) final double dMaxHeight)
   {
     ValueEnforcer.isGT0 (dMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (dMaxHeight, "MaxHeight");
@@ -152,7 +152,7 @@ public class SizeDouble implements IHasDimensionDouble
    */
   @NonNull
   @CheckReturnValue
-  public SizeDouble getScaledToWidth (@Nonnegative final double dNewWidth)
+  public SizeDouble getScaledToWidth (@Nonnegative (zeroAllowed = false) final double dNewWidth)
   {
     ValueEnforcer.isGT0 (dNewWidth, "NewWidth");
     if (m_dWidth == 0)
@@ -175,7 +175,7 @@ public class SizeDouble implements IHasDimensionDouble
    */
   @NonNull
   @CheckReturnValue
-  public SizeDouble getScaledToHeight (@Nonnegative final double dNewHeight)
+  public SizeDouble getScaledToHeight (@Nonnegative (zeroAllowed = false) final double dNewHeight)
   {
     ValueEnforcer.isGT0 (dNewHeight, "NewHeight");
     if (m_dHeight == 0)

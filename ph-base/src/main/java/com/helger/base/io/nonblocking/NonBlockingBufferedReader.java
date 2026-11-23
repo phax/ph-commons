@@ -83,7 +83,7 @@ public class NonBlockingBufferedReader extends Reader
    * @exception IllegalArgumentException
    *            If size is &le; 0
    */
-  public NonBlockingBufferedReader (@NonNull final Reader aReader, @Nonnegative final int nSize)
+  public NonBlockingBufferedReader (@NonNull final Reader aReader, @Nonnegative (zeroAllowed = false) final int nSize)
   {
     super (aReader);
     ValueEnforcer.isGT0 (nSize, "Size");

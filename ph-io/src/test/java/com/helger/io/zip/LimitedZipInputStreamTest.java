@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
 import org.jspecify.annotations.NonNull;
@@ -166,6 +167,25 @@ public final class LimitedZipInputStreamTest
         // Just iterate
       }
       assertEquals (100_010, aZIS.getTotalUncompressedBytes ());
+    }
+  }
+
+  @Test
+  public void testMalformedEntryName () throws IOException
+  {
+    // Found by property based testing: an entry name that is not valid UTF-8 caused an
+    // IllegalArgumentException instead of an IOException
+    final byte [] aBytes = _zip ("a.txt", "content");
+    // The name starts at offset 30 of the local file header
+    aBytes[30] = (byte) 0xff;
+    try (final LimitedZipInputStream aZIS = _open (aBytes, new ZipWalkerSettings ()))
+    {
+      aZIS.getNextEntry ();
+      fail ();
+    }
+    catch (final ZipException ex)
+    {
+      // expected
     }
   }
 }

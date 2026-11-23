@@ -77,6 +77,27 @@ public final class Base64Test
   }
 
   @Test
+  public void testEncodeWithBreakLinesNoFinalLineBreak () throws IOException
+  {
+    // 57 bytes give exactly one line of 76 characters - no line break may follow it
+    final byte [] aSource = StringHelper.getRepeated ('a', 57).getBytes (StandardCharsets.ISO_8859_1);
+    final String sExpected = StringHelper.getRepeated ("YWFh", 19);
+    assertEquals (sExpected, Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES));
+    assertEquals (sExpected, Base64.safeEncodeBytes (aSource, Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF));
+
+    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+    try (final Base64OutputStream aOS = new Base64OutputStream (aBAOS, Base64.ENCODE | Base64.DO_BREAK_LINES))
+    {
+      aOS.write (aSource);
+    }
+    assertEquals (sExpected, aBAOS.getAsString (StandardCharsets.ISO_8859_1));
+
+    // Two full lines: exactly one line break in between
+    final byte [] aSource2 = StringHelper.getRepeated ('a', 114).getBytes (StandardCharsets.ISO_8859_1);
+    assertEquals (sExpected + "\n" + sExpected, Base64.safeEncodeBytes (aSource2, Base64.DO_BREAK_LINES));
+  }
+
+  @Test
   public void testEncodeBytesGZIP () throws IOException
   {
     final String sSource = "Hallo Welt! Ümläüte";

@@ -110,7 +110,7 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getBestMatchingSize (@Nonnegative final float fMaxWidth, @Nonnegative final float fMaxHeight)
+  public SizeFloat getBestMatchingSize (@Nonnegative (zeroAllowed = false) final float fMaxWidth, @Nonnegative (zeroAllowed = false) final float fMaxHeight)
   {
     ValueEnforcer.isGT0 (fMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (fMaxHeight, "MaxHeight");
@@ -141,7 +141,7 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getScaledToWidth (@Nonnegative final float fNewWidth)
+  public SizeFloat getScaledToWidth (@Nonnegative (zeroAllowed = false) final float fNewWidth)
   {
     ValueEnforcer.isGT0 (fNewWidth, "NewWidth");
     if (m_fWidth == 0)
@@ -164,7 +164,7 @@ public class SizeFloat implements IHasDimensionFloat
    */
   @NonNull
   @CheckReturnValue
-  public SizeFloat getScaledToHeight (@Nonnegative final float fNewHeight)
+  public SizeFloat getScaledToHeight (@Nonnegative (zeroAllowed = false) final float fNewHeight)
   {
     ValueEnforcer.isGT0 (fNewHeight, "NewHeight");
     if (m_fHeight == 0)

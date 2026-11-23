@@ -161,7 +161,7 @@ public final class Dijkstra
      * @param nElements
      *        The expected number of elements. Must be &gt; 0.
      */
-    public WorkRow (@Nonnegative final int nElements)
+    public WorkRow (@Nonnegative (zeroAllowed = false) final int nElements)
     {
       ValueEnforcer.isGT0 (nElements, "Elements");
       m_aElements = new CommonsLinkedHashMap <> (nElements);

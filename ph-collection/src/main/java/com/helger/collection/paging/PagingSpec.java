@@ -217,7 +217,7 @@ public class PagingSpec implements IPagingSpec
    */
   @NonNull
   public static PagingSpec createForPage (@Nonnegative final long nPageIndex,
-                                          @Nonnegative final long nPageSize,
+                                          @Nonnegative (zeroAllowed = false) final long nPageSize,
                                           @Nullable final SortField... aSortFields)
   {
     ValueEnforcer.isGE0 (nPageIndex, "PageIndex");

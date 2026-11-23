@@ -132,7 +132,7 @@ public final class PasswordSalt implements IPasswordSalt
    * @since 10.1.4
    */
   @NonNull
-  public static PasswordSalt createRandom (@Nonnegative final int nSaltBytes)
+  public static PasswordSalt createRandom (@Nonnegative (zeroAllowed = false) final int nSaltBytes)
   {
     ValueEnforcer.isGT0 (nSaltBytes, "SaltBytes");
     final byte [] aBytes = new byte [nSaltBytes];
