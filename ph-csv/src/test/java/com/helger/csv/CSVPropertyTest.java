@@ -24,6 +24,7 @@ import org.junit.Test;
 
 import com.helger.base.io.nonblocking.NonBlockingStringReader;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
+import com.helger.collection.commons.ICommonsList;
 import com.helger.unittest.property.Generators;
 import com.helger.unittest.property.IGenerator;
 import com.helger.unittest.property.PropertyChecker;
@@ -41,8 +42,8 @@ public final class CSVPropertyTest
                                                                       Generators.unicodeStrings (0, 10));
 
   /**
-   * At least one field per line, and not just one empty field: CSV cannot distinguish an empty line,
-   * a line with one empty field and no line at all.
+   * At least one field per line, and not just one empty field: CSV cannot distinguish an empty
+   * line, a line with one empty field and no line at all.
    */
   private static final IGenerator <List <List <String>>> LINES = Generators.lists (Generators.lists (FIELDS, 1, 6)
                                                                                              .filter (aLine -> aLine.size () > 1 ||
@@ -51,9 +52,9 @@ public final class CSVPropertyTest
                                                                                    0,
                                                                                    6);
 
-  private static List <List <String>> _writeAndRead (final List <List <String>> aLines,
-                                                     final char cSeparator,
-                                                     final boolean bApplyQuotesToAll) throws Exception
+  private static ICommonsList <ICommonsList <String>> _writeAndRead (final List <List <String>> aLines,
+                                                                     final char cSeparator,
+                                                                     final boolean bApplyQuotesToAll) throws Exception
   {
     final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
     try (final CSVWriter aWriter = new CSVWriter (aSW))
@@ -64,7 +65,7 @@ public final class CSVPropertyTest
     try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader (aSW.getAsString ()), true))
     {
       aReader.setSeparatorChar (cSeparator);
-      return (List) aReader.readAll ();
+      return aReader.readAll ();
     }
   }
 
@@ -73,7 +74,9 @@ public final class CSVPropertyTest
   {
     new PropertyChecker ().setTries (1000)
                           .forAll (LINES,
-                                   Generators.of (Character.valueOf (','), Character.valueOf (';'), Character.valueOf ('\t')),
+                                   Generators.of (Character.valueOf (','),
+                                                  Character.valueOf (';'),
+                                                  Character.valueOf ('\t')),
                                    Generators.booleans (),
                                    (aLines, aSeparator, aApplyQuotesToAll) -> assertEquals (aLines,
                                                                                             _writeAndRead (aLines,

@@ -26,8 +26,8 @@ import com.helger.annotation.concurrent.NotThreadSafe;
 
 /**
  * Runs properties: generates samples, checks the property for each of them and, on failure, shrinks
- * the sample and throws a {@link PropertyFailedError}. It does not depend on a test framework, so it
- * can be called from a plain JUnit 4 test method:
+ * the sample and throws a {@link PropertyFailedError}. It does not depend on a test framework, so
+ * it can be called from a plain JUnit 4 test method:
  *
  * <pre>
  * &#64;Test
@@ -40,11 +40,12 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * <p>
  * The number of tries and the seed can be set globally with the system properties
  * {@value #SYSTEM_PROPERTY_TRIES} and {@value #SYSTEM_PROPERTY_SEED}. The seed system property
- * overrides any seed set in code, so that a failure can be reproduced without changing the code. The
- * tries system property sets the default, which {@link #setTries(int)} overrides. The system
+ * overrides any seed set in code, so that a failure can be reproduced without changing the code.
+ * The tries system property sets the default, which {@link #setTries(int)} overrides. The system
  * property {@value #SYSTEM_PROPERTY_TRIES_FACTOR} multiplies the tries of all properties, including
- * the ones set in code - e.g. <code>-Dph.property.tries.factor=50</code> for a thorough nightly run.
- * An invalid value of any of these system properties causes an {@link IllegalArgumentException}.
+ * the ones set in code - e.g. <code>-Dph.property.tries.factor=50</code> for a thorough nightly
+ * run. An invalid value of any of these system properties causes an
+ * {@link IllegalArgumentException}.
  *
  * @author Philip Helger
  * @since 12.8.0
@@ -113,7 +114,11 @@ public class PropertyChecker
     }
     catch (final NumberFormatException ex)
     {
-      throw new IllegalArgumentException ("The system property '" + sName + "' must be a number, but is '" + sValue + "'",
+      throw new IllegalArgumentException ("The system property '" +
+                                          sName +
+                                          "' must be a number, but is '" +
+                                          sValue +
+                                          "'",
                                           ex);
     }
     if (nValue < nMin || nValue > nMax)
@@ -207,7 +212,7 @@ public class PropertyChecker
     if (aFactor == null)
       return m_nTries;
     // Both values are at most Integer.MAX_VALUE, so the product cannot overflow a long
-    return (int) Math.min ((long) m_nTries * aFactor.longValue (), Integer.MAX_VALUE);
+    return (int) Math.min (m_nTries * aFactor.longValue (), Integer.MAX_VALUE);
   }
 
   private long _getEffectiveSeed ()
@@ -263,7 +268,8 @@ public class PropertyChecker
                                                   final int nTry,
                                                   @NonNull final Outcome aFailedOutcome)
   {
-    // Only accept candidates that fail with the same exception class, so that shrinking does not slip
+    // Only accept candidates that fail with the same exception class, so that shrinking does not
+    // slip
     // over to a different bug
     final Class <?> aFailureClass = aFailedOutcome.m_aFailure.getClass ();
     final ChoiceShrinker aShrinker = new ChoiceShrinker (aCandidate -> {
@@ -347,7 +353,7 @@ public class PropertyChecker
                              @NonNull final IProperty2 <? super A, ? super B> aProperty)
   {
     final IGenerator <Object []> aTupleGenerator = aChoices -> new Object [] { aGeneratorA.generate (aChoices),
-                                                                              aGeneratorB.generate (aChoices) };
+                                                                               aGeneratorB.generate (aChoices) };
     forAll (aTupleGenerator, aArgs -> aProperty.check ((A) aArgs[0], (B) aArgs[1]));
   }
 
@@ -379,10 +385,11 @@ public class PropertyChecker
                                 @NonNull final IProperty3 <? super A, ? super B, ? super C> aProperty)
   {
     final IGenerator <Object []> aTupleGenerator = aChoices -> new Object [] { aGeneratorA.generate (aChoices),
-                                                                              aGeneratorB.generate (aChoices),
-                                                                              aGeneratorC.generate (aChoices) };
+                                                                               aGeneratorB.generate (aChoices),
+                                                                               aGeneratorC.generate (aChoices) };
     forAll (aTupleGenerator, aArgs -> aProperty.check ((A) aArgs[0], (B) aArgs[1], (C) aArgs[2]));
   }
+
   /**
    * Check that the property holds for all combinations of generated values. On failure, the samples
    * of {@link PropertyFailedError} are <code>Object[]</code>.
@@ -416,9 +423,9 @@ public class PropertyChecker
                                    @NonNull final IProperty4 <? super A, ? super B, ? super C, ? super D> aProperty)
   {
     final IGenerator <Object []> aTupleGenerator = aChoices -> new Object [] { aGeneratorA.generate (aChoices),
-                                                                              aGeneratorB.generate (aChoices),
-                                                                              aGeneratorC.generate (aChoices),
-                                                                              aGeneratorD.generate (aChoices) };
+                                                                               aGeneratorB.generate (aChoices),
+                                                                               aGeneratorC.generate (aChoices),
+                                                                               aGeneratorD.generate (aChoices) };
     forAll (aTupleGenerator, aArgs -> aProperty.check ((A) aArgs[0], (B) aArgs[1], (C) aArgs[2], (D) aArgs[3]));
   }
 }

@@ -18,6 +18,7 @@ package com.helger.collection.map;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -49,9 +50,9 @@ public final class PrimitiveMapPropertyTest
   private static final IGenerator <int []> OPERATIONS = Generators.ints (0, 5)
                                                                   .flatMap (aOp -> KEYS.flatMap (aKey -> Generators.ints (-3,
                                                                                                                           3)
-                                                                                                                    .map (aValue -> new int [] { aOp.intValue (),
-                                                                                                                                                 aKey.intValue (),
-                                                                                                                                                 aValue.intValue () })));
+                                                                                                                   .map (aValue -> new int [] { aOp.intValue (),
+                                                                                                                                                aKey.intValue (),
+                                                                                                                                                aValue.intValue () })));
 
   /** Mostly no "clear", so that the maps grow */
   private static final IGenerator <List <int []>> SEQUENCES = Generators.lists (OPERATIONS.filter (aOp -> aOp[0] != 5 ||
@@ -106,7 +107,7 @@ public final class PrimitiveMapPropertyTest
             assertEquals (sMsg, aModel.getOrDefault (aKey, Integer.valueOf (NO)).intValue (), aMap.get (aOp[1]));
             break;
           case 3:
-            assertEquals (sMsg, aModel.containsKey (aKey), aMap.containsKey (aOp[1]));
+            assertTrue (sMsg, aModel.containsKey (aKey) == aMap.containsKey (aOp[1]));
             break;
           case 4:
           {
@@ -132,7 +133,7 @@ public final class PrimitiveMapPropertyTest
       }
       assertArrayEquals (_getSortedKeys (aModel), _sorted (aMap.getAllKeys ()));
       final Map <Integer, Integer> aForEach = new HashMap <> ();
-      aMap.forEach ( (k, v) -> aForEach.put (Integer.valueOf (k), Integer.valueOf (v)));
+      aMap.forEach ((k, v) -> aForEach.put (Integer.valueOf (k), Integer.valueOf (v)));
       assertEquals (aModel, aForEach);
       final IntIntMap aClone = aMap.getClone ();
       for (final Map.Entry <Integer, Integer> aEntry : aModel.entrySet ())
@@ -155,30 +156,24 @@ public final class PrimitiveMapPropertyTest
         final String sMsg = "Step " + nStep++ + ": op " + aOp[0] + " key " + aOp[1] + " value " + sValue;
         switch (aOp[0])
         {
-          case 0:
-            assertEquals (sMsg, aModel.put (aKey, sValue), aMap.put (aOp[1], sValue));
-            break;
-          case 1:
-            assertEquals (sMsg, aModel.remove (aKey), aMap.remove (aOp[1]));
-            break;
-          case 2:
-            assertEquals (sMsg, aModel.get (aKey), aMap.get (aOp[1]));
-            break;
-          case 3:
-            assertEquals (sMsg, aModel.containsKey (aKey), aMap.containsKey (aOp[1]));
-            break;
-          case 4:
-            assertEquals (sMsg, aModel.computeIfAbsent (aKey, k -> sValue), aMap.computeIfAbsent (aOp[1], k -> sValue));
-            break;
-          default:
+          case 0 -> assertEquals (sMsg, aModel.put (aKey, sValue), aMap.put (aOp[1], sValue));
+          case 1 -> assertEquals (sMsg, aModel.remove (aKey), aMap.remove (aOp[1]));
+          case 2 -> assertEquals (sMsg, aModel.get (aKey), aMap.get (aOp[1]));
+          case 3 -> assertTrue (sMsg, aModel.containsKey (aKey) == aMap.containsKey (aOp[1]));
+          case 4 -> assertEquals (sMsg,
+                                  aModel.computeIfAbsent (aKey, k -> sValue),
+                                  aMap.computeIfAbsent (aOp[1], k -> sValue));
+          default ->
+          {
             aModel.clear ();
             aMap.clear ();
+          }
         }
         assertEquals (sMsg, aModel.size (), aMap.size ());
       }
       assertArrayEquals (_getSortedKeys (aModel), _sorted (aMap.getAllKeys ()));
       final Map <Integer, String> aForEach = new HashMap <> ();
-      aMap.forEach ( (k, v) -> aForEach.put (Integer.valueOf (k), v));
+      aMap.forEach ((k, v) -> aForEach.put (Integer.valueOf (k), v));
       assertEquals (aModel, aForEach);
     });
   }
@@ -215,7 +210,7 @@ public final class PrimitiveMapPropertyTest
             assertEquals (sMsg, aModel.getOrDefault (aKey, Double.valueOf (NO)).doubleValue (), aMap.get (aOp[1]), 0);
             break;
           case 3:
-            assertEquals (sMsg, aModel.containsKey (aKey), aMap.containsKey (aOp[1]));
+            assertTrue (sMsg, aModel.containsKey (aKey) == aMap.containsKey (aOp[1]));
             break;
           default:
             aModel.clear ();
@@ -225,7 +220,7 @@ public final class PrimitiveMapPropertyTest
       }
       assertArrayEquals (_getSortedKeys (aModel), _sorted (aMap.getAllKeys ()));
       final Map <Integer, Double> aForEach = new HashMap <> ();
-      aMap.forEach ( (k, v) -> aForEach.put (Integer.valueOf (k), Double.valueOf (v)));
+      aMap.forEach ((k, v) -> aForEach.put (Integer.valueOf (k), Double.valueOf (v)));
       assertEquals (aModel, aForEach);
     });
   }
@@ -262,7 +257,7 @@ public final class PrimitiveMapPropertyTest
             assertEquals (sMsg, aModel.getOrDefault (aKey, Float.valueOf (NO)).floatValue (), aMap.get (aOp[1]), 0);
             break;
           case 3:
-            assertEquals (sMsg, aModel.containsKey (aKey), aMap.containsKey (aOp[1]));
+            assertTrue (sMsg, aModel.containsKey (aKey) == aMap.containsKey (aOp[1]));
             break;
           default:
             aModel.clear ();
@@ -272,7 +267,7 @@ public final class PrimitiveMapPropertyTest
       }
       assertArrayEquals (_getSortedKeys (aModel), _sorted (aMap.getAllKeys ()));
       final Map <Integer, Float> aForEach = new HashMap <> ();
-      aMap.forEach ( (k, v) -> aForEach.put (Integer.valueOf (k), Float.valueOf (v)));
+      aMap.forEach ((k, v) -> aForEach.put (Integer.valueOf (k), Float.valueOf (v)));
       assertEquals (aModel, aForEach);
     });
   }
