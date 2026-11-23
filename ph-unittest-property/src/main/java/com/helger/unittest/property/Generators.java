@@ -36,6 +36,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
  * 0, &plusmn;1), as boundary values find most bugs.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 @Immutable
 public final class Generators

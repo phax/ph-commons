@@ -23,6 +23,7 @@ import org.jspecify.annotations.Nullable;
  * {@link AssertionError} from a JUnit assertion.
  *
  * @author Philip Helger
+ * @since 12.8.0
  * @param <A>
  *        The type of the first argument
  * @param <B>

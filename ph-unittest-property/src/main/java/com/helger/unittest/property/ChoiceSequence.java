@@ -38,6 +38,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
  * without any type specific shrinking code.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 @NotThreadSafe
 public final class ChoiceSequence

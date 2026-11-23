@@ -46,6 +46,7 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * the ones set in code - e.g. <code>-Dph.property.tries.factor=50</code> for a thorough nightly run.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 @NotThreadSafe
 public class PropertyChecker
