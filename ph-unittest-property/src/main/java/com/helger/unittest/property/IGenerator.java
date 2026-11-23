@@ -27,6 +27,7 @@ import org.jspecify.annotations.NonNull;
  * simpler values. Use the factory methods in {@link Generators} as building blocks.
  *
  * @author Philip Helger
+ * @since 12.8.0
  * @param <T>
  *        The type of the generated values
  */

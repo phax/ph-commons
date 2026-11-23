@@ -430,12 +430,9 @@ public class IntFloatMap implements IHasSize, ICloneable <IntFloatMap>
     for (int i = 0; i < nLen; ++i)
     {
       final int nKey = m_aKeys[i];
+      // Every used slot is reported, also if its value equals NO_VALUE - like size and getAllKeys
       if (nKey != FREE_KEY)
-      {
-        final float fValue = m_aValues[i];
-        if (fValue != NO_VALUE)
-          aConsumer.accept (nKey, fValue);
-      }
+        aConsumer.accept (nKey, m_aValues[i]);
     }
   }
 

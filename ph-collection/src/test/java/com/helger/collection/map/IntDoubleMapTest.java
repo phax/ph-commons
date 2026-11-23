@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 
@@ -202,5 +203,19 @@ public final class IntDoubleMapTest
       assertTrue (aBigClone.containsKey (i * 3));
       assertFalse (aBigClone.containsKey (i * 3 + 1));
     }
+  }
+
+  @Test
+  public void testForEachWithNoValue ()
+  {
+    // Found by property based testing: forEach skipped entries whose value equals NO_VALUE, although
+    // size, containsKey and getAllKeys contain them
+    final IntDoubleMap aMap = new IntDoubleMap ();
+    aMap.put (1, IntDoubleMap.NO_VALUE);
+    aMap.put (2, IntDoubleMap.NO_VALUE);
+    assertEquals (2, aMap.size ());
+    final AtomicInteger aCount = new AtomicInteger ();
+    aMap.forEach ( (k, v) -> aCount.incrementAndGet ());
+    assertEquals (2, aCount.get ());
   }
 }

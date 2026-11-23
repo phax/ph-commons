@@ -36,6 +36,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
  * 0, &plusmn;1), as boundary values find most bugs.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 @Immutable
 public final class Generators
@@ -151,6 +152,47 @@ public final class Generators
   public static IGenerator <Integer> ints ()
   {
     return ints (Integer.MIN_VALUE, Integer.MAX_VALUE);
+  }
+
+  /**
+   * Generate long values in the passed range. The distribution and the shrinking behaviour are the
+   * same as for {@link #ints(int, int)}.
+   *
+   * @param nMin
+   *        Minimum value, inclusive.
+   * @param nMax
+   *        Maximum value, inclusive. Must be &ge; <code>nMin</code>, and the difference must be
+   *        smaller than {@link Long#MAX_VALUE} - use {@link #longs()} for the full range.
+   * @return The generator. Never <code>null</code>.
+   */
+  @NonNull
+  public static IGenerator <Long> longs (final long nMin, final long nMax)
+  {
+    if (nMin > nMax)
+      throw new IllegalArgumentException ("Min " + nMin + " must be <= max " + nMax);
+    if (nMax - nMin < 0 || nMax - nMin == Long.MAX_VALUE)
+      throw new IllegalArgumentException ("The range from " + nMin + " to " + nMax + " is too large");
+
+    final long [] aEdgeCases = _getEdgeCases (nMin, nMax);
+    return aChoices -> {
+      final long nHint = aChoices.isGenerating () ? _pickHint (aChoices, nMin, nMax, aEdgeCases) : 0;
+      return Long.valueOf (_drawTowardsOrigin (aChoices, nMin, nMax, nHint));
+    };
+  }
+
+  /**
+   * @return A generator for all long values, combined from two int values for the high and the low
+   *         32 bits. It shrinks towards 0. Never <code>null</code>.
+   */
+  @NonNull
+  public static IGenerator <Long> longs ()
+  {
+    final IGenerator <Integer> aInts = ints ();
+    return aChoices -> {
+      final long nHigh = aInts.generate (aChoices).intValue ();
+      final long nLow = aInts.generate (aChoices).intValue () & 0xffff_ffffL;
+      return Long.valueOf ((nHigh << 32) | nLow);
+    };
   }
 
   /**

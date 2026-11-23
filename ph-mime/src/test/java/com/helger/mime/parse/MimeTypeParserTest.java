@@ -280,4 +280,21 @@ public final class MimeTypeParserTest
     final MimeType aMT = MimeTypeParser.parseMimeType ("application/soap+xml; action=\"\";charset=utf-8");
     assertEquals ("application/soap+xml;action=\"\";charset=utf-8", aMT.getAsString ());
   }
+
+  @Test
+  public void testUrlEscapeWithPercentAndPlus () throws MimeTypeParserException
+  {
+    // Found by property based testing: '%' and '+' are token chars and were written unescaped, but
+    // URL unescaping interprets them
+    for (final String sValue : new String [] { "%", "+", "a%20b", "1+1" })
+    {
+      final MimeType aMimeType = new MimeType (EMimeContentType.TEXT, "plain").addParameter ("x", sValue);
+      final String sMimeType = aMimeType.getAsString (EMimeQuoting.URL_ESCAPE);
+      assertEquals (sMimeType, aMimeType, MimeTypeParser.parseMimeType (sMimeType, EMimeQuoting.URL_ESCAPE));
+    }
+    // Values without these chars are written as before
+    assertEquals ("text/plain;charset=UTF-8",
+                  new MimeType (EMimeContentType.TEXT, "plain").addParameter ("charset", "UTF-8")
+                                                               .getAsString (EMimeQuoting.URL_ESCAPE));
+  }
 }

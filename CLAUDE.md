@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **ph-commons** is a multi-module Java 17+ utility library (`com.helger.*`) with 35 Maven modules. Core modules: `ph-base` → `ph-collection` → `ph-commons` (in dependency order). Testing uses JUnit 4.
 
-Property based tests use the in-house engine in `ph-unittest-property` (`PropertyChecker`, `Generators`), called from plain JUnit 4 `@Test` methods. It depends only on `ph-annotations`, so even `ph-base` can use it as a test dependency (`ph-unittest-support` cannot, as it depends on `ph-base`). The system properties `ph.property.tries` (default 200) and `ph.property.seed` (to reproduce a failure) apply to all properties.
+Property based tests use the in-house engine in `ph-unittest-property` (`PropertyChecker`, `Generators`), called from plain JUnit 4 `@Test` methods. It depends only on `ph-annotations`, so even `ph-base` can use it as a test dependency (`ph-unittest-support` cannot, as it depends on `ph-base`). The system properties `ph.property.tries` (default 200, overridden by `setTries` in code), `ph.property.tries.factor` (multiplies the tries of all properties, including those set in code - e.g. for nightly runs) and `ph.property.seed` (to reproduce a failure) apply to all properties.
 
 ## Build Commands
 

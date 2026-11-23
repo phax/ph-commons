@@ -93,30 +93,30 @@ public final class StringCodecPropertyTest
                                                    .map (aBytes -> new String (aBytes, StandardCharsets.ISO_8859_1));
     final IGenerator <String> aGrammar = Generators.strings ("=?BQUTF-8A_", 0, 20);
     new PropertyChecker ().setTries (1000)
-                          .forAll (aCodecs,
-                                   Generators.oneOf (aMutated, aGrammar),
-                                   (aCodec, sEncoded) -> {
-                                     try
-                                     {
-                                       aCodec.getDecoded (sEncoded);
-                                     }
-                                     catch (final DecodeException ex)
-                                     {
-                                       // expected for invalid input
-                                     }
-                                   });
+                          .forAll (aCodecs, Generators.oneOf (aMutated, aGrammar), (aCodec, sEncoded) -> {
+                            try
+                            {
+                              aCodec.getDecoded (sEncoded);
+                            }
+                            catch (final DecodeException ex)
+                            {
+                              // expected for invalid input
+                            }
+                          });
   }
 
   /**
    * Short strings from the "grammar alphabet" of RFC 1522 find structural edge cases, like the
-   * overlapping prefix and postfix in "=?=" - the only input of that kind. The "Q" codec is used, so that the "B" codec's Base64
-   * problems do not hide other failures - a property stops at its first failure.
+   * overlapping prefix and postfix in "=?=" - the only input of that kind. The "Q" codec is used,
+   * so that the "B" codec's Base64 problems do not hide other failures - a property stops at its
+   * first failure.
    */
   @Test
   public void testRFC1522QGrammarFuzzing ()
   {
     final RFC1522QCodec aCodec = new RFC1522QCodec ();
-    // Delimiters only: few, short combinations, so each one is likely to be generated. A rare needle like
+    // Delimiters only: few, short combinations, so each one is likely to be generated. A rare
+    // needle like
     // "=?=" is practically never found within a larger alphabet and longer strings.
     final IGenerator <String> aDelimiters = Generators.strings ("=?", 0, 6);
     final IGenerator <String> aGrammar = Generators.strings ("=?QUTF-8A_", 0, 20);
@@ -140,24 +140,27 @@ public final class StringCodecPropertyTest
   {
     final RFC2616Codec aCodec = new RFC2616Codec ();
     new PropertyChecker ().forAll (Generators.unicodeStrings (),
-                                   sText -> assertEquals (sText, aCodec.getDecodedAsString (aCodec.getEncodedAsString (sText))));
+                                   sText -> assertEquals (sText,
+                                                          aCodec.getDecodedAsString (aCodec.getEncodedAsString (sText))));
   }
 
   private static byte [] _percentDecode (final String sEncoded)
   {
-    final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
-    for (int i = 0; i < sEncoded.length (); ++i)
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
     {
-      final char c = sEncoded.charAt (i);
-      if (c == '%')
+      for (int i = 0; i < sEncoded.length (); ++i)
       {
-        aBAOS.write (Integer.parseInt (sEncoded.substring (i + 1, i + 3), 16));
-        i += 2;
+        final char c = sEncoded.charAt (i);
+        if (c == '%')
+        {
+          aBAOS.write (Integer.parseInt (sEncoded.substring (i + 1, i + 3), 16));
+          i += 2;
+        }
+        else
+          aBAOS.write (c);
       }
-      else
-        aBAOS.write (c);
+      return aBAOS.toByteArray ();
     }
-    return aBAOS.toByteArray ();
   }
 
   /**
@@ -168,21 +171,22 @@ public final class StringCodecPropertyTest
   public void testRFC5987 ()
   {
     new PropertyChecker ().forAll (Generators.oneOf (Generators.unicodeStrings (),
-                                                     Generators.strings (RFC5987_ATTR_CHARS, 0, 50)),
-                                   sText -> {
-                                     final String sEncoded = RFC5987Codec.getRFC5987EncodedUTF8 (sText);
-                                     for (int i = 0; i < sEncoded.length (); ++i)
-                                     {
-                                       final char c = sEncoded.charAt (i);
-                                       assertTrue (sEncoded, c == '%' || RFC5987_ATTR_CHARS.indexOf (c) >= 0);
-                                     }
-                                     boolean bAllAttrChars = true;
-                                     for (int i = 0; i < sText.length (); ++i)
-                                       if (RFC5987_ATTR_CHARS.indexOf (sText.charAt (i)) < 0)
-                                         bAllAttrChars = false;
-                                     if (bAllAttrChars)
-                                       assertEquals (sText, sEncoded);
-                                     assertArrayEquals (sText.getBytes (StandardCharsets.UTF_8), _percentDecode (sEncoded));
-                                   });
+                                                     Generators.strings (RFC5987_ATTR_CHARS, 0, 50)), sText -> {
+                                                       final String sEncoded = RFC5987Codec.getRFC5987EncodedUTF8 (sText);
+                                                       for (int i = 0; i < sEncoded.length (); ++i)
+                                                       {
+                                                         final char c = sEncoded.charAt (i);
+                                                         assertTrue (sEncoded,
+                                                                     c == '%' || RFC5987_ATTR_CHARS.indexOf (c) >= 0);
+                                                       }
+                                                       boolean bAllAttrChars = true;
+                                                       for (int i = 0; i < sText.length (); ++i)
+                                                         if (RFC5987_ATTR_CHARS.indexOf (sText.charAt (i)) < 0)
+                                                           bAllAttrChars = false;
+                                                       if (bAllAttrChars)
+                                                         assertEquals (sText, sEncoded);
+                                                       assertArrayEquals (sText.getBytes (StandardCharsets.UTF_8),
+                                                                          _percentDecode (sEncoded));
+                                                     });
   }
 }

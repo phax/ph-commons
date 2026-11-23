@@ -173,4 +173,20 @@ public enum EMimeQuoting
   {
     return this == EMimeQuoting.QUOTED_STRING;
   }
+
+  /**
+   * Check if a value that is a valid token must still be quoted. This is the case if the value
+   * contains characters that the unquoting of this algorithm interprets, because the parser unquotes
+   * every value except for {@link #QUOTED_STRING}.
+   *
+   * @param sValue
+   *        The token value to check. May not be <code>null</code>.
+   * @return <code>true</code> if the value must be quoted.
+   */
+  boolean isTokenQuotingRequired (@NonNull final String sValue)
+  {
+    // '%' starts an escape sequence and '+' is decoded to a space - both are token chars. The escape
+    // char of quoted printable ('=') is no token char, so such values are always quoted.
+    return this == EMimeQuoting.URL_ESCAPE && (sValue.indexOf ('%') >= 0 || sValue.indexOf ('+') >= 0);
+  }
 }

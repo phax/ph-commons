@@ -26,6 +26,7 @@ import com.helger.annotation.Nonnegative;
  * and the seed to reproduce the run. The cause is the failure of the shrunk sample.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 public class PropertyFailedError extends AssertionError
 {

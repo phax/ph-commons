@@ -17,6 +17,7 @@
 package com.helger.unittest.property;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -37,6 +38,37 @@ public final class GeneratorsTest
   {
     new PropertyChecker ().forAll (Generators.bytes ((byte) -3, (byte) 5),
                                    aValue -> assertTrue (aValue.byteValue () >= -3 && aValue.byteValue () <= 5));
+  }
+
+  @Test
+  public void testLongs () throws Exception
+  {
+    final long nMax = (1L << 48) - 1;
+    new PropertyChecker ().forAll (Generators.longs (-5, nMax),
+                                   aValue -> assertTrue (aValue.longValue () >= -5 && aValue.longValue () <= nMax));
+
+    // Values above the int range are found and shrunk to the boundary
+    try
+    {
+      new PropertyChecker ().setSeed (1).forAll (Generators.longs (0, nMax),
+                                                 aValue -> assertTrue (aValue.longValue () <= Integer.MAX_VALUE));
+      fail ();
+    }
+    catch (final PropertyFailedError ex)
+    {
+      assertEquals (Long.valueOf (Integer.MAX_VALUE + 1L), ex.getShrunkSample ());
+    }
+
+    // The full range shrinks towards 0
+    try
+    {
+      new PropertyChecker ().setSeed (1).forAll (Generators.longs (), aValue -> assertTrue (aValue.longValue () >= 0));
+      fail ();
+    }
+    catch (final PropertyFailedError ex)
+    {
+      assertTrue (ex.getMessage (), ((Long) ex.getShrunkSample ()).longValue () < 0);
+    }
   }
 
   @Test

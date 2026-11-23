@@ -25,6 +25,7 @@ import org.jspecify.annotations.NonNull;
  * control flow only, it has no stack trace.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 public class SampleRejectedException extends RuntimeException
 {

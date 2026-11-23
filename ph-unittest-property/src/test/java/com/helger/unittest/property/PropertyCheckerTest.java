@@ -89,6 +89,76 @@ public final class PropertyCheckerTest
   }
 
   @Test
+  public void testTriesFactor ()
+  {
+    final AtomicInteger aCounter = new AtomicInteger ();
+    System.setProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR, "3");
+    try
+    {
+      // The factor also applies to tries set in code
+      new PropertyChecker ().setTries (10).forAll (Generators.ints (), aValue -> aCounter.incrementAndGet ());
+    }
+    finally
+    {
+      System.clearProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR);
+    }
+    assertEquals (30, aCounter.get ());
+  }
+
+  private static void _assertInvalidSystemProperty (final String sName, final String sValue)
+  {
+    System.setProperty (sName, sValue);
+    try
+    {
+      new PropertyChecker ().setTries (1).forAll (Generators.ints (), aValue -> {});
+      fail ("Expected an exception for " + sName + "=" + sValue);
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      assertTrue (ex.getMessage (), ex.getMessage ().contains (sName));
+    }
+    finally
+    {
+      System.clearProperty (sName);
+    }
+  }
+
+  @Test
+  public void testInvalidSystemProperties ()
+  {
+    for (final String sName : new String [] { PropertyChecker.SYSTEM_PROPERTY_TRIES,
+                                              PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR,
+                                              PropertyChecker.SYSTEM_PROPERTY_SEED })
+    {
+      _assertInvalidSystemProperty (sName, "abc");
+      _assertInvalidSystemProperty (sName, "");
+      _assertInvalidSystemProperty (sName, "99999999999999999999");
+    }
+    // Tries and factor must be positive
+    _assertInvalidSystemProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES, "0");
+    _assertInvalidSystemProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES, "-5");
+    _assertInvalidSystemProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR, "0");
+    _assertInvalidSystemProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES, "3000000000");
+
+    // Valid values with whitespace
+    System.setProperty (PropertyChecker.SYSTEM_PROPERTY_SEED, " -42 ");
+    try
+    {
+      final PropertyFailedError ex = _expectFailure ( () -> new PropertyChecker ().forAll (Generators.ints (),
+                                                                                           aValue -> assertTrue (aValue.intValue () < 10)));
+      assertEquals (-42, ex.getSeed ());
+    }
+    catch (final Exception ex)
+    {
+      fail (ex.getMessage ());
+    }
+    finally
+    {
+      System.clearProperty (PropertyChecker.SYSTEM_PROPERTY_SEED);
+    }
+  }
+
+  @Test
   public void testShrinkIntToBoundary () throws Exception
   {
     _checkShrinkingForManySeeds (Generators.ints (),

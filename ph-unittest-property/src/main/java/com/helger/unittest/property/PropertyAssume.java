@@ -24,6 +24,7 @@ import com.helger.annotation.style.PresentForCodeCoverage;
  * the property.
  *
  * @author Philip Helger
+ * @since 12.8.0
  */
 @Immutable
 public final class PropertyAssume
