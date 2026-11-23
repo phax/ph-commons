@@ -31,7 +31,7 @@ import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
  * {@link LimitedZipInputStream}, so that the limits are implemented once.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @NotThreadSafe
 final class ZipLimitCounter

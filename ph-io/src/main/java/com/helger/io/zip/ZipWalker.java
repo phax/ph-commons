@@ -40,7 +40,7 @@ import com.helger.base.io.stream.NonClosingInputStream;
  * well - a plain {@link ZipInputStream} would silently return no entries for it.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @Immutable
 public final class ZipWalker

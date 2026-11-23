@@ -97,7 +97,7 @@ public class JsonStringBuilder
    *        The offset into the array. Must be &ge; 0.
    * @param nLen
    *        The number of characters to append. Must be &ge; 0.
-   * @since v12.7.2
+   * @since v12.8.0
    */
   public void append (final char @NonNull [] aChars, @Nonnegative final int nOfs, @Nonnegative final int nLen)
   {

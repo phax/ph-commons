@@ -31,7 +31,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * ZIP bombs and similar archives that would exhaust memory, disk or stack.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @NotThreadSafe
 public final class ZipWalkerSettings implements ICloneable <ZipWalkerSettings>

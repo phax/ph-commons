@@ -30,7 +30,7 @@ import com.helger.base.tostring.ToStringGenerator;
  * walk ended unsuccessfully and some statistics.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @Immutable
 public final class ZipWalkResult implements ISuccessIndicator
