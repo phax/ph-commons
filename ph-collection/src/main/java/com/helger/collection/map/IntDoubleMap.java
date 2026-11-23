@@ -430,12 +430,9 @@ public class IntDoubleMap implements IHasSize, ICloneable <IntDoubleMap>
     for (int i = 0; i < nLen; ++i)
     {
       final int nKey = m_aKeys[i];
+      // Every used slot is reported, also if its value equals NO_VALUE - like size and getAllKeys
       if (nKey != FREE_KEY)
-      {
-        final double dValue = m_aValues[i];
-        if (dValue != NO_VALUE)
-          aConsumer.accept (nKey, dValue);
-      }
+        aConsumer.accept (nKey, m_aValues[i]);
     }
   }
 
