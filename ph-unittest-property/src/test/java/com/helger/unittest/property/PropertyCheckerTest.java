@@ -89,6 +89,23 @@ public final class PropertyCheckerTest
   }
 
   @Test
+  public void testTriesFactor ()
+  {
+    final AtomicInteger aCounter = new AtomicInteger ();
+    System.setProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR, "3");
+    try
+    {
+      // The factor also applies to tries set in code
+      new PropertyChecker ().setTries (10).forAll (Generators.ints (), aValue -> aCounter.incrementAndGet ());
+    }
+    finally
+    {
+      System.clearProperty (PropertyChecker.SYSTEM_PROPERTY_TRIES_FACTOR);
+    }
+    assertEquals (30, aCounter.get ());
+  }
+
+  @Test
   public void testShrinkIntToBoundary () throws Exception
   {
     _checkShrinkingForManySeeds (Generators.ints (),

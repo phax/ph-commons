@@ -41,7 +41,9 @@ import com.helger.annotation.concurrent.NotThreadSafe;
  * The number of tries and the seed can be set globally with the system properties
  * {@value #SYSTEM_PROPERTY_TRIES} and {@value #SYSTEM_PROPERTY_SEED}. The seed system property
  * overrides any seed set in code, so that a failure can be reproduced without changing the code. The
- * tries system property sets the default, which {@link #setTries(int)} overrides.
+ * tries system property sets the default, which {@link #setTries(int)} overrides. The system
+ * property {@value #SYSTEM_PROPERTY_TRIES_FACTOR} multiplies the tries of all properties, including
+ * the ones set in code - e.g. <code>-Dph.property.tries.factor=50</code> for a thorough nightly run.
  *
  * @author Philip Helger
  */
@@ -50,6 +52,8 @@ public class PropertyChecker
 {
   /** System property to set the default number of tries */
   public static final String SYSTEM_PROPERTY_TRIES = "ph.property.tries";
+  /** System property with a factor for the tries of all properties, e.g. for nightly runs */
+  public static final String SYSTEM_PROPERTY_TRIES_FACTOR = "ph.property.tries.factor";
   /** System property to set the seed of all runs */
   public static final String SYSTEM_PROPERTY_SEED = "ph.property.seed";
 
@@ -153,6 +157,17 @@ public class PropertyChecker
     return this;
   }
 
+  private int _getEffectiveTries ()
+  {
+    final String sFactor = System.getProperty (SYSTEM_PROPERTY_TRIES_FACTOR);
+    if (sFactor == null)
+      return m_nTries;
+    final long nTries = m_nTries * Long.parseLong (sFactor.trim ());
+    if (nTries <= 0)
+      throw new IllegalArgumentException ("The tries factor must be > 0: " + sFactor);
+    return (int) Math.min (nTries, Integer.MAX_VALUE);
+  }
+
   private long _getEffectiveSeed ()
   {
     final String sSeed = System.getProperty (SYSTEM_PROPERTY_SEED);
@@ -242,10 +257,11 @@ public class PropertyChecker
   {
     final long nSeed = _getEffectiveSeed ();
     final Random aRandom = new Random (nSeed);
-    final int nMaxRejects = m_nTries * DEFAULT_MAX_REJECTS_PER_TRY;
+    final int nTries = _getEffectiveTries ();
+    final long nMaxRejects = (long) nTries * DEFAULT_MAX_REJECTS_PER_TRY;
     int nRejects = 0;
     int nTry = 0;
-    while (nTry < m_nTries)
+    while (nTry < nTries)
     {
       final Outcome aOutcome = _check (aGenerator, aProperty, ChoiceSequence.createRandom (aRandom, m_nMaxChoices));
       if (aOutcome == null)
