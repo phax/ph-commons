@@ -43,7 +43,7 @@ import com.helger.base.io.nonblocking.NonBlockingPushbackInputStream;
  * is not used, because this stream does not descend into nested archives.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @NotThreadSafe
 public class LimitedZipInputStream extends ZipInputStream

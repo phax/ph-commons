@@ -33,7 +33,7 @@ import com.helger.base.state.EContinue;
  * {@link #onEntry(String, ZipEntry, int, InputStream)}.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 @FunctionalInterface
 public interface IZipWalkerCallback

@@ -195,4 +195,46 @@ public final class Base64StreamsTest
       assertEquals (-1, aIS.read ());
     }
   }
+  @Test
+  public void testInputStreamDecodeNonAsciiBytes () throws IOException
+  {
+    // Found by property based testing: bytes >= 0x80 caused an ArrayIndexOutOfBoundsException
+    final byte [] aEncoded = { (byte) 0xfa, (byte) 0xfa, '/', '/' };
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncoded);
+         final Base64InputStream aIS = new Base64InputStream (aBAIS))
+    {
+      aIS.readAllBytes ();
+      fail ();
+    }
+    catch (final IOException ex)
+    {
+      // expected - "Improperly padded Base64 input."
+    }
+
+    // Non-ASCII bytes are skipped like all other invalid characters
+    final byte [] aEncoded2 = { 'Q', (byte) 0xfa, 'Q', '=', (byte) 0x80, '=' };
+    try (final NonBlockingByteArrayInputStream aBAIS = new NonBlockingByteArrayInputStream (aEncoded2);
+         final Base64InputStream aIS = new Base64InputStream (aBAIS))
+    {
+      assertArrayEquals (new byte [] { 'A' }, aIS.readAllBytes ());
+    }
+  }
+
+  @Test
+  public void testOutputStreamDecodeNonAsciiBytes () throws IOException
+  {
+    // Found by property based testing: bytes >= 0x80 caused an ArrayIndexOutOfBoundsException
+    try (final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ())
+    {
+      try (final Base64OutputStream aOS = new Base64OutputStream (aBAOS, Base64.DECODE))
+      {
+        aOS.write (new byte [] { (byte) 0xfa, (byte) 0xfa, '/', '/' });
+      }
+      fail ();
+    }
+    catch (final IOException ex)
+    {
+      // expected - "Invalid character in Base64 data."
+    }
+  }
 }

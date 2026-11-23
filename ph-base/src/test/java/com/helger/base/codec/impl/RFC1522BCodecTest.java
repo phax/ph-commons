@@ -136,4 +136,35 @@ public final class RFC1522BCodecTest
       // expected
     }
   }
+
+  @Test
+  public void testDecodeInvalidBase64 ()
+  {
+    // Found by property based testing: invalid Base64 content caused a NullPointerException
+    try
+    {
+      new RFC1522BCodec ().getDecoded ("=?UTF-8?B?\u0000A==?=");
+      fail ();
+    }
+    catch (final DecodeException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testDecodeOverlappingPrefixAndPostfix ()
+  {
+    // Found by property based testing: "=?" and "?=" overlap, which caused a
+    // StringIndexOutOfBoundsException
+    try
+    {
+      new RFC1522BCodec ().getDecoded ("=?=");
+      fail ();
+    }
+    catch (final DecodeException ex)
+    {
+      // expected
+    }
+  }
 }

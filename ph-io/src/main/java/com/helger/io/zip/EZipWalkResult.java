@@ -22,7 +22,7 @@ import com.helger.base.state.ISuccessIndicator;
  * The outcome of walking a ZIP archive with the {@link ZipWalker}.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 public enum EZipWalkResult implements ISuccessIndicator
 {

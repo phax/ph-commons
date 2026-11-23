@@ -27,7 +27,7 @@ import com.helger.base.enforce.ValueEnforcer;
  * {@link ZipWalkerSettings} is exceeded.
  *
  * @author Philip Helger
- * @since 12.7.2
+ * @since 12.8.0
  */
 public class InvalidZipException extends IOException
 {

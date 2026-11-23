@@ -42,7 +42,7 @@ import com.helger.base.enforce.ValueEnforcer;
  * time.
  *
  * @author Philip Helger
- * @since v12.7.2
+ * @since v12.8.0
  */
 @Immutable
 public final class UUID7Helper

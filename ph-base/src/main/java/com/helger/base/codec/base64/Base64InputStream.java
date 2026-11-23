@@ -151,7 +151,7 @@ public class Base64InputStream extends WrappedInputStream
           do
           {
             b = in.read ();
-          } while (b >= 0 && m_aDecodabet[b & 0x7f] <= Base64.WHITE_SPACE_ENC);
+          } while (b >= 0 && m_aDecodabet[b & 0xff] <= Base64.WHITE_SPACE_ENC);
 
           if (b < 0)
           {
