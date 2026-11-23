@@ -545,6 +545,8 @@ public class LZWCodec implements IByteArrayCodec
 
             // upon clear table, don't add something to the table
             aByteSeq = aDict.directGetAllBytes (nCode);
+            if (aByteSeq == null)
+              throw new DecodeException ("Failed to resolve code " + nCode + " after clear table");
             aOS.write (aByteSeq);
             aPrevByteSeq = aByteSeq;
           }

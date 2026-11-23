@@ -153,4 +153,20 @@ public final class RFC1522QCodecTest
       // expected
     }
   }
+
+  @Test
+  public void testDecodeOverlappingPrefixAndPostfix ()
+  {
+    // Found by property based testing: "=?" and "?=" overlap, which caused a
+    // StringIndexOutOfBoundsException
+    try
+    {
+      new RFC1522QCodec ().getDecoded ("=?=");
+      fail ();
+    }
+    catch (final DecodeException ex)
+    {
+      // expected
+    }
+  }
 }

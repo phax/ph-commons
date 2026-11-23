@@ -20,6 +20,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.OutputStream;
 import java.nio.ByteOrder;
@@ -34,6 +35,7 @@ import org.junit.Test;
 
 import com.helger.base.CGlobal;
 import com.helger.base.array.ArrayHelper;
+import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.impl.LZWCodec.AbstractLZWDictionary;
 import com.helger.base.codec.impl.LZWCodec.LZWEncodeDictionary;
 import com.helger.base.codec.impl.LZWCodec.LZWNode;
@@ -4536,5 +4538,22 @@ public final class LZWCodecTest
     // Lengths around the dictionary reset of random data
     for (int nLen = 3000; nLen < 6000; nLen += 37)
       _assertSameAsReference (aRandomBytes, 0, nLen);
+  }
+
+  @Test
+  public void testDecodeUndefinedCodeAfterClearTable ()
+  {
+    // Found by property based testing: code 0, clear table, then an undefined code caused a
+    // NullPointerException
+    for (final byte [] aEncoded : new byte [] [] { { 0, 64, 48, 16 }, { 0, 32, 80, 48, 12, 4 } })
+      try
+      {
+        new LZWCodec ().getDecoded (aEncoded);
+        fail ();
+      }
+      catch (final DecodeException ex)
+      {
+        // expected
+      }
   }
 }

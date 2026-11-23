@@ -157,6 +157,9 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
                           "RFC 1522 violation: malformed encoded content. Prefix missing.");
     ValueEnforcer.isTrue (sEncodedText.endsWith (POSTFIX),
                           "RFC 1522 violation: malformed encoded content. Postfix missing.");
+    // Prefix and postfix may overlap, as in "=?="
+    if (sEncodedText.length () < PREFIX.length () + POSTFIX.length ())
+      throw new DecodeException ("RFC 1522 violation: malformed encoded content. Content too short.");
 
     int nFrom = PREFIX.length ();
     final int nTerminator = sEncodedText.length () - POSTFIX.length ();
@@ -186,6 +189,8 @@ public abstract class AbstractRFC1522Codec implements ICodec <String>
     nTo = sEncodedText.indexOf (SEP, nFrom);
     final byte [] aEncodedBytes = sEncodedText.substring (nFrom, nTo).getBytes (StandardCharsets.US_ASCII);
     final byte [] aDecodedBytes = getDecoded (aEncodedBytes, 0, aEncodedBytes.length);
+    if (aDecodedBytes == null)
+      throw new DecodeException ("RFC 1522 violation: failed to decode the encoded data");
     return new String (aDecodedBytes, aDestCharset);
   }
 }
