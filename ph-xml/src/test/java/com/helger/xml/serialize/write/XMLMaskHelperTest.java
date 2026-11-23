@@ -337,4 +337,29 @@ public final class XMLMaskHelperTest
                             sStringResult);
           }
   }
+
+  @SuppressWarnings ("removal")
+  private static String _maskXML11 (final EXMLCharMode eMode, final String sText)
+  {
+    return new String (XMLMaskHelper.getMaskedXMLText (EXMLSerializeVersion.XML_11,
+                                                       eMode,
+                                                       EXMLIncorrectCharacterHandling.THROW_EXCEPTION,
+                                                       sText));
+  }
+
+  @Test
+  public void testXML11LineEndsAndRestrictedChars ()
+  {
+    // Found by property based testing: XML 1.1 parsers normalise the line ends U+0085 and U+2028,
+    // and restricted chars must be character references
+    for (final EXMLCharMode eMode : new EXMLCharMode [] { EXMLCharMode.TEXT,
+                                                          EXMLCharMode.ATTRIBUTE_VALUE_DOUBLE_QUOTES,
+                                                          EXMLCharMode.ATTRIBUTE_VALUE_SINGLE_QUOTES })
+    {
+      assertEquals ("&#x85;", _maskXML11 (eMode, "\u0085"));
+      assertEquals ("&#x2028;", _maskXML11 (eMode, "\u2028"));
+      assertEquals ("&#x7F;", _maskXML11 (eMode, "\u007f"));
+      assertEquals ("&#x9F;", _maskXML11 (eMode, "\u009f"));
+    }
+  }
 }
