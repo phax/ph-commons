@@ -26,7 +26,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.WillNotClose;
 import com.helger.base.codec.DecodeException;
 import com.helger.base.codec.IByteArrayStreamDecoder;
-import com.helger.base.enforce.ValueEnforcer;
 
 /**
  * Decoder for ASCII85 encoded values
@@ -56,7 +55,7 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
    * @param nOfs
    *        The offset in the buffer to start decoding from.
    * @param nLen
-   *        The number of bytes to decode. Must be at least 4.
+   *        The number of bytes to decode.
    * @param aOS
    *        The output stream to write the decoded data to. May not be <code>null</code>.
    */
@@ -67,7 +66,6 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
   {
     if (aEncodedBuffer == null)
       return;
-    ValueEnforcer.isTrue (nLen >= 4, () -> "Buffer too small: " + nLen);
 
     try
     {
@@ -78,7 +76,7 @@ public class ASCII85Codec implements IByteArrayStreamDecoder
       int nIndex = nOfs;
 
       // Special start sequence "<~" ??
-      if (aEncodedBuffer[nIndex] == '<' && aEncodedBuffer[nIndex + 1] == '~')
+      if (nLen >= 2 && aEncodedBuffer[nIndex] == '<' && aEncodedBuffer[nIndex + 1] == '~')
         nIndex += 2;
 
       for (; nIndex < nOfs + nLen; ++nIndex)

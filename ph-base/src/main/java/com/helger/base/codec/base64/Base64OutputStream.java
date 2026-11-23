@@ -43,6 +43,8 @@ public class Base64OutputStream extends WrappedOutputStream
   private byte [] m_aBuffer;
   private final int m_nBufferLength;
   private int m_nLineLength;
+  // A line is full, but the line break is only written if more data follows
+  private boolean m_bNewLinePending;
   private final boolean m_bBreakLines;
   // Scratch used in a few places
   private final byte [] m_aB4;
@@ -115,6 +117,15 @@ public class Base64OutputStream extends WrappedOutputStream
     m_aNewLineBytes = ArrayHelper.getCopy (aNewLineBytes);
   }
 
+  private void _writePendingNewLine () throws IOException
+  {
+    if (m_bNewLinePending)
+    {
+      out.write (m_aNewLineBytes);
+      m_bNewLinePending = false;
+    }
+  }
+
   /**
    * Writes the byte to the output stream after converting to/from Base64 notation. When encoding,
    * bytes are buffered three at a time before the output stream actually gets a write() call. When
@@ -141,12 +152,15 @@ public class Base64OutputStream extends WrappedOutputStream
       if (m_nPosition >= m_nBufferLength)
       {
         // Enough to encode.
+        _writePendingNewLine ();
         out.write (Base64._encode3to4 (m_aB4, m_aBuffer, m_nBufferLength, m_nOptions));
 
         m_nLineLength += 4;
         if (m_bBreakLines && m_nLineLength >= Base64.MAX_LINE_LENGTH)
         {
-          out.write (m_aNewLineBytes);
+          // Write the line break only before the next data, so that the output never ends with
+          // a line break
+          m_bNewLinePending = true;
           m_nLineLength = 0;
         }
         m_nPosition = 0;
@@ -214,6 +228,7 @@ public class Base64OutputStream extends WrappedOutputStream
     {
       if (m_bEncode)
       {
+        _writePendingNewLine ();
         out.write (Base64._encode3to4 (m_aB4, m_aBuffer, m_nPosition, m_nOptions));
         m_nPosition = 0;
       }
@@ -255,6 +270,8 @@ public class Base64OutputStream extends WrappedOutputStream
   public void suspendEncoding () throws IOException
   {
     flushBase64 ();
+    // The encoded segment ends here - like the whole output, it never ends with a line break
+    m_bNewLinePending = false;
     m_bSuspendEncoding = true;
   }
 

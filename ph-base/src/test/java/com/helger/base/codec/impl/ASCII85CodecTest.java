@@ -93,13 +93,13 @@ public final class ASCII85CodecTest
   @Test
   public void testDecodeInvalid ()
   {
-    // A buffer with less than 4 bytes is not allowed
+    // A single remaining character is not enough for a byte
     try
     {
-      new ASCII85Codec ().getDecoded ("<~~".getBytes (StandardCharsets.US_ASCII));
+      new ASCII85Codec ().getDecoded ("9~>".getBytes (StandardCharsets.US_ASCII));
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final DecodeException ex)
     {
       // expected
     }
@@ -125,5 +125,16 @@ public final class ASCII85CodecTest
     {
       // expected
     }
+  }
+
+  @Test
+  public void testDecodeShortInput ()
+  {
+    // Inputs shorter than 4 bytes are valid as well - "~>" is the encoding of empty data
+    final ASCII85Codec aCodec = new ASCII85Codec ();
+    assertArrayEquals (new byte [0], aCodec.getDecoded (new byte [0]));
+    assertArrayEquals (new byte [0], aCodec.getDecoded ("~>".getBytes (StandardCharsets.US_ASCII)));
+    assertArrayEquals (new byte [0], aCodec.getDecoded ("<~~>".getBytes (StandardCharsets.US_ASCII)));
+    assertArrayEquals (new byte [] { 0 }, aCodec.getDecoded ("!!~>".getBytes (StandardCharsets.US_ASCII)));
   }
 }

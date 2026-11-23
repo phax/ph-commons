@@ -1746,10 +1746,10 @@ public final class Base64
       // we save a bunch of memory.
       // Bytes needed for actual encoding
       int nEncLen = (nLen / 3) * 4 + (nLen % 3 > 0 ? 4 : 0);
-      if (bBreakLines)
+      if (bBreakLines && nEncLen > 0)
       {
-        // Plus extra newline characters
-        final int nLinesAdded = nEncLen / MAX_LINE_LENGTH;
+        // Plus extra newline characters - between the lines only, not after the last line
+        final int nLinesAdded = (nEncLen - 1) / MAX_LINE_LENGTH;
         if (bUseCRLF)
           nEncLen += nLinesAdded * NEW_LINE_CRLF.length;
         else
@@ -1766,7 +1766,8 @@ public final class Base64
         _encode3to4 (aSource, d + nOfs, 3, outBuff, e, nOptions);
 
         lineLength += 4;
-        if (bBreakLines && lineLength >= MAX_LINE_LENGTH)
+        // No line break after the last line
+        if (bBreakLines && lineLength >= MAX_LINE_LENGTH && d + 3 < nLen)
         {
           if (bUseCRLF)
           {

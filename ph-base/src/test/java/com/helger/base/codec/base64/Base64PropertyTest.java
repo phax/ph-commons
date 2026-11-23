@@ -177,21 +177,41 @@ public final class Base64PropertyTest
 
   /**
    * Oracle property for line breaks: with CRLF line breaks the output must equal the JDK MIME encoder
-   * (76 characters per line). Known difference: if the input length is a non-zero multiple of 57
-   * bytes, the last line ends with a full 3-byte group and Base64 appends a final CRLF, which the JDK
-   * does not. A last line of 76 characters that ends with padding (e.g. 55 bytes) gets no final CRLF.
+   * (76 characters per line, no line break after the last line).
    */
   @Test
   public void testLineBreaksMatchJdkMime ()
   {
-    new PropertyChecker ().forAll (Generators.byteArrays (), aBytes -> {
-      final String sJdk = java.util.Base64.getMimeEncoder ().encodeToString (aBytes);
-      final String sOurs = Base64.encodeBytes (aBytes, Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF);
-      final int nBytesPerLine = Base64.MAX_LINE_LENGTH / 4 * 3;
-      if (aBytes.length > 0 && aBytes.length % nBytesPerLine == 0)
-        assertEquals (sJdk + "\r\n", sOurs);
-      else
-        assertEquals (sJdk, sOurs);
+    new PropertyChecker ().forAll (Generators.byteArrays (),
+                                   aBytes -> assertEquals (java.util.Base64.getMimeEncoder ().encodeToString (aBytes),
+                                                           Base64.encodeBytes (aBytes,
+                                                                               Base64.DO_BREAK_LINES | Base64.DO_NEWLINE_CRLF)));
+  }
+
+  /**
+   * Model based property: both streams must create the same line broken output as the static encoder
+   * - the output stream for any chunk size, the input stream when read byte by byte.
+   */
+  @Test
+  public void testStreamLineBreaksMatchBlockEncoding ()
+  {
+    new PropertyChecker ().forAll (Generators.byteArrays (), Generators.ints (1, 100), (aBytes, aChunkSize) -> {
+      final String sExpected = Base64.encodeBytes (aBytes, Base64.DO_BREAK_LINES);
+
+      final int nChunkSize = aChunkSize.intValue ();
+      final NonBlockingByteArrayOutputStream aBAOS = new NonBlockingByteArrayOutputStream ();
+      try (final Base64OutputStream aB64OS = new Base64OutputStream (aBAOS, Base64.ENCODE | Base64.DO_BREAK_LINES))
+      {
+        for (int nOfs = 0; nOfs < aBytes.length; nOfs += nChunkSize)
+          aB64OS.write (aBytes, nOfs, Math.min (nChunkSize, aBytes.length - nOfs));
+      }
+      assertEquals (sExpected, aBAOS.getAsString (StandardCharsets.ISO_8859_1));
+
+      try (final Base64InputStream aB64IS = new Base64InputStream (new NonBlockingByteArrayInputStream (aBytes),
+                                                                   Base64.ENCODE | Base64.DO_BREAK_LINES))
+      {
+        assertEquals (sExpected, new String (aB64IS.readAllBytes (), StandardCharsets.ISO_8859_1));
+      }
     });
   }
 

@@ -76,7 +76,7 @@ public final class RFC1522BCodecTest
       a.getDecoded ("Hello");
       fail ();
     }
-    catch (final IllegalArgumentException ex)
+    catch (final DecodeException ex)
     {
       // expected
     }
