@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipOutputStream;
 
 import org.jspecify.annotations.NonNull;
@@ -339,5 +340,18 @@ public final class ZipWalkerTest
     assertTrue (aResult.toString (), aResult.isSuccess ());
     assertEquals (2, aContents.size ());
     assertArrayEquals ("b".getBytes (StandardCharsets.UTF_8), aContents.get (1));
+  }
+
+  @Test
+  public void testMalformedEntryName () throws IOException
+  {
+    // Found by property based testing: an entry name that is not valid UTF-8 caused an
+    // IllegalArgumentException instead of a "broken" result
+    final byte [] aBytes = _zip ("a.txt", "content");
+    // The name starts at offset 30 of the local file header
+    aBytes[30] = (byte) 0xff;
+    final ZipWalkResult aResult = _walk (aBytes, new ZipWalkerSettings (), new CollectingCallback ());
+    assertEquals (EZipWalkResult.BROKEN, aResult.getResult ());
+    assertTrue (aResult.getException () instanceof ZipException);
   }
 }

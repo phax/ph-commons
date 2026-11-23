@@ -19,6 +19,7 @@ package com.helger.io.zip;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
+import java.util.zip.ZipException;
 import java.util.zip.ZipInputStream;
 
 import org.jspecify.annotations.NonNull;
@@ -93,6 +94,8 @@ public class LimitedZipInputStream extends ZipInputStream
    * @throws InvalidZipException
    *         If the content is not a ZIP archive, or if the maximum number of entries or the maximum
    *         total uncompressed size is exceeded
+   * @throws ZipException
+   *         If the entry is malformed, e.g. if its name is not valid in the charset of the archive
    */
   @Override
   @Nullable
@@ -105,7 +108,18 @@ public class LimitedZipInputStream extends ZipInputStream
     }
 
     // Skipping the rest of the previous entry is counted by read
-    final ZipEntry ret = super.getNextEntry ();
+    final ZipEntry ret;
+    try
+    {
+      ret = super.getNextEntry ();
+    }
+    catch (final IllegalArgumentException ex)
+    {
+      // The JDK throws this if an entry name is not valid in the charset of the archive
+      final ZipException aZipEx = new ZipException ("Malformed ZIP entry: " + ex.getMessage ());
+      aZipEx.initCause (ex);
+      throw aZipEx;
+    }
     if (ret != null)
       m_aCounter.onEntry ();
     return ret;
