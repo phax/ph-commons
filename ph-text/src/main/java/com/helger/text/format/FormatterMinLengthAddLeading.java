@@ -43,7 +43,7 @@ public final class FormatterMinLengthAddLeading extends AbstractFormatterString
    * @param cFill
    *        The character to use for filling at the front.
    */
-  public FormatterMinLengthAddLeading (@Nonnegative final int nMinLength, final char cFill)
+  public FormatterMinLengthAddLeading (@Nonnegative (zeroAllowed = false) final int nMinLength, final char cFill)
   {
     ValueEnforcer.isGT0 (nMinLength, "MinLength");
     m_nMinLength = nMinLength;

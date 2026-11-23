@@ -59,7 +59,7 @@ public final class PasswordSaltBCrypt implements IPasswordSalt
    *        the log2 of the number of rounds of hashing to apply - the work factor therefore
    *        increases as 2**log_rounds.
    */
-  public PasswordSaltBCrypt (@Nonnegative final int nRounds)
+  public PasswordSaltBCrypt (@Nonnegative (zeroAllowed = false) final int nRounds)
   {
     ValueEnforcer.isGT0 (nRounds, "Rounds");
     m_sSalt = BCrypt.gensalt (nRounds);

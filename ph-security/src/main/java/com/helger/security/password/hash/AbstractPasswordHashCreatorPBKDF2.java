@@ -56,8 +56,8 @@ public abstract class AbstractPasswordHashCreatorPBKDF2 extends AbstractPassword
    */
   protected AbstractPasswordHashCreatorPBKDF2 (@NonNull @Nonempty final String sAlgorithmName,
                                                @NonNull @Nonempty final String sPBKDF2AlgorithmName,
-                                               @Nonnegative final int nIterations,
-                                               @Nonnegative final int nBytes)
+                                               @Nonnegative (zeroAllowed = false) final int nIterations,
+                                               @Nonnegative (zeroAllowed = false) final int nBytes)
   {
     super (sAlgorithmName);
     m_sPBKDF2AlgorithmName = ValueEnforcer.notEmpty (sPBKDF2AlgorithmName, "PBKDF2AlgorithmName");

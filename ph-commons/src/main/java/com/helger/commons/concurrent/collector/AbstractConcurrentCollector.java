@@ -81,7 +81,7 @@ public abstract class AbstractConcurrentCollector <DATATYPE> implements IMutable
    * @param nMaxQueueSize
    *        The maximum number of items that can be in the queue. Must be &gt; 0.
    */
-  protected AbstractConcurrentCollector (@Nonnegative final int nMaxQueueSize)
+  protected AbstractConcurrentCollector (@Nonnegative (zeroAllowed = false) final int nMaxQueueSize)
   {
     this (new ArrayBlockingQueue <> (ValueEnforcer.isGT0 (nMaxQueueSize, "MaxQueueSize")));
   }

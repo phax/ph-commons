@@ -113,7 +113,7 @@ public final class ObjectPool <DATATYPE> implements IMutableObjectPool <DATATYPE
    *        The factory to create object. May not be <code>null</code>. The factory may not create
    *        <code>null</code> objects, as this leads to an error!
    */
-  public ObjectPool (@Nonnegative final int nItemCount, @NonNull final IObjectPoolFactory <DATATYPE> aFactory)
+  public ObjectPool (@Nonnegative (zeroAllowed = false) final int nItemCount, @NonNull final IObjectPoolFactory <DATATYPE> aFactory)
   {
     ValueEnforcer.isGT0 (nItemCount, "ItemCount");
     ValueEnforcer.notNull (aFactory, "Factory");

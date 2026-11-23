@@ -99,7 +99,7 @@ public class SizeLong implements IHasDimensionLong
    */
   @NonNull
   @CheckReturnValue
-  public SizeLong getBestMatchingSize (@Nonnegative final long nMaxWidth, @Nonnegative final long nMaxHeight)
+  public SizeLong getBestMatchingSize (@Nonnegative (zeroAllowed = false) final long nMaxWidth, @Nonnegative (zeroAllowed = false) final long nMaxHeight)
   {
     ValueEnforcer.isGT0 (nMaxWidth, "MaxWidth");
     ValueEnforcer.isGT0 (nMaxHeight, "MaxHeight");
@@ -130,7 +130,7 @@ public class SizeLong implements IHasDimensionLong
    */
   @NonNull
   @CheckReturnValue
-  public SizeLong getScaledToWidth (@Nonnegative final long nNewWidth)
+  public SizeLong getScaledToWidth (@Nonnegative (zeroAllowed = false) final long nNewWidth)
   {
     ValueEnforcer.isGT0 (nNewWidth, "NewWidth");
     if (m_nWidth == 0)
@@ -153,7 +153,7 @@ public class SizeLong implements IHasDimensionLong
    */
   @NonNull
   @CheckReturnValue
-  public SizeLong getScaledToHeight (@Nonnegative final long nNewHeight)
+  public SizeLong getScaledToHeight (@Nonnegative (zeroAllowed = false) final long nNewHeight)
   {
     ValueEnforcer.isGT0 (nNewHeight, "NewHeight");
     if (m_nHeight == 0)

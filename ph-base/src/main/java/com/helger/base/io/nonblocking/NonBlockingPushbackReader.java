@@ -49,7 +49,7 @@ public class NonBlockingPushbackReader extends FilterReader
    * @exception IllegalArgumentException
    *            if size is &le; 0
    */
-  public NonBlockingPushbackReader (@NonNull final Reader aReader, @Nonnegative final int nSize)
+  public NonBlockingPushbackReader (@NonNull final Reader aReader, @Nonnegative (zeroAllowed = false) final int nSize)
   {
     super (aReader);
     ValueEnforcer.isGT0 (nSize, "Size");

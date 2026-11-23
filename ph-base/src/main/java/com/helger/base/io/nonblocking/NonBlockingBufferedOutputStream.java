@@ -67,7 +67,7 @@ public class NonBlockingBufferedOutputStream extends WrappedOutputStream
    * @exception IllegalArgumentException
    *            if size &lt;= 0.
    */
-  public NonBlockingBufferedOutputStream (@NonNull final OutputStream aOS, @Nonnegative final int nSize)
+  public NonBlockingBufferedOutputStream (@NonNull final OutputStream aOS, @Nonnegative (zeroAllowed = false) final int nSize)
   {
     super (aOS);
     ValueEnforcer.isGT0 (nSize, "Size");

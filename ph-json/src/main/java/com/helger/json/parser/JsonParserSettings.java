@@ -126,7 +126,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    * @return this for chaining
    */
   @NonNull
-  public JsonParserSettings setTabSize (@Nonnegative final int nTabSize)
+  public JsonParserSettings setTabSize (@Nonnegative (zeroAllowed = false) final int nTabSize)
   {
     ValueEnforcer.isGT0 (nTabSize, "TabSize");
     m_nTabSize = nTabSize;
@@ -241,7 +241,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    * @return this for chaining
    */
   @NonNull
-  public JsonParserSettings setMaxNestingDepth (@Nonnegative final int nMaxNestingDepth)
+  public JsonParserSettings setMaxNestingDepth (@Nonnegative (zeroAllowed = false) final int nMaxNestingDepth)
   {
     ValueEnforcer.isGT0 (nMaxNestingDepth, "MaxNestingDepth");
     m_nMaxNestingDepth = nMaxNestingDepth;
@@ -269,7 +269,7 @@ public final class JsonParserSettings implements IJsonParserSettings
    * @since v12.3.3
    */
   @NonNull
-  public JsonParserSettings setMaxExponent (@Nonnegative final int nMaxExponent)
+  public JsonParserSettings setMaxExponent (@Nonnegative (zeroAllowed = false) final int nMaxExponent)
   {
     ValueEnforcer.isGT0 (nMaxExponent, "MaxExponent");
     m_nMaxExponent = nMaxExponent;

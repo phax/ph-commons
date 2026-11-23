@@ -70,7 +70,7 @@ public class NonBlockingBufferedWriter extends Writer
    * @exception IllegalArgumentException
    *            If size is &le; 0
    */
-  public NonBlockingBufferedWriter (@NonNull final Writer aWriter, @Nonnegative final int nBufSize)
+  public NonBlockingBufferedWriter (@NonNull final Writer aWriter, @Nonnegative (zeroAllowed = false) final int nBufSize)
   {
     super (aWriter);
     ValueEnforcer.isGT0 (nBufSize, "BufSize");

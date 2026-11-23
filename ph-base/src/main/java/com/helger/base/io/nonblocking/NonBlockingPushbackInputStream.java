@@ -63,7 +63,7 @@ public class NonBlockingPushbackInputStream extends WrappedInputStream
    *            if size is &le; 0
    * @since JDK1.1
    */
-  public NonBlockingPushbackInputStream (@NonNull final InputStream aIS, @Nonnegative final int nSize)
+  public NonBlockingPushbackInputStream (@NonNull final InputStream aIS, @Nonnegative (zeroAllowed = false) final int nSize)
   {
     super (aIS);
     ValueEnforcer.isGT0 (nSize, "Size");
