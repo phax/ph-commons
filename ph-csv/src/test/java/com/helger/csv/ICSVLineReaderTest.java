@@ -90,4 +90,15 @@ public final class ICSVLineReaderTest
     final ICSVLineReader reader = _createLineReaderforString (EMPTY_STRING, false);
     assertEquals (NULL_STRING, reader.readLine ());
   }
+
+  @Test
+  public void testLineReaderKeepingCRWillHandleEmptyLines () throws IOException
+  {
+    // Found by property based testing: an empty line was reported as the end of the input
+    final ICSVLineReader reader = _createLineReaderforString ("a\n\nb\n", true);
+    assertEquals ("a", reader.readLine ());
+    assertEquals (EMPTY_STRING, reader.readLine ());
+    assertEquals ("b", reader.readLine ());
+    assertEquals (NULL_STRING, reader.readLine ());
+  }
 }

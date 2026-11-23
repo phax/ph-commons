@@ -54,14 +54,19 @@ public class CSVLineReaderKeepCR implements ICSVLineReader
   @Nullable
   public String readLine () throws IOException
   {
-    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     int c = m_aReader.read ();
+    // Only the end of the input ends reading - an empty line is returned as an empty String, like
+    // BufferedReader.readLine does. Otherwise reading stops at the first empty line, or inside a
+    // quoted field with consecutive line breaks.
+    if (c < 0)
+      return null;
+
+    final StringBuilder aSB = new StringBuilder (CCSV.INITIAL_STRING_SIZE);
     while (c > -1 && c != '\n')
     {
       aSB.append ((char) c);
       c = m_aReader.read ();
     }
-
-    return aSB.length () > 0 ? aSB.toString () : null;
+    return aSB.toString ();
   }
 }

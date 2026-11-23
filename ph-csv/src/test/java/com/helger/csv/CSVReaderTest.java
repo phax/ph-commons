@@ -652,4 +652,26 @@ public final class CSVReaderTest
       assertEquals (2, aReader.readAll ().size ());
     }
   }
+
+  @Test
+  public void testKeepCRWithEmptyLines () throws IOException
+  {
+    // Found by property based testing: with keepCR, reading stopped at the first empty line - also
+    // inside a quoted field with consecutive line breaks
+    try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader ("a,b\n\nc,d\n"), true))
+    {
+      final ICommonsList <ICommonsList <String>> aExpected = new CommonsArrayList <> ();
+      aExpected.add (new CommonsArrayList <> ("a", "b"));
+      // An empty line is one empty field - the same as without keepCR
+      aExpected.add (new CommonsArrayList <> (""));
+      aExpected.add (new CommonsArrayList <> ("c", "d"));
+      assertEquals (aExpected, aReader.readAll ());
+    }
+    try (final CSVReader aReader = new CSVReader (new NonBlockingStringReader ("\"a\n\nb\"\n"), true))
+    {
+      final ICommonsList <ICommonsList <String>> aExpected = new CommonsArrayList <> ();
+      aExpected.add (new CommonsArrayList <> ("a\n\nb"));
+      assertEquals (aExpected, aReader.readAll ());
+    }
+  }
 }
