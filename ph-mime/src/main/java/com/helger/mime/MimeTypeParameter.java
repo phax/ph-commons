@@ -97,7 +97,8 @@ public class MimeTypeParameter
   @Nonempty
   public String getValueQuotedIfNecessary (@NonNull final EMimeQuoting eQuotingAlgorithm)
   {
-    return m_bValueRequiresQuoting ? eQuotingAlgorithm.getQuotedString (m_sValue) : m_sValue;
+    return m_bValueRequiresQuoting || eQuotingAlgorithm.isTokenQuotingRequired (m_sValue) ? eQuotingAlgorithm.getQuotedString (m_sValue)
+                                                                                         : m_sValue;
   }
 
   @Override
