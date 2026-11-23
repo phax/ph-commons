@@ -35,7 +35,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
  * generator. As generators are written so that smaller choices produce "simpler" values (shorter
  * collections, numbers closer to 0, earlier elements of a list), a minimal choice sequence yields a
  * minimal sample. This works through <code>map</code>, <code>filter</code> and <code>flatMap</code>
- * without any type specific shrinking code. The idea is taken from the Python library Hypothesis.
+ * without any type specific shrinking code.
  *
  * @author Philip Helger
  */
