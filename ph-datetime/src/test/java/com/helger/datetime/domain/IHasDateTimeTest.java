@@ -23,6 +23,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 
 import org.junit.Test;
 
@@ -57,6 +59,119 @@ public final class IHasDateTimeTest
     try
     {
       aPresent.isCreatedAt (null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testCreationOffsetDateTime ()
+  {
+    final OffsetDateTime aODT = DT.atOffset (ZoneOffset.ofHours (1));
+    final IHasCreationOffsetDateTime aPresent = () -> aODT;
+    assertTrue (aPresent.hasCreationDateTime ());
+    assertTrue (aPresent.isCreatedAt (aODT));
+    assertTrue (aPresent.isCreatedAt (aODT.plusSeconds (1)));
+    assertFalse (aPresent.isCreatedAt (aODT.minusSeconds (1)));
+    // The same instant with another offset
+    assertTrue (aPresent.isCreatedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC)));
+    assertFalse (aPresent.isCreatedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC).minusSeconds (1)));
+
+    final IHasCreationOffsetDateTime aAbsent = () -> null;
+    assertFalse (aAbsent.hasCreationDateTime ());
+    assertFalse (aAbsent.isCreatedAt (aODT));
+
+    try
+    {
+      aPresent.isCreatedAt (null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testDeletionOffsetDateTime ()
+  {
+    final OffsetDateTime aODT = DT.atOffset (ZoneOffset.ofHours (1));
+    final IHasDeletionOffsetDateTime aPresent = () -> aODT;
+    assertTrue (aPresent.hasDeletionDateTime ());
+    assertTrue (aPresent.isDeletedAt (aODT));
+    assertTrue (aPresent.isDeletedAt (aODT.plusSeconds (1)));
+    assertFalse (aPresent.isDeletedAt (aODT.minusSeconds (1)));
+    // The same instant with another offset
+    assertTrue (aPresent.isDeletedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC)));
+    assertFalse (aPresent.isDeletedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC).minusSeconds (1)));
+
+    final IHasDeletionOffsetDateTime aAbsent = () -> null;
+    assertFalse (aAbsent.hasDeletionDateTime ());
+    assertFalse (aAbsent.isDeletedAt (aODT));
+
+    try
+    {
+      aPresent.isDeletedAt (null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testTrashOffsetDateTime ()
+  {
+    final OffsetDateTime aODT = DT.atOffset (ZoneOffset.ofHours (1));
+    final IHasTrashOffsetDateTime aPresent = () -> aODT;
+    assertTrue (aPresent.hasTrashDateTime ());
+    assertTrue (aPresent.isTrashedAt (aODT));
+    assertTrue (aPresent.isTrashedAt (aODT.plusSeconds (1)));
+    assertFalse (aPresent.isTrashedAt (aODT.minusSeconds (1)));
+    // The same instant with another offset
+    assertTrue (aPresent.isTrashedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC)));
+    assertFalse (aPresent.isTrashedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC).minusSeconds (1)));
+
+    final IHasTrashOffsetDateTime aAbsent = () -> null;
+    assertFalse (aAbsent.hasTrashDateTime ());
+    assertFalse (aAbsent.isTrashedAt (aODT));
+
+    try
+    {
+      aPresent.isTrashedAt (null);
+      fail ();
+    }
+    catch (final NullPointerException | IllegalArgumentException ex)
+    {
+      // expected
+    }
+  }
+
+  @Test
+  public void testLastModificationOffsetDateTime ()
+  {
+    final OffsetDateTime aODT = DT.atOffset (ZoneOffset.ofHours (1));
+    final IHasLastModificationOffsetDateTime aPresent = () -> aODT;
+    assertTrue (aPresent.hasLastModificationDateTime ());
+    // Modified at the very same time and afterwards
+    assertTrue (aPresent.isLastModifiedAt (aODT));
+    assertTrue (aPresent.isLastModifiedAt (aODT.plusSeconds (1)));
+    assertFalse (aPresent.isLastModifiedAt (aODT.minusSeconds (1)));
+    // The same instant with another offset
+    assertTrue (aPresent.isLastModifiedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC)));
+    assertFalse (aPresent.isLastModifiedAt (aODT.withOffsetSameInstant (ZoneOffset.UTC).minusSeconds (1)));
+
+    final IHasLastModificationOffsetDateTime aAbsent = () -> null;
+    assertFalse (aAbsent.hasLastModificationDateTime ());
+    assertFalse (aAbsent.isLastModifiedAt (aODT));
+
+    try
+    {
+      aPresent.isLastModifiedAt (null);
       fail ();
     }
     catch (final NullPointerException | IllegalArgumentException ex)
