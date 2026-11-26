@@ -311,7 +311,7 @@ public class HttpHeaderMap implements
 
   /**
    * Convert a {@link LocalDateTime} to a string suitable for use in HTTP date headers according to
-   * RFC 822. Since 12.8.1 the local date time is interpreted in the default time zone - the same as
+   * RFC 822. Since 12.9.0 the local date time is interpreted in the default time zone - the same as
    * in {@link #setDateHeader(String, LocalDateTime)}.
    *
    * @param aLDT

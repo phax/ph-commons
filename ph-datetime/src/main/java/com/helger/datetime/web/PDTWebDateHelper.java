@@ -372,7 +372,7 @@ public final class PDTWebDateHelper
   {
     if (aDateTime == null)
       return null;
-    // Since 12.8.1 converted to UTC
+    // Since 12.9.0 converted to UTC
     return PDTFormatter.getForPattern (FORMAT_RFC822, LOCALE_TO_USE)
                        .format (aDateTime.withZoneSameInstant (ZoneOffset.UTC));
   }

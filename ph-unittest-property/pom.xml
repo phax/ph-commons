@@ -22,7 +22,7 @@
   <parent>
     <groupId>com.helger.commons</groupId>
     <artifactId>ph-commons-parent-pom</artifactId>
-    <version>12.8.1-SNAPSHOT</version>
+    <version>12.9.0-SNAPSHOT</version>
   </parent>
   <artifactId>ph-unittest-property</artifactId>
   <packaging>jar</packaging>
