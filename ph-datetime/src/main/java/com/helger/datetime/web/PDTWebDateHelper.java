@@ -222,6 +222,10 @@ public final class PDTWebDateHelper
         final Temporal ret = aDTF.parse (sDate, aMask.getQuery ());
         if (LOGGER.isDebugEnabled ())
           LOGGER.debug ("Parsed '" + sDate + "' with '" + aMask.getPattern () + "' to " + ret.getClass ().getName ());
+        // A mask without zone ignores the zone of the formatter, so the provided zone must be applied
+        // here - otherwise the default time zone would be used
+        if (aDTZ != null && ret instanceof final LocalDateTime aLDT)
+          return ZonedDateTime.of (aLDT, aDTZ);
         return TypeConverter.convert (ret, ZonedDateTime.class);
       }
       catch (final DateTimeParseException ex)
@@ -355,7 +359,8 @@ public final class PDTWebDateHelper
   }
 
   /**
-   * create a RFC822 representation of a date.
+   * create a RFC822 representation of a date. The date is converted to UTC, because the created
+   * representation always uses the time zone "GMT".
    *
    * @param aDateTime
    *        Date to print. May be <code>null</code>.
@@ -367,7 +372,9 @@ public final class PDTWebDateHelper
   {
     if (aDateTime == null)
       return null;
-    return PDTFormatter.getForPattern (FORMAT_RFC822, LOCALE_TO_USE).format (aDateTime);
+    // Since 12.8.1 converted to UTC
+    return PDTFormatter.getForPattern (FORMAT_RFC822, LOCALE_TO_USE)
+                       .format (aDateTime.withZoneSameInstant (ZoneOffset.UTC));
   }
 
   /**

@@ -26,6 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
@@ -60,6 +61,11 @@ public final class HttpHeaderMapExtTest
     assertNotNull (aMap.getFirstHeaderValue ("d3"));
     aMap.setDateHeader ("d4", System.currentTimeMillis ());
     assertNotNull (aMap.getFirstHeaderValue ("d4"));
+
+    // The zone does not matter, only the instant
+    assertEquals (HttpHeaderMap.getDateTimeAsString (aZDT),
+                  HttpHeaderMap.getDateTimeAsString (aZDT.withZoneSameInstant (ZoneOffset.ofHours (5))));
+    assertTrue (aMap.getFirstHeaderValue ("d1").endsWith (" GMT"));
 
     aMap.addDateHeader ("a1", aZDT);
     aMap.addDateHeader ("a1", aLDT);

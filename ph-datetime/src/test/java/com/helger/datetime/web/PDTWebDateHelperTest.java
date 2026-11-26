@@ -19,13 +19,16 @@ package com.helger.datetime.web;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
@@ -51,7 +54,8 @@ public final class PDTWebDateHelperTest
     assertNotNull (s);
     final ZonedDateTime d2 = PDTWebDateHelper.getDateTimeFromRFC822 (s);
     assertNotNull ("Failed to parse RFC822: " + s, d2);
-    assertEquals ("Difference after parsing: " + s, d, d2);
+    // The string is always in GMT, so only the instant is the same
+    assertEquals ("Difference after parsing: " + s, d.toInstant (), d2.toInstant ());
 
     final String sNow = PDTWebDateHelper.getCurrentDateTimeAsStringRFC822 ();
     assertNotNull (PDTWebDateHelper.getDateTimeFromRFC822 (sNow));
@@ -81,6 +85,60 @@ public final class PDTWebDateHelperTest
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((ZonedDateTime) null));
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((OffsetDateTime) null));
     assertNull (PDTWebDateHelper.getAsStringRFC822 ((LocalDateTime) null));
+  }
+
+  @Test
+  public void testRfc822NotInUTC ()
+  {
+    final ZoneId aOldZoneID = PDTConfig.getDefaultZoneId ();
+    // A default time zone that is not UTC
+    assertTrue (PDTConfig.setDefaultDateTimeZoneID ("Europe/Vienna").isSuccess ());
+    try
+    {
+      // The time is converted to UTC
+      assertEquals ("Sun, 25 Oct 2026 01:30:00 GMT",
+                    PDTWebDateHelper.getAsStringRFC822 (ZonedDateTime.of (2026,
+                                                                          10,
+                                                                          25,
+                                                                          2,
+                                                                          30,
+                                                                          0,
+                                                                          0,
+                                                                          ZoneOffset.ofHours (1))));
+      assertEquals ("Sat, 01 Dec 2018 19:14:44 GMT",
+                    PDTWebDateHelper.getAsStringRFC822 (ZonedDateTime.of (2018,
+                                                                          12,
+                                                                          1,
+                                                                          20,
+                                                                          14,
+                                                                          44,
+                                                                          0,
+                                                                          ZoneId.of ("Europe/Vienna"))));
+      assertEquals ("Sat, 01 Dec 2018 19:14:44 GMT",
+                    PDTWebDateHelper.getAsStringRFC822 (OffsetDateTime.of (2018, 12, 1, 20, 14, 44, 0, ZoneOffset.ofHours (1))));
+
+      // "GMT" must be interpreted as UTC and not in the default time zone
+      final Instant aExpected = Instant.parse ("2018-12-01T19:14:44Z");
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 19:14:44 GMT").toInstant ());
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 19:14:44 UTC").toInstant ());
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 19:14:44 +0000").toInstant ());
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 20:14:44 +0100").toInstant ());
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 14:14:44 EST").toInstant ());
+
+      // Without a zone, the default time zone is used
+      assertEquals (aExpected, PDTWebDateHelper.getDateTimeFromRFC822 ("Sat, 01 Dec 2018 20:14:44").toInstant ());
+
+      // Round trip during the daylight saving time change, where the local time is ambiguous
+      final ZonedDateTime aDST = ZonedDateTime.of (2026, 10, 25, 2, 30, 0, 0, ZoneId.of ("Europe/Vienna"))
+                                              .withLaterOffsetAtOverlap ();
+      final String sDST = PDTWebDateHelper.getAsStringRFC822 (aDST);
+      assertEquals ("Sun, 25 Oct 2026 01:30:00 GMT", sDST);
+      assertEquals (aDST.toInstant (), PDTWebDateHelper.getDateTimeFromRFC822 (sDST).toInstant ());
+    }
+    finally
+    {
+      PDTConfig.setDefaultDateTimeZoneID (aOldZoneID.getId ());
+    }
   }
 
   private static void _testW3C (@NonNull final OffsetDateTime aSrc)
