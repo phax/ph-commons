@@ -59,6 +59,11 @@ public enum EOperatingSystem implements IHasDisplayName
   MACOS ("Mac OS X", true),
 
   /**
+   * The value indicating the OpenBSD operating system.
+   */
+  OPENBSD ("OpenBSD", true),
+
+  /**
    * The value indicating the Solaris operating system.
    */
   SOLARIS ("Solaris", true),
@@ -127,6 +132,7 @@ public enum EOperatingSystem implements IHasDisplayName
    * <li>HP-UX</li>
    * <li>Linux</li>
    * <li>Mac OS X</li>
+   * <li>OpenBSD</li>
    * <li>Solaris</li>
    * </ul>
    *
@@ -219,6 +225,8 @@ public enum EOperatingSystem implements IHasDisplayName
       return FREEBSD;
     if (sLowerName.contains ("macos") || sLowerName.contains ("mac os"))
       return MACOS;
+    if (sLowerName.contains ("openbsd"))
+      return OPENBSD;
     if (sLowerName.contains ("z/os"))
       return ZOS;
     return UNKNOWN;
