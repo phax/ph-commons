@@ -718,4 +718,24 @@ public final class XMLFactory
       throw new InitializationException ("Failed to create XML XMLInputFactory", ex);
     }
   }
+
+  /**
+   * Create a new {@link XMLInputFactory} with the default customisation applied, but that is not
+   * coalescing. Such a factory reports large character data in several chunks instead of a single
+   * event, so that the memory needed to read a document does not depend on the size of its text
+   * nodes. Use it when reading documents of arbitrary size in a streaming way.
+   *
+   * @return A new, customised and non-coalescing {@link XMLInputFactory}. Never <code>null</code>.
+   * @throws InitializationException
+   *         In case the factory cannot be created
+   * @see #createDefaultXMLInputFactory()
+   * @since 12.9.0
+   */
+  @NonNull
+  public static XMLInputFactory createNonCoalescingXMLInputFactory ()
+  {
+    final XMLInputFactory aFactory = createDefaultXMLInputFactory ();
+    setProperty (aFactory, XMLInputFactory.IS_COALESCING, Boolean.FALSE);
+    return aFactory;
+  }
 }

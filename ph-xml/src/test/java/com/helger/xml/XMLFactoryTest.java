@@ -80,6 +80,19 @@ public final class XMLFactoryTest
   }
 
   @Test
+  public void testCreateNonCoalescingXMLInputFactory ()
+  {
+    final XMLInputFactory aFactory = XMLFactory.createNonCoalescingXMLInputFactory ();
+    assertNotNull (aFactory);
+    assertEquals (Boolean.FALSE, aFactory.getProperty (XMLInputFactory.IS_COALESCING));
+    assertEquals (Boolean.valueOf (XMLFactory.DEFAULT_STAX_SUPPORT_DTD),
+                  aFactory.getProperty (XMLInputFactory.SUPPORT_DTD));
+    assertEquals (Boolean.valueOf (XMLFactory.DEFAULT_STAX_SUPPORTING_EXTERNAL_ENTITIES),
+                  aFactory.getProperty (XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES));
+    assertTrue (aFactory.getXMLResolver () instanceof EmptyXMLResolver);
+  }
+
+  @Test
   public void testCreateDefaultXMLInputFactoryNoDoctype () throws XMLStreamException
   {
     final XMLInputFactory aFactory = XMLFactory.createDefaultXMLInputFactory ();
