@@ -20,13 +20,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
 import com.helger.annotation.concurrent.ThreadSafe;
 import com.helger.annotation.style.PresentForCodeCoverage;
+import com.helger.base.string.MultiCharReplacer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringParser;
-import com.helger.base.string.StringReplace;
 import com.helger.io.resource.ClassPathResource;
 import com.helger.io.stream.StreamHelperExt;
 
@@ -38,8 +39,8 @@ import com.helger.io.stream.StreamHelperExt;
 @ThreadSafe
 public final class URLCleanser
 {
-  private static char [] s_aCleanURLOld;
-  private static char [] [] s_aCleanURLNew;
+  // Assigned only once completely initialised, as it is lazily initialised without a lock
+  private static MultiCharReplacer s_aCleanURLReplacer;
 
   @PresentForCodeCoverage
   private static final URLCleanser INSTANCE = new URLCleanser ();
@@ -47,7 +48,8 @@ public final class URLCleanser
   private URLCleanser ()
   {}
 
-  private static void _initCleanURL ()
+  @NonNull
+  private static MultiCharReplacer _initCleanURL ()
   {
     // This one cannot be in the static initialiser of the class, because
     // ClassPathResource internally uses
@@ -80,8 +82,8 @@ public final class URLCleanser
     // ("codelists/cleanurl-data.xml"), aCleanURLMap).isFailure ())
     // throw new InitializationException ("Failed to init CleanURL data!");
 
-    s_aCleanURLOld = new char [aCleanURLMap.size ()];
-    s_aCleanURLNew = new char [aCleanURLMap.size ()] [];
+    final char [] aCleanURLOld = new char [aCleanURLMap.size ()];
+    final char [] [] aCleanURLNew = new char [aCleanURLMap.size ()] [];
 
     // Convert to char array
     int i = 0;
@@ -90,10 +92,13 @@ public final class URLCleanser
       final String sKey = aEntry.getKey ();
       if (sKey.length () != 1)
         throw new IllegalStateException ("Clean URL source character has an invalid length: " + sKey.length ());
-      s_aCleanURLOld[i] = sKey.charAt (0);
-      s_aCleanURLNew[i] = aEntry.getValue ().toCharArray ();
+      aCleanURLOld[i] = sKey.charAt (0);
+      aCleanURLNew[i] = aEntry.getValue ().toCharArray ();
       ++i;
     }
+    final MultiCharReplacer ret = new MultiCharReplacer (aCleanURLOld, aCleanURLNew);
+    s_aCleanURLReplacer = ret;
+    return ret;
   }
 
   /**
@@ -106,9 +111,11 @@ public final class URLCleanser
   @Nullable
   public static String getCleanURLPartWithoutUmlauts (@Nullable final String sURLPart)
   {
-    if (s_aCleanURLOld == null)
-      _initCleanURL ();
-    final char [] ret = StringReplace.replaceMultiple (sURLPart, s_aCleanURLOld, s_aCleanURLNew);
+    // Read the field only once, as it is lazily initialised without a lock
+    MultiCharReplacer aReplacer = s_aCleanURLReplacer;
+    if (aReplacer == null)
+      aReplacer = _initCleanURL ();
+    final char [] ret = aReplacer.replace (sURLPart);
     return new String (ret);
   }
 }

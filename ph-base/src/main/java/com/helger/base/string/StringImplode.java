@@ -19,7 +19,6 @@ package com.helger.base.string;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -34,7 +33,6 @@ import com.helger.annotation.style.CodingStyleguideUnaware;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.builder.IBuilder;
 import com.helger.base.enforce.ValueEnforcer;
-import com.helger.base.functional.Predicates;
 
 /**
  * Helper class for joining (imploding) collections and arrays into a single string with a
@@ -276,48 +274,41 @@ public final class StringImplode
       if (aSource == null || aSource.isEmpty () || m_nLength == 0)
         return "";
 
-      final StringBuilder aSB = new StringBuilder ();
-
       // Avoid constant this access for speed
       final String sSep = m_sSeparator;
-      final Predicate <String> aFilter = m_aFilter == null ? Predicates.all () : m_aFilter;
+      final Predicate <String> aFilter = m_aFilter;
 
-      if (m_nOffset <= 0 && m_nLength < 0)
+      // Start as early as possible
+      final int nStart = Math.max (0, m_nOffset);
+
+      // End of iteration?
+      int nEnd = aSource.size ();
+      if (m_nLength > 0)
+        nEnd = Math.min (nEnd, nStart + m_nLength);
+      if (nStart >= nEnd)
+        return "";
+
+      // Determine the maximum result length (ignoring the filter), so that the StringBuilder never
+      // needs to grow. The source is a random access list.
+      long nMaxLength = (long) (nEnd - nStart - 1) * StringHelper.getLength (sSep);
+      for (int i = nStart; i < nEnd; ++i)
       {
-        // Iterate all
-        int nElementsAdded = 0;
-        for (final String sElement : aSource)
-        {
-          if (aFilter.test (sElement))
-          {
-            if (nElementsAdded > 0 && sSep != null)
-              aSB.append (sSep);
-            aSB.append (sElement);
-            nElementsAdded++;
-          }
-        }
+        final String sElement = aSource.get (i);
+        // A null element is appended as "null"
+        nMaxLength += sElement == null ? 4 : sElement.length ();
       }
-      else
+      final StringBuilder aSB = new StringBuilder ((int) Math.min (nMaxLength, Integer.MAX_VALUE - 16));
+
+      int nElementsAdded = 0;
+      for (int i = nStart; i < nEnd; ++i)
       {
-        // Start as early as possible
-        final int nStart = Math.max (0, m_nOffset);
-
-        // End of iteration?
-        int nEnd = aSource.size ();
-        if (m_nLength > 0)
-          nEnd = Math.min (nEnd, nStart + m_nLength);
-
-        int nElementsAdded = 0;
-        for (int i = nStart; i < nEnd; ++i)
+        final String sElement = aSource.get (i);
+        if (aFilter == null || aFilter.test (sElement))
         {
-          final String sElement = aSource.get (i);
-          if (aFilter.test (sElement))
-          {
-            if (nElementsAdded > 0 && sSep != null)
-              aSB.append (sSep);
-            aSB.append (sElement);
-            nElementsAdded++;
-          }
+          if (nElementsAdded > 0 && sSep != null)
+            aSB.append (sSep);
+          aSB.append (sElement);
+          nElementsAdded++;
         }
       }
       return aSB.toString ();
@@ -1084,8 +1075,12 @@ public final class StringImplode
    */
   public static class ImploderBuilderMap implements IBuilder <String>
   {
+    // The mapped keys and values as pairs in the same order. A map would merge entries whose keys
+    // are mapped to the same string
     @CodingStyleguideUnaware
-    private Map <String, String> m_aSource;
+    private List <String> m_aSourceKeys;
+    @CodingStyleguideUnaware
+    private List <String> m_aSourceValues;
     private String m_sSeparatorOuter;
     private String m_sSeparatorInner;
     private Predicate <String> m_aFilterKey;
@@ -1139,12 +1134,20 @@ public final class StringImplode
       ValueEnforcer.notNull (aKeyMapper, "KeyMapper");
       ValueEnforcer.notNull (aValueMapper, "ValueMapper");
       if (a == null)
-        m_aSource = null;
+      {
+        m_aSourceKeys = null;
+        m_aSourceValues = null;
+      }
       else
       {
-        m_aSource = new LinkedHashMap <> (a.size ());
+        final int nSize = a.size ();
+        m_aSourceKeys = new ArrayList <> (nSize);
+        m_aSourceValues = new ArrayList <> (nSize);
         for (final Map.Entry <K, V> e : a.entrySet ())
-          m_aSource.put (aKeyMapper.apply (e.getKey ()), aValueMapper.apply (e.getValue ()));
+        {
+          m_aSourceKeys.add (aKeyMapper.apply (e.getKey ()));
+          m_aSourceValues.add (aValueMapper.apply (e.getValue ()));
+        }
       }
       return this;
     }
@@ -1263,25 +1266,38 @@ public final class StringImplode
     @NonNull
     public String build ()
     {
-      final Map <String, String> aSource = m_aSource;
-      if (aSource == null || aSource.isEmpty ())
+      final List <String> aKeys = m_aSourceKeys;
+      final List <String> aValues = m_aSourceValues;
+      if (aKeys == null || aKeys.isEmpty ())
         return "";
-
-      final StringBuilder aSB = new StringBuilder ();
 
       // Avoid constant this access for speed
       final String sSepOuter = m_sSeparatorOuter;
       final String sSepInner = m_sSeparatorInner;
-      final Predicate <String> aFilterKey = m_aFilterKey == null ? Predicates.all () : m_aFilterKey;
-      final Predicate <String> aFilterValue = m_aFilterValue == null ? Predicates.all () : m_aFilterValue;
+      final Predicate <String> aFilterKey = m_aFilterKey;
+      final Predicate <String> aFilterValue = m_aFilterValue;
+      final int nCount = aKeys.size ();
+
+      // Determine the maximum result length (ignoring the filters), so that the StringBuilder never
+      // needs to grow
+      long nMaxLength = (long) (nCount - 1) * StringHelper.getLength (sSepOuter) +
+                        (long) nCount * StringHelper.getLength (sSepInner);
+      for (int i = 0; i < nCount; ++i)
+      {
+        // A null element is appended as "null"
+        final String sKey = aKeys.get (i);
+        final String sValue = aValues.get (i);
+        nMaxLength += (sKey == null ? 4 : sKey.length ()) + (sValue == null ? 4 : sValue.length ());
+      }
+      final StringBuilder aSB = new StringBuilder ((int) Math.min (nMaxLength, Integer.MAX_VALUE - 16));
 
       // Iterate all
       int nElementsAdded = 0;
-      for (final Map.Entry <String, String> aEntry : aSource.entrySet ())
+      for (int i = 0; i < nCount; ++i)
       {
-        final String sKey = aEntry.getKey ();
-        final String sValue = aEntry.getValue ();
-        if (aFilterKey.test (sKey) && aFilterValue.test (sValue))
+        final String sKey = aKeys.get (i);
+        final String sValue = aValues.get (i);
+        if ((aFilterKey == null || aFilterKey.test (sKey)) && (aFilterValue == null || aFilterValue.test (sValue)))
         {
           if (nElementsAdded > 0 && sSepOuter != null)
             aSB.append (sSepOuter);

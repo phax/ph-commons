@@ -31,6 +31,7 @@ import com.helger.annotation.style.ReturnsMutableCopy;
 import com.helger.annotation.style.ReturnsMutableObject;
 import com.helger.base.CGlobal;
 import com.helger.base.enforce.ValueEnforcer;
+import com.helger.base.string.MultiCharReplacer;
 import com.helger.base.string.StringHelper;
 import com.helger.base.string.StringReplace;
 import com.helger.collection.commons.ICommonsOrderedSet;
@@ -397,6 +398,13 @@ public final class XMLMaskHelper
   private static final boolean [] [] [] PLAIN_ASCII_CHARS = _createPlainASCIIChars ();
 
   /**
+   * Per XML version (first index) and character mode (second index): the precomputed replacer for
+   * the characters to be masked. <code>null</code> for modes without a source map. Initialised at
+   * the end of the static initialiser, after the replacement maps were filled.
+   */
+  private static final MultiCharReplacer [] [] REPLACERS;
+
+  /**
    * Get the XML numeric character reference for the specified character (e.g.
    * <code>&amp;#xA;</code>).
    *
@@ -527,6 +535,8 @@ public final class XMLMaskHelper
       MASK_TEXT_HTML_DQ_REPLACE[i] = getHTMLEntityReferenceString (MASK_TEXT_HTML_DQ[i]).toCharArray ();
     for (int i = 0; i < MASK_TEXT_HTML_SQ.length; ++i)
       MASK_TEXT_HTML_SQ_REPLACE[i] = getHTMLEntityReferenceString (MASK_TEXT_HTML_SQ[i]).toCharArray ();
+
+    REPLACERS = _createReplacers ();
   }
 
   @PresentForCodeCoverage
@@ -705,6 +715,30 @@ public final class XMLMaskHelper
     return null;
   }
 
+  @ReturnsMutableCopy
+  private static MultiCharReplacer @NonNull [] [] _createReplacers ()
+  {
+    final EXMLSerializeVersion [] aVersions = EXMLSerializeVersion.values ();
+    final EXMLCharMode [] aModes = EXMLCharMode.values ();
+    final MultiCharReplacer [] [] ret = new MultiCharReplacer [aVersions.length] [aModes.length];
+    for (final EXMLSerializeVersion eVersion : aVersions)
+      for (final EXMLCharMode eMode : aModes)
+      {
+        final char [] aSrcMap = _findSourceMap (eVersion, eMode);
+        if (aSrcMap != null)
+          ret[eVersion.ordinal ()][eMode.ordinal ()] = new MultiCharReplacer (aSrcMap,
+                                                                              _findReplaceMap (eVersion, eMode));
+      }
+    return ret;
+  }
+
+  @Nullable
+  private static MultiCharReplacer _findReplacer (@NonNull final EXMLSerializeVersion eXMLVersion,
+                                                  @NonNull final EXMLCharMode eXMLCharMode)
+  {
+    return REPLACERS[eXMLVersion.ordinal ()][eXMLCharMode.ordinal ()];
+  }
+
   /**
    * Convert the passed set to an array
    *
@@ -775,14 +809,13 @@ public final class XMLMaskHelper
     }
 
     // 2. perform entity replacements if necessary
-    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
-    if (aSrcMap == null)
+    final MultiCharReplacer aReplacer = _findReplacer (eXMLVersion, eXMLCharMode);
+    if (aReplacer == null)
     {
       // Nothing to replace
       return aChars;
     }
-    final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-    return StringReplace.replaceMultiple (aChars, aSrcMap, aDstMap);
+    return aReplacer.replace (aChars);
   }
 
   /**
@@ -852,16 +885,11 @@ public final class XMLMaskHelper
 
     // 2. perform entity replacements if necessary
     final int nInputLen = aCleanedChars != null ? aCleanedChars.length : s.length ();
-    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
+    final MultiCharReplacer aReplacer = _findReplacer (eXMLVersion, eXMLCharMode);
     final int ret;
-    if (aSrcMap != null)
+    if (aReplacer != null)
     {
-      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
-      final int nResLen = aCleanedChars != null ? StringReplace.getReplaceMultipleResultLength (aCleanedChars,
-                                                                                                 aSrcMap,
-                                                                                                 aDstMap)
-                                                : StringReplace.getReplaceMultipleResultLength (s, aSrcMap, aDstMap);
-      ret = nResLen == CGlobal.ILLEGAL_UINT ? nInputLen : nResLen;
+      ret = aCleanedChars != null ? aReplacer.getResultLength (aCleanedChars) : aReplacer.getResultLength (s);
     }
     else
     {
@@ -898,8 +926,8 @@ public final class XMLMaskHelper
                                       @Nonnegative final int nLen,
                                       @NonNull final Writer aWriter) throws IOException
   {
-    final char [] aSrcMap = _findSourceMap (eXMLVersion, eXMLCharMode);
-    if (aSrcMap == null)
+    final MultiCharReplacer aReplacer = _findReplacer (eXMLVersion, eXMLCharMode);
+    if (aReplacer == null)
     {
       // Nothing to replace
       // TODO write code points as XML entities
@@ -907,9 +935,8 @@ public final class XMLMaskHelper
     }
     else
     {
-      final char [] [] aDstMap = _findReplaceMap (eXMLVersion, eXMLCharMode);
       // TODO write code points as XML entities
-      StringReplace.replaceMultipleTo (aChars, nOfs, nLen, aSrcMap, aDstMap, aWriter);
+      aReplacer.replaceTo (aChars, nOfs, nLen, aWriter);
     }
   }
 

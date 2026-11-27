@@ -17,11 +17,13 @@
 package com.helger.base.string;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 
 import java.util.List;
 
 import org.junit.Test;
 
+import com.helger.base.CGlobal;
 import com.helger.base.io.nonblocking.NonBlockingStringWriter;
 import com.helger.unittest.property.Generators;
 import com.helger.unittest.property.IGenerator;
@@ -117,7 +119,27 @@ public final class StringReplacePropertyTest
       final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
       final int nReplacements = StringReplace.replaceMultipleTo (sInput, aSearchChars, aReplacements, aSW);
       assertEquals (sExpected, aSW.getAsString ());
-      assertEquals (_countReference (sInput, aSearchChars), nReplacements);
+      final int nExpectedReplacements = _countReference (sInput, aSearchChars);
+      assertEquals (nExpectedReplacements, nReplacements);
+
+      final int nExpectedResultLength = nExpectedReplacements == 0 ? CGlobal.ILLEGAL_UINT : sExpected.length ();
+      assertEquals (nExpectedResultLength,
+                    StringReplace.getReplaceMultipleResultLength (sInput, aSearchChars, aReplacements));
+      assertEquals (nExpectedResultLength,
+                    StringReplace.getReplaceMultipleResultLength (sInput.toCharArray (), aSearchChars, aReplacements));
+
+      // The precomputed variant must behave identically
+      final MultiCharReplacer aReplacer = new MultiCharReplacer (aSearchChars, aReplacements);
+      assertEquals (sExpected, new String (aReplacer.replace (sInput)));
+      assertEquals (sExpected, new String (aReplacer.replace (sInput.toCharArray ())));
+      assertEquals (sExpected.length (), aReplacer.getResultLength (sInput));
+      assertEquals (sExpected.length (), aReplacer.getResultLength (sInput.toCharArray ()));
+      final NonBlockingStringWriter aSW2 = new NonBlockingStringWriter ();
+      assertEquals (nExpectedReplacements, aReplacer.replaceTo (sInput, aSW2));
+      assertEquals (sExpected, aSW2.getAsString ());
+      final NonBlockingStringWriter aSW3 = new NonBlockingStringWriter ();
+      assertEquals (nExpectedReplacements, aReplacer.replaceTo (sInput.toCharArray (), aSW3));
+      assertEquals (sExpected, aSW3.getAsString ());
     });
   }
 
@@ -143,10 +165,17 @@ public final class StringReplacePropertyTest
                                                                       aSearchChars,
                                                                       aReplacements,
                                                                       aSW);
-                                     assertEquals (_replaceReference (sInput.substring (nOfs, nOfs + nLen),
-                                                                      aSearchChars,
-                                                                      aReplacements),
-                                                   aSW.getAsString ());
+                                     final String sExpected = _replaceReference (sInput.substring (nOfs, nOfs + nLen),
+                                                                                 aSearchChars,
+                                                                                 aReplacements);
+                                     assertEquals (sExpected, aSW.getAsString ());
+
+                                     final NonBlockingStringWriter aSW2 = new NonBlockingStringWriter ();
+                                     new MultiCharReplacer (aSearchChars, aReplacements).replaceTo (sInput.toCharArray (),
+                                                                                                    nOfs,
+                                                                                                    nLen,
+                                                                                                    aSW2);
+                                     assertEquals (sExpected, aSW2.getAsString ());
                                    });
   }
 
@@ -166,6 +195,41 @@ public final class StringReplacePropertyTest
       final StringBuilder aSB = new StringBuilder ();
       StringReplace.replaceMultipleTo (sInput, aSearchChars, aReplacement.charValue (), aSB);
       assertEquals (sExpected, aSB.toString ());
+
+      final NonBlockingStringWriter aSW = new NonBlockingStringWriter ();
+      StringReplace.replaceMultipleTo (sInput, aSearchChars, aReplacement.charValue (), aSW);
+      assertEquals (sExpected, aSW.getAsString ());
     });
+  }
+
+  @Test
+  public void testReplaceAllChar ()
+  {
+    new PropertyChecker ().setTries (1000).forAll (TEXT, CHARS, CHARS, (sInput, aSearch, aReplacement) -> {
+      final char cSearch = aSearch.charValue ();
+      final char [] [] aReplacements = { new char [] { aReplacement.charValue () } };
+      final String sExpected = _replaceReference (sInput, new char [] { cSearch }, aReplacements);
+      final String sResult = StringReplace.replaceAll (sInput, cSearch, aReplacement.charValue ());
+      assertEquals (sExpected, sResult);
+      // The input itself is returned, if nothing changes
+      if (sExpected.equals (sInput))
+        assertSame (sInput, sResult);
+    });
+  }
+
+  @Test
+  public void testMultiCharReplacerCopiesArrays ()
+  {
+    final char [] aSearchChars = { '<', '<', '\u20ac' };
+    final char [] [] aReplacements = { "&lt;".toCharArray (), "second".toCharArray (), "EUR".toCharArray () };
+    final MultiCharReplacer aReplacer = new MultiCharReplacer (aSearchChars, aReplacements);
+
+    // Modifying the source arrays has no effect
+    aSearchChars[0] = 'x';
+    aReplacements[0][0] = 'X';
+    // The first occurrence of a duplicate search char wins
+    assertEquals ("a&lt;bEURx", new String (aReplacer.replace ("a<b\u20acx")));
+    assertEquals (0, aReplacer.getResultLength ((String) null));
+    assertEquals (0, aReplacer.replace ((String) null).length);
   }
 }

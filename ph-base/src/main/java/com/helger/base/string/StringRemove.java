@@ -22,7 +22,6 @@ import org.jspecify.annotations.Nullable;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
@@ -62,19 +61,18 @@ public final class StringRemove
     if (nFirstIndex == CGlobal.STRING_NOT_FOUND)
       return sInputString;
 
-    // build output buffer
+    // build output buffer, copying the ranges between the occurrences at once
     final int nMax = sInputString.length ();
-    final StringBuilder aSB = new StringBuilder (nMax);
-    // Copy the first chars where we know it is not contained
-    aSB.append (sInputString, 0, nFirstIndex);
-    // Start searching after the first occurrence because we know that this is a
-    // char to be removed
-    for (int i = nFirstIndex; i < nMax; ++i)
+    final StringBuilder aSB = new StringBuilder (nMax - 1);
+    int nOldIndex = 0;
+    int nIndex = nFirstIndex;
+    do
     {
-      final char c = sInputString.charAt (i);
-      if (c != cRemoveChar)
-        aSB.append (c);
-    }
+      aSB.append (sInputString, nOldIndex, nIndex);
+      nOldIndex = nIndex + 1;
+      nIndex = sInputString.indexOf (cRemoveChar, nOldIndex);
+    } while (nIndex != CGlobal.STRING_NOT_FOUND);
+    aSB.append (sInputString, nOldIndex, nMax);
     return aSB.toString ();
   }
 
@@ -151,11 +149,20 @@ public final class StringRemove
     if (aRemoveChars.length == 0)
       return sInputString;
 
-    final StringBuilder aSB = new StringBuilder (sInputString.length ());
-    StringHelper.iterateChars (sInputString, cInput -> {
-      if (!ArrayHelper.contains (aRemoveChars, cInput))
-        aSB.append (cInput);
-    });
+    final CharSearchSet aSearchSet = new CharSearchSet (aRemoveChars);
+    final int nLen = sInputString.length ();
+    final StringBuilder aSB = new StringBuilder (nLen);
+    // Copy the ranges between the removed characters at once
+    int nFirstNonRemoved = 0;
+    for (int i = 0; i < nLen; ++i)
+      if (aSearchSet.contains (sInputString.charAt (i)))
+      {
+        if (nFirstNonRemoved < i)
+          aSB.append (sInputString, nFirstNonRemoved, i);
+        nFirstNonRemoved = i + 1;
+      }
+    if (nFirstNonRemoved < nLen)
+      aSB.append (sInputString, nFirstNonRemoved, nLen);
     return aSB.toString ();
   }
 }

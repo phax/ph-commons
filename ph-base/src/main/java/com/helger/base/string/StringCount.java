@@ -16,7 +16,6 @@
  */
 package com.helger.base.string;
 
-import java.nio.CharBuffer;
 import java.util.Locale;
 
 import org.jspecify.annotations.NonNull;
@@ -74,17 +73,6 @@ public final class StringCount
   private StringCount ()
   {}
 
-  @Nonnegative
-  private static int _getCharCount (@NonNull final CharSequence aChars, final char cSearch)
-  {
-    int ret = 0;
-    final int nLen = aChars.length ();
-    for (int i = 0; i < nLen; ++i)
-      if (aChars.charAt (i) == cSearch)
-        ++ret;
-    return ret;
-  }
-
   /**
    * Count the number of occurrences of a character in a String.
    *
@@ -98,7 +86,15 @@ public final class StringCount
   @UsedInGeneratedCode
   public static int getCharCount (@Nullable final String s, final char cSearch)
   {
-    return s == null ? 0 : _getCharCount (s, cSearch);
+    if (s == null)
+      return 0;
+    // A plain loop is quicker than an indexOf loop, also for few occurrences
+    int ret = 0;
+    final int nLen = s.length ();
+    for (int i = 0; i < nLen; ++i)
+      if (s.charAt (i) == cSearch)
+        ++ret;
+    return ret;
   }
 
   /**
@@ -113,7 +109,14 @@ public final class StringCount
   @Nonnegative
   public static int getCharCount (final char @Nullable [] aChars, final char cSearch)
   {
-    return aChars == null ? 0 : _getCharCount (CharBuffer.wrap (aChars), cSearch);
+    if (aChars == null)
+      return 0;
+    // Access the array directly instead of through a CharBuffer
+    int ret = 0;
+    for (final char c : aChars)
+      if (c == cSearch)
+        ++ret;
+    return ret;
   }
 
   /**
@@ -267,28 +270,8 @@ public final class StringCount
   @DevelopersNote ("This is the same as getCharCount")
   public static int getOccurrenceCount (@Nullable final String sText, final char cSearch)
   {
-    int ret = 0;
-    final int nTextLength = StringHelper.getLength (sText);
-    if (nTextLength >= 1)
-    {
-      int nLastIndex = 0;
-      int nIndex;
-      do
-      {
-        // Start searching from the last result
-        nIndex = StringHelper.getIndexOf (sText, nLastIndex, cSearch);
-        if (nIndex != CGlobal.STRING_NOT_FOUND)
-        {
-          // Match found
-          ++ret;
-
-          // Identify the next starting position (relative index + number of
-          // search strings)
-          nLastIndex = nIndex + 1;
-        }
-      } while (nIndex != CGlobal.STRING_NOT_FOUND);
-    }
-    return ret;
+    // Same implementation, as a plain loop is quicker than an indexOf loop
+    return getCharCount (sText, cSearch);
   }
 
   /**

@@ -439,6 +439,7 @@
             <!-- uses String methods -->
             <exclude>**/Benchmark*.class</exclude>
             <exclude>**/BaseTypeConverterRegistrar*.class</exclude>
+            <exclude>**/StringReplace.class</exclude>
             <!-- uses java.util.Properties -->
             <exclude>**/IPrivilegedAction.class</exclude>
             <exclude>**/PropertiesHelper.class</exclude>

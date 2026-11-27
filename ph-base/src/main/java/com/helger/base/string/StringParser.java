@@ -48,6 +48,44 @@ public final class StringParser
   {}
 
   /**
+   * Check if the passed string has the syntax of an integer number, as expected by e.g.
+   * {@link Integer#parseInt(String, int)}: an optional sign followed by at least one digit of the
+   * passed radix according to {@link Character#digit(char, int)}. This is only a necessary
+   * condition, as the range is not checked. It avoids the costly creation of a
+   * {@link NumberFormatException} for most invalid inputs.
+   *
+   * @param sStr
+   *        The string to check. May be <code>null</code>.
+   * @param nRadix
+   *        The radix to use. An invalid radix leads to <code>false</code>.
+   * @param bAllowMinus
+   *        <code>true</code> if a leading '-' is allowed, <code>false</code> for unsigned values.
+   * @return <code>true</code> if the syntax is valid.
+   */
+  private static boolean _isIntegerSyntax (@Nullable final String sStr, final int nRadix, final boolean bAllowMinus)
+  {
+    if (sStr == null)
+      return false;
+    final int nLen = sStr.length ();
+    if (nLen == 0)
+      return false;
+
+    int nIndex = 0;
+    final char cFirst = sStr.charAt (0);
+    if (cFirst == '+' || (bAllowMinus && cFirst == '-'))
+    {
+      // A sign alone is not a number
+      if (nLen == 1)
+        return false;
+      nIndex = 1;
+    }
+    for (; nIndex < nLen; ++nIndex)
+      if (Character.digit (sStr.charAt (nIndex), nRadix) < 0)
+        return false;
+    return true;
+  }
+
+  /**
    * Get the unified decimal string for parsing by the runtime library. This is done by replacing
    * ',' with '.'.
    *
@@ -307,7 +345,7 @@ public final class StringParser
    */
   public static byte parseByte (@Nullable final String sStr, @Nonnegative final int nRadix, final byte nDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Byte.parseByte (sStr, nRadix);
@@ -420,7 +458,7 @@ public final class StringParser
                                    @Nonnegative final int nRadix,
                                    @Nullable final Byte aDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Byte.valueOf (sStr, nRadix);
@@ -733,7 +771,7 @@ public final class StringParser
    */
   public static int parseInt (@Nullable final String sStr, @Nonnegative final int nRadix, final int nDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Integer.parseInt (sStr, nRadix);
@@ -846,7 +884,7 @@ public final class StringParser
                                      @Nonnegative final int nRadix,
                                      @Nullable final Integer aDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Integer.valueOf (sStr, nRadix);
@@ -908,7 +946,7 @@ public final class StringParser
                                           @Nonnegative final int nRadix,
                                           @Nullable final Long aDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, false))
       try
       {
         return Long.valueOf (Integer.parseUnsignedInt (sStr, nRadix) & 0xffff_ffffL);
@@ -989,7 +1027,7 @@ public final class StringParser
    */
   public static long parseLong (@Nullable final String sStr, @Nonnegative final int nRadix, final long nDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Long.parseLong (sStr, nRadix);
@@ -1102,7 +1140,7 @@ public final class StringParser
                                    @Nonnegative final int nRadix,
                                    @Nullable final Long aDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Long.valueOf (sStr, nRadix);
@@ -1183,7 +1221,7 @@ public final class StringParser
    */
   public static short parseShort (@Nullable final String sStr, @Nonnegative final int nRadix, final short nDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Short.parseShort (sStr, nRadix);
@@ -1296,7 +1334,7 @@ public final class StringParser
                                      @Nonnegative final int nRadix,
                                      @Nullable final Short aDefault)
   {
-    if (sStr != null && sStr.length () > 0)
+    if (_isIntegerSyntax (sStr, nRadix, true))
       try
       {
         return Short.valueOf (sStr, nRadix);
@@ -1491,7 +1529,7 @@ public final class StringParser
    */
   public static boolean isInt (@Nullable final String sStr)
   {
-    if (sStr != null)
+    if (_isIntegerSyntax (sStr, DEFAULT_RADIX, true))
       try
       {
         Integer.parseInt (sStr, DEFAULT_RADIX);
@@ -1514,7 +1552,7 @@ public final class StringParser
    */
   public static boolean isLong (@Nullable final String sStr)
   {
-    if (sStr != null)
+    if (_isIntegerSyntax (sStr, DEFAULT_RADIX, true))
       try
       {
         Long.parseLong (sStr, DEFAULT_RADIX);
@@ -1537,7 +1575,7 @@ public final class StringParser
    */
   public static boolean isUnsignedInt (@Nullable final String sStr)
   {
-    if (sStr != null)
+    if (_isIntegerSyntax (sStr, DEFAULT_RADIX, false))
       try
       {
         Integer.parseUnsignedInt (sStr, DEFAULT_RADIX);
@@ -1560,7 +1598,7 @@ public final class StringParser
    */
   public static boolean isUnsignedLong (@Nullable final String sStr)
   {
-    if (sStr != null)
+    if (_isIntegerSyntax (sStr, DEFAULT_RADIX, false))
       try
       {
         Long.parseUnsignedLong (sStr, DEFAULT_RADIX);

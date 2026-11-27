@@ -91,6 +91,64 @@ public final class StringParserPropertyTest
     });
   }
 
+  private static boolean _isParsable (final Runnable aParse)
+  {
+    try
+    {
+      aParse.run ();
+      return true;
+    }
+    catch (final NumberFormatException ex)
+    {
+      return false;
+    }
+  }
+
+  @Test
+  public void testIntegerSyntaxPreCheckMatchesJDK ()
+  {
+    // Signs, ASCII digits and letters, non-ASCII digits (Arabic-Indic, fullwidth) that the JDK
+    // accepts, and values around the limits
+    final IGenerator <String> aText = Generators.oneOf (Generators.strings ("0123456789+-azAZ \u0660\u0669\uff10\uff19",
+                                                                            0,
+                                                                            22),
+                                                        Generators.longs ().map (aValue -> aValue.toString ()),
+                                                        Generators.unicodeStrings (0, 6));
+    final IGenerator <Integer> aRadix = Generators.oneOf (RADIXES, Generators.of (Integer.valueOf (0),
+                                                                                  Integer.valueOf (1),
+                                                                                  Integer.valueOf (37)));
+    new PropertyChecker ().setTries (5000).forAll (aText, aRadix, (sText, aRadixValue) -> {
+      final int nRadix = aRadixValue.intValue ();
+      final boolean bInt = _isParsable ( () -> Integer.parseInt (sText, nRadix));
+      final boolean bLong = _isParsable ( () -> Long.parseLong (sText, nRadix));
+      final boolean bShort = _isParsable ( () -> Short.parseShort (sText, nRadix));
+      final boolean bByte = _isParsable ( () -> Byte.parseByte (sText, nRadix));
+      final boolean bUInt = _isParsable ( () -> Integer.parseUnsignedInt (sText, nRadix));
+
+      assertEquals (bInt ? Integer.parseInt (sText, nRadix) : 4711, StringParser.parseInt (sText, nRadix, 4711));
+      assertEquals (bInt ? Integer.valueOf (sText, nRadix) : null, StringParser.parseIntObj (sText, nRadix, null));
+      assertEquals (bLong ? Long.parseLong (sText, nRadix) : 4711, StringParser.parseLong (sText, nRadix, 4711));
+      assertEquals (bLong ? Long.valueOf (sText, nRadix) : null, StringParser.parseLongObj (sText, nRadix, null));
+      assertEquals (bShort ? Short.parseShort (sText, nRadix) : 47,
+                    StringParser.parseShort (sText, nRadix, (short) 47));
+      assertEquals (bShort ? Short.valueOf (sText, nRadix) : null, StringParser.parseShortObj (sText, nRadix, null));
+      assertEquals (bByte ? Byte.parseByte (sText, nRadix) : 47, StringParser.parseByte (sText, nRadix, (byte) 47));
+      assertEquals (bByte ? Byte.valueOf (sText, nRadix) : null, StringParser.parseByteObj (sText, nRadix, null));
+      assertEquals (bUInt ? Long.valueOf (Integer.parseUnsignedInt (sText, nRadix) & 0xffff_ffffL) : null,
+                    StringParser.parseUnsignedIntObj (sText, nRadix, null));
+
+      // The is* methods always use radix 10
+      assertEquals (Boolean.valueOf (_isParsable ( () -> Integer.parseInt (sText, 10))),
+                    Boolean.valueOf (StringParser.isInt (sText)));
+      assertEquals (Boolean.valueOf (_isParsable ( () -> Long.parseLong (sText, 10))),
+                    Boolean.valueOf (StringParser.isLong (sText)));
+      assertEquals (Boolean.valueOf (_isParsable ( () -> Integer.parseUnsignedInt (sText, 10))),
+                    Boolean.valueOf (StringParser.isUnsignedInt (sText)));
+      assertEquals (Boolean.valueOf (_isParsable ( () -> Long.parseUnsignedLong (sText, 10))),
+                    Boolean.valueOf (StringParser.isUnsignedLong (sText)));
+    });
+  }
+
   @Test
   public void testArbitraryInputNeverThrows ()
   {

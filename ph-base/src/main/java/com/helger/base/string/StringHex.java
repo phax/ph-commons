@@ -16,7 +16,6 @@
  */
 package com.helger.base.string;
 
-import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 import org.jspecify.annotations.NonNull;
@@ -94,7 +93,8 @@ public class StringHex
   {
     final char [] ret = new char [nLen * 2];
     int nDst = 0;
-    for (int i = nOfs; i < nOfs + nLen; ++i)
+    final int nEnd = nOfs + nLen;
+    for (int i = nOfs; i < nEnd; ++i)
     {
       final int b = aInput[i];
       ret[nDst++] = aHexChars[(b >> 4) & 0x0f];
@@ -224,13 +224,75 @@ public class StringHex
 
     final byte [] ret = new byte [nLen * 2];
     int nDst = 0;
-    for (int i = nOfs; i < (nOfs + nLen); ++i)
+    final int nEnd = nOfs + nLen;
+    for (int i = nOfs; i < nEnd; ++i)
     {
       final int b = aInput[i];
       ret[nDst++] = (byte) HEX_CHARS_LOWER[(b >> 4) & 0x0f];
       ret[nDst++] = (byte) HEX_CHARS_LOWER[b & 0x0f];
     }
     return ret;
+  }
+
+  /**
+   * Append the hexadecimal encoded bytes of a byte array to the passed {@link StringBuilder},
+   * without creating an intermediate String object.
+   *
+   * @param aSB
+   *        The string builder to append to. May not be <code>null</code>.
+   * @param aInput
+   *        The byte array to be encoded. May not be <code>null</code>.
+   * @param nOfs
+   *        Byte array offset
+   * @param nLen
+   *        Number of bytes to encode
+   * @param bUpperCase
+   *        <code>true</code> to use the characters A-F, <code>false</code> to use a-f.
+   * @return The passed string builder. Never <code>null</code>.
+   * @since 12.9.0
+   */
+  @NonNull
+  public static StringBuilder appendHexEncoded (@NonNull final StringBuilder aSB,
+                                                final byte @NonNull [] aInput,
+                                                final int nOfs,
+                                                final int nLen,
+                                                final boolean bUpperCase)
+  {
+    ValueEnforcer.notNull (aSB, "StringBuilder");
+    ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
+
+    final char [] aHexChars = bUpperCase ? HEX_CHARS_UPPER : HEX_CHARS_LOWER;
+    aSB.ensureCapacity (aSB.length () + nLen * 2);
+    final int nEnd = nOfs + nLen;
+    for (int i = nOfs; i < nEnd; ++i)
+    {
+      final int b = aInput[i];
+      aSB.append (aHexChars[(b >> 4) & 0x0f]).append (aHexChars[b & 0x0f]);
+    }
+    return aSB;
+  }
+
+  /**
+   * Append the hexadecimal encoded bytes of a byte array to the passed {@link StringBuilder},
+   * without creating an intermediate String object.
+   *
+   * @param aSB
+   *        The string builder to append to. May not be <code>null</code>.
+   * @param aInput
+   *        The byte array to be encoded. May not be <code>null</code>.
+   * @param bUpperCase
+   *        <code>true</code> to use the characters A-F, <code>false</code> to use a-f.
+   * @return The passed string builder. Never <code>null</code>.
+   * @since 12.9.0
+   */
+  @NonNull
+  public static StringBuilder appendHexEncoded (@NonNull final StringBuilder aSB,
+                                                final byte @NonNull [] aInput,
+                                                final boolean bUpperCase)
+  {
+    ValueEnforcer.notNull (aInput, "Input");
+
+    return appendHexEncoded (aSB, aInput, 0, aInput.length, bUpperCase);
   }
 
   /**
@@ -259,7 +321,7 @@ public class StringHex
   {
     final int nHex1 = getHexValue (cHigh);
     final int nHex2 = getHexValue (cLow);
-    return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | (nHex2 & 0xff);
+    return nHex1 < 0 || nHex2 < 0 ? -1 : (nHex1 << 4) | nHex2;
   }
 
   @ReturnsMutableCopy
@@ -299,6 +361,22 @@ public class StringHex
   }
 
   /**
+   * Decode a hex encoded character sequence to a byte array.
+   *
+   * @param aInput
+   *        The hex encoded character sequence. May not be <code>null</code>.
+   * @return The decoded byte array. Never <code>null</code>.
+   * @since 12.9.0
+   */
+  @ReturnsMutableCopy
+  public static byte @NonNull [] getHexDecoded (@NonNull final CharSequence aInput)
+  {
+    ValueEnforcer.notNull (aInput, "Input");
+
+    return _getHexDecoded (aInput, 0, aInput.length ());
+  }
+
+  /**
    * Decode a hex encoded char array to a byte array.
    *
    * @param aInput
@@ -330,8 +408,21 @@ public class StringHex
                                                 @Nonnegative final int nLen)
   {
     ValueEnforcer.isArrayOfsLen (aInput, nOfs, nLen);
+    ValueEnforcer.isTrue ((nLen % 2) == 0, () -> "Passed chars have no even length: " + nLen);
 
-    return _getHexDecoded (CharBuffer.wrap (aInput), nOfs, nLen);
+    // Access the array directly instead of through a CharBuffer
+    final byte [] ret = new byte [nLen / 2];
+    int nRetIdx = 0;
+    for (int i = 0; i < nLen; i += 2)
+    {
+      final char c0 = aInput[nOfs + i];
+      final char c1 = aInput[nOfs + i + 1];
+      final int nHexByte = getHexByte (c0, c1);
+      if (nHexByte == -1)
+        throw new IllegalArgumentException ("Failed to convert '" + c0 + "' and '" + c1 + "' to a hex value!");
+      ret[nRetIdx++] = (byte) nHexByte;
+    }
+    return ret;
   }
 
   /**
@@ -455,8 +546,9 @@ public class StringHex
   @NonNull
   public static String getHexStringLeadingZero2 (final byte nValue)
   {
-    final String ret = getHexString (nValue);
-    return ret.length () >= 2 ? ret : '0' + ret;
+    // An unsigned byte always has exactly 2 hex digits
+    final int n = nValue & 0xff;
+    return new String (new char [] { HEX_CHARS_LOWER[n >> 4], HEX_CHARS_LOWER[n & 0x0f] });
   }
 
   /**
@@ -494,6 +586,34 @@ public class StringHex
   }
 
   /**
+   * Append the hex digits of the passed value, interpreted as unsigned, with leading zeros.
+   *
+   * @param aSB
+   *        The string builder to append to. May not be <code>null</code>.
+   * @param nMagnitude
+   *        The value to convert. It is interpreted as an unsigned value.
+   * @param nMinDigits
+   *        The minimum number of digits to append.
+   * @param aHexChars
+   *        The hex characters to use. May not be <code>null</code>.
+   * @return The passed string builder. Never <code>null</code>.
+   */
+  @NonNull
+  private static StringBuilder _appendHexDigits (@NonNull final StringBuilder aSB,
+                                                 final long nMagnitude,
+                                                 final int nMinDigits,
+                                                 final char @NonNull [] aHexChars)
+  {
+    // Number of significant hex digits (at least 1)
+    final int nHexDigits = nMagnitude == 0 ? 1 : (Long.SIZE - Long.numberOfLeadingZeros (nMagnitude) + 3) / 4;
+    for (int i = nHexDigits; i < nMinDigits; ++i)
+      aSB.append ('0');
+    for (int nShift = (nHexDigits - 1) * 4; nShift >= 0; nShift -= 4)
+      aSB.append (aHexChars[(int) (nMagnitude >>> nShift) & 0x0f]);
+    return aSB;
+  }
+
+  /**
    * Append the hex representation of an int value with leading zeros up to the specified number of
    * digits to the passed {@link StringBuilder}, without creating intermediate String objects. The
    * result is identical to <code>aSB.append (getHexStringLeadingZero (nValue, nDigits))</code> (for
@@ -520,25 +640,50 @@ public class StringHex
     ValueEnforcer.notNull (aSB, "StringBuilder");
 
     final char [] aHexChars = bUpperCase ? HEX_CHARS_UPPER : HEX_CHARS_LOWER;
-    int nMinDigits = nDigits;
-    // Magnitude as unsigned value, so that Integer.MIN_VALUE works as well
-    final int nMagnitude;
     if (nValue < 0)
     {
       aSB.append ('-');
-      nMinDigits--;
-      nMagnitude = -nValue;
+      // Magnitude as unsigned value, so that Integer.MIN_VALUE works as well
+      return _appendHexDigits (aSB, -(long) nValue, nDigits - 1, aHexChars);
     }
-    else
-      nMagnitude = nValue;
+    return _appendHexDigits (aSB, nValue, nDigits, aHexChars);
+  }
 
-    // Number of significant hex digits (at least 1)
-    final int nHexDigits = nMagnitude == 0 ? 1 : (Integer.SIZE - Integer.numberOfLeadingZeros (nMagnitude) + 3) / 4;
-    for (int i = nHexDigits; i < nMinDigits; ++i)
-      aSB.append ('0');
-    for (int nShift = (nHexDigits - 1) * 4; nShift >= 0; nShift -= 4)
-      aSB.append (aHexChars[(nMagnitude >>> nShift) & 0x0f]);
-    return aSB;
+  /**
+   * Append the hex representation of a long value with leading zeros up to the specified number of
+   * digits to the passed {@link StringBuilder}, without creating intermediate String objects. The
+   * result is identical to <code>aSB.append (getHexStringLeadingZero (nValue, nDigits))</code> (for
+   * lower case), so negative values are prefixed with a minus sign and the minus sign counts as a
+   * digit.
+   *
+   * @param aSB
+   *        The string builder to append to. May not be <code>null</code>.
+   * @param nValue
+   *        The long value to convert.
+   * @param nDigits
+   *        The minimum number of characters to append.
+   * @param bUpperCase
+   *        <code>true</code> to use the characters A-F, <code>false</code> to use a-f.
+   * @return The passed string builder. Never <code>null</code>.
+   * @since 12.9.0
+   */
+  @NonNull
+  public static StringBuilder appendHexStringLeadingZero (@NonNull final StringBuilder aSB,
+                                                          final long nValue,
+                                                          final int nDigits,
+                                                          final boolean bUpperCase)
+  {
+    ValueEnforcer.notNull (aSB, "StringBuilder");
+
+    final char [] aHexChars = bUpperCase ? HEX_CHARS_UPPER : HEX_CHARS_LOWER;
+    if (nValue < 0)
+    {
+      aSB.append ('-');
+      // The negation of Long.MIN_VALUE is Long.MIN_VALUE again, which has the correct unsigned
+      // magnitude
+      return _appendHexDigits (aSB, -nValue, nDigits - 1, aHexChars);
+    }
+    return _appendHexDigits (aSB, nValue, nDigits, aHexChars);
   }
 
   /**

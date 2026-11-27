@@ -17,9 +17,7 @@
 package com.helger.base.string;
 
 import java.io.IOException;
-import java.nio.CharBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -465,9 +463,8 @@ public class StringHelper
     if (nRepeats == 1)
       return Character.toString (cElement);
 
-    final char [] aElement = new char [nRepeats];
-    Arrays.fill (aElement, cElement);
-    return new String (aElement);
+    // Fills the internal array of the result directly, without an intermediate char array
+    return Character.toString (cElement).repeat (nRepeats);
   }
 
   /**
@@ -502,11 +499,8 @@ public class StringHelper
     if (nElementLength == 1)
       return getRepeated (sElement.charAt (0), nRepeats);
 
-    // combine via StringBuilder
-    final StringBuilder ret = new StringBuilder (nElementLength * nRepeats);
-    for (int i = 0; i < nRepeats; ++i)
-      ret.append (sElement);
-    return ret.toString ();
+    // Copies with doubling array copies instead of appending the element n times
+    return sElement.repeat (nRepeats);
   }
 
   /**
@@ -1385,7 +1379,13 @@ public class StringHelper
   {
     ValueEnforcer.notNull (aSearchChars, "SearchChars");
 
-    return aInput != null && _containsAny (CharBuffer.wrap (aInput), aSearchChars);
+    if (aInput == null)
+      return false;
+    // Access the array directly instead of through a CharBuffer
+    for (final char c : aInput)
+      if (ArrayHelper.contains (aSearchChars, c))
+        return true;
+    return false;
   }
 
   /**
@@ -1644,7 +1644,35 @@ public class StringHelper
   }
 
   /**
-   * Check if the passed character sequence starts with the passed search sequence.
+   * Check if the characters of the passed character sequence, starting at the passed offset, are
+   * equal to all characters of the passed search sequence. The caller must ensure that the range is
+   * valid.
+   *
+   * @param aCS
+   *        The character sequence to check. May not be <code>null</code>.
+   * @param nOfs
+   *        The offset into aCS to start comparing.
+   * @param aSearch
+   *        The character sequence to compare with. May not be <code>null</code>.
+   * @return <code>true</code> if all characters are equal.
+   */
+  private static boolean _isRegionEqual (@NonNull final CharSequence aCS,
+                                         @Nonnegative final int nOfs,
+                                         @NonNull final CharSequence aSearch)
+  {
+    if (aCS instanceof final String sCS && aSearch instanceof final String sSearch)
+      return sCS.startsWith (sSearch, nOfs);
+
+    final int nSearchLength = aSearch.length ();
+    for (int i = 0; i < nSearchLength; ++i)
+      if (aCS.charAt (nOfs + i) != aSearch.charAt (i))
+        return false;
+    return true;
+  }
+
+  /**
+   * Check if the passed character sequence starts with the passed search sequence. Only the
+   * characters are compared, so the two sequences may be of different types.
    *
    * @param aCS
    *        The character sequence to check. May be <code>null</code>.
@@ -1663,7 +1691,7 @@ public class StringHelper
     final int nCSLength = aCS.length ();
     if (nCSLength < nSearchLength)
       return false;
-    return aCS.subSequence (0, nSearchLength).equals (aSearch);
+    return _isRegionEqual (aCS, 0, aSearch);
   }
 
   /**
@@ -1690,7 +1718,7 @@ public class StringHelper
     if (nSearchLength == 1)
       return sStr.charAt (0) == sSearch.charAt (0);
 
-    return sStr.subSequence (0, nSearchLength).equals (sSearch);
+    return sStr.startsWith (sSearch);
   }
 
   /**
@@ -1713,7 +1741,8 @@ public class StringHelper
     final int nStrLength = sStr.length ();
     if (nStrLength < nSearchLength)
       return false;
-    return sStr.substring (0, nSearchLength).equalsIgnoreCase (sSearch);
+    // Same semantics as equalsIgnoreCase, without creating a substring
+    return sStr.regionMatches (true, 0, sSearch, 0, nSearchLength);
   }
 
   /**
@@ -1750,7 +1779,8 @@ public class StringHelper
   }
 
   /**
-   * Check if the passed character sequence ends with the passed search sequence.
+   * Check if the passed character sequence ends with the passed search sequence. Only the
+   * characters are compared, so the two sequences may be of different types.
    *
    * @param aCS
    *        The character sequence to check. May be <code>null</code>.
@@ -1773,7 +1803,7 @@ public class StringHelper
     if (nSearchLength == 1)
       return aCS.charAt (nCSLength - 1) == aSearch.charAt (0);
 
-    return aCS.subSequence (nCSLength - nSearchLength, nCSLength).equals (aSearch);
+    return _isRegionEqual (aCS, nCSLength - nSearchLength, aSearch);
   }
 
   /**
@@ -1838,7 +1868,8 @@ public class StringHelper
     final int nStrLength = sStr.length ();
     if (nStrLength < nSearchLength)
       return false;
-    return sStr.substring (nStrLength - nSearchLength, nStrLength).equalsIgnoreCase (sSearch);
+    // Same semantics as equalsIgnoreCase, without creating a substring
+    return sStr.regionMatches (true, nStrLength - nSearchLength, sSearch, 0, nSearchLength);
   }
 
   /**
@@ -2100,13 +2131,25 @@ public class StringHelper
     if (isEmpty (sElements))
       return CGlobal.EMPTY_STRING_ARRAY;
 
-    final int nMaxResultElements = 1 + StringCount.getCharCount (sElements, cSep);
-    if (nMaxResultElements == 1)
+    // Count the separators. With a maximum number of items, stop as soon as it is reached
+    int nSeparators;
+    if (nMaxItems < 1)
+      nSeparators = StringCount.getCharCount (sElements, cSep);
+    else
+    {
+      final int nMaxSeparators = nMaxItems - 1;
+      final int nLen = sElements.length ();
+      nSeparators = 0;
+      for (int i = 0; i < nLen && nSeparators < nMaxSeparators; ++i)
+        if (sElements.charAt (i) == cSep)
+          nSeparators++;
+    }
+    if (nSeparators == 0)
     {
       // Separator not found
       return new String [] { sElements };
     }
-    final String [] ret = new String [nMaxItems < 1 ? nMaxResultElements : Math.min (nMaxResultElements, nMaxItems)];
+    final String [] ret = new String [1 + nSeparators];
 
     // Do not use RegExCache.stringReplacePattern because of package
     // dependencies
@@ -2392,7 +2435,7 @@ public class StringHelper
                                                 @Nullable final String sSep,
                                                 @Nullable final String sEnd)
   {
-    final StringBuilder aSB = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder (getLength (sFront) + getLength (sSep) + getLength (sEnd));
     if (isNotEmpty (sFront))
     {
       aSB.append (sFront);
@@ -2421,7 +2464,7 @@ public class StringHelper
                                                 final char cSep,
                                                 @Nullable final String sEnd)
   {
-    final StringBuilder aSB = new StringBuilder ();
+    final StringBuilder aSB = new StringBuilder (getLength (sFront) + 1 + getLength (sEnd));
     if (isNotEmpty (sFront))
     {
       aSB.append (sFront);
@@ -2558,10 +2601,11 @@ public class StringHelper
     if (nLeadLength == 0)
       return sSrc;
 
-    String ret = sSrc;
-    while (startsWith (ret, sLead))
-      ret = ret.substring (nLeadLength);
-    return ret;
+    // Find the end of all leads first, so that only one substring is created
+    int nStart = 0;
+    while (sSrc.startsWith (sLead, nStart))
+      nStart += nLeadLength;
+    return sSrc.substring (nStart);
   }
 
   /**
@@ -2602,10 +2646,12 @@ public class StringHelper
     if (isEmpty (sSrc))
       return sSrc;
 
-    String ret = sSrc;
-    while (startsWith (ret, cLead))
-      ret = ret.substring (1);
-    return ret;
+    // Find the end of all leads first, so that only one substring is created
+    final int nLen = sSrc.length ();
+    int nStart = 0;
+    while (nStart < nLen && sSrc.charAt (nStart) == cLead)
+      nStart++;
+    return sSrc.substring (nStart);
   }
 
   /**
@@ -2670,10 +2716,11 @@ public class StringHelper
     if (nTailLength == 0)
       return sSrc;
 
-    String ret = sSrc;
-    while (endsWith (ret, sTail))
-      ret = ret.substring (0, ret.length () - nTailLength);
-    return ret;
+    // Find the start of all tails first, so that only one substring is created
+    int nEnd = sSrc.length ();
+    while (nEnd >= nTailLength && sSrc.startsWith (sTail, nEnd - nTailLength))
+      nEnd -= nTailLength;
+    return sSrc.substring (0, nEnd);
   }
 
   /**
@@ -2714,10 +2761,11 @@ public class StringHelper
     if (isEmpty (sSrc))
       return sSrc;
 
-    String ret = sSrc;
-    while (endsWith (ret, cTail))
-      ret = ret.substring (0, ret.length () - 1);
-    return ret;
+    // Find the start of all tails first, so that only one substring is created
+    int nEnd = sSrc.length ();
+    while (nEnd > 0 && sSrc.charAt (nEnd - 1) == cTail)
+      nEnd--;
+    return sSrc.substring (0, nEnd);
   }
 
   /**

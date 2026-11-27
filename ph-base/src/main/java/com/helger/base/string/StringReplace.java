@@ -18,7 +18,6 @@ package com.helger.base.string;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.nio.CharBuffer;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +29,6 @@ import com.helger.annotation.Nonnegative;
 import com.helger.annotation.concurrent.Immutable;
 import com.helger.annotation.style.PresentForCodeCoverage;
 import com.helger.base.CGlobal;
-import com.helger.base.array.ArrayHelper;
 import com.helger.base.enforce.ValueEnforcer;
 
 /**
@@ -70,11 +68,10 @@ public final class StringReplace
   }
 
   /**
-   * This is a fast replacement for {@link String#replace(CharSequence, CharSequence)}. The problem
-   * with the mentioned {@link String} method is, that is uses internally regular expressions which
-   * use a synchronized block to compile the patterns. This method is inherently thread safe since
-   * {@link String} is immutable and we're operating on different temporary {@link StringBuilder}
-   * objects.
+   * A <code>null</code> safe alternative to {@link String#replace(CharSequence, CharSequence)}.
+   * Benchmarks with Java 17 and 25 showed no consistent difference to the JDK method: this
+   * implementation is quicker for long texts with few occurrences, the JDK method for short texts
+   * and for many occurrences.
    *
    * @param sInputString
    *        The input string where the text should be replace. If this parameter is
@@ -135,11 +132,8 @@ public final class StringReplace
   }
 
   /**
-   * This is a fast replacement for {@link String#replace(char, char)} for characters. The problem
-   * with the mentioned String method is, that is uses internally regular expressions which use a
-   * synchronized block to compile the patterns. This method is inherently thread safe since
-   * {@link String} is immutable and we're operating on different temporary {@link StringBuilder}
-   * objects.
+   * A <code>null</code> safe alternative to {@link String#replace(char, char)}, that is quicker
+   * than the JDK method if the search character is not contained.
    *
    * @param sInputString
    *        The input string where the text should be replace. If this parameter is
@@ -164,23 +158,14 @@ public final class StringReplace
     if (cSearchChar == cReplacementChar)
       return sInputString;
 
-    // Does the old text occur anywhere?
-    int nIndex = sInputString.indexOf (cSearchChar, 0);
-    if (nIndex == CGlobal.STRING_NOT_FOUND)
+    // Does the old text occur anywhere? The intrinsic indexOf is quicker than String.replace, if
+    // the char is not contained
+    if (sInputString.indexOf (cSearchChar) == CGlobal.STRING_NOT_FOUND)
       return sInputString;
 
-    // build output buffer
-    final StringBuilder ret = new StringBuilder (sInputString.length ());
-    int nOldIndex = 0;
-    do
-    {
-      ret.append (sInputString, nOldIndex, nIndex).append (cReplacementChar);
-      nIndex++;
-      nOldIndex = nIndex;
-      nIndex = sInputString.indexOf (cSearchChar, nIndex);
-    } while (nIndex != CGlobal.STRING_NOT_FOUND);
-    ret.append (sInputString, nOldIndex, sInputString.length ());
-    return ret.toString ();
+    // String.replace works directly on the internal array, which is a lot quicker than a
+    // StringBuilder, especially for many occurrences
+    return sInputString.replace (cSearchChar, cReplacementChar);
   }
 
   /**
@@ -220,30 +205,6 @@ public final class StringReplace
     return sRet;
   }
 
-  private static int _getReplaceMultipleResultLength (@NonNull final CharSequence aInput,
-                                                      @Nonempty final char @NonNull [] aSearchChars,
-                                                      @Nonempty final char @NonNull [] [] aReplacementStrings)
-  {
-    int nResultLen = 0;
-    boolean bAnyReplacement = false;
-    final int nLen = aInput.length ();
-    for (int i = 0; i < nLen; ++i)
-    {
-      final char cInput = aInput.charAt (i);
-      // In case no replacement is found use a single char
-      int nReplacementLength = 1;
-      for (int nIndex = 0; nIndex < aSearchChars.length; nIndex++)
-        if (cInput == aSearchChars[nIndex])
-        {
-          nReplacementLength = aReplacementStrings[nIndex].length;
-          bAnyReplacement = true;
-          break;
-        }
-      nResultLen += nReplacementLength;
-    }
-    return bAnyReplacement ? nResultLen : CGlobal.ILLEGAL_UINT;
-  }
-
   /**
    * Get the result length (in characters) when replacing all patterns with the replacements on the
    * passed input array.
@@ -258,12 +219,14 @@ public final class StringReplace
    *        array.
    * @return {@link CGlobal#ILLEGAL_UINT} if no replacement was needed, and therefore the length of
    *         the input array could be used.
+   * @see MultiCharReplacer#getResultLength(char[])
    */
   public static int getReplaceMultipleResultLength (final char @NonNull [] aInputString,
                                                     @Nonempty final char @NonNull [] aSearchChars,
                                                     @Nonempty final char @NonNull [] [] aReplacementStrings)
   {
-    return _getReplaceMultipleResultLength (CharBuffer.wrap (aInputString), aSearchChars, aReplacementStrings);
+    return MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, aInputString.length)
+                            .getResultLengthOrIllegal (aInputString);
   }
 
   /**
@@ -281,73 +244,20 @@ public final class StringReplace
    * @return {@link CGlobal#ILLEGAL_UINT} if no replacement was needed, and therefore the length of
    *         the input string could be used.
    * @since 12.6.0
+   * @see MultiCharReplacer#getResultLength(String)
    */
   public static int getReplaceMultipleResultLength (@NonNull final String sInputString,
                                                     @Nonempty final char @NonNull [] aSearchChars,
                                                     @Nonempty final char @NonNull [] [] aReplacementStrings)
   {
-    return _getReplaceMultipleResultLength (sInputString, aSearchChars, aReplacementStrings);
-  }
-
-  /**
-   * Perform the replacement of multiple characters with multiple strings. All parameters must have
-   * been validated by the caller.
-   *
-   * @param aInput
-   *        The non-empty input characters.
-   * @param aSearchChars
-   *        The non-empty characters to replace.
-   * @param aReplacementStrings
-   *        The new strings to be inserted instead.
-   * @return <code>null</code> if no replacement was needed, the newly created result array
-   *         otherwise.
-   */
-  private static char @Nullable [] _replaceMultiple (@NonNull final CharSequence aInput,
-                                                     @Nonempty final char @NonNull [] aSearchChars,
-                                                     @Nonempty final char @NonNull [] [] aReplacementStrings)
-  {
-    // get result length
-    final int nResultLen = _getReplaceMultipleResultLength (aInput, aSearchChars, aReplacementStrings);
-
-    // nothing to replace in here?
-    if (nResultLen == CGlobal.ILLEGAL_UINT)
-      return null;
-
-    // build result
-    final char [] aOutput = new char [nResultLen];
-    int nOutputIndex = 0;
-
-    // For all input chars
-    final int nLen = aInput.length ();
-    for (int i = 0; i < nLen; ++i)
-    {
-      final char cInput = aInput.charAt (i);
-      boolean bFoundReplacement = false;
-      for (int nPatternIndex = 0; nPatternIndex < aSearchChars.length; nPatternIndex++)
-      {
-        if (cInput == aSearchChars[nPatternIndex])
-        {
-          final char [] aReplacement = aReplacementStrings[nPatternIndex];
-          final int nReplacementLength = aReplacement.length;
-          System.arraycopy (aReplacement, 0, aOutput, nOutputIndex, nReplacementLength);
-          nOutputIndex += nReplacementLength;
-          bFoundReplacement = true;
-          break;
-        }
-      }
-      if (!bFoundReplacement)
-      {
-        // copy char as is
-        aOutput[nOutputIndex++] = cInput;
-      }
-    }
-
-    return aOutput;
+    return MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, sInputString.length ())
+                            .getResultLengthOrIllegal (sInputString);
   }
 
   /**
    * Optimised replace method that replaces a set of characters with a set of strings. This method
-   * was created for efficient XML special character replacements!
+   * was created for efficient XML special character replacements! If the same replacements are
+   * applied to many strings, a reused {@link MultiCharReplacer} is quicker.
    *
    * @param sInputString
    *        The input string.
@@ -374,14 +284,16 @@ public final class StringReplace
     if (aSearchChars.length == 0)
       return sInputString.toCharArray ();
 
-    final char [] ret = _replaceMultiple (sInputString, aSearchChars, aReplacementStrings);
+    final char [] ret = MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, sInputString.length ())
+                                         .replaceOrNull (sInputString);
     // nothing to replace in here?
     return ret != null ? ret : sInputString.toCharArray ();
   }
 
   /**
    * Optimised replace method that replaces a set of characters with a set of strings. This method
-   * was created for efficient XML special character replacements!
+   * was created for efficient XML special character replacements! If the same replacements are
+   * applied to many strings, a reused {@link MultiCharReplacer} is quicker.
    *
    * @param aInput
    *        The input string.
@@ -408,183 +320,17 @@ public final class StringReplace
     if (aSearchChars.length == 0)
       return aInput;
 
-    final char [] ret = _replaceMultiple (CharBuffer.wrap (aInput), aSearchChars, aReplacementStrings);
+    final char [] ret = MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, aInput.length)
+                                         .replaceOrNull (aInput);
     // nothing to replace in here?
     return ret != null ? ret : aInput;
-  }
-
-  private static void _write (@NonNull final Writer aTarget,
-                              @NonNull final CharSequence aInput,
-                              @Nonnegative final int nOfs,
-                              @Nonnegative final int nLen) throws IOException
-  {
-    if (aInput instanceof final String sInput)
-      aTarget.write (sInput, nOfs, nLen);
-    else
-      if (aInput instanceof final CharBuffer aCB && aCB.hasArray ())
-        aTarget.write (aCB.array (), aCB.arrayOffset () + aCB.position () + nOfs, nLen);
-      else
-        aTarget.append (aInput, nOfs, nOfs + nLen);
-  }
-
-  /**
-   * Get the bit mask of all search characters below 256, so that an input character that is not
-   * searched for (the common case) is skipped without looping over all search characters.
-   *
-   * @param aSearchChars
-   *        The characters to search. May not be <code>null</code>.
-   * @return A new array of 4 longs with one bit per character.
-   */
-  private static long @NonNull [] _getLowSearchCharMask (final char @NonNull [] aSearchChars)
-  {
-    // 256 bits, one for each of the characters 0 to 255, in 4 longs of 64 bits each
-    final long [] ret = new long [4];
-    for (final char cSearch : aSearchChars)
-      if (cSearch < 256)
-      {
-        // The long that holds the bit of the character: 0-63 in the 1st, 64-127 in the 2nd ...
-        final int nLongIndex = cSearch / 64;
-        // The position of the bit within that long, 0 to 63
-        final int nBitIndex = cSearch % 64;
-        // Set this bit, keeping the bits of the other characters
-        ret[nLongIndex] |= (1L << nBitIndex);
-      }
-    return ret;
-  }
-
-  /**
-   * Check if a character is in the mask created by {@link #_getLowSearchCharMask(char[])}.
-   *
-   * @param aLowSearchCharMask
-   *        The mask. May not be <code>null</code>.
-   * @param c
-   *        The character. Must be below 256.
-   * @return <code>true</code> if the bit of the character is set.
-   */
-  private static boolean _isInLowSearchCharMask (final long @NonNull [] aLowSearchCharMask, final char c)
-  {
-    // The same long and bit position as when the mask was created
-    final int nLongIndex = c / 64;
-    final int nBitIndex = c % 64;
-    return (aLowSearchCharMask[nLongIndex] & (1L << nBitIndex)) != 0;
-  }
-
-  private static boolean _hasHighSearchChar (final char @NonNull [] aSearchChars)
-  {
-    for (final char cSearch : aSearchChars)
-      if (cSearch >= 256)
-        return true;
-    return false;
-  }
-
-  @Nonnegative
-  private static int _replaceMultipleTo (@NonNull final CharSequence aInput,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen,
-                                         final char @NonNull [] aSearchChars,
-                                         final char @NonNull [] [] aReplacementStrings,
-                                         @NonNull final Writer aTarget) throws IOException
-  {
-    if (aSearchChars.length == 0)
-    {
-      // No modifications required
-      _write (aTarget, aInput, nOfs, nLen);
-      return 0;
-    }
-
-    final long [] aLowSearchCharMask = _getLowSearchCharMask (aSearchChars);
-    final boolean bHasHighSearchChar = _hasHighSearchChar (aSearchChars);
-
-    // for all input string characters
-    int nFirstNonReplace = nOfs;
-    int nInputIndex = nOfs;
-    int nTotalReplacements = 0;
-    final int nMaxSearchChars = aSearchChars.length;
-    for (int i = 0; i < nLen; ++i)
-    {
-      final char cInput = aInput.charAt (nOfs + i);
-      // Characters below 256 are looked up in the mask; for all others only the existence of such
-      // search characters is known
-      final boolean bMaybeSearched = cInput < 256 ? _isInLowSearchCharMask (aLowSearchCharMask, cInput)
-                                                  : bHasHighSearchChar;
-      if (!bMaybeSearched)
-      {
-        nInputIndex++;
-        continue;
-      }
-      for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
-      {
-        if (cInput == aSearchChars[nPatternIndex])
-        {
-          if (nFirstNonReplace < nInputIndex)
-            _write (aTarget, aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
-          nFirstNonReplace = nInputIndex + 1;
-          aTarget.write (aReplacementStrings[nPatternIndex]);
-          ++nTotalReplacements;
-          break;
-        }
-      }
-      nInputIndex++;
-    }
-    if (nFirstNonReplace < nInputIndex)
-      _write (aTarget, aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
-    return nTotalReplacements;
-  }
-
-  /**
-   * The array counterpart of the {@link CharSequence} version, which avoids the slower access
-   * through a {@link CharBuffer}.
-   */
-  @Nonnegative
-  private static int _replaceMultipleTo (final char @NonNull [] aInput,
-                                         @Nonnegative final int nOfs,
-                                         @Nonnegative final int nLen,
-                                         final char @NonNull [] aSearchChars,
-                                         final char @NonNull [] [] aReplacementStrings,
-                                         @NonNull final Writer aTarget) throws IOException
-  {
-    if (aSearchChars.length == 0)
-    {
-      // No modifications required
-      aTarget.write (aInput, nOfs, nLen);
-      return 0;
-    }
-
-    final long [] aLowSearchCharMask = _getLowSearchCharMask (aSearchChars);
-    final boolean bHasHighSearchChar = _hasHighSearchChar (aSearchChars);
-
-    final int nEnd = nOfs + nLen;
-    int nFirstNonReplace = nOfs;
-    int nTotalReplacements = 0;
-    final int nMaxSearchChars = aSearchChars.length;
-    for (int nInputIndex = nOfs; nInputIndex < nEnd; ++nInputIndex)
-    {
-      final char cInput = aInput[nInputIndex];
-      // Characters below 256 are looked up in the mask; for all others only the existence of such
-      // search characters is known
-      final boolean bMaybeSearched = cInput < 256 ? _isInLowSearchCharMask (aLowSearchCharMask, cInput)
-                                                  : bHasHighSearchChar;
-      if (bMaybeSearched)
-        for (int nPatternIndex = 0; nPatternIndex < nMaxSearchChars; nPatternIndex++)
-          if (cInput == aSearchChars[nPatternIndex])
-          {
-            if (nFirstNonReplace < nInputIndex)
-              aTarget.write (aInput, nFirstNonReplace, nInputIndex - nFirstNonReplace);
-            nFirstNonReplace = nInputIndex + 1;
-            aTarget.write (aReplacementStrings[nPatternIndex]);
-            ++nTotalReplacements;
-            break;
-          }
-    }
-    if (nFirstNonReplace < nEnd)
-      aTarget.write (aInput, nFirstNonReplace, nEnd - nFirstNonReplace);
-    return nTotalReplacements;
   }
 
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
    * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
+   * not length calculation needs to take place! If the same replacements are applied to many
+   * strings, a reused {@link MultiCharReplacer} is quicker.
    *
    * @param sInputString
    *        The input string.
@@ -612,13 +358,21 @@ public final class StringReplace
     ValueEnforcer.isEqual (aSearchChars.length, aReplacementStrings.length, "array length mismatch");
     ValueEnforcer.notNull (aTarget, "Target");
 
-    return _replaceMultipleTo (sInputString, 0, sInputString.length (), aSearchChars, aReplacementStrings, aTarget);
+    if (aSearchChars.length == 0)
+    {
+      // No modifications required
+      aTarget.write (sInputString);
+      return 0;
+    }
+    return MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, sInputString.length ())
+                            .replaceTo (sInputString, aTarget);
   }
 
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
    * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
+   * not length calculation needs to take place! If the same replacements are applied to many
+   * strings, a reused {@link MultiCharReplacer} is quicker.
    *
    * @param aInput
    *        The input char array. May be <code>null</code> in which case nothing happens.
@@ -645,7 +399,8 @@ public final class StringReplace
   /**
    * Specialized version of {@link #replaceMultiple(String, char[], char[][])} where the object
    * where the output should be appended is passed in as a parameter. This has the advantage, that
-   * not length calculation needs to take place!
+   * not length calculation needs to take place! If the same replacements are applied to many
+   * strings, a reused {@link MultiCharReplacer} is quicker.
    *
    * @param aInput
    *        The input char array. May be <code>null</code>.
@@ -681,7 +436,14 @@ public final class StringReplace
     if (aInput == null || aInput.length == 0 || nLen == 0)
       return 0;
 
-    return _replaceMultipleTo (aInput, nOfs, nLen, aSearchChars, aReplacementStrings, aTarget);
+    if (aSearchChars.length == 0)
+    {
+      // No modifications required
+      aTarget.write (aInput, nOfs, nLen);
+      return 0;
+    }
+    return MultiCharReplacer.createForSingleUse (aSearchChars, aReplacementStrings, nLen)
+                            .replaceTo (aInput, nOfs, nLen, aTarget);
   }
 
   /**
@@ -711,17 +473,12 @@ public final class StringReplace
     if (aSearchChars.length == 0)
       return sInputString.toCharArray ();
 
-    // build result
-    final int nLen = sInputString.length ();
-    final char [] aOutput = new char [nLen];
-    for (int i = 0; i < nLen; ++i)
-    {
-      final char c = sInputString.charAt (i);
-      if (ArrayHelper.contains (aSearchChars, c))
+    // Copy all chars at once and replace in place
+    final CharSearchSet aSearchSet = new CharSearchSet (aSearchChars);
+    final char [] aOutput = sInputString.toCharArray ();
+    for (int i = 0; i < aOutput.length; ++i)
+      if (aSearchSet.contains (aOutput[i]))
         aOutput[i] = cReplacementChar;
-      else
-        aOutput[i] = c;
-    }
     return aOutput;
   }
 
@@ -756,16 +513,20 @@ public final class StringReplace
       }
       else
       {
-        // Perform the replacement
+        // Perform the replacement, appending the unchanged ranges at once
+        final CharSearchSet aSearchSet = new CharSearchSet (aSearchChars);
         final int nLen = sInputString.length ();
+        int nFirstNonReplace = 0;
         for (int i = 0; i < nLen; ++i)
-        {
-          final char c = sInputString.charAt (i);
-          if (ArrayHelper.contains (aSearchChars, c))
+          if (aSearchSet.contains (sInputString.charAt (i)))
+          {
+            if (nFirstNonReplace < i)
+              aTarget.append (sInputString, nFirstNonReplace, i);
             aTarget.append (cReplacementChar);
-          else
-            aTarget.append (c);
-        }
+            nFirstNonReplace = i + 1;
+          }
+        if (nFirstNonReplace < nLen)
+          aTarget.append (sInputString, nFirstNonReplace, nLen);
       }
     }
   }
@@ -804,16 +565,20 @@ public final class StringReplace
       }
       else
       {
-        // Perform the replacement
+        // Perform the replacement, writing the unchanged ranges at once instead of char by char
+        final CharSearchSet aSearchSet = new CharSearchSet (aSearchChars);
         final int nLen = sInputString.length ();
+        int nFirstNonReplace = 0;
         for (int i = 0; i < nLen; ++i)
-        {
-          final char c = sInputString.charAt (i);
-          if (ArrayHelper.contains (aSearchChars, c))
+          if (aSearchSet.contains (sInputString.charAt (i)))
+          {
+            if (nFirstNonReplace < i)
+              aTarget.write (sInputString, nFirstNonReplace, i - nFirstNonReplace);
             aTarget.write (cReplacementChar);
-          else
-            aTarget.write (c);
-        }
+            nFirstNonReplace = i + 1;
+          }
+        if (nFirstNonReplace < nLen)
+          aTarget.write (sInputString, nFirstNonReplace, nLen - nFirstNonReplace);
       }
     }
   }

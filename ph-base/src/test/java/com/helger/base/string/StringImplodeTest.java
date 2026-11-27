@@ -96,6 +96,25 @@ public final class StringImplodeTest
 
     assertEquals ("a:trueb:truec:false", StringImplode.getImploded (null, ":", aMap));
     assertEquals ("atrue,btrue,cfalse", StringImplode.getImploded (",", null, aMap));
+
+    // Keys that are mapped to the same string are not merged
+    final Map <Integer, String> aMap2 = new LinkedHashMap <> ();
+    aMap2.put (Integer.valueOf (1), "x");
+    aMap2.put (Integer.valueOf (2), "y");
+    aMap2.put (Integer.valueOf (3), "");
+    assertEquals ("k=x,k=y,k=",
+                  StringImplode.imploderMap ()
+                               .source (aMap2, k -> "k", v -> v)
+                               .separatorOuter (',')
+                               .separatorInner ('=')
+                               .build ());
+    assertEquals ("k=x,k=y",
+                  StringImplode.imploderMap ()
+                               .source (aMap2, k -> "k", v -> v)
+                               .separatorOuter (',')
+                               .separatorInner ('=')
+                               .filterValueNonEmpty ()
+                               .build ());
   }
 
   @Test
