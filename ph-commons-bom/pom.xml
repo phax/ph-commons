@@ -27,7 +27,7 @@
   </parent>
   <groupId>com.helger.commons</groupId>
   <artifactId>ph-commons-bom</artifactId>
-  <version>12.9.0</version>
+  <version>12.9.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>ph-commons-bom</name>
   <description>Bill of Materials for all ph-commons artifacts</description>
@@ -226,8 +226,4 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <scm>
-    <tag>ph-commons-parent-pom-12.9.0</tag>
-  </scm>
 </project>
